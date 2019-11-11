@@ -52,13 +52,12 @@ const Navigation = props => {
     //根据key获取到当前tab信息，并跳转页面
     const tabItem = getItemByKey(activeKey);
     dispatch(routerRedux.push(tabItem.path));
-
   };
 
   const getItemByKey = (key: string): NavigationItem => {
     const index = navigationData.findIndex((item: NavigationItem) => item.key === key);
     return navigationData[index];
-  }
+  };
 
   const onEdit = key => {
     // 删除当前tab并且将路由跳转至前一个tab的path
@@ -87,19 +86,18 @@ const Navigation = props => {
     dispatch({
       type: 'global/changeNavigation',
       payload: {},
-      callback: () => (
+      callback: () =>
         //跳转回首页
-        dispatch(routerRedux.push('/'))
-      )
+        dispatch(routerRedux.push('/')),
     });
-  }
+  };
 
   const showTab = [...navigationData];
   return (
     <Card
       className={styles.card}
       bodyStyle={{
-        padding: '0 8px',
+        padding: '0',
         position: 'relative',
         // display: 'flex',
         // alignItems: 'center',
@@ -111,22 +109,18 @@ const Navigation = props => {
         activeKey={activeKey}
         type="editable-card"
         animated={true}
-        onEdit={onEdit}>
+        onEdit={onEdit}
+      >
         {showTab.map((pane: NavigationItem) => (
           <TabPane tab={pane.name} key={pane.key} closable={pane.key !== '/welcome'}></TabPane>
         ))}
       </Tabs>
-      {showTab.length > 3 ?
-        (
-          <div className={styles.close} onClick={closeAll}>关闭所有
-        <Icon className={styles.closeIcon} type="close" />
-          </div>
-        )
-        : null
-
-      }
-
-
+      {showTab.length > 3 ? (
+        <div className={styles.close} onClick={closeAll}>
+          关闭所有
+          <Icon className={styles.closeIcon} type="close" />
+        </div>
+      ) : null}
     </Card>
   );
 };
