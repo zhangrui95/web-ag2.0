@@ -17,6 +17,8 @@ import RightContent from '@/components/GlobalHeader/RightContent';
 import { ConnectState } from '@/models/connect';
 import logo from '../assets/logo.png';
 import Navigation from '@/components/Navigation';
+import styles from '@/theme/darkTheme.less';
+
 
 export interface BasicLayoutProps extends ProLayoutProps {
   breadcrumbNameMap: {
@@ -122,64 +124,66 @@ const BasicLayout: React.FC<BasicLayoutProps> = props => {
   };
 
   return (
-    <ProLayout
-      //修改logo以及title
-      logo={logo}
-      onCollapse={handleMenuCollapse}
-      //控制隐藏menu-fold展示
-      collapsedButtonRender={false}
-      menuItemRender={(menuItemProps, defaultDom) => {
-        if (menuItemProps.isUrl) {
-          return defaultDom;
-        }
+      <div className={styles.dark}>
+          <ProLayout
+              //修改logo以及title
+              logo={logo}
+              onCollapse={handleMenuCollapse}
+              //控制隐藏menu-fold展示
+              collapsedButtonRender={false}
+              menuItemRender={(menuItemProps, defaultDom) => {
+                  if (menuItemProps.isUrl) {
+                      return defaultDom;
+                  }
 
-        return (
-          <Link
-            to={menuItemProps.path}
-            onClick={() => {
-              if (dispatch) {
-                dispatch({
-                  type: 'global/changeNavigation',
-                  payload: {
-                    key: menuItemProps.path,
-                    name: menuItemProps.name,
-                    locale: menuItemProps.locale,
-                    path: menuItemProps.path,
-                    isShow: true,
+                  return (
+                      <Link
+                          to={menuItemProps.path}
+                          onClick={() => {
+                              if (dispatch) {
+                                  dispatch({
+                                      type: 'global/changeNavigation',
+                                      payload: {
+                                          key: menuItemProps.path,
+                                          name: menuItemProps.name,
+                                          locale: menuItemProps.locale,
+                                          path: menuItemProps.path,
+                                          isShow: true,
+                                      },
+                                  });
+                              }
+                          }}
+                      >
+                          {defaultDom}
+                      </Link>
+                  );
+              }}
+              breadcrumbRender={(routers = []) => [
+                  {
+                      path: '/',
+                      breadcrumbName: '首页',
                   },
-                });
-              }
-            }}
+                  ...routers,
+              ]}
+              itemRender={(route, params, routes, paths) => {
+                  const first = routes.indexOf(route) === 0;
+                  return first ? (
+                      <Link to={paths.join('/')}>{route.breadcrumbName}</Link>
+                  ) : (
+                      <span>{route.breadcrumbName}</span>
+                  );
+              }}
+              footerRender={false}
+              menuDataRender={menuDataRender}
+              rightContentRender={rightProps => <RightContent {...rightProps} />}
+              {...props}
+              {...settings}
           >
-            {defaultDom}
-          </Link>
-        );
-      }}
-      breadcrumbRender={(routers = []) => [
-        {
-          path: '/',
-          breadcrumbName: '首页',
-        },
-        ...routers,
-      ]}
-      itemRender={(route, params, routes, paths) => {
-        const first = routes.indexOf(route) === 0;
-        return first ? (
-          <Link to={paths.join('/')}>{route.breadcrumbName}</Link>
-        ) : (
-            <span>{route.breadcrumbName}</span>
-          );
-      }}
-      footerRender={false}
-      menuDataRender={menuDataRender}
-      rightContentRender={rightProps => <RightContent {...rightProps} />}
-      {...props}
-      {...settings}
-    >
-      <Navigation {...props} />
+              <Navigation {...props} />
 
-      {children}
-    </ProLayout >
+              {children}
+          </ProLayout >
+      </div>
   );
 };
 
