@@ -1,12 +1,10 @@
-import { PageHeaderWrapper } from '@ant-design/pro-layout';
 import React, { useState, useEffect } from 'react';
-import { Spin, Button } from 'antd';
-import styles from './index.less';
+import { Spin } from 'antd';
 
 interface Person {
   name: string
 }
-export default function Test1(props: Person) {
+export default function CriminaAnalysis(props: Person) {
   const [loading, setLoading] = useState<boolean>(false);
 
   useEffect(() => {
@@ -17,7 +15,7 @@ export default function Test1(props: Person) {
 
   return (
     <div style={{ paddingTop: 100, textAlign: 'center' }}>
-      1111
+     刑事案件分析
       <Spin spinning={loading} size="large"></Spin>
     </div>
   );

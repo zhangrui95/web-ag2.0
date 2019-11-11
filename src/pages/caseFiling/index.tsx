@@ -11,7 +11,7 @@ interface Tex3Props {
   dispatch: Dispatch
 }
 
-const Test3 = (props: Tex3Props) => {
+const caseFiling = (props: Tex3Props) => {
   const { dispatch } = props;
   const [loading, setLoading] = useState<boolean>(true);
   useEffect(() => {
@@ -61,4 +61,4 @@ const Test3 = (props: Tex3Props) => {
 
 export default connect(({ global }: ConnectState) => ({
   navigationData: global.navigation,
-}))(Test3);
+}))(caseFiling);

@@ -117,42 +117,209 @@ export default {
             {
               name: '接处警',
               icon: 'smile',
-              path: '/test',
+              path: '/receivePolice',
               routes: [
                   {
-                      path: '/test/test1',
+                      path: '/receivePolice/AlarmData',
                       name: '警情数据',
                       icon: 'smile',
-                      component: './test1',
+                      component: './receivePolice/AlarmData',
+                  },{
+                      path: '/receivePolice/AlarmWarning',
+                      name: '警情预警',
+                      icon: 'smile',
+                      component: './receivePolice/AlarmWarning',
+                  },{
+                      path: '/receivePolice/AlarmPolice',
+                      name: '警情告警',
+                      icon: 'smile',
+                      component: './receivePolice/AlarmPolice',
                   },
               ],
             },
             {
               name: '受立案',
               icon: 'smile',
-              path: '/test3',
-              hideChildrenInMenu: true,
+              path: '/caseFiling',
               routes: [
                 {
-                  name: '测试3',
+                  name: '案件数据',
                   icon: 'smile',
-                  path: '/test3',
-                  component: './test3',
-                },
-                {
-                  name: '测试5',
+                  path: '/caseFiling/caseData',
+                    routes: [
+                        {
+                            name: '刑事案件数据',
+                            icon: 'smile',
+                            path: '/caseFiling/caseData/CriminalData',
+                            component: './caseFiling/CriminalData',
+                        },{
+                            name: '行政案件数据',
+                            icon: 'smile',
+                            path: '/caseFiling/caseData/AdministrationData',
+                            component: './caseFiling/AdministrationData',
+                        }
+                    ]
+                },{
+                  name: '案件预警',
                   icon: 'smile',
-                  path: '/test3/test5',
-                  component: './test5',
+                  path: '/caseFiling/caseWarning',
+                    routes: [
+                        {
+                            name: '刑事案件预警',
+                            icon: 'smile',
+                            path: '/caseFiling/caseWarning/CriminalWarning',
+                            component: './caseFiling/CriminalWarning',
+                        },{
+                            name: '行政案件预警',
+                            icon: 'smile',
+                            path: '/caseFiling/caseWarning/AdministrationWarning',
+                            component: './caseFiling/AdministrationWarning',
+                        }
+                    ]
+                },{
+                  name: '案件告警',
+                  icon: 'smile',
+                  path: '/caseFiling/casePolice',
+                    routes: [
+                        {
+                            name: '刑事案件告警',
+                            icon: 'smile',
+                            path: '/caseFiling/casePolice/CriminalPolice',
+                            component: './caseFiling/CriminalPolice',
+                        },{
+                            name: '行政案件告警',
+                            icon: 'smile',
+                            path: '/caseFiling/casePolice/AdministrationPolice',
+                            component: './caseFiling/AdministrationPolice',
+                        }
+                    ]
                 },
               ]
-            },
-            {
-              name: '执法办案',
-              icon: 'smile',
-              path: '/test4',
-              component: './test4',
-            },
+            },{
+                  name: '执法办案',
+                  icon: 'smile',
+                  path: '/enforcementCase',
+                  routes: [
+                      {
+                          name: '案件数据',
+                          icon: 'smile',
+                          path: '/enforcementCase/caseData',
+                          routes: [
+                              {
+                                  name: '刑事案件数据',
+                                  icon: 'smile',
+                                  path: '/enforcementCase/caseData/CriminalData',
+                                  component: './enforcementCase/CriminalData',
+                              },{
+                                  name: '行政案件数据',
+                                  icon: 'smile',
+                                  path: '/enforcementCase/caseData/AdministrationData',
+                                  component: './enforcementCase/AdministrationData',
+                              }
+                          ]
+                      },{
+                          name: '案件预警',
+                          icon: 'smile',
+                          path: '/enforcementCase/caseWarning',
+                          routes: [
+                              {
+                                  name: '刑事案件预警',
+                                  icon: 'smile',
+                                  path: '/enforcementCase/caseWarning/CriminalWarning',
+                                  component: './enforcementCase/CriminalWarning',
+                              },{
+                                  name: '行政案件预警',
+                                  icon: 'smile',
+                                  path: '/enforcementCase/caseWarning/AdministrationWarning',
+                                  component: './enforcementCase/AdministrationWarning',
+                              }
+                          ]
+                      },{
+                          name: '案件告警',
+                          icon: 'smile',
+                          path: '/enforcementCase/casePolice',
+                          routes: [
+                              {
+                                  name: '刑事案件告警',
+                                  icon: 'smile',
+                                  path: '/enforcementCase/casePolice/CriminalPolice',
+                                  component: './enforcementCase/CriminalPolice',
+                              },{
+                                  name: '行政案件告警',
+                                  icon: 'smile',
+                                  path: '/enforcementCase/casePolice/AdministrationPolice',
+                                  component: './enforcementCase/AdministrationPolice',
+                              }
+                          ]
+                      },
+                  ]
+              },{
+                  name: '办案区',
+                  icon: 'smile',
+                  path: '/handlingArea',
+                  routes: [
+                      {
+                          path: '/handlingArea/AreaData',
+                          name: '办案区数据',
+                          icon: 'smile',
+                          component: './handlingArea/AreaData',
+                      },{
+                          path: '/handlingArea/AreaWarning',
+                          name: '办案区预警',
+                          icon: 'smile',
+                          component: './handlingArea/AreaWarning',
+                      },{
+                          path: '/handlingArea/AreaPolice',
+                          name: '办案区告警',
+                          icon: 'smile',
+                          component: './handlingArea/AreaPolice',
+                      },
+                  ],
+              },{
+                  name: '涉案物品',
+                  icon: 'smile',
+                  path: '/articlesInvolved',
+                  routes: [
+                      {
+                          path: '/articlesInvolved/ArticlesData',
+                          name: '涉案物品数据',
+                          icon: 'smile',
+                          component: './articlesInvolved/ArticlesData',
+                      },{
+                          path: '/articlesInvolved/ArticlesWarning',
+                          name: '涉案物品预警',
+                          icon: 'smile',
+                          component: './articlesInvolved/ArticlesWarning',
+                      },{
+                          path: '/articlesInvolved/ArticlesPolice',
+                          name: '涉案物品告警',
+                          icon: 'smile',
+                          component: './articlesInvolved/ArticlesPolice',
+                      },
+                  ],
+              },{
+                  name: '卷宗',
+                  icon: 'smile',
+                  path: '/dossierPolice',
+                  routes: [
+                      {
+                          path: '/dossierPolice/DossierData',
+                          name: '卷宗数据',
+                          icon: 'smile',
+                          component: './dossierPolice/DossierData',
+                      },{
+                          path: '/dossierPolice/DossierWarning',
+                          name: '卷宗预警',
+                          icon: 'smile',
+                          component: './dossierPolice/DossierWarning',
+                      },{
+                          path: '/dossierPolice/DossierPolice',
+                          name: '卷宗告警',
+                          icon: 'smile',
+                          component: './dossierPolice/DossierPolice',
+                      },
+                  ],
+              },
             {
               component: './404',
             },
