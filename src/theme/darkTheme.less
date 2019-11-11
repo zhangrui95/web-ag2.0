@@ -20,16 +20,13 @@ body {
       a {
         color: @menu-dark-color;
       }
-      .ant-menu-item-selected {
-        background: @highlight-color;
-        border-right: 2px solid @table-footer-bg;
+      .ant-menu-item{
+        margin: @border-radius;
       }
-      .ant-menu-submenu-selected {
-        .ant-menu-item-selected {
-          color: @white;
-          background-color: @transparent;
-          border-right: 0 !important;
-        }
+      .ant-menu-item-selected {
+        color: @white;
+        background-color: @transparent;
+        border-right: 0 !important;
       }
     }
     .ant-layout-sider {
