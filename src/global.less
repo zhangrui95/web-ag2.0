@@ -1,0 +1,71 @@
+@import '~antd/es/style/themes/default.less';
+
+html,
+body,
+#root {
+  height: 100%;
+}
+.inXTVY{
+  display:none;
+}
+.colorWeak {
+  filter: invert(80%);
+}
+
+.ant-layout {
+  min-height: 100vh;
+}
+
+canvas {
+  display: block;
+}
+
+body {
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+ul,
+ol {
+  list-style: none;
+}
+
+:global {
+
+  //控制header颜色
+  .ant-pro-global-header {
+    background: #21328A;
+  }
+
+  //控制sider logo样式
+  .ant-pro-sider-menu-logo {
+    background: #21328A !important;
+    box-shadow: none !important;
+  }
+
+  //silder title样式
+  .ant-pro-sider-menu-sider.light .ant-pro-sider-menu-logo h1 {
+    color: #fff;
+  }
+}
+
+@media (max-width: @screen-xs) {
+  .ant-table {
+    width: 100%;
+    overflow-x: auto;
+
+    &-thead>tr,
+    &-tbody>tr {
+
+      >th,
+      >td {
+        white-space: pre;
+
+        >span {
+          display: block;
+        }
+      }
+    }
+  }
+}
