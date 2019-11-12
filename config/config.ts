@@ -71,6 +71,7 @@ if (isAntDesignProPreview) {
 }
 
 export default {
+  history:"hash",
   plugins,
   block: {
     // 国内用户可以使用码云
