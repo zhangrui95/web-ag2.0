@@ -319,6 +319,40 @@ export default {
                           component: './dossierPolice/DossierPolice',
                       },
                   ],
+              },{
+                  name: '要素趋势分析',
+                  icon: 'smile',
+                  path: '/trendAnalysis',
+                  routes: [
+                      {
+                          path: '/trendAnalysis/PoliceAnalysis',
+                          name: '警情分析',
+                          icon: 'smile',
+                          component: './trendAnalysis/PoliceAnalysis',
+                      },{
+                          path: '/trendAnalysis/caseAnalysis',
+                          name: '案件分析',
+                          icon: 'smile',
+                          routes: [
+                              {
+                                  name: '刑事案件告警',
+                                  icon: 'smile',
+                                  path: '/trendAnalysis/caseAnalysis/CriminaAnalysis',
+                                  component: './trendAnalysis/CriminaAnalysis',
+                              },{
+                                  name: '行政案件告警',
+                                  icon: 'smile',
+                                  path: '/trendAnalysis/caseAnalysis/AdministrationAnalysis',
+                                  component: './trendAnalysis/AdministrationAnalysis',
+                              }
+                          ]
+                      },{
+                          path: '/trendAnalysis/PersonPolice',
+                          name: '涉案人员分析',
+                          icon: 'smile',
+                          component: './trendAnalysis/PersonPolice',
+                      },
+                  ],
               },
             {
               component: './404',

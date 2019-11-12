@@ -4,7 +4,7 @@ import { Spin } from 'antd';
 interface Person {
   name: string
 }
-export default function DossierWarning(props: Person) {
+export default function CriminaAnalysis(props: Person) {
   const [loading, setLoading] = useState<boolean>(false);
 
   useEffect(() => {
@@ -15,7 +15,7 @@ export default function DossierWarning(props: Person) {
 
   return (
     <div style={{ paddingTop: 100, textAlign: 'center' }}>
-      卷宗预警
+      刑事案件分析
       <Spin spinning={loading} size="large"></Spin>
     </div>
   );

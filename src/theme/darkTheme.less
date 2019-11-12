@@ -1,69 +1,95 @@
-@primary-color-dark: #252c3c;
-@menu-dark-color: #ccc;
+@body-background: #171925;//body主背景色
+@component-background: #252c3c;//组件背景颜色
+@text-color: #ccc;//文本颜色
 @white: #fff;
-@transparent: transparent;
-@no-box-shadow: none;
-@primary-color-bg: #171925;
-@highlight-color: #3285ff;
-@table-footer-bg: #b2d8ff;
-@border-radius: 0;
+@highlight-color: #3285ff;//选择高亮颜色
+@tabs-active-color: #b2d8ff;//选中底部边框颜色
+//-------------------------自定义-----------------------
+@zero: 0;
+@no-box-shadow: none;//无阴影
+@transparent: transparent;//透明
 body {
   color: #fff;
 }
 .dark {
   :global {
     .ant-menu {
-      background: @primary-color-dark;
-      color: @menu-dark-color;
-      border-top: 2px solid @primary-color-bg;
-      padding: @border-radius!important;
+      background: @component-background;
+      color: @text-color;
+      border-top: 2px solid @body-background;
+      padding: @zero!important;
       a {
-        color: @menu-dark-color;
+        color: @text-color;
       }
       .ant-menu-item{
-        margin: @border-radius;
+        margin: @zero;
+        height: 50px;
+        line-height: 50px;
       }
       .ant-menu-item-selected {
         color: @white;
-        background-color: @transparent;
-        border-right: 0 !important;
+        background-color: @highlight-color;
+        border-right: 4px solid @tabs-active-color;
+      }
+      .ant-menu-submenu-title{
+        margin: @zero;
+        height: 50px;
+        line-height: 50px;
+      }
+      .ant-menu-submenu-selected{
+        .ant-menu-submenu-title{
+          background: @highlight-color;
+          border-right: 4px solid @tabs-active-color;
+        }
+      }
+      .ant-menu-sub{
+        .ant-menu-submenu-title{
+          background: @transparent;
+          border-right: @zero;
+          margin: @zero;
+        }
+        .ant-menu-item-selected {
+          color: @white;
+          background-color: @transparent;
+          border-right: @zero !important;
+        }
       }
     }
     .ant-layout-sider {
-      background: @primary-color-bg;
+      background: @body-background;
     }
     .ant-menu-dark .ant-menu-inline.ant-menu-sub {
-      background: @primary-color-bg;
+      background: @body-background;
       box-shadow: @no-box-shadow;
     }
     .ant-menu-submenu-active {
-      color: @menu-dark-color;
+      color: @text-color;
     }
     .ant-pro-sider-menu-sider {
       box-shadow: @no-box-shadow;
     }
     .ant-pro-global-header {
-      background: @primary-color-dark;
+      background: @component-background;
     }
     .ant-pro-sider-menu-logo {
-      background: @primary-color-dark!important;
+      background: @component-background!important;
     }
     .ant-card {
-      background: @primary-color-dark;
+      background: @component-background;
     }
     .ant-card-bordered {
-      border: 2px solid @primary-color-bg;
+      border: 2px solid @body-background;
     }
     .ant-layout {
-      background: @primary-color-bg;
+      background: @body-background;
     }
     .ant-tabs.ant-tabs-card .ant-tabs-card-bar .ant-tabs-tab {
-      background: @primary-color-dark;
+      background: @component-background;
       color: @white;
-      border-radius: @border-radius;
-      border-right: 1px solid @primary-color-bg!important;
+      border-radius: @zero;
+      border-right: 1px solid @body-background!important;
       &:last-child {
-        border-right: @border-radius;
+        border-right: @zero;
       }
     }
     .antd-pro-components-navigation-index-card .ant-tabs-tab .anticon-close {
@@ -71,13 +97,19 @@ body {
     }
     .ant-tabs.ant-tabs-card .ant-tabs-card-bar .ant-tabs-tab-active {
       background: @highlight-color;
-      border-right: @border-radius;
+      border-right: @zero;
     }
     .ant-tabs-ink-bar {
-      background-color: @table-footer-bg;
+      background-color: @tabs-active-color;
     }
     .ant-card-body {
       color: @white;
+    }
+    .ant-tabs-tab-arrow-show{
+      color: @white;
+      &:hover{
+        color: @white;
+      }
     }
   }
 }

@@ -115,12 +115,12 @@ const Navigation = props => {
           <TabPane tab={pane.name} key={pane.key} closable={pane.key !== '/welcome'}></TabPane>
         ))}
       </Tabs>
-      {showTab.length > 3 ? (
-        <div className={styles.close} onClick={closeAll}>
-          关闭所有
-          <Icon className={styles.closeIcon} type="close" />
-        </div>
-      ) : null}
+      {/*{showTab.length > 3 ? (*/}
+      {/*  <div className={styles.close} onClick={closeAll}>*/}
+      {/*    关闭所有*/}
+      {/*    <Icon className={styles.closeIcon} type="close" />*/}
+      {/*  </div>*/}
+      {/*) : null}*/}
     </Card>
   );
 };
