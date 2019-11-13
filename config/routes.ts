@@ -42,12 +42,14 @@ export function routes() {
                                     name: '警情数据',
                                     icon: 'smile',
                                     component: './receivePolice/AlarmData',
-                                },{
+                                },
+                              {
                                     path: '/receivePolice/AlarmWarning',
                                     name: '警情预警',
                                     icon: 'smile',
                                     component: './receivePolice/AlarmWarning',
-                                },{
+                                },
+                              {
                                     path: '/receivePolice/AlarmPolice',
                                     name: '警情告警',
                                     icon: 'smile',

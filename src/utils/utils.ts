@@ -26,4 +26,14 @@ export const getPageQuery = () => parse(window.location.href.split('?')[1]);
 //获取token
 export const getUserToken = (): string => {
   return sessionStorage.getItem('userToken') || '';
+};
+
+// 获取sessionStorage中user信息
+export function getUserInfos() {
+  let userInfo = null;
+  const userStr = sessionStorage.getItem('user');
+  if (userStr) {
+    userInfo = JSON.parse(userStr);
+  }
+  return userInfo;
 }

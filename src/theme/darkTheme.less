@@ -1,60 +1,68 @@
-@body-background: #171925;//body主背景色
-@component-background: #252c3c;//组件背景颜色
-@text-color: #b7b7b7;//文本颜色
+@body-background: #171925; //body主背景色
+@component-background: #252c3c; //组件背景颜色
+@text-color: #b7b7b7; //文本颜色
 @white: #fff;
-@highlight-color: #3285ff;//选择高亮颜色
-@tabs-active-color: #b2d8ff;//选中底部边框颜色
-@alert-warning-bg-color:#f4eee0;//告警message背景
-@alert-warning-border-color:#f6ddab;//告警message边框
-@table-header-bg:#202839;//table题头
-@table-body-sort-bg:#2e394c;//Table tr颜色
-@checkbox-color:#4662D5;//多选选中颜色
-@dropdown-selected-color:rgba(23, 25, 37, 0.95);//下拉背景色
+@highlight-color: #3285ff; //选择高亮颜色
+@tabs-active-color: #b2d8ff; //选中底部边框颜色
+@alert-warning-bg-color: #f4eee0; //告警message背景
+@alert-warning-border-color: #f6ddab; //告警message边框
+@table-header-bg: #202839; //table题头
+@table-body-sort-bg: #2e394c; //Table tr颜色
+@checkbox-color: #4662d5; //多选选中颜色
+@dropdown-selected-color: rgba(23, 25, 37, 0.95); //下拉背景色
 //@btn-search-color: #3285FF;//查询按钮的背景色、督办按钮背景色
 //@btn-reset-color: #171925;//重置、展开筛选、导出表格、查询条件框的背景颜色、导出按钮
 //@btn-export-color: #3285FF;//导出按钮、导出表格按钮字体的颜色、问题判定按钮颜色
-@btn-choose: #5D7FDA; // 单选按钮选中颜色
-@depart-choose: #1C2132; // 机构查询框背景色
+@btn-choose: #5d7fda; // 单选按钮选中颜色
+@depart-choose: #1c2132; // 机构查询框背景色
 @depart-choose-back: #151b2a; // 机构选择背景色
 //@choose-more-back: #202839; // 多选中每个选中的背景色
 @date-unchoose:#1F2839; // 无法选择的日期的背景色
 //-------------------------自定义-----------------------
 @zero: 0;
-@no-box-shadow: none;//无阴影
-@transparent: transparent;//透明
-@borderRadius: 10px;//圆角
-@pagination-right:30px;
+@no-box-shadow: none; //无阴影
+@transparent: transparent; //透明
+@borderRadius: 10px; //圆角
+@pagination-right: 30px;
 body {
   color: #fff;
 }
 .dark {
   :global {
-    .ant-pagination,.ant-select-selection,.ant-calendar-picker-input,.ant-cascader-picker,.ant-input,.ant-radio-button-wrapper,.ant-transfer-list,.ant-time-picker-input{
+    .ant-select-selection,
+    .ant-calendar-picker-input,
+    .ant-cascader-picker,
+    .ant-input,
+    .ant-radio-button-wrapper,
+    .ant-transfer-list,
+    .ant-time-picker-input {
       background-color: @body-background;
       border: none;
     }
-    .ant-radio-inner::after{
+    .ant-radio-inner::after {
       background-color: @btn-choose;
     }
-    .ant-select-search__field,.ant-select-dropdown-search{
+    .ant-select-search__field,
+    .ant-select-dropdown-search {
       background-color: @depart-choose;
     }
-    .ant-select-dropdown-search{
+    .ant-select-dropdown-search {
       background-color: @depart-choose-back;
     }
-    .ant-select-selection__choice{
+    .ant-select-selection__choice {
       background-color: @table-header-bg;
     }
-    .btnSearch,.ant-btn{
-      color:@white;
+    .btnSearch,
+    .ant-btn {
+      color: @white;
       background-color: @body-background;
     }
-    .btnReset{
-      color:@white;
+    .btnReset {
+      color: @white;
       background-color: @body-background;
     }
-    .btnExport{
-      color:@highlight-color;
+    .btnExport {
+      color: @highlight-color;
       background-color: @body-background;
     }
     .ant-calendar-panel{
@@ -76,7 +84,7 @@ body {
       a {
         color: @text-color;
       }
-      .ant-menu-item{
+      .ant-menu-item {
         margin: @zero;
         height: 50px;
         line-height: 50px;
@@ -86,19 +94,19 @@ body {
         background-color: @highlight-color;
         border-right: 4px solid @tabs-active-color;
       }
-      .ant-menu-submenu-title{
+      .ant-menu-submenu-title {
         margin: @zero;
         height: 50px;
         line-height: 50px;
       }
-      .ant-menu-submenu-selected{
-        .ant-menu-submenu-title{
+      .ant-menu-submenu-selected {
+        .ant-menu-submenu-title {
           background: @highlight-color;
           border-right: 4px solid @tabs-active-color;
         }
       }
-      .ant-menu-sub{
-        .ant-menu-submenu-title{
+      .ant-menu-sub {
+        .ant-menu-submenu-title {
           background: @transparent;
           border-right: @zero;
           margin: @zero;
@@ -160,171 +168,192 @@ body {
     .ant-card-body {
       color: @white;
     }
-    .ant-tabs-tab-arrow-show{
+    .ant-tabs-tab-arrow-show {
       color: @white;
-      &:hover{
+      &:hover {
         color: @white;
       }
     }
-    .ant-btn{
+    .ant-btn {
       background: @highlight-color;
       color: @white;
       border: @zero;
     }
-    .ant-table-thead > tr > th{
-      background:@table-header-bg;
+    .ant-table{
+      border-radius: @borderRadius;
+      overflow: hidden;
+    }
+    .ant-table-thead > tr > th {
+      background: @table-header-bg;
       color: @white;
       padding: 10px 16px;
       border: @zero;
     }
-    .ant-table-tbody > tr{
-      background:@table-body-sort-bg;
+    .ant-table-tbody > tr {
+      background: @table-body-sort-bg;
       color: @white;
-      &:nth-child(2n){
-        background:@table-header-bg;
+      &:nth-child(2n) {
+        background: @table-header-bg;
       }
     }
-    .ant-table-tbody > tr > td{
+    .ant-table-tbody > tr > td {
       border: @zero;
-      a{
-        text-decoration:underline;
+      a {
+        text-decoration: underline;
       }
     }
-    .ant-card{
+    .ant-table-placeholder{
+      background: @table-header-bg;
+      border: @zero;
+      .ant-empty-description{
+        color: @white;
+      }
+    }
+    .ant-card {
       border-radius: @borderRadius;
       //overflow: hidden;
       background: @table-header-bg;
     }
-    .ant-pagination{
+    .ant-pagination {
+      position: relative;
       margin-right: @pagination-right!important;
-      .ant-pagination-prev .ant-pagination-item-link, .ant-pagination-next .ant-pagination-item-link,.ant-pagination-item-active,.ant-pagination-item{
+      .ant-pagination-prev .ant-pagination-item-link,
+      .ant-pagination-next .ant-pagination-item-link,
+      .ant-pagination-item-active,
+      .ant-pagination-item {
         background: @body-background;
         color: @white;
         border: @zero;
-        a{
+        a {
           color: @white;
         }
       }
     }
-    .ant-pagination-item-active{
+    .ant-pagination-item-active {
       border: 1px solid @highlight-color!important;
-      a{
+      a {
         color: @highlight-color!important;
       }
     }
-    .ant-card-body{
+    .ant-card-body {
       padding: @zero;
     }
-    .ant-timeline{
+    .ant-timeline {
       text-align: left;
       color: @white;
     }
-    .ant-timeline-item-head{
+    .ant-timeline-item-head {
       background: @highlight-color;
       border: @zero;
       margin-top: -5px;
     }
-    .ant-timeline-item{
+    .ant-timeline-item {
       margin: 10px 0;
     }
-    .ant-timeline-item-content{
-      top:-11px;
+    .ant-timeline-item-content {
+      top: -11px;
     }
-    .ant-transfer{
+    .ant-transfer {
       color: @white;
-      .ant-btn{
+      .ant-btn {
         background: @white;
         color: @body-background;
         border-radius: 50%;
-        &:first-child{
+        &:first-child {
           margin-bottom: 16px;
         }
       }
-      .ant-checkbox-checked .ant-checkbox-inner{
-        background-color:@checkbox-color;
-        border-color:@checkbox-color;
+      .ant-checkbox-checked .ant-checkbox-inner {
+        background-color: @checkbox-color;
+        border-color: @checkbox-color;
         color: @white;
       }
-      .ant-transfer-list-search-action .anticon{
+      .ant-transfer-list-search-action .anticon {
         color: @text-color;
       }
-      .ant-checkbox-indeterminate .ant-checkbox-inner::after{
-        background-color:@checkbox-color;
+      .ant-checkbox-indeterminate .ant-checkbox-inner::after {
+        background-color: @checkbox-color;
       }
-      .ant-input{
-        background-color:@component-background;
+      .ant-input {
+        background-color: @component-background;
         border: @zero;
       }
     }
-    .ant-transfer-list{
+    .ant-transfer-list {
       width: 370px;
       background: @body-background;
       color: @white;
       border: @zero;
-      .ant-transfer-list-content{
-        .ant-transfer-list-content-item{
+      .ant-transfer-list-content {
+        .ant-transfer-list-content-item {
           background: @component-background;
         }
         margin: 0 10px;
       }
     }
-    .ant-transfer-list-header{
-      background:@table-body-sort-bg;
+    .ant-transfer-list-header {
+      background: @table-body-sort-bg;
       border: @zero;
       color: @white;
     }
-    .ant-select-selection{
+    .ant-select-selection {
       background: @body-background;
       border: @zero;
       color: @white;
     }
-    .ant-select-open .ant-select-selection{
+    .ant-select-open .ant-select-selection {
       box-shadow: 0 0 0 1px @highlight-color;
     }
-    .ant-select-selection__clear{
+    .ant-select-selection__clear {
       background: @transparent;
       color: @text-color;
     }
-    .ant-select-arrow{
+    .ant-select-arrow {
       color: @text-color;
     }
-    .ant-select-dropdown{
-      background: @dropdown-selected-color;
+    .ant-select-dropdown {
+      background: @dropdown-selected-color!important;
       color: @white;
-      .ant-empty-small{
+      .ant-empty-small {
         color: @white;
       }
     }
-    .ant-select-tree li{
-      .anticon{
+    .ant-select-tree li {
+      .anticon {
         color: @text-color;
       }
     }
-    .ant-select-tree li .ant-select-tree-node-content-wrapper.ant-select-tree-node-selected{
+    .ant-select-dropdown-menu-item-active,.ant-select-dropdown-menu-item-selected,.ant-select-tree li .ant-select-tree-node-content-wrapper.ant-select-tree-node-selected {
       background: @highlight-color;
     }
-    .ant-select-tree li .ant-select-tree-node-content-wrapper{
+    .ant-select-dropdown-menu-item,.ant-select-tree li .ant-select-tree-node-content-wrapper {
       color: @white;
-      &:hover{
+      &:hover {
         background: @highlight-color;
       }
     }
-    .ant-select-tree-node-selected{
+    .ant-select-tree-node-selected {
       background-color: @highlight-color;
     }
-    .ant-select-tree-dropdown .ant-select-dropdown-search{
+    .ant-select-tree-dropdown .ant-select-dropdown-search {
       background: @transparent;
-      .ant-select-search__field{
+      .ant-select-search__field {
         background: @component-background;
         border: @zero;
       }
     }
+    .ant-form{
+      padding:@borderRadius 2*@borderRadius;
+    }
+    .ant-form-item-label > label{
+      color: @white;
+    }
   }
 }
-:global{
-  .ant-message-notice-content{
-    background:@alert-warning-bg-color;
+:global {
+  .ant-message-notice-content {
+    background: @alert-warning-bg-color;
     //color: @white;
-    border:1px solid @alert-warning-border-color;
+    border: 1px solid @alert-warning-border-color;
   }
 }
