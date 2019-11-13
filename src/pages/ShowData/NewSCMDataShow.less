@@ -1,0 +1,141 @@
+.SCMDataShow {
+  width: 1920px;
+  height: 1080px;
+  overflow: hidden;
+  background: url("../../assets/show/body_bg.jpg") no-repeat;
+
+  .header {
+    height: 80px;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px 0;
+
+    .showTitle {
+      margin: 0 20px;
+    }
+
+    .nowTime {
+      position: absolute;
+      left: 190px;
+      top: 15px;
+      font-size: 16px;
+      color: #fff;
+    }
+
+    .dateButtons {
+      position: absolute;
+      right: 190px;
+      top: 15px;
+      font-size: 16px;
+      color: #66ccff;
+
+      span {
+        padding: 0 10px;
+        cursor: pointer;
+      }
+
+      .currentDate {
+        color: #fff;
+      }
+    }
+  }
+
+  .wrap {
+    height: 1000px;
+
+    .wrapLeft, .wrapMiddle, .wrapRight {
+      float: left;
+      margin-left: 25px;
+
+      .globalCard, .mapCard, .longCard {
+        background: rgba(0, 0, 102, 0.5);
+        margin-top: 20px;
+      }
+
+      .globalCard {
+        height: 300px;
+        width: 500px;
+      }
+
+      .mapCard, .longCard {
+        width: 825px;
+      }
+
+      .mapCard {
+        height: 620px;
+      }
+
+      .longCard {
+        height: 300px;
+      }
+    }
+  }
+}
+
+.smallBlock {
+  height: 100%;
+  padding: 10px;
+
+  .blockHeader {
+    height: 10%;
+  }
+
+  .smallBlockBody {
+    height: 90%;
+  }
+}
+
+.blockHeader {
+  padding-bottom: 10px;
+  display: table;
+  width: 100%;
+  position: relative;
+
+  h4 {
+    display: table-cell;
+    vertical-align: middle;
+    height: 100%;
+    text-align: center;
+    background: url("../../assets/show/2.png") repeat-x;
+    font-size: 1rem;
+    color: #fff;
+  }
+
+  .letfConner {
+    height: 70%;
+    width: 20%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: url("../../assets/show/2-1.png") no-repeat;
+  }
+
+  .rightConner {
+    height: 70%;
+    width: 20%;
+    position: absolute;
+    bottom: 10px;
+    right: 0;
+    background: url("../../assets/show/2-1-2.png") no-repeat bottom right;
+  }
+}
+
+.letfConner {
+  height: 70%;
+  width: 20%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: url("../../assets/show/2-1.png") no-repeat;
+}
+
+.rightConner {
+  height: 70%;
+  width: 20%;
+  position: absolute;
+  bottom: 10px;
+  right: 0;
+  background: url("../../assets/show/2-1-2.png") no-repeat bottom right;
+}

@@ -24,13 +24,13 @@ export function routes() {
                     routes: [
                         {
                             path: '/',
-                            redirect: '/welcome',
+                            redirect: '/ShowData/RegulatePanel',
                         },
                         {
-                            path: '/welcome',
+                            path: '/ShowData/RegulatePanel',
                             name: '首页',
                             icon: 'home',
-                            component: './Welcome',
+                            component: './ShowData/RegulatePanel',
                         },
                         {
                             name: '接处警',

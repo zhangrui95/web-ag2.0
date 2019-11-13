@@ -17,6 +17,7 @@
 @depart-choose: #1C2132; // 机构查询框背景色
 @depart-choose-back: #151b2a; // 机构选择背景色
 //@choose-more-back: #202839; // 多选中每个选中的背景色
+@date-unchoose:#1F2839; // 无法选择的日期的背景色
 //-------------------------自定义-----------------------
 @zero: 0;
 @no-box-shadow: none;//无阴影
@@ -56,6 +57,16 @@ body {
       color:@highlight-color;
       background-color: @body-background;
     }
+    .ant-calendar-panel{
+      background:@depart-choose-back;
+    }
+    .ant-calendar-input{
+      background-color: @depart-choose-back;
+    }
+    .ant-calendar-date{
+      background-color: @date-unchoose;
+    }
+
 
     .ant-menu {
       background: @component-background;
