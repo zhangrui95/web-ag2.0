@@ -13,13 +13,13 @@
 
   .titleArea {
     //margin: -24px -24px 0;
-    padding: @padding-md;
+    padding: @borderRadius @padding-md;
     font-size: @font-size-lg;
+    color: @text-color;
   }
 
   .cardArea {
-    margin-top: 24px;
-
+    margin-top: 10px;
     :global {
       .ant-table-thead > tr > th,
       .ant-table-tbody > tr > td {
@@ -122,4 +122,13 @@
 .btnBox {
   float: right;
   margin-top: -4px;
+}
+.export{
+  background:@body-background!important;
+  border: 1px solid @highlight-color!important;
+  color: @highlight-color!important;
+  margin-left: @borderRadius;
+}
+.empty{
+  background:@body-background!important;
 }

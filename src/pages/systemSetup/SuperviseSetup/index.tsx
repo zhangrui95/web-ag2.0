@@ -995,11 +995,19 @@ class SuperviseSetup extends Component {
       <div className={stylescommon.statistics}>
         <Card className={stylescommon.titleArea}>
           监管配置
-          <Button type="primary" className={styles.btnAdd} onClick={() => this.addList(0)}>
-            添加监管点
-          </Button>
+            <div className={styles.btnAdd}>
+                <Button type="primary" onClick={() => this.addList(0)}>
+                    添加监管点
+                </Button>
+                <Button
+                    className={stylescommon.export}
+                    onClick={this.exportData}
+                >
+                    导出表格
+                </Button>
+            </div>
         </Card>
-        <Card>
+        <Card className={stylescommon.cardArea}>
           <Form>
             <Row gutter={rowLayout}>
               <Col {...colLayout}>
@@ -1016,6 +1024,7 @@ class SuperviseSetup extends Component {
                       treeDefaultExpandedKeys={this.state.treeDefaultExpandedKeys}
                       key="badwSelect"
                       treeNodeFilterProp="title"
+                      getPopupContainer={triggerNode => triggerNode.parentNode}
                     >
                       {depTree && depTree.length > 0 ? this.renderloop(depTree) : null}
                     </TreeSelect>,
@@ -1031,6 +1040,7 @@ class SuperviseSetup extends Component {
                       placeholder="请选择"
                       style={{ width: '100%' }}
                       onChange={this.changeJglx1}
+                      getPopupContainer={triggerNode => triggerNode.parentNode}
                     >
                       <Option value={''}>全部</Option>
                       <Option value={'0'}>告警</Option>
@@ -1049,6 +1059,7 @@ class SuperviseSetup extends Component {
                       placeholder="请选择"
                       style={{ width: '100%' }}
                       onChange={e => this.getJgd(e)}
+                      getPopupContainer={triggerNode => triggerNode.parentNode}
                     >
                       <Option value="">全部</Option>
                       {JgsxType &&
@@ -1064,7 +1075,7 @@ class SuperviseSetup extends Component {
                   {getFieldDecorator('jgd', {
                     initialValue: { key: '', name: '' },
                   })(
-                    <Select labelInValue placeholder="请选择" style={{ width: '100%' }}>
+                    <Select labelInValue placeholder="请选择" style={{ width: '100%' }} getPopupContainer={triggerNode => triggerNode.parentNode}>
                       <Option value="">全部</Option>
                       {JgdType &&
                         JgdType.map(event => {
@@ -1079,7 +1090,7 @@ class SuperviseSetup extends Component {
                   {getFieldDecorator('jgdzt', {
                     initialValue: '',
                   })(
-                    <Select placeholder="请选择" style={{ width: '100%' }}>
+                    <Select placeholder="请选择" style={{ width: '100%' }} getPopupContainer={triggerNode => triggerNode.parentNode}>
                       <Option value="">全部</Option>
                       {JgdztType &&
                         JgdztType.map(event => {
@@ -1098,16 +1109,10 @@ class SuperviseSetup extends Component {
               </Col>
               <Col span={24}>
                 <span style={{ float: 'right', marginBottom: 24 }}>
-                  <Button
-                    style={{ color: '#2095FF', borderColor: '#2095FF' }}
-                    onClick={this.exportData}
-                  >
-                    导出表格
-                  </Button>
                   <Button style={{ marginLeft: 8 }} type="primary" onClick={this.handleSearch}>
                     查询
                   </Button>
-                  <Button style={{ marginLeft: 8 }} onClick={this.handleFormReset}>
+                  <Button style={{ marginLeft: 8 }} onClick={this.handleFormReset} className={stylescommon.empty}>
                     重置
                   </Button>
                 </span>

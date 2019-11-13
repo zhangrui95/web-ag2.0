@@ -10,6 +10,13 @@
 @table-body-sort-bg: #2e394c; //Table tr颜色
 @checkbox-color: #4662d5; //多选选中颜色
 @dropdown-selected-color: rgba(23, 25, 37, 0.95); //下拉背景色
+//@btn-search-color: #3285FF;//查询按钮的背景色、督办按钮背景色
+//@btn-reset-color: #171925;//重置、展开筛选、导出表格、查询条件框的背景颜色、导出按钮
+//@btn-export-color: #3285FF;//导出按钮、导出表格按钮字体的颜色、问题判定按钮颜色
+@btn-choose: #5d7fda; // 单选按钮选中颜色
+@depart-choose: #1c2132; // 机构查询框背景色
+@depart-choose-back: #151b2a; // 机构选择背景色
+//@choose-more-back: #202839; // 多选中每个选中的背景色
 //-------------------------自定义-----------------------
 @zero: 0;
 @no-box-shadow: none; //无阴影
@@ -21,6 +28,43 @@ body {
 }
 .dark {
   :global {
+    .ant-select-selection,
+    .ant-calendar-picker-input,
+    .ant-cascader-picker,
+    .ant-input,
+    .ant-radio-button-wrapper,
+    .ant-transfer-list,
+    .ant-time-picker-input {
+      background-color: @body-background;
+      border: none;
+    }
+    .ant-radio-inner::after {
+      background-color: @btn-choose;
+    }
+    .ant-select-search__field,
+    .ant-select-dropdown-search {
+      background-color: @depart-choose;
+    }
+    .ant-select-dropdown-search {
+      background-color: @depart-choose-back;
+    }
+    .ant-select-selection__choice {
+      background-color: @table-header-bg;
+    }
+    .btnSearch,
+    .ant-btn {
+      color: @white;
+      background-color: @body-background;
+    }
+    .btnReset {
+      color: @white;
+      background-color: @body-background;
+    }
+    .btnExport {
+      color: @highlight-color;
+      background-color: @body-background;
+    }
+
     .ant-menu {
       background: @component-background;
       color: @text-color;
@@ -124,6 +168,10 @@ body {
       color: @white;
       border: @zero;
     }
+    .ant-table{
+      border-radius: @borderRadius;
+      overflow: hidden;
+    }
     .ant-table-thead > tr > th {
       background: @table-header-bg;
       color: @white;
@@ -136,11 +184,21 @@ body {
       &:nth-child(2n) {
         background: @table-header-bg;
       }
+      &:hover{
+        background: #f00!important;
+      }
     }
     .ant-table-tbody > tr > td {
       border: @zero;
       a {
         text-decoration: underline;
+      }
+    }
+    .ant-table-placeholder{
+      background: @table-header-bg;
+      border: @zero;
+      .ant-empty-description{
+        color: @white;
       }
     }
     .ant-card {
@@ -149,8 +207,8 @@ body {
       background: @table-header-bg;
     }
     .ant-pagination {
-      margin-right: @pagination-right!important;
       position: relative;
+      margin-right: @pagination-right!important;
       .ant-pagination-prev .ant-pagination-item-link,
       .ant-pagination-next .ant-pagination-item-link,
       .ant-pagination-item-active,
@@ -246,7 +304,7 @@ body {
       color: @text-color;
     }
     .ant-select-dropdown {
-      background: @dropdown-selected-color;
+      background: @dropdown-selected-color!important;
       color: @white;
       .ant-empty-small {
         color: @white;
@@ -257,10 +315,10 @@ body {
         color: @text-color;
       }
     }
-    .ant-select-tree li .ant-select-tree-node-content-wrapper.ant-select-tree-node-selected {
+    .ant-select-dropdown-menu-item-active,.ant-select-dropdown-menu-item-selected,.ant-select-tree li .ant-select-tree-node-content-wrapper.ant-select-tree-node-selected {
       background: @highlight-color;
     }
-    .ant-select-tree li .ant-select-tree-node-content-wrapper {
+    .ant-select-dropdown-menu-item,.ant-select-tree li .ant-select-tree-node-content-wrapper {
       color: @white;
       &:hover {
         background: @highlight-color;
@@ -275,6 +333,12 @@ body {
         background: @component-background;
         border: @zero;
       }
+    }
+    .ant-form{
+      padding:@borderRadius 2*@borderRadius;
+    }
+    .ant-form-item-label > label{
+      color: @white;
     }
   }
 }
