@@ -1,0 +1,125 @@
+@import '~antd/es/style/themes/default.less';
+@import '../../theme/darkTheme';
+//@import '../../utils/utils.less';
+
+.statistics {
+  .buttonArea {
+    text-align: right;
+
+    button {
+      margin-right: 10px;
+    }
+  }
+
+  .titleArea {
+    //margin: -24px -24px 0;
+    padding: @padding-md;
+    font-size: @font-size-lg;
+  }
+
+  .cardArea {
+    margin-top: 24px;
+
+    :global {
+      .ant-table-thead > tr > th,
+      .ant-table-tbody > tr > td {
+        text-align: center;
+      }
+    }
+  }
+}
+
+.pagination {
+  position: absolute;
+  left: -150px;
+  color: @text-color;
+
+  :global {
+    .ant-pagination-total-text {
+      position: absolute;
+      //left: 0;
+      color: @text-color-secondary;
+    }
+  }
+}
+
+.scrollTable {
+  :global {
+    .ant-table-body {
+      ::-webkit-scrollbar {
+        height: 8px !important;
+      }
+
+      ::-webkit-scrollbar-thumb {
+        border-radius: 1px;
+        background: #c1c1c1;
+
+        &:hover {
+          background: #aaa;
+        }
+      }
+
+      ::-webkit-scrollbar-track {
+        background: transparent;
+      }
+    }
+  }
+}
+
+.titleName {
+  width: 100%;
+  text-align: center;
+  font-weight: 700;
+  font-size: 18px;
+}
+
+.titleNum {
+  width: 100%;
+  text-align: right;
+  margin-bottom: 5px;
+  padding: 0 30px;
+}
+.btnAdd {
+  margin-left: 50%;
+  position: relative;
+  width: 200px;
+  left: -140px;
+}
+.modalStyle {
+  :global {
+    .ant-modal-header {
+      background: #1890ff;
+    }
+
+    .ant-modal-title,
+    .ant-modal-close {
+      color: #fff;
+    }
+
+    .ant-form-item {
+      margin-bottom: 10px;
+    }
+
+    .ant-transfer-list {
+      width: 306px;
+      height: 280px;
+    }
+
+    .ant-transfer {
+      padding: 5px 30px;
+    }
+  }
+
+  .boxColor {
+    width: 28px;
+    height: 28px;
+    margin-top: 5px;
+    border: 1px solid rgb(204, 204, 204);
+    border-radius: 3px;
+    cursor: pointer;
+  }
+}
+.btnBox {
+  float: right;
+  margin-top: -4px;
+}
