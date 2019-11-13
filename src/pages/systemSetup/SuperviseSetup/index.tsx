@@ -3,7 +3,7 @@
  * author：zr
  * 20190313
  * */
-import React, { Component } from 'react';
+import React, { Component,  useState, useEffect } from 'react';
 import { connect } from 'dva';
 import stylescommon from '../../common/common.less';
 import styles from './index.less';
@@ -25,6 +25,7 @@ import {
   message,
   Checkbox,
   Tag,
+  Icon
 } from 'antd';
 import moment from 'moment';
 import { getUserInfos } from '../../../utils/utils';
@@ -61,6 +62,7 @@ class SuperviseSetup extends Component {
       yyjgdList: [],
       qjjg: false,
       treeDefaultExpandedKeys: [], // 办案单位树默认展开keys
+      searchHeight:false,
     };
   }
 
@@ -845,7 +847,11 @@ class SuperviseSetup extends Component {
       fs_qjjg: e.target.checked,
     });
   };
-
+    getSearchHeight = () => {
+        this.setState({
+            searchHeight:!this.state.searchHeight
+        });
+    }
   render() {
     const {
       form: { getFieldDecorator },
@@ -937,8 +943,8 @@ class SuperviseSetup extends Component {
       },
     ];
     const formItemLayout = {
-      labelCol: { xs: { span: 24 }, md: { span: 8 }, xl: { span: 6 }, xxl: { span: 4 } },
-      wrapperCol: { xs: { span: 24 }, md: { span: 16 }, xl: { span: 18 }, xxl: { span: 20 } },
+      labelCol: { xs: { span: 24 }, md: { span: 8 }, xl: { span: 6 }, xxl: { span: 5 } },
+      wrapperCol: { xs: { span: 24 }, md: { span: 16 }, xl: { span: 18 }, xxl: { span: 19 } },
     };
     const rowLayout = { md: 8, xl: 16, xxl: 24 };
     const colLayout = { sm: 24, md: 12, xl: 8 };
@@ -1007,9 +1013,9 @@ class SuperviseSetup extends Component {
                 </Button>
             </div>
         </Card>
-        <Card className={stylescommon.cardArea}>
-          <Form>
-            <Row gutter={rowLayout}>
+        <Card className={stylescommon.cardArea} id={'form'}>
+          <Form style={{height:this.state.searchHeight ?  'auto' : '50px'}}>
+            <Row gutter={rowLayout}  className={stylescommon.searchForm}>
               <Col {...colLayout}>
                 <FormItem label="机构" {...formItemLayout}>
                   {getFieldDecorator('jg', {
@@ -1024,7 +1030,7 @@ class SuperviseSetup extends Component {
                       treeDefaultExpandedKeys={this.state.treeDefaultExpandedKeys}
                       key="badwSelect"
                       treeNodeFilterProp="title"
-                      getPopupContainer={triggerNode => triggerNode.parentNode}
+                      getPopupContainer={()=>document.getElementById('form')}
                     >
                       {depTree && depTree.length > 0 ? this.renderloop(depTree) : null}
                     </TreeSelect>,
@@ -1040,7 +1046,7 @@ class SuperviseSetup extends Component {
                       placeholder="请选择"
                       style={{ width: '100%' }}
                       onChange={this.changeJglx1}
-                      getPopupContainer={triggerNode => triggerNode.parentNode}
+                       getPopupContainer={()=>document.getElementById('form')}
                     >
                       <Option value={''}>全部</Option>
                       <Option value={'0'}>告警</Option>
@@ -1059,7 +1065,7 @@ class SuperviseSetup extends Component {
                       placeholder="请选择"
                       style={{ width: '100%' }}
                       onChange={e => this.getJgd(e)}
-                      getPopupContainer={triggerNode => triggerNode.parentNode}
+                       getPopupContainer={()=>document.getElementById('form')}
                     >
                       <Option value="">全部</Option>
                       {JgsxType &&
@@ -1075,7 +1081,7 @@ class SuperviseSetup extends Component {
                   {getFieldDecorator('jgd', {
                     initialValue: { key: '', name: '' },
                   })(
-                    <Select labelInValue placeholder="请选择" style={{ width: '100%' }} getPopupContainer={triggerNode => triggerNode.parentNode}>
+                    <Select labelInValue placeholder="请选择" style={{ width: '100%' }}  getPopupContainer={()=>document.getElementById('form')}>
                       <Option value="">全部</Option>
                       {JgdType &&
                         JgdType.map(event => {
@@ -1090,7 +1096,7 @@ class SuperviseSetup extends Component {
                   {getFieldDecorator('jgdzt', {
                     initialValue: '',
                   })(
-                    <Select placeholder="请选择" style={{ width: '100%' }} getPopupContainer={triggerNode => triggerNode.parentNode}>
+                    <Select placeholder="请选择" style={{ width: '100%' }}  getPopupContainer={()=>document.getElementById('form')}>
                       <Option value="">全部</Option>
                       {JgdztType &&
                         JgdztType.map(event => {
@@ -1107,17 +1113,20 @@ class SuperviseSetup extends Component {
                   })(<RangePicker style={{ width: '100%' }} />)}
                 </FormItem>
               </Col>
-              <Col span={24}>
-                <span style={{ float: 'right', marginBottom: 24 }}>
-                  <Button style={{ marginLeft: 8 }} type="primary" onClick={this.handleSearch}>
-                    查询
-                  </Button>
-                  <Button style={{ marginLeft: 8 }} onClick={this.handleFormReset} className={stylescommon.empty}>
-                    重置
-                  </Button>
-                </span>
-              </Col>
             </Row>
+          <Row className={stylescommon.search}>
+            <span style={{ float: 'right', marginBottom: 24 }}>
+              <Button style={{ marginLeft: 8 }} type="primary" onClick={this.handleSearch}>
+                查询
+              </Button>
+              <Button style={{ marginLeft: 8 }} onClick={this.handleFormReset} className={stylescommon.empty}>
+                重置
+              </Button>
+              <Button style={{ marginLeft: 8 }} onClick={this.getSearchHeight} className={stylescommon.empty}>
+                  {this.state.searchHeight ? '收起筛选' : '展开筛选'} <Icon type={this.state.searchHeight ? "up" :"down"}/>
+              </Button>
+            </span>
+          </Row>
           </Form>
         </Card>
         <Card className={stylescommon.cardArea}>
@@ -1193,7 +1202,7 @@ class SuperviseSetup extends Component {
                       allowClear
                       treeDefaultExpandedKeys={this.state.treeDefaultExpandedKeys}
                       key="badwSelect"
-                      getPopupContainer={triggerNode => triggerNode.parentNode}
+                       getPopupContainer={()=>document.getElementById('form')}
                       treeNodeFilterProp="title"
                       onChange={e => this.emptyJgxz(e)}
                     >
@@ -1256,7 +1265,7 @@ class SuperviseSetup extends Component {
                       placeholder="请选择"
                       style={{ width: '100%' }}
                       onChange={e => this.getJgd(e)}
-                      getPopupContainer={triggerNode => triggerNode.parentNode}
+                       getPopupContainer={()=>document.getElementById('form')}
                     >
                       {JgsxType &&
                         JgsxType.map(event => {
@@ -1281,7 +1290,7 @@ class SuperviseSetup extends Component {
                       placeholder="请选择"
                       style={{ width: '100%' }}
                       onChange={e => this.changeJgd(e)}
-                      getPopupContainer={triggerNode => triggerNode.parentNode}
+                       getPopupContainer={()=>document.getElementById('form')}
                     >
                       {JgdType &&
                         JgdType.map(event => {
@@ -1324,7 +1333,7 @@ class SuperviseSetup extends Component {
                       labelInValue
                       placeholder="请选择"
                       style={{ width: '100%' }}
-                      getPopupContainer={triggerNode => triggerNode.parentNode}
+                       getPopupContainer={()=>document.getElementById('form')}
                     >
                       {SjjgType &&
                         SjjgType.map(event => {
@@ -1344,7 +1353,7 @@ class SuperviseSetup extends Component {
                       labelInValue
                       placeholder="请选择"
                       style={{ width: '100%' }}
-                      getPopupContainer={triggerNode => triggerNode.parentNode}
+                       getPopupContainer={()=>document.getElementById('form')}
                     >
                       {TxryType &&
                         TxryType.length > 0 &&
@@ -1365,7 +1374,7 @@ class SuperviseSetup extends Component {
                       labelInValue
                       placeholder="请选择"
                       style={{ width: '100%' }}
-                      getPopupContainer={triggerNode => triggerNode.parentNode}
+                       getPopupContainer={()=>document.getElementById('form')}
                     >
                       {TxryType &&
                         TxryType.length > 0 &&
@@ -1386,7 +1395,7 @@ class SuperviseSetup extends Component {
                       labelInValue
                       placeholder="请选择"
                       style={{ width: '100%' }}
-                      getPopupContainer={triggerNode => triggerNode.parentNode}
+                       getPopupContainer={()=>document.getElementById('form')}
                     >
                       {TxryType &&
                         TxryType.length > 0 &&
@@ -1403,7 +1412,7 @@ class SuperviseSetup extends Component {
                 <FormItem
                   label="第一级提醒人员"
                   {...modleLayouts}
-                  getPopupContainer={triggerNode => triggerNode.parentNode}
+                   getPopupContainer={()=>document.getElementById('form')}
                 >
                   {getFieldDecorator('dyjtxry3', {
                     initialValue: this.state.dyjtxry3,
@@ -1413,7 +1422,7 @@ class SuperviseSetup extends Component {
                       labelInValue
                       placeholder="请选择"
                       style={{ width: '100%' }}
-                      getPopupContainer={triggerNode => triggerNode.parentNode}
+                       getPopupContainer={()=>document.getElementById('form')}
                     >
                       {TxryType &&
                         TxryType.length > 0 &&
@@ -1440,7 +1449,7 @@ class SuperviseSetup extends Component {
                       placeholder="请选择"
                       style={{ width: '100%' }}
                       onChange={e => this.getTqsj(e, 'tqsj3')}
-                      getPopupContainer={triggerNode => triggerNode.parentNode}
+                       getPopupContainer={()=>document.getElementById('form')}
                     >
                       {TqsjType &&
                         TqsjType.map(event => {
@@ -1479,7 +1488,7 @@ class SuperviseSetup extends Component {
                       labelInValue
                       placeholder="请选择"
                       style={{ width: '100%' }}
-                      getPopupContainer={triggerNode => triggerNode.parentNode}
+                       getPopupContainer={()=>document.getElementById('form')}
                     >
                       {TxryType &&
                         TxryType.length > 0 &&
@@ -1506,7 +1515,7 @@ class SuperviseSetup extends Component {
                       placeholder="请选择"
                       style={{ width: '100%' }}
                       onChange={e => this.getTqsj(e, 'tqsj2')}
-                      getPopupContainer={triggerNode => triggerNode.parentNode}
+                       getPopupContainer={()=>document.getElementById('form')}
                     >
                       {TqsjType &&
                         TqsjType.map(event => {
@@ -1544,7 +1553,7 @@ class SuperviseSetup extends Component {
                       labelInValue
                       placeholder="请选择"
                       style={{ width: '100%' }}
-                      getPopupContainer={triggerNode => triggerNode.parentNode}
+                       getPopupContainer={()=>document.getElementById('form')}
                     >
                       {TxryType &&
                         TxryType.length > 0 &&
@@ -1571,7 +1580,7 @@ class SuperviseSetup extends Component {
                       placeholder="请选择"
                       style={{ width: '100%' }}
                       onChange={e => this.getTqsj(e, 'tqsj1')}
-                      getPopupContainer={triggerNode => triggerNode.parentNode}
+                       getPopupContainer={()=>document.getElementById('form')}
                     >
                       {TqsjType &&
                         TqsjType.map(event => {

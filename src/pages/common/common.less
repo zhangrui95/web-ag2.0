@@ -20,6 +20,7 @@
 
   .cardArea {
     margin-top: 10px;
+    padding:10px 0;
     :global {
       .ant-table-thead > tr > th,
       .ant-table-tbody > tr > td {
@@ -131,4 +132,15 @@
 }
 .empty{
   background:@body-background!important;
+}
+.searchForm{
+  width: calc(~'100% - 250px');
+  float: left;
+  border-right: 1px solid @body-background;
+  overflow: hidden;
+}
+.search{
+  width: 260px;
+  float: left;
+  margin: 5px 0 0 12px;
 }
