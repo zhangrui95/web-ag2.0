@@ -209,6 +209,9 @@ body {
         color: @white;
       }
     }
+    .ant-table-tbody > tr:hover:not(.ant-table-expanded-row) > td {
+      background-color: @dropdown-selected-color !important;
+    }
     .ant-card {
       border-radius: @borderRadius;
       //overflow: hidden;
@@ -343,7 +346,11 @@ body {
       }
     }
     .ant-form{
-      padding:@borderRadius 2*@borderRadius;
+      padding:@zero 2*@borderRadius;
+      overflow: hidden;
+      .ant-form-item{
+        margin: 5px 0;
+      }
     }
     .ant-form-item-label > label{
       color: @white;
