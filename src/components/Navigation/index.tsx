@@ -112,7 +112,7 @@ const Navigation = props => {
         onEdit={onEdit}
       >
         {showTab.map((pane: NavigationItem) => (
-          <TabPane tab={pane.name} key={pane.key} closable={pane.key !== '/welcome'}></TabPane>
+          <TabPane tab={pane.name} key={pane.key} closable={pane.key !== '/ShowData/RegulatePanel'}></TabPane>
         ))}
       </Tabs>
       {/*{showTab.length > 3 ? (*/}

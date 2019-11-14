@@ -886,12 +886,12 @@ export default class Home2 extends PureComponent {
             <div>
                 <div className={styles.homeStyles}>
                     <Card
-                        title={<div className={styles.iconPerson}><img src="images/iconpreson.png"/><span>数据总览</span>
+                        title={<div className={styles.iconPerson}><img src="../../assets/menuimage/iconpreson.png"/><span>数据总览</span>
                         </div>}
                     >
                         <div className={styles.leftBox}>
                             <div style={{ width: '100%', height: '60px', marginBottom: '8px' }}>
-                                <img src="images/header.png" className={styles.header}/>
+                                <img src="../../assets/menuimage/iconpreson.png" className={styles.header}/>
                                 <div className={styles.personNews}>{getUserInfos().name} 警官，您好！</div>
                                 <span className={styles.timeLogin}>{this.state.newsTime}</span>
                             </div>
@@ -1033,7 +1033,7 @@ export default class Home2 extends PureComponent {
                             <Card
                                 title={
                                     <div className={styles.iconPerson}>
-                                        <img src="images/iconpreson.png"/>
+                                        <img src="../../assets/menuimage/iconpreson.png"/>
                                         <span>{this.state.tableTilte}</span>
                                     </div>
                                 }

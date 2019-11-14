@@ -7,10 +7,10 @@ import React, { PureComponent } from 'react';
 import { Card, Table, Radio, Tooltip, message, Tabs } from 'antd';
 import { connect } from 'dva';
 import moment from 'moment';
-import styles from '../../routes/ShowData/Show.less';
+import styles from '../../pages/ShowData/Show.less';
 import { Link } from 'dva/router';
 import { getUserInfos } from '../../utils/utils';
-import Ellipsis from '../../components/Ellipsis';
+// import Ellipsis from '../../components/Ellipsis';
 import { userAuthorityCode } from '../../utils/utils';
 import { authorityIsTrue } from '../../utils/authority';
 
@@ -270,8 +270,7 @@ export default class Statistics extends PureComponent {
             align: 'left',
             key: 'dw_name',
             render: (text, res) => <div className={styles.dwmcName} style={{ width: mainlineMenu ? '126px' : 'auto' }}
-                                        onClick={() => this.getNext(res.dw_code, this.state.rqType)}><Ellipsis tooltip
-                                                                                                               length={mainlineMenu ? 18 : 20}>{text}</Ellipsis>
+                                        onClick={() => this.getNext(res.dw_code, this.state.rqType)}>
             </div>,
         }, {
             title: '刑事案件',

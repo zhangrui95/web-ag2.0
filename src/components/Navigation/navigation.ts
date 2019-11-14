@@ -16,10 +16,10 @@ export interface NavigationProps {
 
 //控制刚进入页面导航的展示
 export let welcomeItem: NavigationItem = {
-  key: '/welcome',
+  key: '/ShowData/RegulatePanel',
   isShow: true,
   name: '首页',
-  path: '/welcome',
+  path: '/ShowData/RegulatePanel',
 }
 
 

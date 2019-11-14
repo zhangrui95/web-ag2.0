@@ -48,8 +48,7 @@ export function routes() {
                                     name: '警情预警',
                                     icon: 'smile',
                                     component: './receivePolice/AlarmWarning',
-                                },
-                              {
+                                },{
                                     path: '/receivePolice/AlarmPolice',
                                     name: '警情告警',
                                     icon: 'smile',

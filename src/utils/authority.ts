@@ -30,3 +30,32 @@ export function setAuthority(authority: string | string[]): void {
   // auto reload
   reloadAuthorized();
 }
+
+//通过权限编码查询权限列表获取是否有此权限，返回true或false
+export function authorityIsTrue(code) {
+  let isTrue = false;
+  const authoMenuList = sessionStorage.getItem('authoMenuList') && sessionStorage.getItem('authoMenuList') === 'undefined' ? [] : JSON.parse(sessionStorage.getItem('authoMenuList'));//权限列表
+  if (authoMenuList && authoMenuList.length > 0) {
+    for (let i = 0; i < authoMenuList.length; i++) {
+      let menu = authoMenuList[i];
+      if (menu.resourceCode === code) {
+        isTrue = true;
+      }
+    }
+  }
+  return isTrue;
+}
+
+export function checkAuthorityByName(name) {
+  let isTrue = false;
+  const authoMenuList = sessionStorage.getItem('authoMenuList') && sessionStorage.getItem('authoMenuList') === 'undefined' ? [] : JSON.parse(sessionStorage.getItem('authoMenuList'));//权限列表
+  if (authoMenuList && authoMenuList.length > 0) {
+    for (let i = 0; i < authoMenuList.length; i++) {
+      let menu = authoMenuList[i];
+      if (menu.name === name) {
+        isTrue = true;
+      }
+    }
+  }
+  return isTrue;
+}

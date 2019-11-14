@@ -6,7 +6,7 @@
 import React, { PureComponent } from 'react';
 import { Col, Row, Card, Form, TreeSelect, Select, Spin, Button, Table, Tabs, DatePicker } from 'antd';
 import { connect } from 'dva';
-import styles from '../../routes/ShowData/Show.less';
+import styles from '../../pages/ShowData/Show.less';
 
 const TabPane = Tabs.TabPane;
 const FormItem = Form.Item;

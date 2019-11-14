@@ -1,0 +1,1858 @@
+[
+  {
+    "value": "01000000",
+    "label": "刑事案件",
+    "searchValue": "xsaj01000000刑事案件",
+    "children": [
+      {
+        "value": "01010000",
+        "label": "盗窃",
+        "searchValue": "dq01010000盗窃",
+        "children": [
+          {
+            "value": "01010100",
+            "label": "入室盗窃",
+            "searchValue": "rsdq01010100入室盗窃",
+            "children": [
+              {
+                "value": "01010102",
+                "label": "盗窃民宅",
+                "searchValue": "dqdw01010102盗窃民宅"
+              },
+              {
+                "value": "01010101",
+                "label": "盗窃单位",
+                "searchValue": "dqmz01010101盗窃单位"
+              },
+              {
+                "value": "01010103",
+                "label": "盗窃商店",
+                "searchValue": "dqsd01010103盗窃商店"
+              },
+              {
+                "value": "01010104",
+                "label": "盗窃保险柜",
+                "searchValue": "dqbxg01010104盗窃保险柜"
+              },
+              {
+                "value": "01010190",
+                "label": "其他入室盗窃",
+                "searchValue": "qtrsdq01010190其他入室盗窃"
+              }
+            ]
+          },
+          {
+            "value": "01010200",
+            "label": "绺窃",
+            "searchValue": "0lq1010200绺窃",
+            "children": [
+              {
+                "value": "01010201",
+                "label": "扒窃",
+                "searchValue": "bq01010201扒窃"
+              },
+              {
+                "value": "01010202",
+                "label": "拎包",
+                "searchValue": "lb01010202拎包"
+              },
+              {
+                "value": "01010203",
+                "label": "割包",
+                "searchValue": "gb01010203割包"
+              },
+              {
+                "value": "01010204",
+                "label": "其他绺窃",
+                "searchValue": "qtlq01010204其他绺窃"
+              }
+            ]
+          },
+          {
+            "value": "01010300",
+            "label": "盗窃车内财物",
+            "searchValue": "dqcncw01010300盗窃车内财物",
+            "children": [
+              {
+                "value": "01010301",
+                "label": "盗窃轿车车内财物",
+                "searchValue": "dqjccncw01010301盗窃轿车车内财物"
+              },
+              {
+                "value": "01010302",
+                "label": "盗窃面包车车内财物",
+                "searchValue": "dqmbccncw01010302盗窃面包车车内财物"
+              },
+              {
+                "value": "01010303",
+                "label": "盗窃货车车内财物",
+                "searchValue": "dqhccncw01010303盗窃货车车内财物"
+              },
+              {
+                "value": "01010304",
+                "label": "其他盗窃车内财物",
+                "searchValue": "qtdqcncw01010304其他盗窃车内财物"
+              }
+            ]
+          },
+          {
+            "value": "01010400",
+            "label": "盗窃机动车",
+            "searchValue": "dqjdc01010400盗窃机动车",
+            "children": [
+              {
+                "value": "01010401",
+                "label": "盗窃汽车",
+                "searchValue": "dqqc01010401盗窃汽车"
+              },
+              {
+                "value": "01010402",
+                "label": "盗窃摩托车",
+                "searchValue": "dqmtc01010402盗窃摩托车"
+              },
+              {
+                "value": "01010403",
+                "label": "盗窃燃油助力车",
+                "searchValue": "dqryzlc01010403盗窃燃油助力车"
+              }
+            ]
+          },
+          {
+            "value": "01010500",
+            "label": "盗窃非机动车",
+            "searchValue": "dqfjdc01010500盗窃非机动车",
+            "children": [
+              {
+                "value": "01010501",
+                "label": "盗窃自行车",
+                "searchValue": "dqzxc01010501盗窃自行车"
+              },
+              {
+                "value": "01010502",
+                "label": "盗窃电动车",
+                "searchValue": "dqddc01010502盗窃电动车"
+              }
+            ]
+          },
+          {
+            "value": "01010600",
+            "label": "盗窃通信、电力设施",
+            "searchValue": "dqtxdlss01010600盗窃通信、电力设施"
+          },
+          {
+            "value": "01010700",
+            "label": "盗取储户存款",
+            "searchValue": "dqchck01010700盗取储户存款"
+          },
+          {
+            "value": "01010800",
+            "label": "盗窃牲畜",
+            "searchValue": "dqsx01010800盗窃牲畜"
+          },
+          {
+            "value": "01019000",
+            "label": "其他盗窃",
+            "searchValue": "qtdq01019000其他盗窃"
+          }
+        ]
+      },
+      {
+        "value": "01020000",
+        "label": "抢劫",
+        "searchValue": "qj01020000抢劫",
+        "children": [
+          {
+            "value": "01020100",
+            "label": "入室抢劫",
+            "searchValue": "rsqj01020100入室抢劫"
+          },
+          {
+            "value": "01020200",
+            "label": "拦路抢劫",
+            "searchValue": "llqj01020200拦路抢劫",
+            "children": [
+              {
+                "value": "01020201",
+                "label": "持枪抢劫",
+                "searchValue": "cqqj01020201持枪抢劫"
+              },
+              {
+                "value": "01020202",
+                "label": "持械抢劫",
+                "searchValue": "cxqj01020202持械抢劫"
+              },
+              {
+                "value": "01020203",
+                "label": "持刀抢劫",
+                "searchValue": "cdqj01020203持刀抢劫"
+              },
+              {
+                "value": "01020204",
+                "label": "徒步抢劫",
+                "searchValue": "tbqj01020204徒步抢劫"
+              },
+              {
+                "value": "01020205",
+                "label": "飞车抢劫",
+                "searchValue": "fcqj01020205飞车抢劫"
+              }
+            ]
+          },
+          {
+            "value": "01020300",
+            "label": "麻醉抢劫",
+            "searchValue": "mzqj01020300麻醉抢劫"
+          },
+          {
+            "value": "01020400",
+            "label": "在公共交通工具上抢劫",
+            "searchValue": "zggjtgjsqj01020400在公共交通工具上抢劫"
+          },
+          {
+            "value": "01020500",
+            "label": "抢劫银行或其它金融机构",
+            "searchValue": "qjyxhqtjrjg01020500抢劫银行或其它金融机构"
+          },
+          {
+            "value": "01020600",
+            "label": "抢劫珠宝店",
+            "searchValue": "qjzbd01020600抢劫珠宝店"
+          },
+          {
+            "value": "01020700",
+            "label": "抢劫枪支弹药",
+            "searchValue": "qjqzdy01020700抢劫枪支弹药"
+          },
+          {
+            "value": "01020800",
+            "label": "抢劫提（送）款员",
+            "searchValue": "qjtsky01020800抢劫提（送）款员"
+          },
+          {
+            "value": "01020900",
+            "label": "抢劫运钞车",
+            "searchValue": "qjycc01020900抢劫运钞车"
+          },
+          {
+            "value": "01021000",
+            "label": "抢劫机动车",
+            "searchValue": "qjjdc01021000抢劫机动车",
+            "children": [
+              {
+                "value": "01021001",
+                "label": "抢劫出租车",
+                "searchValue": "qjczc01021001抢劫出租车"
+              },
+              {
+                "value": "01021002",
+                "label": "抢劫出租车司机钱财",
+                "searchValue": "qjczcsjqc01021002抢劫出租车司机钱财"
+              },
+              {
+                "value": "01021003",
+                "label": "抢劫摩托车",
+                "searchValue": "qjmtc01021003抢劫摩托车"
+              },
+              {
+                "value": "01021004",
+                "label": "抢劫其他车辆",
+                "searchValue": "qjqtcl01021004抢劫其他车辆"
+              }
+            ]
+          },
+          {
+            "value": "01021100",
+            "label": "抢劫非机动车",
+            "searchValue": "qjfjdc01021100抢劫非机动车",
+            "children": [
+              {
+                "value": "01021101",
+                "label": "抢劫电动车",
+                "searchValue": "qjddc01021101抢劫电动车"
+              },
+              {
+                "value": "01021102",
+                "label": "抢劫自行车",
+                "searchValue": "qjzxc01021102抢劫自行车"
+              }
+            ]
+          },
+          {
+            "value": "01021200",
+            "label": "抢劫牲畜",
+            "searchValue": "qjsx01021200抢劫牲畜"
+          },
+          {
+            "value": "01021300",
+            "label": "抢劫加油站",
+            "searchValue": "qjjyz01021300抢劫加油站"
+          },
+          {
+            "value": "01029000",
+            "label": "其他抢劫",
+            "searchValue": "qtqj01029000其他抢劫"
+          }
+        ]
+      },
+      {
+        "value": "01030000",
+        "label": "抢夺",
+        "searchValue": "qd01030000抢夺",
+        "children": [
+          {
+            "value": "01030100",
+            "label": "驾汽车抢夺",
+            "searchValue": "jqcqd01030100驾汽车抢夺"
+          },
+          {
+            "value": "01030200",
+            "label": "飞车抢夺",
+            "searchValue": "fcqd01030200飞车抢夺",
+            "children": [
+              {
+                "value": "01030201",
+                "label": "驾摩托车抢夺",
+                "searchValue": "jmtcqd01030201驾摩托车抢夺"
+              },
+              {
+                "value": "01030202",
+                "label": "驾电动车抢夺",
+                "searchValue": "jddcqd01030202驾电动车抢夺"
+              },
+              {
+                "value": "01030203",
+                "label": "驾自行车抢夺",
+                "searchValue": "jzxcqd01030203驾自行车抢夺"
+              }
+            ]
+          },
+          {
+            "value": "01030300",
+            "label": "徒步抢夺",
+            "searchValue": "tbqd01030300徒步抢夺"
+          },
+          {
+            "value": "01039000",
+            "label": "其他抢夺",
+            "searchValue": "qtqd01039000其他抢夺"
+          }
+        ]
+      },
+      {
+        "value": "01040000",
+        "label": "诈骗",
+        "searchValue": "zp01040000诈骗",
+        "children": [
+          {
+            "value": "01040100",
+            "label": "街头诈骗",
+            "searchValue": "jtzp01040100街头诈骗",
+            "children": [
+              {
+                "value": "01040101",
+                "label": "调包诈骗",
+                "searchValue": "dbzp01040101调包诈骗"
+              },
+              {
+                "value": "01040102",
+                "label": "设摊诈骗",
+                "searchValue": "stzp01040102设摊诈骗"
+              },
+              {
+                "value": "01040103",
+                "label": "假币假券",
+                "searchValue": "jbjq01040103假币假券"
+              },
+              {
+                "value": "01040104",
+                "label": "碰瓷诈骗",
+                "searchValue": "pczp01040104碰瓷诈骗"
+              },
+              {
+                "value": "01040105",
+                "label": "迷信诈骗",
+                "searchValue": "mxzp01040105迷信诈骗"
+              },
+              {
+                "value": "01040106",
+                "label": "招工诈骗",
+                "searchValue": "zgzp01040106招工诈骗"
+              },
+              {
+                "value": "01040107",
+                "label": "拾物平分诈骗",
+                "searchValue": "swpfzp01040107拾物平分诈骗"
+              },
+              {
+                "value": "01040190",
+                "label": "其他街头诈骗",
+                "searchValue": "qtjtzp01040190其他街头诈骗"
+              }
+            ]
+          },
+          {
+            "value": "01040200",
+            "label": "网络诈骗",
+            "searchValue": "wlzp01040200网络诈骗",
+            "children": [
+              {
+                "value": "01040201",
+                "label": "中奖诈骗",
+                "searchValue": "zjzp01040201中奖诈骗"
+              },
+              {
+                "value": "01040290",
+                "label": "其他网络诈骗",
+                "searchValue": "qtwlzp01040290其他网络诈骗"
+              }
+            ]
+          },
+          {
+            "value": "01040300",
+            "label": "短信诈骗",
+            "searchValue": "dxzp01040300短信诈骗"
+          },
+          {
+            "value": "01040400",
+            "label": "电话诈骗",
+            "searchValue": "dhzp01040400电话诈骗"
+          },
+          {
+            "value": "01040500",
+            "label": "邮购诈骗",
+            "searchValue": "ygzp01040500邮购诈骗"
+          },
+          {
+            "value": "01040600",
+            "label": "经济诈骗",
+            "searchValue": "jjzp01040600经济诈骗"
+          },
+          {
+            "value": "01040700",
+            "label": "信用卡诈骗",
+            "searchValue": "xykzp01040700信用卡诈骗"
+          },
+          {
+            "value": "01049000",
+            "label": "其他诈骗",
+            "searchValue": "qtzp01049000其他诈骗"
+          }
+        ]
+      },
+      {
+        "value": "01050000",
+        "label": "敲诈勒索",
+        "searchValue": "qzls01050000敲诈勒索"
+      },
+      {
+        "value": "01060000",
+        "label": "伤害",
+        "searchValue": "sh01060000伤害",
+        "children": [
+          {
+            "value": "01060100",
+            "label": "伤害致死",
+            "searchValue": "shzs01060100伤害致死"
+          },
+          {
+            "value": "01060200",
+            "label": "伤害致伤",
+            "searchValue": "shzs01060200伤害致伤"
+          }
+        ]
+      },
+      {
+        "value": "01070000",
+        "label": "杀人",
+        "searchValue": "sr01070000杀人"
+      },
+      {
+        "value": "01080000",
+        "label": "强奸",
+        "searchValue": "qj01080000强奸"
+      },
+      {
+        "value": "01090000",
+        "label": "涉毒案件",
+        "searchValue": "sdaj01090000涉毒案件",
+        "children": [
+          {
+            "value": "01090100",
+            "label": "制毒",
+            "searchValue": "zd01090100制毒"
+          },
+          {
+            "value": "01090200",
+            "label": "贩毒",
+            "searchValue": "fd01090200贩毒"
+          },
+          {
+            "value": "01090300",
+            "label": "提供毒品",
+            "searchValue": "tgdp01090300提供毒品"
+          },
+          {
+            "value": "01099000",
+            "label": "其他涉毒案件",
+            "searchValue": "qtsdaj01099000其他涉毒案件"
+          }
+        ]
+      },
+      {
+        "value": "01100000",
+        "label": "劫持",
+        "searchValue": "jc01100000劫持",
+        "children": [
+          {
+            "value": "01100100",
+            "label": "劫持航空器",
+            "searchValue": "jchkq01100100劫持航空器"
+          },
+          {
+            "value": "01100200",
+            "label": "劫持船只",
+            "searchValue": "jccz01100200劫持船只"
+          },
+          {
+            "value": "01100300",
+            "label": "劫持汽车",
+            "searchValue": "jcqc01100300劫持汽车"
+          },
+          {
+            "value": "01100400",
+            "label": "劫持人质",
+            "searchValue": "jcrz01100400劫持人质"
+          },
+          {
+            "value": "01109000",
+            "label": "其他劫持",
+            "searchValue": "qtjc01109000其他劫持"
+          }
+        ]
+      },
+      {
+        "value": "01110000",
+        "label": "绑架",
+        "searchValue": "bj01110000绑架"
+      },
+      {
+        "value": "01120000",
+        "label": "拐卖妇女儿童",
+        "searchValue": "gmfnet01120000拐卖妇女儿童"
+      },
+      {
+        "value": "01130000",
+        "label": "赌博",
+        "searchValue": "db01130000赌博"
+      },
+      {
+        "value": "01140000",
+        "label": "寻衅滋事",
+        "searchValue": "xxzs01140000寻衅滋事"
+      },
+      {
+        "value": "01150000",
+        "label": "走私",
+        "searchValue": "zs01150000走私"
+      },
+      {
+        "value": "01160000",
+        "label": "非法拘禁",
+        "searchValue": "ffjj01160000非法拘禁"
+      },
+      {
+        "value": "01170000",
+        "label": "纵火",
+        "searchValue": "zh01170000纵火"
+      },
+      {
+        "value": "01180000",
+        "label": "爆炸",
+        "searchValue": "bz01180000爆炸"
+      },
+      {
+        "value": "01190000",
+        "label": "投放危险物质",
+        "searchValue": "tfwxwz01190000投放危险物质"
+      },
+      {
+        "value": "01200000",
+        "label": "非法制售枪支弹药",
+        "searchValue": "ffzsqzdy01200000非法制售枪支弹药"
+      },
+      {
+        "value": "01210000",
+        "label": "非法制售爆炸物品",
+        "searchValue": "ffzsbzwp01210000非法制售爆炸物品"
+      },
+      {
+        "value": "01220000",
+        "label": "危害国家安全",
+        "searchValue": "whgjaq01220000危害国家安全"
+      },
+      {
+        "value": "01230000",
+        "label": "恐怖活动",
+        "searchValue": "kbhd01230000恐怖活动"
+      },
+      {
+        "value": "01900000",
+        "label": "其他刑事警情",
+        "searchValue": "qtxsjq01900000其他刑事警情"
+      }
+    ]
+  },
+  {
+    "value": "02000000",
+    "label": "治安案件",
+    "searchValue": "zaaj02000000治安案件",
+    "children": [
+      {
+        "value": "02010000",
+        "label": "盗窃",
+        "searchValue": "dq02010000盗窃",
+        "children": [
+          {
+            "value": "02010100",
+            "label": "盗窃机动车",
+            "searchValue": "dqjdc02010100盗窃机动车",
+            "children": [
+              {
+                "value": "02010101",
+                "label": "盗窃摩托车",
+                "searchValue": "dqmtc02010102盗窃摩托车"
+              },
+              {
+                "value": "02010102",
+                "label": "盗窃燃油助力车",
+                "searchValue": "dqryzlc02010101盗窃燃油助力车"
+              }
+            ]
+          },
+          {
+            "value": "02010200",
+            "label": "盗窃非机动车",
+            "searchValue": "dqfjdc02010200盗窃非机动车",
+            "children": [
+              {
+                "value": "02010201",
+                "label": "盗窃自行车",
+                "searchValue": "dqzxc02010201盗窃自行车"
+              },
+              {
+                "value": "02010202",
+                "label": "盗窃电动车",
+                "searchValue": "dqddc02010202盗窃电动车"
+              }
+            ]
+          },
+          {
+            "value": "02010300",
+            "label": "盗窃少量财物",
+            "searchValue": "dqslcw02010300盗窃少量财物",
+            "children": [
+              {
+                "value": "02010301",
+                "label": "民宅",
+                "searchValue": "mz02010301民宅"
+              },
+              {
+                "value": "02010302",
+                "label": "单位商店",
+                "searchValue": "dwsd02010302单位商店"
+              },
+              {
+                "value": "02010303",
+                "label": "公交长途绺窃",
+                "searchValue": "gjctlq02010303公交长途绺窃"
+              },
+              {
+                "value": "02010304",
+                "label": "商场街面绺窃",
+                "searchValue": "scjmlq02010304商场街面绺窃"
+              },
+              {
+                "value": "02010390",
+                "label": "其他场所偷窃",
+                "searchValue": "qtcstq02010390其他场所偷窃"
+              }
+            ]
+          },
+          {
+            "value": "02010400",
+            "label": "盗窃车内财物",
+            "searchValue": "dqcncw02010400盗窃车内财物"
+          },
+          {
+            "value": "02010500",
+            "label": "现行抓获",
+            "searchValue": "xxzh02010500现行抓获"
+          },
+          {
+            "value": "02010600",
+            "label": "盗取储户存款",
+            "searchValue": "dqchck02010600盗取储户存款"
+          },
+          {
+            "value": "02019000",
+            "label": "盗窃其他物品",
+            "searchValue": "dqqtwp02019000盗窃其他物品"
+          }
+        ]
+      },
+      {
+        "value": "02020000",
+        "label": "抢夺",
+        "searchValue": "qd02020000抢夺",
+        "children": [
+          {
+            "value": "02020100",
+            "label": "驾汽车抢夺",
+            "searchValue": "jqcqd02020100驾汽车抢夺"
+          },
+          {
+            "value": "02020200",
+            "label": "飞车抢夺",
+            "searchValue": "fcqd02020200飞车抢夺",
+            "children": [
+              {
+                "value": "02020201",
+                "label": "驾摩托车抢夺",
+                "searchValue": "jmtcqd02020201驾摩托车抢夺"
+              },
+              {
+                "value": "02020202",
+                "label": "驾电动车抢夺",
+                "searchValue": "jddcqd02020202驾电动车抢夺"
+              },
+              {
+                "value": "02020203",
+                "label": "驾自行车抢夺",
+                "searchValue": "jzxcqd02020203驾自行车抢夺"
+              }
+            ]
+          },
+          {
+            "value": "02020300",
+            "label": "徒步抢夺",
+            "searchValue": "tbqd02020300徒步抢夺"
+          },
+          {
+            "value": "02029000",
+            "label": "其他抢夺",
+            "searchValue": "qtqd02029000其他抢夺"
+          }
+        ]
+      },
+      {
+        "value": "02030000",
+        "label": "打架斗殴",
+        "searchValue": "djdo02030000打架斗殴"
+      },
+      {
+        "value": "02040000",
+        "label": "赌博",
+        "searchValue": "db02040000赌博"
+      },
+      {
+        "value": "02050000",
+        "label": "卖淫嫖娼",
+        "searchValue": "mypc02050000卖淫嫖娼"
+      },
+      {
+        "value": "02060000",
+        "label": "诈骗",
+        "searchValue": "zp02060000诈骗",
+        "children": [
+          {
+            "value": "02060100",
+            "label": "街头诈骗",
+            "searchValue": "jtzp02060100街头诈骗",
+            "children": [
+              {
+                "value": "02060101",
+                "label": "调包诈骗",
+                "searchValue": "dbzp02060101调包诈骗"
+              },
+              {
+                "value": "02060102",
+                "label": "设摊诈骗",
+                "searchValue": "stzp02060102设摊诈骗"
+              },
+              {
+                "value": "02060103",
+                "label": "假币假券",
+                "searchValue": "jbjq02060103假币假券"
+              },
+              {
+                "value": "02060104",
+                "label": "碰瓷诈骗",
+                "searchValue": "pczp02060104碰瓷诈骗"
+              },
+              {
+                "value": "02060105",
+                "label": "迷信诈骗",
+                "searchValue": "mxzp02060105迷信诈骗"
+              },
+              {
+                "value": "02060106",
+                "label": "招工诈骗",
+                "searchValue": "zgzp02060106招工诈骗"
+              },
+              {
+                "value": "02060107",
+                "label": "拾物平分诈骗",
+                "searchValue": "swpfzp02060107拾物平分诈骗"
+              },
+              {
+                "value": "02060190",
+                "label": "其他街头诈骗",
+                "searchValue": "qtjtzp02060190其他街头诈骗"
+              }
+            ]
+          },
+          {
+            "value": "02060200",
+            "label": "网络诈骗",
+            "searchValue": "wlzp02060200网络诈骗",
+            "children": [
+              {
+                "value": "02060201",
+                "label": "中奖诈骗",
+                "searchValue": "zjzp02060201中奖诈骗"
+              },
+              {
+                "value": "02060290",
+                "label": "其他网络诈骗",
+                "searchValue": "qtwlzp02060290其他网络诈骗"
+              }
+            ]
+          },
+          {
+            "value": "02060300",
+            "label": "短信诈骗",
+            "searchValue": "dxzp02060300短信诈骗"
+          },
+          {
+            "value": "02060400",
+            "label": "电话诈骗",
+            "searchValue": "dhzp02060400电话诈骗"
+          },
+          {
+            "value": "02060500",
+            "label": "邮购诈骗",
+            "searchValue": "ygzp02060500邮购诈骗"
+          },
+          {
+            "value": "02060600",
+            "label": "经济诈骗",
+            "searchValue": "jjzp02060600经济诈骗"
+          },
+          {
+            "value": "02060700",
+            "label": "信用卡诈骗",
+            "searchValue": "xykzp02060700信用卡诈骗"
+          },
+          {
+            "value": "02069000",
+            "label": "其他诈骗",
+            "searchValue": "qtzp02069000其他诈骗"
+          }
+        ]
+      },
+      {
+        "value": "02070000",
+        "label": "家庭暴力",
+        "searchValue": "jtbl02070000家庭暴力",
+        "children": [
+          {
+            "value": "02070100",
+            "label": "夫妻施暴",
+            "searchValue": "fqsb02070100夫妻施暴"
+          },
+          {
+            "value": "02070200",
+            "label": "对老人施暴",
+            "searchValue": "dlrsb02070200对老人施暴"
+          },
+          {
+            "value": "02070300",
+            "label": "对儿童施暴",
+            "searchValue": "detsb02070300对儿童施暴"
+          },
+          {
+            "value": "02079000",
+            "label": "对其他家庭成员施暴",
+            "searchValue": "dqtjtcysb02079000对其他家庭成员施暴"
+          }
+        ]
+      },
+      {
+        "value": "02080000",
+        "label": "哄抢",
+        "searchValue": "hq02080000哄抢"
+      },
+      {
+        "value": "02090000",
+        "label": "寻衅滋事",
+        "searchValue": "xxzs02090000寻衅滋事"
+      },
+      {
+        "value": "02100000",
+        "label": "强迫交易",
+        "searchValue": "qpjy02100000强迫交易"
+      },
+      {
+        "value": "02110000",
+        "label": "敲诈勒索",
+        "searchValue": "qzls02110000敲诈勒索"
+      },
+      {
+        "value": "02120000",
+        "label": "损毁公私财物",
+        "searchValue": "shgscw02120000损毁公私财物"
+      },
+      {
+        "value": "02130000",
+        "label": "非法限制人身自由",
+        "searchValue": "ffxzrszy02130000非法限制人身自由"
+      },
+      {
+        "value": "02140000",
+        "label": "非法侵入住宅",
+        "searchValue": "ffqrzz02140000非法侵入住宅"
+      },
+      {
+        "value": "02150000",
+        "label": "强行乞讨",
+        "searchValue": "qxqt02150000强行乞讨"
+      },
+      {
+        "value": "02160000",
+        "label": "动物扰民",
+        "searchValue": "dwrm02160000动物扰民"
+      },
+      {
+        "value": "02170000",
+        "label": "违反危险物品管理",
+        "searchValue": "wfwxwpgl02170000违反危险物品管理",
+        "children": [
+          {
+            "value": "02170100",
+            "label": "违反烟花爆竹管理规定",
+            "searchValue": "wfyhbzglgd02170100违反烟花爆竹管理规定"
+          },
+          {
+            "value": "02179000",
+            "label": "其他违反危险物品管理规定",
+            "searchValue": "qtwfwxwpglgd02179000其他违反危险物品管理规定"
+          }
+        ]
+      },
+      {
+        "value": "02180000",
+        "label": "吸食注射毒品",
+        "searchValue": "xszsdp02180000吸食注射毒品"
+      },
+      {
+        "value": "02190000",
+        "label": "妨害社会管理",
+        "searchValue": "fhshgl02190000妨害社会管理",
+        "children": [
+          {
+            "value": "02190100",
+            "label": "阻碍执行职务",
+            "searchValue": "zazxzw02190100阻碍执行职务"
+          },
+          {
+            "value": "02190200",
+            "label": "谎报警情",
+            "searchValue": "hbjq02190200谎报警情"
+          },
+          {
+            "value": "02199000",
+            "label": "其他妨害社会管理",
+            "searchValue": "qtfhshgl02199000其他妨害社会管理"
+          }
+        ]
+      },
+      {
+        "value": "02200000",
+        "label": "扰乱公共秩序",
+        "searchValue": "rlggzxh02200000扰乱公共秩序",
+        "children": [
+          {
+            "value": "02200100",
+            "label": "扰乱企事业单位秩序",
+            "searchValue": "rlqsydwzx02200100扰乱企事业单位秩序"
+          },
+          {
+            "value": "02200200",
+            "label": "扰乱公共场所秩序",
+            "searchValue": "rlggcszx02200200扰乱公共场所秩序"
+          },
+          {
+            "value": "02200300",
+            "label": "扰乱公共交通工具上的秩序",
+            "searchValue": "rlggjtgjsdzx02200300扰乱公共交通工具上的秩序"
+          },
+          {
+            "value": "02200400",
+            "label": "谎报险情、虚构事实扰乱公共秩序",
+            "searchValue": "hbxqxgssrlggzx02200400谎报险情、虚构事实扰乱公共秩序"
+          },
+          {
+            "value": "02200500",
+            "label": "扬言放火、爆炸、投放危险物质",
+            "searchValue": "yyfhbztfwxwz02200500扬言放火、爆炸、投放危险物质"
+          },
+          {
+            "value": "02200600",
+            "label": "诉求要挟",
+            "searchValue": "sqyx02200600诉求要挟"
+          },
+          {
+            "value": "02209000",
+            "label": "其他扰乱公共秩序",
+            "searchValue": "qtrlggzx02209000其他扰乱公共秩序"
+          }
+        ]
+      },
+      {
+        "value": "02900000",
+        "label": "其他治安警情",
+        "searchValue": "qtzajq02900000其他治安警情"
+      }
+    ]
+  },
+  {
+    "value": "03000000",
+    "label": "群众求助",
+    "searchValue": "qzqz03000000群众求助",
+    "children": [
+      {
+        "value": "03010000",
+        "label": "纠纷",
+        "searchValue": "jf03010000纠纷",
+        "children": [
+          {
+            "value": "03010100",
+            "label": "征地拆迁纠纷",
+            "searchValue": "zdcqjf03010100征地拆迁纠纷"
+          },
+          {
+            "value": "03010200",
+            "label": "交通纠纷",
+            "searchValue": "jtjf03010200交通纠纷"
+          },
+          {
+            "value": "03010300",
+            "label": "家庭纠纷",
+            "searchValue": "jtjf03010300家庭纠纷"
+          },
+          {
+            "value": "03010400",
+            "label": "邻里纠纷",
+            "searchValue": "lljf03010400邻里纠纷"
+          },
+          {
+            "value": "03010500",
+            "label": "婚恋纠纷",
+            "searchValue": "hljf03010500婚恋纠纷"
+          },
+          {
+            "value": "03010600",
+            "label": "消费纠纷",
+            "searchValue": "xfjf03010600消费纠纷"
+          },
+          {
+            "value": "03010700",
+            "label": "假币纠纷",
+            "searchValue": "jbjf03010700假币纠纷"
+          },
+          {
+            "value": "03010800",
+            "label": "经济纠纷",
+            "searchValue": "jjjf03010800经济纠纷"
+          },
+          {
+            "value": "03019000",
+            "label": "其它纠纷",
+            "searchValue": "qtjf03019000其它纠纷"
+          }
+        ]
+      },
+      {
+        "value": "03020000",
+        "label": "迷途人员",
+        "searchValue": "mtry03020000迷途人员"
+      },
+      {
+        "value": "03030000",
+        "label": "失踪人员",
+        "searchValue": "szry03030000失踪人员"
+      },
+      {
+        "value": "03040000",
+        "label": "寻物",
+        "searchValue": "xw03040000寻物"
+      },
+      {
+        "value": "03050000",
+        "label": "开锁",
+        "searchValue": "ks03050000开锁"
+      },
+      {
+        "value": "03060000",
+        "label": "溺水求助",
+        "searchValue": "nsqz03060000溺水求助"
+      },
+      {
+        "value": "03070000",
+        "label": "坠楼求助",
+        "searchValue": "zlqz03070000坠楼求助"
+      },
+      {
+        "value": "03080000",
+        "label": "自杀求助",
+        "searchValue": "zsqz03080000自杀求助"
+      },
+      {
+        "value": "03090000",
+        "label": "路倒求助",
+        "searchValue": "ldqz03090000路倒求助"
+      },
+      {
+        "value": "03100000",
+        "label": "醉酒求助",
+        "searchValue": "zjqz03100000醉酒求助"
+      },
+      {
+        "value": "03110000",
+        "label": "食物中毒",
+        "searchValue": "swzd03110000食物中毒"
+      },
+      {
+        "value": "03120000",
+        "label": "煤气中毒",
+        "searchValue": "mqzd03120000煤气中毒"
+      },
+      {
+        "value": "03130000",
+        "label": "危急病人求助",
+        "searchValue": "wjbrqz03130000危急病人求助"
+      },
+      {
+        "value": "03140000",
+        "label": "发现尸体",
+        "searchValue": "fxst03140000发现尸体"
+      },
+      {
+        "value": "03150000",
+        "label": "弃婴",
+        "searchValue": "qy03150000弃婴"
+      },
+      {
+        "value": "03160000",
+        "label": "精神病人闹事",
+        "searchValue": "jsbrns03160000精神病人闹事"
+      },
+      {
+        "value": "03170000",
+        "label": "抢险救灾",
+        "searchValue": "qxjz03170000抢险救灾"
+      },
+      {
+        "value": "03180000",
+        "label": "噪声扰民求助",
+        "searchValue": "zsrmqz03180000噪声扰民求助"
+      },
+      {
+        "value": "03190000",
+        "label": "炭烧扰民求助",
+        "searchValue": "tsrmqz03190000炭烧扰民求助"
+      },
+      {
+        "value": "03900000",
+        "label": "其它群众求助",
+        "searchValue": "qtqzqz03900000其它群众求助"
+      }
+    ]
+  },
+  {
+    "value": "04000000",
+    "label": "交通类警情",
+    "searchValue": "jtljq04000000交通类警情",
+    "children": [
+      {
+        "value": "04010000",
+        "label": "道路交通事故",
+        "searchValue": "dljtsg04010000道路交通事故",
+        "children": [
+          {
+            "value": "04010100",
+            "label": "机动车与机动车",
+            "searchValue": "jdcyjdc04010100机动车与机动车"
+          },
+          {
+            "value": "04010200",
+            "label": "机动车与非机动车",
+            "searchValue": "jdcyfjdc04010200机动车与非机动车"
+          },
+          {
+            "value": "04010300",
+            "label": "机动车与行人",
+            "searchValue": "jdcyxr04010300机动车与行人"
+          },
+          {
+            "value": "04010400",
+            "label": "非机动车与非机动车",
+            "searchValue": "fjdcyfjdc04010400非机动车与非机动车"
+          },
+          {
+            "value": "04010500",
+            "label": "非机动车与行人",
+            "searchValue": "fjdcyxr04010500非机动车与行人"
+          },
+          {
+            "value": "04010600",
+            "label": "单方事故",
+            "searchValue": "dfsg04010600单方事故"
+          },
+          {
+            "value": "04010700",
+            "label": "机动车与动物",
+            "searchValue": "jdcydw04010700机动车与动物"
+          },
+          {
+            "value": "04010800",
+            "label": "交通肇事逃逸",
+            "searchValue": "jtzsty04010800交通肇事逃逸"
+          },
+          {
+            "value": "04019000",
+            "label": "其他道路交通事故",
+            "searchValue": "qtdljtsg04019000其他道路交通事故"
+          }
+        ]
+      },
+      {
+        "value": "04020000",
+        "label": "非道路交通事故",
+        "searchValue": "fdljtsg04020000非道路交通事故"
+      },
+      {
+        "value": "04030000",
+        "label": "水上交通事故",
+        "searchValue": "ssjtsg04030000水上交通事故"
+      },
+      {
+        "value": "04040000",
+        "label": "交通求助",
+        "searchValue": "jtqz04040000交通求助"
+      },
+      {
+        "value": "04050000",
+        "label": "交通违法",
+        "searchValue": "jtwf04050000交通违法",
+        "children": [
+          {
+            "value": "04050100",
+            "label": "机动车违法",
+            "searchValue": "jdcwf04050100机动车违法"
+          },
+          {
+            "value": "04050200",
+            "label": "非机动车违法",
+            "searchValue": "fjdcwf04050200非机动车违法"
+          },
+          {
+            "value": "04050300",
+            "label": "行人和乘车人违法",
+            "searchValue": "xrhccrwf04050300行人和乘车人违法"
+          },
+          {
+            "value": "04050400",
+            "label": "高速公路上违法行为",
+            "searchValue": "gsglswfxw04050400高速公路上违法行为"
+          },
+          {
+            "value": "04050500",
+            "label": "快速路上违法行为",
+            "searchValue": "kslswfxw04050500快速路上违法行为"
+          },
+          {
+            "value": "04050600",
+            "label": "套牌套证",
+            "searchValue": "tptz04050600套牌套证"
+          },
+          {
+            "value": "04050700",
+            "label": "假牌假证",
+            "searchValue": "jpjz04050700假牌假证"
+          },
+          {
+            "value": "04059000",
+            "label": "其他交通违法",
+            "searchValue": "qtjtwf04059000其他交通违法"
+          }
+        ]
+      },
+      {
+        "value": "04060000",
+        "label": "交通设施损坏",
+        "searchValue": "jtsssh04060000交通设施损坏"
+      },
+      {
+        "value": "04070000",
+        "label": "交通秩序",
+        "searchValue": "jtzx4070000交通秩序"
+      },
+      {
+        "value": "04900000",
+        "label": "其他交通警情",
+        "searchValue": "qtjtjq04900000其他交通警情"
+      }
+    ]
+  },
+  {
+    "value": "05000000",
+    "label": "火灾事故",
+    "searchValue": "hzsg05000000火灾事故",
+    "children": [
+      {
+        "value": "05010000",
+        "label": "普通建筑火灾",
+        "searchValue": "ptjzhz05010000普通建筑火灾"
+      },
+      {
+        "value": "05020000",
+        "label": "高层建筑火灾",
+        "searchValue": "gcjzhz05020000高层建筑火灾"
+      },
+      {
+        "value": "05030000",
+        "label": "地下空间火灾",
+        "searchValue": "dxkjhz05030000地下空间火灾"
+      },
+      {
+        "value": "05040000",
+        "label": "化工火灾",
+        "searchValue": "hghz05040000化工火灾",
+        "children": [
+          {
+            "value": "05040100",
+            "label": "油类火灾",
+            "searchValue": "ylhz05040100油类火灾"
+          },
+          {
+            "value": "05040200",
+            "label": "气体火灾",
+            "searchValue": "qthz05040200气体火灾"
+          },
+          {
+            "value": "05049000",
+            "label": "其它化工火灾",
+            "searchValue": "qthghz05049000其它化工火灾"
+          }
+        ]
+      },
+      {
+        "value": "05050000",
+        "label": "交通工具火灾",
+        "searchValue": "jtgjhz05050000交通工具火灾"
+      },
+      {
+        "value": "05060000",
+        "label": "一般性火灾",
+        "searchValue": "ybxhz05060000一般性火灾"
+      },
+      {
+        "value": "05070000",
+        "label": "人员密集场所火灾",
+        "searchValue": "rymjcshz05070000人员密集场所火灾"
+      },
+      {
+        "value": "05080000",
+        "label": "特殊火灾",
+        "searchValue": "tshz05080000特殊火灾"
+      },
+      {
+        "value": "05090000",
+        "label": "重要场所火灾",
+        "searchValue": "zycshz05090000重要场所火灾"
+      },
+      {
+        "value": "05900000",
+        "label": "其它火灾",
+        "searchValue": "qthz05900000其它火灾"
+      }
+    ]
+  },
+  {
+    "value": "06000000",
+    "label": "举报投诉",
+    "searchValue": "jbts06000000举报投诉",
+    "children": [
+      {
+        "value": "06010000",
+        "label": "刑事案件线索",
+        "searchValue": "xsajxs06010000刑事案件线索"
+      },
+      {
+        "value": "06020000",
+        "label": "治安案件线索",
+        "searchValue": "zaajxs06020000治安案件线索",
+        "children": [
+          {
+            "value": "06020100",
+            "label": "卖淫嫖娼线索",
+            "searchValue": "mypcxs06020100卖淫嫖娼线索"
+          },
+          {
+            "value": "06020200",
+            "label": "赌博线索",
+            "searchValue": "dbxs06020200赌博线索"
+          },
+          {
+            "value": "06020300",
+            "label": "涉毒线索",
+            "searchValue": "sdxs06020300涉毒线索"
+          },
+          {
+            "value": "06029000",
+            "label": "其他治安线索",
+            "searchValue": "qtzaxs06029000其他治安线索"
+          }
+        ]
+      },
+      {
+        "value": "06030000",
+        "label": "在逃人员线索",
+        "searchValue": "ztryxs06030000在逃人员线索"
+      },
+      {
+        "value": "06040000",
+        "label": "警务监督",
+        "searchValue": "jwjd06040000警务监督",
+        "children": [
+          {
+            "value": "06040100",
+            "label": "违法违纪",
+            "searchValue": "wfwj06040100违法违纪"
+          },
+          {
+            "value": "06040200",
+            "label": "执法不公",
+            "searchValue": "zfbg06040200执法不公"
+          },
+          {
+            "value": "06040300",
+            "label": "违规办理证照",
+            "searchValue": "wgblzz06040300违规办理证照"
+          },
+          {
+            "value": "06040400",
+            "label": "打击黄赌毒不力",
+            "searchValue": "djhddbl06040400打击黄赌毒不力"
+          },
+          {
+            "value": "06040500",
+            "label": "工作作风不端正",
+            "searchValue": "gzzfbdz06040500工作作风不端正"
+          },
+          {
+            "value": "06040600",
+            "label": "不作为、乱作为",
+            "searchValue": "bzwlzw06040600不作为、乱作为"
+          },
+          {
+            "value": "06049000",
+            "label": "其他投诉",
+            "searchValue": "qtts06049000其他投诉"
+          }
+        ]
+      },
+      {
+        "value": "06900000",
+        "label": "其它举报投诉",
+        "searchValue": "qtjbts06900000其它举报投诉"
+      }
+    ]
+  },
+  {
+    "value": "07000000",
+    "label": "社会联动",
+    "searchValue": "shld07000000社会联动",
+    "children": [
+      {
+        "value": "07010000",
+        "label": "自来水公司",
+        "searchValue": "zlsgs07010000自来水公司"
+      },
+      {
+        "value": "07020000",
+        "label": "供电公司",
+        "searchValue": "gdgs07020000供电公司"
+      },
+      {
+        "value": "07030000",
+        "label": "液化气燃气公司",
+        "searchValue": "yhqrqgs07030000液化气燃气公司"
+      },
+      {
+        "value": "07040000",
+        "label": "供暖公司",
+        "searchValue": "gngs07040000供暖公司"
+      },
+      {
+        "value": "07050000",
+        "label": "市政管理处",
+        "searchValue": "szglc07050000市政管理处"
+      },
+      {
+        "value": "07060000",
+        "label": "园林绿化处",
+        "searchValue": "yllhc07060000园林绿化处"
+      },
+      {
+        "value": "07070000",
+        "label": "公园",
+        "searchValue": "gy07070000公园"
+      },
+      {
+        "value": "07080000",
+        "label": "拆迁办",
+        "searchValue": "cqb07080000拆迁办"
+      },
+      {
+        "value": "07090000",
+        "label": "建设工程安全监督",
+        "searchValue": "jsgcaqjd07090000建设工程安全监督"
+      },
+      {
+        "value": "07100000",
+        "label": "公交公司",
+        "searchValue": "gjgs07100000公交公司"
+      },
+      {
+        "value": "07110000",
+        "label": "建委",
+        "searchValue": "jw07110000建委"
+      },
+      {
+        "value": "07120000",
+        "label": "劳动局",
+        "searchValue": "ldj07120000劳动局"
+      },
+      {
+        "value": "07130000",
+        "label": "电台电视台",
+        "searchValue": "dtdst07130000电台电视台"
+      },
+      {
+        "value": "07140000",
+        "label": "优化办",
+        "searchValue": "yhb07140000优化办"
+      },
+      {
+        "value": "07150000",
+        "label": "工商管理",
+        "searchValue": "gsgl07150000工商管理"
+      },
+      {
+        "value": "07160000",
+        "label": "文化局",
+        "searchValue": "whj07160000文化局"
+      },
+      {
+        "value": "07170000",
+        "label": "城管局",
+        "searchValue": "cgj07170000城管局"
+      },
+      {
+        "value": "07180000",
+        "label": "环保局",
+        "searchValue": "hbj07180000环保局"
+      },
+      {
+        "value": "07190000",
+        "label": "环卫处",
+        "searchValue": "hwc07190000环卫处"
+      },
+      {
+        "value": "07200000",
+        "label": "交通局",
+        "searchValue": "jtj07200000交通局"
+      },
+      {
+        "value": "07210000",
+        "label": "卫生局",
+        "searchValue": "wsj07210000卫生局"
+      },
+      {
+        "value": "07220000",
+        "label": "旅游局",
+        "searchValue": "lyj07220000旅游局"
+      },
+      {
+        "value": "07230000",
+        "label": "质监局",
+        "searchValue": "zjj07230000质监局"
+      },
+      {
+        "value": "07240000",
+        "label": "规划局",
+        "searchValue": "ghj07240000规划局"
+      },
+      {
+        "value": "07250000",
+        "label": "安监局",
+        "searchValue": "ajj07250000安监局"
+      },
+      {
+        "value": "07260000",
+        "label": "民政局",
+        "searchValue": "mzj07260000民政局"
+      },
+      {
+        "value": "07270000",
+        "label": "气象局",
+        "searchValue": "qxj07270000气象局"
+      },
+      {
+        "value": "07280000",
+        "label": "工商局",
+        "searchValue": "gsj07280000工商局"
+      },
+      {
+        "value": "07290000",
+        "label": "房产局",
+        "searchValue": "fcj07290000房产局"
+      },
+      {
+        "value": "07300000",
+        "label": "地震局",
+        "searchValue": "dzj07300000地震局"
+      },
+      {
+        "value": "07310000",
+        "label": "妇联",
+        "searchValue": "fl07310000妇联"
+      },
+      {
+        "value": "07320000",
+        "label": "城建局",
+        "searchValue": "cjj07320000城建局"
+      },
+      {
+        "value": "07330000",
+        "label": "市信访办",
+        "searchValue": "sxfb07330000市信访办"
+      },
+      {
+        "value": "07340000",
+        "label": "市人防办",
+        "searchValue": "srfb07340000市人防办"
+      },
+      {
+        "value": "07350000",
+        "label": "军（分）区",
+        "searchValue": "jfq07350000军（分）区"
+      },
+      {
+        "value": "07900000",
+        "label": "其他社会联动单位",
+        "searchValue": "qtshlddw07900000其他社会联动单位"
+      }
+    ]
+  },
+  {
+    "value": "08000000",
+    "label": "群体性事件",
+    "searchValue": "qtxsj08000000群体性事件",
+    "children": [
+      {
+        "value": "08010000",
+        "label": "非法集会游行示威",
+        "searchValue": "ffjhyxsw08010000非法集会游行示威"
+      },
+      {
+        "value": "08020000",
+        "label": "集体上访请愿",
+        "searchValue": "jtsfqy08020000集体上访请愿"
+      },
+      {
+        "value": "08030000",
+        "label": "冲击、围攻党政军机关和要害部门",
+        "searchValue": "cjwgdzjjghyhbm08030000冲击、围攻党政军机关和要害部门"
+      },
+      {
+        "value": "08040000",
+        "label": "大规模打砸抢烧犯罪事件",
+        "searchValue": "dgmdzqsfzsj08040000大规模打砸抢烧犯罪事件"
+      },
+      {
+        "value": "08050000",
+        "label": "群体性械斗、冲突事件",
+        "searchValue": "qtxxdctsj08050000群体性械斗、冲突事件"
+      },
+      {
+        "value": "08060000",
+        "label": "静坐事件",
+        "searchValue": "jzsj08060000静坐事件"
+      },
+      {
+        "value": "08070000",
+        "label": "罢市、罢工",
+        "searchValue": "bsbg08070000罢市、罢工"
+      },
+      {
+        "value": "08080000",
+        "label": "罢课",
+        "searchValue": "bk08080000罢课"
+      },
+      {
+        "value": "08090000",
+        "label": "高校内聚焦事件失控",
+        "searchValue": "gxnjjsjsk08090000高校内聚焦事件失控"
+      },
+      {
+        "value": "08100000",
+        "label": "高校校园网范围串联、煽动、蛊惑信息事件",
+        "searchValue": "gxxywfwclsdghxxsj08100000高校校园网范围串联、煽动、蛊惑信息事件"
+      },
+      {
+        "value": "08110000",
+        "label": "阻断交通事件",
+        "searchValue": "zdjtsj08110000阻断交通事件"
+      },
+      {
+        "value": "08120000",
+        "label": "阻挠、妨碍国家重点建设工程施工事件",
+        "searchValue": "znfagjcdjsgcsgsj08120000阻挠、妨碍国家重点建设工程施工事件"
+      },
+      {
+        "value": "08130000",
+        "label": "暴狱事件",
+        "searchValue": "bysj08130000暴狱事件"
+      },
+      {
+        "value": "08140000",
+        "label": "聚众闹事",
+        "searchValue": "jzns08140000聚众闹事"
+      },
+      {
+        "value": "08900000",
+        "label": "其它群体事件",
+        "searchValue": "qtqtsj08900000其它群体事件"
+      }
+    ]
+  },
+  {
+    "value": "09000000",
+    "label": "灾害事故",
+    "searchValue": "zhsg09000000灾害事故",
+    "children": [
+      {
+        "value": "09010000",
+        "label": "安全生产事故",
+        "searchValue": "aqscsg09010000安全生产事故"
+      },
+      {
+        "value": "09020000",
+        "label": "危化物品泄漏事故",
+        "searchValue": "whwpxlsg9020000危化物品泄漏事故"
+      },
+      {
+        "value": "09030000",
+        "label": "中毒事故",
+        "searchValue": "zdsg9030000中毒事故"
+      },
+      {
+        "value": "09040000",
+        "label": "爆炸事故",
+        "searchValue": "bzsg09040000爆炸事故"
+      },
+      {
+        "value": "09050000",
+        "label": "0沉船事故",
+        "searchValue": "ccsg09050000沉船事故"
+      },
+      {
+        "value": "09060000",
+        "label": "挤压死伤事故",
+        "searchValue": "jysssg09060000挤压死伤事故"
+      },
+      {
+        "value": "09070000",
+        "label": "建筑坍塌事故",
+        "searchValue": "jzttsg09070000建筑坍塌事故"
+      },
+      {
+        "value": "09080000",
+        "label": "疫情灾害",
+        "searchValue": "yqzh09080000疫情灾害"
+      },
+      {
+        "value": "09090000",
+        "label": "爆燃事故",
+        "searchValue": "brsg09090000爆燃事故"
+      },
+      {
+        "value": "09100000",
+        "label": "自然天气灾害事故",
+        "searchValue": "zrtqzhsg09100000自然天气灾害事故"
+      },
+      {
+        "value": "09110000",
+        "label": "地震事故",
+        "searchValue": "dzsg09110000地震事故"
+      },
+      {
+        "value": "09900000",
+        "label": "其它灾害事故",
+        "searchValue": "qtzhsg09900000其它灾害事故"
+      }
+    ]
+  },
+  {
+    "value": "10000000",
+    "label": "行政违法",
+    "searchValue": "xzwf10000000行政违法",
+    "children": [
+      {
+        "value": "10010000",
+        "label": "违反道路交通管理",
+        "searchValue": "wfdljtgl10010000违反道路交通管理"
+      },
+      {
+        "value": "10020000",
+        "label": "违反消防管理",
+        "searchValue": "wfxfgl10020000违反消防管理"
+      },
+      {
+        "value": "10030000",
+        "label": "违反出入境管理",
+        "searchValue": "wfcrjgl10030000违反出入境管理"
+      },
+      {
+        "value": "10900000",
+        "label": "其他行政违法",
+        "searchValue": "qtxzwf10900000其他行政违法"
+      }
+    ]
+  },
+  {
+    "value": "90000000",
+    "label": "其他警情",
+    "searchValue": "qtjq90000000其他警情",
+    "children": [
+      {
+        "value": "90900000",
+        "label": "其他警情",
+        "searchValue": "qtjq90900000其他警情"
+      }
+    ]
+  }
+]

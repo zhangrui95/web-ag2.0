@@ -6,7 +6,7 @@
 import React, { PureComponent } from 'react';
 import { Col, Row, Modal } from 'antd';
 import { connect } from 'dva';
-import styles from '../../routes/ShowData/Show.less';
+import styles from '../../pages/ShowData/Show.less';
 
 @connect(({ home }) => ({
     home,
