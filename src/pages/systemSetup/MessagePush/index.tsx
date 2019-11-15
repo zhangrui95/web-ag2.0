@@ -6,7 +6,6 @@ import WarningMessages from './WarningMessages';
 import SendConfig from './SendConfig';
 import EarlyWarningMessages from './EarlyWarningMessages';
 import SuperviseMessages from './SuperviseMessages';
-import {BasicLayoutProps} from "@/layouts/BasicLayout";
 import {Dispatch} from "redux";
 import {ConnectState} from "@/models/connect";
 const { TabPane } = Tabs;

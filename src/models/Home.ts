@@ -17,7 +17,7 @@ import {
   getsjNum,
   getPoliceNum,
   getZhTjSlByDwOfSeconds,
-} from '../services/home.js';
+} from '../services/home.ts';
 
 export default {
   namespace: 'Home',
