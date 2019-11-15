@@ -48,10 +48,10 @@ export default class TabsTable extends PureComponent {
     });
   };
   // 无法选择的日期
-  disabledDate = current => {
-    // Can not select days before today and today
-    return current && current.valueOf() > Date.now();
-  };
+  // disabledDate = current => {
+  //   // Can not select days before today and today
+  //   return current && current.valueOf() > Date.now();
+  // };
   render() {
     const formItemLayout = {
       labelCol: { xs: { span: 24 }, md: { span: 10 }, xl: { span: 8 }, xxl: { span: 6 } },
@@ -67,16 +67,6 @@ export default class TabsTable extends PureComponent {
     const {
       common: { depTree },
     } = this.props;
-    let lx = (
-      <Select placeholder="请选择" style={{ width: '100%' }}>
-        <Option value="">全部</Option>
-        <Option value="案件信息">案件信息</Option>
-        <Option value="人员信息">人员信息</Option>
-        <Option value="物品信息">物品信息</Option>
-        <Option value="卷宗信息">卷宗信息</Option>
-        <Option value="警情信息">警情信息</Option>
-      </Select>
-    );
     return (
       <div className={styles.TabsStyle}>
         <Tabs defaultActiveKey="s1" onChange={this.props.callBackTabs} type="card">
@@ -89,7 +79,7 @@ export default class TabsTable extends PureComponent {
             }
             key="s1"
           >
-            <Card title={null} id="form">
+            <Card title={null} id="myshare">
               <Form
                 style={{
                   padding: '20px 30px 0 10px',
@@ -102,7 +92,7 @@ export default class TabsTable extends PureComponent {
                       {getFieldDecorator('fxsj')(
                         <RangePicker
                           disabledDate={this.disabledDate}
-                          getCalendarContainer={() => document.getElementById('form')}
+                          getCalendarContainer={() => document.getElementById('myshare')}
                           style={{ width: '100%' }}
                         />,
                       )}
@@ -123,6 +113,7 @@ export default class TabsTable extends PureComponent {
                           key="badwSelect"
                           treeDefaultExpandedKeys={treeDefaultExpandedKeys}
                           treeNodeFilterProp="title"
+                          getPopupContainer={()=>document.getElementById('myshare')}
                         >
                           {depTree && depTree.length > 0 ? this.props.renderloop(depTree) : null}
                         </TreeSelect>,
@@ -133,7 +124,16 @@ export default class TabsTable extends PureComponent {
                     <FormItem label="分享类型" {...formItemLayout}>
                       {getFieldDecorator('fxlx', {
                         initialValue: this.props.yjjb,
-                      })(lx)}
+                      })(
+                        <Select placeholder="请选择" style={{ width: '100%' }} getPopupContainer={()=>document.getElementById('myshare')}>
+                          <Option value="">全部</Option>
+                          <Option value="案件信息">案件信息</Option>
+                          <Option value="人员信息">人员信息</Option>
+                          <Option value="物品信息">物品信息</Option>
+                          <Option value="卷宗信息">卷宗信息</Option>
+                          <Option value="警情信息">警情信息</Option>
+                        </Select>
+                      )}
                     </FormItem>
                   </Col>
                   <Col {...colLayout}>
@@ -150,6 +150,7 @@ export default class TabsTable extends PureComponent {
                           onFocus={this.props.handleSearchPerson}
                           notFoundContent={this.props.loadings ? <Spin size="small" /> : null}
                           onBlur={this.props.getBlur}
+                          getPopupContainer={()=>document.getElementById('myshare')}
                         >
                           {this.props.children}
                         </Select>,
@@ -203,7 +204,7 @@ export default class TabsTable extends PureComponent {
             }
             key="s2"
           >
-            <Card title={null} id="form">
+            <Card title={null} id="shareme">
               <Form
                 style={{
                   padding: '20px 30px 0 10px',
@@ -216,7 +217,7 @@ export default class TabsTable extends PureComponent {
                       {getFieldDecorator('fxsj')(
                         <RangePicker
                           disabledDate={this.disabledDate}
-                          getPopupContainer={() => document.getElementById('form')}
+                          getCalendarContainer={() => document.getElementById('shareme')}
                           style={{ width: '100%' }}
                         />,
                       )}
@@ -237,6 +238,7 @@ export default class TabsTable extends PureComponent {
                           key="badwSelect"
                           treeDefaultExpandedKeys={treeDefaultExpandedKeys}
                           treeNodeFilterProp="title"
+                          getPopupContainer={()=>document.getElementById('shareme')}
                         >
                           {depTree && depTree.length > 0 ? this.props.renderloop(depTree) : null}
                         </TreeSelect>,
@@ -247,7 +249,16 @@ export default class TabsTable extends PureComponent {
                     <FormItem label="分享类型" {...formItemLayout}>
                       {getFieldDecorator('fxlx', {
                         initialValue: this.props.yjjb,
-                      })(lx)}
+                      })(
+                        <Select placeholder="请选择" style={{ width: '100%' }} getPopupContainer={()=>document.getElementById('shareme')}>
+                          <Option value="">全部</Option>
+                          <Option value="案件信息">案件信息</Option>
+                          <Option value="人员信息">人员信息</Option>
+                          <Option value="物品信息">物品信息</Option>
+                          <Option value="卷宗信息">卷宗信息</Option>
+                          <Option value="警情信息">警情信息</Option>
+                        </Select>
+                      )}
                     </FormItem>
                   </Col>
                   <Col {...colLayout}>
@@ -264,6 +275,7 @@ export default class TabsTable extends PureComponent {
                           onFocus={this.props.handleSearchPerson}
                           notFoundContent={this.props.loadings ? <Spin size="small" /> : null}
                           onBlur={this.props.getBlur}
+                          getPopupContainer={()=>document.getElementById('shareme')}
                         >
                           {this.props.children}
                         </Select>,

@@ -1149,11 +1149,11 @@ export default class Home1 extends PureComponent {
                   }}
                 >
                   行政{' '}
-                  <a style={{ textDecoration: 'underline', color: '#47B2FF', fontSize: 18 }}>
+                  <a className={styles.DataTotal} >
                     {this.state.xz_num}
                   </a>{' '}
                   起&nbsp;&nbsp;&nbsp;&nbsp; 刑事{' '}
-                  <a style={{ textDecoration: 'underline', color: '#47B2FF', fontSize: 18 }}>
+                  <a className={styles.DataTotal} >
                     {this.state.xs_num}
                   </a>{' '}
                   起
