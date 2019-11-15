@@ -37,3 +37,11 @@ export function getUserInfos() {
   }
   return userInfo;
 }
+// 用户权限code
+export const userAuthorityCode = {
+    TUIBU: 'zhag_zfba_tb', // 退补
+    ZHIBIAO: 'zhag_zfba_zb', // 制表
+    RIQING: 'zhag_sqdd_jqrq', // 日清
+    TIANJIAJIANGUANDIAN:'zhag_xtpz_jgpz_tjjgd', // 添加监管点
+    SHANCHUJIANGUANDIAN:'zhag_xtpz_jgpz_scjgd', // 删除监管点
+};

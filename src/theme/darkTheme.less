@@ -18,12 +18,14 @@
 @depart-choose-back: #151b2a; // 机构选择背景色
 //@choose-more-back: #202839; // 多选中每个选中的背景色
 @date-unchoose:#1F2839; // 无法选择的日期的背景色
+@switch-color:#0097d9;
 //-------------------------自定义-----------------------
 @zero: 0;
 @no-box-shadow: none; //无阴影
 @transparent: transparent; //透明
 @borderRadius: 10px; //圆角
 @pagination-right: 30px;
+@switch-color-close:#c0c0c0;
 body {
   color: #fff;
 }
@@ -37,7 +39,8 @@ body {
     .ant-transfer-list,
     .ant-time-picker-input {
       background-color: @body-background;
-      border: none;
+      border: @no-box-shadow;
+      color: @white;
     }
     .ant-radio-inner::after {
       background-color: @btn-choose;
@@ -354,6 +357,47 @@ body {
     }
     .ant-form-item-label > label{
       color: @white;
+    }
+    .ant-calendar-range-picker-input,.ant-radio-wrapper,.ant-checkbox-wrapper{
+      color: @white;
+    }
+    .ant-checkbox-checked .ant-checkbox-inner {
+      background-color: @checkbox-color;
+      border-color: @checkbox-color;
+      color: @white;
+    }
+    .ant-select-selection__choice{
+      background-color: @component-background;
+      color: @white;
+      border: @zero;
+    }
+    .ant-select-selection--multiple .ant-select-selection__choice__remove{
+      color: @white;
+    }
+    .ant-select-search__field{
+      background-color: @transparent;
+    }
+    .ant-select-disabled{
+      .ant-select-selection{
+        background: @transparent;
+      }
+      .anticon{
+        display: none;
+      }
+    }
+    .ant-btn-primary[disabled]{
+      background-color: @dropdown-selected-color;
+      color: @text-color;
+    }
+    .ant-input[disabled]{
+      background-color: @dropdown-selected-color;
+      opacity: 0.6;
+    }
+    .ant-switch{
+      background-color: @switch-color-close;
+    }
+    .ant-switch-checked{
+      background: @switch-color;
     }
   }
 }

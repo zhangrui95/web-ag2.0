@@ -31,15 +31,14 @@
       padding: 5px 30px;
     }
   }
-
-  .boxColor {
-    width: 28px;
-    height: 28px;
-    margin-top: 5px;
-    border: 1px solid rgb(204, 204, 204);
-    border-radius: 3px;
-    cursor: pointer;
-  }
+}
+.boxColor {
+  width: 28px;
+  height: 28px;
+  margin-top: 5px;
+  border: 1px solid rgb(204, 204, 204);
+  border-radius: 3px;
+  cursor: pointer;
 }
 
 .none {
@@ -48,5 +47,44 @@
 
 .jgName {
   margin: 8px 0px 8px 80px;
-  color: #333;
+  color: @white;
+}
+.detailBox{
+  height: 600px;
+  margin-bottom: 10px;
+}
+.formBoxBorder{
+  padding: 40px;
+  border-bottom: 1px solid @body-background;
+  :global{
+    .ant-form-item{
+      margin: 10px 0!important;
+    }
+  }
+}
+.formBox{
+  padding: 40px;
+  :global{
+    .ant-form-item{
+      margin: 10px 0!important;
+    }
+  }
+}
+.btns{
+  padding: 12px 20px;
+  float: right;
+  :global{
+    .ant-btn{
+      width:100px;
+      height: 36px;
+      line-height: 36px;
+      font-size: 16px;
+    }
+  }
+}
+.qxBtn{
+  background: @body-background!important;
+}
+.delBtn{
+  background: #FF9191!important;
 }

@@ -79,3 +79,22 @@ export async function saveFy(params) {
     },
   });
 }
+//获取监管点具体算法说明
+export async function getExplainModalService(params) {
+    return request(`${configUrl.serverUrl}/getJgPzXxxq`, {
+        method: 'POST',
+        data: {
+            ...params,
+        },
+    });
+}
+
+//启用禁用监管点
+export async function getchangeJgPzXxService(params) {
+    return request(`${configUrl.serverUrl}/changeJgPzXxById`, {
+        method: 'POST',
+        data: {
+            ...params,
+        },
+    });
+}

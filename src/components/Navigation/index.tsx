@@ -93,6 +93,7 @@ const Navigation = props => {
   };
 
   const showTab = [...navigationData];
+  console.log('showTab--------->',showTab);
   return (
     <Card
       className={styles.card}

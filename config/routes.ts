@@ -395,6 +395,12 @@ export function routes() {
                                     icon: 'smile',
                                     component: './systemSetup/ShowSetup',
                                 },{
+                                    path: '/systemSetup/SuperviseSetup/detail',
+                                    name: '监管配置-详情',
+                                    icon: 'smile',
+                                    component: './systemSetup/SuperviseSetup/detail.tsx',
+                                    hideInMenu:true,
+                                },{
                                     path: '/systemSetup/MessagePush',
                                     name: '消息推送',
                                     icon: 'smile',

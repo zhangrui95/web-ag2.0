@@ -25,11 +25,14 @@ import {
   message,
   Checkbox,
   Tag,
-  Icon
+  Icon,
+  Tooltip,
 } from 'antd';
 import moment from 'moment';
-import { getUserInfos } from '../../../utils/utils';
+import { getUserInfos, userAuthorityCode } from '../../../utils/utils';
 import SuperviseCopy from '../../../components/Supervise/SuperviseCopy';
+import {routerRedux} from "dva/router";
+import {authorityIsTrue} from "../../../utils/authority";
 
 const FormItem = Form.Item;
 const RadioGroup = Radio.Group;
@@ -63,6 +66,10 @@ class SuperviseSetup extends Component {
       qjjg: false,
       treeDefaultExpandedKeys: [], // 办案单位树默认展开keys
       searchHeight:false,
+        isTJJGD: authorityIsTrue(userAuthorityCode.TIANJIAJIANGUANDIAN), // 添加监管点权限
+        isSCJGD: authorityIsTrue(userAuthorityCode.SHANCHUJIANGUANDIAN), // 删除监管点权限
+        isUse:'',
+        NoticeNote:'', // 监管点具体算法说明
     };
   }
 
@@ -169,91 +176,41 @@ class SuperviseSetup extends Component {
     }
     return person;
   };
-  addList = (type, res) => {
-    this.props.form.resetFields([
-      'addjgxz',
-      'addjglx',
-      'addjgsx',
-      'addjgd',
-      'addjgqx',
-      'addtxjg',
-      'dyctxry1',
-      'dyctxry2',
-      'dyctxry3',
-      'dyjtxry1',
-      'dyjtxry2',
-      'dyjtxry3',
-      'tqsj1',
-      'tqsj2',
-      'tqsj3',
-    ]);
-    this.props.SuperviseSetup.SuperviseSetup.JgdType = [];
-    if (type === 0) {
-      this.getCommon('500830'); //告警监管事项
-      this.getClear();
-      this.setState({
-        qjjg: false,
-        addjglx: '0',
-        madalTitle: '监管点添加',
-        jgdDm: null,
-        jgdMc: null,
-        ssjgMc: null,
-        ssjgDm: null,
-        id: null,
-        tqsj1: null,
-        tqsj2: null,
-        tqsj3: null,
-      });
-    } else if (type === 1 || type === 2) {
-      if (res.jglx === '0') {
-        this.getCommon('500830'); //告警监管事项
-      } else {
-        this.getCommon('500772'); //预警监管事项
-      }
-      this.getSupervise(
-        res.jgsx_dm === '5008301'
-          ? '2068'
-          : res.jgsx_dm === '5008302'
-          ? '2016'
-          : res.jgsx_dm === '5008303'
-          ? '3'
-          : res.jgsx_dm === '5008304'
-          ? '2017'
-          : res.jgsx_dm === '5008305'
-          ? '6001'
-          : res.jgsx_dm === '5008306'
-          ? '5007725'
-          : res.jgsx_dm,
-      );
-      this.setState({
-        madalTitle: type === 2 ? '监管点修改' : '监管点详情',
-        res: res,
-        qjjg: res.sf_qjjg === '1' ? true : false,
-        jgdDm: res.jgd_dm,
-        jgdMc: res.jgd_mc,
-        ssjgMc: res.ssjg_mc,
-        ssjgDm: res.ssjg_dm,
-        addjglx: res.jglx,
-        id: res.id,
-        xsys1: res.yjyjtx_ysdm,
-        xsys2: res.ejyjtx_ysdm,
-        xsys3: res.sjyjtx_ysdm,
-        dyjtxry1: this.getChoisePerson(res.yjyjtxr_sfzh, res.yjyjtxr_xm),
-        dyjtxry2: this.getChoisePerson(res.ejyjtxr_sfzh, res.ejyjtxr_xm),
-        dyjtxry3: this.getChoisePerson(res.sjyjtxr_sfzh, res.sjyjtxr_xm),
-        dyctxry1: this.getChoisePerson(res.yjyjtxr_sfzh, res.yjyjtxr_xm),
-        dyctxry2: this.getChoisePerson(res.ejyjtxr_sfzh, res.ejyjtxr_xm),
-        dyctxry3: this.getChoisePerson(res.sjyjtxr_sfzh, res.sjyjtxr_xm),
-        tqsj1: res.yjyjtx_sj,
-        tqsj2: res.ejyjtx_sj,
-        tqsj3: res.sjyjtx_sj,
-        sf_qy: res.sf_qy,
-      });
+    // 监管点算法请求
+    getExplain = (res) => {
+        this.setState({
+            NoticeNote:null,
+        });
+        if(res){
+            this.props.dispatch({
+                type: 'SuperviseSetup/getExplainModal',
+                payload: {
+                    jgfl: res.jgd_mc,
+                    jgdl:res.jglx === '0' ? '告警' : '预警',
+                },
+                callback:(data)=>{
+                    if(data){
+                        this.setState({
+                            NoticeNote:data && data.data ? data.data.lxsm : '',
+                        })
+                    }
+                },
+            })
+        }
     }
-    this.setState({
-      visible: true,
-      modleType: type,
-    });
+  addList = (type, res) => {
+      this.props.dispatch({
+          type: 'global/changeNavigation',
+          payload: {
+              key: res&&res.id ? res.id : '1',
+              name: type === 0 ? '监管点添加' : type === 2 ? '监管点修改' : '监管点详情',
+              path: '/systemSetup/SuperviseSetup/Detail',
+              isShow: true
+          },
+          callback: () => {
+              this.props.dispatch(routerRedux.push({pathname:'/systemSetup/SuperviseSetup/Detail',query:{type, res,id:res&&res.id ? res.id : '1'}}));
+          }
+      });
   };
   handleCancel = () => {
     this.props.form.validateFields((err, values) => {
@@ -339,6 +296,7 @@ class SuperviseSetup extends Component {
       tqsj1: null,
       tqsj2: null,
       tqsj3: null,
+        NoticeNote:null,
     });
     if (e.target.value === '0') {
       this.getCommon('500830'); //告警监管事项
@@ -365,6 +323,7 @@ class SuperviseSetup extends Component {
       tqsj1: null,
       tqsj2: null,
       tqsj3: null,
+        NoticeNote:null,
     });
     if (e === '0') {
       this.getCommon('500830'); //告警监管事项
@@ -460,6 +419,7 @@ class SuperviseSetup extends Component {
       sf_qy: null,
       qjjg: false,
       addHave: false,
+        NoticeNote:null,
     });
   };
   getJgd = e => {
@@ -482,6 +442,7 @@ class SuperviseSetup extends Component {
     this.setState({
       jgdDm: null,
       jgdMc: null,
+        NoticeNote:null,
     });
     this.getSupervise(
       e.key === '5008301'
@@ -756,6 +717,8 @@ class SuperviseSetup extends Component {
       } else if (!values.addjgxz && this.state.modleType === 0) {
         message.warn('请选择监管事项');
       } else {
+          const res = {jglx:values.addjglx,jgd_mc:e.label}
+          this.getExplain(res);
         this.props.dispatch({
           type: 'SuperviseSetup/getfyJgd',
           payload: {
@@ -847,6 +810,25 @@ class SuperviseSetup extends Component {
       fs_qjjg: e.target.checked,
     });
   };
+    // 启用禁用功能切换
+    accessUse = (record,obj) => {
+        this.props.dispatch({
+            type: 'SuperviseSetup/changeJgPzXx',
+            payload: {
+                scbj:obj,
+                id:record.id,
+            },
+            callback: (res) => {
+                if (!res.error) {
+                    // this.handleCancel();
+                    message.success('修改成功');
+                    this.getJgdList(this.state.pd, this.state.current);
+                } else {
+                    message.warn('操作失败，请重试');
+                }
+            },
+        });
+    };
     getSearchHeight = () => {
         this.setState({
             searchHeight:!this.state.searchHeight
@@ -870,6 +852,7 @@ class SuperviseSetup extends Component {
         SuperviseSetup: { JgdType },
       },
     } = this.props;
+      const { isTJJGD,isSCJGD } = this.state;
     console.log('common----->', this.props.SuperviseSetup.common);
     console.log('SuperviseSetup----->', this.props.SuperviseSetup.SuperviseSetup);
     const paginationProps = {
@@ -932,13 +915,35 @@ class SuperviseSetup extends Component {
       {
         title: '操作',
         render: record => (
-          <div>
-            <a onClick={() => this.addList(1, record)}>详情</a>
-            <Divider type="vertical" />
-            <a onClick={() => this.addList(2, record)}>修改</a>
-            <Divider type="vertical" />
-            <a onClick={() => this.del(record.id)}>删除</a>
-          </div>
+            <div>
+                {
+                    record.scbj==='1'?
+                        <a onClick={() => this.accessUse(record,'0')}>禁用</a>
+                        :
+                        <a onClick={() => this.accessUse(record,'1')}>启用</a>
+                }
+                <Divider type="vertical" />
+                <a onClick={() => this.addList(1, record)}>详情</a>
+                <Divider type="vertical" />
+                {
+                    record.scbj==='1'?
+                        <a onClick={() => this.addList(2, record)}>修改</a>
+                        :
+                        <span style={{ color: '#C3C3C3' }}>修改</span>
+                }
+                {isSCJGD?
+                    <span>
+                            <Divider type="vertical" />
+                        {
+                            record.scbj === '1' ?
+                                <a onClick={() => this.del(record.id)}>删除</a>
+                                :
+                                <span style={{color: '#C3C3C3'}}>删除</span>
+                        }
+                          </span>
+                    :null
+                }
+            </div>
         ),
       },
     ];
@@ -957,6 +962,14 @@ class SuperviseSetup extends Component {
       labelCol: { span: 9 },
       wrapperCol: { span: 12 },
     };
+      const modleLayoutjg = {
+          labelCol: { span: 7 },
+          wrapperCol: { span: 14 },
+      };
+      const modleLayoutsqx = {
+          labelCol: { span: 7},
+          wrapperCol: { span: 15 },
+      };
     const modleLayoutColor = {
       labelCol: { span: 14 },
       wrapperCol: { span: 10 },
@@ -1002,9 +1015,9 @@ class SuperviseSetup extends Component {
         <Card className={stylescommon.titleArea}>
           监管配置
             <div className={styles.btnAdd}>
-                <Button type="primary" onClick={() => this.addList(0)}>
+                {isTJJGD?<Button type="primary" onClick={() => this.addList(0)}>
                     添加监管点
-                </Button>
+                </Button>:''}
                 <Button
                     className={stylescommon.export}
                     onClick={this.exportData}
@@ -1140,476 +1153,6 @@ class SuperviseSetup extends Component {
             dataSource={this.state.data ? this.state.data.list : []}
           />
         </Card>
-        <Modal
-          title={
-            this.state.modleType === 0
-              ? '监管点添加'
-              : this.state.modleType === 1
-              ? '监管点详情'
-              : this.state.modleType === 2
-              ? '监管点修改'
-              : ''
-          }
-          width={800}
-          visible={this.state.visible}
-          onOk={this.state.addHave ? this.updateJgdOk : this.handleOk}
-          okText={'完成'}
-          footer={
-            this.state.modleType === 1 ? (
-              <div>
-                <Button onClick={this.handleCancel}>取消</Button>
-                <Button type="primary" onClick={() => this.del(this.state.id, 1)}>
-                  删除
-                </Button>
-                <Button type="primary" onClick={this.updateJgdOk}>
-                  确认修改
-                </Button>
-              </div>
-            ) : this.state.modleType === 2 ? (
-              <div>
-                <Button onClick={this.handleCancel}>取消</Button>
-                <Button type="primary" onClick={this.updateJgdOk}>
-                  完成
-                </Button>
-              </div>
-            ) : (
-              undefined
-            )
-          }
-          onCancel={this.handleCancel}
-          className={styles.modalStyle}
-          maskClosable={false}
-          style={{ top: '180px' }}
-        >
-          <Form>
-            <Row gutter={rowLayout}>
-              <Col
-                span={this.state.ssjgDm && this.state.ssjgDm.substring(4) === '00000000' ? 8 : 24}
-                className={this.state.modleType === 0 ? styles.none : styles.jgName}
-              >
-                <div>机构：{this.state.ssjgMc ? this.state.ssjgMc : ''}</div>
-              </Col>
-              <Col className={this.state.modleType === 0 ? '' : styles.none} span={12}>
-                <FormItem label="机构选择" {...modleLayouts}>
-                  {getFieldDecorator('addjgxz', {
-                    // initialValue: this.state.addjgxz,
-                  })(
-                    <TreeSelect
-                      showSearch
-                      style={{ width: '100%' }}
-                      dropdownStyle={{ maxHeight: 400, overflow: 'auto' }}
-                      placeholder="请选择机构"
-                      allowClear
-                      treeDefaultExpandedKeys={this.state.treeDefaultExpandedKeys}
-                      key="badwSelect"
-                       getPopupContainer={()=>document.getElementById('form')}
-                      treeNodeFilterProp="title"
-                      onChange={e => this.emptyJgxz(e)}
-                    >
-                      {depTree && depTree.length > 0 ? this.renderloop(depTree) : null}
-                    </TreeSelect>,
-                  )}
-                </FormItem>
-              </Col>
-              <Col
-                className={
-                  this.state.ssjgDm && this.state.ssjgDm.substring(4) === '00000000'
-                    ? ''
-                    : styles.none
-                }
-                span={4}
-                style={{ margin: '8px 0' }}
-              >
-                <Checkbox onChange={this.onChangeQjjg} checked={this.state.qjjg}>
-                  全局监管
-                </Checkbox>
-              </Col>
-              <Col
-                className={this.state.modleType === 0 ? '' : styles.none}
-                span={8}
-                style={{ margin: '4px 0 14px 0' }}
-              >
-                <Button
-                  type="primary"
-                  onClick={this.getFyModel}
-                  disabled={this.state.ssjgMc ? false : true}
-                >
-                  复用其他机构
-                </Button>
-              </Col>
-              <Col span={12}>
-                <FormItem label="监管类型" {...modleLayouts}>
-                  {getFieldDecorator('addjglx', {
-                    initialValue: this.state.addjglx,
-                  })(
-                    <RadioGroup onChange={this.changeJglx}>
-                      <Radio value={'0'}>告警</Radio>
-                      <Radio value={'1'}>预警</Radio>
-                    </RadioGroup>,
-                  )}
-                </FormItem>
-              </Col>
-              <Col span={12}>
-                <FormItem label="监管事项" {...modleLayouts}>
-                  {getFieldDecorator('addjgsx', {
-                    initialValue:
-                      this.state.res && this.state.res.jgsx_dm
-                        ? {
-                            key: this.state.res.jgsx_dm,
-                            label: this.state.res.jgsx_mc,
-                          }
-                        : undefined,
-                  })(
-                    <Select
-                      labelInValue={true}
-                      placeholder="请选择"
-                      style={{ width: '100%' }}
-                      onChange={e => this.getJgd(e)}
-                       getPopupContainer={()=>document.getElementById('form')}
-                    >
-                      {JgsxType &&
-                        JgsxType.map(event => {
-                          return <Option value={event.code}>{event.name}</Option>;
-                        })}
-                    </Select>,
-                  )}
-                </FormItem>
-              </Col>
-              <Col span={12}>
-                <FormItem label="监管点" {...modleLayouts}>
-                  {getFieldDecorator('addjgd', {
-                    initialValue: this.state.jgdDm
-                      ? {
-                          key: this.state.jgdDm,
-                          label: this.state.jgdMc,
-                        }
-                      : undefined,
-                  })(
-                    <Select
-                      labelInValue
-                      placeholder="请选择"
-                      style={{ width: '100%' }}
-                      onChange={e => this.changeJgd(e)}
-                       getPopupContainer={()=>document.getElementById('form')}
-                    >
-                      {JgdType &&
-                        JgdType.map(event => {
-                          return <Option value={event.code}>{event.name}</Option>;
-                        })}
-                    </Select>,
-                  )}
-                </FormItem>
-              </Col>
-              <Col span={12}>
-                <FormItem label="监管期限" {...modleLayouts}>
-                  {getFieldDecorator('addjgqx', {
-                    initialValue:
-                      this.state.res && this.state.res.jgqx_ks && this.state.res.jgqx_js
-                        ? [moment(this.state.res.jgqx_ks), moment(this.state.res.jgqx_js)]
-                        : undefined,
-                  })(
-                    <RangePicker
-                      style={{ width: '100%' }}
-                      getCalendarContainer={triggerNode => triggerNode.parentNode}
-                      disabledDate={this.disabledEndDate}
-                    />,
-                  )}
-                </FormItem>
-              </Col>
-            </Row>
-            <Row gutter={rowLayout} className={this.state.addjglx === '0' ? '' : styles.none}>
-              <Col span={12}>
-                <FormItem label="提醒间隔" {...modleLayouts}>
-                  {getFieldDecorator('addtxjg', {
-                    initialValue:
-                      this.state.res && this.state.res.txjg_dm
-                        ? {
-                            key: this.state.res.txjg_dm,
-                            label: this.state.res.txjg_mc,
-                          }
-                        : undefined,
-                  })(
-                    <Select
-                      labelInValue
-                      placeholder="请选择"
-                      style={{ width: '100%' }}
-                       getPopupContainer={()=>document.getElementById('form')}
-                    >
-                      {SjjgType &&
-                        SjjgType.map(event => {
-                          return <Option value={event.code}>{event.name}</Option>;
-                        })}
-                    </Select>,
-                  )}
-                </FormItem>
-              </Col>
-              <Col span={12}>
-                <FormItem label="第一次提醒人员" {...modleLayouts}>
-                  {getFieldDecorator('dyctxry1', {
-                    initialValue: this.state.dyctxry1,
-                  })(
-                    <Select
-                      mode="multiple"
-                      labelInValue
-                      placeholder="请选择"
-                      style={{ width: '100%' }}
-                       getPopupContainer={()=>document.getElementById('form')}
-                    >
-                      {TxryType &&
-                        TxryType.length > 0 &&
-                        TxryType.map(event => {
-                          return <Option value={event.code}>{event.name}</Option>;
-                        })}
-                    </Select>,
-                  )}
-                </FormItem>
-              </Col>
-              <Col span={12}>
-                <FormItem label="第二次提醒人员" {...modleLayouts}>
-                  {getFieldDecorator('dyctxry2', {
-                    initialValue: this.state.dyctxry2,
-                  })(
-                    <Select
-                      mode="multiple"
-                      labelInValue
-                      placeholder="请选择"
-                      style={{ width: '100%' }}
-                       getPopupContainer={()=>document.getElementById('form')}
-                    >
-                      {TxryType &&
-                        TxryType.length > 0 &&
-                        TxryType.map(event => {
-                          return <Option value={event.code}>{event.name}</Option>;
-                        })}
-                    </Select>,
-                  )}
-                </FormItem>
-              </Col>
-              <Col span={12}>
-                <FormItem label="第三次提醒人员" {...modleLayouts}>
-                  {getFieldDecorator('dyctxry3', {
-                    initialValue: this.state.dyctxry3,
-                  })(
-                    <Select
-                      mode="multiple"
-                      labelInValue
-                      placeholder="请选择"
-                      style={{ width: '100%' }}
-                       getPopupContainer={()=>document.getElementById('form')}
-                    >
-                      {TxryType &&
-                        TxryType.length > 0 &&
-                        TxryType.map(event => {
-                          return <Option value={event.code}>{event.name}</Option>;
-                        })}
-                    </Select>,
-                  )}
-                </FormItem>
-              </Col>
-            </Row>
-            <Row gutter={rowLayout} className={this.state.addjglx === '1' ? '' : styles.none}>
-              <Col span={12}>
-                <FormItem
-                  label="第一级提醒人员"
-                  {...modleLayouts}
-                   getPopupContainer={()=>document.getElementById('form')}
-                >
-                  {getFieldDecorator('dyjtxry3', {
-                    initialValue: this.state.dyjtxry3,
-                  })(
-                    <Select
-                      mode="multiple"
-                      labelInValue
-                      placeholder="请选择"
-                      style={{ width: '100%' }}
-                       getPopupContainer={()=>document.getElementById('form')}
-                    >
-                      {TxryType &&
-                        TxryType.length > 0 &&
-                        TxryType.map(event => {
-                          return <Option value={event.code}>{event.name}</Option>;
-                        })}
-                    </Select>,
-                  )}
-                </FormItem>
-              </Col>
-              <Col span={5}>
-                <FormItem label="显示颜色" {...modleLayoutColor}>
-                  <Dropdown overlay={menu3} trigger={['click']}>
-                    <div className={styles.boxColor} style={{ background: this.state.xsys3 }}></div>
-                  </Dropdown>
-                </FormItem>
-              </Col>
-              <Col span={7}>
-                <FormItem label="提前时间" {...modleLayout}>
-                  {getFieldDecorator('tqsj3', {
-                    initialValue: this.state.res ? this.state.res.sjyjtx_sj : undefined,
-                  })(
-                    <Select
-                      placeholder="请选择"
-                      style={{ width: '100%' }}
-                      onChange={e => this.getTqsj(e, 'tqsj3')}
-                       getPopupContainer={()=>document.getElementById('form')}
-                    >
-                      {TqsjType &&
-                        TqsjType.map(event => {
-                          return (
-                            <Option
-                              value={event.code}
-                              disabled={
-                                !!(
-                                  this.state.tqsj2 &&
-                                  (parseInt(event.code) < parseInt(this.state.tqsj2) ||
-                                    parseInt(event.code) === parseInt(this.state.tqsj2))
-                                ) ||
-                                (this.state.tqsj1 &&
-                                  !this.state.tqsj2 &&
-                                  (parseInt(event.code) < parseInt(this.state.tqsj1) ||
-                                    parseInt(event.code) === parseInt(this.state.tqsj1)))
-                              }
-                            >
-                              {event.name}
-                            </Option>
-                          );
-                        })}
-                    </Select>,
-                  )}
-                </FormItem>
-              </Col>
-            </Row>
-            <Row gutter={rowLayout} className={this.state.addjglx === '1' ? '' : styles.none}>
-              <Col span={12}>
-                <FormItem label="第二级提醒人员" {...modleLayouts}>
-                  {getFieldDecorator('dyjtxry2', {
-                    initialValue: this.state.dyjtxry2,
-                  })(
-                    <Select
-                      mode="multiple"
-                      labelInValue
-                      placeholder="请选择"
-                      style={{ width: '100%' }}
-                       getPopupContainer={()=>document.getElementById('form')}
-                    >
-                      {TxryType &&
-                        TxryType.length > 0 &&
-                        TxryType.map(event => {
-                          return <Option value={event.code}>{event.name}</Option>;
-                        })}
-                    </Select>,
-                  )}
-                </FormItem>
-              </Col>
-              <Col span={5}>
-                <FormItem label="显示颜色" {...modleLayoutColor}>
-                  <Dropdown overlay={menu2} trigger={['click']}>
-                    <div className={styles.boxColor} style={{ background: this.state.xsys2 }}></div>
-                  </Dropdown>
-                </FormItem>
-              </Col>
-              <Col span={7}>
-                <FormItem label="提前时间" {...modleLayout}>
-                  {getFieldDecorator('tqsj2', {
-                    initialValue: this.state.res ? this.state.res.ejyjtx_sj : undefined,
-                  })(
-                    <Select
-                      placeholder="请选择"
-                      style={{ width: '100%' }}
-                      onChange={e => this.getTqsj(e, 'tqsj2')}
-                       getPopupContainer={()=>document.getElementById('form')}
-                    >
-                      {TqsjType &&
-                        TqsjType.map(event => {
-                          return (
-                            <Option
-                              value={event.code}
-                              disabled={
-                                !!(
-                                  (this.state.tqsj1 &&
-                                    (parseInt(event.code) < parseInt(this.state.tqsj1) ||
-                                      parseInt(event.code) === parseInt(this.state.tqsj1))) ||
-                                  (this.state.tqsj3 &&
-                                    (parseInt(event.code) > parseInt(this.state.tqsj3) ||
-                                      parseInt(event.code) === parseInt(this.state.tqsj3)))
-                                )
-                              }
-                            >
-                              {event.name}
-                            </Option>
-                          );
-                        })}
-                    </Select>,
-                  )}
-                </FormItem>
-              </Col>
-            </Row>
-            <Row gutter={rowLayout} className={this.state.addjglx === '1' ? '' : styles.none}>
-              <Col span={12}>
-                <FormItem label="第三级提醒人员" {...modleLayouts}>
-                  {getFieldDecorator('dyjtxry1', {
-                    initialValue: this.state.dyjtxry1,
-                  })(
-                    <Select
-                      mode="multiple"
-                      labelInValue
-                      placeholder="请选择"
-                      style={{ width: '100%' }}
-                       getPopupContainer={()=>document.getElementById('form')}
-                    >
-                      {TxryType &&
-                        TxryType.length > 0 &&
-                        TxryType.map(event => {
-                          return <Option value={event.code}>{event.name}</Option>;
-                        })}
-                    </Select>,
-                  )}
-                </FormItem>
-              </Col>
-              <Col span={5}>
-                <FormItem label="显示颜色" {...modleLayoutColor}>
-                  <Dropdown overlay={menu} trigger={['click']}>
-                    <div className={styles.boxColor} style={{ background: this.state.xsys1 }}></div>
-                  </Dropdown>
-                </FormItem>
-              </Col>
-              <Col span={7}>
-                <FormItem label="提前时间" {...modleLayout}>
-                  {getFieldDecorator('tqsj1', {
-                    initialValue: this.state.res ? this.state.res.yjyjtx_sj : undefined,
-                  })(
-                    <Select
-                      placeholder="请选择"
-                      style={{ width: '100%' }}
-                      onChange={e => this.getTqsj(e, 'tqsj1')}
-                       getPopupContainer={()=>document.getElementById('form')}
-                    >
-                      {TqsjType &&
-                        TqsjType.map(event => {
-                          return (
-                            <Option
-                              value={event.code}
-                              disabled={
-                                !!(
-                                  this.state.tqsj2 &&
-                                  (parseInt(event.code) > parseInt(this.state.tqsj2) ||
-                                    parseInt(event.code) === parseInt(this.state.tqsj2))
-                                ) ||
-                                (!this.state.tqsj2 &&
-                                  this.state.tqsj3 &&
-                                  (parseInt(event.code) > parseInt(this.state.tqsj3) ||
-                                    parseInt(event.code) === parseInt(this.state.tqsj3)))
-                              }
-                            >
-                              {event.name}
-                            </Option>
-                          );
-                        })}
-                    </Select>,
-                  )}
-                </FormItem>
-              </Col>
-            </Row>
-          </Form>
-        </Modal>
         <SuperviseCopy
           qjjg={this.state.qjjg}
           Fyvisible={this.state.Fyvisible}

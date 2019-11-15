@@ -10,6 +10,8 @@ import {
   fyJgsx,
   fyJgd,
   saveFy,
+    getchangeJgPzXxService,
+    getExplainModalService
 } from '../services/SuperviseSetup';
 import { getDictType } from '../services/common';
 
@@ -85,6 +87,20 @@ export default {
         payload: response && response.error === null ? response.data.list : [],
       });
     },
+      // 监管配置启用禁用功能
+      * changeJgPzXx({ payload, callback }, { call, put }) {
+          const response = yield call(getchangeJgPzXxService, payload);
+          if (response && !response.error) {
+              callback(response);
+          }
+      },
+      // 获取监管点具体算法说明
+      * getExplainModal({ payload, callback }, { call, put }) {
+          const response = yield call(getExplainModalService, payload);
+          if (response && !response.error) {
+              callback(response);
+          }
+      },
   },
 
   reducers: {

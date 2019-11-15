@@ -1,0 +1,66 @@
+@import '~antd/es/style/themes/default.less';
+@import '../../../theme/darkTheme';
+
+.sendMessage {
+  .moduleBlock {
+    padding: 20px 0 5px;
+  }
+
+  .submitButton {
+    float: right;
+    margin: 12px 20px;
+    width: 98px;
+    height: 34px;
+    line-height: 34px;
+    font-size: 16px;
+  }
+  :global{
+    .ant-tabs-bar{
+      border: @zero;
+      color: @white;
+      margin: @zero;
+      background: @component-background;
+      border-radius: @borderRadius;
+    }
+    .ant-tabs-nav-wrap{
+      padding: 12px 0;
+    }
+    .ant-tabs-tab{
+      margin: @zero;
+      padding: 0 24px;
+      border-right: 1px solid @body-background;
+      font-size: 16px;
+      &:last-child{
+        border-right:@zero;
+      }
+    }
+    .ant-tabs-ink-bar{
+      height: @zero;
+    }
+  }
+}
+.iconAdd{
+  color: #1890ff;
+  font-size: 14px;
+  margin: 5px 12px;
+  cursor: pointer;
+}
+.cardBox{
+  margin: 16px 0;
+  padding: 20px 0;
+}
+.moduleBottom{
+  border-bottom: 1px solid @body-background;
+  margin: 20px 0;
+  padding-bottom: 20px;
+  &:first-child{
+    margin: 0 0 20px;
+  }
+}
+.title {
+  font-size: @font-size-lg;
+  font-weight: 600;
+  color: @white;
+  border-left: 2px solid @white;
+  padding-left: 10px;
+}
