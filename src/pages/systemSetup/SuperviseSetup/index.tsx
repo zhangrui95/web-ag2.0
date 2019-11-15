@@ -1123,7 +1123,7 @@ class SuperviseSetup extends Component {
                 <FormItem label="监管期限" {...formItemLayout}>
                   {getFieldDecorator('jgqx', {
                     initialValue: this.state.jgqx,
-                  })(<RangePicker style={{ width: '100%' }} />)}
+                  })(<RangePicker style={{ width: '100%' }}  getCalendarContainer={()=>document.getElementById('form')}/>)}
                 </FormItem>
               </Col>
             </Row>

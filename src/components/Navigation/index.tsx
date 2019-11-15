@@ -93,7 +93,7 @@ const Navigation = props => {
   };
 
   const showTab = [...navigationData];
-  console.log('showTab--------->',showTab);
+  console.log('showTab--------->', showTab);
   return (
     <Card
       className={styles.card}
@@ -113,7 +113,11 @@ const Navigation = props => {
         onEdit={onEdit}
       >
         {showTab.map((pane: NavigationItem) => (
-          <TabPane tab={pane.name} key={pane.key} closable={pane.key !== '/welcome'}></TabPane>
+          <TabPane
+            tab={pane.name}
+            key={pane.key}
+            closable={pane.key !== '/ShowData/RegulatePanel'}
+          ></TabPane>
         ))}
       </Tabs>
       {/*{showTab.length > 3 ? (*/}
