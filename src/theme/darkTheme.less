@@ -18,6 +18,7 @@
 @depart-choose-back: #151b2a; // 机构选择背景色
 //@choose-more-back: #202839; // 多选中每个选中的背景色
 @date-unchoose:#1F2839; // 无法选择的日期的背景色
+@rangepicker-border:#1E2230; // 日期弹出窗边框颜色
 //-------------------------自定义-----------------------
 @zero: 0;
 @no-box-shadow: none; //无阴影
@@ -65,15 +66,38 @@ body {
       color: @highlight-color;
       background-color: @body-background;
     }
-    .ant-calendar-panel{
-      background:@depart-choose-back;
+    .ant-calendar{
+      background-color:@depart-choose-back;
+      border: 0;
+      box-shadow: none;
     }
-    .ant-calendar-input{
+    .ant-calendar-range .ant-calendar-input{
       background-color: @depart-choose-back;
     }
     .ant-calendar-date{
-      background-color: @date-unchoose;
+      //background-color: @date-unchoose;
+      color: @white;
     }
+    .ant-calendar-input-wrap{
+      border-bottom: 1px solid @rangepicker-border;
+    }
+    .ant-calendar-range .ant-calendar-body{
+      border-top: 1px solid @rangepicker-border;
+    }
+    .ant-calendar-header .ant-calendar-century-select, .ant-calendar-header .ant-calendar-decade-select, .ant-calendar-header .ant-calendar-year-select, .ant-calendar-header .ant-calendar-month-select{
+      color: @white;
+    }
+    .ant-calendar-picker-container{
+      color: @white;
+    }
+    .ant-calendar-disabled-cell .ant-calendar-date{
+      background-color: @component-background;
+      color: @white;
+    }
+    .ant-calendar-range .ant-calendar-input{
+      color: @white;
+    }
+
 
 
     .ant-menu {
@@ -159,6 +183,7 @@ body {
       color: @white!important;
     }
     .ant-tabs.ant-tabs-card .ant-tabs-card-bar .ant-tabs-tab-active {
+      //color: @highlight-color!important;
       background: @highlight-color;
       border-right: @zero;
     }

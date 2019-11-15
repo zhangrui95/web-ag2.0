@@ -20,6 +20,7 @@ import {
     Form, Select, Dropdown, Menu, TreeSelect,
 } from 'antd';
 import styles from './Show.less';
+import stylescommon from '../common/common.less';
 import { getUserInfos } from '../../utils/utils';
 import { routerRedux } from 'dva/router';
 import Statistics from '../../components/HomePage/Statistics';
@@ -27,6 +28,8 @@ import MyShare from '../../components/HomePage/MyShare';
 import MyNews from '../../components/HomePage/MyNews';
 import TabsTable from '../../components/HomePage/TabsTable';
 import TabsFollowTable from '../../components/HomePage/TabsFollowTable';
+import iconpreson from '../../assets/menuimage/iconpreson.png';
+import header from '../../assets/common/header.png';
 
 const { Option } = Select;
 const TreeNode = TreeSelect.TreeNode;
@@ -39,7 +42,8 @@ export default class Home1 extends PureComponent {
     constructor(props) {
         super(props);
         this.state = {
-            newsTime: moment().format('YYYY[年]MMMDo HH:mm:ss'),
+            newsTime: moment().format('YYYY[年]MMMDo'),
+            newsTime1: moment().format('HH:mm:ss'),
             tableTilte: '我的消息',
             xz_num: 0,
             xs_num: 0,
@@ -120,7 +124,8 @@ export default class Home1 extends PureComponent {
         this.getLog();
         setInterval(() => {
             this.setState({
-                newsTime: moment().format('YYYY[年]MMMDo HH:mm:ss'),
+                newsTime: moment().format('YYYY[年]MMMDo'),
+                newsTime1: moment().format('HH:mm:ss'),
             });
         }, 1000);
         const jigouArea = sessionStorage.getItem('user');
@@ -474,7 +479,8 @@ export default class Home1 extends PureComponent {
         if (type) {
             this.setState({
                 loading: true,
-                columns: [{
+                columns: [
+                  {
                     title: '分享时间',
                     dataIndex: 'czsj',
                     key: 'czsj',
@@ -622,7 +628,8 @@ export default class Home1 extends PureComponent {
         if (type) {
             this.setState({
                 loading: true,
-                columns: [{
+                columns: [
+                  {
                     title: '关注时间',
                     dataIndex: 'czsj',
                     key: 'czsj',
@@ -842,7 +849,7 @@ export default class Home1 extends PureComponent {
             size: 'small',
             showQuickJumper: true,
             showTotal: () => <span
-                className={styles.pagination}>{`共 ${this.state.pageTotal} 条记录 第 ${this.state.pageNew} / ${Math.ceil(parseInt(this.state.pageTotal) / parseInt(this.state.pageSize))} 页`}</span>,
+                className={styles.pagination} style={{left:-920}}>{`共 ${Math.ceil(parseInt(this.state.pageTotal) / parseInt(this.state.pageSize))} 页， ${this.state.pageTotal} 条记录`}</span>,
             onChange: (e) => {
                 this.setState({
                     pageNew: e,
@@ -861,43 +868,42 @@ export default class Home1 extends PureComponent {
         return (
             <div>
                 <div className={styles.homeStyle}>
-                    <Card
-                        title={<div className={styles.iconPerson}><img src="../../assets/menuimage/iconpreson.png"/><span>数据总览</span>
-                        </div>}
-                    >
+                    <Card title={<div className={styles.iconPerson}><img src={iconpreson} /><span>数据总览</span></div>} >
                         <div className={styles.leftBox}>
-                            <div style={{ width: '100%', height: '60px', marginBottom: '8px' }}>
-                                <img src="../../assets/common/header.png" className={styles.header}/>
+                            <div style={{ width: '100%', height: '60px', marginBottom: '16px' }}>
+                                <img src={header} className={styles.header}/>
                                 <div className={styles.personNews}>{getUserInfos().name} 警官，您好！</div>
-                                <span className={styles.timeLogin}>{this.state.newsTime}</span>
+                                <span className={styles.timeLogin}>日期：{this.state.newsTime}&nbsp;&nbsp;&nbsp;&nbsp; 时间：{this.state.newsTime1}</span>
                             </div>
-                            <div>
-                                <span className={styles.headerNumGlaj} style={{ width: '50px' }}>管理案件</span>
+                            <div className={styles.glajStyle}>
+                                <span className={styles.headerNumGlaj}>管理案件：</span>
                                 <span className={styles.glajNum}
-                                      style={{ fontSize: this.state.xz_num.length + this.state.xs_num.length > 9 || this.state.yj_num.length + this.state.gj_num.length > 9 ? '13px' : '14px' }}>行政 {this.state.xz_num} 起 刑事 {this.state.xs_num} 起</span>
+                                      style={{ fontSize: this.state.xz_num.length + this.state.xs_num.length > 9 || this.state.yj_num.length + this.state.gj_num.length > 9 ? '13px' : '14px' }}>行政 <a style={{textDecoration:'underline',color:'#47B2FF',fontSize:18}}>{this.state.xz_num}</a> 起&nbsp;&nbsp;&nbsp;&nbsp; 刑事 <a style={{textDecoration:'underline',color:'#47B2FF',fontSize:18}}>{this.state.xs_num}</a> 起</span>
                             </div>
-                            <div>
-                                <span className={styles.headerNumZfxx} style={{ width: '50px' }}>执法消息</span>
-                                <span className={styles.headerNum}
-                                      style={{ fontSize: this.state.yj_num.length + this.state.gj_num.length > 9 || this.state.xz_num.length + this.state.xs_num.length > 9 ? '13px' : '14px' }}>预警 {this.state.yj_num} 条 告警 {this.state.gj_num} 条</span>
+                            <div className={styles.glajStyle}>
+                                <span className={styles.headerNumZfxx}>执法消息：</span>
+                              <span className={styles.headerNum} style={{ fontSize: this.state.yj_num.length + this.state.gj_num.length > 9 || this.state.xz_num.length + this.state.xs_num.length > 9 ? '13px' : '14px' }}>预警 <a style={{textDecoration:'underline',color:'#47B2FF',fontSize:18}}>{this.state.yj_num}</a> 条 &nbsp;&nbsp;&nbsp;&nbsp;告警 <a style={{textDecoration:'underline',color:'#47B2FF',fontSize:18}}>{this.state.gj_num}</a> 条</span>
                             </div>
                         </div>
                         <div className={styles.rightBox}>
                             <Row gutter={16}>
                                 {this.state.headerList.map((item, i) => {
-                                    return <Col span={6} key={i} onClick={() => this.changeTable(i)}>
-                                        <Row className={styles.gutterBox} style={item.colorBg}>
-                                            <Col span={10} xl={{ span: 9 }} xxl={{ span: 10, offset: 1 }}
-                                                 className={styles.iconLeft}>
-                                                <svg width="46px" height="46px" fill={item.colorIcon}
-                                                     viewBox="0 0 1024 1024"
+                                    return <Col span={6}  key={i} onClick={() => this.changeTable(i)} >
+                                      <Row className={styles.gutterBox} style={item.colorBg}>
+                                        <Row className={styles.gutterTabs} >
+                                            <Col span={24}>
+                                                <svg width="46px" height="23px" fill={item.colorIcon}
+                                                     viewBox="0 0 1024 1024" style={{float:'left',marginTop:8}}
                                                      dangerouslySetInnerHTML={{ __html: item.icon }}></svg>
-                                            </Col>
-                                            <Col span={10} xl={{ span: 14 }} xxl={{ span: 7 }}>
                                                 <div className={styles.tiltleTop}>{item.name}</div>
-                                                <div className={styles.numBottom} style={item.style}>{item.tital}</div>
                                             </Col>
                                         </Row>
+                                        <Row className={styles.gutterTabs1} >
+                                          <Col span={24}>
+                                            <div className={styles.numBottom} style={item.style}>{item.tital}</div>
+                                          </Col>
+                                        </Row>
+                                      </Row>
                                     </Col>;
                                 })}
                             </Row>
@@ -916,10 +922,10 @@ export default class Home1 extends PureComponent {
                                 <Card
                                     title={
                                         <div className={styles.iconPerson}>
-                                            <img src="images/iconpreson.png"/>
+                                            <img src={iconpreson}/>
                                             <span>{this.state.tableTilte}</span>
                                         </div>
-                                    }
+                                    } className={styles.rightStyle}
                                 >
                                     <Table
                                         size="middle"

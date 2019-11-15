@@ -8,13 +8,16 @@ import { Card, Table, Radio, Tooltip, message, Tabs } from 'antd';
 import { connect } from 'dva';
 import moment from 'moment';
 import styles from '../../pages/ShowData/Show.less';
+import stylescommon from '../../pages/common/common.less';
 import { Link } from 'dva/router';
 import { getUserInfos } from '../../utils/utils';
 // import Ellipsis from '../../components/Ellipsis';
+import Ellipsis from 'ant-design-pro/lib/Ellipsis';
 import { userAuthorityCode } from '../../utils/utils';
 import { authorityIsTrue } from '../../utils/authority';
 
 const back = require('../../assets/common/back.png');
+const zhtjImage = require('../../assets/common/tj.png');
 const mainlineMenu = window.configUrl.mainlineMenu;
 const { TabPane } = Tabs;
 let levelNum = 0;
@@ -175,12 +178,12 @@ export default class Statistics extends PureComponent {
             payload: {
                 showCount: this.state.showCount,
                 pd: {
-                    currentPage: current ? current : this.state.current,
                     dw_code: code,
                     rqType: rqType,
                     firstSearch: levelNum === 0 ? '1' : '0',
                     is_zsj: levelNum === 0 ? window.configUrl.is_zsj : '0',
                 },
+              currentPage: current ? current : this.state.current,
             },
             callback: (res) => {
                 if (res.error === null) {
@@ -264,14 +267,13 @@ export default class Statistics extends PureComponent {
     };
 
     render() {
-        let tjColumns = [{
+        let tjColumns = [
+          {
             title: '单位名称',
             dataIndex: 'dw_name',
             align: 'left',
             key: 'dw_name',
-            render: (text, res) => <div className={styles.dwmcName} style={{ width: mainlineMenu ? '126px' : 'auto' }}
-                                        onClick={() => this.getNext(res.dw_code, this.state.rqType)}>
-            </div>,
+            render: (text, res) => <div className={styles.dwmcName} style={{ width: mainlineMenu ? '126px' : 'auto' }} onClick={() => this.getNext(res.dw_code, this.state.rqType)}><Ellipsis tooltip length={mainlineMenu ? 18 : 20}>{text}</Ellipsis></div>,
         }, {
             title: '刑事案件',
             render: (text, res) => <div>
@@ -438,13 +440,12 @@ export default class Statistics extends PureComponent {
             });
         }
         const paginationPage = {
-            showQuickJumper: true,
+            showQuickJumper: false,
             current: this.state.newData && this.state.newData.page ? this.state.newData.page.currentPage : '',
             total: this.state.newData && this.state.newData.page ? this.state.newData.page.totalResult : '',
             pageSize: this.state.newData && this.state.newData.page ? this.state.newData.page.showCount : '',
             showTotal: (total, range) =>
-                <span
-                    className={styles.pagination}>{`共 ${this.state.newData && this.state.newData.page ? this.state.newData.page.totalResult : 0} 条记录 第 ${this.state.newData && this.state.newData.page ? this.state.newData.page.currentPage : 1} / ${this.state.newData && this.state.newData.page ? this.state.newData.page.totalPage : 1} 页`}</span>,
+                <span className={styles.pagination}>{`共 ${this.state.newData && this.state.newData.page ? this.state.newData.page.totalPage : 1} 页， ${this.state.newData && this.state.newData.page ? this.state.newData.page.totalResult : 0}条记录`}</span>,
         };
         let colums = [{
             title: '单位名称',
@@ -530,7 +531,7 @@ export default class Statistics extends PureComponent {
                         window.configUrl.clearHome ?
                             <Card className={styles.tableBox}
                                   title={<div className={styles.iconPerson}>
-                                      <img src="images/tj.png"/>
+                                      <img src={zhtjImage}/>
                                       <span>综合统计</span>
                                       <Tooltip placement="top" title='返回'>
                                           <img src={back} className={styles.rollBack} onClick={() => this.getPop('2')}
@@ -556,7 +557,7 @@ export default class Statistics extends PureComponent {
                                 {
                                     authorityIsTrue(userAuthorityCode.RIQING) ? (
                                         <TabPane tab={<div className={styles.iconPerson}><img
-                                            src="images/tj.png"/><span>疑似警情</span></div>} key="tab1">
+                                            src={zhtjImage} /><span>疑似警情</span></div>} key="tab1">
                                             <div>
                                                 <Tooltip placement="top" title='返回'>
                                                     <img src={back} className={styles.rollBack}
@@ -575,7 +576,7 @@ export default class Statistics extends PureComponent {
                                 }
                                 <TabPane
                                     tab={
-                                        <div className={styles.iconPerson}><img src="images/tj.png"/><span>综合统计</span></div>
+                                        <div className={styles.iconPerson}><img src={zhtjImage}/><span>综合统计</span></div>
                                     }
                                     key="tab2"
                                 >
@@ -597,7 +598,7 @@ export default class Statistics extends PureComponent {
                                                                              title='本年'>年</Tooltip></Radio.Button>
                                         </Radio.Group>
                                     </div>
-                                    <Card title={null}>
+                                    <Card title={null} className={styles.BottomLeftStyle}>
                                         <Table
                                             loading={this.state.loading}
                                             size="middle"

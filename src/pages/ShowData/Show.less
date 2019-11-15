@@ -1,4 +1,5 @@
 @import "~antd/lib/style/themes/default.less";
+@import '../../theme/darkTheme';
 @import "../../utils/utils.less";
 
 .wrap {
@@ -138,10 +139,18 @@
     }
   }
 }
+.TabsStyle{
+  :global{
+    .ant-tabs.ant-tabs-card .ant-tabs-card-bar .ant-tabs-tab-active {
+      color: @highlight-color!important;
+    }
+  }
+}
 
-.iconPerson {
+.mysharestyle{
   overflow: hidden;
   font-size: 16px;
+  //color: #fff;
 
   img {
     width: 20px;
@@ -155,13 +164,38 @@
   }
 }
 
+.iconPerson {
+  overflow: hidden;
+  font-size: 16px;
+  color: #fff;
+
+  img {
+    width: 20px;
+    margin-right: 8px;
+    margin-top: 2px;
+    float: left;
+  }
+
+  span {
+    float: left;
+  }
+}
+
+.rightStyle{
+  :global{
+    .ant-card-head{
+      border-bottom: 1px solid #1A2131;
+    }
+  }
+}
+
 .leftBox {
-  width: 265px;
+  width: 511px;
   float: left;
 }
 
 .rightBox {
-  width: ~'calc(100% - 265px)';
+  width: ~'calc(100% - 511px)';
   float: right;
   padding-left: 8px;
   margin-top: 17px;
@@ -190,23 +224,23 @@
 }
 
 .timeLogin {
-  float: left;
+  //float: left;
   width: 165px;
-  line-height: 18px;
-  font-size: 14px;
-  color: #333;
+  line-height: 25px;
+  font-size: 10px;
+  color: #fff;
   font-weight: 600;
-  padding: 3px 20px 3px 35px;
+  padding: 3px 20px 3px 9px;
   text-align: center;
 }
 
 .personNews {
   color: #2095ff;
-  line-height: 20px;
-  float: left;
+  line-height: 30px;
+  //float: left;
   font-size: 16px;
   margin: 3px 10px;
-  width: 170px;
+  width: 210px;
   text-align: center;
 }
 
@@ -215,8 +249,8 @@
 }
 
 .gutterBox {
-  background: #31cc80;
-  padding: 5px 0;
+  //background: #31cc80;
+  padding: 5px 5px;
   text-align: center;
   height: 100px;
   border-radius: 5px;
@@ -242,6 +276,14 @@
   //  box-shadow: 0 0 7px #aaa;
   //}
 }
+.gutterTabs{
+  height: 33px;
+  line-height: 33px;
+}
+
+.gutterTabs1{
+  height: 67px;
+}
 
 .iconLeft {
   font-size: 50px;
@@ -250,7 +292,8 @@
 
 .tiltleTop {
   font-size: 14px;
-  margin-top: 18px;
+  //margin-top: 18px;
+  float: left;
 }
 
 .tiltleTop1 {
@@ -261,7 +304,8 @@
 }
 
 .numBottom {
-  font-size: 30px;
+  font-size: 40px;
+  font-weight: bold;
   line-height: 36px;
 }
 
@@ -311,6 +355,18 @@
   white-space: nowrap;
 }
 
+.BottomLeftStyle{
+
+    //.antd-pro-theme-dark-theme-dark .ant-card{
+      border-radius: 0!important;
+      background-color: @table-header-bg!important;
+    //}
+    //.antd-pro-theme-dark-theme-dark .ant-card-bordered{
+      border: 0!important;
+    //}
+
+}
+
 .homeTable {
   :global {
     .ant-table-thead > tr > th, .ant-table-tbody > tr > td {
@@ -326,8 +382,8 @@
 
   .pagination {
     position: absolute;
-    left: 24px;
-    color: @text-color-secondary;
+    left: -320px;
+    color: @text-color;
 
     :global {
       .ant-pagination-total-text {
@@ -489,7 +545,7 @@
         margin: 0 !important;
         padding: 0 16px !important;
         line-height: 24px !important;
-        background: #fff !important;
+        background: @table-header-bg !important;
 
         &:first-child {
           border-right: 1px solid #ccc !important;
@@ -502,9 +558,9 @@
     }
 
     .ant-tabs-bar {
-      background: #fff;
+      background: @table-header-bg;
       margin-bottom: 0;
-      border: 1px solid #e8e8e8;
+      //border: 1px solid #e8e8e8;
       border-bottom: 0;
       padding: 17px 20px 0px;
       font-size: 16px;
@@ -519,7 +575,7 @@
 }
 
 .redNum {
-  color: #FE0032 !important;
+  color: #fff !important;
   font-weight: 600;
   cursor: pointer;
   text-decoration: underline !important;
@@ -528,7 +584,7 @@
 .redAllNum {
   cursor: pointer;
   text-decoration: underline !important;
-  color: #333 !important;
+  color: #fff !important;
 }
 
 .dwmcName {
@@ -542,12 +598,12 @@
   top: 13px;
 
   :global {
-    .ant-radio-button-wrapper {
-      border-radius: 100px!important;
-      margin: 0 5px!important;
-      border-left: 1px solid #1890ff;
-      padding: 0 8px!important;
-    }
+    //.ant-radio-button-wrapper {
+      //border-radius: 100px!important;
+      //margin: 0 5px!important;
+      //border-left: 1px solid #1890ff;
+      //padding: 0 8px!important;
+    //}
 
     .ant-radio-button-wrapper:not(:first-child)::before {
       background: transparent !important;
@@ -560,51 +616,70 @@
 
     .ant-radio-button-wrapper {
       border-color: #1890ff!important;
-      color: #1890ff;
+      color: @white;
     }
 
     .ant-radio-button-wrapper-checked {
       background: #1890ff;
       color: #fff !important;
     }
+
+    .ant-radio-button-wrapper:first-child{
+      border-left:0;
+    }
+
+    .ant-radio-button-wrapper-disabled:first-child,.ant-radio-button-wrapper-disabled:hover{
+      background-color:@body-background;
+    }
+
+    .ant-radio-button-wrapper-checked:first-child,.ant-radio-button-wrapper-disabled:hover{
+      background-color:#1890ff;
+    }
+
   }
 }
 
+.glajStyle{
+  padding-right: 12px;
+  border: 1px solid #0F1220;
+  margin-left: 60px;
+}
+
 .headerNum {
-  float: left;
-  padding: 0 10px;
+  //float: left;
+  //padding: 0 10px;
   height: 33px;
   line-height: 33px;
-  width: 200px;
+  //width: 200px;
   text-align: center;
 }
 
 .headerNumGlaj {
-  float: left;
-  padding: 0 10px;
-  border-right: 1px solid #ccc;
-  border-bottom: 1px solid #ccc;
-  line-height: 16px;
-  color: #444;
+  //float: left;
+  padding: 0 0 0 5px;
+  //border-right: 1px solid #ccc;
+  //border-bottom: 1px solid #ccc;
+  line-height: 33px;
+  color: #fff;
   font-weight: 600;
 }
 
 .glajNum {
-  float: left;
-  padding: 0 10px;
+  //float: left;
+  //padding: 0 10px;
   height: 33px;
   line-height: 33px;
-  border-bottom: 1px solid #ccc;
-  width: 200px;
+  //border-bottom: 1px solid #ccc;
+  //width: 200px;
   text-align: center;
 }
 
 .headerNumZfxx {
-  float: left;
-  padding: 0 10px;
-  border-right: 1px solid #ccc;
-  line-height: 16px;
-  color: #444;
+  //float: left;
+  padding: 0 0 0 5px;
+  //border-right: 1px solid #ccc;
+  line-height: 33px;
+  color: #fff;
   font-weight: 600;
 }
 
@@ -612,6 +687,9 @@
   :global {
     .ant-card-wider-padding .ant-card-body {
       padding: 10px 32px;
+    }
+    .ant-card-body{
+      padding: 24px;
     }
   }
 }
