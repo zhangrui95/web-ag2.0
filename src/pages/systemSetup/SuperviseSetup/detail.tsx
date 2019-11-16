@@ -68,9 +68,8 @@ class Detail extends Component {
     }
 
     componentDidMount() {
-        console.log('this.props------->',this.props.location.query);
         let type = this.props.location.query.type;
-        let res = this.props.location.query.res;
+        let res = JSON.parse(this.props.location.query.res);
         this.props.form.resetFields([
             'addjgxz',
             'addjglx',
@@ -89,7 +88,7 @@ class Detail extends Component {
             'tqsj3',
         ]);
         this.props.SuperviseSetup.SuperviseSetup.JgdType = [];
-        if (type === 0) {
+        if (type == 0) {
             this.getCommon('500830'); //告警监管事项
             this.getClear();
             this.setState({
@@ -105,7 +104,7 @@ class Detail extends Component {
                 tqsj2: null,
                 tqsj3: null,
             });
-        } else if (type === 1 || type === 2) {
+        } else if (type == 1 || type == 2) {
             if (res.jglx === '0') {
                 this.getCommon('500830'); //告警监管事项
             } else {
@@ -127,7 +126,7 @@ class Detail extends Component {
                                     : res.jgsx_dm,
             );
             this.setState({
-                madalTitle: type === 2 ? '监管点修改' : '监管点详情',
+                madalTitle: type == 2 ? '监管点修改' : '监管点详情',
                 res: res,
                 qjjg: res.sf_qjjg === '1' ? true : false,
                 jgdDm: res.jgd_dm,
@@ -275,7 +274,7 @@ class Detail extends Component {
             'tqsj3',
         ]);
         this.props.SuperviseSetup.SuperviseSetup.JgdType = [];
-        if (type === 0) {
+        if (type == 0) {
             this.getCommon('500830'); //告警监管事项
             this.getClear();
             this.setState({
@@ -291,7 +290,7 @@ class Detail extends Component {
                 tqsj2: null,
                 tqsj3: null,
             });
-        } else if (type === 1 || type === 2) {
+        } else if (type == 1 || type == 2) {
             if (res.jglx === '0') {
                 this.getCommon('500830'); //告警监管事项
             } else {
@@ -313,7 +312,7 @@ class Detail extends Component {
                                     : res.jgsx_dm,
             );
             this.setState({
-                madalTitle: type === 2 ? '监管点修改' : '监管点详情',
+                madalTitle: type == 2 ? '监管点修改' : '监管点详情',
                 res: res,
                 qjjg: res.sf_qjjg === '1' ? true : false,
                 jgdDm: res.jgd_dm,
@@ -497,7 +496,7 @@ class Detail extends Component {
                 });
             },
             onCancel() {
-                if (modleType && modleType === 1) {
+                if (modleType && modleType == 1) {
                     that.setState({
                         visible: true,
                     });
@@ -562,7 +561,6 @@ class Detail extends Component {
         });
     };
     getJgd = e => {
-        console.log('监管事项-------->',e)
         // this.props.form.resetFields([
         //     'addjgd',
         //     'addjgqx',
@@ -750,7 +748,7 @@ class Detail extends Component {
         });
     };
     handleOk = () => {
-        if (this.state.modleType === 0) {
+        if (this.state.modleType == 0) {
             this.props.form.validateFields((err, values) => {
                 if (!values.addjgxz) {
                     message.warn('请选择机构');
@@ -851,9 +849,9 @@ class Detail extends Component {
     //获取该机构是否存在该监管点信息
     changeJgd = e => {
         this.props.form.validateFields((err, values) => {
-            if (!values.addjgxz && this.state.modleType === 0) {
+            if (!values.addjgxz && this.state.modleType == 0) {
                 message.warn('请选择机构');
-            } else if (!values.addjgxz && this.state.modleType === 0) {
+            } else if (!values.addjgxz && this.state.modleType == 0) {
                 message.warn('请选择监管事项');
             } else {
                 this.props.dispatch({
@@ -970,7 +968,6 @@ class Detail extends Component {
                 SuperviseSetup: { JgdType },
             },
         } = this.props;
-        console.log('JgsxType----->', JgsxType);
         const rowLayout = { md: 8, xl: 16, xxl: 24 };
         const modleLayouts = {
             labelCol: { span: 8 },
@@ -1048,7 +1045,7 @@ class Detail extends Component {
                                             getPopupContainer={()=>document.getElementById('form')}
                                             treeNodeFilterProp="title"
                                             onChange={e => this.emptyJgxz(e)}
-                                            disabled={this.state.modleType === 0 ? false : true}
+                                            disabled={this.state.modleType == 0 ? false : true}
                                         >
                                             {depTree && depTree.length > 0 ? this.renderloop(depTree) : null}
                                         </TreeSelect>,
@@ -1069,7 +1066,7 @@ class Detail extends Component {
                                 </Checkbox>
                             </Col>
                             <Col
-                                className={this.state.modleType === 0 ? '' : styles.none}
+                                className={this.state.modleType == 0 ? '' : styles.none}
                                 span={8}
                                 style={{ margin: '14px 0' }}
                             >
@@ -1455,11 +1452,11 @@ class Detail extends Component {
                         <Button type="primary" style={{ marginLeft: 8 }} className={styles.qxBtn}>
                             取消
                         </Button>
-                        {this.state.modleType === 1 ? <Button type="primary" style={{ marginLeft: 8 }} className={styles.delBtn}>
+                        {this.state.modleType == 1 ? <Button type="primary" style={{ marginLeft: 8 }} className={styles.delBtn}>
                             删除
                         </Button> : ''}
                         <Button type="primary" style={{ marginLeft: 8 }}>
-                            {this.state.modleType === 2||this.state.modleType === 0 ?  '完成' : '确认修改'}
+                            {this.state.modleType == 2||this.state.modleType == 0 ?  '完成' : '确认修改'}
                         </Button>
                     </div>
                 </Card>

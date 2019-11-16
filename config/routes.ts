@@ -438,8 +438,8 @@ export function routes() {
                   component: './systemSetup/ShowSetup',
                 },
                 {
-                  path: '/systemSetup/SuperviseSetup/detail',
-                  name: '监管配置-详情',
+                  path: '/systemSetup/SuperviseSetup/Detail',
+                  name: '监管配置详情',
                   icon: 'smile',
                   component: './systemSetup/SuperviseSetup/detail.tsx',
                   hideInMenu: true,

@@ -1,0 +1,860 @@
+@import "~antd/lib/style/themes/default.less";
+@import '../../utils/utils.less';
+
+.title {
+  color: #fff;
+  font-weight: bold;
+  line-height: 56px;
+  padding-left: 16px;
+  //background-color: #CDE8FA;
+  font-size: 16px;
+  background: linear-gradient(to right, #1F83DF, #FCFDFF);
+}
+
+.message {
+  position: relative;
+  background-color: #fff;
+  border-bottom: 3px solid #1890FF;
+  padding: 0 24px 0;
+  margin-bottom: 24px;
+}
+
+.TimelineAllsa {
+  position: relative;
+  left: 140px;
+
+  :global {
+    .ant-timeline-item-tail {
+      border-left: 0 solid #108EE9;
+      background-color: #108ee9;
+      width: 2px;
+      //top: 0;
+    }
+  }
+}
+
+.timeline {
+  position: relative;
+  //left: -160px;
+}
+
+.spanTitles {
+  position: relative;
+  left: -160px;
+  display: block;
+}
+
+.spanTitle {
+  display: block;
+  height: 21px;
+}
+
+.DetailLineIcon1 {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: #1890FF;
+  display: block;
+  position: absolute;
+  top: -55px;
+  left: 143px;
+  z-index: 1000;
+}
+
+.DetailLeftline {
+  width: 94px;
+  height: 3px;
+  background-color: #1890FF;
+  display: block;
+  position: absolute;
+  left: 167px;
+  top: 213px;
+}
+
+.DetailLineIcon {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: #1890FF;
+  display: block;
+  position: absolute;
+  top: 211px;
+  left: 164px;
+}
+
+.personFiles {
+  min-width: 200px;
+  width: 334px;
+  font-size: 14px;
+  background-color: #F2FBFF;
+}
+
+.TopPersonFiles {
+  padding: 12px 0;
+  border: 1px solid #C8EAFF;
+  //border-bottom: none;
+}
+
+.IndexTitle {
+  width: auto;
+  position: relative;
+  text-align: left;
+}
+
+@media screen and (max-width: 1280px) {
+  .message .steps {
+    position: relative;
+    left: 0;
+    display: inline-flex;
+    width: auto;
+
+    :global {
+      .ant-steps-item {
+        width: 146px;
+        //overflow: visible;
+      }
+
+      .ant-steps-item-description {
+        width: 106px;
+        max-width: 106px;
+      }
+    }
+  }
+
+  .CdCard {
+    text-align: left;
+    padding: 5px 0;
+    overflow: hidden;
+  }
+
+  .Alllength {
+    width: 653px;
+  }
+
+  .message .trailsteps {
+    position: relative;
+    left: 0;
+    display: inline-flex;
+    width: auto;
+
+    :global {
+      .ant-steps-item {
+        width: 400px;
+        //overflow: visible;
+      }
+
+      .ant-steps-item-tail {
+        margin-left: 0;
+      }
+
+      .ant-steps-item-content {
+        position: relative;
+        left: 0;
+        top: -192px;
+        width: 278px;
+      }
+
+      .ant-steps-item-icon {
+        margin-left: 0;
+        //width: 195px;
+        //overflow: visible;
+      }
+
+      .ant-steps-item-description {
+        width: 360px;
+        max-width: 360px;
+      }
+    }
+  }
+
+  .listStyle {
+    position: absolute;
+    top: 15px;
+    left: 266px;
+    width: 400px;
+    overflow: hidden;
+    padding-top: 180px;
+    //padding-bottom: 435px;
+  }
+
+  .DetailRightline1 {
+    width: 380px;
+    height: 3px;
+    background-color: #1890FF;
+    display: block;
+    position: absolute;
+    left: 13px;
+    top: -58px;
+  }
+
+  .trailsteps {
+    :global {
+      .ant-steps-item:first-child .ant-steps-icon-dot {
+        left: 0;
+      }
+
+      .ant-timeline-item-head {
+        width: 12px;
+        height: 12px;
+        left: -1px;
+        background-color: #1890ff;
+        border: 2px solid #fff;
+        z-index: 999;
+      }
+
+      .ant-timeline-item-tail {
+        top: 8px;
+        border-left: 2px solid #1890ff;
+      }
+    }
+  }
+
+  .AllTimeLine {
+    position: absolute;
+    left: -1px;
+    top: 236px;
+  }
+
+  .message {
+    position: relative;
+    background-color: #fff;
+    border-bottom: 3px solid #1890FF;
+    padding: 0 24px 0;
+    margin-bottom: 24px;
+  }
+
+  .TimeLineStyle {
+    background-color: #1890FF;
+    height: 60px;
+    width: 2px;
+    position: absolute;
+    top: -54px;
+    left: -14px;
+  }
+
+  .sawpName1 {
+    width: 109px;
+  }
+}
+
+@media screen and (min-width: 1280px) {
+  .message .steps {
+    position: relative;
+    left: 0;
+    display: inline-flex;
+    width: auto;
+
+    :global {
+      .ant-steps-item {
+        width: 146px;
+        //overflow: visible;
+      }
+
+      .ant-steps-item-description {
+        width: 106px;
+        max-width: 106px;
+      }
+    }
+  }
+
+  .CdCard {
+    text-align: left;
+    padding: 5px 0;
+    overflow: hidden;
+  }
+
+  .Alllength {
+    width: 653px;
+  }
+
+  .message .trailsteps {
+    position: relative;
+    left: 0;
+    display: inline-flex;
+    width: auto;
+
+    :global {
+      .ant-steps-item {
+        width: 400px;
+        //overflow: visible;
+      }
+
+      .ant-steps-item-tail {
+        margin-left: 0;
+      }
+
+      .ant-steps-item-content {
+        position: relative;
+        left: 0;
+        top: -192px;
+        width: 278px;
+      }
+
+      .ant-steps-item-icon {
+        margin-left: 0;
+        //width: 195px;
+        //overflow: visible;
+      }
+
+      .ant-steps-item-description {
+        width: 360px;
+        max-width: 360px;
+      }
+    }
+  }
+
+  .listStyle {
+    position: absolute;
+    top: 15px;
+    left: 266px;
+    width: 400px;
+    overflow: hidden;
+    padding-top: 180px;
+    //padding-bottom: 435px;
+  }
+
+  .DetailRightline1 {
+    width: 380px;
+    height: 3px;
+    background-color: #1890FF;
+    display: block;
+    position: absolute;
+    left: 13px;
+    top: -58px;
+  }
+
+  .trailsteps {
+    :global {
+      .ant-steps-item:first-child .ant-steps-icon-dot {
+        left: 0;
+      }
+
+      .ant-timeline-item-head {
+        width: 12px;
+        height: 12px;
+        left: -1px;
+        background-color: #1890ff;
+        border: 2px solid #fff;
+        z-index: 999;
+      }
+
+      .ant-timeline-item-tail {
+        top: 8px;
+        border-left: 2px solid #1890ff;
+      }
+    }
+  }
+
+  .AllTimeLine {
+    position: absolute;
+    left: -1px;
+    top: 236px;
+  }
+
+  .message {
+    position: relative;
+    background-color: #fff;
+    border-bottom: 3px solid #1890FF;
+    padding: 0 24px 0;
+    margin-bottom: 24px;
+  }
+
+  .TimeLineStyle {
+    background-color: #1890FF;
+    height: 60px;
+    width: 2px;
+    position: absolute;
+    top: -54px;
+    left: -14px;
+  }
+
+  .sawpName1 {
+    width: 109px;
+  }
+}
+
+@media screen and (min-width: 1600px) {
+  .message .steps {
+    position: relative;
+    left: 0;
+    display: inline-flex;
+    width: auto;
+
+    :global {
+      .ant-steps-item {
+        width: 226px;
+        //overflow: visible;
+      }
+
+      .ant-steps-item-description {
+        width: 186px;
+        max-width: 186px;
+      }
+    }
+  }
+
+  .CdCard {
+    text-align: left;
+    padding: 5px 0;
+    overflow: hidden;
+  }
+
+  .Alllength {
+    width: 653px;
+  }
+
+  .message .trailsteps {
+    position: relative;
+    left: 0;
+    display: inline-flex;
+    width: auto;
+
+    :global {
+      .ant-steps-item {
+        width: 350px;
+        //overflow: visible;
+      }
+
+      .ant-steps-item-tail {
+        margin-left: 0;
+      }
+
+      .ant-steps-item-content {
+        position: relative;
+        left: 0;
+        top: -192px;
+        width: 278px;
+      }
+
+      .ant-steps-item-icon {
+        margin-left: 0;
+        //width: 195px;
+        //overflow: visible;
+      }
+
+      .ant-steps-item-description {
+        width: 310px;
+        max-width: 310px;
+      }
+    }
+  }
+
+  .listStyle {
+    position: absolute;
+    top: 15px;
+    left: 266px;
+    width: 700px;
+    overflow: hidden;
+    padding-top: 180px;
+    //padding-bottom: 435px;
+  }
+
+  .DetailRightline1 {
+    width: 320px;
+    height: 3px;
+    background-color: #1890FF;
+    display: block;
+    position: absolute;
+    left: 13px;
+    top: -58px;
+  }
+
+  .trailsteps {
+    :global {
+      .ant-steps-item:first-child .ant-steps-icon-dot {
+        left: 0;
+      }
+
+      .ant-timeline-item-head {
+        width: 12px;
+        height: 12px;
+        left: -1px;
+        background-color: #1890ff;
+        border: 2px solid #fff;
+        z-index: 999;
+      }
+
+      .ant-timeline-item-tail {
+        top: 8px;
+        border-left: 2px solid #1890ff;
+      }
+    }
+  }
+
+  .AllTimeLine {
+    position: absolute;
+    left: -1px;
+    top: 236px;
+  }
+
+  .message {
+    position: relative;
+    background-color: #fff;
+    border-bottom: 3px solid #1890FF;
+    padding: 0 24px 0;
+    margin-bottom: 24px;
+  }
+
+  .TimeLineStyle {
+    background-color: #1890FF;
+    height: 60px;
+    width: 2px;
+    position: absolute;
+    top: -54px;
+    left: -14px;
+  }
+
+  .sawpName1 {
+    width: 188px;
+  }
+}
+
+@media screen and (min-width: 1680px) {
+  .message .steps {
+    position: relative;
+    left: 0;
+    display: inline-flex;
+    width: auto;
+
+    :global {
+      .ant-steps-item {
+        width: 246px;
+        //overflow: visible;
+      }
+
+      .ant-steps-item-description {
+        width: 226px;
+        max-width: 226px;
+      }
+    }
+  }
+
+  .CdCard {
+    text-align: left;
+    padding: 5px 0;
+    overflow: hidden;
+  }
+
+  .Alllength {
+    width: 653px;
+  }
+
+  .message .trailsteps {
+    position: relative;
+    left: 0;
+    display: inline-flex;
+    width: auto;
+
+    :global {
+      .ant-steps-item {
+        width: 390px;
+        //overflow: visible;
+      }
+
+      .ant-steps-item-tail {
+        margin-left: 0;
+      }
+
+      .ant-steps-item-content {
+        position: relative;
+        left: 0;
+        top: -192px;
+        width: 278px;
+      }
+
+      .ant-steps-item-icon {
+        margin-left: 0;
+        //width: 195px;
+        //overflow: visible;
+      }
+
+      .ant-steps-item-description {
+        width: 350px;
+        max-width: 350px;
+      }
+    }
+  }
+
+  .listStyle {
+    position: absolute;
+    top: 15px;
+    left: 266px;
+    width: 780px;
+    overflow: hidden;
+    padding-top: 180px;
+    //padding-bottom: 435px;
+  }
+
+  .DetailRightline1 {
+    width: 370px;
+    height: 3px;
+    background-color: #1890FF;
+    display: block;
+    position: absolute;
+    left: 13px;
+    top: -58px;
+  }
+
+  .trailsteps {
+    :global {
+      .ant-steps-item:first-child .ant-steps-icon-dot {
+        left: 0;
+      }
+
+      .ant-timeline-item-head {
+        width: 12px;
+        height: 12px;
+        left: -1px;
+        background-color: #1890ff;
+        border: 2px solid #fff;
+        z-index: 999;
+      }
+
+      .ant-timeline-item-tail {
+        top: 8px;
+        border-left: 2px solid #1890ff;
+      }
+    }
+  }
+
+  .AllTimeLine {
+    position: absolute;
+    left: -1px;
+    top: 236px;
+  }
+
+  .message {
+    position: relative;
+    background-color: #fff;
+    border-bottom: 3px solid #1890FF;
+    padding: 0 24px 0;
+    margin-bottom: 24px;
+  }
+
+  .TimeLineStyle {
+    background-color: #1890FF;
+    height: 60px;
+    width: 2px;
+    position: absolute;
+    top: -54px;
+    left: -14px;
+  }
+
+  .sawpName1 {
+    width: 209px;
+  }
+}
+
+@media screen and (min-width: 1920px) {
+  .message .steps {
+    position: relative;
+    left: 0;
+    display: inline-flex;
+    width: auto;
+
+    :global {
+      .ant-steps-item {
+        width: 306px;
+        //overflow: visible;
+      }
+
+      .ant-steps-item-description {
+        width: 266px;
+        max-width: 266px;
+      }
+    }
+  }
+
+  .CdCard {
+    text-align: left;
+    padding: 5px 0;
+    overflow: hidden;
+  }
+
+  .Alllength {
+    width: 653px;
+  }
+
+  .message .trailsteps {
+    position: relative;
+    left: 0;
+    display: inline-flex;
+    width: auto;
+
+    :global {
+      .ant-steps-item {
+        width: 340px;
+        //overflow: visible;
+      }
+
+      .ant-steps-item-tail {
+        margin-left: 0;
+      }
+
+      .ant-steps-item-content {
+        position: relative;
+        left: 0;
+        top: -192px;
+        width: 278px;
+      }
+
+      .ant-steps-item-icon {
+        margin-left: 0;
+        //width: 195px;
+        //overflow: visible;
+      }
+
+      .ant-steps-item-description {
+        width: 300px;
+        max-width: 300px;
+      }
+    }
+  }
+
+  .listStyle {
+    position: absolute;
+    top: 15px;
+    left: 266px;
+    width: 1020px;
+    overflow: hidden;
+    padding-top: 180px;
+    padding-bottom: 435px;
+  }
+
+  .DetailRightline1 {
+    width: 320px;
+    height: 3px;
+    background-color: #1890FF;
+    display: block;
+    position: absolute;
+    left: 13px;
+    top: -58px;
+  }
+
+  .trailsteps {
+    :global {
+      .ant-steps-item:first-child .ant-steps-icon-dot {
+        left: 0;
+      }
+
+      .ant-timeline-item-head {
+        width: 12px;
+        height: 12px;
+        left: -1px;
+        background-color: #1890ff;
+        border: 2px solid #fff;
+        z-index: 999;
+      }
+
+      .ant-timeline-item-tail {
+        top: 8px;
+        border-left: 2px solid #1890ff;
+      }
+    }
+  }
+
+  .AllTimeLine {
+    position: absolute;
+    left: -1px;
+    top: 236px;
+  }
+
+  .message {
+    position: relative;
+    background-color: #fff;
+    border-bottom: 3px solid #1890FF;
+    padding: 0 24px 0;
+    margin-bottom: 24px;
+  }
+
+  .TimeLineStyle {
+    background-color: #1890FF;
+    height: 60px;
+    width: 2px;
+    position: absolute;
+    top: -54px;
+    left: -14px;
+  }
+
+  .sawpName1 {
+    width: 233px;
+  }
+
+  .sawpListName {
+    :global {
+      .ant-list-item-content {
+        margin: 0 30px 12px 30px;
+      }
+    }
+  }
+}
+
+.IconStyle {
+  display: inline-block;
+  width: 280px;
+  position: absolute;
+  right: 0;
+  //background-color: #faa;
+}
+
+.IconStyle img {
+  display: inline-block;
+}
+
+/*CaseModalStep*/
+.clsj_time {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  display: block;
+}
+
+.superve {
+  display: inline-block;
+  overflow: hidden;
+
+  :global {
+    .ant-steps {
+      display: block;
+    }
+
+    .ant-steps-item {
+      width: 18%;
+    }
+
+    .ant-steps-item-content {
+      width: 100%;
+    }
+
+    .ant-steps-horizontal:not(.ant-steps-label-vertical) .ant-steps-item-description {
+      max-width: 265px;
+    }
+  }
+}
+
+.tag {
+  display: block;
+  position: absolute;
+  top: 0;
+  right: 25px;
+  border-radius: 5px;
+  padding: 0 8px;
+  background: #fff;
+  border: 1px solid #F5222D;
+  color: #F5222D;
+}
+
+.sawpSee {
+  background-color: #F7F9FA;
+  height: 40px;
+  text-align: center;
+  line-height: 40px;
+  cursor: pointer;
+  color: #929394;
+  border-top: @border-width-base @border-style-base #E9E9E9;
+  margin-top: -1px;
+
+  &:hover {
+    color: #00ABFF;
+  }
+}
