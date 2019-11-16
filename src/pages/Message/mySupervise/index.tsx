@@ -1,7 +1,7 @@
 import React, {Component, PureComponent} from 'react';
 import moment from 'moment/moment';
 import { connect } from 'dva';
-import {Row, Col, Form, Select, Input, Button, Radio, DatePicker, Tabs, Card} from 'antd';
+import {Row, Col, Form, Select, Input, Button, Radio, DatePicker, Tabs, Card, Icon} from 'antd';
 import styles from './index.less';
 // import RenderTable from '../../../components/MySuperviseRealData/RenderTable';
 import { tableList, getQueryString, exportListDataMaxDays } from '../../../utils/utils';
@@ -31,6 +31,7 @@ class  mySupervise extends Component {
         formValues: {},
         activeKey: '0',
         arrayDetail: [],
+        searchHeight:false,
         yslx: '',
     };
 
@@ -322,6 +323,11 @@ class  mySupervise extends Component {
         };
         this.getMySupervise(params);
     };
+    getSearchHeight = () => {
+        this.setState({
+            searchHeight:!this.state.searchHeight
+        });
+    }
     // 重置
     handleFormReset = () => {
         this.props.form.resetFields();
@@ -453,126 +459,129 @@ class  mySupervise extends Component {
         };
         const rowLayout = { md: 8, xl: 16, xxl: 24 };
         return (
-            <Form onSubmit={this.handleSearch} layout="inline">
-                <Row gutter={rowLayout}>
-                    <Col {...colLayout}>
-                        <FormItem label="问题类型" {...formItemLayout}>
-                            {getFieldDecorator('wtlxId', {
-                                initialValue: this.state.wtlxId,
-                            })(
-                                <Select placeholder="请选择问题类型" style={{ width: '100%' }}>
-                                    <Option value="">全部</Option>
-                                    {/*{involvedType !== undefined ? this.Option() : ''}*/}
-                                    {problemTypeOptions}
-                                </Select>,
-                            )}
-                        </FormItem>
-                    </Col>
-                    <Col xl={8} md={12} sm={24}>
-                        <FormItem label="案件名称" {...formItemLayout}>
-                            {getFieldDecorator('ajmc', {
-                                // initialValue: this.state.MySuperviseType,
-                                rules: [{ max: 128, message: '最多输入128个字！' }],
-                            })(
-                                <Input placeholder="请输入案件名称"/>,
-                            )}
-                        </FormItem>
-                    </Col>
-                    <Col xl={8} md={12} sm={24}>
-                        <FormItem label="案件编号" {...formItemLayout}>
-                            {getFieldDecorator('ajbh', {
-                                // initialValue: this.state.MySuperviseType,
-                                rules: [
-                                    { pattern: /^[A-Za-z0-9]+$/, message: '请输入正确的案件编号！' },
-                                    { max: 32, message: '最多输入32个字！' },
-                                ],
-                            })(
-                                <Input placeholder="请输入案件编号"/>,
-                            )}
-                        </FormItem>
-                    </Col>
-                </Row>
-                <Row gutter={{ md: 8, lg: 16, xl: 24 }}>
-                    <Col xl={8} md={12} sm={24}>
-                        <FormItem label="督办时间" {...formItemLayout}>
-                            {getFieldDecorator('dbsj', {
-                                // initialValue: this.state.ssbaq,
-                            })(
-                                <RangePicker
-                                    disabledDate={this.disabledDate}
-                                    style={{ width: '100%' }}
-                                />,
-                            )}
-                        </FormItem>
-                    </Col>
-                    <Col xl={8} md={12} sm={24}>
-                        <FormItem label="反馈时间" {...formItemLayout}>
-                            {getFieldDecorator('fksj', {
-                                // initialValue: this.state.ssbaq,
-                            })(
-                                <RangePicker
-                                    disabledDate={this.disabledDate}
-                                    style={{ width: '100%' }}
-                                />,
-                            )}
-                        </FormItem>
-                    </Col>
+            <Card className={stylescommon.cardArea+' '+styles.listPageWrap} id={'form'}>
+                <Form onSubmit={this.handleSearch} layout="inline" style={{height:this.state.searchHeight ?  'auto' : '50px'}}>
+                    <Row gutter={rowLayout} className={stylescommon.searchForm}>
+                        <Col {...colLayout}>
+                            <FormItem label="问题类型" {...formItemLayout}>
+                                {getFieldDecorator('wtlxId', {
+                                    initialValue: this.state.wtlxId,
+                                })(
+                                    <Select placeholder="请选择问题类型" style={{ width: '100%' }}>
+                                        <Option value="">全部</Option>
+                                        {/*{involvedType !== undefined ? this.Option() : ''}*/}
+                                        {problemTypeOptions}
+                                    </Select>,
+                                )}
+                            </FormItem>
+                        </Col>
+                        <Col xl={8} md={12} sm={24}>
+                            <FormItem label="案件名称" {...formItemLayout}>
+                                {getFieldDecorator('ajmc', {
+                                    // initialValue: this.state.MySuperviseType,
+                                    rules: [{ max: 128, message: '最多输入128个字！' }],
+                                })(
+                                    <Input placeholder="请输入案件名称"/>,
+                                )}
+                            </FormItem>
+                        </Col>
+                        <Col xl={8} md={12} sm={24}>
+                            <FormItem label="案件编号" {...formItemLayout}>
+                                {getFieldDecorator('ajbh', {
+                                    // initialValue: this.state.MySuperviseType,
+                                    rules: [
+                                        { pattern: /^[A-Za-z0-9]+$/, message: '请输入正确的案件编号！' },
+                                        { max: 32, message: '最多输入32个字！' },
+                                    ],
+                                })(
+                                    <Input placeholder="请输入案件编号"/>,
+                                )}
+                            </FormItem>
+                        </Col>
+                        <Col xl={8} md={12} sm={24}>
+                            <FormItem label="督办时间" {...formItemLayout}>
+                                {getFieldDecorator('dbsj', {
+                                    // initialValue: this.state.ssbaq,
+                                })(
+                                    <RangePicker
+                                        disabledDate={this.disabledDate}
+                                        style={{ width: '100%' }}
+                                    />,
+                                )}
+                            </FormItem>
+                        </Col>
+                        <Col xl={8} md={12} sm={24}>
+                            <FormItem label="反馈时间" {...formItemLayout}>
+                                {getFieldDecorator('fksj', {
+                                    // initialValue: this.state.ssbaq,
+                                })(
+                                    <RangePicker
+                                        disabledDate={this.disabledDate}
+                                        style={{ width: '100%' }}
+                                    />,
+                                )}
+                            </FormItem>
+                        </Col>
 
-                    <Col xl={8} md={12} sm={24}>
-                        <FormItem label="是否反馈" {...formItemLayout}>
-                            {getFieldDecorator('fkzt', {
-                                initialValue: this.state.fkzt,
-                            })(
-                                <RadioGroup onChange={this.onChangeRadio}>
-                                    <Radio value="">全部</Radio>
-                                    <Radio value="1">反馈</Radio>
-                                    <Radio value="0">未反馈</Radio>
-                                </RadioGroup>,
-                            )}
-                        </FormItem>
-                    </Col>
-                </Row>
-                <Row gutter={{ md: 8, lg: 16, xl: 24 }}>
-                    <Col xl={8} md={12} sm={24}>
-                        <FormItem label="督办状态" {...formItemLayout}>
-                            {getFieldDecorator('dbzt', {
-                                initialValue: { dbzt: this.state.dbzt, zgzt: '' },
-                            })(
-                                <div>
-                                    {/*<MessageState superviseStatusOptions={superviseStatusOptions}*/}
-                                    {/*              rectificationStatusOptions={rectificationStatusOptions}/>,*/}
-                                </div>
-                            )}
-                        </FormItem>
-                    </Col>
-                    <Col xl={8} md={12} sm={24}>
-                        <FormItem label="要素类型" {...formItemLayout}>
-                            {getFieldDecorator('yslx', {
-                                initialValue: this.state.yslx,
-                            })(
-                                <Select placeholder="请选择要素类型" style={{ width: '100%' }}>
-                                    <Option value="">全部</Option>
-                                    {/*<Option value="203201">警情</Option>*/}
-                                    {/*<Option value="203202">刑事案件</Option>*/}
-                                    {/*<Option value="203205">行政案件</Option>*/}
-                                    {/*<Option value="203203">办案区</Option>*/}
-                                    {/*<Option value="203204">涉案财物</Option>*/}
-                                    {/*<Option value="203206">卷宗</Option>*/}
-                                    {YslxStatusOptions}
-                                </Select>,
-                            )}
-                        </FormItem>
-                    </Col>
-                    <Col>
-                      <span style={{ float: 'right', marginBottom: 24 }}>
-                        <Button style={{ color: '#2095FF', borderColor: '#2095FF' }}
-                                onClick={this.exportData}>导出表格</Button>
-                        <Button style={{ marginLeft: 8 }} type="primary" htmlType="submit">查询</Button>
-                        <Button style={{ marginLeft: 8 }} onClick={this.handleFormReset}>重置</Button>
-                      </span>
-                    </Col>
-                </Row>
-            </Form>
+                        <Col xl={8} md={12} sm={24}>
+                            <FormItem label="是否反馈" {...formItemLayout}>
+                                {getFieldDecorator('fkzt', {
+                                    initialValue: this.state.fkzt,
+                                })(
+                                    <RadioGroup onChange={this.onChangeRadio}>
+                                        <Radio value="">全部</Radio>
+                                        <Radio value="1">反馈</Radio>
+                                        <Radio value="0">未反馈</Radio>
+                                    </RadioGroup>,
+                                )}
+                            </FormItem>
+                        </Col>
+                        <Col xl={8} md={12} sm={24}>
+                            <FormItem label="督办状态" {...formItemLayout}>
+                                {getFieldDecorator('dbzt', {
+                                    initialValue: { dbzt: this.state.dbzt, zgzt: '' },
+                                })(
+                                    <div>
+                                        {/*<MessageState superviseStatusOptions={superviseStatusOptions}*/}
+                                        {/*              rectificationStatusOptions={rectificationStatusOptions}/>,*/}
+                                    </div>
+                                )}
+                            </FormItem>
+                        </Col>
+                        <Col xl={8} md={12} sm={24}>
+                            <FormItem label="要素类型" {...formItemLayout}>
+                                {getFieldDecorator('yslx', {
+                                    initialValue: this.state.yslx,
+                                })(
+                                    <Select placeholder="请选择要素类型" style={{ width: '100%' }}>
+                                        <Option value="">全部</Option>
+                                        {/*<Option value="203201">警情</Option>*/}
+                                        {/*<Option value="203202">刑事案件</Option>*/}
+                                        {/*<Option value="203205">行政案件</Option>*/}
+                                        {/*<Option value="203203">办案区</Option>*/}
+                                        {/*<Option value="203204">涉案财物</Option>*/}
+                                        {/*<Option value="203206">卷宗</Option>*/}
+                                        {YslxStatusOptions}
+                                    </Select>,
+                                )}
+                            </FormItem>
+                        </Col>
+                    </Row>
+                    <Row className={stylescommon.search}>
+                        <span style={{ float: 'right', marginBottom: 24 }}>
+                          <Button style={{ marginLeft: 8 }} type="primary" onClick={this.handleSearch}>
+                            查询
+                          </Button>
+                          <Button style={{ marginLeft: 8 }} onClick={this.handleFormReset} className={stylescommon.empty}>
+                            重置
+                          </Button>
+                          <Button style={{ marginLeft: 8 }} onClick={this.getSearchHeight} className={stylescommon.empty}>
+                              {this.state.searchHeight ? '收起筛选' : '展开筛选'} <Icon type={this.state.searchHeight ? "up" :"down"}/>
+                          </Button>
+                        </span>
+                    </Row>
+                </Form>
+            </Card>
         );
     }
 
@@ -628,31 +637,18 @@ class  mySupervise extends Component {
         return (
             <div className={stylescommon.statistics}>
                 <Card className={stylescommon.titleArea}>
-                    监管配置
-                    <div className={styles.btnBox}>
-                        {/*{isTJJGD?<Button type="primary" onClick={() => this.addList(0)}>*/}
-                        {/*    添加监管点*/}
-                        {/*</Button>:''}*/}
-                        {/*<Button*/}
-                        {/*    className={stylescommon.export}*/}
-                        {/*    onClick={this.exportData}*/}
-                        {/*>*/}
-                        {/*    导出表格*/}
-                        {/*</Button>*/}
+                    我的督办
+                    <div className={stylescommon.btnHeader}>
+                        <Button
+                            className={stylescommon.export}
+                            onClick={this.exportData}
+                        >
+                            导出表格
+                        </Button>
                     </div>
                 </Card>
-                <Card>
-                    <div className={styles.listPageWrap}>
-                        <div>
-                            <div className={styles.tableListForm}>
-                                {this.renderForm()}
-                            </div>
-                            <div className={styles.tableListOperator}>
-                                {this.renderTable()}
-                            </div>
-                        </div>
-                    </div>
-                </Card>
+                {this.renderForm()}
+                {this.renderTable()}
                 {/*<Tabs*/}
                 {/*    hideAdd*/}
                 {/*    onChange={this.onChange}*/}

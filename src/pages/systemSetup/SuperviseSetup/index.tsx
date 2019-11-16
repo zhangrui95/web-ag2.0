@@ -198,17 +198,20 @@ class SuperviseSetup extends Component {
             })
         }
     }
-  addList = (type, res) => {
+  addList = (type, reson) => {
+      let res = JSON.stringify(reson);
       this.props.dispatch({
           type: 'global/changeNavigation',
           payload: {
-              key: res&&res.id ? res.id : '1',
+              // key: '/systemSetup/SuperviseSetup/Detail?'res&&res.id ? res.id : '1',
+              key:res&&res.id ? res.id : '1',
               name: type === 0 ? '监管点添加' : type === 2 ? '监管点修改' : '监管点详情',
               path: '/systemSetup/SuperviseSetup/Detail',
-              isShow: true
+              isShow: true,
+              query:{type, res}
           },
-          callback: () => {
-              this.props.dispatch(routerRedux.push({pathname:'/systemSetup/SuperviseSetup/Detail',query:{type, res,id:res&&res.id ? res.id : '1'}}));
+          callback:() => {
+              this.props.dispatch(routerRedux.push({pathname:'/systemSetup/SuperviseSetup/Detail',query:{type, res}}));
           }
       });
   };
@@ -853,8 +856,6 @@ class SuperviseSetup extends Component {
       },
     } = this.props;
       const { isTJJGD,isSCJGD } = this.state;
-    console.log('common----->', this.props.SuperviseSetup.common);
-    console.log('SuperviseSetup----->', this.props.SuperviseSetup.SuperviseSetup);
     const paginationProps = {
       // showSizeChanger: true,
       // showQuickJumper: true,

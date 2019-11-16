@@ -14,7 +14,7 @@ const Navigation = props => {
 
   // 获取到当前路由
   const currentUrl = location.pathname;
-
+  const query = location.query;
   // 获取到当前路由对应的路径的唯一标识key
   const index = navigationData.findIndex((item: NavigationItem) => item.path === currentUrl);
   const selectTabKey = index > -1 ? navigationData[index].key : '';
@@ -24,6 +24,7 @@ const Navigation = props => {
   // 监听页面路由变化，一旦路由变化，默认选中的tab跟着变化
   useEffect(() => {
     if (selectTabKey) {
+      dispatch(routerRedux.push(navigationData[index].query ? {pathname: navigationData[index].path, query: navigationData[index].query} : navigationData[index].path));
       setActiveKey(selectTabKey);
     } else {
       // 没有tab情况下，将当前页面的路由对比数据添加tab
@@ -41,6 +42,7 @@ const Navigation = props => {
             name: item.name,
             path: item.path,
             isShow: true,
+            query,
           },
         });
       }
@@ -51,7 +53,7 @@ const Navigation = props => {
     setActiveKey(activeKey);
     //根据key获取到当前tab信息，并跳转页面
     const tabItem = getItemByKey(activeKey);
-    dispatch(routerRedux.push(tabItem.path));
+    dispatch(routerRedux.push(tabItem.query ? {pathname: tabItem.path, query: tabItem.query} : tabItem.path));
   };
 
   const getItemByKey = (key: string): NavigationItem => {
@@ -93,7 +95,6 @@ const Navigation = props => {
   };
 
   const showTab = [...navigationData];
-  console.log('showTab--------->', showTab);
   return (
     <Card
       className={styles.card}
