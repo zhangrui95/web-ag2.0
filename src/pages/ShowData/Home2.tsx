@@ -1,5 +1,5 @@
 /*
- * RegulatePanel.js 监管面板页面
+ * RegulatePanel.js 监管面板页面(鹤壁)
  * author：lyp
  * 20180623
  * */
