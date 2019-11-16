@@ -33,6 +33,13 @@ export function routes() {
               component: './ShowData/RegulatePanel',
             },
             {
+              path: '/ShowData/MyNews',
+              name: '首页我的消息查看',
+              icon: 'home',
+              component: './ShowData/MyNews',
+              hideInMenu: true,
+            },
+            {
               name: '接处警',
               icon: 'smile',
               path: '/receivePolice',

@@ -43,16 +43,6 @@ export default class TabsTable extends PureComponent {
     } = this.props;
     const rowLayout = { md: 8, xl: 16, xxl: 24 };
     const colLayout = { sm: 24, md: 12, xl: 12 };
-    let lx = (
-      <Select placeholder="请选择" style={{ width: '100%' }}>
-        <Option value="">全部</Option>
-        <Option value="案件信息">案件信息</Option>
-        <Option value="人员信息">人员信息</Option>
-        <Option value="物品信息">物品信息</Option>
-        <Option value="卷宗信息">卷宗信息</Option>
-        <Option value="警情信息">警情信息</Option>
-      </Select>
-    );
     return (
       <div className={styles.TabsStyle}>
         <Tabs
@@ -70,13 +60,13 @@ export default class TabsTable extends PureComponent {
             }
             key="f1"
           >
-            <Card title={null}>
+            <Card title={null} id='followForm'>
               <Form style={{ padding: '20px 30px 0 10px' }}>
                 <Row gutter={rowLayout} className={stylescommon.searchForm}>
                   <Col {...colLayout}>
                     <FormItem label="关注时间" {...formItemLayout}>
                       {getFieldDecorator('gzsj')(
-                        <RangePicker disabledDate={this.disabledDate} style={{ width: '100%' }} />,
+                        <RangePicker getCalendarContainer={() => document.getElementById('followForm')} disabledDate={this.disabledDate} style={{ width: '100%' }} />,
                       )}
                     </FormItem>
                   </Col>
@@ -84,7 +74,16 @@ export default class TabsTable extends PureComponent {
                     <FormItem label="关注类型" {...formItemLayout}>
                       {getFieldDecorator('gzlx', {
                         initialValue: this.props.yjjb,
-                      })(lx)}
+                      })(
+                        <Select placeholder="请选择" style={{ width: '100%' }} getPopupContainer={()=>document.getElementById('followForm')}>
+                          <Option value="">全部</Option>
+                          <Option value="案件信息">案件信息</Option>
+                          <Option value="人员信息">人员信息</Option>
+                          <Option value="物品信息">物品信息</Option>
+                          <Option value="卷宗信息">卷宗信息</Option>
+                          <Option value="警情信息">警情信息</Option>
+                        </Select>
+                      )}
                     </FormItem>
                   </Col>
                   {/*<Col {...colLayout}>*/}
@@ -135,13 +134,13 @@ export default class TabsTable extends PureComponent {
             }
             key="f2"
           >
-            <Card title={null}>
+            <Card title={null} id='followForm1'>
               <Form style={{ padding: '20px 30px 0 10px' }}>
                 <Row gutter={rowLayout} className={stylescommon.searchForm}>
                   <Col {...colLayout}>
                     <FormItem label="关注时间" {...formItemLayout}>
                       {getFieldDecorator('gzsj')(
-                        <RangePicker disabledDate={this.disabledDate} style={{ width: '100%' }} />,
+                        <RangePicker getCalendarContainer={() => document.getElementById('followForm1')} disabledDate={this.disabledDate} style={{ width: '100%' }} />,
                       )}
                     </FormItem>
                   </Col>
@@ -149,7 +148,16 @@ export default class TabsTable extends PureComponent {
                     <FormItem label="关注类型" {...formItemLayout}>
                       {getFieldDecorator('gzlx', {
                         initialValue: this.props.yjjb,
-                      })(lx)}
+                      })(
+                        <Select placeholder="请选择" style={{ width: '100%' }} getPopupContainer={()=>document.getElementById('followForm1')} >
+                          <Option value="">全部</Option>
+                          <Option value="案件信息">案件信息</Option>
+                          <Option value="人员信息">人员信息</Option>
+                          <Option value="物品信息">物品信息</Option>
+                          <Option value="卷宗信息">卷宗信息</Option>
+                          <Option value="警情信息">警情信息</Option>
+                        </Select>
+                      )}
                     </FormItem>
                   </Col>
                   {/*<Col {...colLayout}>*/}
