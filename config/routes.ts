@@ -432,7 +432,7 @@ export function routes() {
                 },
                 {
                   path: '/systemSetup/SuperviseSetup/Detail',
-                  name: '监管配置-详情',
+                  name: '监管配置详情',
                   icon: 'smile',
                   component: './systemSetup/SuperviseSetup/detail.tsx',
                   hideInMenu: true,

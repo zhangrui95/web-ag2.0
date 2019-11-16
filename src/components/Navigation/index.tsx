@@ -15,16 +15,20 @@ const Navigation = props => {
   // 获取到当前路由
   const currentUrl = location.pathname;
   const query = location.query;
+  const id = location.query && location.query.id ? location.query.id : '';
   // 获取到当前路由对应的路径的唯一标识key
-  const index = navigationData.findIndex((item: NavigationItem) => item.path === currentUrl);
+  let index = navigationData.findIndex((item: NavigationItem) => {
+    return (
+      item.path + '?id=' + (item.query && item.query.id ? item.query.id : '') ===
+      currentUrl + '?id=' + id
+    );
+  });
   const selectTabKey = index > -1 ? navigationData[index].key : '';
-
   // 定义当前选中的Tab
   const [activeKey, setActiveKey] = useState<string>('');
   // 监听页面路由变化，一旦路由变化，默认选中的tab跟着变化
   useEffect(() => {
     if (selectTabKey) {
-      dispatch(routerRedux.push(navigationData[index].query ? {pathname: navigationData[index].path, query: navigationData[index].query} : navigationData[index].path));
       setActiveKey(selectTabKey);
     } else {
       // 没有tab情况下，将当前页面的路由对比数据添加tab
@@ -35,10 +39,11 @@ const Navigation = props => {
       const { breadcrumb } = getMenuData(routes);
       const item = breadcrumb[currentUrl];
       if (dispatch && item) {
+        console.log('navigationData----->', navigationData);
         dispatch({
           type: 'global/changeNavigation',
           payload: {
-            key: item.path,
+            key: id ? id : item.path,
             name: item.name,
             path: item.path,
             isShow: true,
@@ -53,7 +58,11 @@ const Navigation = props => {
     setActiveKey(activeKey);
     //根据key获取到当前tab信息，并跳转页面
     const tabItem = getItemByKey(activeKey);
-    dispatch(routerRedux.push(tabItem.query ? {pathname: tabItem.path, query: tabItem.query} : tabItem.path));
+    dispatch(
+      routerRedux.push(
+        tabItem.query ? { pathname: tabItem.path, query: tabItem.query } : tabItem.path,
+      ),
+    );
   };
 
   const getItemByKey = (key: string): NavigationItem => {

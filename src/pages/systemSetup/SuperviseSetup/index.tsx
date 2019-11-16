@@ -3,7 +3,7 @@
  * author：zr
  * 20190313
  * */
-import React, { Component,  useState, useEffect } from 'react';
+import React, { Component, useState, useEffect } from 'react';
 import { connect } from 'dva';
 import stylescommon from '../../common/common.less';
 import styles from './index.less';
@@ -31,8 +31,8 @@ import {
 import moment from 'moment';
 import { getUserInfos, userAuthorityCode } from '../../../utils/utils';
 import SuperviseCopy from '../../../components/Supervise/SuperviseCopy';
-import {routerRedux} from "dva/router";
-import {authorityIsTrue} from "../../../utils/authority";
+import { routerRedux } from 'dva/router';
+import { authorityIsTrue } from '../../../utils/authority';
 
 const FormItem = Form.Item;
 const RadioGroup = Radio.Group;
@@ -65,11 +65,11 @@ class SuperviseSetup extends Component {
       yyjgdList: [],
       qjjg: false,
       treeDefaultExpandedKeys: [], // 办案单位树默认展开keys
-      searchHeight:false,
-        isTJJGD: authorityIsTrue(userAuthorityCode.TIANJIAJIANGUANDIAN), // 添加监管点权限
-        isSCJGD: authorityIsTrue(userAuthorityCode.SHANCHUJIANGUANDIAN), // 删除监管点权限
-        isUse:'',
-        NoticeNote:'', // 监管点具体算法说明
+      searchHeight: false,
+      isTJJGD: authorityIsTrue(userAuthorityCode.TIANJIAJIANGUANDIAN), // 添加监管点权限
+      isSCJGD: authorityIsTrue(userAuthorityCode.SHANCHUJIANGUANDIAN), // 删除监管点权限
+      isUse: '',
+      NoticeNote: '', // 监管点具体算法说明
     };
   }
 
@@ -176,44 +176,49 @@ class SuperviseSetup extends Component {
     }
     return person;
   };
-    // 监管点算法请求
-    getExplain = (res) => {
-        this.setState({
-            NoticeNote:null,
-        });
-        if(res){
-            this.props.dispatch({
-                type: 'SuperviseSetup/getExplainModal',
-                payload: {
-                    jgfl: res.jgd_mc,
-                    jgdl:res.jglx === '0' ? '告警' : '预警',
-                },
-                callback:(data)=>{
-                    if(data){
-                        this.setState({
-                            NoticeNote:data && data.data ? data.data.lxsm : '',
-                        })
-                    }
-                },
-            })
-        }
-    }
-  addList = (type, reson) => {
-      let res = JSON.stringify(reson);
+  // 监管点算法请求
+  getExplain = res => {
+    this.setState({
+      NoticeNote: null,
+    });
+    if (res) {
       this.props.dispatch({
-          type: 'global/changeNavigation',
-          payload: {
-              // key: '/systemSetup/SuperviseSetup/Detail?'res&&res.id ? res.id : '1',
-              key:res&&res.id ? res.id : '1',
-              name: type === 0 ? '监管点添加' : type === 2 ? '监管点修改' : '监管点详情',
-              path: '/systemSetup/SuperviseSetup/Detail',
-              isShow: true,
-              query:{type, res}
-          },
-          callback:() => {
-              this.props.dispatch(routerRedux.push({pathname:'/systemSetup/SuperviseSetup/Detail',query:{type, res}}));
+        type: 'SuperviseSetup/getExplainModal',
+        payload: {
+          jgfl: res.jgd_mc,
+          jgdl: res.jglx === '0' ? '告警' : '预警',
+        },
+        callback: data => {
+          if (data) {
+            this.setState({
+              NoticeNote: data && data.data ? data.data.lxsm : '',
+            });
           }
+        },
       });
+    }
+  };
+  addList = (type, reson) => {
+    let res = JSON.stringify(reson);
+    this.props.dispatch({
+      type: 'global/changeNavigation',
+      payload: {
+        // key: '/systemSetup/SuperviseSetup/Detail?'res&&res.id ? res.id : '1',
+        key: reson && reson.id ? reson.id : '1',
+        name: type === 0 ? '监管点添加' : type === 2 ? '监管点修改' : '监管点详情',
+        path: '/systemSetup/SuperviseSetup/Detail',
+        isShow: true,
+        query: { type, res, id: reson && reson.id ? reson.id : '1' },
+      },
+      callback: () => {
+        this.props.dispatch(
+          routerRedux.push({
+            pathname: '/systemSetup/SuperviseSetup/Detail',
+            query: { type, res, id: reson && reson.id ? reson.id : '1' },
+          }),
+        );
+      },
+    });
   };
   handleCancel = () => {
     this.props.form.validateFields((err, values) => {
@@ -299,7 +304,7 @@ class SuperviseSetup extends Component {
       tqsj1: null,
       tqsj2: null,
       tqsj3: null,
-        NoticeNote:null,
+      NoticeNote: null,
     });
     if (e.target.value === '0') {
       this.getCommon('500830'); //告警监管事项
@@ -326,7 +331,7 @@ class SuperviseSetup extends Component {
       tqsj1: null,
       tqsj2: null,
       tqsj3: null,
-        NoticeNote:null,
+      NoticeNote: null,
     });
     if (e === '0') {
       this.getCommon('500830'); //告警监管事项
@@ -422,7 +427,7 @@ class SuperviseSetup extends Component {
       sf_qy: null,
       qjjg: false,
       addHave: false,
-        NoticeNote:null,
+      NoticeNote: null,
     });
   };
   getJgd = e => {
@@ -445,7 +450,7 @@ class SuperviseSetup extends Component {
     this.setState({
       jgdDm: null,
       jgdMc: null,
-        NoticeNote:null,
+      NoticeNote: null,
     });
     this.getSupervise(
       e.key === '5008301'
@@ -720,8 +725,8 @@ class SuperviseSetup extends Component {
       } else if (!values.addjgxz && this.state.modleType === 0) {
         message.warn('请选择监管事项');
       } else {
-          const res = {jglx:values.addjglx,jgd_mc:e.label}
-          this.getExplain(res);
+        const res = { jglx: values.addjglx, jgd_mc: e.label };
+        this.getExplain(res);
         this.props.dispatch({
           type: 'SuperviseSetup/getfyJgd',
           payload: {
@@ -813,30 +818,30 @@ class SuperviseSetup extends Component {
       fs_qjjg: e.target.checked,
     });
   };
-    // 启用禁用功能切换
-    accessUse = (record,obj) => {
-        this.props.dispatch({
-            type: 'SuperviseSetup/changeJgPzXx',
-            payload: {
-                scbj:obj,
-                id:record.id,
-            },
-            callback: (res) => {
-                if (!res.error) {
-                    // this.handleCancel();
-                    message.success('修改成功');
-                    this.getJgdList(this.state.pd, this.state.current);
-                } else {
-                    message.warn('操作失败，请重试');
-                }
-            },
-        });
-    };
-    getSearchHeight = () => {
-        this.setState({
-            searchHeight:!this.state.searchHeight
-        });
-    }
+  // 启用禁用功能切换
+  accessUse = (record, obj) => {
+    this.props.dispatch({
+      type: 'SuperviseSetup/changeJgPzXx',
+      payload: {
+        scbj: obj,
+        id: record.id,
+      },
+      callback: res => {
+        if (!res.error) {
+          // this.handleCancel();
+          message.success('修改成功');
+          this.getJgdList(this.state.pd, this.state.current);
+        } else {
+          message.warn('操作失败，请重试');
+        }
+      },
+    });
+  };
+  getSearchHeight = () => {
+    this.setState({
+      searchHeight: !this.state.searchHeight,
+    });
+  };
   render() {
     const {
       form: { getFieldDecorator },
@@ -855,7 +860,7 @@ class SuperviseSetup extends Component {
         SuperviseSetup: { JgdType },
       },
     } = this.props;
-      const { isTJJGD,isSCJGD } = this.state;
+    const { isTJJGD, isSCJGD } = this.state;
     const paginationProps = {
       // showSizeChanger: true,
       // showQuickJumper: true,
@@ -916,35 +921,31 @@ class SuperviseSetup extends Component {
       {
         title: '操作',
         render: record => (
-            <div>
-                {
-                    record.scbj==='1'?
-                        <a onClick={() => this.accessUse(record,'0')}>禁用</a>
-                        :
-                        <a onClick={() => this.accessUse(record,'1')}>启用</a>
-                }
+          <div>
+            {record.scbj === '1' ? (
+              <a onClick={() => this.accessUse(record, '0')}>禁用</a>
+            ) : (
+              <a onClick={() => this.accessUse(record, '1')}>启用</a>
+            )}
+            <Divider type="vertical" />
+            <a onClick={() => this.addList(1, record)}>详情</a>
+            <Divider type="vertical" />
+            {record.scbj === '1' ? (
+              <a onClick={() => this.addList(2, record)}>修改</a>
+            ) : (
+              <span style={{ color: '#C3C3C3' }}>修改</span>
+            )}
+            {isSCJGD ? (
+              <span>
                 <Divider type="vertical" />
-                <a onClick={() => this.addList(1, record)}>详情</a>
-                <Divider type="vertical" />
-                {
-                    record.scbj==='1'?
-                        <a onClick={() => this.addList(2, record)}>修改</a>
-                        :
-                        <span style={{ color: '#C3C3C3' }}>修改</span>
-                }
-                {isSCJGD?
-                    <span>
-                            <Divider type="vertical" />
-                        {
-                            record.scbj === '1' ?
-                                <a onClick={() => this.del(record.id)}>删除</a>
-                                :
-                                <span style={{color: '#C3C3C3'}}>删除</span>
-                        }
-                          </span>
-                    :null
-                }
-            </div>
+                {record.scbj === '1' ? (
+                  <a onClick={() => this.del(record.id)}>删除</a>
+                ) : (
+                  <span style={{ color: '#C3C3C3' }}>删除</span>
+                )}
+              </span>
+            ) : null}
+          </div>
         ),
       },
     ];
@@ -963,14 +964,14 @@ class SuperviseSetup extends Component {
       labelCol: { span: 9 },
       wrapperCol: { span: 12 },
     };
-      const modleLayoutjg = {
-          labelCol: { span: 7 },
-          wrapperCol: { span: 14 },
-      };
-      const modleLayoutsqx = {
-          labelCol: { span: 7},
-          wrapperCol: { span: 15 },
-      };
+    const modleLayoutjg = {
+      labelCol: { span: 7 },
+      wrapperCol: { span: 14 },
+    };
+    const modleLayoutsqx = {
+      labelCol: { span: 7 },
+      wrapperCol: { span: 15 },
+    };
     const modleLayoutColor = {
       labelCol: { span: 14 },
       wrapperCol: { span: 10 },
@@ -1015,21 +1016,22 @@ class SuperviseSetup extends Component {
       <div className={stylescommon.statistics}>
         <Card className={stylescommon.titleArea}>
           监管配置
-            <div className={styles.btnAdd}>
-                {isTJJGD?<Button type="primary" onClick={() => this.addList(0)}>
-                    添加监管点
-                </Button>:''}
-                <Button
-                    className={stylescommon.export}
-                    onClick={this.exportData}
-                >
-                    导出表格
-                </Button>
-            </div>
+          <div className={styles.btnAdd}>
+            {isTJJGD ? (
+              <Button type="primary" onClick={() => this.addList(0)}>
+                添加监管点
+              </Button>
+            ) : (
+              ''
+            )}
+            <Button className={stylescommon.export} onClick={this.exportData}>
+              导出表格
+            </Button>
+          </div>
         </Card>
         <Card className={stylescommon.cardArea} id={'form'}>
-          <Form style={{height:this.state.searchHeight ?  'auto' : '50px'}}>
-            <Row gutter={rowLayout}  className={stylescommon.searchForm}>
+          <Form style={{ height: this.state.searchHeight ? 'auto' : '50px' }}>
+            <Row gutter={rowLayout} className={stylescommon.searchForm}>
               <Col {...colLayout}>
                 <FormItem label="机构" {...formItemLayout}>
                   {getFieldDecorator('jg', {
@@ -1044,7 +1046,7 @@ class SuperviseSetup extends Component {
                       treeDefaultExpandedKeys={this.state.treeDefaultExpandedKeys}
                       key="badwSelect"
                       treeNodeFilterProp="title"
-                      getPopupContainer={()=>document.getElementById('form')}
+                      getPopupContainer={() => document.getElementById('form')}
                     >
                       {depTree && depTree.length > 0 ? this.renderloop(depTree) : null}
                     </TreeSelect>,
@@ -1060,7 +1062,7 @@ class SuperviseSetup extends Component {
                       placeholder="请选择"
                       style={{ width: '100%' }}
                       onChange={this.changeJglx1}
-                       getPopupContainer={()=>document.getElementById('form')}
+                      getPopupContainer={() => document.getElementById('form')}
                     >
                       <Option value={''}>全部</Option>
                       <Option value={'0'}>告警</Option>
@@ -1079,7 +1081,7 @@ class SuperviseSetup extends Component {
                       placeholder="请选择"
                       style={{ width: '100%' }}
                       onChange={e => this.getJgd(e)}
-                       getPopupContainer={()=>document.getElementById('form')}
+                      getPopupContainer={() => document.getElementById('form')}
                     >
                       <Option value="">全部</Option>
                       {JgsxType &&
@@ -1095,7 +1097,12 @@ class SuperviseSetup extends Component {
                   {getFieldDecorator('jgd', {
                     initialValue: { key: '', name: '' },
                   })(
-                    <Select labelInValue placeholder="请选择" style={{ width: '100%' }}  getPopupContainer={()=>document.getElementById('form')}>
+                    <Select
+                      labelInValue
+                      placeholder="请选择"
+                      style={{ width: '100%' }}
+                      getPopupContainer={() => document.getElementById('form')}
+                    >
                       <Option value="">全部</Option>
                       {JgdType &&
                         JgdType.map(event => {
@@ -1110,7 +1117,11 @@ class SuperviseSetup extends Component {
                   {getFieldDecorator('jgdzt', {
                     initialValue: '',
                   })(
-                    <Select placeholder="请选择" style={{ width: '100%' }}  getPopupContainer={()=>document.getElementById('form')}>
+                    <Select
+                      placeholder="请选择"
+                      style={{ width: '100%' }}
+                      getPopupContainer={() => document.getElementById('form')}
+                    >
                       <Option value="">全部</Option>
                       {JgdztType &&
                         JgdztType.map(event => {
@@ -1124,23 +1135,37 @@ class SuperviseSetup extends Component {
                 <FormItem label="监管期限" {...formItemLayout}>
                   {getFieldDecorator('jgqx', {
                     initialValue: this.state.jgqx,
-                  })(<RangePicker style={{ width: '100%' }}  getCalendarContainer={()=>document.getElementById('form')}/>)}
+                  })(
+                    <RangePicker
+                      style={{ width: '100%' }}
+                      getCalendarContainer={() => document.getElementById('form')}
+                    />,
+                  )}
                 </FormItem>
               </Col>
             </Row>
-          <Row className={stylescommon.search}>
-            <span style={{ float: 'right', marginBottom: 24 }}>
-              <Button style={{ marginLeft: 8 }} type="primary" onClick={this.handleSearch}>
-                查询
-              </Button>
-              <Button style={{ marginLeft: 8 }} onClick={this.handleFormReset} className={stylescommon.empty}>
-                重置
-              </Button>
-              <Button style={{ marginLeft: 8 }} onClick={this.getSearchHeight} className={stylescommon.empty}>
-                  {this.state.searchHeight ? '收起筛选' : '展开筛选'} <Icon type={this.state.searchHeight ? "up" :"down"}/>
-              </Button>
-            </span>
-          </Row>
+            <Row className={stylescommon.search}>
+              <span style={{ float: 'right', marginBottom: 24 }}>
+                <Button style={{ marginLeft: 8 }} type="primary" onClick={this.handleSearch}>
+                  查询
+                </Button>
+                <Button
+                  style={{ marginLeft: 8 }}
+                  onClick={this.handleFormReset}
+                  className={stylescommon.empty}
+                >
+                  重置
+                </Button>
+                <Button
+                  style={{ marginLeft: 8 }}
+                  onClick={this.getSearchHeight}
+                  className={stylescommon.empty}
+                >
+                  {this.state.searchHeight ? '收起筛选' : '展开筛选'}{' '}
+                  <Icon type={this.state.searchHeight ? 'up' : 'down'} />
+                </Button>
+              </span>
+            </Row>
           </Form>
         </Card>
         <Card className={stylescommon.cardArea}>
