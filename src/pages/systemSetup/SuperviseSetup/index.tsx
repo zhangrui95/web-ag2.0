@@ -862,8 +862,6 @@ class SuperviseSetup extends Component {
     } = this.props;
     const { isTJJGD, isSCJGD } = this.state;
     const paginationProps = {
-      // showSizeChanger: true,
-      // showQuickJumper: true,
       current: this.state.data && this.state.data.page ? this.state.data.page.currentPage : '',
       total: this.state.data && this.state.data.page ? this.state.data.page.totalResult : '',
       pageSize: this.state.data && this.state.data.page ? this.state.data.page.showCount : '',
@@ -1029,7 +1027,7 @@ class SuperviseSetup extends Component {
             </Button>
           </div>
         </Card>
-        <Card className={stylescommon.cardArea} id={'form'}>
+        <Card className={stylescommon.cardArea} id={'form'} style={{padding:'10px 0'}}>
           <Form style={{ height: this.state.searchHeight ? 'auto' : '50px' }}>
             <Row gutter={rowLayout} className={stylescommon.searchForm}>
               <Col {...colLayout}>

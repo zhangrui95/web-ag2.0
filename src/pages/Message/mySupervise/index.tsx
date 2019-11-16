@@ -3,7 +3,7 @@ import moment from 'moment/moment';
 import { connect } from 'dva';
 import {Row, Col, Form, Select, Input, Button, Radio, DatePicker, Tabs, Card, Icon} from 'antd';
 import styles from './index.less';
-// import RenderTable from '../../../components/MySuperviseRealData/RenderTable';
+import RenderTable from '../../../components/MySuperviseRealData/RenderTable';
 import { tableList, getQueryString, exportListDataMaxDays } from '../../../utils/utils';
 import { message, TreeSelect } from 'antd/lib/index';
 import stylescommon from '../../common/common.less';
@@ -555,12 +555,6 @@ class  mySupervise extends Component {
                                 })(
                                     <Select placeholder="请选择要素类型" style={{ width: '100%' }}>
                                         <Option value="">全部</Option>
-                                        {/*<Option value="203201">警情</Option>*/}
-                                        {/*<Option value="203202">刑事案件</Option>*/}
-                                        {/*<Option value="203205">行政案件</Option>*/}
-                                        {/*<Option value="203203">办案区</Option>*/}
-                                        {/*<Option value="203204">涉案财物</Option>*/}
-                                        {/*<Option value="203206">卷宗</Option>*/}
                                         {YslxStatusOptions}
                                     </Select>,
                                 )}
@@ -614,20 +608,20 @@ class  mySupervise extends Component {
     };
 
     renderTable() {
-        const { MySuperviseData: { returnData, loading } } = this.props;
+        const { MySuperviseData: {MySuperviseData: { returnData, loading }} } = this.props;
         return (
             <div>
-                {/*<RenderTable*/}
-                {/*    {...this.props}*/}
-                {/*    loading={loading}*/}
-                {/*    data={returnData}*/}
-                {/*    onChange={this.handleTableChange}*/}
-                {/*    dispatch={this.props.dispatch}*/}
-                {/*    newDetail={this.newDetail}*/}
-                {/*    refreshTable={this.refreshTable}*/}
-                {/*    changeReadStatus={this.changeReadStatus}*/}
-                {/*    formValues={this.state.formValues}*/}
-                {/*/>*/}
+                <RenderTable
+                    {...this.props}
+                    loading={loading}
+                    data={returnData}
+                    onChange={this.handleTableChange}
+                    dispatch={this.props.dispatch}
+                    newDetail={this.newDetail}
+                    refreshTable={this.refreshTable}
+                    changeReadStatus={this.changeReadStatus}
+                    formValues={this.state.formValues}
+                />
             </div>
         );
     }
