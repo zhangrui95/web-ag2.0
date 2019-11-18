@@ -3,11 +3,11 @@ import moment from 'moment/moment';
 import { connect } from 'dva';
 import {Row, Col, Form, Select, Input, Button, Radio, DatePicker, Tabs, Card, Icon} from 'antd';
 import styles from './index.less';
-// import RenderTable from '../../../components/MySuperviseRealData/RenderTable';
+import RenderTable from '../../../components/MySuperviseRealData/RenderTable';
 import { tableList, getQueryString, exportListDataMaxDays } from '../../../utils/utils';
 import { message, TreeSelect } from 'antd/lib/index';
 import stylescommon from '../../common/common.less';
-// import MessageState from '../../../components/Common/MessageState';
+import MessageState from '../../../components/Common/MessageState';
 
 const FormItem = Form.Item;
 const { Option } = Select;
@@ -33,6 +33,7 @@ class  mySupervise extends Component {
         arrayDetail: [],
         searchHeight:false,
         yslx: '',
+        zgzt:'',
     };
 
     componentDidMount() {
@@ -459,7 +460,7 @@ class  mySupervise extends Component {
         };
         const rowLayout = { md: 8, xl: 16, xxl: 24 };
         return (
-            <Card className={stylescommon.cardArea+' '+styles.listPageWrap} id={'form'}>
+            <Card className={stylescommon.listPageWrap} id={'form'}>
                 <Form onSubmit={this.handleSearch} layout="inline" style={{height:this.state.searchHeight ?  'auto' : '50px'}}>
                     <Row gutter={rowLayout} className={stylescommon.searchForm}>
                         <Col {...colLayout}>
@@ -467,7 +468,7 @@ class  mySupervise extends Component {
                                 {getFieldDecorator('wtlxId', {
                                     initialValue: this.state.wtlxId,
                                 })(
-                                    <Select placeholder="请选择问题类型" style={{ width: '100%' }}>
+                                    <Select placeholder="请选择问题类型" style={{ width: '100%' }}  getPopupContainer={() => document.getElementById('form')}>
                                         <Option value="">全部</Option>
                                         {/*{involvedType !== undefined ? this.Option() : ''}*/}
                                         {problemTypeOptions}
@@ -506,6 +507,7 @@ class  mySupervise extends Component {
                                     <RangePicker
                                         disabledDate={this.disabledDate}
                                         style={{ width: '100%' }}
+                                        getCalendarContainer={() => document.getElementById('form')}
                                     />,
                                 )}
                             </FormItem>
@@ -518,6 +520,7 @@ class  mySupervise extends Component {
                                     <RangePicker
                                         disabledDate={this.disabledDate}
                                         style={{ width: '100%' }}
+                                        getCalendarContainer={() => document.getElementById('form')}
                                     />,
                                 )}
                             </FormItem>
@@ -541,10 +544,8 @@ class  mySupervise extends Component {
                                 {getFieldDecorator('dbzt', {
                                     initialValue: { dbzt: this.state.dbzt, zgzt: '' },
                                 })(
-                                    <div>
-                                        {/*<MessageState superviseStatusOptions={superviseStatusOptions}*/}
-                                        {/*              rectificationStatusOptions={rectificationStatusOptions}/>,*/}
-                                    </div>
+                                    <MessageState superviseStatusOptions={superviseStatusOptions}
+                                                  rectificationStatusOptions={rectificationStatusOptions}/>,
                                 )}
                             </FormItem>
                         </Col>
@@ -553,14 +554,8 @@ class  mySupervise extends Component {
                                 {getFieldDecorator('yslx', {
                                     initialValue: this.state.yslx,
                                 })(
-                                    <Select placeholder="请选择要素类型" style={{ width: '100%' }}>
+                                    <Select placeholder="请选择要素类型" style={{ width: '100%' }}  getPopupContainer={() => document.getElementById('form')}>
                                         <Option value="">全部</Option>
-                                        {/*<Option value="203201">警情</Option>*/}
-                                        {/*<Option value="203202">刑事案件</Option>*/}
-                                        {/*<Option value="203205">行政案件</Option>*/}
-                                        {/*<Option value="203203">办案区</Option>*/}
-                                        {/*<Option value="203204">涉案财物</Option>*/}
-                                        {/*<Option value="203206">卷宗</Option>*/}
                                         {YslxStatusOptions}
                                     </Select>,
                                 )}
@@ -614,20 +609,20 @@ class  mySupervise extends Component {
     };
 
     renderTable() {
-        const { MySuperviseData: { returnData, loading } } = this.props;
+        const { MySuperviseData: {MySuperviseData: { returnData, loading }} } = this.props;
         return (
             <div>
-                {/*<RenderTable*/}
-                {/*    {...this.props}*/}
-                {/*    loading={loading}*/}
-                {/*    data={returnData}*/}
-                {/*    onChange={this.handleTableChange}*/}
-                {/*    dispatch={this.props.dispatch}*/}
-                {/*    newDetail={this.newDetail}*/}
-                {/*    refreshTable={this.refreshTable}*/}
-                {/*    changeReadStatus={this.changeReadStatus}*/}
-                {/*    formValues={this.state.formValues}*/}
-                {/*/>*/}
+                <RenderTable
+                    {...this.props}
+                    loading={loading}
+                    data={returnData}
+                    onChange={this.handleTableChange}
+                    dispatch={this.props.dispatch}
+                    newDetail={this.newDetail}
+                    refreshTable={this.refreshTable}
+                    changeReadStatus={this.changeReadStatus}
+                    formValues={this.state.formValues}
+                />
             </div>
         );
     }
@@ -636,18 +631,23 @@ class  mySupervise extends Component {
         const newAddDetail = this.state.arrayDetail;
         return (
             <div className={stylescommon.statistics}>
-                <Card className={stylescommon.titleArea}>
-                    我的督办
-                    <div className={stylescommon.btnHeader}>
-                        <Button
-                            className={stylescommon.export}
-                            onClick={this.exportData}
-                        >
-                            导出表格
-                        </Button>
-                    </div>
-                </Card>
+                {/*<Card className={stylescommon.titleArea}>*/}
+                {/*    我的督办*/}
+                {/*    <div className={stylescommon.btnHeader}>*/}
+                {/*        <Button*/}
+                {/*            className={stylescommon.export}*/}
+                {/*            onClick={this.exportData}*/}
+                {/*        >*/}
+                {/*            导出表格*/}
+                {/*        </Button>*/}
+                {/*    </div>*/}
+                {/*</Card>*/}
                 {this.renderForm()}
+                <div className={stylescommon.btnTableBox}>
+                    <Button onClick={this.exportData} icon="download">
+                        导出表格
+                    </Button>
+                </div>
                 {this.renderTable()}
                 {/*<Tabs*/}
                 {/*    hideAdd*/}

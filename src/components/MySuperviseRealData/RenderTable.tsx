@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react';
-import { Table, Tooltip } from 'antd';
+import {Card, Form, Table, Tooltip} from 'antd';
 import styles from './RenderTable.less';
 // import UncaseDetail from '../../routes/UnCaseRealData/uncaseDetail';
 // import UnareaDetail from '../../routes/UnAreaRealData/unareaDetail';
@@ -8,6 +8,8 @@ import styles from './RenderTable.less';
 // import UnDossierDetail from '../../routes/UnDossierData/UnDossierDetail';
 // import UnPoliceDetail from '../../routes/UnPoliceRealData/unpoliceDetail';
 import Ellipsis from 'ant-design-pro/lib/Ellipsis';
+import {connect} from "dva";
+import stylescommon from '../../pages/common/common.less';
 
 class RenderTable extends PureComponent {
     state = {};
@@ -124,7 +126,6 @@ class RenderTable extends PureComponent {
                         );
                     }
                 },
-                width: 75,
             },
             {
                 title: '问题类型',
@@ -133,7 +134,6 @@ class RenderTable extends PureComponent {
             {
                 title: '案件名称',
                 dataIndex: 'ajmc',
-                width: '20%',
                 render: (text, record) => {
                     return text && text !== '' ? <Ellipsis lines={2} tooltip>{text}</Ellipsis> : (
                         record.ajbh ? '未生成案件名称' : '未关联案件'
@@ -143,7 +143,6 @@ class RenderTable extends PureComponent {
             {
                 title: '案件编号',
                 dataIndex: 'ajbh',
-                width: 200,
                 render: (text) => {
                     return text || '未关联案件';
                 },
@@ -155,7 +154,6 @@ class RenderTable extends PureComponent {
             {
                 title: '督办时间',
                 dataIndex: 'dbsj',
-                width: 100,
             },
             {
                 title: '反馈状态',
@@ -168,7 +166,6 @@ class RenderTable extends PureComponent {
             {
                 title: '反馈时间',
                 dataIndex: 'fksj',
-                width: 100,
             },
             {
                 title: '操作',
@@ -180,30 +177,33 @@ class RenderTable extends PureComponent {
             },
         ];
         const paginationProps = {
-            showSizeChanger: true,
-            showQuickJumper: true,
-            current: data && data.page ? data.page.currentPage : '',
-            total: data && data.page ? data.page.totalResult : '',
-            pageSize: data && data.page ? data.page.showCount : '',
-            showTotal: (total, range) =>
-                <span
-                    className={styles.pagination}>{`共 ${data.page ? data.page.totalResult : 0} 条记录 第 ${data.page ? data.page.currentPage : 1} / ${data.page ? data.page.totalPage : 1} 页`}</span>,
+            current: this.state.data && this.state.data.page ? this.state.data.page.currentPage : '',
+            total: this.state.data && this.state.data.page ? this.state.data.page.totalResult : '',
+            pageSize: this.state.data && this.state.data.page ? this.state.data.page.showCount : '',
+            showTotal: (total, range) => (
+                <span className={stylescommon.pagination}>{`共 ${
+                    data && data.page ?data.page.totalPage : 1
+                    } 页，${
+                    data && data.page ? data.page.totalResult : 0
+                    } 条数据 `}</span>
+            ),
         };
-
         return (
-            <div className={styles.standardTable}>
+            <Card className={stylescommon.cardArea}>
                 <Table
-                    size={'middle'}
-                    loading={loading}
+                    loading={loading.loading}
                     rowKey={record => record.key}
-                    dataSource={data.list}
+                    dataSource={data&&data.list ? data.list : []}
                     columns={columns}
                     pagination={paginationProps}
                     onChange={this.handleTableChange}
                 />
-            </div>
+            </Card>
         );
     }
 }
 
-export default RenderTable;
+export default Form.create()(
+    connect((MySuperviseData, loading, common) => ({ MySuperviseData, loading, common }))(RenderTable),
+);
+

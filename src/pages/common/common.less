@@ -19,19 +19,29 @@
     color: @text-color;
     line-height: 30px;
   }
-
-  .cardArea {
-    margin-top: 10px;
-    padding: 10px 0;
-    :global {
-      .ant-table-thead > tr > th,
-      .ant-table-tbody > tr > td {
-        text-align: center;
-      }
+}
+.cardArea {
+  margin-top: 10px;
+  :global {
+    .ant-table-thead > tr > th,
+    .ant-table-tbody > tr > td {
+      text-align: center;
     }
   }
 }
-
+.listPageWrap{
+  padding:10px 0!important;
+  margin-top: 10px;
+  :global{
+    .ant-form-inline .ant-form-item{
+      display: block;
+    }
+    .ant-table-thead > tr > th,
+    .ant-table-tbody > tr > td {
+      text-align: center;
+    }
+  }
+}
 .pagination {
   position: absolute;
   left: -150px;
@@ -136,7 +146,7 @@
   background: @body-background!important;
 }
 .searchForm {
-  width: calc(~'100% - 250px');
+  width: calc(~'100% - 260px');
   float: left;
   border-right: 1px solid @body-background;
   overflow: hidden;
@@ -148,4 +158,7 @@
 }
 .btnHeader {
   float: right;
+}
+.btnTableBox{
+  margin-top: 10px;
 }
