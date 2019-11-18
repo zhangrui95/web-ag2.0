@@ -27,12 +27,14 @@ import {
   Tag,
   Icon,
   Tooltip,
+  Empty,
 } from 'antd';
 import moment from 'moment';
 import { getUserInfos, userAuthorityCode } from '../../../utils/utils';
 import SuperviseCopy from '../../../components/Supervise/SuperviseCopy';
 import { routerRedux } from 'dva/router';
 import { authorityIsTrue } from '../../../utils/authority';
+import noList from '@/assets/viewData/noList.png';
 
 const FormItem = Form.Item;
 const RadioGroup = Radio.Group;
@@ -1012,20 +1014,20 @@ class SuperviseSetup extends Component {
     return (
       <div className={stylescommon.statistics}>
         <Card className={stylescommon.titleArea}>
-            {isTJJGD ? (
-                <Button type="primary" onClick={() => this.addList(0)}>
-                    添加监管点
-                </Button>
-            ) : (
-                ''
-            )}
+          {isTJJGD ? (
+            <Button type="primary" onClick={() => this.addList(0)}>
+              添加监管点
+            </Button>
+          ) : (
+            ''
+          )}
           <div className={styles.btnAdd}>
             <Button onClick={this.exportData} icon="download">
               导出表格
             </Button>
           </div>
         </Card>
-        <Card className={stylescommon.cardArea} id={'form'} style={{padding:'10px 0'}}>
+        <Card className={stylescommon.cardArea} id={'form'} style={{ padding: '10px 0' }}>
           <Form style={{ height: this.state.searchHeight ? 'auto' : '50px' }}>
             <Row gutter={rowLayout} className={stylescommon.searchForm}>
               <Col {...colLayout}>
@@ -1173,6 +1175,7 @@ class SuperviseSetup extends Component {
             onChange={this.handleTableChange}
             columns={columns}
             dataSource={this.state.data ? this.state.data.list : []}
+            locale={{ emptyText: <Empty image={noList} description={'暂无记录'} /> }}
           />
         </Card>
         <SuperviseCopy
