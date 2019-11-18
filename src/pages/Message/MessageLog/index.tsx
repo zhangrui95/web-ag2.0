@@ -376,6 +376,7 @@ class MessageLog extends Component {
                                     key='jsdwSelect'
                                     treeDefaultExpandedKeys={this.state.treeDefaultExpandedKeys}
                                     treeNodeFilterProp="title"
+                                    getPopupContainer={() => document.getElementById('form')}
                                 >
                                     {depTree && depTree.length > 0 ? this.renderloop(depTree) : null}
                                 </TreeSelect>,
@@ -397,6 +398,7 @@ class MessageLog extends Component {
                                     placeholder="请输入接收人"
                                     onChange={this.handleAllPoliceOptionChange}
                                     onFocus={this.handleAllPoliceOptionChange}
+                                    getPopupContainer={() => document.getElementById('form')}
                                 >
                                     {allPoliceOptions}
                                 </Select>,
@@ -411,6 +413,7 @@ class MessageLog extends Component {
                                 <RangePicker
                                     disabledDate={this.disabledDate}
                                     style={{ width: '100%' }}
+                                    getCalendarContainer={() => document.getElementById('form')}
                                 />,
                             )}
                         </FormItem>
@@ -445,7 +448,7 @@ class MessageLog extends Component {
                                 // initialValue: this.state.gzry,
                                 rules: [{ max: 32, message: '最多输入32个字！' }],
                             })(
-                                <Select placeholder="请选择推送事项" style={{ width: '100%' }}>
+                                <Select placeholder="请选择推送事项" style={{ width: '100%' }}  getPopupContainer={() => document.getElementById('form')}>
                                     <Option value="">全部</Option>
                                     {pushMattersDictOptions}
                                 </Select>,
