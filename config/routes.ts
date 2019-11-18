@@ -40,6 +40,20 @@ export function routes() {
               hideInMenu: true,
             },
             {
+              path: '/ShowData/MyShare',
+              name: '首页我的分享查看',
+              icon: 'home',
+              component: './ShowData/MyShare',
+              hideInMenu: true,
+            },
+            // {
+            //   path: '/ShowData/MyDb',
+            //   name: '首页我的督办查看',
+            //   icon: 'home',
+            //   component: './ShowData/MyDb',
+            //   hideInMenu: true,
+            // },
+            {
               name: '接处警',
               icon: 'smile',
               path: '/receivePolice',
