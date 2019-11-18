@@ -1,0 +1,46 @@
+@import "~antd/lib/style/themes/default.less";
+
+.pagination {
+  position: absolute;
+  left: 0;
+  color: @text-color-secondary;
+
+  :global {
+    .ant-pagination-total-text {
+      position: absolute;
+      left: 0;
+      color: @text-color-secondary;
+    }
+  }
+}
+
+.standardTable {
+  padding: 35px 24px 0 0;
+  position: relative;
+}
+
+.FormMenu {
+  position: absolute;
+  top: 0;
+  right: 24px;
+
+  :global {
+    .ant-form-item {
+      display: inline-block;
+      margin-right: 8px;
+    }
+
+    .ant-form-item-control-wrapper {
+      display: inline-block;
+    }
+
+    .ant-form-item-label {
+      display: inline-block;
+    }
+
+    .ant-form-horizontal {
+      height: 35px;
+      //padding-left:1146px;
+    }
+  }
+}

@@ -22,12 +22,12 @@
 }
 .cardArea {
   margin-top: 10px;
-  :global {
-    .ant-table-thead > tr > th,
-    .ant-table-tbody > tr > td {
-      text-align: center;
-    }
-  }
+  //:global {
+  //  .ant-table-thead > tr > th,
+  //  .ant-table-tbody > tr > td {
+  //    text-align: center;
+  //  }
+  //}
 }
 .listPageWrap{
   padding:10px 0!important;
@@ -50,7 +50,18 @@
   :global {
     .ant-pagination-total-text {
       position: absolute;
-      //left: 0;
+      color: @text-color-secondary;
+    }
+  }
+}
+.paginations {
+  position: absolute;
+  left: -190px;
+  color: @text-color;
+
+  :global {
+    .ant-pagination-total-text {
+      position: absolute;
       color: @text-color-secondary;
     }
   }

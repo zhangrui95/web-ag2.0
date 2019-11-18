@@ -71,12 +71,16 @@ body {
     }
     .ant-calendar-panel {
       background: @transparent;
+      color: @white;
+    }
+    .ant-calendar-month-panel{
+      background: @body-background;
     }
     .ant-calendar-input {
       background-color: @depart-choose-back;
       color: @white;
     }
-    .ant-calendar-date {
+    .ant-calendar-date,.ant-calendar-month-panel-header .ant-calendar-month-panel-year-select,.ant-calendar-month-panel-month {
       //background-color: @date-unchoose;
       color: @white;
     }
@@ -245,7 +249,7 @@ body {
     .ant-table-thead > tr > th {
       background: @table-header-bg;
       color: @white;
-      padding: 10px 16px;
+      padding: 10px;
       border: @zero;
     }
     .ant-table-tbody > tr {
@@ -470,8 +474,15 @@ body {
       background: @transparent;
       color: @white;
     }
+    .ant-calendar-footer,.ant-calendar-month-panel-header{
+      border: @zero;
+    }
+    .ant-calendar-today .ant-calendar-date{
+      color: @white;
+    }
     .ant-calendar-header {
       color: @white!important;
+      border: @zero;
       .ant-calendar-year-select,
       .ant-calendar-month-select {
         color: @white!important;
@@ -482,12 +493,15 @@ body {
         }
       }
     }
+    .ant-calendar-selected-day .ant-calendar-date,.ant-calendar-week-number .ant-calendar-body tr.ant-calendar-active-week{
+      background: @highlight-color;
+    }
     .ant-calendar {
       background: @dropdown-selected-color;
       color: @white;
       border: @zero;
     }
-    .ant-calendar-date {
+    .ant-calendar-date,.ant-calendar-week-number .ant-calendar-body tr,.ant-calendar-month-panel-month {
       background: @transparent;
       color: @white;
       &:hover {
@@ -495,9 +509,12 @@ body {
         color: @white;
       }
     }
-    .ant-calendar-disabled-cell .ant-calendar-date {
+    .ant-calendar-disabled-cell .ant-calendar-date,.ant-calendar-month-panel-cell-disabled .ant-calendar-month-panel-month {
       background: @date-unchoose;
       color: @switch-color-close;
+      &:hover{
+        background: @date-unchoose;
+      }
     }
     .ant-calendar-range .ant-calendar-selected-start-date .ant-calendar-date,
     .ant-calendar-range .ant-calendar-selected-end-date .ant-calendar-date,
@@ -506,6 +523,12 @@ body {
     }
     .ant-radio-checked .ant-radio-inner{
       border-color:@checkbox-color;
+    }
+    .ant-radio-button-wrapper:not(:first-child)::before{
+      background-color: @component-background;
+    }
+    .ant-radio-button-wrapper:first-child{
+      border: @zero;
     }
   }
 }

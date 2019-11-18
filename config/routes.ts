@@ -397,6 +397,22 @@ export function routes() {
                       path: '/seo/Form/AdministrationForm',
                       component: './seo/AdministrationForm',
                     },
+                  {
+                      name: '人员处置台账',
+                      icon: 'smile',
+                      path: '/seo/Form/AllForm/RYCZTZ',
+                      component: './seo/AllForm/RYCZTZ',
+                  },{
+                      name: '吸毒人员统计',
+                      icon: 'smile',
+                      path: '/seo/Form/AllForm/XZAJXDRYTJ',
+                      component: './seo/AllForm/XZAJXDRYTJ',
+                  },{
+                      name: '所内处罚',
+                      icon: 'smile',
+                      path: '/seo/Form/AllForm/XZAJSNCF',
+                      component: './seo/AllForm/XZAJSNCF',
+                  },
                   ],
                 },
               ],
