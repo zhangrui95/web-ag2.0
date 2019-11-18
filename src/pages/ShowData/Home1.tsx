@@ -56,7 +56,7 @@ export default class Home1 extends PureComponent {
       gj_num: 0,
       idx: 0,
       pageTotal: 0,
-      visible: false,
+      // visible: false,
       myLog: [],
       pageSize: 10,
       pageSizeShare: 6,
@@ -71,7 +71,7 @@ export default class Home1 extends PureComponent {
         wtlxMc: '',
       },
       shareDetail: null,
-      visibleShare: false,
+      // visibleShare: false,
       loading: false,
       pageNew: 1,
       columns: [],
@@ -215,10 +215,29 @@ export default class Home1 extends PureComponent {
     }
   };
   shareDetail = record => {
-    this.setState({
-      visibleShare: true,
-      shareDatail: record,
+    this.props.dispatch({
+      type: 'global/changeNavigation',
+      payload: {
+        key: record&&record.id ? record.id : '1',
+        name: '我的分享',
+        path: '/ShowData/MyShare',
+        isShow: true,
+        query: { record: record,id:record&&record.id ? record.id : '1' },
+      },
+      callback: () => {
+        this.props.dispatch(
+          routerRedux.push({
+            pathname: '/ShowData/MyShare',
+            query: { record: record,id:record&&record.id ? record.id : '1' },
+          }),
+        );
+      }
     });
+
+    // this.setState({
+      // visibleShare: true,
+      // shareDatail: record,
+    // });
   };
   goLook = (record, read) => {
     if (record) {
@@ -234,16 +253,17 @@ export default class Home1 extends PureComponent {
               this.props.dispatch({
                 type: 'global/changeNavigation',
                 payload: {
-                  key: res&&res.id ? res.id : '1',
+                  key: res&&res.data&&res.data.dbid ? res.data.dbid : '1',
                   name: read === 0 ? '我的消息' : read === 1 ? '我的督办' : '我的关注',
-                  path: '/systemSetup/SuperviseSetup/Detail',
-                  isShow: true
+                  path: '/ShowData/MyNews',
+                  isShow: true,
+                  query: { record: record,id:res&&res.data&&res.data.dbid ? res.data.dbid : '1' },
                 },
                 callback: () => {
                   this.props.dispatch(
                     routerRedux.push({
                       pathname: '/ShowData/MyNews',
-                      query: { record: record },
+                      query: { record: record,id:res&&res.data&&res.data.dbid ? res.data.dbid : '1' },
                     }),
                   );
                 }
@@ -256,14 +276,40 @@ export default class Home1 extends PureComponent {
         //   datail: record,
         // });
 
-      } else if (read === 1) {
-        this.props.dispatch(
-          routerRedux.push({
-            pathname: '/messageCenter/mySupervise/Transfer/Index',
-            query: { record: record },
-          }),
-        );
-      } else if (read === 2 || read === 3) {
+      }
+      else if (read === 1) {
+        // this.props.dispatch(
+        //   routerRedux.push({
+        //     pathname: '/messageCenter/mySupervise/Transfer/Index',
+        //     query: { record: record },
+        //   }),
+        // );
+
+        this.props.dispatch({
+          type: 'global/changeNavigation',
+          payload: {
+            key: record&&record.id ? record.id : '1',
+            name: read === 0 ? '我的消息' : read === 1 ? '我的督办' : '我的关注',
+            path: '/messageCenter/mySupervise/Transfer/Index',
+            isShow: true,
+            query: { record: record,id:record&&record.id ? record.id : '1' },
+          },
+          callback: () => {
+            // this.props.dispatch(
+            //   routerRedux.push({
+            //     pathname: '/ShowData/MyNews',
+            //     query: { record: record,id:record&&record.id ? record.id : '1' },
+            //   }),
+            // );
+            this.props.dispatch(
+              routerRedux.push({
+              pathname: '/messageCenter/mySupervise/Transfer/Index',
+                query: { record: record,id:record&&record.id ? record.id : '1' },
+            }));
+          }
+        });
+      }
+      else if (read === 2 || read === 3) {
         record['id'] = record.agid;
         this.props.dispatch(
           routerRedux.push({
@@ -963,12 +1009,12 @@ export default class Home1 extends PureComponent {
       },
     });
   };
-  handleCancel = () => {
-    this.setState({
-      visible: false,
-      visibleShare: false,
-    });
-  };
+  // handleCancel = () => {
+    // this.setState({
+      // visible: false,
+      // visibleShare: false,
+    // });
+  // };
   getLog = () => {
     this.props.dispatch({
       type: 'Home/getToday',
@@ -1303,18 +1349,18 @@ export default class Home1 extends PureComponent {
             )}
           </Col>
         </Row>
-        <MyNews
-          visible={this.state.visible}
-          handleCancel={this.handleCancel}
-          datail={this.state.datail}
-        />
-        <MyShare
-          visibleShare={this.state.visibleShare}
-          shareDatail={this.state.shareDatail}
-          handleCancel={this.handleCancel}
-          tabs={this.state.tabs}
-          goLook={(record, read) => this.goLook(record, read)}
-        />
+        {/*<MyNews*/}
+          {/*visible={this.state.visible}*/}
+          {/*handleCancel={this.handleCancel}*/}
+          {/*datail={this.state.datail}*/}
+        {/*/>*/}
+        {/*<MyShare*/}
+          {/*visibleShare={this.state.visibleShare}*/}
+          {/*shareDatail={this.state.shareDatail}*/}
+          {/*handleCancel={this.handleCancel}*/}
+          {/*tabs={this.state.tabs}*/}
+          {/*goLook={(record, read) => this.goLook(record, read)}*/}
+        {/*/>*/}
         <div className={styles.version}>
           {window.configUrl.headName}&nbsp;&nbsp;版本号：{window.configUrl.version}
         </div>

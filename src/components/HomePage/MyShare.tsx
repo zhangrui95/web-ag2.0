@@ -13,8 +13,9 @@ import styles from '../../pages/ShowData/Show.less';
 }))
 export default class MyShare extends PureComponent {
   render() {
+    const rowLayout = { md: 8, xl: 16, xxl: 24 };
     return (
-      <Modal
+      /*<Modal
         title="我的分享"
         visible={this.props.visibleShare}
         onCancel={this.props.handleCancel}
@@ -93,7 +94,41 @@ export default class MyShare extends PureComponent {
             </div>
           </Col>
         </Row>
-      </Modal>
+      </Modal>*/
+      <div>
+        <div style={{ backgroundColor: '#202839' }}>
+          <span style={{ margin: '16px', display: 'block',lineHeight:'61px',fontSize:20 }}>我的消息</span>
+        </div>
+        <div className={styles.myNewsMessage}>
+          {/*<Card title="我的消息" className={styles.card} bordered={false}>*/}
+          <Row gutter={rowLayout} style={{marginBottom:24}}>
+            <Col span={8}>案件编号：{this.props.location&&this.props.location.query&&this.props.location.query.record&&this.props.location.query.record.ajbh?this.props.location.query.record.ajbh:''}</Col>
+            <Col span={this.props.location&&this.props.location.query&&this.props.location.query.record&&this.props.location.query.record.name&&this.props.location.query.record.name.length > 16 ? 16 : 8}>
+              案件名称：{this.props.location&&this.props.location.query&&this.props.location.query.record&&this.props.location.query.record.name?this.props.location.query.record.name:''}
+            </Col>
+            <Col span={8}>消息类型：督办反馈</Col>
+          </Row>
+          <Row gutter={rowLayout} style={{marginBottom:24}}>
+            <Col span={8}>责任人：{this.props.location&&this.props.location.query&&this.props.location.query.record&&this.props.location.query.record.zrrName?this.props.location.query.record.zrrName:''}</Col>
+            <Col span={8}>反馈时间：{this.props.location&&this.props.location.query&&this.props.location.query.record&&this.props.location.query.record.time?this.props.location.query.record.time:''}</Col>
+            <Col span={8}>问题类型：{this.props.location&&this.props.location.query&&this.props.location.query.record&&this.props.location.query.record.wtlxMc?this.props.location.query.record.wtlxMc:''}</Col>
+          </Row>
+          <Row gutter={rowLayout} style={{marginBottom:24}}>
+            <Col span={24}>
+              责任单位：{this.props.location&&this.props.location.query&&this.props.location.query.record&&this.props.location.query.record.zrrDwmc?this.props.location.query.record.zrrDwmc:''}
+            </Col>
+          </Row>
+          <Row gutter={rowLayout} style={{marginBottom:24}}>
+            <Col span={24}>
+              <div className={styles.content}>反馈信息：</div>
+              <div className={styles.content} style={{ width: '700px' }}>
+                {this.props.location&&this.props.location.query&&this.props.location.query.record&&this.props.location.query.record.content?this.props.location.query.record.content:''}
+              </div>
+            </Col>
+          </Row>
+          {/*</Card>*/}
+        </div>
+      </div>
     );
   }
 }

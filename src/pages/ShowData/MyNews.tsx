@@ -1,12 +1,12 @@
 /*
- * 首页我的消息查看弹框
+ * 首页我的消息查看
  * author：zr
  * 20190424
  * */
 import React, { PureComponent } from 'react';
 import { Col, Row, Modal, Card } from 'antd';
 import { connect } from 'dva';
-import styles from './MyNews.less';
+import styles from './HomepageCommon.less';
 
 @connect(({ home }) => ({
   home,
@@ -14,7 +14,6 @@ import styles from './MyNews.less';
 export default class MyNews extends PureComponent {
   render() {
     const rowLayout = { md: 8, xl: 16, xxl: 24 };
-    console.log('this.props',this.props);
     return (
       /*<Modal
         title="我的消息"
@@ -55,7 +54,6 @@ export default class MyNews extends PureComponent {
             <span style={{ margin: '16px', display: 'block',lineHeight:'61px',fontSize:20 }}>我的消息</span>
         </div>
         <div className={styles.myNewsMessage}>
-          {/*<Card title="我的消息" className={styles.card} bordered={false}>*/}
             <Row gutter={rowLayout} style={{marginBottom:24}}>
               <Col span={8}>案件编号：{this.props.location&&this.props.location.query&&this.props.location.query.record&&this.props.location.query.record.ajbh?this.props.location.query.record.ajbh:''}</Col>
               <Col span={this.props.location&&this.props.location.query&&this.props.location.query.record&&this.props.location.query.record.name&&this.props.location.query.record.name.length > 16 ? 16 : 8}>
@@ -81,7 +79,6 @@ export default class MyNews extends PureComponent {
                 </div>
               </Col>
             </Row>
-          {/*</Card>*/}
         </div>
       </div>
     );
