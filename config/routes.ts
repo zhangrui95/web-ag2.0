@@ -402,14 +402,14 @@ export function routes() {
                     {
                       name: '刑事案件登记表',
                       icon: 'smile',
-                      path: '/seo/Form/CriminalForm',
-                      component: './seo/CriminalForm',
+                      path: '/seo/Form/AllForm/XSAJDJB',
+                      component: './seo/AllForm/XSAJDJB',
                     },
                     {
                       name: '行政案件登记表',
                       icon: 'smile',
-                      path: '/seo/Form/AdministrationForm',
-                      component: './seo/AdministrationForm',
+                      path: '/seo/Form/AllForm/XZAJDJB',
+                      component: './seo/AllForm/XZAJDJB',
                     },
                   {
                       name: '人员处置台账',
@@ -426,6 +426,31 @@ export function routes() {
                       icon: 'smile',
                       path: '/seo/Form/AllForm/XZAJSNCF',
                       component: './seo/AllForm/XZAJSNCF',
+                  },{
+                      name: '案卷出室登记',
+                      icon: 'smile',
+                      path: '/seo/Form/AllForm/JZCSDJB',
+                      component: './seo/AllForm/JZCSDJB',
+                  },{
+                      name: '刑事案件办理监督',
+                      icon: 'smile',
+                      path: '/seo/Form/AllForm/XSAJBLJDGLTZ',
+                      component: './seo/AllForm/XSAJBLJDGLTZ',
+                  },{
+                      name: '行政案件办理监督',
+                      icon: 'smile',
+                      path: '/seo/Form/AllForm/XZAJBLJDGLTZ',
+                      component: './seo/AllForm/XZAJBLJDGLTZ',
+                  },{
+                      name: '每日警情巡查',
+                      icon: 'smile',
+                      path: '/seo/Form/AllForm/MRJQXCDJB',
+                      component: './seo/AllForm/MRJQXCDJB',
+                  },{
+                      name: '受立案监督管理',
+                      icon: 'smile',
+                      path: '/seo/Form/AllForm/SLAQKJDGLDJB',
+                      component: './seo/AllForm/SLAQKJDGLDJB',
                   },
                   ],
                 },

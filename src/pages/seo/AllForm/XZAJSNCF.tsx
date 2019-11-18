@@ -271,7 +271,7 @@ export default class RYCZTZ extends PureComponent {
             title: '案件名称',
             dataIndex: 'ajmc',
             // width: 200,
-            render: (text) => <Ellipsis lines={3} tooltip>{text}</Ellipsis>,
+            render: (text) => <Ellipsis lines={2} tooltip>{text}</Ellipsis>,
         },
           {
             title: '案件类型',
