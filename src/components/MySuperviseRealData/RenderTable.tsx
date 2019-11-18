@@ -111,7 +111,6 @@ class RenderTable extends PureComponent {
     };
 
     render() {
-        console.log('this.props=========>',this.props);
         const { data, loading } = this.props;
         let columns;
         columns = [
@@ -189,7 +188,6 @@ class RenderTable extends PureComponent {
                     } 条数据 `}</span>
             ),
         };
-        console.log('loading=========>',loading)
         return (
             <Card className={stylescommon.cardArea}>
                 <Table

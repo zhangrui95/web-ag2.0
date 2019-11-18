@@ -203,7 +203,6 @@ class SuperviseSetup extends Component {
     this.props.dispatch({
       type: 'global/changeNavigation',
       payload: {
-        // key: '/systemSetup/SuperviseSetup/Detail?'res&&res.id ? res.id : '1',
         key: reson && reson.id ? reson.id : '1',
         name: type === 0 ? '监管点添加' : type === 2 ? '监管点修改' : '监管点详情',
         path: '/systemSetup/SuperviseSetup/Detail',
@@ -1013,16 +1012,15 @@ class SuperviseSetup extends Component {
     return (
       <div className={stylescommon.statistics}>
         <Card className={stylescommon.titleArea}>
-          监管配置
-          <div className={styles.btnAdd}>
             {isTJJGD ? (
-              <Button type="primary" onClick={() => this.addList(0)}>
-                添加监管点
-              </Button>
+                <Button type="primary" onClick={() => this.addList(0)}>
+                    添加监管点
+                </Button>
             ) : (
-              ''
+                ''
             )}
-            <Button className={stylescommon.export} onClick={this.exportData}>
+          <div className={styles.btnAdd}>
+            <Button onClick={this.exportData} icon="download">
               导出表格
             </Button>
           </div>

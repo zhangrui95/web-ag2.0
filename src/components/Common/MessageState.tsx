@@ -4,12 +4,12 @@
 * 20190308
 * */
 
-import React, { PureComponent } from 'react';
-import { Select, Icon, Table, Row, Col } from 'antd';
+import React, {Component} from 'react';
+import {Select, Icon, Table, Row, Col, Form} from 'antd';
+import {connect} from "dva";
 
 const { Option } = Select;
-
-export default class MessageState extends PureComponent {
+class  MessageState extends Component {
 
     state = {
         disableRectification: true, // 禁用整改完毕下拉框
@@ -56,7 +56,7 @@ export default class MessageState extends PureComponent {
 
 
     render() {
-        const { value: { dbzt, zgzt }, superviseStatusOptions, rectificationStatusOptions } = this.props;
+        const {value: { dbzt, zgzt }, superviseStatusOptions, rectificationStatusOptions } = this.props;
         const { disableRectification } = this.state;
         const divStyle = {
             display: 'flex',
@@ -65,11 +65,12 @@ export default class MessageState extends PureComponent {
             paddingTop: 4,
         };
         return (
-            <div style={divStyle}>
+            <div style={divStyle} id={'form'}>
                 <Select
                     value={dbzt}
                     style={{ width: '55%', textAlign: 'left' }}
                     onChange={this.handleSuperviseStatusChange}
+                    getPopupContainer={() => document.getElementById('form')}
                 >
                     <Option value="">全部</Option>
                     {superviseStatusOptions}
@@ -79,6 +80,7 @@ export default class MessageState extends PureComponent {
                     style={{ width: '40%', textAlign: 'right' }}
                     disabled={disableRectification}
                     onChange={this.handleRectificationStatusChange}
+                    getPopupContainer={() => document.getElementById('form')}
                 >
                     <Option value="">全部</Option>
                     {rectificationStatusOptions}
@@ -87,3 +89,6 @@ export default class MessageState extends PureComponent {
         );
     }
 }
+export default Form.create()(
+    connect((MySuperviseData, loading, common) => ({ MySuperviseData, loading, common }))(MessageState),
+);
