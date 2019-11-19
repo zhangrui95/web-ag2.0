@@ -6,7 +6,7 @@
 
 import React, { PureComponent } from 'react';
 import { DATASYNCTIMEID } from '../../utils/utils';
-import styles from '../../routes/listPage.less';
+import styles from '../../pages/lawEnforcement/CriminalFile/index.less';
 
 export default class SyncTime extends PureComponent {
     componentDidMount() {

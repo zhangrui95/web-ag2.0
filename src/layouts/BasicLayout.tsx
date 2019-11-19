@@ -18,6 +18,7 @@ import { ConnectState } from '@/models/connect';
 import logo from '../assets/logo.png';
 import Navigation from '@/components/Navigation';
 import styles from '@/theme/darkTheme.less';
+import {message} from "antd";
 
 
 export interface BasicLayoutProps extends ProLayoutProps {
@@ -100,16 +101,18 @@ const BasicLayout: React.FC<BasicLayoutProps> = props => {
    * constructor
    */
 
-  useEffect(() => {
-    if (dispatch) {
-      // dispatch({
-      //   type: 'user/fetchCurrent',
-      // });
-      dispatch({
-        type: 'settings/getSetting',
-      });
-    }
-  }, []);
+      useEffect(() => {
+          let options = {getContainer:()=>document.getElementById('messageBox')};
+          message.config(options);
+        if (dispatch) {
+          // dispatch({
+          //   type: 'user/fetchCurrent',
+          // });
+          dispatch({
+            type: 'settings/getSetting',
+          });
+        }
+    }, []);
   /**
    * init variables
    */
@@ -124,7 +127,7 @@ const BasicLayout: React.FC<BasicLayoutProps> = props => {
   };
 
   return (
-      <div className={styles.dark}>
+      <div className={styles.dark} id={'messageBox'}>
           <ProLayout
               //修改logo以及title
               logo={logo}

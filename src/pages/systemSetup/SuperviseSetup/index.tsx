@@ -348,7 +348,8 @@ class SuperviseSetup extends Component {
       content: null,
       okText: '确定',
       cancelText: '取消',
-      style: { top: '200px' },
+      centered:true,
+      getContainer:document.getElementById('box'),
       onOk() {
         that.props.dispatch({
           type: 'SuperviseSetup/getdelJgd',
@@ -1012,7 +1013,7 @@ class SuperviseSetup extends Component {
       </Menu>
     );
     return (
-      <div className={stylescommon.statistics}>
+      <div className={stylescommon.statistics} id={'messageBox'}>
         <Card className={stylescommon.titleArea}>
           {isTJJGD ? (
             <Button type="primary" onClick={() => this.addList(0)}>
@@ -1166,7 +1167,7 @@ class SuperviseSetup extends Component {
             </Row>
           </Form>
         </Card>
-        <Card className={stylescommon.cardArea}>
+        <Card className={stylescommon.cardArea} id={'box'}>
           <Table
             // size='middle'
             loading={this.state.loading}

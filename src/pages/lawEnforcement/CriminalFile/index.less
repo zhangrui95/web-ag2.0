@@ -1,7 +1,161 @@
-//@import '~antd/es/style/themes/default.less';
+@import '~antd/es/style/themes/default.less';
 @import "../../../theme/darkTheme";
 .main {
   display: flex;
   width: 100%;
   background: @component-background;
+}
+
+.tableListForm {
+  background-color: #fff;
+  padding: 16px 24px 0;
+
+  .submitButtons {
+    white-space: nowrap;
+    margin-bottom: 24px;
+  }
+}
+
+.tableListFormTb {
+  //height: 130px;
+  overflow: hidden;
+}
+
+@media screen and (max-width: @screen-xl) {
+  .tableListFormTb {
+    //height: 130px;
+  }
+}
+
+@media screen and (max-width: @screen-lg) {
+  .tableListForm :global(.ant-form-item) {
+    margin-right: 24px;
+  }
+}
+
+@media screen and (max-width: @screen-md) {
+  .tableListForm :global(.ant-form-item) {
+    margin-right: 8px;
+  }
+}
+
+.tableListOperator {
+  background-color: #fff;
+  margin-bottom: 48px;
+
+  button {
+    margin-right: 8px;
+  }
+}
+
+.statistic {
+  text-align: right;
+  height: 30px;
+  line-height: 30px;
+  background-color: @body-background;
+  color: #fff;
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  padding-right: 24px;
+  z-index: 1005;
+  //width: ~'calc(100% - 256px)';
+  left: 260px;
+}
+
+.listPagination {
+  position: absolute;
+  left: 0;
+  color: @text-color-secondary;
+
+  :global {
+    .ant-pagination-total-text {
+      position: absolute;
+      left: 0;
+      color: @text-color-secondary;
+    }
+  }
+}
+
+.listStandardTable {
+  padding: 0 24px;
+  position: relative;
+}
+
+.listPageWrap {
+  background-color: rgb(240, 242, 245);
+
+  .listPageHeader {
+    background: #fff;
+    padding: 16px 0 16px 24px;
+    border: 1px solid #e8e8e8;
+    border-top: none;
+    position: relative;
+
+    a {
+      font-size: @font-size-lg;
+      color: @heading-color;
+      line-height: 26px;
+
+      &:hover {
+        color: @link-active-color;
+      }
+    }
+
+    .listPageHeaderCurrent {
+      //font-size: @font-size-lg;
+      font-weight: bold;
+      color: @primary-color;
+    }
+
+    span {
+      padding: 0 8px;
+    }
+
+    .typeButtonsArea {
+      float: right;
+
+      button {
+        margin-right: 16px;
+
+        span {
+          padding: 0;
+          line-height: 26px;
+          margin-top: -3px;
+          display: block;
+        }
+      }
+    }
+  }
+}
+
+.cascaderPopup {
+  :global {
+    .ant-cascader-menu {
+      max-width: 450px;
+
+      li {
+        text-overflow: ellipsis;
+        overflow: hidden;
+      }
+    }
+  }
+}
+
+.onlyDetail {
+  :global {
+    .ant-tabs.ant-tabs-card > .ant-tabs-bar .ant-tabs-tab {
+      &:first-child {
+        display: none;
+      }
+    }
+
+    .ant-tabs.ant-tabs-card > .ant-tabs-bar .ant-tabs-tab.ant-tabs-tab-active {
+      display: inline-block;
+    }
+  }
+}
+.unclick{
+  color: #bcbcbc!important;
+  cursor: not-allowed;
 }
