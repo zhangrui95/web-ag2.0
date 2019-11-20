@@ -65,6 +65,13 @@ export function routes() {
                   component: './receivePolice/AlarmData',
                 },
                 {
+                  path: '/receivePolice/AlarmData/policeDetail',
+                  name: '警情数据详情',
+                  icon: 'smile',
+                  component: './receivePolice/AlarmData/policeDetail',
+                  hideInMenu: true,
+                },
+                {
                   path: '/receivePolice/AlarmWarning',
                   name: '警情预警',
                   icon: 'smile',
