@@ -5,7 +5,7 @@
 * */
 import React, { PureComponent } from 'react';
 import moment from 'moment/moment';
-import styles from '../Styles/dataView.less';
+import styles from '../../pages/common/dataView.less';
 
 import { getTimeDistance } from '../../utils/utils';
 

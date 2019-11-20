@@ -1,13 +1,9 @@
-//@import '~antd/es/style/themes/default.less';
-
 @import '~antd/lib/style/themes/default.less';
-@import "../../../theme/darkTheme";
-//@import '../../utils/utils.less';
+@import '../../utils/utils.less';
 
 .tableListForm {
-  background-color: @component-background;
-  padding: 16px 24px;
-  margin: 16px 0;
+  background-color: #fff;
+  padding: 16px 24px 0;
 
   .submitButtons {
     white-space: nowrap;
@@ -39,7 +35,7 @@
 }
 
 .tableListOperator {
-  background-color: @body-background;
+  background-color: #fff;
   margin-bottom: 48px;
 
   button {
@@ -82,15 +78,14 @@
 }
 
 .listPageWrap {
-  background-color: @body-background;
+  background-color: rgb(240, 242, 245);
 
   .listPageHeader {
-    background: #202839;
-    padding: 16px 24px;
-    //border: 1px solid #e8e8e8;
-    //border-top: none;
+    background: #fff;
+    padding: 16px 0 16px 24px;
+    border: 1px solid #e8e8e8;
+    border-top: none;
     position: relative;
-    margin-top: 16px;
 
     a {
       font-size: @font-size-lg;
@@ -106,11 +101,6 @@
       //font-size: @font-size-lg;
       font-weight: bold;
       color: @primary-color;
-    }
-
-    .UnlistPageHeaderCurrent{
-      font-weight: bold;
-      color: @title-color;
     }
 
     span {
@@ -163,67 +153,4 @@
 .unclick{
   color: #bcbcbc!important;
   cursor: not-allowed;
-}
-.redioGroup {
-  //position: absolute;
-  //right: 20px;
-  //top: 13px;
-
-  :global {
-    //.ant-radio-button-wrapper {
-    //border-radius: 100px!important;
-    //margin: 0 5px!important;
-    //border-left: 1px solid #1890ff;
-    //padding: 0 8px!important;
-    //}
-
-    .ant-radio-button-wrapper:not(:first-child)::before {
-      background: transparent !important;
-    }
-
-    .ant-radio-group-solid,
-    .ant-radio-button-wrapper-checked {
-      outline: none !important;
-      background: transparent;
-    }
-
-    .ant-radio-button-wrapper {
-      border-color: #1890ff !important;
-      color: @white;
-    }
-
-    .ant-radio-button-wrapper-checked {
-      background: #1890ff;
-      color: #fff !important;
-    }
-
-    .ant-radio-button-wrapper:first-child {
-      border-left: 0;
-    }
-
-    .ant-radio-button-wrapper-disabled:first-child,
-    .ant-radio-button-wrapper-disabled:hover {
-      background-color: @body-background;
-    }
-
-    .ant-radio-button-wrapper-checked:first-child,
-    .ant-radio-button-wrapper-disabled:hover {
-      background-color: #1890ff;
-    }
-  }
-}
-
-.search {
-  width: 260px;
-  float: left;
-  margin: 4px 0 0 12px;
-}
-.empty {
-  background: @body-background!important;
-}
-.searchForm {
-  width: calc(~'100% - 260px');
-  float: left;
-  border-right: 1px solid @body-background;
-  overflow: hidden;
 }
