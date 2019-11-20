@@ -1,0 +1,1036 @@
+@import "~antd/lib/style/themes/default.less";
+@import '../../utils/utils.less';
+
+.RegulateMap {
+  height: 565px;
+}
+
+.warningNumber {
+  color: #0068FF;
+  font-size: @font-size-lg;
+  text-align: center;
+  font-weight: bold;
+}
+
+.warningInfo {
+  font-size: @font-size-lg;
+  text-align: center;
+}
+
+.warningCount {
+  color: #FF3366;
+  font-weight: bolder;
+  font-size: @font-size-lg + 4px;
+  text-align: center;
+}
+
+.warningCountInfo {
+  font-weight: bolder;
+  font-size: @font-size-lg;
+  text-align: center;
+}
+
+.rightBorderCol {
+  border-right: 1px solid #EAEAEA;
+}
+
+.leftBorderCol {
+  border-left: 1px solid #EAEAEA;
+}
+
+.warningType {
+  border-bottom: 1px solid #EAEAEA;
+  height: 65px;
+}
+
+.warningEcharArea {
+  height: 405px;
+}
+
+.warningListTitle {
+  padding-left: 20px;
+  height: 30px;
+  line-height: 40px;
+  font-size: @font-size-lg;
+
+  .title {
+    color: #00ABFF;
+    padding-right: 20px;
+  }
+
+  .date {
+    color: #B5B5B5;
+    font-size: @font-size-base;
+  }
+}
+
+.warningListContent {
+  padding-left: 20px;
+  height: 48px;
+  font-size: @font-size-lg;
+  color: #000000;
+}
+
+.blockTitle {
+  font-size: @font-size-lg + 4px;
+  height: 30px;
+  cursor: pointer;
+}
+
+.setMapDefaultBtn {
+  position: absolute;
+  top: 18px;
+  right: 20px;
+  z-index: 999999;
+}
+
+.title {
+  color: #000;
+  font-weight: bold;
+  line-height: 56px;
+  padding-left: 16px;
+  background-color: #CDE8FA;
+  font-size: 16px;
+}
+
+.tablemessage {
+  background-color: #fff;
+  border-bottom: 3px solid #1890FF;
+  //padding: 24px;
+}
+
+.caseprocess {
+  display: inline-block;
+}
+
+.TimelineAllsa {
+  position: relative;
+  left: 140px;
+}
+
+.TimelineAllla {
+  position: relative;
+  left: 140px;
+
+  :global {
+    .ant-timeline-item:nth-child(1) .ant-timeline-item-tail {
+      border-left: 2px solid #108EE9;
+      top: 0;
+    }
+  }
+}
+
+.TimelineAllpa {
+  position: relative;
+  left: 140px;
+
+  :global {
+    .ant-timeline-item:nth-child(1) .ant-timeline-item-tail {
+      border-left: 2px solid #108EE9;
+      top: 0;
+    }
+
+    .ant-timeline-item:nth-child(2) .ant-timeline-item-tail {
+      border-left: 2px solid #108EE9;
+      top: 0;
+    }
+  }
+}
+
+.TimelineAllja {
+  position: relative;
+  left: 140px;
+
+  :global {
+    .ant-timeline-item:nth-child(1) .ant-timeline-item-tail {
+      border-left: 2px solid #108EE9;
+      top: 0;
+    }
+
+    .ant-timeline-item:nth-child(2) .ant-timeline-item-tail {
+      border-left: 2px solid #108EE9;
+      top: 0;
+    }
+
+    .ant-timeline-item:nth-child(3) .ant-timeline-item-tail {
+      border-left: 2px solid #108EE9;
+      top: 0;
+    }
+  }
+}
+
+.TimelineAllxa {
+  position: relative;
+  left: 140px;
+
+  :global {
+    .ant-timeline-item:nth-child(1) .ant-timeline-item-tail {
+      border-left: 2px solid #108EE9;
+      top: 0;
+    }
+
+    .ant-timeline-item:nth-child(2) .ant-timeline-item-tail {
+      border-left: 2px solid #108EE9;
+      top: 0;
+    }
+
+    .ant-timeline-item:nth-child(3) .ant-timeline-item-tail {
+      border-left: 2px solid #108EE9;
+      top: 0;
+    }
+
+    .ant-timeline-item:nth-child(4) .ant-timeline-item-tail {
+      border-left: 2px solid #108EE9;
+      top: 0;
+    }
+  }
+}
+
+.timeline {
+  position: relative;
+  left: -160px;
+}
+
+.spanTitle {
+  display: block;
+}
+
+.stepStyles {
+  //min-width:200px;
+  width: 218px;
+  flex: none;
+  //max-width:600px;
+}
+
+.listStyle {
+  //position: absolute;
+  //top: 8px;
+  //left: 74px;
+
+  position: relative;
+  top: -35px;
+  left: 74px;
+  //float: left;
+}
+
+.switch {
+  position: absolute;
+  right: 0;
+  top: 300px;
+}
+
+@media screen and (max-width: 1280px) {
+  .message .steps {
+    position: relative;
+    left: 0;
+    display: inline-flex;
+    width: auto;
+
+    :global {
+      .ant-steps-item {
+        width: 146px;
+        //overflow: visible;
+      }
+
+      .ant-steps-item-description {
+        width: 106px;
+        max-width: 106px;
+      }
+    }
+  }
+
+  .personFiles {
+    min-width: 200px;
+    width: 334px;
+    border: 1px solid #C8EAFF;
+    padding: 12px 0 0;
+    font-size: 14px;
+  }
+
+  .CdCard {
+    text-align: left;
+    padding: 5px 0;
+    overflow: hidden;
+  }
+
+  .Alllength {
+    width: 653px;
+  }
+
+  .message .trailsteps {
+    position: relative;
+    left: 0;
+    display: inline-flex;
+    width: auto;
+
+    :global {
+      .ant-steps-item {
+        width: 400px;
+        //overflow: visible;
+      }
+
+      .ant-steps-item-tail {
+        margin-left: 0;
+      }
+
+      .ant-steps-item-content {
+        position: relative;
+        left: 0;
+        top: -192px;
+        width: 278px;
+      }
+
+      .ant-steps-item-icon {
+        margin-left: 0;
+        //width: 195px;
+        //overflow: visible;
+      }
+
+      .ant-steps-item-description {
+        width: 360px;
+        max-width: 360px;
+      }
+    }
+  }
+
+  .listStyle {
+    position: absolute;
+    top: -189px;
+    left: 247px;
+    width: 400px;
+    overflow: hidden;
+    padding-top: 180px;
+    padding-bottom: 435px;
+  }
+
+  .DetailLeftline {
+    width: 94px;
+    height: 3px;
+    background-color: #1890FF;
+    display: block;
+    position: absolute;
+    left: 147px;
+    top: 9px;
+  }
+
+  .DetailRightline1 {
+    width: 380px;
+    height: 3px;
+    background-color: #1890FF;
+    display: block;
+    position: absolute;
+    left: 13px;
+    top: -58px;
+  }
+
+  .DetailLineIcon {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: #1890FF;
+    display: block;
+    position: absolute;
+    top: 7px;
+    left: 143px;
+  }
+
+  .trailsteps {
+    :global {
+      .ant-steps-item:first-child .ant-steps-icon-dot {
+        left: 0;
+      }
+
+      .ant-timeline-item-head {
+        width: 8px;
+        height: 8px;
+        left: 1px;
+        background-color: #1890ff;
+      }
+
+      .ant-timeline-item-tail {
+        top: 8px;
+      }
+    }
+  }
+
+  .IndexTitle {
+    width: 250px;
+    position: relative;
+  }
+
+  .AllTimeLine {
+    position: absolute;
+    left: -1px;
+    top: 236px;
+  }
+
+  .message {
+    position: relative;
+    background-color: #fff;
+    border-bottom: 3px solid #1890FF;
+    padding: 0 24px 0;
+    margin-bottom: 24px;
+  }
+
+  .TimeLineStyle {
+    background-color: #1890FF;
+    height: 60px;
+    width: 2px;
+    position: absolute;
+    top: -54px;
+    left: -14px;
+  }
+
+  .sawpName1 {
+    width: 109px;
+  }
+}
+
+@media screen and (min-width: 1600px) {
+  .message .steps {
+    position: relative;
+    left: 0;
+    display: inline-flex;
+    width: auto;
+
+    :global {
+      .ant-steps-item {
+        width: 226px;
+        //overflow: visible;
+      }
+
+      .ant-steps-item-description {
+        width: 186px;
+        max-width: 186px;
+      }
+    }
+  }
+
+  .personFiles {
+    min-width: 200px;
+    width: 334px;
+    border: 1px solid #C8EAFF;
+    padding: 12px 0 0;
+    font-size: 14px;
+  }
+
+  .CdCard {
+    text-align: left;
+    padding: 5px 0;
+    overflow: hidden;
+  }
+
+  .Alllength {
+    width: 653px;
+  }
+
+  .message .trailsteps {
+    position: relative;
+    left: 0;
+    display: inline-flex;
+    width: auto;
+
+    :global {
+      .ant-steps-item {
+        width: 350px;
+        //overflow: visible;
+      }
+
+      .ant-steps-item-tail {
+        margin-left: 0;
+      }
+
+      .ant-steps-item-content {
+        position: relative;
+        left: 0;
+        top: -192px;
+        width: 278px;
+      }
+
+      .ant-steps-item-icon {
+        margin-left: 0;
+        //width: 195px;
+        //overflow: visible;
+      }
+
+      .ant-steps-item-description {
+        width: 310px;
+        max-width: 310px;
+      }
+    }
+  }
+
+  .listStyle {
+    position: absolute;
+    top: -189px;
+    left: 247px;
+    width: 700px;
+    overflow: hidden;
+    padding-top: 180px;
+    padding-bottom: 435px;
+  }
+
+  .DetailLeftline {
+    width: 94px;
+    height: 3px;
+    background-color: #1890FF;
+    display: block;
+    position: absolute;
+    left: 147px;
+    top: 9px;
+  }
+
+  .DetailRightline1 {
+    width: 320px;
+    height: 3px;
+    background-color: #1890FF;
+    display: block;
+    position: absolute;
+    left: 13px;
+    top: -58px;
+  }
+
+  .DetailLineIcon {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: #1890FF;
+    display: block;
+    position: absolute;
+    top: 7px;
+    left: 143px;
+  }
+
+  .trailsteps {
+    :global {
+      .ant-steps-item:first-child .ant-steps-icon-dot {
+        left: 0;
+      }
+
+      .ant-timeline-item-head {
+        width: 8px;
+        height: 8px;
+        left: 1px;
+        background-color: #1890ff;
+      }
+
+      .ant-timeline-item-tail {
+        top: 8px;
+      }
+    }
+  }
+
+  .IndexTitle {
+    width: 250px;
+    position: relative;
+  }
+
+  .AllTimeLine {
+    position: absolute;
+    left: -1px;
+    top: 236px;
+  }
+
+  .message {
+    position: relative;
+    background-color: #fff;
+    border-bottom: 3px solid #1890FF;
+    padding: 0 24px 0;
+    margin-bottom: 24px;
+  }
+
+  .TimeLineStyle {
+    background-color: #1890FF;
+    height: 60px;
+    width: 2px;
+    position: absolute;
+    top: -54px;
+    left: -14px;
+  }
+
+  .sawpName1 {
+    width: 188px;
+  }
+}
+
+@media screen and (min-width: 1680px) {
+  .message .steps {
+    position: relative;
+    left: 0;
+    display: inline-flex;
+    width: auto;
+
+    :global {
+      .ant-steps-item {
+        width: 246px;
+        //overflow: visible;
+      }
+
+      .ant-steps-item-description {
+        width: 226px;
+        max-width: 226px;
+      }
+    }
+  }
+
+  .personFiles {
+    min-width: 200px;
+    width: 334px;
+    border: 1px solid #C8EAFF;
+    padding: 12px 0 0;
+    font-size: 14px;
+  }
+
+  .CdCard {
+    text-align: left;
+    padding: 5px 0;
+    overflow: hidden;
+  }
+
+  .Alllength {
+    width: 653px;
+  }
+
+  .message .trailsteps {
+    position: relative;
+    left: 0;
+    display: inline-flex;
+    width: auto;
+
+    :global {
+      .ant-steps-item {
+        width: 390px;
+        //overflow: visible;
+      }
+
+      .ant-steps-item-tail {
+        margin-left: 0;
+      }
+
+      .ant-steps-item-content {
+        position: relative;
+        left: 0;
+        top: -192px;
+        width: 278px;
+      }
+
+      .ant-steps-item-icon {
+        margin-left: 0;
+        //width: 195px;
+        //overflow: visible;
+      }
+
+      .ant-steps-item-description {
+        width: 350px;
+        max-width: 350px;
+      }
+    }
+  }
+
+  .listStyle {
+    position: absolute;
+    top: -189px;
+    left: 247px;
+    width: 780px;
+    overflow: hidden;
+    padding-top: 180px;
+    padding-bottom: 435px;
+  }
+
+  .DetailLeftline {
+    width: 94px;
+    height: 3px;
+    background-color: #1890FF;
+    display: block;
+    position: absolute;
+    left: 147px;
+    top: 9px;
+  }
+
+  .DetailRightline1 {
+    width: 370px;
+    height: 3px;
+    background-color: #1890FF;
+    display: block;
+    position: absolute;
+    left: 13px;
+    top: -58px;
+  }
+
+  .DetailLineIcon {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: #1890FF;
+    display: block;
+    position: absolute;
+    top: 7px;
+    left: 143px;
+  }
+
+  .trailsteps {
+    :global {
+      .ant-steps-item:first-child .ant-steps-icon-dot {
+        left: 0;
+      }
+
+      .ant-timeline-item-head {
+        width: 8px;
+        height: 8px;
+        left: 1px;
+        background-color: #1890ff;
+      }
+
+      .ant-timeline-item-tail {
+        top: 8px;
+      }
+    }
+  }
+
+  .IndexTitle {
+    width: 250px;
+    position: relative;
+  }
+
+  .AllTimeLine {
+    position: absolute;
+    left: -1px;
+    top: 236px;
+  }
+
+  .message {
+    position: relative;
+    background-color: #fff;
+    border-bottom: 3px solid #1890FF;
+    padding: 0 24px 0;
+    margin-bottom: 24px;
+  }
+
+  .TimeLineStyle {
+    background-color: #1890FF;
+    height: 60px;
+    width: 2px;
+    position: absolute;
+    top: -54px;
+    left: -14px;
+  }
+
+  .sawpName1 {
+    width: 209px;
+  }
+}
+
+@media screen and (min-width: 1920px) {
+  .message .steps {
+    position: relative;
+    left: 0;
+    display: inline-flex;
+    width: auto;
+
+    :global {
+      .ant-steps-item {
+        width: 306px;
+        //overflow: visible;
+      }
+
+      .ant-steps-item-description {
+        width: 266px;
+        max-width: 266px;
+      }
+    }
+  }
+
+  .personFiles {
+    min-width: 200px;
+    width: 334px;
+    border: 1px solid #C8EAFF;
+    padding: 12px 0 0;
+    font-size: 14px;
+  }
+
+  .CdCard {
+    text-align: left;
+    padding: 5px 0;
+    overflow: hidden;
+  }
+
+  .Alllength {
+    width: 653px;
+  }
+
+  .message .trailsteps {
+    position: relative;
+    left: 0;
+    display: inline-flex;
+    width: auto;
+
+    :global {
+      .ant-steps-item {
+        width: 340px;
+        //overflow: visible;
+      }
+
+      .ant-steps-item-tail {
+        margin-left: 0;
+      }
+
+      .ant-steps-item-content {
+        position: relative;
+        left: 0;
+        top: -192px;
+        width: 278px;
+      }
+
+      .ant-steps-item-icon {
+        margin-left: 0;
+        //width: 195px;
+        //overflow: visible;
+      }
+
+      .ant-steps-item-description {
+        width: 300px;
+        max-width: 300px;
+      }
+    }
+  }
+
+  .listStyle {
+    position: absolute;
+    top: -189px;
+    left: 247px;
+    width: 1020px;
+    overflow: hidden;
+    padding-top: 180px;
+    padding-bottom: 435px;
+  }
+
+  .DetailLeftline {
+    width: 94px;
+    height: 3px;
+    background-color: #1890FF;
+    display: block;
+    position: absolute;
+    left: 147px;
+    top: 9px;
+  }
+
+  .DetailRightline1 {
+    width: 320px;
+    height: 3px;
+    background-color: #1890FF;
+    display: block;
+    position: absolute;
+    left: 13px;
+    top: -58px;
+  }
+
+  .DetailLineIcon {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: #1890FF;
+    display: block;
+    position: absolute;
+    top: 7px;
+    left: 143px;
+  }
+
+  .trailsteps {
+    :global {
+      .ant-steps-item:first-child .ant-steps-icon-dot {
+        left: 0;
+      }
+
+      .ant-timeline-item-head {
+        width: 8px;
+        height: 8px;
+        left: 1px;
+        background-color: #1890ff;
+      }
+
+      .ant-timeline-item-tail {
+        top: 8px;
+      }
+    }
+  }
+
+  .IndexTitle {
+    width: 250px;
+    position: relative;
+  }
+
+  .AllTimeLine {
+    position: absolute;
+    left: -1px;
+    top: 236px;
+  }
+
+  .message {
+    position: relative;
+    background-color: #fff;
+    border-bottom: 3px solid #1890FF;
+    padding: 0 24px 0;
+    margin-bottom: 24px;
+  }
+
+  .TimeLineStyle {
+    background-color: #1890FF;
+    height: 60px;
+    width: 2px;
+    position: absolute;
+    top: -54px;
+    left: -14px;
+  }
+
+  .sawpName1 {
+    width: 233px;
+  }
+
+  .sawpListName {
+    :global {
+      .ant-list-item-content {
+        margin: 0 30px 12px 30px;
+      }
+    }
+  }
+}
+
+.clsj_time {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  display: block;
+}
+
+.superve {
+  display: inline-block;
+  //width: 795px;
+  //width: 1424px;
+  //width: 100%;
+  overflow: hidden;
+}
+
+
+.IconStyle {
+  display: inline-block;
+  width: 280px;
+  position: absolute;
+  right: 0;
+  //background-color: #faa;
+}
+
+.IconStyle img {
+  display: inline-block;
+}
+
+//
+.colsImg {
+  position: relative;
+  //border: 1px solid #ccc;
+  //margin-bottom: 24px;
+}
+
+.sawpImg {
+  padding: 12px;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.sawpName {
+  display: inline-block;
+  height: 94px;
+  padding: 12px 12px 12px 94px;
+}
+
+.sawpName1 {
+  display: block;
+  height: 35px;
+  line-height: 35px;
+
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.sawpSee {
+  background-color: #F7F9FA;
+  height: 40px;
+  text-align: center;
+  line-height: 40px;
+  cursor: pointer;
+  color: #d4d4d4;
+}
+
+.sawpListName {
+  :global {
+    .ant-list-item {
+      width: 25%;
+      display: inline-block;
+      border-bottom: 0 solid #e8e8e8;
+      padding: 0;
+    }
+
+    .ant-spin-container > .ant-list-item:last-child {
+      border-bottom: 0 solid #e8e8e8;
+    }
+
+    .ant-list-item-content {
+      margin: 0 12px 12px 12px;
+      border: 1px solid #ccc;
+    }
+
+    .ant-list-pagination {
+      margin-right: 12px;
+    }
+  }
+}
+
+.break {
+  word-break: break-all;
+}
+
+.headCityName {
+  font-weight: 700;
+  font-style: normal;
+  color: #1890FF;
+  font-size: 25px;
+  margin-left: 40px;
+  height: 32px;
+}
+
+.forBar {
+  font-size: 35px;
+  color: #08c;
+  display: inline-block;
+  position: absolute;
+  right: 24px;
+  top: 0;
+  z-index: 10;
+}
+
+.forBarMenu {
+  z-index: 10;
+  position: absolute;
+  right: 85px;
+  top: 0;
+  display: inline-block;
+}
+
+.forBig {
+  font-size: 35px;
+  color: #08c;
+  display: inline-block;
+  position: absolute;
+  right: 24px;
+  top: 25px;
+  z-index: 10;
+}
+
+.forBigMenu {
+  z-index: 10;
+  position: absolute;
+  right: 85px;
+  top: 25px;
+  display: inline-block;
+}

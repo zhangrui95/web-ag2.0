@@ -478,7 +478,8 @@ class Detail extends Component {
             content: null,
             okText: '确定',
             cancelText: '取消',
-            style: { top: '200px' },
+            centered:true,
+            getContainer:document.getElementById('box'),
             onOk() {
                 that.props.dispatch({
                     type: 'SuperviseSetup/getdelJgd',
@@ -1018,7 +1019,7 @@ class Detail extends Component {
             </Menu>
         );
         return (
-            <div>
+            <div id={'box'}>
                 <Card className={stylescommon.statistics + ' ' + styles.detailBox} id={'form'}>
                     <Form>
                         <Row gutter={rowLayout} className={styles.formBoxBorder}>

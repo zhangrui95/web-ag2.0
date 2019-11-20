@@ -1,7 +1,183 @@
 @import '~antd/es/style/themes/default.less';
+@import '../../../theme/darkTheme';
 
 .main {
   display: flex;
   width: 100%;
   background: @component-background;
+}
+.searchArea {
+  background: @body-background;
+  padding: 10px 0;
+  :global {
+    .ant-input {
+      background: @component-background!important;
+      height: 40px !important;
+      line-height: 40px !important;
+    }
+  }
+}
+
+.searchConditionArea {
+  .searchType {
+    padding: 12px 24px;
+    border-left: none;
+    border-right: none;
+    border-bottom: 1px solid @body-background;
+
+    a {
+      color: #666;
+      padding: 12px 10px;
+      font-size: 18px;
+      font-weight: 400;
+
+      &:hover {
+        color: #00abff;
+      }
+    }
+
+    a.showSearchDetail {
+      font-size: 14px;
+      color: @highlight-color;
+      :global {
+        .anticon svg {
+          color: @highlight-color!important;
+        }
+      }
+    }
+
+    a.chosenType {
+      color: #000;
+      border-bottom: 2px solid rgba(37, 155, 243, 1);
+    }
+  }
+
+  .searchDetails {
+    position: relative;
+    border-bottom: 1px solid @body-background;
+    .singleConditionArea {
+      padding: 10px 24px;
+
+      .searchTitle {
+        width: 80px;
+        display: inline-block;
+        text-align: right;
+      }
+
+      .searchBtnA {
+        padding: 0 20px;
+        color: rgba(0, 0, 0, 0.65);
+      }
+
+      :global {
+        .ant-radio-group {
+          .ant-radio-button-wrapper {
+            border: none;
+            background: none;
+          }
+        }
+        .ant-radio-button-wrapper-checked:not(.ant-radio-button-wrapper-disabled) {
+          text-decoration: underline;
+        }
+
+        .ant-radio-button-wrapper:not(:first-child)::before {
+          width: 0;
+        }
+
+        .ant-radio-button-wrapper-checked {
+          box-shadow: none;
+        }
+      }
+    }
+
+    .clearAll {
+      color: rgb(24, 144, 255);
+      font-size: 18px;
+      cursor: pointer;
+      margin: 0 auto;
+    }
+
+    .hideSearchDetailBtn {
+      width: 120px;
+      height: 30px;
+      line-height: 30px;
+      border: 1px solid rgba(242, 242, 242, 1);
+      border-top: none;
+      position: absolute;
+      left: 50%;
+      text-align: center;
+      bottom: -30px;
+      margin-left: -60px;
+      background-color: rgba(242, 242, 242, 0.28627451);
+      border-radius: 0 0 5px 5px;
+      cursor: pointer;
+    }
+  }
+}
+
+.searchResaultArea {
+  .ajCardTitle,
+  .sawpCardTitle,
+  .saryCardTitle,
+  .baqCardTitle,
+  .jzCardTitle {
+    height: 50px;
+    line-height: 50px;
+    color: #fff;
+    font-size: 16px;
+    text-align: center;
+    border-radius: 2px 2px 0 0;
+    font-weight: 600;
+  }
+
+  .ajCardTitle {
+    background-color: rgba(37, 155, 243, 1);
+  }
+
+  .sawpCardTitle {
+    background-color: rgba(255, 51, 0, 1);
+  }
+
+  .saryCardTitle {
+    background-color: rgba(153, 0, 0, 1);
+  }
+
+  .baqCardTitle {
+    background-color: #ffcc00;
+  }
+
+  .jzCardTitle {
+    background-color: #6666ff;
+  }
+
+  .cardBody {
+    padding: 16px 24px;
+    height: 120px;
+
+    .cardBodyName {
+      font-size: 18px;
+      color: #333333;
+    }
+
+    .cardBodyContent {
+      height: 60px;
+    }
+  }
+
+  .searchResultCheckOut {
+    height: 50px;
+    line-height: 50px;
+    text-align: center;
+    border-radius: 0 0 2px 2px;
+    background-color: rgba(239, 243, 246, 1);
+    color: rgba(13, 13, 13, 0.427450980392157);
+    cursor: pointer;
+    font-size: 16px;
+  }
+
+  .searchResultImage {
+    position: absolute;
+    top: 0;
+    right: 0;
+  }
 }
