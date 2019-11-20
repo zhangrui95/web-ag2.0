@@ -28,12 +28,13 @@
 * */
 import React, { PureComponent } from 'react';
 import { connect } from 'dva';
-import { Row, Col, Form, Select, TreeSelect, Input, Button, DatePicker, Tabs, message, Cascader } from 'antd';
+import {Row, Col, Form, Select, TreeSelect, Input, Button, DatePicker, Tabs, message, Cascader, Card, Icon} from 'antd';
 import moment from 'moment/moment';
 import styles from './index.less';
-// import PersonalDocTable from '../../../components/AllDocuments/PersonalDocTable';
+import PersonalDocTable from '../../../components/AllDocuments/PersonalDocTable';
 import { exportListDataMaxDays, getQueryString, tableList } from '../../../utils/utils';
 import SyncTime from '../../../components/Common/SyncTime';
+import stylescommon from "@/pages/common/common.less";
 
 const FormItem = Form.Item;
 const { Option } = Select;
@@ -409,6 +410,11 @@ export default class PersonalDoc extends PureComponent {
         // Can not select days before today and today
         return current && current.valueOf() > Date.now();
     };
+    getSearchHeight = () => {
+        this.setState({
+            searchHeight:!this.state.searchHeight
+        });
+    }
     renderForm() {
         const { form: { getFieldDecorator }, common: { depTree, involvedType, enforcementTypeDict } } = this.props;
         const {caseTypeTreeXZ,caseTypeTreeXS} = this.state;
@@ -444,8 +450,9 @@ export default class PersonalDoc extends PureComponent {
         const rowLayout = { md: 8, xl: 16, xxl: 24 };
         const colLayout = { sm: 24, md: 12, xl: 8 };
         return (
-            <Form onSubmit={this.handleSearch}>
-                <Row gutter={rowLayout}>
+            <Card className={stylescommon.listPageWrap} id={'form'}>
+            <Form onSubmit={this.handleSearch} style={{height:this.state.searchHeight ?  'auto' : '50px'}}>
+                <Row gutter={rowLayout} className={stylescommon.searchForm}>
                     <Col {...colLayout}>
                         <FormItem label="涉案人员" {...formItemLayout}>
                             {getFieldDecorator('name', {
@@ -459,7 +466,7 @@ export default class PersonalDoc extends PureComponent {
                     <Col {...colLayout}>
                         <FormItem label="人员性别" {...formItemLayout}>
                             {getFieldDecorator('sex', {})(
-                                <Select placeholder="请选择人员性别" style={{ width: '100%' }}>
+                                <Select placeholder="请选择人员性别" style={{ width: '100%' }} getPopupContainer={() => document.getElementById('form')}>
                                     <Option value="">全部</Option>
                                     <Option value="男">男</Option>
                                     <Option value="女">女</Option>
@@ -474,7 +481,7 @@ export default class PersonalDoc extends PureComponent {
                             {getFieldDecorator('salx', {
                                 initialValue: this.state.salx,
                             })(
-                                <Select placeholder="请选择人员类型" style={{ width: '100%' }}>
+                                <Select placeholder="请选择人员类型" style={{ width: '100%' }} getPopupContainer={() => document.getElementById('form')}>
                                     <Option value="">全部</Option>
                                     {/*{involvedTypeOptions}*/}
                                     <Option key='01' value="01">犯罪嫌疑人</Option>
@@ -483,9 +490,6 @@ export default class PersonalDoc extends PureComponent {
                             )}
                         </FormItem>
                     </Col>
-
-                </Row>
-                <Row gutter={rowLayout}>
                     <Col {...colLayout}>
                         <FormItem label="涉案人证件号" {...formItemLayout}>
                             {getFieldDecorator('sfzh', {
@@ -531,6 +535,7 @@ export default class PersonalDoc extends PureComponent {
                                     key='cjdwSelect'
                                     treeDefaultExpandedKeys={this.state.treeDefaultExpandedKeys}
                                     treeNodeFilterProp="title"
+                                    getPopupContainer={() => document.getElementById('form')}
                                 >
                                     {depTree && depTree.length > 0 ? this.renderloop(depTree) : null}
                                 </TreeSelect>,
@@ -545,6 +550,7 @@ export default class PersonalDoc extends PureComponent {
                                 <RangePicker
                                     disabledDate={this.disabledDate}
                                     style={{ width: '100%' }}
+                                    getCalendarContainer={() => document.getElementById('form')}
                                 />,
                             )}
                         </FormItem>
@@ -552,15 +558,13 @@ export default class PersonalDoc extends PureComponent {
                     <Col {...colLayout}>
                         <FormItem label="强制措施" {...formItemLayout}>
                             {getFieldDecorator('qzcslx', {})(
-                                <Select placeholder="请选择强制措施" style={{ width: '100%' }}>
+                                <Select placeholder="请选择强制措施" style={{ width: '100%' }} getPopupContainer={() => document.getElementById('form')}>
                                     <Option value="">全部</Option>
                                     {enforcementTypeDictGroup}
                                 </Select>,
                             )}
                         </FormItem>
                     </Col>
-                </Row>
-                <Row gutter={rowLayout}>
                     <Col {...colLayout}>
                         <FormItem label="案件类别" {...formItemLayout}>
                             {getFieldDecorator('ajlb', {})(
@@ -569,6 +573,7 @@ export default class PersonalDoc extends PureComponent {
                                     placeholder="请选择案件类别"
                                     changeOnSelect='true'
                                     onChange={this.CascaderOnChange}
+                                    getPopupContainer={() => document.getElementById('form')}
                                     showSearch={
                                         {
                                             filter: (inputValue, path) => {
@@ -588,6 +593,7 @@ export default class PersonalDoc extends PureComponent {
                                 <RangePicker
                                     disabledDate={this.disabledDate}
                                     style={{ width: '100%' }}
+                                    getCalendarContainer={() => document.getElementById('form')}
                                 />,
                             )}
                         </FormItem>
@@ -599,22 +605,27 @@ export default class PersonalDoc extends PureComponent {
                                 <RangePicker
                                     disabledDate={this.disabledDate}
                                     style={{ width: '100%' }}
+                                    getCalendarContainer={() => document.getElementById('form')}
                                 />,
                             )}
                         </FormItem>
                     </Col>
                 </Row>
-                <Row gutter={rowLayout}>
-                    <Col>
+                <Row className={stylescommon.search}>
                         <span style={{ float: 'right', marginBottom: 24 }}>
-                            <Button style={{ color: '#2095FF', borderColor: '#2095FF' }}
-                                    onClick={this.exportData}>导出表格</Button>
-                            <Button style={{ marginLeft: 8 }} type="primary" htmlType="submit">查询</Button>
-                            <Button style={{ marginLeft: 8 }} onClick={this.handleFormReset}>重置</Button>
+                          <Button style={{ marginLeft: 8 }} type="primary" onClick={this.handleSearch}>
+                            查询
+                          </Button>
+                          <Button style={{ marginLeft: 8 }} onClick={this.handleFormReset} className={stylescommon.empty}>
+                            重置
+                          </Button>
+                          <Button style={{ marginLeft: 8 }} onClick={this.getSearchHeight} className={stylescommon.empty}>
+                              {this.state.searchHeight ? '收起筛选' : '展开筛选'} <Icon type={this.state.searchHeight ? "up" :"down"}/>
+                          </Button>
                         </span>
-                    </Col>
                 </Row>
             </Form>
+            </Card>
         );
     }
 
@@ -622,15 +633,15 @@ export default class PersonalDoc extends PureComponent {
         const { personDocData: { personData }, loading } = this.props;
         return (
             <div>
-                {/*<PersonalDocTable*/}
-                {/*    loading={loading}*/}
-                {/*    data={personData}*/}
-                {/*    onChange={this.handleTableChange}*/}
-                {/*    newDetail={this.newDetail}*/}
-                {/*    getPersonData={(params) => this.getPersonData(params)}*/}
-                {/*    formValues={this.state.formValues}*/}
-                {/*    {...this.props}*/}
-                {/*/>*/}
+                <PersonalDocTable
+                    loading={loading}
+                    data={personData}
+                    onChange={this.handleTableChange}
+                    newDetail={this.newDetail}
+                    getPersonData={(params) => this.getPersonData(params)}
+                    formValues={this.state.formValues}
+                    {...this.props}
+                />
             </div>
         );
     }
@@ -669,19 +680,13 @@ export default class PersonalDoc extends PureComponent {
         const newAddDetail = this.state.arrayDetail;
         return (
             <div>
-                        <div className={styles.listPageWrap}>
-                            <div className={styles.listPageHeader}>
-                                <a onClick={this.changeListPageHeader}>人员档案列表</a>
-                            </div>
-                            <div>
-                                <div className={styles.tableListForm}>
-                                    {this.renderForm()}
-                                </div>
-                                <div className={styles.tableListOperator}>
-                                    {this.renderTable()}
-                                </div>
-                            </div>
-                        </div>
+                {this.renderForm()}
+                <div className={stylescommon.btnTableBox}>
+                    <Button onClick={this.exportData} icon="download">
+                        导出表格
+                    </Button>
+                </div>
+                {this.renderTable()}
                     {/*{newAddDetail.map((pane, idx) => <TabPane tab={pane.title} key={pane.key}*/}
                     {/*                                          closable={this.props.location.query && this.props.location.query.id && idx === 0 ? false : true}>{pane.content}</TabPane>)}*/}
                 <SyncTime dataLatestTime={personData.tbCount ? personData.tbCount.tbsj : ''} {...this.props} />

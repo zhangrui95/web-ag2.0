@@ -4,10 +4,12 @@
 * 20181225
 * */
 import React, { PureComponent } from 'react';
-import { Table, message } from 'antd';
-import Ellipsis from '../Ellipsis';
+import {Table, message, Card, Empty} from 'antd';
+import Ellipsis from 'ant-design-pro/lib/Ellipsis';
 import styles from './docTable.less';
-import PersonDetail from '../../routes/AllDocuments/PersonalDocDetail';
+// import PersonDetail from '../../routes/AllDocuments/PersonalDocDetail';
+import stylescommon from "@/pages/common/common.less";
+import noList from "@/assets/viewData/noList.png";
 
 export default class PersonalDocTable extends PureComponent {
     state = {
@@ -22,36 +24,36 @@ export default class PersonalDocTable extends PureComponent {
         });
     };
     openPersonDetail = (record) => {
-        const { xyr_sfzh: idcard, system_id } = record;
-        if (idcard) {
-            this.props.dispatch({
-                type: 'AllDetail/AllDetailPersonFetch',
-                payload: {
-                    sfzh: idcard,
-                },
-                callback: (data) => {
-                    if (data && data.ryxx) {
-                        const divs = (
-                            <div>
-                                <PersonDetail
-                                    {...this.props}
-                                    idcard={idcard}
-                                    id={system_id}
-                                    ly='常规数据'
-                                    from='人员档案'
-                                />
-                            </div>
-                        );
-                        const AddNewDetail = { title: '人员档案', content: divs, key: idcard + 'ryda' };
-                        this.props.newDetail(AddNewDetail);
-                    } else {
-                        message.error('该人员暂无人员档案');
-                    }
-                },
-            });
-        } else {
-            message.error('该人员暂无人员档案');
-        }
+        // const { xyr_sfzh: idcard, system_id } = record;
+        // if (idcard) {
+        //     this.props.dispatch({
+        //         type: 'AllDetail/AllDetailPersonFetch',
+        //         payload: {
+        //             sfzh: idcard,
+        //         },
+        //         callback: (data) => {
+        //             if (data && data.ryxx) {
+        //                 const divs = (
+        //                     <div>
+        //                         <PersonDetail
+        //                             {...this.props}
+        //                             idcard={idcard}
+        //                             id={system_id}
+        //                             ly='常规数据'
+        //                             from='人员档案'
+        //                         />
+        //                     </div>
+        //                 );
+        //                 const AddNewDetail = { title: '人员档案', content: divs, key: idcard + 'ryda' };
+        //                 this.props.newDetail(AddNewDetail);
+        //             } else {
+        //                 message.error('该人员暂无人员档案');
+        //             }
+        //         },
+        //     });
+        // } else {
+        //     message.error('该人员暂无人员档案');
+        // }
 
     };
 
@@ -91,17 +93,14 @@ export default class PersonalDocTable extends PureComponent {
             {
                 title: '案件编号',
                 dataIndex: 'ajbh',
-                width: 200,
             },
             {
               title: '强制措施时间',
               dataIndex: 'qssj',
-              width: 200,
             },
             {
               title: '受理时间',
               dataIndex: 'slsj',
-              width: 200,
             },
             {
                 title: '强制措施',
@@ -120,28 +119,37 @@ export default class PersonalDocTable extends PureComponent {
         ];
 
         const paginationProps = {
-            showSizeChanger: true,
-            showQuickJumper: true,
-            current: data.page ? data.page.currentPage : '',
-            total: data.page ? data.page.totalResult : '',
-            pageSize: data.page ? data.page.showCount : '',
-            showTotal: (total, range) =>
+            current: data && data.page ? data.page.currentPage : '',
+            total: data && data.page ? data.page.totalResult : '',
+            pageSize: data && data.page ? data.page.showCount : '',
+            showTotal: (total, range) => (
                 <span
-                    className={styles.pagination}>{`共 ${data.page ? data.page.totalResult : 0} 条记录 第 ${data.page ? data.page.currentPage : 1} / ${data.page ? data.page.totalPage : 1} 页`}</span>,
+                    className={
+                        data &&
+                        data.page &&
+                        data.page.totalResult &&
+                        data.page.totalResult.toString().length < 5
+                            ? stylescommon.pagination
+                            : stylescommon.paginations
+                    }
+                >{`共 ${data && data.page ? data.page.totalPage : 1} 页，${
+                    data && data.page ? data.page.totalResult : 0
+                    } 条数据 `}</span>
+            ),
         };
 
         return (
-            <div className={styles.standardTable}>
+            <Card className={stylescommon.cardArea}>
                 <Table
-                    size={'middle'}
                     loading={loading}
                     rowKey={record => record.key}
                     dataSource={data.list}
                     columns={columns}
                     pagination={paginationProps}
                     onChange={this.handleTableChange}
+                    locale={{ emptyText: <Empty image={noList} description={'暂无记录'} /> }}
                 />
-            </div>
+            </Card>
         );
     }
 }

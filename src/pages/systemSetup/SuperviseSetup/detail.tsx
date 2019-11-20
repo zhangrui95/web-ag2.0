@@ -69,7 +69,7 @@ class Detail extends Component {
 
     componentDidMount() {
         let type = this.props.location.query.type;
-        let res = JSON.parse(this.props.location.query.res);
+        let res = this.props.location.query.res;
         this.props.form.resetFields([
             'addjgxz',
             'addjglx',

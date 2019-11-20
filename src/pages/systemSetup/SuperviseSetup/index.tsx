@@ -201,7 +201,8 @@ class SuperviseSetup extends Component {
     }
   };
   addList = (type, reson) => {
-    let res = JSON.stringify(reson);
+    // let res = JSON.stringify(reson);
+    let res = reson;
     this.props.dispatch({
       type: 'global/changeNavigation',
       payload: {

@@ -1,7 +1,86 @@
 @import '~antd/es/style/themes/default.less';
-
+@import '../../../theme/darkTheme';
 .main {
   display: flex;
   width: 100%;
   background: @component-background;
+}
+.trendAnalysis {
+  .buttonArea {
+    text-align: right;
+
+    button {
+      margin-right: 10px;
+    }
+  }
+
+  .titleArea {
+    background: @body-background;
+    padding: @padding-sm;
+    font-size: @font-size-lg;
+
+    .selectDateArea {
+      text-align: right;
+    }
+  }
+
+  .cardArea {
+    margin-top: 24px;
+    position: relative;
+    padding: 0 65px;
+    background: @body-background;
+
+    .prevCarousel, .nextCarousel {
+      position: absolute;
+      top: 260px;
+      height: 190px;
+      line-height: 200px;
+      padding: 0 5px;
+      background: #bfc0c1;
+      cursor: pointer;
+      .buttonIcon {
+        color: #fff;
+        font-size: 24px;
+        cursor: pointer;
+      }
+      &:hover {
+        .buttonIcon {
+          color: #4DA9FF;
+        }
+      }
+    }
+
+    .prevCarousel {
+      left: 0px;
+    }
+
+    .nextCarousel {
+      right: 0px;
+    }
+  }
+
+  :global {
+    .ant-carousel .slick-dots {
+      top: 25px;
+    }
+
+    .ant-carousel .slick-dots li button {
+      background: #999;
+      height: 10px;
+      width: 10px;
+      border-radius: 5px;
+    }
+
+    .ant-carousel .slick-dots li.slick-active button {
+      background: #4DA9FF;
+      width: 24px;
+    }
+    .ant-table-bordered .ant-table-body > table{
+      border: 1px solid @body-background;
+      border-right: @zero;
+    }
+   .ant-table-bordered .ant-table-tbody > tr > td,.ant-table-bordered .ant-table-thead > tr > th{
+     border-right:1px solid @body-background;
+   }
+  }
 }

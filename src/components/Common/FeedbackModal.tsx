@@ -8,7 +8,7 @@ import React, { PureComponent } from 'react';
 import { connect } from 'dva';
 import { Modal, Button, message, Icon, Row, Col, Form, Select, Upload, TreeSelect, Checkbox, Input } from 'antd';
 import styles from '../Styles/modalStyle.less';
-import Ellipsis from '../../components/Ellipsis';
+import Ellipsis from 'ant-design-pro/lib/Ellipsis';
 import { getUserInfos } from '../../utils/utils';
 
 const TreeNode = TreeSelect.TreeNode;
