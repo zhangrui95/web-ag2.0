@@ -80,7 +80,10 @@ export default class policeDetail extends PureComponent {
     };
 
     componentDidMount() {
-        this.getDetail(this.props.id);
+      console.log('this.props',this.props);
+      if(this.props.location&&this.props.location.query&&this.props.location.query.id){
+        this.getDetail(this.props.location.query.id);
+      }
     }
 
     componentWillReceiveProps(nextProps) {
@@ -307,41 +310,50 @@ export default class policeDetail extends PureComponent {
         const { policeDetails, sfgz, isDb } = this.state;
         const { record } = this.props;
         return (
-            <div style={{ backgroundColor: '#fff' }}>
+            <div style={{ backgroundColor: '#252C3C',margin:'16px 0' }}>
                 <Row gutter={{ md: 8, lg: 24, xl: 48 }}>
                     <Col md={8} sm={24}>
-                        <span style={{ margin: '16px', display: 'block' }}>警情详情</span>
+                        {/*<span style={{ margin: '16px', display: 'block' }}>警情详情</span>*/}
+                      <Button className={styles.TopMenu} onClick={() => this.ExportStatistics()}>导出</Button>
+                        {isDb && policeDetails && policeDetails.zrdwList && policeDetails.zrdwList.length > 0 ?
+                          <Button className={styles.TopMenu} onClick={() => this.onceSupervise(policeDetails, true, '警情详情问题判定')}>问题判定</Button>
+                          :
+                          ''
+                        }
+                        {
+                          this.state.isDd && this.props.record && this.props.record.is_sqdd === '0' ?
+                            <Button className={styles.TopMenu} onClick={() => this.saveDispatch(this.props.record)}>调度</Button>
+                      : ''
+                        }
                     </Col>
                     <Col>
-                <span style={{ float: 'right', margin: '12px 16px 12px 0' }}>
-                  {policeDetails ?
-                      <span>
-                      <span className={liststyles.collect}>
-                        {sfgz === 0 ? <Tooltip title="关注"><img src={nocollect} width={30} height={30}
-                                                               onClick={() => this.saveShare(policeDetails, record, 1, 0)}/></Tooltip> :
-                            <Tooltip title="取消关注"><img src={collect} width={30} height={30}
-                                                       onClick={() => this.noFollow(policeDetails)}/></Tooltip>}
+                      <span style={{ float: 'right', margin: '6px 16px 6px 0' }}>
+                        {policeDetails ?
+                            <span>
+                            <span className={liststyles.collect}>
+                              {sfgz === 0 ?
+                                <Tooltip title="关注">
+                                  <img src={nocollect} width={25} height={25} style={{marginLeft:12}} onClick={() => this.saveShare(policeDetails, record, 1, 0)}/>
+                                  <div style={{fontSize:12,textAlign:'center',width:48}}>关注</div>
+                                </Tooltip> :
+                                  <Tooltip title="取消关注">
+                                    <img src={collect} width={25} height={25} style={{marginLeft:12}} onClick={() => this.noFollow(policeDetails)}/>
+                                    <div style={{fontSize:12,textAlign:'center',width:48}}>取消关注</div>
+                                  </Tooltip>
+                              }
+                            </span>
+                            <span className={liststyles.collect} onClick={() => this.saveShare(policeDetails, record, 2)}>
+                              <Tooltip title="分享">
+                                <img src={share} width={25} height={25}/>
+                                <div style={{fontSize:12}}>分享</div>
+                              </Tooltip>
+                            </span>
+                          </span>
+                            :
+                            ''
+                        }
+
                       </span>
-                      <span className={liststyles.collect} onClick={() => this.saveShare(policeDetails, record, 2)}>
-                        <Tooltip title="分享"><img src={share} width={30} height={30}/></Tooltip>
-                      </span>
-                    </span>
-                      :
-                      ''
-                  }
-                    {isDb && policeDetails && policeDetails.zrdwList && policeDetails.zrdwList.length > 0 ?
-                        <Button type="primary" style={{ marginLeft: 8 }}
-                                onClick={() => this.onceSupervise(policeDetails, true, '警情详情问题判定')}>问题判定</Button>
-                        :
-                        ''
-                    }
-                    {
-                        this.state.isDd && this.props.record && this.props.record.is_sqdd === '0' ?
-                            <Button type="primary" style={{ marginLeft: 8 }}
-                                    onClick={() => this.saveDispatch(this.props.record)}>调度</Button> : ''
-                    }
-                    <Button type='primary' style={{ marginLeft: 8 }} onClick={() => this.ExportStatistics()}>导出</Button>
-                </span>
                     </Col>
                 </Row>
             </div>
@@ -352,17 +364,24 @@ export default class policeDetail extends PureComponent {
         const { policeDetails } = this.state;
         const rowLayout = { md: 8, xl: 16, xxl: 24 };
         return (
-            <div style={{ padding: '24px 0', background: '#F0F2F5', height: autoheight() - 180 + 'px' }}
+            <div style={{ background: '#202839', /*height: autoheight() - 280 + 'px'*/ }}
                  id={`jqDetail${this.props.id}`} className={styles.detailBoxScroll}>
-                <Card title="接警信息" className={liststyles.card} bordered={false}>
+                {policeDetails && (policeDetails.ajbh && policeDetails.is_sa === 1) ?
+                  ''
+                  :
+                  <div style={{ textAlign: 'right',padding:'16px 32px' }}>
+                    <Button className={styles.connectBtn} onClick={() => this.openCaseDetail(policeDetails)}>查看关联案件</Button>
+                  </div>
+
+                }
+                <Card title={<div style={{borderLeft:'2px solid #fff',paddingLeft:16}}>接警信息</div>} className={liststyles.card} bordered={false}>
                     <Row gutter={rowLayout}>
                         <Col md={8} sm={24}>
                             <div className={liststyles.Indexfrom}>
                                 <div className={liststyles.special}>接警来源：</div>
                             </div>
-                            <div className={liststyles.Indextail} style={{ paddingLeft: 102 }}>
-                                <div
-                                    className={liststyles.special1}>{policeDetails && policeDetails.jjly_mc ? policeDetails.jjly_mc : ''}</div>
+                            <div className={liststyles.Indextail} >
+                                <div className={liststyles.special1}>{policeDetails && policeDetails.jjly_mc ? policeDetails.jjly_mc : ''}</div>
                             </div>
                         </Col>
                         <Col md={8} sm={24}>
@@ -404,15 +423,14 @@ export default class policeDetail extends PureComponent {
                     </Row>
                 </Card>
 
-                <Card title="处警信息" className={liststyles.card} bordered={false}>
+                <Card title="| 处警信息" className={liststyles.card} bordered={false}>
                     <Row gutter={rowLayout}>
                         <Col md={8} sm={24}>
                             <div className={liststyles.Indexfrom}>
                                 <div className={liststyles.special}>处置结果：</div>
                             </div>
                             <div className={liststyles.Indextail} style={{ paddingLeft: 102 }}>
-                                <div className={liststyles.special1}
-                                     style={{ color: this.props.isDd ? '#f00' : 'rgba(0, 0, 0, 0.65)' }}>{policeDetails && policeDetails.czjg_mc ? policeDetails.czjg_mc : ''}</div>
+                                <div className={liststyles.special1} style={{ color: this.props.isDd ? '#f00' : 'rgba(0, 0, 0, 0.65)' }}>{policeDetails && policeDetails.czjg_mc ? policeDetails.czjg_mc : ''}</div>
                             </div>
                         </Col>
                         <Col md={8} sm={24}>
@@ -451,14 +469,7 @@ export default class policeDetail extends PureComponent {
                         </Col>
                     </Row>
                 </Card>
-                {policeDetails && (policeDetails.ajbh && policeDetails.is_sa === 1) ?
 
-                    <div style={{ textAlign: 'center' }}>
-                        <Button type='primary' onClick={() => this.openCaseDetail(policeDetails)}>查看关联案件</Button>
-                    </div>
-                    :
-                    ''
-                }
             </div>
         );
     }

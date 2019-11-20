@@ -1,8 +1,9 @@
 @import '~antd/lib/style/themes/default.less';
 @import '../../utils/utils.less';
+@import '../../theme/darkTheme.less';
 
 .card {
-  margin-bottom: 16px!important;
+  //margin-bottom: 16px!important;
   // color:blue;
   :global {
     // .ant-card-head-title{
@@ -21,8 +22,8 @@
     }
 
     .ant-card-body {
-      padding: 24px 24px 24px 12px;
-      border-bottom: 3px solid #1890FF;
+      padding: 24px 64px;
+      border-bottom: 3px solid #1D212F;
     }
 
     .ant-tag {
@@ -50,7 +51,7 @@
       //line-height: 56px;
       //padding-left: 16px;
       //background-color: #CDE8FA;
-      background: linear-gradient(to right, #1F83DF, #FCFDFF);
+      background: @table-header-bg;
       font-size: 16px;
     }
   }
@@ -73,24 +74,25 @@
   margin-right: 30px;
   cursor: pointer;
   display: inline-block;
+  position: relative;
 }
 
 .special {
-  background: #CDE8FA;
-  border-top-left-radius: 25px;
-  border-bottom-left-radius: 25px;
-  padding: 5px 0 5px 20px;
+  //background: #CDE8FA;
+  //border-top-left-radius: 25px;
+  //border-bottom-left-radius: 25px;
+  //padding: 5px 0 5px 20px;
 }
 
 .special1 {
-  background: #CDE8FA;
-  border-top-right-radius: 25px;
-  border-bottom-right-radius: 25px;
-  display: inline-block;
-  //padding-right: 20px;
-  padding: 5px 20px 5px 0;
-  height: 31px;
-  float: left;
+  //background: #CDE8FA;
+  //border-top-right-radius: 25px;
+  //border-bottom-right-radius: 25px;
+  //display: inline-block;
+  ////padding-right: 20px;
+  //padding: 5px 20px 5px 0;
+  //height: 31px;
+  //float: left;
 }
 
 /*执法数据汇总结束*/

@@ -10,6 +10,7 @@ import styles from './RenderTable.less';
 import Detail from '../../pages/receivePolice/AlarmData/policeDetail';
 import ShareModal from './../ShareModal/ShareModal';
 import Ellipsis from 'ant-design-pro/lib/Ellipsis';
+import {routerRedux} from "dva/router";
 
 class RenderTable extends PureComponent {
     constructor(props, context) {
@@ -34,13 +35,32 @@ class RenderTable extends PureComponent {
     };
 
     componentDidMount() {
-        if (this.props.location.query && this.props.location.query.id) {
-            let record = this.props.location.query.record;
-            this.deatils(record, this.props.location.query.record.tzlx === "jqxx" ? this.props.location.query.id : this.props.location.query.system_id, record.sfgz, record.gzid, record.tzlx, record.ajbh);
-        }
+        // if (this.props.location.query && this.props.location.query.id) {
+        //     let record = this.props.location.query.record;
+        //     this.deatils(record);
+        // }
     }
 
-    deatils = (record, id, sfgz, gzid, tzlx, ajbh, systemId) => {
+    deatils = (record) => {
+      this.props.dispatch({
+        type: 'global/changeNavigation',
+        payload: {
+          key: record && record.id ? record.id : '1',
+          name: '警情详情',
+          path: '/receivePolice/AlarmData/policeDetail',
+          isShow: true,
+          query: { record, id: record && record.id ? record.id : '1' },
+        },
+        callback: () => {
+          this.props.dispatch(
+            routerRedux.push({
+              pathname: '/receivePolice/AlarmData/policeDetail',
+              query: { record: record,id: record && record.id ? record.id : '1' },
+            }),
+          )
+        },
+      });
+
         // const divs = (
         //     <div>
         //         <Detail
@@ -178,7 +198,7 @@ class RenderTable extends PureComponent {
                 width: 287,
                 render: (text) => {
                     return (
-                        <Ellipsis tooltip lines={1}>{text}</Ellipsis>
+                        <Ellipsis tooltip lines={3} >{text}</Ellipsis>
                     );
                 },
             },
@@ -226,7 +246,7 @@ class RenderTable extends PureComponent {
                 title: '操作',
                 render: (record) => (
                     <div>
-                        <a onClick={() => this.deatils(record, record.id, record.sfgz, record.gzid, record.tzlx, record.ajbh, record.system_id)}>详情</a>
+                        <a onClick={() => this.deatils(record)}>详情</a>
                         <Divider type="vertical"/>
                         {
                             record.sfgz === 0 ? (
