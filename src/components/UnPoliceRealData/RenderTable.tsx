@@ -3,8 +3,9 @@ import { Table, Badge, Divider, Tooltip, message, Dropdown, Menu, Row, Col } fro
 import { connect } from 'dva';
 import styles from './RenderTable.less';
 import ShareModal from './../ShareModal/ShareModal';
+import {routerRedux} from "dva/router";
 // import Detail from '../../routes/UnPoliceRealData/unpoliceDetail';
-// import Ellipsis from '../Ellipsis';
+import Ellipsis from 'ant-design-pro/lib/Ellipsis';
 
 @connect(({ share }) => ({
     share,
@@ -35,11 +36,11 @@ class RenderTable extends PureComponent {
 
     componentDidMount() {
         if (this.props.location.query && this.props.location.query.id) {
-            this.deatils(this.props.location.query.system_id, this.props.location.query.wtid);
+            this.deatils(this.props.location.query);
         }
     }
 
-    deatils = (id, wtid) => {
+    deatils = (record) => {
         // const divs = (
         //     <div>
         //         <Detail
@@ -51,6 +52,24 @@ class RenderTable extends PureComponent {
         // );
         // const AddNewDetail = { title: '警情告警详情', content: divs, key: id };
         // this.props.newDetail(AddNewDetail);
+        this.props.dispatch({
+          type: 'global/changeNavigation',
+          payload: {
+            key: record && record.id ? record.id : '1',
+            name: '警情告警详情',
+            path: '/receivePolice/AlarmPolice/unpoliceDetail',
+            isShow: true,
+            query: { record, id: record && record.id ? record.id : '1' },
+          },
+          callback: () => {
+            this.props.dispatch(
+              routerRedux.push({
+                pathname: '/receivePolice/AlarmPolice/unpoliceDetail',
+                query: { record: record,id: record && record.id ? record.id : '1' },
+              }),
+            )
+          },
+        });
     };
     saveShare = (res, type, ajGzLx) => {
         this.setState({
@@ -259,7 +278,7 @@ class RenderTable extends PureComponent {
                                     </span>
                                 ) : null
                             }
-                            <a onClick={() => this.deatils(record.id, record.wtid)}>详情</a>
+                            <a onClick={() => this.deatils(record)}>详情</a>
                             <Divider type="vertical"/>
                             {
                                 record.sfgz === 0 ? (

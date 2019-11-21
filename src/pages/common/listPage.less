@@ -1,9 +1,11 @@
 @import '~antd/lib/style/themes/default.less';
 @import '../../utils/utils.less';
+@import '../../theme/darkTheme.less';
 
 .tableListForm {
-  background-color: #fff;
-  padding: 16px 24px 0;
+  background-color: @component-background;
+  padding: 16px 24px;
+  margin: 16px 0;
 
   .submitButtons {
     white-space: nowrap;
@@ -35,7 +37,7 @@
 }
 
 .tableListOperator {
-  background-color: #fff;
+  background-color: @body-background;
   margin-bottom: 48px;
 
   button {
@@ -78,14 +80,15 @@
 }
 
 .listPageWrap {
-  background-color: rgb(240, 242, 245);
+  background-color: @body-background;
 
   .listPageHeader {
-    background: #fff;
-    padding: 16px 0 16px 24px;
-    border: 1px solid #e8e8e8;
-    border-top: none;
+    background: @table-header-bg;
+    padding: 16px 24px;
+    //border: 1px solid #e8e8e8;
+    //border-top: none;
     position: relative;
+    margin-top: 16px;
 
     a {
       font-size: @font-size-lg;
@@ -101,6 +104,11 @@
       //font-size: @font-size-lg;
       font-weight: bold;
       color: @primary-color;
+    }
+
+    .UnlistPageHeaderCurrent{
+      font-weight: bold;
+      color: @title-color;
     }
 
     span {
@@ -153,4 +161,19 @@
 .unclick{
   color: #bcbcbc!important;
   cursor: not-allowed;
+}
+
+.search {
+  width: 260px;
+  float: left;
+  margin: 4px 0 0 12px;
+}
+.empty {
+  background: @body-background!important;
+}
+.searchForm {
+  width: calc(~'100% - 260px');
+  float: left;
+  border-right: 1px solid @body-background;
+  overflow: hidden;
 }

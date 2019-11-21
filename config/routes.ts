@@ -83,6 +83,13 @@ export function routes() {
                   icon: 'smile',
                   component: './receivePolice/AlarmPolice',
                 },
+                {
+                  path: '/receivePolice/AlarmPolice/unpoliceDetail',
+                  name: '警情告警详情',
+                  icon: 'smile',
+                  component: './receivePolice/AlarmPolice/unpoliceDetail',
+                  hideInMenu: true,
+                },
               ],
             },
             {

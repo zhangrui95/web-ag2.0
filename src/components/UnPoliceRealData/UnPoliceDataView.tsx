@@ -4,7 +4,7 @@
 * 20181115
 * */
 import React, { PureComponent } from 'react';
-import { Row, Col } from 'antd';
+import { Row, Col, Card } from 'antd';
 import moment from 'moment/moment';
 import echarts from 'echarts/lib/echarts';
 import bar from 'echarts/lib/chart/bar';
@@ -152,9 +152,9 @@ export default class UnPoliceDataView extends PureComponent {
                         });
                     }
                     unPoliceEchartBar.setOption({
-                        title: {
-                            text: currentType === 'today' ? '今日新增告警' : (currentType === 'selectedDate' ? '告警' : '昨日告警'),
-                        },
+                        // title: {
+                        //     text: currentType === 'today' ? '今日新增告警' : (currentType === 'selectedDate' ? '告警' : '昨日告警'),
+                        // },
                         xAxis: {
                             data: xData,
                         },
@@ -176,14 +176,14 @@ export default class UnPoliceDataView extends PureComponent {
         unPoliceEchartBar = echarts.init(document.getElementById('unPoliceXzgj'));
         const option = {
             color: ['#3398DB'],
-            title: {
-                text: '新增告警',
-                textStyle: {
-                    fontSize: 16,
-                    fontWeight: 'normal',
-                },
-                padding: 8,
-            },
+            // title: {
+            //     text: '新增告警',
+            //     textStyle: {
+            //         fontSize: 16,
+            //         fontWeight: 'normal',
+            //     },
+            //     padding: 8,
+            // },
             xAxis: {
                 type: 'category',
                 axisLine: { show: false },
@@ -193,6 +193,9 @@ export default class UnPoliceDataView extends PureComponent {
                 },
                 axisLabel: {
                     interval: 0,
+                    textStyle: {
+                      color: '#fff'
+                    },
                 },
             },
             yAxis: {
@@ -207,7 +210,7 @@ export default class UnPoliceDataView extends PureComponent {
                 },
                 axisLabel: {
                     textStyle: {
-                        color: '#999',
+                        color: '#fff',
                     },
                 },
             },
@@ -234,7 +237,7 @@ export default class UnPoliceDataView extends PureComponent {
                             formatter: '{c}',
                             textStyle: {
                                 fontSize: 16,
-                                color: '#000',
+                                color: '#fff',
                             },
                         },
                     },
@@ -299,9 +302,9 @@ export default class UnPoliceDataView extends PureComponent {
                         }
                     } else {
                         unPoliceEchartRingPie.setOption({
-                            title: {
-                                text: currentType === 'today' ? '今日告警情况' : (currentType === 'selectedDate' ? '告警情况' : '昨日告警情况'),
-                            },
+                            // title: {
+                            //     text: currentType === 'today' ? '今日告警情况' : (currentType === 'selectedDate' ? '告警情况' : '昨日告警情况'),
+                            // },
                             legend: {
                                 data: legendData,
                                 formatter: function(name) {
@@ -337,14 +340,14 @@ export default class UnPoliceDataView extends PureComponent {
         const that = this;
         unPoliceEchartRingPie = echarts.init(document.getElementById('unPoliceGjqk'));
         const option = {
-            title: {
-                text: '告警情况',
-                textStyle: {
-                    fontSize: 16,
-                    fontWeight: 'normal',
-                },
-                padding: 8,
-            },
+            // title: {
+            //     text: '告警情况',
+            //     textStyle: {
+            //         fontSize: 16,
+            //         fontWeight: 'normal',
+            //     },
+            //     padding: 8,
+            // },
             tooltip: {
                 trigger: 'item',
                 formatter: '{b}: {c} ({d}%)',
@@ -359,7 +362,7 @@ export default class UnPoliceDataView extends PureComponent {
                 itemGap: 25,
                 selectedMode: true, // 点击
                 textStyle: {
-                    color: '#000',
+                    color: '#fff',
                     fontSize: 16,
                     lineHeight: 24,
                 },
@@ -379,7 +382,7 @@ export default class UnPoliceDataView extends PureComponent {
                             position: 'center',
                             textStyle: {
                                 fontSize: '22',
-                                color: '#66ccff',
+                                color: '#fff',
                             },
                         },
                         emphasis: {
@@ -412,6 +415,7 @@ export default class UnPoliceDataView extends PureComponent {
         const { searchType, selectedDateVal, showDataView } = this.props;
         const { lastData, nowData, selectedDateData, currentType } = this.state;
         return (
+          <Card style={{ position: 'relative'}} className={styles.policeDataCard}>
             <div className={styles.policeDataView} style={showDataView ? {} : { position: 'absolute', zIndex: -1 }}>
                 {
                     currentType !== 'selectedDate' ? (
@@ -450,16 +454,20 @@ export default class UnPoliceDataView extends PureComponent {
                         </div>
                     )
                 }
-
+              <div style={{backgroundColor:'#202839',padding:'0 16px'}}>
                 <Row gutter={rowLayout} className={styles.listPageRow}>
-                    <Col {...colLayout}>
+                    <Col {...colLayout} style={{marginBottom:32}}>
+                        <div className={styles.cardBoxTitle}>| {currentType === 'today' ? '今日新增告警' : (currentType === 'selectedDate' ? '告警' : '昨日告警')}</div>
                         <div id="unPoliceXzgj" className={styles.cardBox}></div>
                     </Col>
-                    <Col {...colLayout}>
+                    <Col {...colLayout} style={{marginBottom:32}}>
+                        <div className={styles.cardBoxTitle}>| {currentType === 'today' ? '今日告警情况' : (currentType === 'selectedDate' ? '告警情况' : '昨日告警情况')}</div>
                         <div id="unPoliceGjqk" className={styles.cardBox}></div>
                     </Col>
                 </Row>
+              </div>
             </div>
+          </Card>
         );
     }
 }

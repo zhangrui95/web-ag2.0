@@ -28,7 +28,7 @@ import {
 import { routerRedux } from 'dva/router';
 import { getSysAuthority } from '../../utils/authority';
 import styles from './CaseModalTrail.less';
-import PersonDetail from '../../routes/AllDocuments/PersonalDocDetail';
+// import PersonDetail from '../../routes/AllDocuments/PersonalDocDetail';
 
 const { Option } = Select;
 const { Step } = Steps;
@@ -78,18 +78,18 @@ export default class CaseModalTrail extends PureComponent {
                 },
                 callback: (data) => {
                     if (data && data.ryxx) {
-                        const divs = (
-                            <div>
-                                <PersonDetail
-                                    {...this.props}
-                                    id={data.ryxx.system_id}
-                                    idcard={idcard}
-                                    ly='常规数据'
-                                />
-                            </div>
-                        );
-                        const AddNewDetail = { title: '人员档案', content: divs, key: idcard + 'ryda' };
-                        this.props.newDetail(AddNewDetail);
+                        // const divs = (
+                        //     <div>
+                        //         <PersonDetail
+                        //             {...this.props}
+                        //             id={data.ryxx.system_id}
+                        //             idcard={idcard}
+                        //             ly='常规数据'
+                        //         />
+                        //     </div>
+                        // );
+                        // const AddNewDetail = { title: '人员档案', content: divs, key: idcard + 'ryda' };
+                        // this.props.newDetail(AddNewDetail);
                     } else {
                         message.error('该人员暂无人员档案');
                     }

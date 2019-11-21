@@ -1,24 +1,24 @@
 import React, { PureComponent, Fragment } from 'react';
 import { connect } from 'dva';
 import { Row, Col, Form, Card, Steps, Button, Badge, Table, List, Tooltip, message, Modal } from 'antd';
-import DescriptionList from 'components/DescriptionList';
+// import DescriptionList from 'components/DescriptionList';
 import styles from './uncaseDetail.less';
-import liststyles from '../listDetail.less';
-import { autoheight, getQueryString, userResourceCodeDb } from '../../utils/utils';
-import SuperviseModal from '../../components/UnCaseRealData/SuperviseModal';
-import ItemsDetail from '../ItemRealData/itemDetail';
-import PersonDetail from '../AllDocuments/PersonalDocDetail';
-import JqDetail from '../../routes/PoliceRealData/policeDetail';
-import PersonIntoArea from '../../routes/CaseRealData/IntoArea';
-import CaseModalTrail from '../../components/Common/CaseModalTrail';
-import CaseModalStep from '../../components/Common/CaseModalStep';
-import FeedbackModal from '../../components/Common/FeedbackModal';
-import { authorityIsTrue } from '../../utils/authority';
-import SupervisionLog from '../../components/Common/SupervisionLog';
-import Ellipsis from '../../components/Ellipsis';
+import liststyles from '../../common/listDetail.less';
+import { autoheight, getQueryString, userResourceCodeDb } from '../../../utils/utils';
+import SuperviseModal from '../../../components/UnCaseRealData/SuperviseModal';
+// import ItemsDetail from '../../ItemRealData/itemDetail';
+// import PersonDetail from '../AllDocuments/PersonalDocDetail';
+// import JqDetail from '../../routes/PoliceRealData/policeDetail';
+// import PersonIntoArea from '../../routes/CaseRealData/IntoArea';
+import CaseModalTrail from '../../../components/Common/CaseModalTrail';
+import CaseModalStep from '../../../components/Common/CaseModalStep';
+import FeedbackModal from '../../../components/Common/FeedbackModal';
+import { authorityIsTrue } from '../../../utils/authority';
+import SupervisionLog from '../../../components/Common/SupervisionLog';
+import Ellipsis from 'ant-design-pro/lib/Ellipsis';
 
 const FormItem = Form.Item;
-const { Description } = DescriptionList;
+// const { Description } = DescriptionList;
 const { Step } = Steps;
 
 @connect(({ UnCaseData, loading, MySuperviseData, AllDetail }) => ({
@@ -459,19 +459,19 @@ export default class uncaseDetail extends PureComponent {
                 },
                 callback: (data) => {
                     if (data && data.ryxx) {
-                        const divs = (
-                            <div>
-                                <PersonDetail
-                                    {...this.props}
-                                    idcard={idcard}
-                                    name={xyrName}
-                                    xyrId={xyrId}
-                                    ly='问题数据'
-                                />
-                            </div>
-                        );
-                        const AddNewDetail = { title: '人员档案', content: divs, key: idcard + 'ryda' };
-                        this.props.newDetail(AddNewDetail);
+                        // const divs = (
+                        //     <div>
+                        //         <PersonDetail
+                        //             {...this.props}
+                        //             idcard={idcard}
+                        //             name={xyrName}
+                        //             xyrId={xyrId}
+                        //             ly='问题数据'
+                        //         />
+                        //     </div>
+                        // );
+                        // const AddNewDetail = { title: '人员档案', content: divs, key: idcard + 'ryda' };
+                        // this.props.newDetail(AddNewDetail);
                     } else {
                         message.error('该人员暂无人员档案');
                     }
@@ -485,17 +485,17 @@ export default class uncaseDetail extends PureComponent {
     // 点击案件轨迹人员的在区情况
     IntoArea = (sfzh, ajbh) => {
         if (sfzh && ajbh) {
-            const divs = (
-                <div>
-                    <PersonIntoArea
-                        {...this.props}
-                        sfzh={sfzh}
-                        ajbh={ajbh}
-                    />
-                </div>
-            );
-            const AddNewDetail = { title: '涉案人员在区情况', content: divs, key: sfzh + 'ucryzq' };
-            this.props.newDetail(AddNewDetail);
+            // const divs = (
+            //     <div>
+            //         <PersonIntoArea
+            //             {...this.props}
+            //             sfzh={sfzh}
+            //             ajbh={ajbh}
+            //         />
+            //     </div>
+            // );
+            // const AddNewDetail = { title: '涉案人员在区情况', content: divs, key: sfzh + 'ucryzq' };
+            // this.props.newDetail(AddNewDetail);
         } else {
             message.warning('暂无涉案人员在区情况');
         }
@@ -545,16 +545,16 @@ export default class uncaseDetail extends PureComponent {
 
     // 根据物品ID打开物品详情窗口
     openItemsDetail = (systemId) => {
-        const divs = (
-            <div>
-                <ItemsDetail
-                    {...this.props}
-                    id={systemId}
-                />
-            </div>
-        );
-        const AddNewDetail = { title: '涉案物品详情', content: divs, key: systemId };
-        this.props.newDetail(AddNewDetail);
+        // const divs = (
+        //     <div>
+        //         <ItemsDetail
+        //             {...this.props}
+        //             id={systemId}
+        //         />
+        //     </div>
+        // );
+        // const AddNewDetail = { title: '涉案物品详情', content: divs, key: systemId };
+        // this.props.newDetail(AddNewDetail);
     };
 
     sawpCol(sawpList) {
@@ -598,16 +598,16 @@ export default class uncaseDetail extends PureComponent {
     }
 
     jqDetail = (id) => {
-        const divs = (
-            <div>
-                <JqDetail
-                    {...this.props}
-                    id={id}
-                />
-            </div>
-        );
-        const AddJqDetail = { title: '警情详情', content: divs, key: id };
-        this.props.newDetail(AddJqDetail);
+        // const divs = (
+        //     <div>
+        //         <JqDetail
+        //             {...this.props}
+        //             id={id}
+        //         />
+        //     </div>
+        // );
+        // const AddJqDetail = { title: '警情详情', content: divs, key: id };
+        // this.props.newDetail(AddJqDetail);
     };
 
     renderDetail(unCaseDetailData) {

@@ -744,17 +744,6 @@ export default class Index extends PureComponent {
             </Col>
           </Row>
 
-          {/*<Row gutter={rowLayout} className={styles.search}>*/}
-
-            {/*<Col>*/}
-                {/*<span style={{ float: 'right', marginBottom: 24 }}>*/}
-                    {/*/!*<Button style={{ color: '#2095FF', borderColor: '#2095FF' }} onClick={this.exportData}>导出表格</Button>*!/*/}
-                    {/*<Button style={{ marginLeft: 8 }} type="primary" htmlType="submit">查询</Button>*/}
-                    {/*<Button style={{ marginLeft: 8 }} onClick={this.handleFormReset}>重置</Button>*/}
-                {/*</span>*/}
-            {/*</Col>*/}
-          {/*</Row>*/}
-
           <Row className={styles.search}>
             <span style={{ float: 'right', marginBottom: 24, marginTop: 5 }}>
               <Button

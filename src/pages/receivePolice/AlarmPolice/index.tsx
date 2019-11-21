@@ -1,6 +1,12 @@
+/*
+* AlarmPolice/index.tsx 警情告警数据
+* author：jhm
+* 20180605
+* */
+
 import React, { PureComponent } from 'react';
 import { connect } from 'dva';
-import { Row, Col, Form, Select, TreeSelect, Input, Button, DatePicker, Tabs, Radio, message } from 'antd';
+import { Row, Col, Form, Select, TreeSelect, Input, Button, DatePicker, Tabs, Radio, message, Icon } from 'antd';
 import moment from 'moment/moment';
 import styles from '../../common/listPage.less';
 import RenderTable from '../../../components/UnPoliceRealData/RenderTable';
@@ -62,6 +68,7 @@ export default class Index extends PureComponent {
     selectedDeptVal: '', // 手动选择机构
     typeButtons: 'day', // 图表展示类别（week,month）
     treeDefaultExpandedKeys: [], // 办案单位树默认展开keys
+    searchHeight: false, // 查询条件展开筛选
   };
 
 
@@ -512,7 +519,12 @@ export default class Index extends PureComponent {
   handleAllPoliceOptionChange = (value, cjr) => {
     this.getAllPolice(value, cjr);
   };
-
+  // 展开筛选和关闭筛选
+  getSearchHeight = () => {
+    this.setState({
+      searchHeight: !this.state.searchHeight,
+    });
+  };
   renderForm() {
     const { form: { getFieldDecorator }, common: { sourceOfAlarmDict, depTree, superviseStatusDict, rectificationStatusDict } } = this.props;
     const { returnWtlxProblemType } = this.state;
@@ -564,8 +576,8 @@ export default class Index extends PureComponent {
     const rowLayout = { md: 8, xl: 16, xxl: 24 };
     const colLayout = { sm: 24, md: 12, xl: 8 };
     return (
-      <Form>
-        <Row gutter={rowLayout}>
+      <Form style={{height: this.state.searchHeight ? 'auto' : '59px'}} id='jqgjsearchForm'>
+        <Row gutter={rowLayout} className={styles.searchForm}>
           <Col {...colLayout}>
             <FormItem label="告警时间" {...formItemLayout}>
               {getFieldDecorator('gjsj', {
@@ -574,6 +586,7 @@ export default class Index extends PureComponent {
                 <RangePicker
                   disabledDate={this.disabledDate}
                   style={{ width: '100%' }}
+                  getCalendarContainer={() => document.getElementById('jqgjsearchForm')}
                 />,
               )}
             </FormItem>
@@ -583,7 +596,7 @@ export default class Index extends PureComponent {
               {getFieldDecorator('wtlx', {
                 initialValue: this.state.wtlx,
               })(
-                <Select placeholder="请选择问题类型" style={{ width: '100%' }}>
+                <Select placeholder="请选择问题类型" style={{ width: '100%' }} getPopupContainer={() => document.getElementById('jqgjsearchForm')}>
                   <Option value="">全部</Option>
                   {wtlxOptions}
                 </Select>,
@@ -612,14 +625,12 @@ export default class Index extends PureComponent {
             </FormItem>
 
           </Col>
-        </Row>
-        <Row gutter={rowLayout}>
           <Col {...colLayout}>
             <FormItem label="接警来源" {...formItemLayout}>
               {getFieldDecorator('jjly', {
                 initialValue: this.state.jjly,
               })(
-                <Select placeholder="请选择接警来源" style={{ width: '100%' }}>
+                <Select placeholder="请选择接警来源" style={{ width: '100%' }} getPopupContainer={() => document.getElementById('jqgjsearchForm')}>
                   <Option value="">全部</Option>
                   {/*{involvedType !== undefined ? this.Option() : ''}*/}
                   {sourceOfAlarmDictOptions}
@@ -641,6 +652,7 @@ export default class Index extends PureComponent {
                   key='jjdwSelect'
                   treeDefaultExpandedKeys={this.state.treeDefaultExpandedKeys}
                   treeNodeFilterProp="title"
+                  getPopupContainer={() => document.getElementById('jqgjsearchForm')}
                 >
                   {depTree && depTree.length > 0 ? this.renderloop(depTree) : null}
                 </TreeSelect>,
@@ -668,8 +680,6 @@ export default class Index extends PureComponent {
               )}
             </FormItem>
           </Col>
-        </Row>
-        <Row gutter={rowLayout}>
           <Col {...colLayout}>
             <FormItem label="处警单位" {...formItemLayout}>
               {getFieldDecorator('cjdw', {
@@ -684,6 +694,7 @@ export default class Index extends PureComponent {
                   key='cjdwSelect'
                   treeDefaultExpandedKeys={this.state.treeDefaultExpandedKeys}
                   treeNodeFilterProp="title"
+                  getPopupContainer={() => document.getElementById('jqgjsearchForm')}
                 >
                   {depTree && depTree.length > 0 ? this.renderloop(depTree) : null}
                 </TreeSelect>,
@@ -701,6 +712,7 @@ export default class Index extends PureComponent {
                   style={{ width: '100%' }}
                   showTime={{ format: 'HH:mm:ss' }}
                   format="YYYY-MM-DD HH:mm:ss"
+                  getCalendarContainer={() => document.getElementById('jqgjsearchForm')}
                 />,
               )}
             </FormItem>
@@ -716,13 +728,13 @@ export default class Index extends PureComponent {
             </FormItem>
           </Col>
         </Row>
-        <Row gutter={rowLayout}>
+        <Row gutter={rowLayout} className={styles.searchForm}>
           <Col {...colLayout}>
             <FormItem label="产生方式" {...formItemLayout}>
               {getFieldDecorator('csfs', {
                 initialValue: '',
               })(
-                <Select placeholder="请选择产生方式" style={{ width: '100%' }} onChange={this.getCsfs}>
+                <Select placeholder="请选择产生方式" style={{ width: '100%' }} onChange={this.getCsfs} getPopupContainer={() => document.getElementById('jqgjsearchForm')}>
                   <Option value="">全部</Option>
                   <Option value="系统判定">系统判定</Option>
                   <Option value="人工判定">人工判定</Option>
@@ -743,15 +755,16 @@ export default class Index extends PureComponent {
               )}
             </FormItem>
           </Col>
-          <Col {...colLayout}>
-                        <span style={{ float: 'right', marginBottom: 24 }}>
-                            <Button style={{ color: '#2095FF', borderColor: '#2095FF' }}
-                                    onClick={this.exportData}>导出表格</Button>
-                            <Button style={{ marginLeft: 8 }} type="primary" htmlType='submit'
-                                    onClick={this.handleSearch}>查询</Button>
-                            <Button style={{ marginLeft: 8 }} onClick={this.handleFormReset}>重置</Button>
-                        </span>
-          </Col>
+        </Row>
+        <Row className={styles.search} style={{position:'absolute',top:16,right:48}}>
+          <span style={{ float: 'right', marginBottom: 24, marginTop: 5 }}>
+            <Button style={{ marginLeft: 8 }} type="primary" htmlType='submit' onClick={this.handleSearch}>查询</Button>
+            <Button style={{ marginLeft: 8 }} onClick={this.handleFormReset}>重置</Button>
+            <Button style={{ marginLeft: 8 }} onClick={this.getSearchHeight} className={styles.empty}>
+                {this.state.searchHeight ? '收起筛选' : '展开筛选'}{' '}
+                <Icon type={this.state.searchHeight ? 'up' : 'down'} />
+            </Button>
+          </span>
         </Row>
       </Form>
     );
@@ -829,71 +842,63 @@ export default class Index extends PureComponent {
     // const orgcodeVal = selectedDeptVal !== '' ? JSON.parse(selectedDeptVal).id : '';
     return (
       <div className={this.props.location.query && this.props.location.query.id ? styles.onlyDetail : ''}>
-        <Tabs
-          hideAdd
-          onChange={this.onChange}
-          activeKey={this.state.activeKey}
-          type="editable-card"
-          onEdit={this.onEdit}
-          tabBarStyle={{ margin: 0 }}
-          // className={this.props.location.query&&this.props.location.query.id ? styles.onlyDetail:''}
-        >
-          <TabPane tab='警情告警' key='0' closable={false}>
-            <div className={styles.listPageWrap}>
-              <div className={styles.listPageHeader}>
-                {
-                  showDataView ? (
-                    <a className={styles.listPageHeaderCurrent}><span>●</span>告警统计</a>
-                  ) : (
-                    <a onClick={this.changeListPageHeader}>告警统计</a>
-                  )
-                }
-                <span>|</span>
-                {
-                  showDataView ? (
-                    <a onClick={this.changeListPageHeader}>告警列表</a>
-                  ) : (
-                    <a className={styles.listPageHeaderCurrent}><span>●</span>告警列表</a>
-                  )
-                }
-                <DataViewButtonArea
-                  showDataView={showDataView}
-                  styles={styles}
-                  typeButtons={typeButtons}
-                  changeTypeButtons={this.changeTypeButtons}
-                  disabledDate={this.disabledDate}
-                  depTree={depTree}
-                  renderloop={this.renderloop}
-                  setSelectedDate={this.setSelectedDate}
-                  setSelectedDep={this.setSelectedDep}
-                  hideWeekButton={true}
-                  hideMonthButton={true}
-                  treeDefaultExpandedKeys={treeDefaultExpandedKeys}
-                />
-              </div>
-              <UnPoliceDataView
-                style={{ display: 'none' }}
-                changeToListPage={this.changeToListPage}
-                showDataView={showDataView}
-                searchType={typeButtons}
-                orgcode={selectedDeptVal}
-                selectedDateVal={selectedDateVal}
-                {...this.props}
-              />
-              <div style={showDataView ? { display: 'none' } : { display: 'block' }}>
-                <div className={styles.tableListForm}>
-                  {this.renderForm()}
+        <div className={styles.listPageWrap}>
+          <div className={styles.listPageHeader}>
+            {
+              showDataView ? (
+                <a className={styles.listPageHeaderCurrent}><span>●</span>告警统计</a>
+              ) : (
+                <a className={styles.UnlistPageHeaderCurrent} onClick={this.changeListPageHeader}>告警统计</a>
+              )
+            }
+            <span>|</span>
+            {
+              showDataView ? (
+                <a className={styles.UnlistPageHeaderCurrent} onClick={this.changeListPageHeader}>告警列表</a>
+              ) : (
+                <a className={styles.listPageHeaderCurrent}><span>●</span>告警列表</a>
+              )
+            }
+            {
+              showDataView?
+                '':
+                <div style={{float:'right'}}>
+                  <Button style={{ color: '#3285FF',backgroundColor:'#171925',border:'1px solid #3285FF',borderRadius:'5px'}} onClick={this.exportData}>导出表格</Button>
                 </div>
-                <div className={styles.tableListOperator} style={{ marginBottom: 0 }}>
-                  {this.renderTable()}
-                </div>
-              </div>
+            }
+            <DataViewButtonArea
+              showDataView={showDataView}
+              styles={styles}
+              typeButtons={typeButtons}
+              changeTypeButtons={this.changeTypeButtons}
+              disabledDate={this.disabledDate}
+              depTree={depTree}
+              renderloop={this.renderloop}
+              setSelectedDate={this.setSelectedDate}
+              setSelectedDep={this.setSelectedDep}
+              hideWeekButton={true}
+              hideMonthButton={true}
+              treeDefaultExpandedKeys={treeDefaultExpandedKeys}
+            />
+          </div>
+          <UnPoliceDataView
+            style={{ display: 'none' }}
+            changeToListPage={this.changeToListPage}
+            showDataView={showDataView}
+            searchType={typeButtons}
+            orgcode={selectedDeptVal}
+            selectedDateVal={selectedDateVal}
+            {...this.props}
+          />
+          <div style={showDataView ? { display: 'none' } : { display: 'block' }}>
+            <div className={styles.tableListForm} style={{position:'relative'}}>
+              {this.renderForm()}
             </div>
-          </TabPane>
-          {newAddDetail.map((pane, idx) => <TabPane tab={pane.title} key={pane.key}
-                                                    closable={this.props.location.query && this.props.location.query.id && idx === 0 ? false : true}>{pane.content}</TabPane>)}
-        </Tabs>
-
+            <div className={styles.tableListOperator} style={{ marginBottom: 0 }}>
+              {this.renderTable()}
+            </div>
+          </div>
+        </div>
         {superviseVisibleModal ?
           <SuperviseModal
             visible={superviseVisibleModal}

@@ -20,7 +20,7 @@ import {
   Divider,
   Radio,
   Tooltip,
-  Dropdown, Menu,
+  Dropdown, Menu,Icon,
 } from 'antd';
 import moment from 'moment/moment';
 // import Ellipsis from '../../../src/components/Ellipsis';
@@ -30,6 +30,8 @@ import Detail from '../AlarmData/policeDetail';
 import RemindModal from '../../../components/RemindModal/RemindModal';
 import AnnouncementModal from '../../../components/AnnouncementModal/AnnouncementModal';
 import ShareModal from '../../../components/ShareModal/ShareModal';
+import {routerRedux} from "dva/router";
+import Ellipsis from 'ant-design-pro/lib/Ellipsis';
 
 const { Option } = Select;
 const { RangePicker } = DatePicker;
@@ -69,6 +71,7 @@ export default class Index extends PureComponent {
     AnnouncementVisible: false,
     RzList: [],
     policeDetails: '',
+    searchHeight: false, // 查询条件展开筛选
   };
 
   componentDidMount() {
@@ -271,28 +274,46 @@ export default class Index extends PureComponent {
   };
   // 打开新的详情页面
   details = (record) => {
-    const divs = (
-      <div>
-        <Detail
-          {...this.props}
-          getPolice={() => this.getDossier({ pd: { yj_type: 'jq' } })}
-          id={record.system_id}
-          systemId={record.ag_id}
-          record={record}
-          sfgz={record.sfgz}
-          gzid={record.gzid}
-          tzlx={this.state.tzlx}
-          ajbh={record.ajbh}
-          details={this.deatils}
-          current={this.state.current}
-          newDetail={this.newDetail}
-          yjType="yj"
-          yjid={record.id}
-        />
-      </div>
-    );
-    const AddNewDetail = { title: '警情预警详情', content: divs, key: record.id };
-    this.newDetail(AddNewDetail);
+    // const divs = (
+    //   <div>
+    //     <Detail
+    //       {...this.props}
+    //       getPolice={() => this.getDossier({ pd: { yj_type: 'jq' } })}
+    //       id={record.system_id}
+    //       systemId={record.ag_id}
+    //       record={record}
+    //       sfgz={record.sfgz}
+    //       gzid={record.gzid}
+    //       tzlx={this.state.tzlx}
+    //       ajbh={record.ajbh}
+    //       details={this.deatils}
+    //       current={this.state.current}
+    //       newDetail={this.newDetail}
+    //       yjType="yj"
+    //       yjid={record.id}
+    //     />
+    //   </div>
+    // );
+    // const AddNewDetail = { title: '警情预警详情', content: divs, key: record.id };
+    // this.newDetail(AddNewDetail);
+    this.props.dispatch({
+      type: 'global/changeNavigation',
+      payload: {
+        key: record && record.id ? record.id : '1',
+        name: '警情预警详情',
+        path: '/receivePolice/AlarmData/policeDetail',
+        isShow: true,
+        query: { record, id: record && record.id ? record.id : '1' },
+      },
+      callback: () => {
+        this.props.dispatch(
+          routerRedux.push({
+            pathname: '/receivePolice/AlarmData/policeDetail',
+            query: { record: record,id: record && record.id ? record.id : '1' },
+          }),
+        )
+      },
+    });
   };
 
   // 打开新的详情页面
@@ -438,6 +459,13 @@ export default class Index extends PureComponent {
     });
   };
 
+  // 展开筛选和关闭筛选
+  getSearchHeight = () => {
+    this.setState({
+      searchHeight: !this.state.searchHeight,
+    });
+  };
+
   render() {
     const { form: { getFieldDecorator }, common: { depTree, superviseStatusDict, YJJBType }, EarlyWarning: { data: { page, list, tbCount } }, loading } = this.props;
     const newAddDetail = this.state.arrayDetail;
@@ -578,109 +606,99 @@ export default class Index extends PureComponent {
     );
     return (
       <div>
-        <Tabs
-          hideAdd
-          onChange={this.onTabChange}
-          activeKey={this.state.activeKey}
-          type="editable-card"
-          onEdit={this.onTabEdit}
-          tabBarStyle={{ margin: 0 }}
-          className={this.props.location.query && this.props.location.query.id ? styles.onlyDetail : ''}
-        >
-          <TabPane tab='警情预警' key='0' closable={false}>
-            <div className={styles.tableListForm}>
-              <Form onSubmit={this.handleSearch}>
-                <Row gutter={rowLayout}>
-                  <Col {...colLayout}>
-                    <FormItem label="预警类型" {...formItemLayout}>
-                      {getFieldDecorator('yjlx', {
-                        initialValue: this.state.yjlx,
-                      })(
-                        <Select placeholder="请选择" style={{ width: '100%' }}>
-                          <Option value="">全部</Option>
-                          <Option value="5025302">未受案警情</Option>
-                          <Option value="5025301">无处置结果</Option>
-                        </Select>,
-                      )}
-                    </FormItem>
-                  </Col>
-                  <Col {...colLayout}>
-                    <FormItem label="预警级别" {...formItemLayout}>
-                      {getFieldDecorator('yjjb', {
-                        initialValue: this.state.yjjb,
-                      })(
-                        <Select placeholder="请选择" style={{ width: '100%' }}>
-                          <Option value="">全部</Option>
-                          {YJJBStatusOptions}
-                        </Select>,
-                      )}
-                    </FormItem>
-                  </Col>
-                  <Col {...colLayout}>
-                    <FormItem label="提醒状态" {...formItemLayout}>
-                      {getFieldDecorator('txzt', {
-                        initialValue: this.state.txzt,
-                      })(
-                        <RadioGroup>
-                          <Radio value="">全部</Radio>
-                          <Radio value="1">已提醒</Radio>
-                          <Radio value="0">未提醒</Radio>
-                        </RadioGroup>,
-                      )}
-                    </FormItem>
-                  </Col>
-                </Row>
-                <Row gutter={rowLayout}>
-                  <Col {...colLayout}>
-                    <FormItem label="预警时间" {...formItemLayout}>
-                      {getFieldDecorator('yjsj')(
-                        <RangePicker
-                          disabledDate={this.disabledDate}
-                          style={{ width: '100%' }}
-                        />,
-                      )}
-                    </FormItem>
-                  </Col>
-                  <Col {...colLayouts}>
-                                        <span style={{ float: 'right', marginBottom: 24 }}>
-                                            <Button style={{ color: '#2095FF', borderColor: '#2095FF' }}
-                                                    onClick={this.exportData}>导出表格</Button>
-                                            <Button style={{ marginLeft: 8 }} type="primary"
-                                                    htmlType="submit">查询</Button>
-                                            <Button style={{ marginLeft: 8 }} onClick={this.handleFormReset}>重置</Button>
-                                        </span>
-                  </Col>
-                </Row>
-              </Form>
-            </div>
-            <div className={styles.tableListOperator}>
-              <Table
-                className={styles.listStandardTable}
-                size="middle"
-                loading={loading}
-                rowKey={record => record.wtid}
-                dataSource={list}
-                columns={columns}
-                pagination={paginationProps}
-                onChange={this.handleTableChange}
-              />
-              <RemindModal caseDetails={this.state.caseDetails} txVisible={this.state.txVisible}
-                           detail={detail} handleCancel={this.handleCancel} txItem={this.state.txItem}
-                           yjmc="警情预警" getResult={() => this.getDossier({
-                currentPage: this.state.current,
-                pd: this.state.formValues,
-              })}/>
-              <AnnouncementModal visible={this.state.AnnouncementVisible}
-                                 handleCancel={this.handleCancels} RzList={this.state.RzList}/>
-              <ShareModal title="警情信息分享" detail={detail} shareVisible={this.state.shareVisible}
-                          handleCancel={this.handleCancel} shareItem={this.state.shareItem}
-                          personList={this.state.personList}
-                          lx={this.state.lx} tzlx={this.state.tzlx} sx={this.state.sx}/>
-            </div>
-          </TabPane>
-          {newAddDetail.map(pane => <TabPane tab={pane.title} key={pane.key}
-                                             closable={true}>{pane.content}</TabPane>)}
-        </Tabs>
+        <div className={styles.tableListForm}>
+          <Form onSubmit={this.handleSearch} style={{height: this.state.searchHeight ? 'auto' : '59px',}}>
+            <Row gutter={rowLayout} className={styles.searchForm}>
+              <Col {...colLayout}>
+                <FormItem label="预警类型" {...formItemLayout}>
+                  {getFieldDecorator('yjlx', {
+                    initialValue: this.state.yjlx,
+                  })(
+                    <Select placeholder="请选择" style={{ width: '100%' }}>
+                      <Option value="">全部</Option>
+                      <Option value="5025302">未受案警情</Option>
+                      <Option value="5025301">无处置结果</Option>
+                    </Select>,
+                  )}
+                </FormItem>
+              </Col>
+              <Col {...colLayout}>
+                <FormItem label="预警级别" {...formItemLayout}>
+                  {getFieldDecorator('yjjb', {
+                    initialValue: this.state.yjjb,
+                  })(
+                    <Select placeholder="请选择" style={{ width: '100%' }}>
+                      <Option value="">全部</Option>
+                      {YJJBStatusOptions}
+                    </Select>,
+                  )}
+                </FormItem>
+              </Col>
+              <Col {...colLayout}>
+                <FormItem label="提醒状态" {...formItemLayout}>
+                  {getFieldDecorator('txzt', {
+                    initialValue: this.state.txzt,
+                  })(
+                    <RadioGroup>
+                      <Radio value="">全部</Radio>
+                      <Radio value="1">已提醒</Radio>
+                      <Radio value="0">未提醒</Radio>
+                    </RadioGroup>,
+                  )}
+                </FormItem>
+              </Col>
+              <Col {...colLayout}>
+                <FormItem label="预警时间" {...formItemLayout}>
+                  {getFieldDecorator('yjsj')(
+                    <RangePicker
+                      disabledDate={this.disabledDate}
+                      style={{ width: '100%' }}
+                    />,
+                  )}
+                </FormItem>
+              </Col>
+            </Row>
+            <Row className={styles.search}>
+              <span style={{ float: 'right', marginBottom: 24, marginTop: 5 }}>
+                <Button style={{ marginLeft: 8 }} type="primary" htmlType="submit">查询</Button>
+                <Button style={{ marginLeft: 8 }} onClick={this.handleFormReset} className={styles.empty}>重置</Button>
+                <Button
+                  style={{ marginLeft: 8 }}
+                  onClick={this.getSearchHeight}
+                  className={styles.empty}
+                >
+                  {this.state.searchHeight ? '收起筛选' : '展开筛选'}{' '}
+                  <Icon type={this.state.searchHeight ? 'up' : 'down'} />
+                </Button>
+              </span>
+            </Row>
+          </Form>
+        </div>
+        <div className={styles.tableListOperator}>
+          <Button style={{ borderColor: '#2095FF', marginBottom:16 }} onClick={this.exportData}>导出表格</Button>
+          <Table
+            className={styles.listStandardTable}
+            size="middle"
+            loading={loading}
+            rowKey={record => record.wtid}
+            dataSource={list}
+            columns={columns}
+            pagination={paginationProps}
+            onChange={this.handleTableChange}
+          />
+          <RemindModal caseDetails={this.state.caseDetails} txVisible={this.state.txVisible}
+                       detail={detail} handleCancel={this.handleCancel} txItem={this.state.txItem}
+                       yjmc="警情预警" getResult={() => this.getDossier({
+            currentPage: this.state.current,
+            pd: this.state.formValues,
+          })}/>
+          <AnnouncementModal visible={this.state.AnnouncementVisible}
+                             handleCancel={this.handleCancels} RzList={this.state.RzList}/>
+          <ShareModal title="警情信息分享" detail={detail} shareVisible={this.state.shareVisible}
+                      handleCancel={this.handleCancel} shareItem={this.state.shareItem}
+                      personList={this.state.personList}
+                      lx={this.state.lx} tzlx={this.state.tzlx} sx={this.state.sx}/>
+        </div>
       </div>
     );
   }

@@ -7,9 +7,9 @@
 import React, { PureComponent } from 'react';
 import { Row, Col, Button, Steps, Tooltip } from 'antd';
 import styles from './SupervisionLog.less';
-import listStyles from '../../routes/listDetail.less';
-import DbHistory from '../personnelFiles/HistoryModal';
-import SeeDetail from '../personnelFiles/SeeDetail';
+import listStyles from '../../pages/common/listDetail.less';
+// import DbHistory from '../personnelFiles/HistoryModal';
+// import SeeDetail from '../personnelFiles/SeeDetail';
 
 const { Step } = Steps;
 
@@ -243,11 +243,11 @@ export default class SupervisionLog extends PureComponent {
                     ) : (
                         <div>
                             <div className={styles.title} style={{
-                                background: 'linear-gradient(to right, #FDC6D3, #FDC6D3)',
-                                color: '#000',
-                            }}>问题信息
+                                background: '#252c3c',
+                                color: '#fff',
+                            }}>| 问题信息
                             </div>
-                            <div className={styles.message} style={{ borderBottom: '3px solid #FDC6D3' }}>
+                            <div className={styles.message} style={{ borderBottom: '3px solid #1e2230' }}>
                                 <Row gutter={rowLayout}>
                                     <Col md={6} sm={24}>
                                         <div className={listStyles.Indexfrom}>问题类型：</div>
@@ -274,26 +274,26 @@ export default class SupervisionLog extends PureComponent {
                         </div>
                     )
                 }
-                {
-                    history ? (
-                        <DbHistory
-                            visible={history}
-                            closeHistoryModal={this.closeHistoryModal}
-                            dblist={RestDbrz}
-                            DetailData={detailData}
-                        />
-                    ) : null
-                }
-                {
-                    seeDetailVisible ? (
-                        <SeeDetail
-                            visible={seeDetailVisible}
-                            closeSeeDetailModal={this.closeSeeDetailModal}
-                            Isdetail={Isdetail}
-                            NowDbrz={NowDbrzState}
-                        />
-                    ) : null
-                }
+                {/*{*/}
+                    {/*history ? (*/}
+                        {/*<DbHistory*/}
+                            {/*visible={history}*/}
+                            {/*closeHistoryModal={this.closeHistoryModal}*/}
+                            {/*dblist={RestDbrz}*/}
+                            {/*DetailData={detailData}*/}
+                        {/*/>*/}
+                    {/*) : null*/}
+                {/*}*/}
+                {/*{*/}
+                    {/*seeDetailVisible ? (*/}
+                        {/*<SeeDetail*/}
+                            {/*visible={seeDetailVisible}*/}
+                            {/*closeSeeDetailModal={this.closeSeeDetailModal}*/}
+                            {/*Isdetail={Isdetail}*/}
+                            {/*NowDbrz={NowDbrzState}*/}
+                        {/*/>*/}
+                    {/*) : null*/}
+                {/*}*/}
             </div>
 
         );
