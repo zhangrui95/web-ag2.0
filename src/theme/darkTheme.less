@@ -280,8 +280,8 @@ body {
       padding: 10px;
       border: @zero;
     }
-    .ant-table-tbody > tr {
-      background: @table-body-sort-bg;
+    .ant-table-tbody > tr,.ant-table .ant-table-tbody .categories {
+      background: @table-body-sort-bg!important;
       color: @white;
       &:nth-child(2n) {
         background: @table-header-bg;
@@ -612,6 +612,35 @@ body {
       .action{
         color: @orange!important;
       }
+    }
+    .antd-pro-components-trend-analysis-analysis-styles-analysis,.antd-pro-components-trend-analysis-analysis-styles-analysis .antd-pro-components-trend-analysis-analysis-styles-titleArea .antd-pro-components-trend-analysis-analysis-styles-titleDate{
+      background: @component-background;
+      color: @white;
+      border-radius: @borderRadius;
+    }
+    h1, h2, h3, h4, h5, h6{
+      color: @white;
+    }
+    .ant-table-bordered.ant-table-empty .ant-table-placeholder{
+      border-right: 1px solid @body-background;
+      border-left: 1px solid @body-background;
+    }
+    .ant-table-bordered{
+      .ant-table-thead > tr > th,.ant-table-placeholder{
+        border-bottom: 1px solid @body-background;
+      }
+    }
+    .ant-empty{
+      img{
+        display: inline-block!important;
+      }
+    }
+    .ant-carousel .slick-dots{
+      text-align: right;
+      right: 20px;
+    }
+    .ant-carousel .slick-dots li.slick-active button{
+      background: @highlight-color!important;
     }
   }
 }

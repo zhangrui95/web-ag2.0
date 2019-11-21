@@ -23,7 +23,7 @@ import {
 import { routerRedux } from 'dva/router';
 import { getSysAuthority } from '../../utils/authority';
 import styles from './CaseTrailModal.less';
-import Ellipsis from '../../components/Ellipsis';
+import Ellipsis from 'ant-design-pro/lib/Ellipsis';
 
 const TreeNode = TreeSelect.TreeNode;
 const { Option, OptGroup } = Select;

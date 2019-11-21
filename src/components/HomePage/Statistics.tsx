@@ -11,7 +11,7 @@ import styles from '../../pages/ShowData/Show.less';
 import stylescommon from '../../pages/common/common.less';
 import { Link } from 'dva/router';
 import { getUserInfos } from '../../utils/utils';
-// import Ellipsis from '../../components/Ellipsis';
+// import Ellipsis from 'ant-design-pro/lib/Ellipsis';
 import Ellipsis from 'ant-design-pro/lib/Ellipsis';
 import { userAuthorityCode } from '../../utils/utils';
 import { authorityIsTrue } from '../../utils/authority';
@@ -49,7 +49,7 @@ export default class Statistics extends PureComponent {
       if (authorityIsTrue(userAuthorityCode.RIQING)) {
         this.canPolice(getUserInfos().department);
       } else {
-        this.getNextLevelDeps(getUserInfos().department, '3');
+          this.getNextLevelDeps(getUserInfos().department, '3');
       }
     }
   }

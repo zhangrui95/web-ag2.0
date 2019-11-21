@@ -312,17 +312,17 @@ export function routes() {
                   icon: 'smile',
                   routes: [
                     {
-                      name: '刑事案件告警',
+                      name: '刑事案件分析',
                       icon: 'smile',
                       path: '/trendAnalysis/caseAnalysis/CriminaAnalysis',
                       component: './trendAnalysis/CriminaAnalysis',
                     },
-                    {
-                      name: '行政案件告警',
-                      icon: 'smile',
-                      path: '/trendAnalysis/caseAnalysis/AdministrationAnalysis',
-                      component: './trendAnalysis/AdministrationAnalysis',
-                    },
+                    // {
+                    //   name: '行政案件分析',
+                    //   icon: 'smile',
+                    //   path: '/trendAnalysis/caseAnalysis/AdministrationAnalysis',
+                    //   component: './trendAnalysis/AdministrationAnalysis',
+                    // },
                   ],
                 },
                 {
