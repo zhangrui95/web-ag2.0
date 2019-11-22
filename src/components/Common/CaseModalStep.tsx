@@ -97,7 +97,7 @@ export default class CaseModalTrail extends PureComponent {
                     {
                         policeDetails.ajgjList.map((item, idx) =>
                             <Step
-                                title={<span style={{ fontSize: 14 }}>{item.ajzt}</span>}
+                                title={<span style={{ fontSize: 14,color:'#fff' }}>{item.ajzt}</span>}
                                 description={this.extraDescription(item, idx, policeDetails.ajgjList)}
                             />,
                         )

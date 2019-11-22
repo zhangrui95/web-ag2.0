@@ -280,12 +280,16 @@ body {
       padding: 10px;
       border: @zero;
     }
-    .ant-table-tbody > tr,.ant-table .ant-table-tbody .categories {
-      background: @table-body-sort-bg!important;
+    .ant-table-tbody > tr {
+      background: @table-body-sort-bg;
       color: @white;
       &:nth-child(2n) {
         background: @table-header-bg;
       }
+    }
+    .ant-table .ant-table-tbody .categories{
+      background: @table-body-sort-bg!important;
+      color: @white;
     }
     .ant-table-tbody > tr > td {
       border: @zero;
@@ -339,7 +343,7 @@ body {
     .ant-timeline-item-head {
       background: @highlight-color;
       border: @zero;
-      margin-top: -5px;
+      margin-top: -10px;
     }
     .ant-timeline-item {
       margin: 10px 0;

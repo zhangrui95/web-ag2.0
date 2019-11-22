@@ -29,6 +29,12 @@ import { routerRedux } from 'dva/router';
 import { getSysAuthority } from '../../utils/authority';
 import styles from './CaseModalTrail.less';
 // import PersonDetail from '../../routes/AllDocuments/PersonalDocDetail';
+import left from '../../assets/common/left.png';
+import left1 from '../../assets/common/left1.png';
+import right from '../../assets/common/right.png';
+import right1 from '../../assets/common/right1.png';
+import man from '../../assets/common/man.png';
+import woman from '../../assets/common/woman.png';
 
 const { Option } = Select;
 const { Step } = Steps;
@@ -160,32 +166,33 @@ export default class CaseModalTrail extends PureComponent {
             <div className={styles.personFiles}>
                 <div className={styles.TopPersonFiles}>
                     <Row>
-                        <Col md={7} sm={24}>
-                            <div style={{
-                                textAlign: 'center',
-                                borderRadius: 50,
-                                backgroundColor: '#1388BA',
-                                width: 85,
-                                height: 85,
-                                marginLeft: 10,
-                                color: '#fff',
-                                lineHeight: '85px',
-                                fontSize: '24px',
-                            }}>
-                                涉案
+                      {
+                        text.sex==='女'?
+                          <Col md={24} sm={24}>
+                            <div className={styles.personImg}>
+                              <img src={woman} width='25' height='30' alt='暂无图片' />
                             </div>
+                          </Col>
+                          :
+                        <Col md={24} sm={24}>
+                          <div className={styles.personImg}>
+                            <img src={man} width='25' height='30' alt='暂无图片' />
+                          </div>
                         </Col>
+                      }
+                    </Row>
+                    <Row>
                         <Col md={17} sm={24} style={{ paddingLeft: '12px' }}>
                             <Row style={{ textAlign: 'left', padding: '5px 0' }}>
                                 <Col md={18} sm={24}>
-                                    姓名：{text.xyrName}
+                                    {text.xyrName}
                                 </Col>
                             </Row>
-                            <div style={{ textAlign: 'left', padding: '5px 0' }}>
-                                性别：{text.sex}
-                            </div>
+                            {/*<div style={{ textAlign: 'left', padding: '5px 0' }}>*/}
+                                {/*性别：{text.sex}*/}
+                            {/*</div>*/}
                             <div className={styles.CdCard}>
-                                证件号：{text.sfzh}
+                                {text.sfzh}
                             </div>
                             {text.xszk_name && text.xszk_name === '在逃' ?
                                 <span className={styles.tag}>{text.xszk_name}</span>
@@ -195,7 +202,7 @@ export default class CaseModalTrail extends PureComponent {
                         </Col>
                     </Row>
                 </div>
-                <div className={styles.sawpSee} style={{ color: '#00ABFF', border: '1px solid #e9e9e9' }}
+                <div className={styles.sawpSee} style={{ color: '#fff' }}
                      onClick={() => this.openPersonDetail(text.sfzh, text.ajbh)}>人员档案
                 </div>
             </div>
@@ -494,122 +501,122 @@ export default class CaseModalTrail extends PureComponent {
                 return (
                     <div className={styles.IconStyle} style={{ width: '210px', top: '160px' }}>
                         {this.state.colortrailleft === 'blue' ?
-                            <img src='/images/left.png' width='60' height='60'
+                            <img src={left} width='46' height='46'
                                  onClick={() => this.trailLeftClick(newObjWidth, length)}
                                  style={{ cursor: 'pointer' }}/>
                             :
-                            <img src='/images/left1.png' width='60' height='60'
+                            <img src={left1} width='46' height='46'
                                  onClick={() => this.trailLeftClick(newObjWidth, length)}/>
                         }
                         {this.state.colortrailright === 'blue' ?
-                            <img src='/images/right.png' width='60' height='60'
+                            <img src={right} width='46' height='46'
                                  onClick={() => this.trailRightClick(newObjWidth, length)}
-                                 style={{ marginLeft: '30px', cursor: 'pointer' }}/>
+                                 style={{ marginLeft: '10px', cursor: 'pointer' }}/>
                             :
-                            <img src='/images/right1.png' width='60' height='60'
+                            <img src={right1} width='46' height='46'
                                  onClick={() => this.trailRightClick(newObjWidth, length)}
-                                 style={{ marginLeft: '30px' }}/>
+                                 style={{ marginLeft: '10px' }}/>
                         }
                     </div>
                 );
             } else if (length === 1) {
                 return (
-                    <div className={styles.IconStyle} style={{ width: '210px', top: '160px' }}>
-                        <img src='/images/left1.png' width='60' height='60'/>
-                        <img src='/images/right1.png' width='60' height='60' style={{ marginLeft: '30px' }}/>
+                    <div className={styles.IconStyle} style={{ width: '210px', top: '0px' }}>
+                        <img src={left1} width='46' height='46'/>
+                        <img src={right1} width='46' height='46' style={{ marginLeft: '10px' }}/>
                     </div>
                 );
             }
         } else if (newObjWidth === 1600) {
             if (length > 2) {
                 return (
-                    <div className={styles.IconStyle} style={{ width: '210px', top: '160px' }}>
+                    <div className={styles.IconStyle} style={{ width: '210px', top: '0px' }}>
                         {this.state.colortrailleft === 'blue' ?
-                            <img src='/images/left.png' width='60' height='60'
+                            <img src={left1} width='46' height='46'
                                  onClick={() => this.trailLeftClick(newObjWidth, length)}
                                  style={{ cursor: 'pointer' }}/>
                             :
-                            <img src='/images/left1.png' width='60' height='60'
+                            <img src={left1} width='46' height='46'
                                  onClick={() => this.trailLeftClick(newObjWidth, length)}/>
                         }
                         {this.state.colortrailright === 'blue' ?
-                            <img src='/images/right.png' width='60' height='60'
+                            <img src={right} width='46' height='46'
                                  onClick={() => this.trailRightClick(newObjWidth, length)}
-                                 style={{ marginLeft: '30px', cursor: 'pointer' }}/>
+                                 style={{ marginLeft: '10px', cursor: 'pointer' }}/>
                             :
-                            <img src='/images/right1.png' width='60' height='60'
+                            <img src={right1} width='46' height='46'
                                  onClick={() => this.trailRightClick(newObjWidth, length)}
-                                 style={{ marginLeft: '30px' }}/>
+                                 style={{ marginLeft: '10px' }}/>
                         }
                     </div>
                 );
             } else if (length < 2) {
                 return (
-                    <div className={styles.IconStyle} style={{ width: '210px', top: '160px' }}>
-                        <img src='/images/left1.png' width='60' height='60'/>
-                        <img src='/images/right1.png' width='60' height='60' style={{ marginLeft: '30px' }}/>
+                    <div className={styles.IconStyle} style={{ width: '210px', top: '0px' }}>
+                        <img src={left1} width='46' height='46'/>
+                        <img src={right1} width='46' height='46' style={{ marginLeft: '10px' }}/>
                     </div>
                 );
             }
         } else if (newObjWidth === 1680) {
             if (length > 2) {
                 return (
-                    <div className={styles.IconStyle} style={{ width: '210px', top: '160px' }}>
+                    <div className={styles.IconStyle} style={{ width: '210px', top: '0px' }}>
                         {this.state.colortrailleft === 'blue' ?
-                            <img src='/images/left.png' width='60' height='60'
+                            <img src={left} width='46' height='46'
                                  onClick={() => this.trailLeftClick(newObjWidth, length)}
                                  style={{ cursor: 'pointer' }}/>
                             :
-                            <img src='/images/left1.png' width='60' height='60'
+                            <img src={left1} width='46' height='46'
                                  onClick={() => this.trailLeftClick(newObjWidth, length)}/>
                         }
                         {this.state.colortrailright === 'blue' ?
-                            <img src='/images/right.png' width='60' height='60'
+                            <img src={right} width='46' height='46'
                                  onClick={() => this.trailRightClick(newObjWidth, length)}
-                                 style={{ marginLeft: '30px', cursor: 'pointer' }}/>
+                                 style={{ marginLeft: '10px', cursor: 'pointer' }}/>
                             :
-                            <img src='/images/right1.png' width='60' height='60'
+                            <img src={right1} width='46' height='46'
                                  onClick={() => this.trailRightClick(newObjWidth, length)}
-                                 style={{ marginLeft: '30px' }}/>
+                                 style={{ marginLeft: '10px' }}/>
                         }
                     </div>
                 );
             } else if (length < 2) {
                 return (
-                    <div className={styles.IconStyle} style={{ width: '210px', top: '160px' }}>
-                        <img src='/images/left1.png' width='60' height='60'/>
-                        <img src='/images/right1.png' width='60' height='60' style={{ marginLeft: '30px' }}/>
+                    <div className={styles.IconStyle} style={{ width: '210px', top: '0px' }}>
+                        <img src={left1} width='46' height='46'/>
+                        <img src={right1} width='46' height='46' style={{ marginLeft: '10px' }}/>
                     </div>
                 );
             }
         } else if (newObjWidth === 1920) {
             if (length > 3) {
                 return (
-                    <div className={styles.IconStyle} style={{ width: '210px', top: '160px' }}>
+                    <div className={styles.IconStyle} style={{ width: '210px', top: '0px' }}>
                         {this.state.colortrailleft === 'blue' ?
-                            <img src='/images/left.png' width='60' height='60'
+                            <img src={left} width='46' height='46'
                                  onClick={() => this.trailLeftClick(newObjWidth, length)}
                                  style={{ cursor: 'pointer' }}/>
                             :
-                            <img src='/images/left1.png' width='60' height='60'
+                            <img src={left1} width='46' height='46'
                                  onClick={() => this.trailLeftClick(newObjWidth, length)}/>
                         }
                         {this.state.colortrailright === 'blue' ?
-                            <img src='/images/right.png' width='60' height='60'
+                            <img src={right} width='46' height='46'
                                  onClick={() => this.trailRightClick(newObjWidth, length)}
-                                 style={{ marginLeft: '30px', cursor: 'pointer' }}/>
+                                 style={{ marginLeft: '10px', cursor: 'pointer' }}/>
                             :
-                            <img src='/images/right1.png' width='60' height='60'
+                            <img src={right1} width='46' height='46'
                                  onClick={() => this.trailRightClick(newObjWidth, length)}
-                                 style={{ marginLeft: '30px' }}/>
+                                 style={{ marginLeft: '10px' }}/>
                         }
                     </div>
                 );
             } else if (length <= 3) {
                 return (
-                    <div className={styles.IconStyle} style={{ width: '210px', top: '160px' }}>
-                        <img src='/images/left1.png' width='60' height='60'/>
-                        <img src='/images/right1.png' width='60' height='60' style={{ marginLeft: '30px' }}/>
+                    <div className={styles.IconStyle} style={{ width: '210px', top: '0px' }}>
+                        <img src={left1} width='46' height='46'/>
+                        <img src={right1} width='46' height='46' style={{ marginLeft: '10px' }}/>
                     </div>
                 );
             }

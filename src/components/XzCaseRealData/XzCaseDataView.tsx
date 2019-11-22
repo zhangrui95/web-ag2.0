@@ -4,16 +4,16 @@
 * 20181112
 * */
 import React, { PureComponent } from 'react';
-import { Row, Col } from 'antd';
+import { Row, Col, Card } from 'antd';
 import moment from 'moment/moment';
 import echarts from 'echarts/lib/echarts';
-import bar from 'echarts/lib/chart/bar';
-import pie from 'echarts/lib/chart/pie';
-import line from 'echarts/lib/chart/line';
-import title from 'echarts/lib/component/title';
-import legend from 'echarts/lib/component/legend';
-import tooltip from 'echarts/lib/component/tooltip';
-import styles from '../Styles/dataView.less';
+import 'echarts/lib/chart/bar';
+import 'echarts/lib/chart/pie';
+import 'echarts/lib/chart/line';
+import 'echarts/lib/component/title';
+import 'echarts/lib/component/legend';
+import 'echarts/lib/component/tooltip';
+import styles from '../../pages/common/dataView.less';
 import { getDefaultDaysForMonth, getTimeDistance } from '../../utils/utils';
 import DataViewDateShow from '../Common/DataViewDateShow';
 import nonDivImg from '../../assets/viewData/nonData.png';
@@ -371,14 +371,14 @@ export default class XzCaseDataView extends PureComponent {
         const that = this;
         xzCaseEchartRingPie = echarts.init(document.getElementById('ajqkzs'));
         const option = {
-            title: {
-                text: '案件情况展示',
-                textStyle: {
-                    fontSize: 16,
-                    fontWeight: 'normal',
-                },
-                padding: 8,
-            },
+            // title: {
+            //     text: '案件情况展示',
+            //     textStyle: {
+            //         fontSize: 16,
+            //         fontWeight: 'normal',
+            //     },
+            //     padding: 8,
+            // },
             tooltip: {
                 trigger: 'item',
                 formatter: '{b}: {c} ({d}%)',
@@ -403,7 +403,7 @@ export default class XzCaseDataView extends PureComponent {
                             textStyle: {
                                 fontSize: '22',
                                 // fontWeight: 'bold',
-                                color: '#66ccff',
+                                color: '#fff',
                             },
                         },
                         emphasis: {
@@ -430,14 +430,14 @@ export default class XzCaseDataView extends PureComponent {
     showXzCaseEchartLine = () => {
         xzCaseEchartLine = echarts.init(document.getElementById('sjqkzs'));
         const option = {
-            title: {
-                text: '受案情况展示',
-                textStyle: {
-                    fontSize: 16,
-                    fontWeight: 'normal',
-                },
-                padding: 8,
-            },
+            // title: {
+            //     text: '受案情况展示',
+            //     textStyle: {
+            //         fontSize: 16,
+            //         fontWeight: 'normal',
+            //     },
+            //     padding: 8,
+            // },
             tooltip: {
                 trigger: 'axis',
             },
@@ -454,16 +454,27 @@ export default class XzCaseDataView extends PureComponent {
             },
             toolbox: {
                 feature: {
-                    saveAsImage: {},
+                    // saveAsImage: {},
                 },
             },
             xAxis: {
                 type: 'category',
                 boundaryGap: false,
                 data: [],
+                axisLabel: {
+                  textStyle:{
+                    color:'#fff',
+                  }
+                },
             },
             yAxis: {
                 type: 'value',
+                color:'#fff',
+                axisLabel: {
+                  textStyle:{
+                    color:'#fff',
+                  }
+                },
             },
             series: [
                 {
@@ -506,14 +517,14 @@ export default class XzCaseDataView extends PureComponent {
                     type: 'shadow',        // 默认为直线，可选为：'line' | 'shadow'
                 },
             },
-            title: {
-                text: '案件类型统计',
-                textStyle: {
-                    fontSize: 16,
-                    fontWeight: 'normal',
-                },
-                padding: 8,
-            },
+            // title: {
+            //     text: '案件类型统计',
+            //     textStyle: {
+            //         fontSize: 16,
+            //         fontWeight: 'normal',
+            //     },
+            //     padding: 8,
+            // },
             xAxis: {
                 type: 'category',
                 axisLine: { show: false },
@@ -524,6 +535,9 @@ export default class XzCaseDataView extends PureComponent {
                 axisLabel: {
                     interval: 0,
                     formatter: (value) => this.insertFlg(value, '\n', 10),
+                    textStyle:{
+                      color:'#fff',
+                    }
                 },
             },
             yAxis: {
@@ -538,7 +552,7 @@ export default class XzCaseDataView extends PureComponent {
                 },
                 axisLabel: {
                     textStyle: {
-                        color: '#999',
+                        color: '#fff',
                     },
                 },
             },
@@ -585,6 +599,7 @@ export default class XzCaseDataView extends PureComponent {
         const { searchType, selectedDateVal, showDataView } = this.props;
         const { currentType, beforeLastData, lastData, nowData, nowDataName, lastDataName, beforeLastDataName, sjqkzsNoData, selectedDateData } = this.state;
         return (
+          <Card style={{ position: 'relative'}} className={styles.policeDataCard}>
             <div className={styles.xzCaseDataView} style={showDataView ? {} : { position: 'absolute', zIndex: -1 }}>
                 {
                     currentType !== 'selectedDate' ? (
@@ -652,9 +667,11 @@ export default class XzCaseDataView extends PureComponent {
 
                 <Row gutter={rowLayout} className={styles.listPageRow}>
                     <Col sm={24} lg={12} xl={6}>
+                        <div className={styles.cardBoxTitle}>|  案件情况展示</div>
                         <div id="ajqkzs" className={styles.cardBox}></div>
                     </Col>
                     <Col sm={24} lg={12} xl={18}>
+                        <div className={styles.cardBoxTitle}>|  受案情况展示</div>
                         <div id="sjqkzs" className={styles.cardBox}></div>
                         {
                             sjqkzsNoData ? (
@@ -684,10 +701,12 @@ export default class XzCaseDataView extends PureComponent {
                 </Row>
                 <Row gutter={rowLayout} className={styles.listPageRow}>
                     <Col span={24}>
+                        <div className={styles.cardBoxTitle}>|  案件类型统计</div>
                         <div id="ajlxtj" className={styles.cardBox}></div>
                     </Col>
                 </Row>
             </div>
+          </Card>
         );
     }
 }

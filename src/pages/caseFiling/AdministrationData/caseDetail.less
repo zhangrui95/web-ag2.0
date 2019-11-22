@@ -1,49 +1,134 @@
-@import "~antd/lib/style/themes/default.less";
-@import '../../utils/utils.less';
-@import '../../theme/darkTheme';
+@import '~antd/lib/style/themes/default.less';
+@import '../../../utils/utils.less';
+@import '../../../theme/darkTheme';
+
+body {
+  overflow: auto !important;
+}
 
 .title {
   color: #fff;
   font-weight: bold;
   line-height: 56px;
   padding-left: 16px;
-  //background-color: #CDE8FA;
+  background: @component-background;
   font-size: 16px;
-  background: linear-gradient(to right, #1F83DF, #FCFDFF);
 }
 
-.message {
+//.message{
+//  position: relative;
+//  background-color: #fff;
+//  border-bottom: 3px solid #108EE9;
+//  padding: 104px 24px 0;
+//  margin-bottom: 24px;
+//}
+
+.message_card {
   position: relative;
-  background-color: @component-background;
-  //border-bottom: 3px solid #1890FF;
-  padding: 0 24px 0;
-  margin-bottom: 24px;
+  background-color: #fff;
+
+}
+
+.tablemessage {
+  background-color: #fff;
+  border-bottom: 3px solid #108EE9;
+}
+
+.caseprocess {
+  display: inline-block;
 }
 
 .TimelineAllsa {
   position: relative;
   left: 140px;
+}
+
+.TimelineAllla {
+  position: relative;
+  left: 140px;
 
   :global {
-    .ant-timeline-item-tail {
-      border-left: 0 solid #108EE9;
-      background-color: #108ee9;
-      width: 2px;
-      top: 4px;
+    .ant-timeline-item:nth-child(1) .ant-timeline-item-tail {
+      border-left: 2px solid #108EE9;
+      top: 0;
+    }
+  }
+}
+
+.TimelineAllpa {
+  position: relative;
+  left: 140px;
+
+  :global {
+    .ant-timeline-item:nth-child(1) .ant-timeline-item-tail {
+      border-left: 2px solid #108EE9;
+      top: 0;
     }
 
+    .ant-timeline-item:nth-child(2) .ant-timeline-item-tail {
+      border-left: 2px solid #108EE9;
+      top: 0;
+    }
   }
+}
+
+.TimelineAllja {
+  position: relative;
+  left: 140px;
+
+  :global {
+    .ant-timeline-item:nth-child(1) .ant-timeline-item-tail {
+      border-left: 2px solid #108EE9;
+      top: 0;
+    }
+
+    .ant-timeline-item:nth-child(2) .ant-timeline-item-tail {
+      border-left: 2px solid #108EE9;
+      top: 0;
+    }
+
+    .ant-timeline-item:nth-child(3) .ant-timeline-item-tail {
+      border-left: 2px solid #108EE9;
+      top: 0;
+    }
+  }
+}
+
+.TimelineAllxa {
+  position: relative;
+  left: 140px;
+
+  :global {
+    .ant-timeline-item:nth-child(1) .ant-timeline-item-tail {
+      border-left: 2px solid #108EE9;
+      top: 0;
+    }
+
+    .ant-timeline-item:nth-child(2) .ant-timeline-item-tail {
+      border-left: 2px solid #108EE9;
+      top: 0;
+    }
+
+    .ant-timeline-item:nth-child(3) .ant-timeline-item-tail {
+      border-left: 2px solid #108EE9;
+      top: 0;
+    }
+
+    .ant-timeline-item:nth-child(4) .ant-timeline-item-tail {
+      border-left: 2px solid #108EE9;
+      top: 0;
+    }
+  }
+}
+
+.TimelineAll {
+  position: relative;
+  left: 140px;
 }
 
 .timeline {
   position: relative;
-  //left: -160px;
-}
-
-.spanTitles {
-  position: relative;
   left: -160px;
-  display: block;
 }
 
 .spanTitle {
@@ -51,58 +136,224 @@
   height: 21px;
 }
 
-.DetailLineIcon1 {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background-color: #1890FF;
-  display: block;
-  position: absolute;
-  top: -55px;
-  left: 143px;
-  z-index: 1000;
-}
+.listStyle {
+  //position: absolute;
+  //top: 8px;
+  //left: 74px;
 
-.DetailLeftline {
-  width: 94px;
-  height: 3px;
-  background-color: #1890FF;
-  display: block;
-  position: absolute;
-  left: 167px;
-  top: 213px;
-}
-
-.DetailLineIcon {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background-color: #1890FF;
-  display: block;
-  position: absolute;
-  top: 211px;
-  left: 164px;
-}
-
-.personFiles {
-  min-width: 200px;
-  width: 334px;
-  font-size: 14px;
-  background-color: #F2FBFF;
-}
-
-.TopPersonFiles {
-  //padding: 12px 0;
-  //border: 1px solid #C8EAFF;
-  //border-bottom: none;
-  background-color: @body-background;
-  color: @white;
-}
-
-.IndexTitle {
-  width: auto;
   position: relative;
+  top: -35px;
+  left: 74px;
+  //float: left;
+}
+
+//.listStyle:after{
+//  clear: both;
+//  content:'';
+//  display: block;
+//}
+.TimeLineStyle {
+  background-color: #1890FF;
+  height: 60px;
+  width: 2px;
+  //position:absolute;
+  //top:-50px;
+  //left:4px;
+  position: relative;
+  top: -53px;
+  left: -14px;
+  float: left;
+}
+
+.TimeLineStyle:after {
+  display: block;
+  content: '';
+  clear: both;
+}
+
+.stepStyles {
+  //min-width:200px;
+  width: 300px;
+  flex: none;
+  //max-width:600px;
+}
+
+.AllTimeLine {
+  position: relative;
+  left: 366px;
+  top: 51px;
+  float: left;
+}
+
+.AllTimeLine:after {
+  content: '';
+  clear: both;
+  display: block;
+}
+
+.switch {
+  position: absolute;
+  right: 0;
+  top: 300px;
+}
+
+
+//
+
+.headerList {
+  margin-bottom: 4px;
+}
+
+.tabsCard {
+  :global {
+    .ant-card-head {
+      padding: 0 16px;
+    }
+  }
+}
+
+.noData {
+  color: @disabled-color;
+  text-align: center;
+  line-height: 64px;
+  font-size: 16px;
+
+  i {
+    font-size: 24px;
+    margin-right: 16px;
+    position: relative;
+    top: 3px;
+  }
+}
+
+.heading {
+  color: @heading-color;
+  font-size: 20px;
+}
+
+.stepDescription {
+  font-size: 14px;
+  position: relative;
+  left: 38px;
+
+  & > div {
+    margin-top: 8px;
+    margin-bottom: 4px;
+  }
+}
+
+.textSecondary {
+  color: @text-color-secondary;
+}
+
+@media screen and (max-width: @screen-sm) {
+  .stepDescription {
+    left: 8px;
+  }
+}
+
+.ax_default {
+  font-family: 'Arial Normal', 'Arial';
+  font-weight: 400;
+  font-style: normal;
+  font-size: 13px;
+  color: #333333;
+  text-align: center;
+  line-height: normal;
+}
+
+.heading_1 {
+  font-family: 'Arial Negreta', 'Arial';
+  font-weight: 700;
+  font-size: 32px;
   text-align: left;
+}
+
+.label {
+  font-size: 14px;
+  text-align: left;
+}
+
+.colsImg {
+  position: relative;
+  //border: 1px solid #ccc;
+  //margin-bottom: 24px;
+}
+
+.sawpImg {
+  padding: 12px;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.sawpName {
+  display: inline-block;
+  height: 94px;
+  padding: 12px 12px 12px 94px;
+}
+
+.sawpName1 {
+  display: block;
+  height: 35px;
+  line-height: 35px;
+
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.sawpSee {
+  background-color: #F7F9FA;
+  height: 40px;
+  text-align: center;
+  line-height: 40px;
+  cursor: pointer;
+  color: #929394;
+  border: @border-width-base @border-style-base #E9E9E9;
+}
+
+.sawpListName {
+  :global {
+    .ant-list-item {
+      width: 25%;
+      display: inline-block;
+      border-bottom: 0 solid #e8e8e8;
+      padding: 0;
+    }
+
+    .ant-spin-container > .ant-list-item:last-child {
+      border-bottom: 0 solid #e8e8e8;
+    }
+
+    .ant-list-item-content {
+      margin: 0 12px 12px 12px;
+      border: 1px solid #ccc;
+    }
+
+    .ant-list-pagination {
+      margin-right: 12px;
+    }
+  }
+}
+
+.break {
+  word-break: break-all;
+}
+
+.clsj_time {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  display: block;
+}
+
+.message {
+  position: relative;
+  background-color: @component-background;
+  //border-bottom: 3px solid #171A26;
+  padding: 0 24px 0;
+  margin-bottom: 16px;
 }
 
 @media screen and (max-width: 1280px) {
@@ -173,12 +424,12 @@
 
   .listStyle {
     position: absolute;
-    top: 15px;
-    left: 266px;
+    top: -189px;
+    left: 247px;
     width: 400px;
     overflow: hidden;
     padding-top: 180px;
-    //padding-bottom: 435px;
+    padding-bottom: 435px;
   }
 
   .DetailRightline1 {
@@ -208,23 +459,19 @@
 
       .ant-timeline-item-tail {
         top: 8px;
-        border-left: 2px solid #1890ff;
       }
     }
+  }
+
+  .IndexTitle {
+    width: 250px;
+    position: relative;
   }
 
   .AllTimeLine {
     position: absolute;
     left: -1px;
     top: 236px;
-  }
-
-  .message {
-    position: relative;
-    background-color: @component-background;
-    //border-bottom: 3px solid #1890FF;
-    padding: 0 24px 0;
-    margin-bottom: 24px;
   }
 
   .TimeLineStyle {
@@ -309,12 +556,12 @@
 
   .listStyle {
     position: absolute;
-    top: 15px;
-    left: 266px;
+    top: -189px;
+    left: 247px;
     width: 400px;
     overflow: hidden;
     padding-top: 180px;
-    //padding-bottom: 435px;
+    padding-bottom: 435px;
   }
 
   .DetailRightline1 {
@@ -344,23 +591,19 @@
 
       .ant-timeline-item-tail {
         top: 8px;
-        border-left: 2px solid #1890ff;
       }
     }
+  }
+
+  .IndexTitle {
+    width: 250px;
+    position: relative;
   }
 
   .AllTimeLine {
     position: absolute;
     left: -1px;
     top: 236px;
-  }
-
-  .message {
-    position: relative;
-    background-color: @component-background;
-    //border-bottom: 3px solid #1890FF;
-    padding: 0 24px 0;
-    margin-bottom: 24px;
   }
 
   .TimeLineStyle {
@@ -445,12 +688,12 @@
 
   .listStyle {
     position: absolute;
-    top: 15px;
-    left: 266px;
+    top: -189px;
+    left: 247px;
     width: 700px;
     overflow: hidden;
     padding-top: 180px;
-    //padding-bottom: 435px;
+    padding-bottom: 435px;
   }
 
   .DetailRightline1 {
@@ -480,23 +723,19 @@
 
       .ant-timeline-item-tail {
         top: 8px;
-        border-left: 2px solid #1890ff;
       }
     }
+  }
+
+  .IndexTitle {
+    width: 250px;
+    position: relative;
   }
 
   .AllTimeLine {
     position: absolute;
     left: -1px;
     top: 236px;
-  }
-
-  .message {
-    position: relative;
-    background-color: @component-background;
-    //border-bottom: 3px solid #1890FF;
-    padding: 0 24px 0;
-    margin-bottom: 24px;
   }
 
   .TimeLineStyle {
@@ -581,12 +820,12 @@
 
   .listStyle {
     position: absolute;
-    top: 15px;
-    left: 266px;
+    top: -189px;
+    left: 247px;
     width: 780px;
     overflow: hidden;
     padding-top: 180px;
-    //padding-bottom: 435px;
+    padding-bottom: 435px;
   }
 
   .DetailRightline1 {
@@ -616,23 +855,19 @@
 
       .ant-timeline-item-tail {
         top: 8px;
-        border-left: 2px solid #1890ff;
       }
     }
+  }
+
+  .IndexTitle {
+    width: 250px;
+    position: relative;
   }
 
   .AllTimeLine {
     position: absolute;
     left: -1px;
     top: 236px;
-  }
-
-  .message {
-    position: relative;
-    background-color: @component-background;
-    //border-bottom: 3px solid #1890FF;
-    padding: 0 24px 0;
-    margin-bottom: 24px;
   }
 
   .TimeLineStyle {
@@ -717,8 +952,8 @@
 
   .listStyle {
     position: absolute;
-    top: 15px;
-    left: 266px;
+    top: -189px;
+    left: 247px;
     width: 1020px;
     overflow: hidden;
     padding-top: 180px;
@@ -752,23 +987,19 @@
 
       .ant-timeline-item-tail {
         top: 8px;
-        border-left: 2px solid #1890ff;
       }
     }
+  }
+
+  .IndexTitle {
+    width: 250px;
+    position: relative;
   }
 
   .AllTimeLine {
     position: absolute;
     left: -1px;
     top: 236px;
-  }
-
-  .message {
-    position: relative;
-    background-color: @component-background;
-    //border-bottom: 3px solid #1890FF;
-    padding: 0 24px 0;
-    margin-bottom: 24px;
   }
 
   .TimeLineStyle {
@@ -805,15 +1036,6 @@
   display: inline-block;
 }
 
-/*CaseModalStep*/
-.clsj_time {
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  display: block;
-  color: @white;
-}
-
 .superve {
   display: inline-block;
   overflow: hidden;
@@ -824,7 +1046,7 @@
     }
 
     .ant-steps-item {
-      width: 18%;
+      width: 22%;
     }
 
     .ant-steps-item-content {
@@ -832,47 +1054,138 @@
     }
 
     .ant-steps-horizontal:not(.ant-steps-label-vertical) .ant-steps-item-description {
-      max-width: 265px;
+      max-width: 325px;
     }
-
   }
 }
 
-.tag {
+.Indexfrom {
+  position: absolute;
+  left: 24px;
+  top: 0;
+}
+
+.Indextail {
+  padding-left: 70px;
+  word-break: break-all;
+  margin-bottom: 24px;
+  min-height: 24px;
+}
+
+.noAccept {
+  text-align: center;
+  font-size: 16px;
+  height: 50px;
+  line-height: 50px;
+}
+
+.TopPersonFiles {
+  padding: 12px 0;
+  border: 1px solid #C8EAFF;
+  //border-bottom: none;
+}
+
+.personFiles {
+  min-width: 200px;
+  width: 334px;
+  background-color: #F2FBFF;
+  font-size: 14px;
+}
+
+.DetailLeftline {
+  width: 94px;
+  height: 3px;
+  background-color: #1890FF;
   display: block;
   position: absolute;
-  top: 0;
-  right: 25px;
-  border-radius: 5px;
-  padding: 0 8px;
-  background: #fff;
-  border: 1px solid #F5222D;
-  color: #F5222D;
+  left: 147px;
+  top: 9px;
 }
 
-.sawpSee {
-  background-color: #3285FF;
-  height: 40px;
-  text-align: center;
-  line-height: 40px;
-  cursor: pointer;
-  color: #929394;
-  //border-top: @border-width-base @border-style-base #E9E9E9;
-  //margin-top: -1px;
+.DetailLineIcon {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: #1890FF;
+  display: block;
+  position: absolute;
+  top: 7px;
+  left: 143px;
+}
 
-  &:hover {
-    color: #00ABFF;
+.DetailLineIcon1 {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: #1890FF;
+  display: block;
+  position: absolute;
+  top: 7px;
+  left: 143px;
+  z-index: 1002;
+}
+
+
+.policeModal {
+  top: 247px;
+
+  :global {
+    .ant-modal-header {
+      background-color: #1890FF;
+    }
+
+    .ant-modal-title {
+      color: #fff;
+    }
+
+    .ant-modal-close {
+      color: #fff;
+    }
   }
 }
 
-.personImg{
-  width: 50px;
-  height: 50px;
-  padding: 10px;
-  background-color: #3285FF;
-  border-radius: 100%;
-  position: relative;
-  top: -20px;
-  margin-left: -25px;
-  left: 50%;
+.detailBoxScroll {
+  overflow: hidden;
+}
+.TopMenu{
+  margin-left: 16px;
+  margin-top:12px;
+  background-color:#171925!important;
+  border:2px solid #2B6CCC!important;
+  color: #2B6CCC!important;
+}
+
+.connectBtn{
+  background-color: 'linear-gradient(#0086FA, #03A3FF)';
+}
+
+.xqrow{
+  border-bottom: 3px solid #171A26;
+}
+.xqcol{
+  padding: 12px;
+}
+.ajlczCard{
+     margin: -2px -12px 0 -12px;
+     background-color:#0F1220;
+     color: @white;
+    :global{
+      .antd-pro-theme-dark-theme-dark .ant-card{
+        border-radius: 0px!important;
+      }
+      .ant-card-head{
+        color: @white;
+        border-bottom: 1px solid #151A29;
+      }
+      .ant-card-body{
+        padding:32px;
+      }
+      .ant-steps-item-finish .ant-steps-item-icon{
+        border: 2px solid #2F86FF;
+        background-color: #0F1220;
+      }
+      .ant-steps-item-process .ant-steps-item-icon{
+        border: 2px solid #fff;
+      }
+    }
 }

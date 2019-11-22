@@ -7,12 +7,13 @@ import React, { PureComponent } from 'react';
 import { Row, Col, Card, Divider, Tooltip, Button, Radio, Icon, message } from 'antd';
 import moment from 'moment/moment';
 import echarts from 'echarts/lib/echarts';
-import bar from 'echarts/lib/chart/bar';
-import pie from 'echarts/lib/chart/pie';
-import title from 'echarts/lib/component/title';
-import legend from 'echarts/lib/component/legend';
-import tooltip from 'echarts/lib/component/tooltip';
-import styles from '../Styles/dataView.less';
+import 'echarts/lib/chart/bar';
+import 'echarts/lib/chart/pie';
+import 'echarts/lib/chart/line';
+import 'echarts/lib/component/title';
+import 'echarts/lib/component/legend';
+import 'echarts/lib/component/tooltip';
+import styles from '../../pages/common/dataView.less';
 import { getTimeDistance } from '../../utils/utils';
 import DataViewDateShow from '../Common/DataViewDateShow';
 
@@ -326,20 +327,23 @@ export default class CaseDataView extends PureComponent {
         caseEchartBar = echarts.init(document.getElementById('ajbljd'));
         const option = {
             color: ['#3398DB'],
-            title: {
-                text: '案件办理进度',
-                textStyle: {
-                    fontSize: 16,
-                    fontWeight: 'normal',
-                },
-                padding: 8,
-            },
+            // title: {
+            //     text: '案件办理进度',
+            //     textStyle: {
+            //         fontSize: 16,
+            //         fontWeight: 'normal',
+            //     },
+            //     padding: 8,
+            // },
             xAxis: {
                 type: 'category',
-                axisLine: { show: false },
+                axisLine: { show: false, textStyle:{color: '#fff',} },
                 data: [],
                 axisTick: {
                     alignWithLabel: true,
+                },
+                axisLabel:{
+                  color: '#fff',
                 },
             },
             yAxis: {
@@ -354,7 +358,7 @@ export default class CaseDataView extends PureComponent {
                 },
                 axisLabel: {
                     textStyle: {
-                        color: '#999',
+                        color: '#fff',
                     },
                 },
             },
@@ -381,7 +385,7 @@ export default class CaseDataView extends PureComponent {
                             formatter: '{c}',
                             textStyle: {
                                 fontSize: 16,
-                                color: '#000',
+                                color: '#fff',
                             },
                         },
                     },
@@ -400,14 +404,14 @@ export default class CaseDataView extends PureComponent {
     showCaseEchartRingPie = () => {
         caseEchartRingPie = echarts.init(document.getElementById('ryqzcsqk'));
         const option = {
-            title: {
-                text: '案件专项类别情况展示',
-                textStyle: {
-                    fontSize: 16,
-                    fontWeight: 'normal',
-                },
-                padding: 8,
-            },
+            // title: {
+            //     text: '案件专项类别情况展示',
+            //     textStyle: {
+            //         fontSize: 16,
+            //         fontWeight: 'normal',
+            //     },
+            //     padding: 8,
+            // },
             tooltip: {
                 trigger: 'item',
                 formatter: '{b}: {c} ({d}%)',
@@ -422,7 +426,7 @@ export default class CaseDataView extends PureComponent {
                 itemGap: 15,
                 selectedMode: true, // 点击
                 textStyle: {
-                    color: '#000',
+                    color: '#fff',
                     fontSize: 16,
                     lineHeight: 24,
                 },
@@ -489,14 +493,14 @@ export default class CaseDataView extends PureComponent {
                     type: 'shadow', // 默认为直线，可选为：'line' | 'shadow'
                 },
             },
-            title: {
-                text: '案件类型统计',
-                textStyle: {
-                    fontSize: 16,
-                    fontWeight: 'normal',
-                },
-                padding: 8,
-            },
+            // title: {
+            //     text: '案件类型统计',
+            //     textStyle: {
+            //         fontSize: 16,
+            //         fontWeight: 'normal',
+            //     },
+            //     padding: 8,
+            // },
             xAxis: {
                 type: 'category',
                 axisLine: { show: false },
@@ -507,6 +511,9 @@ export default class CaseDataView extends PureComponent {
                 axisLabel: {
                     interval: 0,
                     formatter: (value) => this.insertFlg(value, '\n', 10),
+                    textStyle:{
+                      color:'#fff',
+                    }
                 },
             },
             yAxis: {
@@ -566,6 +573,7 @@ export default class CaseDataView extends PureComponent {
         const { searchType, selectedDateVal, showDataView } = this.props;
         const { currentType, beforeLastData, lastData, nowData, nowDataName, lastDataName, beforeLastDataName, selectedDateData } = this.state;
         return (
+          <Card style={{ position: 'relative'}} className={styles.policeDataCard}>
             <div className={styles.caseDataView} style={showDataView ? {} : { position: 'absolute', zIndex: -1 }}>
                 {
                     currentType !== 'selectedDate' ? (
@@ -626,21 +634,26 @@ export default class CaseDataView extends PureComponent {
                         </div>
                     )
                 }
-
+              <div style={{backgroundColor:'#202839',padding:'0 16px'}}>
                 <Row gutter={rowLayout} className={styles.listPageRow}>
                     <Col {...colLayout}>
+                        <div className={styles.cardBoxTitle}>|  案件办理进度</div>
                         <div id="ajbljd" className={styles.cardBox}></div>
                     </Col>
                     <Col {...colLayout}>
+                        <div className={styles.cardBoxTitle}>|  案件专项类别情况展示</div>
                         <div id="ryqzcsqk" className={styles.cardBox}></div>
                     </Col>
                 </Row>
                 <Row gutter={rowLayout} className={styles.listPageRow}>
-                    <Col span={24}>
+                    <Col span={24} style={{marginBottom:32}}>
+                        <div className={styles.cardBoxTitle}>|  案件类型统计</div>
                         <div id="ajlxtj" className={styles.cardBox}></div>
                     </Col>
                 </Row>
+              </div>
             </div>
+          </Card>
         );
     }
 }

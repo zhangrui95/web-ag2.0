@@ -10,13 +10,14 @@ import styles from './RenderTable.less';
 // import Detail from '../../routes/CaseRealData/caseDetail';
 // import CriminalCaseDocDetail from '../../routes/AllDocuments/CriminalCaseDocDetail';
 // import ShareModal from './../ShareModal/ShareModal';
-import MakeTableModal from './MakeTableModal';
+// import MakeTableModal from './MakeTableModal';
 // import RetrieveModal from './../ShareModal/RetrieveModal';
 import Ellipsis from 'ant-design-pro/lib/Ellipsis';
 import { getUserInfos, tableList, userAuthorityCode } from '../../utils/utils';
 import { authorityIsTrue } from '../../utils/authority';
-import stylescommon from "@/pages/common/common.less";
-import noList from "@/assets/viewData/noList.png";
+import stylescommon from "../../pages/common/common.less";
+import noList from "../../assets/viewData/noList.png";
+import {routerRedux} from "dva/router";
 
 class RenderTable extends PureComponent {
     state = {
@@ -49,6 +50,24 @@ class RenderTable extends PureComponent {
     }
 
     deatils = (record) => {
+      this.props.dispatch({
+        type: 'global/changeNavigation',
+        payload: {
+          key: record && record.id ? record.id : '1',
+          name: '刑事案件详情',
+          path: '/caseFiling/caseData/CriminalData/caseDetail',
+          isShow: true,
+          query: { record, id: record && record.id ? record.id : '1' },
+        },
+        callback: () => {
+          this.props.dispatch(
+            routerRedux.push({
+              pathname: '/caseFiling/caseData/CriminalData/caseDetail',
+              query: { record: record,id: record && record.id ? record.id : '1' },
+            }),
+          )
+        },
+      });
         // const divs = (
         //     <div>
         //         // <Detail

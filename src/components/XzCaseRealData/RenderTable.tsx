@@ -16,6 +16,7 @@ import { userAuthorityCode } from '../../utils/utils';
 import { authorityIsTrue } from '../../utils/authority';
 import Ellipsis from 'ant-design-pro/lib/Ellipsis';
 import stylescommon from "@/pages/common/common.less";
+import {routerRedux} from "dva/router";
 
 @connect(({ share }) => ({
     share,
@@ -66,6 +67,24 @@ class RenderTable extends PureComponent {
         // );
         // const AddNewDetail = { title: '行政案件详情', content: divs, key: record.system_id };
         // this.props.newDetail(AddNewDetail);
+        this.props.dispatch({
+          type: 'global/changeNavigation',
+          payload: {
+            key: record && record.id ? record.id : '1',
+            name: '行政案件详情',
+            path: '/caseFiling/caseData/AdministrationData/caseDetail',
+            isShow: true,
+            query: { record, id: record && record.id ? record.id : '1' },
+          },
+          callback: () => {
+            this.props.dispatch(
+              routerRedux.push({
+                pathname: '/caseFiling/caseData/AdministrationData/caseDetail',
+                query: { record: record,id: record && record.id ? record.id : '1' },
+              }),
+            )
+          },
+        });
     };
     // 行政案件档案详情
     administrativeCaseDocDetails = (record) => {
