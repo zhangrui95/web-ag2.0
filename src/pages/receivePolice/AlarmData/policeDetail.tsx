@@ -364,7 +364,7 @@ export default class policeDetail extends PureComponent {
         const { policeDetails } = this.state;
         const rowLayout = { md: 8, xl: 16, xxl: 24 };
         return (
-            <div style={{ background: '#202839', /*height: autoheight() - 280 + 'px'*/ }}
+            <div style={{ background: '#202839', height: autoheight() - 280 + 'px' }}
                  id={`jqDetail${this.props.id}`} className={styles.detailBoxScroll}>
                 {policeDetails && (policeDetails.ajbh && policeDetails.is_sa === 1) ?
                   ''

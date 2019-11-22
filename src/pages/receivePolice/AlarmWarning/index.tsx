@@ -27,9 +27,9 @@ import moment from 'moment/moment';
 import styles from '../../common/listPage.less';
 import { exportListDataMaxDays, getUserInfos, tableList } from '../../../utils/utils';
 import Detail from '../AlarmData/policeDetail';
-import RemindModal from '../../../components/RemindModal/RemindModal';
-import AnnouncementModal from '../../../components/AnnouncementModal/AnnouncementModal';
-import ShareModal from '../../../components/ShareModal/ShareModal';
+// import RemindModal from '../../../components/RemindModal/RemindModal';
+// import AnnouncementModal from '../../../components/AnnouncementModal/AnnouncementModal';
+// import ShareModal from '../../../components/ShareModal/ShareModal';
 import {routerRedux} from "dva/router";
 import Ellipsis from 'ant-design-pro/lib/Ellipsis';
 
@@ -606,7 +606,7 @@ export default class Index extends PureComponent {
     );
     return (
       <div>
-        <div className={styles.tableListForm}>
+        <div className={styles.tableListForm} id='jqyjtableListForm'>
           <Form onSubmit={this.handleSearch} style={{height: this.state.searchHeight ? 'auto' : '59px',}}>
             <Row gutter={rowLayout} className={styles.searchForm}>
               <Col {...colLayout}>
@@ -614,7 +614,7 @@ export default class Index extends PureComponent {
                   {getFieldDecorator('yjlx', {
                     initialValue: this.state.yjlx,
                   })(
-                    <Select placeholder="请选择" style={{ width: '100%' }}>
+                    <Select placeholder="请选择" style={{ width: '100%' }} getPopupContainer={() => document.getElementById('jqyjtableListForm')}>
                       <Option value="">全部</Option>
                       <Option value="5025302">未受案警情</Option>
                       <Option value="5025301">无处置结果</Option>
@@ -627,7 +627,7 @@ export default class Index extends PureComponent {
                   {getFieldDecorator('yjjb', {
                     initialValue: this.state.yjjb,
                   })(
-                    <Select placeholder="请选择" style={{ width: '100%' }}>
+                    <Select placeholder="请选择" style={{ width: '100%' }} getPopupContainer={() => document.getElementById('jqyjtableListForm')}>
                       <Option value="">全部</Option>
                       {YJJBStatusOptions}
                     </Select>,
@@ -653,6 +653,7 @@ export default class Index extends PureComponent {
                     <RangePicker
                       disabledDate={this.disabledDate}
                       style={{ width: '100%' }}
+                      getCalendarContainer={() => document.getElementById('jqyjtableListForm')}
                     />,
                   )}
                 </FormItem>
@@ -686,18 +687,18 @@ export default class Index extends PureComponent {
             pagination={paginationProps}
             onChange={this.handleTableChange}
           />
-          <RemindModal caseDetails={this.state.caseDetails} txVisible={this.state.txVisible}
-                       detail={detail} handleCancel={this.handleCancel} txItem={this.state.txItem}
-                       yjmc="警情预警" getResult={() => this.getDossier({
-            currentPage: this.state.current,
-            pd: this.state.formValues,
-          })}/>
-          <AnnouncementModal visible={this.state.AnnouncementVisible}
-                             handleCancel={this.handleCancels} RzList={this.state.RzList}/>
-          <ShareModal title="警情信息分享" detail={detail} shareVisible={this.state.shareVisible}
-                      handleCancel={this.handleCancel} shareItem={this.state.shareItem}
-                      personList={this.state.personList}
-                      lx={this.state.lx} tzlx={this.state.tzlx} sx={this.state.sx}/>
+          {/*<RemindModal caseDetails={this.state.caseDetails} txVisible={this.state.txVisible}*/}
+                       {/*detail={detail} handleCancel={this.handleCancel} txItem={this.state.txItem}*/}
+                       {/*yjmc="警情预警" getResult={() => this.getDossier({*/}
+            {/*currentPage: this.state.current,*/}
+            {/*pd: this.state.formValues,*/}
+          {/*})}/>*/}
+          {/*<AnnouncementModal visible={this.state.AnnouncementVisible}*/}
+                             {/*handleCancel={this.handleCancels} RzList={this.state.RzList}/>*/}
+          {/*<ShareModal title="警情信息分享" detail={detail} shareVisible={this.state.shareVisible}*/}
+                      {/*handleCancel={this.handleCancel} shareItem={this.state.shareItem}*/}
+                      {/*personList={this.state.personList}*/}
+                      {/*lx={this.state.lx} tzlx={this.state.tzlx} sx={this.state.sx}/>*/}
         </div>
       </div>
     );

@@ -618,6 +618,7 @@ export default class Index extends PureComponent {
                   placeholder="请输入接警人"
                   onChange={(value) => this.handleAllPoliceOptionChange(value, false)}
                   onFocus={(value) => this.handleAllPoliceOptionChange(value, false)}
+                  getPopupContainer={() => document.getElementById('jqgjsearchForm')}
                 >
                   {allPoliceOptions}
                 </Select>,
@@ -674,6 +675,7 @@ export default class Index extends PureComponent {
                   placeholder="请输入处警人"
                   onChange={(value) => this.handleAllPoliceOptionChange(value, true)}
                   onFocus={(value) => this.handleAllPoliceOptionChange(value, true)}
+                  getPopupContainer={() => document.getElementById('jqgjsearchForm')}
                 >
                   {cjrPoliceOptions}
                 </Select>,

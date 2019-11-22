@@ -249,22 +249,22 @@ export default class SupervisionLog extends PureComponent {
                             </div>
                             <div className={styles.message} style={{ borderBottom: '3px solid #1e2230' }}>
                                 <Row gutter={rowLayout}>
-                                    <Col md={6} sm={24}>
+                                    <Col md={6} sm={24} className={styles.xqcol}>
                                         <div className={listStyles.Indexfrom}>问题类型：</div>
                                         <div
                                             className={listStyles.Indextail}>{detailData && detailData.wtlx ? detailData.wtlx : ''}</div>
                                     </Col>
-                                    <Col md={6} sm={24}>
+                                    <Col md={6} sm={24} className={styles.xqcol}>
                                         <div className={listStyles.Indexfrom}>产生方式：</div>
                                         <div
                                             className={listStyles.Indextail}>{detailData && detailData.fxfs ? detailData.fxfs : ''}</div>
                                     </Col>
-                                    <Col md={6} sm={24}>
+                                    <Col md={6} sm={24} className={styles.xqcol}>
                                         <div className={listStyles.Indexfrom}>告警时间：</div>
                                         <div
                                             className={listStyles.Indextail}>{detailData && detailData.gjsj ? detailData.gjsj : ''}</div>
                                     </Col>
-                                    <Col md={6} sm={24}>
+                                    <Col md={6} sm={24} className={styles.xqcol}>
                                         <div className={listStyles.Indexfrom}>状态：</div>
                                         <div className={listStyles.Indextail}
                                              style={{ paddingLeft: '56px' }}>{detailData && detailData.zt ? detailData.zt : ''}</div>
