@@ -161,6 +161,7 @@ body {
     }
     .ant-table-wrapper{
       background-color: @table-header-bg;
+      border-radius: @borderRadius;
     }
 
     .ant-menu {
@@ -284,7 +285,7 @@ body {
       background: @table-body-sort-bg!important;
       color: @white;
       &:nth-child(2n) {
-        background: @table-header-bg;
+        background: @table-header-bg!important;
       }
     }
     .ant-table-tbody > tr > td {
