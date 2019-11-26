@@ -422,7 +422,7 @@ export default class PersonIllegalPunish extends PureComponent {
             title: '类别',
             dataIndex: 'categories',
             key: 'categories',
-            className: 'categories',
+
         }, {
             title: selectedDateStr,
             dataIndex: 'selectedDateStr',
@@ -456,7 +456,7 @@ export default class PersonIllegalPunish extends PureComponent {
             title: '类别',
             dataIndex: 'categories',
             key: 'categories1',
-            className: 'categories',
+
         }, {
             title: selectedDateStr,
             dataIndex: 'selectedDateStr',

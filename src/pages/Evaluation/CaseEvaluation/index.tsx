@@ -20,8 +20,8 @@ const { SHOW_PARENT } = TreeSelect;
 let timeout;
 let currentValue;
 const formItemLayout = {
-    labelCol: { xs: { span: 24 }, md: { span: 8 }, xl: { span: 6 }, xxl: { span: 4 } },
-    wrapperCol: { xs: { span: 24 }, md: { span: 16 }, xl: { span: 18 }, xxl: { span: 20 } },
+    labelCol: { xs: { span: 24 }, md: { span: 8 }, xl: { span: 6 }, xxl: { span: 5 } },
+    wrapperCol: { xs: { span: 24 }, md: { span: 16 }, xl: { span: 18 }, xxl: { span: 19 } },
 };
 const rowLayout = { md: 8, xl: 16, xxl: 24 };
 const colLayoutRadios = { sm: 24, md: 6, xl: 16 };
@@ -34,8 +34,8 @@ const formItemLayoutRadio = {
     wrapperCol: { xs: { span: 24 }, md: { span: 14 }, xl: { span: 21 }, xxl: { span: 20 } },
 };
 const formItemLayoutShow = {
-    labelCol: { xs: { span: 24 }, md: { span: 10 }, xl: { span: 6 }, xxl: { span: 4 } },
-    wrapperCol: { xs: { span: 24 }, md: { span: 14 }, xl: { span: 18 }, xxl: { span: 20 } },
+    labelCol: { xs: { span: 24 }, md: { span: 10 }, xl: { span: 6 }, xxl: { span: 5 } },
+    wrapperCol: { xs: { span: 24 }, md: { span: 14 }, xl: { span: 18 }, xxl: { span:19 } },
 };
 const colLayoutShow = { sm: 24, md: 12, xl: 11, xxl: 11 };
 let start = moment(moment().subtract('month', 1).format('YYYY-MM') + '-01');
@@ -445,13 +445,18 @@ export default class Index extends PureComponent {
             searchHeightTb: !this.state.searchHeightTb,
         });
     };
+    getSearchHeight = () => {
+        this.setState({
+            searchHeight: !this.state.searchHeight,
+        });
+    };
     tbrenderForm() {
         const { form: { getFieldDecorator }, common: { deptrees, xmType } } = this.props;
         let xmOption = xmType.map((item)=>{
             return <Option  key={item.code} value={item.code}>{item.name}情况</Option>
         })
         return (
-            <Card className={stylescommon.cardArea} id={'form'} style={{ padding: '10px 0' }}>
+            <Card className={stylescommon.cardArea} style={{ padding: '10px 0' }}>
                 <Form style={{ height: this.state.searchHeightTb ? 'auto' : '50px' }}>
                     <Row gutter={rowLayout}  className={stylescommon.searchForm}>
                 <Col {...colLayouts}>
@@ -471,6 +476,7 @@ export default class Index extends PureComponent {
                                 treeNodeFilterProp={'title'}
                                 showCheckedStrategy={SHOW_PARENT}
                                 treeDefaultExpandedKeys={this.state.treeDefaultExpandedKeys}
+                                getPopupContainer={() => document.getElementById('form')}
                             >
                                 {deptrees && deptrees.length > 0 ? this.renderloop(deptrees) :
                                     <TreeNode key={getUserInfos().group.code} value={getUserInfos().group.code}
@@ -500,6 +506,7 @@ export default class Index extends PureComponent {
                             <RangePicker
                                 disabledDate={this.disabledDate}
                                 style={{ width: '100%' }}
+                                getCalendarContainer={() => document.getElementById('form')}
                             />,
                         )}
                     </FormItem>
@@ -514,7 +521,7 @@ export default class Index extends PureComponent {
                                     <Radio value="0">案件数量</Radio>
                                     <Radio value="1">告警数量</Radio>
                                     <Radio value="3">
-                                        <Select disabled={this.state.tjnr === '3' ? false : true} value={this.state.tjnrXm} placeholder="请选择"  style={{width:'200px'}} onChange={this.getTjnrXm} defaultValue={xmType&&xmType.length > 0 ? '0' : ''}>
+                                        <Select disabled={this.state.tjnr === '3' ? false : true} value={this.state.tjnrXm} placeholder="请选择"  style={{width:'200px'}} onChange={this.getTjnrXm} defaultValue={xmType&&xmType.length > 0 ? '0' : ''} getPopupContainer={() => document.getElementById('form')}>
                                             {xmOption}
                                         </Select>
                                     </Radio>
@@ -557,101 +564,120 @@ export default class Index extends PureComponent {
                                                                                              value={`${d.pcard}`}
                                                                                              title={d.name}>{`${d.name} ${d.pcard}`}</Option>);
         return (
-            <Form>
-                <Row gutter={rowLayout}>
-                    <Col {...colLayout}>
-                        <FormItem label="案件编号" {...formItemLayout}>
-                            {getFieldDecorator('ajbh')(
-                                <Input placeholder="请输入案件编号"/>,
-                            )}
-                        </FormItem>
-                    </Col>
-                    <Col {...colLayout}>
-                        <FormItem label="案件名称" {...formItemLayout}>
-                            {getFieldDecorator('ajmc')(
-                                <Input placeholder="请输入案件名称"/>,
-                            )}
-                        </FormItem>
-                    </Col>
-                    <Col {...colLayout}>
-                        <FormItem label="被考评单位" {...formItemLayout}>
-                            {getFieldDecorator('bkpdw')(
-                                <TreeSelect
-                                    showSearch
-                                    style={{ width: '100%' }}
-                                    dropdownStyle={{ maxHeight: 400, overflowY: 'auto', overflowX: 'hidden' }}
-                                    dropdownMatchSelectWidth
-                                    placeholder="请输入被考评单位"
-                                    allowClear
-                                    key='bkpdwSelect'
-                                    treeNodeFilterProp={'title'}
-                                    treeDefaultExpandedKeys={this.state.treeDefaultExpandedKeys}
-                                >
-                                    {deptrees && deptrees.length > 0 ? this.renderloop(deptrees) : null}
-                                </TreeSelect>,
-                            )}
-                        </FormItem>
-                    </Col>
-                    <Col {...colLayout}>
-                        <FormItem label="考评日期" {...formItemLayout}>
-                            {getFieldDecorator('kprq')(
-                                <RangePicker
-                                    disabledDate={this.disabledDate}
-                                    style={{ width: '100%' }}
-                                />,
-                            )}
-                        </FormItem>
-                    </Col>
-                    <Col {...colLayout}>
-                        <FormItem label="案件类别" {...formItemLayout}>
-                            {getFieldDecorator('ajlb', {})(
-                                <Cascader
-                                    options={this.state.caseTypeTree}
-                                    placeholder="请选择案件类别"
-                                    changeOnSelect={true}
-                                    showSearch={
-                                        {
-                                            filter: (inputValue, path) => {
-                                                return (path.some(items => (items.searchValue).indexOf(inputValue) > -1));
-                                            },
-                                            limit: 5,
+            <Card className={stylescommon.cardArea} style={{ padding: '10px 0' }}>
+                <Form style={{ height: this.state.searchHeight ? 'auto' : '50px' }}>
+                    <Row gutter={rowLayout} className={stylescommon.searchForm}>
+                        <Col {...colLayout}>
+                            <FormItem label="案件编号" {...formItemLayout}>
+                                {getFieldDecorator('ajbh')(
+                                    <Input placeholder="请输入案件编号"/>,
+                                )}
+                            </FormItem>
+                        </Col>
+                        <Col {...colLayout}>
+                            <FormItem label="案件名称" {...formItemLayout}>
+                                {getFieldDecorator('ajmc')(
+                                    <Input placeholder="请输入案件名称"/>,
+                                )}
+                            </FormItem>
+                        </Col>
+                        <Col {...colLayout}>
+                            <FormItem label="被考评单位" {...formItemLayout}>
+                                {getFieldDecorator('bkpdw')(
+                                    <TreeSelect
+                                        showSearch
+                                        style={{ width: '100%' }}
+                                        dropdownStyle={{ maxHeight: 400, overflowY: 'auto', overflowX: 'hidden' }}
+                                        dropdownMatchSelectWidth
+                                        placeholder="请输入被考评单位"
+                                        allowClear
+                                        key='bkpdwSelect'
+                                        treeNodeFilterProp={'title'}
+                                        treeDefaultExpandedKeys={this.state.treeDefaultExpandedKeys}
+                                        getPopupContainer={() => document.getElementById('form')}
+                                    >
+                                        {deptrees && deptrees.length > 0 ? this.renderloop(deptrees) : null}
+                                    </TreeSelect>,
+                                )}
+                            </FormItem>
+                        </Col>
+                        <Col {...colLayout}>
+                            <FormItem label="考评日期" {...formItemLayout}>
+                                {getFieldDecorator('kprq')(
+                                    <RangePicker
+                                        disabledDate={this.disabledDate}
+                                        style={{ width: '100%' }}
+                                        getCalendarContainer={() => document.getElementById('form')}
+                                    />,
+                                )}
+                            </FormItem>
+                        </Col>
+                        <Col {...colLayout}>
+                            <FormItem label="案件类别" {...formItemLayout}>
+                                {getFieldDecorator('ajlb', {})(
+                                    <Cascader
+                                        options={this.state.caseTypeTree}
+                                        placeholder="请选择案件类别"
+                                        changeOnSelect={true}
+                                        getPopupContainer={() => document.getElementById('form')}
+                                        showSearch={
+                                            {
+                                                filter: (inputValue, path) => {
+                                                    return (path.some(items => (items.searchValue).indexOf(inputValue) > -1));
+                                                },
+                                                limit: 5,
+                                            }
                                         }
-                                    }
-                                />,
-                            )}
-                        </FormItem>
-                    </Col>
-                    <Col {...colLayout}>
-                        <FormItem label="被考评人" {...formItemLayout}>
-                            {getFieldDecorator('bkpr', {
-                                rules: [{ max: 32, message: '最多输入32个字！' }],
-                            })(
-                                <Select
-                                    mode="combobox"
-                                    defaultActiveFirstOption={false}
-                                    optionLabelProp='title'
-                                    showArrow={false}
-                                    filterOption={false}
-                                    placeholder="请输入被考评人"
-                                    onChange={(value) => this.handleAllPoliceOptionChange(value, false)}
-                                    onFocus={(value) => this.handleAllPoliceOptionChange(value, false)}
-                                >
-                                    {allPoliceOptions}
-                                </Select>,
-                            )}
-                        </FormItem>
-                    </Col>
-                    <Col span={24}>
+                                    />,
+                                )}
+                            </FormItem>
+                        </Col>
+                        <Col {...colLayout}>
+                            <FormItem label="被考评人" {...formItemLayout}>
+                                {getFieldDecorator('bkpr', {
+                                    rules: [{ max: 32, message: '最多输入32个字！' }],
+                                })(
+                                    <Select
+                                        mode="combobox"
+                                        defaultActiveFirstOption={false}
+                                        optionLabelProp='title'
+                                        showArrow={false}
+                                        filterOption={false}
+                                        placeholder="请输入被考评人"
+                                        onChange={(value) => this.handleAllPoliceOptionChange(value, false)}
+                                        onFocus={(value) => this.handleAllPoliceOptionChange(value, false)}
+                                        getPopupContainer={() => document.getElementById('form')}
+                                    >
+                                        {allPoliceOptions}
+                                    </Select>,
+                                )}
+                            </FormItem>
+                        </Col>
+                    </Row>
+                    <Row className={stylescommon.search}>
                       <span style={{ float: 'right', marginBottom: 24 }}>
-                          <Button style={{ color: '#2095FF', borderColor: '#2095FF' }}
-                                  onClick={this.exportData}>导出表格</Button>
-                          <Button style={{ marginLeft: 8 }} type="primary" htmlType='submit'
-                                  onClick={(e)=>this.handleSearch(e,null,'0')}>查询</Button>
-                          <Button style={{ marginLeft: 8 }} onClick={this.handleFormReset}>重置</Button>
-                      </span>
-                    </Col>
-                </Row>
-            </Form>
+                        <Button style={{ marginLeft: 8 }} type="primary"  onClick={(e)=>this.handleSearch(e,null,'0')}>
+                          查询
+                        </Button>
+                        <Button
+                            style={{ marginLeft: 8 }}
+                            onClick={this.handleFormReset}
+                            className={stylescommon.empty}
+                        >
+                          重置
+                        </Button>
+                        <Button
+                            style={{ marginLeft: 8 }}
+                            onClick={this.getSearchHeight}
+                            className={stylescommon.empty}
+                        >
+                          {this.state.searchHeightTb ? '收起筛选' : '展开筛选'}{' '}
+                            <Icon type={this.state.searchHeight ? 'up' : 'down'} />
+                        </Button>
+                    </span>
+                    </Row>
+                </Form>
+            </Card>
         );
     }
 
@@ -756,7 +782,7 @@ export default class Index extends PureComponent {
         const newAddDetail = this.state.arrayDetail;
         const { showDataView, superviseVisibleModal } = this.state;
         return (
-            <div className={this.props.location.query && this.props.location.query.id ? styles.onlyDetail : ''}>
+            <div className={this.props.location.query && this.props.location.query.id ? styles.onlyDetail : ''} id={'form'}>
                         <div className={styles.listPageWrap}>
                     <Card className={styles.listPageHeader}>
                                 {
@@ -766,7 +792,7 @@ export default class Index extends PureComponent {
                                         <a onClick={this.changeListPageHeader}>考评数据展示</a>
                                     )
                                 }
-                                <span>|</span>
+                                <span className={styles.border}>|</span>
                                 {
                                     showDataView ? (
                                         <a onClick={this.changeListPageHeader}>考评数据列表</a>
@@ -776,7 +802,7 @@ export default class Index extends PureComponent {
                                 }
                     </Card>
 
-                            <div style={showDataView ? {} : { position: 'absolute', zIndex: -1 }}>
+                            <div style={showDataView ? {} : { display:'none' }}>
                                     {this.tbrenderForm()}
                                     <EvaluationChats
                                         changeToListPage={this.changeToListPage}
@@ -786,13 +812,9 @@ export default class Index extends PureComponent {
                                     />
                                 </div>
                     <div style={!showDataView ? {} : { display:'none' }}>
-                                <div className={styles.tableListForm}>
-                                    {this.renderForm()}
-                                </div>
-                                <div className={styles.tableListOperator} style={{ marginBottom: 0 }}>
-                                    <EvaluationTable onChange={this.handleTableChange} newDetail={this.newDetail} handleSearch={this.handleSearch} getKpSearch={this.getKpSearch}
-                                                     data={AssessmentPgList} {...this.props} {...this.state}/>
-                                </div>
+                                {this.renderForm()}
+                                <EvaluationTable onChange={this.handleTableChange} newDetail={this.newDetail} handleSearch={this.handleSearch} getKpSearch={this.getKpSearch}
+                                                 data={AssessmentPgList} {...this.props} {...this.state}/>
                             </div>
                         </div>
                 {/*{superviseVisibleModal ?*/}

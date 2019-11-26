@@ -25,6 +25,7 @@
 @switch-color: #0097d9;
 @rangepicker-border: #1e2230; // 日期弹出窗边框颜色
 @title-color:#989898;
+@menu-item-active-bg:#606D8C;//侧边栏选中颜色
 //-------------------------自定义-----------------------
 @zero: 0;
 @no-box-shadow: none; //无阴影
@@ -172,11 +173,6 @@ body {
       a {
         color: @text-color;
       }
-      .ant-menu-item {
-        margin: @zero;
-        height: 50px;
-        line-height: 50px;
-      }
       .ant-menu-item-selected {
         color: @white;
         background-color: @highlight-color;
@@ -201,7 +197,7 @@ body {
         }
         .ant-menu-item-selected {
           color: @white;
-          background-color: @transparent;
+          background-color: @menu-item-active-bg;
           border-right: @zero !important;
         }
       }
@@ -566,6 +562,9 @@ body {
     .ant-radio-button-wrapper:first-child {
       border: @zero;
     }
+    .ant-radio-disabled + span{
+      color: @title-color;
+    }
     .ant-list-empty-text {
       color: @white;
     }
@@ -642,6 +641,38 @@ body {
     }
     .ant-carousel .slick-dots li.slick-active button{
       background: @highlight-color!important;
+    }
+    .ant-time-picker-icon .ant-time-picker-clock-icon{
+      color: @white;
+    }
+    .ant-time-picker-clear{
+      background: @body-background;
+      color: @white;
+    }
+    .ant-time-picker-panel-inner{
+      background: @dropdown-selected-color;
+    }
+    .ant-time-picker-panel-select{
+      color: @white;
+      border-left: 1px solid @body-background;
+    }
+    .ant-time-picker-panel-input-wrap{
+      border-bottom: 1px solid @body-background;
+    }
+    li.ant-time-picker-panel-select-option-selected{
+      background: @highlight-color;
+    }
+    .ant-time-picker-panel-select li{
+      &:hover{
+        background: @highlight-color;
+      }
+      &:focus{
+        color: @white;
+      }
+    }
+    .ant-time-picker-panel-input{
+      background: transparent;
+      color: @white;
     }
   }
 }

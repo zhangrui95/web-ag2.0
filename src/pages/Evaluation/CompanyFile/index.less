@@ -1,7 +1,290 @@
 @import '~antd/es/style/themes/default.less';
-
+@import '../../../theme/darkTheme';
 .main {
   display: flex;
   width: 100%;
   background: @component-background;
+}
+.statistics {
+  .buttonArea {
+    text-align: right;
+
+    button {
+      margin-right: 10px;
+    }
+  }
+
+  .titleArea {
+    //margin: -24px -24px 0;
+    //background: @body-background;
+    padding: 25px;
+    font-size: @font-size-lg;
+    position: relative;
+  }
+
+  .cardArea {
+    margin-top: 12px;
+  }
+}
+
+.tableTilte {
+  width: 100%;
+  font-size: 22px;
+  font-weight: 700;
+  line-height: 30px;
+  text-align: center;
+  height: 40px;
+}
+
+.grayBox, .grayBoxPrint {
+  width: 100%;
+  background: @table-header-bg;
+  padding: 30px 50px;
+  position: relative;
+
+  table {
+    border-collapse: collapse;
+  }
+
+  table, td, th {
+    border: 1px solid #e8e8e8;
+    vertical-align: middle;
+    text-align: center;
+  }
+
+  .printBox {
+    width: 1100px;
+    position: relative;
+    margin-left: 50%;
+    left: -550px;
+    border: 1px solid #ddd;
+    padding: 30px 80px;
+    background: #fff;
+
+    :global {
+      .ant-table-thead > tr > th, .ant-table-tbody > tr > td {
+        text-align: center;
+        background: #ffffff !important;
+      }
+    }
+  }
+
+  .tableBottom {
+    position: relative;
+    top: -1px;
+
+    td {
+      &:nth-child(1) {
+        width: 51px;
+        line-height: 22px;
+      }
+
+      width: 148px;
+      line-height: 40px;
+      height: 40px;
+    }
+  }
+
+  .words {
+    margin: 10px 0;
+  }
+}
+
+.grayBoxPrint {
+  position: fixed;
+  z-index: 99999;
+  top: 0;
+  left: 0;
+  padding: 0;
+
+  .printBox {
+    width: 700px;
+    left: 10px;
+    margin: 0;
+    border: 0;
+    padding: 30px 10px;
+  }
+}
+
+.none {
+  display: none;
+}
+
+.tableDwjbqk {
+  tr {
+    width: 100%;
+  }
+
+  td {
+    &:nth-child(1) {
+      width: 5%;
+    }
+
+    &:nth-child(3) {
+      width: 5%;
+    }
+
+    &:nth-child(4) {
+      width: 5%;
+    }
+
+    width: 10%;
+    line-height: 22px;
+    height: 40px;
+  }
+}
+
+.tableYdzf {
+  width: 100%;
+
+  td {
+    width: 16.7%;
+    line-height: 22px;
+    height: 40px;
+  }
+
+  .allwordBox {
+    height: 650px;
+    vertical-align: top;
+    text-align: left;
+    padding: 8px 12px;
+  }
+
+  .qzBox {
+    td {
+      text-align: right;
+      padding: 25px 150px 25px 12px;
+    }
+
+    border-top: 0;
+  }
+}
+
+.jcTime {
+  float: right;
+}
+
+.number {
+  float: right;
+  margin-right: 180px;
+}
+
+.tableZfjc {
+  width: 100%;
+
+  tr {
+    td {
+      &:nth-child(1) {
+        width: 5%;
+      }
+
+      width: 95%;
+      height: 150px;
+      padding: 0 12px;
+    }
+
+    &:nth-child(4) {
+      td {
+        &:nth-child(2n) {
+          width: 45%;
+        }
+
+        width: 5%;
+      }
+    }
+  }
+}
+
+.tableXf {
+  width: 100%;
+
+  td {
+    line-height: 22px;
+    height: 50px;
+  }
+}
+
+.tableYmjzf {
+  width: 100%;
+
+  td {
+    width: 16.7%;
+    line-height: 22px;
+    height: 40px;
+  }
+
+  .allwordBox {
+    height: 300px;
+    vertical-align: top;
+    text-align: left;
+    padding: 8px 12px;
+  }
+
+  .qzBox {
+    td {
+      text-align: right;
+      padding: 25px 12px;
+    }
+
+    border-top: 0;
+  }
+}
+
+.tableXsaj {
+  width: 100%;
+
+  tr {
+    width: 100%;
+  }
+
+  td {
+    line-height: 22px;
+    height: 40px;
+    width: 14%;
+  }
+}
+
+.dwxz {
+  position: absolute;
+  right: 32px;
+  top: 9px;
+  width: 300px;
+}
+
+.box {
+  width: 1100px;
+  min-height: 1000px;
+  position: relative;
+  left: -550px;
+  margin-left: 50%;
+  border: 1px solid #ddd;
+}
+
+@media screen and (max-width: 1441px) {
+  .box {
+    width: 900px;
+    left: -450px;
+  }
+}
+
+.iconLeft {
+  font-size: 40px;
+  position: absolute;
+  color: #aaa;
+  left: 50px;
+  cursor: pointer;
+}
+
+.iconRight {
+  font-size: 40px;
+  position: absolute;
+  color: #aaa;
+  right: 50px;
+  cursor: pointer;
+}
+
+.iconLeft, .iconRight {
+  &:hover {
+    color: #1890ff;
+  }
 }

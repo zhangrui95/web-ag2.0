@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react';
-import { Col, Form, Input, Modal, Row, Table, Tooltip,Divider,Transfer,Radio,Timeline,message } from 'antd';
+import { Col, Form, Input, Modal, Row, Table, Tooltip,Divider,Transfer,Radio,Timeline,message,Card } from 'antd';
 import styles from './EvaluationTable.less';
 import DetailModal from './DetailModal';
 import { connect } from 'dva';
@@ -350,20 +350,28 @@ export default class EvaluationTable extends PureComponent {
             });
         }
         const paginationProps = {
-            showSizeChanger: true,
-            showQuickJumper: true,
-            current: data.page ? data.page.currentPage : '',
-            total: data.page ? data.page.totalResult : '',
-            pageSize: data.page ? data.page.showCount : '',
-            showTotal: (total, range) =>
+            current: data && data.page ? data.page.currentPage : '',
+            total: data && data.page ? data.page.totalResult : '',
+            pageSize: data && data.page ? data.page.showCount : '',
+            showTotal: (total, range) => (
                 <span
-                    className={styles.pagination}>{`共 ${data.page ? data.page.totalResult : 0} 条记录 第 ${data.page ? data.page.currentPage : 1} / ${data.page ? data.page.totalPage : 1} 页`}</span>,
+                    className={
+                        data &&
+                        data.page &&
+                        data.page.totalResult &&
+                        data.page.totalResult.toString().length < 5
+                            ? stylescommon.pagination
+                            : stylescommon.paginations
+                    }
+                >{`共 ${data && data.page ? data.page.totalPage : 1} 页，${
+                    data && data.page ? data.page.totalResult : 0
+                    } 条数据 `}</span>
+            ),
         };
         const { targetKeys,detail,kpList } = this.state;
         return (
-            <div>
+            <Card style={{marginTop:'12px'}}>
                 <Table
-                    size={'middle'}
                     loading={loading}
                     rowKey={record => record.key}
                     dataSource={data.list}
@@ -455,7 +463,7 @@ export default class EvaluationTable extends PureComponent {
                         </div>
                     </div>
                 </Modal>
-            </div>
+            </Card>
         );
     }
 }

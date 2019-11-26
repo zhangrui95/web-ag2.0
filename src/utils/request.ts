@@ -53,11 +53,24 @@ let token = getUserToken();
 const request = extend({
   errorHandler, // 默认错误处理
   // credentials: 'include', // 默认请求是否带上cookie
-  headers: {
-    Accept: 'application/json',
-    'Content-Type': 'application/json; charset=utf-8',
-    Authorization: token,
-  }
 });
-
+// request拦截器, 改变url 或 options.
+request.interceptors.request.use(async (url, options) => {
+    if(options.method === "post"){
+        const headers = {
+            Accept: 'application/json',
+                'Content-Type': 'application/json; charset=utf-8',
+                Authorization: token,
+        };
+        return ({
+            url: url,
+            options: { ...options, headers: headers },
+        });
+    }else{
+        return ({
+            url: url,
+            options: { ...options },
+        });
+    }
+});
 export default request;

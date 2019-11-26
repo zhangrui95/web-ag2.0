@@ -223,7 +223,7 @@ export default class Overview extends PureComponent {
             title: '类别',
             dataIndex: 'categories',
             key: 'categories',
-            className: 'categories',
+
         }, {
             title: selectedDateStr,
             dataIndex: 'selectedDateStr',

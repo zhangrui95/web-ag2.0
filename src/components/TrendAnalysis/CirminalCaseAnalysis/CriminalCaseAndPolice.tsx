@@ -425,7 +425,7 @@ export default class CriminalCaseAndPolice extends PureComponent {
             title: '类别',
             dataIndex: 'categories',
             key: 'categories',
-            className: 'categories',
+
         }, {
             title: selectedDateStr,
             dataIndex: 'selectedDateStr',
@@ -460,7 +460,7 @@ export default class CriminalCaseAndPolice extends PureComponent {
                 title: '对比时间',
                 dataIndex: 'categories',
                 key: 'categories',
-                className: 'categories',
+
                 render: (text) => {
                     if (text === '同比增幅（起）') {
                         return <span>同比增幅（起）<Tooltip title="同比增幅=本期数-同期数"><Icon type="info-circle-o"/></Tooltip></span>;

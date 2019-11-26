@@ -4,7 +4,7 @@
 * 20190506
 * */
 import React, { PureComponent } from 'react';
-import { Row, Col, Icon, Select } from 'antd';
+import { Row, Col, Icon, Select,Card } from 'antd';
 import echarts from 'echarts/lib/echarts';
 import bar from 'echarts/lib/chart/bar';
 import title from 'echarts/lib/component/title';
@@ -304,10 +304,11 @@ export default class EvaluationChats extends PureComponent {
         let that = this;
         let option = {
             title: {
-                text: '机构排名',//正标题
+                text: '|  机构排名',//正标题
                 textStyle: {
                     fontSize: 16,
                     fontWeight: '700',
+                    color:'#fff',
                 },
             },
             tooltip: {
@@ -331,6 +332,7 @@ export default class EvaluationChats extends PureComponent {
             },
             legend: {
                 data: legendData,
+                textStyle: { color: "#fff" },
                 y: 'bottom',//图例说明文字设置
             },
             grid: {
@@ -344,11 +346,33 @@ export default class EvaluationChats extends PureComponent {
                 min: 0,
                 type: 'category', //纵向柱状图，若需要为横向，则此处值为'value'， 下面 yAxis 的type值为'category'
                 data: axisLabel,
+                axisLabel: {   // X轴线 标签修改
+                    textStyle: {
+                        color: '#fff', //坐标值得具体的颜色
+                    }
+                },
+                axisLine: {
+                    show: true, // X轴 网格线 颜色类型的修改
+                    lineStyle: {
+                        color: '#fff'
+                    }
+                },
             }],
             yAxis: [{
                 min: 0,
                 type: 'value',
                 splitArea: { show: false },
+                axisLabel: {   // X轴线 标签修改
+                    textStyle: {
+                        color: '#fff', //坐标值得具体的颜色
+                    }
+                },
+                axisLine: {
+                    show: true, // X轴 网格线 颜色类型的修改
+                    lineStyle: {
+                        color: '#fff'
+                    }
+                },
             }],
             label: {
                 normal: { //显示bar数据
@@ -675,10 +699,11 @@ export default class EvaluationChats extends PureComponent {
         let echart = echarts.init(chart);
         let option = {
             title: {
-                text: '人员考核排名',//正标题
+                text: '|  人员考核排名',//正标题
                 textStyle: {
                     fontSize: 16,
                     fontWeight: '700',
+                    color:'#fff'
                 },
             },
             tooltip: {
@@ -711,11 +736,33 @@ export default class EvaluationChats extends PureComponent {
                 min: 0,
                 type: 'category', //纵向柱状图，若需要为横向，则此处值为'value'， 下面 yAxis 的type值为'category'
                 data: axisLabel,
+                axisLabel: {   // X轴线 标签修改
+                    textStyle: {
+                        color: '#fff', //坐标值得具体的颜色
+                    }
+                },
+                axisLine: {
+                    show: true, // X轴 网格线 颜色类型的修改
+                    lineStyle: {
+                        color: '#fff'
+                    }
+                },
             }],
             yAxis: [{
                 min: 0,
                 type: 'value',
                 splitArea: { show: false },
+                axisLabel: {   // X轴线 标签修改
+                    textStyle: {
+                        color: '#fff', //坐标值得具体的颜色
+                    }
+                },
+                axisLine: {
+                    show: true, // X轴 网格线 颜色类型的修改
+                    lineStyle: {
+                        color: '#fff'
+                    }
+                },
             }],
             label: {
                 normal: { //显示bar数据
@@ -765,12 +812,12 @@ export default class EvaluationChats extends PureComponent {
                                                                        value={`${d.idcard}`}
                                                                        title={d.name}>{`${d.name} ${d.pcard}`}</Option>);
         return (
-            <div className={styles.evalDataView}>
+            <Card className={styles.evalDataView} id={'form'}>
                 <Row gutter={rowLayout} className={styles.listPageRow}>
-                    <Col {...colLayout} className={styles.cardBox}>
+                    <Col {...colLayout} className={styles.viewBox}>
                         <Icon type="left" className={this.state.currentPage1 === 1 ? styles.none : styles.leftGo}
                               onClick={() => this.props.tjnrRedio === '0' ? this.initDataAj(-1, this.props, this.state.sortCharts1) : this.props.tjnrRedio === '1' ? this.initDataGj(-1, this.props, this.state.sortCharts1)  : this.initData(-1, this.props, this.state.sortCharts1,this.props.tjnrCode)}/>
-                        <div className={styles.sortIcon} style={{ left: '110px' }} onClick={() => this.getSort('1')}>
+                        <div className={styles.sortIcon} style={{ left: '120px' }} onClick={() => this.getSort('1')}>
                             <Icon type="caret-up" style={this.state.sortCharts1 ? {} : { color: '#1890ff' }}/>
                             <Icon type="caret-down" style={this.state.sortCharts1 ? { color: '#1890ff' } : {}}/>
                         </div>
@@ -785,7 +832,7 @@ export default class EvaluationChats extends PureComponent {
                                     return <Row
                                         // onClick={() => this.props.changeToListPage({ data: { code: event.bkpdw_dm } }, '0')}
                                         className={styles.rightList}>
-                                        <Col span={14} className={styles.nameRight}><Ellipsis lines={1}
+                                        <Col span={14} className={styles.nameRight}><Ellipsis length={7}
                                                                                               tooltip>{this.props.tjnrRedio === '1' ? event.bkpr_dwmc : event.bkpdw_mc}</Ellipsis></Col>
                                         <Col span={8}>：{this.props.tjnrRedio === '0' ? event.aj_count :this.props.tjnrRedio === '1' ? event.gj_count : event.kfz == '0' ? event.kfz : event.kfz}</Col>
                                     </Row>;
@@ -794,9 +841,7 @@ export default class EvaluationChats extends PureComponent {
                             }
                         </div>
                     </Col>
-                </Row>
-                <Row gutter={rowLayout} className={styles.listPageRow}>
-                    <Col {...colLayout} className={styles.cardBox}>
+                    <Col {...colLayout} className={styles.viewBox}>
                         <Icon type="left" className={styles.leftGo}
                               className={this.state.currentPage3 === 1 ? styles.none : styles.leftGo}
                               onClick={() => this.props.tjnrRedio === '0' ?  this.initRyDataAj(-1, this.props, this.state.sortCharts3, this.props.tjnrCode) : this.props.tjnrRedio === '1' ?  this.initRyDataGj(-1, this.props, this.state.sortCharts3, this.props.tjnrCode): this.initRyData(-1, this.props, this.state.sortCharts3, this.props.tjnrCode)}/>
@@ -816,6 +861,7 @@ export default class EvaluationChats extends PureComponent {
                             filterOption={(input, option) =>
                                 option.props.children.indexOf(input) >= 0
                             }
+                            getPopupContainer={() => document.getElementById('form')}
                         >
                             {this.state.ryList&&this.state.ryList.map((d)=>{
                                return <Option key={`${d.bkpr_jh}`} value={`${d.bkpr_jh}`} title={d.bkpr_name}>{`${d.bkpr_name} ${d.bkpr_jh}`}</Option>
@@ -833,10 +879,10 @@ export default class EvaluationChats extends PureComponent {
                                         // onClick={() => this.props.changeToListPage({ data: { code: event.bkpr_jh } }, '2')}
                                         className={styles.rightList}>
                                         <Col span={15} className={styles.nameCenter}>
-                                            <div><Ellipsis lines={1}
+                                            <div><Ellipsis length={7}
                                                            tooltip>{event.bkpr_dwmc ? event.bkpr_dwmc : ''}</Ellipsis>
                                             </div>
-                                            <div className={styles.nameCenter}><Ellipsis lines={1}
+                                            <div className={styles.nameCenter}><Ellipsis length={7}
                                                                                          tooltip>{event.bkpr_name ? event.bkpr_name : ''}</Ellipsis>
                                             </div>
                                         </Col>
@@ -849,7 +895,7 @@ export default class EvaluationChats extends PureComponent {
                         </div>
                     </Col>
                 </Row>
-            </div>
+            </Card>
         );
     }
 }
