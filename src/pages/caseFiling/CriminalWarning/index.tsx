@@ -26,6 +26,7 @@ import moment from 'moment/moment';
 import Ellipsis from 'ant-design-pro/lib/Ellipsis';
 import styles from '../../common/listPage.less';
 import { exportListDataMaxDays, getUserInfos, tableList } from '../../../utils/utils';
+import {routerRedux} from "dva/router";
 // import Detail from '../../routes/CaseRealData/caseDetail';
 // import RemindModal from '../../../components/RemindModal/RemindModal';
 // import AnnouncementModal from '../../../src/components/AnnouncementModal/AnnouncementModal';
@@ -306,6 +307,24 @@ export default class Index extends PureComponent {
     // );
     // const AddNewDetail = { title: '刑事案件预警详情', content: divs, key: record.id };
     // this.newDetail(AddNewDetail);
+    this.props.dispatch({
+      type: 'global/changeNavigation',
+      payload: {
+        key: record && record.id ? record.id : '1',
+        name: '刑事案件详情',
+        path: '/caseFiling/caseData/CriminalData/caseDetail',
+        isShow: true,
+        query: { record, id: record && record.id ? record.id : '1' },
+      },
+      callback: () => {
+        this.props.dispatch(
+          routerRedux.push({
+            pathname: '/caseFiling/caseData/CriminalData/caseDetail',
+            query: { record: record,id: record && record.id ? record.id : '1' },
+          }),
+        )
+      },
+    });
   };
   // 打开新的详情页面
   newDetail = (addDetail) => {
