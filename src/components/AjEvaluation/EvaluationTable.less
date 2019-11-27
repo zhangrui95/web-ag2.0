@@ -1,0 +1,116 @@
+@import "~antd/lib/style/themes/default.less";
+
+.pagination {
+  position: absolute;
+  left: 0;
+  color: @text-color-secondary;
+
+  :global {
+    .ant-pagination-total-text {
+      position: absolute;
+      left: 0;
+      color: @text-color-secondary;
+    }
+  }
+}
+
+.standardTable {
+  //padding: 0 24px;
+  position: relative;
+}
+.box{
+  overflow: hidden;
+}
+.leftBox{
+  float: left;
+  width: 75%;
+  position: relative;
+  :global{
+    .antd-pro-charts-water-wave-text{
+      h4{
+        display: none;
+      }
+    }
+  }
+  .zf{
+    color: rgba(0, 0, 0, 0.85);
+    line-height: 26px;
+    font-size: 20px;
+  }
+  .fs{
+    color: rgba(0, 0, 0, 0.85);
+    line-height: 32px;
+    font-size: 30px;
+  }
+}
+.rightBox{
+  float: left;
+  width: 25%;
+  border-left: 1px solid #ddd;
+  height: 550px;
+}
+.topDetail{
+  margin-top: 16px;
+  line-height: 30px;
+}
+.khjl{
+  font-size: 18px;
+  text-align: center;
+  font-weight: 600;
+}
+
+.redioGroup {
+  position: relative;
+  top: 5px;
+  left: 30px;
+  :global {
+    .ant-radio-button-wrapper:not(:first-child)::before {
+      background: transparent !important;
+    }
+    .ant-radio-button-wrapper:first-child{
+      border-left: 1px solid #1890ff;
+    }
+
+    .ant-radio-group-solid, .ant-radio-button-wrapper-checked {
+      outline: none !important;
+      background: transparent;
+    }
+
+    .ant-radio-button-wrapper {
+      border-color: #1890ff;
+      color: #1890ff;
+      height: 28px;
+      line-height: 26px;
+      padding: 0 6px;
+    }
+
+    .ant-radio-button-wrapper-checked {
+      background: #1890ff!important;
+      color: #fff !important;
+    }
+  }
+}
+.timeLine{
+  margin: 10px 0 0 24px!important;
+  height: 470px;
+  overflow-y: auto;
+  padding: 2px 0;
+}
+.tableTransferBox{
+  :global{
+    .ant-pagination{
+      display: none!important;
+    }
+    .ant-transfer-list{
+      padding: 0!important;
+      width: 307px!important;
+      height: 320px!important;
+    }
+    .ant-transfer-list-header{
+      display: none;
+    }
+    .ant-table-small > .ant-table-content .ant-table-header{
+      background-color: #fafafa;
+    }
+  }
+}

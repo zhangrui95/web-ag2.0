@@ -1,0 +1,333 @@
+@import '~antd/lib/style/themes/default.less';
+@import '../../theme/darkTheme';
+.viewCount {
+  height: 140px;
+  border: 1px solid #e8e8e8;
+  margin-top: 16px;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+
+  .countButtonCurrent {
+    background-color: #FF6600;
+
+    .countButtonTitle {
+      background: #FF9900;
+    }
+  }
+
+  .countButton {
+    background: #999;
+
+    .countButtonTitle {
+      background: #CCC;
+    }
+  }
+
+  .countButton, .countButtonCurrent {
+    height: 75px;
+    color: #fff;
+    display: flex;
+    margin-right: 16px;
+    cursor: pointer;
+
+    .countButtonTitle, .countButtonNumber, .bigCountButtonNumber {
+      padding: 0 16px;
+      height: 75px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .countButtonTitle {
+      line-height: normal;
+      text-align: center;
+
+    }
+
+    .countButtonNumber, .bigCountButtonNumber {
+      div {
+        height: 37px;
+        line-height: 37px;
+        text-align: center;
+      }
+    }
+
+    .bigCountButtonNumber {
+      div {
+        text-align: center;
+        font-size: @font-size-lg;
+      }
+    }
+  }
+
+  // 问题数据图表
+  .warningCountButtonArea {
+    display: flex;
+    cursor: pointer;
+
+    .warningCountButtonTitleBlue, .warningCountButtonNumberBlue {
+      color: #0099FE;
+    }
+
+    .warningCountButtonTitlePink, .warningCountButtonNumberPink {
+      color: #FE0032;
+    }
+
+    .warningCountButtonTitleBlue, .warningCountButtonNumberBlue, .warningCountButtonTitlePink, .warningCountButtonNumberPink {
+      height: 100px;
+      line-height: 100px;
+      font-size: @font-size-lg;
+    }
+
+    .warningCountButtonNumberBlue, .warningCountButtonNumberPink {
+      width: 100px;
+      position: relative;
+      text-align: center;
+      margin: 0 10px;
+
+      img {
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        left: 0;
+        top: 0;
+        animation: animated_div 5s linear infinite;
+        -webkit-animation: animated_div 5s linear infinite;
+        animation-direction: normal;
+        -webkit-animation-direction: normal;
+      }
+    }
+  }
+}
+
+.listPageRow {
+  margin: 16px 16px 16px;
+
+  .cardBox {
+    width: 100%;
+    height: 300px;
+    background: @component-background;
+    padding: 16px;
+  }
+
+  .leftNunList {
+    width: 200px;
+    float: right;
+    padding: 40px 0;
+    line-height: 30px;
+  }
+
+  .leftNunListRy {
+    width: 200px;
+    float: right;
+    line-height: 20px;
+    text-align: center;
+  }
+
+  .leftGo, .rightGo {
+    position: absolute;
+    font-size: 30px;
+    color: #ccc;
+    cursor: pointer;
+    z-index: 999;
+    top: 155px;
+  }
+
+  .leftGo {
+    left: 24px;
+  }
+
+  .rightGo {
+    right: 230px;
+  }
+
+  .rightCharts {
+    width: ~'calc(100% - 200px)';
+    float: left;
+    height: 315px;
+    padding-left: 16px;
+    position: relative;
+    //z-index: 99;
+  }
+
+  @media screen and (max-width: @screen-xxl) {
+    .rightCharts {
+      width: ~'calc(100% - 230px)';
+    }
+  }
+
+  .cardBoxzk {
+    border: 1px solid #e8e8e8;
+    width: 100%;
+    height: 300px;
+    background: @body-background;
+    overflow-y: auto;
+    overflow-x: hidden;
+  }
+}
+
+// 涉案物品需要开始
+.listPageWrap {
+  background-color: rgb(240, 242, 245);
+  position: absolute;
+  top: 2px;
+  right: 36px;
+  z-index: 1001;
+
+  .listPageHeader {
+    background: #fff;
+    padding: 16px 24px;
+    border-top: none;
+
+    a {
+      font-size: @font-size-lg;
+      color: @heading-color;
+      line-height: 26px;
+
+      &:hover {
+        color: @link-active-color;
+      }
+    }
+
+    .listPageHeaderCurrent {
+      //font-size: @font-size-lg;
+      font-weight: bold;
+      color: @primary-color;
+    }
+
+    span {
+      padding: 0 8px;
+    }
+
+    .typeButtonsArea {
+      float: right;
+
+      button {
+        margin-right: 16px;
+      }
+    }
+  }
+}
+
+.progressName {
+  padding: 0 24px 4px;
+}
+
+.progressCount {
+  padding: 0 24px;
+  margin-bottom: 12px;
+}
+
+// 涉案物品需要结束
+.policeDataView {
+  margin-bottom: 48px;
+  width: 100%;
+
+  .viewCount {
+    background: url("../../assets/viewData/policeViewData.jpg") no-repeat #fff;
+  }
+}
+
+.caseDataView, .xzCaseDataView {
+  margin-bottom: 48px;
+
+  .viewCount {
+    background: url("../../assets/viewData/caseViewData.jpg") no-repeat #fff;
+  }
+}
+
+.ItemDataView {
+  margin-bottom: 48px;
+
+  .viewCount {
+    background: url("../../assets/viewData/itemViewData.jpg") no-repeat #fff;
+  }
+}
+
+.AreaDataView {
+  margin-bottom: 48px;
+
+  .viewCount {
+    background: url("../../assets/viewData/areaViewData.jpg") no-repeat #fff;
+  }
+}
+
+.noneDataDiv {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@-webkit-keyframes animated_div {
+  0% {
+    -webkit-transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+  }
+}
+
+.evalDataView {
+  margin-top: 12px;
+  .listPageRow {
+    margin: 0;
+  }
+
+  .cardBox {
+    height: 350px;
+    border-bottom: 0;
+  }
+}
+
+.nameRight {
+  text-align: right;
+}
+.nameCenter {
+  text-align: center;
+}
+.sortIcon {
+  position: absolute;
+  color: #fff;
+  left: 150px;
+  top: 15px;
+  cursor: pointer;
+  z-index: 999;
+  border-radius: 4px;
+  height: 30px;
+  width: 20px;
+  overflow: hidden;
+
+  :global {
+    .anticon-caret-up, .anticon-caret-down {
+      color: #ccc;
+      font-size: 18px;
+    }
+
+    .anticon-caret-down {
+      position: relative;
+      top: -10px;
+    }
+  }
+}
+
+.none {
+  display: none!important;
+}
+
+.rightList {
+  //cursor: pointer;
+}
+.choiceRy{
+  width: 300px;
+  position: absolute!important;
+  left: 180px;
+  z-index: 9999;
+  top: 14px;
+}
+.viewBox{
+  padding: 20px;
+  border-top: 1px solid @body-background;
+}

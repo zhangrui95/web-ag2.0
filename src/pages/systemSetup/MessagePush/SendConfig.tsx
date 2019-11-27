@@ -122,7 +122,7 @@ class SendConfig extends Component {
         let time5 =  time&&time[2] ? time[2].split("~")[1] : '';
         return (
             <div>
-                <Card className={style.cardBox}>
+                <Card className={style.cardBox} id={'form'}>
                     <Form>
                         <Form.Item label="是否启用" {...formItemLayout}>
                             {getFieldDecorator('dxts_sfqy', {
@@ -176,17 +176,29 @@ class SendConfig extends Component {
                             })(
                                 <div style={{height: this.state.autoHeight ? 'auto' : '40px',overflow: 'hidden'}}>
                                     <div>
-                                        <TimePicker value={this.state.startTime0 ? this.state.startTime0 === 'clear' ? null:this.state.startTime0 : time0 ? moment(time0, 'HH:mm:ss') : ''} onChange={(time, timeString)=>this.onChangeTime(time, timeString, 0)} defaultOpenValue={moment('00:00:00', 'HH:mm:ss')} /> <span>  ~  </span>
-                                        <TimePicker value={this.state.endTime0 ? this.state.endTime0 === 'clear' ? null:this.state.endTime0 : time1 ? moment(time1, 'HH:mm:ss') : ''} onChange={(time, timeString)=>this.onChangeTimes(time, timeString, 0)} defaultOpenValue={moment('00:00:00', 'HH:mm:ss')} />
+                                        <TimePicker value={this.state.startTime0 ? this.state.startTime0 === 'clear' ? null:this.state.startTime0 : time0 ? moment(time0, 'HH:mm:ss') : ''}
+                                                    getPopupContainer={() => document.getElementById('form')}
+                                                    onChange={(time, timeString)=>this.onChangeTime(time, timeString, 0)} defaultOpenValue={moment('00:00:00', 'HH:mm:ss')} /> <span style={{color:'#fff'}}>  ~  </span>
+                                        <TimePicker value={this.state.endTime0 ? this.state.endTime0 === 'clear' ? null:this.state.endTime0 : time1 ? moment(time1, 'HH:mm:ss') : ''}
+                                                    getPopupContainer={() => document.getElementById('form')}
+                                                    onChange={(time, timeString)=>this.onChangeTimes(time, timeString, 0)} defaultOpenValue={moment('00:00:00', 'HH:mm:ss')} />
                                         <span onClick={this.getAdd} className={style.iconAdd}><Icon type={this.state.autoHeight ? "up" : "down"}/><span>  {this.state.autoHeight ? '折叠' : '展开'} </span></span>
                                     </div>
                                     <div>
-                                        <TimePicker value={this.state.startTime1 ? this.state.startTime1=== 'clear' ? null:this.state.startTime1 : time2 ? moment(time2, 'HH:mm:ss') : ''}  onChange={(time, timeString)=>this.onChangeTime(time, timeString, 1)} defaultOpenValue={moment('00:00:00', 'HH:mm:ss')} /> <span>  ~  </span>
-                                        <TimePicker value={this.state.endTime1 ? this.state.endTime1=== 'clear' ? null:this.state.endTime1 : time3 ? moment(time3, 'HH:mm:ss') : ''} onChange={(time, timeString)=>this.onChangeTimes(time, timeString, 1)} defaultOpenValue={moment('00:00:00', 'HH:mm:ss')} />
+                                        <TimePicker value={this.state.startTime1 ? this.state.startTime1=== 'clear' ? null:this.state.startTime1 : time2 ? moment(time2, 'HH:mm:ss') : ''}
+                                                    getPopupContainer={() => document.getElementById('form')}
+                                                    onChange={(time, timeString)=>this.onChangeTime(time, timeString, 1)} defaultOpenValue={moment('00:00:00', 'HH:mm:ss')} /> <span style={{color:'#fff'}}>  ~  </span>
+                                        <TimePicker value={this.state.endTime1 ? this.state.endTime1=== 'clear' ? null:this.state.endTime1 : time3 ? moment(time3, 'HH:mm:ss') : ''}
+                                                    getPopupContainer={() => document.getElementById('form')}
+                                                    onChange={(time, timeString)=>this.onChangeTimes(time, timeString, 1)} defaultOpenValue={moment('00:00:00', 'HH:mm:ss')} />
                                     </div>
                                     <div>
-                                        <TimePicker value={this.state.startTime2 ? this.state.startTime2=== 'clear' ? null:this.state.startTime2 : time4 ? moment(time4, 'HH:mm:ss') : ''} onChange={(time, timeString)=>this.onChangeTime(time, timeString, 2)} defaultOpenValue={moment('00:00:00', 'HH:mm:ss')} /> <span>  ~  </span>
-                                        <TimePicker value={this.state.endTime2 ? this.state.endTime2=== 'clear' ? null:this.state.endTime2: time5 ? moment(time5, 'HH:mm:ss') : ''} onChange={(time, timeString)=>this.onChangeTimes(time, timeString, 2)} defaultOpenValue={moment('00:00:00', 'HH:mm:ss')} />
+                                        <TimePicker value={this.state.startTime2 ? this.state.startTime2=== 'clear' ? null:this.state.startTime2 : time4 ? moment(time4, 'HH:mm:ss') : ''}
+                                                    getPopupContainer={() => document.getElementById('form')}
+                                                    onChange={(time, timeString)=>this.onChangeTime(time, timeString, 2)} defaultOpenValue={moment('00:00:00', 'HH:mm:ss')} /> <span style={{color:'#fff'}}>  ~  </span>
+                                        <TimePicker value={this.state.endTime2 ? this.state.endTime2=== 'clear' ? null:this.state.endTime2: time5 ? moment(time5, 'HH:mm:ss') : ''}
+                                                    getPopupContainer={() => document.getElementById('form')}
+                                                    onChange={(time, timeString)=>this.onChangeTimes(time, timeString, 2)} defaultOpenValue={moment('00:00:00', 'HH:mm:ss')} />
                                     </div>
                                 </div>
                             )}

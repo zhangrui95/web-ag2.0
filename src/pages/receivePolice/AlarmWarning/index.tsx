@@ -1,8 +1,8 @@
 /*
-*  警情预警
-*  author：zr
-*  20181222
-* */
+ *  警情预警
+ *  author：zr
+ *  20181222
+ * */
 import React, { PureComponent } from 'react';
 import { connect } from 'dva';
 import {
@@ -20,7 +20,9 @@ import {
   Divider,
   Radio,
   Tooltip,
-  Dropdown, Menu,Icon,
+  Dropdown,
+  Menu,
+  Icon,
 } from 'antd';
 import moment from 'moment/moment';
 // import Ellipsis from '../../../src/components/Ellipsis';
@@ -30,7 +32,7 @@ import Detail from '../AlarmData/policeDetail';
 // import RemindModal from '../../../components/RemindModal/RemindModal';
 // import AnnouncementModal from '../../../components/AnnouncementModal/AnnouncementModal';
 // import ShareModal from '../../../components/ShareModal/ShareModal';
-import {routerRedux} from "dva/router";
+import { routerRedux } from 'dva/router';
 import Ellipsis from 'ant-design-pro/lib/Ellipsis';
 
 const { Option } = Select;
@@ -50,7 +52,6 @@ let currentValue;
   loading: loading.models.EarlyWarning,
 }))
 @Form.create()
-
 export default class Index extends PureComponent {
   state = {
     yjjb: '',
@@ -84,17 +85,17 @@ export default class Index extends PureComponent {
   }
 
   // 切换tab
-  onTabChange = (activeKey) => {
+  onTabChange = activeKey => {
     this.setState({
       activeKey,
     });
   };
   // 关闭页面
   onTabEdit = (targetKey, action) => {
-    this[action](targetKey);  // this.remove(targetKey);
+    this[action](targetKey); // this.remove(targetKey);
   };
   // 关闭页面链接的函数
-  remove = (targetKey) => {
+  remove = targetKey => {
     let activeKey = this.state.activeKey;
     let lastIndex;
     this.state.arrayDetail.forEach((pane, i) => {
@@ -136,7 +137,7 @@ export default class Index extends PureComponent {
     });
   };
   // 获取数据
-  getDossier = (param) => {
+  getDossier = param => {
     this.props.dispatch({
       type: 'EarlyWarning/getList',
       payload: param || '',
@@ -156,7 +157,7 @@ export default class Index extends PureComponent {
     });
   };
   // 获取所有警员
-  getAllPolice = (name) => {
+  getAllPolice = name => {
     const that = this;
     if (timeout) {
       clearTimeout(timeout);
@@ -169,8 +170,8 @@ export default class Index extends PureComponent {
         payload: {
           name,
         },
-        callback: (data) => {
-          if (data && (currentValue === name)) {
+        callback: data => {
+          if (data && currentValue === name) {
             that.setState({
               allPolice: data.slice(0, 50),
             });
@@ -178,7 +179,6 @@ export default class Index extends PureComponent {
         },
       });
     }, 300);
-
   };
 
   // 重置
@@ -202,8 +202,11 @@ export default class Index extends PureComponent {
       yjsj_js: yjsjTime && yjsjTime.length > 0 ? yjsjTime[1].format('YYYY-MM-DD') : '',
     };
     if (yjsjTime && yjsjTime.length > 0) {
-      const isAfterDate = moment(formValues.yjsj_js).isAfter(moment(formValues.yjsj_ks).add(exportListDataMaxDays, 'days'));
-      if (isAfterDate) { // 选择时间间隔应小于exportListDataMaxDays
+      const isAfterDate = moment(formValues.yjsj_js).isAfter(
+        moment(formValues.yjsj_ks).add(exportListDataMaxDays, 'days'),
+      );
+      if (isAfterDate) {
+        // 选择时间间隔应小于exportListDataMaxDays
         message.warning(`日期间隔需小于${exportListDataMaxDays}天`);
       } else {
         this.props.dispatch({
@@ -212,7 +215,7 @@ export default class Index extends PureComponent {
             tableType: '27',
             ...formValues,
           },
-          callback: (data) => {
+          callback: data => {
             if (data.text) {
               message.error(data.text);
             } else {
@@ -224,11 +227,10 @@ export default class Index extends PureComponent {
     } else {
       message.warning(`请选择需要导出的数据日期，日期间隔需小于${exportListDataMaxDays}天`);
     }
-
   };
 
   // 查询
-  handleSearch = (e) => {
+  handleSearch = e => {
     e.preventDefault();
     const values = this.props.form.getFieldsValue();
     const yjsjTime = values.yjsj;
@@ -253,7 +255,7 @@ export default class Index extends PureComponent {
     this.getDossier(params);
   };
   // 获取办案人信息
-  handleAllPoliceOptionChange = (value) => {
+  handleAllPoliceOptionChange = value => {
     this.getAllPolice(value);
   };
   // 表格分页功能
@@ -273,7 +275,7 @@ export default class Index extends PureComponent {
     });
   };
   // 打开新的详情页面
-  details = (record) => {
+  details = record => {
     // const divs = (
     //   <div>
     //     <Detail
@@ -309,15 +311,15 @@ export default class Index extends PureComponent {
         this.props.dispatch(
           routerRedux.push({
             pathname: '/receivePolice/AlarmData/policeDetail',
-            query: { record: record,id: record && record.id ? record.id : '1' },
+            query: { record: record, id: record && record.id ? record.id : '1' },
           }),
-        )
+        );
       },
     });
   };
 
   // 打开新的详情页面
-  newDetail = (addDetail) => {
+  newDetail = addDetail => {
     let newDetail = [];
     let isDetail = true;
     newDetail = [...this.state.arrayDetail];
@@ -337,21 +339,20 @@ export default class Index extends PureComponent {
         activeKey: addDetail.key,
       });
     }
-
   };
   // 无法选择的日期
-  disabledDate = (current) => {
+  disabledDate = current => {
     // Can not select days before today and today
     return current && current.valueOf() > Date.now();
   };
   // 请求当前数据的详情（提醒弹窗中的回显数据从此处获取）
-  thisNewDetails = (res) => {
+  thisNewDetails = res => {
     this.props.dispatch({
       type: 'policeData/policeDetailFetch',
       payload: {
         id: res.system_id,
       },
-      callback: (data) => {
+      callback: data => {
         if (data) {
           this.setState({
             policeDetails: data,
@@ -361,21 +362,28 @@ export default class Index extends PureComponent {
     });
   };
   // 渲染机构树
-  renderloop = data => data.map((item) => {
-    const obj = {
-      id: item.code,
-      label: item.name,
-    };
-    const objStr = JSON.stringify(obj);
-    if (item.childrenList && item.childrenList.length) {
-      return <TreeNode value={objStr} key={objStr}
-                       title={item.name}>{this.renderloop(item.childrenList)}</TreeNode>;
-    }
-    return <TreeNode key={objStr} value={objStr} title={item.name}/>;
-  });
+  renderloop = data =>
+    data.map(item => {
+      const obj = {
+        id: item.code,
+        label: item.name,
+      };
+      const objStr = JSON.stringify(obj);
+      if (item.childrenList && item.childrenList.length) {
+        return (
+          <TreeNode value={objStr} key={objStr} title={item.name}>
+            {this.renderloop(item.childrenList)}
+          </TreeNode>
+        );
+      }
+      return <TreeNode key={objStr} value={objStr} title={item.name} />;
+    });
   saveShare = (res, type, ajGzLx) => {
     this.setState({
-      sx: (res.jjdw_mc ? res.jjdw_mc + '、' : '') + (res.yjlxmc ? res.yjlxmc + '、' : '') + (res.cjddsj ? res.cjddsj : ''),
+      sx:
+        (res.jjdw_mc ? res.jjdw_mc + '、' : '') +
+        (res.yjlxmc ? res.yjlxmc + '、' : '') +
+        (res.cjddsj ? res.cjddsj : ''),
       shareRecord: res,
     });
     if (type === 3) {
@@ -396,7 +404,10 @@ export default class Index extends PureComponent {
         payload: {
           agid: res.id,
           lx: this.state.lx,
-          sx: (res.jjdw_mc ? res.jjdw_mc + '、' : '') + (res.yjlxmc ? res.yjlxmc + '、' : '') + (res.yjsj ? res.yjsj : ''),
+          sx:
+            (res.jjdw_mc ? res.jjdw_mc + '、' : '') +
+            (res.yjlxmc ? res.yjlxmc + '、' : '') +
+            (res.yjsj ? res.yjsj : ''),
           type: type,
           tzlx: this.state.tzlx,
           wtid: res.wtid,
@@ -404,7 +415,7 @@ export default class Index extends PureComponent {
           system_id: res.system_id,
           ajGzLx: ajGzLx,
         },
-        callback: (res) => {
+        callback: res => {
           if (!res.error) {
             message.success('关注成功');
             this.getDossier({ currentPage: this.state.current, pd: this.state.formValues });
@@ -424,7 +435,7 @@ export default class Index extends PureComponent {
       AnnouncementVisible: false,
     });
   };
-  getTg = (record) => {
+  getTg = record => {
     this.setState({
       AnnouncementVisible: true,
     });
@@ -434,14 +445,14 @@ export default class Index extends PureComponent {
         ag_id: record.ag_id,
         yj_id: record.id,
       },
-      callback: (res) => {
+      callback: res => {
         this.setState({
           RzList: res.list,
         });
       },
     });
   };
-  noFollow = (record) => {
+  noFollow = record => {
     this.props.dispatch({
       type: 'share/getNoFollow',
       payload: {
@@ -450,7 +461,7 @@ export default class Index extends PureComponent {
         ajbh: record.ajbh,
         ajGzlx: record.ajgzlx,
       },
-      callback: (res) => {
+      callback: res => {
         if (!res.error) {
           message.success('取消关注成功');
           this.getDossier({ currentPage: this.state.current, pd: this.state.formValues });
@@ -467,12 +478,23 @@ export default class Index extends PureComponent {
   };
 
   render() {
-    const { form: { getFieldDecorator }, common: { depTree, superviseStatusDict, YJJBType }, EarlyWarning: { data: { page, list, tbCount } }, loading } = this.props;
+    const {
+      form: { getFieldDecorator },
+      common: { depTree, superviseStatusDict, YJJBType },
+      EarlyWarning: {
+        data: { page, list, tbCount },
+      },
+      loading,
+    } = this.props;
     const newAddDetail = this.state.arrayDetail;
     const { policeDetails } = this.state;
-    const allPoliceOptions = this.state.allPolice.map(d => <Option key={`${d.idcard},${d.pcard}`}
-                                                                   value={`${d.idcard},${d.pcard}$$`}
-                                                                   title={d.name}>{`${d.name} ${d.pcard}`}</Option>);
+    const allPoliceOptions = this.state.allPolice.map(d => (
+      <Option
+        key={`${d.idcard},${d.pcard}`}
+        value={`${d.idcard},${d.pcard}$$`}
+        title={d.name}
+      >{`${d.name} ${d.pcard}`}</Option>
+    ));
     const formItemLayout = {
       labelCol: { xs: { span: 24 }, md: { span: 8 }, xl: { span: 6 }, xxl: { span: 4 } },
       wrapperCol: { xs: { span: 24 }, md: { span: 16 }, xl: { span: 18 }, xxl: { span: 20 } },
@@ -521,41 +543,66 @@ export default class Index extends PureComponent {
       {
         title: '预警内容',
         dataIndex: 'yjnr',
-        render: (text) => {
-          return <Ellipsis length={40} tooltip>{text}</Ellipsis>;
+        render: text => {
+          return (
+            <Ellipsis length={40} tooltip>
+              {text}
+            </Ellipsis>
+          );
         },
       },
       {
         title: '提醒状态',
         dataIndex: 'txzt',
-        render: (text) => {
+        render: text => {
           return <span>{text === '0' ? '未提醒' : '已提醒'}</span>;
         },
       },
       {
         title: '操作',
-        render: (record) => (
+        render: record => (
           <div>
-            {
-              record.yjjbdm === '5008474' ? '' :
-                <span><a href="javascript:;" onClick={() => this.saveShare(record, 3)}>提醒</a><Divider
-                  type="vertical"/></span>}
+            {record.yjjbdm === '5008474' ? (
+              ''
+            ) : (
+              <span>
+                <a href="javascript:;" onClick={() => this.saveShare(record, 3)}>
+                  提醒
+                </a>
+                <Divider type="vertical" />
+              </span>
+            )}
             <a onClick={() => this.details(record)}>详情</a>
-            <Divider type="vertical"/>
-            <a href="javascript:;" onClick={() => this.getTg(record)}>日志</a>
-            <Divider type="vertical"/>
-            {record.sfgz === 0 ? <Dropdown overlay={<Menu>
-                <Menu.Item key="0">
-                  <a onClick={() => this.saveShare(record, 1, 0)}>本警情关注</a>
-                </Menu.Item>
-                <Menu.Item key="1">
-                  <a onClick={() => this.saveShare(record, 1, 1)}>全要素关注</a>
-                </Menu.Item>
-              </Menu>} trigger={['click']}><a href="javascript:;">关注</a></Dropdown> :
-              <a href="javascript:;"
-                 onClick={() => this.noFollow(record)}>取消{record.ajgzlx && record.ajgzlx === '0' ? '本警情' : '全要素'}关注</a>}
-            <Divider type="vertical"/>
-            <a href="javascript:;" onClick={() => this.saveShare(record, 2)}>分享</a>
+            <Divider type="vertical" />
+            <a href="javascript:;" onClick={() => this.getTg(record)}>
+              日志
+            </a>
+            <Divider type="vertical" />
+            {record.sfgz === 0 ? (
+              <Dropdown
+                overlay={
+                  <Menu>
+                    <Menu.Item key="0">
+                      <a onClick={() => this.saveShare(record, 1, 0)}>本警情关注</a>
+                    </Menu.Item>
+                    <Menu.Item key="1">
+                      <a onClick={() => this.saveShare(record, 1, 1)}>全要素关注</a>
+                    </Menu.Item>
+                  </Menu>
+                }
+                trigger={['click']}
+              >
+                <a href="javascript:;">关注</a>
+              </Dropdown>
+            ) : (
+              <a href="javascript:;" onClick={() => this.noFollow(record)}>
+                取消{record.ajgzlx && record.ajgzlx === '0' ? '本警情' : '全要素'}关注
+              </a>
+            )}
+            <Divider type="vertical" />
+            <a href="javascript:;" onClick={() => this.saveShare(record, 2)}>
+              分享
+            </a>
           </div>
         ),
       },
@@ -565,7 +612,9 @@ export default class Index extends PureComponent {
       for (let i = 0; i < superviseStatusDict.length; i++) {
         const item = superviseStatusDict[i];
         superviseStatusOptions.push(
-          <Option key={item.id} value={item.code}>{item.name}</Option>,
+          <Option key={item.id} value={item.code}>
+            {item.name}
+          </Option>,
         );
       }
     }
@@ -574,7 +623,9 @@ export default class Index extends PureComponent {
       for (let a = 0; a < YJJBType.length; a++) {
         const item = YJJBType[a];
         YJJBStatusOptions.push(
-          <Option key={item.id} value={item.code}>{item.name}</Option>,
+          <Option key={item.id} value={item.code}>
+            {item.name}
+          </Option>,
         );
       }
     }
@@ -584,37 +635,125 @@ export default class Index extends PureComponent {
       current: page ? page.currentPage : '',
       total: page ? page.totalResult : '',
       pageSize: page ? page.showCount : '',
-      showTotal: (total, range) =>
-        <span
-          className={styles.listPagination}>{`共 ${page ? page.totalResult : 0} 条记录 第 ${page ? page.currentPage : 1} / ${page ? page.totalPage : 1} 页`}</span>,
+      showTotal: (total, range) => (
+        <span className={styles.listPagination}>{`共 ${page ? page.totalResult : 0} 条记录 第 ${
+          page ? page.currentPage : 1
+        } / ${page ? page.totalPage : 1} 页`}</span>
+      ),
     };
     let detail = (
-      <Row style={{ width: '90%', margin: '0 52px 10px', lineHeight: '36px', color: 'rgba(0, 0, 0, 0.85)' }}>
-        <Col
-          span={8}>接警人：{this.state.policeDetails && this.state.policeDetails.jjr ? this.state.policeDetails.jjr : ''}</Col>
-        <Col span={8}>管辖单位：<Tooltip
-          title={this.state.policeDetails && this.state.policeDetails.jjdw && this.state.policeDetails.jjdw.length > 12 ? this.state.policeDetails.jjdw : null}>{this.state.policeDetails && this.state.policeDetails.jjdw ? this.state.policeDetails.jjdw.length > 12 ? this.state.policeDetails.jjdw.substring(0, 12) + '...' : this.state.policeDetails.jjdw : ''}</Tooltip></Col>
-        <Col span={8}>接警信息：<Tooltip
-          title={this.state.policeDetails && this.state.policeDetails.jjnr && this.state.policeDetails.jjnr.length > 12 ? this.state.policeDetails.jjnr : null}>{this.state.policeDetails && this.state.policeDetails.jjnr ? this.state.policeDetails.jjnr.length > 12 ? this.state.policeDetails.jjnr.substring(0, 12) + '...' : this.state.policeDetails.jjnr : ''}</Tooltip></Col>
-        <Col
-          span={8}>处警人：{this.state.policeDetails && this.state.policeDetails.cjr ? this.state.policeDetails.cjr : ''}</Col>
-        <Col span={8}>处警单位：<Tooltip
-          title={this.state.policeDetails && this.state.policeDetails.cjdw && this.state.policeDetails.cjdw.length > 12 ? this.state.policeDetails.cjdw : null}>{this.state.policeDetails && this.state.policeDetails.cjdw ? this.state.policeDetails.cjdw.length > 12 ? this.state.policeDetails.cjdw.substring(0, 12) + '...' : this.state.policeDetails.cjdw : ''}</Tooltip></Col>
-        <Col span={8}>处警信息：<Tooltip
-          title={this.state.policeDetails && this.state.policeDetails.cjqk && this.state.policeDetails.cjqk.length > 12 ? this.state.policeDetails.cjqk : null}>{this.state.policeDetails && this.state.policeDetails.cjqk ? this.state.policeDetails.cjqk.length > 12 ? this.state.policeDetails.cjqk.substring(0, 12) + '...' : this.state.policeDetails.cjqk : ''}</Tooltip></Col>
+      <Row
+        style={{
+          width: '90%',
+          margin: '0 52px 10px',
+          lineHeight: '36px',
+          color: 'rgba(0, 0, 0, 0.85)',
+        }}
+      >
+        <Col span={8}>
+          接警人：
+          {this.state.policeDetails && this.state.policeDetails.jjr
+            ? this.state.policeDetails.jjr
+            : ''}
+        </Col>
+        <Col span={8}>
+          管辖单位：
+          <Tooltip
+            title={
+              this.state.policeDetails &&
+              this.state.policeDetails.jjdw &&
+              this.state.policeDetails.jjdw.length > 12
+                ? this.state.policeDetails.jjdw
+                : null
+            }
+          >
+            {this.state.policeDetails && this.state.policeDetails.jjdw
+              ? this.state.policeDetails.jjdw.length > 12
+                ? this.state.policeDetails.jjdw.substring(0, 12) + '...'
+                : this.state.policeDetails.jjdw
+              : ''}
+          </Tooltip>
+        </Col>
+        <Col span={8}>
+          接警信息：
+          <Tooltip
+            title={
+              this.state.policeDetails &&
+              this.state.policeDetails.jjnr &&
+              this.state.policeDetails.jjnr.length > 12
+                ? this.state.policeDetails.jjnr
+                : null
+            }
+          >
+            {this.state.policeDetails && this.state.policeDetails.jjnr
+              ? this.state.policeDetails.jjnr.length > 12
+                ? this.state.policeDetails.jjnr.substring(0, 12) + '...'
+                : this.state.policeDetails.jjnr
+              : ''}
+          </Tooltip>
+        </Col>
+        <Col span={8}>
+          处警人：
+          {this.state.policeDetails && this.state.policeDetails.cjr
+            ? this.state.policeDetails.cjr
+            : ''}
+        </Col>
+        <Col span={8}>
+          处警单位：
+          <Tooltip
+            title={
+              this.state.policeDetails &&
+              this.state.policeDetails.cjdw &&
+              this.state.policeDetails.cjdw.length > 12
+                ? this.state.policeDetails.cjdw
+                : null
+            }
+          >
+            {this.state.policeDetails && this.state.policeDetails.cjdw
+              ? this.state.policeDetails.cjdw.length > 12
+                ? this.state.policeDetails.cjdw.substring(0, 12) + '...'
+                : this.state.policeDetails.cjdw
+              : ''}
+          </Tooltip>
+        </Col>
+        <Col span={8}>
+          处警信息：
+          <Tooltip
+            title={
+              this.state.policeDetails &&
+              this.state.policeDetails.cjqk &&
+              this.state.policeDetails.cjqk.length > 12
+                ? this.state.policeDetails.cjqk
+                : null
+            }
+          >
+            {this.state.policeDetails && this.state.policeDetails.cjqk
+              ? this.state.policeDetails.cjqk.length > 12
+                ? this.state.policeDetails.cjqk.substring(0, 12) + '...'
+                : this.state.policeDetails.cjqk
+              : ''}
+          </Tooltip>
+        </Col>
       </Row>
     );
     return (
       <div>
-        <div className={styles.tableListForm} id='jqyjtableListForm'>
-          <Form onSubmit={this.handleSearch} style={{height: this.state.searchHeight ? 'auto' : '59px',}}>
+        <div className={styles.tableListForm} id="jqyjtableListForm">
+          <Form
+            onSubmit={this.handleSearch}
+            style={{ height: this.state.searchHeight ? 'auto' : '59px' }}
+          >
             <Row gutter={rowLayout} className={styles.searchForm}>
               <Col {...colLayout}>
                 <FormItem label="预警类型" {...formItemLayout}>
                   {getFieldDecorator('yjlx', {
                     initialValue: this.state.yjlx,
                   })(
-                    <Select placeholder="请选择" style={{ width: '100%' }} getPopupContainer={() => document.getElementById('jqyjtableListForm')}>
+                    <Select
+                      placeholder="请选择"
+                      style={{ width: '100%' }}
+                      getPopupContainer={() => document.getElementById('jqyjtableListForm')}
+                    >
                       <Option value="">全部</Option>
                       <Option value="5025302">未受案警情</Option>
                       <Option value="5025301">无处置结果</Option>
@@ -627,7 +766,11 @@ export default class Index extends PureComponent {
                   {getFieldDecorator('yjjb', {
                     initialValue: this.state.yjjb,
                   })(
-                    <Select placeholder="请选择" style={{ width: '100%' }} getPopupContainer={() => document.getElementById('jqyjtableListForm')}>
+                    <Select
+                      placeholder="请选择"
+                      style={{ width: '100%' }}
+                      getPopupContainer={() => document.getElementById('jqyjtableListForm')}
+                    >
                       <Option value="">全部</Option>
                       {YJJBStatusOptions}
                     </Select>,
@@ -661,8 +804,16 @@ export default class Index extends PureComponent {
             </Row>
             <Row className={styles.search}>
               <span style={{ float: 'right', marginBottom: 24, marginTop: 5 }}>
-                <Button style={{ marginLeft: 8 }} type="primary" htmlType="submit">查询</Button>
-                <Button style={{ marginLeft: 8 }} onClick={this.handleFormReset} className={styles.empty}>重置</Button>
+                <Button style={{ marginLeft: 8 }} type="primary" htmlType="submit">
+                  查询
+                </Button>
+                <Button
+                  style={{ marginLeft: 8 }}
+                  onClick={this.handleFormReset}
+                  className={styles.empty}
+                >
+                  重置
+                </Button>
                 <Button
                   style={{ marginLeft: 8 }}
                   onClick={this.getSearchHeight}
@@ -676,7 +827,9 @@ export default class Index extends PureComponent {
           </Form>
         </div>
         <div className={styles.tableListOperator}>
-          <Button style={{ borderColor: '#2095FF', marginBottom:16 }} onClick={this.exportData}>导出表格</Button>
+          <Button style={{ borderColor: '#2095FF', marginBottom: 16 }} onClick={this.exportData}>
+            导出表格
+          </Button>
           <Table
             className={styles.listStandardTable}
             size="middle"
@@ -688,20 +841,19 @@ export default class Index extends PureComponent {
             onChange={this.handleTableChange}
           />
           {/*<RemindModal caseDetails={this.state.caseDetails} txVisible={this.state.txVisible}*/}
-                       {/*detail={detail} handleCancel={this.handleCancel} txItem={this.state.txItem}*/}
-                       {/*yjmc="警情预警" getResult={() => this.getDossier({*/}
-            {/*currentPage: this.state.current,*/}
-            {/*pd: this.state.formValues,*/}
+          {/*detail={detail} handleCancel={this.handleCancel} txItem={this.state.txItem}*/}
+          {/*yjmc="警情预警" getResult={() => this.getDossier({*/}
+          {/*currentPage: this.state.current,*/}
+          {/*pd: this.state.formValues,*/}
           {/*})}/>*/}
           {/*<AnnouncementModal visible={this.state.AnnouncementVisible}*/}
-                             {/*handleCancel={this.handleCancels} RzList={this.state.RzList}/>*/}
+          {/*handleCancel={this.handleCancels} RzList={this.state.RzList}/>*/}
           {/*<ShareModal title="警情信息分享" detail={detail} shareVisible={this.state.shareVisible}*/}
-                      {/*handleCancel={this.handleCancel} shareItem={this.state.shareItem}*/}
-                      {/*personList={this.state.personList}*/}
-                      {/*lx={this.state.lx} tzlx={this.state.tzlx} sx={this.state.sx}/>*/}
+          {/*handleCancel={this.handleCancel} shareItem={this.state.shareItem}*/}
+          {/*personList={this.state.personList}*/}
+          {/*lx={this.state.lx} tzlx={this.state.tzlx} sx={this.state.sx}/>*/}
         </div>
       </div>
     );
   }
-
 }

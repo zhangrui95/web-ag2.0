@@ -1,66 +1,40 @@
 /*
- * CaseRealData/caseDetailjs 受立案刑事案件数据详情
+ * XzCaseRealData/index.js 受立案行政案件详情
  * author：jhm
  * 20180605
  * */
 
-import React, { PureComponent } from 'react';
+import React, { PureComponent, Fragment } from 'react';
 import { connect } from 'dva';
-import {
-  Row,
-  Col,
-  Form,
-  Card,
-  Steps,
-  Popover,
-  Button,
-  Menu,
-  Dropdown,
-  Badge,
-  Timeline,
-  Table,
-  Divider,
-  Select,
-  Icon,
-  Avatar,
-  List,
-  Tooltip,
-  Input,
-  message,
-  Pagination,
-  Modal,
-} from 'antd';
+import { Row, Col, Card, Button, Table, Tooltip, message, Modal } from 'antd';
 import styles from './caseDetail.less';
-import liststyles from '../../../pages/common/listDetail.less';
+import liststyles from '../../common/listDetail.less';
 import {
-  getQueryString,
-  userResourceCodeDb,
-  getUserInfos,
   autoheight,
-  tableList,
+  getQueryString,
   userAuthorityCode,
+  userResourceCodeDb,
 } from '../../../utils/utils';
 // import ItemDetail from '../ItemRealData/itemDetail';
-// import PersonDetail from '../AllDocuments/PersonalDocDetail';
 // import SuperviseModal from '../../components/UnCaseRealData/SuperviseModal';
 // import JqDetail from '../../routes/PoliceRealData/policeDetail';
+// import PersonDetail from '../AllDocuments/PersonalDocDetail';
 // import PersonIntoArea from '../../routes/CaseRealData/IntoArea';
 // import DossierDetail from '../../routes/DossierData/DossierDetail';
-import Ellipsis from 'ant-design-pro/lib/Ellipsis';
-// import ShareModal from '../../components/ShareModal/ShareModal';
+import ShareModal from '../../../components/ShareModal/ShareModal';
 import collect from '../../../assets/common/collect.png';
 import nocollect from '../../../assets/common/nocollect.png';
 import share from '../../../assets/common/share.png';
+import Ellipsis from 'ant-design-pro/lib/Ellipsis';
 import CaseModalTrail from '../../../components/Common/CaseModalTrail';
 import CaseModalStep from '../../../components/Common/CaseModalStep';
-// import RetrieveModal from '../../components/ShareModal/RetrieveModal';
 import { authorityIsTrue } from '../../../utils/authority';
-// import MakeTableModal from '../../components/CaseRealData/MakeTableModal';
+// import MakeTableModal from '../../../components/CaseRealData/MakeTableModal';
 
-@connect(({ CaseData, loading, MySuperviseData, AllDetail }) => ({
-  CaseData,
+@connect(({ XzCaseData, loading, CaseData, AllDetail }) => ({
+  XzCaseData,
   loading,
-  MySuperviseData,
+  CaseData,
   AllDetail,
   // loading: loading.models.alarmManagement,
 }))
@@ -73,14 +47,14 @@ export default class caseDetail extends PureComponent {
       wpcurrent: 1, // 物品信息默认在第一页
       areacurrent: 1, // 人员再区情况默认在第一页
       dossiercurrent: 1, // 查看关联卷宗默认在第一页
-      trailLeft: 0,
+      trailLeft: '0',
       is_ok: '0', // 是否在该详情页督办过，默认0,没有督办过
       loading1: false, // 按钮状态，默认false没加载,true是点击后的加载状态
-      caseDetails: '',
-      TrackPaddingTop: 0, // 初始状态的message的paddingtop;
-      TrackPaddingBottom: 0, // 初始状态的message的paddingbottom;
+      caseDetails: null,
+      TrackPaddingTop: '', // 初始状态的message的paddingtop;
+      TrackPaddingBottom: '', // 初始状态的message的paddingbottom;
       TrackPaddingBottom1: '220px', // 初始状态的listStyle的paddingbottom;(TrackPaddingBottom下面的一个子集)
-      open: '0', // 显示‘显示更多’还是‘收起更多’,默认显示更多；
+      open: '0', // 显示‘显示更多’还是‘收起更多’；
       colortrailleft: 'gray', // 左滑动按钮，若到达开始或者结束，是gray(置灰)，否则是blue(蓝色)(轨迹)
       colortrailright: 'blue', // 右滑动按钮，若到达开始或者结束，是gray(置灰)，否则是blue(蓝色)(轨迹)
       // 督办模态框
@@ -91,7 +65,6 @@ export default class caseDetail extends PureComponent {
       from: '',
       // 子系统的id
       // systemId: '',
-      sabar: '',
 
       shareVisible: false,
       shareItem: null,
@@ -99,23 +72,29 @@ export default class caseDetail extends PureComponent {
       lx: '案件信息',
       sx: '',
       sfgz: this.props.sfgz,
+
       policevisible: false,
       resvisible: false,
       areavisible: false,
       Dossiervisible: false,
       IsSure: false, // 确认详情是否加载成功
-      isDb: authorityIsTrue(userResourceCodeDb.zfba_xs), // 督办权限
-      RetrieveVisible: false, // 退补
+      // IsseeArea:false, // 嫌疑人是否有在区信息，true:都有 false:反之
+      isDb: authorityIsTrue(userResourceCodeDb.zfba_xz), // 督办权限
       makeTableModalVisible: false, // 制表model
+      RetrieveRecord: null,
       isZb: authorityIsTrue(userAuthorityCode.ZHIBIAO), // 制表权限
-      isTb: authorityIsTrue(userAuthorityCode.TUIBU), // 退补权限
     };
   }
 
   componentDidMount() {
-    // this.caseDetailDatas(this.props.id);
-    if (this.props.location && this.props.location.query && this.props.location.query.id) {
-      this.caseDetailDatas(this.props.location.query.id);
+    if (
+      (this.props.location &&
+        this.props.location.query &&
+        this.props.location.query.record &&
+        this.props.location.query.record.ajbh) ||
+      this.props.systemId
+    ) {
+      this.caseDetailDatas(this.props.location.query.record.ajbh || this.props.systemId);
     }
   }
 
@@ -129,7 +108,7 @@ export default class caseDetail extends PureComponent {
     }
   }
 
-  // 修改改变模态框状态 通过id 获取数据
+  //修改改变模态框状态 通过id 获取数据
   caseDetailDatas = id => {
     this.setState(
       {
@@ -137,7 +116,7 @@ export default class caseDetail extends PureComponent {
       },
       () => {
         this.props.dispatch({
-          type: 'CaseData/getAjxxXqById',
+          type: 'XzCaseData/getXzAjxxXqById',
           payload: {
             system_id: id,
           },
@@ -153,25 +132,48 @@ export default class caseDetail extends PureComponent {
       },
     );
   };
-
+  // 根据物品案件编号和身份证号打开人员档案窗口
+  openPersonDetail = (idcard, name, ajbh, xyrId) => {
+    this.props.dispatch({
+      type: 'AllDetail/AllDetailPersonFetch',
+      payload: {
+        name: name,
+        sfzh: idcard,
+      },
+      callback: data => {
+        if (data && data.ryxx) {
+          // const divs = (
+          //     <div>
+          //         <PersonDetail
+          //             {...this.props}
+          //             name={name}
+          //             idcard={idcard}
+          //             ajbh={ajbh}
+          //             ly='行政常规数据'
+          //         />
+          //     </div>
+          // );
+          // const AddNewDetail = { title: '人员档案', content: divs, key: idcard + name + 'ryda' };
+          // this.props.newDetail(AddNewDetail);
+        } else {
+          message.error('该人员暂无人员档案');
+        }
+      },
+    });
+  };
   // 问题判定
   onceSupervise = (caseDetails, flag, from) => {
-    if (caseDetails) {
-      this.setState({
-        // systemId: caseDetails.system_id,
-        superviseVisibleModal: !!flag,
-        superviseWtlx: caseDetails.wtlx,
-        // superviseZrdw: caseDetails.bardwmc,
-        // superviseZrdwId: caseDetails.bardw,
-        // superviseZrr: caseDetails.barxm,
-        // id: caseDetails.wtid,
-        // sfzh: caseDetails.barzjhm,
-        from: from,
-        // sabar: caseDetails.sabar,
-      });
-    } else {
-      message.info('该案件无法进行问题判定');
-    }
+    this.setState({
+      // systemId: caseDetails.system_id,
+      superviseVisibleModal: !!flag,
+      superviseWtlx: caseDetails.wtlx,
+      // superviseZrdw: caseDetails.sldw_name,
+      // superviseZrdwId: caseDetails.sldw_dm,
+      // superviseZrr: caseDetails.bar_name,
+      // id: caseDetails.wtid,
+      // sfzh: caseDetails.bar_sfzh,
+      from: from,
+    });
   };
   // 关闭督办模态框
   closeModal = (flag, param) => {
@@ -186,12 +188,14 @@ export default class caseDetail extends PureComponent {
       superviseVisibleModal: !!flag,
       loading1: false,
     });
-    this.caseDetailDatas(this.props.id);
+    this.caseDetailDatas(this.props.systemId);
   };
   // 分享和关注（2为分享，1为关注）
   saveShare = (caseDetails, res, type, ajGzLx) => {
     this.setState({
-      sx: (res.ajmc ? res.ajmc + '、' : '') + (res.schj ? res.schj : ''),
+      sx:
+        (caseDetails.ajmc ? caseDetails.ajmc + '、' : '') +
+        (caseDetails.ajzt ? caseDetails.ajzt : ''),
     });
     if (type === 2) {
       this.setState({
@@ -205,11 +209,13 @@ export default class caseDetail extends PureComponent {
           payload: {
             agid: this.props.yjType === 'yj' ? this.props.yjid : caseDetails.id,
             lx: this.state.lx,
-            sx: (res.ajmc ? res.ajmc + '、' : '') + (res.schj ? res.schj : ''),
+            sx:
+              (caseDetails.ajmc ? caseDetails.ajmc + '、' : '') +
+              (caseDetails.ajzt ? caseDetails.ajzt : ''),
             type: type,
             tzlx: this.props.tzlx,
-            wtid: res.wtid,
-            ajbh: res.ajbh,
+            wtid: caseDetails.wtid,
+            ajbh: caseDetails.ajbh,
             system_id: caseDetails.system_id,
             ajGzLx: ajGzLx,
           },
@@ -283,59 +289,25 @@ export default class caseDetail extends PureComponent {
       makeTableModalVisible: false,
     });
   };
-  // 退补
-  saveRetrieve = (res, flag) => {
-    this.props.dispatch({
-      type: 'CaseData/caseRetrieveFetch',
-      payload: {
-        currentPage: 1,
-        showCount: tableList,
-        pd: {
-          ajbh: res.system_id,
-        },
-      },
-      callback: data => {
-        if (data && data.list.length > 0 && data.list[0].tbrq2 && data.list[0].tbyy2) {
-          message.warning('该数据已完成退补功能');
-          this.caseDetailDatas(this.props.id);
-        } else {
-          this.setState({
-            RetrieveVisible: !!flag,
-            tbDetail: data.list[0],
-          });
-        }
-      },
-    });
-  };
-  // 退补设置成功或取消退补
-  RetrieveHandleCancel = e => {
-    this.setState({
-      RetrieveVisible: false,
-    });
-  };
-  // 刷新详情
-  refreshCaseDetail = () => {
-    this.caseDetailDatas(this.props.id);
-  };
 
   Topdetail() {
-    const { caseDetails, sfgz, isDb, isZb, isTb } = this.state;
+    const { caseDetails, sfgz, isDb, isZb } = this.state;
     const { record } = this.props;
-
     return (
       <div style={{ backgroundColor: '#252C3C', margin: '16px 0' }}>
         <Row gutter={{ md: 8, lg: 24, xl: 48 }}>
           <Col md={8} sm={24}>
-            {/*<span style={{ margin: '16px', display: 'block' }}>刑事案件详情</span>*/}
+            {/*<span style={{ margin: '16px', display: 'block' }}>行政案件详情</span>*/}
             {isDb &&
+            caseDetails &&
             caseDetails.zrdwList &&
             caseDetails.zrdwList.length > 0 &&
             caseDetails.ssmk === '2' ? (
               <Button
                 type="primary"
-                className={styles.TopMenu}
+                style={{ marginLeft: 8 }}
                 loading={this.state.loading1}
-                onClick={() => this.onceSupervise(caseDetails, true, '刑事案件详情问题判定')}
+                onClick={() => this.onceSupervise(caseDetails, true, '行政案件详情问题判定')}
               >
                 问题判定
               </Button>
@@ -349,19 +321,11 @@ export default class caseDetail extends PureComponent {
                 制表
               </Button>
             ) : null}
-            {// 案件状态为移送才能退补
-            (caseDetails.ajzt && caseDetails.ajzt === '结案') ||
-            !isTb ||
-            caseDetails.qsrq === '' ||
-            (caseDetails.tbrq2 && caseDetails.tbyy2) ? null : (
-              <Button
-                type="primary"
-                className={styles.TopMenu}
-                onClick={() => this.saveRetrieve(caseDetails, true)}
-              >
-                退补
-              </Button>
-            )}
+            {/*{ // 案件状态为移送才能退补*/}
+            {/*caseDetails.ajzt&&caseDetails.ajzt === '结案' || !isTb || caseDetails.qsrq === '' || (caseDetails.tbrq2 && caseDetails.tbyy2) ? null : (*/}
+            {/*<Button type="primary" className={styles.TopMenu} onClick={() => this.saveRetrieve(caseDetails, true)}>退补</Button>*/}
+            {/*)*/}
+            {/*}*/}
           </Col>
           <Col>
             <span style={{ float: 'right', margin: '6px 16px 6px 0' }}>
@@ -401,8 +365,23 @@ export default class caseDetail extends PureComponent {
                       <div style={{ fontSize: 12 }}>分享</div>
                     </Tooltip>
                   </span>
+                  {/*{*/}
+                  {/*isZb ? <Button type="primary" style={{ marginLeft: 8 }}*/}
+                  {/*onClick={() => this.makeTable(caseDetails, true)}>制表</Button> : null*/}
+                  {/*}*/}
                 </span>
               ) : null}
+              {/*{*/}
+              {/*isDb && caseDetails && caseDetails.zrdwList && caseDetails.zrdwList.length > 0 && caseDetails.ssmk === '2' ? (*/}
+              {/*<Button*/}
+              {/*type="primary" style={{ marginLeft: 8 }}*/}
+              {/*loading={this.state.loading1}*/}
+              {/*onClick={() => this.onceSupervise(caseDetails, true, '行政案件详情问题判定')}*/}
+              {/*>*/}
+              {/*问题判定*/}
+              {/*</Button>*/}
+              {/*) : null*/}
+              {/*}*/}
             </span>
           </Col>
         </Row>
@@ -410,17 +389,18 @@ export default class caseDetail extends PureComponent {
     );
   }
 
-  IntoDossierDetail = id => {
+  // 根据物品ID打开物品详细窗口
+  openItemsDetail = system_id => {
     // const divs = (
     //     <div>
-    //         <DossierDetail
+    //         <ItemDetail
     //             {...this.props}
-    //             id={id}
+    //             id={system_id}
     //         />
     //     </div>
     // );
-    // const AddJqDetail = { title: '卷宗详情', content: divs, key: id };
-    // this.props.newDetail(AddJqDetail);
+    // const AddNewDetail = { title: '涉案物品详情', content: divs, key: system_id };
+    // this.props.newDetail(AddNewDetail);
   };
 
   jqDetail = id => {
@@ -434,19 +414,6 @@ export default class caseDetail extends PureComponent {
     // );
     // const AddJqDetail = { title: '警情详情', content: divs, key: id };
     // this.props.newDetail(AddJqDetail);
-  };
-  // 根据物品ID打开物品详细窗口
-  openItemsDetail = systemId => {
-    // const divs = (
-    //     <div>
-    //         <ItemDetail
-    //             {...this.props}
-    //             id={systemId}
-    //         />
-    //     </div>
-    // );
-    // const AddNewDetail = { title: '涉案物品详情', content: divs, key: systemId };
-    // this.props.newDetail(AddNewDetail);
   };
   // 点击案件轨迹人员的在区情况
   IntoArea = (sfzh, ajbh) => {
@@ -513,7 +480,6 @@ export default class caseDetail extends PureComponent {
       areavisible: false,
     });
   };
-
   seeDossier = (flag, list) => {
     if (list.length === 1) {
       this.IntoDossierDetail(list[0].dossier_id);
@@ -529,80 +495,25 @@ export default class caseDetail extends PureComponent {
       Dossiervisible: false,
     });
   };
+  IntoDossierDetail = id => {
+    // const divs = (
+    //     <div>
+    //         <DossierDetail
+    //             {...this.props}
+    //             id={id}
+    //         />
+    //     </div>
+    // );
+    // const AddJqDetail = { title: '卷宗详情', content: divs, key: id };
+    // this.props.newDetail(AddJqDetail);
+  };
 
   renderDetail() {
-    const {
-      CaseData: { loading },
-    } = this.props;
-    const {
-      caseDetails,
-      trailLeft,
-      TrackPaddingBottom1,
-      TrackPaddingTop,
-      TrackPaddingBottom,
-    } = this.state;
+    const { caseDetails } = this.state;
     const rowLayout = { md: 8, xl: 16, xxl: 24 };
-    const colLayoutInName = { sm: 24, md: 6, xl: 6 };
-    const colLayoutInData = { sm: 24, md: 18, xl: 18 };
-    const status = ['否', '是'];
-    const statusMap = ['default', 'success'];
-    const obj1 = document.getElementsByTagName('body');
-    const objheight = obj1[0].clientHeight;
-    const allheight = obj1[0].scrollHeight;
-    const objwidth = obj1[0].clientWidth;
-
-    let newObjWidth = '',
-      superveWidth = '';
-    if (objheight >= allheight) {
-      if (objwidth < 1280 || objwidth === 1280) {
-        newObjWidth = 1280;
-        superveWidth = 905;
-      } else if (objwidth > 1280 && objwidth < 1600) {
-        newObjWidth = 1280;
-        superveWidth = 905;
-        // newObjWidth = 1600;
-        // superveWidth = 1225;
-      } else if (objwidth >= 1600 && objwidth < 1680) {
-        newObjWidth = 1600;
-        superveWidth = 1225;
-        // newObjWidth = 1680;
-        // superveWidth = 1305;
-      } else if (objwidth >= 1680 && objwidth < 1920) {
-        newObjWidth = 1680;
-        superveWidth = 1305;
-        // newObjWidth = 1920;
-        // superveWidth = 1545;
-      } else if (objwidth >= 1920) {
-        newObjWidth = 1920;
-        superveWidth = 1545;
-      }
-    } else if (objheight < allheight) {
-      if (objwidth < 1263 || objwidth === 1263) {
-        newObjWidth = 1280;
-        superveWidth = 905;
-      } else if (objwidth > 1263 && objwidth < 1583) {
-        newObjWidth = 1280;
-        superveWidth = 905;
-        // newObjWidth = 1600;
-        // superveWidth = 1225;
-      } else if (objwidth >= 1583 && objwidth < 1663) {
-        newObjWidth = 1600;
-        superveWidth = 1225;
-        // newObjWidth = 1680;
-        // superveWidth = 1305;
-      } else if (objwidth >= 1663 && objwidth < 1903) {
-        newObjWidth = 1680;
-        superveWidth = 1305;
-        // newObjWidth = 1920;
-        // superveWidth = 1545;
-      } else if (objwidth >= 1903) {
-        newObjWidth = 1920;
-        superveWidth = 1545;
-      }
-    }
     return (
       <div
-        style={{ padding: '24px 0', background: '#252C3C' /*height: autoheight() - 280 + 'px'*/ }}
+        style={{ background: '#252C3C' /*height: autoheight() - 180 + 'px'*/ }}
         className={styles.detailBoxScroll}
       >
         <div className={styles.title}>| 案件信息</div>
@@ -614,7 +525,7 @@ export default class caseDetail extends PureComponent {
               </div>
               <div className={liststyles.Indextail} style={{ paddingLeft: 102 }}>
                 <div className={liststyles.special1}>
-                  <Ellipsis lines={1} tooltip>
+                  <Ellipsis lines={1}>
                     {caseDetails && caseDetails.ajmc ? caseDetails.ajmc : ''}
                   </Ellipsis>
                 </div>
@@ -629,7 +540,7 @@ export default class caseDetail extends PureComponent {
             <Col md={8} sm={24} className={styles.xqcol}>
               <div className={liststyles.Indexfrom}>案件类别：</div>
               <div className={liststyles.Indextail}>
-                {caseDetails && caseDetails.ajlbmc ? caseDetails.ajlbmc : ''}
+                {caseDetails && caseDetails.ajlb_name ? caseDetails.ajlb_name : ''}
               </div>
             </Col>
           </Row>
@@ -637,33 +548,53 @@ export default class caseDetail extends PureComponent {
             <Col md={8} sm={24} className={styles.xqcol}>
               <div className={liststyles.Indexfrom}>案发时段：</div>
               <div className={liststyles.Indextail}>
-                {caseDetails && caseDetails.fasjsx && caseDetails.fasjxx
-                  ? caseDetails.fasjsx + '~' + caseDetails.fasjxx
+                {caseDetails && caseDetails.fasj_sx && caseDetails.fasj_xx
+                  ? caseDetails.fasj_sx + '~' + caseDetails.fasj_xx
                   : ''}
               </div>
             </Col>
             <Col md={8} sm={24} className={styles.xqcol}>
               <div className={liststyles.Indexfrom}>案发地点：</div>
               <div className={liststyles.Indextail}>
-                {caseDetails && caseDetails.afdd ? caseDetails.afdd : ''}
+                {caseDetails && caseDetails.fadxz ? caseDetails.fadxz : ''}
+              </div>
+            </Col>
+            <Col md={8} sm={24} className={styles.xqcol}>
+              <div className={liststyles.Indexfrom}>是否延期：</div>
+              <div className={liststyles.Indextail}>
+                {caseDetails && caseDetails.sfyq
+                  ? caseDetails.sfyq === '1'
+                    ? '已延期至60日'
+                    : '否'
+                  : '否'}
               </div>
             </Col>
           </Row>
           <Row gutter={rowLayout} className={styles.xqrow}>
             <Col md={24} sm={24} className={styles.xqcol}>
               <div className={liststyles.Indexfrom}>简要案情：</div>
-              <div className={liststyles.Indextail} style={{ paddingLeft: 84 }}>
-                {caseDetails && caseDetails.jyaq ? caseDetails.jyaq : ''}
+              <div className={liststyles.Indextail}>
+                {caseDetails && caseDetails.ajjj ? caseDetails.ajjj : ''}
               </div>
             </Col>
           </Row>
           {caseDetails && caseDetails.pajk ? (
             <Row gutter={rowLayout} className={styles.xqrow}>
               <Col md={24} sm={24} className={styles.xqcol}>
-                <div className={liststyles.Indexfrom}>破案简况：</div>
-                <div className={liststyles.Indextail} style={{ paddingLeft: 84 }}>
-                  {caseDetails && caseDetails.pajk ? caseDetails.pajk : ''}
-                </div>
+                <Row className={liststyles.JzInfoDiv}>
+                  <Col
+                    sm={24}
+                    md={2}
+                    xl={2}
+                    className={liststyles.JzInfoRight}
+                    style={{ width: 82.94 }}
+                  >
+                    破案简况：
+                  </Col>
+                  <Col sm={24} md={22} xl={22}>
+                    {caseDetails && caseDetails.pajk ? caseDetails.pajk : ''}
+                  </Col>
+                </Row>
               </Col>
             </Row>
           ) : (
@@ -672,10 +603,20 @@ export default class caseDetail extends PureComponent {
           {caseDetails && caseDetails.xayy ? (
             <Row gutter={rowLayout} className={styles.xqrow}>
               <Col md={24} sm={24} className={styles.xqcol}>
-                <div className={liststyles.Indexfrom}>销案原因：</div>
-                <div className={liststyles.Indextail} style={{ paddingLeft: 84 }}>
-                  {caseDetails && caseDetails.xayy ? caseDetails.xayy : ''}
-                </div>
+                <Row className={liststyles.JzInfoDiv}>
+                  <Col
+                    sm={24}
+                    md={2}
+                    xl={2}
+                    className={liststyles.JzInfoRight}
+                    style={{ width: 82.94 }}
+                  >
+                    销案原因：
+                  </Col>
+                  <Col sm={24} md={22} xl={22}>
+                    {caseDetails && caseDetails.xayy ? caseDetails.xayy : ''}
+                  </Col>
+                </Row>
               </Col>
             </Row>
           ) : (
@@ -683,24 +624,21 @@ export default class caseDetail extends PureComponent {
           )}
 
           {caseDetails && caseDetails.ajzt ? (
-            <div>
-              <Card title={'案件流程'} style={{ margin: '0 12px' }}>
-                <CaseModalStep caseDetails={caseDetails} />
-              </Card>
-            </div>
+            <Card title={'案件流程'} className={styles.ajlczCard} style={{ borderRadius: 0 }}>
+              <CaseModalStep caseDetails={caseDetails} />
+            </Card>
           ) : (
             ''
           )}
         </div>
         {caseDetails && caseDetails.ajzt ? (
           <div>
-            <div className={styles.title}>案件轨迹</div>
-            <CaseModalTrail {...this.props} caseDetails={caseDetails} from="刑事" />
+            <div className={styles.title}>| 案件轨迹</div>
+            <CaseModalTrail {...this.props} caseDetails={caseDetails} from="行政" />
           </div>
         ) : (
           ''
         )}
-
         <div style={{ textAlign: 'center' }}>
           {caseDetails && caseDetails.jqxxList && caseDetails.jqxxList.length > 0 ? (
             <Button
@@ -751,10 +689,6 @@ export default class caseDetail extends PureComponent {
     );
   }
 
-  ResultId = () => {
-    return 'caseDetail' + this.props.ajbh;
-  };
-
   render() {
     const {
       superviseVisibleModal,
@@ -763,56 +697,8 @@ export default class caseDetail extends PureComponent {
       resvisible,
       areavisible,
       Dossiervisible,
-      RetrieveVisible,
       makeTableModalVisible,
-      tbDetail,
     } = this.state;
-    let detail = (
-      <Row
-        style={{
-          width: '90%',
-          margin: '0 38px 10px',
-          lineHeight: '36px',
-          color: 'rgba(0, 0, 0, 0.85)',
-        }}
-      >
-        <Col span={12}>
-          案件名称：
-          <Tooltip
-            title={
-              caseDetails && caseDetails.ajmc && caseDetails.ajmc.length > 20
-                ? caseDetails.ajmc
-                : null
-            }
-          >
-            {caseDetails && caseDetails.ajmc
-              ? caseDetails.ajmc.length > 20
-                ? caseDetails.ajmc.substring(0, 20) + '...'
-                : caseDetails.ajmc
-              : ''}
-          </Tooltip>
-        </Col>
-        <Col span={12}>
-          办案单位：
-          <Tooltip
-            title={
-              caseDetails && caseDetails.sadwmc && caseDetails.sadwmc.length > 20
-                ? caseDetails.sadwmc
-                : null
-            }
-          >
-            {caseDetails && caseDetails.sadwmc
-              ? caseDetails.sadwmc.length > 20
-                ? caseDetails.sadwmc.substring(0, 20) + '...'
-                : caseDetails.sadwmc
-              : ''}
-          </Tooltip>
-        </Col>
-        <Col span={12}>案件状态：{caseDetails && caseDetails.schj ? caseDetails.schj : ''}</Col>
-        <Col span={12}>办案民警：{caseDetails && caseDetails.barxm ? caseDetails.barxm : ''}</Col>
-      </Row>
-    );
-
     const JqColumns = [
       {
         title: '接警来源',
@@ -1052,8 +938,55 @@ export default class caseDetail extends PureComponent {
         ),
       },
     ];
+    let detail = (
+      <Row
+        style={{
+          width: '90%',
+          margin: '0 38px 10px',
+          lineHeight: '36px',
+          color: 'rgba(0, 0, 0, 0.85)',
+        }}
+      >
+        <Col span={12}>
+          案件名称：
+          <Tooltip
+            title={
+              caseDetails && caseDetails.ajmc && caseDetails.ajmc.length > 20
+                ? caseDetails.ajmc
+                : null
+            }
+          >
+            {caseDetails && caseDetails.ajmc
+              ? caseDetails.ajmc.length > 20
+                ? caseDetails.ajmc.substring(0, 20) + '...'
+                : caseDetails.ajmc
+              : ''}
+          </Tooltip>
+        </Col>
+        <Col span={12}>
+          受理单位：
+          <Tooltip
+            title={
+              caseDetails && caseDetails.sldw_name && caseDetails.sldw_name.length > 20
+                ? caseDetails.sldw_name
+                : null
+            }
+          >
+            {caseDetails && caseDetails.sldw_name
+              ? caseDetails.sldw_name.length > 20
+                ? caseDetails.sldw_name.substring(0, 20) + '...'
+                : caseDetails.sldw_name
+              : ''}
+          </Tooltip>
+        </Col>
+        <Col span={12}>案件状态：{caseDetails && caseDetails.ajzt ? caseDetails.ajzt : ''}</Col>
+        <Col span={12}>
+          办案民警：{caseDetails && caseDetails.bar_name ? caseDetails.bar_name : ''}
+        </Col>
+      </Row>
+    );
     return (
-      <div id={this.ResultId()}>
+      <div id="caseDetail">
         <div>{this.Topdetail()}</div>
         <div>{this.renderDetail()}</div>
 
@@ -1065,148 +998,148 @@ export default class caseDetail extends PureComponent {
         {/*// saveModal={this.saveModal}*/}
         {/*caseDetails={this.state.caseDetails}*/}
         {/*getRefresh={this.Refresh}*/}
-        {/*wtflId='203202'*/}
-        {/*wtflMc='刑事案件'*/}
+        {/*wtflId='203205'*/}
+        {/*wtflMc='行政案件'*/}
         {/*// 点击列表的督办显示的四个基本信息*/}
         {/*wtlx={this.state.superviseWtlx}*/}
         {/*from={this.state.from}*/}
         {/*/>*/}
         {/*: ''*/}
         {/*}*/}
-        {/*<ShareModal detail={detail} shareVisible={this.state.shareVisible} handleCancel={this.handleCancel}*/}
-        {/*shareItem={this.state.shareItem} personList={this.state.personList} lx={this.state.lx}*/}
-        {/*tzlx={this.props.tzlx} sx={this.state.sx}/>*/}
-        {/*{*/}
-        {/*RetrieveVisible ? (*/}
-        {/*<RetrieveModal*/}
-        {/*title="退补侦查设置"*/}
-        {/*RetrieveVisible={RetrieveVisible}*/}
-        {/*handleCancel={this.RetrieveHandleCancel}*/}
-        {/*RetrieveRecord={caseDetails} // 列表对应数据的详情*/}
-        {/*refreshPage={this.refreshCaseDetail}*/}
-        {/*tbDetail={tbDetail}*/}
-        {/*/>*/}
-        {/*) : null*/}
-        {/*}*/}
+        <ShareModal
+          detail={detail}
+          shareVisible={this.state.shareVisible}
+          handleCancel={this.handleCancel}
+          shareItem={this.state.shareItem}
+          personList={this.state.personList}
+          lx={this.state.lx}
+          tzlx={this.props.tzlx}
+          sx={this.state.sx}
+        />
 
-        {/*<Modal*/}
-        {/*visible={policevisible}*/}
-        {/*title="警情信息"*/}
-        {/*centered*/}
-        {/*className={styles.policeModal}*/}
-        {/*width={1000}*/}
-        {/*maskClosable={false}*/}
-        {/*onCancel={this.policeCancel}*/}
-        {/*footer={null}*/}
-        {/*getContainer={() => document.getElementById(this.ResultId())}*/}
-        {/*>*/}
-        {/*<Table*/}
-        {/*size={'middle'}*/}
-        {/*style={{ backgroundColor: '#fff' }}*/}
-        {/*pagination={{*/}
-        {/*pageSize: 3,*/}
-        {/*showTotal: (total, range) => <div*/}
-        {/*style={{ position: 'absolute', left: '12px' }}>共 {total} 条记录*/}
-        {/*第 {this.state.jqcurrent} / {(Math.ceil(total / 3))} 页</div>,*/}
-        {/*onChange: (page) => {*/}
-        {/*this.setState({ jqcurrent: page });*/}
-        {/*},*/}
-        {/*}}*/}
-        {/*dataSource={caseDetails ? caseDetails.jqxxList : []}*/}
-        {/*columns={JqColumns}*/}
-
-        {/*/>*/}
-        {/*</Modal>*/}
-        {/*<Modal*/}
-        {/*visible={resvisible}*/}
-        {/*title="涉案物品信息"*/}
-        {/*centered*/}
-        {/*className={styles.policeModal}*/}
-        {/*width={1000}*/}
-        {/*maskClosable={false}*/}
-        {/*onCancel={this.ResCancel}*/}
-        {/*footer={null}*/}
-        {/*getContainer={() => document.getElementById(this.ResultId())}*/}
-        {/*>*/}
-        {/*<Table*/}
-        {/*size={'middle'}*/}
-        {/*style={{ backgroundColor: '#fff' }}*/}
-        {/*pagination={{*/}
-        {/*pageSize: 3,*/}
-        {/*showTotal: (total, range) => <div*/}
-        {/*style={{ position: 'absolute', left: '12px' }}>共 {total} 条记录*/}
-        {/*第 {this.state.wpcurrent} / {(Math.ceil(total / 3))} 页</div>,*/}
-        {/*onChange: (page) => {*/}
-        {/*this.setState({ wpcurrent: page });*/}
-        {/*},*/}
-        {/*}}*/}
-        {/*dataSource={caseDetails ? caseDetails.sawpList : []}*/}
-        {/*columns={WpColumns}*/}
-
-        {/*/>*/}
-        {/*</Modal>*/}
-        {/*<Modal*/}
-        {/*visible={areavisible}*/}
-        {/*title="选择查看人员在区情况"*/}
-        {/*centered*/}
-        {/*className={styles.policeModal}*/}
-        {/*width={1000}*/}
-        {/*maskClosable={false}*/}
-        {/*onCancel={this.AreaCancel}*/}
-        {/*footer={null}*/}
-        {/*getContainer={() => document.getElementById(this.ResultId())}*/}
-        {/*>*/}
-        {/*<Table*/}
-        {/*size={'middle'}*/}
-        {/*style={{ backgroundColor: '#fff' }}*/}
-        {/*pagination={{*/}
-        {/*pageSize: 3,*/}
-        {/*showTotal: (total, range) => <div*/}
-        {/*style={{ position: 'absolute', left: '12px' }}>共 {total} 条记录*/}
-        {/*第 {this.state.areacurrent} / {(Math.ceil(total / 3))} 页</div>,*/}
-        {/*onChange: (page) => {*/}
-        {/*this.setState({ areacurrent: page });*/}
-        {/*},*/}
-        {/*}}*/}
-        {/*dataSource={caseDetails ? caseDetails.rqxyrList : []}*/}
-        {/*columns={AreaColumns}*/}
-
-        {/*/>*/}
-        {/*</Modal>*/}
-        {/*<Modal*/}
-        {/*visible={Dossiervisible}*/}
-        {/*title="选择查看卷宗"*/}
-        {/*centered*/}
-        {/*className={styles.policeModal}*/}
-        {/*width={1000}*/}
-        {/*maskClosable={false}*/}
-        {/*onCancel={this.DossierCancel}*/}
-        {/*footer={null}*/}
-        {/*getContainer={() => document.getElementById(this.ResultId())}*/}
-        {/*>*/}
-        {/*<Table*/}
-        {/*size={'middle'}*/}
-        {/*style={{ backgroundColor: '#fff' }}*/}
-        {/*pagination={{*/}
-        {/*pageSize: 3,*/}
-        {/*showTotal: (total, range) => <div*/}
-        {/*style={{ position: 'absolute', left: '12px' }}>共 {total} 条记录*/}
-        {/*第 {this.state.dossiercurrent} / {(Math.ceil(total / 3))} 页</div>,*/}
-        {/*onChange: (page) => {*/}
-        {/*this.setState({ dossiercurrent: page });*/}
-        {/*},*/}
-        {/*}}*/}
-        {/*dataSource={caseDetails ? caseDetails.jzList : []}*/}
-        {/*columns={DossierColumns}*/}
-        {/*/>*/}
-        {/*</Modal>*/}
+        <Modal
+          visible={policevisible}
+          title="警情信息"
+          centered
+          className={styles.policeModal}
+          width={1000}
+          maskClosable={false}
+          onCancel={this.policeCancel}
+          footer={null}
+          getContainer={() => document.getElementById('caseDetail')}
+        >
+          <Table
+            size={'middle'}
+            style={{ backgroundColor: '#fff' }}
+            pagination={{
+              pageSize: 3,
+              showTotal: (total, range) => (
+                <div style={{ position: 'absolute', left: '12px' }}>
+                  共 {total} 条记录 第 {this.state.jqcurrent} / {Math.ceil(total / 3)} 页
+                </div>
+              ),
+              onChange: page => {
+                this.setState({ jqcurrent: page });
+              },
+            }}
+            dataSource={caseDetails ? caseDetails.jqxxList : []}
+            columns={JqColumns}
+          />
+        </Modal>
+        <Modal
+          visible={resvisible}
+          title="涉案物品信息"
+          centered
+          className={styles.policeModal}
+          width={1000}
+          maskClosable={false}
+          onCancel={this.ResCancel}
+          footer={null}
+          getContainer={() => document.getElementById('caseDetail')}
+        >
+          <Table
+            size={'middle'}
+            style={{ backgroundColor: '#fff' }}
+            pagination={{
+              pageSize: 3,
+              showTotal: (total, range) => (
+                <div style={{ position: 'absolute', left: '12px' }}>
+                  共 {total} 条记录 第 {this.state.wpcurrent} / {Math.ceil(total / 3)} 页
+                </div>
+              ),
+              onChange: page => {
+                this.setState({ wpcurrent: page });
+              },
+            }}
+            dataSource={caseDetails ? caseDetails.sawpList : []}
+            columns={WpColumns}
+          />
+        </Modal>
+        <Modal
+          visible={areavisible}
+          title="选择查看人员在区情况"
+          centered
+          className={styles.policeModal}
+          width={1000}
+          maskClosable={false}
+          onCancel={this.AreaCancel}
+          footer={null}
+          getContainer={() => document.getElementById('caseDetail')}
+        >
+          <Table
+            size={'middle'}
+            style={{ backgroundColor: '#fff' }}
+            pagination={{
+              pageSize: 3,
+              showTotal: (total, range) => (
+                <div style={{ position: 'absolute', left: '12px' }}>
+                  共 {total} 条记录 第 {this.state.areacurrent} / {Math.ceil(total / 3)} 页
+                </div>
+              ),
+              onChange: page => {
+                this.setState({ areacurrent: page });
+              },
+            }}
+            dataSource={caseDetails ? caseDetails.rqxyrList : []}
+            columns={AreaColumns}
+          />
+        </Modal>
+        <Modal
+          visible={Dossiervisible}
+          title="选择查看卷宗"
+          centered
+          className={styles.policeModal}
+          width={1000}
+          maskClosable={false}
+          onCancel={this.DossierCancel}
+          footer={null}
+          getContainer={() => document.getElementById('caseDetail')}
+        >
+          <Table
+            size={'middle'}
+            style={{ backgroundColor: '#fff' }}
+            pagination={{
+              pageSize: 3,
+              showTotal: (total, range) => (
+                <div style={{ position: 'absolute', left: '12px' }}>
+                  共 {total} 条记录 第 {this.state.dossiercurrent} / {Math.ceil(total / 3)} 页
+                </div>
+              ),
+              onChange: page => {
+                this.setState({ dossiercurrent: page });
+              },
+            }}
+            dataSource={caseDetails ? caseDetails.jzList : []}
+            columns={DossierColumns}
+          />
+        </Modal>
         {/*{*/}
         {/*makeTableModalVisible ? (*/}
         {/*<MakeTableModal*/}
         {/*title='表格选择'*/}
         {/*makeTableModalVisible={makeTableModalVisible}*/}
         {/*MakeTableCancel={this.MakeTableCancel}*/}
-        {/*caseRecord={caseDetails}*/}
+        {/*caseRecord={this.state.caseDetails}*/}
         {/*/>*/}
         {/*) : null*/}
         {/*}*/}
