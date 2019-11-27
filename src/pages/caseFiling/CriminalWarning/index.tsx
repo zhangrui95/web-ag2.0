@@ -28,6 +28,7 @@ import moment from 'moment/moment';
 import Ellipsis from 'ant-design-pro/lib/Ellipsis';
 import styles from '../../common/listPage.less';
 import { exportListDataMaxDays, getUserInfos, tableList } from '../../../utils/utils';
+import {routerRedux} from "dva/router";
 // import Detail from '../../routes/CaseRealData/caseDetail';
 // import RemindModal from '../../../components/RemindModal/RemindModal';
 // import AnnouncementModal from '../../../src/components/AnnouncementModal/AnnouncementModal';
@@ -307,6 +308,24 @@ export default class Index extends PureComponent {
     // );
     // const AddNewDetail = { title: '刑事案件预警详情', content: divs, key: record.id };
     // this.newDetail(AddNewDetail);
+    this.props.dispatch({
+      type: 'global/changeNavigation',
+      payload: {
+        key: record && record.id ? record.id : '1',
+        name: '刑事案件详情',
+        path: '/caseFiling/caseData/CriminalData/caseDetail',
+        isShow: true,
+        query: { record, id: record && record.id ? record.id : '1' },
+      },
+      callback: () => {
+        this.props.dispatch(
+          routerRedux.push({
+            pathname: '/caseFiling/caseData/CriminalData/caseDetail',
+            query: { record: record,id: record && record.id ? record.id : '1' },
+          }),
+        )
+      },
+    });
   };
   // 打开新的详情页面
   newDetail = addDetail => {
@@ -685,15 +704,13 @@ export default class Index extends PureComponent {
       </Row>
     );
     const paginationProps = {
-      showSizeChanger: true,
-      showQuickJumper: true,
+      // showSizeChanger: true,
+      // showQuickJumper: true,
       current: page ? page.currentPage : '',
       total: page ? page.totalResult : '',
       pageSize: page ? page.showCount : '',
       showTotal: (total, range) => (
-        <span className={styles.listPagination}>{`共 ${page ? page.totalResult : 0} 条记录 第 ${
-          page ? page.currentPage : 1
-        } / ${page ? page.totalPage : 1} 页`}</span>
+        <span className={styles.listPagination}>{`共 ${page ? page.totalPage : 1} 页，${page ? page.totalResult : 0} 条记录`}</span>
       ),
     };
     return (
@@ -793,7 +810,7 @@ export default class Index extends PureComponent {
           </Button>
           <Table
             className={styles.listStandardTable}
-            size="middle"
+            // size="middle"
             loading={loading}
             rowKey={record => record.wtid}
             dataSource={list}
