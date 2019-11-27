@@ -106,7 +106,7 @@
       color: @primary-color;
     }
 
-    .UnlistPageHeaderCurrent{
+    .UnlistPageHeaderCurrent {
       font-weight: bold;
       color: @title-color;
     }
@@ -158,8 +158,8 @@
     }
   }
 }
-.unclick{
-  color: #bcbcbc!important;
+.unclick {
+  color: #bcbcbc !important;
   cursor: not-allowed;
 }
 
@@ -176,4 +176,11 @@
   float: left;
   border-right: 1px solid @body-background;
   overflow: hidden;
+}
+.policeDataCard {
+  :global {
+    .ant-card-body {
+      background-color: @body-background;
+    }
+  }
 }

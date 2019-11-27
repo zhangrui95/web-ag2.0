@@ -1,10 +1,10 @@
 /*
- * XzCaseDataView.js 行政案件数据展示
+ * CaseDataView.js 刑事案件数据展示
  * author：lyp
- * 20181112
+ * 20181108
  * */
 import React, { PureComponent } from 'react';
-import { Row, Col, Card } from 'antd';
+import { Row, Col, Card, Divider, Tooltip, Button, Radio, Icon, message } from 'antd';
 import moment from 'moment/moment';
 import echarts from 'echarts/lib/echarts';
 import 'echarts/lib/chart/bar';
@@ -14,17 +14,15 @@ import 'echarts/lib/component/title';
 import 'echarts/lib/component/legend';
 import 'echarts/lib/component/tooltip';
 import styles from '../../pages/common/dataView.less';
-import { getDefaultDaysForMonth, getTimeDistance } from '../../utils/utils';
+import { getTimeDistance } from '../../utils/utils';
 import DataViewDateShow from '../Common/DataViewDateShow';
-import nonDivImg from '../../assets/viewData/nonData.png';
 
-let xzCaseEchartRingPie;
-let xzCaseEchartLine;
+let caseEchartBar;
+let caseEchartRingPie;
 let caseTypeStatisticsBar;
+const colors1 = ['#279DF5', '#3F557E', '#FFD401', '#3470AF', '#72C4B8'];
 
-const colors1 = ['#FF3200', '#009AFE'];
-
-export default class XzCaseDataView extends PureComponent {
+export default class CaseDataView extends PureComponent {
   state = {
     currentType: 'week',
     nowData: [0, 0],
@@ -32,38 +30,25 @@ export default class XzCaseDataView extends PureComponent {
     lastData: [0, 0],
     lastDataName: [],
     beforeLastData: [0, 0],
+    selectedDateData: ['立案：0', '受案：0'], // 头部统计警情总数——手动选择日期
     beforeLastDataName: [],
-    selectedDateData: ['受案：0', '结案：0'], // 头部统计警情总数——手动选择日期
     weekType: ['week', 'lastWeek', 'beforeLastWeek'],
     monthType: ['month', 'lastMonth', 'beforeLastMonth'],
-    dateType: {
-      day: '0',
-      lastDay: '1',
-      beforeLastDay: '2',
-      week: '3',
-      lastWeek: '4',
-      beforeLastWeek: '5',
-      month: '6',
-      lastMonth: '7',
-      beforeLastMonth: '8',
-    },
-    sjqkzsNoData: false, // 受结情况无数据
   };
 
   componentDidMount() {
     this.getViewCountData('week');
 
     const weekTypeTime = this.getTime('week');
-    this.getAllXzCaseProgress(weekTypeTime[0], weekTypeTime[1]);
-    this.getAllXzTypeCase('week');
+    this.getAllCaseProgress(weekTypeTime[0], weekTypeTime[1]);
+    this.getEnforcementMeasure(weekTypeTime[0], weekTypeTime[1]);
     this.getCaseTypeStatistics(weekTypeTime[0], weekTypeTime[1]);
-
-    this.showXzCaseEchartRingPie();
-    this.showXzCaseEchartLine();
+    this.showCaseEchartBar();
+    this.showCaseEchartRingPie();
     this.showCaseTypeStatisticsBar();
 
-    window.addEventListener('resize', xzCaseEchartRingPie.resize);
-    window.addEventListener('resize', xzCaseEchartLine.resize);
+    window.addEventListener('resize', caseEchartBar.resize);
+    window.addEventListener('resize', caseEchartRingPie.resize);
     window.addEventListener('resize', caseTypeStatisticsBar.resize);
   }
 
@@ -80,8 +65,8 @@ export default class XzCaseDataView extends PureComponent {
           });
           this.getViewCountData('week', nextProps.orgcode);
           const weekTypeTime = this.getTime('week');
-          this.getAllXzCaseProgress(weekTypeTime[0], weekTypeTime[1], nextProps.orgcode);
-          this.getAllXzTypeCase('week', nextProps.orgcode);
+          this.getAllCaseProgress(weekTypeTime[0], weekTypeTime[1], nextProps.orgcode);
+          this.getEnforcementMeasure(weekTypeTime[0], weekTypeTime[1], nextProps.orgcode);
           this.getCaseTypeStatistics(weekTypeTime[0], weekTypeTime[1], nextProps.orgcode);
         } else if (nextProps.searchType === 'month') {
           this.setState({
@@ -89,8 +74,8 @@ export default class XzCaseDataView extends PureComponent {
           });
           this.getViewCountData('month', nextProps.orgcode);
           const monthTypeTime = this.getTime('month');
-          this.getAllXzCaseProgress(monthTypeTime[0], monthTypeTime[1], nextProps.orgcode);
-          this.getAllXzTypeCase('month', nextProps.orgcode);
+          this.getAllCaseProgress(monthTypeTime[0], monthTypeTime[1], nextProps.orgcode);
+          this.getEnforcementMeasure(monthTypeTime[0], monthTypeTime[1], nextProps.orgcode);
           this.getCaseTypeStatistics(monthTypeTime[0], monthTypeTime[1], nextProps.orgcode);
         } else if (nextProps.searchType === 'selectedDate') {
           const { selectedDateVal } = nextProps;
@@ -99,13 +84,8 @@ export default class XzCaseDataView extends PureComponent {
               currentType: 'selectedDate',
             },
             function() {
-              this.getAllXzCaseProgress(selectedDateVal[0], selectedDateVal[1], nextProps.orgcode);
-              this.getAllXzTypeCase(
-                'selectedDate',
-                nextProps.orgcode,
-                selectedDateVal[0],
-                selectedDateVal[1],
-              );
+              this.getAllCaseProgress(selectedDateVal[0], selectedDateVal[1], nextProps.orgcode);
+              this.getEnforcementMeasure(selectedDateVal[0], selectedDateVal[1], nextProps.orgcode);
               this.getCaseTypeStatistics(selectedDateVal[0], selectedDateVal[1], nextProps.orgcode);
             },
           );
@@ -120,12 +100,12 @@ export default class XzCaseDataView extends PureComponent {
     if (type === 'week') {
       for (let i in weekType) {
         const weekTypeTime = this.getTime(weekType[i]);
-        this.getAllXzCaseProgress(weekTypeTime[0], weekTypeTime[1], orgcode, weekType[i]);
+        this.getAllCaseProgress(weekTypeTime[0], weekTypeTime[1], orgcode, weekType[i]);
       }
     } else if (type === 'month') {
       for (let i in monthType) {
         const monthTypeTime = this.getTime(monthType[i]);
-        this.getAllXzCaseProgress(monthTypeTime[0], monthTypeTime[1], orgcode, monthType[i]);
+        this.getAllCaseProgress(monthTypeTime[0], monthTypeTime[1], orgcode, monthType[i]);
       }
     }
   };
@@ -135,11 +115,90 @@ export default class XzCaseDataView extends PureComponent {
     const endTime = time[1] === '' ? '' : moment(time[1]).format('YYYY-MM-DD');
     return [startTime, endTime];
   };
-  // 案件情况展示
-  getAllXzCaseProgress = (startTime, endTime, orgcode = this.props.orgcode, type) => {
+  // 案件办理进度
+  getAllCaseProgress = (startTime, endTime, orgcode = this.props.orgcode, type) => {
     const { weekType, monthType, currentType } = this.state;
     this.props.dispatch({
-      type: 'XzCaseData/getAllXzCaseProgress',
+      type: 'CaseData/getAllCaseProgress',
+      payload: {
+        kssj: startTime,
+        jssj: endTime,
+        ssmk: '1',
+        orgcode,
+      },
+      callback: data => {
+        if (data) {
+          const xData = [];
+          const barData = [];
+          let sa = 0;
+          let la = 0;
+          let saName = '';
+          let laName = '';
+          for (let i = 0; i < data.list.length; i++) {
+            xData.push(data.list[i].name);
+            barData.push(data.list[i].count);
+            if (data.list[i].code === 101) {
+              sa = data.list[i].count;
+              saName = data.list[i].name;
+            }
+            if (data.list[i].code === 102) {
+              la = data.list[i].count;
+              laName = data.list[i].name;
+            }
+          }
+          if (currentType === 'selectedDate') {
+            this.setState({
+              selectedDateData: [`${saName}：${sa}`, `${laName}：${la}`],
+            });
+          }
+          if (type) {
+            if (type === weekType[0] || type === monthType[0]) {
+              this.setState({
+                nowData: [sa, la],
+                nowDataName: [saName, laName],
+              });
+            }
+            if (type === weekType[1] || type === monthType[1]) {
+              this.setState({
+                lastData: [sa, la],
+                lastDataName: [saName, laName],
+              });
+            }
+            if (type === weekType[2] || type === monthType[2]) {
+              this.setState({
+                beforeLastData: [sa, la],
+                beforeLastDataName: [saName, laName],
+              });
+            }
+          } else {
+            const arry = [...barData];
+            const dataShadow = [];
+            const yMax = Math.max.apply(null, arry);
+            for (let i = 0; i < barData.length; i++) {
+              dataShadow.push(yMax + 100);
+            }
+            caseEchartBar.setOption({
+              xAxis: {
+                data: xData,
+              },
+              series: [
+                {
+                  data: dataShadow,
+                },
+                {
+                  data: barData,
+                },
+              ],
+            });
+          }
+        }
+      },
+    });
+  };
+  // 获取人员强制措施情况
+  getEnforcementMeasure = (startTime, endTime, orgcode = this.props.orgcode) => {
+    this.props.dispatch({
+      type: 'CaseData/getSLAEnforcementMeasure',
       payload: {
         kssj: startTime,
         jssj: endTime,
@@ -151,150 +210,41 @@ export default class XzCaseDataView extends PureComponent {
           const legendData = [];
           const pieData = [];
           let countData = 0;
-          let sa = 0;
-          let ja = 0;
-          let saName = '';
-          let jaName = '';
           for (let i = 0; i < data.list.length; i++) {
             let obj = {
               name: data.list[i].name,
               icon: 'circle',
             };
-            let pieObj = {
+            countData += data.list[i].count;
+            legendData.push(obj);
+            pieData.push({
               name: data.list[i].name,
+              code: data.list[i].code,
               value: data.list[i].count,
               itemStyle: { color: colors1[i] },
-            };
-            if (data.list[i].name !== '结案') {
-              countData += data.list[i].count;
-              legendData.push(obj);
-              pieData.push(pieObj);
-            }
-            // pieData.push({name: data.list[i].name, value: data.list[i].count,itemStyle:{color:colors1[i]}});
-            if (data.list[i].code === 201) {
-              sa = data.list[i].count;
-              saName = data.list[i].name;
-            }
-            if (data.list[i].code === 206) {
-              ja = 0;
-              jaName = '结案';
-            }
-          }
-          if (currentType === 'selectedDate') {
-            this.setState({
-              selectedDateData: [`${saName}：${sa}`, `${jaName}：${ja}`],
             });
           }
-          if (type) {
-            if (type === weekType[0] || type === monthType[0]) {
-              this.setState({
-                nowData: [sa, ja],
-                nowDataName: [saName, jaName],
-              });
-            }
-            if (type === weekType[1] || type === monthType[1]) {
-              this.setState({
-                lastData: [sa, ja],
-                lastDataName: [saName, jaName],
-              });
-            }
-            if (type === weekType[2] || type === monthType[2]) {
-              this.setState({
-                beforeLastData: [sa, ja],
-                beforeLastDataName: [saName, jaName],
-              });
-            }
-          } else {
-            xzCaseEchartRingPie.setOption({
-              legend: {
-                data: legendData,
-                formatter: function(name) {
-                  let formatStr = '';
-                  for (let i = 0; i < pieData.length; i++) {
-                    if (name === pieData[i].name) {
-                      formatStr = `${name} ${pieData[i].value}`;
-                      break;
-                    }
+          caseEchartRingPie.setOption({
+            legend: {
+              data: legendData,
+              formatter: function(name) {
+                let formatStr = '';
+                for (let i = 0; i < pieData.length; i++) {
+                  if (name === pieData[i].name) {
+                    formatStr = `${name} ${pieData[i].value}`;
+                    break;
                   }
-                  return formatStr;
-                },
+                }
+                return formatStr;
               },
-              series: [
-                {
-                  data: pieData,
-                  label: {
-                    normal: {
-                      formatter: '案件总数\n\n' + countData,
-                    },
-                  },
-                },
-              ],
-            });
-          }
-        }
-      },
-    });
-  };
-  // 受结情况
-  getAllXzTypeCase = (currentDateType, orgcode = this.props.orgcode, sTime, eTime) => {
-    const { dateType } = this.state;
-    let payload = {
-      rqType: dateType[currentDateType],
-      ssmk: '1',
-      orgcode,
-    };
-    if (currentDateType === 'selectedDate') {
-      payload = {
-        kssj: sTime,
-        jssj: eTime,
-        ssmk: '1',
-        orgcode,
-      };
-    }
-    this.props.dispatch({
-      type: 'XzCaseData/getAllXzTypeCase',
-      payload,
-      callback: data => {
-        if (data) {
-          let xData = [];
-          let saData = []; // 受理
-          let jaData = []; // 结案
-          if (data.list && data.list.length > 0) {
-            this.setState({
-              sjqkzsNoData: false,
-            });
-
-            for (let i = 0; i < data.list.length; i++) {
-              xData.push(data.list[i].name);
-              saData.push(data.list[i].count1);
-              jaData.push(data.list[i].count2);
-            }
-          } else {
-            // this.setState({
-            //     sjqkzsNoData: true,
-            // })
-            let momentMonth;
-            if (dateType[currentDateType] === '6') {
-              momentMonth = moment();
-            } else if (dateType[currentDateType] === '7') {
-              momentMonth = moment().subtract(1, 'months');
-            } else if (dateType[currentDateType] === '8') {
-              momentMonth = moment().subtract(2, 'months');
-            }
-            const dayArry = getDefaultDaysForMonth(momentMonth);
-            saData = [0, 0, 0, 0, 0, 0, 0];
-            jaData = [0, 0, 0, 0, 0, 0, 0];
-            xData = dayArry;
-          }
-          xzCaseEchartLine.setOption({
-            xAxis: {
-              data: xData,
             },
             series: [
               {
-                data: saData,
-                itemStyle: {
-                  color: '#FD0134',
+                data: pieData,
+                label: {
+                  normal: {
+                    formatter: '总数\n\n' + countData,
+                  },
                 },
               },
             ],
@@ -303,14 +253,14 @@ export default class XzCaseDataView extends PureComponent {
       },
     });
   };
-  // 获取行政案件类别统计
+  // 获取刑事案件类别统计
   getCaseTypeStatistics = (startTime, endTime, orgcode = this.props.orgcode) => {
     this.props.dispatch({
-      type: 'XzCaseData/getCaseTypeStatistics',
+      type: 'CaseData/getCaseTypeStatistics',
       payload: {
         kssj: startTime,
         jssj: endTime,
-        ajlb: 'xz',
+        ajlb: 'xs',
         ssmk: '1',
         orgcode,
         is_area: window.configUrl.is_area === '1' ? '1' : '0',
@@ -322,12 +272,7 @@ export default class XzCaseDataView extends PureComponent {
         if (data && data.list) {
           data.list.forEach((item, index) => {
             xData.push(item.name);
-            barData.push({
-              value: item.count,
-              code: item.code,
-              code2: item.code_2,
-              code3: item.code_3,
-            });
+            barData.push({ value: item.count, code: item.code });
             if (index > 14) isLargeData = true;
           });
         }
@@ -379,18 +324,101 @@ export default class XzCaseDataView extends PureComponent {
       currentType,
     });
     const dataTime = this.getTime(currentType);
-    this.getAllXzCaseProgress(dataTime[0], dataTime[1]);
-    // this.getAdministrativePenalty(dataTime[0],dataTime[1]);
-    this.getAllXzTypeCase(currentType);
+    this.getAllCaseProgress(dataTime[0], dataTime[1]);
+    this.getEnforcementMeasure(dataTime[0], dataTime[1]);
     this.getCaseTypeStatistics(dataTime[0], dataTime[1]);
   };
-  // 案件情况展示环形饼状图
-  showXzCaseEchartRingPie = () => {
+  // 数组排序
+  sortNumber = (a, b) => {
+    return a - b;
+  };
+  // 案件办理进度柱状图
+  showCaseEchartBar = () => {
     const that = this;
-    xzCaseEchartRingPie = echarts.init(document.getElementById('ajqkzs'));
+    caseEchartBar = echarts.init(document.getElementById('ajbljd'));
+    const option = {
+      color: ['#3398DB'],
+      // title: {
+      //     text: '案件办理进度',
+      //     textStyle: {
+      //         fontSize: 16,
+      //         fontWeight: 'normal',
+      //     },
+      //     padding: 8,
+      // },
+      xAxis: {
+        type: 'category',
+        axisLine: { show: false, textStyle: { color: '#fff' } },
+        data: [],
+        axisTick: {
+          alignWithLabel: true,
+        },
+        axisLabel: {
+          color: '#fff',
+        },
+      },
+      yAxis: {
+        taxisLine: {
+          show: false,
+        },
+        axisTick: {
+          show: false,
+        },
+        axisLine: {
+          show: false,
+        },
+        axisLabel: {
+          textStyle: {
+            color: '#fff',
+          },
+        },
+      },
+      series: [
+        {
+          // For shadow
+          type: 'bar',
+          itemStyle: {
+            normal: { color: 'rgba(0,0,0,0)' },
+            emphasis: { color: 'rgba(0,0,0,0.05)' },
+          },
+          barGap: '-100%',
+          barCategoryGap: '40%',
+          data: [],
+          animation: false,
+        },
+        {
+          type: 'bar',
+          // barWidth: '60%',
+          data: [],
+          label: {
+            normal: {
+              show: true,
+              position: 'top',
+              formatter: '{c}',
+              textStyle: {
+                fontSize: 16,
+                color: '#fff',
+              },
+            },
+          },
+        },
+      ],
+    };
+    caseEchartBar.setOption(option);
+    caseEchartBar.on('click', function(params) {
+      const { currentType } = that.state;
+      const dataTime =
+        currentType === 'selectedDate' ? that.props.selectedDateVal : that.getTime(currentType);
+      that.props.changeToListPage({ ajzt: params.name === '立案' ? '102' : '101' }, dataTime);
+    });
+  };
+
+  // 人员强制措施环形饼状图
+  showCaseEchartRingPie = () => {
+    caseEchartRingPie = echarts.init(document.getElementById('ryqzcsqk'));
     const option = {
       // title: {
-      //     text: '案件情况展示',
+      //     text: '案件专项类别情况展示',
       //     textStyle: {
       //         fontSize: 16,
       //         fontWeight: 'normal',
@@ -402,30 +430,41 @@ export default class XzCaseDataView extends PureComponent {
         formatter: '{b}: {c} ({d}%)',
       },
       legend: {
+        orient: 'vertical',
+        right: '8%',
+        top: '15%',
+        show: true,
+        itemWidth: 10,
+        itemHeight: 10,
+        itemGap: 15,
+        selectedMode: true, // 点击
+        textStyle: {
+          color: '#fff',
+          fontSize: 16,
+          lineHeight: 24,
+        },
         data: [],
-        bottom: 0,
-        show: false,
       },
       series: [
         {
-          name: '案件情况展示',
+          name: '案件专项类别情况展示',
           type: 'pie',
-          center: ['50%', '55%'],
-          radius: ['50%', '70%'],
+          center: ['30%', '50%'],
+          // radius: ['50%', '70%'],
           avoidLabelOverlap: false,
           label: {
             normal: {
-              show: true,
+              show: false,
               position: 'center',
-              formatter: '案件总数\n\n547',
+              formatter: '本周\n\n547',
               textStyle: {
                 fontSize: '22',
                 // fontWeight: 'bold',
-                color: '#fff',
+                color: '#66ccff',
               },
             },
             emphasis: {
-              show: true,
+              show: false,
             },
           },
           labelLine: {
@@ -437,82 +476,13 @@ export default class XzCaseDataView extends PureComponent {
         },
       ],
     };
-    xzCaseEchartRingPie.setOption(option, true);
-    xzCaseEchartRingPie.on('click', function(params) {
+    caseEchartRingPie.setOption(option, true);
+    let that = this;
+    caseEchartRingPie.on('click', function(params) {
       const { currentType } = that.state;
       const dataTime =
         currentType === 'selectedDate' ? that.props.selectedDateVal : that.getTime(currentType);
-      that.props.changeToListPage({ ajzt: params.name }, dataTime);
-    });
-  };
-  // 受案情况展示
-  showXzCaseEchartLine = () => {
-    xzCaseEchartLine = echarts.init(document.getElementById('sjqkzs'));
-    const option = {
-      // title: {
-      //     text: '受案情况展示',
-      //     textStyle: {
-      //         fontSize: 16,
-      //         fontWeight: 'normal',
-      //     },
-      //     padding: 8,
-      // },
-      tooltip: {
-        trigger: 'axis',
-      },
-      // legend: {
-      //     data:['受理'],
-      //     top: '5%',
-      //     right: '15%',
-      // },
-      grid: {
-        left: '3%',
-        right: '4%',
-        bottom: '3%',
-        containLabel: true,
-      },
-      toolbox: {
-        feature: {
-          // saveAsImage: {},
-        },
-      },
-      xAxis: {
-        type: 'category',
-        boundaryGap: false,
-        data: [],
-        axisLabel: {
-          textStyle: {
-            color: '#fff',
-          },
-        },
-      },
-      yAxis: {
-        type: 'value',
-        color: '#fff',
-        axisLabel: {
-          textStyle: {
-            color: '#fff',
-          },
-        },
-      },
-      series: [
-        {
-          name: '受理',
-          type: 'line',
-          data: [],
-        },
-        // {
-        //     name:'结案',
-        //     type:'line',
-        //     data:[],
-        // },
-      ],
-    };
-    xzCaseEchartLine.setOption(option, true);
-    let that = this;
-    xzCaseEchartLine.on('click', function(params) {
-      const dataTime = [params.name, params.name];
-      that.props.changeToListPage(null, dataTime);
+      that.props.changeToListPage({ zxlb: params.data.code }, dataTime);
     });
   };
   // 字符串指定位置插入字符： flag：字符；sn：位置
@@ -572,7 +542,7 @@ export default class XzCaseDataView extends PureComponent {
         },
         axisLabel: {
           textStyle: {
-            color: '#fff',
+            color: '#999',
           },
         },
       },
@@ -602,13 +572,14 @@ export default class XzCaseDataView extends PureComponent {
         let xIndex = parseInt(caseTypeStatisticsBar.convertFromPixel({ seriesIndex: 0 }, point)[0]);
         let op = caseTypeStatisticsBar.getOption();
         let code = op.series[0].data[xIndex].code;
-        let code2 = op.series[0].data[xIndex].code2;
-        let code3 = op.series[0].data[xIndex].code3;
-        if (code && code2 && code3) {
+        if (code) {
           const { currentType } = that.state;
           const dataTime =
             currentType === 'selectedDate' ? that.props.selectedDateVal : that.getTime(currentType);
-          that.props.changeToListPage({ ajlb: [code3, code2, code] }, dataTime);
+          that.props.changeToListPage(
+            { ajlb: [code.substring(0, 2) + '0000', code.substring(0, 4) + '00', code] },
+            dataTime,
+          );
         }
       }
     });
@@ -616,7 +587,7 @@ export default class XzCaseDataView extends PureComponent {
 
   render() {
     const rowLayout = { md: 8, xl: 16, xxl: 24 };
-    // const colLayout = {sm: 24, lg: 12};
+    const colLayout = { sm: 24, lg: 12 };
     const { searchType, selectedDateVal, showDataView } = this.props;
     const {
       currentType,
@@ -626,13 +597,12 @@ export default class XzCaseDataView extends PureComponent {
       nowDataName,
       lastDataName,
       beforeLastDataName,
-      sjqkzsNoData,
       selectedDateData,
     } = this.state;
     return (
       <Card style={{ position: 'relative' }} className={styles.policeDataCard}>
         <div
-          className={styles.xzCaseDataView}
+          className={styles.caseDataView}
           style={showDataView ? {} : { position: 'absolute', zIndex: -1 }}
         >
           {currentType !== 'selectedDate' ? (
@@ -651,10 +621,12 @@ export default class XzCaseDataView extends PureComponent {
                   <DataViewDateShow dataTypeStr="本月" />
                 )}
                 <div className={styles.countButtonNumber}>
-                  <div style={{ height: 65, lineHeight: '65px' }}>
+                  <div>
                     {nowDataName[0]}：{nowData[0]}
                   </div>
-                  {/*<div>结案：0</div>*/}
+                  <div>
+                    {nowDataName[1]}：{nowData[1]}
+                  </div>
                 </div>
               </div>
               <div
@@ -671,10 +643,12 @@ export default class XzCaseDataView extends PureComponent {
                   <DataViewDateShow dataTypeStr="前一月" />
                 )}
                 <div className={styles.countButtonNumber}>
-                  <div style={{ height: 65, lineHeight: '65px' }}>
+                  <div>
                     {lastDataName[0]}：{lastData[0]}
                   </div>
-                  {/*<div>结案：0</div>*/}
+                  <div>
+                    {lastDataName[1]}：{lastData[1]}
+                  </div>
                 </div>
               </div>
               <div
@@ -691,15 +665,12 @@ export default class XzCaseDataView extends PureComponent {
                   <DataViewDateShow dataTypeStr="前二月" />
                 )}
                 <div className={styles.countButtonNumber}>
-                  <div
-                    style={{
-                      height: 65,
-                      lineHeight: '65px',
-                    }}
-                  >
+                  <div>
                     {beforeLastDataName[0]}：{beforeLastData[0]}
                   </div>
-                  {/*<div>结案：0</div>*/}
+                  <div>
+                    {beforeLastDataName[1]}：{beforeLastData[1]}
+                  </div>
                 </div>
               </div>
             </div>
@@ -713,53 +684,29 @@ export default class XzCaseDataView extends PureComponent {
                 </div>
                 <div className={styles.countButtonNumber}>
                   <div>{selectedDateData[0]}</div>
+                  <div>{selectedDateData[1]}</div>
                 </div>
               </div>
             </div>
           )}
-
-          <Row gutter={rowLayout} className={styles.listPageRow}>
-            <Col sm={24} lg={12} xl={6}>
-              <div className={styles.cardBoxTitle}>| 案件情况展示</div>
-              <div id="ajqkzs" className={styles.cardBox}></div>
-            </Col>
-            <Col sm={24} lg={12} xl={18}>
-              <div className={styles.cardBoxTitle}>| 受案情况展示</div>
-              <div id="sjqkzs" className={styles.cardBox}></div>
-              {sjqkzsNoData ? (
-                <div
-                  style={{
-                    width: '100%',
-                    height: '100%',
-                    position: 'absolute',
-                    top: 0,
-                    left: 0,
-                    padding: 16,
-                    backgroundColor: '#ffffff',
-                  }}
-                >
-                  <div style={{ fontSize: 16, padding: '8px 0 0 8px' }}>受案情况展示</div>
-                  <div
-                    style={{
-                      display: 'flex',
-                      alignItems: 'center',
-                      flexDirection: 'column',
-                      justifyContent: 'center',
-                    }}
-                  >
-                    <img src={nonDivImg} alt="暂无数据" />
-                    <div style={{ fontSize: 18 }}>暂无数据</div>
-                  </div>
-                </div>
-              ) : null}
-            </Col>
-          </Row>
-          <Row gutter={rowLayout} className={styles.listPageRow}>
-            <Col span={24}>
-              <div className={styles.cardBoxTitle}>| 案件类型统计</div>
-              <div id="ajlxtj" className={styles.cardBox}></div>
-            </Col>
-          </Row>
+          <div style={{ backgroundColor: '#202839', padding: '0 16px' }}>
+            <Row gutter={rowLayout} className={styles.listPageRow}>
+              <Col {...colLayout}>
+                <div className={styles.cardBoxTitle}>| 案件办理进度</div>
+                <div id="ajbljd" className={styles.cardBox}></div>
+              </Col>
+              <Col {...colLayout}>
+                <div className={styles.cardBoxTitle}>| 案件专项类别情况展示</div>
+                <div id="ryqzcsqk" className={styles.cardBox}></div>
+              </Col>
+            </Row>
+            <Row gutter={rowLayout} className={styles.listPageRow}>
+              <Col span={24} style={{ marginBottom: 32 }}>
+                <div className={styles.cardBoxTitle}>| 案件类型统计</div>
+                <div id="ajlxtj" className={styles.cardBox}></div>
+              </Col>
+            </Row>
+          </div>
         </div>
       </Card>
     );

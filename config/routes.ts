@@ -109,10 +109,24 @@ export function routes() {
                       component: './caseFiling/CriminalData',
                     },
                     {
+                      path: '/caseFiling/caseData/CriminalData/caseDetail',
+                      name: '刑事案件数据详情',
+                      icon: 'smile',
+                      component: './caseFiling/CriminalData/caseDetail',
+                      hideInMenu: true,
+                    },
+                    {
                       name: '行政案件数据',
                       icon: 'smile',
                       path: '/caseFiling/caseData/AdministrationData',
                       component: './caseFiling/AdministrationData',
+                    },
+                    {
+                      path: '/caseFiling/caseData/AdministrationData/caseDetail',
+                      name: '行政案件数据详情',
+                      icon: 'smile',
+                      component: './caseFiling/AdministrationData/caseDetail',
+                      hideInMenu: true,
                     },
                   ],
                 },
@@ -425,47 +439,54 @@ export function routes() {
                       path: '/seo/Form/AllForm/XZAJDJB',
                       component: './seo/AllForm/XZAJDJB',
                     },
-                  {
+                    {
                       name: '人员处置台账',
                       icon: 'smile',
                       path: '/seo/Form/AllForm/RYCZTZ',
                       component: './seo/AllForm/RYCZTZ',
-                  },{
+                    },
+                    {
                       name: '吸毒人员统计',
                       icon: 'smile',
                       path: '/seo/Form/AllForm/XZAJXDRYTJ',
                       component: './seo/AllForm/XZAJXDRYTJ',
-                  },{
+                    },
+                    {
                       name: '所内处罚',
                       icon: 'smile',
                       path: '/seo/Form/AllForm/XZAJSNCF',
                       component: './seo/AllForm/XZAJSNCF',
-                  },{
+                    },
+                    {
                       name: '案卷出室登记',
                       icon: 'smile',
                       path: '/seo/Form/AllForm/JZCSDJB',
                       component: './seo/AllForm/JZCSDJB',
-                  },{
+                    },
+                    {
                       name: '刑事案件办理监督',
                       icon: 'smile',
                       path: '/seo/Form/AllForm/XSAJBLJDGLTZ',
                       component: './seo/AllForm/XSAJBLJDGLTZ',
-                  },{
+                    },
+                    {
                       name: '行政案件办理监督',
                       icon: 'smile',
                       path: '/seo/Form/AllForm/XZAJBLJDGLTZ',
                       component: './seo/AllForm/XZAJBLJDGLTZ',
-                  },{
+                    },
+                    {
                       name: '每日警情巡查',
                       icon: 'smile',
                       path: '/seo/Form/AllForm/MRJQXCDJB',
                       component: './seo/AllForm/MRJQXCDJB',
-                  },{
+                    },
+                    {
                       name: '受立案监督管理',
                       icon: 'smile',
                       path: '/seo/Form/AllForm/SLAQKJDGLDJB',
                       component: './seo/AllForm/SLAQKJDGLDJB',
-                  },
+                    },
                   ],
                 },
               ],

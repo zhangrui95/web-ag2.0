@@ -1,20 +1,36 @@
-@import '../../../../node_modules/antd/lib/style/themes/default.less';
+@import '~antd/lib/style/themes/default.less';
 @import '../../../utils/utils.less';
+@import '../../../theme/darkTheme';
+
+body {
+  overflow: auto !important;
+}
 
 .title {
   color: #fff;
   font-weight: bold;
   line-height: 56px;
   padding-left: 16px;
-  //background-color: #CDE8FA;
+  background: @component-background;
   font-size: 16px;
-  background: linear-gradient(to right, #1F83DF, #FCFDFF);
+}
+
+//.message{
+//  position: relative;
+//  background-color: #fff;
+//  border-bottom: 3px solid #108EE9;
+//  padding: 104px 24px 0;
+//  margin-bottom: 24px;
+//}
+
+.message_card {
+  position: relative;
+  background-color: #fff;
 }
 
 .tablemessage {
   background-color: #fff;
-  border-bottom: 3px solid #1890FF;
-  //padding: 24px;
+  border-bottom: 3px solid #108ee9;
 }
 
 .caseprocess {
@@ -32,7 +48,7 @@
 
   :global {
     .ant-timeline-item:nth-child(1) .ant-timeline-item-tail {
-      border-left: 2px solid #108EE9;
+      border-left: 2px solid #108ee9;
       top: 0;
     }
   }
@@ -44,12 +60,12 @@
 
   :global {
     .ant-timeline-item:nth-child(1) .ant-timeline-item-tail {
-      border-left: 2px solid #108EE9;
+      border-left: 2px solid #108ee9;
       top: 0;
     }
 
     .ant-timeline-item:nth-child(2) .ant-timeline-item-tail {
-      border-left: 2px solid #108EE9;
+      border-left: 2px solid #108ee9;
       top: 0;
     }
   }
@@ -61,17 +77,17 @@
 
   :global {
     .ant-timeline-item:nth-child(1) .ant-timeline-item-tail {
-      border-left: 2px solid #108EE9;
+      border-left: 2px solid #108ee9;
       top: 0;
     }
 
     .ant-timeline-item:nth-child(2) .ant-timeline-item-tail {
-      border-left: 2px solid #108EE9;
+      border-left: 2px solid #108ee9;
       top: 0;
     }
 
     .ant-timeline-item:nth-child(3) .ant-timeline-item-tail {
-      border-left: 2px solid #108EE9;
+      border-left: 2px solid #108ee9;
       top: 0;
     }
   }
@@ -83,25 +99,30 @@
 
   :global {
     .ant-timeline-item:nth-child(1) .ant-timeline-item-tail {
-      border-left: 2px solid #108EE9;
+      border-left: 2px solid #108ee9;
       top: 0;
     }
 
     .ant-timeline-item:nth-child(2) .ant-timeline-item-tail {
-      border-left: 2px solid #108EE9;
+      border-left: 2px solid #108ee9;
       top: 0;
     }
 
     .ant-timeline-item:nth-child(3) .ant-timeline-item-tail {
-      border-left: 2px solid #108EE9;
+      border-left: 2px solid #108ee9;
       top: 0;
     }
 
     .ant-timeline-item:nth-child(4) .ant-timeline-item-tail {
-      border-left: 2px solid #108EE9;
+      border-left: 2px solid #108ee9;
       top: 0;
     }
   }
+}
+
+.TimelineAll {
+  position: relative;
+  left: 140px;
 }
 
 .timeline {
@@ -114,15 +135,59 @@
   height: 21px;
 }
 
-.stepStyles {
-  width: 218px;
-  flex: none;
-}
-
 .listStyle {
+  //position: absolute;
+  //top: 8px;
+  //left: 74px;
+
   position: relative;
   top: -35px;
   left: 74px;
+  //float: left;
+}
+
+//.listStyle:after{
+//  clear: both;
+//  content:'';
+//  display: block;
+//}
+.TimeLineStyle {
+  background-color: #1890ff;
+  height: 60px;
+  width: 2px;
+  //position:absolute;
+  //top:-50px;
+  //left:4px;
+  position: relative;
+  top: -53px;
+  left: -14px;
+  float: left;
+}
+
+.TimeLineStyle:after {
+  display: block;
+  content: '';
+  clear: both;
+}
+
+.stepStyles {
+  //min-width:200px;
+  width: 300px;
+  flex: none;
+  //max-width:600px;
+}
+
+.AllTimeLine {
+  position: relative;
+  left: 366px;
+  top: 51px;
+  float: left;
+}
+
+.AllTimeLine:after {
+  content: '';
+  clear: both;
+  display: block;
 }
 
 .switch {
@@ -131,19 +196,161 @@
   top: 300px;
 }
 
-.message {
-  position: relative;
-  background-color: #fff;
-  border-bottom: 3px solid #1890FF;
-  padding: 24px;
-  margin-bottom: 16px;
+//
+
+.headerList {
+  margin-bottom: 4px;
 }
 
-.WtlxMessage {
+.tabsCard {
+  :global {
+    .ant-card-head {
+      padding: 0 16px;
+    }
+  }
+}
+
+.noData {
+  color: @disabled-color;
+  text-align: center;
+  line-height: 64px;
+  font-size: 16px;
+
+  i {
+    font-size: 24px;
+    margin-right: 16px;
+    position: relative;
+    top: 3px;
+  }
+}
+
+.heading {
+  color: @heading-color;
+  font-size: 20px;
+}
+
+.stepDescription {
+  font-size: 14px;
   position: relative;
-  background-color: #fff;
-  border-bottom: 3px solid #1890FF;
-  padding: 24px 24px 0 0;
+  left: 38px;
+
+  & > div {
+    margin-top: 8px;
+    margin-bottom: 4px;
+  }
+}
+
+.textSecondary {
+  color: @text-color-secondary;
+}
+
+@media screen and (max-width: @screen-sm) {
+  .stepDescription {
+    left: 8px;
+  }
+}
+
+.ax_default {
+  font-family: 'Arial Normal', 'Arial';
+  font-weight: 400;
+  font-style: normal;
+  font-size: 13px;
+  color: #333333;
+  text-align: center;
+  line-height: normal;
+}
+
+.heading_1 {
+  font-family: 'Arial Negreta', 'Arial';
+  font-weight: 700;
+  font-size: 32px;
+  text-align: left;
+}
+
+.label {
+  font-size: 14px;
+  text-align: left;
+}
+
+.colsImg {
+  position: relative;
+  //border: 1px solid #ccc;
+  //margin-bottom: 24px;
+}
+
+.sawpImg {
+  padding: 12px;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.sawpName {
+  display: inline-block;
+  height: 94px;
+  padding: 12px 12px 12px 94px;
+}
+
+.sawpName1 {
+  display: block;
+  height: 35px;
+  line-height: 35px;
+
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.sawpSee {
+  background-color: #f7f9fa;
+  height: 40px;
+  text-align: center;
+  line-height: 40px;
+  cursor: pointer;
+  color: #929394;
+  border: @border-width-base @border-style-base #e9e9e9;
+}
+
+.sawpListName {
+  :global {
+    .ant-list-item {
+      width: 25%;
+      display: inline-block;
+      border-bottom: 0 solid #e8e8e8;
+      padding: 0;
+    }
+
+    .ant-spin-container > .ant-list-item:last-child {
+      border-bottom: 0 solid #e8e8e8;
+    }
+
+    .ant-list-item-content {
+      margin: 0 12px 12px 12px;
+      border: 1px solid #ccc;
+    }
+
+    .ant-list-pagination {
+      margin-right: 12px;
+    }
+  }
+}
+
+.break {
+  word-break: break-all;
+}
+
+.clsj_time {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  display: block;
+}
+
+.message {
+  position: relative;
+  background-color: @component-background;
+  //border-bottom: 3px solid #171A26;
+  padding: 0 24px 0;
   margin-bottom: 16px;
 }
 
@@ -167,10 +374,10 @@
     }
   }
 
-  .personFiles {
-    min-width: 200px;
-    width: 334px;
-    font-size: 14px;
+  .CdCard {
+    text-align: left;
+    padding: 5px 0;
+    overflow: hidden;
   }
 
   .Alllength {
@@ -202,6 +409,8 @@
 
       .ant-steps-item-icon {
         margin-left: 0;
+        //width: 195px;
+        //overflow: visible;
       }
 
       .ant-steps-item-description {
@@ -221,35 +430,14 @@
     padding-bottom: 435px;
   }
 
-  .DetailLeftline {
-    width: 94px;
-    height: 3px;
-    background-color: #1890FF;
-    display: block;
-    position: absolute;
-    left: 147px;
-    top: 9px;
-  }
-
   .DetailRightline1 {
     width: 380px;
     height: 3px;
-    background-color: #1890FF;
+    background-color: #1890ff;
     display: block;
     position: absolute;
     left: 13px;
     top: -58px;
-  }
-
-  .DetailLineIcon {
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    background-color: #1890FF;
-    display: block;
-    position: absolute;
-    top: 7px;
-    left: 143px;
   }
 
   .trailsteps {
@@ -285,7 +473,7 @@
   }
 
   .TimeLineStyle {
-    background-color: #1890FF;
+    background-color: #1890ff;
     height: 60px;
     width: 2px;
     position: absolute;
@@ -293,13 +481,8 @@
     left: -14px;
   }
 
-  .sawpSee {
-    background-color: #F7F9FA;
-    height: 40px;
-    text-align: center;
-    line-height: 40px;
-    cursor: pointer;
-    color: #d4d4d4;
+  .sawpName1 {
+    width: 109px;
   }
 }
 
@@ -323,10 +506,10 @@
     }
   }
 
-  .personFiles {
-    min-width: 200px;
-    width: 334px;
-    font-size: 14px;
+  .CdCard {
+    text-align: left;
+    padding: 5px 0;
+    overflow: hidden;
   }
 
   .Alllength {
@@ -358,6 +541,8 @@
 
       .ant-steps-item-icon {
         margin-left: 0;
+        //width: 195px;
+        //overflow: visible;
       }
 
       .ant-steps-item-description {
@@ -377,35 +562,14 @@
     padding-bottom: 435px;
   }
 
-  .DetailLeftline {
-    width: 94px;
-    height: 3px;
-    background-color: #1890FF;
-    display: block;
-    position: absolute;
-    left: 147px;
-    top: 9px;
-  }
-
   .DetailRightline1 {
     width: 380px;
     height: 3px;
-    background-color: #1890FF;
+    background-color: #1890ff;
     display: block;
     position: absolute;
     left: 13px;
     top: -58px;
-  }
-
-  .DetailLineIcon {
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    background-color: #1890FF;
-    display: block;
-    position: absolute;
-    top: 7px;
-    left: 143px;
   }
 
   .trailsteps {
@@ -440,9 +604,8 @@
     top: 236px;
   }
 
-
   .TimeLineStyle {
-    background-color: #1890FF;
+    background-color: #1890ff;
     height: 60px;
     width: 2px;
     position: absolute;
@@ -450,13 +613,8 @@
     left: -14px;
   }
 
-  .sawpSee {
-    background-color: #F7F9FA;
-    height: 40px;
-    text-align: center;
-    line-height: 40px;
-    cursor: pointer;
-    color: #d4d4d4;
+  .sawpName1 {
+    width: 109px;
   }
 }
 
@@ -480,10 +638,10 @@
     }
   }
 
-  .personFiles {
-    min-width: 200px;
-    width: 334px;
-    font-size: 14px;
+  .CdCard {
+    text-align: left;
+    padding: 5px 0;
+    overflow: hidden;
   }
 
   .Alllength {
@@ -515,6 +673,8 @@
 
       .ant-steps-item-icon {
         margin-left: 0;
+        //width: 195px;
+        //overflow: visible;
       }
 
       .ant-steps-item-description {
@@ -534,35 +694,14 @@
     padding-bottom: 435px;
   }
 
-  .DetailLeftline {
-    width: 94px;
-    height: 3px;
-    background-color: #1890FF;
-    display: block;
-    position: absolute;
-    left: 147px;
-    top: 9px;
-  }
-
   .DetailRightline1 {
     width: 320px;
     height: 3px;
-    background-color: #1890FF;
+    background-color: #1890ff;
     display: block;
     position: absolute;
     left: 13px;
     top: -58px;
-  }
-
-  .DetailLineIcon {
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    background-color: #1890FF;
-    display: block;
-    position: absolute;
-    top: 7px;
-    left: 143px;
   }
 
   .trailsteps {
@@ -597,9 +736,8 @@
     top: 236px;
   }
 
-
   .TimeLineStyle {
-    background-color: #1890FF;
+    background-color: #1890ff;
     height: 60px;
     width: 2px;
     position: absolute;
@@ -607,13 +745,8 @@
     left: -14px;
   }
 
-  .sawpSee {
-    background-color: #F7F9FA;
-    height: 40px;
-    text-align: center;
-    line-height: 40px;
-    cursor: pointer;
-    color: #d4d4d4;
+  .sawpName1 {
+    width: 188px;
   }
 }
 
@@ -637,10 +770,10 @@
     }
   }
 
-  .personFiles {
-    min-width: 200px;
-    width: 334px;
-    font-size: 14px;
+  .CdCard {
+    text-align: left;
+    padding: 5px 0;
+    overflow: hidden;
   }
 
   .Alllength {
@@ -672,6 +805,8 @@
 
       .ant-steps-item-icon {
         margin-left: 0;
+        //width: 195px;
+        //overflow: visible;
       }
 
       .ant-steps-item-description {
@@ -691,35 +826,14 @@
     padding-bottom: 435px;
   }
 
-  .DetailLeftline {
-    width: 94px;
-    height: 3px;
-    background-color: #1890FF;
-    display: block;
-    position: absolute;
-    left: 147px;
-    top: 9px;
-  }
-
   .DetailRightline1 {
     width: 370px;
     height: 3px;
-    background-color: #1890FF;
+    background-color: #1890ff;
     display: block;
     position: absolute;
     left: 13px;
     top: -58px;
-  }
-
-  .DetailLineIcon {
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    background-color: #1890FF;
-    display: block;
-    position: absolute;
-    top: 7px;
-    left: 143px;
   }
 
   .trailsteps {
@@ -754,9 +868,8 @@
     top: 236px;
   }
 
-
   .TimeLineStyle {
-    background-color: #1890FF;
+    background-color: #1890ff;
     height: 60px;
     width: 2px;
     position: absolute;
@@ -764,13 +877,8 @@
     left: -14px;
   }
 
-  .sawpSee {
-    background-color: #F7F9FA;
-    height: 40px;
-    text-align: center;
-    line-height: 40px;
-    cursor: pointer;
-    color: #d4d4d4;
+  .sawpName1 {
+    width: 209px;
   }
 }
 
@@ -794,10 +902,10 @@
     }
   }
 
-  .personFiles {
-    min-width: 200px;
-    width: 334px;
-    font-size: 14px;
+  .CdCard {
+    text-align: left;
+    padding: 5px 0;
+    overflow: hidden;
   }
 
   .Alllength {
@@ -829,6 +937,8 @@
 
       .ant-steps-item-icon {
         margin-left: 0;
+        //width: 195px;
+        //overflow: visible;
       }
 
       .ant-steps-item-description {
@@ -848,35 +958,14 @@
     padding-bottom: 435px;
   }
 
-  .DetailLeftline {
-    width: 94px;
-    height: 3px;
-    background-color: #1890FF;
-    display: block;
-    position: absolute;
-    left: 147px;
-    top: 9px;
-  }
-
   .DetailRightline1 {
     width: 320px;
     height: 3px;
-    background-color: #1890FF;
+    background-color: #1890ff;
     display: block;
     position: absolute;
     left: 13px;
     top: -58px;
-  }
-
-  .DetailLineIcon {
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    background-color: #1890FF;
-    display: block;
-    position: absolute;
-    top: 7px;
-    left: 143px;
   }
 
   .trailsteps {
@@ -911,9 +1000,8 @@
     top: 236px;
   }
 
-
   .TimeLineStyle {
-    background-color: #1890FF;
+    background-color: #1890ff;
     height: 60px;
     width: 2px;
     position: absolute;
@@ -921,35 +1009,32 @@
     left: -14px;
   }
 
-  .sawpSee {
-    background-color: #F7F9FA;
-    height: 40px;
-    text-align: center;
-    line-height: 40px;
-    cursor: pointer;
-    color: #d4d4d4;
+  .sawpName1 {
+    width: 233px;
   }
-}
 
-.clsj_time {
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  display: block;
-}
-
-.superve {
-  display: inline-block;
-  overflow: hidden;
-
-  :global {
-    .ant-steps-horizontal:not(.ant-steps-label-vertical) .ant-steps-item-description {
-      max-width: 400px;
+  .sawpListName {
+    :global {
+      .ant-list-item-content {
+        margin: 0 30px 12px 30px;
+      }
     }
   }
 }
 
-.ajlcsuperve {
+.IconStyle {
+  display: inline-block;
+  width: 280px;
+  position: absolute;
+  right: 0;
+  //background-color: #faa;
+}
+
+.IconStyle img {
+  display: inline-block;
+}
+
+.superve {
   display: inline-block;
   overflow: hidden;
 
@@ -959,7 +1044,7 @@
     }
 
     .ant-steps-item {
-      width: 18%;
+      width: 22%;
     }
 
     .ant-steps-item-content {
@@ -967,109 +1052,9 @@
     }
 
     .ant-steps-horizontal:not(.ant-steps-label-vertical) .ant-steps-item-description {
-      max-width: 265px;
+      max-width: 325px;
     }
   }
-}
-
-
-.IconStyle {
-  display: inline-block;
-  width: 280px;
-  position: absolute;
-  right: 0;
-  top: 50%;
-  //background-color: #faa;
-}
-
-.IconStyles {
-  display: inline-block;
-  width: 205px;
-  position: absolute;
-  right: 0;
-  bottom: 100px;
-  //background-color: #faa;
-}
-
-.break {
-  word-break: break-all;
-}
-
-.sawpListName {
-  :global {
-    .ant-list-item {
-      width: 25%;
-      display: inline-block;
-      border-bottom: 0 solid #e8e8e8;
-      padding: 0;
-    }
-
-    .ant-spin-container > .ant-list-item:last-child {
-      border-bottom: 0 solid #e8e8e8;
-    }
-
-    .ant-list-item-content {
-      margin: 0 12px 12px 12px;
-      border: 1px solid #ccc;
-    }
-
-    .ant-list-pagination {
-      margin-right: 12px;
-    }
-  }
-}
-
-.colsImg {
-  position: relative;
-}
-
-.sawpImg {
-  padding: 12px;
-  position: absolute;
-  top: 0;
-  left: 0;
-}
-
-.sawpName {
-  display: inline-block;
-  height: 94px;
-  padding: 12px 12px 12px 94px;
-}
-
-.sawpName1 {
-  display: block;
-  height: 35px;
-  line-height: 35px;
-
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
-.sawpSee {
-  background-color: #F7F9FA;
-  height: 40px;
-  text-align: center;
-  line-height: 40px;
-  cursor: pointer;
-  color: #929394;
-  border: @border-width-base @border-style-base #E9E9E9;
-}
-
-.personFiles {
-  background-color: #F2FBFF;
-}
-
-.recordList {
-  text-decoration: underline;
-  cursor: pointer;
-  color: #1890ff;
-}
-
-.TopPersonFiles {
-  padding: 12px 0;
-  border: 1px solid #C8EAFF;
-  border-bottom: none;
 }
 
 .Indexfrom {
@@ -1092,18 +1077,58 @@
   line-height: 50px;
 }
 
-.indexdeepmodal {
-  //position: absolute;
-  //top: 50%;
-  //left: 50%;
-  //margin-left: -500px;
-  //margin-top: -101px;
+.TopPersonFiles {
+  padding: 12px 0;
+  border: 1px solid #c8eaff;
+  //border-bottom: none;
+}
+
+.personFiles {
+  min-width: 200px;
+  width: 334px;
+  background-color: #f2fbff;
+  font-size: 14px;
+}
+
+.DetailLeftline {
+  width: 94px;
+  height: 3px;
+  background-color: #1890ff;
+  display: block;
+  position: absolute;
+  left: 147px;
+  top: 9px;
+}
+
+.DetailLineIcon {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: #1890ff;
+  display: block;
+  position: absolute;
+  top: 7px;
+  left: 143px;
+}
+
+.DetailLineIcon1 {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: #1890ff;
+  display: block;
+  position: absolute;
+  top: 7px;
+  left: 143px;
+  z-index: 1002;
+}
+
+.policeModal {
+  top: 247px;
 
   :global {
     .ant-modal-header {
-      background-color: #1890FF;
-      color: #fff;
-      padding-bottom: 0;
+      background-color: #1890ff;
     }
 
     .ant-modal-title {
@@ -1116,31 +1141,48 @@
   }
 }
 
-.question {
-  text-align: center;
-  font-size: 20px;
-}
-
-.CdCard {
-  text-align: left;
-  padding: 5px 0;
+.detailBoxScroll {
   overflow: hidden;
 }
-
-.DetailLineIcon1 {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background-color: #1890FF;
-  display: block;
-  position: absolute;
-  top: -55px;
-  left: 143px;
-  z-index: 1002;
+.TopMenu {
+  margin-left: 16px;
+  margin-top: 12px;
+  background-color: #171925 !important;
+  border: 2px solid #2b6ccc !important;
+  color: #2b6ccc !important;
 }
 
-.detailBoxScroll {
-  overflow-y: scroll;
-  overflow-x: hidden;
+.connectBtn {
+  background-color: 'linear-gradient(#0086FA, #03A3FF)';
 }
 
+.xqrow {
+  border-bottom: 3px solid #171a26;
+}
+.xqcol {
+  padding: 12px;
+}
+.ajlczCard {
+  margin: -2px -12px 0 -12px;
+  background-color: #0f1220;
+  color: @white;
+  :global {
+    .antd-pro-theme-dark-theme-dark .ant-card {
+      border-radius: 0px !important;
+    }
+    .ant-card-head {
+      color: @white;
+      border-bottom: 1px solid #151a29;
+    }
+    .ant-card-body {
+      padding: 32px;
+    }
+    .ant-steps-item-finish .ant-steps-item-icon {
+      border: 2px solid #2f86ff;
+      background-color: #0f1220;
+    }
+    .ant-steps-item-process .ant-steps-item-icon {
+      border: 2px solid #fff;
+    }
+  }
+}

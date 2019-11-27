@@ -24,8 +24,8 @@
 @date-unchoose: #1f2839; // 无法选择的日期的背景色
 @switch-color: #0097d9;
 @rangepicker-border: #1e2230; // 日期弹出窗边框颜色
-@title-color:#989898;
-@menu-item-active-bg:#606D8C;//侧边栏选中颜色
+@title-color: #989898;
+@menu-item-active-bg: #606d8c; //侧边栏选中颜色
 //-------------------------自定义-----------------------
 @zero: 0;
 @no-box-shadow: none; //无阴影
@@ -33,9 +33,9 @@
 @borderRadius: 10px; //圆角
 @pagination-right: 30px;
 @switch-color-close: #c0c0c0;
-@green:#52c41a;
-@red:#f5222d;
-@orange:#faad14;
+@green: #52c41a;
+@red: #f5222d;
+@orange: #faad14;
 body {
   color: #fff;
 }
@@ -117,7 +117,8 @@ body {
     .ant-calendar-range .ant-calendar-in-range-cell::before {
       background-color: @component-background;
     }
-    .ant-calendar-picker-clear,.ant-cascader-picker-clear {
+    .ant-calendar-picker-clear,
+    .ant-cascader-picker-clear {
       background-color: @component-background;
       color: @white;
     }
@@ -131,7 +132,7 @@ body {
       color: @white;
     }
     .ant-modal-confirm-body {
-      .anticon{
+      .anticon {
         color: #faad14;
       }
     }
@@ -144,23 +145,24 @@ body {
     .ant-dropdown-menu-item :hover {
       background-color: @highlight-color;
     }
-    .ant-cascader-picker-clear{
-       background-color: transparent;
+    .ant-cascader-picker-clear {
+      background-color: transparent;
     }
-    .ant-cascader-menus{
-       background-color: rgba(23, 25, 37, 0.9) !important;
+    .ant-cascader-menus {
+      background-color: rgba(23, 25, 37, 0.9) !important;
     }
-    .ant-cascader-menu-item-active:not(.ant-cascader-menu-item-disabled), .ant-cascader-menu-item-active:not(.ant-cascader-menu-item-disabled):hover{
+    .ant-cascader-menu-item-active:not(.ant-cascader-menu-item-disabled),
+    .ant-cascader-menu-item-active:not(.ant-cascader-menu-item-disabled):hover {
       font-weight: 600;
       background-color: @table-body-sort-bg;
     }
-    .ant-cascader-menu-item:hover{
+    .ant-cascader-menu-item:hover {
       background-color: @table-body-sort-bg;
     }
-    .ant-pagination.mini .ant-pagination-options-quick-jumper{
+    .ant-pagination.mini .ant-pagination-options-quick-jumper {
       color: @white;
     }
-    .ant-table-wrapper{
+    .ant-table-wrapper {
       background-color: @table-header-bg;
       border-radius: @borderRadius;
     }
@@ -277,15 +279,21 @@ body {
       padding: 10px;
       border: @zero;
     }
-    .ant-table-tbody > tr,.ant-table .ant-table-tbody .categories {
-      background: @table-body-sort-bg!important;
+    .ant-table-tbody > tr {
+      background: @table-body-sort-bg;
       color: @white;
       &:nth-child(2n) {
         background: @table-header-bg!important;
       }
     }
+    .ant-table .ant-table-tbody .categories {
+      background: @table-body-sort-bg!important;
+      color: @white;
+    }
     .ant-table-tbody > tr > td {
       border: @zero;
+      padding: @zero 10px;
+      height: 54px;
       a {
         text-decoration: underline;
       }
@@ -336,7 +344,7 @@ body {
     .ant-timeline-item-head {
       background: @highlight-color;
       border: @zero;
-      margin-top: -5px;
+      margin-top: -10px;
     }
     .ant-timeline-item {
       margin: 10px 0;
@@ -402,7 +410,8 @@ body {
     .ant-select-arrow {
       color: @text-color;
     }
-    .ant-select-dropdown,.ant-cascader-menus {
+    .ant-select-dropdown,
+    .ant-cascader-menus {
       background: @dropdown-selected-color!important;
       color: @white;
       .ant-empty-small {
@@ -416,7 +425,8 @@ body {
     }
     .ant-select-dropdown-menu-item-active,
     .ant-select-dropdown-menu-item-selected,
-    .ant-cascader-menu-item-active:not(.ant-cascader-menu-item-disabled), .ant-cascader-menu-item-active:not(.ant-cascader-menu-item-disabled):hover,
+    .ant-cascader-menu-item-active:not(.ant-cascader-menu-item-disabled),
+    .ant-cascader-menu-item-active:not(.ant-cascader-menu-item-disabled):hover,
     .ant-select-tree li .ant-select-tree-node-content-wrapper.ant-select-tree-node-selected {
       background: @highlight-color;
     }
@@ -562,7 +572,7 @@ body {
     .ant-radio-button-wrapper:first-child {
       border: @zero;
     }
-    .ant-radio-disabled + span{
+    .ant-radio-disabled + span {
       color: @title-color;
     }
     .ant-list-empty-text {
@@ -571,108 +581,121 @@ body {
     .ant-empty-image {
       height: 60px;
     }
-    .ant-modal-body{
+    .ant-modal-body {
       background: @component-background;
-      .ant-modal-confirm-title{
+      .ant-modal-confirm-title {
         color: @white;
       }
-      .ant-btn{
+      .ant-btn {
         background: @body-background;
       }
-      .ant-btn-primary{
+      .ant-btn-primary {
         background: @highlight-color;
       }
     }
-    .ant-message-success{
+    .ant-message-success {
       background: @alert-success-bg-color;
       padding: 8px 16px;
       border-radius: 4px;
       border: 1px solid @alert-success-border-color;
-      .action{
+      .action {
         color: @green!important;
       }
     }
-    .ant-message-notice-content{
+    .ant-message-notice-content {
       background: transparent;
     }
-    .ant-message-error{
+    .ant-message-error {
       background: @alert-error-bg-color;
       padding: 8px 16px;
       border-radius: 4px;
       border: 1px solid @alert-error-border-color;
-      .action{
+      .action {
         color: @red!important;
       }
     }
-    .ant-message-warning{
+    .ant-message-warning {
       background: @alert-warning-bg-color;
       padding: 8px 16px;
       border-radius: 4px;
       border: 1px solid @alert-warning-border-color;
-      .action{
+      .action {
         color: @orange!important;
       }
     }
-    .antd-pro-components-trend-analysis-analysis-styles-analysis,.antd-pro-components-trend-analysis-analysis-styles-analysis .antd-pro-components-trend-analysis-analysis-styles-titleArea .antd-pro-components-trend-analysis-analysis-styles-titleDate{
+    .antd-pro-components-trend-analysis-analysis-styles-analysis,
+    .antd-pro-components-trend-analysis-analysis-styles-analysis
+      .antd-pro-components-trend-analysis-analysis-styles-titleArea
+      .antd-pro-components-trend-analysis-analysis-styles-titleDate {
       background: @component-background;
       color: @white;
       border-radius: @borderRadius;
     }
-    h1, h2, h3, h4, h5, h6{
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
       color: @white;
     }
-    .ant-table-bordered.ant-table-empty .ant-table-placeholder{
+    .ant-table-bordered.ant-table-empty .ant-table-placeholder {
       border-right: 1px solid @body-background;
       border-left: 1px solid @body-background;
     }
-    .ant-table-bordered{
-      .ant-table-thead > tr > th,.ant-table-placeholder{
+    .ant-table-bordered {
+      .ant-table-thead > tr > th,
+      .ant-table-placeholder {
         border-bottom: 1px solid @body-background;
       }
     }
-    .ant-empty{
-      img{
-        display: inline-block!important;
+    .ant-empty {
+      img {
+        display: inline-block !important;
       }
     }
-    .ant-carousel .slick-dots{
+    .ant-carousel .slick-dots {
       text-align: right;
       right: 20px;
     }
-    .ant-carousel .slick-dots li.slick-active button{
+    .ant-carousel .slick-dots li.slick-active button {
       background: @highlight-color!important;
     }
-    .ant-time-picker-icon .ant-time-picker-clock-icon{
+    .ant-time-picker-icon .ant-time-picker-clock-icon {
       color: @white;
     }
-    .ant-time-picker-clear{
+    .ant-time-picker-clear {
       background: @body-background;
       color: @white;
     }
-    .ant-time-picker-panel-inner{
+    .ant-time-picker-panel-inner {
       background: @dropdown-selected-color;
     }
-    .ant-time-picker-panel-select{
+    .ant-time-picker-panel-select {
       color: @white;
       border-left: 1px solid @body-background;
     }
-    .ant-time-picker-panel-input-wrap{
+    .ant-time-picker-panel-input-wrap {
       border-bottom: 1px solid @body-background;
     }
-    li.ant-time-picker-panel-select-option-selected{
+    li.ant-time-picker-panel-select-option-selected {
       background: @highlight-color;
     }
-    .ant-time-picker-panel-select li{
-      &:hover{
+    .ant-time-picker-panel-select li {
+      &:hover {
         background: @highlight-color;
       }
-      &:focus{
+      &:focus {
         color: @white;
       }
     }
-    .ant-time-picker-panel-input{
+    .ant-time-picker-panel-input {
       background: transparent;
       color: @white;
+    }
+    .antd-pro-ellipsis-ellipsis{
+      display: -webkit-box;
+      overflow: hidden;
     }
   }
 }

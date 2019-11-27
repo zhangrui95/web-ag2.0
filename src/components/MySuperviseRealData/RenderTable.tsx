@@ -135,6 +135,7 @@ class RenderTable extends PureComponent {
       {
         title: '案件名称',
         dataIndex: 'ajmc',
+        width:'15%',
         render: (text, record) => {
           return text && text !== '' ? (
             <Ellipsis lines={2} tooltip>

@@ -10,7 +10,7 @@ import styles from './index.less';
 import ZFDATable from './zfdaTable';
 
 const { Option } = Select;
-let job = getUserInfos().job;
+let job = getUserInfos() ? getUserInfos().job : '';
 let srcName1 = ['dwJbQkDjb', '单位基本情况登记表'];
 let srcName2 = ['zfywpxKsQkDjb', '执法业务培训考试情况登记表'];
 let srcName3 = ['yDwzfQkZjB', '每月单位执法情况总结'];
