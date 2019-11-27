@@ -29,10 +29,6 @@ export default class PersonSuspectPunish extends PureComponent {
 
     componentDidMount() {
         this.getSuspectPunishTypeData(this.props);
-        this.showEchart();
-        this.showRatePieEchart();
-        window.addEventListener('resize', myChart.resize);
-        window.addEventListener('resize', ratePie.resize);
     }
 
     componentWillReceiveProps(nextProps) {
@@ -222,46 +218,45 @@ export default class PersonSuspectPunish extends PureComponent {
                                 hbzf_l: qzcsl.hbzf100 || '0%',
                             },
                         ];
-                        ratePie.setOption({
-                            title: [
-                                {
-                                    text: `${selectedDateStr}\n\n犯罪嫌疑人${fzxyrs.nowtime}人`,
-                                    textStyle: {
-                                        fontSize: 16,
-                                        fontWeight: 'normal',
-                                        color:'#fff'
-                                    },
-                                    x: '50%',
-                                    y: '45%',
-                                    padding: 7,
-                                    textAlign: 'center',
-                                },
-                                {
-                                    text: `${yearOnYearDateStr}\n\n犯罪嫌疑人${fzxyrs.lastyear}人`,
-                                    textStyle: {
-                                        fontSize: 16,
-                                        fontWeight: 'normal',
-                                        color:'#fff'
-                                    },
-                                    x: '20%',
-                                    y: '45%',
-                                    padding: [7, 0],
-                                    textAlign: 'center',
-                                },
-                                {
-                                    text: `${monthOnMonthDateStr}\n\n犯罪嫌疑人${fzxyrs.lastmonth}人`,
-                                    textStyle: {
-                                        fontSize: 16,
-                                        fontWeight: 'normal',
-                                        color:'#fff'
-                                    },
-                                    x: '80%',
-                                    y: '45%',
-                                    textAlign: 'center',
-                                    padding: [7, 0],
-                                },
-                            ],
-                            series: [{
+                        let title = [
+                            {
+                                text: `${selectedDateStr}\n\n犯罪嫌疑人${fzxyrs.nowtime}人`,
+                            textStyle: {
+                            fontSize: 16,
+                            fontWeight: 'normal',
+                            color:'#fff'
+                            },
+                            x: '50%',
+                            y: '45%',
+                            padding: 7,
+                            textAlign: 'center',
+                            },
+                            {
+                            text: `${yearOnYearDateStr}\n\n犯罪嫌疑人${fzxyrs.lastyear}人`,
+                            textStyle: {
+                            fontSize: 16,
+                            fontWeight: 'normal',
+                            color:'#fff'
+                            },
+                            x: '20%',
+                            y: '45%',
+                            padding: [7, 0],
+                            textAlign: 'center',
+                            },
+                            {
+                            text: `${monthOnMonthDateStr}\n\n犯罪嫌疑人${fzxyrs.lastmonth}人`,
+                        textStyle: {
+                        fontSize: 16,
+                        fontWeight: 'normal',
+                        color:'#fff'
+                        },
+                        x: '80%',
+                        y: '45%',
+                        textAlign: 'center',
+                        padding: [7, 0],
+                        },
+                        ]
+                        let series= [{
                                 data: pie1,
                                 itemStyle: {
                                     normal: {
@@ -291,20 +286,17 @@ export default class PersonSuspectPunish extends PureComponent {
                                         }
                                     }
                                 }
-                            }],
-                        });
+                            }]
+                        this.showRatePieEchart(title,series);
+                        window.addEventListener('resize', ratePie.resize);
                     }
 
                     this.setState({
                         tableData,
                         rateTableData,
                     });
-                    myChart.setOption({
-                        xAxis: {
-                            data: xData,
-                        },
-                        series: barData,
-                    });
+                    this.showEchart(xData,barData);
+                    window.addEventListener('resize', myChart.resize);
                     this.props.goToCarousel(2);
                 }
                 this.setState({ loadingData: false });
@@ -313,7 +305,7 @@ export default class PersonSuspectPunish extends PureComponent {
         });
     };
 
-    showEchart = () => {
+    showEchart = (xData,barData) => {
         const that = this;
         myChart = echarts.init(document.getElementsByClassName('suspectPunishType')[1]);
         const option = {
@@ -325,7 +317,7 @@ export default class PersonSuspectPunish extends PureComponent {
             },
             xAxis: {
                 type: 'category',
-                data: [],
+                data: xData,
                 axisLabel: {   // X轴线 标签修改
                     textStyle: {
                         color: '#fff', //坐标值得具体的颜色
@@ -352,7 +344,7 @@ export default class PersonSuspectPunish extends PureComponent {
                     }
                 },
             },
-            series: [],
+            series: barData,
         };
         myChart.setOption(option);
         if(window.configUrl.is_area==='2'){
@@ -371,9 +363,10 @@ export default class PersonSuspectPunish extends PureComponent {
           })
         }
     };
-    showRatePieEchart = () => {
+    showRatePieEchart = (title,series) => {
         ratePie = echarts.init(document.getElementsByClassName('suspectPunishRate')[1]);
         const option = {
+            title,
             series: [
                 {
                     type: 'pie',
@@ -386,7 +379,7 @@ export default class PersonSuspectPunish extends PureComponent {
                             formatter: `{b}:{c}\n\n占比{d}%`,
                         },
                     },
-                    data: [],
+                    ...series[0]
                 },
                 {
                     type: 'pie',
@@ -399,7 +392,7 @@ export default class PersonSuspectPunish extends PureComponent {
                             formatter: `{b}:{c}\n\n占比{d}%`,
                         },
                     },
-                    data: [],
+                    ...series[1]
                 },
                 {
                     type: 'pie',
@@ -412,7 +405,7 @@ export default class PersonSuspectPunish extends PureComponent {
                             formatter: `{b}:{c}\n\n占比{d}%`,
                         },
                     },
-                    data: [],
+                    ...series[2]
                 },
             ],
         };

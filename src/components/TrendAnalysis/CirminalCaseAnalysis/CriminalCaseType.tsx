@@ -29,8 +29,6 @@ export default class CriminalCaseType extends PureComponent {
 
     componentDidMount() {
         this.getCriminalCaseType(this.props);
-        this.showEchart();
-        window.addEventListener('resize', myChart.resize);
     }
 
     componentWillReceiveProps(nextProps) {
@@ -163,16 +161,12 @@ export default class CriminalCaseType extends PureComponent {
         this.setState({
             tableData,
         });
-        myChart.setOption({
-            xAxis: {
-                data: xData,
-            },
-            series: lineData,
-        });
+        this.showEchart(xData,lineData);
+        window.addEventListener('resize', myChart.resize);
         this.props.goToCarousel(1);
     };
 
-    showEchart = () => {
+    showEchart = (xData,lineData) => {
         myChart = echarts.init(document.getElementById('criminalCaseType'));
         const { selectedDateStr, yearOnYearDateStr, monthOnMonthDateStr } = this.props;
         const option = {
@@ -185,7 +179,7 @@ export default class CriminalCaseType extends PureComponent {
             },
             xAxis: {
                 type: 'category',
-                data: [],
+                data: xData,
                 axisLine: {
                     show: true, // X轴 网格线 颜色类型的修改
                     lineStyle: {
@@ -207,7 +201,7 @@ export default class CriminalCaseType extends PureComponent {
                     }
                 },
             },
-            series: [],
+            series: lineData,
         };
         myChart.setOption(option);
     };

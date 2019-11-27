@@ -270,7 +270,7 @@ body {
       border: @zero;
     }
     .ant-table {
-      border-radius: @borderRadius;
+      border-radius: @borderRadius @borderRadius @zero @zero;
       overflow: hidden;
     }
     .ant-table-thead > tr > th {
@@ -531,6 +531,22 @@ body {
         }
       }
     }
+    .ant-calendar-year-panel-year,.ant-calendar-decade-panel-decade {
+      color: @white!important;
+      &:hover{
+        background: @highlight-color;
+      }
+    }
+    .ant-calendar-range .ant-calendar-year-panel-body,.ant-calendar-range .ant-calendar-month-panel-body,.ant-calendar-range .ant-calendar-decade-panel-body{
+      border: @zero;
+    }
+    .ant-calendar-year-panel-header,.ant-calendar-year-panel-decade-select{
+      color: @white!important;
+    }
+    .ant-calendar-year-panel,.ant-calendar-decade-panel{
+      background: @dropdown-selected-color;
+      color: @white!important;
+    }
     .ant-calendar-selected-day .ant-calendar-date,
     .ant-calendar-week-number .ant-calendar-body tr.ant-calendar-active-week {
       background: @highlight-color;
@@ -592,6 +608,9 @@ body {
       .ant-btn-primary {
         background: @highlight-color;
       }
+    }
+    .ant-btn-dashed{
+      background: @body-background!important;
     }
     .ant-message-success {
       background: @alert-success-bg-color;

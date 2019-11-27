@@ -17,6 +17,8 @@ export default {
             const response = yield call(trendAnalysisService.getOverviewData, payload);
             if (callback && !response.error) {
                 callback(response.data);
+            }else{
+                callback();
             }
         },
         // 侵财类警情
@@ -24,6 +26,8 @@ export default {
             const response = yield call(trendAnalysisService.getAgainstProperty, payload);
             if (callback && !response.error) {
                 callback(response.data);
+            }else{
+                callback();
             }
         },
         // 两抢案件、诈骗案件
@@ -31,6 +35,8 @@ export default {
             const response = yield call(trendAnalysisService.getRobGrabFraud, payload);
             if (callback && !response.error) {
                 callback(response.data);
+            }else{
+                callback();
             }
         },
         // 盗窃类警情
@@ -38,6 +44,8 @@ export default {
             const response = yield call(trendAnalysisService.getStealData, payload);
             if (callback && !response.error) {
                 callback(response.data);
+            }else{
+                callback();
             }
         },
         // 刑事案件--综述
@@ -45,6 +53,8 @@ export default {
             const response = yield call(trendAnalysisService.getCriminalCaseOverviewData, payload);
             if (callback && !response.error) {
                 callback(response.data);
+            }else{
+                callback();
             }
         },
         // 刑事案件--类型分析
@@ -52,6 +62,8 @@ export default {
             const response = yield call(trendAnalysisService.getCriminalCaseType, payload);
             if (callback && !response.error) {
                 callback(response.data);
+            }else{
+                callback();
             }
         },
         // 刑事案件--警情、受理、立案
@@ -59,6 +71,8 @@ export default {
             const response = yield call(trendAnalysisService.getCriminalCaseAndPolice, payload);
             if (callback && !response.error) {
                 callback(response.data);
+            }else{
+                callback();
             }
         },
         // 人员---综述
@@ -66,6 +80,8 @@ export default {
             const response = yield call(trendAnalysisService.getPersonOverview, payload);
             if (callback && !response.error) {
                 callback(response.data);
+            }else{
+                callback();
             }
         },
         // 人员--违法行为人处罚
@@ -73,6 +89,8 @@ export default {
             const response = yield call(trendAnalysisService.getPunishTypeData, payload);
             if (callback && !response.error) {
                 callback(response.data);
+            }else{
+                callback();
             }
         },
         // 人员--犯罪嫌疑人处罚
@@ -80,6 +98,8 @@ export default {
             const response = yield call(trendAnalysisService.getSuspectPunishTypeData, payload);
             if (callback && !response.error) {
                 callback(response.data);
+            }else{
+                callback();
             }
         },
     },

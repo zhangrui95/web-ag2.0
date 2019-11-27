@@ -313,12 +313,12 @@ export default class zfdaTable extends PureComponent {
                                                                        title={d.name}>{`${d.name} ${d.pcard}`}</Option>);
         const { form: { getFieldDecorator }, common: { depTree }, treeDefaultExpandedKeys } = this.props;
         return (
-            <Card className={styles.cardArea}>
+            <Card className={styles.cardArea} id={'form'}>
                 <div>
                     <Form>
                         <Row gutter={rowLayout}>
                             {
-                                this.props.searchAjBtn ? <Col {...colLayouts} style={{ marginBottom: 24 }}>
+                                this.props.searchAjBtn ? <Col {...colLayouts} style={{ margin: '24px 0' }}>
                                     <Button style={{ marginLeft: 8 }} type="primary"
                                             onClick={this.showModal}>案件查询</Button>
                                 </Col> : ''
@@ -339,6 +339,7 @@ export default class zfdaTable extends PureComponent {
                                             key='jgSelect'
                                             treeDefaultExpandedKeys={treeDefaultExpandedKeys}
                                             treeNodeFilterProp="title"
+                                            getPopupContainer={() => document.getElementById('form')}
                                         >
                                             {depTree && depTree.length > 0 ? this.renderloop(depTree) : null}
                                         </TreeSelect>,
@@ -360,6 +361,7 @@ export default class zfdaTable extends PureComponent {
                                                 onSearch={(value) => this.getAllPolice(value)}
                                                 onFocus={(value) => this.getAllPolice(value)}
                                                 onChange={(e) => this.getChangeTable(this.state.treeId, this.state.data, e)}
+                                                getPopupContainer={() => document.getElementById('form')}
                                             >
                                                 {allPoliceOptions}
                                             </Select>,
@@ -373,7 +375,7 @@ export default class zfdaTable extends PureComponent {
                                         {getFieldDecorator('yf', {
                                             initialValue: this.state.data,
                                         })(
-                                            <MonthPicker allowClear={false} size='default' placeholder={'请选择月份'}
+                                            <MonthPicker allowClear={false} size='default' placeholder={'请选择月份'} getCalendarContainer={()=>document.getElementById('form')}
                                                          disabledDate={this.disabledDate} onChange={this.dateChange}/>,
                                         )}
                                     </FormItem>
@@ -391,6 +393,7 @@ export default class zfdaTable extends PureComponent {
                                                 placeholder={'请选择日期'}
                                                 onChange={this.dateChange}
                                                 allowClear={false}
+                                                getCalendarContainer={()=>document.getElementById('form')}
                                             />,
                                         )}
                                     </FormItem>

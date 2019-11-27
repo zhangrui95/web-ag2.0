@@ -28,10 +28,6 @@ export default class CriminalCaseAndPolice extends PureComponent {
 
     componentDidMount() {
         this.getCriminalCaseAndPolice(this.props);
-        this.showEchart();
-        this.showAcceptCaseBar();
-        window.addEventListener('resize', treePie.resize);
-        window.addEventListener('resize', criminalCaseAcceptBar.resize);
     }
 
     componentWillReceiveProps(nextProps) {
@@ -118,68 +114,46 @@ export default class CriminalCaseAndPolice extends PureComponent {
                                 hbzf_l: sal.hbzf100 || '0%',
                             },
                         ];
-                        treePie.setOption({
-                            title: [
-                                {
-                                    text: `${selectedDateStr}\n\n警情总数${jqzl.nowtime}起`,
-                                    textStyle: {
-                                        fontSize: 16,
-                                        fontWeight: 'normal',
-                                        color:'#fff'
-                                    },
-                                    x: '50%',
-                                    y: '45%',
-                                    padding: 7,
-                                    textAlign: 'center',
+                        let title = [
+                            {
+                                text: `${selectedDateStr}\n\n警情总数${jqzl.nowtime}起`,
+                                textStyle: {
+                                    fontSize: 16,
+                                    fontWeight: 'normal',
+                                    color:'#fff'
                                 },
-                                {
-                                    text: `${yearOnYearDateStr}\n\n警情总数${jqzl.lastyear}起`,
-                                    textStyle: {
-                                        fontSize: 16,
-                                        fontWeight: 'normal',
-                                        color:'#fff'
-                                    },
-                                    x: '20%',
-                                    y: '45%',
-                                    padding: [7, 0],
-                                    textAlign: 'center',
+                                x: '50%',
+                                y: '45%',
+                                padding: 7,
+                                textAlign: 'center',
+                            },
+                            {
+                                text: `${yearOnYearDateStr}\n\n警情总数${jqzl.lastyear}起`,
+                                textStyle: {
+                                    fontSize: 16,
+                                    fontWeight: 'normal',
+                                    color:'#fff'
                                 },
-                                {
-                                    text: `${monthOnMonthDateStr}\n\n警情总数${jqzl.lastmonth}起`,
-                                    textStyle: {
-                                        fontSize: 16,
-                                        fontWeight: 'normal',
-                                        color:'#fff'
-                                    },
-                                    x: '80%',
-                                    y: '45%',
-                                    textAlign: 'center',
-                                    padding: [7, 0],
+                                x: '20%',
+                                y: '45%',
+                                padding: [7, 0],
+                                textAlign: 'center',
+                            },
+                            {
+                                text: `${monthOnMonthDateStr}\n\n警情总数${jqzl.lastmonth}起`,
+                                textStyle: {
+                                    fontSize: 16,
+                                    fontWeight: 'normal',
+                                    color:'#fff'
                                 },
-                            ],
-                            series: [{
-                                data: pie1,
-                                // label: {
-                                //     normal: {
-                                //         formatter: `${selectedDateStr}\n\n警情总数${jqzl.nowtime}件`,
-                                //     },
-                                // },
-                            }, {
-                                data: pie2,
-                                // label: {
-                                //     normal: {
-                                //         formatter: `${yearOnYearDateStr}\n\n警情总数${jqzl.lastyear}件`,
-                                //     },
-                                // },
-                            }, {
-                                data: pie3,
-                                // label: {
-                                //     normal: {
-                                //         formatter: `${monthOnMonthDateStr}\n\n警情总数${jqzl.lastmonth}件`,
-                                //     },
-                                // },
-                            }],
-                        });
+                                x: '80%',
+                                y: '45%',
+                                textAlign: 'center',
+                                padding: [7, 0],
+                            },
+                        ];
+                        this.showEchart(title,pie1,pie2,pie3);
+                        window.addEventListener('resize', treePie.resize);
                     }
                     if (ajla && ajsa && lal) {
                         acceptCaseTableData = [
@@ -271,12 +245,8 @@ export default class CriminalCaseAndPolice extends PureComponent {
                                 }
                             }
                         }];
-                        criminalCaseAcceptBar.setOption({
-                            xAxis: {
-                                data: xData,
-                            },
-                            series: barData,
-                        });
+                        this.showAcceptCaseBar(xData,barData);
+                        window.addEventListener('resize', criminalCaseAcceptBar.resize);
                     }
                     this.setState({
                         caseAndPoliceTableData,
@@ -290,9 +260,10 @@ export default class CriminalCaseAndPolice extends PureComponent {
         });
     };
 
-    showEchart = () => {
+    showEchart = (title,pie1,pie2,pie3) => {
         treePie = echarts.init(document.getElementsByClassName('criminalCaseAndPolice')[1]);
         const option = {
+            title,
             series: [
                 {
                     type: 'pie',
@@ -305,7 +276,7 @@ export default class CriminalCaseAndPolice extends PureComponent {
                             formatter: `{b}警情{c}起\n\n占比{d}%`,
                         },
                     },
-                    data: [],
+                    data: pie1,
                 },
                 {
                     type: 'pie',
@@ -318,7 +289,7 @@ export default class CriminalCaseAndPolice extends PureComponent {
                             formatter: `{b}警情{c}起\n\n占比{d}%`,
                         },
                     },
-                    data: [],
+                    data: pie2,
                 },
                 {
                     type: 'pie',
@@ -350,14 +321,14 @@ export default class CriminalCaseAndPolice extends PureComponent {
                     //         show: false,
                     //     },
                     // },
-                    data: [],
+                    data: pie3,
                 },
             ],
         };
         treePie.setOption(option);
     };
     // 受立案bar
-    showAcceptCaseBar = () => {
+    showAcceptCaseBar = (xData,barData) => {
         criminalCaseAcceptBar = echarts.init(document.getElementsByClassName('criminalCaseAccept')[1]);
         const { selectedDateStr, yearOnYearDateStr, monthOnMonthDateStr } = this.props;
         const option = {
@@ -375,7 +346,7 @@ export default class CriminalCaseAndPolice extends PureComponent {
             xAxis: {
                 type: 'category',
                 axisLine: { show: false },
-                data: [],
+                data: xData,
                 axisTick: {
                     alignWithLabel: true,
                 },
@@ -413,7 +384,7 @@ export default class CriminalCaseAndPolice extends PureComponent {
                     },
                 },
             },
-            series: [],
+            series: barData,
         };
         criminalCaseAcceptBar.setOption(option);
     };

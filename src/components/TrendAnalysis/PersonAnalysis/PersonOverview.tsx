@@ -29,10 +29,6 @@ export default class PersonOverview extends PureComponent {
 
     componentDidMount() {
         this.getPersonOverview(this.props);
-        this.showEchart();
-        this.showDealSuspectTypeBar();
-        window.addEventListener('resize', suspectCountBar.resize);
-        window.addEventListener('resize', dealSuspectTypeBar.resize);
     }
 
     componentWillReceiveProps(nextProps) {
@@ -146,13 +142,8 @@ export default class PersonOverview extends PureComponent {
                                 hbzf_l: ysqs.hbzf100 || '0%',
                             },
                         ];
-                        dealSuspectTypeBar.setOption({
-                            color: ['#3AA0FF', '#DCCA23', '#31BD74'],
-                            xAxis: {
-                                data: dealXData,
-                            },
-                            series: dealBarData,
-                        });
+                        this.showEchart(dealXData, dealBarData);
+                        window.addEventListener('resize', dealSuspectTypeBar.resize);
                     }
                     if (fz && wf) {
                         suspectCountTableData = [
@@ -238,13 +229,14 @@ export default class PersonOverview extends PureComponent {
                                 { name: '违法行为人', value: wf.lastmonth || 0, itemStyle: { color: '#31BD74' },code:'02' },
                             ],
                         }];
-                        suspectCountBar.setOption({
-                            color: ['#3AA0FF', '#DCCA23', '#31BD74'],
-                            xAxis: {
-                                data: xData,
-                            },
-                            series: barData,
-                        });
+                        // suspectCountBar.setOption({
+                        //     xAxis: {
+                        //         data: xData,
+                        //     },
+                        //     series: barData,
+                        // });
+                        this.showDealSuspectTypeBar(xData,barData);
+                        window.addEventListener('resize', suspectCountBar.resize);
                     }
                     this.setState({
                         suspectCountTableData,
@@ -258,10 +250,11 @@ export default class PersonOverview extends PureComponent {
         });
     };
 
-    showEchart = () => {
+    showEchart = (dealXData, dealBarData) => {
         const that = this;
         dealSuspectTypeBar = echarts.init(document.getElementById('dealSuspectTypeBar'));
         const option = {
+            color: ['#3AA0FF', '#DCCA23', '#31BD74'],
             tooltip: {
                 trigger: 'axis',
                 axisPointer: {            // 坐标轴指示器，坐标轴触发有效
@@ -270,7 +263,7 @@ export default class PersonOverview extends PureComponent {
             },
             xAxis: {
                 type: 'category',
-                data: [],
+                data: dealXData,
                 axisLabel: {   // X轴线 标签修改
                     textStyle: {
                         color: '#fff', //坐标值得具体的颜色
@@ -297,7 +290,7 @@ export default class PersonOverview extends PureComponent {
                     }
                 },
             },
-            series: [],
+            series: dealBarData,
         };
         dealSuspectTypeBar.setOption(option);
         if(window.configUrl.is_area==='2'){
@@ -317,10 +310,11 @@ export default class PersonOverview extends PureComponent {
         }
     };
     // 处理嫌疑人
-    showDealSuspectTypeBar = () => {
+    showDealSuspectTypeBar = (xData,barData) => {
         const that = this;
         suspectCountBar = echarts.init(document.getElementById('suspectCountBar'));
         const option = {
+            color: ['#3AA0FF', '#DCCA23', '#31BD74'],
             tooltip: {
                 trigger: 'axis',
                 axisPointer: {            // 坐标轴指示器，坐标轴触发有效
@@ -330,9 +324,20 @@ export default class PersonOverview extends PureComponent {
             xAxis: {
                 type: 'category',
                 axisLine: { show: false },
-                data: [],
+                data: xData,
                 axisTick: {
                     alignWithLabel: true,
+                },
+                axisLabel: {   // X轴线 标签修改
+                    textStyle: {
+                        color: '#fff', //坐标值得具体的颜色
+                    }
+                },
+                axisLine: {
+                    show: true, // X轴 网格线 颜色类型的修改
+                    lineStyle: {
+                        color: '#fff'
+                    }
                 },
             },
             yAxis: {
@@ -351,7 +356,7 @@ export default class PersonOverview extends PureComponent {
                     },
                 },
             },
-            series: [],
+            series: barData,
         };
         suspectCountBar.setOption(option);
         if(window.configUrl.is_area==='2'){
