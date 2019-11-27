@@ -311,14 +311,13 @@ class RenderTable extends PureComponent {
         ];
 
         const paginationProps = {
-            showSizeChanger: true,
-            showQuickJumper: true,
+            // showSizeChanger: true,
+            // showQuickJumper: true,
             current: data.page ? data.page.currentPage : '',
             total: data.page ? data.page.totalResult : '',
             pageSize: data.page ? data.page.showCount : '',
             showTotal: (total, range) =>
-                <span
-                    className={styles.pagination}>{`共 ${data.page ? data.page.totalResult : 0} 条记录 第 ${data.page ? data.page.currentPage : 1} / ${data.page ? data.page.totalPage : 1} 页`}</span>,
+      <span className={styles.pagination}>{`共 ${data.page ? data.page.totalPage : 1} 页，${data.page ? data.page.totalResult : 0} 条记录`}</span>,
         };
         let detail = (
             <Row style={{ width: '90%', margin: '0 52px 10px', lineHeight: '36px', color: 'rgba(0, 0, 0, 0.85)' }}>
@@ -339,7 +338,7 @@ class RenderTable extends PureComponent {
         return (
             <div className={styles.standardTable}>
                 <Table
-                    size={'middle'}
+                    // size={'middle'}
                     loading={loading}
                     rowKey={record => record.key}
                     dataSource={data.list}

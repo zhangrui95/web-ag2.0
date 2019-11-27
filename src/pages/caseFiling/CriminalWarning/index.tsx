@@ -704,15 +704,13 @@ export default class Index extends PureComponent {
       </Row>
     );
     const paginationProps = {
-      showSizeChanger: true,
-      showQuickJumper: true,
+      // showSizeChanger: true,
+      // showQuickJumper: true,
       current: page ? page.currentPage : '',
       total: page ? page.totalResult : '',
       pageSize: page ? page.showCount : '',
       showTotal: (total, range) => (
-        <span className={styles.listPagination}>{`共 ${page ? page.totalResult : 0} 条记录 第 ${
-          page ? page.currentPage : 1
-        } / ${page ? page.totalPage : 1} 页`}</span>
+        <span className={styles.listPagination}>{`共 ${page ? page.totalPage : 1} 页，${page ? page.totalResult : 0} 条记录`}</span>
       ),
     };
     return (
@@ -812,7 +810,7 @@ export default class Index extends PureComponent {
           </Button>
           <Table
             className={styles.listStandardTable}
-            size="middle"
+            // size="middle"
             loading={loading}
             rowKey={record => record.wtid}
             dataSource={list}
