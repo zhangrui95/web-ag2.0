@@ -142,8 +142,10 @@ export default class PersonOverview extends PureComponent {
                                 hbzf_l: ysqs.hbzf100 || '0%',
                             },
                         ];
-                        this.showEchart(dealXData, dealBarData);
-                        window.addEventListener('resize', dealSuspectTypeBar.resize);
+                        if(document.getElementById('dealSuspectTypeBar')){
+                            this.showEchart(dealXData, dealBarData);
+                            window.addEventListener('resize', dealSuspectTypeBar.resize);
+                        }
                     }
                     if (fz && wf) {
                         suspectCountTableData = [
@@ -235,8 +237,10 @@ export default class PersonOverview extends PureComponent {
                         //     },
                         //     series: barData,
                         // });
-                        this.showDealSuspectTypeBar(xData,barData);
-                        window.addEventListener('resize', suspectCountBar.resize);
+                        if(document.getElementById('suspectCountBar')){
+                            this.showDealSuspectTypeBar(xData,barData);
+                            window.addEventListener('resize', suspectCountBar.resize);
+                        }
                     }
                     this.setState({
                         suspectCountTableData,

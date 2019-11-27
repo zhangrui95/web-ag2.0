@@ -152,8 +152,10 @@ export default class CriminalCaseAndPolice extends PureComponent {
                                 padding: [7, 0],
                             },
                         ];
-                        this.showEchart(title,pie1,pie2,pie3);
-                        window.addEventListener('resize', treePie.resize);
+                        if(document.getElementsByClassName('criminalCaseAndPolice')[1]){
+                            this.showEchart(title,pie1,pie2,pie3);
+                            window.addEventListener('resize', treePie.resize);
+                        }
                     }
                     if (ajla && ajsa && lal) {
                         acceptCaseTableData = [
@@ -245,8 +247,10 @@ export default class CriminalCaseAndPolice extends PureComponent {
                                 }
                             }
                         }];
-                        this.showAcceptCaseBar(xData,barData);
-                        window.addEventListener('resize', criminalCaseAcceptBar.resize);
+                        if(document.getElementsByClassName('criminalCaseAccept')[1]){
+                            this.showAcceptCaseBar(xData,barData);
+                            window.addEventListener('resize', criminalCaseAcceptBar.resize);
+                        }
                     }
                     this.setState({
                         caseAndPoliceTableData,

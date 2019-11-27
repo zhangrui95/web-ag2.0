@@ -161,8 +161,10 @@ export default class CriminalCaseType extends PureComponent {
         this.setState({
             tableData,
         });
-        this.showEchart(xData,lineData);
-        window.addEventListener('resize', myChart.resize);
+        if(document.getElementById('criminalCaseType')){
+            this.showEchart(xData,lineData);
+            window.addEventListener('resize', myChart.resize);
+        }
         this.props.goToCarousel(1);
     };
 

@@ -151,8 +151,10 @@ export default class Overview extends PureComponent {
                     //     series: barData,
                     // });
                     this.props.goToCarousel(0);
-                    this.showEchart(barData);
-                    window.addEventListener('resize', myChart.resize);
+                    if(document.getElementById('overviewCharts')){
+                        this.showEchart(barData);
+                        window.addEventListener('resize', myChart.resize);
+                    }
                 }
                 this.setState({ loadingData: false });
                 this.props.changeLoadingStatus({ overViewLoadingStatus: false });

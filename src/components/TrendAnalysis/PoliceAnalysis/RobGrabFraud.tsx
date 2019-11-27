@@ -178,8 +178,10 @@ export default class RobGrabFraud extends PureComponent {
                                 },
                             },
                         }];
-                        this.showEchart(serise);
-                        window.addEventListener('resize', treePie.resize);
+                        if(document.getElementById('robGrabPie')){
+                            this.showEchart(serise);
+                            window.addEventListener('resize', treePie.resize);
+                        }
                     }
                     if (zhapian) {
                         zhapianTableData = [
@@ -241,8 +243,10 @@ export default class RobGrabFraud extends PureComponent {
                         //         data: barData,
                         //     },
                         // });
-                        this.showFraudBar(xData,barData);
-                        window.addEventListener('resize', fraudBar.resize);
+                        if(document.getElementById('fraudBar')){
+                            this.showFraudBar(xData,barData);
+                            window.addEventListener('resize', fraudBar.resize);
+                        }
                     }
                     this.setState({
                         liangqiangTableData,

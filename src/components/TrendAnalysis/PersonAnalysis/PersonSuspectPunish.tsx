@@ -287,16 +287,20 @@ export default class PersonSuspectPunish extends PureComponent {
                                     }
                                 }
                             }]
-                        this.showRatePieEchart(title,series);
-                        window.addEventListener('resize', ratePie.resize);
+                        if(document.getElementsByClassName('suspectPunishRate')[1]){
+                            this.showRatePieEchart(title,series);
+                            window.addEventListener('resize', ratePie.resize);
+                        }
                     }
 
                     this.setState({
                         tableData,
                         rateTableData,
                     });
-                    this.showEchart(xData,barData);
-                    window.addEventListener('resize', myChart.resize);
+                    if(document.getElementsByClassName('suspectPunishType')[1]){
+                        this.showEchart(xData,barData);
+                        window.addEventListener('resize', myChart.resize);
+                    }
                     this.props.goToCarousel(2);
                 }
                 this.setState({ loadingData: false });

@@ -174,8 +174,10 @@ export default class CriminalCaseOverview extends PureComponent {
                     //     },
                     //     series: barData,
                     // });
-                    this.showEchart(xData,barData);
-                    window.addEventListener('resize', myChart.resize);
+                    if(document.getElementById('criminalCaseOverview')){
+                        this.showEchart(xData,barData);
+                        window.addEventListener('resize', myChart.resize);
+                    }
                     this.props.goToCarousel(0);
                 }
                 this.setState({ loadingData: false });

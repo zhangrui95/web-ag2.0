@@ -173,16 +173,20 @@ export default class AgainstProperty extends PureComponent {
                                 itemStyle: { color: '#31BD74' },
                             },
                         ];
-                        this.showHurtBar(shanghaiBarData,xData);
+                        if(document.getElementById('hurtBar')){
+                            this.showHurtBar(shanghaiBarData,xData);
+                            window.addEventListener('resize', hurtBar.resize);
+                        }
                     }
                     this.setState({
                         tableData,
                         shanghaiTableData,
                     });
                     this.props.goToCarousel(1);
-                    this.showEchart(barData);
-                    window.addEventListener('resize', myChart.resize);
-                    window.addEventListener('resize', hurtBar.resize);
+                    if(document.getElementById('againstPropertyChart')){
+                        this.showEchart(barData);
+                        window.addEventListener('resize', myChart.resize);
+                    }
                 }
                 this.setState({ loadingData: false });
                 this.props.changeLoadingStatus({ againstPropertyLoadingStatus: false });
@@ -344,7 +348,7 @@ export default class AgainstProperty extends PureComponent {
                                    pagination={false}/>
                         </Col>
                     </Row>
-                    <h2 className={styles.areaTitle}>伤害类警情</h2>
+                    <h2 className={styles.title}>伤害类警情</h2>
                     <Row className={styles.fraudArea}>
                         <Col lg={12} md={24}>
                             <div id="hurtBar" style={{ height: 300 }}/>

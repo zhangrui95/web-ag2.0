@@ -276,8 +276,10 @@ export default class PersonIllegalPunish extends PureComponent {
                                 }
                             }
                         }];
-                        this.showRatePieEchart(title,series);
-                        window.addEventListener('resize', ratePie.resize);
+                        if(document.getElementById('illegalPunishRate')){
+                            this.showRatePieEchart(title,series);
+                            window.addEventListener('resize', ratePie.resize);
+                        }
                     }
 
 
@@ -285,8 +287,10 @@ export default class PersonIllegalPunish extends PureComponent {
                         tableData,
                         rateTableData,
                     });
-                    this.showEchart(xData,barData);
-                    window.addEventListener('resize', myChart.resize);
+                    if(document.getElementById('illegalPunishType')){
+                        this.showEchart(xData,barData);
+                        window.addEventListener('resize', myChart.resize);
+                    }
                     this.props.goToCarousel(1);
                 }
                 this.setState({ loadingData: false });
