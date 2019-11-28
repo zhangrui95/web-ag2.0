@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react';
 import { Modal, Form, Input, Select, message, Button, Spin, DatePicker, Row, Col } from 'antd';
 import moment from 'moment';
-import Ellipsis from '../Ellipsis';
+import Ellipsis from 'ant-design-pro/lib/Ellipsis';
 import styles from './ShareModal.less';
 import { connect } from 'dva';
 import { getUserInfos } from '../../utils/utils';

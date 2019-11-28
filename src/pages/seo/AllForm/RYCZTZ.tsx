@@ -402,6 +402,7 @@ export default class RYCZTZ extends PureComponent {
         <Card className={stylescommon.cardArea}>
           <div>
             <Table
+              bordered
               loading={this.state.loading}
               rowKey={record => record.id}
               pagination={paginationProps}

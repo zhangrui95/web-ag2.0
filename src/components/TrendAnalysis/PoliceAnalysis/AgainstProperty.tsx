@@ -23,10 +23,6 @@ export default class AgainstProperty extends PureComponent {
 
     componentDidMount() {
         this.getAgainstProperty(this.props);
-        this.showEchart();
-        this.showHurtBar();
-        window.addEventListener('resize', myChart.resize);
-        window.addEventListener('resize', hurtBar.resize);
     }
 
     componentWillReceiveProps(nextProps) {
@@ -177,57 +173,20 @@ export default class AgainstProperty extends PureComponent {
                                 itemStyle: { color: '#31BD74' },
                             },
                         ];
-                        hurtBar.setOption({
-                            xAxis: {
-                                data: xData,
-                                axisLabel: {   // X轴线 标签修改
-                                    textStyle: {
-                                        color: '#fff', //坐标值得具体的颜色
-                                    }
-                                },
-                                // splitLine:{
-                                //     show: true, // X轴线 颜色类型的修改
-                                //     lineStyle: {
-                                //         color: '#fff'
-                                //     }
-                                // },
-                                axisLine: {
-                                    show: true, // X轴 网格线 颜色类型的修改
-                                    lineStyle: {
-                                        color: '#fff'
-                                    }
-                                },
-                            },
-                            yAxis: {
-                                axisLabel: {   // y轴线 标签修改
-                                    textStyle: {
-                                        color: '#fff', //坐标值得具体的颜色
-                                    }
-                                },
-                                axisLine: {
-                                    show: true, // y轴 网格线 颜色类型的修改
-                                    lineStyle: {
-                                        color: '#fff'
-                                    }
-                                },
-                            },
-                            series: {
-                                data: shanghaiBarData,
-                            },
-                        });
+                        if(document.getElementById('hurtBar')){
+                            this.showHurtBar(shanghaiBarData,xData);
+                            window.addEventListener('resize', hurtBar.resize);
+                        }
                     }
                     this.setState({
                         tableData,
                         shanghaiTableData,
                     });
-                    myChart.setOption({
-                        color: ['#3AA0FF', '#DCCA23', '#31BD74'],
-                        yAxis: {
-                            data: ['侵财类警情', '刑事侵财', '治安侵财'],
-                        },
-                        series: barData,
-                    });
                     this.props.goToCarousel(1);
+                    if(document.getElementById('againstPropertyChart')){
+                        this.showEchart(barData);
+                        window.addEventListener('resize', myChart.resize);
+                    }
                 }
                 this.setState({ loadingData: false });
                 this.props.changeLoadingStatus({ againstPropertyLoadingStatus: false });
@@ -235,7 +194,7 @@ export default class AgainstProperty extends PureComponent {
         });
     };
 
-    showEchart = () => {
+    showEchart = (barData) => {
         myChart = echarts.init(document.getElementById('againstPropertyChart'));
         const { selectedDateStr, yearOnYearDateStr, monthOnMonthDateStr } = this.props;
         const option = {
@@ -265,9 +224,10 @@ export default class AgainstProperty extends PureComponent {
                     }
                 },
             },
+            color: ['#3AA0FF', '#DCCA23', '#31BD74'],
             yAxis: {
                 type: 'category',
-                data: [],
+                data: ['侵财类警情', '刑事侵财', '治安侵财'],
                 axisLabel: {   // y轴线 标签修改
                     textStyle: {
                         color: '#fff', //坐标值得具体的颜色
@@ -280,24 +240,42 @@ export default class AgainstProperty extends PureComponent {
                     }
                 },
             },
-            series: [],
+            series: barData,
         };
         myChart.setOption(option);
     };
     // 伤害类警情柱状图
-    showHurtBar = () => {
+    showHurtBar = (shanghaiBarData,xData) => {
         hurtBar = echarts.init(document.getElementById('hurtBar'));
         const option = {
             color: ['#3AA0FF', '#DCCA23', '#31BD74'],
             xAxis: {
-                type: 'category',
-                axisLine: { show: false },
-                data: [],
-                axisTick: {
-                    alignWithLabel: true,
+                data: xData,
+                axisLabel: {   // X轴线 标签修改
+                    textStyle: {
+                        color: '#fff', //坐标值得具体的颜色
+                    }
+                },
+                axisLine: {
+                    show: true, // X轴 网格线 颜色类型的修改
+                    lineStyle: {
+                        color: '#fff'
+                    }
                 },
             },
-            yAxis: {},
+            yAxis: {
+                axisLabel: {   // y轴线 标签修改
+                    textStyle: {
+                        color: '#fff', //坐标值得具体的颜色
+                    }
+                },
+                axisLine: {
+                    show: true, // y轴 网格线 颜色类型的修改
+                    lineStyle: {
+                        color: '#fff'
+                    }
+                },
+            },
             series: {
                 type: 'bar',
                 cursor: 'default',
@@ -312,7 +290,7 @@ export default class AgainstProperty extends PureComponent {
                         },
                     },
                 },
-                data: [],
+                data: shanghaiBarData,
             },
         };
         hurtBar.setOption(option);
@@ -370,7 +348,7 @@ export default class AgainstProperty extends PureComponent {
                                    pagination={false}/>
                         </Col>
                     </Row>
-                    <h2 className={styles.areaTitle}>伤害类警情</h2>
+                    <h2 className={styles.title}>伤害类警情</h2>
                     <Row className={styles.fraudArea}>
                         <Col lg={12} md={24}>
                             <div id="hurtBar" style={{ height: 300 }}/>

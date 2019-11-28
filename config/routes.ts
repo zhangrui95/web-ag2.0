@@ -395,12 +395,26 @@ export function routes() {
                       path: '/lawEnforcement/File/CriminalFile',
                       component: './lawEnforcement/CriminalFile',
                     },
+                  {
+                      name: '刑事案件档案详情',
+                      icon: 'smile',
+                      path: '/lawEnforcement/File/CriminalFile/Detail',
+                      component: './lawEnforcement/CriminalFile/detail.tsx',
+                      hideInMenu: true,
+                  },
                     {
                       name: '行政案件档案',
                       icon: 'smile',
                       path: '/lawEnforcement/File/AdministrativeFile',
                       component: './lawEnforcement/AdministrativeFile',
                     },
+                      {
+                          name: '行政案件档案详情',
+                          icon: 'smile',
+                          path: '/lawEnforcement/File/AdministrativeFile/Detail',
+                          component: './lawEnforcement/AdministrativeFile/detail.tsx',
+                          hideInMenu: true,
+                      },
                   ],
                 },
                 {
@@ -409,6 +423,13 @@ export function routes() {
                   icon: 'smile',
                   component: './lawEnforcement/PersonFile',
                 },
+                  {
+                      name: '人员档案详情',
+                      icon: 'smile',
+                      path: '/lawEnforcement/PersonFile/Detail',
+                      component: './lawEnforcement/PersonFile/detail.tsx',
+                      hideInMenu: true,
+                  },
               ],
             },
             {

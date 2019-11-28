@@ -23,10 +23,6 @@ export default class RobGrabFraud extends PureComponent {
 
     componentDidMount() {
         this.getRobGrabFraud(this.props);
-        this.showEchart();
-        this.showFraudBar();
-        window.addEventListener('resize', treePie.resize);
-        window.addEventListener('resize', fraudBar.resize);
     }
 
     componentWillReceiveProps(nextProps) {
@@ -131,30 +127,61 @@ export default class RobGrabFraud extends PureComponent {
                                 hbzf_l: liangqiang.hbzf100 || '0%',
                             },
                         ];
-                        treePie.setOption({
-                            series: [{
-                                data: pie1,
-                                label: {
-                                    normal: {
-                                        formatter: `${selectedDateStr}\n\n案发${liangqiang.nowtime}起`,
+                        let serise = [{
+                            data: pie1,
+                            label: {
+                                normal: {
+                                    show: true,
+                                    position: 'center',
+                                    textStyle: {
+                                        fontSize: '20',
+                                        color: '#fff',
                                     },
+                                    formatter: `${selectedDateStr}\n\n案发${liangqiang.nowtime}起`,
                                 },
-                            }, {
-                                data: pie2,
-                                label: {
-                                    normal: {
-                                        formatter: `${yearOnYearDateStr}\n\n案发${liangqiang.lastyear}起`,
+                                emphasis: {
+                                    show: true,
+                                },
+                            },
+                        }, {
+                            data: pie2,
+                            label: {
+                                normal: {
+                                    show: true,
+                                    position: 'center',
+                                    formatter: '{c}',
+                                    textStyle: {
+                                        fontSize: '20',
+                                        color: '#fff',
                                     },
+                                    formatter: `${yearOnYearDateStr}\n\n案发${liangqiang.lastyear}起`,
                                 },
-                            }, {
-                                data: pie3,
-                                label: {
-                                    normal: {
-                                        formatter: `${monthOnMonthDateStr}\n\n案发${liangqiang.lastmonth}起`,
+                                emphasis: {
+                                    show: true,
+                                },
+                            },
+                        }, {
+                            data: pie3,
+                            label: {
+                                normal: {
+                                    show: true,
+                                    position: 'center',
+                                    formatter: '{c}',
+                                    textStyle: {
+                                        fontSize: '20',
+                                        color: '#fff',
                                     },
+                                    formatter: `${monthOnMonthDateStr}\n\n案发${liangqiang.lastmonth}起`,
                                 },
-                            }],
-                        });
+                                emphasis: {
+                                    show: true,
+                                },
+                            },
+                        }];
+                        if(document.getElementById('robGrabPie')){
+                            this.showEchart(serise);
+                            window.addEventListener('resize', treePie.resize);
+                        }
                     }
                     if (zhapian) {
                         zhapianTableData = [
@@ -207,15 +234,19 @@ export default class RobGrabFraud extends PureComponent {
                                 itemStyle: { color: '#31BD74' },
                             },
                         ];
-                        fraudBar.setOption({
-
-                            xAxis: {
-                                data: xData,
-                            },
-                            series: {
-                                data: barData,
-                            },
-                        });
+                        // fraudBar.setOption({
+                        //
+                        //     xAxis: {
+                        //         data: xData,
+                        //     },
+                        //     series: {
+                        //         data: barData,
+                        //     },
+                        // });
+                        if(document.getElementById('fraudBar')){
+                            this.showFraudBar(xData,barData);
+                            window.addEventListener('resize', fraudBar.resize);
+                        }
                     }
                     this.setState({
                         liangqiangTableData,
@@ -229,7 +260,7 @@ export default class RobGrabFraud extends PureComponent {
         });
     };
 
-    showEchart = () => {
+    showEchart = (serise) => {
         treePie = echarts.init(document.getElementById('robGrabPie'));
         const option = {
             series: [
@@ -239,25 +270,12 @@ export default class RobGrabFraud extends PureComponent {
                     radius: ['65%', '80%'],
                     avoidLabelOverlap: false,
                     cursor: 'default',
-                    label: {
-                        normal: {
-                            show: true,
-                            position: 'center',
-                            textStyle: {
-                                fontSize: '20',
-                                color: '#fff',
-                            },
-                        },
-                        emphasis: {
-                            show: true,
-                        },
-                    },
                     labelLine: {
                         normal: {
                             show: false,
                         },
                     },
-                    data: [],
+                    ...serise[0]
                 },
                 {
                     type: 'pie',
@@ -265,26 +283,12 @@ export default class RobGrabFraud extends PureComponent {
                     radius: ['55%', '70%'],
                     avoidLabelOverlap: false,
                     cursor: 'default',
-                    label: {
-                        normal: {
-                            show: true,
-                            position: 'center',
-                            formatter: '{c}',
-                            textStyle: {
-                                fontSize: '20',
-                                color: '#fff',
-                            },
-                        },
-                        emphasis: {
-                            show: true,
-                        },
-                    },
                     labelLine: {
                         normal: {
                             show: false,
                         },
                     },
-                    data: [],
+                    ...serise[1]
                 },
                 {
                     type: 'pie',
@@ -292,40 +296,26 @@ export default class RobGrabFraud extends PureComponent {
                     radius: ['55%', '70%'],
                     avoidLabelOverlap: false,
                     cursor: 'default',
-                    label: {
-                        normal: {
-                            show: true,
-                            position: 'center',
-                            formatter: '{c}',
-                            textStyle: {
-                                fontSize: '20',
-                                color: '#fff',
-                            },
-                        },
-                        emphasis: {
-                            show: true,
-                        },
-                    },
                     labelLine: {
                         normal: {
                             show: false,
                         },
                     },
-                    data: [],
+                    ...serise[2]
                 },
             ],
         };
         treePie.setOption(option);
     };
     // 诈骗bar
-    showFraudBar = () => {
+    showFraudBar = (xData,barData) => {
         fraudBar = echarts.init(document.getElementById('fraudBar'));
         const option = {
             color: ['#3AA0FF', '#DCCA23', '#31BD74'],
             xAxis: {
                 type: 'category',
                 axisLine: { show: false },
-                data: [],
+                data: xData,
                 axisTick: {
                     alignWithLabel: true,
                 },
@@ -357,7 +347,7 @@ export default class RobGrabFraud extends PureComponent {
                         },
                     },
                 },
-                data: [],
+                data: barData,
             },
         };
         fraudBar.setOption(option);

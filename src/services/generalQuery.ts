@@ -10,14 +10,14 @@ const generalQueryUrl = configUrl.generalQueryUrl;
 
 export async function getSearchData(param) {
   return request(generalQueryUrl, {
-    method: 'get',
+    method: 'POSTS',
     data: param,
   });
 }
 
 export async function getSearchDataNew(param) {
   return request(generalQueryUrl + param.searchTypeUrl + '/_search', {
-    method: 'get',
+    method: 'POSTS',
     data: param.pd,
   });
 }

@@ -879,10 +879,10 @@ export default class EvaluationChats extends PureComponent {
                                         // onClick={() => this.props.changeToListPage({ data: { code: event.bkpr_jh } }, '2')}
                                         className={styles.rightList}>
                                         <Col span={15} className={styles.nameCenter}>
-                                            <div><Ellipsis length={7}
+                                            <div><Ellipsis lines={1}
                                                            tooltip>{event.bkpr_dwmc ? event.bkpr_dwmc : ''}</Ellipsis>
                                             </div>
-                                            <div className={styles.nameCenter}><Ellipsis length={7}
+                                            <div className={styles.nameCenter}><Ellipsis lines={1}
                                                                                          tooltip>{event.bkpr_name ? event.bkpr_name : ''}</Ellipsis>
                                             </div>
                                         </Col>

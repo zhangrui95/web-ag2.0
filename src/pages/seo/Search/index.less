@@ -50,6 +50,12 @@
       color: #000;
       border-bottom: 2px solid rgba(37, 155, 243, 1);
     }
+    :global{
+      .ant-divider{
+        background: @body-background;
+        font-size: 20px;
+      }
+    }
   }
 
   .searchDetails {
@@ -131,23 +137,23 @@
   }
 
   .ajCardTitle {
-    background-color: rgba(37, 155, 243, 1);
+    background-color: #3285FF;
   }
 
   .sawpCardTitle {
-    background-color: rgba(255, 51, 0, 1);
+    background-color: #FF6060;
   }
 
   .saryCardTitle {
-    background-color: rgba(153, 0, 0, 1);
+    background-color: #BE2D2D;
   }
 
   .baqCardTitle {
-    background-color: #ffcc00;
+    background-color: #EAAC35;
   }
 
   .jzCardTitle {
-    background-color: #6666ff;
+    background-color: #5F1FF1;
   }
 
   .cardBody {
@@ -170,8 +176,8 @@
     line-height: 50px;
     text-align: center;
     border-radius: 0 0 2px 2px;
-    background-color: rgba(239, 243, 246, 1);
-    color: rgba(13, 13, 13, 0.427450980392157);
+    background-color:@menu-item-active-bg;
+    color:@white;
     cursor: pointer;
     font-size: 16px;
   }

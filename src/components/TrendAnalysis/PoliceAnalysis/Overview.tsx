@@ -21,8 +21,6 @@ export default class Overview extends PureComponent {
 
     componentDidMount() {
         this.getOverviewData(this.props);
-        this.showEchart();
-        window.addEventListener('resize', myChart.resize);
     }
 
     componentWillReceiveProps(nextProps) {
@@ -146,13 +144,17 @@ export default class Overview extends PureComponent {
                     this.setState({
                         tableData,
                     });
-                    myChart.setOption({
-                        yAxis: {
-                            data: ['刑事', '行政', '其他'],
-                        },
-                        series: barData,
-                    });
+                    // myChart.setOption({
+                    //     yAxis: {
+                    //         data: ['刑事', '行政', '其他'],
+                    //     },
+                    //     series: barData,
+                    // });
                     this.props.goToCarousel(0);
+                    if(document.getElementById('overviewCharts')){
+                        this.showEchart(barData);
+                        window.addEventListener('resize', myChart.resize);
+                    }
                 }
                 this.setState({ loadingData: false });
                 this.props.changeLoadingStatus({ overViewLoadingStatus: false });
@@ -160,7 +162,7 @@ export default class Overview extends PureComponent {
         });
     };
 
-    showEchart = () => {
+    showEchart = (barData) => {
         myChart = echarts.init(document.getElementById('overviewCharts'));
         const option = {
             tooltip: {
@@ -198,7 +200,7 @@ export default class Overview extends PureComponent {
             },
             yAxis: {
                 type: 'category',
-                data: [],
+                data: ['刑事', '行政', '其他'],
                 axisLabel: {   // y轴线 标签修改
                     textStyle: {
                         color: '#fff', //坐标值得具体的颜色
@@ -211,7 +213,7 @@ export default class Overview extends PureComponent {
                     }
                 },
             },
-            series: [],
+            series: barData,
         };
         myChart.setOption(option);
     };

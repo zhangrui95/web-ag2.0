@@ -24,8 +24,6 @@ export default class CriminalCaseOverview extends PureComponent {
 
     componentDidMount() {
         this.getOverviewData(this.props);
-        this.showEchart();
-        window.addEventListener('resize', myChart.resize);
     }
 
     componentWillReceiveProps(nextProps) {
@@ -170,12 +168,16 @@ export default class CriminalCaseOverview extends PureComponent {
                     this.setState({
                         tableData,
                     });
-                    myChart.setOption({
-                        xAxis: {
-                            data: xData,
-                        },
-                        series: barData,
-                    });
+                    // myChart.setOption({
+                    //     xAxis: {
+                    //         data: xData,
+                    //     },
+                    //     series: barData,
+                    // });
+                    if(document.getElementById('criminalCaseOverview')){
+                        this.showEchart(xData,barData);
+                        window.addEventListener('resize', myChart.resize);
+                    }
                     this.props.goToCarousel(0);
                 }
                 this.setState({ loadingData: false });
@@ -184,7 +186,7 @@ export default class CriminalCaseOverview extends PureComponent {
         });
     };
 
-    showEchart = () => {
+    showEchart = (xData,barData) => {
         myChart = echarts.init(document.getElementById('criminalCaseOverview'));
         const { selectedDateStr, yearOnYearDateStr, monthOnMonthDateStr } = this.props;
         const option = {
@@ -196,7 +198,7 @@ export default class CriminalCaseOverview extends PureComponent {
             },
             xAxis: {
                 type: 'category',
-                data: [],
+                data: xData,
                 axisLine: {
                     show: true, // X轴 网格线 颜色类型的修改
                     lineStyle: {
@@ -218,7 +220,7 @@ export default class CriminalCaseOverview extends PureComponent {
                     }
                 },
             },
-            series: [],
+            series: barData,
         };
         myChart.setOption(option);
     };
