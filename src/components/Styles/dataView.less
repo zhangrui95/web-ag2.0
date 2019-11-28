@@ -1,8 +1,7 @@
 @import '~antd/lib/style/themes/default.less';
 @import '../../theme/darkTheme';
 .viewCount {
-  height: 140px;
-  border: 1px solid #e8e8e8;
+  height: 124px;
   margin-top: 16px;
   display: flex;
   justify-content: flex-end;
@@ -107,7 +106,7 @@
   .cardBox {
     width: 100%;
     height: 300px;
-    background: @component-background;
+    background: @body-background;
     padding: 16px;
   }
 
@@ -225,7 +224,8 @@
   width: 100%;
 
   .viewCount {
-    background: url("../../assets/viewData/policeViewData.jpg") no-repeat #fff;
+    background: url("../../assets/viewData/policeViewData.png") no-repeat #171925;
+    background-size: 100% 100%;
   }
 }
 
@@ -233,7 +233,8 @@
   margin-bottom: 48px;
 
   .viewCount {
-    background: url("../../assets/viewData/caseViewData.jpg") no-repeat #fff;
+    background: url("../../assets/viewData/policeViewData.png") no-repeat #171925;
+    background-size: 100% 100%;
   }
 }
 
@@ -241,7 +242,8 @@
   margin-bottom: 48px;
 
   .viewCount {
-    background: url("../../assets/viewData/itemViewData.jpg") no-repeat #fff;
+    background: url("../../assets/viewData/policeViewData.png") no-repeat #171925;
+    background-size: 100% 100%;
   }
 }
 
@@ -249,7 +251,8 @@
   margin-bottom: 48px;
 
   .viewCount {
-    background: url("../../assets/viewData/areaViewData.jpg") no-repeat #fff;
+    background: url("../../assets/viewData/areaViewData.jpg") no-repeat #171925;
+    background-size: 100% 100%;
   }
 }
 
@@ -330,4 +333,11 @@
 .viewBox{
   padding: 20px;
   border-top: 1px solid @body-background;
+}
+.cardBoxTitle {
+  height: 50px;
+  background: @table-header-bg;
+  padding: 16px 16px 0;
+  color: @white;
+  font-size: 16px;
 }
