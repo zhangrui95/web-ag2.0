@@ -2,8 +2,9 @@ import React, { PureComponent } from 'react';
 import { Table, Divider, Tooltip, message, Dropdown, Menu, Row, Col } from 'antd';
 import { connect } from 'dva';
 import styles from './RenderTable.less';
-import ShareModal from './../ShareModal/ShareModal';
-import SLAXSDetail from '../../routes/UnCaseRealData/uncaseDetail';
+import Ellipsis from 'ant-design-pro/lib/Ellipsis';
+// import ShareModal from './../ShareModal/ShareModal';
+// import SLAXSDetail from '../../../routes/UnCaseRealData/uncaseDetail';
 // import Ellipsis from '../Ellipsis';
 
 @connect(({ share }) => ({
@@ -34,19 +35,19 @@ class RenderTable extends PureComponent {
     }
 
     deatils = (record) => {
-        const divs = (
-            <div>
-                <SLAXSDetail
-                    {...this.props}
-                    id={record.id}
-                    systemId={record.system_id}
-                    dbzt={record.dbzt}
-                    supervise={this.supervise}
-                />
-            </div>
-        );
-        const AddNewDetail = { title: '刑事案件告警详情', content: divs, key: record.id };
-        this.props.newDetail(AddNewDetail);
+        // const divs = (
+        //     <div>
+        //         <SLAXSDetail
+        //             {...this.props}
+        //             id={record.id}
+        //             systemId={record.system_id}
+        //             dbzt={record.dbzt}
+        //             supervise={this.supervise}
+        //         />
+        //     </div>
+        // );
+        // const AddNewDetail = { title: '刑事案件告警详情', content: divs, key: record.id };
+        // this.props.newDetail(AddNewDetail);
     };
 
     // 打开督办模态框
@@ -284,17 +285,17 @@ class RenderTable extends PureComponent {
                     pagination={paginationProps}
                     onChange={this.handleTableChange}
                 />
-                <ShareModal
-                    title="案件信息分享"
-                    detail={detail}
-                    shareVisible={this.state.shareVisible}
-                    handleCancel={this.handleCancel}
-                    shareItem={this.state.shareItem}
-                    personList={this.state.personList}
-                    lx={this.state.lx}
-                    tzlx={this.state.tzlx}
-                    sx={this.state.sx}
-                />
+                {/*<ShareModal*/}
+                    {/*title="案件信息分享"*/}
+                    {/*detail={detail}*/}
+                    {/*shareVisible={this.state.shareVisible}*/}
+                    {/*handleCancel={this.handleCancel}*/}
+                    {/*shareItem={this.state.shareItem}*/}
+                    {/*personList={this.state.personList}*/}
+                    {/*lx={this.state.lx}*/}
+                    {/*tzlx={this.state.tzlx}*/}
+                    {/*sx={this.state.sx}*/}
+                {/*/>*/}
             </div>
         );
     }
