@@ -12,10 +12,10 @@ import {
     Badge,
     Timeline,
     Table,
-    Divider, Select, Icon, Avatar, List, Tooltip, Input, message, Pagination, Anchor, Spin,
+    Divider, Select, Icon, Avatar, List, Tooltip, Input, message, Pagination, Anchor, Spin, Empty,
 } from 'antd';
 import html2canvas from 'html2canvas';
-import echarts from 'echarts/lib/echarts';
+import echarts from 'echarts'
 import tree from 'echarts/lib/chart/tree';
 import styles from '../docDetail.less';
 import liststyles from '../docListStyle.less';
@@ -38,6 +38,7 @@ import CaseModalStep from '../../../components/Common/CaseModalStep';
 import MakeTableModal from '../../../components/CaseRealData/MakeTableModal';
 import RetrieveModal from '../../../components/ShareModal/RetrieveModal';
 import { authorityIsTrue } from '../../../utils/authority';
+import noList from "@/assets/viewData/noList.png";
 
 const FormItem = Form.Item;
 const { Link } = Anchor;
@@ -140,7 +141,7 @@ export default class CriminalCaseDocDetail extends PureComponent {
 
     // 获取关系图谱的实际高度
     getChartTreeHeight = (data) => {
-        let heightCount = 100;
+        let heightCount = 150;
         if (data) {
             const jq = this.getPoliceContentLength(data.jqxxList);
 
@@ -151,105 +152,359 @@ export default class CriminalCaseDocDetail extends PureComponent {
         }
         return heightCount;
     };
-    //脑图
-    showEchart = (data) => {
-        echartTree = echarts.init(document.getElementById('RegulateTree' + this.props.id));
+    showEchart = (data) =>{
         let jq = [];
         let sar = [];
         let sawp = [];
         let jz = [];
+        let datas = [                     //data就是node
+            {
+                name: data.ajmc,
+                attributes:{
+                    modularity_class:0,
+                },
+                symbolSize: 40,
+                x: -900,
+                y: 350,
+            }, {
+                name: '卷宗',
+                attributes:{
+                    modularity_class:4,
+                },
+                symbolSize: 30,
+                x: -700,
+                y: 450
+            }, {
+                name: '警情',
+                attributes:{
+                    modularity_class:1,
+                },
+                symbolSize: 30,
+                x: -700,
+                y: 250
+            }, {
+                name: '涉案人员',
+                attributes:{
+                    modularity_class:2,
+                },
+                symbolSize: 30,
+                x: -700,
+                y: 400
+            }, {
+                name: '涉案物品',
+                attributes:{
+                    modularity_class:3,
+                },
+                symbolSize: 30,
+                x: -700,
+                y: 300
+            }
+        ]
+        let list = [];
         if (data.jqxxList && data.jqxxList.length > 0) {
-            data.jqxxList.map((event) => {
+            data.jqxxList.map((event,index) => {
                 jq.push({
-                    name: event.jjnr ? this.formatter(event.jjnr) : null,
+                    source: '警情',
+                    target: event.jjnr ? this.formatter(event.jjnr) : null,
                 });
+                console.log('list.indexOf(event.jjnr)',JSON.stringify(list).indexOf(this.formatter(event.jjnr)))
+                if(list.length > 0){
+                    list.map((item)=>{
+                        if(item.name !== this.formatter(event.jjnr)){
+                            list.push({
+                                name: event.jjnr ? this.formatter(event.jjnr) : null,
+                                attributes:{
+                                    modularity_class:1,
+                                },
+                                symbolSize: 20,
+                                x:-450,
+                                y: 200 + index*50
+                            });
+                        }
+                    })
+                }else{
+                    list.push({
+                        name: event.jjnr ? this.formatter(event.jjnr) : null,
+                        attributes:{
+                            modularity_class:1,
+                        },
+                        symbolSize: 20,
+                        x:-450,
+                        y: 200 + index*50
+                    });
+                }
             });
         }
         if (data.xyrList && data.xyrList.length > 0) {
-            data.xyrList.map((event) => {
+            data.xyrList.map((event,index) => {
                 // const sartag=event.xszk_name&&event.xszk_name==='在逃'?(event.xszk_name):'';
                 const sartag = event.xszk_name ? `(${event.xszk_name})` : '';
                 sar.push({
-                    name: event.xyrName ? this.formatter(event.xyrName + sartag) : null,
+                    source: '涉案人员',
+                    target: event.xyrName ? this.formatter(event.xyrName + sartag) : null,
                 });
+                list.push(
+                    {
+                        name: event.xyrName ? this.formatter(event.xyrName + sartag) : null,
+                        attributes:{
+                            modularity_class:2,
+                        },
+                        symbolSize: 20,
+                        x:-500,
+                        y: 400 + index*50
+                    }
+                )
             });
         }
         if (data.sawpList && data.sawpList.length > 0) {
-            data.sawpList.map((event) => {
+            data.sawpList.map((event,index) => {
                 sawp.push({
-                    name: event.wpmc ? this.formatter(event.wpmc) : null,
+                    source: '涉案物品',
+                    target: event.wpmc ? this.formatter(event.wpmc) : null,
                 });
+                list.push(
+                    {
+                        name: event.wpmc ? this.formatter(event.wpmc) : null,
+                        attributes:{
+                            modularity_class:2,
+                        },
+                        symbolSize: 20,
+                        x:-600,
+                        y: 350 + index*50
+                    }
+                )
             });
         }
         if (data.jzList && data.jzList.length > 0) {
-            data.jzList.map((event) => {
+            data.jzList.map((event,index) => {
                 jz.push({
-                    name: event.jzmc ? this.formatter(event.jzmc) : null,
-                });
+                    source: '卷宗',
+                    target: event.jzmc ? this.formatter(event.jzmc) : null,
+                })
+                list.push(
+                    {
+                        name: event.jzmc ? this.formatter(event.jzmc) : null,
+                        attributes:{
+                            modularity_class:2,
+                        },
+                        symbolSize: 20,
+                        x: 500 - index*100,
+                        y: 500
+                    }
+                )
             });
         }
-        let data2 = {
-            'name': data && data.ajmc ? this.formatter(data.ajmc) : null,
-            'children': [
-                {
-                    'name': data && data.jqxxList ? '警情' : null,
-                    'children': jq.length > 0 ? jq : null,
-                },
-                {
-                    'name': data && data.xyrList ? '涉案人员' : null,
-                    'children': sar.length > 0 ? sar : null,
-                },
-                {
-                    'name': data && data.sawpList ? '涉案物品' : null,
-                    'children': sawp.length > 0 ? sawp : null,
-                },
-                {
-                    'name': data && data.jzList ? '卷宗' : null,
-                    'children': jz.length > 0 ? jz : null,
-                },
-            ],
-        };
-        const option = {
-            tooltip: {
-                trigger: '',
+        let link = [
+            {
+                source: data.ajmc,
+                target: '卷宗'
+            }, {
+                source: data.ajmc,
+                target: '警情'
+            }, {
+                source: data.ajmc,
+                target: '涉案人员'
+            }, {
+                source: data.ajmc,
+                target: '涉案物品'
+            }, {
+                source: data.ajmc,
+                target: '卷宗'
+            }
+        ]
+        let links = link.concat(jq).concat(sar).concat(sawp).concat(jz);
+        echartTree = echarts.init(document.getElementById('RegulateTree' + this.props.id));
+        echartTree.hideLoading();
+
+        var categories = [];
+        for (var i = 0; i < 9; i++) {
+            categories[i] = {
+                name: i
+            };
+        }
+        const categories2 =[                //节点分类的类目，可选。
+            {
+                name: data.ajmc,    //类目名称
             },
-            series: [
+            {
+                name: '警情',    //类目名称
+            },
+            {
+                name:  '涉案人员',    //类目名称
+            },
+            {
+                name: "涉案物品",    //类目名称
+            },
+            {
+                name: '卷宗',    //类目名称
+            },
+        ];
+        let dataList = datas.concat(list);
+        console.log('dataList======>',dataList)
+        dataList.forEach(function (node) {
+            node.itemStyle = null;
+            node.symbolSize /= 1.5;
+            node.label = {
+                normal: {
+                    show: true,
+                    formatter: '{b}'
+                }
+            };
+            node.category = node.attributes.modularity_class;
+        });
+        let option = {
+            tooltip: {},
+            legend: [{
+                // selectedMode: 'single',
+                data: categories2.map(function (a) {
+                    return a.name;
+                }),
+                textStyle: { color: "#fff" },
+            }],
+            animationDuration: 1500,
+            animationEasingUpdate: 'quinticInOut',
+            color:['#52818c','#A2A16C','#5b6a87','#a27970','#6d9289','#92687E'],
+            tooltip : {
+                trigger: 'item',
+                show:false,
+                formatter: "{a}"
+            },
+            series : [
                 {
-                    type: 'tree',
-                    name: 'tree2',
-                    data: [data2],
-                    top: '5%',
-                    left: '35%',
-                    bottom: '0',
-                    right: '40%',
-                    symbolSize: 7,
-                    label: {
+                    type: 'graph',
+                    layout: 'none',
+                    data: dataList,
+                    links: links,
+                    categories: categories2,
+                    roam: true,
+                    focusNodeAdjacency: true,
+                    itemStyle: {
                         normal: {
-                            position: 'left',
-                            verticalAlign: 'middle',
-                            align: 'right',
-                            lineHeight: '32px',
-                        },
+                            borderColor: '#fff',
+                            borderWidth: 1,
+                            shadowBlur: 10,
+                            shadowColor: 'rgba(0, 0, 0, 0.3)',
+                        }
                     },
-
-                    leaves: {
-                        label: {
-                            normal: {
-                                position: 'right',
-                                verticalAlign: 'middle',
-                                align: 'left',
-                            },
-                        },
+                    label: {
+                        position: 'bottom',
+                        formatter: '{b}'
                     },
-
-                    expandAndCollapse: true,
-                    animationDuration: 550,
-                    animationDurationUpdate: 750,
-                },
-            ],
+                    lineStyle: {
+                        width : '5',
+                        color: 'source',
+                        curveness: 0.2
+                    },
+                    emphasis: {
+                        lineStyle: {
+                            width: 10
+                        }
+                    },
+                }
+            ]
         };
+
         echartTree.setOption(option);
-    };
+    }
+    // //脑图
+    // showEchart = (data) => {
+    //     echartTree = echarts.init(document.getElementById('RegulateTree' + this.props.id));
+    //     let jq = [];
+    //     let sar = [];
+    //     let sawp = [];
+    //     let jz = [];
+    //     if (data.jqxxList && data.jqxxList.length > 0) {
+    //         data.jqxxList.map((event) => {
+    //             jq.push({
+    //                 name: event.jjnr ? this.formatter(event.jjnr) : null,
+    //             });
+    //         });
+    //     }
+    //     if (data.xyrList && data.xyrList.length > 0) {
+    //         data.xyrList.map((event) => {
+    //             // const sartag=event.xszk_name&&event.xszk_name==='在逃'?(event.xszk_name):'';
+    //             const sartag = event.xszk_name ? `(${event.xszk_name})` : '';
+    //             sar.push({
+    //                 name: event.xyrName ? this.formatter(event.xyrName + sartag) : null,
+    //             });
+    //         });
+    //     }
+    //     if (data.sawpList && data.sawpList.length > 0) {
+    //         data.sawpList.map((event) => {
+    //             sawp.push({
+    //                 name: event.wpmc ? this.formatter(event.wpmc) : null,
+    //             });
+    //         });
+    //     }
+    //     if (data.jzList && data.jzList.length > 0) {
+    //         data.jzList.map((event) => {
+    //             jz.push({
+    //                 name: event.jzmc ? this.formatter(event.jzmc) : null,
+    //             });
+    //         });
+    //     }
+    //     let data2 = {
+    //         'name': data && data.ajmc ? this.formatter(data.ajmc) : null,
+    //         'children': [
+    //             {
+    //                 'name': data && data.jqxxList ? '警情' : null,
+    //                 'children': jq.length > 0 ? jq : null,
+    //             },
+    //             {
+    //                 'name': data && data.xyrList ? '涉案人员' : null,
+    //                 'children': sar.length > 0 ? sar : null,
+    //             },
+    //             {
+    //                 'name': data && data.sawpList ? '涉案物品' : null,
+    //                 'children': sawp.length > 0 ? sawp : null,
+    //             },
+    //             {
+    //                 'name': data && data.jzList ? '卷宗' : null,
+    //                 'children': jz.length > 0 ? jz : null,
+    //             },
+    //         ],
+    //     };
+    //     const option = {
+    //         tooltip: {
+    //             trigger: '',
+    //         },
+    //         series: [
+    //             {
+    //                 type: 'tree',
+    //                 name: 'tree2',
+    //                 data: [data2],
+    //                 top: '5%',
+    //                 left: '35%',
+    //                 bottom: '0',
+    //                 right: '40%',
+    //                 symbolSize: 7,
+    //                 label: {
+    //                     normal: {
+    //                         position: 'left',
+    //                         verticalAlign: 'middle',
+    //                         align: 'right',
+    //                         lineHeight: '32px',
+    //                     },
+    //                 },
+    //
+    //                 leaves: {
+    //                     label: {
+    //                         normal: {
+    //                             position: 'right',
+    //                             verticalAlign: 'middle',
+    //                             align: 'left',
+    //                         },
+    //                     },
+    //                 },
+    //
+    //                 expandAndCollapse: true,
+    //                 animationDuration: 550,
+    //                 animationDurationUpdate: 750,
+    //             },
+    //         ],
+    //     };
+    //     echartTree.setOption(option);
+    // };
 //修改改变模态框状态 通过id 获取数据
     caseDetailDatas = (id) => {
         this.setState({
@@ -545,7 +800,7 @@ export default class CriminalCaseDocDetail extends PureComponent {
                 pagination={sawpList.length > 0 ? {
                     size: 'small',
                     pageSize: 8,
-                    showTotal: (total, range) => <div style={{ position: 'absolute', left: '12px' }}>共 {total} 条记录
+                    showTotal: (total, range) => <div style={{ position: 'absolute', left: '12px',color:'#fff' }}>共 {total} 条记录
                         第 {this.state.current} / {(Math.ceil(total / 8))} 页</div>,
                     onChange: (page) => {
                         this.setState({ current: page });
@@ -554,6 +809,7 @@ export default class CriminalCaseDocDetail extends PureComponent {
                 dataSource={sawpList}
                 className={styles.sawpListName}
                 style={{ color: '#faa' }}
+                locale={{ emptyText: <Empty image={noList} description={'暂无记录'} /> }}
                 renderItem={item => (
                     <List.Item>
                         <div className={styles.colsImg}>
@@ -604,12 +860,13 @@ export default class CriminalCaseDocDetail extends PureComponent {
                 pagination={gjxxList.length > 0 ? {
                     size: 'small',
                     pageSize: 8,
-                    showTotal: (total, range) => <div style={{ position: 'absolute', left: '12px' }}>共 {total} 条记录
+                    showTotal: (total, range) => <div style={{ position: 'absolute', left: '12px',color:'#fff' }}>共 {total} 条记录
                         第 {this.state.gjcurrent} / {(Math.ceil(total / 8))} 页</div>,
                     onChange: (page) => {
                         this.setState({ gjcurrent: page });
                     },
                 } : false}
+                locale={{ emptyText: <Empty image={noList} description={'暂无记录'} /> }}
                 dataSource={gjxxList}
                 className={styles.sawpListName}
                 style={{ color: '#faa' }}
@@ -906,11 +1163,11 @@ export default class CriminalCaseDocDetail extends PureComponent {
             },
         ];
         return (
-            <Card style={{ height: autoheight() - 180 + 'px' }}
+            <Card style={{ height: autoheight() - 210 + 'px',marginTop:'12px' }} ref={'scroll'}
                  className={styles.detailBoxScroll}>
                 <Spin spinning={loading}>
                     <div id='capture1'>
-                        <div id={`Namegxtp${this.props.id}`}>
+                        <div id={`Namegxtp${this.props.id}`} className={styles.borderBottom}>
                             <Card title="| 关系图谱" className={liststyles.cardCharts} bordered={false}
                                   id={this.props.id + 'gxtp'}>
                                 <Spin spinning={this.state.load}>
@@ -926,7 +1183,7 @@ export default class CriminalCaseDocDetail extends PureComponent {
                                 </Spin>
                             </Card>
                         </div>
-                        <div id={`Namejqxx${this.props.id}`}>
+                        <div id={`Namejqxx${this.props.id}`} className={styles.borderBottom}>
                             <Card title="| 警情信息" className={liststyles.card} bordered={false} id={this.props.id + 'jqxx'}>
                                 <Table
                                     bordered
@@ -941,11 +1198,11 @@ export default class CriminalCaseDocDetail extends PureComponent {
                                     }}
                                     dataSource={caseDetails ? caseDetails.jqxxList : []}
                                     columns={JqColumns}
-
+                                    locale={{ emptyText: <Empty image={noList} description={'暂无记录'} /> }}
                                 />
                             </Card>
                         </div>
-                        <div id={`Nameajxx${this.props.id}`}>
+                        <div id={`Nameajxx${this.props.id}`} className={styles.borderBottom}>
                             <div className={styles.title} id={this.props.id + 'ajxx'}>| 案件信息</div>
                             <div className={styles.message} style={{ padding: '24px' }}>
                                 <Row gutter={rowLayout}>
@@ -1000,7 +1257,7 @@ export default class CriminalCaseDocDetail extends PureComponent {
                             </div>
                         </div>
                         {caseDetails && caseDetails.ajzt ?
-                            <div id={`Nameajgj${this.props.id}`}>
+                            <div id={`Nameajgj${this.props.id}`} className={styles.borderBottom}>
                                 <div className={styles.title} id={this.props.id + 'ajgj'}>| 案件轨迹</div>
                                 <CaseModalTrail
                                     {...this.props}
@@ -1012,14 +1269,14 @@ export default class CriminalCaseDocDetail extends PureComponent {
                             :
                             ''
                         }
-                        <div id={`Namesawp${this.props.id}`}>
+                        <div id={`Namesawp${this.props.id}`} className={styles.borderBottom}>
                             <Card title="| 涉案物品" className={liststyles.card} bordered={false} id={this.props.id + 'sawp'}>
                                 <div>
                                     {this.sawpCol(caseDetails && caseDetails.sawpList ? caseDetails.sawpList : [])}
                                 </div>
                             </Card>
                         </div>
-                        <div id={`Namejzxx${this.props.id}`}>
+                        <div id={`Namejzxx${this.props.id}`} className={styles.borderBottom}>
                             <Card title="| 卷宗信息" className={liststyles.card} bordered={false} id={this.props.id + 'jzxx'}>
                                 <Table
                                     bordered
@@ -1034,11 +1291,11 @@ export default class CriminalCaseDocDetail extends PureComponent {
                                     }}
                                     dataSource={caseDetails ? caseDetails.jzList : []}
                                     columns={JzColumns}
-
+                                    locale={{ emptyText: <Empty image={noList} description={'暂无记录'} /> }}
                                 />
                             </Card>
                         </div>
-                        <div id={`Namegjxx${this.props.id}`}>
+                        <div id={`Namegjxx${this.props.id}`} className={styles.borderBottom}>
                             <Card title="| 告警信息" className={liststyles.card} bordered={false} id={this.props.id + 'gjxx'}>
                                 <div>
                                     {this.gjxxCol(caseDetails && caseDetails.problemList ? caseDetails.problemList : [])}

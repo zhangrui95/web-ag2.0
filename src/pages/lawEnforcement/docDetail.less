@@ -906,7 +906,7 @@
 //
 .colsImg {
   position: relative;
-  //border: 1px solid #ccc;
+  border: 1px solid @body-background;
   //margin-bottom: 24px;
 }
 
@@ -950,13 +950,13 @@
 }
 
 .sawpSee {
-  background-color: #F7F9FA;
+  background-color: @menu-item-active-bg;
   height: 40px;
   text-align: center;
   line-height: 40px;
   cursor: pointer;
-  color: #929394;
-  border-top: @border-width-base @border-style-base #E9E9E9;
+  color: #fff;
+  border-top: @border-width-base @border-style-base @body-background;
 
   &:hover {
     color: #00ABFF;
@@ -973,7 +973,7 @@
     }
 
     .ant-spin-container > .ant-list-item:last-child {
-      border-bottom: 0 solid #e8e8e8;
+      border-bottom: 0!important;
     }
 
     .ant-list-item-content {
@@ -1039,12 +1039,12 @@
 }
 
 .gzxxTitle {
-  background: rgba(242, 242, 242, 1);
+  background: @body-background;
   text-align: center;
   height: 46px;
   line-height: 46px;
   font-size: 14px;
-  color: #000;
+  color: @white;
   border-top: 5px solid rgba(255, 153, 0, 1);
 }
 
@@ -1146,4 +1146,12 @@
      padding: 24px;
    }
  }
+}
+.borderBottom{
+  border-bottom: 1px solid @body-background;
+  :global{
+    .ant-list-item:last-child {
+      border-bottom: 0!important;
+    }
+  }
 }
