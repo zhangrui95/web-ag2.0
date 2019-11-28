@@ -7,20 +7,20 @@
 import React, { PureComponent } from 'react';
 import { connect } from 'dva';
 import {
-  Row,
-  Col,
-  Card,
-  Input,
-  Radio,
-  DatePicker,
-  TreeSelect,
-  List,
-  Icon,
-  Tabs,
-  message,
-  AutoComplete,
-  Affix,
-  Empty,
+    Row,
+    Col,
+    Card,
+    Input,
+    Radio,
+    DatePicker,
+    TreeSelect,
+    List,
+    Icon,
+    Tabs,
+    message,
+    AutoComplete,
+    Affix,
+    Empty, Divider,
 } from 'antd';
 import moment from 'moment/moment';
 import styles from './index.less';
@@ -719,7 +719,7 @@ export default class GeneralQuery extends PureComponent {
   searchType = type => {
     this.setState(
       {
-        searchType: type,
+        searchType: type === 'all' ? type : type.target.value,
         current: 1,
       },
       this.getSearchData,
@@ -1404,7 +1404,7 @@ export default class GeneralQuery extends PureComponent {
               {/*   onClick={() => this.searchType('baq')}>办案区</a>*/}
               {/*<a className={searchType === 'jz' ? styles.chosenType : null}*/}
               {/*   onClick={() => this.searchType('jz')}>卷宗</a>*/}
-              <Radio.Group buttonStyle="solid" onChange={this.searchType} defaultValue={'all'}>
+              <Radio.Group buttonStyle="solid" onChange={this.searchType} defaultValue={'all'} value={this.state.searchType}>
                 <Radio.Button value="all">全部</Radio.Button>
                 <Radio.Button value="aj">案件</Radio.Button>
                 <Radio.Button value="wp">涉案物品</Radio.Button>
@@ -1421,6 +1421,8 @@ export default class GeneralQuery extends PureComponent {
                   展开选项 <Icon type="down" />
                 </a>
               )}
+                <Divider type="vertical" />
+              <a className={styles.showSearchDetail} onClick={this.clearAll}>清空所有条件</a>
             </div>
             {showSearchDetail ? (
               <div className={styles.searchDetails}>
@@ -1605,7 +1607,7 @@ export default class GeneralQuery extends PureComponent {
               </div>
             ) : null}
           </div>
-          <div style={{ padding: '60px 24px 24px 24px' }}>
+          <div style={{ padding: '24px' }}>
             <List
               grid={{ gutter: 16, xs: 1, sm: 2, md: 3, lg: 3, xl: 3, xxl: 3 }}
               dataSource={searchResults}
@@ -1613,12 +1615,11 @@ export default class GeneralQuery extends PureComponent {
               pagination={
                 searchResults.length > 0
                   ? {
-                      size: 'small',
                       pageSize: 9,
                       current,
                       showTotal: (total, range) => (
-                        <div style={{ position: 'absolute', left: '12px' }}>
-                          共 {total} 条记录 第 {this.state.current} / {Math.ceil(total / 9)} 页
+                        <div style={{ position: 'absolute',left:'5px',color:'#b7b7b7' }}>
+                          共 {Math.ceil(total / 9)} 页，{total}条数据
                         </div>
                       ),
                       onChange: page => {

@@ -67,7 +67,7 @@ export default class CaseModalTrail extends PureComponent {
       TrackPaddingBottom: TrackPaddingBottom,
       TrackPaddingTop: TrackPaddingTop,
       TrackPaddingBottom1: 220,
-      trailLeft: 0,
+      trailLeft: '4px',
       open: '0', // 显示‘显示更多’还是‘收起更多’,默认显示更多；
       colortrailleft: 'gray', // 左滑动按钮，若到达开始或者结束，是gray(置灰)，否则是blue(蓝色)(轨迹)
       colortrailright: 'blue', // 右滑动按钮，若到达开始或者结束，是gray(置灰)，否则是blue(蓝色)(轨迹)
@@ -165,37 +165,36 @@ export default class CaseModalTrail extends PureComponent {
     return (
       <div className={styles.personFiles}>
         <div className={styles.TopPersonFiles}>
-          <Row>
+          <Row className={styles.headerTop}>
             {text.sex === '女' ? (
               <Col md={24} sm={24}>
                 <div className={styles.personImg}>
-                  <img src={woman} width="25" height="30" alt="暂无图片" />
+                  <img src={woman} width="20" height="25" alt="暂无图片" />
                 </div>
               </Col>
             ) : (
               <Col md={24} sm={24}>
                 <div className={styles.personImg}>
-                  <img src={man} width="25" height="30" alt="暂无图片" />
+                  <img src={man} width="20" height="25" alt="暂无图片" />
                 </div>
               </Col>
             )}
           </Row>
           <Row>
-            <Col md={17} sm={24} style={{ paddingLeft: '12px' }}>
-              <Row style={{ textAlign: 'left', padding: '5px 0' }}>
-                <Col md={18} sm={24}>
-                  {text.xyrName}
+            <Col md={24} sm={24} style={{ paddingLeft: '12px' }}>
+              <Row style={{ textAlign: 'left', padding: '5px 0 0' }}>
+                <Col md={24} sm={24}>
+                  {text.xyrName}{text.xszk_name && text.xszk_name === '在逃' ? (
+                    <span className={styles.tag}>（{text.xszk_name}）</span>
+                ) : (
+                    ''
+                )}
                 </Col>
               </Row>
               {/*<div style={{ textAlign: 'left', padding: '5px 0' }}>*/}
               {/*性别：{text.sex}*/}
               {/*</div>*/}
               <div className={styles.CdCard}>{text.sfzh}</div>
-              {text.xszk_name && text.xszk_name === '在逃' ? (
-                <span className={styles.tag}>{text.xszk_name}</span>
-              ) : (
-                ''
-              )}
             </Col>
           </Row>
         </div>

@@ -1,5 +1,4 @@
 @import '~antd/lib/style/themes/default.less';
-@import '../../utils/utils.less';
 @import '../../theme/darkTheme';
 
 .title {
@@ -9,41 +8,131 @@
   padding-left: 16px;
   //background-color: #CDE8FA;
   font-size: 16px;
-  background: linear-gradient(to right, #1f83df, #fcfdff);
+  //background: linear-gradient(to right, #1F83DF, #FCFDFF);
 }
 
-.message {
-  position: relative;
-  background-color: @component-background;
+.tablemessage {
+  //background-color: #fff;
   //border-bottom: 3px solid #1890FF;
-  padding: 0 24px 0;
-  margin-bottom: 24px;
+  //padding: 24px;
+}
+
+.caseprocess {
+  display: inline-block;
 }
 
 .TimelineAllsa {
   position: relative;
   left: 140px;
+  //:global{
+  //  .ant-timeline-item:nth-child(1) .ant-timeline-item-tail {
+  //    border-left: 2px solid #108EE9;
+  //    top: 0;
+  //  }
+  //}
+}
+
+.TimelineAllla {
+  position: relative;
+  left: 140px;
 
   :global {
-    .ant-timeline-item-tail {
-      border-left: 0 solid #108ee9;
-      background-color: #108ee9;
-      width: 2px;
-      top: 15px;
-      height: 43px;
+    .ant-timeline-item:nth-child(1) .ant-timeline-item-tail {
+      border-left: 2px solid #108EE9;
+      top: 0;
     }
+
+    //.ant-timeline-item:nth-child(2) .ant-timeline-item-tail {
+    //  border-left: 2px solid #108EE9;
+    //  top: 0;
+    //}
+  }
+}
+
+.TimelineAllpa {
+  position: relative;
+  left: 140px;
+
+  :global {
+    .ant-timeline-item:nth-child(1) .ant-timeline-item-tail {
+      border-left: 2px solid #108EE9;
+      top: 0;
+    }
+
+    .ant-timeline-item:nth-child(2) .ant-timeline-item-tail {
+      border-left: 2px solid #108EE9;
+      top: 0;
+    }
+
+    //.ant-timeline-item:nth-child(3) .ant-timeline-item-tail {
+    //  border-left: 2px solid #108EE9;
+    //  top: 0;
+    //}
+  }
+}
+
+.TimelineAllja {
+  position: relative;
+  left: 140px;
+
+  :global {
+    .ant-timeline-item:nth-child(1) .ant-timeline-item-tail {
+      border-left: 2px solid #108EE9;
+      top: 0;
+    }
+
+    .ant-timeline-item:nth-child(2) .ant-timeline-item-tail {
+      border-left: 2px solid #108EE9;
+      top: 0;
+    }
+
+    .ant-timeline-item:nth-child(3) .ant-timeline-item-tail {
+      border-left: 2px solid #108EE9;
+      top: 0;
+    }
+
+    //.ant-timeline-item:nth-child(4) .ant-timeline-item-tail {
+    //  border-left: 2px solid #108EE9;
+    //  top: 0;
+    //}
+  }
+}
+
+.TimelineAllxa {
+  position: relative;
+  left: 140px;
+
+  :global {
+    .ant-timeline-item:nth-child(1) .ant-timeline-item-tail {
+      border-left: 2px solid #108EE9;
+      top: 0;
+    }
+
+    .ant-timeline-item:nth-child(2) .ant-timeline-item-tail {
+      border-left: 2px solid #108EE9;
+      top: 0;
+    }
+
+    .ant-timeline-item:nth-child(3) .ant-timeline-item-tail {
+      border-left: 2px solid #108EE9;
+      top: 0;
+    }
+
+    .ant-timeline-item:nth-child(4) .ant-timeline-item-tail {
+      border-left: 2px solid #108EE9;
+      top: 0;
+    }
+
+    //.ant-timeline-item:nth-child(5) .ant-timeline-item-tail {
+    //  border-left: 2px solid #108EE9;
+    //  top: 0;
+    //}
   }
 }
 
 .timeline {
   position: relative;
-  //left: -160px;
-}
-
-.spanTitles {
-  position: relative;
   left: -160px;
-  display: block;
 }
 
 .spanTitle {
@@ -51,67 +140,19 @@
   height: 21px;
 }
 
-.DetailLineIcon1 {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background-color: #1890ff;
-  display: block;
-  position: absolute;
-  top: -55px;
-  left: 143px;
-  z-index: 1000;
+.stepStyles {
+  //min-width:200px;
+  width: 218px;
+  flex: none;
+  //max-width:600px;
 }
 
-.DetailLeftline {
-  width: 94px;
-  height: 3px;
-  background-color: #1890ff;
-  display: block;
+.switch {
   position: absolute;
-  left: 178px;
-  top: 213px;
+  right: 0;
+  top: 300px;
 }
 
-.DetailLineIcon {
-  width: 14px;
-  height: 14px;
-  border-radius: 50%;
-  background-color: #252c3c;
-  display: block;
-  position: absolute;
-  top: 208px;
-  left: 162px;
-  border: 3px solid #3285ff;
-}
-
-.personFiles {
-  width: 160px;
-  font-size: 14px;
-  left: -150px;
-  position: absolute;
-}
-
-.TopPersonFiles {
-  //padding: 12px 0;
-  //border: 1px solid #C8EAFF;
-  //border-bottom: none;
-  background-color: @body-background;
-  color: @white;
-  padding-top: 20px;
-  border-radius: 8px 8px 0 0;
-}
-.headerTop{
-  position: absolute;
-  top: 0;
-  left: 70px;
-}
-
-.IndexTitle {
-  width: auto;
-  position: relative;
-  text-align: left;
-}
 @media screen and (max-width: 1280px) {
   .message .steps {
     position: relative;
@@ -134,7 +175,7 @@
 
   .CdCard {
     text-align: left;
-    padding: 0 0 5px;
+    padding: 5px 0;
     overflow: hidden;
   }
 
@@ -161,8 +202,8 @@
       .ant-steps-item-content {
         position: relative;
         left: 0;
-        top: -140px;
-        width: 160px;
+        top: -192px;
+        width: 278px;
       }
 
       .ant-steps-item-icon {
@@ -180,10 +221,10 @@
 
   .listStyle {
     position: absolute;
-    top: 15px;
-    left: 275px;
+    top: -189px;
+    left: 247px;
     width: 400px;
-    //overflow: hidden;
+    overflow: hidden;
     padding-top: 180px;
     //padding-bottom: 435px;
   }
@@ -191,62 +232,59 @@
   .DetailRightline1 {
     width: 380px;
     height: 3px;
-    background-color: #1890ff;
+    background-color: #1890FF;
     display: block;
     position: absolute;
-    left: 16px;
+    left: 13px;
     top: -58px;
   }
 
   .trailsteps {
     :global {
       .ant-steps-item:first-child .ant-steps-icon-dot {
-        left: -3px;
-        top: -2px;
-        border: 3px solid #3285ff;
-        background: #252c3c;
-        width: 14px;
-        height: 14px;
+        left: 0;
+      }
+
+      .ant-timeline-item-head {
+        width: 12px;
+        height: 12px;
+        left: -1px;
+        background-color: #1890ff;
+        border: 2px solid #fff;
         z-index: 999;
       }
 
-      //.ant-timeline-item-head {
-      //  width: 12px;
-      //  height: 12px;
-      //  left: -1px;
-      //  //background-color: #1890ff;
-      //  //border: 2px solid #fff;
-      //  z-index: 999;
-      //}
-
       .ant-timeline-item-tail {
-        top: 15px;
-        border-left: 2px solid #1890ff;
-        height: 43px;
+        top: 8px;
       }
     }
+  }
+
+  .IndexTitle {
+    width: 250px;
+    position: relative;
   }
 
   .AllTimeLine {
     position: absolute;
     left: -1px;
-    top: 184px;
+    top: 236px;
   }
 
   .message {
     position: relative;
-    background-color: @component-background;
+    //background-color: #fff;
     //border-bottom: 3px solid #1890FF;
     padding: 0 24px 0;
     margin-bottom: 24px;
   }
 
   .TimeLineStyle {
-    background-color: #1890ff;
-    height: 43px;
+    background-color: #1890FF;
+    height: 60px;
     width: 2px;
     position: absolute;
-    top: -40px;
+    top: -54px;
     left: -14px;
   }
 
@@ -277,7 +315,7 @@
 
   .CdCard {
     text-align: left;
-    padding: 0 0 5px;
+    padding: 5px 0;
     overflow: hidden;
   }
 
@@ -304,8 +342,8 @@
       .ant-steps-item-content {
         position: relative;
         left: 0;
-        top: -140px;
-        width: 160px;
+        top: -192px;
+        width: 278px;
       }
 
       .ant-steps-item-icon {
@@ -323,10 +361,10 @@
 
   .listStyle {
     position: absolute;
-    top: 15px;
-    left: 275px;
+    top: -189px;
+    left: 247px;
     width: 400px;
-    //overflow: hidden;
+    overflow: hidden;
     padding-top: 180px;
     //padding-bottom: 435px;
   }
@@ -334,62 +372,59 @@
   .DetailRightline1 {
     width: 380px;
     height: 3px;
-    background-color: #1890ff;
+    background-color: #1890FF;
     display: block;
     position: absolute;
-    left: 16px;
+    left: 13px;
     top: -58px;
   }
 
   .trailsteps {
     :global {
       .ant-steps-item:first-child .ant-steps-icon-dot {
-        left: -3px;
-        top: -2px;
-        border: 3px solid #3285ff;
-        background: #252c3c;
-        width: 14px;
-        height: 14px;
+        left: 0;
+      }
+
+      .ant-timeline-item-head {
+        width: 12px;
+        height: 12px;
+        left: -1px;
+        background-color: #1890ff;
+        border: 2px solid #fff;
         z-index: 999;
       }
 
-      //.ant-timeline-item-head {
-      //  width: 12px;
-      //  height: 12px;
-      //  left: -1px;
-      //  //background-color: #1890ff;
-      //  //border: 2px solid #fff;
-      //  z-index: 999;
-      //}
-
       .ant-timeline-item-tail {
-        top: 15px;
-        border-left: 2px solid #1890ff;
-        height: 43px;
+        top: 8px;
       }
     }
+  }
+
+  .IndexTitle {
+    width: 250px;
+    position: relative;
   }
 
   .AllTimeLine {
     position: absolute;
     left: -1px;
-    top: 184px;
+    top: 236px;
   }
 
   .message {
     position: relative;
-    background-color: @component-background;
+    //background-color: #fff;
     //border-bottom: 3px solid #1890FF;
     padding: 0 24px 0;
     margin-bottom: 24px;
   }
 
   .TimeLineStyle {
-    background-color: #1890ff;
-    height: 43px;
+    background-color: #1890FF;
+    height: 60px;
     width: 2px;
     position: absolute;
-    top: -40px;
+    top: -54px;
     left: -14px;
   }
 
@@ -420,7 +455,7 @@
 
   .CdCard {
     text-align: left;
-    padding: 0 0 5px;
+    padding: 5px 0;
     overflow: hidden;
   }
 
@@ -447,8 +482,8 @@
       .ant-steps-item-content {
         position: relative;
         left: 0;
-        top: -140px;
-        width: 160px;
+        top: -192px;
+        width: 278px;
       }
 
       .ant-steps-item-icon {
@@ -466,10 +501,10 @@
 
   .listStyle {
     position: absolute;
-    top: 15px;
-    left: 275px;
+    top: -189px;
+    left: 247px;
     width: 700px;
-    //overflow: hidden;
+    overflow: hidden;
     padding-top: 180px;
     //padding-bottom: 435px;
   }
@@ -477,63 +512,60 @@
   .DetailRightline1 {
     width: 320px;
     height: 3px;
-    background-color: #1890ff;
+    background-color: #1890FF;
     display: block;
     position: absolute;
-    left: 16px;
+    left: 13px;
     top: -58px;
   }
 
   .trailsteps {
     :global {
       .ant-steps-item:first-child .ant-steps-icon-dot {
-        left: -3px;
-        top: -2px;
-        border: 3px solid #3285ff;
-        background: #252c3c;
-        width: 14px;
-        height: 14px;
+        left: 0;
+      }
+
+      .ant-timeline-item-head {
+        width: 12px;
+        height: 12px;
+        left: -1px;
+        background-color: #1890ff;
+        border: 2px solid #fff;
         z-index: 999;
       }
 
-      //.ant-timeline-item-head {
-      //  width: 12px;
-      //  height: 12px;
-      //  left: -1px;
-      //  //background-color: #1890ff;
-      //  //border: 2px solid #fff;
-      //  z-index: 999;
-      //}
-
       .ant-timeline-item-tail {
-        top: 15px;
-        border-left: 2px solid #1890ff;
-        height: 43px;
+        top: 8px;
       }
     }
+  }
+
+  .IndexTitle {
+    width: 250px;
+    position: relative;
   }
 
   .AllTimeLine {
     position: absolute;
     left: -1px;
-    top: 184px;
+    top: 236px;
   }
 
   .message {
     position: relative;
-    background-color: @component-background;
+    //background-color: #fff;
     //border-bottom: 3px solid #1890FF;
     padding: 0 24px 0;
     margin-bottom: 24px;
   }
 
   .TimeLineStyle {
-    background-color: #1890ff;
+    background-color: #1890FF;
+    height: 60px;
     width: 2px;
     position: absolute;
-    top: -40px;
+    top: -54px;
     left: -14px;
-    height: 43px;
   }
 
   .sawpName1 {
@@ -563,7 +595,7 @@
 
   .CdCard {
     text-align: left;
-    padding: 0 0 5px;
+    padding: 5px 0;
     overflow: hidden;
   }
 
@@ -590,8 +622,8 @@
       .ant-steps-item-content {
         position: relative;
         left: 0;
-        top: -140px;
-        width: 160px;
+        top: -192px;
+        width: 278px;
       }
 
       .ant-steps-item-icon {
@@ -609,10 +641,10 @@
 
   .listStyle {
     position: absolute;
-    top: 15px;
-    left: 275px;
+    top: -189px;
+    left: 247px;
     width: 780px;
-    //overflow: hidden;
+    overflow: hidden;
     padding-top: 180px;
     //padding-bottom: 435px;
   }
@@ -620,62 +652,59 @@
   .DetailRightline1 {
     width: 370px;
     height: 3px;
-    background-color: #1890ff;
+    background-color: #1890FF;
     display: block;
     position: absolute;
-    left: 16px;
+    left: 13px;
     top: -58px;
   }
 
   .trailsteps {
     :global {
       .ant-steps-item:first-child .ant-steps-icon-dot {
-        left: -3px;
-        top: -2px;
-        border: 3px solid #3285ff;
-        background: #252c3c;
-        width: 14px;
-        height: 14px;
+        left: 0;
+      }
+
+      .ant-timeline-item-head {
+        width: 12px;
+        height: 12px;
+        left: -1px;
+        background-color: #1890ff;
+        border: 2px solid #fff;
         z-index: 999;
       }
 
-      //.ant-timeline-item-head {
-      //  width: 12px;
-      //  height: 12px;
-      //  left: -1px;
-      //  //background-color: #1890ff;
-      //  //border: 2px solid #fff;
-      //  z-index: 999;
-      //}
-
       .ant-timeline-item-tail {
-        top: 15px;
-        border-left: 2px solid #1890ff;
-        height: 43px;
+        top: 8px;
       }
     }
+  }
+
+  .IndexTitle {
+    width: 250px;
+    position: relative;
   }
 
   .AllTimeLine {
     position: absolute;
     left: -1px;
-    top: 184px;
+    top: 236px;
   }
 
   .message {
     position: relative;
-    background-color: @component-background;
+    //background-color: #fff;
     //border-bottom: 3px solid #1890FF;
     padding: 0 24px 0;
     margin-bottom: 24px;
   }
 
   .TimeLineStyle {
-    background-color: #1890ff;
-    height: 43px;
+    background-color: #1890FF;
+    height: 60px;
     width: 2px;
     position: absolute;
-    top: -40px;
+    top: -54px;
     left: -14px;
   }
 
@@ -706,7 +735,7 @@
 
   .CdCard {
     text-align: left;
-    padding: 0 0 5px;
+    padding: 5px 0;
     overflow: hidden;
   }
 
@@ -733,8 +762,8 @@
       .ant-steps-item-content {
         position: relative;
         left: 0;
-        top: -140px;
-        width: 160px;
+        top: -192px;
+        width: 278px;
       }
 
       .ant-steps-item-icon {
@@ -752,10 +781,10 @@
 
   .listStyle {
     position: absolute;
-    top: 15px;
-    left: 275px;
+    top: -189px;
+    left: 247px;
     width: 1020px;
-    //overflow: hidden;
+    overflow: hidden;
     padding-top: 180px;
     padding-bottom: 435px;
   }
@@ -763,62 +792,59 @@
   .DetailRightline1 {
     width: 320px;
     height: 3px;
-    background-color: #1890ff;
+    background-color: #1890FF;
     display: block;
     position: absolute;
-    left: 16px;
+    left: 13px;
     top: -58px;
   }
 
   .trailsteps {
     :global {
       .ant-steps-item:first-child .ant-steps-icon-dot {
-        left: -3px;
-        top: -2px;
-        border: 3px solid #3285ff;
-        background: #252c3c;
-        width: 14px;
-        height: 14px;
+        left: 0;
+      }
+
+      .ant-timeline-item-head {
+        width: 12px;
+        height: 12px;
+        left: -1px;
+        background-color: #1890ff;
+        border: 2px solid #fff;
         z-index: 999;
       }
 
-      //.ant-timeline-item-head {
-      //  width: 12px;
-      //  height: 12px;
-      //  left: -1px;
-      //  //background-color: #1890ff;
-      //  //border: 2px solid #fff;
-      //  z-index: 999;
-      //}
-
       .ant-timeline-item-tail {
-        top: 15px;
-        border-left: 2px solid #1890ff;
-        height: 43px;
+        top: 8px;
       }
     }
+  }
+
+  .IndexTitle {
+    width: 250px;
+    position: relative;
   }
 
   .AllTimeLine {
     position: absolute;
     left: -1px;
-    top: 184px;
+    top: 236px;
   }
 
   .message {
     position: relative;
-    background-color: @component-background;
+    //background-color: #fff;
     //border-bottom: 3px solid #1890FF;
     padding: 0 24px 0;
     margin-bottom: 24px;
   }
 
   .TimeLineStyle {
-    background-color: #1890ff;
-    height: 43px;
+    background-color: #1890FF;
+    height: 60px;
     width: 2px;
     position: absolute;
-    top: -40px;
+    top: -54px;
     left: -14px;
   }
 
@@ -835,25 +861,11 @@
   }
 }
 
-.IconStyle {
-  display: inline-block;
-  width: 280px;
-  position: absolute;
-  right: 0;
-  //background-color: #faa;
-}
-
-.IconStyle img {
-  display: inline-block;
-}
-
-/*CaseModalStep*/
 .clsj_time {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
   display: block;
-  color: @white;
 }
 
 .superve {
@@ -879,42 +891,259 @@
   }
 }
 
-.tag {
-  display: block;
+.IconStyle {
+  display: inline-block;
+  width: 280px;
   position: absolute;
-  top: 0;
-  right: 25px;
-  border-radius: 5px;
-  padding: 0 8px;
-  background: #fff;
-  border: 1px solid #f5222d;
-  color: #f5222d;
+  right: 0;
+  //background-color: #faa;
 }
 
-.sawpSee {
-  background-color: #3285ff;
-  height: 36px;
-  text-align: center;
-  line-height: 36px;
-  cursor: pointer;
-  color: #929394;
-  border-radius: 0 0 8px 8px;
-  //border-top: @border-width-base @border-style-base #E9E9E9;
-  //margin-top: -1px;
+.IconStyle img {
+  display: inline-block;
+}
 
-  &:hover {
-    color: #00abff;
+//
+.colsImg {
+  position: relative;
+  //border: 1px solid #ccc;
+  //margin-bottom: 24px;
+}
+
+.sawpImg {
+  padding: 12px;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.sawpName {
+  display: inline-block;
+  height: 94px;
+  padding: 12px 12px 12px 94px;
+}
+
+.gjxxName {
+  display: inline-block;
+  height: 126px;
+  padding: 12px;
+
+  .sawpName1 {
+    width: 100%;
   }
 }
 
-.personImg {
-  width: 46px;
+.sawpName1 {
+  display: block;
+  height: 35px;
+  line-height: 35px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.personFiles {
+  min-width: 200px;
+  width: 334px;
+  font-size: 14px;
+  background-color: #F2FBFF;
+}
+
+.sawpSee {
+  background-color: #F7F9FA;
+  height: 40px;
+  text-align: center;
+  line-height: 40px;
+  cursor: pointer;
+  color: #929394;
+  border-top: @border-width-base @border-style-base #E9E9E9;
+
+  &:hover {
+    color: #00ABFF;
+  }
+}
+
+.sawpListName {
+  :global {
+    .ant-list-item {
+      width: 25%;
+      display: inline-block;
+      border-bottom: 0 solid #e8e8e8;
+      padding: 0;
+    }
+
+    .ant-spin-container > .ant-list-item:last-child {
+      border-bottom: 0 solid #e8e8e8;
+    }
+
+    .ant-list-item-content {
+      margin: 0 12px 12px 12px;
+      border: @border-width-base @border-style-base #E9E9E9;
+    }
+
+    .ant-list-pagination {
+      margin-right: 12px;
+    }
+  }
+}
+
+.break {
+  word-break: break-all;
+}
+
+.TopPersonFiles {
+  padding: 12px 0;
+  border: 1px solid #C8EAFF;
+  border-bottom: none;
+}
+
+.noAccept {
+  text-align: center;
+  font-size: 16px;
+  height: 50px;
+  line-height: 50px;
+  margin: -24px;
+}
+
+.DetailLeftline {
+  width: 94px;
+  height: 3px;
+  background-color: #1890FF;
+  display: block;
+  position: absolute;
+  left: 147px;
+  top: 9px;
+}
+
+.DetailLineIcon {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: #1890FF;
+  display: block;
+  position: absolute;
+  top: 7px;
+  left: 143px;
+}
+
+.DetailLineIcon1 {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: #1890FF;
+  display: block;
+  position: absolute;
+  top: 69px;
+  left: 143px;
+  z-index: 1002;
+}
+
+.gzxxTitle {
+  background: rgba(242, 242, 242, 1);
+  text-align: center;
   height: 46px;
-  padding: 10px;
-  background-color: #3285ff;
-  border-radius: 100%;
-  position: relative;
-  top: -20px;
-  margin-left: -25px;
-  left: 50%;
+  line-height: 46px;
+  font-size: 14px;
+  color: #000;
+  border-top: 5px solid rgba(255, 153, 0, 1);
+}
+
+.break {
+  word-break: break-all;
+}
+
+.anchorBox {
+  :global {
+    .ant-anchor-wrapper {
+      position: fixed;
+      right: 0;
+      width: 110px;
+      top: 150px;
+      background-color: rgba(240, 242, 245, 0.8);
+      border-radius: 8px;
+      padding: 10px 12px;
+      z-index: 9999;
+    }
+
+    .ant-anchor-ink-ball {
+      width: 10px;
+      height: 10px;
+      border: 3px solid #1890ff;
+      border-radius: 10px;
+    }
+  }
+}
+
+.fadeBoxIn {
+  opacity: 1;
+  animation: fadeIn 500ms;
+  -webkit-animation: fadeIn 500ms;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@-webkit-keyframes fadeIn /* Safari and Chrome */ {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.fadeBoxOut {
+  opacity: 0;
+  animation: fadeOut 500ms;
+  -webkit-animation: fadeOut 500ms;
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+    display: none;
+  }
+}
+
+@-webkit-keyframes fadeOut /* Safari and Chrome */ {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+    display: none;
+  }
+}
+
+.AnchorHide {
+  opacity: 0;
+  display: none;
+}
+
+.detailBoxScroll {
+  overflow-y: scroll;
+  overflow-x: hidden;
+  background: @component-background;
+}
+.ajlxBg{
+ :global{
+   .ant-card-bordered{
+     background: @body-background;
+   }
+   .ant-card-head{
+     border-bottom: 1px solid @component-background;
+   }
+   .ant-card-body{
+     padding: 24px;
+   }
+ }
 }

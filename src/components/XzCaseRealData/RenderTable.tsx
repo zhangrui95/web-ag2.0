@@ -88,6 +88,24 @@ class RenderTable extends PureComponent {
   };
   // 行政案件档案详情
   administrativeCaseDocDetails = record => {
+      this.props.dispatch({
+          type: 'global/changeNavigation',
+          payload: {
+              key: record && record.id ? record.id : '1',
+              name: '行政案件档案详情',
+              path: '/lawEnforcement/File/AdministrativeFile/Detail',
+              isShow: true,
+              query: { record, id: record && record.id ? record.id : '1' },
+          },
+          callback: () => {
+              this.props.dispatch(
+                  routerRedux.push({
+                      pathname: '/lawEnforcement/File/AdministrativeFile/Detail',
+                      query: { record: record, id: record && record.id ? record.id : '1' },
+                  }),
+              );
+          },
+      });
     // const divs = (
     //     <div>
     //         <AdministrativeCaseDocDetail
@@ -188,6 +206,7 @@ class RenderTable extends PureComponent {
       },
       {
         title: '案件名称',
+        width:'20%',
         dataIndex: 'ajmc',
         render: text => {
           return (
@@ -199,6 +218,7 @@ class RenderTable extends PureComponent {
       },
       {
         title: '受理单位',
+         width:'15%',
         dataIndex: 'sldwName',
         render: text => {
           return (
@@ -230,6 +250,7 @@ class RenderTable extends PureComponent {
       {
         title: '案件类别',
         dataIndex: 'ajlb_name',
+        width:'10%',
         render: text => {
           return (
             <Ellipsis lines={2} tooltip>

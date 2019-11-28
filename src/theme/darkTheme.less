@@ -10,7 +10,6 @@
 @alert-error-border-color: #f4aeb3; //错误message边框
 @alert-success-bg-color: #e3f1e1; //成功message背景
 @alert-success-border-color: #bde5ad; //成功message边框
-@table-header-bg: #202839; //table题头
 @table-body-sort-bg: #2e394c; //Table tr颜色
 @checkbox-color: #4662d5; //多选选中颜色
 @dropdown-selected-color: rgba(23, 25, 37, 0.9); //下拉背景色
@@ -63,7 +62,7 @@ body {
       background-color: @depart-choose-back;
     }
     .ant-select-selection__choice {
-      background-color: @table-header-bg;
+      background-color: @component-background;
     }
     .btnSearch,
     .ant-btn {
@@ -163,7 +162,7 @@ body {
       color: @white;
     }
     .ant-table-wrapper {
-      background-color: @table-header-bg;
+      background-color: @component-background;
       border-radius: @borderRadius;
     }
 
@@ -223,14 +222,12 @@ body {
     .ant-pro-sider-menu-logo {
       background: @component-background!important;
     }
-    .ant-card {
-      background: @component-background;
-    }
     .ant-card-bordered {
-      border: 2px solid @body-background;
+      border: 1px solid @body-background;
     }
     .ant-card-head {
       border-bottom: 1px solid @body-background;
+      color: @white;
     }
     .ant-layout {
       background: @body-background;
@@ -274,7 +271,7 @@ body {
       overflow: hidden;
     }
     .ant-table-thead > tr > th {
-      background: @table-header-bg;
+      background: @component-background;
       color: @white;
       padding: 10px;
       border: @zero;
@@ -283,7 +280,7 @@ body {
       background: @table-body-sort-bg;
       color: @white;
       &:nth-child(2n) {
-        background: @table-header-bg!important;
+        background: @component-background!important;
       }
     }
     .ant-table .ant-table-tbody .categories {
@@ -299,7 +296,7 @@ body {
       }
     }
     .ant-table-placeholder {
-      background: @table-header-bg;
+      background: @component-background;
       border: @zero;
       .ant-empty-description {
         color: @white;
@@ -310,8 +307,7 @@ body {
     }
     .ant-card {
       border-radius: @borderRadius;
-      //overflow: hidden;
-      background: @table-header-bg;
+      background: @component-background;
     }
     .ant-pagination {
       position: relative;
@@ -344,13 +340,6 @@ body {
     .ant-timeline-item-head {
       background: @highlight-color;
       border: @zero;
-      margin-top: -10px;
-    }
-    .ant-timeline-item {
-      margin: 10px 0;
-    }
-    .ant-timeline-item-content {
-      top: -11px;
     }
     .ant-transfer {
       color: @white;
@@ -659,13 +648,19 @@ body {
       color: @white;
     }
     .ant-table-bordered.ant-table-empty .ant-table-placeholder {
-      border-right: 1px solid @body-background;
-      border-left: 1px solid @body-background;
+      border-right: 1px solid @body-background!important;
+      border-left: 1px solid @body-background!important;
+    }
+    .ant-table-bordered .ant-table-tbody > tr > td,.ant-table-bordered .ant-table-thead > tr > th{
+      border-right: 1px solid @body-background!important;
+    }
+    .ant-table-bordered .ant-table-body > table{
+      border: 1px solid @body-background;
     }
     .ant-table-bordered {
       .ant-table-thead > tr > th,
       .ant-table-placeholder {
-        border-bottom: 1px solid @body-background;
+        border-bottom: 1px solid @body-background!important;
       }
     }
     .ant-empty {
@@ -715,6 +710,15 @@ body {
     .antd-pro-ellipsis-ellipsis{
       display: -webkit-box;
       overflow: hidden;
+    }
+    .ant-badge-status-text{
+      color: @white;
+    }
+    .ant-steps-item-finish .ant-steps-item-icon{
+      background: @transparent;
+    }
+    .ant-steps-item-process .ant-steps-item-icon{
+      background: @highlight-color;
     }
   }
 }

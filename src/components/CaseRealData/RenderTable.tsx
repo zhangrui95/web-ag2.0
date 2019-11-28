@@ -87,6 +87,24 @@ class RenderTable extends PureComponent {
   };
   // 刑事案件档案
   caseDocdeatils = record => {
+      this.props.dispatch({
+          type: 'global/changeNavigation',
+          payload: {
+              key: record && record.system_id ? record.system_id : '1',
+              name: '刑事案件档案详情',
+              path: '/lawEnforcement/File/CriminalFile/Detail',
+              isShow: true,
+              query: { record, id: record && record.system_id ? record.system_id : '1' },
+          },
+          callback: () => {
+              this.props.dispatch(
+                  routerRedux.push({
+                      pathname: '/lawEnforcement/File/CriminalFile/Detail',
+                      query: { record: record, id: record && record.system_id ? record.system_id : '1' },
+                  }),
+              );
+          },
+      });
     // const divs = (
     //     // <div>
     //         // <CriminalCaseDocDetail

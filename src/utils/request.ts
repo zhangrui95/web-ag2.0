@@ -66,7 +66,8 @@ request.interceptors.request.use(async (url, options) => {
             url: url,
             options: { ...options, headers: headers },
         });
-    }else{
+    }else if(options.method === "posts"){
+        options.method = "post";
         return ({
             url: url,
             options: { ...options },
