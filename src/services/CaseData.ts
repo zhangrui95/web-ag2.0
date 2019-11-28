@@ -41,62 +41,80 @@ export async function xzCaseDatas(params) {
 export async function getXzAjxxXqById(params) {
     return request(`${configUrl.serverUrl}/getXzAjxxXqById `, {
         method: 'POST',
-        data: params,
+        data: {
+            ...params,
+        },
     });
 }
 
 export async function getIntoAreaData(params) {
     return request(`${configUrl.serverUrl}/getRyZqQk `, {
         method: 'POST',
-        data: params,
+        data: {
+            ...params,
+        },
     });
 }
 
 export async function getAllCaseProgress(params) {
     return request(`${configUrl.serverUrl}/getXSAjxxTbTj `, {
         method: 'POST',
-        data: params,
+        data: {
+            ...params,
+        },
     });
 }
 
 export async function getEnforcementMeasure(params) {
     return request(`${configUrl.serverUrl}/getXSAjxxRyQzcsTbTj `, {
         method: 'POST',
-        data: params,
+        data: {
+            ...params,
+        },
     });
 }
 
 export async function getSLAEnforcementMeasure(params) {
     return request(`${configUrl.serverUrl}/getXSAjlxCount `, {
         method: 'POST',
-        data: params,
+        data: {
+            ...params,
+        },
     });
 }
 
 export async function getAllXzCaseProgress(params) {
     return request(`${configUrl.serverUrl}/getXzAjxxTbTj `, {
         method: 'POST',
-        data: params,
+        data: {
+            ...params,
+        },
     });
 }
 
 export async function getAllXzTypeCase(params) {
     return request(`${configUrl.serverUrl}/getXzAjSJTbTj `, {
         method: 'POST',
-        data: params,
+        data: {
+            ...params,
+        },
     });
 }
 
 export async function getAdministrativePenalty(params) {
     return request(`${configUrl.serverUrl}/getXzAjRyXzcfTbTj `, {
         method: 'POST',
-        data: params,
+        data: {
+            ...params,
+        },
     });
 }
 
 export async function getCaseTypeStatistics(params) {
     return request(`${configUrl.serverUrl}/getAjxxLbTj `, {
         method: 'POST',
-        data: params,
+        data: {
+            ...params,
+        },
     });
 }

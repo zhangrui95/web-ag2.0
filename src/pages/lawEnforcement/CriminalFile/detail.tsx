@@ -732,13 +732,7 @@ export default class CriminalCaseDocDetail extends PureComponent {
                                                       onClick={() => this.saveRetrieve(caseDetails, true)}>退补</Button>
                                           )
                                       }
-                                      {
-                                          this.props.from === '刑事案件档案导出' ?
-                                              <Button type="primary" style={{ marginLeft: 8 }}
-                                                      onClick={() => this.ExportStatistics()}>导出</Button>
-                                              :
-                                              null
-                                      }
+                                      <Button type="primary" style={{ marginLeft: 8 }} onClick={() => this.ExportStatistics()}>导出</Button>
                                   </span>
                               ) : null
                           }

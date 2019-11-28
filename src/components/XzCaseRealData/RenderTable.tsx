@@ -91,17 +91,17 @@ class RenderTable extends PureComponent {
       this.props.dispatch({
           type: 'global/changeNavigation',
           payload: {
-              key: record && record.id ? record.id : '1',
+              key: record && record.system_id ? record.system_id : '1',
               name: '行政案件档案详情',
               path: '/lawEnforcement/File/AdministrativeFile/Detail',
               isShow: true,
-              query: { record, id: record && record.id ? record.id : '1' },
+              query: { record, id: record && record.system_id ? record.system_id : '1' },
           },
           callback: () => {
               this.props.dispatch(
                   routerRedux.push({
                       pathname: '/lawEnforcement/File/AdministrativeFile/Detail',
-                      query: { record: record, id: record && record.id ? record.id : '1' },
+                      query: { record: record, id: record && record.system_id ? record.system_id : '1' },
                   }),
               );
           },
