@@ -56,7 +56,7 @@ class  MessageState extends Component {
 
 
     render() {
-        const {value: { dbzt, zgzt }, superviseStatusOptions, rectificationStatusOptions } = this.props;
+        const {value: { dbzt, zgzt }, superviseStatusOptions, rectificationStatusOptions,newId } = this.props;
         const { disableRectification } = this.state;
         const divStyle = {
             display: 'flex',
@@ -65,12 +65,12 @@ class  MessageState extends Component {
             paddingTop: 4,
         };
         return (
-            <div style={divStyle} id={'form'}>
+            <div style={divStyle}>
                 <Select
                     value={dbzt}
                     style={{ width: '55%', textAlign: 'left' }}
                     onChange={this.handleSuperviseStatusChange}
-                    getPopupContainer={() => document.getElementById('form')}
+                    getPopupContainer={() => document.getElementById(newId)}
                 >
                     <Option value="">全部</Option>
                     {superviseStatusOptions}
@@ -80,7 +80,7 @@ class  MessageState extends Component {
                     style={{ width: '40%', textAlign: 'right' }}
                     disabled={disableRectification}
                     onChange={this.handleRectificationStatusChange}
-                    getPopupContainer={() => document.getElementById('form')}
+                    getPopupContainer={() => document.getElementById(newId)}
                 >
                     <Option value="">全部</Option>
                     {rectificationStatusOptions}

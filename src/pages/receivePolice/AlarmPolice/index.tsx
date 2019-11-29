@@ -18,12 +18,13 @@ import {
   Tabs,
   Radio,
   message,
-  Icon,
+  Icon,Card,
 } from 'antd';
 import moment from 'moment/moment';
 import styles from '../../common/listPage.less';
 import RenderTable from '../../../components/UnPoliceRealData/RenderTable';
 import UnPoliceDataView from '../../../components/UnPoliceRealData/UnPoliceDataView';
+import stylescommon from '../../common/common.less';
 import {
   exportListDataMaxDays,
   getQueryString,
@@ -630,225 +631,228 @@ export default class Index extends PureComponent {
     const rowLayout = { md: 8, xl: 16, xxl: 24 };
     const colLayout = { sm: 24, md: 12, xl: 8 };
     return (
-      <Form style={{ height: this.state.searchHeight ? 'auto' : '59px' }} id="jqgjsearchForm">
-        <Row gutter={rowLayout} className={styles.searchForm}>
-          <Col {...colLayout}>
-            <FormItem label="告警时间" {...formItemLayout}>
-              {getFieldDecorator('gjsj', {
-                // initialValue: this.state.ssbaq,
-              })(
-                <RangePicker
-                  disabledDate={this.disabledDate}
-                  style={{ width: '100%' }}
-                  getCalendarContainer={() => document.getElementById('jqgjsearchForm')}
-                />,
-              )}
-            </FormItem>
-          </Col>
-          <Col {...colLayout}>
-            <FormItem label="问题类型" {...formItemLayout}>
-              {getFieldDecorator('wtlx', {
-                initialValue: this.state.wtlx,
-              })(
-                <Select
-                  placeholder="请选择问题类型"
-                  style={{ width: '100%' }}
-                  getPopupContainer={() => document.getElementById('jqgjsearchForm')}
-                >
-                  <Option value="">全部</Option>
-                  {wtlxOptions}
-                </Select>,
-              )}
-            </FormItem>
-          </Col>
-          <Col {...colLayout}>
-            <FormItem label="&nbsp;&nbsp;&nbsp; 接警人" {...formItemLayout}>
-              {getFieldDecorator('jjr', {
-                // initialValue: this.state.caseType,
-                rules: [{ max: 32, message: '最多输入32个字！' }],
-              })(
-                <Select
-                  mode="combobox"
-                  defaultActiveFirstOption={false}
-                  optionLabelProp="title"
-                  showArrow={false}
-                  filterOption={false}
-                  placeholder="请输入接警人"
-                  onChange={value => this.handleAllPoliceOptionChange(value, false)}
-                  onFocus={value => this.handleAllPoliceOptionChange(value, false)}
-                  getPopupContainer={() => document.getElementById('jqgjsearchForm')}
-                >
-                  {allPoliceOptions}
-                </Select>,
-              )}
-            </FormItem>
-          </Col>
-          <Col {...colLayout}>
-            <FormItem label="接警来源" {...formItemLayout}>
-              {getFieldDecorator('jjly', {
-                initialValue: this.state.jjly,
-              })(
-                <Select
-                  placeholder="请选择接警来源"
-                  style={{ width: '100%' }}
-                  getPopupContainer={() => document.getElementById('jqgjsearchForm')}
-                >
-                  <Option value="">全部</Option>
-                  {/*{involvedType !== undefined ? this.Option() : ''}*/}
-                  {sourceOfAlarmDictOptions}
-                </Select>,
-              )}
-            </FormItem>
-          </Col>
-          <Col {...colLayout}>
-            <FormItem label="管辖单位" {...formItemLayout}>
-              {getFieldDecorator('jjdw', {
-                // initialValue: this.state.jjdw,
-              })(
-                <TreeSelect
-                  showSearch
-                  style={{ width: '100%' }}
-                  dropdownStyle={{ maxHeight: 400, overflow: 'auto' }}
-                  placeholder="请输入管辖单位"
-                  allowClear
-                  key="jjdwSelect"
-                  treeDefaultExpandedKeys={this.state.treeDefaultExpandedKeys}
-                  treeNodeFilterProp="title"
-                  getPopupContainer={() => document.getElementById('jqgjsearchForm')}
-                >
-                  {depTree && depTree.length > 0 ? this.renderloop(depTree) : null}
-                </TreeSelect>,
-              )}
-            </FormItem>
-          </Col>
-          <Col {...colLayout}>
-            <FormItem label="&nbsp;&nbsp;&nbsp; 处警人" {...formItemLayout}>
-              {getFieldDecorator('cjr', {
-                // initialValue: this.state.gzry,
-                rules: [{ max: 32, message: '最多输入32个字！' }],
-              })(
-                <Select
-                  mode="combobox"
-                  defaultActiveFirstOption={false}
-                  optionLabelProp="title"
-                  showArrow={false}
-                  filterOption={false}
-                  placeholder="请输入处警人"
-                  onChange={value => this.handleAllPoliceOptionChange(value, true)}
-                  onFocus={value => this.handleAllPoliceOptionChange(value, true)}
-                  getPopupContainer={() => document.getElementById('jqgjsearchForm')}
-                >
-                  {cjrPoliceOptions}
-                </Select>,
-              )}
-            </FormItem>
-          </Col>
-          <Col {...colLayout}>
-            <FormItem label="处警单位" {...formItemLayout}>
-              {getFieldDecorator('cjdw', {
-                // initialValue: this.state.cjdw,
-              })(
-                <TreeSelect
-                  showSearch
-                  style={{ width: '100%' }}
-                  dropdownStyle={{ maxHeight: 400, overflow: 'auto' }}
-                  placeholder="请输入处警单位"
-                  allowClear
-                  key="cjdwSelect"
-                  treeDefaultExpandedKeys={this.state.treeDefaultExpandedKeys}
-                  treeNodeFilterProp="title"
-                  getPopupContainer={() => document.getElementById('jqgjsearchForm')}
-                >
-                  {depTree && depTree.length > 0 ? this.renderloop(depTree) : null}
-                </TreeSelect>,
-              )}
-            </FormItem>
-          </Col>
-          <Col {...colLayout}>
-            <FormItem label="接警时间" {...formItemLayout}>
-              {getFieldDecorator('jjsj', {
-                // initialValue: this.state.ssbaq,
-              })(
-                <RangePicker
-                  disabledDate={this.disabledDate}
-                  style={{ width: '100%' }}
-                  showTime={{ format: 'HH:mm:ss' }}
-                  format="YYYY-MM-DD HH:mm:ss"
-                  getCalendarContainer={() => document.getElementById('jqgjsearchForm')}
-                />,
-              )}
-            </FormItem>
-          </Col>
-          <Col {...colLayout}>
-            <FormItem label="消息状态" {...formItemLayout}>
-              {getFieldDecorator('dbzt', {
-                initialValue: { dbzt: this.state.dbzt, zgzt: '' },
-              })(
-                <MessageState
-                  superviseStatusOptions={superviseStatusOptions}
-                  rectificationStatusOptions={rectificationStatusOptions}
-                />,
-              )}
-            </FormItem>
-          </Col>
-        </Row>
-        <Row gutter={rowLayout} className={styles.searchForm}>
-          <Col {...colLayout}>
-            <FormItem label="产生方式" {...formItemLayout}>
-              {getFieldDecorator('csfs', {
-                initialValue: '',
-              })(
-                <Select
-                  placeholder="请选择产生方式"
-                  style={{ width: '100%' }}
-                  onChange={this.getCsfs}
-                  getPopupContainer={() => document.getElementById('jqgjsearchForm')}
-                >
-                  <Option value="">全部</Option>
-                  <Option value="系统判定">系统判定</Option>
-                  <Option value="人工判定">人工判定</Option>
-                </Select>,
-              )}
-            </FormItem>
-          </Col>
-          <Col {...colLayout}>
-            <FormItem label="是否受案" {...formItemLayout}>
-              {getFieldDecorator('sfsa', {
-                initialValue: this.state.sfsa,
-              })(
-                <RadioGroup onChange={this.onRadioChange}>
-                  <Radio value="">全部</Radio>
-                  <Radio value="1">是</Radio>
-                  <Radio value="0">否</Radio>
-                </RadioGroup>,
-              )}
-            </FormItem>
-          </Col>
-        </Row>
-        <Row className={styles.search} style={{ position: 'absolute', top: 16, right: 48 }}>
-          <span style={{ float: 'right', marginBottom: 24, marginTop: 5 }}>
-            <Button
-              style={{ marginLeft: 8 }}
-              type="primary"
-              htmlType="submit"
-              onClick={this.handleSearch}
-            >
-              查询
-            </Button>
-            <Button style={{ marginLeft: 8 }} onClick={this.handleFormReset}>
-              重置
-            </Button>
-            <Button
-              style={{ marginLeft: 8 }}
-              onClick={this.getSearchHeight}
-              className={styles.empty}
-            >
-              {this.state.searchHeight ? '收起筛选' : '展开筛选'}{' '}
-              <Icon type={this.state.searchHeight ? 'up' : 'down'} />
-            </Button>
-          </span>
-        </Row>
-      </Form>
+      <Card className={stylescommon.listPageWrap} id="jqgjsearchForm">
+        <Form style={{ height: this.state.searchHeight ? 'auto' : '59px' }} >
+          <Row gutter={rowLayout} className={styles.searchForm}>
+            <Col {...colLayout}>
+              <FormItem label="告警时间" {...formItemLayout}>
+                {getFieldDecorator('gjsj', {
+                  // initialValue: this.state.ssbaq,
+                })(
+                  <RangePicker
+                    disabledDate={this.disabledDate}
+                    style={{ width: '100%' }}
+                    getCalendarContainer={() => document.getElementById('jqgjsearchForm')}
+                  />,
+                )}
+              </FormItem>
+            </Col>
+            <Col {...colLayout}>
+              <FormItem label="问题类型" {...formItemLayout}>
+                {getFieldDecorator('wtlx', {
+                  initialValue: this.state.wtlx,
+                })(
+                  <Select
+                    placeholder="请选择问题类型"
+                    style={{ width: '100%' }}
+                    getPopupContainer={() => document.getElementById('jqgjsearchForm')}
+                  >
+                    <Option value="">全部</Option>
+                    {wtlxOptions}
+                  </Select>,
+                )}
+              </FormItem>
+            </Col>
+            <Col {...colLayout}>
+              <FormItem label="&nbsp;&nbsp;&nbsp; 接警人" {...formItemLayout}>
+                {getFieldDecorator('jjr', {
+                  // initialValue: this.state.caseType,
+                  rules: [{ max: 32, message: '最多输入32个字！' }],
+                })(
+                  <Select
+                    mode="combobox"
+                    defaultActiveFirstOption={false}
+                    optionLabelProp="title"
+                    showArrow={false}
+                    filterOption={false}
+                    placeholder="请输入接警人"
+                    onChange={value => this.handleAllPoliceOptionChange(value, false)}
+                    onFocus={value => this.handleAllPoliceOptionChange(value, false)}
+                    getPopupContainer={() => document.getElementById('jqgjsearchForm')}
+                  >
+                    {allPoliceOptions}
+                  </Select>,
+                )}
+              </FormItem>
+            </Col>
+            <Col {...colLayout}>
+              <FormItem label="接警来源" {...formItemLayout}>
+                {getFieldDecorator('jjly', {
+                  initialValue: this.state.jjly,
+                })(
+                  <Select
+                    placeholder="请选择接警来源"
+                    style={{ width: '100%' }}
+                    getPopupContainer={() => document.getElementById('jqgjsearchForm')}
+                  >
+                    <Option value="">全部</Option>
+                    {/*{involvedType !== undefined ? this.Option() : ''}*/}
+                    {sourceOfAlarmDictOptions}
+                  </Select>,
+                )}
+              </FormItem>
+            </Col>
+            <Col {...colLayout}>
+              <FormItem label="管辖单位" {...formItemLayout}>
+                {getFieldDecorator('jjdw', {
+                  // initialValue: this.state.jjdw,
+                })(
+                  <TreeSelect
+                    showSearch
+                    style={{ width: '100%' }}
+                    dropdownStyle={{ maxHeight: 400, overflow: 'auto' }}
+                    placeholder="请输入管辖单位"
+                    allowClear
+                    key="jjdwSelect"
+                    treeDefaultExpandedKeys={this.state.treeDefaultExpandedKeys}
+                    treeNodeFilterProp="title"
+                    getPopupContainer={() => document.getElementById('jqgjsearchForm')}
+                  >
+                    {depTree && depTree.length > 0 ? this.renderloop(depTree) : null}
+                  </TreeSelect>,
+                )}
+              </FormItem>
+            </Col>
+            <Col {...colLayout}>
+              <FormItem label="&nbsp;&nbsp;&nbsp; 处警人" {...formItemLayout}>
+                {getFieldDecorator('cjr', {
+                  // initialValue: this.state.gzry,
+                  rules: [{ max: 32, message: '最多输入32个字！' }],
+                })(
+                  <Select
+                    mode="combobox"
+                    defaultActiveFirstOption={false}
+                    optionLabelProp="title"
+                    showArrow={false}
+                    filterOption={false}
+                    placeholder="请输入处警人"
+                    onChange={value => this.handleAllPoliceOptionChange(value, true)}
+                    onFocus={value => this.handleAllPoliceOptionChange(value, true)}
+                    getPopupContainer={() => document.getElementById('jqgjsearchForm')}
+                  >
+                    {cjrPoliceOptions}
+                  </Select>,
+                )}
+              </FormItem>
+            </Col>
+            <Col {...colLayout}>
+              <FormItem label="处警单位" {...formItemLayout}>
+                {getFieldDecorator('cjdw', {
+                  // initialValue: this.state.cjdw,
+                })(
+                  <TreeSelect
+                    showSearch
+                    style={{ width: '100%' }}
+                    dropdownStyle={{ maxHeight: 400, overflow: 'auto' }}
+                    placeholder="请输入处警单位"
+                    allowClear
+                    key="cjdwSelect"
+                    treeDefaultExpandedKeys={this.state.treeDefaultExpandedKeys}
+                    treeNodeFilterProp="title"
+                    getPopupContainer={() => document.getElementById('jqgjsearchForm')}
+                  >
+                    {depTree && depTree.length > 0 ? this.renderloop(depTree) : null}
+                  </TreeSelect>,
+                )}
+              </FormItem>
+            </Col>
+            <Col {...colLayout}>
+              <FormItem label="接警时间" {...formItemLayout}>
+                {getFieldDecorator('jjsj', {
+                  // initialValue: this.state.ssbaq,
+                })(
+                  <RangePicker
+                    disabledDate={this.disabledDate}
+                    style={{ width: '100%' }}
+                    showTime={{ format: 'HH:mm:ss' }}
+                    format="YYYY-MM-DD HH:mm:ss"
+                    getCalendarContainer={() => document.getElementById('jqgjsearchForm')}
+                  />,
+                )}
+              </FormItem>
+            </Col>
+            <Col {...colLayout}>
+              <FormItem label="消息状态" {...formItemLayout}>
+                {getFieldDecorator('dbzt', {
+                  initialValue: { dbzt: this.state.dbzt, zgzt: '' },
+                })(
+                  <MessageState
+                    superviseStatusOptions={superviseStatusOptions}
+                    rectificationStatusOptions={rectificationStatusOptions}
+                    newId='jqgjsearchForm'
+                  />,
+                )}
+              </FormItem>
+            </Col>
+          </Row>
+          <Row gutter={rowLayout} className={styles.searchForm}>
+            <Col {...colLayout}>
+              <FormItem label="产生方式" {...formItemLayout}>
+                {getFieldDecorator('csfs', {
+                  initialValue: '',
+                })(
+                  <Select
+                    placeholder="请选择产生方式"
+                    style={{ width: '100%' }}
+                    onChange={this.getCsfs}
+                    getPopupContainer={() => document.getElementById('jqgjsearchForm')}
+                  >
+                    <Option value="">全部</Option>
+                    <Option value="系统判定">系统判定</Option>
+                    <Option value="人工判定">人工判定</Option>
+                  </Select>,
+                )}
+              </FormItem>
+            </Col>
+            <Col {...colLayout}>
+              <FormItem label="是否受案" {...formItemLayout}>
+                {getFieldDecorator('sfsa', {
+                  initialValue: this.state.sfsa,
+                })(
+                  <RadioGroup onChange={this.onRadioChange}>
+                    <Radio value="">全部</Radio>
+                    <Radio value="1">是</Radio>
+                    <Radio value="0">否</Radio>
+                  </RadioGroup>,
+                )}
+              </FormItem>
+            </Col>
+          </Row>
+          <Row className={styles.search} style={{ position: 'absolute', top: 10, right: 32 }}>
+            <span style={{ float: 'right', marginBottom: 24, marginTop: 5 }}>
+              <Button
+                style={{ marginLeft: 8 }}
+                type="primary"
+                htmlType="submit"
+                onClick={this.handleSearch}
+              >
+                查询
+              </Button>
+              <Button style={{ marginLeft: 8 }} onClick={this.handleFormReset}>
+                重置
+              </Button>
+              <Button
+                style={{ marginLeft: 8 }}
+                onClick={this.getSearchHeight}
+                className={styles.empty}
+              >
+                {this.state.searchHeight ? '收起筛选' : '展开筛选'}{' '}
+                <Icon type={this.state.searchHeight ? 'up' : 'down'} />
+              </Button>
+            </span>
+          </Row>
+        </Form>
+      </Card>
     );
   }
 
@@ -971,7 +975,7 @@ export default class Index extends PureComponent {
                     border: '1px solid #3285FF',
                     borderRadius: '5px',
                   }}
-                  onClick={this.exportData}
+                  onClick={this.exportData} icon="download"
                 >
                   导出表格
                 </Button>

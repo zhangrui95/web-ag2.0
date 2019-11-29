@@ -868,6 +868,7 @@ export default class Index extends PureComponent {
                     borderRadius: '5px',
                   }}
                   onClick={this.exportData}
+                  icon="download"
                 >
                   导出表格
                 </Button>

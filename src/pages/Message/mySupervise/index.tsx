@@ -545,7 +545,8 @@ class  mySupervise extends Component {
                                     initialValue: { dbzt: this.state.dbzt, zgzt: '' },
                                 })(
                                     <MessageState superviseStatusOptions={superviseStatusOptions}
-                                                  rectificationStatusOptions={rectificationStatusOptions}/>,
+                                                  rectificationStatusOptions={rectificationStatusOptions}
+                                                  newId='form'/>,
                                 )}
                             </FormItem>
                         </Col>

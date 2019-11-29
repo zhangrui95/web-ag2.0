@@ -73,7 +73,7 @@ export default class DataViewButtonArea extends PureComponent {
     } = this.props;
     const { popoverVisible } = this.state;
     const screeWidth = document.body.offsetWidth;
-    console.log('showDataView', showDataView);
+    console.log('showDataView', this.props.id);
     return (
       <div
         className={styles.typeButtonsArea}
@@ -179,6 +179,7 @@ export default class DataViewButtonArea extends PureComponent {
               disabledDate={disabledDate}
               style={{ width: '200' }}
               onChange={this.handleRangePickerChange}
+              getCalendarContainer={() => document.getElementById('tongjiCommon')}
             />
           }
           placement="bottomRight"
@@ -187,8 +188,7 @@ export default class DataViewButtonArea extends PureComponent {
           onVisibleChange={this.handlePopoverVisibleChange}
         >
           <Button
-            style={{ borderRadius: 30, width: 50 }}
-            type="primary"
+            // type="primary"
             className={style.btnRadius}
             ghost={typeButtons !== 'selectedDate'}
           >

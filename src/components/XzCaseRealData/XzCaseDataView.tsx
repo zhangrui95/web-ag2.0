@@ -717,49 +717,50 @@ export default class XzCaseDataView extends PureComponent {
               </div>
             </div>
           )}
-
-          <Row gutter={rowLayout} className={styles.listPageRow}>
-            <Col sm={24} lg={12} xl={6}>
-              <div className={styles.cardBoxTitle}>| 案件情况展示</div>
-              <div id="ajqkzs" className={styles.cardBox}></div>
-            </Col>
-            <Col sm={24} lg={12} xl={18}>
-              <div className={styles.cardBoxTitle}>| 受案情况展示</div>
-              <div id="sjqkzs" className={styles.cardBox}></div>
-              {sjqkzsNoData ? (
-                <div
-                  style={{
-                    width: '100%',
-                    height: '100%',
-                    position: 'absolute',
-                    top: 0,
-                    left: 0,
-                    padding: 16,
-                    backgroundColor: '#ffffff',
-                  }}
-                >
-                  <div style={{ fontSize: 16, padding: '8px 0 0 8px' }}>受案情况展示</div>
+          <div style={{ backgroundColor: '#202839', padding: '0 16px' }}>
+            <Row gutter={rowLayout} className={styles.listPageRow}>
+              <Col sm={24} lg={12} xl={6}>
+                <div className={styles.cardBoxTitle}>| 案件情况展示</div>
+                <div id="ajqkzs" className={styles.cardBox}></div>
+              </Col>
+              <Col sm={24} lg={12} xl={18}>
+                <div className={styles.cardBoxTitle}>| 受案情况展示</div>
+                <div id="sjqkzs" className={styles.cardBox}></div>
+                {sjqkzsNoData ? (
                   <div
                     style={{
-                      display: 'flex',
-                      alignItems: 'center',
-                      flexDirection: 'column',
-                      justifyContent: 'center',
+                      width: '100%',
+                      height: '100%',
+                      position: 'absolute',
+                      top: 0,
+                      left: 0,
+                      padding: 16,
+                      backgroundColor: '#ffffff',
                     }}
                   >
-                    <img src={nonDivImg} alt="暂无数据" />
-                    <div style={{ fontSize: 18 }}>暂无数据</div>
+                    <div style={{ fontSize: 16, padding: '8px 0 0 8px' }}>受案情况展示</div>
+                    <div
+                      style={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        flexDirection: 'column',
+                        justifyContent: 'center',
+                      }}
+                    >
+                      <img src={nonDivImg} alt="暂无数据" />
+                      <div style={{ fontSize: 18 }}>暂无数据</div>
+                    </div>
                   </div>
-                </div>
-              ) : null}
-            </Col>
-          </Row>
-          <Row gutter={rowLayout} className={styles.listPageRow}>
-            <Col span={24}>
-              <div className={styles.cardBoxTitle}>| 案件类型统计</div>
-              <div id="ajlxtj" className={styles.cardBox}></div>
-            </Col>
-          </Row>
+                ) : null}
+              </Col>
+            </Row>
+            <Row gutter={rowLayout} className={styles.listPageRow}>
+              <Col span={24}>
+                <div className={styles.cardBoxTitle}>| 案件类型统计</div>
+                <div id="ajlxtj" className={styles.cardBox}></div>
+              </Col>
+            </Row>
+          </div>
         </div>
       </Card>
     );
