@@ -805,7 +805,7 @@ export default class Index extends PureComponent {
           </Form>
         </div>
         <div className={styles.tableListOperator}>
-          <Button style={{ borderColor: '#2095FF', marginBottom: 16 }} onClick={this.exportData}>
+          <Button style={{ borderColor: '#2095FF', marginBottom: 16 }} icon="download" onClick={this.exportData}>
             导出表格
           </Button>
           <Table
