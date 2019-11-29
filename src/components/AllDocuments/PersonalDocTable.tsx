@@ -28,17 +28,17 @@ export default class PersonalDocTable extends PureComponent {
         this.props.dispatch({
             type: 'global/changeNavigation',
             payload: {
-                key: record && record.id ? record.id : '1',
+                key: record && record.system_id ? record.system_id : '1',
                 name: '人员档案详情',
                 path: '/lawEnforcement/PersonFile/Detail',
                 isShow: true,
-                query: { record, id: record && record.id ? record.id : '1' },
+                query: { record, id: record && record.system_id ? record.system_id : '1' },
             },
             callback: () => {
                 this.props.dispatch(
                     routerRedux.push({
                         pathname: '/lawEnforcement/PersonFile/Detail',
-                        query: { record: record, id: record && record.id ? record.id : '1' },
+                        query: { record: record, id: record && record.system_id ? record.system_id : '1' },
                     }),
                 );
             },

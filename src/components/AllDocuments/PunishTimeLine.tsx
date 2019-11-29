@@ -4,9 +4,10 @@
 * 20180128
 * */
 import React, { PureComponent } from 'react';
-import { Tabs, Row, Col, Table, List, Steps, Tooltip } from 'antd';
+import {Tabs, Row, Col, Table, List, Steps, Tooltip, Empty} from 'antd';
 import styles from './personDetailTab.less';
 import RenderEmpty from '../Common/RenderEmpty';
+import noList from "@/assets/viewData/noList.png";
 
 const Step = Steps.Step;
 const imgLeft = require('../../assets/common/leftButton.png');

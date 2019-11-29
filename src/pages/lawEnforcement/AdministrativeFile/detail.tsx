@@ -124,17 +124,23 @@ export default class AdministrativeCaseDocDetail extends PureComponent {
     };
     // 获取关系图谱的实际高度
     getChartTreeHeight = (data) => {
-        let heightCount = 150;
-        if (data) {
-            const jq = this.getPoliceContentLength(data.jqxxList);
-            const xyr = data.xyrList ? data.xyrList.length : 0;
-            const sawp = data.sawpList ? data.sawpList.length : 0;
-            const jz = data.jzList ? data.jzList.length : 0;
-            heightCount += (jq + xyr + sawp + jz) * 20 + 140;
-
-        }
+        let heightCount = 460;
+        // if (data) {
+        //     const jq = this.getPoliceContentLength(data.jqxxList);
+        //     const xyr = data.xyrList ? data.xyrList.length : 0;
+        //     const sawp = data.sawpList ? data.sawpList.length : 0;
+        //     const jz = data.jzList ? data.jzList.length : 0;
+        //     heightCount += (jq + xyr + sawp + jz) * 20 + 140;
+        //
+        // }
         return heightCount;
     };
+    getX = (x,d,idx,r) =>{
+        return x + Math.sin(d*idx) * r;
+    }
+    getY = (y,d,idx,r) =>{
+        return y - Math.cos(d*idx) * r;
+    }
     // 脑图
     showEchart = (data) =>{
         let jq = [];
@@ -172,16 +178,16 @@ export default class AdministrativeCaseDocDetail extends PureComponent {
                     modularity_class:2,
                 },
                 symbolSize: 30,
-                x: -700,
-                y: 400
+                x: -1100,
+                y: 300
             }, {
                 name: '涉案物品',
                 attributes:{
                     modularity_class:3,
                 },
                 symbolSize: 30,
-                x: -700,
-                y: 300
+                x: -900,
+                y: 150
             }
         ]
         let list = [];
@@ -189,34 +195,19 @@ export default class AdministrativeCaseDocDetail extends PureComponent {
             data.jqxxList.map((event,index) => {
                 jq.push({
                     source: '警情',
-                    target: event.jjnr ? this.formatter(event.jjnr) : null,
+                    target: (event.jjnr ? this.formatter(event.jjnr) : null) + index,
                 });
                 console.log('list.indexOf(event.jjnr)',JSON.stringify(list).indexOf(this.formatter(event.jjnr)))
-                if(list.length > 0){
-                    list.map((item)=>{
-                        if(item.name !== this.formatter(event.jjnr)){
-                            list.push({
-                                name: event.jjnr ? this.formatter(event.jjnr) : null,
-                                attributes:{
-                                    modularity_class:1,
-                                },
-                                symbolSize: 20,
-                                x:-450,
-                                y: 200 + index*50
-                            });
-                        }
-                    })
-                }else{
-                    list.push({
-                        name: event.jjnr ? this.formatter(event.jjnr) : null,
-                        attributes:{
-                            modularity_class:1,
-                        },
-                        symbolSize: 20,
-                        x:-450,
-                        y: 200 + index*50
-                    });
-                }
+                list.push({
+                    name: event.jjnr ? this.formatter(event.jjnr) : null,
+                    id:(event.jjnr ? this.formatter(event.jjnr) : null) + index,
+                    attributes:{
+                        modularity_class:1,
+                    },
+                    symbolSize: 20,
+                    x: this.getX(-500,45,index,200),
+                    y: this.getY(250,45,index,200),
+                });
             });
         }
         if (data.xyrList && data.xyrList.length > 0) {
@@ -225,17 +216,18 @@ export default class AdministrativeCaseDocDetail extends PureComponent {
                 const sartag = event.xszk_name ? `(${event.xszk_name})` : '';
                 sar.push({
                     source: '涉案人员',
-                    target: event.xyrName ? this.formatter(event.xyrName + sartag) : null,
+                    target: (event.xyrName ? this.formatter(event.xyrName + sartag) : null)+index,
                 });
                 list.push(
                     {
                         name: event.xyrName ? this.formatter(event.xyrName + sartag) : null,
+                        id:(event.xyrName ? this.formatter(event.xyrName + sartag) : null)+index,
                         attributes:{
                             modularity_class:2,
                         },
                         symbolSize: 20,
-                        x:-500,
-                        y: 400 + index*50
+                        x: this.getX(-1100,20,index,100),
+                        y: this.getY(300,20,index,100),
                     }
                 )
             });
@@ -244,17 +236,18 @@ export default class AdministrativeCaseDocDetail extends PureComponent {
             data.sawpList.map((event,index) => {
                 sawp.push({
                     source: '涉案物品',
-                    target: event.wpmc ? this.formatter(event.wpmc) : null,
+                    target: (event.wpmc ? this.formatter(event.wpmc) : null)+index,
                 });
                 list.push(
                     {
                         name: event.wpmc ? this.formatter(event.wpmc) : null,
+                        id:(event.wpmc ? this.formatter(event.wpmc) : null)+index,
                         attributes:{
                             modularity_class:2,
                         },
                         symbolSize: 20,
-                        x:-600,
-                        y: 350 + index*50
+                        x: this.getX(-900,20,index,80),
+                        y: this.getY(150,20,index,80),
                     }
                 )
             });
@@ -263,17 +256,18 @@ export default class AdministrativeCaseDocDetail extends PureComponent {
             data.jzList.map((event,index) => {
                 jz.push({
                     source: '卷宗',
-                    target: event.jzmc ? this.formatter(event.jzmc) : null,
+                    target: (event.jzmc ? this.formatter(event.jzmc) : null)+index,
                 })
                 list.push(
                     {
                         name: event.jzmc ? this.formatter(event.jzmc) : null,
+                        id:(event.jzmc ? this.formatter(event.jzmc) : null)+index,
                         attributes:{
                             modularity_class:2,
                         },
                         symbolSize: 20,
-                        x: 500 - index*100,
-                        y: 500
+                        x: this.getX(-700,20,index,70),
+                        y: this.getY(450,20,index,70),
                     }
                 )
             });
@@ -308,7 +302,7 @@ export default class AdministrativeCaseDocDetail extends PureComponent {
         }
         const categories2 =[                //节点分类的类目，可选。
             {
-                name: data.ajmc,    //类目名称
+                name: '案件名称',    //类目名称
             },
             {
                 name: '警情',    //类目名称
