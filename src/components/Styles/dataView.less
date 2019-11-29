@@ -336,8 +336,15 @@
 }
 .cardBoxTitle {
   height: 50px;
-  background: @table-header-bg;
+  //background: @table-header-bg;
   padding: 16px 16px 0;
   color: @white;
   font-size: 16px;
+}
+.policeDataCard{
+  :global{
+    .ant-card-body{
+      background-color:@body-background;
+    }
+  }
 }

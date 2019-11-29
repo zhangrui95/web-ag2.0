@@ -1,3 +1,9 @@
+/*
+ * CriminalPolice/uncaseDetail.tsx 受立案刑事案件告警详情
+ * author：jhm
+ * 20180605
+ * */
+
 import React, { PureComponent, Fragment } from 'react';
 import { connect } from 'dva';
 import {
@@ -521,17 +527,16 @@ export default class uncaseDetail extends PureComponent {
     const { unCaseDetailData, isDb } = this.state;
 
     return (
-      <div style={{ backgroundColor: '#fff' }}>
+      <div style={{ backgroundColor: '#252C3C',margin:'16px 0' }}>
         <Row gutter={{ md: 8, lg: 24, xl: 48 }}>
           <Col md={8} sm={24}>
-            <span style={{ margin: '16px', display: 'block' }}>刑事案件详情</span>
+            {/*<span style={{ margin: '16px', display: 'block' }}>刑事案件详情</span>*/}
           </Col>
           <Col>
             <span style={{ float: 'right', margin: '12px 16px 12px 0' }}>
               {unCaseDetailData.zt === '待督办' && isDb ? (
                 <Button
-                  type="primary"
-                  style={{ marginLeft: 8 }}
+                  className={styles.TopMenu}
                   loading={this.state.loading1}
                   onClick={() => this.onceSupervise(true, unCaseDetailData)}
                 >
@@ -545,8 +550,7 @@ export default class uncaseDetail extends PureComponent {
                   unCaseDetailData.dbList[unCaseDetailData.dbList.length - 1].fkzt !== '1')) &&
               isDb ? (
                 <Button
-                  type="primary"
-                  style={{ marginLeft: 8 }}
+                  className={styles.TopMenu}
                   loading={this.state.feedbackButtonLoading}
                   onClick={() => this.feedback(true, unCaseDetailData)}
                 >
@@ -608,7 +612,6 @@ export default class uncaseDetail extends PureComponent {
         }
         dataSource={sawpList}
         className={styles.sawpListName}
-        style={{ color: '#faa' }}
         renderItem={item => (
           <List.Item>
             <div className={styles.colsImg}>
@@ -763,7 +766,7 @@ export default class uncaseDetail extends PureComponent {
 
     return (
       <div
-        style={{ padding: '24px 0', background: '#F0F2F5', height: autoheight() - 180 + 'px' }}
+        style={{ background: '#252C3C', /*height: autoheight() - 290 + 'px'*/ }}
         className={styles.detailBoxScroll}
       >
         <SupervisionLog
@@ -775,11 +778,11 @@ export default class uncaseDetail extends PureComponent {
           sureReform={this.sureReform}
           rowLayout={rowLayout}
         />
-        <div className={styles.title}>警情信息</div>
-        <div className={styles.tablemessage} style={{ marginBottom: '16px', padding: '24px' }}>
+        <div className={styles.title}>| 警情信息</div>
+        <div className={styles.tablemessage}>
           <Table
             size={'middle'}
-            style={{ backgroundColor: '#fff' }}
+            style={{ backgroundColor: '#252c3c',borderRadius:0,padding:24 }}
             pagination={{
               pageSize: 3,
               showTotal: (total, range) => (
@@ -791,34 +794,35 @@ export default class uncaseDetail extends PureComponent {
                 this.setState({ jqcurrent: page });
               },
             }}
+            className={styles.jqxxTable}
             dataSource={unCaseDetailData ? unCaseDetailData.jqxxList : []}
             columns={JqColumns}
           />
         </div>
-        <div className={styles.title}>案件信息</div>
-        <div className={styles.message} style={{ padding: '24px 0' }}>
-          <Row gutter={rowLayout}>
-            <Col md={6} sm={24}>
+        <div className={styles.title}>| 案件信息</div>
+        <div className={styles.message} style={{ padding: '12px 64px' }}>
+          <Row gutter={rowLayout} style={{ marginRight: 0 }} className={styles.xqrow}>
+            <Col md={6} sm={24} className={styles.xqcol}>
               <div className={liststyles.Indexfrom}>案件编号：</div>
               <div className={liststyles.Indextail}>
                 {unCaseDetailData && unCaseDetailData.ajbh ? unCaseDetailData.ajbh : ''}
               </div>
             </Col>
-            <Col md={6} sm={24}>
+            <Col md={6} sm={24} className={styles.xqcol}>
               <div className={liststyles.Indexfrom}>案件名称：</div>
               <div className={liststyles.Indextail}>
                 {unCaseDetailData && unCaseDetailData.ajmc ? unCaseDetailData.ajmc : ''}
               </div>
             </Col>
-            <Col md={6} sm={24}>
+            <Col md={6} sm={24} className={styles.xqcol}>
               <div className={liststyles.Indexfrom}>案件类别：</div>
               <div className={liststyles.Indextail}>
                 {unCaseDetailData && unCaseDetailData.ajlbmc ? unCaseDetailData.ajlbmc : ''}
               </div>
             </Col>
           </Row>
-          <Row gutter={rowLayout}>
-            <Col md={6} sm={24}>
+          <Row gutter={rowLayout} style={{ marginRight: 0 }} className={styles.xqrow}>
+            <Col md={6} sm={24} className={styles.xqcol}>
               <div className={liststyles.Indexfrom}>案发时段：</div>
               <div className={liststyles.Indextail}>
                 {unCaseDetailData && unCaseDetailData.fasjsx && unCaseDetailData.fasjxx
@@ -840,15 +844,15 @@ export default class uncaseDetail extends PureComponent {
             {/*        </Col>*/}
             {/*    </div>*/}
             {/*}*/}
-            <Col md={6} sm={24}>
+            <Col md={6} sm={24} className={styles.xqcol}>
               <div className={liststyles.Indexfrom}>案发地点：</div>
               <div className={liststyles.Indextail}>
                 {unCaseDetailData && unCaseDetailData.afdd ? unCaseDetailData.afdd : ''}
               </div>
             </Col>
           </Row>
-          <Row gutter={rowLayout}>
-            <Col md={24} sm={24}>
+          <Row gutter={rowLayout} style={{ marginRight: 0 }} className={styles.xqrow}>
+            <Col md={24} sm={24} className={styles.xqcol}>
               <div className={liststyles.Indexfrom}>简要案情：</div>
               <div className={liststyles.Indextail}>
                 {unCaseDetailData && unCaseDetailData.jyaq ? unCaseDetailData.jyaq : ''}
@@ -865,7 +869,7 @@ export default class uncaseDetail extends PureComponent {
         </div>
         {unCaseDetailData && unCaseDetailData.ajzt ? (
           <div>
-            <div className={styles.title}>案件轨迹</div>
+            <div className={styles.title}>| 案件轨迹</div>
             <CaseModalTrail {...this.props} caseDetails={unCaseDetailData} from="刑事" />
           </div>
         ) : (

@@ -6,9 +6,10 @@
 
 import React, { PureComponent } from 'react';
 import { connect } from 'dva';
-import { Row, Col, Form, Select, TreeSelect, Input, Button, DatePicker, Radio, Tabs, message, Icon } from 'antd';
+import { Row, Col, Form, Select, TreeSelect, Input, Button, DatePicker, Radio, Tabs, message, Icon, Card } from 'antd';
 import moment from 'moment/moment';
 import styles from '../../common/listPage.less';
+import stylescommon from '../../common/common.less';
 import RenderTable from '../../../components/UnCaseRealData/RenderTable';
 import { exportListDataMaxDays, getQueryString, tableList, userResourceCodeDb } from '../../../utils/utils';
 // import SuperviseModal from '../../components/UnCaseRealData/SuperviseModal';
@@ -556,158 +557,161 @@ export default class Index extends PureComponent {
     const rowLayout = { md: 8, xl: 16, xxl: 24 };
     const colLayout = { sm: 24, md: 12, xl: 8 };
     return (
-      <Form onSubmit={this.handleSearch} style={{ height: this.state.searchHeight ? 'auto' : '59px' }} id="slaxsgjsearchForm">
-        <Row gutter={rowLayout} className={styles.searchForm}>
-          <Col {...colLayout}>
-            <FormItem label="问题类型" {...formItemLayout}>
-              {getFieldDecorator('wtlx', {
-                initialValue: this.state.wtlx,
-              })(
-                <Select placeholder="请选择问题类型" style={{ width: '100%' }} getPopupContainer={() => document.getElementById('slaxsgjsearchForm')}>
-                  <Option value="">全部</Option>
-                  {problemTypeOptions}
-                </Select>,
-              )}
-            </FormItem>
-          </Col>
-          <Col {...colLayout}>
-            <FormItem label="案件编号" {...formItemLayout}>
-              {getFieldDecorator('ajbh', {
-                // initialValue: this.state.caseType,
-                rules: [
-                  { pattern: /^[A-Za-z0-9]+$/, message: '请输入正确的案件编号！' },
-                  { max: 32, message: '最多输入32个字！' },
-                ],
-              })(
-                <Input placeholder="请输入案件编号"/>,
-              )}
-            </FormItem>
-          </Col>
-          <Col {...colLayout}>
-            <FormItem label="案件名称" {...formItemLayout}>
-              {getFieldDecorator('ajmc', {
-                // initialValue: this.state.caseType,
-                rules: [{ max: 128, message: '最多输入128个字！' }],
-              })(
-                <Input placeholder="请输入案件名称"/>,
-              )}
-            </FormItem>
-          </Col>
-          <Col {...colLayout}>
-            <FormItem label="办案单位" {...formItemLayout}>
-              {getFieldDecorator('badw', {
-                initialValue: this.state.badw,
-              })(
-                <TreeSelect
-                  showSearch
-                  style={{ width: '100%' }}
-                  dropdownStyle={{ maxHeight: 400, overflow: 'auto' }}
-                  placeholder="请输入办案单位"
-                  allowClear
-                  key='badwSelect'
-                  treeDefaultExpandedKeys={this.state.treeDefaultExpandedKeys}
-                  treeNodeFilterProp="title"
-                  getPopupContainer={() => document.getElementById('slaxsgjsearchForm')}
-                >
-                  {depTree && depTree.length > 0 ? this.renderloop(depTree) : null}
-                </TreeSelect>,
-              )}
-            </FormItem>
-          </Col>
-          <Col {...colLayout}>
-            <FormItem label="&nbsp;&nbsp;&nbsp; 办案人" {...formItemLayout}>
-              {getFieldDecorator('bar', {
-                // initialValue: this.state.gzry,
-                rules: [{ max: 32, message: '最多输入32个字！' }],
-              })(
-                <Select
-                  mode="combobox"
-                  defaultActiveFirstOption={false}
-                  optionLabelProp='title'
-                  showArrow={false}
-                  filterOption={false}
-                  placeholder="请输入办案人"
-                  onChange={this.handleAllPoliceOptionChange}
-                  onFocus={this.handleAllPoliceOptionChange}
-                  getPopupContainer={() => document.getElementById('slaxsgjsearchForm')}
-                >
-                  {allPoliceOptions}
-                </Select>,
-              )}
-            </FormItem>
-          </Col>
-          <Col {...colLayout}>
-            <FormItem label="消息状态" {...formItemLayout}>
-              {getFieldDecorator('dbzt', {
-                initialValue: { dbzt: this.state.dbzt, zgzt: '' },
-              })(
-                <MessageState superviseStatusOptions={superviseStatusOptions}
-                              rectificationStatusOptions={rectificationStatusOptions}/>,
-              )}
-            </FormItem>
-          </Col>
-        </Row>
-        <Row gutter={rowLayout} className={styles.searchForm}>
-          <Col {...colLayout}>
-            <FormItem label="案件状态" {...formItemLayout}>
-              {getFieldDecorator('ajzt', {
-                initialValue: this.state.ajzt,
-              })(
-                <Select placeholder="请选择案件状态" style={{ width: '100%' }} getPopupContainer={() => document.getElementById('slaxsgjsearchForm')}>
-                  <Option value="">全部</Option>
-                  {CaseStatusOption}
-                </Select>,
-              )}
-            </FormItem>
-          </Col>
-          <Col {...colLayout}>
-            <FormItem label="告警时间" {...formItemLayout}>
-              {getFieldDecorator('gjsj', {})(
-                <RangePicker
-                  disabledDate={this.disabledDate}
-                  style={{ width: '100%' }}
-                  getCalendarContainer={() => document.getElementById('slaxsgjsearchForm')}
-                />,
-              )}
-            </FormItem>
-          </Col>
-          <Col {...colLayout}>
-            <FormItem label="产生方式" {...formItemLayout}>
-              {getFieldDecorator('csfs', {
-                initialValue: '',
-              })(
-                <Select placeholder="请选择产生方式" style={{ width: '100%' }} onChange={this.getCsfs} getPopupContainer={() => document.getElementById('slaxsgjsearchForm')}>
-                  <Option value="">全部</Option>
-                  <Option value="系统判定">系统判定</Option>
-                  <Option value="人工判定">人工判定</Option>
-                </Select>,
-              )}
-            </FormItem>
-          </Col>
-        </Row>
-        <Row className={styles.search} style={{ position: 'absolute', top: 16, right: 48 }}>
-          <span style={{ float: 'right', marginBottom: 24, marginTop: 5 }}>
-            <Button
-              style={{ marginLeft: 8 }}
-              type="primary"
-              htmlType="submit"
-            >
-              查询
-            </Button>
-            <Button style={{ marginLeft: 8 }} onClick={this.handleFormReset}>
-              重置
-            </Button>
-            <Button
-              style={{ marginLeft: 8 }}
-              onClick={this.getSearchHeight}
-              className={styles.empty}
-            >
-              {this.state.searchHeight ? '收起筛选' : '展开筛选'}{' '}
-              <Icon type={this.state.searchHeight ? 'up' : 'down'} />
-            </Button>
-          </span>
-        </Row>
-      </Form>
+      <Card className={stylescommon.listPageWrap} id="slaxsgjsearchForm">
+        <Form onSubmit={this.handleSearch} style={{ height: this.state.searchHeight ? 'auto' : '59px' }} >
+          <Row gutter={rowLayout} className={styles.searchForm}>
+            <Col {...colLayout}>
+              <FormItem label="问题类型" {...formItemLayout}>
+                {getFieldDecorator('wtlx', {
+                  initialValue: this.state.wtlx,
+                })(
+                  <Select placeholder="请选择问题类型" style={{ width: '100%' }} getPopupContainer={() => document.getElementById('slaxsgjsearchForm')}>
+                    <Option value="">全部</Option>
+                    {problemTypeOptions}
+                  </Select>,
+                )}
+              </FormItem>
+            </Col>
+            <Col {...colLayout}>
+              <FormItem label="案件编号" {...formItemLayout}>
+                {getFieldDecorator('ajbh', {
+                  // initialValue: this.state.caseType,
+                  rules: [
+                    { pattern: /^[A-Za-z0-9]+$/, message: '请输入正确的案件编号！' },
+                    { max: 32, message: '最多输入32个字！' },
+                  ],
+                })(
+                  <Input placeholder="请输入案件编号"/>,
+                )}
+              </FormItem>
+            </Col>
+            <Col {...colLayout}>
+              <FormItem label="案件名称" {...formItemLayout}>
+                {getFieldDecorator('ajmc', {
+                  // initialValue: this.state.caseType,
+                  rules: [{ max: 128, message: '最多输入128个字！' }],
+                })(
+                  <Input placeholder="请输入案件名称"/>,
+                )}
+              </FormItem>
+            </Col>
+            <Col {...colLayout}>
+              <FormItem label="办案单位" {...formItemLayout}>
+                {getFieldDecorator('badw', {
+                  initialValue: this.state.badw,
+                })(
+                  <TreeSelect
+                    showSearch
+                    style={{ width: '100%' }}
+                    dropdownStyle={{ maxHeight: 400, overflow: 'auto' }}
+                    placeholder="请输入办案单位"
+                    allowClear
+                    key='badwSelect'
+                    treeDefaultExpandedKeys={this.state.treeDefaultExpandedKeys}
+                    treeNodeFilterProp="title"
+                    getPopupContainer={() => document.getElementById('slaxsgjsearchForm')}
+                  >
+                    {depTree && depTree.length > 0 ? this.renderloop(depTree) : null}
+                  </TreeSelect>,
+                )}
+              </FormItem>
+            </Col>
+            <Col {...colLayout}>
+              <FormItem label="&nbsp;&nbsp;&nbsp; 办案人" {...formItemLayout}>
+                {getFieldDecorator('bar', {
+                  // initialValue: this.state.gzry,
+                  rules: [{ max: 32, message: '最多输入32个字！' }],
+                })(
+                  <Select
+                    mode="combobox"
+                    defaultActiveFirstOption={false}
+                    optionLabelProp='title'
+                    showArrow={false}
+                    filterOption={false}
+                    placeholder="请输入办案人"
+                    onChange={this.handleAllPoliceOptionChange}
+                    onFocus={this.handleAllPoliceOptionChange}
+                    getPopupContainer={() => document.getElementById('slaxsgjsearchForm')}
+                  >
+                    {allPoliceOptions}
+                  </Select>,
+                )}
+              </FormItem>
+            </Col>
+            <Col {...colLayout}>
+              <FormItem label="消息状态" {...formItemLayout}>
+                {getFieldDecorator('dbzt', {
+                  initialValue: { dbzt: this.state.dbzt, zgzt: '' },
+                })(
+                  <MessageState superviseStatusOptions={superviseStatusOptions}
+                                rectificationStatusOptions={rectificationStatusOptions}
+                                newId='slaxsgjsearchForm'/>,
+                )}
+              </FormItem>
+            </Col>
+          </Row>
+          <Row gutter={rowLayout} className={styles.searchForm}>
+            <Col {...colLayout}>
+              <FormItem label="案件状态" {...formItemLayout}>
+                {getFieldDecorator('ajzt', {
+                  initialValue: this.state.ajzt,
+                })(
+                  <Select placeholder="请选择案件状态" style={{ width: '100%' }} getPopupContainer={() => document.getElementById('slaxsgjsearchForm')}>
+                    <Option value="">全部</Option>
+                    {CaseStatusOption}
+                  </Select>,
+                )}
+              </FormItem>
+            </Col>
+            <Col {...colLayout}>
+              <FormItem label="告警时间" {...formItemLayout}>
+                {getFieldDecorator('gjsj', {})(
+                  <RangePicker
+                    disabledDate={this.disabledDate}
+                    style={{ width: '100%' }}
+                    getCalendarContainer={() => document.getElementById('slaxsgjsearchForm')}
+                  />,
+                )}
+              </FormItem>
+            </Col>
+            <Col {...colLayout}>
+              <FormItem label="产生方式" {...formItemLayout}>
+                {getFieldDecorator('csfs', {
+                  initialValue: '',
+                })(
+                  <Select placeholder="请选择产生方式" style={{ width: '100%' }} onChange={this.getCsfs} getPopupContainer={() => document.getElementById('slaxsgjsearchForm')}>
+                    <Option value="">全部</Option>
+                    <Option value="系统判定">系统判定</Option>
+                    <Option value="人工判定">人工判定</Option>
+                  </Select>,
+                )}
+              </FormItem>
+            </Col>
+          </Row>
+          <Row className={styles.search} style={{ position: 'absolute', top: 10, right: 32 }}>
+            <span style={{ float: 'right', marginBottom: 24, marginTop: 5 }}>
+              <Button
+                style={{ marginLeft: 8 }}
+                type="primary"
+                htmlType="submit"
+              >
+                查询
+              </Button>
+              <Button style={{ marginLeft: 8 }} onClick={this.handleFormReset}>
+                重置
+              </Button>
+              <Button
+                style={{ marginLeft: 8 }}
+                onClick={this.getSearchHeight}
+                className={styles.empty}
+              >
+                {this.state.searchHeight ? '收起筛选' : '展开筛选'}{' '}
+                <Icon type={this.state.searchHeight ? 'up' : 'down'} />
+              </Button>
+            </span>
+          </Row>
+        </Form>
+      </Card>
     );
   }
 
@@ -757,6 +761,23 @@ export default class Index extends PureComponent {
                     <a className={styles.listPageHeaderCurrent}><span>●</span>告警列表</a>
                   )
                 }
+                {showDataView ? (
+                  ''
+                ) : (
+                  <div style={{ float: 'right' }}>
+                    <Button
+                      style={{
+                        color: '#3285FF',
+                        backgroundColor: '#171925',
+                        border: '1px solid #3285FF',
+                        borderRadius: '5px',
+                      }}
+                      onClick={this.exportData}
+                    >
+                      导出表格
+                    </Button>
+                  </div>
+                )}
                 <DataViewButtonArea
                   showDataView={showDataView}
                   styles={styles}
