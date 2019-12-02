@@ -29,6 +29,11 @@ import CaseModalStep from '../../../components/Common/CaseModalStep';
 import MakeTableModal from '../../../components/CaseRealData/MakeTableModal';
 import { authorityIsTrue } from '../../../utils/authority';
 import noList from "@/assets/viewData/noList.png";
+import aj from "@/assets/common/aj.png";
+import tar from "@/assets/common/tar.png";
+import wp from "@/assets/common/wp.png";
+import jzxx from "@/assets/common/jzxx.png";
+import jqImg from "@/assets/common/jq.png";
 
 const { Link } = Anchor;
 let echartTree;
@@ -329,6 +334,12 @@ export default class AdministrativeCaseDocDetail extends PureComponent {
                 }
             };
             node.category = node.attributes.modularity_class;
+            node.symbol= node.attributes.modularity_class===0 ? `image://${aj}` :
+                node.name === '涉案人员' ? `image://${tar}` :
+                    node.name === "涉案物品" ? `image://${wp}` :
+                        node.name === "卷宗" ? `image://${jzxx}` :
+                            node.name === "警情" ? `image://${jqImg}` :
+                                "circle";
         });
         let option = {
             tooltip: {},
@@ -366,10 +377,13 @@ export default class AdministrativeCaseDocDetail extends PureComponent {
                     },
                     label: {
                         position: 'bottom',
-                        formatter: '{b}'
+                        formatter: '{b}',
+                        textStyle: {
+                            color: '#eee',
+                        }
                     },
                     lineStyle: {
-                        width : '5',
+                        width : '2',
                         color: 'source',
                         curveness: 0.2
                     },

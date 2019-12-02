@@ -1,11 +1,28 @@
 import React, { PureComponent } from 'react';
-import { Col, Form, Input, Modal, Row, Table, Tooltip,Divider,Transfer,Radio,Timeline,message,Card } from 'antd';
+import {
+    Col,
+    Form,
+    Input,
+    Modal,
+    Row,
+    Table,
+    Tooltip,
+    Divider,
+    Transfer,
+    Radio,
+    Timeline,
+    message,
+    Card,
+    Empty
+} from 'antd';
 import styles from './EvaluationTable.less';
 import DetailModal from './DetailModal';
 import { connect } from 'dva';
 import stylescommon from '../../pages/common/common.less';
 import { WaterWave } from 'ant-design-pro/lib/Charts';
 import difference from 'lodash/difference';
+import {routerRedux} from "dva/router";
+import noList from "@/assets/viewData/noList.png";
 // import CaseDetail from '../../routes/CaseRealData/caseDetail';
 // import XzCaseDetail from '../../routes/XzCaseRealData/caseDetail';
 
@@ -111,10 +128,28 @@ export default class EvaluationTable extends PureComponent {
         });
     };
     getKp = async (record) =>{
-        this.getList('0');
-        this.getList('');
-        await this.getKhDetail(record,'',true);
-        await this.getModelShow(record);
+        // this.getList('0');
+        // this.getList('');
+        // await this.getKhDetail(record,'',true);
+        // await this.getModelShow(record);
+        await this.props.dispatch({
+            type: 'global/changeNavigation',
+            payload: {
+                key: record && record.id ? record.id : '1',
+                name: '考评',
+                path: '/Evaluation/CaseEvaluation/Detail',
+                isShow: true,
+                query: { record, id: record && record.id ? record.id : '1' },
+            },
+            callback: () => {
+                this.props.dispatch(
+                    routerRedux.push({
+                        pathname: '/Evaluation/CaseEvaluation/Detail',
+                        query: { record: record, id: record && record.id ? record.id : '1' },
+                    }),
+                );
+            },
+        });
     }
     getModelShow = (record) =>{
         this.setState({
@@ -229,6 +264,7 @@ export default class EvaluationTable extends PureComponent {
                             })}
                             pagination={{pageSize:999}}
                             scroll={{ y: 220 }}
+                            locale={{ emptyText: <Empty image={noList} description={'暂无记录'} /> }}
                         />
                     );
                 }}
@@ -379,6 +415,7 @@ export default class EvaluationTable extends PureComponent {
                     pagination={paginationProps}
                     onChange={this.handleTableChange}
                     className={styles.standardTable}
+                    locale={{ emptyText: <Empty image={noList} description={'暂无记录'} /> }}
                 />
                 <DetailModal visible={this.state.visible} record={this.state.record} handleCancel={this.handleCancel}/>
                 <Modal

@@ -21,6 +21,13 @@ import PersonDetailTab from '../../../components/AllDocuments/PersonDetailTab';
 import styles from '../docDetail.less';
 import listStyles from '../docListStyle.less';
 import { autoheight } from '../../../utils/utils';
+import user from '../../../assets/common/userPerson.png'
+import tar from '../../../assets/common/tar.png'
+import aj from '../../../assets/common/aj.png'
+import wp from '../../../assets/common/wp.png'
+import jl from '../../../assets/common/jl.png'
+import rqjl from '../../../assets/common/rqjl.png'
+import jzxx from '../../../assets/common/jzxx.png'
 
 const FormItem = Form.Item;
 const { Step } = Steps;
@@ -168,13 +175,13 @@ export default class PersonalDocDetail extends PureComponent {
         // this.props.newDetail(AddNewDetail);
     };
     // 换行
-    formatter = (val) => {
+    formatter = (val,len) => {
         if (val) {
             let strs = val.split(''); // 字符串数组
             let str = '';
             for (let i = 0, s; s = strs[i++];) { // 遍历字符串数组
                 str += s;
-                if (!(i % 15)) str += '\n'; // 按需要求余
+                if (!(i % (len ? len : 10))) str += '\n'; // 按需要求余
             }
             return str;
         }
@@ -197,17 +204,21 @@ export default class PersonalDocDetail extends PureComponent {
             attributes:{
                 modularity_class:0,
             },
-            symbolSize: 40,
+            symbolSize: 45,
             x: -1500,
             y: 350,
         }];
         if (ajxx && ajxx.length > 0) {
             for (let i = 0; i < ajxx.length; i++) {
                 const caseData = ajxx[i];
-                let x = this.getX(-1500,90,i,3000);
-                let y = this.getY(350,90,i,3000);
-                let lxX =  this.getX(x,20,1,1200);
-                let lxY = this.getY(y,20,1,1200);
+                // let x1 = [5000,2500,0];
+                // let y1 = [0,1000,2000];
+                // let x = this.getX(x1[i],90,i,3000);
+                // let y = this.getY(y1[i],90,i,3000);
+                let x = this.getX(-1500,-40,i,3000);
+                let y = this.getY(350,-40,i,3000);
+                let lxX =  this.getX(x,20,1,1300);
+                let lxY = this.getY(y,20,1,1300);
                 let tarX = this.getX(x,20,2,2000);
                 let tarY = this.getY(y,20,2,2000);
                 let qzX = this.getX(x,20,3,1200);
@@ -216,38 +227,38 @@ export default class PersonalDocDetail extends PureComponent {
                 let xzY = this.getY(y,20,4,2200);
                 let ssX = this.getX(x,20,5,1200);
                 let ssY = this.getY(y,20,5,1200);
-                let saX = this.getX(x,20,6,1200);
-                let saY = this.getY(y,20,6,1200);
+                let saX = this.getX(x,20,6,1800);
+                let saY = this.getY(y,20,6,1800);
                 let jzX = this.getX(x,20,7,1200);
                 let jzY = this.getY(y,20,7,1200);
                 link.push({
                     source: this.formatter(ryxx.name),
-                    target: ajxx[i].ajmc+i,
+                    target: this.formatter(ajxx[i].ajmc)+i,
                 }, {
-                    source: ajxx[i].ajmc+i,
+                    source: this.formatter(ajxx[i].ajmc)+i,
                     target: '历史入区信息'+i
                 }, {
-                    source: ajxx[i].ajmc+i,
+                    source: this.formatter(ajxx[i].ajmc)+i,
                     target: '同案人'+i
                 }, {
-                    source: ajxx[i].ajmc+i,
+                    source: this.formatter(ajxx[i].ajmc)+i,
                     target: '行政处罚记录'+i
                 }, {
-                    source: ajxx[i].ajmc+i,
+                    source: this.formatter(ajxx[i].ajmc)+i,
                     target: '强制措施记录'+i
                 }, {
-                    source: ajxx[i].ajmc+i,
+                    source: this.formatter(ajxx[i].ajmc)+i,
                     target: '随身物品'+i
                 }, {
-                    source: ajxx[i].ajmc+i,
+                    source: this.formatter(ajxx[i].ajmc)+i,
                     target: '涉案物品'+i
                 }, {
-                    source: ajxx[i].ajmc+i,
+                    source: this.formatter(ajxx[i].ajmc)+i,
                     target: '相关卷宗'+i
                 })
                 datas.push({
-                        name: ajxx[i].ajmc,
-                        id:ajxx[i].ajmc +i,
+                        name: this.formatter(ajxx[i].ajmc),
+                        id:this.formatter(ajxx[i].ajmc) +i,
                         attributes:{
                             modularity_class:1,
                         },
@@ -272,7 +283,7 @@ export default class PersonalDocDetail extends PureComponent {
                         },
                         symbolSize: 30,
                         x: tarX,
-                        y: tarY
+                        y: tarY,
                     }, {
                         name: '行政处罚记录',
                         id: '行政处罚记录'+i,
@@ -350,8 +361,8 @@ export default class PersonalDocDetail extends PureComponent {
                                 modularity_class:3,
                             },
                             symbolSize: 20,
-                            x: this.getX(tarX,20,index,800),
-                            y: this.getY(tarY,20,index,800),
+                            x: index > 10 ? this.getX(tarX,30,index,1200) : this.getX(tarX,20,index,800),
+                            y: index > 10 ? this.getY(tarY,30,index,1200) : this.getY(tarY,20,index,800),
                         });
                     });
                 }
@@ -483,14 +494,28 @@ export default class PersonalDocDetail extends PureComponent {
             },
         ];
         datas.forEach(function (node) {
+            console.log('node----->',node);
             node.itemStyle = null;
             node.symbolSize /= 1.5;
             node.label = {
                 normal: {
                     show: true,
-                    formatter: '{b}'
-                }
+                    formatter: '{b}',
+                    textStyle: {
+                        color: '#eee',
+                        fontSize: node.attributes.modularity_class===0 ? 18 :
+                            node.attributes.modularity_class===1 ? 14 : 12
+                    }
+                },
             };
+            node.symbol= node.attributes.modularity_class===0 ? `image://${user}` :
+                node.attributes.modularity_class===1 ? `image://${aj}` :
+                node.name === '同案人' ? `image://${tar}` :
+                node.name === "随身物品" || node.name === "涉案物品" ? `image://${wp}` :
+                node.name === "行政处罚记录" || node.name === "强制措施记录" ? `image://${jl}` :
+                node.name === "历史入区信息" ? `image://${rqjl}` :
+                node.name === "相关卷宗" ? `image://${jzxx}` :
+                "circle";
             node.category = node.attributes.modularity_class;
         });
         let option = {
@@ -504,7 +529,7 @@ export default class PersonalDocDetail extends PureComponent {
             }],
             animationDuration: 1500,
             animationEasingUpdate: 'quinticInOut',
-            color:['#52818c','#A2A16C','#a27970','#6d9289','#5b6a87','#92687E','#528747','#6F6F8C','#926254'],
+            color:['#497b86','#689289','#a2796f','#a2796f','#a2796f','#a2796f','#a2796f','#a2796f','#a2796f','#a2796f'],
             tooltip : {
                 trigger: 'item',
                 show:false,
@@ -529,10 +554,13 @@ export default class PersonalDocDetail extends PureComponent {
                     },
                     label: {
                         position: 'bottom',
-                        formatter: '{b}'
+                        formatter: '{b}',
+                        textStyle: {
+                            color: '#eee',
+                        }
                     },
                     lineStyle: {
-                        width : '5',
+                        width : '2',
                         color: 'source',
                         curveness: 0.2
                     },
@@ -549,7 +577,7 @@ export default class PersonalDocDetail extends PureComponent {
     };
     // 获取关系图谱的实际高度
     getChartTreeHeight = (ajxx) => {
-        let heightCount = 560;
+        let heightCount = ajxx && ajxx.length > 2 ? 700 : 600;
         // if (ajxx && ajxx.length > 0) {
         //     for (let i = 0; i < ajxx.length; i++) {
         //         const rq = ajxx[i].rqList ? ajxx[i].rqList.length : 0;
