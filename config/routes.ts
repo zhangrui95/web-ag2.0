@@ -555,6 +555,13 @@ export function routes() {
                   icon: 'smile',
                   component: './Message/MessageLog',
                 },
+                  {
+                      path: '/Message/MessageLog/MessagePushLog',
+                      name: '消息推送日志详情',
+                      icon: 'smile',
+                      component: './Message/MessageLog/MessagePushLog.tsx',
+                      hideInMenu: true,
+                  },
               ],
             },
             {

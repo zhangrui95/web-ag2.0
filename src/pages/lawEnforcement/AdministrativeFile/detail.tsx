@@ -85,7 +85,7 @@ export default class AdministrativeCaseDocDetail extends PureComponent {
 
     componentDidMount() {
         this.caseDetailDatas(this.props.location.query.id);
-        window.addEventListener('scroll', this.scrollHandler);
+        // window.addEventListener('scroll', this.scrollHandler);
     }
 
     scrollHandler = () => {

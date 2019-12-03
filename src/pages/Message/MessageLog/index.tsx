@@ -29,6 +29,7 @@ import noList from '@/assets/viewData/noList.png';
 // import MessagePushLogModal from './MessagePushLogModal';
 import styles from './index.less';
 import { exportListDataMaxDays, tableList } from '../../../utils/utils';
+import {routerRedux} from "dva/router";
 
 const FormItem = Form.Item;
 const { Option } = Select;
@@ -299,21 +300,40 @@ class MessageLog extends Component {
 
   // 展示日志详情
   showLogDetail = record => {
-    this.setState(
-      {
-        logDetail: record,
-      },
-      () => {
-        this.showLogDetailVisible(true);
-      },
-    );
+    // this.setState(
+    //   {
+    //     logDetail: record,
+    //   },
+    //   () => {
+    //     this.showLogDetailVisible(true);
+    //   },
+    // );
+      console.log('record=====>',record);
+      this.props.dispatch({
+          type: 'global/changeNavigation',
+          payload: {
+              key: record && record.system_id ? record.system_id : '1',
+              name: '消息推送日志详情',
+              path: '/Message/MessageLog/MessagePushLog',
+              isShow: true,
+              query: { record, id: record && record.system_id ? record.system_id : '1' },
+          },
+          callback: () => {
+              this.props.dispatch(
+                  routerRedux.push({
+                      pathname: '/Message/MessageLog/MessagePushLog',
+                      query: { record: record, id: record && record.system_id ? record.system_id : '1' },
+                  }),
+              );
+          },
+      });
   };
   // 显示、关闭日志详情modal
-  showLogDetailVisible = visible => {
-    this.setState({
-      logDetailVisible: !!visible,
-    });
-  };
+  // showLogDetailVisible = visible => {
+  //   this.setState({
+  //     logDetailVisible: !!visible,
+  //   });
+  // };
   // 渲染机构树
   renderloop = data =>
     data.map(item => {

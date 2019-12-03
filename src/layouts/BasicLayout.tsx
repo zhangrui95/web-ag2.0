@@ -135,7 +135,6 @@ const BasicLayout: React.FC<BasicLayoutProps> = props => {
               //控制隐藏menu-fold展示
               collapsedButtonRender={false}
               menuItemRender={(menuItemProps, defaultDom) => {
-                  console.log('menuItemProps====>',menuItemProps)
                   if (menuItemProps.isUrl) {
                       return defaultDom;
                   }
