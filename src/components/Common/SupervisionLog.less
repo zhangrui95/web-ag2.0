@@ -12,10 +12,22 @@
   background: @component-background;
 }
 
+.DbrzSpan {
+  display: inline-block;
+  background-color: #f77;
+  height: 46px;
+  line-height: 46px;
+  margin-top: 21px;
+  padding: 0 16px;
+  margin-left: -16px;
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
+}
+
 .message {
   background-color: @component-background;
   border-bottom: 3px solid @rangepicker-border;
-  padding: 0 24px 12px 64px;
+  padding: 0 70px 12px 70px;
   //margin-bottom: 16px;
   word-break: break-all;
 }
@@ -23,6 +35,9 @@
 .superve {
   display: inline-block;
   overflow: hidden;
+  margin: 0 46px;
+  background-color: #0f1220;
+  padding: 32px;
 
   :global {
     //.ant-steps{
@@ -47,4 +62,8 @@
 }
 .xqcol {
   padding: 12px;
+}
+.dbBtn {
+  background-color: @white!important;
+  color: #000;
 }

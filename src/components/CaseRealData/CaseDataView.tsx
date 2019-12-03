@@ -542,7 +542,7 @@ export default class CaseDataView extends PureComponent {
         },
         axisLabel: {
           textStyle: {
-            color: '#999',
+            color: '#fff',
           },
         },
       },
@@ -689,7 +689,7 @@ export default class CaseDataView extends PureComponent {
               </div>
             </div>
           )}
-          <div style={{ backgroundColor: '#202839', padding: '0 16px' }}>
+          <div style={{ backgroundColor: '#252c3c', padding: '0 16px' }}>
             <Row gutter={rowLayout} className={styles.listPageRow}>
               <Col {...colLayout}>
                 <div className={styles.cardBoxTitle}>| 案件办理进度</div>

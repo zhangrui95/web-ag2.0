@@ -399,7 +399,7 @@ export default class unpoliceDetail extends PureComponent {
             </Col>
             <Col md={6} sm={24} className={styles.xqcol}>
               <div className={liststyles.Indexfrom}>接警人：</div>
-              <div className={liststyles.Indextail} style={{ paddingLeft: '70px' }}>
+              <div className={liststyles.Indextail} style={{ paddingLeft: '46px' }}>
                 {policeDetails && policeDetails.jjr
                   ? policeDetails.jjr.split(',')[policeDetails.jjr.split(',').length - 1]
                   : ''}
@@ -417,13 +417,13 @@ export default class unpoliceDetail extends PureComponent {
           <Row gutter={rowLayout} className={styles.xqrow}>
             <Col md={6} sm={24} className={styles.xqcol}>
               <div className={liststyles.Indexfrom}>报案人：</div>
-              <div className={liststyles.Indextail} style={{ paddingLeft: '70px' }}>
+              <div className={liststyles.Indextail} style={{ paddingLeft: '46px' }}>
                 {policeDetails && policeDetails.bar ? policeDetails.bar : ''}
               </div>
             </Col>
             <Col md={6} sm={24} className={styles.xqcol}>
               <div className={liststyles.Indexfrom}>报案人联系方式：</div>
-              <div className={liststyles.Indextail} style={{ paddingLeft: '126px' }}>
+              <div className={liststyles.Indextail} style={{ paddingLeft: '102px' }}>
                 {policeDetails && policeDetails.bar_lxfs ? policeDetails.bar_lxfs : ''}
               </div>
             </Col>

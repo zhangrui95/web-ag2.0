@@ -107,15 +107,15 @@ export default class SupervisionLog extends PureComponent {
       }
     } else if (objheight < allheight) {
       if (objwidth < 1263 || objwidth === 1263) {
-        superveWidth = 905;
+        superveWidth = 813;
       } else if (objwidth > 1263 && objwidth < 1583) {
-        superveWidth = 905;
+        superveWidth = 813;
       } else if (objwidth >= 1583 && objwidth < 1663) {
-        superveWidth = 1225;
+        superveWidth = 1133;
       } else if (objwidth >= 1663 && objwidth < 1903) {
-        superveWidth = 1305;
+        superveWidth = 1213;
       } else if (objwidth >= 1903) {
-        superveWidth = 1545;
+        superveWidth = 1453;
       }
     }
     const dbrz = [];
@@ -153,41 +153,45 @@ export default class SupervisionLog extends PureComponent {
       <div>
         {detailData && detailData.dbList && detailData.dbList.length > 0 ? (
           <div>
-            <div
-              className={styles.title}
-              style={{
-                background: 'linear-gradient(to right, #FDC6D3, #FDC6D3)',
-                color: '#000',
-              }}
-            >
-              督办日志
+            <div className={styles.title}>
+              <span className={styles.DbrzSpan}>| 督办日志</span>
             </div>
             <div
               className={styles.message}
-              style={{ padding: '24px', borderBottom: '3px solid #FDC6D3' }}
+              style={{ padding: '24px', borderBottom: '1px solid #171925' }}
             >
-              <Row style={{ margin: '0 -24px' }}>
-                <Col md={6} sm={24}>
-                  <div className={listStyles.Indexfrom}>问题类型：</div>
-                  <div className={listStyles.Indextail} style={{ paddingLeft: 96 }}>
+              <Row style={{ margin: '16px 46px' }}>
+                <Col md={8} sm={24}>
+                  <div className={listStyles.Indexfrom} style={{ top: 0 }}>
+                    问题类型：
+                  </div>
+                  <div className={listStyles.Indextail} style={{ paddingLeft: 72 }}>
                     {detailData && detailData.wtlx ? detailData.wtlx : ''}
                   </div>
                 </Col>
-                <Col md={6} sm={24}>
-                  <div className={listStyles.Indexfrom}>产生方式：</div>
-                  <div className={listStyles.Indextail} style={{ paddingLeft: 96 }}>
+                <Col md={8} sm={24}>
+                  <div className={listStyles.Indexfrom} style={{ top: 0 }}>
+                    产生方式：
+                  </div>
+                  <div className={listStyles.Indextail} style={{ paddingLeft: 72 }}>
                     {detailData && detailData.fxfs ? detailData.fxfs : ''}
                   </div>
                 </Col>
-                <Col md={6} sm={24}>
-                  <div className={listStyles.Indexfrom}>责任人：</div>
+                <Col md={8} sm={24}>
+                  <div className={listStyles.Indexfrom} style={{ top: 0 }}>
+                    责任人：
+                  </div>
                   <div className={listStyles.Indextail}>
                     {dbrz.length > 0 ? dbrz[0].bdbrMC : ''}
                   </div>
                 </Col>
-                <Col md={6} sm={24}>
-                  <div className={listStyles.Indexfrom}>责任单位：</div>
-                  <div className={listStyles.Indextail} style={{ paddingLeft: 96 }}>
+              </Row>
+              <Row style={{ margin: '16px 46px' }}>
+                <Col md={24} sm={24}>
+                  <div className={listStyles.Indexfrom} style={{ top: 0 }}>
+                    责任单位：
+                  </div>
+                  <div className={listStyles.Indextail} style={{ paddingLeft: 72 }}>
                     {dbrz.length > 0 ? dbrz[0].bdbrDwmc : ''}
                   </div>
                 </Col>
@@ -211,9 +215,7 @@ export default class SupervisionLog extends PureComponent {
                     description={this.extraDescription(NowDbrz[3], '完成')}
                   />
                 </Steps>
-              </div>
-              <Row>
-                <Col md={24} sm={24}>
+                <div>
                   {detailData.zt === '待督办' ? null : (
                     <span style={{ float: 'right' }}>
                       {detailData.dbList.length > 1 ? (
@@ -230,11 +232,18 @@ export default class SupervisionLog extends PureComponent {
                             type="primary"
                             onClick={() => this.props.onceSupervise(true, detailData)}
                             loading={superviseloading}
-                            style={{ marginLeft: 8 }}
+                            style={{ marginLeft: 8, marginTop: 16 }}
+                            className={
+                              currentArr.length > 0 &&
+                              currentArr[currentArr.length - 1].dbzt === '30' &&
+                              currentArr[currentArr.length - 1].fkzt === '1'
+                                ? ''
+                                : styles.dbBtn
+                            }
                             disabled={
                               currentArr.length > 0 &&
                               currentArr[currentArr.length - 1].dbzt === '30' &&
-                                currentArr[currentArr.length - 1].fkzt === '1'
+                              currentArr[currentArr.length - 1].fkzt === '1'
                                 ? false
                                 : true
                             }
@@ -245,7 +254,14 @@ export default class SupervisionLog extends PureComponent {
                             type="primary"
                             onClick={() => this.props.sureReform(detailData.dbid, true)}
                             loading={sureChangeLoading}
-                            style={{ marginLeft: 8 }}
+                            style={{ marginLeft: 8, marginTop: 16 }}
+                            className={
+                              currentArr.length > 0 &&
+                              currentArr[currentArr.length - 1].dbzt === '30' &&
+                              currentArr[currentArr.length - 1].fkzt === '1'
+                                ? ''
+                                : styles.dbBtn
+                            }
                             disabled={
                               currentArr.length > 0 &&
                               currentArr[currentArr.length - 1].dbzt === '30'
@@ -259,8 +275,13 @@ export default class SupervisionLog extends PureComponent {
                       ) : null}
                     </span>
                   )}
-                </Col>
-              </Row>
+                </div>
+              </div>
+              {/*<Row>*/}
+              {/*<Col md={24} sm={24}>*/}
+              {/**/}
+              {/*</Col>*/}
+              {/*</Row>*/}
             </div>
           </div>
         ) : (
@@ -275,7 +296,7 @@ export default class SupervisionLog extends PureComponent {
               | 问题信息
             </div>
             <div className={styles.message} style={{ borderBottom: '3px solid #1e2230' }}>
-              <Row gutter={rowLayout}>
+              <Row>
                 <Col md={6} sm={24} className={styles.xqcol}>
                   <div className={listStyles.Indexfrom}>问题类型：</div>
                   <div className={listStyles.Indextail}>
@@ -296,7 +317,7 @@ export default class SupervisionLog extends PureComponent {
                 </Col>
                 <Col md={6} sm={24} className={styles.xqcol}>
                   <div className={listStyles.Indexfrom}>状态：</div>
-                  <div className={listStyles.Indextail} style={{ paddingLeft: '56px' }}>
+                  <div className={listStyles.Indextail} style={{ paddingLeft: '32px' }}>
                     {detailData && detailData.zt ? detailData.zt : ''}
                   </div>
                 </Col>

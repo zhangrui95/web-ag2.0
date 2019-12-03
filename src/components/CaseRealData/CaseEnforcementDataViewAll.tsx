@@ -366,7 +366,7 @@ export default class CaseEnforcementDataView extends PureComponent {
         },
         axisLabel: {
           textStyle: {
-            color: '#999',
+            color: '#fff',
           },
         },
       },
@@ -546,7 +546,7 @@ export default class CaseEnforcementDataView extends PureComponent {
         },
         axisLabel: {
           textStyle: {
-            color: '#999',
+            color: '#fff',
           },
         },
       },

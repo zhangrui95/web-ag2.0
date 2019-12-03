@@ -1,33 +1,33 @@
 /*
- * UnCaseEnforcementDataView.js 问题刑事案件数据展示
+ * ItemDataView.js 涉案物品数据展示
  * author：jhm
- * 20190326
+ * 20180112
  * */
 import React, { PureComponent } from 'react';
-import { Row, Col, Card } from 'antd';
+import { Row, Col } from 'antd';
 import moment from 'moment/moment';
 import echarts from 'echarts/lib/echarts';
-import 'echarts/lib/chart/bar';
-import 'echarts/lib/chart/pie';
-import 'echarts/lib/chart/line';
-import 'echarts/lib/component/title';
-import 'echarts/lib/component/legend';
-import 'echarts/lib/component/tooltip';
+import bar from 'echarts/lib/chart/bar';
+import pie from 'echarts/lib/chart/pie';
+import line from 'echarts/lib/chart/line';
+import title from 'echarts/lib/component/title';
+import legend from 'echarts/lib/component/legend';
+import tooltip from 'echarts/lib/component/tooltip';
 import styles from '../Styles/dataView.less';
 import { getTimeDistance } from '../../utils/utils';
 import warningCountButtonNumberPink from '../../assets/viewData/warningCountButtonNumberPink.png';
 import warningCountButtonNumberBlue from '../../assets/viewData/warningCountButtonNumberBlue.png';
 
-let unCaseEchartBar;
-let unCaseEchartRingPie;
+let unItemEchartBar;
+let unItemEchartRingPie;
 
-export default class UnCaseEnforcementDataView extends PureComponent {
+export default class UnItemDataView extends PureComponent {
   state = {
     currentType: 'today',
     nowData: 0,
     lastData: 0,
     beforeLastData: 0,
-    selectedDateData: 0, // 头部统计告警总数——手动选择日期
+    selectedDateData: 0, // 头部统计警情总数——手动选择日期
     dayType: ['today', 'lastDay'],
     dateType: {
       today: '0',
@@ -49,11 +49,11 @@ export default class UnCaseEnforcementDataView extends PureComponent {
     this.getNewAddWarnings(dayTypeTime[0], dayTypeTime[1], 'today');
     this.getAllTypeWarningCount(dayTypeTime[0], dayTypeTime[1], 'today');
 
-    this.showUnCaseEchartBar();
-    this.showUnCaseEchartRingPie();
+    this.showUnItemEchartBar();
+    this.showUnItemEchartRingPie();
     //
-    window.addEventListener('resize', unCaseEchartBar.resize);
-    window.addEventListener('resize', unCaseEchartRingPie.resize);
+    window.addEventListener('resize', unItemEchartBar.resize);
+    window.addEventListener('resize', unItemEchartRingPie.resize);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -135,11 +135,10 @@ export default class UnCaseEnforcementDataView extends PureComponent {
   // 新增告警
   getNewAddWarnings = (startTime, endTime, currentType, orgcode = this.props.orgcode) => {
     this.props.dispatch({
-      type: 'UnCaseData/getUnCaseAllTypeWarnings',
+      type: 'UnDossierData/getUnDossierAllTypeWarnings',
       payload: {
         kssj: startTime,
         jssj: endTime,
-        ssmk: '2',
         orgcode,
       },
       callback: data => {
@@ -167,9 +166,14 @@ export default class UnCaseEnforcementDataView extends PureComponent {
               code: barData[i].code,
             });
           }
-          unCaseEchartBar.setOption({
+          unItemEchartBar.setOption({
             title: {
-              // text: currentType === 'today' ? '今日新增告警' : (currentType === 'selectedDate' ? '告警' : '昨日告警'),
+              text:
+                currentType === 'today'
+                  ? '今日新增告警'
+                  : currentType === 'selectedDate'
+                  ? '告警'
+                  : '昨日告警',
             },
             xAxis: {
               data: xData,
@@ -188,18 +192,18 @@ export default class UnCaseEnforcementDataView extends PureComponent {
     });
   };
   // 新增告警柱状图
-  showUnCaseEchartBar = () => {
+  showUnItemEchartBar = () => {
     const that = this;
-    unCaseEchartBar = echarts.init(document.getElementById('unCaseXzgj'));
+    unItemEchartBar = echarts.init(document.getElementById('unItemXzgj'));
     const option = {
-      // color: ['#3398DB'],
+      color: ['#3398DB'],
       title: {
-        // text: '新增告警',
-        // textStyle: {
-        //     fontSize: 16,
-        //     fontWeight: 'normal',
-        // },
-        // padding: 8,
+        text: '新增告警',
+        textStyle: {
+          fontSize: 16,
+          fontWeight: 'normal',
+        },
+        padding: 8,
       },
       xAxis: {
         type: 'category',
@@ -207,12 +211,6 @@ export default class UnCaseEnforcementDataView extends PureComponent {
         data: [],
         axisTick: {
           alignWithLabel: true,
-        },
-        axisLabel: {
-          interval: 0,
-          textStyle: {
-            color: '#fff',
-          },
         },
       },
       yAxis: {
@@ -227,7 +225,7 @@ export default class UnCaseEnforcementDataView extends PureComponent {
         },
         axisLabel: {
           textStyle: {
-            color: '#fff',
+            color: '#999',
           },
         },
       },
@@ -255,15 +253,15 @@ export default class UnCaseEnforcementDataView extends PureComponent {
               formatter: '{c}',
               textStyle: {
                 fontSize: 16,
-                color: '#fff',
+                color: '#000',
               },
             },
           },
         },
       ],
     };
-    unCaseEchartBar.setOption(option);
-    unCaseEchartBar.on('click', function(params) {
+    unItemEchartBar.setOption(option);
+    unItemEchartBar.on('click', function(params) {
       const { currentType } = that.state;
       const dataTime =
         currentType === 'selectedDate' ? that.props.selectedDateVal : that.getTime(currentType);
@@ -286,8 +284,7 @@ export default class UnCaseEnforcementDataView extends PureComponent {
       payload: {
         time_ks: startTime,
         time_js: endTime,
-        wtfl_id: '203202',
-        ssmk: '2',
+        wtfl_id: '203206',
         orgcode,
       },
       callback: data => {
@@ -328,9 +325,14 @@ export default class UnCaseEnforcementDataView extends PureComponent {
               });
             }
           } else {
-            unCaseEchartRingPie.setOption({
+            unItemEchartRingPie.setOption({
               title: {
-                // text: currentType === 'today' ? '今日告警情况' : (currentType === 'selectedDate' ? '告警情况' : '昨日告警情况'),
+                text:
+                  currentType === 'today'
+                    ? '今日告警情况'
+                    : currentType === 'selectedDate'
+                    ? '告警情况'
+                    : '昨日告警情况',
               },
               legend: {
                 data: legendData,
@@ -351,9 +353,6 @@ export default class UnCaseEnforcementDataView extends PureComponent {
                   label: {
                     normal: {
                       formatter: `告警总数\n\n${countData}`,
-                      textStyle: {
-                        color: '#fff',
-                      },
                     },
                   },
                 },
@@ -365,17 +364,17 @@ export default class UnCaseEnforcementDataView extends PureComponent {
     });
   };
   // 告警情况环形饼状图
-  showUnCaseEchartRingPie = () => {
+  showUnItemEchartRingPie = () => {
     const that = this;
-    unCaseEchartRingPie = echarts.init(document.getElementById('unCaseGjqk'));
+    unItemEchartRingPie = echarts.init(document.getElementById('unItemGjqk'));
     const option = {
       title: {
-        // text: '告警情况',
-        // textStyle: {
-        //     fontSize: 16,
-        //     fontWeight: 'normal',
-        // },
-        // padding: 8,
+        text: '告警情况',
+        textStyle: {
+          fontSize: 16,
+          fontWeight: 'normal',
+        },
+        padding: 8,
       },
       tooltip: {
         trigger: 'item',
@@ -391,7 +390,7 @@ export default class UnCaseEnforcementDataView extends PureComponent {
         itemGap: 25,
         selectedMode: true, // 点击
         textStyle: {
-          color: '#fff',
+          color: '#000',
           fontSize: 16,
           lineHeight: 24,
         },
@@ -426,8 +425,8 @@ export default class UnCaseEnforcementDataView extends PureComponent {
         },
       ],
     };
-    unCaseEchartRingPie.setOption(option, true);
-    unCaseEchartRingPie.on('click', function(params) {
+    unItemEchartRingPie.setOption(option, true);
+    unItemEchartRingPie.on('click', function(params) {
       const { currentType } = that.state;
       const dataTime =
         currentType === 'selectedDate' ? that.props.selectedDateVal : that.getTime(currentType);
@@ -441,74 +440,54 @@ export default class UnCaseEnforcementDataView extends PureComponent {
     const { searchType, selectedDateVal, showDataView } = this.props;
     const { lastData, nowData, selectedDateData, currentType } = this.state;
     return (
-      <Card style={{ position: 'relative' }} className={styles.policeDataCard}>
-        <div
-          className={styles.policeDataView}
-          style={showDataView ? {} : { position: 'absolute', zIndex: -1 }}
-        >
-          {currentType !== 'selectedDate' ? (
-            <div className={styles.viewCount}>
-              <div onClick={() => this.changeCountButtonCurrent('now')}>
-                <div className={styles.warningCountButtonArea}>
-                  <div className={styles.warningCountButtonTitleBlue}>今日新增告警</div>
-                  <div className={styles.warningCountButtonNumberBlue}>
-                    <img src={warningCountButtonNumberBlue} alt="" />
-                    {nowData}
-                  </div>
-                </div>
-              </div>
-              <div onClick={() => this.changeCountButtonCurrent('last')}>
-                <div className={styles.warningCountButtonArea}>
-                  <div className={styles.warningCountButtonTitlePink}>昨日告警数量</div>
-                  <div className={styles.warningCountButtonNumberPink}>
-                    <img src={warningCountButtonNumberPink} alt="" />
-                    {lastData}
-                  </div>
+      <div
+        className={styles.policeDataView}
+        style={showDataView ? {} : { position: 'absolute', zIndex: -1 }}
+      >
+        {currentType !== 'selectedDate' ? (
+          <div className={styles.viewCount}>
+            <div onClick={() => this.changeCountButtonCurrent('now')}>
+              <div className={styles.warningCountButtonArea}>
+                <div className={styles.warningCountButtonTitleBlue}>今日新增告警</div>
+                <div className={styles.warningCountButtonNumberBlue}>
+                  <img src={warningCountButtonNumberBlue} alt="" />
+                  {nowData}
                 </div>
               </div>
             </div>
-          ) : (
-            <div className={styles.viewCount}>
-              <div className={styles.countButtonCurrent}>
-                <div className={styles.countButtonTitle}>
-                  <div>{selectedDateVal[0]}</div>
-                  <div style={{ lineHeight: '6px' }}>~</div>
-                  <div>{selectedDateVal[1]}</div>
-                </div>
-                <div className={styles.countButtonNumber}>
-                  <div>告警：{selectedDateData}</div>
+            <div onClick={() => this.changeCountButtonCurrent('last')}>
+              <div className={styles.warningCountButtonArea}>
+                <div className={styles.warningCountButtonTitlePink}>昨日告警数量</div>
+                <div className={styles.warningCountButtonNumberPink}>
+                  <img src={warningCountButtonNumberPink} alt="" />
+                  {lastData}
                 </div>
               </div>
             </div>
-          )}
-          <div style={{ backgroundColor: '#252c3c', padding: '0 16px' }}>
-            <Row gutter={rowLayout} className={styles.listPageRow}>
-              <Col {...colLayout} style={{ marginBottom: 32 }}>
-                <div className={styles.cardBoxTitle}>
-                  |{' '}
-                  {currentType === 'today'
-                    ? '今日新增告警'
-                    : currentType === 'selectedDate'
-                    ? '告警'
-                    : '昨日告警'}
-                </div>
-                <div id="unCaseXzgj" className={styles.cardBox}></div>
-              </Col>
-              <Col {...colLayout} style={{ marginBottom: 32 }}>
-                <div className={styles.cardBoxTitle}>
-                  |{' '}
-                  {currentType === 'today'
-                    ? '今日告警情况'
-                    : currentType === 'selectedDate'
-                    ? '告警情况'
-                    : '昨日告警情况'}
-                </div>
-                <div id="unCaseGjqk" className={styles.cardBox}></div>
-              </Col>
-            </Row>
           </div>
-        </div>
-      </Card>
+        ) : (
+          <div className={styles.viewCount}>
+            <div className={styles.countButtonCurrent}>
+              <div className={styles.countButtonTitle}>
+                <div>{selectedDateVal[0]}</div>
+                <div style={{ lineHeight: '6px' }}>~</div>
+                <div>{selectedDateVal[1]}</div>
+              </div>
+              <div className={styles.countButtonNumber}>
+                <div>告警：{selectedDateData}</div>
+              </div>
+            </div>
+          </div>
+        )}
+        <Row gutter={rowLayout} className={styles.listPageRow}>
+          <Col {...colLayout}>
+            <div id="unItemXzgj" className={styles.cardBox}></div>
+          </Col>
+          <Col {...colLayout}>
+            <div id="unItemGjqk" className={styles.cardBox}></div>
+          </Col>
+        </Row>
+      </div>
     );
   }
 }

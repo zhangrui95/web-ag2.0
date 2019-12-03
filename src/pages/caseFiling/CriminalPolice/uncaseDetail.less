@@ -1009,6 +1009,9 @@
     .ant-list-pagination {
       margin-right: 12px;
     }
+    .ant-empty-normal {
+      color: @white;
+    }
   }
 }
 
@@ -1148,15 +1151,24 @@
 .xqcol {
   padding: 12px;
 }
-.jqxxTable{
-  :global{
+.jqxxTable {
+  :global {
     .ant-table {
       border-radius: @zero;
       overflow: hidden;
     }
-    .ant-table-thead > tr > th{
-      background: #323C4D!important;
+    .ant-table-thead > tr > th {
+      background: #323c4d !important;
       color: @white;
+    }
+    .ant-table-tbody > tr {
+      background: @table-body-sort-bg;
+      &:nth-child(n) {
+        background: @component-background!important;
+      }
+      &:nth-child(2n) {
+        background: #323c4d !important;
+      }
     }
     //.antd-pro-theme-dark-theme-dark .ant-table-thead > tr > th {
     //  background: #323C4D!important;
@@ -1164,4 +1176,27 @@
     //}
   }
 }
-
+.ajlcCard {
+  margin-top: -2px;
+  background-color: #0f1220;
+  color: @white;
+  :global {
+    .antd-pro-theme-dark-theme-dark .ant-card {
+      border-radius: 0px !important;
+    }
+    .ant-card-head {
+      color: @white;
+      border-bottom: 1px solid #1d212f;
+    }
+    .ant-card-body {
+      padding: 32px;
+    }
+    .ant-steps-item-finish .ant-steps-item-icon {
+      border: 2px solid #2f86ff;
+      background-color: #0f1220;
+    }
+    .ant-steps-item-process .ant-steps-item-icon {
+      border: 2px solid #fff;
+    }
+  }
+}

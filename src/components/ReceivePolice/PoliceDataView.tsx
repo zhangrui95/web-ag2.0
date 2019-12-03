@@ -1,10 +1,10 @@
 /*
-* PoliceDataView.js 警情数据展示
-* author：lyp
-* 20181113
-* */
+ * PoliceDataView.js 警情数据展示
+ * author：lyp
+ * 20181113
+ * */
 import React, { PureComponent } from 'react';
-import { Row, Col,Card } from 'antd';
+import { Row, Col, Card } from 'antd';
 import moment from 'moment/moment';
 import echarts from 'echarts/lib/echarts';
 import 'echarts/lib/chart/bar';
@@ -23,7 +23,19 @@ let policeEchartRingPie;
 let policeEchartLine;
 let policeThreePie1;
 let policeThreePie2;
-const colors1 = ['#259DF4', '#40537E', '#EDB59C', '#FED501', '#3074B5', '#72C4B8', '#3FC228', '#FFD205', '#FB1241', '#6465FD', '#FF6600'];
+const colors1 = [
+  '#259DF4',
+  '#40537E',
+  '#EDB59C',
+  '#FED501',
+  '#3074B5',
+  '#72C4B8',
+  '#3FC228',
+  '#FFD205',
+  '#FB1241',
+  '#6465FD',
+  '#FF6600',
+];
 
 export default class PoliceDataView extends PureComponent {
   state = {
@@ -36,15 +48,15 @@ export default class PoliceDataView extends PureComponent {
     weekType: ['week', 'lastWeek', 'beforeLastWeek'],
     monthType: ['month', 'lastMonth', 'beforeLastMonth'],
     dateType: {
-      'today': '0',
-      'lastDay': '1',
-      'beforeLastDay': '2',
-      'week': '3',
-      'lastWeek': '4',
-      'beforeLastWeek': '5',
-      'month': '6',
-      'lastMonth': '7',
-      'beforeLastMonth': '8',
+      today: '0',
+      lastDay: '1',
+      beforeLastDay: '2',
+      week: '3',
+      lastWeek: '4',
+      beforeLastWeek: '5',
+      month: '6',
+      lastMonth: '7',
+      beforeLastMonth: '8',
     },
     jqzkNoData: false, // 警情状况无数据
     jqslNoData: false, // 警情数量无数据
@@ -61,11 +73,11 @@ export default class PoliceDataView extends PureComponent {
     this.getHandlePoliceSituation('today');
 
     // setTimeout(()=>{
-      this.showPoliceEchartBar();
-      this.showPoliceEchartRingPie();
-      this.showPoliceEchartLine();
-      this.showPoliceThreePie1();
-      this.showPoliceThreePie2();
+    this.showPoliceEchartBar();
+    this.showPoliceEchartRingPie();
+    this.showPoliceEchartLine();
+    this.showPoliceThreePie1();
+    this.showPoliceThreePie2();
     // },500)
 
     window.addEventListener('resize', policeEchartBar.resize);
@@ -77,17 +89,37 @@ export default class PoliceDataView extends PureComponent {
 
   componentWillReceiveProps(nextProps) {
     if (nextProps) {
-      if ((this.props.searchType !== nextProps.searchType) || this.props.jjdw !== nextProps.jjdw || this.props.cjdw !== nextProps.cjdw || this.props.selectedDateVal !== nextProps.selectedDateVal) {
+      if (
+        this.props.searchType !== nextProps.searchType ||
+        this.props.jjdw !== nextProps.jjdw ||
+        this.props.cjdw !== nextProps.cjdw ||
+        this.props.selectedDateVal !== nextProps.selectedDateVal
+      ) {
         if (nextProps.searchType === 'day') {
           this.setState({
             currentType: 'today',
           });
           this.getViewCountData('day', nextProps.jjdw, nextProps.cjdw);
           const dayTypeTime = this.getTime('today');
-          this.getPoliceSituationCount(dayTypeTime[0], dayTypeTime[1], nextProps.jjdw, nextProps.cjdw);
+          this.getPoliceSituationCount(
+            dayTypeTime[0],
+            dayTypeTime[1],
+            nextProps.jjdw,
+            nextProps.cjdw,
+          );
           this.getHandleResult(dayTypeTime[0], dayTypeTime[1], nextProps.jjdw, nextProps.cjdw);
-          this.getHandlePoliceSituationHadResult(dayTypeTime[0], dayTypeTime[1], nextProps.jjdw, nextProps.cjdw);
-          this.getAcceptPoliceSituation(dayTypeTime[0], dayTypeTime[1], nextProps.jjdw, nextProps.cjdw);
+          this.getHandlePoliceSituationHadResult(
+            dayTypeTime[0],
+            dayTypeTime[1],
+            nextProps.jjdw,
+            nextProps.cjdw,
+          );
+          this.getAcceptPoliceSituation(
+            dayTypeTime[0],
+            dayTypeTime[1],
+            nextProps.jjdw,
+            nextProps.cjdw,
+          );
           this.getHandlePoliceSituation('today', nextProps.jjdw, nextProps.cjdw);
         } else if (nextProps.searchType === 'week') {
           this.setState({
@@ -95,10 +127,25 @@ export default class PoliceDataView extends PureComponent {
           });
           this.getViewCountData('week', nextProps.jjdw, nextProps.cjdw);
           const weekTypeTime = this.getTime('week');
-          this.getPoliceSituationCount(weekTypeTime[0], weekTypeTime[1], nextProps.jjdw, nextProps.cjdw);
+          this.getPoliceSituationCount(
+            weekTypeTime[0],
+            weekTypeTime[1],
+            nextProps.jjdw,
+            nextProps.cjdw,
+          );
           this.getHandleResult(weekTypeTime[0], weekTypeTime[1], nextProps.jjdw, nextProps.cjdw);
-          this.getHandlePoliceSituationHadResult(weekTypeTime[0], weekTypeTime[1], nextProps.jjdw, nextProps.cjdw);
-          this.getAcceptPoliceSituation(weekTypeTime[0], weekTypeTime[1], nextProps.jjdw, nextProps.cjdw);
+          this.getHandlePoliceSituationHadResult(
+            weekTypeTime[0],
+            weekTypeTime[1],
+            nextProps.jjdw,
+            nextProps.cjdw,
+          );
+          this.getAcceptPoliceSituation(
+            weekTypeTime[0],
+            weekTypeTime[1],
+            nextProps.jjdw,
+            nextProps.cjdw,
+          );
           this.getHandlePoliceSituation('week', nextProps.jjdw, nextProps.cjdw);
         } else if (nextProps.searchType === 'month') {
           this.setState({
@@ -106,22 +153,66 @@ export default class PoliceDataView extends PureComponent {
           });
           this.getViewCountData('month', nextProps.jjdw, nextProps.cjdw);
           const monthTypeTime = this.getTime('month');
-          this.getPoliceSituationCount(monthTypeTime[0], monthTypeTime[1], nextProps.jjdw, nextProps.cjdw);
+          this.getPoliceSituationCount(
+            monthTypeTime[0],
+            monthTypeTime[1],
+            nextProps.jjdw,
+            nextProps.cjdw,
+          );
           this.getHandleResult(monthTypeTime[0], monthTypeTime[1], nextProps.jjdw, nextProps.cjdw);
-          this.getHandlePoliceSituationHadResult(monthTypeTime[0], monthTypeTime[1], nextProps.jjdw, nextProps.cjdw);
-          this.getAcceptPoliceSituation(monthTypeTime[0], monthTypeTime[1], nextProps.jjdw, nextProps.cjdw);
+          this.getHandlePoliceSituationHadResult(
+            monthTypeTime[0],
+            monthTypeTime[1],
+            nextProps.jjdw,
+            nextProps.cjdw,
+          );
+          this.getAcceptPoliceSituation(
+            monthTypeTime[0],
+            monthTypeTime[1],
+            nextProps.jjdw,
+            nextProps.cjdw,
+          );
           this.getHandlePoliceSituation('month', nextProps.jjdw, nextProps.cjdw);
         } else if (nextProps.searchType === 'selectedDate') {
-          this.setState({
-            currentType: 'selectedDate',
-          }, function() {
-            const { selectedDateVal } = nextProps;
-            this.getPoliceSituationCount(selectedDateVal[0], selectedDateVal[1], nextProps.jjdw, nextProps.cjdw);
-            this.getHandleResult(selectedDateVal[0], selectedDateVal[1], nextProps.jjdw, nextProps.cjdw);
-            this.getHandlePoliceSituationHadResult(selectedDateVal[0], selectedDateVal[1], nextProps.jjdw, nextProps.cjdw);
-            this.getAcceptPoliceSituation(selectedDateVal[0], selectedDateVal[1], nextProps.jjdw, nextProps.cjdw);
-            this.getHandlePoliceSituation('selectedDate', nextProps.jjdw, nextProps.cjdw, selectedDateVal[0], selectedDateVal[1]);
-          });
+          this.setState(
+            {
+              currentType: 'selectedDate',
+            },
+            function() {
+              const { selectedDateVal } = nextProps;
+              this.getPoliceSituationCount(
+                selectedDateVal[0],
+                selectedDateVal[1],
+                nextProps.jjdw,
+                nextProps.cjdw,
+              );
+              this.getHandleResult(
+                selectedDateVal[0],
+                selectedDateVal[1],
+                nextProps.jjdw,
+                nextProps.cjdw,
+              );
+              this.getHandlePoliceSituationHadResult(
+                selectedDateVal[0],
+                selectedDateVal[1],
+                nextProps.jjdw,
+                nextProps.cjdw,
+              );
+              this.getAcceptPoliceSituation(
+                selectedDateVal[0],
+                selectedDateVal[1],
+                nextProps.jjdw,
+                nextProps.cjdw,
+              );
+              this.getHandlePoliceSituation(
+                'selectedDate',
+                nextProps.jjdw,
+                nextProps.cjdw,
+                selectedDateVal[0],
+                selectedDateVal[1],
+              );
+            },
+          );
         }
       }
     }
@@ -147,7 +238,7 @@ export default class PoliceDataView extends PureComponent {
       }
     }
   };
-  getTime = (type) => {
+  getTime = type => {
     const time = getTimeDistance(type);
     const startTime = time[0] === '' ? '' : moment(time[0]).format('YYYY-MM-DD');
     const endTime = time[1] === '' ? '' : moment(time[1]).format('YYYY-MM-DD');
@@ -155,15 +246,21 @@ export default class PoliceDataView extends PureComponent {
   };
 
   // 本、昨、前change
-  changeCountButtonCurrent = (type) => {
+  changeCountButtonCurrent = type => {
     const { searchType } = this.props;
     let currentType = '';
     if (type === 'now') {
-      currentType = searchType === 'day' ? 'today' : (searchType === 'week' ? 'week' : 'month');
+      currentType = searchType === 'day' ? 'today' : searchType === 'week' ? 'week' : 'month';
     } else if (type === 'last') {
-      currentType = searchType === 'day' ? 'lastDay' : (searchType === 'week' ? 'lastWeek' : 'lastMonth');
+      currentType =
+        searchType === 'day' ? 'lastDay' : searchType === 'week' ? 'lastWeek' : 'lastMonth';
     } else if (type === 'beforeLast') {
-      currentType = searchType === 'day' ? 'beforeLastDay' : (searchType === 'week' ? 'beforeLastWeek' : 'beforeLastMonth');
+      currentType =
+        searchType === 'day'
+          ? 'beforeLastDay'
+          : searchType === 'week'
+          ? 'beforeLastWeek'
+          : 'beforeLastMonth';
     }
     this.setState({
       currentType,
@@ -176,7 +273,13 @@ export default class PoliceDataView extends PureComponent {
     this.getAcceptPoliceSituation(dataTime[0], dataTime[1]);
   };
   // 警情数量
-  getPoliceSituationCount = (startTime, endTime, jjdw = this.props.jjdw, cjdw = this.props.cjdw, type) => {
+  getPoliceSituationCount = (
+    startTime,
+    endTime,
+    jjdw = this.props.jjdw,
+    cjdw = this.props.cjdw,
+    type,
+  ) => {
     const { dayType, weekType, monthType, currentType } = this.state;
     this.props.dispatch({
       type: 'policeData/getPoliceSituationCount',
@@ -186,7 +289,7 @@ export default class PoliceDataView extends PureComponent {
         jjdw,
         cjdw,
       },
-      callback: (data) => {
+      callback: data => {
         if (data) {
           const xData = [];
           const barData = [];
@@ -244,18 +347,20 @@ export default class PoliceDataView extends PureComponent {
                 xAxis: {
                   data: xData,
                 },
-                series: [{
-                  data: dataShadow,
-                }, {
-                  data: barData,
-                }],
+                series: [
+                  {
+                    data: dataShadow,
+                  },
+                  {
+                    data: barData,
+                  },
+                ],
               });
             } else {
               this.setState({
                 jqslNoData: true,
               });
             }
-
           }
         }
       },
@@ -271,7 +376,7 @@ export default class PoliceDataView extends PureComponent {
         jjdw,
         cjdw,
       },
-      callback: (data) => {
+      callback: data => {
         if (data) {
           let legendData = [];
           let pieData = [];
@@ -295,9 +400,17 @@ export default class PoliceDataView extends PureComponent {
               otherData += data.list[i].count;
             }
           }
-          if(window.configUrl.is_area === '2'){
+          if (window.configUrl.is_area === '2') {
             if (legendData.length === 0 && pieData.length === 0) {
-              legendData = ['报立刑事案件', '受理行政案件', '报立经侦案件', '报立禁毒案件', '不予处理','不予立案统计','其他分类'];
+              legendData = [
+                '报立刑事案件',
+                '受理行政案件',
+                '报立经侦案件',
+                '报立禁毒案件',
+                '不予处理',
+                '不予立案统计',
+                '其他分类',
+              ];
               pieData = [
                 {
                   name: '报立刑事案件',
@@ -349,15 +462,34 @@ export default class PoliceDataView extends PureComponent {
                   },
                 },
               ];
+            } else {
+              legendData.push(
+                { name: '不予立案统计', icon: 'circle', itemStyle: { color: colors1[9] } },
+                { name: '其他分类', icon: 'circle', itemStyle: { color: colors1[6] } },
+              );
+              pieData.push(
+                {
+                  name: '不予立案统计',
+                  value: countData - otherData - data.list[7].count,
+                  itemStyle: { color: colors1[9] },
+                },
+                {
+                  name: '其他分类',
+                  value: countData - otherData,
+                  itemStyle: { color: colors1[6] },
+                },
+              );
             }
-            else {
-              legendData.push({ name: '不予立案统计', icon: 'circle', itemStyle: { color: colors1[9] } },{ name: '其他分类', icon: 'circle', itemStyle: { color: colors1[6] } });
-              pieData.push({ name: '不予立案统计', value: countData - otherData-data.list[7].count, itemStyle: { color: colors1[9] } },{ name: '其他分类', value: countData - otherData, itemStyle: { color: colors1[6] } });
-            }
-          }
-          else{
+          } else {
             if (legendData.length === 0 && pieData.length === 0) {
-              legendData = ['报立刑事案件', '受理行政案件', '报立经侦案件', '报立禁毒案件', '不予处理','其他分类'];
+              legendData = [
+                '报立刑事案件',
+                '受理行政案件',
+                '报立经侦案件',
+                '报立禁毒案件',
+                '不予处理',
+                '其他分类',
+              ];
               pieData = [
                 {
                   name: '报立刑事案件',
@@ -403,8 +535,16 @@ export default class PoliceDataView extends PureComponent {
                 },
               ];
             } else {
-              legendData.push({ name: '其他分类', icon: 'circle', itemStyle: { color: colors1[6] } });
-              pieData.push({ name: '其他分类', value: countData - otherData, itemStyle: { color: colors1[6] } });
+              legendData.push({
+                name: '其他分类',
+                icon: 'circle',
+                itemStyle: { color: colors1[6] },
+              });
+              pieData.push({
+                name: '其他分类',
+                value: countData - otherData,
+                itemStyle: { color: colors1[6] },
+              });
             }
           }
           policeEchartRingPie.setOption({
@@ -421,23 +561,29 @@ export default class PoliceDataView extends PureComponent {
                 return formatStr;
               },
             },
-            series: [{
-              data: pieData,
-              label: {
-                normal: {
-                  formatter: `${countData}`,
+            series: [
+              {
+                data: pieData,
+                label: {
+                  normal: {
+                    formatter: `${countData}`,
+                  },
                 },
               },
-            }],
+            ],
           });
-
         }
-
       },
     });
   };
   // 处警状况
-  getHandlePoliceSituation = (currentDateType, jjdw = this.props.jjdw, cjdw = this.props.cjdw, sTime, eTime) => {
+  getHandlePoliceSituation = (
+    currentDateType,
+    jjdw = this.props.jjdw,
+    cjdw = this.props.cjdw,
+    sTime,
+    eTime,
+  ) => {
     const { dateType } = this.state;
     let payload = {
       rqType: dateType[currentDateType],
@@ -456,7 +602,7 @@ export default class PoliceDataView extends PureComponent {
     this.props.dispatch({
       type: 'policeData/getHandlePoliceSituation',
       payload,
-      callback: (data) => {
+      callback: data => {
         if (data) {
           let xData = [];
           let cjData = []; // 处警
@@ -472,7 +618,6 @@ export default class PoliceDataView extends PureComponent {
               cjData.push(data.list[i].count1);
               jjData.push(data.list[i].count2);
             }
-
           } else {
             // this.setState({
             //     jqzkNoData: true,
@@ -514,7 +659,12 @@ export default class PoliceDataView extends PureComponent {
     });
   };
   // 处警情况
-  getHandlePoliceSituationHadResult = (startTime, endTime, jjdw = this.props.jjdw, cjdw = this.props.cjdw) => {
+  getHandlePoliceSituationHadResult = (
+    startTime,
+    endTime,
+    jjdw = this.props.jjdw,
+    cjdw = this.props.cjdw,
+  ) => {
     this.props.dispatch({
       type: 'policeData/getHandlePoliceSituationHadResult',
       payload: {
@@ -523,7 +673,7 @@ export default class PoliceDataView extends PureComponent {
         jjdw,
         cjdw,
       },
-      callback: (data) => {
+      callback: data => {
         if (data) {
           const pieData = [];
           const hadResult = [];
@@ -531,40 +681,49 @@ export default class PoliceDataView extends PureComponent {
           let countData = 0;
           for (let i = 0; i < data.list.length; i++) {
             countData += data.list[i].count;
-            if (data.list[i].name === '处警'||data.list[i].name ==='分流') hadResult.push({
-              name: data.list[i].name,
-              value: data.list[i].count,
-              itemStyle: { color: colors1[6] },
-            });
-            if (data.list[i].name === '未处警'||data.list[i].name ==='未分流') noResult.push({
-              name: data.list[i].name,
-              value: data.list[i].count,
-              itemStyle: { color: colors1[7] },
-            });
+            if (data.list[i].name === '处警' || data.list[i].name === '分流')
+              hadResult.push({
+                name: data.list[i].name,
+                value: data.list[i].count,
+                itemStyle: { color: colors1[6] },
+              });
+            if (data.list[i].name === '未处警' || data.list[i].name === '未分流')
+              noResult.push({
+                name: data.list[i].name,
+                value: data.list[i].count,
+                itemStyle: { color: colors1[7] },
+              });
           }
           pieData.push({ name: '警情', value: countData, itemStyle: { color: colors1[8] } });
           policeThreePie1.setOption({
-            series: [{
-              data: pieData,
-              label: {
-                normal: {
-                  formatter: '警情总数\n\n' + countData,
+            series: [
+              {
+                data: pieData,
+                label: {
+                  normal: {
+                    formatter: '警情总数\n\n' + countData,
+                  },
                 },
               },
-            }, {
-              data: hadResult,
-            }, {
-              data: noResult,
-            }],
+              {
+                data: hadResult,
+              },
+              {
+                data: noResult,
+              },
+            ],
           });
-
         }
-
       },
     });
   };
   // 受案情况
-  getAcceptPoliceSituation = (startTime, endTime, jjdw = this.props.jjdw, cjdw = this.props.cjdw) => {
+  getAcceptPoliceSituation = (
+    startTime,
+    endTime,
+    jjdw = this.props.jjdw,
+    cjdw = this.props.cjdw,
+  ) => {
     this.props.dispatch({
       type: 'policeData/getAcceptPoliceSituation',
       payload: {
@@ -573,7 +732,7 @@ export default class PoliceDataView extends PureComponent {
         jjdw,
         cjdw,
       },
-      callback: (data) => {
+      callback: data => {
         if (data) {
           const pieData = [];
           const hadResult = [];
@@ -581,35 +740,39 @@ export default class PoliceDataView extends PureComponent {
           let countData = 0;
           for (let i = 0; i < data.list.length; i++) {
             countData += data.list[i].count;
-            if (data.list[i].name === '已受案') hadResult.push({
-              name: data.list[i].name,
-              value: data.list[i].count,
-              itemStyle: { color: colors1[9] },
-            });
-            if (data.list[i].name === '未受案') noResult.push({
-              name: data.list[i].name,
-              value: data.list[i].count,
-              itemStyle: { color: colors1[10] },
-            });
+            if (data.list[i].name === '已受案')
+              hadResult.push({
+                name: data.list[i].name,
+                value: data.list[i].count,
+                itemStyle: { color: colors1[9] },
+              });
+            if (data.list[i].name === '未受案')
+              noResult.push({
+                name: data.list[i].name,
+                value: data.list[i].count,
+                itemStyle: { color: colors1[10] },
+              });
           }
           pieData.push({ name: '警情', value: countData, itemStyle: { color: colors1[8] } });
           policeThreePie2.setOption({
-            series: [{
-              data: pieData,
-              label: {
-                normal: {
-                  formatter: '警情总数\n\n' + countData,
+            series: [
+              {
+                data: pieData,
+                label: {
+                  normal: {
+                    formatter: '警情总数\n\n' + countData,
+                  },
                 },
               },
-            }, {
-              data: hadResult,
-            }, {
-              data: noResult,
-            }],
+              {
+                data: hadResult,
+              },
+              {
+                data: noResult,
+              },
+            ],
           });
-
         }
-
       },
     });
   };
@@ -646,10 +809,10 @@ export default class PoliceDataView extends PureComponent {
         },
         axisLabel: {
           interval: 0,
-          formatter: (value) => this.insertFlg(value, '\n', 6),
+          formatter: value => this.insertFlg(value, '\n', 6),
           textStyle: {
-            color: '#fff'
-          }
+            color: '#fff',
+          },
         },
       },
 
@@ -665,12 +828,13 @@ export default class PoliceDataView extends PureComponent {
         },
         axisLabel: {
           textStyle: {
-            color: '#999',
+            color: '#FFF',
           },
         },
       },
       series: [
-        { // For shadow
+        {
+          // For shadow
           type: 'bar',
           itemStyle: {
             normal: { color: 'rgba(0,0,0,0)' },
@@ -698,24 +862,18 @@ export default class PoliceDataView extends PureComponent {
           },
           itemStyle: {
             normal: {
-              color: new echarts.graphic.LinearGradient(
-                0, 0, 0, 1,
-                [
-                  { offset: 0, color: '#83bff6' },
-                  { offset: 0.5, color: '#188df0' },
-                  { offset: 1, color: '#188df0' },
-                ],
-              ),
+              color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+                { offset: 0, color: '#83bff6' },
+                { offset: 0.5, color: '#188df0' },
+                { offset: 1, color: '#188df0' },
+              ]),
             },
             emphasis: {
-              color: new echarts.graphic.LinearGradient(
-                0, 0, 0, 1,
-                [
-                  { offset: 0, color: '#2378f7' },
-                  { offset: 0.7, color: '#2378f7' },
-                  { offset: 1, color: '#83bff6' },
-                ],
-              ),
+              color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+                { offset: 0, color: '#2378f7' },
+                { offset: 0.7, color: '#2378f7' },
+                { offset: 1, color: '#83bff6' },
+              ]),
             },
           },
         },
@@ -724,8 +882,9 @@ export default class PoliceDataView extends PureComponent {
     policeEchartBar.setOption(option);
     policeEchartBar.on('click', function(params) {
       const { currentType } = that.state;
-      const dataTime = currentType === 'selectedDate' ? that.props.selectedDateVal : that.getTime(currentType);
-      that.props.changeToListPage({ 'jjly': params.data.code }, dataTime);
+      const dataTime =
+        currentType === 'selectedDate' ? that.props.selectedDateVal : that.getTime(currentType);
+      that.props.changeToListPage({ jjly: params.data.code }, dataTime);
     });
   };
   //处置结果环形饼状图
@@ -759,7 +918,6 @@ export default class PoliceDataView extends PureComponent {
           lineHeight: 24,
         },
         data: [],
-
       },
       series: [
         {
@@ -813,7 +971,7 @@ export default class PoliceDataView extends PureComponent {
         top: '5%',
         right: '15%',
         textStyle: {
-          color: '#fff'
+          color: '#fff',
         },
       },
       grid: {
@@ -825,17 +983,17 @@ export default class PoliceDataView extends PureComponent {
       xAxis: {
         type: 'category',
         boundaryGap: false,
-        axisLabel:{
+        axisLabel: {
           color: '#fff',
         },
         data: [],
       },
       yAxis: {
         type: 'value',
-        axisLabel : {
-          textStyle:{
-            color:'#fff',
-          }
+        axisLabel: {
+          textStyle: {
+            color: '#fff',
+          },
         },
       },
       series: [
@@ -876,11 +1034,11 @@ export default class PoliceDataView extends PureComponent {
         //   padding: 7,
         // },
         {
-          text: window.configUrl.is_area === '2'?'分流':'处警',
+          text: window.configUrl.is_area === '2' ? '分流' : '处警',
           textStyle: {
             fontSize: 16,
             fontWeight: 'normal',
-            color:'#fff',
+            color: '#fff',
           },
           x: '15%',
           y: '80%',
@@ -888,11 +1046,11 @@ export default class PoliceDataView extends PureComponent {
           textAlign: 'center',
         },
         {
-          text: window.configUrl.is_area === '2'?'未分流':'未处警',
+          text: window.configUrl.is_area === '2' ? '未分流' : '未处警',
           textStyle: {
             fontSize: 16,
             fontWeight: 'normal',
-            color:'#fff',
+            color: '#fff',
           },
           x: '85%',
           y: '80%',
@@ -932,7 +1090,7 @@ export default class PoliceDataView extends PureComponent {
           data: [],
         },
         {
-          name: window.configUrl.is_area === '2'?'分流':'处警',
+          name: window.configUrl.is_area === '2' ? '分流' : '处警',
           type: 'pie',
           center: ['15%', '50%'],
           radius: ['40%', '50%'],
@@ -959,7 +1117,7 @@ export default class PoliceDataView extends PureComponent {
           data: [],
         },
         {
-          name: window.configUrl.is_area === '2'?'未分流':'未处警',
+          name: window.configUrl.is_area === '2' ? '未分流' : '未处警',
           type: 'pie',
           center: ['85%', '50%'],
           radius: ['40%', '50%'],
@@ -990,16 +1148,17 @@ export default class PoliceDataView extends PureComponent {
     policeThreePie1.setOption(option, true);
     policeThreePie1.on('click', function(params) {
       const { currentType } = that.state;
-      const dataTime = currentType === 'selectedDate' ? that.props.selectedDateVal : that.getTime(currentType);
+      const dataTime =
+        currentType === 'selectedDate' ? that.props.selectedDateVal : that.getTime(currentType);
       let isHandled = '';
-      if (params.name === '分流'||params.name === '处警') {
+      if (params.name === '分流' || params.name === '处警') {
         isHandled = '1';
-      } else if (params.name === '未分流'||params.name === '未处警') {
+      } else if (params.name === '未分流' || params.name === '未处警') {
         isHandled = '0';
       } else if (params.name === '警情') {
         isHandled = '';
       }
-      that.props.changeToListPage({ 'sfcj': isHandled }, dataTime);
+      that.props.changeToListPage({ sfcj: isHandled }, dataTime);
     });
   };
   // 受案情况三环形饼状图
@@ -1021,7 +1180,7 @@ export default class PoliceDataView extends PureComponent {
           textStyle: {
             fontSize: 16,
             fontWeight: 'normal',
-            color:'#fff',
+            color: '#fff',
           },
           x: '15%',
           y: '80%',
@@ -1033,7 +1192,7 @@ export default class PoliceDataView extends PureComponent {
           textStyle: {
             fontSize: 16,
             fontWeight: 'normal',
-            color:'#fff',
+            color: '#fff',
           },
           x: '85%',
           y: '80%',
@@ -1131,7 +1290,8 @@ export default class PoliceDataView extends PureComponent {
     policeThreePie2.setOption(option, true);
     policeThreePie2.on('click', function(params) {
       const { currentType } = that.state;
-      const dataTime = currentType === 'selectedDate' ? that.props.selectedDateVal : that.getTime(currentType);
+      const dataTime =
+        currentType === 'selectedDate' ? that.props.selectedDateVal : that.getTime(currentType);
       let isHandled = '';
       if (params.name === '已受案') {
         isHandled = '1';
@@ -1140,7 +1300,7 @@ export default class PoliceDataView extends PureComponent {
       } else if (params.name === '受案情况') {
         isHandled = '';
       }
-      that.props.changeToListPage({ 'sfsa': isHandled }, dataTime);
+      that.props.changeToListPage({ sfsa: isHandled }, dataTime);
     });
   };
 
@@ -1148,115 +1308,145 @@ export default class PoliceDataView extends PureComponent {
     const rowLayout = { md: 8, xl: 16, xxl: 24 };
     const colLayout = { sm: 24, lg: 12 };
     const { searchType, selectedDateVal, showDataView } = this.props;
-    const { currentType, beforeLastData, lastData, nowData, jqzkNoData, jqslNoData, selectedDateData } = this.state;
+    const {
+      currentType,
+      beforeLastData,
+      lastData,
+      nowData,
+      jqzkNoData,
+      jqslNoData,
+      selectedDateData,
+    } = this.state;
     return (
-      <Card style={{ position: 'relative'}} className={styles.policeDataCard}>
-        <div className={styles.policeDataView} style={showDataView ? {} : { position: 'absolute', zIndex: -1 }}>
-          {
-            currentType !== 'selectedDate' ? (
-              <div className={styles.viewCount}>
-                <div
-                  className={(currentType === 'today' || currentType === 'week' || currentType === 'month') ? styles.countButtonCurrent : styles.countButton}
-                  onClick={() => this.changeCountButtonCurrent('now')}
-                >
-                  {
-                    searchType === 'day' ? <DataViewDateShow dataTypeStr='今日'/> : (
-                      searchType === 'week' ? <DataViewDateShow dataTypeStr='本周'/> :
-                        <DataViewDateShow dataTypeStr='本月'/>
-                    )
-                  }
-                  <div className={styles.bigCountButtonNumber}>
-                    <div>警情：{nowData}</div>
-                  </div>
-                </div>
-                <div
-                  className={(currentType === 'lastDay' || currentType === 'lastWeek' || currentType === 'lastMonth') ? styles.countButtonCurrent : styles.countButton}
-                  onClick={() => this.changeCountButtonCurrent('last')}
-                >
-                  {
-                    searchType === 'day' ? <DataViewDateShow dataTypeStr='昨日'/> : (
-                      searchType === 'week' ? <DataViewDateShow dataTypeStr='前一周'/> :
-                        <DataViewDateShow dataTypeStr='前一月'/>
-                    )
-                  }
-                  <div className={styles.bigCountButtonNumber}>
-                    <div>警情：{lastData}</div>
-                  </div>
-                </div>
-                <div
-                  className={(currentType === 'beforeLastDay' || currentType === 'beforeLastWeek' || currentType === 'beforeLastMonth') ? styles.countButtonCurrent : styles.countButton}
-                  onClick={() => this.changeCountButtonCurrent('beforeLast')}
-                >
-                  {
-                    searchType === 'day' ? <DataViewDateShow dataTypeStr='前日'/> : (
-                      searchType === 'week' ? <DataViewDateShow dataTypeStr='前二周'/> :
-                        <DataViewDateShow dataTypeStr='前二月'/>
-                    )
-                  }
-                  <div className={styles.countButtonNumber}>
-                    <div>警情：{beforeLastData}</div>
-                  </div>
+      <Card style={{ position: 'relative' }} className={styles.policeDataCard}>
+        <div
+          className={styles.policeDataView}
+          style={showDataView ? {} : { position: 'absolute', zIndex: -1 }}
+        >
+          {currentType !== 'selectedDate' ? (
+            <div className={styles.viewCount}>
+              <div
+                className={
+                  currentType === 'today' || currentType === 'week' || currentType === 'month'
+                    ? styles.countButtonCurrent
+                    : styles.countButton
+                }
+                onClick={() => this.changeCountButtonCurrent('now')}
+              >
+                {searchType === 'day' ? (
+                  <DataViewDateShow dataTypeStr="今日" />
+                ) : searchType === 'week' ? (
+                  <DataViewDateShow dataTypeStr="本周" />
+                ) : (
+                  <DataViewDateShow dataTypeStr="本月" />
+                )}
+                <div className={styles.bigCountButtonNumber}>
+                  <div>警情：{nowData}</div>
                 </div>
               </div>
-            ) : (
-              <div className={styles.viewCount}>
-                <div className={styles.countButtonCurrent}>
-                  <div className={styles.countButtonTitle}>
-                    <div>{selectedDateVal[0]}</div>
-                    <div style={{ lineHeight: '6px' }}>~</div>
-                    <div>{selectedDateVal[1]}</div>
-                  </div>
-                  <div className={styles.countButtonNumber}>
-                    <div>警情：{selectedDateData}</div>
-                  </div>
+              <div
+                className={
+                  currentType === 'lastDay' ||
+                  currentType === 'lastWeek' ||
+                  currentType === 'lastMonth'
+                    ? styles.countButtonCurrent
+                    : styles.countButton
+                }
+                onClick={() => this.changeCountButtonCurrent('last')}
+              >
+                {searchType === 'day' ? (
+                  <DataViewDateShow dataTypeStr="昨日" />
+                ) : searchType === 'week' ? (
+                  <DataViewDateShow dataTypeStr="前一周" />
+                ) : (
+                  <DataViewDateShow dataTypeStr="前一月" />
+                )}
+                <div className={styles.bigCountButtonNumber}>
+                  <div>警情：{lastData}</div>
                 </div>
               </div>
-            )
-          }
-          <div style={{backgroundColor:'#202839',padding:'0 16px'}}>
+              <div
+                className={
+                  currentType === 'beforeLastDay' ||
+                  currentType === 'beforeLastWeek' ||
+                  currentType === 'beforeLastMonth'
+                    ? styles.countButtonCurrent
+                    : styles.countButton
+                }
+                onClick={() => this.changeCountButtonCurrent('beforeLast')}
+              >
+                {searchType === 'day' ? (
+                  <DataViewDateShow dataTypeStr="前日" />
+                ) : searchType === 'week' ? (
+                  <DataViewDateShow dataTypeStr="前二周" />
+                ) : (
+                  <DataViewDateShow dataTypeStr="前二月" />
+                )}
+                <div className={styles.countButtonNumber}>
+                  <div>警情：{beforeLastData}</div>
+                </div>
+              </div>
+            </div>
+          ) : (
+            <div className={styles.viewCount}>
+              <div className={styles.countButtonCurrent}>
+                <div className={styles.countButtonTitle}>
+                  <div>{selectedDateVal[0]}</div>
+                  <div style={{ lineHeight: '6px' }}>~</div>
+                  <div>{selectedDateVal[1]}</div>
+                </div>
+                <div className={styles.countButtonNumber}>
+                  <div>警情：{selectedDateData}</div>
+                </div>
+              </div>
+            </div>
+          )}
+          <div style={{ backgroundColor: '#252c3c', padding: '0 16px' }}>
             <Row gutter={rowLayout} className={styles.listPageRow}>
               <Col {...colLayout}>
                 <div className={styles.cardBoxTitle}>| 警情数量</div>
                 <div id="jqsl" className={styles.cardBox}></div>
-                {
-                  jqslNoData ? (
-                    <div>
-                      <div style={{ fontSize: 16, padding: '15px 0 0 8px', fontWeight: 500 }}>警情数量</div>
-                      <div style={{
+                {jqslNoData ? (
+                  <div>
+                    <div style={{ fontSize: 16, padding: '15px 0 0 8px', fontWeight: 500 }}>
+                      警情数量
+                    </div>
+                    <div
+                      style={{
                         display: 'flex',
                         alignItems: 'center',
                         flexDirection: 'column',
                         justifyContent: 'center',
-                      }}>
-                        <img src={nonDivImg} alt="暂无数据"/>
-                        <div style={{ fontSize: 18 }}>暂无数据</div>
-                      </div>
+                      }}
+                    >
+                      <img src={nonDivImg} alt="暂无数据" />
+                      <div style={{ fontSize: 18 }}>暂无数据</div>
                     </div>
-                  ) : null
-                }
+                  </div>
+                ) : null}
               </Col>
               <Col {...colLayout}>
-                <div className={styles.cardBoxTitle}>|  处置结果</div>
+                <div className={styles.cardBoxTitle}>| 处置结果</div>
                 <div id="czjg" className={styles.cardBox}></div>
               </Col>
             </Row>
             <Row gutter={rowLayout} className={styles.listPageRow}>
               <Col {...colLayout}>
-                <div className={styles.cardBoxTitle}>|  处警情况</div>
+                <div className={styles.cardBoxTitle}>| 处警情况</div>
                 <div id="cjqk" className={styles.cardBox}></div>
               </Col>
               <Col {...colLayout}>
-                <div className={styles.cardBoxTitle}>|  受案情况</div>
+                <div className={styles.cardBoxTitle}>| 受案情况</div>
                 <div id="saqk" className={styles.cardBox}></div>
               </Col>
             </Row>
             <Row gutter={rowLayout} className={styles.listPageRow}>
-              <Col span={24} style={{marginBottom:32}}>
-                <div className={styles.cardBoxTitle}>|  警情状况</div>
+              <Col span={24} style={{ marginBottom: 32 }}>
+                <div className={styles.cardBoxTitle}>| 警情状况</div>
                 <div id="jqzk" className={styles.cardBox}></div>
-                {
-                  jqzkNoData ? (
-                    <div style={{
+                {jqzkNoData ? (
+                  <div
+                    style={{
                       width: '100%',
                       height: '100%',
                       position: 'absolute',
@@ -1264,20 +1454,22 @@ export default class PoliceDataView extends PureComponent {
                       left: 0,
                       padding: 16,
                       backgroundColor: '#ffffff',
-                    }}>
-                      <div style={{ fontSize: 16, padding: '8px 0 0 8px' }}>警情状况</div>
-                      <div style={{
+                    }}
+                  >
+                    <div style={{ fontSize: 16, padding: '8px 0 0 8px' }}>警情状况</div>
+                    <div
+                      style={{
                         display: 'flex',
                         alignItems: 'center',
                         flexDirection: 'column',
                         justifyContent: 'center',
-                      }}>
-                        <img src={nonDivImg} alt="暂无数据"/>
-                        <div style={{ fontSize: 18 }}>暂无数据</div>
-                      </div>
+                      }}
+                    >
+                      <img src={nonDivImg} alt="暂无数据" />
+                      <div style={{ fontSize: 18 }}>暂无数据</div>
                     </div>
-                  ) : null
-                }
+                  </div>
+                ) : null}
               </Col>
             </Row>
           </div>
