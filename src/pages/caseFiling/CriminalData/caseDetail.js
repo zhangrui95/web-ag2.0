@@ -114,8 +114,8 @@ export default class caseDetail extends PureComponent {
 
   componentDidMount() {
     // this.caseDetailDatas(this.props.id);
-    if (this.props.location && this.props.location.query && this.props.location.query.id) {
-      this.caseDetailDatas(this.props.location.query.id);
+    if (this.props.location && this.props.location.query && this.props.location.query.record && this.props.location.query.record.system_id) {
+      this.caseDetailDatas(this.props.location.query.record.system_id);
     }
   }
 
@@ -605,14 +605,60 @@ export default class caseDetail extends PureComponent {
         style={{ padding: '24px 0', background: '#252C3C' /*height: autoheight() - 280 + 'px'*/ }}
         className={styles.detailBoxScroll}
       >
+        <div style={{ textAlign: 'right' }}>
+          {caseDetails && caseDetails.jqxxList && caseDetails.jqxxList.length > 0 ? (
+            <Button
+              // type="primary"
+              onClick={() => this.seePolice(true, caseDetails.jqxxList)}
+              style={{marginRight:70, background:'linear-gradient(to right, #0084FA, #03A3FF)' }}
+            >
+              查看关联警情
+            </Button>
+          ) : (
+            ''
+          )}
+          {caseDetails && caseDetails.rqxyrList && caseDetails.rqxyrList.length > 0 ? (
+            <Button
+              // type="primary"
+              onClick={() => this.seeArea(true, caseDetails.rqxyrList)}
+              style={{ marginRight: 16, background:'linear-gradient(to right, #0084FA, #03A3FF)' }}
+            >
+              查看涉案人员在区情况
+            </Button>
+          ) : (
+            ''
+          )}
+          {caseDetails && caseDetails.sawpList && caseDetails.sawpList.length > 0 ? (
+            <Button
+              // type="primary"
+              onClick={() => this.seeRes(true, caseDetails.sawpList)}
+              style={{ marginRight: 16, background:'linear-gradient(to right, #0084FA, #03A3FF)' }}
+            >
+              查看涉案物品
+            </Button>
+          ) : (
+            ''
+          )}
+          {caseDetails && caseDetails.jzList && caseDetails.jzList.length > 0 ? (
+            <Button
+              // type="primary"
+              onClick={() => this.seeDossier(true, caseDetails.jzList)}
+              style={{ marginRight: 16, background:'linear-gradient(to right, #0084FA, #03A3FF)' }}
+            >
+              查看卷宗信息
+            </Button>
+          ) : (
+            ''
+          )}
+        </div>
         <div className={styles.title}>| 案件信息</div>
-        <div className={styles.message} style={{ padding: '24px 64px' }}>
-          <Row gutter={rowLayout} className={styles.xqrow}>
+        <div className={styles.message} style={{ padding: '24px 70px' }}>
+          <Row className={styles.xqrow}>
             <Col md={8} sm={24} className={styles.xqcol}>
               <div className={liststyles.Indexfrom}>
                 <div className={liststyles.special}>案件名称：</div>
               </div>
-              <div className={liststyles.Indextail} style={{ paddingLeft: 102 }}>
+              <div className={liststyles.Indextail} style={{ paddingLeft: 58 }}>
                 <div className={liststyles.special1}>
                   <Ellipsis lines={1} tooltip>
                     {caseDetails && caseDetails.ajmc ? caseDetails.ajmc : ''}
@@ -633,7 +679,7 @@ export default class caseDetail extends PureComponent {
               </div>
             </Col>
           </Row>
-          <Row gutter={rowLayout} className={styles.xqrow}>
+          <Row className={styles.xqrow}>
             <Col md={8} sm={24} className={styles.xqcol}>
               <div className={liststyles.Indexfrom}>案发时段：</div>
               <div className={liststyles.Indextail}>
@@ -649,19 +695,19 @@ export default class caseDetail extends PureComponent {
               </div>
             </Col>
           </Row>
-          <Row gutter={rowLayout} className={styles.xqrow}>
+          <Row className={caseDetails && (caseDetails.pajk || caseDetails.xayy)?styles.xqrow:''}>
             <Col md={24} sm={24} className={styles.xqcol}>
               <div className={liststyles.Indexfrom}>简要案情：</div>
-              <div className={liststyles.Indextail} style={{ paddingLeft: 84 }}>
+              <div className={liststyles.Indextail} style={{ paddingLeft: 60 }}>
                 {caseDetails && caseDetails.jyaq ? caseDetails.jyaq : ''}
               </div>
             </Col>
           </Row>
           {caseDetails && caseDetails.pajk ? (
-            <Row gutter={rowLayout} className={styles.xqrow}>
+            <Row  className={styles.xqrow}>
               <Col md={24} sm={24} className={styles.xqcol}>
                 <div className={liststyles.Indexfrom}>破案简况：</div>
-                <div className={liststyles.Indextail} style={{ paddingLeft: 84 }}>
+                <div className={liststyles.Indextail} style={{ paddingLeft: 60 }}>
                   {caseDetails && caseDetails.pajk ? caseDetails.pajk : ''}
                 </div>
               </Col>
@@ -670,10 +716,10 @@ export default class caseDetail extends PureComponent {
             ''
           )}
           {caseDetails && caseDetails.xayy ? (
-            <Row gutter={rowLayout} className={styles.xqrow}>
+            <Row  className={styles.xqrow}>
               <Col md={24} sm={24} className={styles.xqcol}>
                 <div className={liststyles.Indexfrom}>销案原因：</div>
-                <div className={liststyles.Indextail} style={{ paddingLeft: 84 }}>
+                <div className={liststyles.Indextail} style={{ paddingLeft: 60 }}>
                   {caseDetails && caseDetails.xayy ? caseDetails.xayy : ''}
                 </div>
               </Col>
@@ -684,7 +730,7 @@ export default class caseDetail extends PureComponent {
 
           {caseDetails && caseDetails.ajzt ? (
             <div>
-              <Card title={'案件流程'} style={{ margin: '0 12px' }}>
+              <Card title={'案件流程'} style={{ marginTop: '12px',borderRadius:0,backgroundColor:'#171a26'}} className={styles.ajlcCard}>
                 <CaseModalStep caseDetails={caseDetails} />
               </Card>
             </div>
@@ -694,59 +740,12 @@ export default class caseDetail extends PureComponent {
         </div>
         {caseDetails && caseDetails.ajzt ? (
           <div>
-            <div className={styles.title}>案件轨迹</div>
+            <div className={styles.title}>| 案件轨迹</div>
             <CaseModalTrail {...this.props} caseDetails={caseDetails} from="刑事" />
           </div>
         ) : (
           ''
         )}
-
-        <div style={{ textAlign: 'center' }}>
-          {caseDetails && caseDetails.jqxxList && caseDetails.jqxxList.length > 0 ? (
-            <Button
-              type="primary"
-              onClick={() => this.seePolice(true, caseDetails.jqxxList)}
-              style={{ marginRight: 16 }}
-            >
-              查看关联警情
-            </Button>
-          ) : (
-            ''
-          )}
-          {caseDetails && caseDetails.rqxyrList && caseDetails.rqxyrList.length > 0 ? (
-            <Button
-              type="primary"
-              onClick={() => this.seeArea(true, caseDetails.rqxyrList)}
-              style={{ marginRight: 16 }}
-            >
-              查看涉案人员在区情况
-            </Button>
-          ) : (
-            ''
-          )}
-          {caseDetails && caseDetails.sawpList && caseDetails.sawpList.length > 0 ? (
-            <Button
-              type="primary"
-              onClick={() => this.seeRes(true, caseDetails.sawpList)}
-              style={{ marginRight: 16 }}
-            >
-              查看涉案物品
-            </Button>
-          ) : (
-            ''
-          )}
-          {caseDetails && caseDetails.jzList && caseDetails.jzList.length > 0 ? (
-            <Button
-              type="primary"
-              onClick={() => this.seeDossier(true, caseDetails.jzList)}
-              style={{ marginRight: 16 }}
-            >
-              查看卷宗信息
-            </Button>
-          ) : (
-            ''
-          )}
-        </div>
       </div>
     );
   }

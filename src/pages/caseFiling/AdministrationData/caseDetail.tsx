@@ -516,135 +516,12 @@ export default class caseDetail extends PureComponent {
         style={{ background: '#252C3C' /*height: autoheight() - 180 + 'px'*/ }}
         className={styles.detailBoxScroll}
       >
-        <div className={styles.title}>| 案件信息</div>
-        <div className={styles.message} style={{ padding: '24px 64px' }}>
-          <Row gutter={rowLayout} className={styles.xqrow}>
-            <Col md={8} sm={24} className={styles.xqcol}>
-              <div className={liststyles.Indexfrom}>
-                <div className={liststyles.special}>案件名称：</div>
-              </div>
-              <div className={liststyles.Indextail} style={{ paddingLeft: 102 }}>
-                <div className={liststyles.special1}>
-                  <Ellipsis lines={1}>
-                    {caseDetails && caseDetails.ajmc ? caseDetails.ajmc : ''}
-                  </Ellipsis>
-                </div>
-              </div>
-            </Col>
-            <Col md={8} sm={24} className={styles.xqcol}>
-              <div className={liststyles.Indexfrom}>案件编号：</div>
-              <div className={liststyles.Indextail}>
-                {caseDetails && caseDetails.ajbh ? caseDetails.ajbh : ''}
-              </div>
-            </Col>
-            <Col md={8} sm={24} className={styles.xqcol}>
-              <div className={liststyles.Indexfrom}>案件类别：</div>
-              <div className={liststyles.Indextail}>
-                {caseDetails && caseDetails.ajlb_name ? caseDetails.ajlb_name : ''}
-              </div>
-            </Col>
-          </Row>
-          <Row gutter={rowLayout} className={styles.xqrow}>
-            <Col md={8} sm={24} className={styles.xqcol}>
-              <div className={liststyles.Indexfrom}>案发时段：</div>
-              <div className={liststyles.Indextail}>
-                {caseDetails && caseDetails.fasj_sx && caseDetails.fasj_xx
-                  ? caseDetails.fasj_sx + '~' + caseDetails.fasj_xx
-                  : ''}
-              </div>
-            </Col>
-            <Col md={8} sm={24} className={styles.xqcol}>
-              <div className={liststyles.Indexfrom}>案发地点：</div>
-              <div className={liststyles.Indextail}>
-                {caseDetails && caseDetails.fadxz ? caseDetails.fadxz : ''}
-              </div>
-            </Col>
-            <Col md={8} sm={24} className={styles.xqcol}>
-              <div className={liststyles.Indexfrom}>是否延期：</div>
-              <div className={liststyles.Indextail}>
-                {caseDetails && caseDetails.sfyq
-                  ? caseDetails.sfyq === '1'
-                    ? '已延期至60日'
-                    : '否'
-                  : '否'}
-              </div>
-            </Col>
-          </Row>
-          <Row gutter={rowLayout} className={styles.xqrow}>
-            <Col md={24} sm={24} className={styles.xqcol}>
-              <div className={liststyles.Indexfrom}>简要案情：</div>
-              <div className={liststyles.Indextail}>
-                {caseDetails && caseDetails.ajjj ? caseDetails.ajjj : ''}
-              </div>
-            </Col>
-          </Row>
-          {caseDetails && caseDetails.pajk ? (
-            <Row gutter={rowLayout} className={styles.xqrow}>
-              <Col md={24} sm={24} className={styles.xqcol}>
-                <Row className={liststyles.JzInfoDiv}>
-                  <Col
-                    sm={24}
-                    md={2}
-                    xl={2}
-                    className={liststyles.JzInfoRight}
-                    style={{ width: 82.94 }}
-                  >
-                    破案简况：
-                  </Col>
-                  <Col sm={24} md={22} xl={22}>
-                    {caseDetails && caseDetails.pajk ? caseDetails.pajk : ''}
-                  </Col>
-                </Row>
-              </Col>
-            </Row>
-          ) : (
-            ''
-          )}
-          {caseDetails && caseDetails.xayy ? (
-            <Row gutter={rowLayout} className={styles.xqrow}>
-              <Col md={24} sm={24} className={styles.xqcol}>
-                <Row className={liststyles.JzInfoDiv}>
-                  <Col
-                    sm={24}
-                    md={2}
-                    xl={2}
-                    className={liststyles.JzInfoRight}
-                    style={{ width: 82.94 }}
-                  >
-                    销案原因：
-                  </Col>
-                  <Col sm={24} md={22} xl={22}>
-                    {caseDetails && caseDetails.xayy ? caseDetails.xayy : ''}
-                  </Col>
-                </Row>
-              </Col>
-            </Row>
-          ) : (
-            ''
-          )}
-
-          {caseDetails && caseDetails.ajzt ? (
-            <Card title={'案件流程'} className={styles.ajlczCard} style={{ borderRadius: 0 }}>
-              <CaseModalStep caseDetails={caseDetails} />
-            </Card>
-          ) : (
-            ''
-          )}
-        </div>
-        {caseDetails && caseDetails.ajzt ? (
-          <div>
-            <div className={styles.title}>| 案件轨迹</div>
-            <CaseModalTrail {...this.props} caseDetails={caseDetails} from="行政" />
-          </div>
-        ) : (
-          ''
-        )}
-        <div style={{ textAlign: 'center' }}>
+        <div style={{ textAlign: 'right',marginTop: 30}}>
           {caseDetails && caseDetails.jqxxList && caseDetails.jqxxList.length > 0 ? (
             <Button
               type="primary"
               onClick={() => this.seePolice(true, caseDetails.jqxxList)}
-              style={{ marginRight: 16 }}
+              style={{ marginRight: 70 }}
             >
               查看关联警情
             </Button>
@@ -685,6 +562,129 @@ export default class caseDetail extends PureComponent {
             ''
           )}
         </div>
+        <div className={styles.title}>| 案件信息</div>
+        <div className={styles.message} style={{ padding: '24px 70px' }}>
+          <Row  className={styles.xqrow}>
+            <Col md={8} sm={24} className={styles.xqcol}>
+              <div className={liststyles.Indexfrom}>
+                <div className={liststyles.special}>案件名称：</div>
+              </div>
+              <div className={liststyles.Indextail} style={{ paddingLeft: 56 }}>
+                <div className={liststyles.special1}>
+                  <Ellipsis lines={1}>
+                    {caseDetails && caseDetails.ajmc ? caseDetails.ajmc : ''}
+                  </Ellipsis>
+                </div>
+              </div>
+            </Col>
+            <Col md={8} sm={24} className={styles.xqcol}>
+              <div className={liststyles.Indexfrom}>案件编号：</div>
+              <div className={liststyles.Indextail}>
+                {caseDetails && caseDetails.ajbh ? caseDetails.ajbh : ''}
+              </div>
+            </Col>
+            <Col md={8} sm={24} className={styles.xqcol}>
+              <div className={liststyles.Indexfrom}>案件类别：</div>
+              <div className={liststyles.Indextail}>
+                {caseDetails && caseDetails.ajlb_name ? caseDetails.ajlb_name : ''}
+              </div>
+            </Col>
+          </Row>
+          <Row  className={styles.xqrow}>
+            <Col md={8} sm={24} className={styles.xqcol}>
+              <div className={liststyles.Indexfrom}>案发时段：</div>
+              <div className={liststyles.Indextail}>
+                {caseDetails && caseDetails.fasj_sx && caseDetails.fasj_xx
+                  ? caseDetails.fasj_sx + '~' + caseDetails.fasj_xx
+                  : ''}
+              </div>
+            </Col>
+            <Col md={8} sm={24} className={styles.xqcol}>
+              <div className={liststyles.Indexfrom}>案发地点：</div>
+              <div className={liststyles.Indextail}>
+                {caseDetails && caseDetails.fadxz ? caseDetails.fadxz : ''}
+              </div>
+            </Col>
+            <Col md={8} sm={24} className={styles.xqcol}>
+              <div className={liststyles.Indexfrom}>是否延期：</div>
+              <div className={liststyles.Indextail}>
+                {caseDetails && caseDetails.sfyq
+                  ? caseDetails.sfyq === '1'
+                    ? '已延期至60日'
+                    : '否'
+                  : '否'}
+              </div>
+            </Col>
+          </Row>
+          <Row className={caseDetails && caseDetails.pajk && caseDetails.xayy?styles.xqrow:''}>
+            <Col md={24} sm={24} className={styles.xqcol}>
+              <div className={liststyles.Indexfrom}>简要案情：</div>
+              <div className={liststyles.Indextail}>
+                {caseDetails && caseDetails.ajjj ? caseDetails.ajjj : ''}
+              </div>
+            </Col>
+          </Row>
+          {caseDetails && caseDetails.pajk ? (
+            <Row  className={styles.xqrow}>
+              <Col md={24} sm={24} className={styles.xqcol}>
+                <Row className={liststyles.JzInfoDiv}>
+                  <Col
+                    sm={24}
+                    md={2}
+                    xl={2}
+                    className={liststyles.JzInfoRight}
+                    style={{ width: 82.94 }}
+                  >
+                    破案简况：
+                  </Col>
+                  <Col sm={24} md={22} xl={22}>
+                    {caseDetails && caseDetails.pajk ? caseDetails.pajk : ''}
+                  </Col>
+                </Row>
+              </Col>
+            </Row>
+          ) : (
+            ''
+          )}
+          {caseDetails && caseDetails.xayy ? (
+            <Row  className={styles.xqrow}>
+              <Col md={24} sm={24} className={styles.xqcol}>
+                <Row className={liststyles.JzInfoDiv}>
+                  <Col
+                    sm={24}
+                    md={2}
+                    xl={2}
+                    className={liststyles.JzInfoRight}
+                    style={{ width: 82.94 }}
+                  >
+                    销案原因：
+                  </Col>
+                  <Col sm={24} md={22} xl={22}>
+                    {caseDetails && caseDetails.xayy ? caseDetails.xayy : ''}
+                  </Col>
+                </Row>
+              </Col>
+            </Row>
+          ) : (
+            ''
+          )}
+
+          {caseDetails && caseDetails.ajzt ? (
+            <Card title={'案件流程'} style={{ marginTop: '12px',borderRadius:0,backgroundColor:'#171a26'}} className={styles.ajlczCard}>
+              <CaseModalStep caseDetails={caseDetails} />
+            </Card>
+          ) : (
+            ''
+          )}
+        </div>
+        {caseDetails && caseDetails.ajzt ? (
+          <div>
+            <div className={styles.title}>| 案件轨迹</div>
+            <CaseModalTrail {...this.props} caseDetails={caseDetails} from="行政" />
+          </div>
+        ) : (
+          ''
+        )}
       </div>
     );
   }

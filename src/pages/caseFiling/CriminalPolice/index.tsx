@@ -557,7 +557,7 @@ export default class Index extends PureComponent {
     const rowLayout = { md: 8, xl: 16, xxl: 24 };
     const colLayout = { sm: 24, md: 12, xl: 8 };
     return (
-      <Card className={stylescommon.listPageWrap} id="slaxsgjsearchForm">
+      <Card className={stylescommon.listPageWrap} id="slaxsgjsearchForm" style={{border:'0px solid #ccc'}}>
         <Form onSubmit={this.handleSearch} style={{ height: this.state.searchHeight ? 'auto' : '59px' }} >
           <Row gutter={rowLayout} className={styles.searchForm}>
             <Col {...colLayout}>

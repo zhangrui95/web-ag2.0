@@ -451,7 +451,7 @@ export default class XzCaseEnforcementDataView extends PureComponent {
                 },
                 axisLabel: {
                     textStyle: {
-                        color: '#999',
+                        color: '#fff',
                     },
                 },
             },
@@ -649,7 +649,7 @@ export default class XzCaseEnforcementDataView extends PureComponent {
                 },
                 axisLabel: {
                     textStyle: {
-                        color: '#999',
+                        color: '#fff',
                     },
                 },
             },

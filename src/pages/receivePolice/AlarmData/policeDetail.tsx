@@ -453,13 +453,13 @@ export default class policeDetail extends PureComponent {
             </Col>
             <Col md={8} sm={24} className={styles.xqcol}>
               <div className={liststyles.Indexfrom}>报案人：</div>
-              <div className={liststyles.Indextail} style={{ paddingLeft: 70 }}>
+              <div className={liststyles.Indextail} style={{ paddingLeft: 46 }}>
                 {policeDetails && policeDetails.bar ? policeDetails.bar : ''}
               </div>
             </Col>
             <Col md={8} sm={24} className={styles.xqcol}>
               <div className={liststyles.Indexfrom}>报案人联系方式：</div>
-              <div className={liststyles.Indextail} style={{ paddingLeft: 125 }}>
+              <div className={liststyles.Indextail} style={{ paddingLeft: 100 }}>
                 {policeDetails && policeDetails.bar_lxfs ? policeDetails.bar_lxfs : ''}
               </div>
             </Col>
@@ -473,7 +473,7 @@ export default class policeDetail extends PureComponent {
             </Col>
             <Col md={8} sm={24} className={styles.xqcol}>
               <div className={liststyles.Indexfrom}>接警人：</div>
-              <div className={liststyles.Indextail} style={{ paddingLeft: 70 }}>
+              <div className={liststyles.Indextail} style={{ paddingLeft: 46 }}>
                 {policeDetails && policeDetails.jjr
                   ? policeDetails.jjr.split(',')[policeDetails.jjr.split(',').length - 1]
                   : ''}
@@ -481,7 +481,7 @@ export default class policeDetail extends PureComponent {
             </Col>
             <Col md={8} sm={24} className={styles.xqcol}>
               <div className={liststyles.Indexfrom}>管辖单位：</div>
-              <div className={liststyles.Indextail} style={{ paddingLeft: 84 }}>
+              <div className={liststyles.Indextail} style={{ paddingLeft: 60 }}>
                 {policeDetails && policeDetails.jjdw
                   ? policeDetails.jjdw.split(',')[policeDetails.jjdw.split(',').length - 1]
                   : ''}
@@ -491,7 +491,7 @@ export default class policeDetail extends PureComponent {
           <Row gutter={rowLayout}>
             <Col md={24} sm={24} className={styles.xqcol}>
               <div className={liststyles.Indexfrom}>接警内容：</div>
-              <div className={liststyles.Indextail} style={{ paddingLeft: 84 }}>
+              <div className={liststyles.Indextail} style={{ paddingLeft: 60 }}>
                 <LeightWord
                   type={'all'}
                   keyWord={this.state.keyWord ? this.state.keyWord : []}
@@ -512,7 +512,7 @@ export default class policeDetail extends PureComponent {
               <div className={liststyles.Indexfrom}>
                 <div className={liststyles.special}>处置结果：</div>
               </div>
-              <div className={liststyles.Indextail} style={{ paddingLeft: 102 }}>
+              <div className={liststyles.Indextail} style={{ paddingLeft: 78 }}>
                 <div
                   className={liststyles.special1}
                   style={{ color: this.props.isDd ? '#f00' : 'rgba(0, 0, 0, 0.65)' }}
@@ -561,7 +561,7 @@ export default class policeDetail extends PureComponent {
           <Row gutter={rowLayout}>
             <Col md={24} sm={24} className={styles.xqcol}>
               <div className={liststyles.Indexfrom}>处警情况：</div>
-              <div className={liststyles.Indextail} style={{ paddingLeft: 84 }}>
+              <div className={liststyles.Indextail} style={{ paddingLeft: 60 }}>
                 {policeDetails && policeDetails.cjqk ? policeDetails.cjqk : ''}
               </div>
             </Col>

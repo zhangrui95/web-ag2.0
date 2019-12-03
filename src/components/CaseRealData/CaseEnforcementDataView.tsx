@@ -7,13 +7,13 @@ import React, { PureComponent } from 'react';
 import { Row, Col, Card, Divider, Tooltip, Button, Radio, Icon, message } from 'antd';
 import moment from 'moment/moment';
 import echarts from 'echarts/lib/echarts';
-import bar from 'echarts/lib/chart/bar';
-import pie from 'echarts/lib/chart/pie';
-import title from 'echarts/lib/component/title';
-import legend from 'echarts/lib/component/legend';
-import tooltip from 'echarts/lib/component/tooltip';
-import dataZoom from 'echarts/lib/component/dataZoom';
-import styles from '../Styles/dataView.less';
+import 'echarts/lib/chart/bar';
+import 'echarts/lib/chart/pie';
+import 'echarts/lib/component/title';
+import 'echarts/lib/component/legend';
+import 'echarts/lib/component/tooltip';
+import 'echarts/lib/component/dataZoom';
+import styles from '../../pages/common/dataView.less';
 import { getTimeDistance } from '../../utils/utils';
 import DataViewDateShow from '../Common/DataViewDateShow';
 
@@ -338,20 +338,25 @@ export default class CaseEnforcementDataView extends PureComponent {
     caseEchartBar = echarts.init(document.getElementById('ajbljd'));
     const option = {
       color: ['#3398DB'],
-      title: {
-        text: '案件办理进度',
-        textStyle: {
-          fontSize: 16,
-          fontWeight: 'normal',
-        },
-        padding: 8,
-      },
+      // title: {
+      //   text: '案件办理进度',
+      //   textStyle: {
+      //     fontSize: 16,
+      //     fontWeight: 'normal',
+      //   },
+      //   padding: 8,
+      // },
       xAxis: {
         type: 'category',
         axisLine: { show: false },
         data: [],
         axisTick: {
           alignWithLabel: true,
+        },
+        axisLabel: {
+          textStyle: {
+            color: '#fff',
+          },
         },
       },
       yAxis: {
@@ -366,7 +371,7 @@ export default class CaseEnforcementDataView extends PureComponent {
         },
         axisLabel: {
           textStyle: {
-            color: '#999',
+            color: '#fff',
           },
         },
       },
@@ -394,7 +399,7 @@ export default class CaseEnforcementDataView extends PureComponent {
               formatter: '{c}',
               textStyle: {
                 fontSize: 16,
-                color: '#000',
+                color: '#fff',
               },
             },
           },
@@ -432,12 +437,12 @@ export default class CaseEnforcementDataView extends PureComponent {
     caseEchartRingPie = echarts.init(document.getElementById('ryqzcsqk'));
     const option = {
       title: {
-        text: '人员强制措施情况',
-        textStyle: {
-          fontSize: 16,
-          fontWeight: 'normal',
-        },
-        padding: 8,
+        // text: '人员强制措施情况',
+        // textStyle: {
+        //   fontSize: 16,
+        //   fontWeight: 'normal',
+        // },
+        // padding: 8,
       },
       tooltip: {
         trigger: 'item',
@@ -453,7 +458,7 @@ export default class CaseEnforcementDataView extends PureComponent {
         itemGap: 15,
         selectedMode: true, // 点击
         textStyle: {
-          color: '#000',
+          color: '#fff',
           fontSize: 16,
           lineHeight: 24,
         },
@@ -474,7 +479,7 @@ export default class CaseEnforcementDataView extends PureComponent {
               textStyle: {
                 fontSize: '22',
                 // fontWeight: 'bold',
-                color: '#66ccff',
+                color: '#fff',
               },
             },
             emphasis: {
@@ -506,7 +511,7 @@ export default class CaseEnforcementDataView extends PureComponent {
     const that = this;
     caseTypeStatisticsBar = echarts.init(document.getElementById('ajlxtj'));
     const option = {
-      color: ['#3398DB'],
+      // color: ['#3398DB'],
       tooltip: {
         trigger: 'axis',
         axisPointer: {
@@ -515,12 +520,12 @@ export default class CaseEnforcementDataView extends PureComponent {
         },
       },
       title: {
-        text: '案件类型统计',
-        textStyle: {
-          fontSize: 16,
-          fontWeight: 'normal',
-        },
-        padding: 8,
+        // text: '案件类型统计',
+        // textStyle: {
+        //   fontSize: 16,
+        //   fontWeight: 'normal',
+        // },
+        // padding: 8,
       },
       xAxis: {
         type: 'category',
@@ -532,6 +537,9 @@ export default class CaseEnforcementDataView extends PureComponent {
         axisLabel: {
           interval: 0,
           formatter: value => this.insertFlg(value, '\n', 10),
+          textStyle:{
+            color:'#fff',
+          }
         },
       },
       yAxis: {
@@ -546,7 +554,7 @@ export default class CaseEnforcementDataView extends PureComponent {
         },
         axisLabel: {
           textStyle: {
-            color: '#999',
+            color: '#fff',
           },
         },
       },
@@ -562,7 +570,7 @@ export default class CaseEnforcementDataView extends PureComponent {
               formatter: '{c}',
               textStyle: {
                 fontSize: 16,
-                color: '#000',
+                color: '#fff',
               },
             },
           },
@@ -604,109 +612,115 @@ export default class CaseEnforcementDataView extends PureComponent {
       selectedDateData,
     } = this.state;
     return (
-      <div
-        className={styles.caseDataView}
-        style={showDataView ? {} : { position: 'absolute', zIndex: -1 }}
-      >
-        {currentType !== 'selectedDate' ? (
-          <div className={styles.viewCount}>
-            <div
-              className={
-                currentType === 'week' || currentType === 'month'
-                  ? styles.countButtonCurrent
-                  : styles.countButton
-              }
-              onClick={() => this.changeCountButtonCurrent('now')}
-            >
-              {searchType === 'week' ? (
-                <DataViewDateShow dataTypeStr="本周" />
-              ) : (
-                <DataViewDateShow dataTypeStr="本月" />
-              )}
-              <div className={styles.countButtonNumber}>
-                <div>
-                  {nowDataName[0]}：{nowData[0]}
+      <Card style={{ position: 'relative' }} className={styles.policeDataCard}>
+        <div
+          className={styles.caseDataView}
+          style={showDataView ? {} : { position: 'absolute', zIndex: -1 }}
+        >
+          {currentType !== 'selectedDate' ? (
+            <div className={styles.viewCount}>
+              <div
+                className={
+                  currentType === 'week' || currentType === 'month'
+                    ? styles.countButtonCurrent
+                    : styles.countButton
+                }
+                onClick={() => this.changeCountButtonCurrent('now')}
+              >
+                {searchType === 'week' ? (
+                  <DataViewDateShow dataTypeStr="本周" />
+                ) : (
+                  <DataViewDateShow dataTypeStr="本月" />
+                )}
+                <div className={styles.countButtonNumber}>
+                  <div>
+                    {nowDataName[0]}：{nowData[0]}
+                  </div>
+                  <div>
+                    {nowDataName[1]}：{nowData[1]}
+                  </div>
                 </div>
-                <div>
-                  {nowDataName[1]}：{nowData[1]}
+              </div>
+              <div
+                className={
+                  currentType === 'lastWeek' || currentType === 'lastMonth'
+                    ? styles.countButtonCurrent
+                    : styles.countButton
+                }
+                onClick={() => this.changeCountButtonCurrent('last')}
+              >
+                {searchType === 'week' ? (
+                  <DataViewDateShow dataTypeStr="前一周" />
+                ) : (
+                  <DataViewDateShow dataTypeStr="前一月" />
+                )}
+                <div className={styles.countButtonNumber}>
+                  <div>
+                    {lastDataName[0]}：{lastData[0]}
+                  </div>
+                  <div>
+                    {lastDataName[1]}：{lastData[1]}
+                  </div>
+                </div>
+              </div>
+              <div
+                className={
+                  currentType === 'beforeLastWeek' || currentType === 'beforeLastMonth'
+                    ? styles.countButtonCurrent
+                    : styles.countButton
+                }
+                onClick={() => this.changeCountButtonCurrent('beforeLast')}
+              >
+                {searchType === 'week' ? (
+                  <DataViewDateShow dataTypeStr="前二周" />
+                ) : (
+                  <DataViewDateShow dataTypeStr="前二月" />
+                )}
+                <div className={styles.countButtonNumber}>
+                  <div>
+                    {beforeLastDataName[0]}：{beforeLastData[0]}
+                  </div>
+                  <div>
+                    {beforeLastDataName[1]}：{beforeLastData[1]}
+                  </div>
                 </div>
               </div>
             </div>
-            <div
-              className={
-                currentType === 'lastWeek' || currentType === 'lastMonth'
-                  ? styles.countButtonCurrent
-                  : styles.countButton
-              }
-              onClick={() => this.changeCountButtonCurrent('last')}
-            >
-              {searchType === 'week' ? (
-                <DataViewDateShow dataTypeStr="前一周" />
-              ) : (
-                <DataViewDateShow dataTypeStr="前一月" />
-              )}
-              <div className={styles.countButtonNumber}>
-                <div>
-                  {lastDataName[0]}：{lastData[0]}
+          ) : (
+            <div className={styles.viewCount}>
+              <div className={styles.countButtonCurrent}>
+                <div className={styles.countButtonTitle}>
+                  <div>{selectedDateVal[0]}</div>
+                  <div style={{ lineHeight: '6px' }}>~</div>
+                  <div>{selectedDateVal[1]}</div>
                 </div>
-                <div>
-                  {lastDataName[1]}：{lastData[1]}
+                <div className={styles.countButtonNumber}>
+                  <div>{selectedDateData[0]}</div>
+                  <div>{selectedDateData[1]}</div>
                 </div>
               </div>
             </div>
-            <div
-              className={
-                currentType === 'beforeLastWeek' || currentType === 'beforeLastMonth'
-                  ? styles.countButtonCurrent
-                  : styles.countButton
-              }
-              onClick={() => this.changeCountButtonCurrent('beforeLast')}
-            >
-              {searchType === 'week' ? (
-                <DataViewDateShow dataTypeStr="前二周" />
-              ) : (
-                <DataViewDateShow dataTypeStr="前二月" />
-              )}
-              <div className={styles.countButtonNumber}>
-                <div>
-                  {beforeLastDataName[0]}：{beforeLastData[0]}
-                </div>
-                <div>
-                  {beforeLastDataName[1]}：{beforeLastData[1]}
-                </div>
-              </div>
-            </div>
+          )}
+          <div style={{ backgroundColor: '#252c3c', padding: '0 16px' }}>
+            <Row gutter={rowLayout} className={styles.listPageRow}>
+              <Col {...colLayout}>
+                <div className={styles.cardBoxTitle}>| 案件办理进度</div>
+                <div id="ajbljd" className={styles.cardBox}></div>
+              </Col>
+              <Col {...colLayout}>
+                <div className={styles.cardBoxTitle}>| 人员强制措施情况</div>
+                <div id="ryqzcsqk" className={styles.cardBox}></div>
+              </Col>
+            </Row>
+            <Row gutter={rowLayout} className={styles.listPageRow}>
+              <Col span={24} style={{ marginBottom: 32 }}>
+                <div className={styles.cardBoxTitle}>| 案件类型统计</div>
+                <div id="ajlxtj" className={styles.cardBox}></div>
+              </Col>
+            </Row>
           </div>
-        ) : (
-          <div className={styles.viewCount}>
-            <div className={styles.countButtonCurrent}>
-              <div className={styles.countButtonTitle}>
-                <div>{selectedDateVal[0]}</div>
-                <div style={{ lineHeight: '6px' }}>~</div>
-                <div>{selectedDateVal[1]}</div>
-              </div>
-              <div className={styles.countButtonNumber}>
-                <div>{selectedDateData[0]}</div>
-                <div>{selectedDateData[1]}</div>
-              </div>
-            </div>
-          </div>
-        )}
-
-        <Row gutter={rowLayout} className={styles.listPageRow}>
-          <Col {...colLayout}>
-            <div id="ajbljd" className={styles.cardBox}></div>
-          </Col>
-          <Col {...colLayout}>
-            <div id="ryqzcsqk" className={styles.cardBox}></div>
-          </Col>
-        </Row>
-        <Row gutter={rowLayout} className={styles.listPageRow}>
-          <Col span={24}>
-            <div id="ajlxtj" className={styles.cardBox}></div>
-          </Col>
-        </Row>
-      </div>
+        </div>
+      </Card>
     );
   }
 }

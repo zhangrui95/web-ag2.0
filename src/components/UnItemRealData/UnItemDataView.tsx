@@ -1,10 +1,10 @@
 /*
-* UnPoliceDataView.js 问题警情数据展示
+* UnItemDataView.js 问题涉案物品案件数据展示
 * author：lyp
-* 20181115
+* 20181117
 * */
 import React, { PureComponent } from 'react';
-import { Row, Col, Card } from 'antd';
+import { Row, Col } from 'antd';
 import moment from 'moment/moment';
 import echarts from 'echarts/lib/echarts';
 import bar from 'echarts/lib/chart/bar';
@@ -13,15 +13,15 @@ import line from 'echarts/lib/chart/line';
 import title from 'echarts/lib/component/title';
 import legend from 'echarts/lib/component/legend';
 import tooltip from 'echarts/lib/component/tooltip';
-import styles from '../../pages/common/dataView.less';
+import styles from '../Styles/dataView.less';
 import { getTimeDistance } from '../../utils/utils';
 import warningCountButtonNumberPink from '../../assets/viewData/warningCountButtonNumberPink.png';
 import warningCountButtonNumberBlue from '../../assets/viewData/warningCountButtonNumberBlue.png';
 
-let unPoliceEchartBar;
-let unPoliceEchartRingPie;
+let unItemEchartBar;
+let unItemEchartRingPie;
 
-export default class UnPoliceDataView extends PureComponent {
+export default class UnItemDataView extends PureComponent {
     state = {
         currentType: 'today',
         nowData: 0,
@@ -49,11 +49,11 @@ export default class UnPoliceDataView extends PureComponent {
         this.getNewAddWarnings(dayTypeTime[0], dayTypeTime[1], 'today');
         this.getAllTypeWarningCount(dayTypeTime[0], dayTypeTime[1], 'today');
 
-        this.showUnPoliceEchartBar();
-        this.showUnPoliceEchartRingPie();
+        this.showUnItemEchartBar();
+        this.showUnItemEchartRingPie();
         //
-        window.addEventListener('resize', unPoliceEchartBar.resize);
-        window.addEventListener('resize', unPoliceEchartRingPie.resize);
+        window.addEventListener('resize', unItemEchartBar.resize);
+        window.addEventListener('resize', unItemEchartRingPie.resize);
     }
 
     componentWillReceiveProps(nextProps) {
@@ -120,7 +120,7 @@ export default class UnPoliceDataView extends PureComponent {
     // 新增告警
     getNewAddWarnings = (startTime, endTime, currentType, orgcode = this.props.orgcode) => {
         this.props.dispatch({
-            type: 'UnPoliceData/getNewAddWarnings',
+            type: 'UnItemData/getUnItemAllTypeWarnings',
             payload: {
                 kssj: startTime,
                 jssj: endTime,
@@ -151,10 +151,10 @@ export default class UnPoliceDataView extends PureComponent {
                             code: barData[i].code,
                         });
                     }
-                    unPoliceEchartBar.setOption({
-                        // title: {
-                        //     text: currentType === 'today' ? '今日新增告警' : (currentType === 'selectedDate' ? '告警' : '昨日告警'),
-                        // },
+                    unItemEchartBar.setOption({
+                        title: {
+                            text: currentType === 'today' ? '今日新增告警' : (currentType === 'selectedDate' ? '告警' : '昨日告警'),
+                        },
                         xAxis: {
                             data: xData,
                         },
@@ -171,31 +171,25 @@ export default class UnPoliceDataView extends PureComponent {
         });
     };
     // 新增告警柱状图
-    showUnPoliceEchartBar = () => {
+    showUnItemEchartBar = () => {
         const that = this;
-        unPoliceEchartBar = echarts.init(document.getElementById('unPoliceXzgj'));
+        unItemEchartBar = echarts.init(document.getElementById('unItemXzgj'));
         const option = {
             color: ['#3398DB'],
-            // title: {
-            //     text: '新增告警',
-            //     textStyle: {
-            //         fontSize: 16,
-            //         fontWeight: 'normal',
-            //     },
-            //     padding: 8,
-            // },
+            title: {
+                text: '新增告警',
+                textStyle: {
+                    fontSize: 16,
+                    fontWeight: 'normal',
+                },
+                padding: 8,
+            },
             xAxis: {
                 type: 'category',
                 axisLine: { show: false },
                 data: [],
                 axisTick: {
                     alignWithLabel: true,
-                },
-                axisLabel: {
-                    interval: 0,
-                    textStyle: {
-                      color: '#fff'
-                    },
                 },
             },
             yAxis: {
@@ -210,7 +204,7 @@ export default class UnPoliceDataView extends PureComponent {
                 },
                 axisLabel: {
                     textStyle: {
-                        color: '#fff',
+                        color: '#999',
                     },
                 },
             },
@@ -237,15 +231,15 @@ export default class UnPoliceDataView extends PureComponent {
                             formatter: '{c}',
                             textStyle: {
                                 fontSize: 16,
-                                color: '#fff',
+                                color: '#000',
                             },
                         },
                     },
                 },
             ],
         };
-        unPoliceEchartBar.setOption(option);
-        unPoliceEchartBar.on('click', function(params) {
+        unItemEchartBar.setOption(option);
+        unItemEchartBar.on('click', function(params) {
             const { currentType } = that.state;
             const dataTime = currentType === 'selectedDate' ? that.props.selectedDateVal : that.getTime(currentType);
             that.props.changeToListPage({ 'wtlx': params.data.code, dbzt: { dbzt: '', zgzt: '' } }, dataTime);
@@ -258,7 +252,7 @@ export default class UnPoliceDataView extends PureComponent {
             payload: {
                 time_ks: startTime,
                 time_js: endTime,
-                wtfl_id: '203201',
+                wtfl_id: '203204',
                 orgcode,
             },
             callback: (data) => {
@@ -301,10 +295,10 @@ export default class UnPoliceDataView extends PureComponent {
                             });
                         }
                     } else {
-                        unPoliceEchartRingPie.setOption({
-                            // title: {
-                            //     text: currentType === 'today' ? '今日告警情况' : (currentType === 'selectedDate' ? '告警情况' : '昨日告警情况'),
-                            // },
+                        unItemEchartRingPie.setOption({
+                            title: {
+                                text: currentType === 'today' ? '今日告警情况' : (currentType === 'selectedDate' ? '告警情况' : '昨日告警情况'),
+                            },
                             legend: {
                                 data: legendData,
                                 formatter: function(name) {
@@ -336,18 +330,18 @@ export default class UnPoliceDataView extends PureComponent {
         });
     };
     // 告警情况环形饼状图
-    showUnPoliceEchartRingPie = () => {
+    showUnItemEchartRingPie = () => {
         const that = this;
-        unPoliceEchartRingPie = echarts.init(document.getElementById('unPoliceGjqk'));
+        unItemEchartRingPie = echarts.init(document.getElementById('unItemGjqk'));
         const option = {
-            // title: {
-            //     text: '告警情况',
-            //     textStyle: {
-            //         fontSize: 16,
-            //         fontWeight: 'normal',
-            //     },
-            //     padding: 8,
-            // },
+            title: {
+                text: '告警情况',
+                textStyle: {
+                    fontSize: 16,
+                    fontWeight: 'normal',
+                },
+                padding: 8,
+            },
             tooltip: {
                 trigger: 'item',
                 formatter: '{b}: {c} ({d}%)',
@@ -362,7 +356,7 @@ export default class UnPoliceDataView extends PureComponent {
                 itemGap: 25,
                 selectedMode: true, // 点击
                 textStyle: {
-                    color: '#fff',
+                    color: '#000',
                     fontSize: 16,
                     lineHeight: 24,
                 },
@@ -382,7 +376,7 @@ export default class UnPoliceDataView extends PureComponent {
                             position: 'center',
                             textStyle: {
                                 fontSize: '22',
-                                color: '#fff',
+                                color: '#66ccff',
                             },
                         },
                         emphasis: {
@@ -398,11 +392,8 @@ export default class UnPoliceDataView extends PureComponent {
                 },
             ],
         };
-        unPoliceEchartRingPie.setOption(option, true);
-        unPoliceEchartRingPie.on('click', function(params) {
-            if (params.event.target.hoverStyle && params.event.target.hoverStyle.text) {
-                return false;
-            }
+        unItemEchartRingPie.setOption(option, true);
+        unItemEchartRingPie.on('click', function(params) {
             const { currentType } = that.state;
             const dataTime = currentType === 'selectedDate' ? that.props.selectedDateVal : that.getTime(currentType);
             that.props.changeToListPage({ dbzt: { 'dbzt': params.data.code, zgzt: '' } }, dataTime);
@@ -415,7 +406,6 @@ export default class UnPoliceDataView extends PureComponent {
         const { searchType, selectedDateVal, showDataView } = this.props;
         const { lastData, nowData, selectedDateData, currentType } = this.state;
         return (
-          <Card style={{ position: 'relative'}} className={styles.policeDataCard}>
             <div className={styles.policeDataView} style={showDataView ? {} : { position: 'absolute', zIndex: -1 }}>
                 {
                     currentType !== 'selectedDate' ? (
@@ -454,20 +444,15 @@ export default class UnPoliceDataView extends PureComponent {
                         </div>
                     )
                 }
-              <div style={{backgroundColor:'#252c3c',padding:'0 16px'}}>
                 <Row gutter={rowLayout} className={styles.listPageRow}>
-                    <Col {...colLayout} style={{marginBottom:32}}>
-                        <div className={styles.cardBoxTitle}>| {currentType === 'today' ? '今日新增告警' : (currentType === 'selectedDate' ? '告警' : '昨日告警')}</div>
-                        <div id="unPoliceXzgj" className={styles.cardBox}></div>
+                    <Col {...colLayout}>
+                        <div id="unItemXzgj" className={styles.cardBox}></div>
                     </Col>
-                    <Col {...colLayout} style={{marginBottom:32}}>
-                        <div className={styles.cardBoxTitle}>| {currentType === 'today' ? '今日告警情况' : (currentType === 'selectedDate' ? '告警情况' : '昨日告警情况')}</div>
-                        <div id="unPoliceGjqk" className={styles.cardBox}></div>
+                    <Col {...colLayout}>
+                        <div id="unItemGjqk" className={styles.cardBox}></div>
                     </Col>
                 </Row>
-              </div>
             </div>
-          </Card>
         );
     }
 }

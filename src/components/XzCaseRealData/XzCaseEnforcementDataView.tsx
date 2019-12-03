@@ -4,16 +4,16 @@
 * 20190326
 * */
 import React, { PureComponent } from 'react';
-import { Row, Col } from 'antd';
+import { Row, Col, Card } from 'antd';
 import moment from 'moment/moment';
 import echarts from 'echarts/lib/echarts';
-import bar from 'echarts/lib/chart/bar';
-import pie from 'echarts/lib/chart/pie';
-import line from 'echarts/lib/chart/line';
-import title from 'echarts/lib/component/title';
-import legend from 'echarts/lib/component/legend';
-import tooltip from 'echarts/lib/component/tooltip';
-import styles from '../Styles/dataView.less';
+import 'echarts/lib/chart/bar';
+import 'echarts/lib/chart/pie';
+import 'echarts/lib/chart/line';
+import 'echarts/lib/component/title';
+import 'echarts/lib/component/legend';
+import 'echarts/lib/component/tooltip';
+import styles from '../../pages/common/dataView.less';
 import { getDefaultDaysForMonth, getTimeDistance } from '../../utils/utils';
 import DataViewDateShow from '../Common/DataViewDateShow';
 import nonDivImg from '../../assets/viewData/nonData.png';
@@ -423,14 +423,14 @@ export default class XzCaseEnforcementDataView extends PureComponent {
     showXzCaseEchartBar = () => {
         xzCaseEchartBar = echarts.init(document.getElementById('ryxzcfqk'));
         const option = {
-            color: ['#3398DB'],
+            // color: ['#3398DB'],
             title: {
-                text: '人员行政处罚情况',
-                textStyle: {
-                    fontSize: 16,
-                    fontWeight: 'normal',
-                },
-                padding: 8,
+                // text: '人员行政处罚情况',
+                // textStyle: {
+                //     fontSize: 16,
+                //     fontWeight: 'normal',
+                // },
+                // padding: 8,
             },
             xAxis: {
                 type: 'category',
@@ -439,6 +439,11 @@ export default class XzCaseEnforcementDataView extends PureComponent {
                 axisTick: {
                     alignWithLabel: true,
                 },
+                axisLabel:{
+                  textStyle:{
+                    color:'#fff',
+                  }
+                }
             },
             yAxis: {
                 taxisLine: {
@@ -452,7 +457,7 @@ export default class XzCaseEnforcementDataView extends PureComponent {
                 },
                 axisLabel: {
                     textStyle: {
-                        color: '#999',
+                        color: '#fff',
                     },
                 },
             },
@@ -468,7 +473,7 @@ export default class XzCaseEnforcementDataView extends PureComponent {
                             formatter: '{c}',
                             textStyle: {
                                 fontSize: 16,
-                                color: '#000',
+                                color: '#fff',
                             },
                         },
                     },
@@ -485,12 +490,12 @@ export default class XzCaseEnforcementDataView extends PureComponent {
         xzCaseEchartRingPie = echarts.init(document.getElementById('ajqkzs'));
         const option = {
             title: {
-                text: '案件情况展示',
-                textStyle: {
-                    fontSize: 16,
-                    fontWeight: 'normal',
-                },
-                padding: 8,
+                // text: '案件情况展示',
+                // textStyle: {
+                //     fontSize: 16,
+                //     fontWeight: 'normal',
+                // },
+                // padding: 8,
             },
             tooltip: {
                 trigger: 'item',
@@ -499,6 +504,9 @@ export default class XzCaseEnforcementDataView extends PureComponent {
             legend: {
                 data: [],
                 bottom: 0,
+                textStyle:{
+                  color:'#fff',
+                }
             },
             series: [
                 {
@@ -515,7 +523,7 @@ export default class XzCaseEnforcementDataView extends PureComponent {
                             textStyle: {
                                 fontSize: '22',
                                 // fontWeight: 'bold',
-                                color: '#66ccff',
+                                color: '#fff',
                             },
                         },
                         emphasis: {
@@ -543,12 +551,12 @@ export default class XzCaseEnforcementDataView extends PureComponent {
         xzCaseEchartLine = echarts.init(document.getElementById('sjqkzs'));
         const option = {
             title: {
-                text: '受结情况展示',
-                textStyle: {
-                    fontSize: 16,
-                    fontWeight: 'normal',
-                },
-                padding: 8,
+                // text: '受结情况展示',
+                // textStyle: {
+                //     fontSize: 16,
+                //     fontWeight: 'normal',
+                // },
+                // padding: 8,
             },
             tooltip: {
                 trigger: 'axis',
@@ -557,6 +565,9 @@ export default class XzCaseEnforcementDataView extends PureComponent {
                 data: ['受理', '结案'],
                 top: '5%',
                 right: '15%',
+                textStyle:{
+                  color:'#fff',
+                }
             },
             grid: {
                 left: '3%',
@@ -573,9 +584,19 @@ export default class XzCaseEnforcementDataView extends PureComponent {
                 type: 'category',
                 boundaryGap: false,
                 data: [],
+                axisLabel:{
+                  textStyle:{
+                    color:'#fff',
+                  }
+                }
             },
             yAxis: {
                 type: 'value',
+                axisLabel:{
+                  textStyle:{
+                    color:'#fff',
+                  }
+                }
             },
             series: [
                 {
@@ -611,7 +632,7 @@ export default class XzCaseEnforcementDataView extends PureComponent {
         const that = this;
         caseTypeStatisticsBar = echarts.init(document.getElementById('ajlxtj'));
         const option = {
-            color: ['#3398DB'],
+            // color: ['#3398DB'],
             tooltip: {
                 trigger: 'axis',
                 axisPointer: {            // 坐标轴指示器，坐标轴触发有效
@@ -619,12 +640,12 @@ export default class XzCaseEnforcementDataView extends PureComponent {
                 },
             },
             title: {
-                text: '案件类型统计',
-                textStyle: {
-                    fontSize: 16,
-                    fontWeight: 'normal',
-                },
-                padding: 8,
+                // text: '案件类型统计',
+                // textStyle: {
+                //     fontSize: 16,
+                //     fontWeight: 'normal',
+                // },
+                // padding: 8,
             },
             xAxis: {
                 type: 'category',
@@ -636,6 +657,9 @@ export default class XzCaseEnforcementDataView extends PureComponent {
                 axisLabel: {
                     interval: 0,
                     formatter: (value) => this.insertFlg(value, '\n', 10),
+                    textStyle:{
+                      color:'#fff',
+                    }
                 },
             },
             yAxis: {
@@ -650,7 +674,7 @@ export default class XzCaseEnforcementDataView extends PureComponent {
                 },
                 axisLabel: {
                     textStyle: {
-                        color: '#999',
+                        color: '#fff',
                     },
                 },
             },
@@ -666,7 +690,7 @@ export default class XzCaseEnforcementDataView extends PureComponent {
                             formatter: '{c}',
                             textStyle: {
                                 fontSize: 16,
-                                color: '#000',
+                                color: '#fff',
                             },
                         },
                     },
@@ -697,6 +721,7 @@ export default class XzCaseEnforcementDataView extends PureComponent {
         const { searchType, selectedDateVal, showDataView } = this.props;
         const { currentType, beforeLastData, lastData, nowData, nowDataName, lastDataName, beforeLastDataName, sjqkzsNoData, selectedDateData } = this.state;
         return (
+          <Card style={{ position: 'relative' }} className={styles.policeDataCard}>
             <div className={styles.xzCaseDataView} style={showDataView ? {} : { position: 'absolute', zIndex: -1 }}>
                 {
                     currentType !== 'selectedDate' ? (
@@ -758,12 +783,14 @@ export default class XzCaseEnforcementDataView extends PureComponent {
                         </div>
                     )
                 }
-
+              <div style={{ backgroundColor: '#252c3c', padding: '0 16px' }}>
                 <Row gutter={rowLayout} className={styles.listPageRow}>
                     <Col sm={24} lg={12} xl={6}>
+                        <div className={styles.cardBoxTitle}>| 案件情况展示</div>
                         <div id="ajqkzs" className={styles.cardBox}></div>
                     </Col>
                     <Col sm={24} lg={12} xl={18}>
+                        <div className={styles.cardBoxTitle}>| 受结情况展示</div>
                         <div id="sjqkzs" className={styles.cardBox}></div>
                         {
                             sjqkzsNoData ? (
@@ -793,15 +820,19 @@ export default class XzCaseEnforcementDataView extends PureComponent {
                 </Row>
                 <Row gutter={rowLayout} className={styles.listPageRow}>
                     <Col span={24}>
+                        <div className={styles.cardBoxTitle}>| 人员行政处罚情况</div>
                         <div id="ryxzcfqk" className={styles.cardBox}></div>
                     </Col>
                 </Row>
                 <Row gutter={rowLayout} className={styles.listPageRow}>
-                    <Col span={24}>
+                    <Col span={24} style={{ marginBottom: 32 }}>
+                        <div className={styles.cardBoxTitle}>| 案件类型统计</div>
                         <div id="ajlxtj" className={styles.cardBox}></div>
                     </Col>
                 </Row>
+              </div>
             </div>
+          </Card>
         );
     }
 }

@@ -93,7 +93,10 @@ export default class caseDetail extends PureComponent {
     };
 
     componentDidMount() {
-        this.caseDetailDatas(this.props.id, this.props.systemId);
+      console.log('this.props',this.props);
+      if (this.props.location && this.props.location.query.record && this.props.location.query.record.id && this.props.location.query.record.system_id) {
+        this.caseDetailDatas(this.props.location.query.record.id, this.props.location.query.record.system_id);
+      }
     }
 
     //修改改变模态框状态 通过id 获取数据
@@ -408,8 +411,7 @@ export default class caseDetail extends PureComponent {
                 pagination={sawpList.length > 0 ? {
                     size: 'small',
                     pageSize: 8,
-                    showTotal: (total, range) => <div style={{ position: 'absolute', left: '12px' }}>共 {total} 条记录
-                        第 {this.state.current} / {(Math.ceil(total / 8))} 页</div>,
+                    showTotal: (total, range) => <div style={{ color:'#fff' }}>共 {(Math.ceil(total / 8))} 页， {total} 条记录 </div>,
                     onChange: (page) => {
                         this.setState({ current: page });
                     },
@@ -618,13 +620,12 @@ export default class caseDetail extends PureComponent {
                 <div className={styles.title}>| 警情信息</div>
                 <div className={styles.tablemessage}>
                     <Table
-                        size={'middle'}
+                        // size={'middle'}
                         style={{ backgroundColor: '#252c3c',borderRadius:0,padding:24 }}
                         pagination={{
                             pageSize: 3,
                             showTotal: (total, range) => <div
-                                style={{ position: 'absolute', left: '12px' }}>共 {total} 条记录
-                                第 {this.state.jqcurrent} / {(Math.ceil(total / 3))} 页</div>,
+                                style={{ color:'#fff' }}>共 {(Math.ceil(total / 3))} 页， {total} 条记录</div>,
                             onChange: (page) => {
                                 this.setState({ jqcurrent: page });
                             },
@@ -635,61 +636,52 @@ export default class caseDetail extends PureComponent {
                     />
                 </div>
                 <div className={styles.title}>| 案件信息</div>
-                <div className={styles.message} style={{ padding: '12px 64px' }}>
-                    <Row gutter={rowLayout} style={{ marginRight: 0 }} className={styles.xqrow}>
+                <div className={styles.message} style={{ padding: '24px 70px' }}>
+                    <Row style={{ marginRight: 0 }} className={styles.xqrow}>
                         <Col md={6} sm={24} className={styles.xqcol}>
                             <div className={liststyles.Indexfrom}>案件编号：</div>
-                            <div
-                                className={liststyles.Indextail}>{caseDetails && caseDetails.ajbh ? caseDetails.ajbh : ''}</div>
+                            <div className={liststyles.Indextail}>{caseDetails && caseDetails.ajbh ? caseDetails.ajbh : ''}</div>
                         </Col>
                         <Col md={6} sm={24} className={styles.xqcol}>
                             <div className={liststyles.Indexfrom}>案件名称：</div>
-                            <div
-                                className={liststyles.Indextail}>{caseDetails && caseDetails.ajmc ? caseDetails.ajmc : ''}</div>
+                            <div className={liststyles.Indextail}>{caseDetails && caseDetails.ajmc ? caseDetails.ajmc : ''}</div>
                         </Col>
                         <Col md={6} sm={24} className={styles.xqcol}>
                             <div className={liststyles.Indexfrom}>案件状态：</div>
-                            <div
-                                className={liststyles.Indextail}>{caseDetails && caseDetails.ajzt ? caseDetails.ajzt : ''}</div>
+                            <div className={liststyles.Indextail}>{caseDetails && caseDetails.ajzt ? caseDetails.ajzt : ''}</div>
                         </Col>
                         <Col md={6} sm={24} className={styles.xqcol}>
                             <div className={liststyles.Indexfrom}>发案日期：</div>
-                            <div
-                                className={liststyles.Indextail}>{caseDetails && caseDetails.fasj_sx && caseDetails.fasj_xx ? caseDetails.fasj_sx + '~' + caseDetails.fasj_xx : ''}</div>
+                            <div className={liststyles.Indextail}>{caseDetails && caseDetails.fasj_sx && caseDetails.fasj_xx ? caseDetails.fasj_sx + '~' + caseDetails.fasj_xx : ''}</div>
                         </Col>
                     </Row>
-                    <Row gutter={rowLayout} style={{ marginRight: 0 }} className={styles.xqrow}>
+                    <Row style={{ marginRight: 0 }} className={styles.xqrow}>
                         <Col md={6} sm={24} className={styles.xqcol}>
                             <div className={liststyles.Indexfrom}>受理单位：</div>
-                            <div
-                                className={liststyles.Indextail}>{caseDetails && caseDetails.sldw_name ? caseDetails.sldw_name : ''}</div>
+                            <div className={liststyles.Indextail}>{caseDetails && caseDetails.sldw_name ? caseDetails.sldw_name : ''}</div>
                         </Col>
                         <Col md={6} sm={24} className={styles.xqcol}>
                             <div className={liststyles.Indexfrom}>受理日期：</div>
-                            <div
-                                className={liststyles.Indextail}>{caseDetails && caseDetails.slrq ? caseDetails.slrq : ''}</div>
+                            <div className={liststyles.Indextail}>{caseDetails && caseDetails.slrq ? caseDetails.slrq : ''}</div>
                         </Col>
                         <Col md={6} sm={24} className={styles.xqcol}>
                             <div className={liststyles.Indexfrom}>办案单位：</div>
-                            <div
-                                className={liststyles.Indextail}>{caseDetails && caseDetails.sldw_name ? caseDetails.sldw_name : ''}</div>
+                            <div className={liststyles.Indextail}>{caseDetails && caseDetails.sldw_name ? caseDetails.sldw_name : ''}</div>
                         </Col>
                         <Col md={6} sm={24} className={styles.xqcol}>
                             <div className={liststyles.Indexfrom}>办案人：</div>
-                            <div className={liststyles.Indextail}
-                                 style={{ paddingLeft: '70px' }}>{caseDetails && caseDetails.bar_name ? caseDetails.bar_name : ''}</div>
+                            <div className={liststyles.Indextail} style={{ paddingLeft: '46px' }}>{caseDetails && caseDetails.bar_name ? caseDetails.bar_name : ''}</div>
                         </Col>
                     </Row>
-                    <Row gutter={rowLayout} style={{ marginRight: 0 }} className={styles.xqrow}>
+                    <Row style={{ marginRight: 0 }} className={styles.xqrow}>
                         <Col md={24} sm={24} className={styles.xqcol}>
                             <div className={liststyles.Indexfrom}>简要案情：</div>
-                            <div
-                                className={liststyles.Indextail}>{caseDetails && caseDetails.ajjj ? caseDetails.ajjj : ''}</div>
+                            <div className={liststyles.Indextail}>{caseDetails && caseDetails.ajjj ? caseDetails.ajjj : ''}</div>
                         </Col>
                     </Row>
 
                     {caseDetails && caseDetails.ajzt ?
-                        <Card title={'案件流程'} style={{ margin: '0 12px' }}>
+                        <Card title={'案件流程'} style={{ backgroundColor: '#171A26', marginTop: 12, borderRadius: 0 }} className={styles.ajlcCard}>
                             <CaseModalStep
                                 caseDetails={caseDetails}
                             />
@@ -701,7 +693,7 @@ export default class caseDetail extends PureComponent {
                 </div>
 
                 {caseDetails && caseDetails.ajzt ?
-                    <div>
+                    <div style={{ borderBottom: '3px solid #171925' }}>
                         <div className={styles.title}>案件轨迹</div>
                         <CaseModalTrail
                             {...this.props}

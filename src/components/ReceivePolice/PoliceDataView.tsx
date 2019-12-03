@@ -665,7 +665,7 @@ export default class PoliceDataView extends PureComponent {
         },
         axisLabel: {
           textStyle: {
-            color: '#999',
+            color: '#FFF',
           },
         },
       },
@@ -1213,7 +1213,7 @@ export default class PoliceDataView extends PureComponent {
               </div>
             )
           }
-          <div style={{backgroundColor:'#202839',padding:'0 16px'}}>
+          <div style={{backgroundColor:'#252c3c',padding:'0 16px'}}>
             <Row gutter={rowLayout} className={styles.listPageRow}>
               <Col {...colLayout}>
                 <div className={styles.cardBoxTitle}>| 警情数量</div>

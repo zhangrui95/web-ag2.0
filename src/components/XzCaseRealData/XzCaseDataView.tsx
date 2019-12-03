@@ -717,7 +717,7 @@ export default class XzCaseDataView extends PureComponent {
               </div>
             </div>
           )}
-          <div style={{ backgroundColor: '#202839', padding: '0 16px' }}>
+          <div style={{ backgroundColor: '#252c3c', padding: '0 16px' }}>
             <Row gutter={rowLayout} className={styles.listPageRow}>
               <Col sm={24} lg={12} xl={6}>
                 <div className={styles.cardBoxTitle}>| 案件情况展示</div>

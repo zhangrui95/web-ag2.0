@@ -452,7 +452,7 @@ export default class UnCaseDataView extends PureComponent {
                         </div>
                     )
                 }
-              <div style={{backgroundColor:'#202839',padding:'0 16px'}}>
+              <div style={{backgroundColor:'#252c3c',padding:'0 16px'}}>
                 <Row gutter={rowLayout} className={styles.listPageRow}>
                     <Col {...colLayout} style={{marginBottom:32}}>
                         <div className={styles.cardBoxTitle}>| {currentType === 'today' ? '今日新增告警' : (currentType === 'selectedDate' ? '告警' : '昨日告警')}</div>

@@ -207,7 +207,7 @@ export default class UnCaseEnforcementDataView extends PureComponent {
                 },
                 axisLabel: {
                     textStyle: {
-                        color: '#999',
+                        color: '#fff',
                     },
                 },
             },

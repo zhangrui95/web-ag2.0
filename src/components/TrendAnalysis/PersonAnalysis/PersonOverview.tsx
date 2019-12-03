@@ -356,7 +356,7 @@ export default class PersonOverview extends PureComponent {
                 },
                 axisLabel: {
                     textStyle: {
-                        color: '#999',
+                        color: '#fff',
                     },
                 },
             },
