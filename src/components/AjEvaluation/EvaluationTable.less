@@ -22,6 +22,7 @@
 .box{
   overflow: hidden;
   padding: 24px;
+  margin-bottom:12px;
   :global{
     .ant-divider-horizontal.ant-divider-with-text-left{
       color: #fff;
@@ -60,6 +61,22 @@
   height: 600px;
   position: relative;
   padding: 0 20px;
+}
+@media (max-width: 1900px) {
+  .leftBox{
+    width: 70%;
+  }
+  .rightBox{
+    width: 30%;
+  }
+}
+@media (max-width: 1440px) {
+  .leftBox{
+    width: 65%;
+  }
+  .rightBox{
+    width: 35%;
+  }
 }
 .topDetail{
   margin-top: 16px;
@@ -177,6 +194,19 @@
   :global{
     .ant-timeline-item-head{
       background: #7dc6ff;
+    }
+  }
+}
+.btns{
+  padding: 12px 20px;
+  float: right;
+  :global{
+    .ant-btn{
+      width:100px;
+      height: 36px;
+      line-height: 36px;
+      font-size: 16px;
+      background-image: linear-gradient(#4662D5,#0083FA, #03A3FF);
     }
   }
 }

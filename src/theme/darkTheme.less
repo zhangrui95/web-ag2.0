@@ -165,7 +165,9 @@ body {
       background-color: @component-background;
       border-radius: @borderRadius;
     }
-
+    .ant-menu-inline .ant-menu-item{
+      margin-top: 0;
+    }
     .ant-menu {
       background: @component-background;
       color: @text-color;
@@ -342,12 +344,16 @@ body {
       border: @zero;
     }
     .ant-transfer {
-      color: @white;
-      padding: 24px 5%;
+      color: #fff;
+      padding: 24px 0;
+      width: 820px;
+      position: relative;
+      margin-left: 50%;
+      left: -410px;
       .ant-btn {
         background: @white;
         color: @body-background;
-        border-radius: 50%;
+        border-radius: 50px;
         &:first-child {
           margin-bottom: 16px;
         }
@@ -723,6 +729,9 @@ body {
     }
     .ant-steps-item-title,.ant-steps-item-description{
       color: @white!important;
+    }
+    .ant-empty-description{
+      color: #fff;
     }
   }
 }

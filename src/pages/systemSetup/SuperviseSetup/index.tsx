@@ -31,7 +31,7 @@ import {
 } from 'antd';
 import moment from 'moment';
 import { getUserInfos, userAuthorityCode } from '../../../utils/utils';
-import SuperviseCopy from '../../../components/Supervise/SuperviseCopy';
+// import SuperviseCopy from '../../../components/Supervise/SuperviseCopy';
 import { routerRedux } from 'dva/router';
 import { authorityIsTrue } from '../../../utils/authority';
 import noList from '@/assets/viewData/noList.png';
@@ -1016,13 +1016,13 @@ class SuperviseSetup extends Component {
     return (
       <div className={stylescommon.statistics} id={'messageBox'}>
         <Card className={stylescommon.titleArea}>
-          {isTJJGD ? (
+          {/*{isTJJGD ? (*/}
             <Button type="primary" onClick={() => this.addList(0)}>
               添加监管点
             </Button>
-          ) : (
-            ''
-          )}
+          {/*) : (*/}
+          {/*  ''*/}
+          {/*)}*/}
           <div className={styles.btnAdd}>
             <Button onClick={this.exportData} icon="download">
               导出表格
@@ -1180,14 +1180,14 @@ class SuperviseSetup extends Component {
             locale={{ emptyText: <Empty image={noList} description={'暂无记录'} /> }}
           />
         </Card>
-        <SuperviseCopy
-          qjjg={this.state.qjjg}
-          Fyvisible={this.state.Fyvisible}
-          fyxzjg={this.state.fyxzjg}
-          yyjgdList={this.state.yyjgdList}
-          handleCancels={this.handleCancels}
-          handleSuccess={this.handleSuccess}
-        />
+        {/*<SuperviseCopy*/}
+        {/*  qjjg={this.state.qjjg}*/}
+        {/*  Fyvisible={this.state.Fyvisible}*/}
+        {/*  fyxzjg={this.state.fyxzjg}*/}
+        {/*  yyjgdList={this.state.yyjgdList}*/}
+        {/*  handleCancels={this.handleCancels}*/}
+        {/*  handleSuccess={this.handleSuccess}*/}
+        {/*/>*/}
       </div>
     );
   }

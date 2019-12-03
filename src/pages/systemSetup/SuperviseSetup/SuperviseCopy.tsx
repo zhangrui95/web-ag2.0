@@ -5,22 +5,23 @@
  * */
 import React, { PureComponent } from 'react';
 import {
-  Card,
-  Col,
-  Table,
-  Radio,
-  Tooltip,
-  Icon,
-  message,
-  Modal,
-  Form,
-  Row,
-  Select,
-  Transfer,
+    Card,
+    Col,
+    Table,
+    Radio,
+    Tooltip,
+    Icon,
+    message,
+    Modal,
+    Form,
+    Row,
+    Select,
+    Transfer, Empty, Button,
 } from 'antd';
 import { connect } from 'dva';
-import styles from '../../pages/systemSetup/SuperviseSetup/index.less';
-import { getUserInfos } from '../../utils/utils';
+import styles from './index.less';
+import { getUserInfos } from '../../../utils/utils';
+import noList from "@/assets/viewData/noList.png";
 
 const FormItem = Form.Item;
 @Form.create()
@@ -46,7 +47,7 @@ export default class SuperviseCopy extends PureComponent {
   }
 
   componentWillReceiveProps(next) {
-    if (this.props.yyjgdList !== next.yyjgdList) {
+    if (this.props.location.query.yyjgdList !== next.yyjgdList) {
       this.setState({
         fyjgsxList: [],
         selectedKeys: [],
@@ -63,7 +64,7 @@ export default class SuperviseCopy extends PureComponent {
     this.props.dispatch({
       type: 'SuperviseSetup/getfyJg',
       payload: {
-        ssjg_dm: this.props.fyxzjg.id,
+        ssjg_dm: this.props.location.query.fyxzjg.id,
       },
       callback: res => {
         this.setState({
@@ -112,8 +113,8 @@ export default class SuperviseCopy extends PureComponent {
   choiceJgsx = e => {
     let yyjgd = [];
     let list1 = [];
-    this.props.yyjgdList &&
-      this.props.yyjgdList.map(event => {
+    this.props.location.query.yyjgdList &&
+      this.props.location.query.yyjgdList.map(event => {
         yyjgd.push({
           key: event.id,
           title: `${event.jgd_mc}(${
@@ -137,8 +138,8 @@ export default class SuperviseCopy extends PureComponent {
       callback: res => {
         let torf = true;
         res.data.map(event => {
-          if (this.props.yyjgdList.length > 0) {
-            this.props.yyjgdList.map(e => {
+          if (this.props.location.query.yyjgdList.length > 0) {
+            this.props.location.query.yyjgdList.map(e => {
               if (e.id === event.id || e.jgd_mc === event.jgd_mc) {
                 torf = false;
               }
@@ -202,8 +203,8 @@ export default class SuperviseCopy extends PureComponent {
         type: 'SuperviseSetup/getSaveFy',
         payload: {
           id: ids.toString(),
-          ssjg_dm: this.props.fyxzjg.id,
-          ssjg_mc: this.props.fyxzjg.label,
+          ssjg_dm: this.props.location.query.fyxzjg.id,
+          ssjg_mc: this.props.location.query.fyxzjg.label,
           sf_qjjg: this.props.qjjg ? '1' : '0',
         },
         callback: res => {
@@ -229,78 +230,78 @@ export default class SuperviseCopy extends PureComponent {
       form: { getFieldDecorator },
     } = this.props;
     const modleLayouts = {
-      labelCol: { span: 8 },
-      wrapperCol: { span: 14 },
+      labelCol: { span: 5 },
+      wrapperCol: { span: 19 },
     };
     return (
-      <Modal
-        title={'复用监管点添加'}
-        width={800}
-        visible={this.props.Fyvisible}
-        onOk={this.handleOks}
-        okText={'完成'}
-        onCancel={this.props.handleCancels}
-        className={styles.modalStyle}
-        maskClosable={false}
-        style={{ top: '150px' }}
-      >
-        <Form>
-          <Row gutter={rowLayout}>
-            <Col span={12}>
-              <div style={{ paddingLeft: '32px' }}>机构：{this.props.fyxzjg.label}</div>
-            </Col>
-            <Col span={12}>
-              <FormItem label="复用机构" {...modleLayouts}>
-                {getFieldDecorator('fyjg', {})(
-                  <Select
-                    labelInValue
-                    placeholder="请选择"
-                    style={{ width: '100%' }}
-                    onChange={e => this.choiceJg(e)}
-                  >
-                    {this.state.fyjgList &&
-                      this.state.fyjgList.map(event => {
-                        return <Option value={event.ssjg_dm}>{event.ssjg_mc}</Option>;
-                      })}
-                  </Select>,
-                )}
-              </FormItem>
-            </Col>
-            <Col span={12}></Col>
-            <Col span={12}>
-              <FormItem label="监管事项" {...modleLayouts}>
-                {getFieldDecorator('fyjgsx', {})(
-                  <Select
-                    placeholder="请选择"
-                    style={{ width: '100%' }}
-                    onChange={e => this.choiceJgsx(e)}
-                  >
-                    {this.state.fyjgsxList &&
-                      this.state.fyjgsxList.map(event => {
-                        return (
-                          <Option
-                            value={event.jgsx_dm}
-                          >{`${event.jgsx_mc}(${event.jglx_mc})`}</Option>
-                        );
-                      })}
-                  </Select>,
-                )}
-              </FormItem>
-            </Col>
-            <Col span={24} className={styles.transfer}>
-              <Transfer
-                titles={['已有监管点', '待选监管点']}
-                operations={['移除', '添加']}
-                dataSource={this.state.list}
-                targetKeys={this.state.listKey}
-                onChange={this.handleChange}
-                selectedKeys={this.state.selectedKeys}
-                onSelectChange={this.handleSelectChange}
-              />
-            </Col>
-          </Row>
-        </Form>
-      </Modal>
+        <div>
+             <Card style={{padding:24,marginBottom:'12px'}} id={'form'}>
+                <Form>
+                  <Row gutter={rowLayout}>
+                    <Col span={6}>
+                      <div style={{color:'#fff',margin:'16px'}}>机构：{this.props.location.query.fyxzjg.label}</div>
+                    </Col>
+                    <Col span={9}>
+                      <FormItem label="复用机构" {...modleLayouts}>
+                        {getFieldDecorator('fyjg', {})(
+                          <Select
+                            labelInValue
+                            placeholder="请选择"
+                            style={{ width: '100%' }}
+                            onChange={e => this.choiceJg(e)}
+                            getPopupContainer={()=>document.getElementById('form')}
+                          >
+                            {this.state.fyjgList &&
+                              this.state.fyjgList.map(event => {
+                                return <Option value={event.ssjg_dm}>{event.ssjg_mc}</Option>;
+                              })}
+                          </Select>,
+                        )}
+                      </FormItem>
+                    </Col>
+                    <Col span={9}>
+                      <FormItem label="监管事项" {...modleLayouts}>
+                        {getFieldDecorator('fyjgsx', {})(
+                          <Select
+                            placeholder="请选择"
+                            style={{ width: '100%' }}
+                            onChange={e => this.choiceJgsx(e)}
+                            getPopupContainer={()=>document.getElementById('form')}
+                          >
+                            {this.state.fyjgsxList &&
+                              this.state.fyjgsxList.map(event => {
+                                return (
+                                  <Option
+                                    value={event.jgsx_dm}
+                                  >{`${event.jgsx_mc}(${event.jglx_mc})`}</Option>
+                                );
+                              })}
+                          </Select>,
+                        )}
+                      </FormItem>
+                    </Col>
+                    <Col span={24} className={styles.transfer}>
+                      <Transfer
+                        titles={['已有监管点', '待选监管点']}
+                        operations={['移除', '添加']}
+                        dataSource={this.state.list}
+                        targetKeys={this.state.listKey}
+                        onChange={this.handleChange}
+                        selectedKeys={this.state.selectedKeys}
+                        onSelectChange={this.handleSelectChange}
+                      />
+                    </Col>
+                  </Row>
+                </Form>
+              </Card>
+            <Card>
+                <div className={styles.btns}>
+                    <Button type="primary" style={{ marginLeft: 8 }}>
+                        保存
+                    </Button>
+                </div>
+            </Card>
+        </div>
     );
   }
 }

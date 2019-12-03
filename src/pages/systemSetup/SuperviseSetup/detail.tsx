@@ -508,11 +508,6 @@ class Detail extends Component {
     getFyModel = () => {
         this.props.form.validateFields((err, values) => {
             if (values.addjgxz) {
-                this.setState({
-                    fyxzjg: JSON.parse(values.addjgxz),
-                    Fyvisible: true,
-                    visible: false,
-                });
                 this.props.dispatch({
                     type: 'SuperviseSetup/getfyJgd',
                     payload: {
@@ -522,6 +517,24 @@ class Detail extends Component {
                     callback: res => {
                         this.setState({
                             yyjgdList: res.data,
+                        });
+                        this.props.dispatch({
+                            type: 'global/changeNavigation',
+                            payload: {
+                                key: JSON.parse(values.addjgxz).id,
+                                name: '复用其他机构',
+                                path: '/systemSetup/SuperviseSetup/Copy',
+                                isShow: true,
+                                query: {  yyjgdList: res.data, id: JSON.parse(values.addjgxz).id ,fyxzjg:JSON.parse(values.addjgxz)},
+                            },
+                            callback: () => {
+                                this.props.dispatch(
+                                    routerRedux.push({
+                                        pathname: '/systemSetup/SuperviseSetup/Copy',
+                                        query: { yyjgdList: res.data, id: JSON.parse(values.addjgxz).id,fyxzjg:JSON.parse(values.addjgxz)},
+                                    }),
+                                );
+                            },
                         });
                     },
                 });

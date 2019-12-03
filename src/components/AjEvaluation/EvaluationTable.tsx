@@ -128,6 +128,7 @@ export default class EvaluationTable extends PureComponent {
         });
     };
     getKp = async (record) =>{
+        console.log('record=====>',record)
         // this.getList('0');
         // this.getList('');
         // await this.getKhDetail(record,'',true);
@@ -135,17 +136,17 @@ export default class EvaluationTable extends PureComponent {
         await this.props.dispatch({
             type: 'global/changeNavigation',
             payload: {
-                key: record && record.id ? record.id : '1',
+                key: record && record.ajbh ? record.ajbh : '1',
                 name: '考评',
                 path: '/Evaluation/CaseEvaluation/Detail',
                 isShow: true,
-                query: { record, id: record && record.id ? record.id : '1' },
+                query: { record, id: record && record.ajbh ? record.ajbh : '1' },
             },
             callback: () => {
                 this.props.dispatch(
                     routerRedux.push({
                         pathname: '/Evaluation/CaseEvaluation/Detail',
-                        query: { record: record, id: record && record.id ? record.id : '1' },
+                        query: { record: record, id: record && record.ajbh ? record.ajbh : '1' },
                     }),
                 );
             },

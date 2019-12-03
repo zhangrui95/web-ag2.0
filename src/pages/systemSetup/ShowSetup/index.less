@@ -5,3 +5,281 @@
   width: 100%;
   background: @component-background;
 }
+.SCMDataShow {
+  width: 100%;
+  height: auto;
+  overflow-x: hidden;
+  overflow-y: auto;
+  background: url("../../../assets/show/body_bg.jpg") repeat;
+  background-size: cover;
+
+  .header {
+    height: 80px;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px 0;
+
+    img {
+      width: 36%;
+    }
+
+    .showTitle {
+      margin: 0 50px;
+      width: 18%;
+    }
+
+    .nowTime {
+      position: absolute;
+      left: 190px;
+      top: 15px;
+      font-size: 16px;
+      color: #fff;
+    }
+
+    .dateButtons {
+      position: absolute;
+      right: 4%;
+      top: 15px;
+      font-size: 16px;
+      color: #66ccff;
+
+      span {
+        padding: 0 10px;
+        cursor: pointer;
+      }
+
+      .currentDate {
+        color: #fff;
+      }
+    }
+  }
+
+  .wrap {
+    :global {
+      .ant-select-selection__clear {
+        background: #101856;
+        color: #ccc;
+        border-radius: 50px;
+      }
+    }
+
+    height: auto;
+    overflow: hidden;
+
+    .wrapLeft, .wrapMiddle, .wrapRight {
+      width: 25%;
+      float: left;
+      margin-left: 2%;
+
+      .mapCard {
+        background: rgba(0, 0, 102, 0.5);
+        margin-top: 20px;
+      }
+
+      .globalCard, .longCard, .mapLoopTimeSelect {
+        background: rgba(0, 0, 102, 0.5);
+        margin-top: 20px;
+
+        :global {
+          .ant-select {
+            width: 90%;
+            margin: 20px 5% 0;
+          }
+
+          .ant-select-selection {
+            border: 1px solid #60a0d6;
+            background: rgba(255, 255, 255, 0.05);
+            box-shadow: 0 0 10px #60a0d6 inset;
+            color: #fff;
+          }
+
+          .ant-select-arrow {
+            color: #fff;
+          }
+        }
+      }
+
+      //.mapCard{
+      //  :global{
+      //    .ant-select{
+      //      width: 20%;
+      //      margin: 20px 0 20px 4%;
+      //    }
+      //    .ant-select-selection{
+      //      height: 65px;
+      //      border-radius: 0;
+      //    }
+      //    .ant-select-arrow{
+      //      top:15px;
+      //    }
+      //  }
+      //}
+      .globalCard {
+        height: 220px;
+        width: 100%;
+      }
+
+      .mapCard, .longCard {
+        width: 100%;
+      }
+
+      .mapCard {
+        height: 460px;
+      }
+
+      .longCard {
+        height: 220px;
+      }
+
+      .mapLoopTimeSelect {
+        padding: 24px;
+        text-align: center;
+        background: none;
+      }
+    }
+
+    .wrapMiddle {
+      width: 42%;
+    }
+  }
+}
+
+.selectDropdown {
+  border: 1px solid #60a0d6;
+  background: transparent;
+  box-shadow: 0 0 10px #60a0d6 inset;
+  color: #fff;
+
+  ::-webkit-scrollbar {
+    width: 4px !important;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background: #60a0d6;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  :global {
+    .ant-select-dropdown-menu {
+      max-height: 150px;
+    }
+
+    .ant-select-dropdown-menu-item {
+      color: #fff;
+
+      &:hover {
+        background: rgba(96, 160, 214, 0.75);
+      }
+    }
+
+    .ant-select-dropdown-menu-item-selected, .ant-select-dropdown-menu-item-selected, .ant-select-dropdown-menu-item-active {
+      background: rgba(96, 160, 214, 0.5);
+      color: #fff;
+
+      &:hover, &:focus {
+        color: #fff;
+        background: rgba(96, 160, 214, 0.75);
+      }
+    }
+  }
+}
+
+.btn {
+  height: 32px;
+  margin: 30px 0;
+  text-align: center;
+
+  :global {
+    .ant-btn {
+      width: 120px;
+      margin: 0 15px;
+      height: 36px;
+
+      &:nth-child(1) {
+        background: rgba(255, 255, 255, 0.5);
+        color: #fff;
+      }
+
+      &:nth-child(2) {
+        background: rgba(0, 0, 102, 0.5);
+        color: #fff;
+      }
+    }
+  }
+}
+
+.centerSelect {
+  position: relative;
+  float: left;
+  width: 20%;
+  margin: 20px 0 20px 4%;
+
+  :global {
+    .ant-select {
+      width: 100%;
+    }
+
+    .ant-select-selection {
+      border: 1px solid #60a0d6;
+      background: rgba(255, 255, 255, 0.05);
+      box-shadow: 0 0 10px #60a0d6 inset;
+      color: #fff;
+      height: 65px;
+      border-radius: 0;
+      padding: 0 5px;
+    }
+
+    .ant-select-arrow {
+      color: #fff;
+      top: 15px;
+    }
+
+    .ant-select-selection__clear {
+      top: 15px;
+    }
+  }
+
+  .center {
+    &:nth-child(1) {
+      width: 6px;
+      height: 10px;
+      border-radius: 0 10px 10px 0px;
+      background: #000849;
+      position: absolute;
+      top: 10px;
+      left: 0;
+      z-index: 999;
+      box-shadow: 3px 0 8px #60a0d6;
+    }
+
+    &:nth-child(2) {
+      width: 6px;
+      height: 10px;
+      background: #010e55;
+      position: absolute;
+      top: 40px;
+      right: 0;
+      z-index: 999;
+      border-radius: 10px 0 0 10px;
+      box-shadow: -3px 0 8px #60a0d6;
+    }
+
+    &:nth-child(3) {
+      width: 7px;
+      height: 13px;
+      border-radius: 10px 10px 0 0;
+      background: #010e55;
+      position: absolute;
+      top: 52px;
+      right: 25px;
+      z-index: 999;
+      box-shadow: 0 -3px 10px #60a0d6;
+    }
+  }
+}
