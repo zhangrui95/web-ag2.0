@@ -1,4 +1,5 @@
 @import "~antd/lib/style/themes/default.less";
+@import "../../theme/darkTheme";
 
 .pagination {
   position: absolute;
@@ -20,6 +21,15 @@
 }
 .box{
   overflow: hidden;
+  padding: 24px;
+  :global{
+    .ant-divider-horizontal.ant-divider-with-text-left{
+      color: #fff;
+    }
+    .ant-divider{
+      border-top:1px solid @body-background;
+    }
+  }
 }
 .leftBox{
   float: left;
@@ -33,12 +43,12 @@
     }
   }
   .zf{
-    color: rgba(0, 0, 0, 0.85);
+    color:#fff;
     line-height: 26px;
     font-size: 20px;
   }
   .fs{
-    color: rgba(0, 0, 0, 0.85);
+    color: #fff;
     line-height: 32px;
     font-size: 30px;
   }
@@ -46,12 +56,17 @@
 .rightBox{
   float: left;
   width: 25%;
-  border-left: 1px solid #ddd;
-  height: 550px;
+  border-left: 1px solid @body-background;
+  height: 600px;
+  position: relative;
+  padding: 0 20px;
 }
 .topDetail{
   margin-top: 16px;
   line-height: 30px;
+  a{
+    text-decoration:underline;
+  }
 }
 .khjl{
   font-size: 18px;
@@ -60,15 +75,15 @@
 }
 
 .redioGroup {
-  position: relative;
-  top: 5px;
-  left: 30px;
+  position: absolute;
+  top: 0;
+  right: 30px;
   :global {
     .ant-radio-button-wrapper:not(:first-child)::before {
       background: transparent !important;
     }
     .ant-radio-button-wrapper:first-child{
-      border-left: 1px solid #1890ff;
+      border-left: 0;
     }
 
     .ant-radio-group-solid, .ant-radio-button-wrapper-checked {
@@ -78,10 +93,14 @@
 
     .ant-radio-button-wrapper {
       border-color: #1890ff;
-      color: #1890ff;
+      color: #fff;
       height: 28px;
-      line-height: 26px;
-      padding: 0 6px;
+      line-height: 28px;
+      padding: 0 10px;
+      border-right: 1px solid @component-background;
+      &:last-child{
+        border-right:0;
+      }
     }
 
     .ant-radio-button-wrapper-checked {
@@ -91,8 +110,8 @@
   }
 }
 .timeLine{
-  margin: 10px 0 0 24px!important;
-  height: 470px;
+  margin: 20px 0 0 24px!important;
+  height: 550px;
   overflow-y: auto;
   padding: 2px 0;
 }
@@ -109,8 +128,55 @@
     .ant-transfer-list-header{
       display: none;
     }
-    .ant-table-small > .ant-table-content .ant-table-header{
-      background-color: #fafafa;
+    .ant-table-body,.ant-table-tbody > tr.ant-table-row-selected td,.ant-table-content .ant-table-header{
+      background: @component-background!important;
+      border: 0;
+    }
+    .ant-table-header{
+      margin-bottom: -18px !important;
+    }
+    .ant-table-thead > tr > th{
+      background: @component-background!important;
+    }
+    .ant-table-content .ant-table-row:last-child td{
+      border: 0!important;
+    }
+    .ant-table-tbody > tr > td{
+      height: 40px!important;
+    }
+  }
+}
+.title{
+  font-size: 16px;
+  border-left: 2px solid #fff;
+  padding-left: 10px;
+  margin-bottom: 20px;
+}
+.typeColorRed{
+  :global{
+    .ant-timeline-item-head{
+      background: #FF8080;
+    }
+  }
+}
+.typeColorOrange{
+  :global{
+    .ant-timeline-item-head{
+      background: #FFD086;
+    }
+  }
+}
+.typeColorGreen{
+  :global{
+    .ant-timeline-item-head{
+      background: #8cffa7;
+    }
+  }
+}
+.typeColorBlue{
+  :global{
+    .ant-timeline-item-head{
+      background: #7dc6ff;
     }
   }
 }

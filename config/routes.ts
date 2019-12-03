@@ -372,6 +372,13 @@ export function routes() {
                   icon: 'smile',
                   component: './Evaluation/CaseEvaluation',
                 },
+                  {
+                      name: '考评',
+                      icon: 'smile',
+                      path: '/Evaluation/CaseEvaluation/Detail',
+                      component: './Evaluation/CaseEvaluation/detail',
+                      hideInMenu: true,
+                  },
                 {
                   path: '/Evaluation/File',
                   name: '执法档案',

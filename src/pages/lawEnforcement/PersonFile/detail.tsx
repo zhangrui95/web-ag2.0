@@ -21,6 +21,13 @@ import PersonDetailTab from '../../../components/AllDocuments/PersonDetailTab';
 import styles from '../docDetail.less';
 import listStyles from '../docListStyle.less';
 import { autoheight } from '../../../utils/utils';
+import user from '../../../assets/common/userPerson.png'
+import tar from '../../../assets/common/tar.png'
+import aj from '../../../assets/common/aj.png'
+import wp from '../../../assets/common/wp.png'
+import jl from '../../../assets/common/jl.png'
+import rqjl from '../../../assets/common/rqjl.png'
+import jzxx from '../../../assets/common/jzxx.png'
 
 const FormItem = Form.Item;
 const { Step } = Steps;
@@ -168,13 +175,13 @@ export default class PersonalDocDetail extends PureComponent {
         // this.props.newDetail(AddNewDetail);
     };
     // 换行
-    formatter = (val) => {
+    formatter = (val,len) => {
         if (val) {
             let strs = val.split(''); // 字符串数组
             let str = '';
             for (let i = 0, s; s = strs[i++];) { // 遍历字符串数组
                 str += s;
-                if (!(i % 15)) str += '\n'; // 按需要求余
+                if (!(i % (len ? len : 10))) str += '\n'; // 按需要求余
             }
             return str;
         }
@@ -186,314 +193,273 @@ export default class PersonalDocDetail extends PureComponent {
     getY = (y,d,idx,r) =>{
         return y - Math.cos(d*idx) * r;
     }
-    // 组织关系图数据
-    getTreeData = (type, data) => {
-        const treeData = [];
-        if (type === 'rq') {
-            if (data.rqList && data.rqList.length > 0) {
-                data.rqList.forEach((item, index) => {
-                    treeData.push({
-                        name: `${item.rqsj} ${item.haName}`,
-                        name: `${item.rqsj} ${item.haName}`+index,
-                        attributes:{
-                            modularity_class:2,
-                        },
-                        symbolSize: 20,
-                        x: this.getX(-800,30,index,80),
-                        y: this.getY(200,30,index,80),
-                    });
-                });
-            }
-        } else if (type === 'tar') {
-            if (data.tarList && data.tarList.length > 0) {
-                data.tarList.forEach((item, index) => {
-                    // treeData.push({
-                    //     name: this.formatter(`${item.name} (${item.xszk_name ? item.xszk_name : '未知'})`),
-                    //     label: {
-                    //         color: item.xszk_name === '在逃' ? '#f00' : '#000',
-                    //     },
-                    // });
-                    treeData.push({
-                        name: this.formatter(`${item.name} (${item.xszk_name ? item.xszk_name : '未知'})`),
-                        id: this.formatter(`${item.name} (${item.xszk_name ? item.xszk_name : '未知'})`)+index,
-                        attributes:{
-                            modularity_class:3,
-                        },
-                        symbolSize: 20,
-                        x: this.getX(-400,20,index,100),
-                        y: this.getY(300,20,index,100),
-                    });
-                });
-            }
-        } else if (type === 'xzcf') {
-            let cfData = data.xzcfList;
-            if (cfData && cfData.length > 0) {
-                cfData.forEach((item, index) => {
-                    treeData.push({
-                        name: this.formatter(item.qzcsName),
-                        id:this.formatter(item.qzcsName)+index,
-                        attributes:{
-                            modularity_class:4,
-                        },
-                        symbolSize: 20,
-                        x: this.getX(-700,20,index,70),
-                        y: this.getY(380,20,index,70),
-                    });
-                });
-            }
-        } else if (type === 'xscf') {
-            let cfData = data.qzcsList;
-            if (cfData && cfData.length > 0) {
-                cfData.forEach((item, index) => {
-                    treeData.push({
-                        name: this.formatter(item.qzcsName),
-                        id: this.formatter(item.qzcsName)+index,
-                        attributes:{
-                            modularity_class:5,
-                        },
-                        symbolSize: 20,
-                        x: this.getX(-580,20,index,80),
-                        y: this.getY(580,20,index,80),
-                    });
-                });
-            }
-        } else if (type === 'sswp') {
-            if (data.sswpList && data.sswpList.length > 0) {
-                data.sswpList.forEach((item, index) => {
-                    treeData.push({
-                        name: this.formatter(item.wpName),
-                        id: this.formatter(item.wpName)+index,
-                        attributes:{
-                            modularity_class:6,
-                        },
-                        symbolSize: 20,
-                        x: this.getX(-800,30,index,90),
-                        y: this.getY(540,30,index,90),
-                    });
-                });
-            }
-        } else if (type === 'sawp') {
-            if (data.sawpList && data.sawpList.length > 0) {
-                data.sawpList.forEach((item, index) => {
-                    treeData.push({
-                        name: this.formatter(item.wpmc),
-                        id: this.formatter(item.wpmc)+index,
-                        attributes:{
-                            modularity_class:7,
-                        },
-                        symbolSize: 20,
-                        x: this.getX(-900,20,index,60),
-                        y: this.getY(620,20,index,60),
-                    });
-                });
-            }
-        } else if (type === 'jz') {
-            if (data.jzList && data.jzList.length > 0) {
-                data.jzList.forEach((item, index) => {
-                    treeData.push({
-                        name: this.formatter(item.jzmc),
-                        id: this.formatter(item.jzmc)+index,
-                        attributes:{
-                            modularity_class:8,
-                        },
-                        symbolSize: 20,
-                        x: this.getX(-1000,20,index,80),
-                        y: this.getY(500,20,index,80),
-                    });
-                });
-            }
-        }
-        return treeData.length > 0 ? treeData : [];
-    };
-    // 组织关系图数据
-    getTreeLinks = (type, data) => {
-        let links = [];
-        if (type === 'rq') {
-            if (data.rqList && data.rqList.length > 0) {
-                data.rqList.forEach((item, index) => {
-                    links.push({
-                        source: '历史入区信息',
-                        target: `${item.rqsj} ${item.haName}`+index,
-                    });
-                });
-            }
-        } else if (type === 'tar') {
-            if (data.tarList && data.tarList.length > 0) {
-                data.tarList.forEach((item, index) => {
-                    links.push({
-                        source: '同案人',
-                        target: this.formatter(`${item.name} (${item.xszk_name ? item.xszk_name : '未知'})`)+index,
-                    });
-                });
-            }
-        } else if (type === 'xzcf') {
-            let cfData = data.xzcfList;
-            if (cfData && cfData.length > 0) {
-                cfData.forEach((item, index) => {
-                    links.push({
-                        source: '行政处罚记录',
-                        target: this.formatter(item.qzcsName)+index,
-                    });
-                });
-            }
-        } else if (type === 'xscf') {
-            let cfData = data.qzcsList;
-            if (cfData && cfData.length > 0) {
-                cfData.forEach((item, index) => {
-                    links.push({
-                        source: '强制措施记录',
-                        target: this.formatter(item.qzcsName)+index,
-                    });
-                });
-            }
-        } else if (type === 'sswp') {
-            if (data.sswpList && data.sswpList.length > 0) {
-                data.sswpList.forEach((item, index) => {
-                    links.push({
-                        source: '随身物品',
-                        target: this.formatter(item.wpName)+index,
-                    });
-                });
-            }
-        } else if (type === 'sawp') {
-            if (data.sawpList && data.sawpList.length > 0) {
-                data.sawpList.forEach((item, index) => {
-                    links.push({
-                        source: '涉案物品',
-                        target: this.formatter(item.wpmc)+index,
-                    });
-                });
-            }
-        } else if (type === 'jz') {
-            if (data.jzList && data.jzList.length > 0) {
-                data.jzList.forEach((item, index) => {
-                    links.push({
-                        source: '相关卷宗',
-                        target: this.formatter(item.jzmc)+index,
-                    });
-                });
-            }
-        }
-        return links.length > 0 ? links : [];
-    };
     // 脑图
     showEchart = (data) => {
         echartTree = echarts.init(document.getElementById('ryRegulateTree' + this.props.idcard));
         const { ajxx, ryxx } = data;
         console.log('data------>',data);
-        let dataList = [];
-        let links = [];
+        let link = [];
+        let datas = [ {
+            name: this.formatter(ryxx.name),
+            attributes:{
+                modularity_class:0,
+            },
+            symbolSize: 45,
+            x: -1500,
+            y: 350,
+        }];
         if (ajxx && ajxx.length > 0) {
             for (let i = 0; i < ajxx.length; i++) {
                 const caseData = ajxx[i];
-                let link = [{
+                // let x1 = [5000,2500,0];
+                // let y1 = [0,1000,2000];
+                // let x = this.getX(x1[i],90,i,3000);
+                // let y = this.getY(y1[i],90,i,3000);
+                let x = this.getX(-1500,-40,i,3000);
+                let y = this.getY(350,-40,i,3000);
+                let lxX =  this.getX(x,20,1,1300);
+                let lxY = this.getY(y,20,1,1300);
+                let tarX = this.getX(x,20,2,2000);
+                let tarY = this.getY(y,20,2,2000);
+                let qzX = this.getX(x,20,3,1200);
+                let qzY = this.getY(y,20,3,1200);
+                let xzX = this.getX(x,20,4,2200);
+                let xzY = this.getY(y,20,4,2200);
+                let ssX = this.getX(x,20,5,1200);
+                let ssY = this.getY(y,20,5,1200);
+                let saX = this.getX(x,20,6,1800);
+                let saY = this.getY(y,20,6,1800);
+                let jzX = this.getX(x,20,7,1200);
+                let jzY = this.getY(y,20,7,1200);
+                link.push({
                     source: this.formatter(ryxx.name),
-                    target: ajxx[i].ajmc,
+                    target: this.formatter(ajxx[i].ajmc)+i,
                 }, {
-                    source: ajxx[i].ajmc,
-                    target: '历史入区信息'
+                    source: this.formatter(ajxx[i].ajmc)+i,
+                    target: '历史入区信息'+i
                 }, {
-                    source: ajxx[i].ajmc,
-                    target: '同案人'
+                    source: this.formatter(ajxx[i].ajmc)+i,
+                    target: '同案人'+i
                 }, {
-                    source: ajxx[i].ajmc,
-                    target: '行政处罚记录'
+                    source: this.formatter(ajxx[i].ajmc)+i,
+                    target: '行政处罚记录'+i
                 }, {
-                    source: ajxx[i].ajmc,
-                    target: '强制措施记录'
+                    source: this.formatter(ajxx[i].ajmc)+i,
+                    target: '强制措施记录'+i
                 }, {
-                    source: ajxx[i].ajmc,
-                    target: '随身物品'
+                    source: this.formatter(ajxx[i].ajmc)+i,
+                    target: '随身物品'+i
                 }, {
-                    source: ajxx[i].ajmc,
-                    target: '涉案物品'
+                    source: this.formatter(ajxx[i].ajmc)+i,
+                    target: '涉案物品'+i
                 }, {
-                    source: ajxx[i].ajmc,
-                    target: '相关卷宗'
-                }];
-                let datas = [
-                    {
-                        name: this.formatter(ryxx.name),
-                        attributes:{
-                            modularity_class:0,
-                        },
-                        symbolSize: 40,
-                        x: -1200,
-                        y: 350,
-                    },
-                    {
-                        name: ajxx[i].ajmc,
+                    source: this.formatter(ajxx[i].ajmc)+i,
+                    target: '相关卷宗'+i
+                })
+                datas.push({
+                        name: this.formatter(ajxx[i].ajmc),
+                        id:this.formatter(ajxx[i].ajmc) +i,
                         attributes:{
                             modularity_class:1,
                         },
                         symbolSize: 40,
-                        x: -900,
-                        y: 350,
+                        x: x,
+                        y: y,
                     },
                     {
                         name: '历史入区信息',
+                        id: '历史入区信息'+i,
                         attributes:{
                             modularity_class:2,
                         },
                         symbolSize: 30,
-                        x: -800,
-                        y: 200
+                        x: lxX,
+                        y: lxY
                     }, {
                         name: '同案人',
+                        id:'同案人' +i,
                         attributes:{
                             modularity_class:3,
                         },
                         symbolSize: 30,
-                        x: -400,
-                        y: 300
+                        x: tarX,
+                        y: tarY,
                     }, {
                         name: '行政处罚记录',
+                        id: '行政处罚记录'+i,
                         attributes:{
                             modularity_class:4,
                         },
                         symbolSize: 30,
-                        x: -700,
-                        y: 380
+                        x: xzX,
+                        y: xzY
                     }, {
                         name: '强制措施记录',
+                        id: '强制措施记录'+i,
                         attributes:{
                             modularity_class:5,
                         },
                         symbolSize: 30,
-                        x: -580,
-                        y: 580
+                        x: qzX,
+                        y: qzY
                     }, {
                         name: '随身物品',
+                        id: '随身物品'+i,
                         attributes:{
                             modularity_class:6,
                         },
                         symbolSize: 30,
-                        x: -800,
-                        y: 540
+                        x: ssX,
+                        y: ssY
                     }, {
                         name: '涉案物品',
+                        id: '涉案物品'+i,
                         attributes:{
                             modularity_class:7,
                         },
                         symbolSize: 30,
-                        x: -900,
-                        y: 620
+                        x: saX,
+                        y: saY
                     }, {
                         name: '相关卷宗',
+                        id: '相关卷宗'+i,
                         attributes:{
                             modularity_class:8,
                         },
                         symbolSize: 30,
-                        x: -1000,
-                        y: 500
-                    }
-                ]
-                links =  link.concat(this.getTreeLinks('rq', caseData)).concat(this.getTreeLinks('tar', caseData)).concat(this.getTreeLinks('xzcf', caseData)).concat(this.getTreeLinks('xscf', caseData)).concat(this.getTreeLinks('sswp', caseData)).concat(this.getTreeLinks('sawp', caseData)).concat(this.getTreeLinks('jz', caseData));
-                dataList = datas.concat(this.getTreeData('rq', caseData)).concat(this.getTreeData('tar', caseData)).concat(this.getTreeData('xzcf', caseData)).concat(this.getTreeData('xscf', caseData)).concat(this.getTreeData('sswp', caseData)).concat(this.getTreeData('sawp', caseData)).concat(this.getTreeData('jz', caseData));
+                        x: jzX,
+                        y: jzY
+                    })
+                if (caseData.rqList && caseData.rqList.length > 0) {
+                    caseData.rqList.forEach((item, index) => {
+                        link.push({
+                            source: '历史入区信息'+i,
+                            target: `${item.rqsj} ${item.haName}`+index + i,
+                        });
+                        datas.push({
+                            name: `${item.rqsj} ${item.haName}`,
+                            id: `${item.rqsj} ${item.haName}`+index + i,
+                            attributes:{
+                                modularity_class:2,
+                            },
+                            symbolSize: 20,
+                            x: this.getX(lxX,30,index,80),
+                            y: this.getY(lxY,30,index,80),
+                        });
+                    });
+                }
+                if (caseData.tarList && caseData.tarList.length > 0) {
+                    caseData.tarList.forEach((item, index) => {
+                        link.push({
+                            source: '同案人'+i,
+                            target: this.formatter(`${item.name} (${item.xszk_name ? item.xszk_name : '未知'})`)+index + i,
+                        });
+                        datas.push({
+                            name: this.formatter(`${item.name} (${item.xszk_name ? item.xszk_name : '未知'})`),
+                            id: this.formatter(`${item.name} (${item.xszk_name ? item.xszk_name : '未知'})`)+index + i,
+                            attributes:{
+                                modularity_class:3,
+                            },
+                            symbolSize: 20,
+                            x: index > 10 ? this.getX(tarX,30,index,1200) : this.getX(tarX,20,index,800),
+                            y: index > 10 ? this.getY(tarY,30,index,1200) : this.getY(tarY,20,index,800),
+                        });
+                    });
+                }
+                if (caseData.xzcfList && caseData.xzcfList.length > 0) {
+                    caseData.xzcfList.forEach((item, index) => {
+                        link.push({
+                            source: '行政处罚记录'+i,
+                            target: this.formatter(item.qzcsName)+index + i,
+                        });
+                        datas.push({
+                            name: this.formatter(item.qzcsName),
+                            id:this.formatter(item.qzcsName)+index + i,
+                            attributes:{
+                                modularity_class:4,
+                            },
+                            symbolSize: 20,
+                            x: this.getX(xzX,20,index,1000),
+                            y: this.getY(xzY,20,index,1000),
+                        });
+                    });
+                }
+                if ( caseData.qzcsList &&  caseData.qzcsList.length > 0) {
+                    caseData.qzcsList.forEach((item, index) => {
+                        link.push({
+                            source: '强制措施记录'+i,
+                            target: this.formatter(item.qzcsName)+index + i,
+                        });
+                        datas.push({
+                            name: this.formatter(item.qzcsName),
+                            id:this.formatter(item.qzcsName)+index + i,
+                            attributes:{
+                                modularity_class:5,
+                            },
+                            symbolSize: 20,
+                            x: this.getX(qzX,20,index,700),
+                            y: this.getY(qzY,20,index,700),
+                        });
+                    });
+                }
+                if (caseData.sswpList && caseData.sswpList.length > 0) {
+                    caseData.sswpList.forEach((item, index) => {
+                        link.push({
+                            source: '随身物品' + i,
+                            target: this.formatter(item.wpName) + index + i,
+                        });
+                        datas.push({
+                            name: this.formatter(item.wpName),
+                            id: this.formatter(item.wpName) + index + i,
+                            attributes: {
+                                modularity_class: 6,
+                            },
+                            symbolSize: 20,
+                            x: this.getX(ssX, 30, index, 900),
+                            y: this.getY(ssY, 30, index, 900),
+                        });
+                    });
+                };
+                if (caseData.sawpList && caseData.sawpList.length > 0) {
+                    caseData.sawpList.forEach((item, index) => {
+                        link.push({
+                            source: '涉案物品'+i,
+                            target: this.formatter(item.wpmc)+index + i,
+                        });
+                        datas.push({
+                            name: this.formatter(item.wpmc),
+                            id: this.formatter(item.wpmc)+index + i,
+                            attributes:{
+                                modularity_class:7,
+                            },
+                            symbolSize: 20,
+                            x: this.getX(saX,20,index,600),
+                            y: this.getY(saY,20,index,600),
+                        });
+                    });
+                }
+                if (caseData.jzList && caseData.jzList.length > 0) {
+                    caseData.jzList.forEach((item, index) => {
+                        link.push({
+                            source: '相关卷宗'+i,
+                            target: this.formatter(item.jzmc)+index + i,
+                        });
+                        datas.push({
+                            name: this.formatter(item.jzmc),
+                            id: this.formatter(item.jzmc)+index + i,
+                            attributes:{
+                                modularity_class:8,
+                            },
+                            symbolSize: 20,
+                            x: this.getX(jzX,20,index,800),
+                            y: this.getY(jzY,20,index,800),
+                        });
+                    });
+                }
             }
         }
-        console.log('links==========>',links);
-        console.log('dataList==========>',dataList);
+        console.log('link==========>',link);
+        console.log('datas==========>',datas);
         let categories = [];
         for (let i = 0; i < 9; i++) {
             categories[i] = {
@@ -527,15 +493,29 @@ export default class PersonalDocDetail extends PureComponent {
                 name: '相关卷宗',    //类目名称
             },
         ];
-        dataList.forEach(function (node) {
+        datas.forEach(function (node) {
+            console.log('node----->',node);
             node.itemStyle = null;
             node.symbolSize /= 1.5;
             node.label = {
                 normal: {
                     show: true,
-                    formatter: '{b}'
-                }
+                    formatter: '{b}',
+                    textStyle: {
+                        color: '#eee',
+                        fontSize: node.attributes.modularity_class===0 ? 18 :
+                            node.attributes.modularity_class===1 ? 14 : 12
+                    }
+                },
             };
+            node.symbol= node.attributes.modularity_class===0 ? `image://${user}` :
+                node.attributes.modularity_class===1 ? `image://${aj}` :
+                node.name === '同案人' ? `image://${tar}` :
+                node.name === "随身物品" || node.name === "涉案物品" ? `image://${wp}` :
+                node.name === "行政处罚记录" || node.name === "强制措施记录" ? `image://${jl}` :
+                node.name === "历史入区信息" ? `image://${rqjl}` :
+                node.name === "相关卷宗" ? `image://${jzxx}` :
+                "circle";
             node.category = node.attributes.modularity_class;
         });
         let option = {
@@ -549,7 +529,7 @@ export default class PersonalDocDetail extends PureComponent {
             }],
             animationDuration: 1500,
             animationEasingUpdate: 'quinticInOut',
-            color:['#52818c','#A2A16C','#a27970','#6d9289','#5b6a87','#92687E','#528747','#6F6F8C','#926254'],
+            color:['#497b86','#689289','#a2796f','#a2796f','#a2796f','#a2796f','#a2796f','#a2796f','#a2796f','#a2796f'],
             tooltip : {
                 trigger: 'item',
                 show:false,
@@ -559,8 +539,8 @@ export default class PersonalDocDetail extends PureComponent {
                 {
                     type: 'graph',
                     layout: 'none',
-                    data: dataList,
-                    links: links,
+                    data: datas,
+                    links: link,
                     categories: categories2,
                     roam: true,
                     focusNodeAdjacency: true,
@@ -574,10 +554,13 @@ export default class PersonalDocDetail extends PureComponent {
                     },
                     label: {
                         position: 'bottom',
-                        formatter: '{b}'
+                        formatter: '{b}',
+                        textStyle: {
+                            color: '#eee',
+                        }
                     },
                     lineStyle: {
-                        width : '5',
+                        width : '2',
                         color: 'source',
                         curveness: 0.2
                     },
@@ -594,7 +577,7 @@ export default class PersonalDocDetail extends PureComponent {
     };
     // 获取关系图谱的实际高度
     getChartTreeHeight = (ajxx) => {
-        let heightCount = 560;
+        let heightCount = ajxx && ajxx.length > 2 ? 700 : 600;
         // if (ajxx && ajxx.length > 0) {
         //     for (let i = 0; i < ajxx.length; i++) {
         //         const rq = ajxx[i].rqList ? ajxx[i].rqList.length : 0;
