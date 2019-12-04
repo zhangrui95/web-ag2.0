@@ -106,6 +106,7 @@ const GlobalModel: GlobalModelType = {
     *changeNavigation({ payload, callback }, { put, select }) {
       let navigation: NavigationItem[] = yield select((state: ConnectState) => state.global.navigation);
       let navigationNew = [...navigation];
+      console.log('navigationNew=====>',navigationNew);
       //如果key存在为对tab的增加和删除操作，否则为清楚全部tab
       if (payload.key) {
         const index = navigationNew.findIndex(item => {
@@ -113,11 +114,11 @@ const GlobalModel: GlobalModelType = {
         });
         if (payload.isShow) {
           //获取state中存储的数据
-
           if (index === -1) {
             navigationNew.push(payload)
           }
         } else {
+            console.log('index',index)
           if (index > -1) {
             navigationNew.splice(index, 1);
           }
@@ -129,7 +130,6 @@ const GlobalModel: GlobalModelType = {
         type: 'saveNavigation',
         payload: navigationNew,
       });
-
       if (callback) {
         callback(navigationNew);
       }

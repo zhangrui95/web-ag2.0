@@ -50,24 +50,24 @@ class RenderTable extends PureComponent {
   }
 
   deatils = record => {
-    this.props.dispatch({
-      type: 'global/changeNavigation',
-      payload: {
-        key: record && record.id ? record.id : '1',
-        name: '刑事案件详情',
-        path: '/caseFiling/caseData/CriminalData/caseDetail',
-        isShow: true,
-        query: { record, id: record && record.id ? record.id : '1' },
-      },
-      callback: () => {
+    // this.props.dispatch({
+    //   type: 'global/changeNavigation',
+    //   payload: {
+    //     key: record && record.id ? record.id : '1',
+    //     name: '刑事案件详情',
+    //     path: '/caseFiling/caseData/CriminalData/caseDetail',
+    //     isShow: true,
+    //     query: { record, id: record && record.id ? record.id : '1' },
+    //   },
+    //   callback: () => {
         this.props.dispatch(
           routerRedux.push({
             pathname: '/caseFiling/casePolice/CriminalPolice/uncaseDetail',
-            query: { record: record, id: record && record.id ? record.id : '1' },
+            query: { id: record && record.id ? record.id : '1',record: record},
           }),
         );
-      },
-    });
+      // },
+    // });
     // const divs = (
     //     <div>
     //         // <Detail
@@ -87,24 +87,24 @@ class RenderTable extends PureComponent {
   };
   // 刑事案件档案
   caseDocdeatils = record => {
-    this.props.dispatch({
-      type: 'global/changeNavigation',
-      payload: {
-        key: record && record.system_id ? record.system_id : '1',
-        name: '刑事案件档案详情',
-        path: '/lawEnforcement/File/CriminalFile/Detail',
-        isShow: true,
-        query: { record, id: record && record.system_id ? record.system_id : '1' },
-      },
-      callback: () => {
+    // this.props.dispatch({
+    //   type: 'global/changeNavigation',
+    //   payload: {
+    //     key: record && record.system_id ? record.system_id : '1',
+    //     name: '刑事案件档案详情',
+    //     path: '/lawEnforcement/File/CriminalFile/Detail',
+    //     isShow: true,
+    //     query: { record, id: record && record.system_id ? record.system_id : '1' },
+    //   },
+    //   callback: () => {
         this.props.dispatch(
           routerRedux.push({
             pathname: '/lawEnforcement/File/CriminalFile/Detail',
-            query: { record: record, id: record && record.system_id ? record.system_id : '1' },
+            query: {id: record && record.system_id ? record.system_id : '1',record: record },
           }),
         );
-      },
-    });
+    //   },
+    // });
     // const divs = (
     //     // <div>
     //         // <CriminalCaseDocDetail
@@ -238,6 +238,7 @@ class RenderTable extends PureComponent {
             {
               title: '案件名称',
               dataIndex: 'ajmc',
+              width:'20%',
               render: text => {
                 return (
                   <Ellipsis lines={2} tooltip>

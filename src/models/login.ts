@@ -41,7 +41,7 @@ const Model: LoginModelType = {
         sessionStorage.setItem('userToken', response.data.token);
         sessionStorage.setItem('user', JSON.stringify(response.data.user));
         sessionStorage.setItem('authoMenuList', JSON.stringify(authoMenuList));
-        yield put(routerRedux.replace('/'));
+        yield put(routerRedux.replace('/ShowData/RegulatePanel'));
       } else {
         return false;
       }

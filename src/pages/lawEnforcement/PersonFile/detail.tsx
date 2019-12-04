@@ -195,7 +195,7 @@ export default class PersonalDocDetail extends PureComponent {
     }
     // 脑图
     showEchart = (data) => {
-        echartTree = echarts.init(document.getElementById('ryRegulateTree' + this.props.idcard));
+        echartTree = echarts.init(document.getElementById('ryRegulateTree' + this.props.location.query.record.xyr_sfzh));
         const { ajxx, ryxx } = data;
         console.log('data------>',data);
         let link = [];
@@ -634,9 +634,9 @@ export default class PersonalDocDetail extends PureComponent {
             loading: true,
         });
         imgBase = [];
-        const Nameryxx = `#Nameryxx${this.props.id}`;
-        const Namegxtp = `#Namegxtp${this.props.id}`;
-        const CardCharts = `#cardCharts${this.props.id}`;
+        const Nameryxx = `#Nameryxx${this.props.location.query.id}`;
+        const Namegxtp = `#Namegxtp${this.props.location.query.id}`;
+        const CardCharts = `#cardCharts${this.props.location.query.id}`;
         html2canvas(document.querySelector(Nameryxx)).then(canvasryxx => {
             this.addBase(canvasryxx.toDataURL().split('base64,')[1]);
             html2canvas(document.querySelector(Namegxtp)).then(canvasgxtp => {
@@ -692,7 +692,7 @@ export default class PersonalDocDetail extends PureComponent {
                     <Card style={{ height: autoheight() - 210 + 'px',marginTop:'12px' }} ref={'scroll'}
                           className={styles.detailBoxScroll}>
                         <div>
-                            <div id={`Nameryxx${this.props.id}`} className={styles.borderBottom}>
+                            <div id={`Nameryxx${this.props.location.query.id}`} className={styles.borderBottom}>
                                 <Card title="|  人员信息" className={listStyles.cardCharts} bordered={false} id='capture1'>
                                     <div style={{ padding: 16 }}>
                                         <Row>
@@ -761,10 +761,10 @@ export default class PersonalDocDetail extends PureComponent {
                                     </div>
                                 </Card>
                             </div>
-                            <div id={`Namegxtp${this.props.id}`} className={styles.borderBottom}>
+                            <div id={`Namegxtp${this.props.location.query.id}`} className={styles.borderBottom}>
                                 <Card title="|  关系图谱" className={listStyles.cardCharts} bordered={false}>
                                     <div
-                                        id={'ryRegulateTree' + this.props.idcard}
+                                        id={'ryRegulateTree' + this.props.location.query.record.xyr_sfzh}
                                         style={
                                             {
                                                 height: this.getChartTreeHeight(personData.ajxx),
@@ -774,7 +774,7 @@ export default class PersonalDocDetail extends PureComponent {
                                     />
                                 </Card>
                             </div>
-                            <Card title="|  涉案信息" className={listStyles.cardCharts + ' ' + styles.saxx} id={`cardCharts${this.props.id}`}
+                            <Card title="|  涉案信息" className={listStyles.cardCharts + ' ' + styles.saxx} id={`cardCharts${this.props.location.query.id}`}
                                   bordered={false}>
                                 {
                                     personData.ajxx ? (

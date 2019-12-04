@@ -296,7 +296,7 @@ export default class AdministrativeCaseDocDetail extends PureComponent {
             }
         ]
         let links = link.concat(jq).concat(sar).concat(sawp).concat(jz);
-        echartTree = echarts.init(document.getElementById('RegulateTree' + this.props.id));
+        echartTree = echarts.init(document.getElementById('RegulateTree' + this.props.location.query.id));
         echartTree.hideLoading();
 
         var categories = [];
@@ -492,13 +492,13 @@ export default class AdministrativeCaseDocDetail extends PureComponent {
             loading: true,
         });
         imgBase = [];
-        const Namegxtp = `#Namegxtp${this.props.id}`;
-        const Namejqxx = `#Namejqxx${this.props.id}`;
-        const Nameajxx = `#Nameajxx${this.props.id}`;
-        const Nameajgj = `#Nameajgj${this.props.id}`;
-        const Namesawp = `#Namesawp${this.props.id}`;
-        const Namejzxx = `#Namejzxx${this.props.id}`;
-        const Namegjxx = `#Namegjxx${this.props.id}`;
+        const Namegxtp = `#Namegxtp${this.props.location.query.id}`;
+        const Namejqxx = `#Namejqxx${this.props.location.query.id}`;
+        const Nameajxx = `#Nameajxx${this.props.location.query.id}`;
+        const Nameajgj = `#Nameajgj${this.props.location.query.id}`;
+        const Namesawp = `#Namesawp${this.props.location.query.id}`;
+        const Namejzxx = `#Namejzxx${this.props.location.query.id}`;
+        const Namegjxx = `#Namegjxx${this.props.location.query.id}`;
         html2canvas(document.querySelector(Namegxtp)).then(canvas1 => {
             this.addBase(canvas1.toDataURL().split('base64,')[1]);
             html2canvas(document.querySelector(Namejqxx)).then(canvas2 => {
@@ -958,12 +958,12 @@ export default class AdministrativeCaseDocDetail extends PureComponent {
                   className={styles.detailBoxScroll}>
                 <Spin spinning={loading}>
                     <div id='capture1'>
-                        <div id={`Namegxtp${this.props.id}`} className={styles.borderBottom}>
+                        <div id={`Namegxtp${this.props.location.query.id}`} className={styles.borderBottom}>
                             <Card title="| 关系图谱" className={liststyles.cardCharts} bordered={false}
-                                  id={this.props.id + 'gxtp'}>
+                                  id={this.props.location.query.id + 'gxtp'}>
                                 <Spin spinning={this.state.load}>
                                     <div
-                                        id={'RegulateTree' + this.props.id}
+                                        id={'RegulateTree' + this.props.location.query.id}
                                         style={
                                             {
                                                 height: this.getChartTreeHeight(caseDetails),
@@ -974,8 +974,8 @@ export default class AdministrativeCaseDocDetail extends PureComponent {
                                 </Spin>
                             </Card>
                         </div>
-                        <div id={`Namejqxx${this.props.id}`} className={styles.borderBottom}>
-                            <div className={styles.title} id={this.props.id + 'jqxx'}>| 警情信息</div>
+                        <div id={`Namejqxx${this.props.location.query.id}`} className={styles.borderBottom}>
+                            <div className={styles.title} id={this.props.location.query.id + 'jqxx'}>| 警情信息</div>
                             <div className={styles.tablemessage} style={{ marginBottom: '24px', padding: '24px' }}>
                                 <Table
                                     bordered
@@ -994,8 +994,8 @@ export default class AdministrativeCaseDocDetail extends PureComponent {
                                 />
                             </div>
                         </div>
-                        <div id={`Nameajxx${this.props.id}`} className={styles.borderBottom}>
-                            <div className={styles.title} id={this.props.id + 'ajxx'}>| 案件信息</div>
+                        <div id={`Nameajxx${this.props.location.query.id}`} className={styles.borderBottom}>
+                            <div className={styles.title} id={this.props.location.query.id + 'ajxx'}>| 案件信息</div>
                             <div className={styles.message} style={{ padding: '24px' }}>
                                 <Row gutter={{ md: 8, lg: 24, xl: 48 }}>
                                     <Col md={8} sm={24}>
@@ -1057,8 +1057,8 @@ export default class AdministrativeCaseDocDetail extends PureComponent {
                             </div>
                         </div>
                         {caseDetails && caseDetails.ajzt ?
-                            <div id={`Nameajgj${this.props.id}`} className={styles.borderBottom}>
-                                <div className={styles.title} id={this.props.id + 'ajgj'}>| 案件轨迹</div>
+                            <div id={`Nameajgj${this.props.location.query.id}`} className={styles.borderBottom}>
+                                <div className={styles.title} id={this.props.location.query.id + 'ajgj'}>| 案件轨迹</div>
                                 <CaseModalTrail
                                     {...this.props}
                                     caseDetails={caseDetails}
@@ -1069,16 +1069,16 @@ export default class AdministrativeCaseDocDetail extends PureComponent {
                             :
                             ''
                         }
-                        <div id={`Namesawp${this.props.id}`} className={styles.borderBottom}>
-                            <div className={styles.title} id={this.props.id + 'sawp'}>| 涉案物品</div>
+                        <div id={`Namesawp${this.props.location.query.id}`} className={styles.borderBottom}>
+                            <div className={styles.title} id={this.props.location.query.id + 'sawp'}>| 涉案物品</div>
                             <div className={styles.tablemessage}>
                                 <div style={{ padding: '24px 0' }}>
                                     {this.sawpCol(caseDetails && caseDetails.sawpList ? caseDetails.sawpList : [])}
                                 </div>
                             </div>
                         </div>
-                        <div id={`Namejzxx${this.props.id}`} className={styles.borderBottom}>
-                            <Card title="| 卷宗信息" className={liststyles.card} bordered={false} id={this.props.id + 'jzxx'}>
+                        <div id={`Namejzxx${this.props.location.query.id}`} className={styles.borderBottom}>
+                            <Card title="| 卷宗信息" className={liststyles.card} bordered={false} id={this.props.location.query.id + 'jzxx'}>
                                 <Table
                                     bordered
                                     pagination={{
@@ -1097,8 +1097,8 @@ export default class AdministrativeCaseDocDetail extends PureComponent {
                                 />
                             </Card>
                         </div>
-                        <div id={`Namegjxx${this.props.id}`} className={styles.borderBottom}>
-                            <Card title="| 告警信息" className={liststyles.card} bordered={false} id={this.props.id + 'gjxx'}>
+                        <div id={`Namegjxx${this.props.location.query.id}`} className={styles.borderBottom}>
+                            <Card title="| 告警信息" className={liststyles.card} bordered={false} id={this.props.location.query.id + 'gjxx'}>
                                 <div>
                                     {this.gjxxCol(caseDetails && caseDetails.problemList ? caseDetails.problemList : [])}
                                 </div>
@@ -1127,25 +1127,25 @@ export default class AdministrativeCaseDocDetail extends PureComponent {
                         className={!(this.state.Anchor && this.state.AnchorShow) ? styles.AnchorHide : this.state.AnchorShow ? styles.fadeBoxIn : styles.fadeBoxOut}
                         offsetTop={70}>
                         <Link
-                            href={'#/allDocuments/caseDoc/administrativeCaseDocTransfer/administrativeCaseDoc#' + this.props.id + 'gxtp'}
+                            href={'#/allDocuments/caseDoc/administrativeCaseDocTransfer/administrativeCaseDoc#' + this.props.location.query.id + 'gxtp'}
                             title="关系图谱"/>
                         <Link
-                            href={'#/allDocuments/caseDoc/administrativeCaseDocTransfer/administrativeCaseDoc#' + this.props.id + 'jqxx'}
+                            href={'#/allDocuments/caseDoc/administrativeCaseDocTransfer/administrativeCaseDoc#' + this.props.location.query.id + 'jqxx'}
                             title="警情信息"/>
                         <Link
-                            href={'#/allDocuments/caseDoc/administrativeCaseDocTransfer/administrativeCaseDoc#' + this.props.id + 'ajxx'}
+                            href={'#/allDocuments/caseDoc/administrativeCaseDocTransfer/administrativeCaseDoc#' + this.props.location.query.id + 'ajxx'}
                             title="案件信息"/>
                         <Link
-                            href={'#/allDocuments/caseDoc/administrativeCaseDocTransfer/administrativeCaseDoc#' + this.props.id + 'ajgj'}
+                            href={'#/allDocuments/caseDoc/administrativeCaseDocTransfer/administrativeCaseDoc#' + this.props.location.query.id + 'ajgj'}
                             title="案件轨迹"/>
                         <Link
-                            href={'#/allDocuments/caseDoc/administrativeCaseDocTransfer/administrativeCaseDoc#' + this.props.id + 'sawp'}
+                            href={'#/allDocuments/caseDoc/administrativeCaseDocTransfer/administrativeCaseDoc#' + this.props.location.query.id + 'sawp'}
                             title="涉案物品"/>
                         <Link
-                            href={'#/allDocuments/caseDoc/administrativeCaseDocTransfer/administrativeCaseDoc#' + this.props.id + 'jzxx'}
+                            href={'#/allDocuments/caseDoc/administrativeCaseDocTransfer/administrativeCaseDoc#' + this.props.location.query.id + 'jzxx'}
                             title="卷宗信息"/>
                         <Link
-                            href={'#/allDocuments/caseDoc/administrativeCaseDocTransfer/administrativeCaseDoc#' + this.props.id + 'gjxx'}
+                            href={'#/allDocuments/caseDoc/administrativeCaseDocTransfer/administrativeCaseDoc#' + this.props.location.query.id + 'gjxx'}
                             title="告警信息"/>
                     </Anchor>
                 </div>

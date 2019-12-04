@@ -140,23 +140,7 @@ const BasicLayout: React.FC<BasicLayoutProps> = props => {
                   }
 
                   return (
-                      <Link
-                          to={menuItemProps.path}
-                          onClick={() => {
-                              if (dispatch) {
-                                  dispatch({
-                                      type: 'global/changeNavigation',
-                                      payload: {
-                                          key: menuItemProps.path,
-                                          name: menuItemProps.name,
-                                          locale: menuItemProps.locale,
-                                          path: menuItemProps.path,
-                                          isShow: true,
-                                      },
-                                  });
-                              }
-                          }}
-                      >
+                      <Link to={menuItemProps.path}>
                           {defaultDom}
                       </Link>
                   );
@@ -184,7 +168,7 @@ const BasicLayout: React.FC<BasicLayoutProps> = props => {
           >
               <Navigation {...props} />
 
-              {children}
+              {/*{children}*/}
           </ProLayout >
       </div>
   );

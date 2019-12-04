@@ -309,24 +309,24 @@ class MessageLog extends Component {
     //   },
     // );
       console.log('record=====>',record);
-      this.props.dispatch({
-          type: 'global/changeNavigation',
-          payload: {
-              key: record && record.system_id ? record.system_id : '1',
-              name: '消息推送日志详情',
-              path: '/Message/MessageLog/MessagePushLog',
-              isShow: true,
-              query: { record, id: record && record.system_id ? record.system_id : '1' },
-          },
-          callback: () => {
+      // this.props.dispatch({
+      //     type: 'global/changeNavigation',
+      //     payload: {
+      //         key: record && record.system_id ? record.system_id : '1',
+      //         name: '消息推送日志详情',
+      //         path: '/Message/MessageLog/MessagePushLog',
+      //         isShow: true,
+      //         query: { record, id: record && record.system_id ? record.system_id : '1' },
+      //     },
+      //     callback: () => {
               this.props.dispatch(
                   routerRedux.push({
                       pathname: '/Message/MessageLog/MessagePushLog',
-                      query: { record: record, id: record && record.system_id ? record.system_id : '1' },
+                      query: { id: record && record.system_id ? record.system_id : '1',record: record },
                   }),
               );
-          },
-      });
+      //     },
+      // });
   };
   // 显示、关闭日志详情modal
   // showLogDetailVisible = visible => {
@@ -617,7 +617,14 @@ class MessageLog extends Component {
       total: data && data.page ? data.page.totalResult : '',
       pageSize: data && data.page ? data.page.showCount : '',
       showTotal: (total, range) => (
-        <span className={stylescommon.pagination}>{`共 ${
+        <span  className={
+            data &&
+            data.page &&
+            data.page.totalResult &&
+            data.page.totalResult.toString().length < 5
+                ? stylescommon.pagination
+                : stylescommon.paginations
+        }>{`共 ${
           data && data.page ? data.page.totalPage : 1
         } 页，${data && data.page ? data.page.totalResult : 0} 条数据 `}</span>
       ),

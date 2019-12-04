@@ -67,45 +67,45 @@ class RenderTable extends PureComponent {
     // );
     // const AddNewDetail = { title: '行政案件详情', content: divs, key: record.system_id };
     // this.props.newDetail(AddNewDetail);
-    this.props.dispatch({
-      type: 'global/changeNavigation',
-      payload: {
-        key: record && record.id ? record.id : '1',
-        name: '行政案件详情',
-        path: '/caseFiling/caseData/AdministrationData/caseDetail',
-        isShow: true,
-        query: { record, id: record && record.id ? record.id : '1' },
-      },
-      callback: () => {
+    // this.props.dispatch({
+    //   type: 'global/changeNavigation',
+    //   payload: {
+    //     key: record && record.id ? record.id : '1',
+    //     name: '行政案件详情',
+    //     path: '/caseFiling/caseData/AdministrationData/caseDetail',
+    //     isShow: true,
+    //     query: { record, id: record && record.id ? record.id : '1' },
+    //   },
+    //   callback: () => {
         this.props.dispatch(
           routerRedux.push({
             pathname: '/caseFiling/caseData/AdministrationData/caseDetail',
-            query: { record: record, id: record && record.id ? record.id : '1' },
+            query: {id: record && record.id ? record.id : '1',record: record },
           }),
         );
-      },
-    });
+    //   },
+    // });
   };
   // 行政案件档案详情
   administrativeCaseDocDetails = record => {
-      this.props.dispatch({
-          type: 'global/changeNavigation',
-          payload: {
-              key: record && record.system_id ? record.system_id : '1',
-              name: '行政案件档案详情',
-              path: '/lawEnforcement/File/AdministrativeFile/Detail',
-              isShow: true,
-              query: { record, id: record && record.system_id ? record.system_id : '1' },
-          },
-          callback: () => {
+      // this.props.dispatch({
+      //     type: 'global/changeNavigation',
+      //     payload: {
+      //         key: record && record.system_id ? record.system_id : '1',
+      //         name: '行政案件档案详情',
+      //         path: '/lawEnforcement/File/AdministrativeFile/Detail',
+      //         isShow: true,
+      //         query: { record, id: record && record.system_id ? record.system_id : '1' },
+      //     },
+      //     callback: () => {
               this.props.dispatch(
                   routerRedux.push({
                       pathname: '/lawEnforcement/File/AdministrativeFile/Detail',
-                      query: { record: record, id: record && record.system_id ? record.system_id : '1' },
+                      query: { id: record && record.system_id ? record.system_id : '1',record: record },
                   }),
               );
-          },
-      });
+      //     },
+      // });
     // const divs = (
     //     <div>
     //         <AdministrativeCaseDocDetail

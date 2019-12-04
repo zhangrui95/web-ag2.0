@@ -202,25 +202,34 @@ class SuperviseSetup extends Component {
   };
   addList = (type, reson) => {
     // let res = JSON.stringify(reson);
+      console.log('childen.props',this.props);
+    reson.type = type;
     let res = reson;
-    this.props.dispatch({
-      type: 'global/changeNavigation',
-      payload: {
-        key: reson && reson.id ? reson.id : '1',
-        name: type === 0 ? '监管点添加' : type === 2 ? '监管点修改' : '监管点详情',
-        path: '/systemSetup/SuperviseSetup/Detail',
-        isShow: true,
-        query: { type, res, id: reson && reson.id ? reson.id : '1' },
-      },
-      callback: () => {
-        this.props.dispatch(
+    // this.props.dispatch({
+    //   type: 'global/changeNavigation',
+    //   payload: {
+    //     key: reson && reson.id ? reson.id : '1',
+    //     name: type === 0 ? '监管点添加' : type === 2 ? '监管点修改' : '监管点详情',
+    //     path: '/systemSetup/SuperviseSetup/Detail',
+    //     isShow: true,
+    //     query: { type, res, id: reson && reson.id ? reson.id : '1' },
+    //     // children:this.props.props.children,
+    //   },
+    //   callback: () => {
+    //     this.props.dispatch(
+    //       routerRedux.push({
+    //         pathname: '/systemSetup/SuperviseSetup/Detail',
+    //         query: { type, res, id: reson && reson.id ? reson.id : '1' },
+    //       }),
+    //     );
+    //   },
+    // });
+      this.props.dispatch(
           routerRedux.push({
-            pathname: '/systemSetup/SuperviseSetup/Detail',
-            query: { type, res, id: reson && reson.id ? reson.id : '1' },
+              pathname: '/systemSetup/SuperviseSetup/Detail',
+              query: { id: reson && reson.id ? reson.id : '1' ,record: res},
           }),
-        );
-      },
-    });
+      );
   };
   handleCancel = () => {
     this.props.form.validateFields((err, values) => {
@@ -1017,7 +1026,7 @@ class SuperviseSetup extends Component {
       <div className={stylescommon.statistics} id={'messageBox'}>
         <Card className={stylescommon.titleArea}>
           {/*{isTJJGD ? (*/}
-            <Button type="primary" onClick={() => this.addList(0)}>
+            <Button type="primary" onClick={() => this.addList(0,{})}>
               添加监管点
             </Button>
           {/*) : (*/}
