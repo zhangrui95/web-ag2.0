@@ -1,0 +1,292 @@
+
+.componentBlock {
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 153, 0.2);
+
+  .componentBlockHeader {
+    height: 10%;
+    width: 100%;
+    background-color: rgba(0, 0, 153, 0.2);
+    display: table;
+
+    span {
+      height: 100%;
+      display: table-cell;
+      vertical-align: middle;
+      text-align: center;
+      cursor: pointer;
+      color: #9ACCFF;
+    }
+
+    .tabHeader {
+      background-color: #1f5cc7;
+      color: #fff;
+    }
+  }
+
+  .videoShow {
+    height: 100%;
+    width: 100%;
+    background: #000022;
+
+    .videoListRow {
+      padding-bottom: 5px;
+      height: 33.3%;
+
+      .videoListContent {
+        background: rgba(0, 0, 153, 0.2);
+        height: 100%;
+      }
+    }
+  }
+}
+
+.fullHeight {
+  height: 100%;
+}
+
+.fullPartBlock {
+  height: 100%;
+
+  .echartBlock {
+    height: 50%;
+    background-color: rgba(0, 0, 153, 0.2);
+
+    .componentBlockHeader {
+      height: 10%;
+      width: 100%;
+      background-color: rgba(0, 0, 153, 0.2);
+      display: table;
+
+      span {
+        height: 100%;
+        display: table-cell;
+        vertical-align: middle;
+        text-align: center;
+        cursor: pointer;
+        color: #9ACCFF;
+      }
+
+      .tabHeader {
+        background-color: #1f5cc7;
+        color: #fff;
+      }
+    }
+
+    .warehouse {
+      text-align: center;
+      font-size: 1.2rem;
+    }
+  }
+
+  .zqdata {
+    height: 50%;
+    padding-top: 10px;
+
+    .itemCount {
+      height: 55%;
+    }
+  }
+
+  .warningCount {
+    height: 40%;
+
+    .warningTypeCount, .countNumber {
+      height: 100%;
+      font-size: 1rem;
+    }
+
+    .warningTypeCount {
+      padding: 50px 0 0 50px;
+    }
+
+    .countNumber {
+      padding: 10px 0;
+      text-align: center;
+      height: 100%;
+
+      div {
+        background-color: #320233;
+        height: 50%;
+      }
+    }
+  }
+
+  .warningList {
+    height: 45%;
+    padding: 10px 0 0;
+
+    .warningListBlock {
+      height: 100%;
+
+      .wlist {
+        padding-top: 15px;
+        background-color: rgba(0, 0, 153, 0.2);
+        height: 100%;
+        text-align: center;
+      }
+
+    }
+
+    div {
+      font-size: 0.8rem;
+    }
+
+    .countNumber {
+      text-align: center;
+      height: 100%;
+
+      div {
+        background-color: #320233;
+        height: 50%;
+        font-size: 1rem;
+      }
+    }
+  }
+
+  .itemCount {
+    height: 60%;
+
+    .itemType {
+      height: 100%;
+
+      div {
+        background-color: rgba(0, 0, 153, 0.2);
+        text-align: center;
+        font-size: 1rem;
+      }
+
+      .itemTypeImage {
+        height: 50%;
+        padding-top: 10px;
+
+        img {
+          width: 25%;
+          height: 70%;
+        }
+      }
+
+      .itemTypeNumber {
+        height: 25%;
+        color: #00fff9;
+      }
+
+      .itemTypeName {
+        height: 25%;
+
+      }
+    }
+  }
+}
+
+
+/*新添开始*/
+//新版大屏
+.videopicture:after {
+  display: block;
+  clear: both;
+  content: '';
+}
+
+.videopicture {
+  padding: 0;
+
+  li {
+    list-style: none;
+    float: left;
+    width: 33.33%;
+  }
+
+  img {
+    width: 100%;
+    height: 100%;
+  }
+}
+
+.videoName {
+  color: #fff;
+  text-align: center;
+  line-height: 30px;
+}
+
+::-webkit-scrollbar {
+  width: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  background: #90adff;
+}
+
+::-webkit-scrollbar-track {
+  background: #051540;
+}
+
+// 现有版本大屏修改
+.smallBlock {
+  height: 100%;
+  padding: 0 5px;
+
+  .blockHeader {
+    height: 10%;
+  }
+
+  .smallBlockBody {
+    height: 90%;
+  }
+}
+
+.blockHeader {
+  padding-bottom: 10px;
+  display: table;
+  width: 100%;
+  position: relative;
+
+  h4 {
+    display: table-cell;
+    vertical-align: middle;
+    height: 100%;
+    //text-align: center;
+    //background: url("../../assets/show/2.png") repeat-x;
+    font-size: 20px;
+    color: #6CF;
+    font-weight: bold;
+  }
+}
+
+.videopicture img.videoplayImg {
+  width: 50px;
+  height: 50px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin-left: -25px;
+  margin-top: -25px;
+}
+
+.videoplayImgout {
+  display: block;
+  background-color: rgba(0, 0, 0, 0.3);
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+}
+
+.ImgHover:hover {
+  .videoplayImgout {
+    display: block;
+    cursor: pointer;
+  }
+}
+
+.ImgHover {
+  .videoplayImgout {
+    display: none;
+    cursor: default;
+  }
+}
+
+/*新添结束*/

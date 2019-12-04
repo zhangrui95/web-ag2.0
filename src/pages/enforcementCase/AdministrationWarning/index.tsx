@@ -1,8 +1,8 @@
 /*
-*  执法办案行政案件预警
-*  author：zr
-*  20181222
-* */
+ *  执法办案行政案件预警
+ *  author：zr
+ *  20181222
+ * */
 import React, { PureComponent } from 'react';
 import { connect } from 'dva';
 import {
@@ -20,13 +20,15 @@ import {
   Divider,
   Radio,
   Tooltip,
-  Dropdown, Menu,Icon,
+  Dropdown,
+  Menu,
+  Icon,
 } from 'antd';
 import moment from 'moment/moment';
 import Ellipsis from 'ant-design-pro/lib/Ellipsis';
 import styles from '../../common/listPage.less';
 import { exportListDataMaxDays, getUserInfos, tableList } from '../../../utils/utils';
-import {routerRedux} from "dva/router";
+import { routerRedux } from 'dva/router';
 // import Detail from '../../../routes/XzCaseRealData/caseDetail';
 // import RemindModal from '../../../src/components/RemindModal/RemindModal';
 // import AnnouncementModal from '../../../src/components/AnnouncementModal/AnnouncementModal';
@@ -49,7 +51,6 @@ let currentValue;
   loading: loading.models.EarlyWarning,
 }))
 @Form.create()
-
 export default class Index extends PureComponent {
   state = {
     yjjb: '',
@@ -83,14 +84,14 @@ export default class Index extends PureComponent {
   }
 
   // 切换tab
-  onTabChange = (activeKey) => {
+  onTabChange = activeKey => {
     this.setState({
       activeKey,
     });
   };
   // 关闭页面
   onTabEdit = (targetKey, action) => {
-    this[action](targetKey);  // this.remove(targetKey);
+    this[action](targetKey); // this.remove(targetKey);
   };
   // 获取预警级别字典项
   getYjjbDictionary = () => {
@@ -106,7 +107,7 @@ export default class Index extends PureComponent {
     });
   };
   // 关闭页面链接的函数
-  remove = (targetKey) => {
+  remove = targetKey => {
     let activeKey = this.state.activeKey;
     let lastIndex;
     this.state.arrayDetail.forEach((pane, i) => {
@@ -135,7 +136,7 @@ export default class Index extends PureComponent {
     }
   };
   // 获取数据
-  getDossier = (param) => {
+  getDossier = param => {
     this.props.dispatch({
       type: 'EarlyWarning/getList',
       payload: param || '',
@@ -156,7 +157,7 @@ export default class Index extends PureComponent {
   };
 
   // 获取所有警员
-  getAllPolice = (name) => {
+  getAllPolice = name => {
     const that = this;
     if (timeout) {
       clearTimeout(timeout);
@@ -169,8 +170,8 @@ export default class Index extends PureComponent {
         payload: {
           name,
         },
-        callback: (data) => {
-          if (data && (currentValue === name)) {
+        callback: data => {
+          if (data && currentValue === name) {
             that.setState({
               allPolice: data.slice(0, 50),
             });
@@ -178,7 +179,6 @@ export default class Index extends PureComponent {
         },
       });
     }, 300);
-
   };
 
   // 重置
@@ -203,8 +203,11 @@ export default class Index extends PureComponent {
       ssmk: '2',
     };
     if (yjsjTime && yjsjTime.length > 0) {
-      const isAfterDate = moment(formValues.yjsj_js).isAfter(moment(formValues.yjsj_ks).add(exportListDataMaxDays, 'days'));
-      if (isAfterDate) { // 选择时间间隔应小于exportListDataMaxDays
+      const isAfterDate = moment(formValues.yjsj_js).isAfter(
+        moment(formValues.yjsj_ks).add(exportListDataMaxDays, 'days'),
+      );
+      if (isAfterDate) {
+        // 选择时间间隔应小于exportListDataMaxDays
         message.warning(`日期间隔需小于${exportListDataMaxDays}天`);
       } else {
         this.props.dispatch({
@@ -213,7 +216,7 @@ export default class Index extends PureComponent {
             tableType: '28',
             ...formValues,
           },
-          callback: (data) => {
+          callback: data => {
             if (data.text) {
               message.error(data.text);
             } else {
@@ -225,11 +228,10 @@ export default class Index extends PureComponent {
     } else {
       message.warning(`请选择需要导出的数据日期，日期间隔需小于${exportListDataMaxDays}天`);
     }
-
   };
 
   // 查询
-  handleSearch = (e) => {
+  handleSearch = e => {
     e.preventDefault();
     const values = this.props.form.getFieldsValue();
     const yjsjTime = values.yjsj;
@@ -255,7 +257,7 @@ export default class Index extends PureComponent {
     this.getDossier(params);
   };
   // 获取办案人信息
-  handleAllPoliceOptionChange = (value) => {
+  handleAllPoliceOptionChange = value => {
     this.getAllPolice(value);
   };
   // 表格分页功能
@@ -275,7 +277,7 @@ export default class Index extends PureComponent {
     });
   };
   // 打开新的详情页面
-  details = (record) => {
+  details = record => {
     // const divs = (
     //   <div>
     //     <Detail
@@ -322,7 +324,7 @@ export default class Index extends PureComponent {
     });
   };
   // 打开新的详情页面
-  newDetail = (addDetail) => {
+  newDetail = addDetail => {
     let newDetail = [];
     let isDetail = true;
     newDetail = [...this.state.arrayDetail];
@@ -342,21 +344,20 @@ export default class Index extends PureComponent {
         activeKey: addDetail.key,
       });
     }
-
   };
   // 无法选择的日期
-  disabledDate = (current) => {
+  disabledDate = current => {
     // Can not select days before today and today
     return current && current.valueOf() > Date.now();
   };
   // 请求当前数据的详情（提醒弹窗中的回显数据从此处获取）
-  thisNewDetails = (res) => {
+  thisNewDetails = res => {
     this.props.dispatch({
       type: 'XzCaseData/getXzAjxxXqById',
       payload: {
         system_id: res.system_id,
       },
-      callback: (data) => {
+      callback: data => {
         if (data) {
           this.setState({
             xzcaseDetails: data,
@@ -366,21 +367,28 @@ export default class Index extends PureComponent {
     });
   };
   // 渲染机构树
-  renderloop = data => data.map((item) => {
-    const obj = {
-      id: item.code,
-      label: item.name,
-    };
-    const objStr = JSON.stringify(obj);
-    if (item.childrenList && item.childrenList.length) {
-      return <TreeNode value={objStr} key={objStr}
-                       title={item.name}>{this.renderloop(item.childrenList)}</TreeNode>;
-    }
-    return <TreeNode key={objStr} value={objStr} title={item.name}/>;
-  });
+  renderloop = data =>
+    data.map(item => {
+      const obj = {
+        id: item.code,
+        label: item.name,
+      };
+      const objStr = JSON.stringify(obj);
+      if (item.childrenList && item.childrenList.length) {
+        return (
+          <TreeNode value={objStr} key={objStr} title={item.name}>
+            {this.renderloop(item.childrenList)}
+          </TreeNode>
+        );
+      }
+      return <TreeNode key={objStr} value={objStr} title={item.name} />;
+    });
   saveShare = (res, type, ajGzLx) => {
     this.setState({
-      sx: (res.ajmc ? res.ajmc + '、' : '') + (res.yjlxmc ? res.yjlxmc + '、' : '') + (res.yjsj ? res.yjsj : ''),
+      sx:
+        (res.ajmc ? res.ajmc + '、' : '') +
+        (res.yjlxmc ? res.yjlxmc + '、' : '') +
+        (res.yjsj ? res.yjsj : ''),
       shareRecord: res,
     });
     if (type === 3) {
@@ -401,7 +409,10 @@ export default class Index extends PureComponent {
         payload: {
           agid: res.id,
           lx: this.state.lx,
-          sx: (res.ajmc ? res.ajmc + '、' : '') + (res.yjlxmc ? res.yjlxmc + '、' : '') + (res.yjsj ? res.yjsj : ''),
+          sx:
+            (res.ajmc ? res.ajmc + '、' : '') +
+            (res.yjlxmc ? res.yjlxmc + '、' : '') +
+            (res.yjsj ? res.yjsj : ''),
           type: type,
           tzlx: this.state.tzlx,
           wtid: res.wtid,
@@ -410,7 +421,7 @@ export default class Index extends PureComponent {
           ajGzLx: ajGzLx,
           ssmk: '2',
         },
-        callback: (res) => {
+        callback: res => {
           if (!res.error) {
             message.success('关注成功');
             this.getDossier({ currentPage: this.state.current, pd: this.state.formValues });
@@ -430,7 +441,7 @@ export default class Index extends PureComponent {
       AnnouncementVisible: false,
     });
   };
-  getTg = (record) => {
+  getTg = record => {
     this.setState({
       AnnouncementVisible: true,
     });
@@ -440,14 +451,14 @@ export default class Index extends PureComponent {
         ag_id: record.ag_id,
         yj_id: record.id,
       },
-      callback: (res) => {
+      callback: res => {
         this.setState({
           RzList: res.list,
         });
       },
     });
   };
-  noFollow = (record) => {
+  noFollow = record => {
     this.props.dispatch({
       type: 'share/getNoFollow',
       payload: {
@@ -456,7 +467,7 @@ export default class Index extends PureComponent {
         ajbh: record.ajbh,
         ajGzlx: record.ajgzlx,
       },
-      callback: (res) => {
+      callback: res => {
         if (!res.error) {
           message.success('取消关注成功');
           this.getDossier({ currentPage: this.state.current, pd: this.state.formValues });
@@ -472,11 +483,22 @@ export default class Index extends PureComponent {
   };
 
   render() {
-    const { form: { getFieldDecorator }, common: { depTree, superviseStatusDict, YJJBType }, EarlyWarning: { data: { page, list, tbCount } }, loading } = this.props;
+    const {
+      form: { getFieldDecorator },
+      common: { depTree, superviseStatusDict, YJJBType },
+      EarlyWarning: {
+        data: { page, list, tbCount },
+      },
+      loading,
+    } = this.props;
     const newAddDetail = this.state.arrayDetail;
-    const allPoliceOptions = this.state.allPolice.map(d => <Option key={`${d.idcard},${d.pcard}`}
-                                                                   value={`${d.idcard},${d.pcard}$$`}
-                                                                   title={d.name}>{`${d.name} ${d.pcard}`}</Option>);
+    const allPoliceOptions = this.state.allPolice.map(d => (
+      <Option
+        key={`${d.idcard},${d.pcard}`}
+        value={`${d.idcard},${d.pcard}$$`}
+        title={d.name}
+      >{`${d.name} ${d.pcard}`}</Option>
+    ));
     const formItemLayout = {
       labelCol: { xs: { span: 24 }, md: { span: 8 }, xl: { span: 6 }, xxl: { span: 4 } },
       wrapperCol: { xs: { span: 24 }, md: { span: 16 }, xl: { span: 18 }, xxl: { span: 20 } },
@@ -518,8 +540,12 @@ export default class Index extends PureComponent {
       {
         title: '案件名称',
         dataIndex: 'ajmc',
-        render: (text) => {
-          return <Ellipsis length={25} tooltip>{text}</Ellipsis>;
+        render: text => {
+          return (
+            <Ellipsis length={25} tooltip>
+              {text}
+            </Ellipsis>
+          );
         },
       },
       {
@@ -529,41 +555,66 @@ export default class Index extends PureComponent {
       {
         title: '预警内容',
         dataIndex: 'yjnr',
-        render: (text) => {
-          return <Ellipsis length={25} tooltip>{text}</Ellipsis>;
+        render: text => {
+          return (
+            <Ellipsis length={25} tooltip>
+              {text}
+            </Ellipsis>
+          );
         },
       },
       {
         title: '提醒状态',
         dataIndex: 'txzt',
-        render: (text) => {
+        render: text => {
           return <span>{text === '0' ? '未提醒' : '已提醒'}</span>;
         },
       },
       {
         title: '操作',
-        render: (record) => (
+        render: record => (
           <div>
-            {
-              record.yjjbdm === '5008474' ? '' :
-                <span><a href="javascript:;" onClick={() => this.saveShare(record, 3)}>提醒</a><Divider
-                  type="vertical"/></span>}
+            {record.yjjbdm === '5008474' ? (
+              ''
+            ) : (
+              <span>
+                <a href="javascript:;" onClick={() => this.saveShare(record, 3)}>
+                  提醒
+                </a>
+                <Divider type="vertical" />
+              </span>
+            )}
             <a onClick={() => this.details(record)}>详情</a>
-            <Divider type="vertical"/>
-            <a href="javascript:;" onClick={() => this.getTg(record)}>日志</a>
-            <Divider type="vertical"/>
-            {record.sfgz === 0 ? <Dropdown overlay={<Menu>
-                <Menu.Item key="0">
-                  <a onClick={() => this.saveShare(record, 1, 0)}>本案件关注</a>
-                </Menu.Item>
-                <Menu.Item key="1">
-                  <a onClick={() => this.saveShare(record, 1, 1)}>全要素关注</a>
-                </Menu.Item>
-              </Menu>} trigger={['click']}><a href="javascript:;">关注</a></Dropdown> :
-              <a href="javascript:;"
-                 onClick={() => this.noFollow(record)}>取消{record.ajgzlx && record.ajgzlx === '0' ? '本案件' : '全要素'}关注</a>}
-            <Divider type="vertical"/>
-            <a href="javascript:;" onClick={() => this.saveShare(record, 2)}>分享</a>
+            <Divider type="vertical" />
+            <a href="javascript:;" onClick={() => this.getTg(record)}>
+              日志
+            </a>
+            <Divider type="vertical" />
+            {record.sfgz === 0 ? (
+              <Dropdown
+                overlay={
+                  <Menu>
+                    <Menu.Item key="0">
+                      <a onClick={() => this.saveShare(record, 1, 0)}>本案件关注</a>
+                    </Menu.Item>
+                    <Menu.Item key="1">
+                      <a onClick={() => this.saveShare(record, 1, 1)}>全要素关注</a>
+                    </Menu.Item>
+                  </Menu>
+                }
+                trigger={['click']}
+              >
+                <a href="javascript:;">关注</a>
+              </Dropdown>
+            ) : (
+              <a href="javascript:;" onClick={() => this.noFollow(record)}>
+                取消{record.ajgzlx && record.ajgzlx === '0' ? '本案件' : '全要素'}关注
+              </a>
+            )}
+            <Divider type="vertical" />
+            <a href="javascript:;" onClick={() => this.saveShare(record, 2)}>
+              分享
+            </a>
           </div>
         ),
       },
@@ -573,7 +624,9 @@ export default class Index extends PureComponent {
       for (let i = 0; i < superviseStatusDict.length; i++) {
         const item = superviseStatusDict[i];
         superviseStatusOptions.push(
-          <Option key={item.id} value={item.code}>{item.name}</Option>,
+          <Option key={item.id} value={item.code}>
+            {item.name}
+          </Option>,
         );
       }
     }
@@ -582,20 +635,69 @@ export default class Index extends PureComponent {
       for (let a = 0; a < YJJBType.length; a++) {
         const item = YJJBType[a];
         YJJBStatusOptions.push(
-          <Option key={item.id} value={item.code}>{item.name}</Option>,
+          <Option key={item.id} value={item.code}>
+            {item.name}
+          </Option>,
         );
       }
     }
     let detail = (
-      <Row style={{ width: '90%', margin: '0 38px 10px', lineHeight: '36px', color: 'rgba(0, 0, 0, 0.85)' }}>
-        <Col span={12}>案件名称：<Tooltip
-          title={this.state.xzcaseDetails && this.state.xzcaseDetails.ajmc && this.state.xzcaseDetails.ajmc.length > 20 ? this.state.xzcaseDetails.ajmc : null}>{this.state.xzcaseDetails && this.state.xzcaseDetails.ajmc ? this.state.xzcaseDetails.ajmc.length > 20 ? this.state.xzcaseDetails.ajmc.substring(0, 20) + '...' : this.state.xzcaseDetails.ajmc : ''}</Tooltip></Col>
-        <Col span={12}>受理单位：<Tooltip
-          title={this.state.xzcaseDetails && this.state.xzcaseDetails.sldw_name && this.state.xzcaseDetails.sldw_name.length > 20 ? this.state.xzcaseDetails.sldw_name : null}>{this.state.xzcaseDetails && this.state.xzcaseDetails.sldw_name ? this.state.xzcaseDetails.sldw_name.length > 20 ? this.state.xzcaseDetails.sldw_name.substring(0, 20) + '...' : this.state.xzcaseDetails.sldw_name : ''}</Tooltip></Col>
-        <Col
-          span={12}>案件状态：{this.state.xzcaseDetails && this.state.xzcaseDetails.ajzt ? this.state.xzcaseDetails.ajzt : ''}</Col>
-        <Col
-          span={12}>办案民警：{this.state.xzcaseDetails && this.state.xzcaseDetails.bar_name ? this.state.xzcaseDetails.bar_name : ''}</Col>
+      <Row
+        style={{
+          width: '90%',
+          margin: '0 38px 10px',
+          lineHeight: '36px',
+          color: 'rgba(0, 0, 0, 0.85)',
+        }}
+      >
+        <Col span={12}>
+          案件名称：
+          <Tooltip
+            title={
+              this.state.xzcaseDetails &&
+              this.state.xzcaseDetails.ajmc &&
+              this.state.xzcaseDetails.ajmc.length > 20
+                ? this.state.xzcaseDetails.ajmc
+                : null
+            }
+          >
+            {this.state.xzcaseDetails && this.state.xzcaseDetails.ajmc
+              ? this.state.xzcaseDetails.ajmc.length > 20
+                ? this.state.xzcaseDetails.ajmc.substring(0, 20) + '...'
+                : this.state.xzcaseDetails.ajmc
+              : ''}
+          </Tooltip>
+        </Col>
+        <Col span={12}>
+          受理单位：
+          <Tooltip
+            title={
+              this.state.xzcaseDetails &&
+              this.state.xzcaseDetails.sldw_name &&
+              this.state.xzcaseDetails.sldw_name.length > 20
+                ? this.state.xzcaseDetails.sldw_name
+                : null
+            }
+          >
+            {this.state.xzcaseDetails && this.state.xzcaseDetails.sldw_name
+              ? this.state.xzcaseDetails.sldw_name.length > 20
+                ? this.state.xzcaseDetails.sldw_name.substring(0, 20) + '...'
+                : this.state.xzcaseDetails.sldw_name
+              : ''}
+          </Tooltip>
+        </Col>
+        <Col span={12}>
+          案件状态：
+          {this.state.xzcaseDetails && this.state.xzcaseDetails.ajzt
+            ? this.state.xzcaseDetails.ajzt
+            : ''}
+        </Col>
+        <Col span={12}>
+          办案民警：
+          {this.state.xzcaseDetails && this.state.xzcaseDetails.bar_name
+            ? this.state.xzcaseDetails.bar_name
+            : ''}
+        </Col>
       </Row>
     );
     const paginationProps = {
@@ -604,116 +706,136 @@ export default class Index extends PureComponent {
       current: page ? page.currentPage : '',
       total: page ? page.totalResult : '',
       pageSize: page ? page.showCount : '',
-      showTotal: (total, range) =>
-        <span
-          className={styles.listPagination}>{`共 ${page ? page.currentPage : 1} / ${page ? page.totalPage : 1} 页， ${page ? page.totalResult : 0} 条记录 `}</span>,
+      showTotal: (total, range) => (
+        <span className={styles.listPagination}>{`共 ${page ? page.currentPage : 1} / ${
+          page ? page.totalPage : 1
+        } 页， ${page ? page.totalResult : 0} 条记录 `}</span>
+      ),
     };
     return (
       <div>
-            <div className={styles.tableListForm} id='zfbaxzajyjtableListForm'>
-              <Form onSubmit={this.handleSearch} style={{ height: this.state.searchHeight ? 'auto' : '59px' }}>
-                <Row gutter={rowLayout} className={styles.searchForm}>
-                  <Col {...colLayout}>
-                    <FormItem label="预警类型" {...formItemLayout}>
-                      {getFieldDecorator('yjlx', {
-                        initialValue: this.state.yjlx,
-                      })(
-                        <Select placeholder="请选择" style={{ width: '100%' }} getPopupContainer={() => document.getElementById('zfbaxzajyjtableListForm')}>
-                          <Option value="">全部</Option>
-                          <Option value="5025902">结案（30日办理延期）</Option>
-                          <Option value="5025903">未结案（60日）</Option>
-                        </Select>,
-                      )}
-                    </FormItem>
-                  </Col>
-                  <Col {...colLayout}>
-                    <FormItem label="预警级别" {...formItemLayout}>
-                      {getFieldDecorator('yjjb', {
-                        initialValue: this.state.yjjb,
-                      })(
-                        <Select placeholder="请选择" style={{ width: '100%' }} getPopupContainer={() => document.getElementById('zfbaxzajyjtableListForm')}>
-                          <Option value="">全部</Option>
-                          {YJJBStatusOptions}
-                        </Select>,
-                      )}
-                    </FormItem>
-                  </Col>
-                  <Col {...colLayout}>
-                    <FormItem label="提醒状态" {...formItemLayout}>
-                      {getFieldDecorator('txzt', {
-                        initialValue: this.state.txzt,
-                      })(
-                        <RadioGroup>
-                          <Radio value="">全部</Radio>
-                          <Radio value="1">已提醒</Radio>
-                          <Radio value="0">未提醒</Radio>
-                        </RadioGroup>,
-                      )}
-                    </FormItem>
-                  </Col>
-                  <Col {...colLayout}>
-                    <FormItem label="预警时间" {...formItemLayout}>
-                      {getFieldDecorator('yjsj')(
-                        <RangePicker
-                          disabledDate={this.disabledDate}
-                          style={{ width: '100%' }}
-                          getCalendarContainer={() => document.getElementById('zfbaxzajyjtableListForm')}
-                        />,
-                      )}
-                    </FormItem>
-                  </Col>
-                </Row>
-                <Row className={styles.search}>
-                  <span style={{ float: 'right', marginBottom: 24, marginTop: 5 }}>
-                      <Button style={{ borderColor: '#2095FF' }} htmlType="submit">
-                        查询
-                      </Button>
-                      <Button
-                        style={{ marginLeft: 8 }}
-                        onClick={this.handleFormReset}
-                        className={styles.empty}
-                      >
-                        重置
-                      </Button>
-                      <Button
-                        style={{ marginLeft: 8 }}
-                        onClick={this.getSearchHeight}
-                        className={styles.empty}
-                      >
-                        {this.state.searchHeight ? '收起筛选' : '展开筛选'}{' '}
-                        <Icon type={this.state.searchHeight ? 'up' : 'down'} />
-                      </Button>
-                    </span>
-                  </Row>
-              </Form>
-            </div>
-            <div className={styles.tableListOperator}>
-              <Button style={{ borderColor: '#2095FF', marginBottom:16 }} onClick={this.exportData} icon="download">导出表格</Button>
-              <Table
-                className={styles.listStandardTable}
-                // size="middle"
-                loading={loading}
-                rowKey={record => record.wtid}
-                dataSource={list}
-                columns={columns}
-                pagination={paginationProps}
-                onChange={this.handleTableChange}
-              />
-              {/*<RemindModal caseDetails={this.state.xzcaseDetails} txVisible={this.state.txVisible}*/}
-                           {/*detail={detail} handleCancel={this.handleCancel} txItem={this.state.txItem}*/}
-                           {/*yjmc="案件预警" getResult={() => this.getDossier({*/}
-                {/*currentPage: this.state.current,*/}
-                {/*pd: this.state.formValues,*/}
-              {/*})}/>*/}
-              {/*<AnnouncementModal visible={this.state.AnnouncementVisible}*/}
-                                 {/*handleCancel={this.handleCancels} RzList={this.state.RzList}/>*/}
-              {/*<ShareModal title="案件信息分享" detail={detail} shareVisible={this.state.shareVisible}*/}
-                          {/*handleCancel={this.handleCancel} shareItem={this.state.shareItem}*/}
-                          {/*personList={this.state.personList}*/}
-                          {/*lx={this.state.lx} tzlx={this.state.tzlx} sx={this.state.sx}/>*/}
-            </div>
+        <div className={styles.tableListForm} id="zfbaxzajyjtableListForm">
+          <Form
+            onSubmit={this.handleSearch}
+            style={{ height: this.state.searchHeight ? 'auto' : '59px' }}
+          >
+            <Row gutter={rowLayout} className={styles.searchForm}>
+              <Col {...colLayout}>
+                <FormItem label="预警类型" {...formItemLayout}>
+                  {getFieldDecorator('yjlx', {
+                    initialValue: this.state.yjlx,
+                  })(
+                    <Select
+                      placeholder="请选择"
+                      style={{ width: '100%' }}
+                      getPopupContainer={() => document.getElementById('zfbaxzajyjtableListForm')}
+                    >
+                      <Option value="">全部</Option>
+                      <Option value="5025902">结案（30日办理延期）</Option>
+                      <Option value="5025903">未结案（60日）</Option>
+                    </Select>,
+                  )}
+                </FormItem>
+              </Col>
+              <Col {...colLayout}>
+                <FormItem label="预警级别" {...formItemLayout}>
+                  {getFieldDecorator('yjjb', {
+                    initialValue: this.state.yjjb,
+                  })(
+                    <Select
+                      placeholder="请选择"
+                      style={{ width: '100%' }}
+                      getPopupContainer={() => document.getElementById('zfbaxzajyjtableListForm')}
+                    >
+                      <Option value="">全部</Option>
+                      {YJJBStatusOptions}
+                    </Select>,
+                  )}
+                </FormItem>
+              </Col>
+              <Col {...colLayout}>
+                <FormItem label="提醒状态" {...formItemLayout}>
+                  {getFieldDecorator('txzt', {
+                    initialValue: this.state.txzt,
+                  })(
+                    <RadioGroup>
+                      <Radio value="">全部</Radio>
+                      <Radio value="1">已提醒</Radio>
+                      <Radio value="0">未提醒</Radio>
+                    </RadioGroup>,
+                  )}
+                </FormItem>
+              </Col>
+              <Col {...colLayout}>
+                <FormItem label="预警时间" {...formItemLayout}>
+                  {getFieldDecorator('yjsj')(
+                    <RangePicker
+                      disabledDate={this.disabledDate}
+                      style={{ width: '100%' }}
+                      getCalendarContainer={() =>
+                        document.getElementById('zfbaxzajyjtableListForm')
+                      }
+                    />,
+                  )}
+                </FormItem>
+              </Col>
+            </Row>
+            <Row className={styles.search}>
+              <span style={{ float: 'right', marginBottom: 24, marginTop: 5 }}>
+                <Button style={{ borderColor: '#2095FF' }} htmlType="submit">
+                  查询
+                </Button>
+                <Button
+                  style={{ marginLeft: 8 }}
+                  onClick={this.handleFormReset}
+                  className={styles.empty}
+                >
+                  重置
+                </Button>
+                <Button
+                  style={{ marginLeft: 8 }}
+                  onClick={this.getSearchHeight}
+                  className={styles.empty}
+                >
+                  {this.state.searchHeight ? '收起筛选' : '展开筛选'}{' '}
+                  <Icon type={this.state.searchHeight ? 'up' : 'down'} />
+                </Button>
+              </span>
+            </Row>
+          </Form>
+        </div>
+        <div className={styles.tableListOperator}>
+          <Button
+            style={{ borderColor: '#2095FF', marginBottom: 16 }}
+            onClick={this.exportData}
+            icon="download"
+          >
+            导出表格
+          </Button>
+          <Table
+            className={styles.listStandardTable}
+            // size="middle"
+            loading={loading}
+            rowKey={record => record.wtid}
+            dataSource={list}
+            columns={columns}
+            pagination={paginationProps}
+            onChange={this.handleTableChange}
+          />
+          {/*<RemindModal caseDetails={this.state.xzcaseDetails} txVisible={this.state.txVisible}*/}
+          {/*detail={detail} handleCancel={this.handleCancel} txItem={this.state.txItem}*/}
+          {/*yjmc="案件预警" getResult={() => this.getDossier({*/}
+          {/*currentPage: this.state.current,*/}
+          {/*pd: this.state.formValues,*/}
+          {/*})}/>*/}
+          {/*<AnnouncementModal visible={this.state.AnnouncementVisible}*/}
+          {/*handleCancel={this.handleCancels} RzList={this.state.RzList}/>*/}
+          {/*<ShareModal title="案件信息分享" detail={detail} shareVisible={this.state.shareVisible}*/}
+          {/*handleCancel={this.handleCancel} shareItem={this.state.shareItem}*/}
+          {/*personList={this.state.personList}*/}
+          {/*lx={this.state.lx} tzlx={this.state.tzlx} sx={this.state.sx}/>*/}
+        </div>
       </div>
     );
   }
-
 }

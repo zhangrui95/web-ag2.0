@@ -516,7 +516,7 @@ export default class caseDetail extends PureComponent {
         style={{ background: '#252C3C' /*height: autoheight() - 180 + 'px'*/ }}
         className={styles.detailBoxScroll}
       >
-        <div style={{ textAlign: 'right',marginTop: 30}}>
+        <div style={{ textAlign: 'right', marginTop: 30 }}>
           {caseDetails && caseDetails.jqxxList && caseDetails.jqxxList.length > 0 ? (
             <Button
               type="primary"
@@ -564,7 +564,7 @@ export default class caseDetail extends PureComponent {
         </div>
         <div className={styles.title}>| 案件信息</div>
         <div className={styles.message} style={{ padding: '24px 70px' }}>
-          <Row  className={styles.xqrow}>
+          <Row className={styles.xqrow}>
             <Col md={8} sm={24} className={styles.xqcol}>
               <div className={liststyles.Indexfrom}>
                 <div className={liststyles.special}>案件名称：</div>
@@ -590,7 +590,7 @@ export default class caseDetail extends PureComponent {
               </div>
             </Col>
           </Row>
-          <Row  className={styles.xqrow}>
+          <Row className={styles.xqrow}>
             <Col md={8} sm={24} className={styles.xqcol}>
               <div className={liststyles.Indexfrom}>案发时段：</div>
               <div className={liststyles.Indextail}>
@@ -616,7 +616,7 @@ export default class caseDetail extends PureComponent {
               </div>
             </Col>
           </Row>
-          <Row className={caseDetails && caseDetails.pajk && caseDetails.xayy?styles.xqrow:''}>
+          <Row className={caseDetails && caseDetails.pajk && caseDetails.xayy ? styles.xqrow : ''}>
             <Col md={24} sm={24} className={styles.xqcol}>
               <div className={liststyles.Indexfrom}>简要案情：</div>
               <div className={liststyles.Indextail}>
@@ -625,7 +625,7 @@ export default class caseDetail extends PureComponent {
             </Col>
           </Row>
           {caseDetails && caseDetails.pajk ? (
-            <Row  className={styles.xqrow}>
+            <Row className={styles.xqrow}>
               <Col md={24} sm={24} className={styles.xqcol}>
                 <Row className={liststyles.JzInfoDiv}>
                   <Col
@@ -647,7 +647,7 @@ export default class caseDetail extends PureComponent {
             ''
           )}
           {caseDetails && caseDetails.xayy ? (
-            <Row  className={styles.xqrow}>
+            <Row className={styles.xqrow}>
               <Col md={24} sm={24} className={styles.xqcol}>
                 <Row className={liststyles.JzInfoDiv}>
                   <Col
@@ -670,7 +670,11 @@ export default class caseDetail extends PureComponent {
           )}
 
           {caseDetails && caseDetails.ajzt ? (
-            <Card title={'案件流程'} style={{ marginTop: '12px',borderRadius:0,backgroundColor:'#171a26'}} className={styles.ajlczCard}>
+            <Card
+              title={'案件流程'}
+              style={{ marginTop: '12px', borderRadius: 0, backgroundColor: '#171a26' }}
+              className={styles.ajlczCard}
+            >
               <CaseModalStep caseDetails={caseDetails} />
             </Card>
           ) : (

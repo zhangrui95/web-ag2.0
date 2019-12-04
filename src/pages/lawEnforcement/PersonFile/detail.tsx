@@ -397,8 +397,8 @@ export default class PersonalDocDetail extends PureComponent {
                                 modularity_class:5,
                             },
                             symbolSize: 20,
-                            x: this.getX(qzX,20,index,700),
-                            y: this.getY(qzY,20,index,700),
+                            x: this.getX(qzX,20,index,500),
+                            y: this.getY(qzY,20,index,500),
                         });
                     });
                 }

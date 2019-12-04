@@ -90,8 +90,17 @@ export default class uncaseDetail extends PureComponent {
   };
 
   componentDidMount() {
-    if(this.props.location && this.props.location.query && this.props.location.query.record && this.props.location.query.record.id && this.props.location.query.record.system_id ){
-      this.caseDetailDatas(this.props.location.query.record.id, this.props.location.query.record.system_id);
+    if (
+      this.props.location &&
+      this.props.location.query &&
+      this.props.location.query.record &&
+      this.props.location.query.record.id &&
+      this.props.location.query.record.system_id
+    ) {
+      this.caseDetailDatas(
+        this.props.location.query.record.id,
+        this.props.location.query.record.system_id,
+      );
     }
   }
 
@@ -529,7 +538,7 @@ export default class uncaseDetail extends PureComponent {
     const { unCaseDetailData, isDb } = this.state;
 
     return (
-      <div style={{ backgroundColor: '#252C3C',margin:'16px 0' }}>
+      <div style={{ backgroundColor: '#252C3C', margin: '16px 0' }}>
         <Row gutter={{ md: 8, lg: 24, xl: 48 }}>
           <Col md={8} sm={24}>
             {/*<span style={{ margin: '16px', display: 'block' }}>刑事案件详情</span>*/}
@@ -768,7 +777,7 @@ export default class uncaseDetail extends PureComponent {
 
     return (
       <div
-        style={{ background: '#252C3C', /*height: autoheight() - 290 + 'px'*/ }}
+        style={{ background: '#252C3C' /*height: autoheight() - 290 + 'px'*/ }}
         className={styles.detailBoxScroll}
       >
         <SupervisionLog
@@ -784,11 +793,11 @@ export default class uncaseDetail extends PureComponent {
         <div className={styles.tablemessage}>
           <Table
             // size={'middle'}
-            style={{ backgroundColor: '#252c3c',borderRadius:0,padding:24 }}
+            style={{ backgroundColor: '#252c3c', borderRadius: 0, padding: 24 }}
             pagination={{
               pageSize: 3,
               showTotal: (total, range) => (
-                <div style={{ color:'#fff' }}>
+                <div style={{ color: '#fff' }}>
                   共 {Math.ceil(total / 3)} 页， {total} 条记录
                 </div>
               ),
@@ -862,7 +871,11 @@ export default class uncaseDetail extends PureComponent {
             </Col>
           </Row>
           {unCaseDetailData && unCaseDetailData.ajzt ? (
-            <Card title={'案件流程'} style={{ backgroundColor: '#171A26', marginTop: 12, borderRadius: 0 }} className={styles.ajlcCard}>
+            <Card
+              title={'案件流程'}
+              style={{ backgroundColor: '#171A26', marginTop: 12, borderRadius: 0 }}
+              className={styles.ajlcCard}
+            >
               <CaseModalStep caseDetails={unCaseDetailData} />
             </Card>
           ) : (
@@ -880,7 +893,8 @@ export default class uncaseDetail extends PureComponent {
         <div className={styles.title}>| 涉案物品</div>
         <div className={styles.tablemessage}>
           <div style={{ padding: '24px' }}>
-            {this.sawpCol(unCaseDetailData && unCaseDetailData.sawpList ? unCaseDetailData.sawpList : [],
+            {this.sawpCol(
+              unCaseDetailData && unCaseDetailData.sawpList ? unCaseDetailData.sawpList : [],
             )}
           </div>
         </div>

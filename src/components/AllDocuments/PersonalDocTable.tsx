@@ -104,7 +104,7 @@ export default class PersonalDocTable extends PureComponent {
             {
                 title: '案件名称',
                 dataIndex: 'ajmc',
-                // width: '30%',
+                width: '20%',
                 render: (text) => {
                     return <Ellipsis lines={2} tooltip>{text}</Ellipsis>;
                 },

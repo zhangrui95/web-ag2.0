@@ -89,7 +89,7 @@ export default class CriminalCaseDocDetail extends PureComponent {
         sabar: '',
         AnchorShow: false,
         Anchor: false,
-        afterScrollTop: document.body.scrollTop || document.documentElement.scrollTop || window.pageYOffset,
+        afterScrollTop: 0,
         load: false,
         makeTableModalVisible: false, // 制表model
         RetrieveRecord: null,
@@ -97,30 +97,40 @@ export default class CriminalCaseDocDetail extends PureComponent {
         isZb: authorityIsTrue(userAuthorityCode.ZHIBIAO), // 制表权限
         isTb: authorityIsTrue(userAuthorityCode.TUIBU), // 退补权限
         loading: false, // 默认详情页是否为加载状态
+        first:true,
     };
 
     componentDidMount() {
         console.log('this.props----->',this.props.location.query.id);
         this.caseDetailDatas(this.props.location.query.id);
-        window.addEventListener('scroll', this.scrollHandler);
     }
 
     scrollHandler = () => {
-        let afterScrollTop = document.body.scrollTop || document.documentElement.scrollTop || window.pageYOffset;
-        if (afterScrollTop > this.state.afterScrollTop) {
+        if(this.state.first){
+            let scroll = document.getElementById("scroll");
+            if (scroll) {
+                scroll.addEventListener("scroll", e => {
+                    let afterScrollTop = e.target.scrollTop;
+                    if (afterScrollTop > this.state.afterScrollTop) {
+                        this.setState({
+                            AnchorShow: true,
+                            Anchor: true,
+                        });
+                    } else {
+                        this.setState({
+                            AnchorShow: false,
+                            Anchor: true,
+                        });
+                    }
+                    this.setState({
+                        afterScrollTop: afterScrollTop,
+                    });
+                });
+            }
             this.setState({
-                AnchorShow: true,
-                Anchor: true,
-            });
-        } else {
-            this.setState({
-                AnchorShow: false,
-                Anchor: true,
+                first:false,
             });
         }
-        this.setState({
-            afterScrollTop: afterScrollTop,
-        });
     };
 //换行
     formatter = (val) => {
@@ -1067,7 +1077,8 @@ export default class CriminalCaseDocDetail extends PureComponent {
             },
         ];
         return (
-            <Card style={{ height: autoheight() - 210 + 'px',marginTop:'12px' }} ref={'scroll'}
+            <Card style={{ height: autoheight() - 210 + 'px',marginTop:'12px' }}
+                  // onScrollCapture={this.scrollHandler} id={'scroll'}
                  className={styles.detailBoxScroll}>
                 <Spin spinning={loading}>
                     <div id='capture1'>
@@ -1215,6 +1226,7 @@ export default class CriminalCaseDocDetail extends PureComponent {
 
     render() {
         const { makeTableModalVisible, RetrieveVisible, RetrieveRecord,tbDetail } = this.state;
+        console.log('this.props',this.props.location)
         return (
             <div>
                 <div>
@@ -1228,7 +1240,7 @@ export default class CriminalCaseDocDetail extends PureComponent {
                         className={!(this.state.Anchor && this.state.AnchorShow) ? styles.AnchorHide : this.state.AnchorShow ? styles.fadeBoxIn : styles.fadeBoxOut}
                         offsetTop={70}>
                         <Link
-                            href={'#/allDocuments/caseDoc/criminalCaseDocTransfer/criminalCaseDoc/#' + this.props.id + 'gxtp'}
+                            href={'#'+this.props.location.pathname+'?id='+this.props.location.query.id+'&record='+this.props.location.query.record+'/#' + this.props.location.query.id + 'gxtp'}
                             title="关系图谱"/>
                         <Link
                             href={'#/allDocuments/caseDoc/criminalCaseDocTransfer/criminalCaseDoc/#' + this.props.id + 'jqxx'}

@@ -1,5 +1,3 @@
-// import home from '../src/assets/menuIcon/home.png'
-// import jcj from '../src/assets/menuIcon/jcj.png'
 export function routes() {
   let route = [
     {
@@ -12,6 +10,13 @@ export function routes() {
           component: './user/login',
         },
       ],
+    },
+    {
+          path: '/setupShow',
+          component: '../layouts/setupShow',
+    },{
+          path: '/Show',
+          component: '../layouts/bigShow',
     },
     {
       path: '/',
@@ -29,7 +34,7 @@ export function routes() {
             {
               path: '/ShowData/RegulatePanel',
               name: '首页',
-              icon: 'home',
+              icon: 'https://drm-file.lanhuapp.com/skthumb-f7300995-a0a1-4223-82f2-b40cde5f36d5-CDs7odnJl0WXGDq1.png',
               component: './ShowData/RegulatePanel',
             },
             {
@@ -55,7 +60,7 @@ export function routes() {
             // },
             {
               name: '接处警',
-              icon: 'smile',
+              icon: 'https://drm-file.lanhuapp.com/skthumb-862316d9-fc77-49b9-8ab1-bd1660d7d337-DzC7LFXGSfsvJZka.png',
               path: '/receivePolice',
               routes: [
                 {
@@ -564,6 +569,13 @@ export function routes() {
                   icon: 'smile',
                   component: './Message/MessageLog',
                 },
+                  {
+                      path: '/Message/MessageLog/MessagePushLog',
+                      name: '消息推送日志详情',
+                      icon: 'smile',
+                      component: './Message/MessageLog/MessagePushLog.tsx',
+                      hideInMenu: true,
+                  },
               ],
             },
             {
@@ -578,16 +590,21 @@ export function routes() {
                   component: './systemSetup/SuperviseSetup',
                 },
                 {
-                  path: '/systemSetup/ShowSetup',
+                  path: '/setupShow',
                   name: '投屏设置',
                   icon: 'smile',
-                  component: './systemSetup/ShowSetup',
+                  target: '_blank',
                 },
                 {
                   path: '/systemSetup/SuperviseSetup/Detail',
                   name: '监管配置详情',
                   icon: 'smile',
                   component: './systemSetup/SuperviseSetup/detail.tsx',
+                  hideInMenu: true,
+                }, {
+                  path: '/systemSetup/SuperviseSetup/Copy',
+                  name: '复用监管点',
+                  component: './systemSetup/SuperviseSetup/SuperviseCopy.tsx',
                   hideInMenu: true,
                 },
                 {
@@ -598,6 +615,12 @@ export function routes() {
                 },
               ],
             },
+          {
+              name: '监管看板',
+              target: '_blank',
+              icon: "fullscreen",
+              path: '/Show',
+          },
             {
               component: './404',
             },

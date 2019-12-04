@@ -537,9 +537,9 @@ export default class CaseEnforcementDataView extends PureComponent {
         axisLabel: {
           interval: 0,
           formatter: value => this.insertFlg(value, '\n', 10),
-          textStyle:{
-            color:'#fff',
-          }
+          textStyle: {
+            color: '#fff',
+          },
         },
       },
       yAxis: {

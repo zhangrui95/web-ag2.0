@@ -1,12 +1,25 @@
 /*
-* Enforcement/index.js 执法办案刑事案件数据
-* author：jhm
-* 20180605
-* */
+ * Enforcement/index.js 执法办案刑事案件数据
+ * author：jhm
+ * 20180605
+ * */
 
 import React, { PureComponent } from 'react';
 import { connect } from 'dva';
-import { Row, Col, Form, Select, TreeSelect, Input, Button, DatePicker, Tabs, message, Cascader, Icon } from 'antd';
+import {
+  Row,
+  Col,
+  Form,
+  Select,
+  TreeSelect,
+  Input,
+  Button,
+  DatePicker,
+  Tabs,
+  message,
+  Cascader,
+  Icon,
+} from 'antd';
 import moment from 'moment/moment';
 import styles from '../../common/listPage.less';
 import RenderTable from '../../../components/CaseRealData/RenderTable';
@@ -25,7 +38,9 @@ let timeout;
 let currentValue;
 
 @connect(({ common, CaseData, loading }) => ({
-  CaseData, loading, common,
+  CaseData,
+  loading,
+  common,
   // loading: loading.models.alarmManagement,
 }))
 @Form.create()
@@ -35,7 +50,7 @@ export default class Index extends PureComponent {
     ajzt: '',
     bardw: '',
     formValues: {
-      is_area:'0',
+      is_area: '0',
     },
     activeKey: '0',
     arrayDetail: [],
@@ -48,8 +63,8 @@ export default class Index extends PureComponent {
     selectedDateVal: null, // 手动选择的日期
     selectedDeptVal: '', // 手动选择机构
     treeDefaultExpandedKeys: [], // 办案单位树默认展开keys
-    statusDate:'102', // 初始状态下，查询项默认为立案日期（code = 102），
-    linkToAjzt:'',
+    statusDate: '102', // 初始状态下，查询项默认为立案日期（code = 102），
+    linkToAjzt: '',
     searchHeight: false, // 查询条件展开筛选
   };
 
@@ -59,7 +74,12 @@ export default class Index extends PureComponent {
         showDataView: false,
       });
     }
-    if (this.props.location.state && this.props.location.state.code && this.props.location.state.kssj && this.props.location.state.jssj) {
+    if (
+      this.props.location.state &&
+      this.props.location.state.code &&
+      this.props.location.state.kssj &&
+      this.props.location.state.jssj
+    ) {
       this.setState({
         showDataView: false,
         bardw: this.props.location.state.code,
@@ -88,7 +108,7 @@ export default class Index extends PureComponent {
       const larq_js = getQueryString(this.props.location.search, 'endTime') || '';
       const jigouArea = sessionStorage.getItem('user');
       const newjigouArea = JSON.parse(jigouArea);
-      if ((larq_ks !== '') && (larq_js !== '')) {
+      if (larq_ks !== '' && larq_js !== '') {
         this.props.form.setFieldsValue({
           larq: [moment(larq_ks, 'YYYY-MM-DD'), moment(larq_js, 'YYYY-MM-DD')],
         });
@@ -125,14 +145,14 @@ export default class Index extends PureComponent {
       },
     });
   };
-  onChange = (activeKey) => {
+  onChange = activeKey => {
     this.setState({
       activeKey,
     });
   };
   // 关闭页面
   onEdit = (targetKey, action) => {
-    this[action](targetKey);  // this.remove(targetKey);
+    this[action](targetKey); // this.remove(targetKey);
   };
 
   getCase(param) {
@@ -180,7 +200,7 @@ export default class Index extends PureComponent {
         },
         showCount: 999,
       },
-      callback: (data) => {
+      callback: data => {
         if (data) {
           let caseAllTypeData = [];
           if (data.length > 0) {
@@ -202,14 +222,14 @@ export default class Index extends PureComponent {
     });
   };
   // 获取案件类别树
-  getCaseTypeTree = (areaNum) => {
+  getCaseTypeTree = areaNum => {
     this.props.dispatch({
-      type: areaNum==='2'?'common/getPlCaseTypeTree':'common/getPlCaseTypeTree',
+      type: areaNum === '2' ? 'common/getPlCaseTypeTree' : 'common/getPlCaseTypeTree',
       payload: {
         ajlb: 'xs', // 案件类别xs,xz
-        is_area:'0',
+        is_area: '0',
       },
-      callback: (data) => {
+      callback: data => {
         if (data.list) {
           this.setState({
             caseTypeTree: data.list,
@@ -220,7 +240,7 @@ export default class Index extends PureComponent {
   };
 
   // 获取机构树
-  getDepTree = (area) => {
+  getDepTree = area => {
     const areaNum = [];
     if (area) {
       areaNum.push(area);
@@ -230,7 +250,7 @@ export default class Index extends PureComponent {
       payload: {
         departmentNum: areaNum,
       },
-      callback: (data) => {
+      callback: data => {
         if (data) {
           this.setState({
             treeDefaultExpandedKeys: [data[0].code],
@@ -240,7 +260,7 @@ export default class Index extends PureComponent {
     });
   };
   // 获取所有警员
-  getAllPolice = (name) => {
+  getAllPolice = name => {
     const that = this;
     if (timeout) {
       clearTimeout(timeout);
@@ -248,14 +268,13 @@ export default class Index extends PureComponent {
     }
     currentValue = name;
     timeout = setTimeout(function() {
-
       that.props.dispatch({
         type: 'common/getAllPolice',
         payload: {
           name,
         },
-        callback: (data) => {
-          if (data && (currentValue === name)) {
+        callback: data => {
+          if (data && currentValue === name) {
             that.setState({
               allPolice: data.slice(0, 50),
             });
@@ -263,11 +282,10 @@ export default class Index extends PureComponent {
         },
       });
     }, 300);
-
   };
 
   // 关闭页面链接的函数
-  remove = (targetKey) => {
+  remove = targetKey => {
     let activeKey = this.state.activeKey;
     let lastIndex;
     this.state.arrayDetail.forEach((pane, i) => {
@@ -296,7 +314,7 @@ export default class Index extends PureComponent {
     }
   };
   // 打开新的详情页面
-  newDetail = (addDetail) => {
+  newDetail = addDetail => {
     let newDetail = [];
     let isDetail = true;
     newDetail = [...this.state.arrayDetail];
@@ -316,10 +334,9 @@ export default class Index extends PureComponent {
         activeKey: addDetail.key,
       });
     }
-
   };
   // 无法选择的日期
-  disabledDate = (current) => {
+  disabledDate = current => {
     // Can not select days before today and today
     return current && current.valueOf() > Date.now();
   };
@@ -339,7 +356,7 @@ export default class Index extends PureComponent {
     this.getCase(params);
   };
   // 查询
-  handleSearch = (e) => {
+  handleSearch = e => {
     if (e) e.preventDefault();
     const values = this.props.form.getFieldsValue();
     const larqTime = values.larq;
@@ -358,7 +375,7 @@ export default class Index extends PureComponent {
       zxlb: values.zxlb || '',
       ajlb: values.ajlb ? values.ajlb[values.ajlb.length - 1] : '',
       ssmk: '2',
-      is_area:'0',
+      is_area: '0',
       larq_ks: larqTime && larqTime.length > 0 ? larqTime[0].format('YYYY-MM-DD') : '',
       larq_js: larqTime && larqTime.length > 0 ? larqTime[1].format('YYYY-MM-DD') : '',
       parq_ks: parqTime && parqTime.length > 0 ? parqTime[0].format('YYYY-MM-DD') : '',
@@ -392,7 +409,7 @@ export default class Index extends PureComponent {
     this.setState({
       formValues: {
         ssmk: '2',
-        is_area:'0',
+        is_area: '0',
       },
       bardw: null,
       larq: null,
@@ -426,7 +443,7 @@ export default class Index extends PureComponent {
       zxlb: values.zxlb || '',
       ajlb: values.ajlb ? values.ajlb[values.ajlb.length - 1] : '',
       ssmk: '2',
-      is_area:'0',
+      is_area: '0',
       larq_ks: larqTime && larqTime.length > 0 ? larqTime[0].format('YYYY-MM-DD') : '',
       larq_js: larqTime && larqTime.length > 0 ? larqTime[1].format('YYYY-MM-DD') : '',
       parq_ks: parqTime && parqTime.length > 0 ? parqTime[0].format('YYYY-MM-DD') : '',
@@ -442,7 +459,14 @@ export default class Index extends PureComponent {
       qsrq_ks: ysqsTime && ysqsTime.length > 0 ? ysqsTime[0].format('YYYY-MM-DD') : '',
       qsrq_js: ysqsTime && ysqsTime.length > 0 ? ysqsTime[1].format('YYYY-MM-DD') : '',
     };
-    if ((larqTime && larqTime.length > 0) || (saTime && saTime.length > 0) || (parqTime && parqTime.length > 0) || (carqTime && carqTime.length > 0) || (jarqTime && jarqTime.length > 0) || (ysqsTime && ysqsTime.length > 0)) {
+    if (
+      (larqTime && larqTime.length > 0) ||
+      (saTime && saTime.length > 0) ||
+      (parqTime && parqTime.length > 0) ||
+      (carqTime && carqTime.length > 0) ||
+      (jarqTime && jarqTime.length > 0) ||
+      (ysqsTime && ysqsTime.length > 0)
+    ) {
       let dateArry = [];
       let dateArry2 = [];
       if (larqTime && larqTime.length > 0) {
@@ -459,9 +483,20 @@ export default class Index extends PureComponent {
       if (ysqsTime && ysqsTime.length > 0) {
         dateArry2 = [...ysqsTime];
       }
-      const isAfterDate = dateArry.length > 0 ? moment(dateArry[1].format('YYYY-MM-DD')).isAfter(moment(dateArry[0].format('YYYY-MM-DD')).add(exportListDataMaxDays, 'days')) : true;
-      const isAfterDate2 = dateArry2.length > 0 ? moment(dateArry2[1].format('YYYY-MM-DD')).isAfter(moment(dateArry2[1].format('YYYY-MM-DD')).add(exportListDataMaxDays, 'days')) : true;
-      if (isAfterDate && isAfterDate2) { // 选择时间间隔应小于exportListDataMaxDays
+      const isAfterDate =
+        dateArry.length > 0
+          ? moment(dateArry[1].format('YYYY-MM-DD')).isAfter(
+              moment(dateArry[0].format('YYYY-MM-DD')).add(exportListDataMaxDays, 'days'),
+            )
+          : true;
+      const isAfterDate2 =
+        dateArry2.length > 0
+          ? moment(dateArry2[1].format('YYYY-MM-DD')).isAfter(
+              moment(dateArry2[1].format('YYYY-MM-DD')).add(exportListDataMaxDays, 'days'),
+            )
+          : true;
+      if (isAfterDate && isAfterDate2) {
+        // 选择时间间隔应小于exportListDataMaxDays
         message.warning(`日期间隔需小于${exportListDataMaxDays}天`);
       } else {
         this.props.dispatch({
@@ -471,7 +506,7 @@ export default class Index extends PureComponent {
             lbqf: '执法办案-案件数据-刑事案件数据',
             ...formValues,
           },
-          callback: (data) => {
+          callback: data => {
             if (data.text) {
               message.error(data.text);
             } else {
@@ -483,21 +518,24 @@ export default class Index extends PureComponent {
     } else {
       message.warning(`请选择需要导出的数据日期，日期间隔需小于${exportListDataMaxDays}天`);
     }
-
   };
   // 渲染机构树
-  renderloop = data => data.map((item) => {
-    if (item.childrenList && item.childrenList.length) {
-      return <TreeNode value={item.code} key={item.code}
-                       title={item.name}>{this.renderloop(item.childrenList)}</TreeNode>;
-    }
-    return <TreeNode key={item.code} value={item.code} title={item.name}/>;
-  });
-  handleAllPoliceOptionChange = (value) => {
+  renderloop = data =>
+    data.map(item => {
+      if (item.childrenList && item.childrenList.length) {
+        return (
+          <TreeNode value={item.code} key={item.code} title={item.name}>
+            {this.renderloop(item.childrenList)}
+          </TreeNode>
+        );
+      }
+      return <TreeNode key={item.code} value={item.code} title={item.name} />;
+    });
+  handleAllPoliceOptionChange = value => {
     this.getAllPolice(value);
   };
   // 级联加载数据
-  cascaderLoadData = (selectedOptions) => {
+  cascaderLoadData = selectedOptions => {
     const targetOption = selectedOptions[selectedOptions.length - 1];
     targetOption.loading = true;
 
@@ -506,12 +544,12 @@ export default class Index extends PureComponent {
       payload: {
         currentPage: 1,
         pd: {
-          pid: (targetOption.id).toString(),
+          pid: targetOption.id.toString(),
           isCaseAll: true,
         },
         showCount: 999,
       },
-      callback: (data) => {
+      callback: data => {
         targetOption.loading = false;
         if (data.length > 0) {
           targetOption.children = [];
@@ -538,7 +576,7 @@ export default class Index extends PureComponent {
     });
   };
   // 专项类别选择回调
-  specialCaseOnChange = (value) => {
+  specialCaseOnChange = value => {
     this.props.form.setFieldsValue({
       ajlb: null,
     });
@@ -553,20 +591,20 @@ export default class Index extends PureComponent {
     // if(showDataView) this.handleFormReset();
   };
   // 设置手动选择日期
-  setSelectedDate = (val) => {
+  setSelectedDate = val => {
     this.setState({
       typeButtons: 'selectedDate',
       selectedDateVal: val,
     });
   };
   // 设置手动选择机构
-  setSelectedDep = (val) => {
+  setSelectedDep = val => {
     this.setState({
       selectedDeptVal: val,
     });
   };
   // 改变图表类别
-  changeTypeButtons = (val) => {
+  changeTypeButtons = val => {
     this.setState({
       typeButtons: val,
     });
@@ -577,20 +615,30 @@ export default class Index extends PureComponent {
     this.setState({
       showDataView: false,
       linkToAjzt: name && name.ajzt ? name.ajzt : null,
-      statusDate:'102',
+      statusDate: '102',
     });
     this.props.form.setFieldsValue({
-      [name && name.ajzt ? name.ajzt === '101' ? 'slrq' : name.ajzt === '104' ? 'parq' : name.ajzt === '105' ? 'carq' : name.ajzt === '107' ? 'jarq' : 'larq' : 'larq']: [moment(dateArry[0], 'YYYY-MM-DD'), moment(dateArry[1], 'YYYY-MM-DD')],
+      [name && name.ajzt
+        ? name.ajzt === '101'
+          ? 'slrq'
+          : name.ajzt === '104'
+          ? 'parq'
+          : name.ajzt === '105'
+          ? 'carq'
+          : name.ajzt === '107'
+          ? 'jarq'
+          : 'larq'
+        : 'larq']: [moment(dateArry[0], 'YYYY-MM-DD'), moment(dateArry[1], 'YYYY-MM-DD')],
       bardw: this.state.selectedDeptVal || null,
       ...name,
     });
     this.handleSearch();
   };
-  chooseStatus = (item) => {
+  chooseStatus = item => {
     this.setState({
-      statusDate:item,
-    })
-  }
+      statusDate: item,
+    });
+  };
   // 展开筛选和关闭筛选
   getSearchHeight = () => {
     this.setState({
@@ -598,11 +646,18 @@ export default class Index extends PureComponent {
     });
   };
   renderForm() {
-    const { form: { getFieldDecorator }, common: { depTree, specialCaseType, CaseStatusType, enforcementTypeDict } } = this.props;
+    const {
+      form: { getFieldDecorator },
+      common: { depTree, specialCaseType, CaseStatusType, enforcementTypeDict },
+    } = this.props;
     const { statusDate } = this.state;
-    const allPoliceOptions = this.state.allPolice.map(d => <Option key={`${d.idcard},${d.pcard}`}
-                                                                   value={`${d.idcard},${d.pcard}$$`}
-                                                                   title={d.name}>{`${d.name} ${d.pcard}`}</Option>);
+    const allPoliceOptions = this.state.allPolice.map(d => (
+      <Option
+        key={`${d.idcard},${d.pcard}`}
+        value={`${d.idcard},${d.pcard}$$`}
+        title={d.name}
+      >{`${d.name} ${d.pcard}`}</Option>
+    ));
     const formItemLayout = {
       labelCol: { xs: { span: 24 }, md: { span: 8 }, xl: { span: 6 }, xxl: { span: 5 } },
       wrapperCol: { xs: { span: 24 }, md: { span: 16 }, xl: { span: 18 }, xxl: { span: 19 } },
@@ -614,7 +669,9 @@ export default class Index extends PureComponent {
       for (let i = 0; i < specialCaseType.length; i++) {
         const item = specialCaseType[i];
         specialCaseTypeOptions.push(
-          <Option key={item.id} value={item.code}>{item.name}</Option>,
+          <Option key={item.id} value={item.code}>
+            {item.name}
+          </Option>,
         );
       }
     }
@@ -623,7 +680,9 @@ export default class Index extends PureComponent {
       for (let i = 0; i < CaseStatusType.length; i++) {
         const item = CaseStatusType[i];
         CaseStatusOption.push(
-          <Option key={item.id} value={item.code}>{item.name}</Option>,
+          <Option key={item.id} value={item.code}>
+            {item.name}
+          </Option>,
         );
       }
     }
@@ -632,12 +691,17 @@ export default class Index extends PureComponent {
       for (let i = 0; i < enforcementTypeDict.length; i++) {
         const item = enforcementTypeDict[i];
         enforcementTypeDictGroup.push(
-          <Option key={item.id} value={item.code}>{item.name}</Option>,
+          <Option key={item.id} value={item.code}>
+            {item.name}
+          </Option>,
         );
       }
     }
     return (
-      <Form onSubmit={this.handleSearch} style={{ height: this.state.searchHeight ? 'auto' : '59px' }}>
+      <Form
+        onSubmit={this.handleSearch}
+        style={{ height: this.state.searchHeight ? 'auto' : '59px' }}
+      >
         <Row gutter={rowLayout} className={styles.searchForm}>
           <Col {...colLayout}>
             <FormItem label="案件编号" {...formItemLayout}>
@@ -647,9 +711,7 @@ export default class Index extends PureComponent {
                   { pattern: /^[A-Za-z0-9]+$/, message: '请输入正确的案件编号！' },
                   { max: 32, message: '最多输入32个字！' },
                 ],
-              })(
-                <Input placeholder="请输入案件编号"/>,
-              )}
+              })(<Input placeholder="请输入案件编号" />)}
             </FormItem>
           </Col>
           <Col md={8} sm={24}>
@@ -657,13 +719,12 @@ export default class Index extends PureComponent {
               {getFieldDecorator('ajmc', {
                 // initialValue: this.state.caseType,
                 rules: [{ max: 128, message: '最多输入128个字！' }],
-              })(
-                <Input placeholder="请输入案件名称"/>,
-              )}
+              })(<Input placeholder="请输入案件名称" />)}
             </FormItem>
           </Col>
-          {
-            (!this.state.linkToAjzt || this.state.linkToAjzt === '102')&&(!statusDate||statusDate === '102') ? <Col {...colLayout}>
+          {(!this.state.linkToAjzt || this.state.linkToAjzt === '102') &&
+          (!statusDate || statusDate === '102') ? (
+            <Col {...colLayout}>
               <FormItem label={'立案日期'} {...formItemLayout}>
                 {getFieldDecorator('larq', {
                   initialValue: this.state.larq ? this.state.larq : undefined,
@@ -675,10 +736,13 @@ export default class Index extends PureComponent {
                   />,
                 )}
               </FormItem>
-            </Col> : ''
-          }
-          {
-            (this.state.linkToAjzt && this.state.linkToAjzt === '101')||(statusDate === '101'||statusDate === '103'||statusDate === '106') ? <Col {...colLayout}>
+            </Col>
+          ) : (
+            ''
+          )}
+          {(this.state.linkToAjzt && this.state.linkToAjzt === '101') ||
+          statusDate === '101' || statusDate === '103' || statusDate === '106' ? (
+            <Col {...colLayout}>
               <FormItem label={'受理日期'} {...formItemLayout}>
                 {getFieldDecorator('slrq')(
                   <RangePicker
@@ -688,50 +752,56 @@ export default class Index extends PureComponent {
                   />,
                 )}
               </FormItem>
-            </Col> : ''
-          }
-          {
-            (this.state.linkToAjzt && this.state.linkToAjzt === '104')||(statusDate === '104') ?
-              <Col {...colLayout}>
-                <FormItem label={'破案日期'} {...formItemLayout}>
-                  {getFieldDecorator('parq')(
-                    <RangePicker
-                      disabledDate={this.disabledDate}
-                      style={{ width: '100%' }}
-                      getCalendarContainer={() => document.getElementById('zfbaxsajtableListForm')}
-                    />,
-                  )}
-                </FormItem>
-              </Col> : ''
-          }
-          {
-            (this.state.linkToAjzt && this.state.linkToAjzt === '105')||(statusDate === '105') ?
-              <Col {...colLayout}>
-                <FormItem label={'撤案日期'} {...formItemLayout}>
-                  {getFieldDecorator('carq')(
-                    <RangePicker
-                      disabledDate={this.disabledDate}
-                      style={{ width: '100%' }}
-                      getCalendarContainer={() => document.getElementById('zfbaxsajtableListForm')}
-                    />,
-                  )}
-                </FormItem>
-              </Col> : ''
-          }
-          {
-            (this.state.linkToAjzt && this.state.linkToAjzt === '107')||(statusDate === '107'||statusDate === '108'||statusDate === '109') ?
-              <Col {...colLayout}>
-                <FormItem label={'结案日期'} {...formItemLayout}>
-                  {getFieldDecorator('jarq')(
-                    <RangePicker
-                      disabledDate={this.disabledDate}
-                      style={{ width: '100%' }}
-                      getCalendarContainer={() => document.getElementById('zfbaxsajtableListForm')}
-                    />,
-                  )}
-                </FormItem>
-              </Col> : ''
-          }
+            </Col>
+          ) : (
+            ''
+          )}
+          {(this.state.linkToAjzt && this.state.linkToAjzt === '104') || statusDate === '104' ? (
+            <Col {...colLayout}>
+              <FormItem label={'破案日期'} {...formItemLayout}>
+                {getFieldDecorator('parq')(
+                  <RangePicker
+                    disabledDate={this.disabledDate}
+                    style={{ width: '100%' }}
+                    getCalendarContainer={() => document.getElementById('zfbaxsajtableListForm')}
+                  />,
+                )}
+              </FormItem>
+            </Col>
+          ) : (
+            ''
+          )}
+          {(this.state.linkToAjzt && this.state.linkToAjzt === '105') || statusDate === '105' ? (
+            <Col {...colLayout}>
+              <FormItem label={'撤案日期'} {...formItemLayout}>
+                {getFieldDecorator('carq')(
+                  <RangePicker
+                    disabledDate={this.disabledDate}
+                    style={{ width: '100%' }}
+                    getCalendarContainer={() => document.getElementById('zfbaxsajtableListForm')}
+                  />,
+                )}
+              </FormItem>
+            </Col>
+          ) : (
+            ''
+          )}
+          {(this.state.linkToAjzt && this.state.linkToAjzt === '107') ||
+          statusDate === '107' || statusDate === '108' || statusDate === '109' ? (
+            <Col {...colLayout}>
+              <FormItem label={'结案日期'} {...formItemLayout}>
+                {getFieldDecorator('jarq')(
+                  <RangePicker
+                    disabledDate={this.disabledDate}
+                    style={{ width: '100%' }}
+                    getCalendarContainer={() => document.getElementById('zfbaxsajtableListForm')}
+                  />,
+                )}
+              </FormItem>
+            </Col>
+          ) : (
+            ''
+          )}
           <Col {...colLayout}>
             <FormItem label="办案单位" {...formItemLayout}>
               {getFieldDecorator('bardw', {
@@ -743,7 +813,7 @@ export default class Index extends PureComponent {
                   dropdownStyle={{ maxHeight: 400, overflow: 'auto' }}
                   placeholder="请输入办案单位"
                   allowClear
-                  key='badwSelect'
+                  key="badwSelect"
                   treeDefaultExpandedKeys={this.state.treeDefaultExpandedKeys}
                   treeNodeFilterProp="title"
                   getPopupContainer={() => document.getElementById('zfbaxsajtableListForm')}
@@ -754,11 +824,16 @@ export default class Index extends PureComponent {
             </FormItem>
           </Col>
           <Col {...colLayout}>
-            <FormItem label="案件状态" {...formItemLayout} >
+            <FormItem label="案件状态" {...formItemLayout}>
               {getFieldDecorator('ajzt', {
                 initialValue: this.state.ajzt,
               })(
-                <Select placeholder="请选择" style={{ width: '100%' }} onChange={this.chooseStatus} getPopupContainer={() => document.getElementById('zfbaxsajtableListForm')}>
+                <Select
+                  placeholder="请选择"
+                  style={{ width: '100%' }}
+                  onChange={this.chooseStatus}
+                  getPopupContainer={() => document.getElementById('zfbaxsajtableListForm')}
+                >
                   <Option value="">全部</Option>
                   {CaseStatusOption}
                 </Select>,
@@ -774,7 +849,7 @@ export default class Index extends PureComponent {
                 <Select
                   mode="combobox"
                   defaultActiveFirstOption={false}
-                  optionLabelProp='title'
+                  optionLabelProp="title"
                   showArrow={false}
                   filterOption={false}
                   placeholder="请输入办案人"
@@ -797,14 +872,12 @@ export default class Index extends PureComponent {
                   placeholder="请选择案件类别"
                   changeOnSelect={true}
                   getPopupContainer={() => document.getElementById('zfbaxsajtableListForm')}
-                  showSearch={
-                    {
-                      filter: (inputValue, path) => {
-                        return (path.some(items => (items.searchValue).indexOf(inputValue) > -1));
-                      },
-                      limit: 5,
-                    }
-                  }
+                  showSearch={{
+                    filter: (inputValue, path) => {
+                      return path.some(items => items.searchValue.indexOf(inputValue) > -1);
+                    },
+                    limit: 5,
+                  }}
                 />,
               )}
             </FormItem>
@@ -814,7 +887,12 @@ export default class Index extends PureComponent {
               {getFieldDecorator('zxlb', {
                 initialValue: this.state.zxlb,
               })(
-                <Select placeholder="请选择" style={{ width: '100%' }} onChange={this.specialCaseOnChange} getPopupContainer={() => document.getElementById('zfbaxsajtableListForm')}>
+                <Select
+                  placeholder="请选择"
+                  style={{ width: '100%' }}
+                  onChange={this.specialCaseOnChange}
+                  getPopupContainer={() => document.getElementById('zfbaxsajtableListForm')}
+                >
                   <Option value="">全部</Option>
                   {specialCaseTypeOptions}
                 </Select>,
@@ -834,7 +912,6 @@ export default class Index extends PureComponent {
               )}
             </FormItem>
           </Col>
-
         </Row>
         <Row className={styles.search}>
           <span style={{ float: 'right', marginBottom: 24, marginTop: 5 }}>
@@ -863,7 +940,9 @@ export default class Index extends PureComponent {
   }
 
   renderTable() {
-    const { CaseData: { returnData, loading } } = this.props;
+    const {
+      CaseData: { returnData, loading },
+    } = this.props;
     return (
       <div>
         <RenderTable
@@ -873,11 +952,11 @@ export default class Index extends PureComponent {
           current={this.state.current}
           dispatch={this.props.dispatch}
           newDetail={this.newDetail}
-          getCase={(param) => this.getCase(param)}
+          getCase={param => this.getCase(param)}
           location={this.props.location}
           formValues={this.state.formValues}
           isEnforcement={true}
-          from='执法办案'
+          from="执法办案"
           ssmk={'2'}
         />
       </div>
@@ -886,78 +965,96 @@ export default class Index extends PureComponent {
 
   render() {
     const newAddDetail = this.state.arrayDetail;
-    const { CaseData: { returnData, loading }, common: { depTree } } = this.props;
-    const { showDataView, typeButtons, selectedDeptVal, selectedDateVal, treeDefaultExpandedKeys } = this.state;
+    const {
+      CaseData: { returnData, loading },
+      common: { depTree },
+    } = this.props;
+    const {
+      showDataView,
+      typeButtons,
+      selectedDeptVal,
+      selectedDateVal,
+      treeDefaultExpandedKeys,
+    } = this.state;
     const orgcodeVal = selectedDeptVal !== '' ? JSON.parse(selectedDeptVal).id : '';
     return (
-      <div className={this.props.location.query && this.props.location.query.id ? styles.onlyDetail : ''}>
-            <div className={styles.listPageWrap}>
-              <div className={styles.listPageHeader}>
-                {
-                  showDataView ? (
-                    <a className={styles.listPageHeaderCurrent}><span>●</span>数据统计</a>
-                  ) : (
-                    <a className={styles.UnlistPageHeaderCurrent} onClick={this.changeListPageHeader}>数据统计</a>
-                  )
-                }
-                <span>|</span>
-                {
-                  showDataView ? (
-                    <a className={styles.UnlistPageHeaderCurrent} onClick={this.changeListPageHeader}>数据列表</a>
-                  ) : (
-                    <a className={styles.listPageHeaderCurrent}><span>●</span>数据列表</a>
-                  )
-                }
-                {showDataView ? (
-                  ''
-                ) : (
-                  <div style={{ float: 'right' }}>
-                    <Button
-                      style={{
-                        color: '#3285FF',
-                        backgroundColor: '#171925',
-                        border: '1px solid #3285FF',
-                        borderRadius: '5px',
-                      }}
-                      onClick={this.exportData}
-                      // icon="download"
-                    >
-                      导出表格
-                    </Button>
-                  </div>
-                )}
-                <DataViewButtonArea
-                  showDataView={showDataView}
-                  styles={styles}
-                  typeButtons={typeButtons}
-                  changeTypeButtons={this.changeTypeButtons}
-                  disabledDate={this.disabledDate}
-                  depTree={depTree}
-                  renderloop={this.renderloop}
-                  setSelectedDate={this.setSelectedDate}
-                  setSelectedDep={this.setSelectedDep}
-                  hideDayButton
-                  treeDefaultExpandedKeys={treeDefaultExpandedKeys}
-                />
+      <div
+        className={
+          this.props.location.query && this.props.location.query.id ? styles.onlyDetail : ''
+        }
+      >
+        <div className={styles.listPageWrap}>
+          <div className={styles.listPageHeader}>
+            {showDataView ? (
+              <a className={styles.listPageHeaderCurrent}>
+                <span>●</span>数据统计
+              </a>
+            ) : (
+              <a className={styles.UnlistPageHeaderCurrent} onClick={this.changeListPageHeader}>
+                数据统计
+              </a>
+            )}
+            <span>|</span>
+            {showDataView ? (
+              <a className={styles.UnlistPageHeaderCurrent} onClick={this.changeListPageHeader}>
+                数据列表
+              </a>
+            ) : (
+              <a className={styles.listPageHeaderCurrent}>
+                <span>●</span>数据列表
+              </a>
+            )}
+            {showDataView ? (
+              ''
+            ) : (
+              <div style={{ float: 'right' }}>
+                <Button
+                  style={{
+                    color: '#3285FF',
+                    backgroundColor: '#171925',
+                    border: '1px solid #3285FF',
+                    borderRadius: '5px',
+                  }}
+                  onClick={this.exportData}
+                  // icon="download"
+                >
+                  导出表格
+                </Button>
               </div>
-              <CaseDataView
-                searchType={typeButtons}
-                showDataView={showDataView}
-                orgcode={selectedDeptVal}
-                selectedDateVal={selectedDateVal}
-                changeToListPage={this.changeToListPage}
-                {...this.props}
-              />
-              <div style={showDataView ? { display: 'none' } : { display: 'block' }}>
-                <div className={styles.tableListForm} id="zfbaxsajtableListForm">
-                  {this.renderForm()}
-                </div>
-                <div className={styles.tableListOperator}>
-                  {this.renderTable()}
-                </div>
-              </div>
+            )}
+            <DataViewButtonArea
+              showDataView={showDataView}
+              styles={styles}
+              typeButtons={typeButtons}
+              changeTypeButtons={this.changeTypeButtons}
+              disabledDate={this.disabledDate}
+              depTree={depTree}
+              renderloop={this.renderloop}
+              setSelectedDate={this.setSelectedDate}
+              setSelectedDep={this.setSelectedDep}
+              hideDayButton
+              treeDefaultExpandedKeys={treeDefaultExpandedKeys}
+            />
+          </div>
+          <CaseDataView
+            searchType={typeButtons}
+            showDataView={showDataView}
+            orgcode={selectedDeptVal}
+            selectedDateVal={selectedDateVal}
+            changeToListPage={this.changeToListPage}
+            {...this.props}
+          />
+          <div style={showDataView ? { display: 'none' } : { display: 'block' }}>
+            <div className={styles.tableListForm} id="zfbaxsajtableListForm">
+              {this.renderForm()}
             </div>
-        <SyncTime dataLatestTime={returnData.tbCount ? returnData.tbCount.tbsj : ''} {...this.props} />
+            <div className={styles.tableListOperator}>{this.renderTable()}</div>
+          </div>
+        </div>
+        <SyncTime
+          dataLatestTime={returnData.tbCount ? returnData.tbCount.tbsj : ''}
+          {...this.props}
+        />
       </div>
     );
   }
