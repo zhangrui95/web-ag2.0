@@ -260,6 +260,13 @@ export function routes() {
                   component: './handlingArea/AreaData',
                 },
                 {
+                  path: '/handlingArea/AreaData/areaDetail',
+                  name: '办案区数据详情',
+                  icon: 'smile',
+                  component: './handlingArea/AreaData/areaDetail',
+                  hideInMenu: true,
+                },
+                {
                   path: '/handlingArea/AreaWarning',
                   name: '办案区预警',
                   icon: 'smile',
@@ -270,6 +277,13 @@ export function routes() {
                   name: '办案区告警',
                   icon: 'smile',
                   component: './handlingArea/AreaPolice',
+                },
+                {
+                  path: '/handlingArea/AreaPolice/UnareaDetail',
+                  name: '办案区告警详情',
+                  icon: 'smile',
+                  component: './handlingArea/AreaPolice/UnareaDetail',
+                  hideInMenu: true,
                 },
               ],
             },

@@ -291,7 +291,7 @@ export default class SupervisionLog extends PureComponent {
             >
               | 问题信息
             </div>
-            <div className={styles.message} style={{ borderBottom: '3px solid #1e2230' }}>
+            <div className={styles.message} style={{ borderBottom: '1px solid #1e2230' }}>
               <Row >
                 <Col md={6} sm={24} className={styles.xqcol}>
                   <div className={listStyles.Indexfrom}>问题类型：</div>

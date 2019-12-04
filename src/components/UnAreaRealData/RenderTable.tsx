@@ -1,9 +1,10 @@
 import React, { PureComponent } from 'react';
 import { Table, Divider, Tooltip, message, Dropdown, Menu, Row, Col } from 'antd';
 import styles from './RenderTable.less';
-import Detail from '../../routes/UnAreaRealData/unareaDetail';
-import ShareModal from './../ShareModal/ShareModal';
-import Ellipsis from '../Ellipsis';
+// import Detail from '../../routes/UnAreaRealData/unareaDetail';
+// import ShareModal from './../ShareModal/ShareModal';
+import Ellipsis from 'ant-design-pro/lib/Ellipsis';
+import {routerRedux} from "dva/router";
 
 class RenderTable extends PureComponent {
     state = {
@@ -24,25 +25,43 @@ class RenderTable extends PureComponent {
     };
 
     componentDidMount() {
-        if (this.props.location.query && this.props.location.query.id) {
-            this.deatils(this.props.location.query.id, this.props.location.query.system_id, null);
-        }
+        // if (this.props.location.query && this.props.location.query.id) {
+        //     this.deatils(this.props.location.query.id, this.props.location.query.system_id, null);
+        // }
     }
 
-    deatils = (id, baqId, dbzt) => {
-        const divs = (
-            <div>
-                <Detail
-                    {...this.props}
-                    id={id}
-                    baqId={baqId}
-                    dbzt={dbzt}
-                    supervise={this.supervise}
-                />
-            </div>
-        );
-        const AddNewDetail = { title: '人员在区告警详情', content: divs, key: id };
-        this.props.newDetail(AddNewDetail);
+    deatils = (record) => { // record.id, record.baq_id, record.dbzt
+      this.props.dispatch({
+        type: 'global/changeNavigation',
+        payload: {
+          key: record && record.id ? record.id : '1',
+          name: '人员在区告警详情',
+          path: '/handlingArea/AreaPolice/UnareaDetail',
+          isShow: true,
+          query: { record, id: record && record.id ? record.id : '1' },
+        },
+        callback: () => {
+          this.props.dispatch(
+            routerRedux.push({
+              pathname: '/handlingArea/AreaPolice/UnareaDetail',
+              query: { record: record,id: record && record.id ? record.id : '1' },
+            }),
+          )
+        },
+      });
+        // const divs = (
+        //     <div>
+        //         <Detail
+        //             {...this.props}
+        //             id={id}
+        //             baqId={baqId}
+        //             dbzt={dbzt}
+        //             supervise={this.supervise}
+        //         />
+        //     </div>
+        // );
+        // const AddNewDetail = { title: '人员在区告警详情', content: divs, key: id };
+        // this.props.newDetail(AddNewDetail);
     };
     // 打开督办模态框
     supervise = (flag, record) => {
@@ -157,7 +176,7 @@ class RenderTable extends PureComponent {
             {
                 title: '所属办案区',
                 dataIndex: 'haName',
-                width: '15%',
+                width: 260,
                 render: (text) => {
                     return <Ellipsis lines={2} tooltip>{text}</Ellipsis>;
                 },
@@ -184,7 +203,7 @@ class RenderTable extends PureComponent {
             {
                 title: '案件名称',
                 dataIndex: 'ajmc',
-                width: '20%',
+                width: 300,
                 render: (text) => {
                     return <Ellipsis lines={2} tooltip>{text}</Ellipsis>;
                 },
@@ -199,7 +218,7 @@ class RenderTable extends PureComponent {
             {
                 title: '办案单位',
                 dataIndex: 'badwMc',
-                width: '15%',
+                width: '250',
                 render: (text) => {
                     return <Ellipsis lines={2} tooltip>{text}</Ellipsis>;
                 },
@@ -230,7 +249,7 @@ class RenderTable extends PureComponent {
                                     </span>
                                 ) : null
                             }
-                            <a onClick={() => this.deatils(record.id, record.baq_id, record.dbzt)}>详情</a>
+                            <a onClick={() => this.deatils(record)}>详情</a>
                             <Divider type="vertical"/>
                             {
                                 record.sfgz === 0 ? (
@@ -264,14 +283,14 @@ class RenderTable extends PureComponent {
 
 
         const paginationProps = {
-            showSizeChanger: true,
-            showQuickJumper: true,
+            // showSizeChanger: true,
+            // showQuickJumper: true,
             current: data.page ? data.page.currentPage : '',
             total: data.page ? data.page.totalResult : '',
             pageSize: data.page ? data.page.showCount : '',
             showTotal: (total, range) =>
                 <span
-                    className={styles.pagination}>{`共 ${data.page ? data.page.totalResult : 0} 条记录 第 ${data.page ? data.page.currentPage : 1} / ${data.page ? data.page.totalPage : 1} 页`}</span>,
+                    className={styles.pagination}>{`共 ${data.page ? data.page.totalPage : 1} 页， ${data.page ? data.page.totalResult : 0} 条记录 `}</span>,
         };
         let detail = (
             <Row style={{ width: '90%', margin: '0 38px 10px', lineHeight: '36px', color: 'rgba(0, 0, 0, 0.85)' }}>
@@ -294,7 +313,7 @@ class RenderTable extends PureComponent {
         return (
             <div className={styles.standardTable}>
                 <Table
-                    size={'middle'}
+                    // size={'middle'}
                     loading={loading}
                     rowKey={record => record.id}
                     dataSource={data.list}
@@ -302,17 +321,17 @@ class RenderTable extends PureComponent {
                     pagination={paginationProps}
                     onChange={this.handleTableChange}
                 />
-                <ShareModal
-                    title="人员信息分享"
-                    detail={detail}
-                    shareVisible={this.state.shareVisible}
-                    handleCancel={this.handleCancel}
-                    shareItem={this.state.shareItem}
-                    personList={this.state.personList}
-                    lx={this.state.lx}
-                    tzlx={this.state.tzlx}
-                    sx={this.state.sx}
-                />
+                {/*<ShareModal*/}
+                    {/*title="人员信息分享"*/}
+                    {/*detail={detail}*/}
+                    {/*shareVisible={this.state.shareVisible}*/}
+                    {/*handleCancel={this.handleCancel}*/}
+                    {/*shareItem={this.state.shareItem}*/}
+                    {/*personList={this.state.personList}*/}
+                    {/*lx={this.state.lx}*/}
+                    {/*tzlx={this.state.tzlx}*/}
+                    {/*sx={this.state.sx}*/}
+                {/*/>*/}
             </div>
         );
     }

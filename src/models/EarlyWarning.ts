@@ -1,4 +1,4 @@
-import { getLists } from '../services/EarlyWarning.js';
+import { getLists } from '../services/EarlyWarning';
 
 export default {
   namespace: 'EarlyWarning',

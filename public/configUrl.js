@@ -10,9 +10,9 @@ const developips = {
   ip: 'http://192.168.3.155',// 李卓奇
   // ip: 'http://192.168.3.224', // zyz
   // ip: 'http://192.168.38.179', // 孙金龙
-  // ip: 'http://192.168.3.201', // 202
+  // ip: 'http://192.168.3.202', // 202
   maintainIp: 'http://192.168.3.202', // 运维中心地址
-  aqzxIp: 'http://192.168.3.201', // 安全中心地址
+  aqzxIp: 'http://192.168.3.202', // 安全中心地址
   // aqzxIp: 'http://192.168.3.155',// 李卓奇安全中心地址
   // aqzxIp:'http://192.168.41.249',// 安全中心地址
   TbtjDcIp: 'http://192.168.3.245', // 图表统计导出功能地址
@@ -53,10 +53,9 @@ const configItem = {
 const developConfigUrl = {
   jzUrl: `${ips.jz}:7200`, // 卷宗子系统
   serverUrl: `${ips.ip}:7700`, // 本地开发案管服务
-  // securityCenterUrl: `${ips.aqzxIp}:8080`,// 孙金龙安全中心
   // securityCenterUrl: `${ips.aqzxIp}:8080`,// 李卓奇安全中心
-  // securityCenterUrl: `${ips.aqzxIp}:8100/security-service`, // 安全中心
-  securityCenterUrl: `${ips.aqzxIp}:8100`, // 安全中心
+  securityCenterUrl: `${ips.aqzxIp}:8100/security-service`, // 安全中心
+  // securityCenterUrl: `${ips.aqzxIp}:8100`, // 安全中心
   baqServerUrl: `${ips.maintainIp}:7500`, // 办案区服务
   maintainCenterUrl: `${ips.maintainIp}:7400`, // 运维中心
   generalQueryUrl: `http://192.168.3.201:9200/`, // 综合查询es服务地址,
