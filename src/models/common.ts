@@ -13,12 +13,14 @@ import {
   getDepGxTree,
   findSubordinateDeptByCodeAndUids,
   getCaseTypeTree,
+  getPlCaseTypeTree,
   getExportEffectServices,
   getSyncTime,
   getCaseManagementDicts,
   getPoliceTypeTreeServices,
-  getResponsePersonService,
+  getDepPcsTree,
 } from '../services/common';
+import {ddjl} from "../services/Dispatch";
 
 export default {
   namespace: 'common',
@@ -29,10 +31,11 @@ export default {
     WtlxJzAjTypeData: [],
     sourceOfAlarmDict: [], // 接警来源字典
     depTree: [], // 机构树
-    deptrees: [], // 机构及管辖树
+    deptrees: [],// 机构及管辖树
     involvedType: [], // 人员类型
-    rqyyType: [], //入区原因
+    rqyyType: [],//入区原因
     itemsTypesDict: [], // 物品种类
+    itemsTypesDictNew:[], // 物品种类新版
     WtlxSawpTypeData: [],
     problemTypeDict: [],
     jqproblemTypeDict: [],
@@ -42,6 +45,7 @@ export default {
     allPolice: [],
     libraryPositionType: [],
     itemStatus: [],
+    itemStatusS: [],
     searchAjlx: [],
     searchAjzt: [],
     searchWpzl: [],
@@ -53,13 +57,13 @@ export default {
     specialCaseType: [], // 专项类别
     CaseStatusType: [], // 刑事案件状态
     XzCaseStatusType: [], // 行政案件状态
-    JgsxType: [], //监管事项
-    JgdztType: [], //监管点状态
-    SjjgType: [], //时间间隔
-    TqsjType: [], //提前时间
-    ColorType1: [], //一级颜色
-    ColorType2: [], //二级颜色
-    ColorType3: [], //三级颜色
+    JgsxType: [],//监管事项
+    JgdztType: [],//监管点状态
+    SjjgType: [],//时间间隔
+    TqsjType: [],//提前时间
+    ColorType1: [],//一级颜色
+    ColorType2: [],//二级颜色
+    ColorType3: [],//三级颜色
     caseProcessDict: [], // 办案环节
     dossierSaveTypeDict: [], // 卷宗存储状态
     YJJBType: [],
@@ -75,14 +79,13 @@ export default {
     syncTime: '', // 同步时间
     enforcementTypeDict: [], // 人员强制措施
     handleStatusDict: [], // 警情处理状态
-    jqType: [], //警情状态
-    xmType: [], //项目类型
-    returnResponsePerson: [], //调度中的责任人
+    jqType:[],//警情状态
+    xmType:[]//项目类型
   },
 
   effects: {
     //根据id,获取字典项
-    *getDictType({ payload, callback }, { call, put }) {
+    * getDictType({ payload, callback }, { call, put }) {
       const response = yield call(getDictType, payload);
 
       if (payload.pd.pid === '3') {
@@ -127,6 +130,13 @@ export default {
         // 获取物品种类
         yield put({
           type: 'itemsTypes',
+          payload: response && response.error === null ? response.data.list : [],
+        });
+      }
+      if (payload.pd.pid === '501133') {
+        // 获取物品种类新版
+        yield put({
+          type: 'itemsTypesNew',
           payload: response && response.error === null ? response.data.list : [],
         });
       }
@@ -179,6 +189,13 @@ export default {
         //获取物品状态
         yield put({
           type: 'setItemStatus',
+          payload: response && response.error === null ? response.data.list : [],
+        });
+      }
+      if (payload.pd.pid === '501126') {
+        //获取物品状态新版
+        yield put({
+          type: 'setItemStatusS',
           payload: response && response.error === null ? response.data.list : [],
         });
       }
@@ -279,43 +296,40 @@ export default {
           payload: response && response.error === null ? response.data.list : [],
         });
       }
-      if (payload.pd.pid === '500772' || payload.pd.pid === '500830') {
-        //监管事项
+      if (payload.pd.pid === '500772' || payload.pd.pid === '500830') {//监管事项
         yield put({
           type: 'setJgsx',
           payload: response && response.error === null ? response.data.list : [],
         });
+        if (response && callback) {
+          callback(response.data);
+        }
       }
-      if (payload.pd.pid === '500800') {
-        //监管点状态
+      if (payload.pd.pid === '500800') {//监管点状态
         yield put({
           type: 'setJgdzt',
           payload: response && response.error === null ? response.data.list : [],
         });
       }
-      if (payload.pd.pid === '500804') {
-        //时间间隔
+      if (payload.pd.pid === '500804') {//时间间隔
         yield put({
           type: 'setSjjg',
           payload: response && response.error === null ? response.data.list : [],
         });
       }
-      if (payload.pd.pid === '500820') {
-        //提前时间
+      if (payload.pd.pid === '500820') {//提前时间
         yield put({
           type: 'setTqsj',
           payload: response && response.error === null ? response.data.list : [],
         });
       }
-      if (payload.pd.pid === '500852') {
-        //提前人员
+      if (payload.pd.pid === '500852') {//提前人员
         yield put({
           type: 'setTxry',
           payload: response && response.error === null ? response.data.list : [],
         });
       }
-      if (payload.pd.pid === '500808') {
-        //一级颜色
+      if (payload.pd.pid === '500808') {//一级颜色
         yield put({
           type: 'setColor1',
           payload: response && response.error === null ? response.data.list : [],
@@ -336,22 +350,19 @@ export default {
           callback(response.data.list);
         }
       }
-      if (payload.pd.pid === '500812') {
-        //二级颜色
+      if (payload.pd.pid === '500812') {//二级颜色
         yield put({
           type: 'setColor2',
           payload: response && response.error === null ? response.data.list : [],
         });
       }
-      if (payload.pd.pid === '500816') {
-        //三级颜色
+      if (payload.pd.pid === '500816') {//三级颜色
         yield put({
           type: 'setColor3',
           payload: response && response.error === null ? response.data.list : [],
         });
       }
-      if (payload.pd.pid === '5007726') {
-        //刑事案件预警
+      if (payload.pd.pid === '5007726') {//刑事案件预警
         yield put({
           type: 'setXsyj',
           payload: response && response.error === null ? response.data.list : [],
@@ -427,7 +438,7 @@ export default {
       }
     },
     // 获取案管字典项
-    *getCaseManagementDicts({ payload, callback }, { call, put }) {
+    * getCaseManagementDicts({ payload, callback }, { call, put }) {
       const response = yield call(getCaseManagementDicts, payload);
       if (payload.pd.zdbh === '3') {
         // 警情处理状态
@@ -438,7 +449,7 @@ export default {
       }
     },
     // 获取机构树
-    *getDepTree({ payload, callback }, { call, put }) {
+    * getDepTree({ payload, callback }, { call, put }) {
       const response = yield call(getDepTree, payload);
       yield put({
         type: 'setDepTree',
@@ -447,7 +458,7 @@ export default {
       if (callback && !response.error) callback(response.data);
     },
     // 获取机构及管辖树
-    *getDepAndGxTree({ payload, callback }, { call, put }) {
+    * getDepAndGxTree({ payload, callback }, { call, put }) {
       const response = yield call(getDepGxTree, payload);
       yield put({
         type: 'setDepTrees',
@@ -456,7 +467,7 @@ export default {
       if (callback && !response.error) callback(response.data);
     },
     // 根据机构代码获取机构信息
-    *getDeptmentByCode({ payload, callback }, { call, put }) {
+    * getDeptmentByCode({ payload, callback }, { call, put }) {
       const response = yield call(getDeptmentByCodes, payload);
       yield put({
         type: 'setDeptmentByCode',
@@ -465,7 +476,7 @@ export default {
       if (callback && !response.error) callback(response.data);
     },
     // 获取所在仓库
-    *getItemsStorage({ payload, callback }, { call, put }) {
+    * getItemsStorage({ payload, callback }, { call, put }) {
       const response = yield call(getItemsStorage, payload);
       yield put({
         type: 'setItemsStorage',
@@ -474,7 +485,7 @@ export default {
       if (callback && !response.error) callback(response.data);
     },
     // 获取所有警员
-    *getAllPolice({ payload, callback }, { call, put }) {
+    * getAllPolice({ payload, callback }, { call, put }) {
       const response = yield call(getAllPolice, payload);
       yield put({
         type: 'setAllPolice',
@@ -483,11 +494,10 @@ export default {
       if (callback && !response.error) callback(response.data);
     },
     // 导出
-    *exportData({ payload, callback }, { call, put }) {
+    * exportData({ payload, callback }, { call, put }) {
       const user = sessionStorage.getItem('user');
       const userObj = JSON.parse(user);
-      const params = {
-        // 所有导出请求添加警员编号参数
+      const params = { // 所有导出请求添加警员编号参数
         pcard: userObj.pcard,
         ...payload,
       };
@@ -495,7 +505,7 @@ export default {
       if (callback && response) callback(response);
     },
     // 办案区树
-    *getBaqTree({ payload, callback }, { call, put }) {
+    * getBaqTree({ payload, callback }, { call, put }) {
       const response = yield call(getBaqTree, payload);
       yield put({
         type: 'setBaqTree',
@@ -505,16 +515,16 @@ export default {
     },
 
     // 案管系统-通过机构码及用户id查询下级机构
-    *findSubordinateDeptByCodeAndUid({ payload, callback }, { call, put }) {
+    * findSubordinateDeptByCodeAndUid({ payload, callback }, { call, put }) {
       const response = yield call(findSubordinateDeptByCodeAndUids, payload);
       if (callback && !response.error) callback(response.data);
     },
-    *downFile({ payload, callback }, { call, put }) {
+    * downFile({ payload, callback }, { call, put }) {
       const response = yield call(downFile, payload);
       if (callback && !response.error) callback();
     },
     // 获取下一级机构
-    *getNextLevelDeps({ payload, callback }, { call, put }) {
+    * getNextLevelDeps({ payload, callback }, { call, put }) {
       const response = yield call(getNextLevelDeps, payload);
       // yield put({
       //     type: 'setNextLevelDeps',
@@ -523,26 +533,36 @@ export default {
       if (callback && !response.error) callback(response.data);
     },
     // 获取当前机构
-    *getQueryLowerDepts({ payload, callback }, { call, put }) {
+    * getQueryLowerDepts({ payload, callback }, { call, put }) {
       const response = yield call(getQueryLowerDept, payload);
       if (callback && !response.error) callback(response.data);
     },
-    *saveSystemInfo({ payload, callback }, { call, put }) {
+    * saveSystemInfo({ payload, callback }, { call, put }) {
       const response = yield call(saveSystemInfo, payload);
       if (callback && !response.error) callback(response.data);
     },
     // 案件类别树
-    *getCaseTypeTree({ payload, callback }, { call, put }) {
+    * getCaseTypeTree({ payload, callback }, { call, put }) {
       const response = yield call(getCaseTypeTree, payload);
       if (callback && response && response.data && !response.error) callback(response.data);
     },
+    // 平乐案件类别树
+    * getPlCaseTypeTree({ payload, callback }, { call, put }) {
+      const response = yield call(getPlCaseTypeTree, payload);
+      if (callback && response && response.data && !response.error) callback(response.data);
+    },
     // 警情类别树
-    *getPoliceTypeTree({ payload, callback }, { call, put }) {
+    * getPoliceTypeTree({ payload, callback }, { call, put }) {
       const response = yield call(getPoliceTypeTreeServices, payload);
       if (callback && response && response.data && !response.error) callback(response.data);
     },
+    // 所内处罚机构类别树
+    * getPoliceTypePcsTree({ payload, callback }, { call, put }) {
+      const response = yield call(getDepPcsTree, payload);
+      if (callback && response && response.data && !response.error) callback(response.data);
+    },
     // 图表统计导出功能
-    *getExportEffect({ payload, callback }, { call, put }) {
+    * getExportEffect({ payload, callback }, { call, put }) {
       const response = yield call(getExportEffectServices, payload);
       yield put({
         type: 'SetExportEffectType',
@@ -553,19 +573,10 @@ export default {
       }
     },
     // 获取同步时间
-    *getSyncTime({ payload, callback }, { call, put }) {
+    * getSyncTime({ payload, callback }, { call, put }) {
       const response = yield call(getSyncTime, payload);
       yield put({
         type: 'setSyncTime',
-        payload: response && response.error === null ? response.data : [],
-      });
-      if (callback && !response.error) callback(response.data);
-    },
-    // 获取调度中的责任人
-    *getResponsePerson({ payload, callback }, { call, put }) {
-      const response = yield call(getResponsePersonService, payload);
-      yield put({
-        type: 'setResponsePerson',
         payload: response && response.error === null ? response.data : [],
       });
       if (callback && !response.error) callback(response.data);
@@ -639,6 +650,12 @@ export default {
         itemsTypesDict: action.payload,
       };
     },
+    itemsTypesNew(state, action) {
+      return {
+        ...state,
+        itemsTypesDictNew: action.payload,
+      };
+    },
     setProblemTypeDict(state, action) {
       return {
         ...state,
@@ -685,6 +702,12 @@ export default {
       return {
         ...state,
         itemStatus: action.payload,
+      };
+    },
+    setItemStatusS(state, action) {
+      return {
+        ...state,
+        itemStatusS: action.payload,
       };
     },
     setSearchAjlx(state, action) {
@@ -891,11 +914,7 @@ export default {
         handleStatusDict: action.payload,
       };
     },
-    setResponsePerson(state, action) {
-      return {
-        ...state,
-        returnResponsePerson: action.payload,
-      };
-    },
   },
+
 };
+
