@@ -13,12 +13,14 @@ import {
   getDepGxTree,
   findSubordinateDeptByCodeAndUids,
   getCaseTypeTree,
+  getPlCaseTypeTree,
   getExportEffectServices,
   getSyncTime,
   getCaseManagementDicts,
   getPoliceTypeTreeServices,
-  getResponsePersonService,
+  getDepPcsTree,
 } from '../services/common';
+import { ddjl } from '../services/Dispatch';
 
 export default {
   namespace: 'common',
@@ -33,6 +35,7 @@ export default {
     involvedType: [], // 人员类型
     rqyyType: [], //入区原因
     itemsTypesDict: [], // 物品种类
+    itemsTypesDictNew: [], // 物品种类新版
     WtlxSawpTypeData: [],
     problemTypeDict: [],
     jqproblemTypeDict: [],
@@ -42,6 +45,7 @@ export default {
     allPolice: [],
     libraryPositionType: [],
     itemStatus: [],
+    itemStatusS: [],
     searchAjlx: [],
     searchAjzt: [],
     searchWpzl: [],
@@ -77,7 +81,6 @@ export default {
     handleStatusDict: [], // 警情处理状态
     jqType: [], //警情状态
     xmType: [], //项目类型
-    returnResponsePerson: [], //调度中的责任人
   },
 
   effects: {
@@ -130,6 +133,13 @@ export default {
           payload: response && response.error === null ? response.data.list : [],
         });
       }
+      if (payload.pd.pid === '501133') {
+        // 获取物品种类新版
+        yield put({
+          type: 'itemsTypesNew',
+          payload: response && response.error === null ? response.data.list : [],
+        });
+      }
       if (payload.pd.pid === '2016') {
         //获取问题类型
         yield put({
@@ -179,6 +189,13 @@ export default {
         //获取物品状态
         yield put({
           type: 'setItemStatus',
+          payload: response && response.error === null ? response.data.list : [],
+        });
+      }
+      if (payload.pd.pid === '501126') {
+        //获取物品状态新版
+        yield put({
+          type: 'setItemStatusS',
           payload: response && response.error === null ? response.data.list : [],
         });
       }
@@ -285,6 +302,9 @@ export default {
           type: 'setJgsx',
           payload: response && response.error === null ? response.data.list : [],
         });
+        if (response && callback) {
+          callback(response.data);
+        }
       }
       if (payload.pd.pid === '500800') {
         //监管点状态
@@ -536,9 +556,19 @@ export default {
       const response = yield call(getCaseTypeTree, payload);
       if (callback && response && response.data && !response.error) callback(response.data);
     },
+    // 平乐案件类别树
+    *getPlCaseTypeTree({ payload, callback }, { call, put }) {
+      const response = yield call(getPlCaseTypeTree, payload);
+      if (callback && response && response.data && !response.error) callback(response.data);
+    },
     // 警情类别树
     *getPoliceTypeTree({ payload, callback }, { call, put }) {
       const response = yield call(getPoliceTypeTreeServices, payload);
+      if (callback && response && response.data && !response.error) callback(response.data);
+    },
+    // 所内处罚机构类别树
+    *getPoliceTypePcsTree({ payload, callback }, { call, put }) {
+      const response = yield call(getDepPcsTree, payload);
       if (callback && response && response.data && !response.error) callback(response.data);
     },
     // 图表统计导出功能
@@ -557,15 +587,6 @@ export default {
       const response = yield call(getSyncTime, payload);
       yield put({
         type: 'setSyncTime',
-        payload: response && response.error === null ? response.data : [],
-      });
-      if (callback && !response.error) callback(response.data);
-    },
-    // 获取调度中的责任人
-    *getResponsePerson({ payload, callback }, { call, put }) {
-      const response = yield call(getResponsePersonService, payload);
-      yield put({
-        type: 'setResponsePerson',
         payload: response && response.error === null ? response.data : [],
       });
       if (callback && !response.error) callback(response.data);
@@ -639,6 +660,12 @@ export default {
         itemsTypesDict: action.payload,
       };
     },
+    itemsTypesNew(state, action) {
+      return {
+        ...state,
+        itemsTypesDictNew: action.payload,
+      };
+    },
     setProblemTypeDict(state, action) {
       return {
         ...state,
@@ -685,6 +712,12 @@ export default {
       return {
         ...state,
         itemStatus: action.payload,
+      };
+    },
+    setItemStatusS(state, action) {
+      return {
+        ...state,
+        itemStatusS: action.payload,
       };
     },
     setSearchAjlx(state, action) {
@@ -889,12 +922,6 @@ export default {
       return {
         ...state,
         handleStatusDict: action.payload,
-      };
-    },
-    setResponsePerson(state, action) {
-      return {
-        ...state,
-        returnResponsePerson: action.payload,
       };
     },
   },

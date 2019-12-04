@@ -1,19 +1,18 @@
 import React, { PureComponent } from 'react';
 import { Table, Divider, Tooltip, message, Dropdown, Menu, Row, Col } from 'antd';
 import styles from './RenderTable.less';
-// import Detail from '../../routes/UnAreaRealData/unareaDetail';
-// import ShareModal from './../ShareModal/ShareModal';
+// import Detail from '../../routes/AreaRealData/areaDetail';
+import ShareModal from './../ShareModal/ShareModal';
 import Ellipsis from 'ant-design-pro/lib/Ellipsis';
 import { routerRedux } from 'dva/router';
 
 class RenderTable extends PureComponent {
   state = {
-    searchDetail: '',
     shareVisible: false,
     shareItem: null,
     personList: [],
     lx: '人员信息',
-    tzlx: 'baqwt',
+    tzlx: 'baqxx',
     sx: '',
     current: '',
   };
@@ -25,26 +24,26 @@ class RenderTable extends PureComponent {
   };
 
   componentDidMount() {
-    // if (this.props.location.query && this.props.location.query.id) {
-    //     this.deatils(this.props.location.query.id, this.props.location.query.system_id, null);
-    // }
+    if (this.props.location.query && this.props.location.query.id) {
+      let record = this.props.location.query.record;
+      this.deatils(record);
+    }
   }
 
   deatils = record => {
-    // record.id, record.baq_id, record.dbzt
     this.props.dispatch({
       type: 'global/changeNavigation',
       payload: {
         key: record && record.id ? record.id : '1',
-        name: '人员在区告警详情',
-        path: '/handlingArea/AreaPolice/UnareaDetail',
+        name: '人员在区详情',
+        path: '/handlingArea/AreaData/areaDetail',
         isShow: true,
         query: { record, id: record && record.id ? record.id : '1' },
       },
       callback: () => {
         this.props.dispatch(
           routerRedux.push({
-            pathname: '/handlingArea/AreaPolice/UnareaDetail',
+            pathname: '/handlingArea/AreaData/areaDetail',
             query: { record: record, id: record && record.id ? record.id : '1' },
           }),
         );
@@ -54,63 +53,25 @@ class RenderTable extends PureComponent {
     //     <div>
     //         <Detail
     //             {...this.props}
-    //             id={id}
-    //             baqId={baqId}
-    //             dbzt={dbzt}
-    //             supervise={this.supervise}
+    //             record={record}
+    //             id={record.system_id}
+    //             sfgz={record.sfgz}
+    //             gzid={record.gzid}
+    //             tzlx={record.tzlx}
+    //             ajbh={record.ajbh}
+    //             current={this.state.current}
     //         />
     //     </div>
     // );
-    // const AddNewDetail = { title: '人员在区告警详情', content: divs, key: id };
+    // const AddNewDetail = { title: '人员在区详情', content: divs, key: record.system_id };
     // this.props.newDetail(AddNewDetail);
-  };
-  // 打开督办模态框
-  supervise = (flag, record) => {
-    const { id, baq_id } = record;
-    this.props.dispatch({
-      type: 'UnareaData/UnareaDetailFetch',
-      payload: {
-        id,
-        baq_id,
-      },
-      callback: data => {
-        if (data) {
-          this.setState({
-            searchDetail: data,
-          });
-          this.searchDetail(flag, record);
-        }
-      },
-    });
-  };
-  searchDetail = (flag, record) => {
-    const { id, people_id } = record;
-    this.props.dispatch({
-      type: 'UnareaData/getUnareaByProblemId',
-      payload: {
-        pd: {
-          wtid: id,
-          people_id,
-        },
-      },
-      callback: data => {
-        if (data.list[0].dbzt === '00') {
-          this.props.openModal(this.state.searchDetail, flag, record);
-        } else {
-          message.warning('该问题已督办，请点击详情查看');
-          this.props.refreshTable();
-        }
-      },
-    });
   };
   saveShare = (res, type, ajGzLx) => {
     this.setState({
       sx:
         (res.ajmc ? res.ajmc + '、' : '') +
-        (res.salxMc ? res.salxMc + '、' : '') +
-        (res.name ? res.name + '、' : '') +
-        (res.wtlxMc ? res.wtlxMc + '、' : '') +
-        (res.gjsj ? res.gjsj : ''),
+        (res.salx_mc ? res.salx_mc + '、' : '') +
+        (res.name ? res.name : ''),
       shareRecord: res,
     });
     if (type === 2) {
@@ -126,21 +87,19 @@ class RenderTable extends PureComponent {
           lx: this.state.lx,
           sx:
             (res.ajmc ? res.ajmc + '、' : '') +
-            (res.salxMc ? res.salxMc + '、' : '') +
-            (res.name ? res.name + '、' : '') +
-            (res.wtlxMc ? res.wtlxMc + '、' : '') +
-            (res.gjsj ? res.gjsj : ''),
+            (res.salx_mc ? res.salx_mc + '、' : '') +
+            (res.name ? res.name : ''),
           type: type,
           tzlx: this.state.tzlx,
           wtid: res.wtid,
           ajbh: res.ajbh,
-          system_id: res.baq_id,
+          system_id: res.system_id,
           ajGzLx: ajGzLx,
         },
         callback: data => {
           if (!data.error) {
             message.success('关注成功');
-            this.props.getUnArea({ currentPage: this.state.current, pd: this.props.formValues });
+            this.props.getArea({ currentPage: this.state.current, pd: this.props.formValues });
           }
         },
       });
@@ -163,40 +122,20 @@ class RenderTable extends PureComponent {
       callback: res => {
         if (!res.error) {
           message.success('取消关注成功');
-          this.props.getUnArea({ currentPage: this.state.current, pd: this.props.formValues });
+          this.props.getArea({ currentPage: this.state.current, pd: this.props.formValues });
         }
       },
     });
   };
 
   render() {
-    const {
-      data,
-      UnareaData: { loading },
-    } = this.props;
+    const { data, loading } = this.props;
     let columns;
     columns = [
       {
-        title: '告警时间',
-        dataIndex: 'gjsj',
+        title: '入区时间',
+        dataIndex: 'rqsj',
         width: 100,
-      },
-      {
-        title: '问题类型',
-        dataIndex: 'wtlxMc',
-        width: 130,
-      },
-      {
-        title: '所属办案区',
-        dataIndex: 'haName',
-        width: 260,
-        render: text => {
-          return (
-            <Ellipsis lines={2} tooltip>
-              {text}
-            </Ellipsis>
-          );
-        },
       },
       {
         title: '涉案人员',
@@ -211,10 +150,22 @@ class RenderTable extends PureComponent {
       },
       {
         title: '人员类型',
-        dataIndex: 'salxMc',
+        dataIndex: 'salx_mc',
         render: text => {
           return (
             <Ellipsis length={8} tooltip>
+              {text}
+            </Ellipsis>
+          );
+        },
+      },
+      {
+        title: '所属办案区',
+        dataIndex: 'ha_name',
+        width: '15%',
+        render: text => {
+          return (
+            <Ellipsis lines={2} tooltip>
               {text}
             </Ellipsis>
           );
@@ -228,7 +179,7 @@ class RenderTable extends PureComponent {
       {
         title: '案件名称',
         dataIndex: 'ajmc',
-        width: 300,
+        width: '20%',
         render: text => {
           return (
             <Ellipsis lines={2} tooltip>
@@ -239,7 +190,7 @@ class RenderTable extends PureComponent {
       },
       {
         title: '办案人',
-        dataIndex: 'barxm',
+        dataIndex: 'bar',
         render: text => {
           return (
             <Ellipsis length={8} tooltip>
@@ -250,8 +201,8 @@ class RenderTable extends PureComponent {
       },
       {
         title: '办案单位',
-        dataIndex: 'badwMc',
-        width: '250',
+        dataIndex: 'badw',
+        width: '15%',
         render: text => {
           return (
             <Ellipsis lines={2} tooltip>
@@ -261,61 +212,49 @@ class RenderTable extends PureComponent {
         },
       },
       {
-        title: '消息状态',
-        dataIndex: 'dbztMc',
+        title: '在区状态',
+        dataIndex: 'zt',
+        wdith: 50,
       },
       {
-        title: '产生方式',
-        dataIndex: 'csfs',
+        title: '入区原因',
+        dataIndex: 'rqyy',
       },
       {
         title: '操作',
-        render: record => {
-          return (
-            <div>
-              {this.props.isDb ? (
-                <span style={{ display: 'inlineBlock' }}>
-                  {record.dbzt === '00' ? (
-                    <a onClick={() => this.supervise(true, record)}>督办</a>
-                  ) : (
-                    <a style={{ color: '#C3C3C3' }}>督办</a>
-                  )}
-                  <Divider type="vertical" />
-                </span>
-              ) : null}
-              <a onClick={() => this.deatils(record)}>详情</a>
-              <Divider type="vertical" />
-              {record.sfgz === 0 ? (
-                <Dropdown
-                  overlay={
-                    <Menu>
-                      <Menu.Item key="0">
-                        <a onClick={() => this.saveShare(record, 1, 0)}>本人员关注</a>
-                      </Menu.Item>
-                      <Menu.Item key="1">
-                        <a onClick={() => this.saveShare(record, 1, 1)}>全要素关注</a>
-                      </Menu.Item>
-                    </Menu>
-                  }
-                  trigger={['click']}
-                >
-                  <a href="javascript:;">关注</a>
-                </Dropdown>
-              ) : (
-                <a href="javascript:;" onClick={() => this.noFollow(record)}>
-                  取消{record.ajgzlx && record.ajgzlx === '0' ? '本人员' : '全要素'}关注
-                </a>
-              )}
-              <Divider type="vertical" />
-              <a href="javascript:;" onClick={() => this.saveShare(record, 2)}>
-                分享
+        render: record => (
+          <div>
+            <a onClick={() => this.deatils(record)}>详情</a>
+            <Divider type="vertical" />
+            {record.sfgz === 0 ? (
+              <Dropdown
+                overlay={
+                  <Menu>
+                    <Menu.Item key="0">
+                      <a onClick={() => this.saveShare(record, 1, 0)}>本人员关注</a>
+                    </Menu.Item>
+                    <Menu.Item key="1">
+                      <a onClick={() => this.saveShare(record, 1, 1)}>全要素关注</a>
+                    </Menu.Item>
+                  </Menu>
+                }
+                trigger={['click']}
+              >
+                <a href="javascript:;">关注</a>
+              </Dropdown>
+            ) : (
+              <a href="javascript:;" onClick={() => this.noFollow(record)}>
+                取消{record.ajgzlx && record.ajgzlx === '0' ? '本人员' : '全要素'}关注
               </a>
-            </div>
-          );
-        },
+            )}
+            <Divider type="vertical" />
+            <a href="javascript:;" onClick={() => this.saveShare(record, 2)}>
+              分享
+            </a>
+          </div>
+        ),
       },
     ];
-
     const paginationProps = {
       // showSizeChanger: true,
       // showQuickJumper: true,
@@ -323,9 +262,11 @@ class RenderTable extends PureComponent {
       total: data.page ? data.page.totalResult : '',
       pageSize: data.page ? data.page.showCount : '',
       showTotal: (total, range) => (
-        <span className={styles.pagination}>{`共 ${data.page ? data.page.totalPage : 1} 页， ${
+        <span className={styles.pagination}>{`共 ${
           data.page ? data.page.totalResult : 0
-        } 条记录 `}</span>
+        } 条记录 第 ${data.page ? data.page.currentPage : 1} / ${
+          data.page ? data.page.totalPage : 1
+        } 页`}</span>
       ),
     };
     let detail = (
@@ -347,8 +288,8 @@ class RenderTable extends PureComponent {
         </Col>
         <Col span={6}>
           人员类型：
-          {this.state.shareRecord && this.state.shareRecord.salxMc
-            ? this.state.shareRecord.salxMc
+          {this.state.shareRecord && this.state.shareRecord.salx_mc
+            ? this.state.shareRecord.salx_mc
             : ''}
         </Col>
         <Col span={6}>
@@ -392,24 +333,22 @@ class RenderTable extends PureComponent {
           <Tooltip
             title={
               this.state.shareRecord &&
-              this.state.shareRecord.badwMc &&
-              this.state.shareRecord.badwMc.length > 7
-                ? this.state.shareRecord.badwMc
+              this.state.shareRecord.badw &&
+              this.state.shareRecord.badw.length > 7
+                ? this.state.shareRecord.badw
                 : null
             }
           >
-            {this.state.shareRecord && this.state.shareRecord.badwMc
-              ? this.state.shareRecord.badwMc.length > 7
-                ? this.state.shareRecord.badwMc.substring(0, 7) + '...'
-                : this.state.shareRecord.badwMc
+            {this.state.shareRecord && this.state.shareRecord.badw
+              ? this.state.shareRecord.badw.length > 7
+                ? this.state.shareRecord.badw.substring(0, 7) + '...'
+                : this.state.shareRecord.badw
               : ''}
           </Tooltip>
         </Col>
         <Col span={12}>
           办案民警：
-          {this.state.shareRecord && this.state.shareRecord.barxm
-            ? this.state.shareRecord.barxm
-            : ''}
+          {this.state.shareRecord && this.state.shareRecord.bar ? this.state.shareRecord.bar : ''}
         </Col>
       </Row>
     );
@@ -418,7 +357,7 @@ class RenderTable extends PureComponent {
         <Table
           // size={'middle'}
           loading={loading}
-          rowKey={record => record.id}
+          rowKey={record => record.key}
           dataSource={data.list}
           columns={columns}
           pagination={paginationProps}

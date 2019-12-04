@@ -8,10 +8,10 @@
   align-items: center;
 
   .countButtonCurrent {
-    background-color: #FF6600;
+    background-color: #ff6600;
 
     .countButtonTitle {
-      background: #FF9900;
+      background: #ff9900;
     }
   }
 
@@ -19,18 +19,21 @@
     background: #999;
 
     .countButtonTitle {
-      background: #CCC;
+      background: #ccc;
     }
   }
 
-  .countButton, .countButtonCurrent {
+  .countButton,
+  .countButtonCurrent {
     height: 75px;
     color: #fff;
     display: flex;
     margin-right: 16px;
     cursor: pointer;
 
-    .countButtonTitle, .countButtonNumber, .bigCountButtonNumber {
+    .countButtonTitle,
+    .countButtonNumber,
+    .bigCountButtonNumber {
       padding: 0 16px;
       height: 75px;
       display: flex;
@@ -41,10 +44,10 @@
     .countButtonTitle {
       line-height: normal;
       text-align: center;
-
     }
 
-    .countButtonNumber, .bigCountButtonNumber {
+    .countButtonNumber,
+    .bigCountButtonNumber {
       div {
         height: 37px;
         line-height: 37px;
@@ -65,21 +68,27 @@
     display: flex;
     cursor: pointer;
 
-    .warningCountButtonTitleBlue, .warningCountButtonNumberBlue {
-      color: #0099FE;
+    .warningCountButtonTitleBlue,
+    .warningCountButtonNumberBlue {
+      color: #0099fe;
     }
 
-    .warningCountButtonTitlePink, .warningCountButtonNumberPink {
-      color: #FE0032;
+    .warningCountButtonTitlePink,
+    .warningCountButtonNumberPink {
+      color: #fe0032;
     }
 
-    .warningCountButtonTitleBlue, .warningCountButtonNumberBlue, .warningCountButtonTitlePink, .warningCountButtonNumberPink {
+    .warningCountButtonTitleBlue,
+    .warningCountButtonNumberBlue,
+    .warningCountButtonTitlePink,
+    .warningCountButtonNumberPink {
       height: 100px;
       line-height: 100px;
       font-size: @font-size-lg;
     }
 
-    .warningCountButtonNumberBlue, .warningCountButtonNumberPink {
+    .warningCountButtonNumberBlue,
+    .warningCountButtonNumberPink {
       width: 100px;
       position: relative;
       text-align: center;
@@ -124,7 +133,8 @@
     text-align: center;
   }
 
-  .leftGo, .rightGo {
+  .leftGo,
+  .rightGo {
     position: absolute;
     font-size: 30px;
     color: #ccc;
@@ -224,16 +234,17 @@
   width: 100%;
 
   .viewCount {
-    background: url("../../assets/viewData/policeViewData.png") no-repeat #171925;
+    background: url('../../assets/viewData/policeViewData.png') no-repeat #171925;
     background-size: 100% 100%;
   }
 }
 
-.caseDataView, .xzCaseDataView {
+.caseDataView,
+.xzCaseDataView {
   margin-bottom: 48px;
 
   .viewCount {
-    background: url("../../assets/viewData/policeViewData.png") no-repeat #171925;
+    background: url('../../assets/viewData/policeViewData.png') no-repeat #171925;
     background-size: 100% 100%;
   }
 }
@@ -242,7 +253,7 @@
   margin-bottom: 48px;
 
   .viewCount {
-    background: url("../../assets/viewData/policeViewData.png") no-repeat #171925;
+    background: url('../../assets/viewData/policeViewData.png') no-repeat #171925;
     background-size: 100% 100%;
   }
 }
@@ -251,7 +262,7 @@
   margin-bottom: 48px;
 
   .viewCount {
-    background: url("../../assets/viewData/areaViewData.jpg") no-repeat #171925;
+    background: url('../../assets/viewData/policeViewData.png') no-repeat #171925;
     background-size: 100% 100%;
   }
 }
@@ -304,7 +315,8 @@
   overflow: hidden;
 
   :global {
-    .anticon-caret-up, .anticon-caret-down {
+    .anticon-caret-up,
+    .anticon-caret-down {
       color: #ccc;
       font-size: 18px;
     }
@@ -317,20 +329,20 @@
 }
 
 .none {
-  display: none!important;
+  display: none !important;
 }
 
 .rightList {
   //cursor: pointer;
 }
-.choiceRy{
+.choiceRy {
   width: 300px;
-  position: absolute!important;
+  position: absolute !important;
   left: 180px;
   z-index: 9999;
   top: 14px;
 }
-.viewBox{
+.viewBox {
   padding: 20px;
   border-top: 1px solid @body-background;
 }
@@ -341,10 +353,10 @@
   color: @white;
   font-size: 16px;
 }
-.policeDataCard{
-  :global{
-    .ant-card-body{
-      background-color:@body-background;
+.policeDataCard {
+  :global {
+    .ant-card-body {
+      background-color: @body-background;
     }
   }
 }

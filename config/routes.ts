@@ -12,11 +12,12 @@ export function routes() {
       ],
     },
     {
-          path: '/setupShow',
-          component: '../layouts/setupShow',
-    },{
-          path: '/Show',
-          component: '../layouts/bigShow',
+      path: '/setupShow',
+      component: '../layouts/setupShow',
+    },
+    {
+      path: '/Show',
+      component: '../layouts/bigShow',
     },
     {
       path: '/',
@@ -34,7 +35,8 @@ export function routes() {
             {
               path: '/ShowData/RegulatePanel',
               name: '首页',
-              icon: 'https://drm-file.lanhuapp.com/skthumb-f7300995-a0a1-4223-82f2-b40cde5f36d5-CDs7odnJl0WXGDq1.png',
+              icon:
+                'https://drm-file.lanhuapp.com/skthumb-f7300995-a0a1-4223-82f2-b40cde5f36d5-CDs7odnJl0WXGDq1.png',
               component: './ShowData/RegulatePanel',
             },
             {
@@ -60,7 +62,8 @@ export function routes() {
             // },
             {
               name: '接处警',
-              icon: 'https://drm-file.lanhuapp.com/skthumb-862316d9-fc77-49b9-8ab1-bd1660d7d337-DzC7LFXGSfsvJZka.png',
+              icon:
+                'https://drm-file.lanhuapp.com/skthumb-862316d9-fc77-49b9-8ab1-bd1660d7d337-DzC7LFXGSfsvJZka.png',
               path: '/receivePolice',
               routes: [
                 {
@@ -265,6 +268,13 @@ export function routes() {
                   component: './handlingArea/AreaData',
                 },
                 {
+                  path: '/handlingArea/AreaData/areaDetail',
+                  name: '办案区数据详情',
+                  icon: 'smile',
+                  component: './handlingArea/AreaData/areaDetail',
+                  hideInMenu: true,
+                },
+                {
                   path: '/handlingArea/AreaWarning',
                   name: '办案区预警',
                   icon: 'smile',
@@ -275,6 +285,13 @@ export function routes() {
                   name: '办案区告警',
                   icon: 'smile',
                   component: './handlingArea/AreaPolice',
+                },
+                {
+                  path: '/handlingArea/AreaPolice/UnareaDetail',
+                  name: '办案区告警详情',
+                  icon: 'smile',
+                  component: './handlingArea/AreaPolice/UnareaDetail',
+                  hideInMenu: true,
                 },
               ],
             },
@@ -377,13 +394,13 @@ export function routes() {
                   icon: 'smile',
                   component: './Evaluation/CaseEvaluation',
                 },
-                  {
-                      name: '考评',
-                      icon: 'smile',
-                      path: '/Evaluation/CaseEvaluation/Detail',
-                      component: './Evaluation/CaseEvaluation/detail',
-                      hideInMenu: true,
-                  },
+                {
+                  name: '考评',
+                  icon: 'smile',
+                  path: '/Evaluation/CaseEvaluation/Detail',
+                  component: './Evaluation/CaseEvaluation/detail',
+                  hideInMenu: true,
+                },
                 {
                   path: '/Evaluation/File',
                   name: '执法档案',
@@ -421,26 +438,26 @@ export function routes() {
                       path: '/lawEnforcement/File/CriminalFile',
                       component: './lawEnforcement/CriminalFile',
                     },
-                  {
+                    {
                       name: '刑事案件档案详情',
                       icon: 'smile',
                       path: '/lawEnforcement/File/CriminalFile/Detail',
                       component: './lawEnforcement/CriminalFile/detail.tsx',
                       hideInMenu: true,
-                  },
+                    },
                     {
                       name: '行政案件档案',
                       icon: 'smile',
                       path: '/lawEnforcement/File/AdministrativeFile',
                       component: './lawEnforcement/AdministrativeFile',
                     },
-                      {
-                          name: '行政案件档案详情',
-                          icon: 'smile',
-                          path: '/lawEnforcement/File/AdministrativeFile/Detail',
-                          component: './lawEnforcement/AdministrativeFile/detail.tsx',
-                          hideInMenu: true,
-                      },
+                    {
+                      name: '行政案件档案详情',
+                      icon: 'smile',
+                      path: '/lawEnforcement/File/AdministrativeFile/Detail',
+                      component: './lawEnforcement/AdministrativeFile/detail.tsx',
+                      hideInMenu: true,
+                    },
                   ],
                 },
                 {
@@ -449,13 +466,13 @@ export function routes() {
                   icon: 'smile',
                   component: './lawEnforcement/PersonFile',
                 },
-                  {
-                      name: '人员档案详情',
-                      icon: 'smile',
-                      path: '/lawEnforcement/PersonFile/Detail',
-                      component: './lawEnforcement/PersonFile/detail.tsx',
-                      hideInMenu: true,
-                  },
+                {
+                  name: '人员档案详情',
+                  icon: 'smile',
+                  path: '/lawEnforcement/PersonFile/Detail',
+                  component: './lawEnforcement/PersonFile/detail.tsx',
+                  hideInMenu: true,
+                },
               ],
             },
             {
@@ -555,13 +572,13 @@ export function routes() {
                   icon: 'smile',
                   component: './Message/MessageLog',
                 },
-                  {
-                      path: '/Message/MessageLog/MessagePushLog',
-                      name: '消息推送日志详情',
-                      icon: 'smile',
-                      component: './Message/MessageLog/MessagePushLog.tsx',
-                      hideInMenu: true,
-                  },
+                {
+                  path: '/Message/MessageLog/MessagePushLog',
+                  name: '消息推送日志详情',
+                  icon: 'smile',
+                  component: './Message/MessageLog/MessagePushLog.tsx',
+                  hideInMenu: true,
+                },
               ],
             },
             {
@@ -587,7 +604,8 @@ export function routes() {
                   icon: 'smile',
                   component: './systemSetup/SuperviseSetup/detail.tsx',
                   hideInMenu: true,
-                }, {
+                },
+                {
                   path: '/systemSetup/SuperviseSetup/Copy',
                   name: '复用监管点',
                   component: './systemSetup/SuperviseSetup/SuperviseCopy.tsx',
@@ -601,12 +619,12 @@ export function routes() {
                 },
               ],
             },
-          {
+            {
               name: '监管看板',
               target: '_blank',
-              icon: "fullscreen",
+              icon: 'fullscreen',
               path: '/Show',
-          },
+            },
             {
               component: './404',
             },

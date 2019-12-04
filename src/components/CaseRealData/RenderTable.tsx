@@ -60,13 +60,13 @@ class RenderTable extends PureComponent {
     //     query: { record, id: record && record.id ? record.id : '1' },
     //   },
     //   callback: () => {
-        this.props.dispatch(
-          routerRedux.push({
-            pathname: '/caseFiling/casePolice/CriminalPolice/uncaseDetail',
-            query: { id: record && record.id ? record.id : '1',record: record},
-          }),
-        );
-      // },
+    this.props.dispatch(
+      routerRedux.push({
+        pathname: '/caseFiling/casePolice/CriminalPolice/uncaseDetail',
+        query: { id: record && record.id ? record.id : '1', record: record },
+      }),
+    );
+    // },
     // });
     // const divs = (
     //     <div>
@@ -97,12 +97,12 @@ class RenderTable extends PureComponent {
     //     query: { record, id: record && record.system_id ? record.system_id : '1' },
     //   },
     //   callback: () => {
-        this.props.dispatch(
-          routerRedux.push({
-            pathname: '/lawEnforcement/File/CriminalFile/Detail',
-            query: {id: record && record.system_id ? record.system_id : '1',record: record },
-          }),
-        );
+    this.props.dispatch(
+      routerRedux.push({
+        pathname: '/caseFiling/caseData/CriminalData/caseDetail',
+        query: { id: record && record.system_id ? record.system_id : '1', record: record },
+      }),
+    );
     //   },
     // });
     // const divs = (
@@ -238,7 +238,6 @@ class RenderTable extends PureComponent {
             {
               title: '案件名称',
               dataIndex: 'ajmc',
-              width:'20%',
               render: text => {
                 return (
                   <Ellipsis lines={2} tooltip>

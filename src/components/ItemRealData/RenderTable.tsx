@@ -7,9 +7,9 @@
 import React, { PureComponent } from 'react';
 import { Table, Divider, Tooltip, message, Dropdown, Menu, Row, Col } from 'antd';
 import styles from './RenderTable.less';
-import Detail from '../../routes/ItemRealData/itemDetail';
-import ShareModal from './../ShareModal/ShareModal';
-import Ellipsis from '../Ellipsis';
+// import Detail from '../../routes/ItemRealData/itemDetail';
+// import ShareModal from './../ShareModal/ShareModal';
+import Ellipsis from 'ant-design-pro/lib/Ellipsis';
 
 class RenderTable extends PureComponent {
   state = {
@@ -36,22 +36,22 @@ class RenderTable extends PureComponent {
   }
 
   deatils = record => {
-    const divs = (
-      <div>
-        <Detail
-          {...this.props}
-          record={record}
-          id={record.system_id}
-          sfgz={record.sfgz}
-          gzid={record.gzid}
-          tzlx={record.tzlx}
-          ajbh={record.ajbh}
-          current={this.state.current}
-        />
-      </div>
-    );
-    const AddNewDetail = { title: '涉案物品详情', content: divs, key: record.system_id };
-    this.props.newDetail(AddNewDetail);
+    // const divs = (
+    //   <div>
+    //     <Detail
+    //       {...this.props}
+    //       record={record}
+    //       id={record.system_id}
+    //       sfgz={record.sfgz}
+    //       gzid={record.gzid}
+    //       tzlx={record.tzlx}
+    //       ajbh={record.ajbh}
+    //       current={this.state.current}
+    //     />
+    //   </div>
+    // );
+    // const AddNewDetail = { title: '涉案物品详情', content: divs, key: record.system_id };
+    // this.props.newDetail(AddNewDetail);
   };
   saveShare = (res, type, ajGzLx) => {
     this.setState({
@@ -205,17 +205,15 @@ class RenderTable extends PureComponent {
     ];
 
     const paginationProps = {
-      showSizeChanger: true,
-      showQuickJumper: true,
+      // showSizeChanger: true,
+      // showQuickJumper: true,
       current: data.page ? data.page.currentPage : '',
       total: data.page ? data.page.totalResult : '',
       pageSize: data.page ? data.page.showCount : '',
       showTotal: (total, range) => (
-        <span className={styles.pagination}>{`共 ${
+        <span className={styles.pagination}>{`共 ${data.page ? data.page.totalPage : 1} 页，${
           data.page ? data.page.totalResult : 0
-        } 条记录 第 ${data.page ? data.page.currentPage : 1} / ${
-          data.page ? data.page.totalPage : 1
-        } 页`}</span>
+        } 条记录 `}</span>
       ),
     };
     let detail = (
@@ -300,7 +298,7 @@ class RenderTable extends PureComponent {
     return (
       <div className={styles.standardTable}>
         <Table
-          size={'middle'}
+          // size={'middle'}
           loading={loading}
           rowKey={record => record.key}
           dataSource={data.list}
@@ -308,17 +306,17 @@ class RenderTable extends PureComponent {
           pagination={paginationProps}
           onChange={this.itemTableChange}
         />
-        <ShareModal
-          title="物品信息分享"
-          detail={detail}
-          shareVisible={this.state.shareVisible}
-          handleCancel={this.handleCancel}
-          shareItem={this.state.shareItem}
-          personList={this.state.personList}
-          lx={this.state.lx}
-          tzlx={this.state.tzlx}
-          sx={this.state.sx}
-        />
+        {/*<ShareModal*/}
+        {/*title="物品信息分享"*/}
+        {/*detail={detail}*/}
+        {/*shareVisible={this.state.shareVisible}*/}
+        {/*handleCancel={this.handleCancel}*/}
+        {/*shareItem={this.state.shareItem}*/}
+        {/*personList={this.state.personList}*/}
+        {/*lx={this.state.lx}*/}
+        {/*tzlx={this.state.tzlx}*/}
+        {/*sx={this.state.sx}*/}
+        {/*/>*/}
       </div>
     );
   }

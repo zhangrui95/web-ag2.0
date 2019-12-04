@@ -7,17 +7,17 @@ import React, { PureComponent } from 'react';
 import { Row, Col, Card, Divider, Tooltip, Button, Radio, Icon, message, Progress } from 'antd';
 import moment from 'moment/moment';
 import echarts from 'echarts/lib/echarts';
-import bar from 'echarts/lib/chart/bar';
-import pie from 'echarts/lib/chart/pie';
-import line from 'echarts/lib/chart/line';
-import pictorialBar from 'echarts/lib/chart/pictorialBar';
-import title from 'echarts/lib/component/title';
-import legend from 'echarts/lib/component/legend';
-import tooltip from 'echarts/lib/component/tooltip';
+import 'echarts/lib/chart/bar';
+import 'echarts/lib/chart/pie';
+import 'echarts/lib/chart/line';
+import 'echarts/lib/chart/pictorialBar';
+import 'echarts/lib/component/title';
+import 'echarts/lib/component/legend';
+import 'echarts/lib/component/tooltip';
 import styles from '../Styles/dataView.less';
 import { getDefaultDaysForMonth, getTimeDistance } from '../../utils/utils';
 import DataViewDateShow from '../Common/DataViewDateShow';
-import { MiniProgress, ChartCard } from '../../components/Charts';
+import { MiniProgress, ChartCard } from 'ant-design-pro/lib/Charts';
 import nonDivImg from '../../assets/viewData/nonData.png';
 
 let itemEchartpictorialBar;
@@ -54,10 +54,10 @@ export default class ItemDataView extends PureComponent {
     window.addEventListener('resize', itemEchartRingPie.resize);
     window.addEventListener('resize', itemEchartwpqsBar.resize);
     const weekTypeTime = this.getTime(this.props.searchType);
-    this.getItemNumCount(weekTypeTime[0], weekTypeTime[1]);
-    this.getItemCRKCount(weekTypeTime[0], weekTypeTime[1], '登记');
-    this.showCaseZKNumpie(weekTypeTime[0], weekTypeTime[1]);
-    this.showCaseWpqspie('3');
+    // this.getItemNumCount(weekTypeTime[0], weekTypeTime[1]);
+    // this.getItemCRKCount(weekTypeTime[0], weekTypeTime[1], '登记');
+    // this.showCaseZKNumpie(weekTypeTime[0], weekTypeTime[1]);
+    // this.showCaseWpqspie('3');
   }
 
   componentWillReceiveProps(nextProps) {
@@ -537,11 +537,11 @@ export default class ItemDataView extends PureComponent {
     itemEchartpictorialBar = echarts.init(document.getElementById('wpcrkqk'));
     const option = {
       title: {
-        text: '物品出入库情况',
-        textStyle: {
-          fontSize: 16,
-          fontWeight: 'normal',
-        },
+        // text: '物品出入库情况',
+        // textStyle: {
+        //   fontSize: 16,
+        //   fontWeight: 'normal',
+        // },
       },
       xAxis: {
         // data: dataAxis,
@@ -748,12 +748,12 @@ export default class ItemDataView extends PureComponent {
     itemEchartRingPie = echarts.init(document.getElementById('wpslzs'));
     const option = {
       title: {
-        text: '物品数量展示',
-        textStyle: {
-          fontSize: 16,
-          fontWeight: 'normal',
-        },
-        padding: 8,
+        // text: '物品数量展示',
+        // textStyle: {
+        //   fontSize: 16,
+        //   fontWeight: 'normal',
+        // },
+        // padding: 8,
       },
       tooltip: {
         trigger: 'item',
@@ -895,142 +895,146 @@ export default class ItemDataView extends PureComponent {
             </div>
           </div>
         )}
-
-        <Row gutter={rowLayout} className={styles.listPageRow}>
-          <Col {...colLayout}>
-            <div id="wpslzs" className={styles.cardBox}></div>
-          </Col>
-          <Col {...colLayout}>
-            <div className={styles.cardBoxzk} style={{ padding: '0 5px' }}>
-              {ZkwpData.length > 0 ? (
-                <div>
-                  <Row gutter={rowLayout}>
-                    <Col
-                      sm={24}
-                      lg={24}
+        <div style={{ backgroundColor: '#252c3c', padding: '0 16px' }}>
+          <Row gutter={rowLayout} className={styles.listPageRow}>
+            <Col {...colLayout}>
+              <div className={styles.cardBoxTitle}>| 物品数量展示</div>
+              <div id="wpslzs" className={styles.cardBox}></div>
+            </Col>
+            <Col {...colLayout}>
+              <div className={styles.cardBoxTitle}>| 在库物品数量展示</div>
+              <div className={styles.cardBoxzk} style={{ padding: '0 5px' }}>
+                {ZkwpData.length > 0 ? (
+                  <div>
+                    <Row gutter={rowLayout}>
+                      <Col
+                        sm={24}
+                        lg={24}
+                        style={{
+                          fontSize: 16,
+                          marginBottom: 20,
+                          paddingTop: 18,
+                          paddingLeft: 28,
+                        }}
+                      >
+                        {/*在库物品数量展示*/}
+                      </Col>
+                    </Row>
+                    {ZkwpData.map(item => (
+                      <div>
+                        <div className={styles.progressName}>{item.name}</div>
+                        <div className={styles.progressCount}>
+                          <Tooltip title={item.name + ':' + item.count}>
+                            <Progress
+                              percent={Math.round((item.count / ZkwpTotal) * 100)}
+                              status="active"
+                              strokeColor="#000"
+                              strokeWidth={16}
+                            />
+                          </Tooltip>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                ) : (
+                  <div style={{ padding: 16 }}>
+                    <div style={{ fontSize: 16, paddingTop: 2, color: 'rgba(0,0,0,0.85)' }}>
+                      {/*在库物品数量展示*/}
+                    </div>
+                    <div
                       style={{
-                        fontSize: 16,
-                        marginBottom: 20,
-                        paddingTop: 18,
-                        paddingLeft: 28,
+                        height: '100%',
+                        width: '100%',
+                        display: 'flex',
+                        alignItems: 'center',
+                        flexDirection: 'column',
+                        justifyContent: 'center',
                       }}
                     >
-                      在库物品数量展示
-                    </Col>
-                  </Row>
-                  {ZkwpData.map(item => (
-                    <div>
-                      <div className={styles.progressName}>{item.name}</div>
-                      <div className={styles.progressCount}>
-                        <Tooltip title={item.name + ':' + item.count}>
-                          <Progress
-                            percent={Math.round((item.count / ZkwpTotal) * 100)}
-                            status="active"
-                            strokeColor="#000"
-                            strokeWidth={16}
-                          />
-                        </Tooltip>
-                      </div>
+                      <img src={nonDivImg} alt="暂无数据" />
+                      <div style={{ fontSize: 18 }}>暂无数据</div>
                     </div>
-                  ))}
-                </div>
-              ) : (
-                <div style={{ padding: 16 }}>
-                  <div style={{ fontSize: 16, paddingTop: 2, color: 'rgba(0,0,0,0.85)' }}>
-                    在库物品数量展示
                   </div>
-                  <div
-                    style={{
-                      height: '100%',
-                      width: '100%',
-                      display: 'flex',
-                      alignItems: 'center',
-                      flexDirection: 'column',
-                      justifyContent: 'center',
-                    }}
-                  >
-                    <img src={nonDivImg} alt="暂无数据" />
-                    <div style={{ fontSize: 18 }}>暂无数据</div>
-                  </div>
-                </div>
-              )}
-            </div>
-          </Col>
-        </Row>
-        <Row gutter={rowLayout} className={styles.listPageRow}>
-          <Col {...colLayout1}>
-            <div className={styles.listPageWrap}>
-              <div className={styles.listPageHeader}>
-                {showrkDataViewDJ ? (
-                  <a className={styles.listPageHeaderCurrent}>登记</a>
-                ) : (
-                  <a onClick={() => this.changeRkListPageHeader('dj')}>登记</a>
-                )}
-                <span>|</span>
-                {showrkDataViewZK ? (
-                  <a className={styles.listPageHeaderCurrent}>在库</a>
-                ) : (
-                  <a onClick={() => this.changeRkListPageHeader('zk')}>在库</a>
-                )}
-                <span>|</span>
-                {showrkDataViewDY ? (
-                  <a className={styles.listPageHeaderCurrent}>调用</a>
-                ) : (
-                  <a onClick={() => this.changeRkListPageHeader('dy')}>调用</a>
-                )}
-                <span>|</span>
-                {showrkDataViewYS ? (
-                  <a className={styles.listPageHeaderCurrent}>移送</a>
-                ) : (
-                  <a onClick={() => this.changeRkListPageHeader('ys')}>移送</a>
-                )}
-                <span>|</span>
-                {showrkDataViewCZ ? (
-                  <a className={styles.listPageHeaderCurrent}>处置</a>
-                ) : (
-                  <a onClick={() => this.changeRkListPageHeader('cz')}>处置</a>
-                )}
-                <span>|</span>
-                {showrkDataViewYCCK ? (
-                  <a className={styles.listPageHeaderCurrent}>异常出库</a>
-                ) : (
-                  <a onClick={() => this.changeRkListPageHeader('ycck')}>异常出库</a>
                 )}
               </div>
-            </div>
-            <div id="wpcrkqk" className={styles.cardBox}></div>
-          </Col>
-        </Row>
-        <Row gutter={rowLayout} className={styles.listPageRow}>
-          <Col {...colLayout1}>
-            <div id="wpqs" className={wpqsNoData ? styles.none : styles.cardBox}></div>
-            <div
-              style={{
-                width: '100%',
-                height: '100%',
-                // position: 'absolute',
-                top: 0,
-                left: 0,
-                padding: 16,
-                backgroundColor: '#ffffff',
-              }}
-              className={!wpqsNoData ? styles.none : ''}
-            >
-              <div style={{ fontSize: 16, padding: '8px 0 0 8px' }}>物品趋势</div>
+            </Col>
+          </Row>
+          <Row gutter={rowLayout} className={styles.listPageRow}>
+            <Col {...colLayout1}>
+              <div className={styles.listPageWrap}>
+                <div className={styles.listPageHeader}>
+                  {showrkDataViewDJ ? (
+                    <a className={styles.listPageHeaderCurrent}>登记</a>
+                  ) : (
+                    <a onClick={() => this.changeRkListPageHeader('dj')}>登记</a>
+                  )}
+                  <span>|</span>
+                  {showrkDataViewZK ? (
+                    <a className={styles.listPageHeaderCurrent}>在库</a>
+                  ) : (
+                    <a onClick={() => this.changeRkListPageHeader('zk')}>在库</a>
+                  )}
+                  <span>|</span>
+                  {showrkDataViewDY ? (
+                    <a className={styles.listPageHeaderCurrent}>调用</a>
+                  ) : (
+                    <a onClick={() => this.changeRkListPageHeader('dy')}>调用</a>
+                  )}
+                  <span>|</span>
+                  {showrkDataViewYS ? (
+                    <a className={styles.listPageHeaderCurrent}>移送</a>
+                  ) : (
+                    <a onClick={() => this.changeRkListPageHeader('ys')}>移送</a>
+                  )}
+                  <span>|</span>
+                  {showrkDataViewCZ ? (
+                    <a className={styles.listPageHeaderCurrent}>处置</a>
+                  ) : (
+                    <a onClick={() => this.changeRkListPageHeader('cz')}>处置</a>
+                  )}
+                  <span>|</span>
+                  {showrkDataViewYCCK ? (
+                    <a className={styles.listPageHeaderCurrent}>异常出库</a>
+                  ) : (
+                    <a onClick={() => this.changeRkListPageHeader('ycck')}>异常出库</a>
+                  )}
+                </div>
+              </div>
+              <div className={styles.cardBoxTitle}>| 物品出入库情况</div>
+              <div id="wpcrkqk" className={styles.cardBox}></div>
+            </Col>
+          </Row>
+          <Row gutter={rowLayout} className={styles.listPageRow}>
+            <Col {...colLayout1}>
+              <div id="wpqs" className={wpqsNoData ? styles.none : styles.cardBox}></div>
               <div
                 style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  flexDirection: 'column',
-                  justifyContent: 'center',
+                  width: '100%',
+                  height: '100%',
+                  // position: 'absolute',
+                  top: 0,
+                  left: 0,
+                  padding: 16,
+                  backgroundColor: '#ffffff',
                 }}
+                className={!wpqsNoData ? styles.none : ''}
               >
-                <img src={nonDivImg} alt="暂无数据" />
-                <div style={{ fontSize: 18 }}>暂无数据</div>
+                <div style={{ fontSize: 16, padding: '8px 0 0 8px' }}>物品趋势</div>
+                <div
+                  style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    flexDirection: 'column',
+                    justifyContent: 'center',
+                  }}
+                >
+                  <img src={nonDivImg} alt="暂无数据" />
+                  <div style={{ fontSize: 18 }}>暂无数据</div>
+                </div>
               </div>
-            </div>
-          </Col>
-        </Row>
+            </Col>
+          </Row>
+        </div>
       </div>
     );
   }

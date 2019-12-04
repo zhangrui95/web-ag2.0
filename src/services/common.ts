@@ -1,10 +1,11 @@
 import request from '../utils/request';
-let configUrl = window.configUrl;
 
 export async function getDictType(params) {
   return request(`${configUrl.maintainCenterUrl}/dictionary`, {
     method: 'POST',
-    data: params,
+    data: {
+      ...params,
+    },
   });
 }
 
@@ -20,7 +21,18 @@ export async function getItemsStorage(params) {
 export async function getDepTree(params) {
   return request(`${configUrl.securityCenterUrl}/lowcase/getDepartmentTreeWithCheck`, {
     method: 'POST',
-    data: params,
+    data: {
+      ...params,
+    },
+  });
+}
+
+export async function getDepPcsTree(params) {
+  return request(`${configUrl.securityCenterUrl}/lowcase/getPcsTree`, {
+    method: 'POST',
+    data: {
+      ...params,
+    },
   });
 }
 
@@ -114,6 +126,15 @@ export async function getCaseTypeTree(params) {
   });
 }
 
+export async function getPlCaseTypeTree(params) {
+  return request(`${configUrl.serverUrl}/findDictTreeByJp`, {
+    method: 'POST',
+    data: {
+      ...params,
+    },
+  });
+}
+
 export async function getPoliceTypeTreeServices(params) {
   return request(`${configUrl.serverUrl}/findDictTreeTY`, {
     method: 'POST',
@@ -155,15 +176,6 @@ export async function getSyncTime(params) {
 
 export async function getCaseManagementDicts(params) {
   return request(`${configUrl.serverUrl}/getDictPgListPage`, {
-    method: 'POST',
-    data: {
-      ...params,
-    },
-  });
-}
-
-export async function getResponsePersonService(params) {
-  return request(`${configUrl.securityCenterUrl}/lowcase/findAllUserLevel`, {
     method: 'POST',
     data: {
       ...params,
