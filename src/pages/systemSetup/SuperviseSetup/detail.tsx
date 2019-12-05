@@ -70,6 +70,7 @@ class Detail extends Component {
     componentDidMount() {
         let type = this.props.location.query.record ? this.props.location.query.record.type : 1;
         let res = this.props.location.query.record;
+        console.log('res========>',res)
         this.props.form.resetFields([
             'addjgxz',
             'addjglx',

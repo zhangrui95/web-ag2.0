@@ -15,6 +15,7 @@ export interface GlobalModelState {
   collapsed?: boolean;
   notices?: NoticeItem[];
   navigation: NavigationItem[];
+  navigationSession: NavigationItem[];
 }
 
 export interface GlobalModelType {
@@ -41,7 +42,8 @@ const GlobalModel: GlobalModelType = {
   state: {
     collapsed: false,
     notices: [],
-    navigation: [welcomeItem]
+    navigation: sessionStorage.navigationNews ? JSON.parse(sessionStorage.navigationNews) : [welcomeItem],
+    navigationSession: sessionStorage.navigationNews ? JSON.parse(sessionStorage.navigationNews) : [welcomeItem],
   },
 
   effects: {
@@ -134,6 +136,39 @@ const GlobalModel: GlobalModelType = {
         callback(navigationNew);
       }
     },
+    *changeSessonNavigation({ payload, callback }, { put, select }) {
+      let navigationSession: NavigationItem[] = yield select((state: ConnectState) => state.global.navigationSession);
+        let navigationNews = [...navigationSession];
+        navigationNews.map((item)=>{
+            item.children = '';
+        })
+        //如果key存在为对tab的增加和删除操作，否则为清楚全部tab
+        if (payload.key) {
+            const index = navigationNews.findIndex(item => {
+                return item.key === payload.key
+            });
+            if (payload.isShow) {
+                //获取state中存储的数据
+                if (index === -1) {
+                    navigationNews.push(payload)
+                }
+            } else {
+                console.log('index',index)
+                if (index > -1) {
+                    navigationNews.splice(index, 1);
+                }
+            }
+        } else {
+            navigationNews = [welcomeItem];
+        }
+        yield put({
+            type: 'saveSessonNavigation',
+            payload: navigationNews,
+        });
+        console.log('navigationNews=====>',navigationNews);
+        console.log('navigationNew转义=====>',JSON.stringify(navigationNews));
+        sessionStorage.setItem('navigationNews',JSON.stringify(navigationNews));
+    },
   },
 
   reducers: {
@@ -163,6 +198,14 @@ const GlobalModel: GlobalModelType = {
         ...state,
         // collapsed: false,
         navigation: payload,
+      };
+    },
+
+    saveSessonNavigation(state, { payload }): GlobalModelState {
+      return {
+        ...state,
+        // collapsed: false,
+        navigationSession: payload,
       };
     },
   },

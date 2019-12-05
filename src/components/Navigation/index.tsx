@@ -9,18 +9,13 @@ import styles from './index.less';
 import stylesAll from '@/theme/darkTheme.less';
 
 const { TabPane } = Tabs;
-let first = true;
 const Navigation = props => {
   const { navigationData, dispatch, location,children } = props; // //如果导航是空数组，则将当前路由
   // 获取到当前路由
   const currentUrl = location.pathname;
-  const query = location.query;
+  let queryLoc = location.query;
   const id = location.query && location.query.id ? location.query.id : '';
   // 获取到当前路由对应的路径的唯一标识key
-    if(first){
-        navigationData[0].children = children;
-        first = false;
-    }
   let index = navigationData.findIndex((item: NavigationItem) => {
     return (
       item.path + '?id=' + (item.query && item.query.id ? item.query.id : '') ===
@@ -33,7 +28,21 @@ const Navigation = props => {
   // 监听页面路由变化，一旦路由变化，默认选中的tab跟着变化
   useEffect(() => {
     if (selectTabKey) {
-      setActiveKey(selectTabKey);
+        if(navigationData[index].children){
+            setActiveKey(selectTabKey);
+        }else{
+            let query = navigationData[index].query;
+            if(query){
+                dispatch( routerRedux.push({
+                    pathname: navigationData[index].path,
+                    query: query,
+                }));
+            }else {
+                dispatch(routerRedux.push(navigationData[index].path));
+            }
+            navigationData[index].children = children;
+            setActiveKey(selectTabKey);
+        }
     } else {
       // 没有tab情况下，将当前页面的路由对比数据添加tab
       const {
@@ -43,17 +52,24 @@ const Navigation = props => {
       const { breadcrumb } = getMenuData(routes);
       const item = breadcrumb[currentUrl];
       if (dispatch && item) {
+          let payload = {
+              key: id ? id : item.path,
+              name: item.name,
+              path: item.path,
+              isShow: true,
+              query:queryLoc,
+          };
         dispatch({
           type: 'global/changeNavigation',
           payload: {
-            key: id ? id : item.path,
-            name: item.name,
-            path: item.path,
-            isShow: true,
-            query,
-            children:children,
+            ...payload,
+            children,
           },
         });
+          dispatch({
+              type: 'global/changeSessonNavigation',
+              payload: payload,
+          });
       }
     }
   }, [selectTabKey]);
@@ -62,12 +78,17 @@ const Navigation = props => {
     setActiveKey(activeKey);
     //根据key获取到当前tab信息，并跳转页面
     const tabItem = getItemByKey(activeKey);
-    // setPath(tabItem.path);
-    // dispatch(
-    //   routerRedux.push(
-    //     tabItem.query ? { pathname: tabItem.path, query: tabItem.query } : tabItem.path,
-    //   ),
-    // );
+    if(!tabItem.children){
+        let query = tabItem.query;
+        if(query){
+            dispatch( routerRedux.push({
+                pathname: tabItem.path,
+                query: query,
+            }));
+        }else {
+            dispatch(routerRedux.push(tabItem.path));
+        }
+    }
   };
 
   const getItemByKey = (key: string): NavigationItem => {
@@ -78,6 +99,13 @@ const Navigation = props => {
   const onEdit = key => {
     // 删除当前tab并且将路由跳转至前一个tab的path
     if (dispatch) {
+        dispatch({
+            type: 'global/changeSessonNavigation',
+            payload: {
+                key,
+                isShow: false,
+            },
+        });
       dispatch({
         type: 'global/changeNavigation',
         payload: {
@@ -95,7 +123,7 @@ const Navigation = props => {
                   let pathUrl = data[data.length - 1].path;
                   dispatch( routerRedux.push({
                       pathname: pathUrl,
-                      query: { id: query.id ,record: query.record},
+                      query: query,
                   }));
               }else{
                   dispatch(routerRedux.push(data[data.length - 1].path));
@@ -115,45 +143,47 @@ const Navigation = props => {
         //跳转回首页
         dispatch(routerRedux.push('/ShowData/RegulatePanel')),
     });
+      dispatch({
+          type: 'global/changeSessonNavigation',
+          payload: {},
+      });
   };
 
   const showTab = [...navigationData];
   return (
-      <div className={stylesAll.dark}>
-          <div
-              className={styles.card}
-              bodyStyle={{
-                  padding: '0',
-                  position: 'relative',
-                  // display: 'flex',
-                  // alignItems: 'center',
-              }}
+      <div
+          className={styles.card}
+          bodyStyle={{
+              padding: '0',
+              position: 'relative',
+              // display: 'flex',
+              // alignItems: 'center',
+          }}
+      >
+          <Tabs
+              hideAdd
+              onChange={onChange}
+              activeKey={activeKey}
+              type="editable-card"
+              animated={false}
+              onEdit={onEdit}
           >
-              <Tabs
-                  hideAdd
-                  onChange={onChange}
-                  activeKey={activeKey}
-                  type="editable-card"
-                  animated={false}
-                  onEdit={onEdit}
-              >
-                  {showTab.map((pane: NavigationItem) => (
-                      <TabPane
-                          tab={pane.name}
-                          key={pane.key}
-                          closable={pane.key !== '/ShowData/RegulatePanel'}
-                      >
-                          <div id={'messageBox'} className={styles.box}>{pane.children}</div>
-                      </TabPane>
-                  ))}
-              </Tabs>
-              {showTab.length > 3 ? (
-                  <div className={styles.close} onClick={closeAll}>
-                      关闭所有
-                      <Icon className={styles.closeIcon} type="close" />
-                  </div>
-              ) :  <div className={styles.closes}></div>}
-          </div>
+              {showTab.map((pane: NavigationItem) => (
+                  <TabPane
+                      tab={pane.name}
+                      key={pane.key}
+                      closable={pane.key !== '/ShowData/RegulatePanel'}
+                  >
+                      <div className={styles.box}>{pane.children}</div>
+                  </TabPane>
+              ))}
+          </Tabs>
+          {showTab.length > 3 ? (
+              <div className={styles.close} onClick={closeAll}>
+                  关闭所有
+                  <Icon className={styles.closeIcon} type="close" />
+              </div>
+          ) :  <div className={styles.closes}></div>}
       </div>
   );
 };
