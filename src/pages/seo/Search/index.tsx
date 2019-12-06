@@ -1389,7 +1389,7 @@ export default class GeneralQuery extends PureComponent {
             </AutoComplete>
           </div>
         </Affix>
-        <Card className={stylescommon.cardArea} style={{ padding: '5px 0' }} id={'form'}>
+        <Card className={stylescommon.cardArea} style={{ padding: '5px 0' }} id={'formSearch'}>
           <div className={styles.searchConditionArea}>
             <div className={styles.searchType}>
               {/*<a className={searchType === 'all' ? styles.chosenType : null}*/}
@@ -1450,7 +1450,7 @@ export default class GeneralQuery extends PureComponent {
                   <RangePicker
                     value={rangePickerValue}
                     onChange={this.handleRangePickerChange}
-                    getCalendarContainer={() => document.getElementById('form')}
+                    getCalendarContainer={() => document.getElementById('formSearch')}
                   />
                 </div>
                 <div className={styles.singleConditionArea}>
@@ -1574,7 +1574,7 @@ export default class GeneralQuery extends PureComponent {
                     value={badwValue}
                     treeDefaultExpandedKeys={treeDefaultExpandedKeys}
                     onChange={this.onBadwChange}
-                    getPopupContainer={() => document.getElementById('form')}
+                    getPopupContainer={() => document.getElementById('formSearch')}
                     treeNodeFilterProp="title"
                   >
                     {depTree && depTree.length > 0 ? this.renderloop(depTree) : null}
@@ -1595,7 +1595,7 @@ export default class GeneralQuery extends PureComponent {
                       value={baqValue}
                       onChange={this.onBaqChange}
                       treeNodeFilterProp="title"
-                      getPopupContainer={() => document.getElementById('form')}
+                      getPopupContainer={() => document.getElementById('formSearch')}
                     >
                       {baqTree.length > 0 ? this.renderBaqloop(baqTree) : null}
                     </TreeSelect>

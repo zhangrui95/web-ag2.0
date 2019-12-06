@@ -159,7 +159,6 @@
 }
 .btnBox {
   float: right;
-  margin-top: -4px;
 }
 .export {
   background: @body-background!important;
@@ -187,6 +186,12 @@
 .btnTableBox{
   margin-top: 10px;
 }
-
-
-
+.kfTab{
+  :global{
+    .ant-tabs-nav-container{
+      width:100%;
+      border-radius: 10px 10px  0 0;
+      background: @table-body-sort-bg;
+    }
+  }
+}

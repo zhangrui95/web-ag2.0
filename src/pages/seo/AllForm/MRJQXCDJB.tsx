@@ -130,6 +130,7 @@ export default class MRJQXCDJB extends PureComponent {
               setSelectDateValue={this.setSelectDateValue}
               selectDateValue={this.state.selectDateValue}
               emptyData={this.emptyData}
+              id={'MRJQXCD'}
             />
           </Col>
           <Col md={12} sm={24}>

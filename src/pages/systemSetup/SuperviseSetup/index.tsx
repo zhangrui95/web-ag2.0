@@ -202,7 +202,6 @@ class SuperviseSetup extends Component {
   };
   addList = (type, reson) => {
     // let res = JSON.stringify(reson);
-      console.log('childen.props',this.props);
     reson.type = type;
     let res = reson;
     // this.props.dispatch({
@@ -224,9 +223,10 @@ class SuperviseSetup extends Component {
     //     );
     //   },
     // });
+      this.props.history.replace("/");
       this.props.dispatch(
           routerRedux.push({
-              pathname: '/systemSetup/SuperviseSetup/Detail',
+              pathname: type === 0 ? '/systemSetup/SuperviseSetup/Add' : type === 2 ? '/systemSetup/SuperviseSetup/Update' : '/systemSetup/SuperviseSetup/Detail',
               query: { id: reson && reson.id ? reson.id : '1' ,record: res},
           }),
       );
@@ -1025,20 +1025,20 @@ class SuperviseSetup extends Component {
     return (
       <div className={stylescommon.statistics} id={'messageBox'}>
         <Card className={stylescommon.titleArea}>
-          {/*{isTJJGD ? (*/}
+          {isTJJGD ? (
             <Button type="primary" onClick={() => this.addList(0,{})}>
               添加监管点
             </Button>
-          {/*) : (*/}
-          {/*  ''*/}
-          {/*)}*/}
+          ) : (
+            ''
+          )}
           <div className={styles.btnAdd}>
             <Button onClick={this.exportData} icon="download">
               导出表格
             </Button>
           </div>
         </Card>
-        <Card className={stylescommon.cardArea} id={'form'} style={{ padding: '10px 0' }}>
+        <Card className={stylescommon.cardArea} id={'Superviseform'} style={{ padding: '10px 0' }}>
           <Form style={{ height: this.state.searchHeight ? 'auto' : '50px' }}>
             <Row gutter={rowLayout} className={stylescommon.searchForm}>
               <Col {...colLayout}>
@@ -1055,7 +1055,7 @@ class SuperviseSetup extends Component {
                       treeDefaultExpandedKeys={this.state.treeDefaultExpandedKeys}
                       key="badwSelect"
                       treeNodeFilterProp="title"
-                      getPopupContainer={() => document.getElementById('form')}
+                      getPopupContainer={() => document.getElementById('Superviseform')}
                     >
                       {depTree && depTree.length > 0 ? this.renderloop(depTree) : null}
                     </TreeSelect>,
@@ -1071,7 +1071,7 @@ class SuperviseSetup extends Component {
                       placeholder="请选择"
                       style={{ width: '100%' }}
                       onChange={this.changeJglx1}
-                      getPopupContainer={() => document.getElementById('form')}
+                      getPopupContainer={() => document.getElementById('Superviseform')}
                     >
                       <Option value={''}>全部</Option>
                       <Option value={'0'}>告警</Option>
@@ -1090,7 +1090,7 @@ class SuperviseSetup extends Component {
                       placeholder="请选择"
                       style={{ width: '100%' }}
                       onChange={e => this.getJgd(e)}
-                      getPopupContainer={() => document.getElementById('form')}
+                      getPopupContainer={() => document.getElementById('Superviseform')}
                     >
                       <Option value="">全部</Option>
                       {JgsxType &&
@@ -1110,7 +1110,7 @@ class SuperviseSetup extends Component {
                       labelInValue
                       placeholder="请选择"
                       style={{ width: '100%' }}
-                      getPopupContainer={() => document.getElementById('form')}
+                      getPopupContainer={() => document.getElementById('Superviseform')}
                     >
                       <Option value="">全部</Option>
                       {JgdType &&
@@ -1129,7 +1129,7 @@ class SuperviseSetup extends Component {
                     <Select
                       placeholder="请选择"
                       style={{ width: '100%' }}
-                      getPopupContainer={() => document.getElementById('form')}
+                      getPopupContainer={() => document.getElementById('Superviseform')}
                     >
                       <Option value="">全部</Option>
                       {JgdztType &&
@@ -1147,7 +1147,7 @@ class SuperviseSetup extends Component {
                   })(
                     <RangePicker
                       style={{ width: '100%' }}
-                      getCalendarContainer={() => document.getElementById('form')}
+                      getCalendarContainer={() => document.getElementById('Superviseform')}
                     />,
                   )}
                 </FormItem>
@@ -1179,7 +1179,6 @@ class SuperviseSetup extends Component {
         </Card>
         <Card className={stylescommon.cardArea} id={'box'}>
           <Table
-            // size='middle'
             loading={this.state.loading}
             rowKey={record => record.id}
             pagination={paginationProps}

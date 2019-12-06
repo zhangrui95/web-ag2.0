@@ -609,7 +609,7 @@ export default class CriminalFile extends PureComponent {
             }
         }
         return (
-            <Card className={stylescommon.listPageWrap} id={'form'}>
+            <Card className={stylescommon.listPageWrap} id={'formCriminalFile'}>
                 <Form onSubmit={this.handleSearch} style={{height:this.state.searchHeight ?  'auto' : '50px'}}>
                     <Row gutter={rowLayout} className={stylescommon.searchForm}>
                         <Col {...colLayout}>
@@ -644,7 +644,7 @@ export default class CriminalFile extends PureComponent {
                                         <RangePicker
                                             disabledDate={this.disabledDate}
                                             style={{ width: '100%' }}
-                                            getCalendarContainer={() => document.getElementById('form')}
+                                            getCalendarContainer={() => document.getElementById('formCriminalFile')}
                                         />,
                                     )}
                                 </FormItem>
@@ -657,7 +657,7 @@ export default class CriminalFile extends PureComponent {
                                         <RangePicker
                                             disabledDate={this.disabledDate}
                                             style={{ width: '100%' }}
-                                            getCalendarContainer={() => document.getElementById('form')}
+                                            getCalendarContainer={() => document.getElementById('formCriminalFile')}
                                         />,
                                     )}
                                 </FormItem>
@@ -671,7 +671,7 @@ export default class CriminalFile extends PureComponent {
                                             <RangePicker
                                                 disabledDate={this.disabledDate}
                                                 style={{ width: '100%' }}
-                                                getCalendarContainer={() => document.getElementById('form')}
+                                                getCalendarContainer={() => document.getElementById('formCriminalFile')}
                                             />,
                                         )}
                                     </FormItem>
@@ -685,7 +685,7 @@ export default class CriminalFile extends PureComponent {
                                             <RangePicker
                                                 disabledDate={this.disabledDate}
                                                 style={{ width: '100%' }}
-                                                getCalendarContainer={() => document.getElementById('form')}
+                                                getCalendarContainer={() => document.getElementById('formCriminalFile')}
                                             />,
                                         )}
                                     </FormItem>
@@ -699,7 +699,7 @@ export default class CriminalFile extends PureComponent {
                                             <RangePicker
                                                 disabledDate={this.disabledDate}
                                                 style={{ width: '100%' }}
-                                                getCalendarContainer={() => document.getElementById('form')}
+                                                getCalendarContainer={() => document.getElementById('formCriminalFile')}
                                             />,
                                         )}
                                     </FormItem>
@@ -719,7 +719,7 @@ export default class CriminalFile extends PureComponent {
                                         key='badwSelect'
                                         treeDefaultExpandedKeys={this.state.treeDefaultExpandedKeys}
                                         treeNodeFilterProp="title"
-                                        getPopupContainer={() => document.getElementById('form')}
+                                        getPopupContainer={() => document.getElementById('formCriminalFile')}
                                     >
                                         {depTree && depTree.length > 0 ? this.renderloop(depTree) : null}
                                     </TreeSelect>,
@@ -731,7 +731,7 @@ export default class CriminalFile extends PureComponent {
                                 {getFieldDecorator('ajzt', {
                                     initialValue: this.state.ajzt,
                                 })(
-                                    <Select placeholder="请选择案件状态" style={{ width: '100%' }} onChange={this.chooseStatus} getPopupContainer={() => document.getElementById('form')}>
+                                    <Select placeholder="请选择案件状态" style={{ width: '100%' }} onChange={this.chooseStatus} getPopupContainer={() => document.getElementById('formCriminalFile')}>
                                         <Option value="">全部</Option>
                                         {CaseStatusOption}
                                     </Select>,
@@ -753,7 +753,7 @@ export default class CriminalFile extends PureComponent {
                                         placeholder="请输入办案人"
                                         onChange={this.handleAllPoliceOptionChange}
                                         onFocus={this.handleAllPoliceOptionChange}
-                                        getPopupContainer={() => document.getElementById('form')}
+                                        getPopupContainer={() => document.getElementById('formCriminalFile')}
                                     >
                                         {allPoliceOptions}
                                     </Select>,
@@ -769,7 +769,7 @@ export default class CriminalFile extends PureComponent {
                                         options={this.state.caseTypeTree}
                                         placeholder="请选择案件类别"
                                         changeOnSelect={true}
-                                        getPopupContainer={() => document.getElementById('form')}
+                                        getPopupContainer={() => document.getElementById('formCriminalFile')}
                                         showSearch={
                                             {
                                                 filter: (inputValue, path) => {
@@ -788,7 +788,7 @@ export default class CriminalFile extends PureComponent {
                                     initialValue: this.state.zxlb,
                                 })(
                                     <Select placeholder="请选择专项类别" style={{ width: '100%' }}
-                                            getPopupContainer={() => document.getElementById('form')}
+                                            getPopupContainer={() => document.getElementById('formCriminalFile')}
                                             onChange={this.specialCaseOnChange}>
                                         <Option value="">全部</Option>
                                         {specialCaseTypeOptions}
@@ -804,7 +804,7 @@ export default class CriminalFile extends PureComponent {
                                     <RangePicker
                                         disabledDate={this.disabledDate}
                                         style={{ width: '100%' }}
-                                        getCalendarContainer={() => document.getElementById('form')}
+                                        getCalendarContainer={() => document.getElementById('formCriminalFile')}
                                     />,
                                 )}
                             </FormItem>
@@ -813,7 +813,7 @@ export default class CriminalFile extends PureComponent {
                             <Col {...colLayout}>
                                 <FormItem label="强制措施" {...formItemLayout}>
                                     {getFieldDecorator('qzcslx', {})(
-                                        <Select placeholder="请选择强制措施" style={{width: '100%'}} mode={'multiple'} getPopupContainer={() => document.getElementById('form')}>
+                                        <Select placeholder="请选择强制措施" style={{width: '100%'}} mode={'multiple'} getPopupContainer={() => document.getElementById('formCriminalFile')}>
                                             <Option value="">全部</Option>
                                             {enforcementTypeDictGroup}
                                         </Select>,

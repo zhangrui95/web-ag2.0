@@ -90,7 +90,7 @@ export default class StatisticsDateSelect extends PureComponent {
                         value={selectYear}
                         style={{ width: 145 }}
                         onChange={this.handleChange}
-                        getPopupContainer={() => document.getElementById('form')}
+                        getPopupContainer={() => document.getElementById(this.props.id)}
                     >
                         <Option value={`{"kssj":"${nowYear}-01-01","jssj":"${nowYear}-12-31"}`}>{nowYear}</Option>
                         <Option
@@ -105,7 +105,7 @@ export default class StatisticsDateSelect extends PureComponent {
                         placeholder={this.props.placeholder ? this.props.placeholder : '请选择月份'}
                         disabledDate={this.disabledDate}
                         onChange={this.monthDateChange}
-                        getCalendarContainer={() => document.getElementById('form')}
+                        getCalendarContainer={() => document.getElementById(this.props.id)}
                     />
                 );
             case '4':
@@ -116,7 +116,7 @@ export default class StatisticsDateSelect extends PureComponent {
                         placeholder={this.props.placeholder ? this.props.placeholder : '请选择周'}
                         disabledDate={this.disabledDate}
                         onChange={this.weekDateChange}
-                        getCalendarContainer={() => document.getElementById('form')}
+                        getCalendarContainer={() => document.getElementById(this.props.id)}
                     />
                 );
             case '5':
@@ -126,7 +126,7 @@ export default class StatisticsDateSelect extends PureComponent {
                         value={selectQuarter}
                         style={{ width: 145 }}
                         onChange={this.handleChangeQuarter}
-                        getPopupContainer={() => document.getElementById('form')}
+                        getPopupContainer={() => document.getElementById(this.props.id)}
                     >
                         <Option value={`{"kssj":"${nowYear}-01-01","jssj":"${nowYear}-03-31"}`}>{nowYear}第一季度</Option>
                         <Option value={`{"kssj":"${nowYear}-04-01","jssj":"${nowYear}-06-30"}`}>{nowYear}第二季度</Option>
@@ -152,7 +152,7 @@ export default class StatisticsDateSelect extends PureComponent {
                         size='default'
                         disabledDate={this.disabledDate}
                         onChange={this.dateChange}
-                        getCalendarContainer={() => document.getElementById('form')}
+                        getCalendarContainer={() => document.getElementById(this.props.id)}
                     />
                 );
         }
@@ -162,7 +162,7 @@ export default class StatisticsDateSelect extends PureComponent {
         const { radioValue } = this.state;
 
         return (
-            <div id={'form'}>
+            <div id={this.props.id}>
                 <span style={{marginLeft:'16px'}}>
                     <Radio.Group buttonStyle="solid" value={radioValue} onChange={this.radioChange}>
                         <Radio.Button value="3">日报表</Radio.Button>

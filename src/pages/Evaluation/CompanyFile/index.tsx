@@ -132,11 +132,11 @@ export default class UnitArchives extends PureComponent {
                 break;
         }
         return (
-            <div className={styles.statistics} id={'form'}>
+            <div className={styles.statistics} id={'formCompanyFile'}>
                 <Card className={styles.titleArea}>
                     <div className={styles.dwxz}>
                         <Select placeholder="请选择" style={{ width: '100%' }} onChange={this.change}
-                                getPopupContainer={() => document.getElementById('form')}
+                                getPopupContainer={() => document.getElementById('formCompanyFile')}
                                 value={this.state.word}>
                             <Option value="1">单位基本情况登记表</Option>
                             <Option value="2">执法业务培训考试情况登记表</Option>

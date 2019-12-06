@@ -131,11 +131,11 @@ export default class PoliceArchives extends PureComponent {
                 break;
         }
         return (
-            <div className={styles.statistics} id={'form'}>
+            <div className={styles.statistics} id={'formPoliceFile'}>
                 <Card className={styles.titleArea}>
                     <div className={styles.dwxz}>
                         <Select placeholder="请选择" style={{ width: '100%' }} onChange={this.change}
-                                getPopupContainer={() => document.getElementById('form')}
+                                getPopupContainer={() => document.getElementById('formPoliceFile')}
                                 value={this.state.word}>
                             <Option value="1">民警基本情况登记表</Option>
                             <Option value="2">法律培训考试考核情况登记表</Option>

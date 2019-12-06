@@ -15,6 +15,7 @@ export interface GlobalModelState {
   collapsed?: boolean;
   notices?: NoticeItem[];
   navigation: NavigationItem[];
+  navigationSession: NavigationItem[];
 }
 
 export interface GlobalModelType {
@@ -34,16 +35,14 @@ export interface GlobalModelType {
   };
   subscriptions: { setup: Subscription };
 }
-
 const GlobalModel: GlobalModelType = {
   namespace: 'global',
-
   state: {
     collapsed: false,
     notices: [],
-    navigation: [welcomeItem]
+    navigation: sessionStorage.getItem('navigationNews') ? JSON.parse(sessionStorage.getItem('navigationNews')) : [welcomeItem],
+    navigationSession: sessionStorage.getItem('navigationNews') ? JSON.parse(sessionStorage.getItem('navigationNews')) : [welcomeItem],
   },
-
   effects: {
     *fetchNotices(_, { call, put, select }) {
       const data = yield call(queryNotices);
@@ -106,7 +105,6 @@ const GlobalModel: GlobalModelType = {
     *changeNavigation({ payload, callback }, { put, select }) {
       let navigation: NavigationItem[] = yield select((state: ConnectState) => state.global.navigation);
       let navigationNew = [...navigation];
-      console.log('navigationNew=====>',navigationNew);
       //如果key存在为对tab的增加和删除操作，否则为清楚全部tab
       if (payload.key) {
         const index = navigationNew.findIndex(item => {
@@ -116,9 +114,14 @@ const GlobalModel: GlobalModelType = {
           //获取state中存储的数据
           if (index === -1) {
             navigationNew.push(payload)
+          }else{
+              if(payload.isReset){
+                  navigationNew[index].isReset = true;
+              }else{
+                  navigationNew[index].isReset = false;
+              }
           }
         } else {
-            console.log('index',index)
           if (index > -1) {
             navigationNew.splice(index, 1);
           }
@@ -133,6 +136,36 @@ const GlobalModel: GlobalModelType = {
       if (callback) {
         callback(navigationNew);
       }
+    },
+    *changeSessonNavigation({ payload, callback }, { put, select }) {
+      let navigationSession: NavigationItem[] = yield select((state: ConnectState) => state.global.navigationSession);
+        let navigationNews = [...navigationSession];
+        navigationNews.map((item)=>{
+            item.children = '';
+        })
+        //如果key存在为对tab的增加和删除操作，否则为清楚全部tab
+        if (payload.key) {
+            const index = navigationNews.findIndex(item => {
+                return item.key === payload.key
+            });
+            if (payload.isShow) {
+                //获取state中存储的数据
+                if (index === -1) {
+                    navigationNews.push(payload)
+                }
+            } else {
+                if (index > -1) {
+                    navigationNews.splice(index, 1);
+                }
+            }
+        } else {
+            navigationNews = [welcomeItem];
+        }
+        yield put({
+            type: 'saveSessonNavigation',
+            payload: navigationNews,
+        });
+        sessionStorage.setItem('navigationNews',JSON.stringify(navigationNews));
     },
   },
 
@@ -163,6 +196,14 @@ const GlobalModel: GlobalModelType = {
         ...state,
         // collapsed: false,
         navigation: payload,
+      };
+    },
+
+    saveSessonNavigation(state, { payload }): GlobalModelState {
+      return {
+        ...state,
+        // collapsed: false,
+        navigationSession: payload,
       };
     },
   },
