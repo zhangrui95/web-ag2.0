@@ -73,7 +73,6 @@ export default class DataViewButtonArea extends PureComponent {
     } = this.props;
     const { popoverVisible } = this.state;
     const screeWidth = document.body.offsetWidth;
-    console.log('showDataView', this.props.id);
     return (
       <div
         className={styles.typeButtonsArea}

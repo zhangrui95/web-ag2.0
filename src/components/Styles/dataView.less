@@ -1,5 +1,15 @@
 @import '~antd/lib/style/themes/default.less';
-@import '../../theme/darkTheme';
+@import '../../utils/utils.less';
+@import "../../theme/darkTheme";
+
+.policeDataCard{
+  :global{
+    .ant-card-body{
+      background-color:@body-background;
+    }
+  }
+}
+
 .viewCount {
   height: 124px;
   margin-top: 16px;
@@ -113,10 +123,20 @@
   margin: 16px 16px 16px;
 
   .cardBox {
+    //border: 1px solid #e8e8e8;
+    border-top:0;
     width: 100%;
-    height: 300px;
+    height: 250px;
     background: @body-background;
-    padding: 16px;
+    padding: 0 16px;
+  }
+
+  .cardBoxTitle {
+    height: 50px;
+    background: @component-background;
+    padding: 16px 16px 0;
+    color: @white;
+    font-size: 16px;
   }
 
   .leftNunList {
@@ -178,20 +198,20 @@
 
 // 涉案物品需要开始
 .listPageWrap {
-  background-color: rgb(240, 242, 245);
+  background-color: #171925;
   position: absolute;
-  top: 2px;
+  top: 64px;
   right: 36px;
   z-index: 1001;
 
   .listPageHeader {
-    background: #fff;
+    background: #171925;
     padding: 16px 24px;
     border-top: none;
 
     a {
       font-size: @font-size-lg;
-      color: @heading-color;
+      color: @white;
       line-height: 26px;
 
       &:hover {
@@ -250,7 +270,7 @@
 }
 
 .ItemDataView {
-  margin-bottom: 48px;
+  margin-bottom: 0;
 
   .viewCount {
     background: url('../../assets/viewData/policeViewData.png') no-repeat #171925;
@@ -305,8 +325,8 @@
 .sortIcon {
   position: absolute;
   color: #fff;
-  left: 150px;
-  top: 15px;
+  left: 140px;
+  top: 11px;
   cursor: pointer;
   z-index: 999;
   border-radius: 4px;
@@ -337,8 +357,8 @@
 }
 .choiceRy {
   width: 300px;
-  position: absolute !important;
-  left: 180px;
+  position: absolute!important;
+  left: 170px;
   z-index: 9999;
   top: 14px;
 }

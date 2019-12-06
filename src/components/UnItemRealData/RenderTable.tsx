@@ -1,9 +1,10 @@
 import React, { PureComponent } from 'react';
 import { Table, Divider, Tooltip, message, Dropdown, Menu, Row, Col } from 'antd';
 import styles from './RenderTable.less';
-import Detail from '../../routes/UnItemRealData/unitemDetail';
-import ShareModal from './../ShareModal/ShareModal';
-import Ellipsis from '../Ellipsis';
+// import Detail from '../../routes/UnItemRealData/unitemDetail';
+// import ShareModal from './../ShareModal/ShareModal';
+import Ellipsis from 'ant-design-pro/lib/Ellipsis';
+import {routerRedux} from "dva/router";
 
 class RenderTable extends PureComponent {
   state = {
@@ -24,25 +25,31 @@ class RenderTable extends PureComponent {
   };
 
   componentDidMount() {
-    if (this.props.location.query && this.props.location.query.id) {
-      this.deatils(this.props.location.query.id, this.props.location.query.system_id, null);
-    }
+    // if (this.props.location.query && this.props.location.query.id) {
+    //   this.deatils(this.props.location.query.id, this.props.location.query.system_id, null);
+    // }
   }
 
-  deatils = (id, systemId, dbzt) => {
-    const divs = (
-      <div>
-        <Detail
-          id={id}
-          systemId={systemId}
-          supervise={this.supervise}
-          dbzt={dbzt}
-          {...this.props}
-        />
-      </div>
-    );
-    const AddNewDetail = { title: '涉案物品告警详情', content: divs, key: id };
-    this.props.newDetail(AddNewDetail);
+  deatils = (record) => { //id, systemId, dbzt  record.id, record.system_id, record.dbzt
+    this.props.dispatch(
+      routerRedux.push({
+        pathname: '/articlesInvolved/ArticlesPolice/unitemDetail',
+        query: { record: record,id: record && record.id ? record.id : '1' },
+      }),
+    )
+    // const divs = (
+    //   <div>
+    //     <Detail
+    //       id={id}
+    //       systemId={systemId}
+    //       supervise={this.supervise}
+    //       dbzt={dbzt}
+    //       {...this.props}
+    //     />
+    //   </div>
+    // );
+    // const AddNewDetail = { title: '涉案物品告警详情', content: divs, key: id };
+    // this.props.newDetail(AddNewDetail);
   };
 
   // 打开督办模态框
@@ -237,7 +244,7 @@ class RenderTable extends PureComponent {
                   <Divider type="vertical" />
                 </span>
               ) : null}
-              <a onClick={() => this.deatils(record.id, record.system_id, record.dbzt)}>详情</a>
+              <a onClick={() => this.deatils(record)}>详情</a>
               <Divider type="vertical" />
               {record.sfgz === 0 ? (
                 <Dropdown
@@ -374,17 +381,17 @@ class RenderTable extends PureComponent {
           pagination={paginationProps}
           onChange={this.itemTableChange}
         />
-        <ShareModal
-          title="物品信息分享"
-          detail={detail}
-          shareVisible={this.state.shareVisible}
-          handleCancel={this.handleCancel}
-          shareItem={this.state.shareItem}
-          personList={this.state.personList}
-          lx={this.state.lx}
-          tzlx={this.state.tzlx}
-          sx={this.state.sx}
-        />
+        {/*<ShareModal*/}
+          {/*title="物品信息分享"*/}
+          {/*detail={detail}*/}
+          {/*shareVisible={this.state.shareVisible}*/}
+          {/*handleCancel={this.handleCancel}*/}
+          {/*shareItem={this.state.shareItem}*/}
+          {/*personList={this.state.personList}*/}
+          {/*lx={this.state.lx}*/}
+          {/*tzlx={this.state.tzlx}*/}
+          {/*sx={this.state.sx}*/}
+        {/*/>*/}
       </div>
     );
   }

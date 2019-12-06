@@ -307,6 +307,13 @@ export function routes() {
                   component: './articlesInvolved/ArticlesData',
                 },
                 {
+                  path: '/articlesInvolved/ArticlesData/itemDetail',
+                  name: '涉案物品数据详情',
+                  icon: 'smile',
+                  component: './articlesInvolved/ArticlesData/itemDetail',
+                  hideInMenu: true,
+                },
+                {
                   path: '/articlesInvolved/ArticlesWarning',
                   name: '涉案物品预警',
                   icon: 'smile',
@@ -317,6 +324,13 @@ export function routes() {
                   name: '涉案物品告警',
                   icon: 'smile',
                   component: './articlesInvolved/ArticlesPolice',
+                },
+                {
+                  path: '/articlesInvolved/ArticlesPolice/unitemDetail',
+                  name: '涉案物品告警详情',
+                  icon: 'smile',
+                  component: './articlesInvolved/ArticlesPolice/unitemDetail',
+                  hideInMenu: true,
                 },
               ],
             },

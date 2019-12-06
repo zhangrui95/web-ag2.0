@@ -10,6 +10,7 @@ import styles from './RenderTable.less';
 // import Detail from '../../routes/ItemRealData/itemDetail';
 // import ShareModal from './../ShareModal/ShareModal';
 import Ellipsis from 'ant-design-pro/lib/Ellipsis';
+import {routerRedux} from "dva/router";
 
 class RenderTable extends PureComponent {
   state = {
@@ -36,6 +37,12 @@ class RenderTable extends PureComponent {
   }
 
   deatils = record => {
+    this.props.dispatch(
+      routerRedux.push({
+        pathname: '/articlesInvolved/ArticlesData/itemDetail',
+        query: { record: record,id: record && record.id ? record.id : '1' },
+      }),
+    )
     // const divs = (
     //   <div>
     //     <Detail
