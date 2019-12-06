@@ -83,16 +83,14 @@ const Navigation = props => {
     setActiveKey(activeKey);
     //根据key获取到当前tab信息，并跳转页面
     const tabItem = getItemByKey(activeKey);
-    if(!tabItem.children){
-        let query = tabItem.query;
-        if(query){
-            dispatch( routerRedux.push({
-                pathname: tabItem.path,
-                query: query,
-            }));
-        }else {
-            dispatch(routerRedux.push(tabItem.path));
-        }
+    let query = tabItem.query;
+    if(query){
+        dispatch( routerRedux.push({
+            pathname: tabItem.path,
+            query: query,
+        }));
+    }else {
+        dispatch(routerRedux.push(tabItem.path));
     }
   };
 
