@@ -131,6 +131,7 @@ export default class XZAJBLJDGLTZ extends PureComponent {
               setSelectDateValue={this.setSelectDateValue}
               selectDateValue={this.state.selectDateValue}
               emptyData={this.emptyData}
+              id={'XZAJBLJDGLDGLTZ'}
             />
           </Col>
           <Col md={12} sm={24}>

@@ -221,7 +221,7 @@ export default class PeopleTrendAnalysis extends PureComponent {
         return (
             <div className={styles.trendAnalysis}>
                 <div className={styles.titleArea}>
-                    <Card style={{padding:'10px'}} id={'form'}>
+                    <Card style={{padding:'10px'}} id={'formPersonPolice'}>
                         <Row>
                             <Col span={12}>
                                 {
@@ -237,7 +237,7 @@ export default class PeopleTrendAnalysis extends PureComponent {
                                             treeDefaultExpandedKeys={this.state.treeDefaultExpandedKeys}
                                             key='jjdwSelect'
                                             onChange={this.onSelectTreeChange}
-                                            getPopupContainer={() => document.getElementById('form')}
+                                            getPopupContainer={() => document.getElementById('formPersonPolice')}
                                         >
                                             {this.renderloop(depTree)}
                                         </TreeSelect>
@@ -245,7 +245,7 @@ export default class PeopleTrendAnalysis extends PureComponent {
                                 }
 
 
-                                <MonthPicker size='default' placeholder="请选择月份" disabledDate={this.disabledDate} getCalendarContainer={() => document.getElementById('form')}
+                                <MonthPicker size='default' placeholder="请选择月份" disabledDate={this.disabledDate} getCalendarContainer={() => document.getElementById('formPersonPolice')}
                                              onChange={this.dateChange} defaultValue={moment(this.state.selectedDate)}/>
                             </Col>
                             <Col span={12}>

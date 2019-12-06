@@ -356,7 +356,7 @@ export default class AdministrativeCaseDoc extends PureComponent {
             }
         }
         return (
-            <Card className={stylescommon.listPageWrap} id={'form'}>
+            <Card className={stylescommon.listPageWrap} id={'formAdministrativeFile'}>
                 <Form onSubmit={this.handleSearch} style={{height:this.state.searchHeight ?  'auto' : '50px'}}>
                     <Row gutter={rowLayout} className={stylescommon.searchForm}>
                         <Col {...colLayout}>
@@ -388,7 +388,7 @@ export default class AdministrativeCaseDoc extends PureComponent {
                                     <RangePicker
                                         disabledDate={this.disabledDate}
                                         style={{ width: '100%' }}
-                                        getCalendarContainer={() => document.getElementById('form')}
+                                        getCalendarContainer={() => document.getElementById('formAdministrativeFile')}
                                     />,
                                 )}
                             </FormItem>
@@ -400,7 +400,7 @@ export default class AdministrativeCaseDoc extends PureComponent {
                                     <RangePicker
                                         disabledDate={this.disabledDate}
                                         style={{ width: '100%' }}
-                                        getCalendarContainer={() => document.getElementById('form')}
+                                        getCalendarContainer={() => document.getElementById('formAdministrativeFile')}
                                     />,
                                 )}
                             </FormItem>
@@ -419,7 +419,7 @@ export default class AdministrativeCaseDoc extends PureComponent {
                                         treeDefaultExpandedKeys={this.state.treeDefaultExpandedKeys}
                                         treeNodeFilterProp="title"
                                         key='cjdwSelect'
-                                        getPopupContainer={() => document.getElementById('form')}
+                                        getPopupContainer={() => document.getElementById('formAdministrativeFile')}
                                     >
                                         {depTree && depTree.length > 0 ? this.renderloop(depTree) : null}
                                     </TreeSelect>,
@@ -431,7 +431,7 @@ export default class AdministrativeCaseDoc extends PureComponent {
                                 {getFieldDecorator('ajzt', {
                                     initialValue: this.state.ajzt,
                                 })(
-                                    <Select placeholder="请选择案件状态" style={{ width: '100%' }}   getPopupContainer={() => document.getElementById('form')}>
+                                    <Select placeholder="请选择案件状态" style={{ width: '100%' }}   getPopupContainer={() => document.getElementById('formAdministrativeFile')}>
                                         <Option value="">全部</Option>
                                         {XzCaseStatusOption}
                                     </Select>,
@@ -452,7 +452,7 @@ export default class AdministrativeCaseDoc extends PureComponent {
                                         placeholder="请输入办案人"
                                         onChange={this.handleAllPoliceOptionChange}
                                         onFocus={this.handleAllPoliceOptionChange}
-                                        getPopupContainer={() => document.getElementById('form')}
+                                        getPopupContainer={() => document.getElementById('formAdministrativeFile')}
                                     >
                                         {allPoliceOptions}
                                     </Select>,
@@ -468,7 +468,7 @@ export default class AdministrativeCaseDoc extends PureComponent {
                                         options={this.state.caseTypeTree}
                                         placeholder="请选择案件类别"
                                         changeOnSelect={true}
-                                        getPopupContainer={() => document.getElementById('form')}
+                                        getPopupContainer={() => document.getElementById('formAdministrativeFile')}
                                         showSearch={
                                             {
                                                 filter: (inputValue, path) => {

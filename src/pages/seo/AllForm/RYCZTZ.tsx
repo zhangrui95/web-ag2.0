@@ -127,6 +127,7 @@ export default class RYCZTZ extends PureComponent {
             setSelectDateValue={this.setSelectDateValue}
             selectDateValue={this.state.selectDateValue}
             emptyData={this.emptyData}
+            id={'RYCZTZ'}
           />
         </Col>
         <Col md={12} sm={24}>

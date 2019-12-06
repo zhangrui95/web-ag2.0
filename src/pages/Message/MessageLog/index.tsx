@@ -417,7 +417,7 @@ class MessageLog extends Component {
     }
 
     return (
-      <Card className={stylescommon.listPageWrap} id={'form'}>
+      <Card className={stylescommon.listPageWrap} id={'formLog'}>
         <Form
           onSubmit={this.handleSearch}
           style={{ height: this.state.searchHeight ? 'auto' : '50px' }}
@@ -437,7 +437,7 @@ class MessageLog extends Component {
                     key="jsdwSelect"
                     treeDefaultExpandedKeys={this.state.treeDefaultExpandedKeys}
                     treeNodeFilterProp="title"
-                    getPopupContainer={() => document.getElementById('form')}
+                    getPopupContainer={() => document.getElementById('formLog')}
                   >
                     {depTree && depTree.length > 0 ? this.renderloop(depTree) : null}
                   </TreeSelect>,
@@ -459,7 +459,7 @@ class MessageLog extends Component {
                     placeholder="请输入接收人"
                     onChange={this.handleAllPoliceOptionChange}
                     onFocus={this.handleAllPoliceOptionChange}
-                    getPopupContainer={() => document.getElementById('form')}
+                    getPopupContainer={() => document.getElementById('formLog')}
                   >
                     {allPoliceOptions}
                   </Select>,
@@ -474,7 +474,7 @@ class MessageLog extends Component {
                   <RangePicker
                     disabledDate={this.disabledDate}
                     style={{ width: '100%' }}
-                    getCalendarContainer={() => document.getElementById('form')}
+                    getCalendarContainer={() => document.getElementById('formLog')}
                   />,
                 )}
               </FormItem>
@@ -512,7 +512,7 @@ class MessageLog extends Component {
                   <Select
                     placeholder="请选择推送事项"
                     style={{ width: '100%' }}
-                    getPopupContainer={() => document.getElementById('form')}
+                    getPopupContainer={() => document.getElementById('formLog')}
                   >
                     <Option value="">全部</Option>
                     {pushMattersDictOptions}

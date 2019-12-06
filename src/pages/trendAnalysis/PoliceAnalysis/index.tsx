@@ -158,10 +158,10 @@ export default class PoliceTrendAnalysis extends PureComponent {
         return (
             <div className={styles.trendAnalysis}>
                 <div className={styles.titleArea}>
-                    <Card style={{padding:'10px'}} id={'form'}>
+                    <Card style={{padding:'10px'}} id={'formPoliceAnalysis'}>
                         <Row>
                             <Col span={12}>
-                                <MonthPicker size='default' placeholder="请选择月份" disabledDate={this.disabledDate}   getCalendarContainer={() => document.getElementById('form')}
+                                <MonthPicker size='default' placeholder="请选择月份" disabledDate={this.disabledDate}   getCalendarContainer={() => document.getElementById('formPoliceAnalysis')}
                                              onChange={this.dateChange} defaultValue={moment(this.state.selectedDate)}/>
                             </Col>
                             <Col span={12}>

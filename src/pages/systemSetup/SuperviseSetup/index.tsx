@@ -1038,7 +1038,7 @@ class SuperviseSetup extends Component {
             </Button>
           </div>
         </Card>
-        <Card className={stylescommon.cardArea} id={'form'} style={{ padding: '10px 0' }}>
+        <Card className={stylescommon.cardArea} id={'Superviseform'} style={{ padding: '10px 0' }}>
           <Form style={{ height: this.state.searchHeight ? 'auto' : '50px' }}>
             <Row gutter={rowLayout} className={stylescommon.searchForm}>
               <Col {...colLayout}>
@@ -1055,7 +1055,7 @@ class SuperviseSetup extends Component {
                       treeDefaultExpandedKeys={this.state.treeDefaultExpandedKeys}
                       key="badwSelect"
                       treeNodeFilterProp="title"
-                      getPopupContainer={() => document.getElementById('form')}
+                      getPopupContainer={() => document.getElementById('Superviseform')}
                     >
                       {depTree && depTree.length > 0 ? this.renderloop(depTree) : null}
                     </TreeSelect>,
@@ -1071,7 +1071,7 @@ class SuperviseSetup extends Component {
                       placeholder="请选择"
                       style={{ width: '100%' }}
                       onChange={this.changeJglx1}
-                      getPopupContainer={() => document.getElementById('form')}
+                      getPopupContainer={() => document.getElementById('Superviseform')}
                     >
                       <Option value={''}>全部</Option>
                       <Option value={'0'}>告警</Option>
@@ -1090,7 +1090,7 @@ class SuperviseSetup extends Component {
                       placeholder="请选择"
                       style={{ width: '100%' }}
                       onChange={e => this.getJgd(e)}
-                      getPopupContainer={() => document.getElementById('form')}
+                      getPopupContainer={() => document.getElementById('Superviseform')}
                     >
                       <Option value="">全部</Option>
                       {JgsxType &&
@@ -1110,7 +1110,7 @@ class SuperviseSetup extends Component {
                       labelInValue
                       placeholder="请选择"
                       style={{ width: '100%' }}
-                      getPopupContainer={() => document.getElementById('form')}
+                      getPopupContainer={() => document.getElementById('Superviseform')}
                     >
                       <Option value="">全部</Option>
                       {JgdType &&
@@ -1129,7 +1129,7 @@ class SuperviseSetup extends Component {
                     <Select
                       placeholder="请选择"
                       style={{ width: '100%' }}
-                      getPopupContainer={() => document.getElementById('form')}
+                      getPopupContainer={() => document.getElementById('Superviseform')}
                     >
                       <Option value="">全部</Option>
                       {JgdztType &&
@@ -1147,7 +1147,7 @@ class SuperviseSetup extends Component {
                   })(
                     <RangePicker
                       style={{ width: '100%' }}
-                      getCalendarContainer={() => document.getElementById('form')}
+                      getCalendarContainer={() => document.getElementById('Superviseform')}
                     />,
                   )}
                 </FormItem>

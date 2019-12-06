@@ -476,7 +476,7 @@ export default class Index extends PureComponent {
                                 treeNodeFilterProp={'title'}
                                 showCheckedStrategy={SHOW_PARENT}
                                 treeDefaultExpandedKeys={this.state.treeDefaultExpandedKeys}
-                                getPopupContainer={() => document.getElementById('form')}
+                                getPopupContainer={() => document.getElementById('formCaseEvaluation')}
                             >
                                 {deptrees && deptrees.length > 0 ? this.renderloop(deptrees) :
                                     <TreeNode key={getUserInfos().group.code} value={getUserInfos().group.code}
@@ -506,7 +506,7 @@ export default class Index extends PureComponent {
                             <RangePicker
                                 disabledDate={this.disabledDate}
                                 style={{ width: '100%' }}
-                                getCalendarContainer={() => document.getElementById('form')}
+                                getCalendarContainer={() => document.getElementById('formCaseEvaluation')}
                             />,
                         )}
                     </FormItem>
@@ -521,7 +521,7 @@ export default class Index extends PureComponent {
                                     <Radio value="0">案件数量</Radio>
                                     <Radio value="1">告警数量</Radio>
                                     <Radio value="3">
-                                        <Select disabled={this.state.tjnr === '3' ? false : true} value={this.state.tjnrXm} placeholder="请选择"  style={{width:'200px'}} onChange={this.getTjnrXm} defaultValue={xmType&&xmType.length > 0 ? '0' : ''} getPopupContainer={() => document.getElementById('form')}>
+                                        <Select disabled={this.state.tjnr === '3' ? false : true} value={this.state.tjnrXm} placeholder="请选择"  style={{width:'200px'}} onChange={this.getTjnrXm} defaultValue={xmType&&xmType.length > 0 ? '0' : ''} getPopupContainer={() => document.getElementById('formCaseEvaluation')}>
                                             {xmOption}
                                         </Select>
                                     </Radio>
@@ -594,7 +594,7 @@ export default class Index extends PureComponent {
                                         key='bkpdwSelect'
                                         treeNodeFilterProp={'title'}
                                         treeDefaultExpandedKeys={this.state.treeDefaultExpandedKeys}
-                                        getPopupContainer={() => document.getElementById('form')}
+                                        getPopupContainer={() => document.getElementById('formCaseEvaluation')}
                                     >
                                         {deptrees && deptrees.length > 0 ? this.renderloop(deptrees) : null}
                                     </TreeSelect>,
@@ -607,7 +607,7 @@ export default class Index extends PureComponent {
                                     <RangePicker
                                         disabledDate={this.disabledDate}
                                         style={{ width: '100%' }}
-                                        getCalendarContainer={() => document.getElementById('form')}
+                                        getCalendarContainer={() => document.getElementById('formCaseEvaluation')}
                                     />,
                                 )}
                             </FormItem>
@@ -619,7 +619,7 @@ export default class Index extends PureComponent {
                                         options={this.state.caseTypeTree}
                                         placeholder="请选择案件类别"
                                         changeOnSelect={true}
-                                        getPopupContainer={() => document.getElementById('form')}
+                                        getPopupContainer={() => document.getElementById('formCaseEvaluation')}
                                         showSearch={
                                             {
                                                 filter: (inputValue, path) => {
@@ -646,7 +646,7 @@ export default class Index extends PureComponent {
                                         placeholder="请输入被考评人"
                                         onChange={(value) => this.handleAllPoliceOptionChange(value, false)}
                                         onFocus={(value) => this.handleAllPoliceOptionChange(value, false)}
-                                        getPopupContainer={() => document.getElementById('form')}
+                                        getPopupContainer={() => document.getElementById('formCaseEvaluation')}
                                     >
                                         {allPoliceOptions}
                                     </Select>,
@@ -782,7 +782,7 @@ export default class Index extends PureComponent {
         const newAddDetail = this.state.arrayDetail;
         const { showDataView, superviseVisibleModal } = this.state;
         return (
-            <div className={this.props.location.query && this.props.location.query.id ? styles.onlyDetail : ''} id={'form'}>
+            <div className={this.props.location.query && this.props.location.query.id ? styles.onlyDetail : ''} id={'formCaseEvaluation'}>
                         <div className={styles.listPageWrap}>
                     <Card className={styles.listPageHeader}>
                                 {

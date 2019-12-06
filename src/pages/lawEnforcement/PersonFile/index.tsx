@@ -450,7 +450,7 @@ export default class PersonalDoc extends PureComponent {
         const rowLayout = { md: 8, xl: 16, xxl: 24 };
         const colLayout = { sm: 24, md: 12, xl: 8 };
         return (
-            <Card className={stylescommon.listPageWrap} id={'form'}>
+            <Card className={stylescommon.listPageWrap} id={'formPersonFile'}>
             <Form onSubmit={this.handleSearch} style={{height:this.state.searchHeight ?  'auto' : '50px'}}>
                 <Row gutter={rowLayout} className={stylescommon.searchForm}>
                     <Col {...colLayout}>
@@ -466,7 +466,7 @@ export default class PersonalDoc extends PureComponent {
                     <Col {...colLayout}>
                         <FormItem label="人员性别" {...formItemLayout}>
                             {getFieldDecorator('sex', {})(
-                                <Select placeholder="请选择人员性别" style={{ width: '100%' }} getPopupContainer={() => document.getElementById('form')}>
+                                <Select placeholder="请选择人员性别" style={{ width: '100%' }} getPopupContainer={() => document.getElementById('formPersonFile')}>
                                     <Option value="">全部</Option>
                                     <Option value="男">男</Option>
                                     <Option value="女">女</Option>
@@ -481,7 +481,7 @@ export default class PersonalDoc extends PureComponent {
                             {getFieldDecorator('salx', {
                                 initialValue: this.state.salx,
                             })(
-                                <Select placeholder="请选择人员类型" style={{ width: '100%' }} getPopupContainer={() => document.getElementById('form')}>
+                                <Select placeholder="请选择人员类型" style={{ width: '100%' }} getPopupContainer={() => document.getElementById('formPersonFile')}>
                                     <Option value="">全部</Option>
                                     {/*{involvedTypeOptions}*/}
                                     <Option key='01' value="01">犯罪嫌疑人</Option>
@@ -535,7 +535,7 @@ export default class PersonalDoc extends PureComponent {
                                     key='cjdwSelect'
                                     treeDefaultExpandedKeys={this.state.treeDefaultExpandedKeys}
                                     treeNodeFilterProp="title"
-                                    getPopupContainer={() => document.getElementById('form')}
+                                    getPopupContainer={() => document.getElementById('formPersonFile')}
                                 >
                                     {depTree && depTree.length > 0 ? this.renderloop(depTree) : null}
                                 </TreeSelect>,
@@ -550,7 +550,7 @@ export default class PersonalDoc extends PureComponent {
                                 <RangePicker
                                     disabledDate={this.disabledDate}
                                     style={{ width: '100%' }}
-                                    getCalendarContainer={() => document.getElementById('form')}
+                                    getCalendarContainer={() => document.getElementById('formPersonFile')}
                                 />,
                             )}
                         </FormItem>
@@ -558,7 +558,7 @@ export default class PersonalDoc extends PureComponent {
                     <Col {...colLayout}>
                         <FormItem label="强制措施" {...formItemLayout}>
                             {getFieldDecorator('qzcslx', {})(
-                                <Select placeholder="请选择强制措施" style={{ width: '100%' }} getPopupContainer={() => document.getElementById('form')}>
+                                <Select placeholder="请选择强制措施" style={{ width: '100%' }} getPopupContainer={() => document.getElementById('formPersonFile')}>
                                     <Option value="">全部</Option>
                                     {enforcementTypeDictGroup}
                                 </Select>,
@@ -573,7 +573,7 @@ export default class PersonalDoc extends PureComponent {
                                     placeholder="请选择案件类别"
                                     changeOnSelect='true'
                                     onChange={this.CascaderOnChange}
-                                    getPopupContainer={() => document.getElementById('form')}
+                                    getPopupContainer={() => document.getElementById('formPersonFile')}
                                     showSearch={
                                         {
                                             filter: (inputValue, path) => {
@@ -593,7 +593,7 @@ export default class PersonalDoc extends PureComponent {
                                 <RangePicker
                                     disabledDate={this.disabledDate}
                                     style={{ width: '100%' }}
-                                    getCalendarContainer={() => document.getElementById('form')}
+                                    getCalendarContainer={() => document.getElementById('formPersonFile')}
                                 />,
                             )}
                         </FormItem>
@@ -605,7 +605,7 @@ export default class PersonalDoc extends PureComponent {
                                 <RangePicker
                                     disabledDate={this.disabledDate}
                                     style={{ width: '100%' }}
-                                    getCalendarContainer={() => document.getElementById('form')}
+                                    getCalendarContainer={() => document.getElementById('formPersonFile')}
                                 />,
                             )}
                         </FormItem>
