@@ -598,11 +598,35 @@ export function routes() {
                   icon: 'smile',
                   target: '_blank',
                 },
+              {
+                  path: '/systemSetup/EvaluationSetup',
+                  name: '考评配置',
+                  icon: 'smile',
+                  component: './systemSetup/EvaluationSetup',
+              },{
+                      path: '/systemSetup/EvaluationSetup/Add',
+                      name: '添加考评配置',
+                      icon: 'smile',
+                      component: './systemSetup/EvaluationSetup/add.tsx',
+                      hideInMenu: true,
+                  },
                 {
                   path: '/systemSetup/SuperviseSetup/Detail',
-                  name: '监管配置详情',
+                  name: '监管点详情',
                   icon: 'smile',
                   component: './systemSetup/SuperviseSetup/detail.tsx',
+                  hideInMenu: true,
+                },{
+                  path: '/systemSetup/SuperviseSetup/Add',
+                  name: '添加监管点',
+                  icon: 'smile',
+                  component: './systemSetup/SuperviseSetup/add.tsx',
+                  hideInMenu: true,
+                },{
+                  path: '/systemSetup/SuperviseSetup/Update',
+                  name: '修改监管点',
+                  icon: 'smile',
+                  component: './systemSetup/SuperviseSetup/update.tsx',
                   hideInMenu: true,
                 },
                 {

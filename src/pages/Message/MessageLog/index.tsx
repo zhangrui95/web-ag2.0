@@ -549,7 +549,6 @@ class MessageLog extends Component {
   }
 
   render() {
-    console.log('this.props----->', this.props.common.messagePushLog);
     const { arrayDetail: newAddDetail, activeKey, logDetailVisible, logDetail } = this.state;
     const {
       common: {

@@ -6,6 +6,7 @@ import router from 'umi/router';
 import { ConnectProps, ConnectState } from '@/models/connect';
 import { CurrentUser } from '@/models/user';
 import styles from './index.less';
+import {routerRedux} from "dva/router";
 
 export interface GlobalHeaderRightProps extends ConnectProps {
   currentUser?: CurrentUser;
@@ -39,6 +40,17 @@ class AvatarDropdown extends React.Component<GlobalHeaderRightProps> {
       dispatch({
         type: 'login/logout',
       });
+      dispatch({
+            type: 'global/changeNavigation',
+            payload: {},
+            callback: () =>
+                //跳转回首页
+                dispatch(routerRedux.push('/ShowData/RegulatePanel')),
+        });
+       dispatch({
+            type: 'global/changeSessonNavigation',
+            payload: {},
+        });
     }
 
     return;

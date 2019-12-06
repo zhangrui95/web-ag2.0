@@ -10,7 +10,7 @@ import stylesAll from '@/theme/darkTheme.less';
 
 const { TabPane } = Tabs;
 const Navigation = props => {
-  const { navigationData, dispatch, location,children } = props; // //如果导航是空数组，则将当前路由
+  const { navigationData, dispatch, location,children,history } = props; // //如果导航是空数组，则将当前路由
   // 获取到当前路由
   const currentUrl = location.pathname;
   let queryLoc = location.query;
@@ -29,6 +29,10 @@ const Navigation = props => {
   useEffect(() => {
     if (selectTabKey) {
         if(navigationData[index].children){
+            if(navigationData[index].isReset){
+                props.history.replace("/");
+                dispatch(routerRedux.push({pathname:navigationData[index].path, query:{isReset: true}}));
+            }
             setActiveKey(selectTabKey);
         }else{
             let query = navigationData[index].query;
@@ -53,12 +57,13 @@ const Navigation = props => {
       const item = breadcrumb[currentUrl];
       if (dispatch && item) {
           let payload = {
-              key: id ? id : item.path,
+              key: id ? item.path + id : item.path,
               name: item.name,
               path: item.path,
               isShow: true,
               query:queryLoc,
           };
+        sessionStorage.setItem('query',JSON.stringify(payload));
         dispatch({
           type: 'global/changeNavigation',
           payload: {
@@ -114,7 +119,6 @@ const Navigation = props => {
         },
         callback: (data: NavigationItem[]) => {
           // 当前删除为选中项
-          if (key === activeKey) {
           //   // 将路由跳转至前一个tab
             const selectTabKey = data[data.length - 1].key;
             setActiveKey(selectTabKey);
@@ -128,7 +132,6 @@ const Navigation = props => {
               }else{
                   dispatch(routerRedux.push(data[data.length - 1].path));
               }
-          }
         },
       });
     }

@@ -101,7 +101,6 @@ export default class CriminalCaseDocDetail extends PureComponent {
     };
 
     componentDidMount() {
-        console.log('this.props----->',this.props.location.query.id);
         this.caseDetailDatas(this.props.location.query.id);
     }
 

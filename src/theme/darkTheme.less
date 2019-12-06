@@ -51,6 +51,11 @@ body {
       border: @no-box-shadow;
       color: @white;
     }
+    .ant-input{
+      &:hover{
+        background-color: @body-background!important;
+      }
+    }
     .ant-radio-inner::after {
       background-color: @btn-choose;
     }
@@ -422,6 +427,9 @@ body {
         color: @text-color;
       }
     }
+    .ant-table-tbody > tr.ant-table-row-selected td{
+      background: @dropdown-selected-color;
+    }
     .ant-select-dropdown-menu-item-active,
     .ant-select-dropdown-menu-item-selected,
     .ant-cascader-menu-item-active:not(.ant-cascader-menu-item-disabled),
@@ -437,6 +445,9 @@ body {
         background: @highlight-color;
       }
     }
+    .ant-select-dropdown-menu-item-disabled{
+      color: rgba(255,255,255,0.25);
+    }
     .ant-select-tree-node-selected {
       background-color: @highlight-color;
     }
@@ -446,6 +457,9 @@ body {
         background: @component-background;
         border: @zero;
       }
+    }
+    .ant-select-dropdown.ant-select-dropdown--multiple .ant-select-dropdown-menu-item-selected .ant-select-selected-icon{
+      color: @body-background;
     }
     .ant-form {
       padding: @zero 2 * @borderRadius;

@@ -35,17 +35,14 @@ export interface GlobalModelType {
   };
   subscriptions: { setup: Subscription };
 }
-
 const GlobalModel: GlobalModelType = {
   namespace: 'global',
-
   state: {
     collapsed: false,
     notices: [],
-    navigation: sessionStorage.navigationNews ? JSON.parse(sessionStorage.navigationNews) : [welcomeItem],
-    navigationSession: sessionStorage.navigationNews ? JSON.parse(sessionStorage.navigationNews) : [welcomeItem],
+    navigation: sessionStorage.getItem('navigationNews') ? JSON.parse(sessionStorage.getItem('navigationNews')) : [welcomeItem],
+    navigationSession: sessionStorage.getItem('navigationNews') ? JSON.parse(sessionStorage.getItem('navigationNews')) : [welcomeItem],
   },
-
   effects: {
     *fetchNotices(_, { call, put, select }) {
       const data = yield call(queryNotices);
@@ -117,6 +114,12 @@ const GlobalModel: GlobalModelType = {
           //获取state中存储的数据
           if (index === -1) {
             navigationNew.push(payload)
+          }else{
+              if(payload.isReset){
+                  navigationNew[index].isReset = true;
+              }else{
+                  navigationNew[index].isReset = false;
+              }
           }
         } else {
           if (index > -1) {

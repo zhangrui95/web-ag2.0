@@ -393,7 +393,6 @@ class  mySupervise extends Component {
     };
 
     renderForm() {
-        console.log('this.props----->',this.props)
         const { form: { getFieldDecorator }, MySuperviseData: {common: { problemTypeDict, WtlxSawpTypeData, WtlxBaqTypeData, jqproblemTypeDict, WtlxXzAjTypeData, superviseStatusDict, JzCaseStatusType, YSLXType, rectificationStatusDict }} } = this.props;
         const ownSurpreWtlx = [];
         for (let a = 0; a < problemTypeDict.length; a++) {
