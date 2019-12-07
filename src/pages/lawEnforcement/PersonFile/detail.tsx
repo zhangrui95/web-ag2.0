@@ -38,19 +38,24 @@ let imgBase = [];
     UnPoliceData,common
 }))
 export default class PersonalDocDetail extends PureComponent {
-    state = {
-        personData: '',
-        loading: false, // 默认详情页是否为加载状态
-    };
-
+    constructor(props){
+        super(props);
+        let res = props.location.query.record;
+        if(typeof res == 'string'){
+            res = JSON.parse(sessionStorage.getItem('query')).query.record;
+        }
+        this.state = {
+            personData: '',
+            loading: false, // 默认详情页是否为加载状态
+            res:res,
+        };
+    }
     componentDidMount() {
-        console.log('this.props.location.query',this.props.location.query.record)
-        const idcard = this.props.location.query.record.xyr_sfzh;
+        const idcard = this.state.res.xyr_sfzh;
         this.getPersonDetail(idcard);
     }
 
     getPersonDetail = (sfzh) => {
-        console.log('sfzh====>',sfzh);
         this.props.dispatch({
             type: 'UnPoliceData/AllDetailPersonFetch',
             payload: {
@@ -195,7 +200,7 @@ export default class PersonalDocDetail extends PureComponent {
     }
     // 脑图
     showEchart = (data) => {
-        echartTree = echarts.init(document.getElementById('ryRegulateTree' + this.props.location.query.record.xyr_sfzh));
+        echartTree = echarts.init(document.getElementById('ryRegulateTree' + this.state.res.xyr_sfzh));
         const { ajxx, ryxx } = data;
         console.log('data------>',data);
         let link = [];
@@ -764,7 +769,7 @@ export default class PersonalDocDetail extends PureComponent {
                             <div id={`Namegxtp${this.props.location.query.id}`} className={styles.borderBottom}>
                                 <Card title="|  关系图谱" className={listStyles.cardCharts} bordered={false}>
                                     <div
-                                        id={'ryRegulateTree' + this.props.location.query.record.xyr_sfzh}
+                                        id={'ryRegulateTree' + this.state.res.xyr_sfzh}
                                         style={
                                             {
                                                 height: this.getChartTreeHeight(personData.ajxx),

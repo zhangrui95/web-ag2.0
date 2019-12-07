@@ -1239,7 +1239,7 @@ export default class CriminalCaseDocDetail extends PureComponent {
                         className={!(this.state.Anchor && this.state.AnchorShow) ? styles.AnchorHide : this.state.AnchorShow ? styles.fadeBoxIn : styles.fadeBoxOut}
                         offsetTop={70}>
                         <Link
-                            href={'#'+this.props.location.pathname+'?id='+this.props.location.query.id+'&record='+this.props.location.query.record+'/#' + this.props.location.query.id + 'gxtp'}
+                            href={'#'+this.props.location.pathname+'/#' + this.props.location.query.id + 'gxtp'}
                             title="关系图谱"/>
                         <Link
                             href={'#/allDocuments/caseDoc/criminalCaseDocTransfer/criminalCaseDoc/#' + this.props.location.query.id + 'jqxx'}

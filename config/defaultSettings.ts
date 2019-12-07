@@ -59,5 +59,5 @@ export default {
   },
   title: '智慧执法案管系统',
   pwa: false,
-  iconfontUrl: '',
+  iconfontUrl: '../src/utils/iconfont',
 } as DefaultSettings;

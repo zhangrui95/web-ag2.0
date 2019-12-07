@@ -114,12 +114,6 @@ const GlobalModel: GlobalModelType = {
           //获取state中存储的数据
           if (index === -1) {
             navigationNew.push(payload)
-          }else{
-              if(payload.isReset){
-                  navigationNew[index].isReset = true;
-              }else{
-                  navigationNew[index].isReset = false;
-              }
           }
         } else {
           if (index > -1) {

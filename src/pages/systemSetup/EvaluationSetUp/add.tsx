@@ -51,11 +51,11 @@ export default class Add extends PureComponent {
                         message.success('操作成功');
                     }
                 });
+                this.onEdit(true);
             }
         });
-        this.onEdit();
     }
-    onEdit = () => {
+    onEdit = (isReset) => {
         let key = '/systemSetup/EvaluationSetup/Add'+this.props.location.query.id;
         // 删除当前tab并且将路由跳转至前一个tab的path
         const { dispatch } = this.props;
@@ -72,24 +72,9 @@ export default class Add extends PureComponent {
                 payload: {
                     key,
                     isShow: false,
-                },
-                callback: (data: NavigationItem[]) => {
-                    let payload = {
-                        key:  '/systemSetup/EvaluationSetup',
-                        name: '考评配置',
-                        path:  '/systemSetup/EvaluationSetup',
-                        isShow: true,
-                        isReset: true,
-                    };
-                    dispatch({
-                        type: 'global/changeNavigation',
-                        payload: {
-                            ...payload,
-                        },
-                        callback: () => {
-                            dispatch( routerRedux.push({pathname: '/systemSetup/EvaluationSetup'}));
-                        }
-                    });
+                },callback: (data: NavigationItem[]) => {
+                    this.props.history.replace("/");
+                    dispatch( routerRedux.push({pathname: '/systemSetup/EvaluationSetup',query: isReset ? {isReset} : {}}));
                 },
             });
         }
@@ -135,7 +120,7 @@ export default class Add extends PureComponent {
             </Card>
                 <Card>
                     <div className={styles.btns}>
-                        <Button type="primary" style={{ marginLeft: 8 }} className={styles.qxBtn} onClick={this.onEdit}>
+                        <Button type="primary" style={{ marginLeft: 8 }} className={styles.qxBtn} onClick={()=>this.onEdit(false)}>
                             取消
                         </Button>
                         <Button type="primary" style={{ marginLeft: 8 }} onClick={this.handleOk}>

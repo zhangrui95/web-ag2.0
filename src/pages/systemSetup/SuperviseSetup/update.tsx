@@ -31,6 +31,7 @@ import moment from 'moment';
 import { getUserInfos } from '../../../utils/utils';
 import SuperviseCopy from '../../../components/Supervise/SuperviseCopy';
 import {routerRedux} from "dva/router";
+import {NavigationItem} from "@/components/Navigation/navigation";
 
 const FormItem = Form.Item;
 const RadioGroup = Radio.Group;
@@ -64,13 +65,24 @@ class Detail extends Component {
             qjjg: false,
             treeDefaultExpandedKeys: [], // 办案单位树默认展开keys
             searchHeight:false,
+            addHave:true,
         };
     }
 
     componentDidMount() {
-        let type = this.props.location.query.record ? this.props.location.query.record.type : 1;
+        this.getCommon('500800'); //监管点
+        this.getCommon('500804'); //时间间隔
+        this.getCommon('500820'); //提前时间
+        this.getCommon('500808'); //一级颜色
+        this.getCommon('500812'); //二级颜色
+        this.getCommon('500816'); //三级颜色
+        this.getCommon('500852'); //提醒人员
+        this.getDepTree(JSON.parse(sessionStorage.getItem('user')).department);
+        let type = 2;
         let res = this.props.location.query.record;
-        console.log('res========>',res)
+        if(typeof res == 'string'){
+            res = JSON.parse(sessionStorage.getItem('query')).query.record;
+        }
         this.props.form.resetFields([
             'addjgxz',
             'addjglx',
@@ -759,6 +771,7 @@ class Detail extends Component {
                         }
                     },
                 });
+                this.onEdit(true);
             }
         });
     };
@@ -857,6 +870,7 @@ class Detail extends Component {
                             }
                         },
                     });
+                    this.onEdit(true);
                 }
             });
         }
@@ -965,6 +979,29 @@ class Detail extends Component {
             searchHeight:!this.state.searchHeight
         });
     }
+    onEdit = (isReset) => {
+        let key = '/systemSetup/SuperviseSetup/Update'+this.props.location.query.id;
+        const { dispatch } = this.props;
+        if (dispatch) {
+            dispatch({
+                type: 'global/changeSessonNavigation',
+                payload: {
+                    key,
+                    isShow: false,
+                },
+            });
+            dispatch({
+                type: 'global/changeNavigation',
+                payload: {
+                    key,
+                    isShow: false,
+                },
+                callback: (data: NavigationItem[]) => {
+                    dispatch( routerRedux.push({pathname: '/systemSetup/SuperviseSetup',query: isReset ? {isReset} : {}}));
+                },
+            });
+        }
+    };
     render() {
         const {
             form: { getFieldDecorator },
@@ -1034,7 +1071,7 @@ class Detail extends Component {
         );
         return (
             <div id={'box'}>
-                <Card className={stylescommon.statistics + ' ' + styles.detailBox} id={'form'+this.props.location.query.id}>
+                <Card className={stylescommon.statistics + ' ' + styles.detailBox} id={'formSeperUpdate'+this.props.location.query.id}>
                     <Form>
                         <Row gutter={rowLayout} className={styles.formBoxBorder}>
                             {/*<Col*/}
@@ -1057,7 +1094,7 @@ class Detail extends Component {
                                             allowClear
                                             treeDefaultExpandedKeys={this.state.treeDefaultExpandedKeys}
                                             key="badwSelect"
-                                            getPopupContainer={()=>document.getElementById('form'+this.props.location.query.id)}
+                                            getPopupContainer={()=>document.getElementById('formSeperUpdate'+this.props.location.query.id)}
                                             treeNodeFilterProp="title"
                                             onChange={e => this.emptyJgxz(e)}
                                             disabled={this.state.modleType == 0 ? false : true}
@@ -1121,7 +1158,7 @@ class Detail extends Component {
                                             placeholder="请选择"
                                             style={{ width: '100%' }}
                                             onChange={this.getJgd}
-                                            getPopupContainer={()=>document.getElementById('form'+this.props.location.query.id)}
+                                            getPopupContainer={()=>document.getElementById('formSeperUpdate'+this.props.location.query.id)}
                                         >
                                             {JgsxType &&JgsxType.length > 0&&
                                             JgsxType.map(event => {
@@ -1146,7 +1183,7 @@ class Detail extends Component {
                                             placeholder="请选择"
                                             style={{ width: '100%' }}
                                             onChange={e => this.changeJgd(e)}
-                                            getPopupContainer={()=>document.getElementById('form'+this.props.location.query.id)}
+                                            getPopupContainer={()=>document.getElementById('formSeperUpdate'+this.props.location.query.id)}
                                         >
                                             {JgdType &&
                                             JgdType.map(event => {
@@ -1166,7 +1203,7 @@ class Detail extends Component {
                                     })(
                                         <RangePicker
                                             style={{ width: '100%' }}
-                                            getCalendarContainer={()=>document.getElementById('form'+this.props.location.query.id)}
+                                            getCalendarContainer={()=>document.getElementById('formSeperUpdate'+this.props.location.query.id)}
                                             disabledDate={this.disabledEndDate}
                                         />,
                                     )}
@@ -1189,7 +1226,7 @@ class Detail extends Component {
                                             labelInValue
                                             placeholder="请选择"
                                             style={{ width: '100%' }}
-                                            getPopupContainer={()=>document.getElementById('form'+this.props.location.query.id)}
+                                            getPopupContainer={()=>document.getElementById('formSeperUpdate'+this.props.location.query.id)}
                                         >
                                             {SjjgType &&
                                             SjjgType.map(event => {
@@ -1209,7 +1246,7 @@ class Detail extends Component {
                                             labelInValue
                                             placeholder="请选择"
                                             style={{ width: '100%' }}
-                                            getPopupContainer={()=>document.getElementById('form'+this.props.location.query.id)}
+                                            getPopupContainer={()=>document.getElementById('formSeperUpdate'+this.props.location.query.id)}
                                         >
                                             {TxryType &&
                                             TxryType.length > 0 &&
@@ -1230,7 +1267,7 @@ class Detail extends Component {
                                             labelInValue
                                             placeholder="请选择"
                                             style={{ width: '100%' }}
-                                            getPopupContainer={()=>document.getElementById('form'+this.props.location.query.id)}
+                                            getPopupContainer={()=>document.getElementById('formSeperUpdate'+this.props.location.query.id)}
                                         >
                                             {TxryType &&
                                             TxryType.length > 0 &&
@@ -1251,7 +1288,7 @@ class Detail extends Component {
                                             labelInValue
                                             placeholder="请选择"
                                             style={{ width: '100%' }}
-                                            getPopupContainer={()=>document.getElementById('form'+this.props.location.query.id)}
+                                            getPopupContainer={()=>document.getElementById('formSeperUpdate'+this.props.location.query.id)}
                                         >
                                             {TxryType &&
                                             TxryType.length > 0 &&
@@ -1269,7 +1306,7 @@ class Detail extends Component {
                                     <FormItem
                                         label="第一级提醒人员"
                                         {...modleLayouts}
-                                        getPopupContainer={()=>document.getElementById('form'+this.props.location.query.id)}
+                                        getPopupContainer={()=>document.getElementById('formSeperUpdate'+this.props.location.query.id)}
                                     >
                                         {getFieldDecorator('dyjtxry3', {
                                             initialValue: this.state.dyjtxry3,
@@ -1279,7 +1316,7 @@ class Detail extends Component {
                                                 labelInValue
                                                 placeholder="请选择"
                                                 style={{ width: '100%' }}
-                                                getPopupContainer={()=>document.getElementById('form'+this.props.location.query.id)}
+                                                getPopupContainer={()=>document.getElementById('formSeperUpdate'+this.props.location.query.id)}
                                             >
                                                 {TxryType &&
                                                 TxryType.length > 0 &&
@@ -1292,7 +1329,7 @@ class Detail extends Component {
                                 </Col>
                                 <Col span={8}>
                                     <FormItem label="显示颜色" {...modleLayoutColor}>
-                                        <Dropdown overlay={menu3} trigger={['click']} getPopupContainer={()=>document.getElementById('form'+this.props.location.query.id)}>
+                                        <Dropdown overlay={menu3} trigger={['click']} getPopupContainer={()=>document.getElementById('formSeperUpdate'+this.props.location.query.id)}>
                                             <div className={styles.boxColor} style={{ background: this.state.xsys3 }}></div>
                                         </Dropdown>
                                     </FormItem>
@@ -1306,7 +1343,7 @@ class Detail extends Component {
                                                 placeholder="请选择"
                                                 style={{ width: '100%' }}
                                                 onChange={e => this.getTqsj(e, 'tqsj3')}
-                                                getPopupContainer={()=>document.getElementById('form'+this.props.location.query.id)}
+                                                getPopupContainer={()=>document.getElementById('formSeperUpdate'+this.props.location.query.id)}
                                             >
                                                 {TqsjType &&
                                                 TqsjType.map(event => {
@@ -1345,7 +1382,7 @@ class Detail extends Component {
                                                 labelInValue
                                                 placeholder="请选择"
                                                 style={{ width: '100%' }}
-                                                getPopupContainer={()=>document.getElementById('form'+this.props.location.query.id)}
+                                                getPopupContainer={()=>document.getElementById('formSeperUpdate'+this.props.location.query.id)}
                                             >
                                                 {TxryType &&
                                                 TxryType.length > 0 &&
@@ -1358,7 +1395,7 @@ class Detail extends Component {
                                 </Col>
                                 <Col span={8}>
                                     <FormItem label="显示颜色" {...modleLayoutColor}>
-                                        <Dropdown overlay={menu2} trigger={['click']} getPopupContainer={()=>document.getElementById('form'+this.props.location.query.id)}>
+                                        <Dropdown overlay={menu2} trigger={['click']} getPopupContainer={()=>document.getElementById('formSeperUpdate'+this.props.location.query.id)}>
                                             <div className={styles.boxColor} style={{ background: this.state.xsys2 }}></div>
                                         </Dropdown>
                                     </FormItem>
@@ -1372,7 +1409,7 @@ class Detail extends Component {
                                                 placeholder="请选择"
                                                 style={{ width: '100%' }}
                                                 onChange={e => this.getTqsj(e, 'tqsj2')}
-                                                getPopupContainer={()=>document.getElementById('form'+this.props.location.query.id)}
+                                                getPopupContainer={()=>document.getElementById('formSeperUpdate'+this.props.location.query.id)}
                                             >
                                                 {TqsjType &&
                                                 TqsjType.map(event => {
@@ -1410,7 +1447,7 @@ class Detail extends Component {
                                                 labelInValue
                                                 placeholder="请选择"
                                                 style={{ width: '100%' }}
-                                                getPopupContainer={()=>document.getElementById('form'+this.props.location.query.id)}
+                                                getPopupContainer={()=>document.getElementById('formSeperUpdate'+this.props.location.query.id)}
                                             >
                                                 {TxryType &&
                                                 TxryType.length > 0 &&
@@ -1423,7 +1460,7 @@ class Detail extends Component {
                                 </Col>
                                 <Col span={8}>
                                     <FormItem label="显示颜色" {...modleLayoutColor}>
-                                        <Dropdown overlay={menu} trigger={['click']} getPopupContainer={()=>document.getElementById('form'+this.props.location.query.id)}>
+                                        <Dropdown overlay={menu} trigger={['click']} getPopupContainer={()=>document.getElementById('formSeperUpdate'+this.props.location.query.id)}>
                                             <div className={styles.boxColor} style={{ background: this.state.xsys1 }}></div>
                                         </Dropdown>
                                     </FormItem>
@@ -1437,7 +1474,7 @@ class Detail extends Component {
                                                 placeholder="请选择"
                                                 style={{ width: '100%' }}
                                                 onChange={e => this.getTqsj(e, 'tqsj1')}
-                                                getPopupContainer={()=>document.getElementById('form'+this.props.location.query.id)}
+                                                getPopupContainer={()=>document.getElementById('formSeperUpdate'+this.props.location.query.id)}
                                             >
                                                 {TqsjType &&
                                                 TqsjType.map(event => {
@@ -1470,14 +1507,11 @@ class Detail extends Component {
                 </Card>
                 <Card>
                     <div className={styles.btns}>
-                        <Button type="primary" style={{ marginLeft: 8 }} className={styles.qxBtn}>
+                        <Button type="primary" style={{ marginLeft: 8 }} className={styles.qxBtn} onClick={()=>this.onEdit(false)}>
                             取消
                         </Button>
-                        {this.state.modleType == 1 ? <Button type="primary" style={{ marginLeft: 8 }} className={styles.delBtn}>
-                            删除
-                        </Button> : ''}
-                        <Button type="primary" style={{ marginLeft: 8 }}>
-                            {this.state.modleType == 2||this.state.modleType == 0 ?  '完成' : '确认修改'}
+                        <Button type="primary" style={{ marginLeft: 8 }} onClick={this.state.addHave ? this.updateJgdOk : this.handleOk}>
+                            确定
                         </Button>
                     </div>
                 </Card>

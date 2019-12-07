@@ -6,7 +6,6 @@ import { routerRedux } from 'dva/router';
 import { getMenuData } from '@ant-design/pro-layout';
 import { NavigationItem } from './navigation';
 import styles from './index.less';
-import stylesAll from '@/theme/darkTheme.less';
 
 const { TabPane } = Tabs;
 const Navigation = props => {
@@ -29,10 +28,6 @@ const Navigation = props => {
   useEffect(() => {
     if (selectTabKey) {
         if(navigationData[index].children){
-            if(navigationData[index].isReset){
-                props.history.replace("/");
-                dispatch(routerRedux.push({pathname:navigationData[index].path, query:{isReset: true}}));
-            }
             setActiveKey(selectTabKey);
         }else{
             let query = navigationData[index].query;
@@ -83,7 +78,15 @@ const Navigation = props => {
     setActiveKey(activeKey);
     //根据key获取到当前tab信息，并跳转页面
     const tabItem = getItemByKey(activeKey);
-    let query = tabItem.query;
+      let query = tabItem.query;
+      let payload = {
+          key: tabItem.key,
+          name: tabItem.name,
+          path: tabItem.path,
+          isShow: true,
+          query:tabItem.query,
+      };
+      sessionStorage.setItem('query',JSON.stringify(payload));
     if(query){
         dispatch( routerRedux.push({
             pathname: tabItem.path,
@@ -120,7 +123,16 @@ const Navigation = props => {
           //   // 将路由跳转至前一个tab
             const selectTabKey = data[data.length - 1].key;
             setActiveKey(selectTabKey);
-              let query = data[data.length - 1].query ? data[data.length - 1].query : null
+              let query = data[data.length - 1].query ? data[data.length - 1].query : null;
+              let tabItem = data[data.length - 1];
+            let payload = {
+                key: tabItem.key,
+                name: tabItem.name,
+                path: tabItem.path,
+                isShow: true,
+                query:tabItem.query,
+            };
+            sessionStorage.setItem('query',JSON.stringify(payload));
               if(query){
                   let pathUrl = data[data.length - 1].path;
                   dispatch( routerRedux.push({

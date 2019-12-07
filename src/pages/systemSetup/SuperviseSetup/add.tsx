@@ -31,6 +31,7 @@ import moment from 'moment';
 import { getUserInfos } from '../../../utils/utils';
 import SuperviseCopy from '../../../components/Supervise/SuperviseCopy';
 import {routerRedux} from "dva/router";
+import {NavigationItem} from "@/components/Navigation/navigation";
 
 const FormItem = Form.Item;
 const RadioGroup = Radio.Group;
@@ -64,13 +65,23 @@ class Detail extends Component {
             qjjg: false,
             treeDefaultExpandedKeys: [], // 办案单位树默认展开keys
             searchHeight:false,
+            modleType: 0,
         };
     }
 
     componentDidMount() {
-        let type = this.props.location.query.record ? this.props.location.query.record.type : 1;
+        this.getCommon('500800'); //监管点
+        this.getCommon('500804'); //时间间隔
+        this.getCommon('500820'); //提前时间
+        this.getCommon('500808'); //一级颜色
+        this.getCommon('500812'); //二级颜色
+        this.getCommon('500816'); //三级颜色
+        this.getCommon('500852'); //提醒人员
+        this.getDepTree(JSON.parse(sessionStorage.getItem('user')).department);
         let res = this.props.location.query.record;
-        console.log('res========>',res)
+        if(typeof res == 'string'){
+            res = JSON.parse(sessionStorage.getItem('query')).query.record;
+        }
         this.props.form.resetFields([
             'addjgxz',
             'addjglx',
@@ -89,81 +100,21 @@ class Detail extends Component {
             'tqsj3',
         ]);
         this.props.SuperviseSetup.SuperviseSetup.JgdType = [];
-        if (type == 0) {
-            this.getCommon('500830'); //告警监管事项
-            this.getClear();
-            this.setState({
-                qjjg: false,
-                addjglx: '0',
-                madalTitle: '监管点添加',
-                jgdDm: null,
-                jgdMc: null,
-                ssjgMc: null,
-                ssjgDm: null,
-                id: null,
-                tqsj1: null,
-                tqsj2: null,
-                tqsj3: null,
-            });
-        } else if (type == 1 || type == 2) {
-            if (res.jglx === '0') {
-                this.getCommon('500830'); //告警监管事项
-            } else {
-                this.getCommon('500772'); //预警监管事项
-            }
-            this.getSupervise(
-                res.jgsx_dm === '5008301'
-                    ? '2068'
-                    : res.jgsx_dm === '5008302'
-                    ? '2016'
-                    : res.jgsx_dm === '5008303'
-                        ? '3'
-                        : res.jgsx_dm === '5008304'
-                            ? '2017'
-                            : res.jgsx_dm === '5008305'
-                                ? '6001'
-                                : res.jgsx_dm === '5008306'
-                                    ? '5007725'
-                                    : res.jgsx_dm,
-            );
-            this.setState({
-                madalTitle: type == 2 ? '监管点修改' : '监管点详情',
-                res: res,
-                qjjg: res.sf_qjjg === '1' ? true : false,
-                jgdDm: res.jgd_dm,
-                jgdMc: res.jgd_mc,
-                ssjgMc: res.ssjg_mc,
-                ssjgDm: res.ssjg_dm,
-                addjglx: res.jglx,
-                id: res.id,
-                xsys1: res.yjyjtx_ysdm,
-                xsys2: res.ejyjtx_ysdm,
-                xsys3: res.sjyjtx_ysdm,
-                dyjtxry1: this.getChoisePerson(res.yjyjtxr_sfzh, res.yjyjtxr_xm),
-                dyjtxry2: this.getChoisePerson(res.ejyjtxr_sfzh, res.ejyjtxr_xm),
-                dyjtxry3: this.getChoisePerson(res.sjyjtxr_sfzh, res.sjyjtxr_xm),
-                dyctxry1: this.getChoisePerson(res.yjyjtxr_sfzh, res.yjyjtxr_xm),
-                dyctxry2: this.getChoisePerson(res.ejyjtxr_sfzh, res.ejyjtxr_xm),
-                dyctxry3: this.getChoisePerson(res.sjyjtxr_sfzh, res.sjyjtxr_xm),
-                tqsj1: res.yjyjtx_sj,
-                tqsj2: res.ejyjtx_sj,
-                tqsj3: res.sjyjtx_sj,
-                sf_qy: res.sf_qy,
-            });
-        }
+        this.getCommon('500830'); //告警监管事项
+        this.getClear();
         this.setState({
-          modleType: type,
+            qjjg: false,
+            addjglx: '0',
+            madalTitle: '监管点添加',
+            jgdDm: null,
+            jgdMc: null,
+            ssjgMc: null,
+            ssjgDm: null,
+            id: null,
+            tqsj1: null,
+            tqsj2: null,
+            tqsj3: null,
         });
-        // this.getJgdList();
-        // // this.getCommon('500830');//监管事项
-        // this.getCommon('500800'); //监管点
-        // this.getCommon('500804'); //时间间隔
-        // this.getCommon('500820'); //提前时间
-        // this.getCommon('500808'); //一级颜色
-        // this.getCommon('500812'); //二级颜色
-        // this.getCommon('500816'); //三级颜色
-        // this.getCommon('500852'); //提醒人员
-        // this.getDepTree(JSON.parse(sessionStorage.getItem('user')).department);
     }
 
     //监管点列表展示
@@ -256,104 +207,6 @@ class Detail extends Component {
         }
         return person;
     };
-    addList = (type, res) => {
-        this.props.form.resetFields([
-            'addjgxz',
-            'addjglx',
-            'addjgsx',
-            'addjgd',
-            'addjgqx',
-            'addtxjg',
-            'dyctxry1',
-            'dyctxry2',
-            'dyctxry3',
-            'dyjtxry1',
-            'dyjtxry2',
-            'dyjtxry3',
-            'tqsj1',
-            'tqsj2',
-            'tqsj3',
-        ]);
-        this.props.SuperviseSetup.SuperviseSetup.JgdType = [];
-        if (type == 0) {
-            this.getCommon('500830'); //告警监管事项
-            this.getClear();
-            this.setState({
-                qjjg: false,
-                addjglx: '0',
-                madalTitle: '监管点添加',
-                jgdDm: null,
-                jgdMc: null,
-                ssjgMc: null,
-                ssjgDm: null,
-                id: null,
-                tqsj1: null,
-                tqsj2: null,
-                tqsj3: null,
-            });
-        } else if (type == 1 || type == 2) {
-            if (res.jglx === '0') {
-                this.getCommon('500830'); //告警监管事项
-            } else {
-                this.getCommon('500772'); //预警监管事项
-            }
-            this.getSupervise(
-                res.jgsx_dm === '5008301'
-                    ? '2068'
-                    : res.jgsx_dm === '5008302'
-                    ? '2016'
-                    : res.jgsx_dm === '5008303'
-                        ? '3'
-                        : res.jgsx_dm === '5008304'
-                            ? '2017'
-                            : res.jgsx_dm === '5008305'
-                                ? '6001'
-                                : res.jgsx_dm === '5008306'
-                                    ? '5007725'
-                                    : res.jgsx_dm,
-            );
-            this.setState({
-                madalTitle: type == 2 ? '监管点修改' : '监管点详情',
-                res: res,
-                qjjg: res.sf_qjjg === '1' ? true : false,
-                jgdDm: res.jgd_dm,
-                jgdMc: res.jgd_mc,
-                ssjgMc: res.ssjg_mc,
-                ssjgDm: res.ssjg_dm,
-                addjglx: res.jglx,
-                id: res.id,
-                xsys1: res.yjyjtx_ysdm,
-                xsys2: res.ejyjtx_ysdm,
-                xsys3: res.sjyjtx_ysdm,
-                dyjtxry1: this.getChoisePerson(res.yjyjtxr_sfzh, res.yjyjtxr_xm),
-                dyjtxry2: this.getChoisePerson(res.ejyjtxr_sfzh, res.ejyjtxr_xm),
-                dyjtxry3: this.getChoisePerson(res.sjyjtxr_sfzh, res.sjyjtxr_xm),
-                dyctxry1: this.getChoisePerson(res.yjyjtxr_sfzh, res.yjyjtxr_xm),
-                dyctxry2: this.getChoisePerson(res.ejyjtxr_sfzh, res.ejyjtxr_xm),
-                dyctxry3: this.getChoisePerson(res.sjyjtxr_sfzh, res.sjyjtxr_xm),
-                tqsj1: res.yjyjtx_sj,
-                tqsj2: res.ejyjtx_sj,
-                tqsj3: res.sjyjtx_sj,
-                sf_qy: res.sf_qy,
-            });
-        }
-        this.props.dispatch({
-            type: 'global/changeNavigation',
-            payload: {
-                key: '1',
-                name: '监管配置详情',
-                path: '/systemSetup/SuperviseSetup',
-                isShow: true
-            },
-            callback: () => {
-                this.props.dispatch(routerRedux.push('/systemSetup/SuperviseSetup/Detail'));
-            }
-        });
-        // this.setState({
-        //   visible: true,
-        //   modleType: type,
-        // });
-    };
     handleCancel = () => {
         this.props.form.validateFields((err, values) => {
             if (values.jglx && values.jglx === '0') {
@@ -386,18 +239,6 @@ class Detail extends Component {
         this.setState({
             visible: false,
         });
-    };
-    handleCancels = () => {
-        this.setState({
-            Fyvisible: false,
-            visible: true,
-        });
-    };
-    handleSuccess = () => {
-        this.setState({
-            Fyvisible: false,
-        });
-        this.getJgdList(this.state.pd, 1);
     };
     handleMenuClick = e => {
         this.setState({
@@ -471,41 +312,6 @@ class Detail extends Component {
             this.getCommon('500772'); //预警监管事项
         }
     };
-    del = (id, modleType) => {
-        this.handleCancel();
-        let that = this;
-        confirm({
-            title: '确认删除该监管点？',
-            content: null,
-            okText: '确定',
-            cancelText: '取消',
-            centered:true,
-            getContainer:document.getElementById('box'),
-            onOk() {
-                that.props.dispatch({
-                    type: 'SuperviseSetup/getdelJgd',
-                    payload: {
-                        id: id,
-                    },
-                    callback: res => {
-                        if (!res.error) {
-                            message.success('删除成功');
-                            that.getJgdList(that.state.pd, that.state.current);
-                        } else {
-                            message.warn('操作失败，请重试');
-                        }
-                    },
-                });
-            },
-            onCancel() {
-                if (modleType && modleType == 1) {
-                    that.setState({
-                        visible: true,
-                    });
-                }
-            },
-        });
-    };
     getFyModel = () => {
         this.props.form.validateFields((err, values) => {
             if (values.addjgxz) {
@@ -519,24 +325,12 @@ class Detail extends Component {
                         this.setState({
                             yyjgdList: res.data,
                         });
-                        this.props.dispatch({
-                            type: 'global/changeNavigation',
-                            payload: {
-                                key: JSON.parse(values.addjgxz).id,
-                                name: '复用其他机构',
-                                path: '/systemSetup/SuperviseSetup/Copy',
-                                isShow: true,
-                                query: {  yyjgdList: res.data, id: JSON.parse(values.addjgxz).id ,fyxzjg:JSON.parse(values.addjgxz)},
-                            },
-                            callback: () => {
-                                this.props.dispatch(
-                                    routerRedux.push({
-                                        pathname: '/systemSetup/SuperviseSetup/Copy',
-                                        query: { yyjgdList: res.data, id: JSON.parse(values.addjgxz).id,fyxzjg:JSON.parse(values.addjgxz)},
-                                    }),
-                                );
-                            },
-                        });
+                        this.props.dispatch(
+                            routerRedux.push({
+                                pathname: '/systemSetup/SuperviseSetup/Copy',
+                                query: { yyjgdList: res.data, id: JSON.parse(values.addjgxz).id,fyxzjg:JSON.parse(values.addjgxz)},
+                            }),
+                        );
                     },
                 });
             } else {
@@ -576,41 +370,41 @@ class Detail extends Component {
         });
     };
     getJgd = e => {
-        // this.props.form.resetFields([
-        //     'addjgd',
-        //     'addjgqx',
-        //     'addtxjg',
-        //     'dyctxry1',
-        //     'dyctxry2',
-        //     'dyctxry3',
-        //     'dyjtxry1',
-        //     'dyjtxry2',
-        //     'dyjtxry3',
-        //     'tqsj1',
-        //     'tqsj2',
-        //     'tqsj3',
-        //     'jgd',
-        // ]);
-        // this.props.SuperviseSetup.JgdType = [];
-        // this.setState({
-        //     jgdDm: null,
-        //     jgdMc: null,
-        // });
-        // this.getSupervise(
-        //     e.key === '5008301'
-        //         ? '2068'
-        //         : e.key === '5008302'
-        //         ? '2016'
-        //         : e.key === '5008303'
-        //             ? '3'
-        //             : e.key === '5008304'
-        //                 ? '2017'
-        //                 : e.key === '5008305'
-        //                     ? '6001'
-        //                     : e.key === '5008306'
-        //                         ? '5007725'
-        //                         : e.key,
-        // );
+        this.props.form.resetFields([
+            'addjgd',
+            'addjgqx',
+            'addtxjg',
+            'dyctxry1',
+            'dyctxry2',
+            'dyctxry3',
+            'dyjtxry1',
+            'dyjtxry2',
+            'dyjtxry3',
+            'tqsj1',
+            'tqsj2',
+            'tqsj3',
+            'jgd',
+        ]);
+        this.props.SuperviseSetup.JgdType = [];
+        this.setState({
+            jgdDm: null,
+            jgdMc: null,
+        });
+        this.getSupervise(
+            e.key === '5008301'
+                ? '2068'
+                : e.key === '5008302'
+                ? '2016'
+                : e.key === '5008303'
+                    ? '3'
+                    : e.key === '5008304'
+                        ? '2017'
+                        : e.key === '5008305'
+                            ? '6001'
+                            : e.key === '5008306'
+                                ? '5007725'
+                                : e.key,
+        );
     };
     // 获取机构树
     getDepTree = area => {
@@ -638,7 +432,7 @@ class Detail extends Component {
         });
     };
     // 渲染机构树
-    renderloop = data =>
+    renderloop = (data) =>
         data.map(item => {
             let obj = {
                 id: item.code,
@@ -654,7 +448,8 @@ class Detail extends Component {
             }
             // return <TreeNode key={objStr} value={objStr} title={item.name}/>;
         });
-    renderloops = data =>
+
+    renderloops = (data) =>
         data.map(item => {
             if (item.code && item.code.substring(6) === '000000') {
                 let obj = {
@@ -665,8 +460,8 @@ class Detail extends Component {
                 return <TreeNode key={objStr} value={objStr} title={item.name} />;
             }
         });
-    updateJgdOk = () => {
-        this.props.form.validateFields((err, values) => {
+    updateJgdOk = async () => {
+        this.props.form.validateFields(async (err, values) => {
             if (!values.addjgsx) {
                 message.warn('请选择监管事项');
             } else if (!values.addjgd) {
@@ -716,7 +511,7 @@ class Detail extends Component {
                     name3.push(event.label);
                     idcard3.push(event.key);
                 });
-                this.props.dispatch({
+              this.props.dispatch({
                     type: 'SuperviseSetup/getupdateJgd',
                     payload: {
                         id: this.state.id,
@@ -751,20 +546,18 @@ class Detail extends Component {
                     },
                     callback: res => {
                         if (!res.error) {
-                            this.handleCancel();
                             message.success('修改成功');
-                            this.getJgdList(this.state.pd, this.state.current);
                         } else {
                             message.warn('操作失败，请重试');
                         }
                     },
                 });
+              this.onEdit(true);
             }
         });
     };
     handleOk = () => {
-        if (this.state.modleType == 0) {
-            this.props.form.validateFields((err, values) => {
+        this.props.form.validateFields((err, values) => {
                 if (!values.addjgxz) {
                     message.warn('请选择机构');
                 } else if (!values.addjgsx) {
@@ -849,17 +642,15 @@ class Detail extends Component {
                         },
                         callback: res => {
                             if (!res.error) {
-                                this.handleCancel();
                                 message.success('添加成功');
-                                this.getJgdList(this.state.pd, 1);
                             } else {
                                 message.warn('操作失败，请重试');
                             }
                         },
                     });
+                    this.onEdit(true);
                 }
             });
-        }
     };
     //获取该机构是否存在该监管点信息
     changeJgd = e => {
@@ -960,6 +751,30 @@ class Detail extends Component {
             fs_qjjg: e.target.checked,
         });
     };
+    onEdit = (isReset) => {
+        let key = '/systemSetup/SuperviseSetup/Add'+this.props.location.query.id;
+        // 删除当前tab并且将路由跳转至前一个tab的path
+        const { dispatch } = this.props;
+        if (dispatch) {
+            dispatch({
+                type: 'global/changeSessonNavigation',
+                payload: {
+                    key,
+                    isShow: false,
+                },
+            });
+            dispatch({
+                type: 'global/changeNavigation',
+                payload: {
+                    key,
+                    isShow: false,
+                },
+                callback: (data: NavigationItem[]) => {
+                   dispatch( routerRedux.push({pathname: '/systemSetup/SuperviseSetup',query: isReset ? {isReset} : {}}));
+                },
+            });
+        }
+    };
     getSearchHeight = () => {
         this.setState({
             searchHeight:!this.state.searchHeight
@@ -1034,16 +849,9 @@ class Detail extends Component {
         );
         return (
             <div id={'box'}>
-                <Card className={stylescommon.statistics + ' ' + styles.detailBox} id={'form'+this.props.location.query.id}>
+                <Card className={stylescommon.statistics + ' ' + styles.detailBox} id={'formSeperAdd'+this.props.location.query.id}>
                     <Form>
                         <Row gutter={rowLayout} className={styles.formBoxBorder}>
-                            {/*<Col*/}
-                            {/*    // span={this.state.ssjgDm && this.state.ssjgDm.substring(4) === '00000000' ? 8 : 24}*/}
-                            {/*    span={8}*/}
-                            {/*    className={this.state.modleType === 0 ? styles.none : styles.jgName}*/}
-                            {/*>*/}
-                            {/*    <div>机构选择：{this.state.ssjgMc ? this.state.ssjgMc : ''}</div>*/}
-                            {/*</Col>*/}
                             <Col span={8}>
                                 <FormItem label="机构选择" {...modleLayouts}>
                                     {getFieldDecorator('addjgxz', {
@@ -1057,10 +865,9 @@ class Detail extends Component {
                                             allowClear
                                             treeDefaultExpandedKeys={this.state.treeDefaultExpandedKeys}
                                             key="badwSelect"
-                                            getPopupContainer={()=>document.getElementById('form'+this.props.location.query.id)}
+                                            getPopupContainer={()=>document.getElementById('formSeperAdd'+this.props.location.query.id)}
                                             treeNodeFilterProp="title"
                                             onChange={e => this.emptyJgxz(e)}
-                                            disabled={this.state.modleType == 0 ? false : true}
                                         >
                                             {depTree && depTree.length > 0 ? this.renderloop(depTree) : null}
                                         </TreeSelect>,
@@ -1081,7 +888,6 @@ class Detail extends Component {
                                 </Checkbox>
                             </Col>
                             <Col
-                                className={this.state.modleType == 0 ? '' : styles.none}
                                 span={8}
                                 style={{ margin: '14px 0' }}
                             >
@@ -1121,7 +927,7 @@ class Detail extends Component {
                                             placeholder="请选择"
                                             style={{ width: '100%' }}
                                             onChange={this.getJgd}
-                                            getPopupContainer={()=>document.getElementById('form'+this.props.location.query.id)}
+                                            getPopupContainer={()=>document.getElementById('formSeperAdd'+this.props.location.query.id)}
                                         >
                                             {JgsxType &&JgsxType.length > 0&&
                                             JgsxType.map(event => {
@@ -1146,7 +952,7 @@ class Detail extends Component {
                                             placeholder="请选择"
                                             style={{ width: '100%' }}
                                             onChange={e => this.changeJgd(e)}
-                                            getPopupContainer={()=>document.getElementById('form'+this.props.location.query.id)}
+                                            getPopupContainer={()=>document.getElementById('formSeperAdd'+this.props.location.query.id)}
                                         >
                                             {JgdType &&
                                             JgdType.map(event => {
@@ -1166,7 +972,7 @@ class Detail extends Component {
                                     })(
                                         <RangePicker
                                             style={{ width: '100%' }}
-                                            getCalendarContainer={()=>document.getElementById('form'+this.props.location.query.id)}
+                                            getCalendarContainer={()=>document.getElementById('formSeperAdd'+this.props.location.query.id)}
                                             disabledDate={this.disabledEndDate}
                                         />,
                                     )}
@@ -1189,7 +995,7 @@ class Detail extends Component {
                                             labelInValue
                                             placeholder="请选择"
                                             style={{ width: '100%' }}
-                                            getPopupContainer={()=>document.getElementById('form'+this.props.location.query.id)}
+                                            getPopupContainer={()=>document.getElementById('formSeperAdd'+this.props.location.query.id)}
                                         >
                                             {SjjgType &&
                                             SjjgType.map(event => {
@@ -1209,7 +1015,7 @@ class Detail extends Component {
                                             labelInValue
                                             placeholder="请选择"
                                             style={{ width: '100%' }}
-                                            getPopupContainer={()=>document.getElementById('form'+this.props.location.query.id)}
+                                            getPopupContainer={()=>document.getElementById('formSeperAdd'+this.props.location.query.id)}
                                         >
                                             {TxryType &&
                                             TxryType.length > 0 &&
@@ -1230,7 +1036,7 @@ class Detail extends Component {
                                             labelInValue
                                             placeholder="请选择"
                                             style={{ width: '100%' }}
-                                            getPopupContainer={()=>document.getElementById('form'+this.props.location.query.id)}
+                                            getPopupContainer={()=>document.getElementById('formSeperAdd'+this.props.location.query.id)}
                                         >
                                             {TxryType &&
                                             TxryType.length > 0 &&
@@ -1251,7 +1057,7 @@ class Detail extends Component {
                                             labelInValue
                                             placeholder="请选择"
                                             style={{ width: '100%' }}
-                                            getPopupContainer={()=>document.getElementById('form'+this.props.location.query.id)}
+                                            getPopupContainer={()=>document.getElementById('formSeperAdd'+this.props.location.query.id)}
                                         >
                                             {TxryType &&
                                             TxryType.length > 0 &&
@@ -1269,7 +1075,7 @@ class Detail extends Component {
                                     <FormItem
                                         label="第一级提醒人员"
                                         {...modleLayouts}
-                                        getPopupContainer={()=>document.getElementById('form'+this.props.location.query.id)}
+                                        getPopupContainer={()=>document.getElementById('formSeperAdd'+this.props.location.query.id)}
                                     >
                                         {getFieldDecorator('dyjtxry3', {
                                             initialValue: this.state.dyjtxry3,
@@ -1279,7 +1085,7 @@ class Detail extends Component {
                                                 labelInValue
                                                 placeholder="请选择"
                                                 style={{ width: '100%' }}
-                                                getPopupContainer={()=>document.getElementById('form'+this.props.location.query.id)}
+                                                getPopupContainer={()=>document.getElementById('formSeperAdd'+this.props.location.query.id)}
                                             >
                                                 {TxryType &&
                                                 TxryType.length > 0 &&
@@ -1292,7 +1098,7 @@ class Detail extends Component {
                                 </Col>
                                 <Col span={8}>
                                     <FormItem label="显示颜色" {...modleLayoutColor}>
-                                        <Dropdown overlay={menu3} trigger={['click']} getPopupContainer={()=>document.getElementById('form'+this.props.location.query.id)}>
+                                        <Dropdown overlay={menu3} trigger={['click']} getPopupContainer={()=>document.getElementById('formSeperAdd'+this.props.location.query.id)}>
                                             <div className={styles.boxColor} style={{ background: this.state.xsys3 }}></div>
                                         </Dropdown>
                                     </FormItem>
@@ -1306,7 +1112,7 @@ class Detail extends Component {
                                                 placeholder="请选择"
                                                 style={{ width: '100%' }}
                                                 onChange={e => this.getTqsj(e, 'tqsj3')}
-                                                getPopupContainer={()=>document.getElementById('form'+this.props.location.query.id)}
+                                                getPopupContainer={()=>document.getElementById('formSeperAdd'+this.props.location.query.id)}
                                             >
                                                 {TqsjType &&
                                                 TqsjType.map(event => {
@@ -1345,7 +1151,7 @@ class Detail extends Component {
                                                 labelInValue
                                                 placeholder="请选择"
                                                 style={{ width: '100%' }}
-                                                getPopupContainer={()=>document.getElementById('form'+this.props.location.query.id)}
+                                                getPopupContainer={()=>document.getElementById('formSeperAdd'+this.props.location.query.id)}
                                             >
                                                 {TxryType &&
                                                 TxryType.length > 0 &&
@@ -1358,7 +1164,7 @@ class Detail extends Component {
                                 </Col>
                                 <Col span={8}>
                                     <FormItem label="显示颜色" {...modleLayoutColor}>
-                                        <Dropdown overlay={menu2} trigger={['click']} getPopupContainer={()=>document.getElementById('form'+this.props.location.query.id)}>
+                                        <Dropdown overlay={menu2} trigger={['click']} getPopupContainer={()=>document.getElementById('formSeperAdd'+this.props.location.query.id)}>
                                             <div className={styles.boxColor} style={{ background: this.state.xsys2 }}></div>
                                         </Dropdown>
                                     </FormItem>
@@ -1372,7 +1178,7 @@ class Detail extends Component {
                                                 placeholder="请选择"
                                                 style={{ width: '100%' }}
                                                 onChange={e => this.getTqsj(e, 'tqsj2')}
-                                                getPopupContainer={()=>document.getElementById('form'+this.props.location.query.id)}
+                                                getPopupContainer={()=>document.getElementById('formSeperAdd'+this.props.location.query.id)}
                                             >
                                                 {TqsjType &&
                                                 TqsjType.map(event => {
@@ -1410,7 +1216,7 @@ class Detail extends Component {
                                                 labelInValue
                                                 placeholder="请选择"
                                                 style={{ width: '100%' }}
-                                                getPopupContainer={()=>document.getElementById('form'+this.props.location.query.id)}
+                                                getPopupContainer={()=>document.getElementById('formSeperAdd'+this.props.location.query.id)}
                                             >
                                                 {TxryType &&
                                                 TxryType.length > 0 &&
@@ -1423,7 +1229,7 @@ class Detail extends Component {
                                 </Col>
                                 <Col span={8}>
                                     <FormItem label="显示颜色" {...modleLayoutColor}>
-                                        <Dropdown overlay={menu} trigger={['click']} getPopupContainer={()=>document.getElementById('form'+this.props.location.query.id)}>
+                                        <Dropdown overlay={menu} trigger={['click']} getPopupContainer={()=>document.getElementById('formSeperAdd'+this.props.location.query.id)}>
                                             <div className={styles.boxColor} style={{ background: this.state.xsys1 }}></div>
                                         </Dropdown>
                                     </FormItem>
@@ -1437,7 +1243,7 @@ class Detail extends Component {
                                                 placeholder="请选择"
                                                 style={{ width: '100%' }}
                                                 onChange={e => this.getTqsj(e, 'tqsj1')}
-                                                getPopupContainer={()=>document.getElementById('form'+this.props.location.query.id)}
+                                                getPopupContainer={()=>document.getElementById('formSeperAdd'+this.props.location.query.id)}
                                             >
                                                 {TqsjType &&
                                                 TqsjType.map(event => {
@@ -1470,14 +1276,11 @@ class Detail extends Component {
                 </Card>
                 <Card>
                     <div className={styles.btns}>
-                        <Button type="primary" style={{ marginLeft: 8 }} className={styles.qxBtn}>
+                        <Button type="primary" style={{ marginLeft: 8 }} className={styles.qxBtn} onClick={()=>this.onEdit(false)}>
                             取消
                         </Button>
-                        {this.state.modleType == 1 ? <Button type="primary" style={{ marginLeft: 8 }} className={styles.delBtn}>
-                            删除
-                        </Button> : ''}
-                        <Button type="primary" style={{ marginLeft: 8 }}>
-                            {this.state.modleType == 2||this.state.modleType == 0 ?  '完成' : '确认修改'}
+                        <Button type="primary" style={{ marginLeft: 8 }} onClick={this.state.addHave ? this.updateJgdOk : this.handleOk}>
+                            确定
                         </Button>
                     </div>
                 </Card>
