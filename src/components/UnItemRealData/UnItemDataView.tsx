@@ -4,15 +4,15 @@
  * 20181117
  * */
 import React, { PureComponent } from 'react';
-import { Row, Col } from 'antd';
+import { Row, Col, Card } from 'antd';
 import moment from 'moment/moment';
 import echarts from 'echarts/lib/echarts';
-import bar from 'echarts/lib/chart/bar';
-import pie from 'echarts/lib/chart/pie';
-import line from 'echarts/lib/chart/line';
-import title from 'echarts/lib/component/title';
-import legend from 'echarts/lib/component/legend';
-import tooltip from 'echarts/lib/component/tooltip';
+import 'echarts/lib/chart/bar';
+import 'echarts/lib/chart/pie';
+import 'echarts/lib/chart/line';
+import 'echarts/lib/component/title';
+import 'echarts/lib/component/legend';
+import 'echarts/lib/component/tooltip';
 import styles from '../Styles/dataView.less';
 import { getTimeDistance } from '../../utils/utils';
 import warningCountButtonNumberPink from '../../assets/viewData/warningCountButtonNumberPink.png';
@@ -168,12 +168,12 @@ export default class UnItemDataView extends PureComponent {
           }
           unItemEchartBar.setOption({
             title: {
-              text:
-                currentType === 'today'
-                  ? '今日新增告警'
-                  : currentType === 'selectedDate'
-                  ? '告警'
-                  : '昨日告警',
+              // text:
+              //   currentType === 'today'
+              //     ? '今日新增告警'
+              //     : currentType === 'selectedDate'
+              //     ? '告警'
+              //     : '昨日告警',
             },
             xAxis: {
               data: xData,
@@ -196,14 +196,14 @@ export default class UnItemDataView extends PureComponent {
     const that = this;
     unItemEchartBar = echarts.init(document.getElementById('unItemXzgj'));
     const option = {
-      color: ['#3398DB'],
+      // color: ['#3398DB'],
       title: {
-        text: '新增告警',
-        textStyle: {
-          fontSize: 16,
-          fontWeight: 'normal',
-        },
-        padding: 8,
+        // text: '新增告警',
+        // textStyle: {
+        //   fontSize: 16,
+        //   fontWeight: 'normal',
+        // },
+        // padding: 8,
       },
       xAxis: {
         type: 'category',
@@ -211,6 +211,11 @@ export default class UnItemDataView extends PureComponent {
         data: [],
         axisTick: {
           alignWithLabel: true,
+        },
+        axisLabel: {
+          textStyle: {
+            color: '#fff',
+          },
         },
       },
       yAxis: {
@@ -225,7 +230,7 @@ export default class UnItemDataView extends PureComponent {
         },
         axisLabel: {
           textStyle: {
-            color: '#999',
+            color: '#fff',
           },
         },
       },
@@ -253,7 +258,7 @@ export default class UnItemDataView extends PureComponent {
               formatter: '{c}',
               textStyle: {
                 fontSize: 16,
-                color: '#000',
+                color: '#fff',
               },
             },
           },
@@ -327,12 +332,12 @@ export default class UnItemDataView extends PureComponent {
           } else {
             unItemEchartRingPie.setOption({
               title: {
-                text:
-                  currentType === 'today'
-                    ? '今日告警情况'
-                    : currentType === 'selectedDate'
-                    ? '告警情况'
-                    : '昨日告警情况',
+                // text:
+                //   currentType === 'today'
+                //     ? '今日告警情况'
+                //     : currentType === 'selectedDate'
+                //     ? '告警情况'
+                //     : '昨日告警情况',
               },
               legend: {
                 data: legendData,
@@ -353,6 +358,7 @@ export default class UnItemDataView extends PureComponent {
                   label: {
                     normal: {
                       formatter: `告警总数\n\n${countData}`,
+                      color:'#fff',
                     },
                   },
                 },
@@ -369,12 +375,12 @@ export default class UnItemDataView extends PureComponent {
     unItemEchartRingPie = echarts.init(document.getElementById('unItemGjqk'));
     const option = {
       title: {
-        text: '告警情况',
-        textStyle: {
-          fontSize: 16,
-          fontWeight: 'normal',
-        },
-        padding: 8,
+        // text: '告警情况',
+        // textStyle: {
+        //   fontSize: 16,
+        //   fontWeight: 'normal',
+        // },
+        // padding: 8,
       },
       tooltip: {
         trigger: 'item',
@@ -390,7 +396,7 @@ export default class UnItemDataView extends PureComponent {
         itemGap: 25,
         selectedMode: true, // 点击
         textStyle: {
-          color: '#000',
+          color: '#fff',
           fontSize: 16,
           lineHeight: 24,
         },
@@ -440,54 +446,74 @@ export default class UnItemDataView extends PureComponent {
     const { searchType, selectedDateVal, showDataView } = this.props;
     const { lastData, nowData, selectedDateData, currentType } = this.state;
     return (
-      <div
-        className={styles.policeDataView}
-        style={showDataView ? {} : { position: 'absolute', zIndex: -1 }}
-      >
-        {currentType !== 'selectedDate' ? (
-          <div className={styles.viewCount}>
-            <div onClick={() => this.changeCountButtonCurrent('now')}>
-              <div className={styles.warningCountButtonArea}>
-                <div className={styles.warningCountButtonTitleBlue}>今日新增告警</div>
-                <div className={styles.warningCountButtonNumberBlue}>
-                  <img src={warningCountButtonNumberBlue} alt="" />
-                  {nowData}
+      <Card style={{ position: 'relative' }} className={styles.policeDataCard}>
+          <div
+            className={styles.policeDataView}
+            style={showDataView ? {} : { position: 'absolute', zIndex: -1 }}
+          >
+            {currentType !== 'selectedDate' ? (
+              <div className={styles.viewCount}>
+                <div onClick={() => this.changeCountButtonCurrent('now')}>
+                  <div className={styles.warningCountButtonArea}>
+                    <div className={styles.warningCountButtonTitleBlue}>今日新增告警</div>
+                    <div className={styles.warningCountButtonNumberBlue}>
+                      <img src={warningCountButtonNumberBlue} alt="" />
+                      {nowData}
+                    </div>
+                  </div>
+                </div>
+                <div onClick={() => this.changeCountButtonCurrent('last')}>
+                  <div className={styles.warningCountButtonArea}>
+                    <div className={styles.warningCountButtonTitlePink}>昨日告警数量</div>
+                    <div className={styles.warningCountButtonNumberPink}>
+                      <img src={warningCountButtonNumberPink} alt="" />
+                      {lastData}
+                    </div>
+                  </div>
                 </div>
               </div>
-            </div>
-            <div onClick={() => this.changeCountButtonCurrent('last')}>
-              <div className={styles.warningCountButtonArea}>
-                <div className={styles.warningCountButtonTitlePink}>昨日告警数量</div>
-                <div className={styles.warningCountButtonNumberPink}>
-                  <img src={warningCountButtonNumberPink} alt="" />
-                  {lastData}
+            ) : (
+              <div className={styles.viewCount}>
+                <div className={styles.countButtonCurrent}>
+                  <div className={styles.countButtonTitle}>
+                    <div>{selectedDateVal[0]}</div>
+                    <div style={{ lineHeight: '6px' }}>~</div>
+                    <div>{selectedDateVal[1]}</div>
+                  </div>
+                  <div className={styles.countButtonNumber}>
+                    <div>告警：{selectedDateData}</div>
+                  </div>
                 </div>
               </div>
+            )}
+            <div style={{ backgroundColor: '#252c3c', padding: '0 16px' }}>
+              <Row gutter={rowLayout} className={styles.listPageRow}>
+                <Col {...colLayout} style={{marginBottom:32}}>
+                  <div className={styles.cardBoxTitle}>
+                    |{' '}
+                    {currentType === 'today'
+                      ? '今日新增告警'
+                      : currentType === 'selectedDate'
+                        ? '告警'
+                        : '昨日告警'}
+                  </div>
+                  <div id="unItemXzgj" className={styles.cardBox}></div>
+                </Col>
+                <Col {...colLayout} style={{marginBottom:32}}>
+                  <div className={styles.cardBoxTitle}>
+                    |{' '}
+                    {currentType === 'today'
+                      ? '今日告警情况'
+                      : currentType === 'selectedDate'
+                        ? '告警情况'
+                        : '昨日告警情况'}
+                  </div>
+                  <div id="unItemGjqk" className={styles.cardBox}></div>
+                </Col>
+              </Row>
             </div>
           </div>
-        ) : (
-          <div className={styles.viewCount}>
-            <div className={styles.countButtonCurrent}>
-              <div className={styles.countButtonTitle}>
-                <div>{selectedDateVal[0]}</div>
-                <div style={{ lineHeight: '6px' }}>~</div>
-                <div>{selectedDateVal[1]}</div>
-              </div>
-              <div className={styles.countButtonNumber}>
-                <div>告警：{selectedDateData}</div>
-              </div>
-            </div>
-          </div>
-        )}
-        <Row gutter={rowLayout} className={styles.listPageRow}>
-          <Col {...colLayout}>
-            <div id="unItemXzgj" className={styles.cardBox}></div>
-          </Col>
-          <Col {...colLayout}>
-            <div id="unItemGjqk" className={styles.cardBox}></div>
-          </Col>
-        </Row>
-      </div>
+      </Card>
     );
   }
 }

@@ -488,7 +488,7 @@ export default class Index extends PureComponent {
               {getFieldDecorator('wplx', {
                 initialValue: this.state.wplx,
               })(
-                <Select placeholder="请选择" style={{ width: '100%' }}>
+                <Select placeholder="请选择" style={{ width: '100%' }} getPopupContainer={() => document.getElementById('sawpsjtableListForm')}>
                   <Option value="">全部</Option>
                   {itemsTypesOptions}
                 </Select>,
@@ -509,6 +509,7 @@ export default class Index extends PureComponent {
                   showArrow={false}
                   filterOption={false}
                   onChange={this.handleAllStorageOptionChange}
+                  getPopupContainer={() => document.getElementById('sawpsjtableListForm')}
                 >
                   {itemsStorageOptions}
                 </Select>,
@@ -538,7 +539,7 @@ export default class Index extends PureComponent {
               {getFieldDecorator('wpzt', {
                 initialValue: this.state.wpzt,
               })(
-                <Select placeholder="请选择" style={{ width: '100%' }}>
+                <Select placeholder="请选择" style={{ width: '100%' }} getPopupContainer={() => document.getElementById('sawpsjtableListForm')}>
                   <Option value="">全部</Option>
                   {/*{involvedType !== undefined ? this.Option() : ''}*/}
                   {itemStatusOption}
@@ -550,7 +551,7 @@ export default class Index extends PureComponent {
             <Col {...colLayout}>
               <FormItem label="登记时间" {...formItemLayout}>
                 {getFieldDecorator('djsj')(
-                  <RangePicker disabledDate={this.disabledDate} style={{ width: '100%' }} />,
+                  <RangePicker disabledDate={this.disabledDate} style={{ width: '100%' }} getCalendarContainer={() => document.getElementById('sawpsjtableListForm')} />,
                 )}
               </FormItem>
             </Col>
@@ -559,7 +560,7 @@ export default class Index extends PureComponent {
               <FormItem label="入库时间" {...formItemLayout}>
                 {getFieldDecorator('rksj', {
                   initialValue: this.state.rksj ? this.state.rksj : undefined,
-                })(<RangePicker disabledDate={this.disabledDate} style={{ width: '100%' }} />)}
+                })(<RangePicker disabledDate={this.disabledDate} style={{ width: '100%' }} getCalendarContainer={() => document.getElementById('sawpsjtableListForm')} />)}
               </FormItem>
             </Col>
           )}
@@ -577,6 +578,7 @@ export default class Index extends PureComponent {
                   key="badwSelect"
                   treeDefaultExpandedKeys={this.state.treeDefaultExpandedKeys}
                   treeNodeFilterProp="title"
+                  getPopupContainer={() => document.getElementById('sawpsjtableListForm')}
                 >
                   {depTree && depTree.length > 0 ? this.renderloop(depTree) : null}
                 </TreeSelect>,
@@ -703,30 +705,30 @@ export default class Index extends PureComponent {
                 </Button>
               </div>
             )}
-            {/*<DataViewButtonArea*/}
-            {/*showDataView={showDataView}*/}
-            {/*styles={styles}*/}
-            {/*typeButtons={typeButtons}*/}
-            {/*changeTypeButtons={this.changeTypeButtons}*/}
-            {/*disabledDate={this.disabledDate}*/}
-            {/*depTree={depTree}*/}
-            {/*renderloop={this.renderloop}*/}
-            {/*setSelectedDate={this.setSelectedDate}*/}
-            {/*setSelectedDep={this.setSelectedDep}*/}
-            {/*hideDayButton*/}
-            {/*treeDefaultExpandedKeys={treeDefaultExpandedKeys}*/}
-            {/*/>*/}
+            <DataViewButtonArea
+              showDataView={showDataView}
+              styles={styles}
+              typeButtons={typeButtons}
+              changeTypeButtons={this.changeTypeButtons}
+              disabledDate={this.disabledDate}
+              depTree={depTree}
+              renderloop={this.renderloop}
+              setSelectedDate={this.setSelectedDate}
+              setSelectedDep={this.setSelectedDep}
+              hideDayButton
+              treeDefaultExpandedKeys={treeDefaultExpandedKeys}
+            />
           </div>
-          {/*<ItemDataView*/}
-          {/*searchType={typeButtons}*/}
-          {/*showDataView={showDataView}*/}
-          {/*orgcode={orgcodeVal}*/}
-          {/*selectedDateVal={selectedDateVal}*/}
-          {/*changeToListPage={this.changeToListPage}*/}
-          {/*{...this.props}*/}
-          {/*/>*/}
+          <ItemDataView
+            searchType={typeButtons}
+            showDataView={showDataView}
+            orgcode={orgcodeVal}
+            selectedDateVal={selectedDateVal}
+            changeToListPage={this.changeToListPage}
+            {...this.props}
+          />
           <div style={showDataView ? { display: 'none' } : { display: 'block' }}>
-            <div className={styles.tableListForm}>{this.renderForm()}</div>
+            <div className={styles.tableListForm} id='sawpsjtableListForm'>{this.renderForm()}</div>
             <div className={styles.tableListOperator}>{this.renderTable()}</div>
           </div>
         </div>
