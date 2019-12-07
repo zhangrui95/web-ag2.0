@@ -223,8 +223,10 @@ export default class MessagePushLogModal extends PureComponent {
     render() {
         const rowLayout = { md: 8, xl: 16, xxl: 24 };
         const colLayout = { sm: 24, md: 12, xl: 8 };
-        const logDetail = this.props.location.query.record;
-        console.log('logDetail=====>',logDetail)
+        let logDetail = this.props.location.query.record;
+        if(typeof logDetail == 'string'){
+            logDetail = JSON.parse(sessionStorage.getItem('query')).query.record;
+        }
         return (
           <Card style={{padding:'24px'}}>
                 <Row gutter={rowLayout} style={{ lineHeight: '36px' }}>
