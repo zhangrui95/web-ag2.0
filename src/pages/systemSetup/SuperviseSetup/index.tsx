@@ -87,6 +87,12 @@ class SuperviseSetup extends Component {
     this.getCommon('500852'); //提醒人员
     this.getDepTree(JSON.parse(sessionStorage.getItem('user')).department);
   }
+    componentWillReceiveProps(nextProps) {
+        if(nextProps.history.location.query.isReset){
+            this.getJgdList();
+            this.props.history.replace(nextProps.history.location.pathname);
+        }
+    }
 
   //监管点列表展示
   getJgdList = (pd, current) => {

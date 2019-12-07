@@ -68,7 +68,7 @@ class AvatarDropdown extends React.Component<GlobalHeaderRightProps> {
       <div style={{ paddingRight: '48px' }}>
         <span className={`${styles.action} ${styles.account}`}>
           <Avatar size="small" className={styles.avatar} src={require('@/assets/user.png')} alt="avatar" />
-          <span className={styles.name}>李华</span>
+          <span className={styles.name}>{JSON.parse(sessionStorage.getItem('user')).name}</span>
         </span>
         <span className={styles.logout} onClick={this.onClick}>
           <Icon className={styles.logoutIcon} type="poweroff" />

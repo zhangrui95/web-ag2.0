@@ -43,10 +43,11 @@ export default class PoliceClear extends PureComponent {
     }
     componentWillReceiveProps(nextProps) {
         if(nextProps.history.location.query.isReset){
-            this.state = {
-                tab:'0',
-            };
-            this.getList('0',1);
+            this.setState({
+                loading: true,
+            });
+            this.getList(this.state.tab);
+            this.props.history.replace(nextProps.history.location.pathname);
         }
     }
     getList = (type,current) =>{
