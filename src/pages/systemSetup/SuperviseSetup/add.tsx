@@ -70,8 +70,18 @@ class Detail extends Component {
     }
 
     componentDidMount() {
+        this.getCommon('500800'); //监管点
+        this.getCommon('500804'); //时间间隔
+        this.getCommon('500820'); //提前时间
+        this.getCommon('500808'); //一级颜色
+        this.getCommon('500812'); //二级颜色
+        this.getCommon('500816'); //三级颜色
+        this.getCommon('500852'); //提醒人员
+        this.getDepTree(JSON.parse(sessionStorage.getItem('user')).department);
         let res = this.props.location.query.record;
-        console.log('res========>',res)
+        if(typeof res == 'string'){
+            res = JSON.parse(sessionStorage.getItem('query')).query.record;
+        }
         this.props.form.resetFields([
             'addjgxz',
             'addjglx',
@@ -90,7 +100,6 @@ class Detail extends Component {
             'tqsj3',
         ]);
         this.props.SuperviseSetup.SuperviseSetup.JgdType = [];
-        this.getDepTree(JSON.parse(sessionStorage.getItem('user')).department);
         this.getCommon('500830'); //告警监管事项
         this.getClear();
         this.setState({

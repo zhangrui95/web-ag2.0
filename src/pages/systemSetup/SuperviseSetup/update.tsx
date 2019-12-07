@@ -70,8 +70,19 @@ class Detail extends Component {
     }
 
     componentDidMount() {
+        this.getCommon('500800'); //监管点
+        this.getCommon('500804'); //时间间隔
+        this.getCommon('500820'); //提前时间
+        this.getCommon('500808'); //一级颜色
+        this.getCommon('500812'); //二级颜色
+        this.getCommon('500816'); //三级颜色
+        this.getCommon('500852'); //提醒人员
+        this.getDepTree(JSON.parse(sessionStorage.getItem('user')).department);
         let type = 2;
         let res = this.props.location.query.record;
+        if(typeof res == 'string'){
+            res = JSON.parse(sessionStorage.getItem('query')).query.record;
+        }
         this.props.form.resetFields([
             'addjgxz',
             'addjglx',
