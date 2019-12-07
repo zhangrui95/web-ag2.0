@@ -21,7 +21,7 @@ import {
   Dropdown,
   Menu,
   Tooltip,
-  Radio,
+  Radio,Icon,
 } from 'antd';
 import moment from 'moment/moment';
 import Ellipsis from 'ant-design-pro/lib/Ellipsis';
@@ -29,9 +29,10 @@ import styles from '../../common/listPage.less';
 import { exportListDataMaxDays, getUserInfos, tableList } from '../../../utils/utils';
 // import DossierDetail from './DossierDetail';
 // import ShareModal from '../../../src/components/ShareModal/ShareModal';
-// import DossierDataView from '../../../components/DossierRealData/DossierDataView';
+import DossierDataView from '../../../components/DossierRealData/DossierDataView';
 import DataViewButtonArea from '../../../components/Common/DataViewButtonArea';
 import SyncTime from '../../../components/Common/SyncTime';
+import {routerRedux} from "dva/router";
 
 const { Option } = Select;
 const { RangePicker } = DatePicker;
@@ -75,6 +76,7 @@ export default class Index extends PureComponent {
     selectedDateVal: null, // 手动选择的日期
     selectedDeptVal: '', // 手动选择机构
     treeDefaultExpandedKeys: [], // 办案单位树默认展开keys
+    searchHeight: false, // 查询条件展开筛选
   };
 
   componentDidMount() {
@@ -380,6 +382,12 @@ export default class Index extends PureComponent {
   };
   // 打开新的详情页面
   newDetail = (record) => {
+    this.props.dispatch(
+      routerRedux.push({
+        pathname: '/dossierPolice/DossierData/DossierDetail',
+        query: { record: record, id: record && record.id ? record.id : '1' },
+      }),
+    );
     // const divs = (
     //   <div>
     //     <DossierDetail
@@ -544,7 +552,12 @@ export default class Index extends PureComponent {
     });
     this.handleSearch();
   };
-
+// 展开筛选和关闭筛选
+  getSearchHeight = () => {
+    this.setState({
+      searchHeight: !this.state.searchHeight,
+    });
+  };
   render() {
     const { form: { getFieldDecorator }, common: { depTree, dossierType, caseProcessDict, dossierSaveTypeDict }, DossierData: { data: { page, list, tbCount } }, loading } = this.props;
     const newAddDetail = this.state.arrayDetail;
@@ -659,14 +672,13 @@ export default class Index extends PureComponent {
       }
     }
     const paginationProps = {
-      showSizeChanger: true,
-      showQuickJumper: true,
+      // showSizeChanger: true,
+      // showQuickJumper: true,
       current: page ? page.currentPage : '',
       total: page ? page.totalResult : '',
       pageSize: page ? page.showCount : '',
       showTotal: (total, range) =>
-        <span
-          className={styles.listPagination}>{`共 ${page ? page.totalResult : 0} 条记录 第 ${page ? page.currentPage : 1} / ${page ? page.totalPage : 1} 页`}</span>,
+        <span className={styles.listPagination}>{`共 ${page ? page.totalPage : 1} 页， ${page ? page.totalResult : 0} 条记录 `}</span>,
     };
     let detail = (
       <Row style={{ width: '90%', margin: '0 38px 10px', lineHeight: '36px', color: 'rgba(0, 0, 0, 0.85)' }}>
@@ -701,6 +713,23 @@ export default class Index extends PureComponent {
                     <a className={styles.listPageHeaderCurrent}><span>●</span>数据列表</a>
                   )
                 }
+                {showDataView ? (
+                  ''
+                ) : (
+                  <div style={{ float: 'right' }}>
+                    <Button
+                      style={{
+                        color: '#3285FF',
+                        backgroundColor: '#171925',
+                        border: '1px solid #3285FF',
+                        borderRadius: '5px',
+                      }}
+                      onClick={this.exportData}
+                    >
+                      导出表格
+                    </Button>
+                  </div>
+                )}
                 <DataViewButtonArea
                   showDataView={showDataView}
                   styles={styles}
@@ -715,24 +744,24 @@ export default class Index extends PureComponent {
                   treeDefaultExpandedKeys={treeDefaultExpandedKeys}
                 />
               </div>
-              {/*<DossierDataView*/}
-                {/*showDataView={showDataView}*/}
-                {/*searchType={typeButtons}*/}
-                {/*orgcode={orgcodeVal}*/}
-                {/*selectedDateVal={selectedDateVal}*/}
-                {/*changeToListPage={this.changeToListPage}*/}
-                {/*{...this.props}*/}
-              {/*/>*/}
+              <DossierDataView
+                showDataView={showDataView}
+                searchType={typeButtons}
+                orgcode={orgcodeVal}
+                selectedDateVal={selectedDateVal}
+                changeToListPage={this.changeToListPage}
+                {...this.props}
+              />
               <div style={showDataView ? { display: 'none' } : { display: 'block' }}>
-                <div className={styles.tableListForm}>
-                  <Form onSubmit={this.handleSearch}>
-                    <Row gutter={rowLayout}>
+                <div className={styles.tableListForm} id='jzsjtableListForm'>
+                  <Form onSubmit={this.handleSearch}  style={{ height: this.state.searchHeight ? 'auto' : '59px' }}>
+                    <Row gutter={rowLayout} className={styles.searchForm}>
                       <Col {...colLayout}>
                         <FormItem label="案件类型" {...formItemLayout}>
                           {getFieldDecorator('ajlx', {
                             initialValue: this.state.ajlx,
                           })(
-                            <Select placeholder="请选择案件类型" style={{ width: '100%' }}>
+                            <Select placeholder="请选择案件类型" style={{ width: '100%' }} getPopupContainer={() => document.getElementById('jzsjtableListForm')}>
                               <Option value="">全部</Option>
                               <Option value="0">刑事案件</Option>
                               <Option value="1">行政案件</Option>
@@ -764,14 +793,13 @@ export default class Index extends PureComponent {
                               placeholder="请输入办案人"
                               onChange={this.handleAllPoliceOptionChange}
                               onFocus={this.handleAllPoliceOptionChange}
+                              getPopupContainer={() => document.getElementById('jzsjtableListForm')}
                             >
                               {allPoliceOptions}
                             </Select>,
                           )}
                         </FormItem>
                       </Col>
-                    </Row>
-                    <Row gutter={rowLayout}>
                       <Col {...colLayout}>
                         <FormItem label="办案单位" {...formItemLayout}>
                           {getFieldDecorator('bardw', {
@@ -786,6 +814,7 @@ export default class Index extends PureComponent {
                               key='badwSelect'
                               treeDefaultExpandedKeys={treeDefaultExpandedKeys}
                               treeNodeFilterProp="title"
+                              getPopupContainer={() => document.getElementById('jzsjtableListForm')}
                             >
                               {depTree && depTree.length > 0 ? this.renderloop(depTree) : null}
                             </TreeSelect>,
@@ -798,7 +827,7 @@ export default class Index extends PureComponent {
                           {getFieldDecorator('bahj', {
                             initialValue: this.state.bahj,
                           })(
-                            <Select placeholder="请选择办案环节" style={{ width: '100%' }}>
+                            <Select placeholder="请选择办案环节" style={{ width: '100%' }} getPopupContainer={() => document.getElementById('jzsjtableListForm')}>
                               <Option value="">全部</Option>
                               {caseProcessDictGroup}
                             </Select>,
@@ -810,21 +839,19 @@ export default class Index extends PureComponent {
                           {getFieldDecorator('jzlb', {
                             initialValue: this.state.jzlb,
                           })(
-                            <Select placeholder="请选择卷宗类别" style={{ width: '100%' }}>
+                            <Select placeholder="请选择卷宗类别" style={{ width: '100%' }} getPopupContainer={() => document.getElementById('jzsjtableListForm')}>
                               <Option value="">全部</Option>
                               {DossierTypeOptions}
                             </Select>,
                           )}
                         </FormItem>
                       </Col>
-                    </Row>
-                    <Row gutter={rowLayout}>
                       <Col {...colLayout}>
                         <FormItem label="存储状态" {...formItemLayout}>
                           {getFieldDecorator('cczt', {
                             initialValue: this.state.cczt,
                           })(
-                            <Select placeholder="请选择存储状态" style={{ width: '100%' }}>
+                            <Select placeholder="请选择存储状态" style={{ width: '100%' }} getPopupContainer={() => document.getElementById('jzsjtableListForm')}>
                               <Option value="">全部</Option>
                               {dossierSaveTypeDictGroup}
                             </Select>,
@@ -839,6 +866,7 @@ export default class Index extends PureComponent {
                                 <RangePicker
                                   disabledDate={this.disabledDate}
                                   style={{ width: '100%' }}
+                                  getCalendarContainer={() => document.getElementById('jzsjtableListForm')}
                                 />,
                               )}
                             </FormItem>
@@ -852,6 +880,7 @@ export default class Index extends PureComponent {
                                 <RangePicker
                                   disabledDate={this.disabledDate}
                                   style={{ width: '100%' }}
+                                  getCalendarContainer={() => document.getElementById('jzsjtableListForm')}
                                 />,
                               )}
                             </FormItem>
@@ -871,8 +900,6 @@ export default class Index extends PureComponent {
                           )}
                         </FormItem>
                       </Col>
-                    </Row>
-                    <Row gutter={rowLayout}>
                       <Col {...colLayout}>
                         <FormItem label="所在库房" {...formItemLayout}>
                           {getFieldDecorator('szkf', {
@@ -882,24 +909,39 @@ export default class Index extends PureComponent {
                           )}
                         </FormItem>
                       </Col>
-                      <Col {...colLayout} />
-                      <Col {...colLayout}>
-                                                <span style={{ float: 'right', marginBottom: 24 }}>
-                                                    <Button style={{ color: '#2095FF', borderColor: '#2095FF' }}
-                                                            onClick={this.exportData}>导出表格</Button>
-                                                    <Button style={{ marginLeft: 8 }} type="primary"
-                                                            htmlType="submit">查询</Button>
-                                                    <Button style={{ marginLeft: 8 }}
-                                                            onClick={this.handleFormReset}>重置</Button>
-                                                </span>
-                      </Col>
+                    </Row>
+                    <Row className={styles.search}>
+                      <span style={{ float: 'right', marginBottom: 24, marginTop: 5 }}>
+                        <Button
+                          style={{ marginLeft: 8 }}
+                          type="primary"
+                          htmlType="submit"
+                        >
+                          查询
+                        </Button>
+                        <Button
+                          style={{ marginLeft: 8 }}
+                          onClick={this.handleFormReset}
+                          className={styles.empty}
+                        >
+                          重置
+                        </Button>
+                        <Button
+                          style={{ marginLeft: 8 }}
+                          onClick={this.getSearchHeight}
+                          className={styles.empty}
+                        >
+                          {this.state.searchHeight ? '收起筛选' : '展开筛选'}{' '}
+                          <Icon type={this.state.searchHeight ? 'up' : 'down'} />
+                        </Button>
+                      </span>
                     </Row>
                   </Form>
                 </div>
                 <div className={styles.tableListOperator}>
                   <Table
                     className={styles.listStandardTable}
-                    size="middle"
+                    // size="middle"
                     loading={loading}
                     rowKey={record => record.dossier_id}
                     dataSource={list}
