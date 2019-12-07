@@ -969,7 +969,7 @@ class Detail extends Component {
         });
     }
     onEdit = (isReset) => {
-        let key = '/systemSetup/SuperviseSetup/Detail'+this.props.location.query.id;
+        let key = '/systemSetup/SuperviseSetup/Update'+this.props.location.query.id;
         const { dispatch } = this.props;
         if (dispatch) {
             dispatch({

@@ -120,7 +120,7 @@ export default class PoliceClear extends PureComponent {
             current: pagination.current,
             count: pagination.pageSize,
         });
-        this.getList('0', pagination.current);
+        this.getList(this.state.tab, pagination.current);
     };
     changeTab = (e) => {
         this.setState({
