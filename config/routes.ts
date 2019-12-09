@@ -324,6 +324,13 @@ export function routes() {
                   component: './dossierPolice/DossierData',
                 },
                 {
+                  path: '/dossierPolice/DossierData/DossierDetail',
+                  name: '卷宗数据详情',
+                  icon: 'smile',
+                  component: './dossierPolice/DossierData/DossierDetail',
+                  hideInMenu: true,
+                },
+                {
                   path: '/dossierPolice/DossierWarning',
                   name: '卷宗预警',
                   icon: 'icon-yujing',
@@ -334,6 +341,13 @@ export function routes() {
                   name: '卷宗告警',
                   icon: 'icon-gaojing',
                   component: './dossierPolice/DossierPolice',
+                },
+                {
+                  path: '/dossierPolice/DossierPolice/UnDossierDetail',
+                  name: '卷宗告警详情',
+                  icon: 'smile',
+                  component: './dossierPolice/DossierPolice/UnDossierDetail',
+                  hideInMenu: true,
                 },
               ],
             },

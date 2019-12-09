@@ -14,7 +14,7 @@ import 'echarts/lib/chart/pictorialBar';
 import 'echarts/lib/component/title';
 import 'echarts/lib/component/legend';
 import 'echarts/lib/component/tooltip';
-import styles from '../Styles/dataView.less';
+import styles from '../../pages/common/dataView.less';
 import { getDefaultDaysForMonth, getTimeDistance } from '../../utils/utils';
 import DataViewDateShow from '../Common/DataViewDateShow';
 // import { MiniProgress, ChartCard } from '../../components/Charts';
@@ -438,11 +438,11 @@ export default class DossierDataView extends PureComponent {
         itemEchartpictorialBar = echarts.init(document.getElementById('wpcrkqk'));
         const option = {
             title: {
-                text: '卷宗在库情况',
-                textStyle: {
-                    fontSize: 16,
-                    fontWeight: 'normal',
-                },
+                // text: '卷宗在库情况',
+                // textStyle: {
+                //     fontSize: 16,
+                //     fontWeight: 'normal',
+                // },
             },
             xAxis: {
                 // data: newData,
@@ -450,7 +450,7 @@ export default class DossierDataView extends PureComponent {
                 axisLabel: {
                     inside: false,
                     textStyle: {
-                        color: '#000',
+                        color: '#fff',
                     },
                     rotate: 30,
                     interval: 0,
@@ -472,7 +472,7 @@ export default class DossierDataView extends PureComponent {
                 },
                 axisLabel: {
                     textStyle: {
-                        color: '#999',
+                        color: '#fff',
                     },
                 },
             },
@@ -549,11 +549,11 @@ export default class DossierDataView extends PureComponent {
         itemEchartwpqsBar = echarts.init(document.getElementById('jzqs'));
         const option = {
             title: {
-                text: '卷宗趋势',
-                textStyle: {
-                    fontSize: 16,
-                    fontWeight: 'normal',
-                },
+                // text: '卷宗趋势',
+                // textStyle: {
+                //     fontSize: 16,
+                //     fontWeight: 'normal',
+                // },
             },
             tooltip: {
                 trigger: 'axis',
@@ -561,6 +561,9 @@ export default class DossierDataView extends PureComponent {
             legend: {
                 // data:['邮件营销','联盟广告'],
                 data: [],
+                textStyle: {
+                  color: '#fff',
+                },
             },
             grid: {
                 left: '3%',
@@ -573,9 +576,19 @@ export default class DossierDataView extends PureComponent {
                 boundaryGap: false,
                 // data: ['周一','周二','周三','周四','周五','周六','周日']
                 data: [],
+                axisLabel: {
+                  textStyle: {
+                    color: '#fff',
+                  },
+                },
             },
             yAxis: {
                 type: 'value',
+                axisLabel: {
+                  textStyle: {
+                    color: '#fff',
+                  },
+                },
             },
             series: [],
         };
@@ -591,12 +604,12 @@ export default class DossierDataView extends PureComponent {
         itemEchartRingPie = echarts.init(document.getElementById('jzslzs'));
         const option = {
             title: {
-                text: '卷宗数量展示',
-                textStyle: {
-                    fontSize: 16,
-                    fontWeight: 'normal',
-                },
-                padding: 8,
+                // text: '卷宗数量展示',
+                // textStyle: {
+                //     fontSize: 16,
+                //     fontWeight: 'normal',
+                // },
+                // padding: 8,
             },
             tooltip: {
                 trigger: 'item',
@@ -612,7 +625,7 @@ export default class DossierDataView extends PureComponent {
                 itemGap: 25,
                 selectedMode: true, // 点击
                 textStyle: {
-                    color: '#000',
+                    color: '#fff',
                     fontSize: 16,
                     lineHeight: 24,
                 },
@@ -633,7 +646,7 @@ export default class DossierDataView extends PureComponent {
                             textStyle: {
                                 fontSize: '22',
                                 // fontWeight: 'bold',
-                                color: '#000',
+                                color: '#fff',
                             },
                         },
                         emphasis: {
@@ -662,12 +675,12 @@ export default class DossierDataView extends PureComponent {
         itemEchartdzhqkPie = echarts.init(document.getElementById('dzhqkzs'));
         const option = {
             title: {
-                text: '电子化情况展示',
-                textStyle: {
-                    fontSize: 16,
-                    fontWeight: 'normal',
-                },
-                padding: 8,
+                // text: '电子化情况展示',
+                // textStyle: {
+                //     fontSize: 16,
+                //     fontWeight: 'normal',
+                // },
+                // padding: 8,
             },
             tooltip: {
                 trigger: 'item',
@@ -683,7 +696,7 @@ export default class DossierDataView extends PureComponent {
                 itemGap: 25,
                 selectedMode: true, // 点击
                 textStyle: {
-                    color: '#000',
+                    color: '#fff',
                     fontSize: 16,
                     lineHeight: 24,
                 },
@@ -704,7 +717,7 @@ export default class DossierDataView extends PureComponent {
                             textStyle: {
                                 fontSize: '22',
                                 // fontWeight: 'bold',
-                                color: '#000',
+                                color: '#fff',
                             },
                         },
                         emphasis: {
@@ -733,161 +746,170 @@ export default class DossierDataView extends PureComponent {
     };
 
     render() {
-        const rowLayout = { md: 8, xl: 16, xxl: 24 };
-        const colLayout = { sm: 24, lg: 24, xl: 8, xxl: 8 };
-        const colLayout1 = { sm: 24, lg: 16 };
-        const colLayout2 = { sm: 24, lg: 8 };
-        const { searchType, selectedDateVal, showDataView } = this.props;
-        const { currentType, ZkjzData, ZkjzTotal, showrkDataView, jzqsNoData, selectedDateData } = this.state;
-        return (
-            <div className={styles.ItemDataView} style={showDataView ? {} : { position: 'absolute', zIndex: -1 }}>
-                {
-                    currentType !== 'selectedDate' ? (
-                        <div className={styles.viewCount}>
-                            <div
-                                className={(currentType === 'week' || currentType === 'month') ? styles.countButtonCurrent : styles.countButton}
-                                onClick={() => this.changeCountButtonCurrent('now')}
-                            >
-                                {
-                                    searchType === 'week' ? <DataViewDateShow dataTypeStr='本周'/> :
-                                        <DataViewDateShow dataTypeStr='本月'/>
-                                }
+      const rowLayout = { md: 8, xl: 16, xxl: 24 };
+      const colLayout = { sm: 24, lg: 24, xl: 8, xxl: 8 };
+      const colLayout1 = { sm: 24, lg: 16 };
+      const colLayout2 = { sm: 24, lg: 8 };
+      const { searchType, selectedDateVal, showDataView } = this.props;
+      const { currentType, ZkjzData, ZkjzTotal, showrkDataView, jzqsNoData, selectedDateData } = this.state;
+      return (
+        <Card style={{ position: 'relative' }} className={styles.policeDataCard}>
+          <div className={styles.ItemDataView} style={showDataView ? {} : { position: 'absolute', zIndex: -1 }}>
+            {
+              currentType !== 'selectedDate' ? (
+                <div className={styles.viewCount}>
+                  <div
+                    className={(currentType === 'week' || currentType === 'month') ? styles.countButtonCurrent : styles.countButton}
+                    onClick={() => this.changeCountButtonCurrent('now')}
+                  >
+                    {
+                      searchType === 'week' ? <DataViewDateShow dataTypeStr='本周'/> :
+                        <DataViewDateShow dataTypeStr='本月'/>
+                    }
+                  </div>
+                  <div
+                    className={(currentType === 'lastWeek' || currentType === 'lastMonth') ? styles.countButtonCurrent : styles.countButton}
+                    onClick={() => this.changeCountButtonCurrent('last')}
+                  >
+                    {
+                      searchType === 'week' ? <DataViewDateShow dataTypeStr='前一周'/> :
+                        <DataViewDateShow dataTypeStr='前一月'/>
+                    }
+                  </div>
+                  <div
+                    className={(currentType === 'beforeLastWeek' || currentType === 'beforeLastMonth') ? styles.countButtonCurrent : styles.countButton}
+                    onClick={() => this.changeCountButtonCurrent('beforeLast')}
+                  >
+                    {
+                      searchType === 'week' ? <DataViewDateShow dataTypeStr='前二周'/> :
+                        <DataViewDateShow dataTypeStr='前二月'/>
+                    }
+                  </div>
+                </div>
+              ) : (
+                <div className={styles.viewCount}>
+                  <div className={styles.countButtonCurrent}>
+                    <div className={styles.countButtonTitle}>
+                      <div>{selectedDateVal[0]}</div>
+                      <div style={{ lineHeight: '6px' }}>~</div>
+                      <div>{selectedDateVal[1]}</div>
+                    </div>
+                  </div>
+                </div>
+              )
+            }
+            <div style={{ backgroundColor: '#252c3c', padding: '0 16px' }}>
+              <Row gutter={rowLayout} className={styles.listPageRow}>
+                <Col {...colLayout}>
+                  <div className={styles.cardBoxTitle}>| 卷宗数量展示</div>
+                  <div id="jzslzs" className={styles.cardBox}></div>
+                </Col>
+                <Col {...colLayout}>
+                  <div className={styles.listPageWrap} style={{top:52}}>
+                    <div className={styles.listPageHeader}>
+                      {
+                        showrkDataView ? (
+                          <a className={styles.listPageHeaderCurrent}>在库</a>
+                        ) : (
+                          <a className={styles.UnlistPageHeaderCurrent} onClick={this.changeRkListPageHeader}>在库</a>
+                        )
+                      }
+                      <span>|</span>
+                      {
+                        showrkDataView ? (
+                          <a className={styles.UnlistPageHeaderCurrent} onClick={this.changeRkListPageHeader}>出库</a>
+                        ) : (
+                          <a className={styles.listPageHeaderCurrent}>出库</a>
+                        )
+                      }
+                    </div>
+                  </div>
+                  <div className={styles.cardBoxTitle}>| 卷宗在库情况</div>
+                  <div id="wpcrkqk" className={styles.cardBox}></div>
+                </Col>
+                <Col {...colLayout}>
+                  <div className={styles.cardBoxTitle}>| 在库卷宗数量展示</div>
+                  <div className={styles.cardBoxzk} style={{ padding: '0 5px' }}>
+                    {ZkjzData.length > 0 ?
+                      <div>
+                        <Row gutter={rowLayout}>
+                          {/*<Col sm={24} lg={24} style={{*/}
+                            {/*fontSize: 16,*/}
+                            {/*marginBottom: 20,*/}
+                            {/*paddingTop: 18,*/}
+                            {/*paddingLeft: 28,*/}
+                          {/*}}>在库卷宗数量展示</Col>*/}
+                        </Row>
+                        {ZkjzData.map((item) =>
+                          <div onClick={() => this.goList(item.name)} style={{ cursor: 'pointer' }}>
+                            <div className={styles.progressName}>{item.name}</div>
+                            <div className={styles.progressCount}>
+                              <Tooltip title={item.name + ':' + item.count}>
+                                <Progress percent={Math.round((item.count / ZkjzTotal) * 100)}
+                                          status="active" strokeColor='#000' strokeWidth={16}/>
+                              </Tooltip>
                             </div>
-                            <div
-                                className={(currentType === 'lastWeek' || currentType === 'lastMonth') ? styles.countButtonCurrent : styles.countButton}
-                                onClick={() => this.changeCountButtonCurrent('last')}
-                            >
-                                {
-                                    searchType === 'week' ? <DataViewDateShow dataTypeStr='前一周'/> :
-                                        <DataViewDateShow dataTypeStr='前一月'/>
-                                }
-                            </div>
-                            <div
-                                className={(currentType === 'beforeLastWeek' || currentType === 'beforeLastMonth') ? styles.countButtonCurrent : styles.countButton}
-                                onClick={() => this.changeCountButtonCurrent('beforeLast')}
-                            >
-                                {
-                                    searchType === 'week' ? <DataViewDateShow dataTypeStr='前二周'/> :
-                                        <DataViewDateShow dataTypeStr='前二月'/>
-                                }
-                            </div>
+                          </div>,
+                        )}
+                      </div>
+                      :
+                      <div style={{ padding: 16 }}>
+                        {/*<div style={{ fontSize: 16, paddingTop: 2, color: 'rgba(0,0,0,0.85)' }}>在库卷宗数量展示*/}
+                        {/*</div>*/}
+                        <div style={{
+                          height: '100%',
+                          width: '100%',
+                          display: 'flex',
+                          alignItems: 'center',
+                          flexDirection: 'column',
+                          justifyContent: 'center',
+                          marginTop:22,
+                        }}>
+                          <img src={nonDivImg} alt="暂无数据"/>
+                          <div style={{ fontSize: 18 }}>暂无数据</div>
                         </div>
-                    ) : (
-                        <div className={styles.viewCount}>
-                            <div className={styles.countButtonCurrent}>
-                                <div className={styles.countButtonTitle}>
-                                    <div>{selectedDateVal[0]}</div>
-                                    <div style={{ lineHeight: '6px' }}>~</div>
-                                    <div>{selectedDateVal[1]}</div>
-                                </div>
-                            </div>
+                      </div>
+                    }
+                  </div>
+                </Col>
+              </Row>
+              <Row gutter={rowLayout} className={styles.listPageRow}>
+                <Col {...colLayout1} style={{marginBottom:32}}>
+                  <div className={styles.cardBoxTitle}>| 卷宗趋势</div>
+                  <div id="jzqs" className={styles.cardBox}></div>
+                  {
+                    jzqsNoData ? (
+                      <div style={{
+                        width: '100%',
+                        height: '100%',
+                        position: 'absolute',
+                        top: 0,
+                        left: 0,
+                        padding: 16,
+                        backgroundColor: '#ffffff',
+                      }}>
+                        <div style={{ fontSize: 16, padding: '8px 0 0 8px' }}>卷宗趋势</div>
+                        <div style={{
+                          display: 'flex',
+                          alignItems: 'center',
+                          flexDirection: 'column',
+                          justifyContent: 'center',
+                        }}>
+                          <img src={nonDivImg} alt="暂无数据"/>
+                          <div style={{ fontSize: 18 }}>暂无数据</div>
                         </div>
-                    )
-                }
-
-                <Row gutter={rowLayout} className={styles.listPageRow}>
-                    <Col {...colLayout}>
-                        <div id="jzslzs" className={styles.cardBox}></div>
-                    </Col>
-                    <Col {...colLayout}>
-                        <div className={styles.listPageWrap}>
-                            <div className={styles.listPageHeader}>
-                                {
-                                    showrkDataView ? (
-                                        <a className={styles.listPageHeaderCurrent}>在库</a>
-                                    ) : (
-                                        <a onClick={this.changeRkListPageHeader}>在库</a>
-                                    )
-                                }
-                                <span>|</span>
-                                {
-                                    showrkDataView ? (
-                                        <a onClick={this.changeRkListPageHeader}>出库</a>
-                                    ) : (
-                                        <a className={styles.listPageHeaderCurrent}>出库</a>
-                                    )
-                                }
-                            </div>
-                        </div>
-                        <div id="wpcrkqk" className={styles.cardBox}></div>
-                    </Col>
-                    <Col {...colLayout}>
-                        <div className={styles.cardBoxzk} style={{ padding: '0 5px' }}>
-                            {ZkjzData.length > 0 ?
-                                <div>
-                                    <Row gutter={rowLayout}>
-                                        <Col sm={24} lg={24} style={{
-                                            fontSize: 16,
-                                            marginBottom: 20,
-                                            paddingTop: 18,
-                                            paddingLeft: 28,
-                                        }}>在库卷宗数量展示</Col>
-                                    </Row>
-                                    {ZkjzData.map((item) =>
-                                        <div onClick={() => this.goList(item.name)} style={{ cursor: 'pointer' }}>
-                                            <div className={styles.progressName}>{item.name}</div>
-                                            <div className={styles.progressCount}>
-                                                <Tooltip title={item.name + ':' + item.count}>
-                                                    <Progress percent={Math.round((item.count / ZkjzTotal) * 100)}
-                                                              status="active" strokeColor='#000' strokeWidth={16}/>
-                                                </Tooltip>
-                                            </div>
-                                        </div>,
-                                    )}
-                                </div>
-                                :
-                                <div style={{ padding: 16 }}>
-                                    <div style={{ fontSize: 16, paddingTop: 2, color: 'rgba(0,0,0,0.85)' }}>在库卷宗数量展示
-                                    </div>
-                                    <div style={{
-                                        height: '100%',
-                                        width: '100%',
-                                        display: 'flex',
-                                        alignItems: 'center',
-                                        flexDirection: 'column',
-                                        justifyContent: 'center',
-                                    }}>
-                                        <img src={nonDivImg} alt="暂无数据"/>
-                                        <div style={{ fontSize: 18 }}>暂无数据</div>
-                                    </div>
-                                </div>
-                            }
-                        </div>
-                    </Col>
-                </Row>
-                <Row gutter={rowLayout} className={styles.listPageRow}>
-                    <Col {...colLayout1}>
-                        <div id="jzqs" className={styles.cardBox}></div>
-                        {
-                            jzqsNoData ? (
-                                <div style={{
-                                    width: '100%',
-                                    height: '100%',
-                                    position: 'absolute',
-                                    top: 0,
-                                    left: 0,
-                                    padding: 16,
-                                    backgroundColor: '#ffffff',
-                                }}>
-                                    <div style={{ fontSize: 16, padding: '8px 0 0 8px' }}>卷宗趋势</div>
-                                    <div style={{
-                                        display: 'flex',
-                                        alignItems: 'center',
-                                        flexDirection: 'column',
-                                        justifyContent: 'center',
-                                    }}>
-                                        <img src={nonDivImg} alt="暂无数据"/>
-                                        <div style={{ fontSize: 18 }}>暂无数据</div>
-                                    </div>
-                                </div>
-                            ) : null
-                        }
-                    </Col>
-                    <Col {...colLayout2}>
-                        <div id="dzhqkzs" className={styles.cardBox}></div>
-                    </Col>
-                </Row>
+                      </div>
+                    ) : null
+                  }
+                </Col>
+                <Col {...colLayout2} style={{marginBottom:32}}>
+                  <div className={styles.cardBoxTitle}>| 电子化情况展示</div>
+                  <div id="dzhqkzs" className={styles.cardBox}></div>
+                </Col>
+              </Row>
             </div>
-        );
+          </div>
+        </Card>
+      );
     }
 }

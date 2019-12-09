@@ -341,10 +341,7 @@ export default class policeDetail extends PureComponent {
             <Button className={styles.TopMenu} onClick={() => this.ExportStatistics()}>
               导出
             </Button>
-            {isDb &&
-            policeDetails &&
-            policeDetails.zrdwList &&
-            policeDetails.zrdwList.length > 0 ? (
+            {isDb && policeDetails && policeDetails.zrdwList && policeDetails.zrdwList.length > 0 ? (
               <Button
                 className={styles.TopMenu}
                 onClick={() => this.onceSupervise(policeDetails, true, '警情详情问题判定')}

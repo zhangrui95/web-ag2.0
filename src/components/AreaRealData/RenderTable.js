@@ -31,24 +31,12 @@ class RenderTable extends PureComponent {
   }
 
   deatils = record => {
-    this.props.dispatch({
-      type: 'global/changeNavigation',
-      payload: {
-        key: record && record.id ? record.id : '1',
-        name: '人员在区详情',
-        path: '/handlingArea/AreaData/areaDetail',
-        isShow: true,
-        query: { record, id: record && record.id ? record.id : '1' },
-      },
-      callback: () => {
         this.props.dispatch(
           routerRedux.push({
             pathname: '/handlingArea/AreaData/areaDetail',
             query: { record: record, id: record && record.id ? record.id : '1' },
           }),
         );
-      },
-    });
     // const divs = (
     //     <div>
     //         <Detail
