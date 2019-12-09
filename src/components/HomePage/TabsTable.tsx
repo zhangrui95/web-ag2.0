@@ -79,7 +79,7 @@ export default class TabsTable extends PureComponent {
             }
             key="s1"
           >
-            <Card title={null} id="myshare">
+            <Card title={null} id="myshare" style={{borderRadius:0,border:'0px solid #252C3C',borderTop:'1px solid #171925'}}>
               <Form
                 style={{
                   padding: '20px 30px 0 10px',
@@ -159,7 +159,7 @@ export default class TabsTable extends PureComponent {
                   </Col>
                 </Row>
                 <Row className={stylescommon.search}>
-                  <span style={{ float: 'right', marginBottom: 24, marginTop: 5 }}>
+                  <span style={{ float: 'right', marginBottom: 24, marginTop: 2 }}>
                     <Button
                       style={{ marginLeft: 8 }}
                       type="primary"
@@ -204,7 +204,7 @@ export default class TabsTable extends PureComponent {
             }
             key="s2"
           >
-            <Card title={null} id="shareme">
+            <Card title={null} id="shareme" style={{borderRadius:0,border:'0px solid #252C3C',borderTop:'1px solid #171925'}}>
               <Form
                 style={{
                   padding: '20px 30px 0 10px',
@@ -284,7 +284,7 @@ export default class TabsTable extends PureComponent {
                   </Col>
                 </Row>
                 <Row className={stylescommon.search}>
-                  <span style={{ float: 'right', marginBottom: 24, marginTop: 5 }}>
+                  <span style={{ float: 'right', marginBottom: 24, marginTop: 2 }}>
                     <Button
                       style={{ marginLeft: 8 }}
                       type="primary"
@@ -311,7 +311,7 @@ export default class TabsTable extends PureComponent {
                 </Row>
               </Form>
               <Table
-                size="middle"
+                // size="middle"
                 loading={this.props.loading}
                 pagination={this.props.paginationPage}
                 columns={this.props.columns}

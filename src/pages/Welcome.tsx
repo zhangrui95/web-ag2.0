@@ -18,8 +18,8 @@ import {
   Tabs,
   Form, Select, Dropdown, Menu, TreeSelect,
 } from 'antd';
-import Home1 from './Home1';
-import Home2 from './Home2';
+import Home1 from 'ShowData/Home1';
+import Home2 from 'ShowData/Home2';
 
 @connect(({ home, share, common }) => ({
   home, share, common,

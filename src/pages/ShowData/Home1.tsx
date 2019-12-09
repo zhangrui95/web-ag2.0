@@ -250,24 +250,12 @@ export default class Home1 extends PureComponent {
           callback: res => {
             if (res.error === null) {
               this.myNews(this.state.pageNew);
-              this.props.dispatch({
-                type: 'global/changeNavigation',
-                payload: {
-                  key: res&&res.data&&res.data.dbid ? res.data.dbid : '1',
-                  name: read === 0 ? '我的消息' : read === 1 ? '我的督办' : '我的关注',
-                  path: '/ShowData/MyNews',
-                  isShow: true,
+              this.props.dispatch(
+                routerRedux.push({
+                  pathname: '/ShowData/MyNews',
                   query: { record: record,id:res&&res.data&&res.data.dbid ? res.data.dbid : '1' },
-                },
-                callback: () => {
-                  this.props.dispatch(
-                    routerRedux.push({
-                      pathname: '/ShowData/MyNews',
-                      query: { record: record,id:res&&res.data&&res.data.dbid ? res.data.dbid : '1' },
-                    }),
-                  );
-                }
-              });
+                }),
+              );
             }
           },
         });
@@ -1148,10 +1136,10 @@ export default class Home1 extends PureComponent {
           : this.state.idx === 3
           ? this.state.pageSizeFollow
           : this.state.pageSize,
-      size: 'small',
-      showQuickJumper: true,
+      size: 'middle',
+      // showQuickJumper: true,
       showTotal: () => (
-        <span className={styles.pagination} style={{ left: -920 }}>{`共 ${Math.ceil(
+        <span className={styles.pagination}>{`共 ${Math.ceil(
           parseInt(this.state.pageTotal) / parseInt(this.state.pageSize),
         )} 页， ${this.state.pageTotal} 条记录`}</span>
       ),
@@ -1312,7 +1300,7 @@ export default class Home1 extends PureComponent {
                 className={styles.rightStyle}
               >
                 <Table
-                  size="middle"
+                  // size="middle"
                   loading={this.state.loading}
                   pagination={paginationPage}
                   columns={this.state.columns}

@@ -94,7 +94,7 @@ export default class TabsTable extends PureComponent {
                   {/*</Col>*/}
                 </Row>
                 <Row className={stylescommon.search}>
-                  <span style={{ float: 'right', marginBottom: 24, marginTop: 5 }}>
+                  <span style={{ float: 'left', marginBottom: 24, marginTop: 2 }}>
                     <Button
                       style={{ marginLeft: 8 }}
                       type="primary"
@@ -116,7 +116,7 @@ export default class TabsTable extends PureComponent {
                 </Row>
               </Form>
               <Table
-                size="middle"
+                // size="middle"
                 loading={this.props.loading}
                 pagination={this.props.paginationPage}
                 columns={this.props.columns}
@@ -191,7 +191,7 @@ export default class TabsTable extends PureComponent {
                 </Row>
               </Form>
               <Table
-                size="middle"
+                // size="middle"
                 loading={this.props.loading}
                 pagination={this.props.paginationPage}
                 columns={this.props.columns}

@@ -941,7 +941,7 @@ export default class Statistics extends PureComponent {
                 <Card title={null} className={styles.BottomLeftStyle}>
                   <Table
                     loading={this.state.loading}
-                    size="middle"
+                    // size="middle"
                     columns={tjColumns}
                     dataSource={
                       this.state.newData && this.state.newData.list ? this.state.newData.list : []
