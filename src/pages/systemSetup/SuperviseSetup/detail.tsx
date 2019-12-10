@@ -926,7 +926,7 @@ class Detail extends Component {
                     isShow: false,
                 },
                 callback: (data: NavigationItem[]) => {
-                    dispatch( routerRedux.push({pathname: '/systemSetup/SuperviseSetup',query: isReset ? {isReset} : {}}));
+                    dispatch( routerRedux.push({pathname: '/systemSetup/SuperviseSetup',query: isReset ? {isReset,type:'1'} : {}}));
                 },
             });
         }

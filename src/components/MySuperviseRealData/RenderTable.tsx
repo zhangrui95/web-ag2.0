@@ -11,6 +11,7 @@ import Ellipsis from 'ant-design-pro/lib/Ellipsis';
 import { connect } from 'dva';
 import stylescommon from '../../pages/common/common.less';
 import noList from '@/assets/viewData/noList.png';
+import {routerRedux} from "dva/router";
 
 class RenderTable extends PureComponent {
   state = {};
@@ -23,88 +24,50 @@ class RenderTable extends PureComponent {
 
   // 根据案件编号打开案件窗口
   deatils = record => {
-    // const { wt_id: wtId, system_id: systemId, wtflId, dqzt, id, dbid, fkzt } = record;
-    // if (wtflId === '203203') { // 办案区
-    //     const divs = (
-    //         <div>
-    //             <UnareaDetail
-    //                 {...this.props}
-    //                 id={wtId}
-    //                 baqId={systemId}
-    //                 refreshTable={this.props.refreshTable}
-    //             />
-    //         </div>
-    //     );
-    //     const AddNewDetail = { title: '人员在区告警详情', content: divs, key: wtId };
-    //     this.props.newDetail(AddNewDetail);
-    // } else if (wtflId === '203204') { // 涉案财物
-    //     const divs = (
-    //         <div>
-    //             <UnitemDetail
-    //                 {...this.props}
-    //                 id={wtId}
-    //                 systemId={systemId}
-    //                 refreshTable={this.props.refreshTable}
-    //             />
-    //         </div>
-    //     );
-    //     const AddNewDetail = { title: '涉案物品告警详情', content: divs, key: wtId };
-    //     this.props.newDetail(AddNewDetail);
-    //
-    // } else if (wtflId === '203202') { //案件流程
-    //     const divs = (
-    //         <div>
-    //             <UncaseDetail
-    //                 {...this.props}
-    //                 id={wtId}
-    //                 systemId={systemId}
-    //                 refreshTable={this.props.refreshTable}
-    //             />
-    //         </div>
-    //     );
-    //     const AddNewDetail = { title: '刑事案件告警详情', content: divs, key: wtId };
-    //     this.props.newDetail(AddNewDetail);
-    //
-    // } else if (wtflId === '203205') { // 行政案件问题数据
-    //     const divs = (
-    //         <div>
-    //             <UnXzCaseDetail
-    //                 {...this.props}
-    //                 id={wtId}
-    //                 systemId={systemId}
-    //                 refreshTable={this.props.refreshTable}
-    //             />
-    //         </div>
-    //     );
-    //     const AddNewDetail = { title: '行政案件告警详情', content: divs, key: wtId };
-    //     this.props.newDetail(AddNewDetail);
-    // } else if (wtflId === '203206') {
-    //     const divs = (
-    //         <div>
-    //             <UnDossierDetail
-    //                 {...this.props}
-    //                 id={id}
-    //                 wtid={wtId}
-    //                 dossierId={systemId}
-    //                 refreshTable={this.props.refreshTable}
-    //             />
-    //         </div>
-    //     );
-    //     const AddNewDetail = { title: '卷宗告警详情', content: divs, key: wtId };
-    //     this.props.newDetail(AddNewDetail);
-    // } else if (wtflId === '203201') {
-    //     const divs = (
-    //         <div>
-    //             <UnPoliceDetail
-    //                 id={id}
-    //                 wtid={wtId}
-    //                 {...this.props}
-    //             />
-    //         </div>
-    //     );
-    //     const AddNewDetail = { title: '警情告警详情', content: divs, key: id };
-    //     this.props.newDetail(AddNewDetail);
-    // }
+    const { wt_id: wtId, system_id: systemId, wtflId, dqzt, id, dbid, fkzt } = record;
+    if (wtflId === '203203') { // 办案区
+        this.props.dispatch(
+            routerRedux.push({
+                pathname: '/handlingArea/AreaPolice/UnareaDetail',
+                query: { record: record, id:wtId, baqId:systemId },
+            }),
+        );
+    } else if (wtflId === '203204') { // 涉案财物
+        this.props.dispatch(
+            routerRedux.push({
+                pathname: '/articlesInvolved/ArticlesPolice/unitemDetail',
+                query: { record: record,id: wtId, system_id: systemId },
+            }),
+        )
+    } else if (wtflId === '203202') { //案件流程
+        this.props.dispatch(
+            routerRedux.push({
+                pathname: '/caseFiling/casePolice/CriminalPolice/uncaseDetail',
+                query: { record: record, id: wtId, system_id: systemId},
+            }),
+        );
+    } else if (wtflId === '203205') { // 行政案件问题数据
+        this.props.dispatch(
+            routerRedux.push({
+                pathname: '/caseFiling/casePolice/AdministrationPolice/uncaseDetail',
+                query: { record: record, id: wtId , system_id: systemId},
+            }),
+        );
+    } else if (wtflId === '203206') {
+        this.props.dispatch(
+            routerRedux.push({
+                pathname: '/dossierPolice/DossierPolice/UnDossierDetail',
+                query: { record: record, id: id },
+            }),
+        );
+    } else if (wtflId === '203201') {
+        this.props.dispatch(
+            routerRedux.push({
+                pathname: '/receivePolice/AlarmPolice/unpoliceDetail',
+                query: { record: record,id: id },
+            }),
+        )
+    }
   };
 
   handleTableChange = (pagination, filters, sorter) => {
