@@ -47,7 +47,7 @@ const configItem = {
   clearHome: false, //是否显示三清调度首页（鹤壁定制）
   is_zsj: '0', //首页综合统计显示本级还是下级'1'本级，'0'下级
   is_area: '5', // 刑事案件案件类别根据不同地区调用不同的接口；1表示牡丹江,2表示平乐,0表示主线，5表示达拉特旗
-  is_ssds: 'hb', // 接处警报警类别的所属地市
+  is_ssds: 'hb', // 接处警报警类别的所属地市dltq
 };
 // 开发模式地址
 const developConfigUrl = {

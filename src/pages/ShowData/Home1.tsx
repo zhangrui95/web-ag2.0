@@ -250,12 +250,14 @@ export default class Home1 extends PureComponent {
           callback: res => {
             if (res.error === null) {
               this.myNews(this.state.pageNew);
-              this.props.dispatch(
-                routerRedux.push({
-                  pathname: '/ShowData/MyNews',
-                  query: { record: record,id:res&&res.data&&res.data.dbid ? res.data.dbid : '1' },
-                }),
-              );
+              if(record){
+                this.props.dispatch(
+                  routerRedux.push({
+                    pathname: '/ShowData/MyNews',
+                    query: { record: record,id:res&&res.data&&res.data.dbid ? res.data.dbid : '1' },
+                  }),
+                );
+              }
             }
           },
         });
@@ -266,36 +268,11 @@ export default class Home1 extends PureComponent {
 
       }
       else if (read === 1) {
-        // this.props.dispatch(
-        //   routerRedux.push({
-        //     pathname: '/messageCenter/mySupervise/Transfer/Index',
-        //     query: { record: record },
-        //   }),
-        // );
-
-        this.props.dispatch({
-          type: 'global/changeNavigation',
-          payload: {
-            key: record&&record.id ? record.id : '1',
-            name: read === 0 ? '我的消息' : read === 1 ? '我的督办' : '我的关注',
-            path: '/messageCenter/mySupervise/Transfer/Index',
-            isShow: true,
-            query: { record: record,id:record&&record.id ? record.id : '1' },
-          },
-          callback: () => {
-            // this.props.dispatch(
-            //   routerRedux.push({
-            //     pathname: '/ShowData/MyNews',
-            //     query: { record: record,id:record&&record.id ? record.id : '1' },
-            //   }),
-            // );
-            this.props.dispatch(
-              routerRedux.push({
-              pathname: '/messageCenter/mySupervise/Transfer/Index',
-                query: { record: record,id:record&&record.id ? record.id : '1' },
-            }));
-          }
-        });
+          this.props.dispatch(
+            routerRedux.push({
+            pathname: '/Message/mySupervise',
+              query: { record: record,id:record&&record.id ? record.id : '1' },
+          }));
       }
       else if (read === 2 || read === 3) {
         record['id'] = record.agid;
@@ -1202,11 +1179,11 @@ export default class Home1 extends PureComponent {
                   }}
                 >
                   行政{' '}
-                  <a className={styles.DataTotal} >
+                  <a className={styles.DataTotal} style={{ textDecoration: 'underline', color: '#47B2FF', fontSize: 18,cursor:'auto' }}>
                     {this.state.xz_num}
                   </a>{' '}
                   起&nbsp;&nbsp;&nbsp;&nbsp; 刑事{' '}
-                  <a className={styles.DataTotal} >
+                  <a style={{ textDecoration: 'underline', color: '#47B2FF', fontSize: 18,cursor:'auto' }}>
                     {this.state.xs_num}
                   </a>{' '}
                   起
@@ -1225,11 +1202,11 @@ export default class Home1 extends PureComponent {
                   }}
                 >
                   预警{' '}
-                  <a style={{ textDecoration: 'underline', color: '#47B2FF', fontSize: 18 }}>
+                  <a style={{ textDecoration: 'underline', color: '#47B2FF', fontSize: 18,cursor:'auto' }}>
                     {this.state.yj_num}
                   </a>{' '}
                   条 &nbsp;&nbsp;&nbsp;&nbsp;告警{' '}
-                  <a style={{ textDecoration: 'underline', color: '#47B2FF', fontSize: 18 }}>
+                  <a style={{ textDecoration: 'underline', color: '#47B2FF', fontSize: 18,cursor:'auto' }}>
                     {this.state.gj_num}
                   </a>{' '}
                   条

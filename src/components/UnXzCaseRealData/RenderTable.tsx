@@ -45,24 +45,24 @@ class RenderTable extends PureComponent {
         // );
         // const AddNewDetail = { title: '行政案告警件详情', content: divs, key: record.id };
         // this.props.newDetail(AddNewDetail);
-        this.props.dispatch({
-          type: 'global/changeNavigation',
-          payload: {
-            key: record && record.id ? record.id : '1',
-            name: '行政案件详情',
-            path: '/caseFiling/casePolice/AdministrationPolice/uncaseDetail',
-            isShow: true,
-            query: { record, id: record && record.id ? record.id : '1' },
-          },
-          callback: () => {
+        // this.props.dispatch({
+        //   type: 'global/changeNavigation',
+        //   payload: {
+        //     key: record && record.id ? record.id : '1',
+        //     name: '行政案件详情',
+        //     path: '/caseFiling/casePolice/AdministrationPolice/uncaseDetail',
+        //     isShow: true,
+        //     query: { record, id: record && record.id ? record.id : '1' },
+        //   },
+        //   callback: () => {
             this.props.dispatch(
               routerRedux.push({
-                pathname: '/caseFiling/casePolice/AdministrationPolice/uncaseDetail',
+                pathname: '/newcaseFiling/casePolice/AdministrationPolice/uncaseDetail',
                 query: { record: record, id: record && record.id ? record.id : '1' },
               }),
             );
-          },
-        });
+        //   },
+        // });
     };
 // 打开督办模态框
     supervise = (flag, record) => {

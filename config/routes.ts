@@ -102,166 +102,250 @@ export function routes() {
                                 },
                             ],
                         },
-                        {
-                            name: '受立案',
-                            icon: 'icon-lianxinxi',
-                            path: '/caseFiling',
-                            authority: ['zhag_sla'],
+                        // {
+                        //     name: '受立案',
+                        //     icon: 'icon-lianxinxi',
+                        //     path: '/caseFiling',
+                        //     authority: ['zhag_sla'],
+                        //     routes: [
+                        //         {
+                        //             name: '案件数据',
+                        //             icon: 'icon-weibiaoti--',
+                        //             path: '/caseFiling/caseData',
+                        //             authority: ['zhag_sla_sj'],
+                        //             routes: [
+                        //                 {
+                        //                     name: '刑事案件数据',
+                        //                     path: '/caseFiling/caseData/CriminalData',
+                        //                     component: './caseFiling/CriminalData',
+                        //                     authority: ['zhag_sla_sj_xs'],
+                        //                 },
+                        //                 {
+                        //                     path: '/caseFiling/caseData/CriminalData/caseDetail',
+                        //                     name: '刑事案件数据详情',
+                        //                     component: './caseFiling/CriminalData/caseDetail',
+                        //                     hideInMenu: true,
+                        //                 },
+                        //                 {
+                        //                     name: '行政案件数据',
+                        //                     path: '/caseFiling/caseData/AdministrationData',
+                        //                     component: './caseFiling/AdministrationData',
+                        //                     authority: ['zhag_sla_sj_xz'],
+                        //                 },
+                        //                 {
+                        //                     path: '/caseFiling/caseData/AdministrationData/caseDetail',
+                        //                     name: '行政案件数据详情',
+                        //                     component: './caseFiling/AdministrationData/caseDetail',
+                        //                     hideInMenu: true,
+                        //                 },
+                        //             ],
+                        //         },
+                        //         {
+                        //             name: '案件预警',
+                        //             icon: 'icon-yujing',
+                        //             path: '/caseFiling/caseWarning',
+                        //             authority: ['zhag_sla_yj'],
+                        //             routes: [
+                        //                 {
+                        //                     name: '刑事案件预警',
+                        //                     path: '/caseFiling/caseWarning/CriminalWarning',
+                        //                     component: './caseFiling/CriminalWarning',
+                        //                     authority: ['zhag_sla_yj_xs'],
+                        //                 },
+                        //                 {
+                        //                     name: '行政案件预警',
+                        //                     path: '/caseFiling/caseWarning/AdministrationWarning',
+                        //                     component: './caseFiling/AdministrationWarning',
+                        //                     authority: ['zhag_sla_yj_xz'],
+                        //                 },
+                        //             ],
+                        //         },
+                        //         {
+                        //             name: '案件告警',
+                        //             icon: 'icon-gaojing',
+                        //             path: '/caseFiling/casePolice',
+                        //             authority: ['zhag_jcj_gj'],
+                        //             routes: [
+                        //                 {
+                        //                     name: '刑事案件告警',
+                        //                     path: '/caseFiling/casePolice/CriminalPolice',
+                        //                     component: './caseFiling/CriminalPolice',
+                        //                     authority: ['zhag_jcj_gj_xs'],
+                        //                 },
+                        //                 {
+                        //                     name: '刑事案件告警详情',
+                        //                     path: '/caseFiling/casePolice/CriminalPolice/uncaseDetail',
+                        //                     component: './caseFiling/CriminalPolice/uncaseDetail',
+                        //                     hideInMenu: true,
+                        //                 },
+                        //                 {
+                        //                     name: '行政案件告警',
+                        //                     path: '/caseFiling/casePolice/AdministrationPolice',
+                        //                     component: './caseFiling/AdministrationPolice',
+                        //                     authority: ['zhag_jcj_gj_xz'],
+                        //                 },
+                        //                 {
+                        //                     name: '行政案件告警详情',
+                        //                     path: '/caseFiling/casePolice/AdministrationPolice/uncaseDetail',
+                        //                     component: './caseFiling/AdministrationPolice/caseDetail',
+                        //                     hideInMenu: true,
+                        //                 },
+                        //             ],
+                        //         },
+                        //     ],
+                        // },
+                      /*新受立案（受立案和执法办案合并开始）*/
+                      {
+                        name: '受立案',
+                        icon: 'icon-lianxinxi',
+                        path: '/newcaseFiling',
+                        routes: [
+                          {
+                            name: '案件数据',
+                            icon: 'icon-weibiaoti--',
+                            path: '/newcaseFiling/caseData',
                             routes: [
-                                {
-                                    name: '案件数据',
-                                    icon: 'icon-weibiaoti--',
-                                    path: '/caseFiling/caseData',
-                                    authority: ['zhag_sla_sj'],
-                                    routes: [
-                                        {
-                                            name: '刑事案件数据',
-                                            path: '/caseFiling/caseData/CriminalData',
-                                            component: './caseFiling/CriminalData',
-                                            authority: ['zhag_sla_sj_xs'],
-                                        },
-                                        {
-                                            path: '/caseFiling/caseData/CriminalData/caseDetail',
-                                            name: '刑事案件数据详情',
-                                            component: './caseFiling/CriminalData/caseDetail',
-                                            hideInMenu: true,
-                                        },
-                                        {
-                                            name: '行政案件数据',
-                                            path: '/caseFiling/caseData/AdministrationData',
-                                            component: './caseFiling/AdministrationData',
-                                            authority: ['zhag_sla_sj_xz'],
-                                        },
-                                        {
-                                            path: '/caseFiling/caseData/AdministrationData/caseDetail',
-                                            name: '行政案件数据详情',
-                                            component: './caseFiling/AdministrationData/caseDetail',
-                                            hideInMenu: true,
-                                        },
-                                    ],
-                                },
-                                {
-                                    name: '案件预警',
-                                    icon: 'icon-yujing',
-                                    path: '/caseFiling/caseWarning',
-                                    authority: ['zhag_sla_yj'],
-                                    routes: [
-                                        {
-                                            name: '刑事案件预警',
-                                            path: '/caseFiling/caseWarning/CriminalWarning',
-                                            component: './caseFiling/CriminalWarning',
-                                            authority: ['zhag_sla_yj_xs'],
-                                        },
-                                        {
-                                            name: '行政案件预警',
-                                            path: '/caseFiling/caseWarning/AdministrationWarning',
-                                            component: './caseFiling/AdministrationWarning',
-                                            authority: ['zhag_sla_yj_xz'],
-                                        },
-                                    ],
-                                },
-                                {
-                                    name: '案件告警',
-                                    icon: 'icon-gaojing',
-                                    path: '/caseFiling/casePolice',
-                                    authority: ['zhag_jcj_gj'],
-                                    routes: [
-                                        {
-                                            name: '刑事案件告警',
-                                            path: '/caseFiling/casePolice/CriminalPolice',
-                                            component: './caseFiling/CriminalPolice',
-                                            authority: ['zhag_jcj_gj_xs'],
-                                        },
-                                        {
-                                            name: '刑事案件告警详情',
-                                            path: '/caseFiling/casePolice/CriminalPolice/uncaseDetail',
-                                            component: './caseFiling/CriminalPolice/uncaseDetail',
-                                            hideInMenu: true,
-                                        },
-                                        {
-                                            name: '行政案件告警',
-                                            path: '/caseFiling/casePolice/AdministrationPolice',
-                                            component: './caseFiling/AdministrationPolice',
-                                            authority: ['zhag_jcj_gj_xz'],
-                                        },
-                                        {
-                                            name: '行政案件告警详情',
-                                            path: '/caseFiling/casePolice/AdministrationPolice/uncaseDetail',
-                                            component: './caseFiling/AdministrationPolice/caseDetail',
-                                            hideInMenu: true,
-                                        },
-                                    ],
-                                },
+                              {
+                                name: '刑事案件数据',
+                                path: '/newcaseFiling/caseData/CriminalData',
+                                component: './newcaseFiling/CriminalData',
+                              },
+                              {
+                                path: '/newcaseFiling/caseData/CriminalData/caseDetail',
+                                name: '刑事案件数据详情',
+                                component: './newcaseFiling/CriminalData/caseDetail',
+                                hideInMenu: true,
+                              },
+                              {
+                                name: '行政案件数据',
+                                path: '/newcaseFiling/caseData/AdministrationData',
+                                component: './newcaseFiling/AdministrationData',
+                              },
+                              {
+                                path: '/newcaseFiling/caseData/AdministrationData/caseDetail',
+                                name: '行政案件数据详情',
+                                component: './newcaseFiling/AdministrationData/caseDetail',
+                                hideInMenu: true,
+                              },
                             ],
-                        },
-                        {
-                            name: '执法办案',
-                            icon: 'icon-chouchajiancha',
-                            path: '/enforcementCase',
-                            authority: ['zhag_zfba'],
+                          },
+                          {
+                            name: '案件预警',
+                            icon: 'icon-yujing',
+                            path: '/newcaseFiling/caseWarning',
                             routes: [
-                                {
-                                    name: '案件数据',
-                                    icon: 'icon-weibiaoti--',
-                                    path: '/enforcementCase/caseData',
-                                    authority: ['zhag_zfba_ajsj'],
-                                    routes: [
-                                        {
-                                            name: '刑事案件数据',
-                                            path: '/enforcementCase/caseData/CriminalData',
-                                            component: './enforcementCase/CriminalData',
-                                            authority: ['zhag_zfba_xsajsj'],
-                                        },
-                                        {
-                                            name: '行政案件数据',
-                                            path: '/enforcementCase/caseData/AdministrationData',
-                                            component: './enforcementCase/AdministrationData',
-                                            authority: ['zhag_zfba_xzajsj'],
-                                        },
-                                    ],
-                                },
-                                {
-                                    name: '案件预警',
-                                    icon: 'icon-yujing',
-                                    path: '/enforcementCase/caseWarning',
-                                    authority: ['zhag_zfba_ajyj'],
-                                    routes: [
-                                        {
-                                            name: '刑事案件预警',
-                                            path: '/enforcementCase/caseWarning/CriminalWarning',
-                                            component: './enforcementCase/CriminalWarning',
-                                            authority: ['zhag_zfba_xsajyj'],
-                                        },
-                                        {
-                                            name: '行政案件预警',
-                                            path: '/enforcementCase/caseWarning/AdministrationWarning',
-                                            component: './enforcementCase/AdministrationWarning',
-                                            authority: ['zhag_zfba_xzajyj'],
-                                        },
-                                    ],
-                                },
-                                {
-                                    name: '案件告警',
-                                    icon: 'icon-gaojing',
-                                    path: '/enforcementCase/casePolice',
-                                    authority: ['zhag_zfba_ajgj'],
-                                    routes: [
-                                        {
-                                            name: '刑事案件告警',
-                                            path: '/enforcementCase/casePolice/CriminalPolice',
-                                            component: './enforcementCase/CriminalPolice',
-                                            authority: ['zhag_zfba_xsajgj'],
-                                        },
-                                        {
-                                            name: '行政案件告警',
-                                            path: '/enforcementCase/casePolice/AdministrationPolice',
-                                            component: './enforcementCase/AdministrationPolice',
-                                            authority: ['zhag_zfba_xzajgj'],
-                                        },
-                                    ],
-                                },
+                              {
+                                name: '刑事案件预警',
+                                path: '/newcaseFiling/caseWarning/CriminalWarning',
+                                component: './newcaseFiling/CriminalWarning',
+                              },
+                              {
+                                name: '行政案件预警',
+                                path: '/newcaseFiling/caseWarning/AdministrationWarning',
+                                component: './newcaseFiling/AdministrationWarning',
+                              },
                             ],
-                        },
+                          },
+                          {
+                            name: '案件告警',
+                            icon: 'icon-gaojing',
+                            path: '/newcaseFiling/casePolice',
+                            routes: [
+                              {
+                                name: '刑事案件告警',
+                                path: '/newcaseFiling/casePolice/CriminalPolice',
+                                component: './newcaseFiling/CriminalPolice',
+                              },
+                              {
+                                name: '刑事案件告警详情',
+                                path: '/newcaseFiling/casePolice/CriminalPolice/uncaseDetail',
+                                component: './newcaseFiling/CriminalPolice/uncaseDetail',
+                                hideInMenu: true,
+                              },
+                              {
+                                name: '行政案件告警',
+                                path: '/newcaseFiling/casePolice/AdministrationPolice',
+                                component: './newcaseFiling/AdministrationPolice',
+                              },
+                              {
+                                name: '行政案件告警详情',
+                                path: '/newcaseFiling/casePolice/AdministrationPolice/uncaseDetail',
+                                component: './newcaseFiling/AdministrationPolice/caseDetail',
+                                hideInMenu: true,
+                              },
+                            ],
+                          },
+                        ],
+                      },
+                      /*新受立案（受立案和执法办案合并结束）*/
+                        // {
+                        //     name: '执法办案',
+                        //     icon: 'icon-chouchajiancha',
+                        //     path: '/enforcementCase',
+                        //     authority: ['zhag_zfba'],
+                        //     routes: [
+                        //         {
+                        //             name: '案件数据',
+                        //             icon: 'icon-weibiaoti--',
+                        //             path: '/enforcementCase/caseData',
+                        //             authority: ['zhag_zfba_ajsj'],
+                        //             routes: [
+                        //                 {
+                        //                     name: '刑事案件数据',
+                        //                     path: '/enforcementCase/caseData/CriminalData',
+                        //                     component: './enforcementCase/CriminalData',
+                        //                     authority: ['zhag_zfba_xsajsj'],
+                        //                 },
+                        //                 {
+                        //                     name: '行政案件数据',
+                        //                     path: '/enforcementCase/caseData/AdministrationData',
+                        //                     component: './enforcementCase/AdministrationData',
+                        //                     authority: ['zhag_zfba_xzajsj'],
+                        //                 },
+                        //             ],
+                        //         },
+                        //         {
+                        //             name: '案件预警',
+                        //             icon: 'icon-yujing',
+                        //             path: '/enforcementCase/caseWarning',
+                        //             authority: ['zhag_zfba_ajyj'],
+                        //             routes: [
+                        //                 {
+                        //                     name: '刑事案件预警',
+                        //                     path: '/enforcementCase/caseWarning/CriminalWarning',
+                        //                     component: './enforcementCase/CriminalWarning',
+                        //                     authority: ['zhag_zfba_xsajyj'],
+                        //                 },
+                        //                 {
+                        //                     name: '行政案件预警',
+                        //                     path: '/enforcementCase/caseWarning/AdministrationWarning',
+                        //                     component: './enforcementCase/AdministrationWarning',
+                        //                     authority: ['zhag_zfba_xzajyj'],
+                        //                 },
+                        //             ],
+                        //         },
+                        //         {
+                        //             name: '案件告警',
+                        //             icon: 'icon-gaojing',
+                        //             path: '/enforcementCase/casePolice',
+                        //             authority: ['zhag_zfba_ajgj'],
+                        //             routes: [
+                        //                 {
+                        //                     name: '刑事案件告警',
+                        //                     path: '/enforcementCase/casePolice/CriminalPolice',
+                        //                     component: './enforcementCase/CriminalPolice',
+                        //                     authority: ['zhag_zfba_xsajgj'],
+                        //                 },
+                        //                 {
+                        //                     name: '行政案件告警',
+                        //                     path: '/enforcementCase/casePolice/AdministrationPolice',
+                        //                     component: './enforcementCase/AdministrationPolice',
+                        //                     authority: ['zhag_zfba_xzajgj'],
+                        //                 },
+                        //             ],
+                        //         },
+                        //     ],
+                        // },
                         {
                             name: '办案区',
                             icon: 'icon-bananzhushou',
