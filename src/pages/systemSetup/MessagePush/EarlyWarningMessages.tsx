@@ -22,6 +22,8 @@ class  EarlyWarningMessages extends Component {
             title: '确定要保存预警推送消息吗？',
             okText: '确定',
             cancelText: '取消',
+            centered:true,
+            getContainer:document.getElementById('boxSend2'),
             onOk() {
                 that.saveEarlyWarningMessages();
             },
@@ -57,7 +59,7 @@ class  EarlyWarningMessages extends Component {
     render() {
         const { formItemLayout, form: { getFieldDecorator }, systemSetup:{systemSetup: { messageList }}, splitMessage } = this.props;
         return (
-            <div>
+            <div id={'boxSend2'}>
                 <Card className={style.cardBox}>
                     <Form>
                         <div className={style.moduleBottom}>

@@ -184,51 +184,9 @@ class SuperviseSetup extends Component {
     }
     return person;
   };
-  // 监管点算法请求
-  getExplain = res => {
-    this.setState({
-      NoticeNote: null,
-    });
-    if (res) {
-      this.props.dispatch({
-        type: 'SuperviseSetup/getExplainModal',
-        payload: {
-          jgfl: res.jgd_mc,
-          jgdl: res.jglx === '0' ? '告警' : '预警',
-        },
-        callback: data => {
-          if (data) {
-            this.setState({
-              NoticeNote: data && data.data ? data.data.lxsm : '',
-            });
-          }
-        },
-      });
-    }
-  };
   addList = (type, reson) => {
-    // let res = JSON.stringify(reson);
     reson.type = type;
     let res = reson;
-    // this.props.dispatch({
-    //   type: 'global/changeNavigation',
-    //   payload: {
-    //     key: reson && reson.id ? reson.id : '1',
-    //     name: type === 0 ? '监管点添加' : type === 2 ? '监管点修改' : '监管点详情',
-    //     path: '/systemSetup/SuperviseSetup/Detail',
-    //     isShow: true,
-    //     query: { type, res, id: reson && reson.id ? reson.id : '1' },
-    //     // children:this.props.props.children,
-    //   },
-    //   callback: () => {
-    //     this.props.dispatch(
-    //       routerRedux.push({
-    //         pathname: '/systemSetup/SuperviseSetup/Detail',
-    //         query: { type, res, id: reson && reson.id ? reson.id : '1' },
-    //       }),
-    //     );
-    //   },
-    // });
       this.props.history.replace("/");
       this.props.dispatch(
           routerRedux.push({
@@ -275,12 +233,6 @@ class SuperviseSetup extends Component {
       Fyvisible: false,
       visible: true,
     });
-  };
-  handleSuccess = () => {
-    this.setState({
-      Fyvisible: false,
-    });
-    this.getJgdList(this.state.pd, 1);
   };
   handleMenuClick = e => {
     this.setState({
@@ -391,63 +343,6 @@ class SuperviseSetup extends Component {
       },
     });
   };
-  getFyModel = () => {
-    this.props.form.validateFields((err, values) => {
-      if (values.addjgxz) {
-        this.setState({
-          fyxzjg: JSON.parse(values.addjgxz),
-          Fyvisible: true,
-          visible: false,
-        });
-        this.props.dispatch({
-          type: 'SuperviseSetup/getfyJgd',
-          payload: {
-            jgsx_dm: '',
-            ssjg_dm: JSON.parse(values.addjgxz).id,
-          },
-          callback: res => {
-            this.setState({
-              yyjgdList: res.data,
-            });
-          },
-        });
-      } else {
-        message.warn('请选择机构');
-      }
-    });
-  };
-  emptyJgxz = e => {
-    this.props.form.resetFields([
-      'addjgd',
-      'addjgsx',
-      'addjgqx',
-      'addtxjg',
-      'dyctxry1',
-      'dyctxry2',
-      'dyctxry3',
-      'dyjtxry1',
-      'dyjtxry2',
-      'dyjtxry3',
-      'tqsj1',
-      'tqsj2',
-      'tqsj3',
-      'jgd',
-    ]);
-    this.props.SuperviseSetup.JgdType = [];
-    this.getClear();
-    this.setState({
-      id: null,
-      ssjgMc: e ? JSON.parse(e).label : null,
-      ssjgDm: e ? JSON.parse(e).id : null,
-      tqsj1: null,
-      tqsj2: null,
-      tqsj3: null,
-      sf_qy: null,
-      qjjg: false,
-      addHave: false,
-      NoticeNote: null,
-    });
-  };
   getJgd = e => {
     this.props.form.resetFields([
       'addjgd',
@@ -464,7 +359,7 @@ class SuperviseSetup extends Component {
       'tqsj3',
       'jgd',
     ]);
-    this.props.SuperviseSetup.JgdType = [];
+    this.props.SuperviseSetup.SuperviseSetup.JgdType = [];
     this.setState({
       jgdDm: null,
       jgdMc: null,
@@ -539,254 +434,6 @@ class SuperviseSetup extends Component {
         return <TreeNode key={objStr} value={objStr} title={item.name} />;
       }
     });
-  updateJgdOk = () => {
-    this.props.form.validateFields((err, values) => {
-      if (!values.addjgsx) {
-        message.warn('请选择监管事项');
-      } else if (!values.addjgd) {
-        message.warn('请选择监管点');
-      } else if (!values.addjgqx) {
-        message.warn('请选择监管期限');
-      } else {
-        let name1 = [],
-          idcard1 = [],
-          name2 = [],
-          idcard2 = [],
-          name3 = [],
-          idcard3 = [];
-        values.addjglx === '0' &&
-          values.dyctxry1 &&
-          values.dyctxry1.map(event => {
-            name1.push(event.label);
-            idcard1.push(event.key);
-          });
-        values.addjglx === '0' &&
-          values.dyctxry2 &&
-          values.dyctxry2.map(event => {
-            name2.push(event.label);
-            idcard2.push(event.key);
-          });
-        values.addjglx === '0' &&
-          values.dyctxry3 &&
-          values.dyctxry3.map(event => {
-            name3.push(event.label);
-            idcard3.push(event.key);
-          });
-        values.addjglx === '1' &&
-          values.dyjtxry1 &&
-          values.dyjtxry1.map(event => {
-            name1.push(event.label);
-            idcard1.push(event.key);
-          });
-        values.addjglx === '1' &&
-          values.dyjtxry2 &&
-          values.dyjtxry2.map(event => {
-            name2.push(event.label);
-            idcard2.push(event.key);
-          });
-        values.addjglx === '1' &&
-          values.dyjtxry3 &&
-          values.dyjtxry3.map(event => {
-            name3.push(event.label);
-            idcard3.push(event.key);
-          });
-        this.props.dispatch({
-          type: 'SuperviseSetup/getupdateJgd',
-          payload: {
-            id: this.state.id,
-            sf_qjjg: this.state.qjjg ? '1' : '0',
-            ejyjtx_sj: values.tqsj2,
-            ejyjtx_ysdm: values.addjglx === '1' ? this.state.xsys2 : '',
-            ejyjtx_ysmc: values.addjglx === '1' ? this.state.xsys2 : '',
-            ejyjtxr_sfzh: idcard2.join(','),
-            ejyjtxr_xm: name2.join(','),
-            jgd_dm: values.addjgd.key,
-            jgd_mc: values.addjgd.label,
-            jglx: values.addjglx,
-            jgqx_js: moment(values.addjgqx[1]).format('YYYY-MM-DD'),
-            jgqx_ks: moment(values.addjgqx[0]).format('YYYY-MM-DD'),
-            jgsx_dm: values.addjgsx.key,
-            jgsx_mc: values.addjgsx.label,
-            sjyjtx_sj: values.tqsj3,
-            sjyjtx_ysdm: values.addjglx === '1' ? this.state.xsys3 : '',
-            sjyjtx_ysmc: values.addjglx === '1' ? this.state.xsys3 : '',
-            sjyjtxr_sfzh: idcard3.join(','),
-            sjyjtxr_xm: name3.join(','),
-            ssjg_dm: this.state.ssjgDm ? this.state.ssjgDm : '',
-            ssjg_mc: this.state.ssjgMc ? this.state.ssjgMc : '',
-            txjg_dm: values.addjglx === '0' && values.addtxjg ? values.addtxjg.key : '',
-            txjg_mc: values.addjglx === '0' && values.addtxjg ? values.addtxjg.label : '',
-            yjyjtx_sj: values.tqsj1,
-            yjyjtx_ysdm: values.addjglx === '1' ? this.state.xsys1 : '',
-            yjyjtx_ysmc: values.addjglx === '1' ? this.state.xsys1 : '',
-            yjyjtxr_sfzh: idcard1.join(','),
-            yjyjtxr_xm: name1.join(','),
-            sf_qy: this.state.sf_qy ? this.state.sf_qy : '',
-          },
-          callback: res => {
-            if (!res.error) {
-              this.handleCancel();
-              message.success('修改成功');
-              this.getJgdList(this.state.pd, this.state.current);
-            } else {
-              message.warn('操作失败，请重试');
-            }
-          },
-        });
-      }
-    });
-  };
-  handleOk = () => {
-    if (this.state.modleType === 0) {
-      this.props.form.validateFields((err, values) => {
-        if (!values.addjgxz) {
-          message.warn('请选择机构');
-        } else if (!values.addjgsx) {
-          message.warn('请选择监管事项');
-        } else if (!values.addjgd) {
-          message.warn('请选择监管点');
-        } else if (!values.addjgqx) {
-          message.warn('请选择监管期限');
-        } else {
-          let name1 = [],
-            idcard1 = [],
-            name2 = [],
-            idcard2 = [],
-            name3 = [],
-            idcard3 = [];
-          values.addjglx === '0' &&
-            values.dyctxry1 &&
-            values.dyctxry1.map(event => {
-              name1.push(event.label);
-              idcard1.push(event.key);
-            });
-          values.addjglx === '0' &&
-            values.dyctxry2 &&
-            values.dyctxry2.map(event => {
-              name2.push(event.label);
-              idcard2.push(event.key);
-            });
-          values.addjglx === '0' &&
-            values.dyctxry3 &&
-            values.dyctxry3.map(event => {
-              name3.push(event.label);
-              idcard3.push(event.key);
-            });
-          values.addjglx === '1' &&
-            values.dyjtxry1 &&
-            values.dyjtxry1.map(event => {
-              name1.push(event.label);
-              idcard1.push(event.key);
-            });
-          values.addjglx === '1' &&
-            values.dyjtxry2 &&
-            values.dyjtxry2.map(event => {
-              name2.push(event.label);
-              idcard2.push(event.key);
-            });
-          values.addjglx === '1' &&
-            values.dyjtxry3 &&
-            values.dyjtxry3.map(event => {
-              name3.push(event.label);
-              idcard3.push(event.key);
-            });
-          this.props.dispatch({
-            type: 'SuperviseSetup/getaddJgd',
-            payload: {
-              sf_qjjg: this.state.qjjg ? '1' : '0',
-              ejyjtx_sj: values.tqsj2,
-              ejyjtx_ysdm: values.addjglx === '1' ? this.state.xsys2 : '',
-              ejyjtx_ysmc: values.addjglx === '1' ? this.state.xsys2 : '',
-              ejyjtxr_sfzh: idcard2.join(','),
-              ejyjtxr_xm: name2.join(','),
-              jgd_dm: values.addjgd.key,
-              jgd_mc: values.addjgd.label,
-              jglx: values.addjglx,
-              jgqx_js: moment(values.addjgqx[1]).format('YYYY-MM-DD'),
-              jgqx_ks: moment(values.addjgqx[0]).format('YYYY-MM-DD'),
-              jgsx_dm: values.addjgsx.key,
-              jgsx_mc: values.addjgsx.label,
-              sjyjtx_sj: values.tqsj3,
-              sjyjtx_ysdm: values.addjglx === '1' ? this.state.xsys3 : '',
-              sjyjtx_ysmc: values.addjglx === '1' ? this.state.xsys3 : '',
-              sjyjtxr_sfzh: idcard3.join(','),
-              sjyjtxr_xm: name3.join(','),
-              ssjg_dm: JSON.parse(values.addjgxz).id,
-              ssjg_mc: JSON.parse(values.addjgxz).label,
-              txjg_dm: values.addjglx === '0' && values.addtxjg ? values.addtxjg.key : '',
-              txjg_mc: values.addjglx === '0' && values.addtxjg ? values.addtxjg.label : '',
-              yjyjtx_sj: values.tqsj1,
-              yjyjtx_ysdm: values.addjglx === '1' ? this.state.xsys1 : '',
-              yjyjtx_ysmc: values.addjglx === '1' ? this.state.xsys1 : '',
-              yjyjtxr_sfzh: idcard1.join(','),
-              yjyjtxr_xm: name1.join(','),
-            },
-            callback: res => {
-              if (!res.error) {
-                this.handleCancel();
-                message.success('添加成功');
-                this.getJgdList(this.state.pd, 1);
-              } else {
-                message.warn('操作失败，请重试');
-              }
-            },
-          });
-        }
-      });
-    }
-  };
-  //获取该机构是否存在该监管点信息
-  changeJgd = e => {
-    this.props.form.validateFields((err, values) => {
-      if (!values.addjgxz && this.state.modleType === 0) {
-        message.warn('请选择机构');
-      } else if (!values.addjgxz && this.state.modleType === 0) {
-        message.warn('请选择监管事项');
-      } else {
-        const res = { jglx: values.addjglx, jgd_mc: e.label };
-        this.getExplain(res);
-        this.props.dispatch({
-          type: 'SuperviseSetup/getfyJgd',
-          payload: {
-            jgsx_dm: values.addjgsx.key,
-            ssjg_dm: JSON.parse(values.addjgxz).id,
-            jglx: values.addjglx,
-            jgd_dm: e.key ? e.key : '',
-          },
-          callback: reson => {
-            if (reson && reson.data.length > 0) {
-              let res = reson.data[0];
-              this.setState({
-                res: res,
-                id: res.id,
-                ssjgMc: res.ssjg_mc,
-                ssjgDm: res.ssjg_dm,
-                xsys1: res.yjyjtx_ysdm,
-                xsys2: res.ejyjtx_ysdm,
-                xsys3: res.sjyjtx_ysdm,
-                dyjtxry1: this.getChoisePerson(res.yjyjtxr_sfzh, res.yjyjtxr_xm),
-                dyjtxry2: this.getChoisePerson(res.ejyjtxr_sfzh, res.ejyjtxr_xm),
-                dyjtxry3: this.getChoisePerson(res.sjyjtxr_sfzh, res.sjyjtxr_xm),
-                dyctxry1: this.getChoisePerson(res.yjyjtxr_sfzh, res.yjyjtxr_xm),
-                dyctxry2: this.getChoisePerson(res.ejyjtxr_sfzh, res.ejyjtxr_xm),
-                dyctxry3: this.getChoisePerson(res.sjyjtxr_sfzh, res.sjyjtxr_xm),
-                sf_qy: res.sf_qy,
-                qjjg: res.sf_qjjg === '1' ? true : false,
-                addHave: true,
-              });
-            } else {
-              this.getClear();
-              this.setState({
-                sf_qy: null,
-                qjjg: this.state.fs_qjjg,
-                addHave: false,
-              });
-            }
-          },
-        });
-      }
-    });
-  };
   //清空事项
   getClear = () => {
     this.setState({
@@ -892,79 +539,86 @@ class SuperviseSetup extends Component {
       ),
     };
     const columns = [
-      {
-        title: '监管点',
-        dataIndex: 'jgd_mc',
-      },
-      {
-        title: '监管类型',
-        render: record => (
-          <div>{record.jglx === '0' ? '告警' : record.jglx === '1' ? '预警' : record.jglx}</div>
-        ),
-      },
-      {
-        title: '所属机构',
-        dataIndex: 'ssjg_mc',
-      },
-      {
-        title: '监管事项',
-        dataIndex: 'jgsx_mc',
-      },
-      {
-        title: '监管期限',
-        render: record => (
-          <div>
-            {record.jgqx_ks}至{record.jgqx_js}
-          </div>
-        ),
-      },
-      {
-        title: '监管状态',
-        render: record => (
-          <Tag
-            color={
-              record.jgdzt_dm === '5008002'
-                ? record.sf_qy && record.sf_qy === '1'
-                  ? '#00cc00'
-                  : '#EE5655'
-                : '#ccc'
-            }
-          >
-            {record.jgdzt_mc}
-          </Tag>
-        ),
-      },
-      {
-        title: '操作',
-        render: record => (
-          <div>
-            {record.scbj === '1' ? (
-              <a onClick={() => this.accessUse(record, '0')}>禁用</a>
-            ) : (
-              <a onClick={() => this.accessUse(record, '1')}>启用</a>
-            )}
-            <Divider type="vertical" />
-            <a onClick={() => this.addList(1, record)}>详情</a>
-            <Divider type="vertical" />
-            {record.scbj === '1' ? (
-              <a onClick={() => this.addList(2, record)}>修改</a>
-            ) : (
-              <span style={{ color: '#C3C3C3' }}>修改</span>
-            )}
-            {isSCJGD ? (
-              <span>
-                <Divider type="vertical" />
-                {record.scbj === '1' ? (
-                  <a onClick={() => this.del(record.id)}>删除</a>
-                ) : (
-                  <span style={{ color: '#C3C3C3' }}>删除</span>
-                )}
-              </span>
-            ) : null}
-          </div>
-        ),
-      },
-    ];
+          {
+              title: '监管点',
+              dataIndex: 'jgd_mc',
+              render: (text,record) => {
+                  return (
+                      text?
+                          <div>
+                              <span>{text}</span>
+                              <Tooltip title={record.lxsm}><Icon type="info-circle-o" theme="twoTone" twoToneColor="#f40" className={styles.lxsm} /></Tooltip>
+                          </div>
+                          :
+                          ''
+                  )
+              },
+          },
+          {
+              title: '监管类型',
+              render: (record) => (
+                  <div>{record.jglx === '0' ? '告警' : record.jglx === '1' ? '预警' : record.jglx}</div>),
+          },
+          {
+              title: '所属机构',
+              dataIndex: 'ssjg_mc',
+          },
+          {
+              title: '监管事项',
+              dataIndex: 'jgsx_mc',
+          },
+          {
+              title: '监管期限',
+              // render: (record) => (<div>{record.jgqx_ks}至{record.jgqx_js}</div>),
+              render: (text,record) => {
+                  return (
+                      record.jgqx_ks&&record.jgqx_js?
+                          <div>{record.jgqx_ks}至{record.jgqx_js}</div>
+                          :
+                          ''
+                  )
+              },
+          },
+          {
+              title: '监管状态',
+              render: (record) => (<Tag
+                  color={record.jgdzt_dm === '5008002' ? record.sf_qy && record.sf_qy === '1' ? '#00cc00' : '#EE5655' : '#ccc'}>{record.jgdzt_mc}</Tag>),
+          },
+          {
+              title: '操作',
+              render: (record) => (
+                  <div>
+                      {
+                          record.scbj==='1'?
+                              <a onClick={() => this.accessUse(record,'0')}>禁用</a>
+                              :
+                              <a onClick={() => this.accessUse(record,'1')}>启用</a>
+                      }
+                      <Divider type="vertical" />
+                      <a onClick={() => this.addList(1, record)}>详情</a>
+                      <Divider type="vertical" />
+                      {
+                          record.scbj==='1'?
+                              <a onClick={() => this.addList(2, record)}>修改</a>
+                              :
+                              <span style={{ color: '#C3C3C3' }}>修改</span>
+                      }
+                      {isSCJGD?
+                          <span>
+                            <Divider type="vertical" />
+                              {
+                                  record.scbj === '1' ?
+                                      <a onClick={() => this.del(record.id)}>删除</a>
+                                      :
+                                      <span style={{color: '#C3C3C3'}}>删除</span>
+                              }
+                          </span>
+                          :null
+                      }
+                  </div>
+              ),
+          },
+      ];
     const formItemLayout = {
       labelCol: { xs: { span: 24 }, md: { span: 8 }, xl: { span: 6 }, xxl: { span: 5 } },
       wrapperCol: { xs: { span: 24 }, md: { span: 16 }, xl: { span: 18 }, xxl: { span: 19 } },

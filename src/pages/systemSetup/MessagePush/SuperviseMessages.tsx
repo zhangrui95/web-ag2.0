@@ -24,6 +24,8 @@ class  SuperviseMessages extends Component {
             title: '确定要保存督办推送消息吗？',
             okText: '确定',
             cancelText: '取消',
+            centered:true,
+            getContainer:document.getElementById('boxSend3'),
             onOk() {
                 that.saveSuperviseMessages();
             },
@@ -50,7 +52,7 @@ class  SuperviseMessages extends Component {
     render() {
         const { formItemLayout, form: { getFieldDecorator }, systemSetup: { systemSetup: { messageList }}, splitMessage } = this.props;
         return (
-            <div>
+            <div id={'boxSend3'}>
                 <Card className={style.cardBox}>
                     <Form>
                         <div className={style.moduleBottom}>

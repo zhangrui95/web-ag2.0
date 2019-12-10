@@ -6,28 +6,32 @@ import styles from "@/components/AjEvaluation/EvaluationTable.less";
 import {WaterWave} from "ant-design-pro/lib/Charts";
 import difference from 'lodash/difference';
 import noList from "@/assets/viewData/noList.png";
+import {NavigationItem} from "@/components/Navigation/navigation";
+import {routerRedux} from "dva/router";
 @connect(({ Evaluation }) => ({
     Evaluation,
 }))
 export default class Detail extends PureComponent {
     constructor(props){
         super(props);
-        console.log('props.location.query.record========>',props.location.query.record);
+        let res = props.location.query.record;
+        if(typeof res == 'string'){
+            res = JSON.parse(sessionStorage.getItem('query')).query.record;
+        }
         this.state = {
             kpList:[],
             allList:[],
             detail:null,
-            recordKp:props.location.query.record,
+            recordKp:res,
             kpxmType:'0',
             kpjlType:'',
             targetKeys:[],
         };
     }
     componentDidMount(){
-        let record = this.props.location.query.record;
         this.getList('0');
         this.getList('');
-        this.getKhDetail(record,'',true);
+        this.getKhDetail(this.state.recordKp,'',true);
     }
     handleSave = () =>{
         let kpxx =[];
@@ -63,6 +67,7 @@ export default class Detail extends PureComponent {
                     });
                 }
             });
+            this.onEdit(true);
         }else{
             message.warn('请选择考评项目');
         }
@@ -129,6 +134,29 @@ export default class Detail extends PureComponent {
         });
         this.getKhDetail(this.state.recordKp,e.target.value,false);
     }
+    onEdit = (isReset) => {
+        let key = '/Evaluation/CaseEvaluation/Detail'+this.props.location.query.id;
+        const { dispatch } = this.props;
+        if (dispatch) {
+            dispatch({
+                type: 'global/changeSessonNavigation',
+                payload: {
+                    key,
+                    isShow: false,
+                },
+            });
+            dispatch({
+                type: 'global/changeNavigation',
+                payload: {
+                    key,
+                    isShow: false,
+                },
+                callback: (data: NavigationItem[]) => {
+                    dispatch( routerRedux.push({pathname: '/Evaluation/CaseEvaluation',query: isReset ? {isReset} : {}}));
+                },
+            });
+        }
+    };
     render(){
         const { targetKeys,detail,kpList } = this.state;
         const TableTransfer = ({ leftColumns, rightColumns, ...restProps }) => (

@@ -21,6 +21,8 @@ class WarningMessages extends Component {
             title: '确定要保存告警推送消息吗？',
             okText: '确定',
             cancelText: '取消',
+            centered:true,
+            getContainer:document.getElementById('boxSend1'),
             onOk() {
                 that.saveWarningMessage();
             },
@@ -47,7 +49,7 @@ class WarningMessages extends Component {
     render() {
         const { formItemLayout, form: { getFieldDecorator }, systemSetup: {systemSetup: { messageList }} , splitMessage } = this.props;
         return (
-            <div>
+            <div id={'boxSend1'}>
                 <Card className={style.cardBox}>
                     <Form>
                         <div className={style.moduleBottom}>

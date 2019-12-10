@@ -92,6 +92,19 @@ export default class Index extends PureComponent {
         this.getList(params);
         this.getCaseTypeTree(window.configUrl.is_area);
     }
+    componentWillReceiveProps(nextProps) {
+        if(nextProps.history.location.query.isReset){
+            const params = {
+                pd: {
+                    tbtz: '0',
+                },
+                currentPage: 1,
+                showCount: 10,
+            };
+            this.getList(params);
+            this.props.history.replace(nextProps.history.location.pathname);
+        }
+    }
     getQk = () =>{
         this.props.dispatch({
             type: 'common/getDictType',

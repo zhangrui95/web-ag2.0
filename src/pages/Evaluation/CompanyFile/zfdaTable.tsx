@@ -14,6 +14,7 @@ import moment from 'moment';
 import styles from './index.less';
 // import AjSearchModal from '../../../components/ajSearchModal/ajSearchModal';
 import { getUserInfos } from '../../../utils/utils';
+import {routerRedux} from "dva/router";
 
 const { MonthPicker, RangePicker } = DatePicker;
 const FormItem = Form.Item;
@@ -81,6 +82,9 @@ export default class zfdaTable extends PureComponent {
             } else {
                 this.getChangeTable(this.props.jg, nextProps.searchDay ? this.state.day : this.state.data, null, nextProps);
             }
+        }
+        if(this.props.selectedRowsId !== nextProps.selectedRowsId){
+            this.getChangeTables(nextProps.selectedRowsId, 0);
         }
     }
 
@@ -202,9 +206,15 @@ export default class zfdaTable extends PureComponent {
         });
     };
     showModal = () => {
-        this.setState({
-            visible: true,
-        });
+        // this.setState({
+        //     visible: true,
+        // });
+        this.props.dispatch(
+            routerRedux.push({
+                pathname: '/Evaluation/File/Search/ajSearch',
+                query:{id:this.props.srcName[0],record:{ajType:this.props.ajType,url:this.props.url}}
+            }),
+        );
     };
     //查询改变table值
     getChangeTable = (drp, month, idcard, next, policeNum) => {
@@ -259,18 +269,6 @@ export default class zfdaTable extends PureComponent {
             this.setState({
                 srcUrl: url + '&ajbh=' + ids.toString(),
             });
-            // }else{
-            //     this.setState({
-            //         srcUrl:url + '&dw_mc='+ (record.bardwmc ? record.bardwmc : record.sldw_name ? record.sldw_name : '') +'&ajbh=' + record.ajbh,
-            //         ajList:list,
-            //         ajIdx:idx,
-            //     });
-            //     if(idx===0&&list.length > 1){
-            //         this.setState({
-            //             rightHideBtn:false,
-            //         });
-            //     }
-            // }
         } else {
             if (this.props.searchAjBtn) {
                 this.setState({

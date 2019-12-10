@@ -50,6 +50,8 @@ class SendConfig extends Component {
             title: '确定要保存配置信息吗？',
             okText: '确定',
             cancelText: '取消',
+            centered:true,
+            getContainer:document.getElementById('boxSend'),
             onOk() {
                 that.saveSendConfig();
             },
@@ -121,7 +123,7 @@ class SendConfig extends Component {
         let time4 =  time&&time[2] ? time[2].split("~")[0] : '';
         let time5 =  time&&time[2] ? time[2].split("~")[1] : '';
         return (
-            <div>
+            <div id={'boxSend'}>
                 <Card className={style.cardBox} id={'Messageform'}>
                     <Form>
                         <Form.Item label="是否启用" {...formItemLayout}>
