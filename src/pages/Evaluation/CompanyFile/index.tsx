@@ -39,10 +39,22 @@ export default class UnitArchives extends PureComponent {
             label: getUserInfos().group.name,
         }),
         treeDefaultExpandedKeys: [], // 办案单位树默认展开keys
+        url:'/Evaluation/File/CompanyFile',
+        selectedRowsId:[],
     };
 
     componentWillMount() {
         this.getDepTree(JSON.parse(sessionStorage.getItem('user')).department);
+    }
+    componentWillReceiveProps(nextProps){
+        if(nextProps.history&&nextProps.history.location&&nextProps.history.location.query&&nextProps.history.location.query.isReset){
+            if(nextProps.history.location.pathname === '/Evaluation/File/CompanyFile'){
+                this.setState({
+                    selectedRowsId:nextProps.history.location.query.selectedRowsId,
+                });
+                this.props.history.replace(nextProps.history.location.pathname);
+            }
+        }
     }
 
     // 获取机构树
@@ -82,53 +94,53 @@ export default class UnitArchives extends PureComponent {
             //searchJg表示是否显示机构查询项，searchMonth是否显示日期查询项，searchAjBtn是否案件查询按钮，policNum是否需要传民警数量;
             //srcName表示润乾报表名称，ajType 案件类型，刑事，行政或者查询全部;
             case '1':
-                table = <ZFDATable jg={this.state.jg} searchJg={true} srcName={srcName1}
-                                   treeDefaultExpandedKeys={this.state.treeDefaultExpandedKeys}/>;
+                table = <ZFDATable searchJg={true} srcName={srcName1}
+                                   treeDefaultExpandedKeys={this.state.treeDefaultExpandedKeys} {...this.state}/>;
                 break;
             case '2':
                 table = <ZFDATable jg={this.state.jg} searchJg={true} srcName={srcName2}
-                                   treeDefaultExpandedKeys={this.state.treeDefaultExpandedKeys}/>;
+                                   treeDefaultExpandedKeys={this.state.treeDefaultExpandedKeys} {...this.state}/>;
                 break;
             case '3':
                 table =
                     <ZFDATable jg={this.state.jg} searchJg={true} searchMonth={true} srcName={srcName3} policNum={true}
-                               treeDefaultExpandedKeys={this.state.treeDefaultExpandedKeys}/>;
+                               treeDefaultExpandedKeys={this.state.treeDefaultExpandedKeys} {...this.state}/>;
                 break;
             case '4':
                 table = <ZFDATable jg={this.state.jg} searchAjBtn={true} srcName={srcName4} ajType='xs'
-                                   treeDefaultExpandedKeys={this.state.treeDefaultExpandedKeys}/>;
+                                   treeDefaultExpandedKeys={this.state.treeDefaultExpandedKeys} {...this.state}/>;
                 break;
             case '5':
                 table = <ZFDATable jg={this.state.jg} searchAjBtn={true} srcName={srcName5} ajType='xz'
-                                   treeDefaultExpandedKeys={this.state.treeDefaultExpandedKeys}/>;
+                                   treeDefaultExpandedKeys={this.state.treeDefaultExpandedKeys} {...this.state}/>;
                 break;
             case '6':
                 table = <ZFDATable jg={this.state.jg} searchAjBtn={true} srcName={srcName6}
-                                   treeDefaultExpandedKeys={this.state.treeDefaultExpandedKeys}/>;
+                                   treeDefaultExpandedKeys={this.state.treeDefaultExpandedKeys}{...this.state}/>;
                 break;
             case '7':
                 table = <ZFDATable jg={this.state.jg} searchAjBtn={true} srcName={srcName7}
-                                   treeDefaultExpandedKeys={this.state.treeDefaultExpandedKeys}/>;
+                                   treeDefaultExpandedKeys={this.state.treeDefaultExpandedKeys} {...this.state}/>;
                 break;
             case '8':
                 table = <ZFDATable jg={this.state.jg} searchJg={true} srcName={srcName8}
-                                   treeDefaultExpandedKeys={this.state.treeDefaultExpandedKeys}/>;
+                                   treeDefaultExpandedKeys={this.state.treeDefaultExpandedKeys} {...this.state}/>;
                 break;
             case '9':
                 table = <ZFDATable jg={this.state.jg} searchAjBtn={true} srcName={srcName9} ajType='xz'
-                                   treeDefaultExpandedKeys={this.state.treeDefaultExpandedKeys}/>;
+                                   treeDefaultExpandedKeys={this.state.treeDefaultExpandedKeys} {...this.state}/>;
                 break;
             case '10':
                 table = <ZFDATable jg={this.state.jg} srcName={srcName10}
-                                   treeDefaultExpandedKeys={this.state.treeDefaultExpandedKeys}/>;
+                                   treeDefaultExpandedKeys={this.state.treeDefaultExpandedKeys} {...this.state}/>;
                 break;
             case '11':
                 table = <ZFDATable jg={this.state.jg} searchJg={true} searchDay={true} srcName={srcName11}
-                                   treeDefaultExpandedKeys={this.state.treeDefaultExpandedKeys}/>;
+                                   treeDefaultExpandedKeys={this.state.treeDefaultExpandedKeys} {...this.state}/>;
                 break;
             case '12':
                 table = <ZFDATable jg={this.state.jg} srcName={srcName12}
-                                   treeDefaultExpandedKeys={this.state.treeDefaultExpandedKeys}/>;
+                                   treeDefaultExpandedKeys={this.state.treeDefaultExpandedKeys}{...this.state}/>;
                 break;
         }
         return (

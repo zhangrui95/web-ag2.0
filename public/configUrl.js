@@ -43,7 +43,7 @@ const configItem = {
   caseQueryIndex: 'index_ajxx_dq', // 案件索引
   baqQueryIndex: 'index_rqxx_dq', // 办案区索引
   dossierQueryIndex: 'index_jzxx_dq', // 卷宗索引
-  smartlinKeyUrl: 'http://127.0.0.1isy:1234', // smartlinkey登录地址(无需修改)
+  smartlinKeyUrl: 'http://127.0.0.1:1234', // smartlinkey登录地址(无需修改)
   clearHome: false, //是否显示三清调度首页（鹤壁定制）
   is_zsj: '0', //首页综合统计显示本级还是下级'1'本级，'0'下级
   is_area: '5', // 刑事案件案件类别根据不同地区调用不同的接口；1表示牡丹江,2表示平乐,0表示主线，5表示达拉特旗

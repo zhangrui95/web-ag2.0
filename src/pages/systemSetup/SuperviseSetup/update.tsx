@@ -25,11 +25,10 @@ import {
     message,
     Checkbox,
     Tag,
-    Icon
+    Icon,
+    Tooltip
 } from 'antd';
 import moment from 'moment';
-import { getUserInfos } from '../../../utils/utils';
-import SuperviseCopy from '../../../components/Supervise/SuperviseCopy';
 import {routerRedux} from "dva/router";
 import {NavigationItem} from "@/components/Navigation/navigation";
 
@@ -66,6 +65,7 @@ class Detail extends Component {
             treeDefaultExpandedKeys: [], // 办案单位树默认展开keys
             searchHeight:false,
             addHave:true,
+            NoticeNote:'', // 监管点具体算法说明
         };
     }
 
@@ -116,6 +116,7 @@ class Detail extends Component {
                 tqsj1: null,
                 tqsj2: null,
                 tqsj3: null,
+                NoticeNote:null,
             });
         } else if (type == 1 || type == 2) {
             if (res.jglx === '0') {
@@ -302,6 +303,7 @@ class Detail extends Component {
                 tqsj1: null,
                 tqsj2: null,
                 tqsj3: null,
+                NoticeNote:null,
             });
         } else if (type == 1 || type == 2) {
             if (res.jglx === '0') {
@@ -450,6 +452,7 @@ class Detail extends Component {
             tqsj1: null,
             tqsj2: null,
             tqsj3: null,
+            NoticeNote:null,
         });
         if (e.target.value === '0') {
             this.getCommon('500830'); //告警监管事项
@@ -476,6 +479,7 @@ class Detail extends Component {
             tqsj1: null,
             tqsj2: null,
             tqsj3: null,
+            NoticeNote:null,
         });
         if (e === '0') {
             this.getCommon('500830'); //告警监管事项
@@ -573,7 +577,7 @@ class Detail extends Component {
             'tqsj3',
             'jgd',
         ]);
-        this.props.SuperviseSetup.JgdType = [];
+        this.props.SuperviseSetup.SuperviseSetup.JgdType = [];
         this.getClear();
         this.setState({
             id: null,
@@ -585,44 +589,46 @@ class Detail extends Component {
             sf_qy: null,
             qjjg: false,
             addHave: false,
+            NoticeNote:null,
         });
     };
     getJgd = e => {
-        // this.props.form.resetFields([
-        //     'addjgd',
-        //     'addjgqx',
-        //     'addtxjg',
-        //     'dyctxry1',
-        //     'dyctxry2',
-        //     'dyctxry3',
-        //     'dyjtxry1',
-        //     'dyjtxry2',
-        //     'dyjtxry3',
-        //     'tqsj1',
-        //     'tqsj2',
-        //     'tqsj3',
-        //     'jgd',
-        // ]);
-        // this.props.SuperviseSetup.JgdType = [];
-        // this.setState({
-        //     jgdDm: null,
-        //     jgdMc: null,
-        // });
-        // this.getSupervise(
-        //     e.key === '5008301'
-        //         ? '2068'
-        //         : e.key === '5008302'
-        //         ? '2016'
-        //         : e.key === '5008303'
-        //             ? '3'
-        //             : e.key === '5008304'
-        //                 ? '2017'
-        //                 : e.key === '5008305'
-        //                     ? '6001'
-        //                     : e.key === '5008306'
-        //                         ? '5007725'
-        //                         : e.key,
-        // );
+        this.props.form.resetFields([
+            'addjgd',
+            'addjgqx',
+            'addtxjg',
+            'dyctxry1',
+            'dyctxry2',
+            'dyctxry3',
+            'dyjtxry1',
+            'dyjtxry2',
+            'dyjtxry3',
+            'tqsj1',
+            'tqsj2',
+            'tqsj3',
+            'jgd',
+        ]);
+        this.props.SuperviseSetup.SuperviseSetup.JgdType = [];
+        this.setState({
+            jgdDm: null,
+            jgdMc: null,
+            NoticeNote:null,
+        });
+        this.getSupervise(
+            e.key === '5008301'
+                ? '2068'
+                : e.key === '5008302'
+                ? '2016'
+                : e.key === '5008303'
+                    ? '3'
+                    : e.key === '5008304'
+                        ? '2017'
+                        : e.key === '5008305'
+                            ? '6001'
+                            : e.key === '5008306'
+                                ? '5007725'
+                                : e.key,
+        );
     };
     // 获取机构树
     getDepTree = area => {
@@ -875,6 +881,28 @@ class Detail extends Component {
             });
         }
     };
+    // 监管点算法请求
+    getExplain = res => {
+        this.setState({
+            NoticeNote: null,
+        });
+        if (res) {
+            this.props.dispatch({
+                type: 'SuperviseSetup/getExplainModal',
+                payload: {
+                    jgfl: res.jgd_mc,
+                    jgdl: res.jglx === '0' ? '告警' : '预警',
+                },
+                callback: data => {
+                    if (data) {
+                        this.setState({
+                            NoticeNote: data && data.data ? data.data.lxsm : '',
+                        });
+                    }
+                },
+            });
+        }
+    };
     //获取该机构是否存在该监管点信息
     changeJgd = e => {
         this.props.form.validateFields((err, values) => {
@@ -883,6 +911,8 @@ class Detail extends Component {
             } else if (!values.addjgxz && this.state.modleType == 0) {
                 message.warn('请选择监管事项');
             } else {
+                const res = { jglx: values.addjglx, jgd_mc: e.label };
+                this.getExplain(res);
                 this.props.dispatch({
                     type: 'SuperviseSetup/getfyJgd',
                     payload: {
@@ -1033,6 +1063,10 @@ class Detail extends Component {
             labelCol: { span: 8 },
             wrapperCol: { span: 10 },
         };
+        const modleLayoutjg = {
+            labelCol: { span: 8 },
+            wrapperCol: { span: 16 },
+        };
         const menu = (
             <Menu onClick={this.handleMenuClick}>
                 {ColorType1 &&
@@ -1169,7 +1203,7 @@ class Detail extends Component {
                                 </FormItem>
                             </Col>
                             <Col span={8}>
-                                <FormItem label="监管点" {...modleLayouts}>
+                                <FormItem label="监管点" {...modleLayoutjg}>
                                     {getFieldDecorator('addjgd', {
                                         initialValue: this.state.jgdDm
                                             ? {
@@ -1181,7 +1215,7 @@ class Detail extends Component {
                                         <Select
                                             labelInValue
                                             placeholder="请选择"
-                                            style={{ width: '100%' }}
+                                            style={{ width: 'calc(100% - 40px)' }}
                                             onChange={e => this.changeJgd(e)}
                                             getPopupContainer={()=>document.getElementById('formSeperUpdate'+this.props.location.query.id)}
                                         >
@@ -1191,6 +1225,7 @@ class Detail extends Component {
                                             })}
                                         </Select>,
                                     )}
+                                    <Tooltip title={this.state.NoticeNote}><Icon type="info-circle-o" theme="twoTone" twoToneColor="#f40" className={styles.lxsm}/></Tooltip>
                                 </FormItem>
                             </Col>
                             <Col span={8}>
