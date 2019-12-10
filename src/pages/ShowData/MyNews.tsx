@@ -14,11 +14,12 @@ import styles from './HomepageCommon.less';
 export default class MyNews extends PureComponent {
   render() {
     const rowLayout = { md: 8, xl: 16, xxl: 24 };
+    const {query} = this.props.location;
     return (
       /*<Modal
         title="我的消息"
-        visible={this.props.visible}
-        onCancel={this.props.handleCancel}
+        visible={visible}
+        onCancel={handleCancel}
         footer={null}
         width={900}
         maskClosable={false}
@@ -27,23 +28,23 @@ export default class MyNews extends PureComponent {
       >
         <div>
           <Row style={{ marginBottom: '0' }}>
-            <Col span={8}>案件编号：{this.props.datail.ajbh}</Col>
-            <Col span={this.props.datail.name && this.props.datail.name.length > 16 ? 16 : 8}>
-              案件名称：{this.props.datail.name}
+            <Col span={8}>案件编号：{datail.ajbh}</Col>
+            <Col span={datail.name && datail.name.length > 16 ? 16 : 8}>
+              案件名称：{datail.name}
             </Col>
             <Col span={8}>消息类型：督办反馈</Col>
-            <Col span={8}>责任人：{this.props.datail.zrrName}</Col>
-            <Col span={8}>反馈时间：{this.props.datail.time}</Col>
-            <Col span={8}>问题类型：{this.props.datail.wtlxMc}</Col>
-            <Col span={this.props.datail.zrrDwmc && this.props.datail.zrrDwmc.length > 16 ? 16 : 8}>
-              责任单位：{this.props.datail.zrrDwmc}
+            <Col span={8}>责任人：{datail.zrrName}</Col>
+            <Col span={8}>反馈时间：{datail.time}</Col>
+            <Col span={8}>问题类型：{datail.wtlxMc}</Col>
+            <Col span={datail.zrrDwmc && datail.zrrDwmc.length > 16 ? 16 : 8}>
+              责任单位：{datail.zrrDwmc}
             </Col>
           </Row>
           <Row>
             <Col span={24}>
               <div className={styles.content}>反馈信息：</div>
               <div className={styles.content} style={{ width: '700px' }}>
-                {this.props.datail.content}
+                {datail.content}
               </div>
             </Col>
           </Row>
@@ -55,27 +56,27 @@ export default class MyNews extends PureComponent {
         </div>
         <div className={styles.myNewsMessage}>
             <Row gutter={rowLayout} style={{marginBottom:24}}>
-              <Col span={8}>案件编号：{this.props.location&&this.props.location.query&&this.props.location.query.record&&this.props.location.query.record.ajbh?this.props.location.query.record.ajbh:''}</Col>
-              <Col span={this.props.location&&this.props.location.query&&this.props.location.query.record&&this.props.location.query.record.name&&this.props.location.query.record.name.length > 16 ? 16 : 8}>
-                案件名称：{this.props.location&&this.props.location.query&&this.props.location.query.record&&this.props.location.query.record.name?this.props.location.query.record.name:''}
+              <Col span={8}>案件编号：{query&&query.record&&query.record.ajbh?query.record.ajbh:''}</Col>
+              <Col span={query&&query.record&&query.record.name&&query.record.name.length > 16 ? 16 : 8}>
+                案件名称：{query&&query.record&&query.record.name?query.record.name:''}
               </Col>
               <Col span={8}>消息类型：督办反馈</Col>
             </Row>
             <Row gutter={rowLayout} style={{marginBottom:24}}>
-              <Col span={8}>责任人：{this.props.location&&this.props.location.query&&this.props.location.query.record&&this.props.location.query.record.zrrName?this.props.location.query.record.zrrName:''}</Col>
-              <Col span={8}>反馈时间：{this.props.location&&this.props.location.query&&this.props.location.query.record&&this.props.location.query.record.time?this.props.location.query.record.time:''}</Col>
-              <Col span={8}>问题类型：{this.props.location&&this.props.location.query&&this.props.location.query.record&&this.props.location.query.record.wtlxMc?this.props.location.query.record.wtlxMc:''}</Col>
+              <Col span={8}>责任人：{query&&query.record&&query.record.zrrName?query.record.zrrName:''}</Col>
+              <Col span={8}>反馈时间：{query&&query.record&&query.record.time?query.record.time:''}</Col>
+              <Col span={8}>问题类型：{query&&query.record&&query.record.wtlxMc?query.record.wtlxMc:''}</Col>
             </Row>
             <Row gutter={rowLayout} style={{marginBottom:24}}>
               <Col span={24}>
-                责任单位：{this.props.location&&this.props.location.query&&this.props.location.query.record&&this.props.location.query.record.zrrDwmc?this.props.location.query.record.zrrDwmc:''}
+                责任单位：{query&&query.record&&query.record.zrrDwmc?query.record.zrrDwmc:''}
               </Col>
             </Row>
             <Row gutter={rowLayout} style={{marginBottom:24}}>
               <Col span={24}>
                 <div className={styles.content}>反馈信息：</div>
                 <div className={styles.content} style={{ width: '700px' }}>
-                  {this.props.location&&this.props.location.query&&this.props.location.query.record&&this.props.location.query.record.content?this.props.location.query.record.content:''}
+                  {query&&query.record&&query.record.content?query.record.content:''}
                 </div>
               </Col>
             </Row>

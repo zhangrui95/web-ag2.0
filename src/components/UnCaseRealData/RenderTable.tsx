@@ -49,24 +49,24 @@ class RenderTable extends PureComponent {
     // );
     // const AddNewDetail = { title: '刑事案件告警详情', content: divs, key: record.id };
     // this.props.newDetail(AddNewDetail);
-    this.props.dispatch({
-      type: 'global/changeNavigation',
-      payload: {
-        key: record && record.id ? record.id : '1',
-        name: '刑事案件告警详情',
-        path: '/caseFiling/casePolice/CriminalPolice/uncaseDetail',
-        isShow: true,
-        query: { record, id: record && record.id ? record.id : '1' },
-      },
-      callback: () => {
+    // this.props.dispatch({
+    //   type: 'global/changeNavigation',
+    //   payload: {
+    //     key: record && record.id ? record.id : '1',
+    //     name: '刑事案件告警详情',
+    //     path: '/caseFiling/casePolice/CriminalPolice/uncaseDetail',
+    //     isShow: true,
+    //     query: { record, id: record && record.id ? record.id : '1' },
+    //   },
+    //   callback: () => {
         this.props.dispatch(
           routerRedux.push({
-            pathname: '/caseFiling/casePolice/CriminalPolice/uncaseDetail',
+            pathname: '/newcaseFiling/casePolice/CriminalPolice/uncaseDetail',
             query: { record: record, id: record && record.id ? record.id : '1' },
           }),
         );
-      },
-    });
+    //   },
+    // });
   };
 
   // 打开督办模态框
@@ -293,17 +293,13 @@ class RenderTable extends PureComponent {
       },
     ];
     const paginationProps = {
-      showSizeChanger: true,
-      showQuickJumper: true,
+      // showSizeChanger: true,
+      // showQuickJumper: true,
       current: data.page ? data.page.currentPage : '',
       total: data.page ? data.page.totalResult : '',
       pageSize: data.page ? data.page.showCount : '',
       showTotal: (total, range) => (
-        <span className={styles.pagination}>{`共 ${
-          data.page ? data.page.totalResult : 0
-        } 条记录 第 ${data.page ? data.page.currentPage : 1} / ${
-          data.page ? data.page.totalPage : 1
-        } 页`}</span>
+        <span className={styles.pagination}>{`共 ${data.page ? data.page.totalPage : 1} 页， ${data.page ? data.page.totalResult : 0} 条记录 `}</span>
       ),
     };
     let detail = (
@@ -366,7 +362,7 @@ class RenderTable extends PureComponent {
     return (
       <div className={styles.standardTable}>
         <Table
-          size={'middle'}
+          // size={'middle'}
           loading={loading}
           rowKey={record => record.id}
           dataSource={data.list}

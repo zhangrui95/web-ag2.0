@@ -4,17 +4,17 @@
 * 20181116
 * */
 import React, { PureComponent } from 'react';
-import { Row, Col } from 'antd';
+import { Row, Col, Card } from 'antd';
 import moment from 'moment/moment';
 import echarts from 'echarts/lib/echarts';
-import bar from 'echarts/lib/chart/bar';
-import pie from 'echarts/lib/chart/pie';
-import line from 'echarts/lib/chart/line';
-import funnel from 'echarts/lib/chart/funnel';
-import title from 'echarts/lib/component/title';
-import legend from 'echarts/lib/component/legend';
-import tooltip from 'echarts/lib/component/tooltip';
-import styles from '../Styles/dataView.less';
+import 'echarts/lib/chart/bar';
+import 'echarts/lib/chart/pie';
+import 'echarts/lib/chart/line';
+import 'echarts/lib/chart/funnel';
+import 'echarts/lib/component/title';
+import 'echarts/lib/component/legend';
+import 'echarts/lib/component/tooltip';
+import styles from '../../pages/common/dataView.less';
 import { getTimeDistance } from '../../utils/utils';
 import warningCountButtonNumberPink from '../../assets/viewData/warningCountButtonNumberPink.png';
 import warningCountButtonNumberBlue from '../../assets/viewData/warningCountButtonNumberBlue.png';
@@ -155,7 +155,7 @@ export default class UnXzCaseDataView extends PureComponent {
                         //                                     '<div style="font-size:18px">暂无数据</div>' +
                         //                                 '</div>';
                         unXzCaseEchartFunnel.innerHTML = '<div style="height: 100%;width: 100%;">' +
-                            '<div style="font-size: 16px;padding: 4px 0 0 4px;color:rgba(0,0,0,0.85)">今日新增告警</div>' +
+                            '<div style="font-size: 16px;padding: 4px 0 0 4px;color:rgba(255,255,255)">今日新增告警</div>' +
                             '<div style="display: flex;align-items: center;flex-direction: column;justify-content: center">' +
                             '<img src=' + nonDivImg + ' alt="暂无数据" />' +
                             '<div style="font-size:18px">暂无数据</div>' +
@@ -165,7 +165,7 @@ export default class UnXzCaseDataView extends PureComponent {
                         this.showUnXzCaseEchartFunnel();
                         unXzCaseEchartFunnel.setOption({
                             title: {
-                                text: currentType === 'today' ? '今日新增告警' : (currentType === 'selectedDate' ? '告警' : '昨日告警'),
+                                // text: currentType === 'today' ? '今日新增告警' : (currentType === 'selectedDate' ? '告警' : '昨日告警'),
                             },
                             series: [{
                                 data: barData,
@@ -183,14 +183,14 @@ export default class UnXzCaseDataView extends PureComponent {
         const that = this;
         unXzCaseEchartFunnel = echarts.init(document.getElementById('unXzCaseXzgj'));
         const option = {
-            color: ['#3233FF'],
+            color: ['#fff'],
             title: {
-                text: '新增告警',
-                textStyle: {
-                    fontSize: 16,
-                    fontWeight: 'normal',
-                },
-                padding: 8,
+                // text: '新增告警',
+                // textStyle: {
+                //     fontSize: 16,
+                //     fontWeight: 'normal',
+                // },
+                // padding: 8,
             },
             tooltip: {
                 trigger: 'item',
@@ -283,7 +283,7 @@ export default class UnXzCaseDataView extends PureComponent {
                     } else {
                         unXzCaseEchartRingPie.setOption({
                             title: {
-                                text: currentType === 'today' ? '今日告警情况' : (currentType === 'selectedDate' ? '告警情况' : '昨日告警情况'),
+                                // text: currentType === 'today' ? '今日告警情况' : (currentType === 'selectedDate' ? '告警情况' : '昨日告警情况'),
                             },
                             legend: {
                                 data: legendData,
@@ -321,12 +321,12 @@ export default class UnXzCaseDataView extends PureComponent {
         unXzCaseEchartRingPie = echarts.init(document.getElementById('unXzCaseGjqk'));
         const option = {
             title: {
-                text: '告警情况',
-                textStyle: {
-                    fontSize: 16,
-                    fontWeight: 'normal',
-                },
-                padding: 8,
+                // text: '告警情况',
+                // textStyle: {
+                //     fontSize: 16,
+                //     fontWeight: 'normal',
+                // },
+                // padding: 8,
             },
             tooltip: {
                 trigger: 'item',
@@ -342,7 +342,7 @@ export default class UnXzCaseDataView extends PureComponent {
                 itemGap: 25,
                 selectedMode: true, // 点击
                 textStyle: {
-                    color: '#000',
+                    color: '#fff',
                     fontSize: 16,
                     lineHeight: 24,
                 },
@@ -362,7 +362,7 @@ export default class UnXzCaseDataView extends PureComponent {
                             position: 'center',
                             textStyle: {
                                 fontSize: '22',
-                                color: '#66ccff',
+                                color: '#fff',
                             },
                         },
                         emphasis: {
@@ -392,6 +392,7 @@ export default class UnXzCaseDataView extends PureComponent {
         const { searchType, selectedDateVal, showDataView } = this.props;
         const { lastData, nowData, selectedDateData, currentType } = this.state;
         return (
+          <Card style={{ position: 'relative' }} className={styles.policeDataCard}>
             <div className={styles.policeDataView} style={showDataView ? {} : { position: 'absolute', zIndex: -1 }}>
                 {
                     currentType !== 'selectedDate' ? (
@@ -430,16 +431,34 @@ export default class UnXzCaseDataView extends PureComponent {
                         </div>
                     )
                 }
-
+              <div style={{ backgroundColor: '#252c3c', padding: '0 16px' }}>
                 <Row gutter={rowLayout} className={styles.listPageRow}>
-                    <Col {...colLayout}>
+                    <Col {...colLayout} style={{marginBottom:32}}>
+                      <div className={styles.cardBoxTitle}>
+                        |{' '}
+                        {currentType === 'today'
+                          ? '今日新增告警'
+                          : currentType === 'selectedDate'
+                            ? '告警'
+                            : '昨日告警'}
+                      </div>
                         <div id="unXzCaseXzgj" className={styles.cardBox}></div>
                     </Col>
-                    <Col {...colLayout}>
+                    <Col {...colLayout} style={{marginBottom:32}}>
+                      <div className={styles.cardBoxTitle}>
+                        |{' '}
+                        {currentType === 'today'
+                          ? '今日告警情况'
+                          : currentType === 'selectedDate'
+                            ? '告警情况'
+                            : '昨日告警情况'}
+                      </div>
                         <div id="unXzCaseGjqk" className={styles.cardBox}></div>
                     </Col>
                 </Row>
+              </div>
             </div>
+          </Card>
         );
     }
 }

@@ -304,24 +304,12 @@ export default class Index extends PureComponent {
     // );
     // const AddNewDetail = { title: '行政案件预警详情', content: divs, key: record.id };
     // this.newDetail(AddNewDetail);
-    this.props.dispatch({
-      type: 'global/changeNavigation',
-      payload: {
-        key: record && record.id ? record.id : '1',
-        name: '行政案件详情',
-        path: '/caseFiling/caseData/AdministrationData/caseDetail',
-        isShow: true,
-        query: { record, id: record && record.id ? record.id : '1' },
-      },
-      callback: () => {
         this.props.dispatch(
           routerRedux.push({
             pathname: '/caseFiling/caseData/AdministrationData/caseDetail',
             query: { record: record, id: record && record.id ? record.id : '1' },
           }),
-        );
-      },
-    });
+        )
   };
   // 打开新的详情页面
   newDetail = addDetail => {

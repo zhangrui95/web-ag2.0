@@ -30,9 +30,7 @@ export default class Statistics extends PureComponent {
     newData: null,
     firstList: true,
     loading: false,
-    kssj: moment()
-      .day(-5)
-      .format('YYYY-MM-DD'),
+    kssj: moment().day(-5).format('YYYY-MM-DD'),
     jssj: moment().format('YYYY-MM-DD'),
     code: '',
     rqType: '3',
@@ -204,12 +202,13 @@ export default class Statistics extends PureComponent {
       payload: {
         showCount: this.state.showCount,
         pd: {
+          currentPage: current ? current : this.state.current,
           dw_code: code,
           rqType: rqType,
           firstSearch: levelNum === 0 ? '1' : '0',
           is_zsj: levelNum === 0 ? window.configUrl.is_zsj : '0',
         },
-        currentPage: current ? current : this.state.current,
+
       },
       callback: res => {
         if (res.error === null) {
@@ -221,6 +220,7 @@ export default class Statistics extends PureComponent {
             ) {
               data.push(code);
             }
+            console.log('code',code);
             this.setState({
               data: data,
               newData: res.data,
@@ -230,7 +230,8 @@ export default class Statistics extends PureComponent {
               jssj: res.data.page.pd.jssj,
               code: code,
             });
-          } else {
+          }
+          else {
             this.setState({
               loading: false,
             });
@@ -327,7 +328,7 @@ export default class Statistics extends PureComponent {
               <Link
                 className={styles.redNum}
                 to={{
-                  pathname: '/newregister/newalarm/newalarmCriminal',
+                  pathname: '/newcaseFiling/casePolice/CriminalPolice',
                   state: {
                     code: res.dw_code,
                     kssj: this.state.kssj,
@@ -348,7 +349,7 @@ export default class Statistics extends PureComponent {
               <Link
                 className={styles.redAllNum}
                 to={{
-                  pathname: '/newregister/newcase/newcriminal',
+                  pathname: '/newcaseFiling/caseData/CriminalData',
                   state: {
                     code: res.dw_code,
                     kssj: this.state.kssj,
@@ -376,7 +377,7 @@ export default class Statistics extends PureComponent {
               <Link
                 className={styles.redNum}
                 to={{
-                  pathname: '/newregister/newalarm/newalarmAdministration',
+                  pathname: '/newcaseFiling/casePolice/AdministrationPolice',
                   state: {
                     code: res.dw_code,
                     kssj: this.state.kssj,
@@ -397,7 +398,7 @@ export default class Statistics extends PureComponent {
               <Link
                 className={styles.redAllNum}
                 to={{
-                  pathname: '/newregister/newcase/newAdministration',
+                  pathname: '/newcaseFiling/caseData/AdministrationData',
                   state: {
                     code: res.dw_code,
                     kssj: this.state.kssj,
@@ -425,7 +426,7 @@ export default class Statistics extends PureComponent {
               <Link
                 className={styles.redNum}
                 to={{
-                  pathname: '/allDocuments/personalDocTransfer/personalDoc',
+                  pathname: '/lawEnforcement/PersonFile',
                   state: {
                     code: res.dw_code,
                     kssj: this.state.kssj,
@@ -445,7 +446,7 @@ export default class Statistics extends PureComponent {
               <Link
                 className={styles.redAllNum}
                 to={{
-                  pathname: '/allDocuments/personalDocTransfer/personalDoc',
+                  pathname: '/lawEnforcement/PersonFile',
                   state: {
                     code: res.dw_code,
                     kssj: this.state.kssj,
@@ -475,7 +476,7 @@ export default class Statistics extends PureComponent {
                 <Link
                   className={styles.redNum}
                   to={{
-                    pathname: '/HandArea/UnArea/Transfer/Index',
+                    pathname: '/handlingArea/AreaPolice',
                     state: {
                       code: res.dw_code,
                       kssj: this.state.kssj,
@@ -495,7 +496,7 @@ export default class Statistics extends PureComponent {
                 <Link
                   className={styles.redAllNum}
                   to={{
-                    pathname: '/HandArea/Area/Transfer/Index',
+                    pathname: '/handlingArea/AreaData',
                     state: {
                       code: res.dw_code,
                       kssj: this.state.kssj,
@@ -522,7 +523,7 @@ export default class Statistics extends PureComponent {
                 <Link
                   className={styles.redNum}
                   to={{
-                    pathname: '/CaseItem/UnItem/Transfer/Index',
+                    pathname: '/articlesInvolved/ArticlesPolice',
                     state: {
                       code: res.dw_code,
                       kssj: this.state.kssj,
@@ -542,7 +543,7 @@ export default class Statistics extends PureComponent {
                 <Link
                   className={styles.redAllNum}
                   to={{
-                    pathname: '/CaseItem/Item/Transfer/Index',
+                    pathname: '/articlesInvolved/ArticlesData',
                     state: {
                       code: res.dw_code,
                       kssj: this.state.kssj,
@@ -569,7 +570,7 @@ export default class Statistics extends PureComponent {
                 <Link
                   className={styles.redNum}
                   to={{
-                    pathname: '/Dossier/undossier/Transfer/Index',
+                    pathname: '/dossierPolice/DossierPolice',
                     state: {
                       code: res.dw_code,
                       kssj: this.state.kssj,
@@ -589,7 +590,7 @@ export default class Statistics extends PureComponent {
                 <Link
                   className={styles.redAllNum}
                   to={{
-                    pathname: '/Dossier/dossier/Transfer/Index',
+                    pathname: '/dossierPolice/DossierData',
                     state: {
                       code: res.dw_code,
                       kssj: this.state.kssj,

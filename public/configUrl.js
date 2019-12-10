@@ -47,7 +47,7 @@ const configItem = {
   clearHome: false, //是否显示三清调度首页（鹤壁定制）
   is_zsj: '0', //首页综合统计显示本级还是下级'1'本级，'0'下级
   is_area: '5', // 刑事案件案件类别根据不同地区调用不同的接口；1表示牡丹江,2表示平乐,0表示主线，5表示达拉特旗
-  is_ssds: 'hb', // 接处警报警类别的所属地市
+  is_ssds: 'hb', // 接处警报警类别的所属地市dltq
 };
 // 开发模式地址
 const developConfigUrl = {
@@ -57,7 +57,7 @@ const developConfigUrl = {
   // securityCenterUrl: `${ips.aqzxIp}:8100/security-service`, // 安全中心
   securityCenterUrl: `${ips.aqzxIp}:8100`, // 安全中心
   baqServerUrl: `${ips.maintainIp}:7500`, // 办案区服务
-  maintainCenterUrl: `${ips.maintainIp}:7400`, // 运维中心
+  maintainCenterUrl: `${ips.maintainIp}:7402`, // 运维中心
   generalQueryUrl: `http://192.168.3.201:9200/`, // 综合查询es服务地址,
   srcUrl: `${ips.maintainIp}:7300/raqReport-service/reportJsp/`, //润乾报表地址
   tbtjExportUrl: `${ips.TbtjDcIp}:8750`, // 图表统计导出功能

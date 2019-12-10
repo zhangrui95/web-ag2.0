@@ -32,24 +32,24 @@ class RenderTable extends PureComponent {
 
   deatils = record => {
     // record.id, record.baq_id, record.dbzt
-    this.props.dispatch({
-      type: 'global/changeNavigation',
-      payload: {
-        key: record && record.id ? record.id : '1',
-        name: '人员在区告警详情',
-        path: '/handlingArea/AreaPolice/UnareaDetail',
-        isShow: true,
-        query: { record, id: record && record.id ? record.id : '1' },
-      },
-      callback: () => {
+    // this.props.dispatch({
+    //   type: 'global/changeNavigation',
+    //   payload: {
+    //     key: record && record.id ? record.id : '1',
+    //     name: '人员在区告警详情',
+    //     path: '/handlingArea/AreaPolice/UnareaDetail',
+    //     isShow: true,
+    //     query: { record, id: record && record.id ? record.id : '1' },
+    //   },
+    //   callback: () => {
         this.props.dispatch(
           routerRedux.push({
             pathname: '/handlingArea/AreaPolice/UnareaDetail',
             query: { record: record, id: record && record.id ? record.id : '1' },
           }),
         );
-      },
-    });
+    //   },
+    // });
     // const divs = (
     //     <div>
     //         <Detail
@@ -323,9 +323,7 @@ class RenderTable extends PureComponent {
       total: data.page ? data.page.totalResult : '',
       pageSize: data.page ? data.page.showCount : '',
       showTotal: (total, range) => (
-        <span className={styles.pagination}>{`共 ${data.page ? data.page.totalPage : 1} 页， ${
-          data.page ? data.page.totalResult : 0
-        } 条记录 `}</span>
+        <span className={styles.pagination}>{`共 ${data.page ? data.page.totalPage : 1} 页， ${data.page ? data.page.totalResult : 0} 条记录 `}</span>
       ),
     };
     let detail = (
