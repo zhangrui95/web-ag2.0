@@ -157,6 +157,24 @@ export default class Detail extends PureComponent {
             });
         }
     };
+    // 根据案件编号打开案件窗口
+    openCaseDetail = (caseType, item) => {
+        if (caseType === '1') { // 刑事案件
+            this.props.dispatch(
+                routerRedux.push({
+                    pathname: '/newcaseFiling/caseData/CriminalData/caseDetail',
+                    query: { record:item,id: item.ajbh },
+                }),
+            )
+        } else if (caseType === '2') { // 行政案件
+            this.props.dispatch(
+                routerRedux.push({
+                    pathname: '/newcaseFiling/caseData/AdministrationData/caseDetail',
+                    query: { record:item,id:item.ajbh,system_id:item.ajbh },
+                }),
+            )
+        }
+    };
     render(){
         const { targetKeys,detail,kpList } = this.state;
         const TableTransfer = ({ leftColumns, rightColumns, ...restProps }) => (
@@ -261,7 +279,7 @@ export default class Detail extends PureComponent {
                                 }
                             </Col>
                             <Col span={19} className={styles.topDetail}>
-                                <Col span={24}>案件名称：<a onClick={()=>this.openCaseDetail(this.state.recordKp.ajlx, this.state.recordKp.ajbh)}>{this.state.recordKp&&this.state.recordKp.ajmc ? this.state.recordKp.ajmc : ''}</a></Col>
+                                <Col span={24}>案件名称：<a onClick={()=>this.openCaseDetail(this.state.recordKp.ajlx, this.state.recordKp)}>{this.state.recordKp&&this.state.recordKp.ajmc ? this.state.recordKp.ajmc : ''}</a></Col>
                                 <Col span={12}>案件编号：{this.state.recordKp&&this.state.recordKp.ajbh ? this.state.recordKp.ajbh : ''}</Col>
                                 <Col span={6}>案件状态：{this.state.recordKp&&this.state.recordKp.ajzt ? this.state.recordKp.ajzt : ''}</Col>
                                 <Col span={6}>被考评人：{this.state.recordKp&&this.state.recordKp.zbrxm ? this.state.recordKp.zbrxm : ''}</Col>
