@@ -123,11 +123,13 @@ class RenderTable extends PureComponent {
     });
   };
   // 制表
-  makeTable = (record, flag) => {
-    this.setState({
-      caseRecord: record,
-      makeTableModalVisible: !!flag,
-    });
+  makeTable = (record) => {
+      this.props.dispatch(
+          routerRedux.push({
+              pathname: '/Tabulation/Make',
+              query: { id: record && record.ajbh ? record.ajbh : '1', record: record },
+          }),
+      );
   };
   // 退补
   saveRetrieve = (res, flag) => {

@@ -614,6 +614,12 @@ export function routes() {
                             ],
                         },
                         {
+                            path: '/Tabulation/Make',
+                            name: '制表',
+                            component: './Tabulation/MakeTableModal.tsx',
+                            hideInMenu: true,
+                        },
+                        {
                             name: '全局综合查统',
                             icon: 'icon-zonghezhenduan',
                             path: '/seo',
