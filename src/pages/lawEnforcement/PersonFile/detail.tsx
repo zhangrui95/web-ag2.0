@@ -28,6 +28,7 @@ import wp from '../../../assets/common/wp.png'
 import jl from '../../../assets/common/jl.png'
 import rqjl from '../../../assets/common/rqjl.png'
 import jzxx from '../../../assets/common/jzxx.png'
+import {routerRedux} from "dva/router";
 
 const FormItem = Form.Item;
 const { Step } = Steps;
@@ -76,108 +77,64 @@ export default class PersonalDocDetail extends PureComponent {
         });
     };
     // 根据案件编号打开案件窗口
-    openCaseDetail = (systemId, caseType, ajbh) => {
-        // if (caseType === '22001') { // 刑事案件
-        //     const divs = (
-        //         <div>
-        //             <CaseDetail
-        //                 {...this.props}
-        //                 id={systemId}
-        //             />
-        //         </div>
-        //     );
-        //     const AddNewDetail = { title: '刑事案件详情', content: divs, key: ajbh };
-        //     this.props.newDetail(AddNewDetail);
-        // } else if (caseType === '22002') { // 行政案件
-        //     const divs = (
-        //         <div>
-        //             <XzCaseDetail
-        //                 {...this.props}
-        //                 systemId={systemId}
-        //             />
-        //         </div>
-        //     );
-        //     const AddNewDetail = { title: '行政案件详情', content: divs, key: 'xz' + ajbh };
-        //     this.props.newDetail(AddNewDetail);
-        // }
+    openCaseDetail = (item) => {
+        let caseType = item.ajlx;
+        if (caseType === '22001') { // 刑事案件
+            this.props.dispatch(
+                routerRedux.push({
+                    pathname: '/newcaseFiling/caseData/CriminalData/caseDetail',
+                    query: { record:item,id: item.system_id },
+                }),
+            )
+        } else if (caseType === '22002') { // 行政案件
+            this.props.dispatch(
+                routerRedux.push({
+                    pathname: '/newcaseFiling/caseData/AdministrationData/caseDetail',
+                    query: { record:item,id: item.system_id,system_id:item.system_id },
+                }),
+            )
+        }
     };
     // 入区信息详情
-    IntoArea = (ajbh) => {
-        // const { personData: { ryxx: { xyr_sfzh } } } = this.state;
-        // const divs = (
-        //     <div>
-        //         <PersonIntoArea
-        //             {...this.props}
-        //             sfzh={xyr_sfzh}
-        //             ajbh={ajbh}
-        //         />
-        //     </div>
-        // );
-        // const AddNewDetail = { title: '涉案人员在区情况', content: divs, key: xyr_sfzh };
-        // this.props.newDetail(AddNewDetail);
+    IntoArea = (item) =>{
+        this.props.dispatch(
+            routerRedux.push({
+                pathname: '/handlingArea/AreaData/areaDetail',
+                query: { record:item,id: item.system_id},
+            }),
+        );
     };
     // 人员档案详情
-    openPersonDetail = (rec) => {
-        // const { xyr_sfzh: idcard } = rec;
-        // if (idcard) {
-        //     this.props.dispatch({
-        //         type: 'AllDetail/AllDetailPersonFetch',
-        //         payload: {
-        //             sfzh: idcard,
-        //         },
-        //         callback: (data) => {
-        //             if (data && data.ryxx) {
-        //                 const divs = (
-        //                     <div>
-        //                         <PersonDetail
-        //                             {...this.props}
-        //                             idcard={idcard}
-        //                             ly='常规数据'
-        //                         />
-        //                     </div>
-        //                 );
-        //                 const AddNewDetail = { title: '人员档案', content: divs, key: idcard + 'ryda' };
-        //                 this.props.newDetail(AddNewDetail);
-        //             } else {
-        //                 message.error('该人员暂无人员档案');
-        //             }
-        //         },
-        //     });
-        // } else {
-        //     message.error('该人员暂无人员档案');
-        // }
+    openPersonDetail = (record) => {
+        const { xyr_sfzh: idcard } = record;
+        if (idcard) {
+            this.props.dispatch(
+                routerRedux.push({
+                    pathname: '/lawEnforcement/PersonFile/Detail',
+                    query: { id: idcard, record: record},
+                }),
+            );
+        } else {
+            message.error('该人员暂无人员档案');
+        }
     };
     // 卷宗详情
     JzDetail = (record) => {
-        // const divs = (
-        //     <div>
-        //         <JzDetail
-        //             {...this.props}
-        //             record={record}
-        //             sfgz={record.sfgz}
-        //             gzid={record.gzid}
-        //             tzlx={record.tzlx}
-        //             ajbh={record.ajbh}
-        //             id={record.dossier_id}
-        //             current={this.state.jzcurrent}
-        //         />
-        //     </div>
-        // );
-        // const addDetail = { title: '卷宗详情', content: divs, key: record.dossier_id };
-        // this.props.newDetail(addDetail);
+        this.props.dispatch(
+            routerRedux.push({
+                pathname: '/dossierPolice/DossierData/DossierDetail',
+                query: { record:record,id: record.dossier_id},
+            }),
+        );
     };
     // 涉案物品详情
-    SaWpdeatils = (systemId, flag) => {
-        // const divs = (
-        //     <div>
-        //         <ItemDetail
-        //             {...this.props}
-        //             id={systemId}
-        //         />
-        //     </div>
-        // );
-        // const AddNewDetail = { title: '涉案物品详情', content: divs, key: '人员档案' + systemId };
-        // this.props.newDetail(AddNewDetail);
+    SaWpdeatils = (record) => {
+        this.props.dispatch(
+            routerRedux.push({
+                pathname: '/articlesInvolved/ArticlesData/itemDetail',
+                query: { record:record,id: record.system_id},
+            }),
+        )
     };
     // 换行
     formatter = (val,len) => {
@@ -202,7 +159,6 @@ export default class PersonalDocDetail extends PureComponent {
     showEchart = (data) => {
         echartTree = echarts.init(document.getElementById('ryRegulateTree' + this.state.res.xyr_sfzh));
         const { ajxx, ryxx } = data;
-        console.log('data------>',data);
         let link = [];
         let datas = [ {
             name: this.formatter(ryxx.name),
@@ -460,8 +416,6 @@ export default class PersonalDocDetail extends PureComponent {
                 }
             }
         }
-        console.log('link==========>',link);
-        console.log('datas==========>',datas);
         let categories = [];
         for (let i = 0; i < 9; i++) {
             categories[i] = {
@@ -496,7 +450,6 @@ export default class PersonalDocDetail extends PureComponent {
             },
         ];
         datas.forEach(function (node) {
-            console.log('node----->',node);
             node.itemStyle = null;
             node.symbolSize /= 1.5;
             node.label = {
@@ -623,7 +576,6 @@ export default class PersonalDocDetail extends PureComponent {
     addBase = (add) => {
         const { personData } = this.state;
         imgBase.push(add);
-        // console.log('imgBase',imgBase)
         const ajxxLength = personData.ajxx ? personData.ajxx.length : 0;
         if (imgBase.length === 3 + ajxxLength) {
             this.exprotService(imgBase, personData);
@@ -650,7 +602,6 @@ export default class PersonalDocDetail extends PureComponent {
                             document.querySelector(CardCharts).getElementsByClassName('NameShow')[a].style.display = 'none';
                             document.querySelector(CardCharts).getElementsByClassName('NameHide')[a].style.display = 'block';
                             html2canvas(document.querySelector(CardCharts).getElementsByClassName('NameHide')[a]).then(canvascontent => {
-                                // console.log('canvascontent', canvascontent.toDataURL())
                                 this.addBase(canvascontent.toDataURL().split('base64,')[1]);
                                 document.querySelector(CardCharts).getElementsByClassName('NameShow')[a].style.display = 'block';
                                 document.querySelector(CardCharts).getElementsByClassName('NameHide')[a].style.display = 'none';

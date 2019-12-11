@@ -354,14 +354,14 @@ export default class itemDetail extends PureComponent {
                                     <Carousel autoplay>
                                         {itemDetails.imageList.map(pane =>
                                             <div>
-                                                <img width='100%'
+                                                <img width='200'
                                                      src={pane.imageurl ? pane.imageurl : nophoto}/>
                                             </div>,
                                         )
                                         }
                                     </Carousel>
                                     :
-                                    <img width='100%' src={nophoto} />
+                                    <img width='200' src={nophoto} />
                                 }
                             </div>
                         </Col>

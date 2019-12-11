@@ -25,7 +25,6 @@ import {
   Timeline,
 } from 'antd';
 import { routerRedux } from 'dva/router';
-import { getSysAuthority } from '../../utils/authority';
 import styles from './CaseModalTrail.less';
 // import PersonDetail from '../../routes/AllDocuments/PersonalDocDetail';
 import left from '../../assets/common/left.png';
@@ -37,6 +36,9 @@ import woman from '../../assets/common/woman.png';
 
 const { Option } = Select;
 const { Step } = Steps;
+@connect(({ AllDetail }) => ({
+    AllDetail,
+}))
 export default class CaseModalTrail extends PureComponent {
   constructor(props) {
     super(props);
@@ -75,32 +77,16 @@ export default class CaseModalTrail extends PureComponent {
   }
 
   // 根据物品案件编号和身份证号打开人员档案窗口
-  openPersonDetail = idcard => {
-    if (idcard) {
-      this.props.dispatch({
-        type: 'AllDetail/AllDetailPersonFetch',
-        payload: {
-          sfzh: idcard,
-        },
-        callback: data => {
-          if (data && data.ryxx) {
-            // const divs = (
-            //     <div>
-            //         <PersonDetail
-            //             {...this.props}
-            //             id={data.ryxx.system_id}
-            //             idcard={idcard}
-            //             ly='常规数据'
-            //         />
-            //     </div>
-            // );
-            // const AddNewDetail = { title: '人员档案', content: divs, key: idcard + 'ryda' };
-            // this.props.newDetail(AddNewDetail);
-          } else {
-            message.error('该人员暂无人员档案');
-          }
-        },
-      });
+  openPersonDetail = (text) => {
+      console.log('text',text)
+    if (text.sfzh) {
+      text.xyr_sfzh = text.sfzh;
+      this.props.dispatch(
+          routerRedux.push({
+              pathname: '/lawEnforcement/PersonFile/Detail',
+              query: { id: text.sfzh, record: text},
+          }),
+      );
     } else {
       message.error('该人员暂无人员档案');
     }
@@ -201,7 +187,7 @@ export default class CaseModalTrail extends PureComponent {
         <div
           className={styles.sawpSee}
           style={{ color: '#fff' }}
-          onClick={() => this.openPersonDetail(text.sfzh, text.ajbh)}
+          onClick={() => this.openPersonDetail(text)}
         >
           人员档案
         </div>

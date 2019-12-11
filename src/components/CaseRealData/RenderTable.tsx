@@ -50,78 +50,21 @@ class RenderTable extends PureComponent {
   }
 
   deatils = record => {
-    // this.props.dispatch({
-    //   type: 'global/changeNavigation',
-    //   payload: {
-    //     key: record && record.id ? record.id : '1',
-    //     name: '刑事案件详情',
-    //     path: '/caseFiling/caseData/CriminalData/caseDetail',
-    //     isShow: true,
-    //     query: { record, id: record && record.id ? record.id : '1' },
-    //   },
-    //   callback: () => {
     this.props.dispatch(
       routerRedux.push({
         pathname: '/newcaseFiling/caseData/CriminalData/caseDetail',
-        query: { id: record && record.id ? record.id : '1', record: record },
+        query: { id: record.id, record: record },
       }),
     );
-    // },
-    // });
-    // const divs = (
-    //     <div>
-    //         // <Detail
-    //         //     record={record}
-    //         //     id={record.system_id}
-    //         //     sfgz={record.sfgz}
-    //         //     gzid={record.gzid}
-    //         //     ajbh={record.ajbh}
-    //         //     tzlx={this.state.tzlx}
-    //         //     {...this.props}
-    //         //     current={this.state.current}
-    //         // />
-    //     </div>
-    // );
-    // const AddNewDetail = { title: '刑事案件详情', content: divs, key: record.system_id };
-    // this.props.newDetail(AddNewDetail);
   };
   // 刑事案件档案
   caseDocdeatils = record => {
-    // this.props.dispatch({
-    //   type: 'global/changeNavigation',
-    //   payload: {
-    //     key: record && record.system_id ? record.system_id : '1',
-    //     name: '刑事案件档案详情',
-    //     path: '/lawEnforcement/File/CriminalFile/Detail',
-    //     isShow: true,
-    //     query: { record, id: record && record.system_id ? record.system_id : '1' },
-    //   },
-    //   callback: () => {
-      console.log('执行？？？')
     this.props.dispatch(
       routerRedux.push({
         pathname: '/lawEnforcement/File/CriminalFile/Detail',
         query: { id: record && record.system_id ? record.system_id : '1', record: record },
       }),
     );
-    //   },
-    // });
-    // const divs = (
-    //     // <div>
-    //         // <CriminalCaseDocDetail
-    //         //     record={record}
-    //         //     id={record.system_id}
-    //         //     sfgz={record.sfgz}
-    //         //     gzid={record.gzid}
-    //         //     tzlx={record.tzlx}
-    //         //     ajbh={record.ajbh}
-    //         //     from='刑事案件档案导出'
-    //         //     {...this.props}
-    //         // />
-    //     // </div>
-    // );
-    // const AddNewDetail = { title: '刑事案件档案详情', content: divs, key: record.system_id };
-    // this.props.newDetail(AddNewDetail);
   };
   saveShare = (res, type, ajGzLx) => {
     this.setState({

@@ -20,18 +20,6 @@ import tree from 'echarts/lib/chart/tree';
 import styles from '../docDetail.less';
 import liststyles from '../docListStyle.less';
 import { autoheight, getQueryString, tableList, userAuthorityCode } from '../../../utils/utils';
-// import ItemDetail from '../ItemRealData/itemDetail';
-// import PersonDetail from './PersonalDocDetail';
-import SuperviseModal from '../../../components/UnCaseRealData/SuperviseModal';
-// import JqDetail from '../../routes/PoliceRealData/policeDetail';
-// import JzDetail from '../../routes/DossierData/DossierDetail';
-// import XsDetail from '../../routes/UnCaseRealData/uncaseDetail';
-// import BaqDetail from '../../routes/UnAreaRealData/unareaDetail';
-// import JzgjDetail from '../../routes/UnDossierData/UnDossierDetail';
-// import WpDetail from '../../routes/UnItemRealData/unitemDetail';
-// import JqgjDetail from '../../routes/UnPoliceRealData/unpoliceDetail';
-// import XzDetail from '../../routes/UnXzCaseRealData/caseDetail';
-// import PersonIntoArea from '../../routes/CaseRealData/IntoArea';
 import Ellipsis from 'ant-design-pro/lib/Ellipsis';
 import CaseModalTrail from '../../../components/Common/CaseModalTrail';
 import CaseModalStep from '../../../components/Common/CaseModalStep';
@@ -45,6 +33,7 @@ import tar from "@/assets/common/tar.png";
 import wp from "@/assets/common/wp.png";
 import jzxx from "@/assets/common/jzxx.png";
 import jqImg from "@/assets/common/jq.png";
+import {routerRedux} from "dva/router";
 
 const FormItem = Form.Item;
 const { Link } = Anchor;
@@ -451,55 +440,17 @@ export default class CriminalCaseDocDetail extends PureComponent {
 
     };
 // 根据物品案件编号和身份证号打开人员档案窗口
-    openPersonDetail = (idcard, xyrName, xyrId) => {
-        // if (idcard && xyrName && xyrId) {
-        //     this.props.dispatch({
-        //         type: 'AllDetail/AllDetailPersonFetch',
-        //         payload: {
-        //             name: xyrName,
-        //             sfzh: idcard,
-        //             xyrId,
-        //         },
-        //         callback: (data) => {
-        //             if (data && data.ryxx) {
-        //                 const divs = (
-        //                     <div>
-        //                         <PersonDetail
-        //                             {...this.props}
-        //                             idcard={idcard}
-        //                             name={xyrName}
-        //                             xyrId={xyrId}
-        //                             ly='常规数据'
-        //                         />
-        //                     </div>
-        //                 );
-        //                 const AddNewDetail = { title: '人员档案', content: divs, key: idcard + 'ryda' };
-        //                 this.props.newDetail(AddNewDetail);
-        //             } else {
-        //                 message.error('该人员暂无人员档案');
-        //             }
-        //         },
-        //     });
-        // } else {
-        //     message.error('该人员暂无人员档案');
-        // }
-    };
-    // 点击案件轨迹人员的在区情况
-    IntoArea = (sfzh, ajbh) => {
-        if (sfzh && ajbh) {
-            const divs = (
-                <div>
-                    <PersonIntoArea
-                        {...this.props} //告警信息
-                        sfzh={sfzh}
-                        ajbh={ajbh}
-                    />
-                </div>
+    openPersonDetail = (record,idcard, xyrName, xyrId) => {
+        if (idcard && xyrName && xyrId) {
+            record.xyr_sfzh = idcard;
+            this.props.dispatch(
+                routerRedux.push({
+                    pathname: '/lawEnforcement/PersonFile/Detail',
+                    query: { id: idcard, record: record},
+                }),
             );
-            const AddNewDetail = { title: '涉案人员在区情况', content: divs, key: sfzh + 'ryzq' };
-            this.props.newDetail(AddNewDetail);
         } else {
-            message.warning('暂无涉案人员在区情况');
+            message.error('该人员暂无人员档案');
         }
     };
 
@@ -664,17 +615,13 @@ export default class CriminalCaseDocDetail extends PureComponent {
     }
 
     // 根据物品ID打开物品详细窗口
-    openItemsDetail = (systemId) => {
-        // const divs = (
-        //     <div>
-        //         <ItemDetail
-        //             {...this.props}
-        //             id={systemId}
-        //         />
-        //     </div>
-        // );
-        // const AddNewDetail = { title: '涉案物品详情', content: divs, key: systemId };
-        // this.props.newDetail(AddNewDetail);
+    openItemsDetail = (item) => {
+        this.props.dispatch(
+            routerRedux.push({
+                pathname: '/articlesInvolved/ArticlesData/itemDetail',
+                query: { record:item,id: item.system_id },
+            }),
+        )
     };
 
     extraBottomTitle(text, caseDetails) {
@@ -688,7 +635,7 @@ export default class CriminalCaseDocDetail extends PureComponent {
                                     姓名：{text.xyrName}
                                 </Col>
                                 <Col md={6} sm={24}>
-                                    <a onClick={() => this.openPersonDetail(text.sfzh, text.xyrName, text.xyrId)}>人员档案</a>
+                                    <a onClick={() => this.openPersonDetail(text,text.sfzh, text.xyrName, text.xyrId)}>人员档案</a>
                                 </Col>
                             </Row>
                             <div style={{ textAlign: 'left', padding: '5px 0' }}>
@@ -738,7 +685,7 @@ export default class CriminalCaseDocDetail extends PureComponent {
                                     overlayStyle={{ wordBreak: 'break-all' }}
                                     title={item.wpzlMc}>{item.wpzlMc}</Tooltip></div>
                             </div>
-                            <div className={styles.sawpSee} onClick={() => this.openItemsDetail(item.system_id)}>查看
+                            <div className={styles.sawpSee} onClick={() => this.openItemsDetail(item,item.system_id)}>查看
                             </div>
                         </div>
                     </List.Item>
@@ -808,113 +755,66 @@ export default class CriminalCaseDocDetail extends PureComponent {
     }
 
     openGjxxDetail = (item) => {
-        // let divs;
-        // if (item.wtfl_id === '203201') {
-        //     divs = (
-        //         <div>
-        //             <JqgjDetail
-        //                 {...this.props}
-        //                 id={item.id}
-        //                 wtid={item.wtid}
-        //             />
-        //         </div>
-        //     );
-        //     const AddNewDetail = { title: '警情告警详情', content: divs, key: item.id };
-        //     this.props.newDetail(AddNewDetail);
-        // } else if (item.wtfl_id === '203202') {
-        //     divs = (
-        //         <div>
-        //             <XsDetail
-        //                 {...this.props}
-        //                 id={item.wtid}
-        //                 systemId={item.system_id}
-        //                 is_da={true}
-        //             />
-        //         </div>
-        //     );
-        //     const AddNewDetail = { title: '刑事案件告警详情', content: divs, key: item.wtid };
-        //     this.props.newDetail(AddNewDetail);
-        // } else if (item.wtfl_id === '203203') {//unareaDetail
-        //     divs = (
-        //         <div>
-        //             <BaqDetail
-        //                 {...this.props}
-        //                 id={item.wtid}
-        //                 baqId={item.id}
-        //             />
-        //         </div>
-        //     );
-        //     const AddNewDetail = { title: '人员在区告警详情', content: divs, key: item.wtid };
-        //     this.props.newDetail(AddNewDetail);
-        // } else if (item.wtfl_id === '203204') {//unitemDetail
-        //     divs = (
-        //         <div>
-        //             <WpDetail
-        //                 {...this.props}
-        //                 id={item.wtid}
-        //                 systemId={item.system_id}
-        //             />
-        //         </div>
-        //     );
-        //     const AddNewDetail = { title: '涉案物品告警详情', content: divs, key: item.wtid };
-        //     this.props.newDetail(AddNewDetail);
-        //
-        // } else if (item.wtfl_id === '203205') {//unXzcaseDetail
-        //     divs = (
-        //         <div>
-        //             <XzDetail
-        //                 {...this.props}
-        //                 id={item.wtid}
-        //                 systemId={item.system_id}
-        //             />
-        //         </div>
-        //     );
-        //     const AddNewDetail = { title: '行政案件告警详情', content: divs, key: item.wtid };
-        //     this.props.newDetail(AddNewDetail);
-        // } else if (item.wtfl_id === '203206') {//UnDossierDetail
-        //     divs = (
-        //         <div>
-        //             <JzgjDetail
-        //                 {...this.props}
-        //                 id={item.id}
-        //                 wtid={item.wtid}
-        //                 dossierId={item.system_id}
-        //             />
-        //         </div>
-        //     );
-        //     const addDetail = { title: '卷宗告警详情', content: divs, key: item.wtid };
-        //     this.props.newDetail(addDetail);
-        // }
+        if (item.wtfl_id === '203201') {//警情告警详情
+            this.props.dispatch(
+                routerRedux.push({
+                    pathname: '/receivePolice/AlarmPolice/unpoliceDetail',
+                    query: { record:item,id: item.id,wtid:item.wtid},
+                }),
+            )
+        } else if (item.wtfl_id === '203202') {//刑事案件告警详情
+            this.props.dispatch(
+                routerRedux.push({
+                    pathname: '/newcaseFiling/casePolice/CriminalPolice/uncaseDetail',
+                    query: { record:item,id: item.wtid,system_id:item.system_id },
+                }),
+            )
+        } else if (item.wtfl_id === '203203') {//人员在区告警详情
+            this.props.dispatch(
+                routerRedux.push({
+                    pathname: '/handlingArea/AreaPolice/UnareaDetail',
+                    query: { record:item,id: item.wtid,baqId:item.id},
+                }),
+            );
+        } else if (item.wtfl_id === '203204') {//涉案物品告警详情
+            this.props.dispatch(
+                routerRedux.push({
+                    pathname: '/articlesInvolved/ArticlesPolice/unitemDetail',
+                    query: { record:item,id: item.wtid,system_id:item.system_id },
+                }),
+            )
+
+        } else if (item.wtfl_id === '203205') {//行政案件告警详情
+            this.props.dispatch(
+                routerRedux.push({
+                    pathname: '/newcaseFiling/casePolice/AdministrationPolice/uncaseDetail',
+                    query: { record:item,id: item.wtid,system_id:item.system_id },
+                }),
+            )
+        } else if (item.wtfl_id === '203206') {//卷宗告警详情
+            this.props.dispatch(
+                routerRedux.push({
+                    pathname: '/dossierPolice/DossierPolice/UnDossierDetail',
+                    query: { record:item,id: item.id, wtid:item.wtid,dossierId:item.system_id},
+                }),
+            );
+        }
     };
-    jqDetail = (id) => {
-        // const divs = (
-        //     <div>
-        //         <JqDetail
-        //             {...this.props}
-        //             id={id}
-        //         />
-        //     </div>
-        // );
-        // const AddJqDetail = { title: '警情详情', content: divs, key: id };
-        // this.props.newDetail(AddJqDetail);
+    jqDetail = (record,id) => {
+        this.props.dispatch(
+            routerRedux.push({
+                pathname: '/receivePolice/AlarmData/policeDetail',
+                query: { record:record, id: id },
+            }),
+        )
     };
     JzDetail = (record) => {
-        // const divs = (
-        //     <div>
-        //         <JzDetail
-        //             {...this.props}
-        //             record={record}
-        //             sfgz={record.sfgz}
-        //             gzid={record.gzid}
-        //             tzlx={record.tzlx}
-        //             ajbh={record.ajbh}
-        //             id={record.dossier_id}
-        //             current={this.state.jzcurrent}
-        //         />
-        //     </div>
-        // );
-        // const addDetail = { title: '卷宗详情', content: divs, key: record.dossier_id };
-        // this.props.newDetail(addDetail);
+        this.props.dispatch(
+            routerRedux.push({
+                pathname: '/dossierPolice/DossierData/DossierDetail',
+                query: { record:record,id: record.dossier_id},
+            }),
+        );
     };
 
     renderDetail() {
@@ -1034,7 +934,7 @@ export default class CriminalCaseDocDetail extends PureComponent {
                 width: 50,
                 render: (record) => (
                     <div>
-                        <a onClick={() => this.jqDetail(record.id)}>详情</a>
+                        <a onClick={() => this.jqDetail(record,record.id)}>详情</a>
                     </div>
                 ),
             },

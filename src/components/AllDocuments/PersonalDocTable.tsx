@@ -38,7 +38,7 @@ export default class PersonalDocTable extends PureComponent {
                 this.props.dispatch(
                     routerRedux.push({
                         pathname: '/lawEnforcement/PersonFile/Detail',
-                        query: { id: record && record.system_id ? record.system_id : '1', record: record},
+                        query: { id: record && record.xyr_sfzh ? record.xyr_sfzh : '1', record: record},
                     }),
                 );
         //     },
