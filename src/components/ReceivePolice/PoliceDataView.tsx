@@ -932,7 +932,7 @@ export default class PoliceDataView extends PureComponent {
               position: 'center',
               textStyle: {
                 fontSize: '22',
-                color: '#66ccff',
+                color: '#fff',
               },
             },
             emphasis: {
@@ -1102,7 +1102,7 @@ export default class PoliceDataView extends PureComponent {
               formatter: '{c}',
               textStyle: {
                 fontSize: '22',
-                color: '#66ccff',
+                color: '#fff',
               },
             },
             emphasis: {
@@ -1129,7 +1129,7 @@ export default class PoliceDataView extends PureComponent {
               formatter: '{c}',
               textStyle: {
                 fontSize: '22',
-                color: '#66ccff',
+                color: '#fff',
               },
             },
             emphasis: {
@@ -1217,7 +1217,7 @@ export default class PoliceDataView extends PureComponent {
               position: 'center',
               textStyle: {
                 fontSize: '22',
-                color: '#66ccff',
+                color: '#fff',
               },
             },
             emphasis: {
@@ -1244,7 +1244,7 @@ export default class PoliceDataView extends PureComponent {
               formatter: '{c}',
               textStyle: {
                 fontSize: '22',
-                color: '#66ccff',
+                color: '#fff',
               },
             },
             emphasis: {
@@ -1271,7 +1271,7 @@ export default class PoliceDataView extends PureComponent {
               formatter: '{c}',
               textStyle: {
                 fontSize: '22',
-                color: '#66ccff',
+                color: '#fff',
               },
             },
             emphasis: {
@@ -1382,7 +1382,7 @@ export default class PoliceDataView extends PureComponent {
                 ) : (
                   <DataViewDateShow dataTypeStr="前二月" />
                 )}
-                <div className={styles.countButtonNumber}>
+                <div className={styles.bigCountButtonNumber}>
                   <div>警情：{beforeLastData}</div>
                 </div>
               </div>

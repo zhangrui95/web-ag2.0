@@ -144,34 +144,31 @@ export default class DataViewButtonArea extends PureComponent {
           </span>
         )}
 
-        {/*{*/}
-        {/*hideDayButton ? null : <Button type="primary" shape="circle"  className={style.btnRadius}*/}
-        {/*onClick={() => changeTypeButtons('day')}>日</Button>*/}
-        {/*}*/}
-        {/*{*/}
-        {/*hideWeekButton ? null : <Button type="primary" shape="circle"  className={style.btnRadius}*/}
-        {/*onClick={() => changeTypeButtons('week')}>周</Button>*/}
-        {/*}*/}
-        {/*{*/}
-        {/*hideMonthButton ? null : <Button type="primary" shape="circle"  className={style.btnRadius}*/}
-        {/*onClick={() => changeTypeButtons('month')}>月</Button>*/}
-        {/*}*/}
+        {
+        hideDayButton ? null : <Button type="primary" shape="circle" className={style.btnRadius} style={{backgroundColor:typeButtons === 'day'?'#3285FF':'#171925',borderRight:'1px solid #252C3C'}} onClick={() => changeTypeButtons('day')}>日</Button>
+        }
+        {
+        hideWeekButton ? null : <Button type="primary" shape="circle" className={style.btnRadius} style={{backgroundColor:typeButtons === 'week'?'#3285FF':'#171925',borderRight:'1px solid #252C3C'}} onClick={() => changeTypeButtons('week')}>周</Button>
+        }
+        {
+        hideMonthButton ? null : <Button type="primary" shape="circle" className={style.btnRadius} style={{backgroundColor:typeButtons === 'month'?'#3285FF':'#171925',borderRight:'1px solid #252C3C'}} onClick={() => changeTypeButtons('month')}>月</Button>
+        }
 
-        <Radio.Group
-          defaultValue="3"
-          buttonStyle="solid"
-          className={styles.redioGroup}
-          style={{ right: this.state.firstList ? '20px' : '45px' }}
-          onChange={this.getRadioChange}
-          disabled={this.state.loading ? true : false}
-        >
-          <Radio.Button value="3">日</Radio.Button>
-          <Radio.Button value="6">周</Radio.Button>
-          <Radio.Button value="9">月</Radio.Button>
-          {/*<Radio.Button>*/}
-          {/**/}
-          {/*</Radio.Button>*/}
-        </Radio.Group>
+        {/*<Radio.Group*/}
+          {/*defaultValue="3"*/}
+          {/*buttonStyle="solid"*/}
+          {/*className={styles.redioGroup}*/}
+          {/*style={{ right: this.state.firstList ? '20px' : '45px' }}*/}
+          {/*// onChange={this.getRadioChange}*/}
+          {/*disabled={this.state.loading ? true : false}*/}
+        {/*>*/}
+          {/*<Radio.Button value="3" onClick={() => changeTypeButtons('day')}>日</Radio.Button>*/}
+          {/*<Radio.Button value="6" onClick={() => changeTypeButtons('week')}>周</Radio.Button>*/}
+          {/*<Radio.Button value="9" onClick={() => changeTypeButtons('month')}>月</Radio.Button>*/}
+          {/*/!*<Radio.Button>*!/*/}
+          {/*/!**!/*/}
+          {/*/!*</Radio.Button>*!/*/}
+        {/*</Radio.Group>*/}
         <Popover
           content={
             <RangePicker
@@ -185,11 +182,12 @@ export default class DataViewButtonArea extends PureComponent {
           trigger="click"
           visible={popoverVisible}
           onVisibleChange={this.handlePopoverVisibleChange}
+          getPopupContainer={() => document.getElementById('tongjiCommon')}
         >
           <Button
             // type="primary"
             className={style.btnRadius}
-            ghost={typeButtons !== 'selectedDate'}
+            style={{backgroundColor:typeButtons === 'selectedDate'?'#3285FF':'#171925'}}
           >
             其他
           </Button>

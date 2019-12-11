@@ -44,12 +44,20 @@ body {
     .ant-calendar-picker-input,
     .ant-cascader-picker,
     .ant-input,
-    .ant-radio-button-wrapper,
     .ant-transfer-list,
     .ant-time-picker-input {
       background-color: @body-background;
       border: @no-box-shadow;
       color: @white;
+    }
+    .antd-pro-pages-receive-police-alarm-data-index-redioGroup .ant-radio-button-wrapper{
+      background-color: @body-background;
+      border-top: @no-box-shadow;
+      border-bottom: @no-box-shadow;
+      border-left: @no-box-shadow;
+      color: @white;
+      border-color:@component-background !important;
+      border-right:1px solid @component-background !important;
     }
     .ant-input{
       &:hover{
@@ -140,9 +148,9 @@ body {
         color: #faad14;
       }
     }
-    .ant-dropdown-menu {
-      background: @body-background;
-    }
+    //.ant-dropdown-menu {
+    //  background: @body-background;
+    //}
     .ant-dropdown-menu-item > a {
       color: @white;
     }
@@ -755,6 +763,19 @@ body {
     }
     .ant-dropdown-menu{
       background-color: @dropdown-selected-color!important;
+    }
+    .ant-popover-inner{
+      background-color:rgba(37,44,60,0.8)!important;
+    }
+    .ant-popover-arrow{
+      border-top-color:@component-background!important;
+      border-left-color: @component-background!important;
+    }
+    .ant-radio-button-wrapper:last-child{
+      border-radius:0 !important;
+    }
+    .antd-pro-pages-receive-police-alarm-data-index-listPageWrap .antd-pro-pages-receive-police-alarm-data-index-listPageHeader .antd-pro-pages-receive-police-alarm-data-index-typeButtonsArea button{
+      border-radius:0 !important;
     }
   }
 }
