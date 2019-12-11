@@ -60,13 +60,17 @@ export default class TabsTable extends PureComponent {
             }
             key="f1"
           >
-            <Card title={null} id='followForm'>
+            <Card title={null} id="followForm">
               <Form style={{ padding: '20px 30px 0 10px' }}>
                 <Row gutter={rowLayout} className={stylescommon.searchForm}>
                   <Col {...colLayout}>
                     <FormItem label="关注时间" {...formItemLayout}>
                       {getFieldDecorator('gzsj')(
-                        <RangePicker getCalendarContainer={() => document.getElementById('followForm')} disabledDate={this.disabledDate} style={{ width: '100%' }} />,
+                        <RangePicker
+                          getCalendarContainer={() => document.getElementById('followForm')}
+                          disabledDate={this.disabledDate}
+                          style={{ width: '100%' }}
+                        />,
                       )}
                     </FormItem>
                   </Col>
@@ -75,14 +79,18 @@ export default class TabsTable extends PureComponent {
                       {getFieldDecorator('gzlx', {
                         initialValue: this.props.yjjb,
                       })(
-                        <Select placeholder="请选择" style={{ width: '100%' }} getPopupContainer={()=>document.getElementById('followForm')}>
+                        <Select
+                          placeholder="请选择"
+                          style={{ width: '100%' }}
+                          getPopupContainer={() => document.getElementById('followForm')}
+                        >
                           <Option value="">全部</Option>
                           <Option value="案件信息">案件信息</Option>
                           <Option value="人员信息">人员信息</Option>
                           <Option value="物品信息">物品信息</Option>
                           <Option value="卷宗信息">卷宗信息</Option>
                           <Option value="警情信息">警情信息</Option>
-                        </Select>
+                        </Select>,
                       )}
                     </FormItem>
                   </Col>
@@ -134,13 +142,17 @@ export default class TabsTable extends PureComponent {
             }
             key="f2"
           >
-            <Card title={null} id='followForm1'>
+            <Card title={null} id="followForm1">
               <Form style={{ padding: '20px 30px 0 10px' }}>
                 <Row gutter={rowLayout} className={stylescommon.searchForm}>
                   <Col {...colLayout}>
                     <FormItem label="关注时间" {...formItemLayout}>
                       {getFieldDecorator('gzsj')(
-                        <RangePicker getCalendarContainer={() => document.getElementById('followForm1')} disabledDate={this.disabledDate} style={{ width: '100%' }} />,
+                        <RangePicker
+                          getCalendarContainer={() => document.getElementById('followForm1')}
+                          disabledDate={this.disabledDate}
+                          style={{ width: '100%' }}
+                        />,
                       )}
                     </FormItem>
                   </Col>
@@ -149,14 +161,18 @@ export default class TabsTable extends PureComponent {
                       {getFieldDecorator('gzlx', {
                         initialValue: this.props.yjjb,
                       })(
-                        <Select placeholder="请选择" style={{ width: '100%' }} getPopupContainer={()=>document.getElementById('followForm1')} >
+                        <Select
+                          placeholder="请选择"
+                          style={{ width: '100%' }}
+                          getPopupContainer={() => document.getElementById('followForm1')}
+                        >
                           <Option value="">全部</Option>
                           <Option value="案件信息">案件信息</Option>
                           <Option value="人员信息">人员信息</Option>
                           <Option value="物品信息">物品信息</Option>
                           <Option value="卷宗信息">卷宗信息</Option>
                           <Option value="警情信息">警情信息</Option>
-                        </Select>
+                        </Select>,
                       )}
                     </FormItem>
                   </Col>
@@ -169,7 +185,7 @@ export default class TabsTable extends PureComponent {
                   {/*</Col>*/}
                 </Row>
                 <Row className={stylescommon.search}>
-                  <span style={{ float: 'right', marginBottom: 24, marginTop: 5 }}>
+                  <span style={{ float: 'left', marginBottom: 24, marginTop: 2 }}>
                     <Button
                       style={{ marginLeft: 8 }}
                       type="primary"

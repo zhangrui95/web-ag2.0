@@ -90,7 +90,7 @@ export default class Home1 extends PureComponent {
           tital: 0,
           style: {},
           colorIcon: '#fff',
-          colorBg: { background: 'linear-gradient(#0084EA, #009BF6)'},
+          colorBg: { background: 'linear-gradient(#0084EA, #009BF6)' },
         },
         {
           icon:
@@ -215,28 +215,15 @@ export default class Home1 extends PureComponent {
     }
   };
   shareDetail = record => {
-    this.props.dispatch({
-      type: 'global/changeNavigation',
-      payload: {
-        key: record&&record.id ? record.id : '1',
-        name: '我的分享',
-        path: '/ShowData/MyShare',
-        isShow: true,
-        query: { record: record,id:record&&record.id ? record.id : '1' },
-      },
-      callback: () => {
-        this.props.dispatch(
-          routerRedux.push({
-            pathname: '/ShowData/MyShare',
-            query: { record: record,id:record&&record.id ? record.id : '1' },
-          }),
-        );
-      }
-    });
-
+    this.props.dispatch(
+      routerRedux.push({
+        pathname: '/ShowData/MyShare',
+        query: { record: record, id: record && record.id ? record.id : '1' },
+      }),
+    );
     // this.setState({
-      // visibleShare: true,
-      // shareDatail: record,
+    // visibleShare: true,
+    // shareDatail: record,
     // });
   };
   goLook = (record, read) => {
@@ -250,11 +237,14 @@ export default class Home1 extends PureComponent {
           callback: res => {
             if (res.error === null) {
               this.myNews(this.state.pageNew);
-              if(record){
+              if (record) {
                 this.props.dispatch(
                   routerRedux.push({
                     pathname: '/ShowData/MyNews',
-                    query: { record: record,id:res&&res.data&&res.data.dbid ? res.data.dbid : '1' },
+                    query: {
+                      record: record,
+                      id: res && res.data && res.data.dbid ? res.data.dbid : '1',
+                    },
                   }),
                 );
               }
@@ -265,80 +255,115 @@ export default class Home1 extends PureComponent {
         //   visible: true,
         //   datail: record,
         // });
-
-      }
-      else if (read === 1) {
+      } else if (read === 1) {
+        if (record.wtflMc === '警情') {
           this.props.dispatch(
             routerRedux.push({
-            pathname: '/Message/mySupervise',
-              query: { record: record,id:record&&record.id ? record.id : '1' },
-          }));
-      }
-      else if (read === 2 || read === 3) {
+              pathname: '/receivePolice/AlarmPolice/unpoliceDetail',
+              query: { record: record, id: record && record.id ? record.id : '1' },
+            }),
+          );
+        } else if (record.wtflMc === '刑事案件') {
+          this.props.dispatch(
+            routerRedux.push({
+              pathname: '/newcaseFiling/casePolice/CriminalPolice/uncaseDetail',
+              query: { record: record, id: record && record.id ? record.id : '1' },
+            }),
+          );
+        } else if (record.wtflMc === '行政案件') {
+          this.props.dispatch(
+            routerRedux.push({
+              pathname: '/newcaseFiling/casePolice/AdministrationPolice/uncaseDetail',
+              query: { record: record, id: record && record.id ? record.id : '1' },
+            }),
+          );
+        } else if (record.wtflMc === '办案区') {
+          this.props.dispatch(
+            routerRedux.push({
+              pathname: '/handlingArea/AreaPolice/UnareaDetail',
+              query: { record: record, id: record && record.id ? record.id : '1' },
+            }),
+          );
+        } else if (record.wtflMc === '涉案物品') {
+          this.props.dispatch(
+            routerRedux.push({
+              pathname: '/articlesInvolved/ArticlesPolice/unitemDetail',
+              query: { record: record, id: record && record.id ? record.id : '1' },
+            }),
+          );
+        } else if (record.wtflMc === '卷宗') {
+          this.props.dispatch(
+            routerRedux.push({
+              pathname: '/dossierPolice/DossierPolice/UnDossierDetail',
+              query: { record: record, id: record && record.id ? record.id : '1' },
+            }),
+          );
+        }
+      } else if (read === 2 || read === 3) {
         record['id'] = record.agid;
         this.props.dispatch(
           routerRedux.push({
             pathname:
               record.tzlx === 'wpwt'
-                ? '/CaseItem/UnItem/Transfer/Index'
+                ? '/articlesInvolved/ArticlesPolice/unitemDetail'
                 : record.tzlx === 'xzajwt1'
-                ? '/register/alarm/alarmAdministration/Index'
+                ? '/newcaseFiling/casePolice/AdministrationPolice/uncaseDetail'
                 : record.tzlx === 'xzajwt2'
-                ? '/Enforcement/alarm/alarmAdministration/Index'
+                ? '/newcaseFiling/casePolice/AdministrationPolice/uncaseDetail'
                 : record.tzlx === 'xzajwt3'
-                ? '/newregister/newalarm/newalarmAdministration'
+                ? '/newcaseFiling/casePolice/AdministrationPolice/uncaseDetail'
                 : record.tzlx === 'jqwt'
-                ? '/Reception/unpolice/Transfer/Index'
+                ? '/receivePolice/AlarmPolice/unpoliceDetail'
                 : record.tzlx === 'xsajwt1'
-                ? '/register/alarm/alarmCriminal/Index'
+                ? '/newcaseFiling/casePolice/CriminalPolice/uncaseDetail'
                 : record.tzlx === 'xsajwt2'
-                ? '/Enforcement/alarm/alarmCriminal/Index'
+                ? '/newcaseFiling/casePolice/CriminalPolice/uncaseDetail'
                 : record.tzlx === 'xsajwt3'
-                ? '/newregister/newalarm/newalarmCriminal'
+                ? '/newcaseFiling/casePolice/CriminalPolice/uncaseDetail'
                 : record.tzlx === 'baqwt'
-                ? '/HandArea/UnArea/Transfer/Index'
+                ? '/handlingArea/AreaPolice/UnareaDetail'
                 : record.tzlx === 'jzwt'
-                ? '/Dossier/undossier/Transfer/Index'
+                ? '/dossierPolice/DossierPolice/UnDossierDetail'
                 : record.tzlx === 'wpxx'
-                ? '/CaseItem/Item/Transfer/Index'
+                ? '/articlesInvolved/ArticlesPolice/unitemDetail'
                 : record.tzlx === 'xzajxx1'
-                ? '/register/case/Administration/Index'
+                ? '/newcaseFiling/caseData/AdministrationData/caseDetail'
                 : record.tzlx === 'xzajxx2'
-                ? '/Enforcement/case/Administration/Index'
+                ? '/newcaseFiling/caseData/AdministrationData/caseDetail'
                 : record.tzlx === 'xzajxx3'
-                ? '/newregister/newcase/newAdministration'
+                ? '/newcaseFiling/caseData/AdministrationData/caseDetail'
                 : record.tzlx === 'jqxx'
-                ? '/Reception/police/Transfer/Index'
+                ? '/receivePolice/AlarmData/policeDetail'
                 : record.tzlx === 'xsajxx1'
-                ? '/register/case/criminal/Index'
+                ? '/newcaseFiling/caseData/CriminalData/caseDetail'
                 : record.tzlx === 'xsajxx2'
-                ? '/Enforcement/case/criminal/Index'
+                ? '/newcaseFiling/caseData/CriminalData/caseDetail'
                 : record.tzlx === 'xsajxx3'
-                ? '/newregister/newcase/newcriminal'
+                ? '/newcaseFiling/caseData/CriminalData/caseDetail'
                 : record.tzlx === 'baqxx'
-                ? '/HandArea/Area/Transfer/Index'
+                ? '/handlingArea/AreaData/areaDetail'
                 : record.tzlx === 'jzxx'
-                ? '/Dossier/dossier/Transfer/Index'
+                ? '/dossierPolice/DossierData/DossierDetail'
                 : record.tzlx === 'jqyj'
-                ? '/Reception/PoliceIndex'
+                ? '/receivePolice/AlarmData/policeDetail'
                 : record.tzlx === 'xzajyj1'
-                ? '/register/warn/warnAdministration'
+                ? '/newcaseFiling/caseData/AdministrationData/caseDetail'
                 : record.tzlx === 'xsajyj1'
-                ? '/register/warn/warnCriminal'
+                ? '/newcaseFiling/caseData/CriminalData/caseDetail'
                 : record.tzlx === 'xzajyj2'
-                ? '/Enforcement/warn/warnAdministration'
+                ? '/newcaseFiling/caseData/AdministrationData/caseDetail'
                 : record.tzlx === 'xsajyj2'
-                ? '/Enforcement/warn/warnCriminal'
+                ? '/newcaseFiling/caseData/CriminalData/caseDetail'
                 : record.tzlx === 'xzajyj3'
-                ? '/newregister/newwarn/newwarnAdministration'
+                ? '/newcaseFiling/caseData/AdministrationData/caseDetail'
                 : record.tzlx === 'xsajyj3'
-                ? '/newregister/newwarn/newwarnCriminal'
+                ? '/newcaseFiling/caseData/CriminalData/caseDetail'
                 : record.tzlx === 'baqyj'
-                ? '/HandArea/AreaIndex'
+                ? '/handlingArea/AreaData/areaDetail'
                 : record.tzlx === 'wpyj'
-                ? '/CaseItem/ItemIndex'
+                ? '/articlesInvolved/ArticlesData/itemDetail'
                 : record.tzlx === 'jzyj'
-                ? '/Dossier/DossierIndex'
+                ? '/dossierPolice/DossierData/DossierDetail'
                 : '',
             query: {
               id: record.tzlx === 'jqwt' ? record.id : record.agid,
@@ -716,7 +741,7 @@ export default class Home1 extends PureComponent {
                       </Menu>
                     }
                     trigger={['click']}
-                    getPopupContainer={()=>document.getElementById('home1ID')}
+                    getPopupContainer={() => document.getElementById('home1ID')}
                   >
                     <a href="javascript:;">关注</a>
                   </Dropdown>
@@ -975,10 +1000,10 @@ export default class Home1 extends PureComponent {
     });
   };
   // handleCancel = () => {
-    // this.setState({
-      // visible: false,
-      // visibleShare: false,
-    // });
+  // this.setState({
+  // visible: false,
+  // visibleShare: false,
+  // });
   // };
   getLog = () => {
     this.props.dispatch({
@@ -1148,7 +1173,7 @@ export default class Home1 extends PureComponent {
       },
     };
     return (
-      <div id='home1ID'>
+      <div id="home1ID">
         <div className={styles.homeStyle}>
           <Card
             title={
@@ -1179,11 +1204,26 @@ export default class Home1 extends PureComponent {
                   }}
                 >
                   行政{' '}
-                  <a className={styles.DataTotal} style={{ textDecoration: 'underline', color: '#47B2FF', fontSize: 18,cursor:'auto' }}>
+                  <a
+                    className={styles.DataTotal}
+                    style={{
+                      textDecoration: 'underline',
+                      color: '#47B2FF',
+                      fontSize: 18,
+                      cursor: 'auto',
+                    }}
+                  >
                     {this.state.xz_num}
                   </a>{' '}
                   起&nbsp;&nbsp;&nbsp;&nbsp; 刑事{' '}
-                  <a style={{ textDecoration: 'underline', color: '#47B2FF', fontSize: 18,cursor:'auto' }}>
+                  <a
+                    style={{
+                      textDecoration: 'underline',
+                      color: '#47B2FF',
+                      fontSize: 18,
+                      cursor: 'auto',
+                    }}
+                  >
                     {this.state.xs_num}
                   </a>{' '}
                   起
@@ -1202,11 +1242,25 @@ export default class Home1 extends PureComponent {
                   }}
                 >
                   预警{' '}
-                  <a style={{ textDecoration: 'underline', color: '#47B2FF', fontSize: 18,cursor:'auto' }}>
+                  <a
+                    style={{
+                      textDecoration: 'underline',
+                      color: '#47B2FF',
+                      fontSize: 18,
+                      cursor: 'auto',
+                    }}
+                  >
                     {this.state.yj_num}
                   </a>{' '}
                   条 &nbsp;&nbsp;&nbsp;&nbsp;告警{' '}
-                  <a style={{ textDecoration: 'underline', color: '#47B2FF', fontSize: 18,cursor:'auto' }}>
+                  <a
+                    style={{
+                      textDecoration: 'underline',
+                      color: '#47B2FF',
+                      fontSize: 18,
+                      cursor: 'auto',
+                    }}
+                  >
                     {this.state.gj_num}
                   </a>{' '}
                   条
@@ -1315,16 +1369,16 @@ export default class Home1 extends PureComponent {
           </Col>
         </Row>
         {/*<MyNews*/}
-          {/*visible={this.state.visible}*/}
-          {/*handleCancel={this.handleCancel}*/}
-          {/*datail={this.state.datail}*/}
+        {/*visible={this.state.visible}*/}
+        {/*handleCancel={this.handleCancel}*/}
+        {/*datail={this.state.datail}*/}
         {/*/>*/}
         {/*<MyShare*/}
-          {/*visibleShare={this.state.visibleShare}*/}
-          {/*shareDatail={this.state.shareDatail}*/}
-          {/*handleCancel={this.handleCancel}*/}
-          {/*tabs={this.state.tabs}*/}
-          {/*goLook={(record, read) => this.goLook(record, read)}*/}
+        {/*visibleShare={this.state.visibleShare}*/}
+        {/*shareDatail={this.state.shareDatail}*/}
+        {/*handleCancel={this.handleCancel}*/}
+        {/*tabs={this.state.tabs}*/}
+        {/*goLook={(record, read) => this.goLook(record, read)}*/}
         {/*/>*/}
         <div className={styles.version}>
           {window.configUrl.headName}&nbsp;&nbsp;版本号：{window.configUrl.version}
