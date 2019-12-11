@@ -33,6 +33,7 @@ import zjzbImg from '../../../assets/generalQuery/jz_zjzb.png';
 import xzajImg from '../../../assets/generalQuery/xzaj.png';
 import stylescommon from '@/pages/common/common.less';
 import noList from '../../../assets/viewData/noList.png';
+import {routerRedux} from "dva/router";
 // import XsajDetail from '../../routes/CaseRealData/caseDetail';
 // import XzajDetail from '../../routes/XzCaseRealData/caseDetail';
 // import WpDetail from '../../routes/ItemRealData/itemDetail';
@@ -933,107 +934,78 @@ export default class GeneralQuery extends PureComponent {
   };
   // 查看查询结果详细信息
   searchResultCheckOut = item => {
-    // const { caseQueryIndex, baqQueryIndex, itemsQueryIndex, personQueryIndex, dossierQueryIndex } = this.state;
-    // if (item._index === caseQueryIndex) {
-    //     if (item._source.ajbh && item._source.ajbh !== '暂无') {
-    //         if (item._source.ajlxmc === '刑事') {
-    //             const divs = (
-    //                 <div>
-    //                     <XsajDetail
-    //                         {...this.props}
-    //                         newDetail={this.newDetail}
-    //                         id={item._source.ajbh}
-    //                     />
-    //                 </div>
-    //             );
-    //             const AddNewDetail = { title: '刑事案件详情', content: divs, key: item._source.ajbh };
-    //             this.newDetail(AddNewDetail);
-    //         } else {
-    //             const divs = (
-    //                 <div>
-    //                     <XzajDetail
-    //                         {...this.props}
-    //                         newDetail={this.newDetail}
-    //                         systemId={item._source.ajbh}
-    //                     />
-    //                 </div>
-    //             );
-    //             const AddNewDetail = { title: '行政案件详情', content: divs, key: item._source.ajbh };
-    //             this.newDetail(AddNewDetail);
-    //         }
-    //     } else {
-    //         message.warning('暂无相关信息！');
-    //     }
-    // } else if (item._index === itemsQueryIndex) {
-    //     if (item._source.systemid && item._source.systemid !== '暂无') {
-    //         const divs = (
-    //             <div>
-    //                 <WpDetail
-    //                     {...this.props}
-    //                     newDetail={this.newDetail}
-    //                     id={item._source.systemid}
-    //                 />
-    //             </div>
-    //         );
-    //         const AddNewDetail = { title: '涉案物品详情', content: divs, key: item._source.systemid };
-    //         this.newDetail(AddNewDetail);
-    //     } else {
-    //         message.warning('暂无相关信息！');
-    //     }
-    //
-    // } else if (item._index === personQueryIndex) {
-    //     if (item._source.ryzjhm && item._source.ryxm && item._source.ryzjhm !== '暂无' && item._source.ryxm !== '暂无') {
-    //         const divs = (
-    //             <div>
-    //                 <PersonDetail
-    //                     {...this.props}
-    //                     newDetail={this.newDetail}
-    //                     idcard={item._source.ryzjhm}
-    //                     name={item._source.ryxm}
-    //                     ly='常规数据'
-    //                 />
-    //             </div>
-    //         );
-    //         const AddNewDetail = { title: '人员档案', content: divs, key: item._source.ryzjhm + 'ryda' };
-    //         this.newDetail(AddNewDetail);
-    //     } else {
-    //         message.warning('暂无相关信息！');
-    //     }
-    // } else if (item._index === baqQueryIndex) {
-    //     if (item._source.ryzjhm && item._source.ajbh && item._source.ryzjhm !== '暂无' && item._source.ajbh !== '暂无') {
-    //         const divs = (
-    //             <div>
-    //                 <PersonIntoArea
-    //                     {...this.props}
-    //                     newDetail={this.newDetail}
-    //                     sfzh={item._source.ryzjhm}
-    //                     ajbh={item._source.ajbh}
-    //                 />
-    //             </div>
-    //         );
-    //         const AddNewDetail = { title: '涉案人员在区情况', content: divs, key: item._source.ryzjhm + 'rqxx' };
-    //         this.newDetail(AddNewDetail);
-    //     } else {
-    //         message.warning('暂无相关信息！');
-    //     }
-    //
-    // } else if (item._index === dossierQueryIndex) {
-    //     if (item._source.systemid && item._source.ajbh && item._source.systemid !== '暂无' && item._source.ajbh !== '暂无') {
-    //         const divs = (
-    //             <div>
-    //                 <DossierDetail
-    //                     {...this.props}
-    //                     id={item._source.systemid}
-    //                     newDetail={this.newDetail}
-    //                 />
-    //             </div>
-    //         );
-    //         const addDetail = { title: '卷宗详情', content: divs, key: item._source.systemid };
-    //         this.newDetail(addDetail);
-    //     } else {
-    //         message.warning('暂无相关信息！');
-    //     }
-    // }
+    const { caseQueryIndex, baqQueryIndex, itemsQueryIndex, personQueryIndex, dossierQueryIndex } = this.state;
+    if (item._index === caseQueryIndex) {
+        if (item._source.ajbh && item._source.ajbh !== '暂无') {
+            if (item._source.ajlxmc === '刑事') {
+                this.props.dispatch(
+                    routerRedux.push({
+                        pathname: '/newcaseFiling/caseData/CriminalData/caseDetail',
+                        query: { record:item,id:item.o_surce.ajbh },
+                    }),
+                )
+            } else {
+                item.system_id = item._source.ajbh;
+                this.props.dispatch(
+                    routerRedux.push({
+                        pathname: '/newcaseFiling/caseData/AdministrationData/caseDetail',
+                        query: { record:item,id:item._source.ajbh,system_id:item._source.ajbh },
+                    }),
+                )
+            }
+        } else {
+            message.warning('暂无相关信息！');
+        }
+    } else if (item._index === itemsQueryIndex) {
+        if (item._source.systemid && item._source.systemid !== '暂无') {
+            this.props.dispatch(
+                routerRedux.push({
+                    pathname: '/articlesInvolved/ArticlesData/itemDetail',
+                    query: { record:item,id: item._source.systemid,newDetail:this.props.newDetail },
+                }),
+            )
+        } else {
+            message.warning('暂无相关信息！');
+        }
+
+    } else if (item._index === personQueryIndex) {
+        if (item._source.ryzjhm && item._source.ryxm && item._source.ryzjhm !== '暂无' && item._source.ryxm !== '暂无') {//人员档案
+            item.xyr_sfzh = item._source.ryzjhm;
+            this.props.dispatch(
+                routerRedux.push({
+                    pathname: '/lawEnforcement/PersonFile/Detail',
+                    query: { id: item._source.ryzjhm, record: item},
+                }),
+            );
+        } else {
+            message.warning('暂无相关信息！');
+        }
+    } else if (item._index === baqQueryIndex) {
+        if (item._source.ryzjhm && item._source.ajbh && item._source.ryzjhm !== '暂无' && item._source.ajbh !== '暂无') {//涉案人员在区情况
+            item.sfzh = item._source.ryzjhm;
+            item.ajbh = item._source.ajbh;
+            this.props.dispatch(
+                routerRedux.push({
+                    pathname: '/handlingArea/AreaData/areaDetail',
+                    query: { record:item,id: item._source.ajbh},
+                }),
+            );
+        } else {
+            message.warning('暂无相关信息！');
+        }
+
+    } else if (item._index === dossierQueryIndex) {
+        if (item._source.systemid && item._source.ajbh && item._source.systemid !== '暂无' && item._source.ajbh !== '暂无') {//卷宗
+            this.props.dispatch(
+                routerRedux.push({
+                    pathname: '/dossierPolice/DossierData/DossierDetail',
+                    query: { record:item,id: item._source.systemid},
+                }),
+            );
+        } else {
+            message.warning('暂无相关信息！');
+        }
+    }
   };
   // 展开搜索区域
   showSearchDetail = () => {

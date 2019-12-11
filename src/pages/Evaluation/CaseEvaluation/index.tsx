@@ -93,7 +93,7 @@ export default class Index extends PureComponent {
         this.getCaseTypeTree(window.configUrl.is_area);
     }
     componentWillReceiveProps(nextProps) {
-        if(nextProps.history.location.query.isReset){
+        if(nextProps.history.location.query.isReset&&nextProps.history.location.pathname==='/Evaluation/CaseEvaluation'){
             const params = {
                 pd: {
                     tbtz: '0',
@@ -364,11 +364,11 @@ export default class Index extends PureComponent {
         if(params){
             if(params.typeGj){
                 this.props.dispatch(routerRedux.push({pathname:
-                        params.typeGj === '0' ? '/newregister/newalarm/newalarmAdministration' :
-                            params.typeGj === '1' ? '/newregister/newalarm/newalarmCriminal' :
-                                params.typeGj === '2' ? '/CaseItem/UnItem/Transfer/Index' :
-                                    params.typeGj === '3' ? '/HandArea/UnArea/Transfer/Index' :
-                                        paramstypeGj === '4' ? '/Dossier/undossier/Transfer/Index' : ''
+                        params.typeGj === '0' ? '/newcaseFiling/casePolice/AdministrationPolice' :
+                            params.typeGj === '1' ? '/newcaseFiling/casePolice/CriminalPolice' :
+                                params.typeGj === '2' ? '/articlesInvolved/ArticlesPolice' :
+                                    params.typeGj === '3' ? '/handlingArea/AreaPolice' :
+                                        paramstypeGj === '4' ? '/dossierPolice/DossierPolice' : ''
                     ,state:{
                         code: idx==='0' ? params.code : (params.bkpr_dwdm ? params.bkpr_dwdm : ''),
                         kssj: kprq_ks,
@@ -376,7 +376,7 @@ export default class Index extends PureComponent {
                         dbzt: '',
                         bar_name:idx==='2' ? params.bkpr_name : '',
                         is_tz:'2',
-                    }}));
+                    },query: {isReset:true}}));
             }else{
                 this.setState({
                     showDataView: false,

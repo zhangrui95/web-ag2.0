@@ -152,9 +152,12 @@ const Navigation = props => {
     dispatch({
       type: 'global/changeNavigation',
       payload: {},
-      callback: () =>
-        //跳转回首页
-        dispatch(routerRedux.push('/ShowData/RegulatePanel')),
+      callback: () =>{
+          //跳转回首页
+          if(location.pathname !== '/ShowData/RegulatePanel'){
+              dispatch(routerRedux.push('/ShowData/RegulatePanel'));
+          }
+      }
     });
       dispatch({
           type: 'global/changeSessonNavigation',

@@ -71,8 +71,8 @@ export default class DossierDetail extends PureComponent {
 
     componentDidMount() {
       const {location} = this.props;
-      if(location && location.query && location.query.record && (location.query.record.dossier_id||location.query.record.system_id)){
-        this.getDossierDetail(location.query.record.dossier_id||location.query.record.system_id);
+      if(location && location.query && location.query.record && (location.query.record.dossier_id||location.query.record.system_id||location.query.id)){
+        this.getDossierDetail(location.query.record.dossier_id||location.query.record.system_id||location.query.id);
       }
     }
 

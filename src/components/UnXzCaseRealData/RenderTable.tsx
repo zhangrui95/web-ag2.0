@@ -58,7 +58,7 @@ class RenderTable extends PureComponent {
             this.props.dispatch(
               routerRedux.push({
                 pathname: '/newcaseFiling/casePolice/AdministrationPolice/uncaseDetail',
-                query: { record: record, id: record && record.id ? record.id : '1' },
+                query: { record: record, id: record && record.wtid ? record.wtid : '1' },
               }),
             );
         //   },

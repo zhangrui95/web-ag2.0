@@ -82,103 +82,111 @@ export default class Index extends PureComponent {
         showDataView: false,
       });
     }
-    if (this.props.location.state && this.props.location.state.code) {
-      this.setState({
-        showDataView: false,
-        sadw: this.props.location.state.code,
-        gjsj: [this.props.location.state.kssj ? moment(this.props.location.state.kssj) : null, this.props.location.state.jssj ? moment(this.props.location.state.jssj) : null],
-        dbzt: this.props.location.state.dbzt ? this.props.location.state.dbzt : '',
-        wtlx_id:this.props.location.state.wtlx_id ? this.props.location.state.wtlx_id : '',
-      });
-      this.props.form.setFieldsValue({
-        bar: this.props.location.state.bar_name,
-        wtlx:this.props.location.state.wtlx_id ? this.props.location.state.wtlx_id : '',
-      });
-      const formValues = {
-        gjsj_ks: this.props.location.state.kssj,
-        gjsj_js: this.props.location.state.jssj,
-        sadw: this.props.location.state.code,
-        is_tz: this.props.location.state.is_tz ? this.props.location.state.is_tz : '1',
-        barxm:this.props.location.state.bar_name || '',
-        wtlx_id:this.props.location.state.wtlx_id ? this.props.location.state.wtlx_id : '',
-        // dbzt:this.props.location.state.dbzt,
-      };
-      this.setState({
-        formValues,
-        is_tz: this.props.location.state.is_tz ? this.props.location.state.is_tz : '1',
-      });
-      const params = {
-        currentPage: 1,
-        showCount: tableList,
-        pd: {
-          ...formValues,
-          is_bbtz:'0',
-        },
-      };
-      this.getUnCase(params);
-    }
-    else if(this.props.location.queryxzajzfjd){
-      const {selectDateValue,record,wtid,type} = this.props.location.queryxzajzfjd;
-      const formValues = {
-        is_bbtz:'1',
-        gjsj_ks: selectDateValue&&selectDateValue.kssj ? selectDateValue.kssj:'',
-        gjsj_js: selectDateValue&&selectDateValue.jssj ? selectDateValue.jssj:'',
-        wtlx_id: wtid&&type===1 ? wtid:'',
-        bardw: record&&record.bardw ? record.bardw:'',
-        dbzt:'',
-        ssmk: '',
-      };
-      this.setState({
-        formValues,
-        showDataView: false,
-        gjsj: selectDateValue&&selectDateValue.kssj&&selectDateValue.jssj?[moment(selectDateValue.kssj, 'YYYY-MM-DD'), moment(selectDateValue.jssj, 'YYYY-MM-DD')]:null,
-        wtlx: type===1?wtid:'',
-        bardw: record.bardw,
-        dbzt: '',
-      },()=>{
-        this.props.form.setFieldsValue({
-          gjsj: selectDateValue&&selectDateValue.kssj&&selectDateValue.jssj?[moment(selectDateValue.kssj, 'YYYY-MM-DD'), moment(selectDateValue.jssj, 'YYYY-MM-DD')]:null,
-          wtlx: wtid&&type===1 ? wtid:'',
-          badw: record.bardw,
-          // dbzt: '',
-        });
-      });
-
-      const params = {
-        currentPage: 1,
-        showCount: tableList,
-        pd: {
-          is_bbtz:'1',
-          gjsj_ks: selectDateValue&&selectDateValue.kssj ? selectDateValue.kssj:'',
-          gjsj_js: selectDateValue&&selectDateValue.jssj ? selectDateValue.jssj:'',
-          wtlx_id: wtid&&type===1 ? wtid:'',
-          bardw: record&&record.bardw ? record.bardw:'',
-          // dbzt:'00',
-          is_tz:'3',
-        },
-      };
-      this.getUnCase(params);
-    }
-    else {
-      this.handleFormReset();
-      const wtid = getQueryString(this.props.location.search, 'wtid') || '';
-      if (wtid !== '') {
-        const params = {
-          currentPage: 1,
-          showCount: tableList,
-          pd: {
-            wtid,
-            ssmk: '',
-            is_bbtz:'0',
-          },
-        };
-        this.getUnCase(params);
-      } else {
-        this.getUnCase();
-      }
-    }
+    this.getAllList(this.props);
   }
+    getAllList=(props)=>{
+        if (props.location.state && props.location.state.code) {
+            this.setState({
+                showDataView: false,
+                sadw: props.location.state.code,
+                gjsj: [props.location.state.kssj ? moment(props.location.state.kssj) : null, props.location.state.jssj ? moment(props.location.state.jssj) : null],
+                dbzt: props.location.state.dbzt ? props.location.state.dbzt : '',
+                wtlx_id:props.location.state.wtlx_id ? props.location.state.wtlx_id : '',
+            });
+            this.props.form.setFieldsValue({
+                bar: props.location.state.bar_name,
+                wtlx:props.location.state.wtlx_id ? props.location.state.wtlx_id : '',
+            });
+            const formValues = {
+                gjsj_ks: props.location.state.kssj,
+                gjsj_js: props.location.state.jssj,
+                sadw: props.location.state.code,
+                is_tz: props.location.state.is_tz ? props.location.state.is_tz : '1',
+                barxm:props.location.state.bar_name || '',
+                wtlx_id:props.location.state.wtlx_id ? props.location.state.wtlx_id : '',
+                // dbzt:props.location.state.dbzt,
+            };
+            this.setState({
+                formValues,
+                is_tz: props.location.state.is_tz ? props.location.state.is_tz : '1',
+            });
+            const params = {
+                currentPage: 1,
+                showCount: tableList,
+                pd: {
+                    ...formValues,
+                    is_bbtz:'0',
+                },
+            };
+            this.getUnCase(params);
+        }
+        else if(props.location.queryxzajzfjd){
+            const {selectDateValue,record,wtid,type} = props.location.queryxzajzfjd;
+            const formValues = {
+                is_bbtz:'1',
+                gjsj_ks: selectDateValue&&selectDateValue.kssj ? selectDateValue.kssj:'',
+                gjsj_js: selectDateValue&&selectDateValue.jssj ? selectDateValue.jssj:'',
+                wtlx_id: wtid&&type===1 ? wtid:'',
+                bardw: record&&record.bardw ? record.bardw:'',
+                dbzt:'',
+                ssmk: '',
+            };
+            this.setState({
+                formValues,
+                showDataView: false,
+                gjsj: selectDateValue&&selectDateValue.kssj&&selectDateValue.jssj?[moment(selectDateValue.kssj, 'YYYY-MM-DD'), moment(selectDateValue.jssj, 'YYYY-MM-DD')]:null,
+                wtlx: type===1?wtid:'',
+                bardw: record.bardw,
+                dbzt: '',
+            },()=>{
+                this.props.form.setFieldsValue({
+                    gjsj: selectDateValue&&selectDateValue.kssj&&selectDateValue.jssj?[moment(selectDateValue.kssj, 'YYYY-MM-DD'), moment(selectDateValue.jssj, 'YYYY-MM-DD')]:null,
+                    wtlx: wtid&&type===1 ? wtid:'',
+                    badw: record.bardw,
+                    // dbzt: '',
+                });
+            });
 
+            const params = {
+                currentPage: 1,
+                showCount: tableList,
+                pd: {
+                    is_bbtz:'1',
+                    gjsj_ks: selectDateValue&&selectDateValue.kssj ? selectDateValue.kssj:'',
+                    gjsj_js: selectDateValue&&selectDateValue.jssj ? selectDateValue.jssj:'',
+                    wtlx_id: wtid&&type===1 ? wtid:'',
+                    bardw: record&&record.bardw ? record.bardw:'',
+                    // dbzt:'00',
+                    is_tz:'3',
+                },
+            };
+            this.getUnCase(params);
+        }
+        else {
+            this.handleFormReset();
+            const wtid = getQueryString(props.location.search, 'wtid') || '';
+            if (wtid !== '') {
+                const params = {
+                    currentPage: 1,
+                    showCount: tableList,
+                    pd: {
+                        wtid,
+                        ssmk: '',
+                        is_bbtz:'0',
+                    },
+                };
+                this.getUnCase(params);
+            } else {
+                this.getUnCase();
+            }
+        }
+    }
+    componentWillReceiveProps(nextProps) {
+        if(nextProps.history.location.query.isReset&&nextProps.history.location.pathname==='/newcaseFiling/casePolice/CriminalPolice'){
+            this.getAllList(nextProps.history);
+            this.props.history.replace(nextProps.history.location.pathname);
+        }
+    }
   onChange = (activeKey) => {
     this.setState({
       activeKey,

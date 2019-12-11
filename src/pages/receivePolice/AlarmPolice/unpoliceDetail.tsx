@@ -81,8 +81,8 @@ export default class unpoliceDetail extends PureComponent {
     this.props.dispatch({
       type: 'UnPoliceData/UnPoliceDetailFetch',
       payload: {
-        id: record.id,
-        wtid: record.wtid||record.wt_id,
+        id: this.props.location.query.id,
+        wtid: record.wtid || record.wt_id,
       },
       callback: data => {
         if (data) {

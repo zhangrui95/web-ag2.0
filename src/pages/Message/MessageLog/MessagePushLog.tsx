@@ -6,214 +6,144 @@
 
 import React, { PureComponent } from 'react';
 import { Row, Col, Modal, Button, message,Card } from 'antd';
+import { connect } from 'dva';
 import Ellipsis from 'ant-design-pro/lib/Ellipsis';
-// import XsajDetail from '../../CaseRealData/caseDetail';
-// import XzajDetail from '../XzCaseRealData/caseDetail';
-// import WpDetail from '../ItemRealData/itemDetail';
-// import PersonIntoArea from '../CaseRealData/IntoArea';
-// import DossierDetail from '../DossierData/DossierDetail';
-// import PoliceDetail from '../PoliceRealData/policeDetail';
-// import UncaseDetail from '../UnCaseRealData/uncaseDetail';
-// import UnareaDetail from '../UnAreaRealData/unareaDetail';
-// import UnitemDetail from '../UnItemRealData/unitemDetail';
-// import UnXzCaseDetail from '../UnXzCaseRealData/caseDetail';
-// import UnDossierDetail from '../UnDossierData/UnDossierDetail';
-// import UnPoliceDetail from '../UnPoliceRealData/unpoliceDetail';
 import styles from './index.less';
 import { pushMattersDictCode, pushTypeDictCode } from '../../../utils/utils';
-
+import {routerRedux} from "dva/router";
+@connect()
 export default class MessagePushLogModal extends PureComponent {
     // 查看日志详细信息
     logDetailCheckOut = () => {
-        // const { logDetail: item } = this.props;
-        // console.log('item------------------->', item);
-        // if (item.tssx_dm === pushMattersDictCode.POLICE) {
-        //     if (item.system_id) {
-        //         if (pushTypeDictCode.EARLYWARNING === item.tslx_dm) {
-        //             const divs = (
-        //                 <div>
-        //                     <PoliceDetail
-        //                         id={item.system_id}
-        //                         {...this.props}
-        //                     />
-        //                 </div>
-        //             );
-        //             const AddNewDetail = { title: '警情详情', content: divs, key: item.system_id };
-        //             this.props.newDetail(AddNewDetail);
-        //         } else {
-        //             const divs = (
-        //                 <div>
-        //                     <UnPoliceDetail
-        //                         id={item.ag_id}
-        //                         wtid={item.wtid}
-        //                         {...this.props}
-        //                     />
-        //                 </div>
-        //             );
-        //             const AddNewDetail = { title: '警情告警详情', content: divs, key: item.system_id };
-        //             this.props.newDetail(AddNewDetail);
-        //         }
-        //
-        //     } else {
-        //         message.warning('暂无相关信息！');
-        //     }
-        // } else if (item.tssx_dm === pushMattersDictCode.CASE) {
-        //     if (item.system_id) {
-        //         if (pushTypeDictCode.EARLYWARNING === item.tslx_dm) {
-        //             const divs = (
-        //                 <div>
-        //                     <XsajDetail
-        //                         {...this.props}
-        //                         id={item.system_id}
-        //                     />
-        //                 </div>
-        //             );
-        //             const AddNewDetail = { title: '刑事案件预警详情', content: divs, key: item.system_id };
-        //             this.props.newDetail(AddNewDetail);
-        //         } else {
-        //             const divs = (
-        //                 <div>
-        //                     <UncaseDetail
-        //                         {...this.props}
-        //                         id={item.wtid}
-        //                         systemId={item.system_id}
-        //                     />
-        //                 </div>
-        //             );
-        //             const AddNewDetail = { title: '刑事案件告警详情', content: divs, key: item.wtid };
-        //             this.props.newDetail(AddNewDetail);
-        //         }
-        //
-        //     } else {
-        //         message.warning('暂无相关信息！');
-        //     }
-        // } else if (item.tssx_dm === pushMattersDictCode.XZ) {
-        //     if (item.system_id) {
-        //         if (pushTypeDictCode.EARLYWARNING === item.tslx_dm) {
-        //             const divs = (
-        //                 <div>
-        //                     <XzajDetail
-        //                         {...this.props}
-        //                         systemId={item.system_id}
-        //                     />
-        //                 </div>
-        //             );
-        //             const AddNewDetail = { title: '行政案件预警详情', content: divs, key: item.system_id };
-        //             this.props.newDetail(AddNewDetail);
-        //         } else {
-        //             const divs = (
-        //                 <div>
-        //                     <UnXzCaseDetail
-        //                         {...this.props}
-        //                         id={item.wtid}
-        //                         systemId={item.system_id}
-        //                     />
-        //                 </div>
-        //             );
-        //             const AddNewDetail = { title: '行政案件告警详情', content: divs, key: item.wtid };
-        //             this.props.newDetail(AddNewDetail);
-        //         }
-        //
-        //     } else {
-        //         message.warning('暂无相关信息！');
-        //     }
-        // } else if (item.tssx_dm === pushMattersDictCode.ITEM) {
-        //     if (item.system_id) {
-        //         if (pushTypeDictCode.EARLYWARNING === item.tslx_dm) {
-        //             const divs = (
-        //                 <div>
-        //                     <WpDetail
-        //                         {...this.props}
-        //                         newDetail={this.props.newDetail}
-        //                         id={item.system_id}
-        //                     />
-        //                 </div>
-        //             );
-        //             const AddNewDetail = { title: '涉案物品预警详情', content: divs, key: item.system_id };
-        //             this.props.newDetail(AddNewDetail);
-        //         } else {
-        //             const divs = (
-        //                 <div>
-        //                     <UnitemDetail
-        //                         {...this.props}
-        //                         id={item.wtid}
-        //                         systemId={item.system_id}
-        //                     />
-        //                 </div>
-        //             );
-        //             const AddNewDetail = { title: '涉案物品告警详情', content: divs, key: item.wtid };
-        //             this.props.newDetail(AddNewDetail);
-        //         }
-        //
-        //     } else {
-        //         message.warning('暂无相关信息！');
-        //     }
-        //
-        // } else if (item.tssx_dm === pushMattersDictCode.AREA) {
-        //     if (item.ryzjhm && item.system_id) {
-        //         if (pushTypeDictCode.EARLYWARNING === item.tslx_dm) {
-        //             const divs = (
-        //                 <div>
-        //                     <PersonIntoArea
-        //                         {...this.props}
-        //                         newDetail={this.props.newDetail}
-        //                         sfzh={item.ryzjhm}
-        //                         ajbh={item.system_id}
-        //                     />
-        //                 </div>
-        //             );
-        //             const AddNewDetail = { title: '办案区预警详情', content: divs, key: item.ryzjhm + 'rqxx' };
-        //             this.props.newDetail(AddNewDetail);
-        //         } else {
-        //             const divs = (
-        //                 <div>
-        //                     <UnareaDetail
-        //                         {...this.props}
-        //                         id={item.wtid}
-        //                         baqId={item.system_id}
-        //                     />
-        //                 </div>
-        //             );
-        //             const AddNewDetail = { title: '人员在区告警详情', content: divs, key: item.wtid };
-        //             this.props.newDetail(AddNewDetail);
-        //         }
-        //
-        //     } else {
-        //         message.warning('暂无相关信息！');
-        //     }
-        //
-        // } else if (item.tssx_dm === pushMattersDictCode.DOSSIER) {
-        //     if (item.system_id) {
-        //         if (pushTypeDictCode.EARLYWARNING === item.tslx_dm) {
-        //             const divs = (
-        //                 <div>
-        //                     <DossierDetail
-        //                         {...this.props}
-        //                         id={item.system_id}
-        //                     />
-        //                 </div>
-        //             );
-        //             const addDetail = { title: '卷宗预警详情', content: divs, key: item.system_id };
-        //             this.props.newDetail(addDetail);
-        //         } else {
-        //             const divs = (
-        //                 <div>
-        //                     <UnDossierDetail
-        //                         {...this.props}
-        //                         id={item.ag_id}
-        //                         wtid={item.wtid}
-        //                         dossierId={item.system_id}
-        //                     />
-        //                 </div>
-        //             );
-        //             const AddNewDetail = { title: '卷宗告警详情', content: divs, key: item.wtid };
-        //             this.props.newDetail(AddNewDetail);
-        //         }
-        //
-        //     } else {
-        //         message.warning('暂无相关信息！');
-        //     }
-        // }
+        let item = this.props.location.query.record;
+        if (item.tssx_dm === pushMattersDictCode.POLICE) {
+            if (item.system_id) {//警情详情
+                if (pushTypeDictCode.EARLYWARNING === item.tslx_dm) {
+                    this.props.dispatch(
+                        routerRedux.push({
+                            pathname: '/receivePolice/AlarmData/policeDetail',
+                            query: { record:item,id: item.system_id },
+                        }),
+                    )
+                } else {//警情告警详情
+                    this.props.dispatch(
+                        routerRedux.push({
+                            pathname: '/receivePolice/AlarmPolice/unpoliceDetail',
+                            query: { record:item,id: item.ag_id,wtid:item.wtid},
+                        }),
+                    )
+                }
+
+            } else {
+                message.warning('暂无相关信息！');
+            }
+        } else if (item.tssx_dm === pushMattersDictCode.CASE) {
+            if (item.system_id) {
+                if (pushTypeDictCode.EARLYWARNING === item.tslx_dm) {//刑事案件预警详情
+                    this.props.dispatch(
+                        routerRedux.push({
+                            pathname: '/newcaseFiling/caseData/CriminalData/caseDetail',
+                            query: { record:item,id: item.system_id },
+                        }),
+                    )
+                } else {
+                    this.props.dispatch(
+                        routerRedux.push({
+                            pathname: '/newcaseFiling/casePolice/CriminalPolice/uncaseDetail',
+                            query: { record:item,id: item.wtid,system_id:item.system_id },
+                        }),
+                    )
+                }
+            } else {
+                message.warning('暂无相关信息！');
+            }
+        } else if (item.tssx_dm === pushMattersDictCode.XZ) {
+            if (item.system_id) {
+                if (pushTypeDictCode.EARLYWARNING === item.tslx_dm) {//行政案件预警详情
+                    this.props.dispatch(
+                        routerRedux.push({
+                            pathname: '/newcaseFiling/caseData/AdministrationData/caseDetail',
+                            query: { record:item,id: item.system_id,system_id:item.system_id },
+                        }),
+                    )
+                } else {
+                    this.props.dispatch(
+                        routerRedux.push({
+                            pathname: '/newcaseFiling/casePolice/AdministrationPolice/uncaseDetail',
+                            query: { record:item,id: item.wtid },
+                        }),
+                    )
+                }
+
+            } else {
+                message.warning('暂无相关信息！');
+            }
+        } else if (item.tssx_dm === pushMattersDictCode.ITEM) {
+            if (item.system_id) {
+                if (pushTypeDictCode.EARLYWARNING === item.tslx_dm) {//涉案物品预警详情
+                    this.props.dispatch(
+                        routerRedux.push({
+                            pathname: '/articlesInvolved/ArticlesData/itemDetail',
+                            query: { record:item,id: item.system_id,newDetail:this.props.newDetail },
+                        }),
+                    )
+                } else {//涉案物品告警详情
+                    this.props.dispatch(
+                        routerRedux.push({
+                            pathname: '/articlesInvolved/ArticlesPolice/unitemDetail',
+                            query: { record:item,id: item.wtid,system_id:item.system_id },
+                        }),
+                    )
+                }
+
+            } else {
+                message.warning('暂无相关信息！');
+            }
+
+        } else if (item.tssx_dm === pushMattersDictCode.AREA) {
+            if (item.ryzjhm && item.system_id) {
+                if (pushTypeDictCode.EARLYWARNING === item.tslx_dm) {//办案区预警详情
+                    this.props.dispatch(
+                        routerRedux.push({
+                            pathname: '/handlingArea/AreaData/areaDetail',
+                            query: { record:item,id: item.system_id,sfzh:item.ryzjhm,ajbh:item.system_id, newDetail:this.props.newDetail},
+                        }),
+                    );
+                } else {//人员在区告警详情
+                    this.props.dispatch(
+                        routerRedux.push({
+                            pathname: '/handlingArea/AreaPolice/UnareaDetail',
+                            query: { record:item,id: item.wtid,baqId:item.system_id},
+                        }),
+                    );
+                }
+
+            } else {
+                message.warning('暂无相关信息！');
+            }
+
+        } else if (item.tssx_dm === pushMattersDictCode.DOSSIER) {
+            if (item.system_id) {
+                if (pushTypeDictCode.EARLYWARNING === item.tslx_dm) {//卷宗预警详情
+                    this.props.dispatch(
+                        routerRedux.push({
+                            pathname: '/dossierPolice/DossierData/DossierDetail',
+                            query: { record:item,id: item.system_id},
+                        }),
+                    );
+                } else {//卷宗告警详情
+                    this.props.dispatch(
+                        routerRedux.push({
+                            pathname: '/dossierPolice/DossierPolice/UnDossierDetail',
+                            query: { record:item,id: item.ag_id, wtid:item.wtid,dossierId:item.system_id},
+                        }),
+                    );
+                }
+
+            } else {
+                message.warning('暂无相关信息！');
+            }
+        }
     };
     // 关闭modal
     cancelModal = () => {

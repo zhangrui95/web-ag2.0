@@ -22,6 +22,8 @@ import { connect } from 'dva';
 import styles from './index.less';
 import { getUserInfos } from '../../../utils/utils';
 import noList from "@/assets/viewData/noList.png";
+import {NavigationItem} from "@/components/Navigation/navigation";
+import {routerRedux} from "dva/router";
 
 const FormItem = Form.Item;
 @Form.create()
@@ -205,17 +207,18 @@ export default class SuperviseCopy extends PureComponent {
           id: ids.toString(),
           ssjg_dm: this.props.location.query.fyxzjg.id,
           ssjg_mc: this.props.location.query.fyxzjg.label,
-          sf_qjjg: this.props.qjjg ? '1' : '0',
+          sf_qjjg: this.props.location.query.qjjg ? '1' : '0',
         },
         callback: res => {
           if (!res.error) {
             message.success('添加成功');
-            this.props.handleSuccess();
           } else {
             message.warn('操作失败，请重试');
+            return false;
           }
         },
       });
+      this.onEdit(true);
     } else {
       message.warn('请选择复用监管点');
     }
@@ -223,7 +226,39 @@ export default class SuperviseCopy extends PureComponent {
   handleSelectChange = (sourceSelectedKeys, targetSelectedKeys) => {
     this.setState({ selectedKeys: [...sourceSelectedKeys, ...targetSelectedKeys] });
   };
-
+    onEdit = (isReset) => {
+        let key = '/systemSetup/SuperviseSetup/Copy'+this.props.location.query.id;
+        const { dispatch } = this.props;
+        if (dispatch) {
+            dispatch({
+                type: 'global/changeSessonNavigation',
+                payload: {
+                    key,
+                    isShow: false,
+                },
+            });
+            dispatch({
+                type: 'global/changeNavigation',
+                payload: {
+                    key,
+                    isShow: false,
+                },
+                callback: (data: NavigationItem[]) => {
+                    if(isReset){
+                        dispatch(routerRedux.push({
+                            pathname: '/systemSetup/SuperviseSetup' ,
+                            query: {isReset,type:'0'},
+                        }))
+                    }else{
+                        dispatch(routerRedux.push({
+                            pathname: '/systemSetup/SuperviseSetup/Add' ,
+                            query: { id: '1' ,record: {type:0}},
+                        }))
+                    }
+                },
+            });
+        }
+    };
   render() {
     const rowLayout = { md: 8, xl: 16, xxl: 24 };
     const {
@@ -235,7 +270,7 @@ export default class SuperviseCopy extends PureComponent {
     };
     return (
         <div>
-             <Card style={{padding:24,marginBottom:'12px'}} id={'form'}>
+             <Card style={{padding:24,marginBottom:'12px'}} id={'SupCopyform'}>
                 <Form>
                   <Row gutter={rowLayout}>
                     <Col span={6}>
@@ -249,7 +284,7 @@ export default class SuperviseCopy extends PureComponent {
                             placeholder="请选择"
                             style={{ width: '100%' }}
                             onChange={e => this.choiceJg(e)}
-                            getPopupContainer={()=>document.getElementById('form')}
+                            getPopupContainer={()=>document.getElementById('SupCopyform')}
                           >
                             {this.state.fyjgList &&
                               this.state.fyjgList.map(event => {
@@ -266,7 +301,7 @@ export default class SuperviseCopy extends PureComponent {
                             placeholder="请选择"
                             style={{ width: '100%' }}
                             onChange={e => this.choiceJgsx(e)}
-                            getPopupContainer={()=>document.getElementById('form')}
+                            getPopupContainer={()=>document.getElementById('SupCopyform')}
                           >
                             {this.state.fyjgsxList &&
                               this.state.fyjgsxList.map(event => {
@@ -289,6 +324,7 @@ export default class SuperviseCopy extends PureComponent {
                         onChange={this.handleChange}
                         selectedKeys={this.state.selectedKeys}
                         onSelectChange={this.handleSelectChange}
+                        locale={{notFoundContent:<Empty image={noList} description={'暂无记录'} />}}
                       />
                     </Col>
                   </Row>
@@ -296,8 +332,11 @@ export default class SuperviseCopy extends PureComponent {
               </Card>
             <Card>
                 <div className={styles.btns}>
-                    <Button type="primary" style={{ marginLeft: 8 }}>
-                        保存
+                    <Button type="primary" style={{ marginLeft: 8 }} className={styles.qxBtn} onClick={()=>this.onEdit(false)}>
+                        取消
+                    </Button>
+                    <Button type="primary" style={{ marginLeft: 8 }} onClick={this.handleOks}>
+                       确定
                     </Button>
                 </div>
             </Card>

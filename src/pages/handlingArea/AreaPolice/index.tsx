@@ -95,77 +95,85 @@ export default class Index extends PureComponent {
         showDataView: false,
       });
     }
-    if (this.props.location.state && this.props.location.state.code) {
-      this.setState({
-        showDataView: false,
-        dbzt: '',
-        bardw: this.props.location.state.code,
-        gjsj: [
-          this.props.location.state.kssj ? moment(this.props.location.state.kssj) : null,
-          this.props.location.state.jssj ? moment(this.props.location.state.jssj) : null,
-        ],
-      });
-      this.props.form.setFieldsValue({
-        bar: this.props.location.state.bar_name,
-      });
-      const formValues = {
-        bardw: this.props.location.state.code,
-        gjsj_ks: this.props.location.state.kssj,
-        gjsj_js: this.props.location.state.jssj,
-        is_tz: this.props.location.state.is_tz ? this.props.location.state.is_tz : '1',
-        barxm: this.props.location.state.bar_name || '',
-      };
-      this.setState({
-        formValues,
-        is_tz: this.props.location.state.is_tz ? this.props.location.state.is_tz : '1',
-      });
-      const params = {
-        currentPage: 1,
-        showCount: tableList,
-        pd: {
-          ...formValues,
-        },
-      };
-      this.getUnArea(params);
-    } else {
-      this.handleFormReset();
-      const org = getQueryString(this.props.location.search, 'org') || '';
-      const rqsj_ks = getQueryString(this.props.location.search, 'startTime') || '';
-      const rqsj_js = getQueryString(this.props.location.search, 'endTime') || '';
-      const code = getQueryString(this.props.location.search, 'code') || '';
-      const wtid = getQueryString(this.props.location.search, 'wtid') || '';
-      const old_id = getQueryString(this.props.location.search, 'old_id') || '';
-      if (rqsj_ks !== '' && rqsj_js !== '') {
-        this.props.form.setFieldsValue({
-          rqsj: [moment(rqsj_ks, 'YYYY-MM-DD'), moment(rqsj_js, 'YYYY-MM-DD')],
-        });
-      }
-      if (code !== '') {
-        this.props.form.setFieldsValue({
-          wtlx: code,
-        });
-      }
-      const obj = {
-        currentPage: 1,
-        showCount: tableList,
-        pd: {
-          org,
-          rqsj_ks,
-          rqsj_js,
-          wtlx_id: code,
-          wtid,
-          old_id,
-        },
-      };
-      this.getUnArea(obj);
-    }
+    this.getAllList(this.props);
     this.getProblemTypeDict();
     this.getInvolvedType();
     this.getSuperviseStatusDict();
     this.getRectificationStatusDict();
     this.getBaqTree();
   }
-
+    getAllList = (props) =>{
+        if (props.location.state && props.location.state.code) {
+            this.setState({
+                showDataView: false,
+                dbzt: '',
+                bardw: props.location.state.code,
+                gjsj: [
+                    props.location.state.kssj ? moment(props.location.state.kssj) : null,
+                    props.location.state.jssj ? moment(props.location.state.jssj) : null,
+                ],
+            });
+            this.props.form.setFieldsValue({
+                bar: props.location.state.bar_name,
+            });
+            const formValues = {
+                bardw: props.location.state.code,
+                gjsj_ks: props.location.state.kssj,
+                gjsj_js: props.location.state.jssj,
+                is_tz: props.location.state.is_tz ? props.location.state.is_tz : '1',
+                barxm: props.location.state.bar_name || '',
+            };
+            this.setState({
+                formValues,
+                is_tz: props.location.state.is_tz ? props.location.state.is_tz : '1',
+            });
+            const params = {
+                currentPage: 1,
+                showCount: tableList,
+                pd: {
+                    ...formValues,
+                },
+            };
+            this.getUnArea(params);
+        } else {
+            this.handleFormReset();
+            const org = getQueryString(props.location.search, 'org') || '';
+            const rqsj_ks = getQueryString(props.location.search, 'startTime') || '';
+            const rqsj_js = getQueryString(props.location.search, 'endTime') || '';
+            const code = getQueryString(props.location.search, 'code') || '';
+            const wtid = getQueryString(props.location.search, 'wtid') || '';
+            const old_id = getQueryString(props.location.search, 'old_id') || '';
+            if (rqsj_ks !== '' && rqsj_js !== '') {
+                this.props.form.setFieldsValue({
+                    rqsj: [moment(rqsj_ks, 'YYYY-MM-DD'), moment(rqsj_js, 'YYYY-MM-DD')],
+                });
+            }
+            if (code !== '') {
+                this.props.form.setFieldsValue({
+                    wtlx: code,
+                });
+            }
+            const obj = {
+                currentPage: 1,
+                showCount: tableList,
+                pd: {
+                    org,
+                    rqsj_ks,
+                    rqsj_js,
+                    wtlx_id: code,
+                    wtid,
+                    old_id,
+                },
+            };
+            this.getUnArea(obj);
+        }
+    }
+    componentWillReceiveProps(nextProps) {
+        if(nextProps.history.location.query.isReset&&nextProps.history.location.pathname==='/handlingArea/AreaPolice'){
+            this.getAllList(nextProps.history);
+            this.props.history.replace(nextProps.history.location.pathname);
+        }
+    }
   // 获取办案区树
   getBaqTree = () => {
     this.props.dispatch({

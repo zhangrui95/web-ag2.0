@@ -118,9 +118,9 @@ export default class caseDetail extends PureComponent {
       this.props.location &&
       this.props.location.query &&
       this.props.location.query.record &&
-      this.props.location.query.record.system_id
+        (this.props.location.query.record.system_id || this.props.location.query.id)
     ) {
-      this.caseDetailDatas(this.props.location.query.record.system_id);
+      this.caseDetailDatas(this.props.location.query.record.system_id || this.props.location.query.id);
     }
   }
 

@@ -185,7 +185,7 @@ export default class CaseModalTrail extends PureComponent {
               <Row style={{ textAlign: 'left', padding: '5px 0 0' }}>
                 <Col md={24} sm={24}>
                   {text.xyrName}{text.xszk_name && text.xszk_name === '在逃' ? (
-                    <span className={styles.tag}>（{text.xszk_name}）</span>
+                    <span className={styles.tag}>{text.xszk_name}</span>
                 ) : (
                     ''
                 )}

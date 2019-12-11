@@ -29,8 +29,6 @@ import {
     Tooltip
 } from 'antd';
 import moment from 'moment';
-import { getUserInfos } from '../../../utils/utils';
-import SuperviseCopy from '../../../components/Supervise/SuperviseCopy';
 import {routerRedux} from "dva/router";
 import {NavigationItem} from "@/components/Navigation/navigation";
 
@@ -332,7 +330,7 @@ class Detail extends Component {
                         this.props.dispatch(
                             routerRedux.push({
                                 pathname: '/systemSetup/SuperviseSetup/Copy',
-                                query: { yyjgdList: res.data, id: JSON.parse(values.addjgxz).id,fyxzjg:JSON.parse(values.addjgxz)},
+                                query: { qjjg:this.state.qjjg,yyjgdList: res.data, id: JSON.parse(values.addjgxz).id,fyxzjg:JSON.parse(values.addjgxz)},
                             }),
                         );
                     },
@@ -800,7 +798,7 @@ class Detail extends Component {
                     isShow: false,
                 },
                 callback: (data: NavigationItem[]) => {
-                   dispatch( routerRedux.push({pathname: '/systemSetup/SuperviseSetup',query: isReset ? {isReset} : {}}));
+                   dispatch( routerRedux.push({pathname: '/systemSetup/SuperviseSetup',query: isReset ? {isReset,type:'0'} : {}}));
                 },
             });
         }
