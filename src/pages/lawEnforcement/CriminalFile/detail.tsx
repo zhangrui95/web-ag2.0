@@ -23,7 +23,6 @@ import { autoheight, getQueryString, tableList, userAuthorityCode } from '../../
 import Ellipsis from 'ant-design-pro/lib/Ellipsis';
 import CaseModalTrail from '../../../components/Common/CaseModalTrail';
 import CaseModalStep from '../../../components/Common/CaseModalStep';
-import MakeTableModal from '../../../components/CaseRealData/MakeTableModal';
 import RetrieveModal from '../../../components/ShareModal/RetrieveModal';
 import { authorityIsTrue } from '../../../utils/authority';
 import noList from "@/assets/viewData/noList.png";
@@ -455,16 +454,13 @@ export default class CriminalCaseDocDetail extends PureComponent {
     };
 
     // 制表
-    makeTable = (record, flag) => {
-        this.setState({
-            makeTableModalVisible: !!flag,
-        });
-    };
-    // 关闭制表modal
-    MakeTableCancel = () => {
-        this.setState({
-            makeTableModalVisible: false,
-        });
+    makeTable = (record) => {
+        this.props.dispatch(
+            routerRedux.push({
+                pathname: '/Tabulation/Make',
+                query: { id: record && record.ajbh ? record.ajbh : '1', record: record },
+            }),
+        );
     };
     // 退补
     saveRetrieve = (res, flag) => {
@@ -594,7 +590,7 @@ export default class CriminalCaseDocDetail extends PureComponent {
                                   <span>
                                       {
                                           isZb ? <Button type="primary" style={{ marginLeft: 8 }}
-                                                         onClick={() => this.makeTable(caseDetails, true)}>制表</Button> : null
+                                                         onClick={() => this.makeTable(caseDetails)}>制表</Button> : null
                                       }
                                       { // 案件状态为移送才能退补
                                           caseDetails.ajzt === '结案' ||  !isTb || caseDetails.qsrq === '' || (caseDetails.tbrq2 && caseDetails.tbyy2) ? null : (
@@ -1161,16 +1157,6 @@ export default class CriminalCaseDocDetail extends PureComponent {
                             title="告警信息"/>
                     </Anchor>
                 </div>
-                {
-                    makeTableModalVisible ? (
-                        <MakeTableModal
-                            title='表格选择'
-                            makeTableModalVisible={makeTableModalVisible}
-                            MakeTableCancel={this.MakeTableCancel}
-                            caseRecord={this.state.caseDetails}
-                        />
-                    ) : null
-                }
                 {
                     RetrieveVisible ? (
                         <RetrieveModal

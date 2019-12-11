@@ -10,23 +10,11 @@ import html2canvas from 'html2canvas';
 import styles from '../docDetail.less';
 import liststyles from '../docListStyle.less';
 import { autoheight, getQueryString, userAuthorityCode } from '../../../utils/utils';
-// import ItemDetail from '../ItemRealData/itemDetail';
-// import JqDetail from '../../routes/PoliceRealData/policeDetail';
-// import JzDetail from '../../routes/DossierData/DossierDetail';
-// import XsDetail from '../../routes/UnCaseRealData/uncaseDetail';
-// import BaqDetail from '../../routes/UnAreaRealData/unareaDetail';
-// import JzgjDetail from '../../routes/UnDossierData/UnDossierDetail';
-// import WpDetail from '../../routes/UnItemRealData/unitemDetail';
-// import JqgjDetail from '../../routes/UnPoliceRealData/unpoliceDetail';
-// import XzDetail from '../../routes/UnXzCaseRealData/caseDetail';
-// import PersonDetail from './PersonalDocDetail';
-// import PersonIntoArea from '../../routes/CaseRealData/IntoArea';
 import echarts from 'echarts'
 import tree from 'echarts/lib/chart/tree';
 import Ellipsis from 'ant-design-pro/lib/Ellipsis';
 import CaseModalTrail from '../../../components/Common/CaseModalTrail';
 import CaseModalStep from '../../../components/Common/CaseModalStep';
-import MakeTableModal from '../../../components/CaseRealData/MakeTableModal';
 import { authorityIsTrue } from '../../../utils/authority';
 import noList from "@/assets/viewData/noList.png";
 import aj from "@/assets/common/aj.png";
@@ -517,7 +505,7 @@ export default class AdministrativeCaseDocDetail extends PureComponent {
                         <span style={{ float: 'right', margin: '12px 16px 12px 0' }}>
                             {
                                 isZb ? <Button type="primary" style={{ marginLeft: 8 }}
-                                               onClick={() => this.makeTable(caseDetails, true)}>制表</Button> : null
+                                               onClick={() => this.makeTable(caseDetails)}>制表</Button> : null
                             }
                             <Button type="primary" style={{ marginLeft: 8 }} onClick={() => this.ExportStatistics()}>导出</Button>
                         </span>
@@ -598,16 +586,13 @@ export default class AdministrativeCaseDocDetail extends PureComponent {
         }
     };
     // 制表
-    makeTable = (record, flag) => {
-        this.setState({
-            makeTableModalVisible: !!flag,
-        });
-    };
-    // 关闭制表modal
-    MakeTableCancel = () => {
-        this.setState({
-            makeTableModalVisible: false,
-        });
+    makeTable = (record) => {
+        this.props.dispatch(
+            routerRedux.push({
+                pathname: '/Tabulation/Make',
+                query: { id: record && record.ajbh ? record.ajbh : '1', record: record },
+            }),
+        );
     };
 
     gjxxCol(gjxxList) {
@@ -1056,16 +1041,6 @@ export default class AdministrativeCaseDocDetail extends PureComponent {
                             title="告警信息"/>
                     </Anchor>
                 </div>
-                {
-                    makeTableModalVisible ? (
-                        <MakeTableModal
-                            title='表格选择'
-                            makeTableModalVisible={makeTableModalVisible}
-                            MakeTableCancel={this.MakeTableCancel}
-                            caseRecord={this.state.caseDetails}
-                        />
-                    ) : null
-                }
             </div>
         );
     }

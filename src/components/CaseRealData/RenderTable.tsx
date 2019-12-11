@@ -253,7 +253,7 @@ class RenderTable extends PureComponent {
                       {isZb ? (
                         <span>
                           <Divider type="vertical" />
-                          <a onClick={() => this.makeTable(record, true)}>制表</a>
+                          <a onClick={() => this.makeTable(record)}>制表</a>
                         </span>
                       ) : null}
                       {isTb ? (
@@ -306,7 +306,7 @@ class RenderTable extends PureComponent {
                     {isZb ? (
                       <span>
                         <Divider type="vertical" />
-                        <a onClick={() => this.makeTable(record, true)}>制表</a>
+                        <a onClick={() => this.makeTable(record)}>制表</a>
                       </span>
                     ) : null}
                     {isTb ? (
@@ -407,7 +407,7 @@ class RenderTable extends PureComponent {
                       {isZb ? (
                         <span>
                           <Divider type="vertical" />
-                          <a onClick={() => this.makeTable(record, true)}>制表</a>
+                          <a onClick={() => this.makeTable(record)}>制表</a>
                         </span>
                       ) : null}
                     </div>

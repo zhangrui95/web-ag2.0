@@ -88,42 +88,12 @@ class RenderTable extends PureComponent {
   };
   // 行政案件档案详情
   administrativeCaseDocDetails = record => {
-      // this.props.dispatch({
-      //     type: 'global/changeNavigation',
-      //     payload: {
-      //         key: record && record.system_id ? record.system_id : '1',
-      //         name: '行政案件档案详情',
-      //         path: '/lawEnforcement/File/AdministrativeFile/Detail',
-      //         isShow: true,
-      //         query: { record, id: record && record.system_id ? record.system_id : '1' },
-      //     },
-      //     callback: () => {
-              this.props.dispatch(
-                  routerRedux.push({
-                      pathname: '/lawEnforcement/File/AdministrativeFile/Detail',
-                      query: { id: record && record.system_id ? record.system_id : '1',record: record },
-                  }),
-              );
-      //     },
-      // });
-    // const divs = (
-    //     <div>
-    //         <AdministrativeCaseDocDetail
-    //             {...this.props}
-    //             id={record.id}
-    //             systemId={record.system_id}
-    //             record={record}
-    //             sfgz={record.sfgz}
-    //             gzid={record.gzid}
-    //             tzlx={this.state.tzlx}
-    //             ajbh={record.ajbh}
-    //             details={this.deatils}
-    //             from='行政案件档案导出'
-    //         />
-    //     </div>
-    // );
-    // const AddNewDetail = { title: '行政案件档案详情', content: divs, key: record.id };
-    // this.props.newDetail(AddNewDetail);
+      this.props.dispatch(
+          routerRedux.push({
+              pathname: '/lawEnforcement/File/AdministrativeFile/Detail',
+              query: { id: record && record.system_id ? record.system_id : '1',record: record },
+          }),
+      );
   };
   saveShare = (res, type, ajGzLx) => {
     this.setState({
@@ -182,11 +152,13 @@ class RenderTable extends PureComponent {
     });
   };
   // 制表
-  makeTable = (record, flag) => {
-    this.setState({
-      caseRecord: record,
-      makeTableModalVisible: !!flag,
-    });
+  makeTable = (record) => {
+      this.props.dispatch(
+          routerRedux.push({
+              pathname: '/Tabulation/Make',
+              query: { id: record && record.ajbh ? record.ajbh : '1', record: record },
+          }),
+      );
   };
   // 关闭制表modal
   MakeTableCancel = () => {
@@ -274,7 +246,7 @@ class RenderTable extends PureComponent {
                 {isZb ? (
                   <span>
                     <Divider type="vertical" />
-                    <a onClick={() => this.makeTable(record, true)}>制表</a>
+                    <a onClick={() => this.makeTable(record)}>制表</a>
                   </span>
                 ) : null}
               </div>
@@ -312,7 +284,7 @@ class RenderTable extends PureComponent {
               {isZb ? (
                 <span>
                   <Divider type="vertical" />
-                  <a onClick={() => this.makeTable(record, true)}>制表</a>
+                  <a onClick={() => this.makeTable(record)}>制表</a>
                 </span>
               ) : null}
             </div>
