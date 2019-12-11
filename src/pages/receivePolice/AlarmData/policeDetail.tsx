@@ -416,7 +416,7 @@ export default class policeDetail extends PureComponent {
     const rowLayout = { md: 8, xl: 16, xxl: 24 };
     return (
       <div
-        style={{ background: '#202839', height: autoheight() - 280 + 'px' }}
+        style={{ background: '#252c3c', height: autoheight() - 280 + 'px' }}
         id={`jqDetail${this.props.id}`}
         className={styles.detailBoxScroll}
       >
@@ -654,47 +654,47 @@ export default class policeDetail extends PureComponent {
         <div>{this.Topdetail()}</div>
         <div>{this.renderDetail()}</div>
 
-        {superviseVisibleModal ? (
-          <SuperviseModal
-            {...this.props}
-            visible={superviseVisibleModal}
-            closeModal={this.closeModal}
-            // saveModal={this.saveModal}
-            caseDetails={this.state.policeDetails}
-            getRefresh={this.Refresh}
-            wtflId="203201"
-            wtflMc="警情"
-            // 点击列表的督办显示的四个基本信息
-            wtlx={this.state.superviseWtlx}
-            from={this.state.from}
-          />
-        ) : (
-          ''
-        )}
-        <ShareModal
-          detail={detail}
-          shareVisible={this.state.shareVisible}
-          handleCancel={this.handleCancel}
-          shareItem={this.state.shareItem}
-          personList={this.state.personList}
-          lx={this.state.lx}
-          tzlx={this.props.tzlx}
-          sx={this.state.sx}
-        />
+        {/*{superviseVisibleModal ? (*/}
+          {/*<SuperviseModal*/}
+            {/*{...this.props}*/}
+            {/*visible={superviseVisibleModal}*/}
+            {/*closeModal={this.closeModal}*/}
+            {/*// saveModal={this.saveModal}*/}
+            {/*caseDetails={this.state.policeDetails}*/}
+            {/*getRefresh={this.Refresh}*/}
+            {/*wtflId="203201"*/}
+            {/*wtflMc="警情"*/}
+            {/*// 点击列表的督办显示的四个基本信息*/}
+            {/*wtlx={this.state.superviseWtlx}*/}
+            {/*from={this.state.from}*/}
+          {/*/>*/}
+        {/*) : (*/}
+          {/*''*/}
+        {/*)}*/}
+        {/*<ShareModal*/}
+          {/*detail={detail}*/}
+          {/*shareVisible={this.state.shareVisible}*/}
+          {/*handleCancel={this.handleCancel}*/}
+          {/*shareItem={this.state.shareItem}*/}
+          {/*personList={this.state.personList}*/}
+          {/*lx={this.state.lx}*/}
+          {/*tzlx={this.props.tzlx}*/}
+          {/*sx={this.state.sx}*/}
+        {/*/>*/}
 
-        <DispatchModal
-          handleSearch={this.props.handleSearch}
-          title="警情调度"
-          isPoliceDispatch
-          detail={detail}
-          shareVisible={this.state.policeDispatchVisible}
-          handleCancel={this.handleCancel}
-          closehandleCancel={this.closehandleCancel}
-          shareItem={this.state.policeDispatchItem}
-          tzlx="jq"
-          refreshDetail={this.refreshDetail}
-          hideDispatchButton={this.hideDispatchButton}
-        />
+        {/*<DispatchModal*/}
+          {/*handleSearch={this.props.handleSearch}*/}
+          {/*title="警情调度"*/}
+          {/*isPoliceDispatch*/}
+          {/*detail={detail}*/}
+          {/*shareVisible={this.state.policeDispatchVisible}*/}
+          {/*handleCancel={this.handleCancel}*/}
+          {/*closehandleCancel={this.closehandleCancel}*/}
+          {/*shareItem={this.state.policeDispatchItem}*/}
+          {/*tzlx="jq"*/}
+          {/*refreshDetail={this.refreshDetail}*/}
+          {/*hideDispatchButton={this.hideDispatchButton}*/}
+        {/*/>*/}
       </div>
     );
   }
