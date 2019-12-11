@@ -215,25 +215,12 @@ export default class Home1 extends PureComponent {
     }
   };
   shareDetail = record => {
-    this.props.dispatch({
-      type: 'global/changeNavigation',
-      payload: {
-        key: record&&record.id ? record.id : '1',
-        name: '我的分享',
-        path: '/ShowData/MyShare',
-        isShow: true,
+    this.props.dispatch(
+      routerRedux.push({
+        pathname: '/ShowData/MyShare',
         query: { record: record,id:record&&record.id ? record.id : '1' },
-      },
-      callback: () => {
-        this.props.dispatch(
-          routerRedux.push({
-            pathname: '/ShowData/MyShare',
-            query: { record: record,id:record&&record.id ? record.id : '1' },
-          }),
-        );
-      }
-    });
-
+      }),
+    );
     // this.setState({
       // visibleShare: true,
       // shareDatail: record,
@@ -268,11 +255,49 @@ export default class Home1 extends PureComponent {
 
       }
       else if (read === 1) {
+        if(record.wtflMc==='警情'){
           this.props.dispatch(
             routerRedux.push({
-            pathname: '/Message/mySupervise',
+              pathname: '/receivePolice/AlarmPolice/unpoliceDetail',
               query: { record: record,id:record&&record.id ? record.id : '1' },
-          }));
+            }));
+        }
+        else if(record.wtflMc==='刑事案件'){
+          this.props.dispatch(
+            routerRedux.push({
+              pathname: '/newcaseFiling/casePolice/CriminalPolice/uncaseDetail',
+              query: { record: record,id:record&&record.id ? record.id : '1' },
+            }));
+        }
+        else if(record.wtflMc==='行政案件'){
+          this.props.dispatch(
+            routerRedux.push({
+              pathname: '/newcaseFiling/casePolice/AdministrationPolice/uncaseDetail',
+              query: { record: record,id:record&&record.id ? record.id : '1' },
+            }));
+        }
+        else if(record.wtflMc==='办案区'){
+          this.props.dispatch(
+            routerRedux.push({
+              pathname: '/handlingArea/AreaPolice/UnareaDetail',
+              query: { record: record,id:record&&record.id ? record.id : '1' },
+            }));
+        }
+        else if(record.wtflMc==='涉案物品'){
+          this.props.dispatch(
+            routerRedux.push({
+              pathname: '/articlesInvolved/ArticlesPolice/unitemDetail',
+              query: { record: record,id:record&&record.id ? record.id : '1' },
+            }));
+        }
+        else if(record.wtflMc==='卷宗'){
+          this.props.dispatch(
+            routerRedux.push({
+              pathname: '/dossierPolice/DossierPolice/UnDossierDetail',
+              query: { record: record,id:record&&record.id ? record.id : '1' },
+            }));
+        }
+
       }
       else if (read === 2 || read === 3) {
         record['id'] = record.agid;
@@ -280,66 +305,66 @@ export default class Home1 extends PureComponent {
           routerRedux.push({
             pathname:
               record.tzlx === 'wpwt'
-                ? '/CaseItem/UnItem/Transfer/Index'
+                ? '/articlesInvolved/ArticlesPolice/unitemDetail'
                 : record.tzlx === 'xzajwt1'
-                ? '/register/alarm/alarmAdministration/Index'
+                ? '/newcaseFiling/casePolice/AdministrationPolice/uncaseDetail'
                 : record.tzlx === 'xzajwt2'
-                ? '/Enforcement/alarm/alarmAdministration/Index'
-                : record.tzlx === 'xzajwt3'
-                ? '/newregister/newalarm/newalarmAdministration'
-                : record.tzlx === 'jqwt'
-                ? '/Reception/unpolice/Transfer/Index'
-                : record.tzlx === 'xsajwt1'
-                ? '/register/alarm/alarmCriminal/Index'
-                : record.tzlx === 'xsajwt2'
-                ? '/Enforcement/alarm/alarmCriminal/Index'
-                : record.tzlx === 'xsajwt3'
-                ? '/newregister/newalarm/newalarmCriminal'
-                : record.tzlx === 'baqwt'
-                ? '/HandArea/UnArea/Transfer/Index'
-                : record.tzlx === 'jzwt'
-                ? '/Dossier/undossier/Transfer/Index'
-                : record.tzlx === 'wpxx'
-                ? '/CaseItem/Item/Transfer/Index'
-                : record.tzlx === 'xzajxx1'
-                ? '/register/case/Administration/Index'
-                : record.tzlx === 'xzajxx2'
-                ? '/Enforcement/case/Administration/Index'
-                : record.tzlx === 'xzajxx3'
-                ? '/newregister/newcase/newAdministration'
-                : record.tzlx === 'jqxx'
-                ? '/Reception/police/Transfer/Index'
-                : record.tzlx === 'xsajxx1'
-                ? '/register/case/criminal/Index'
-                : record.tzlx === 'xsajxx2'
-                ? '/Enforcement/case/criminal/Index'
-                : record.tzlx === 'xsajxx3'
-                ? '/newregister/newcase/newcriminal'
-                : record.tzlx === 'baqxx'
-                ? '/HandArea/Area/Transfer/Index'
-                : record.tzlx === 'jzxx'
-                ? '/Dossier/dossier/Transfer/Index'
-                : record.tzlx === 'jqyj'
-                ? '/Reception/PoliceIndex'
-                : record.tzlx === 'xzajyj1'
-                ? '/register/warn/warnAdministration'
-                : record.tzlx === 'xsajyj1'
-                ? '/register/warn/warnCriminal'
-                : record.tzlx === 'xzajyj2'
-                ? '/Enforcement/warn/warnAdministration'
-                : record.tzlx === 'xsajyj2'
-                ? '/Enforcement/warn/warnCriminal'
-                : record.tzlx === 'xzajyj3'
-                ? '/newregister/newwarn/newwarnAdministration'
-                : record.tzlx === 'xsajyj3'
-                ? '/newregister/newwarn/newwarnCriminal'
-                : record.tzlx === 'baqyj'
-                ? '/HandArea/AreaIndex'
-                : record.tzlx === 'wpyj'
-                ? '/CaseItem/ItemIndex'
-                : record.tzlx === 'jzyj'
-                ? '/Dossier/DossierIndex'
-                : '',
+                  ? '/newcaseFiling/casePolice/AdministrationPolice/uncaseDetail'
+                  : record.tzlx === 'xzajwt3'
+                    ? '/newcaseFiling/casePolice/AdministrationPolice/uncaseDetail'
+                    : record.tzlx === 'jqwt'
+                      ? '/receivePolice/AlarmPolice/unpoliceDetail'
+                      : record.tzlx === 'xsajwt1'
+                        ? '/newcaseFiling/casePolice/CriminalPolice/uncaseDetail'
+                        : record.tzlx === 'xsajwt2'
+                          ? '/newcaseFiling/casePolice/CriminalPolice/uncaseDetail'
+                          : record.tzlx === 'xsajwt3'
+                            ? '/newcaseFiling/casePolice/CriminalPolice/uncaseDetail'
+                            : record.tzlx === 'baqwt'
+                              ? '/handlingArea/AreaPolice/UnareaDetail'
+                              : record.tzlx === 'jzwt'
+                                ? '/dossierPolice/DossierPolice/UnDossierDetail'
+                                : record.tzlx === 'wpxx'
+                                  ? '/articlesInvolved/ArticlesPolice/unitemDetail'
+                                  : record.tzlx === 'xzajxx1'
+                                    ? '/newcaseFiling/caseData/AdministrationData/caseDetail'
+                                    : record.tzlx === 'xzajxx2'
+                                      ? '/newcaseFiling/caseData/AdministrationData/caseDetail'
+                                      : record.tzlx === 'xzajxx3'
+                                        ? '/newcaseFiling/caseData/AdministrationData/caseDetail'
+                                        : record.tzlx === 'jqxx'
+                                          ? '/receivePolice/AlarmData/policeDetail'
+                                          : record.tzlx === 'xsajxx1'
+                                            ? '/newcaseFiling/caseData/CriminalData/caseDetail'
+                                            : record.tzlx === 'xsajxx2'
+                                              ? '/newcaseFiling/caseData/CriminalData/caseDetail'
+                                              : record.tzlx === 'xsajxx3'
+                                                ? '/newcaseFiling/caseData/CriminalData/caseDetail'
+                                                : record.tzlx === 'baqxx'
+                                                  ? '/handlingArea/AreaData/areaDetail'
+                                                  : record.tzlx === 'jzxx'
+                                                    ? '/dossierPolice/DossierData/DossierDetail'
+                                                    : record.tzlx === 'jqyj'
+                                                      ? '/receivePolice/AlarmData/policeDetail'
+                                                      : record.tzlx === 'xzajyj1'
+                                                        ? '/newcaseFiling/caseData/AdministrationData/caseDetail'
+                                                        : record.tzlx === 'xsajyj1'
+                                                          ? '/newcaseFiling/caseData/CriminalData/caseDetail'
+                                                          : record.tzlx === 'xzajyj2'
+                                                            ? '/newcaseFiling/caseData/AdministrationData/caseDetail'
+                                                            : record.tzlx === 'xsajyj2'
+                                                              ? '/newcaseFiling/caseData/CriminalData/caseDetail'
+                                                              : record.tzlx === 'xzajyj3'
+                                                                ? '/newcaseFiling/caseData/AdministrationData/caseDetail'
+                                                                : record.tzlx === 'xsajyj3'
+                                                                  ? '/newcaseFiling/caseData/CriminalData/caseDetail'
+                                                                  : record.tzlx === 'baqyj'
+                                                                    ? '/handlingArea/AreaData/areaDetail'
+                                                                    : record.tzlx === 'wpyj'
+                                                                      ? '/articlesInvolved/ArticlesData/itemDetail'
+                                                                      : record.tzlx === 'jzyj'
+                                                                        ? '/dossierPolice/DossierData/DossierDetail'
+                                                                        : '',
             query: {
               id: record.tzlx === 'jqwt' ? record.id : record.agid,
               system_id: record.system_id,
@@ -822,7 +847,8 @@ export default class Home1 extends PureComponent {
               'Home/getFollowList',
               this.state.pd ? this.state.pd : null,
             );
-          } else if (type === 2) {
+          }
+          else if (type === 2) {
             this.myShare(
               this.state.pageNew,
               true,

@@ -82,7 +82,7 @@ export default class unpoliceDetail extends PureComponent {
       type: 'UnPoliceData/UnPoliceDetailFetch',
       payload: {
         id: record.id,
-        wtid: record.wtid,
+        wtid: record.wtid||record.wt_id,
       },
       callback: data => {
         if (data) {
