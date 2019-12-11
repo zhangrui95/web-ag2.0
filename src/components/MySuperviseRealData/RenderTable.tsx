@@ -25,6 +25,8 @@ class RenderTable extends PureComponent {
   // 根据案件编号打开案件窗口
   deatils = record => {
     const { wt_id: wtId, system_id: systemId, wtflId, dqzt, id, dbid, fkzt } = record;
+    record.wtid = wtId;
+    console.log('record--------->',record)
     if (wtflId === '203203') { // 办案区
         this.props.dispatch(
             routerRedux.push({
@@ -36,35 +38,35 @@ class RenderTable extends PureComponent {
         this.props.dispatch(
             routerRedux.push({
                 pathname: '/articlesInvolved/ArticlesPolice/unitemDetail',
-                query: { record: record,id: wtId, system_id: systemId },
+                query: { record: record,id: wtId, system_id:systemId },
             }),
         )
-    } else if (wtflId === '203202') { //案件流程
+    } else if (wtflId === '203202') { //刑事案件告警
         this.props.dispatch(
             routerRedux.push({
-                pathname: '/caseFiling/casePolice/CriminalPolice/uncaseDetail',
-                query: { record: record, id: wtId, system_id: systemId},
+                pathname: '/newcaseFiling/casePolice/CriminalPolice/uncaseDetail',
+                query: { record: record, id: wtId, system_id:systemId},
             }),
         );
     } else if (wtflId === '203205') { // 行政案件问题数据
         this.props.dispatch(
             routerRedux.push({
-                pathname: '/caseFiling/casePolice/AdministrationPolice/uncaseDetail',
-                query: { record: record, id: wtId , system_id: systemId},
+                pathname: '/newcaseFiling/casePolice/AdministrationPolice/uncaseDetail',
+                query: { record: record, id: wtId , system_id:systemId},
             }),
         );
-    } else if (wtflId === '203206') {
+    } else if (wtflId === '203206') {//卷宗告警
         this.props.dispatch(
             routerRedux.push({
                 pathname: '/dossierPolice/DossierPolice/UnDossierDetail',
                 query: { record: record, id: id },
             }),
         );
-    } else if (wtflId === '203201') {
+    } else if (wtflId === '203201') {//警情告警
         this.props.dispatch(
             routerRedux.push({
                 pathname: '/receivePolice/AlarmPolice/unpoliceDetail',
-                query: { record: record,id: id },
+                query: { record: record,id:id, wtid:wtId },
             }),
         )
     }

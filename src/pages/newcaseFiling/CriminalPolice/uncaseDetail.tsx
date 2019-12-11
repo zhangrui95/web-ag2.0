@@ -86,7 +86,7 @@ export default class uncaseDetail extends PureComponent {
     btnType: '',
     feedbackVisibleModal: false, // 反馈状态模态框
     feedbackButtonLoading: false, // 反馈按钮加载状态
-    isDb: authorityIsTrue(userResourceCodeDb.zfba_xs), // 督办权限
+    isDb: authorityIsTrue(userResourceCodeDb.zfba_xs), //
   };
 
   componentDidMount() {
@@ -94,11 +94,11 @@ export default class uncaseDetail extends PureComponent {
       this.props.location &&
       this.props.location.query &&
       this.props.location.query.record &&
-      this.props.location.query.record.id &&
+      this.props.location.query.id &&
       this.props.location.query.record.system_id
     ) {
       this.caseDetailDatas(
-        this.props.location.query.record.id,
+        this.props.location.query.id,
         this.props.location.query.record.system_id,
       );
     }
@@ -136,7 +136,7 @@ export default class uncaseDetail extends PureComponent {
             dbzt: data.list[0].dbzt,
           });
           message.warning('该问题已督办或暂无反馈信息');
-          this.caseDetailDatas(this.props.id, this.props.systemId);
+          this.caseDetailDatas( this.props.location.query.id, this.props.location.query.record.system_id);
         }
       },
     });
@@ -161,7 +161,7 @@ export default class uncaseDetail extends PureComponent {
           });
         } else {
           message.warning('该问题已反馈');
-          this.caseDetailDatas(this.props.id, this.props.systemId);
+          this.caseDetailDatas(this.props.location.query.id, this.props.location.query.record.system_id);
         }
       },
     });
@@ -235,7 +235,7 @@ export default class uncaseDetail extends PureComponent {
       loading1: false,
       loading2: false,
     });
-    this.caseDetailDatas(this.props.id, this.props.systemId);
+    this.caseDetailDatas(this.props.location.query.id, this.props.location.query.record.system_id);
     if (this.props.refreshTable) {
       this.props.refreshTable();
     }
@@ -255,7 +255,7 @@ export default class uncaseDetail extends PureComponent {
         });
         if (data) {
           message.success('反馈保存完成');
-          this.caseDetailDatas(this.props.id, this.props.systemId);
+          this.caseDetailDatas(this.props.location.query.id, this.props.location.query.record.system_id);
           if (this.props.refreshTable) {
             this.props.refreshTable();
           }
@@ -300,7 +300,7 @@ export default class uncaseDetail extends PureComponent {
       },
       callback: () => {
         message.info('督办整改完成');
-        this.caseDetailDatas(this.props.id, this.props.systemId);
+        this.caseDetailDatas(this.props.location.query.id, this.props.location.query.record.system_id);
         if (this.props.refreshTable) {
           this.props.refreshTable();
         }

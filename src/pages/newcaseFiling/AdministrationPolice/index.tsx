@@ -88,96 +88,104 @@ export default class Index extends PureComponent {
         showDataView: false,
       });
     }
-    if (this.props.location.state && this.props.location.state.code) {
-      this.setState({
-        showDataView: false,
-        sldw: this.props.location.state.code,
-        gjsj: [this.props.location.state.kssj ? moment(this.props.location.state.kssj) : null, this.props.location.state.jssj ? moment(this.props.location.state.jssj) : null],
-        dbzt: this.props.location.state.dbzt ? this.props.location.state.dbzt : '',
-        wtlx_id:this.props.location.state.wtlx_id ? this.props.location.state.wtlx_id : '',
-      });
-      this.props.form.setFieldsValue({
-        bar: this.props.location.state.bar_name,
-        wtlx:this.props.location.state.wtlx_id ? this.props.location.state.wtlx_id : '',
-      });
-      const formValues = {
-        sldw_dm: this.props.location.state.code,
-        gjsj_ks: this.props.location.state.kssj,
-        gjsj_js: this.props.location.state.jssj,
-        is_tz: this.props.location.state.is_tz ? this.props.location.state.is_tz : '1',
-        bar_name:this.props.location.state.bar_name || '',
-        wtlx_id:this.props.location.state.wtlx_id ? this.props.location.state.wtlx_id : '',
-        // dbzt:this.props.location.state.dbzt,
-      };
-      this.setState({
-        formValues,
-        is_tz: this.props.location.state.is_tz ? this.props.location.state.is_tz : '1',
-      });
-      const params = {
-        currentPage: 1,
-        showCount: tableList,
-        pd: {
-          ...formValues,
-        },
-      };
-      this.getCase(params);
-    }
-    else if(this.props.location.queryxzajzfjd){
-      const {selectDateValue,record,type,wtid} = this.props.location.queryxzajzfjd;
-      const formValues = {
-        is_bbtz:'1',
-        gjsj_ks: selectDateValue&&selectDateValue.kssj ? selectDateValue.kssj:'',
-        gjsj_js: selectDateValue&&selectDateValue.jssj ? selectDateValue.jssj:'',
-        wtlx_id: wtid&&type===1 ? wtid:'',
-        sldw_dm: record&&record.sldw_dm ? record.sldw_dm:'',
-        dbzt:'',
-      };
-      this.setState({
-        showDataView: false,
-        gjsj: selectDateValue&&selectDateValue.kssj&&selectDateValue.jssj?[moment(selectDateValue.kssj, 'YYYY-MM-DD'), moment(selectDateValue.jssj, 'YYYY-MM-DD')]:null,
-        wtlx: type===1?wtid:'',
-        sldw: record.sldw_dm,
-        dbzt: '',
-        formValues,
-      });
-      this.props.form.setFieldsValue({
-        gjsj: selectDateValue&&selectDateValue.kssj&&selectDateValue.jssj?[moment(selectDateValue.kssj, 'YYYY-MM-DD'), moment(selectDateValue.jssj, 'YYYY-MM-DD')]:null,
-        wtlx: type===1?wtid:'',
-        sldw: record.sldw_dm,
-      });
-      const params = {
-        currentPage: 1,
-        showCount: tableList,
-        pd: {
-          is_bbtz:'1',
-          gjsj_ks: selectDateValue&&selectDateValue.kssj ? selectDateValue.kssj:'',
-          gjsj_js: selectDateValue&&selectDateValue.jssj ? selectDateValue.jssj:'',
-          wtlx_id: wtid&&type===1 ? wtid:'',
-          sldw_dm: record&&record.sldw_dm ? record.sldw_dm:'',
-          is_tz: '3',
-        },
-      };
-      this.getCase(params);
-    }
-    else {
-      this.handleFormReset();
-      const wtid = getQueryString(this.props.location.search, 'wtid') || '';
-      if (wtid !== '') {
-        const params = {
-          currentPage: 1,
-          showCount: tableList,
-          pd: {
-            wtid,
-            ssmk: '',
-          },
-        };
-        this.getCase(params);
-      } else {
-        this.getCase();
-      }
-    }
+   this.getAllList(this.props);
   }
-
+    getAllList = (props) =>{
+        if (props.location.state && props.location.state.code) {
+            this.setState({
+                showDataView: false,
+                sldw: props.location.state.code,
+                gjsj: [props.location.state.kssj ? moment(props.location.state.kssj) : null, props.location.state.jssj ? moment(props.location.state.jssj) : null],
+                dbzt: props.location.state.dbzt ? props.location.state.dbzt : '',
+                wtlx_id:props.location.state.wtlx_id ? props.location.state.wtlx_id : '',
+            });
+            this.props.form.setFieldsValue({
+                bar: props.location.state.bar_name,
+                wtlx:props.location.state.wtlx_id ? props.location.state.wtlx_id : '',
+            });
+            const formValues = {
+                sldw_dm: props.location.state.code,
+                gjsj_ks: props.location.state.kssj,
+                gjsj_js: props.location.state.jssj,
+                is_tz: props.location.state.is_tz ? props.location.state.is_tz : '1',
+                bar_name:props.location.state.bar_name || '',
+                wtlx_id:props.location.state.wtlx_id ? props.location.state.wtlx_id : '',
+                // dbzt:props.location.state.dbzt,
+            };
+            this.setState({
+                formValues,
+                is_tz: props.location.state.is_tz ? props.location.state.is_tz : '1',
+            });
+            const params = {
+                currentPage: 1,
+                showCount: tableList,
+                pd: {
+                    ...formValues,
+                },
+            };
+            this.getCase(params);
+        }
+        else if(props.location.queryxzajzfjd){
+            const {selectDateValue,record,type,wtid} = props.location.queryxzajzfjd;
+            const formValues = {
+                is_bbtz:'1',
+                gjsj_ks: selectDateValue&&selectDateValue.kssj ? selectDateValue.kssj:'',
+                gjsj_js: selectDateValue&&selectDateValue.jssj ? selectDateValue.jssj:'',
+                wtlx_id: wtid&&type===1 ? wtid:'',
+                sldw_dm: record&&record.sldw_dm ? record.sldw_dm:'',
+                dbzt:'',
+            };
+            this.setState({
+                showDataView: false,
+                gjsj: selectDateValue&&selectDateValue.kssj&&selectDateValue.jssj?[moment(selectDateValue.kssj, 'YYYY-MM-DD'), moment(selectDateValue.jssj, 'YYYY-MM-DD')]:null,
+                wtlx: type===1?wtid:'',
+                sldw: record.sldw_dm,
+                dbzt: '',
+                formValues,
+            });
+            this.props.form.setFieldsValue({
+                gjsj: selectDateValue&&selectDateValue.kssj&&selectDateValue.jssj?[moment(selectDateValue.kssj, 'YYYY-MM-DD'), moment(selectDateValue.jssj, 'YYYY-MM-DD')]:null,
+                wtlx: type===1?wtid:'',
+                sldw: record.sldw_dm,
+            });
+            const params = {
+                currentPage: 1,
+                showCount: tableList,
+                pd: {
+                    is_bbtz:'1',
+                    gjsj_ks: selectDateValue&&selectDateValue.kssj ? selectDateValue.kssj:'',
+                    gjsj_js: selectDateValue&&selectDateValue.jssj ? selectDateValue.jssj:'',
+                    wtlx_id: wtid&&type===1 ? wtid:'',
+                    sldw_dm: record&&record.sldw_dm ? record.sldw_dm:'',
+                    is_tz: '3',
+                },
+            };
+            this.getCase(params);
+        }
+        else {
+            this.handleFormReset();
+            const wtid = getQueryString(props.location.search, 'wtid') || '';
+            if (wtid !== '') {
+                const params = {
+                    currentPage: 1,
+                    showCount: tableList,
+                    pd: {
+                        wtid,
+                        ssmk: '',
+                    },
+                };
+                this.getCase(params);
+            } else {
+                this.getCase();
+            }
+        }
+    }
+    componentWillReceiveProps(nextProps) {
+        if(nextProps.history.location.query.isReset&&nextProps.history.location.pathname==='/newcaseFiling/casePolice/AdministrationPolice'){
+            this.getAllList(nextProps.history);
+            this.props.history.replace(nextProps.history.location.pathname);
+        }
+    }
   // 获取案件状态字典
   getCaseStatus = () => {
     this.props.dispatch({

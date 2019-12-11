@@ -324,12 +324,12 @@ export default class EvaluationChats extends PureComponent {
                     return res;
                 },
             },
-            toolbox: {
-                show: true,
-                feature: {
-                    saveAsImage: { show: true },
-                },
-            },
+            // toolbox: {
+            //     show: true,
+            //     feature: {
+            //         saveAsImage: { show: true },
+            //     },
+            // },
             legend: {
                 data: legendData,
                 textStyle: { color: "#fff" },
@@ -719,12 +719,12 @@ export default class EvaluationChats extends PureComponent {
                     return res;
                 },
             },
-            toolbox: {
-                show: true,
-                feature: {
-                    saveAsImage: { show: true },
-                },
-            },
+            // toolbox: {
+            //     show: true,
+            //     feature: {
+            //         saveAsImage: { show: true },
+            //     },
+            // },
             grid: {
                 left: '2%',
                 right: '3%',

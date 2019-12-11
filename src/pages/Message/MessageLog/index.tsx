@@ -300,40 +300,13 @@ class MessageLog extends Component {
 
   // 展示日志详情
   showLogDetail = record => {
-    // this.setState(
-    //   {
-    //     logDetail: record,
-    //   },
-    //   () => {
-    //     this.showLogDetailVisible(true);
-    //   },
-    // );
-      console.log('record=====>',record);
-      // this.props.dispatch({
-      //     type: 'global/changeNavigation',
-      //     payload: {
-      //         key: record && record.system_id ? record.system_id : '1',
-      //         name: '消息推送日志详情',
-      //         path: '/Message/MessageLog/MessagePushLog',
-      //         isShow: true,
-      //         query: { record, id: record && record.system_id ? record.system_id : '1' },
-      //     },
-      //     callback: () => {
-              this.props.dispatch(
-                  routerRedux.push({
-                      pathname: '/Message/MessageLog/MessagePushLog',
-                      query: { id: record && record.system_id ? record.system_id : '1',record: record },
-                  }),
-              );
-      //     },
-      // });
+      this.props.dispatch(
+          routerRedux.push({
+              pathname: '/Message/MessageLog/MessagePushLog',
+              query: { id: record && record.system_id ? record.system_id : '1',record: record },
+          }),
+      );
   };
-  // 显示、关闭日志详情modal
-  // showLogDetailVisible = visible => {
-  //   this.setState({
-  //     logDetailVisible: !!visible,
-  //   });
-  // };
   // 渲染机构树
   renderloop = data =>
     data.map(item => {
@@ -362,7 +335,6 @@ class MessageLog extends Component {
     });
   };
   renderForm() {
-    console.log('this.props===========>', this.props);
     const {
       form: { getFieldDecorator },
       common: {
@@ -556,7 +528,6 @@ class MessageLog extends Component {
         loading,
       },
     } = this.props;
-    console.log('data=====>', data);
     const columns = [
       {
         title: '问题类型',

@@ -81,8 +81,8 @@ export default class itemDetail extends PureComponent {
 
     componentDidMount() {
       const { location } = this.props;
-      if (location && location.query && location.query.record && location.query.record.id) {
-        this.itemDetailDatas(location.query.record.id);
+      if (location && location.query && location.query.record && location.query.id) {
+        this.itemDetailDatas(location.query.id);
       }
     }
 

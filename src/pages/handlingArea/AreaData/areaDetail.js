@@ -103,12 +103,12 @@ export default class areaDetail extends PureComponent {
 
   componentDidMount() {
     if (
-      this.props.location &&
+        (this.props.location &&
       this.props.location.query &&
       this.props.location.query.record &&
-      this.props.location.query.record.system_id
+      this.props.location.query.record.system_id) || this.props.location.query.id
     ) {
-      this.getDetail(this.props.location.query.record.system_id);
+      this.getDetail(this.props.location.query.record.system_id ? this.props.location.query.record.system_id : this.props.location.query.id);
     }
     this.getDictype();
   }

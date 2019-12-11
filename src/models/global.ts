@@ -121,7 +121,7 @@ const GlobalModel: GlobalModelType = {
           }
         }
       } else {
-        navigationNew = [welcomeItem];
+        navigationNew = [navigationNew[0]];
       }
       yield put({
         type: 'saveNavigation',

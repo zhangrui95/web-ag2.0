@@ -42,7 +42,7 @@ export default class PoliceClear extends PureComponent {
         this.getList('0',1);
     }
     componentWillReceiveProps(nextProps) {
-        if(nextProps.history.location.query.isReset){
+        if(nextProps.history.location.query.isReset&&nextProps.history.location.pathname==='/systemSetup/EvaluationSetup'){
             this.setState({
                 loading: true,
             });

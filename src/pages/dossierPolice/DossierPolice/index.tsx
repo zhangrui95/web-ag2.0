@@ -101,44 +101,52 @@ export default class Index extends PureComponent {
         showDataView: false,
       });
     }
-    if (this.props.location.state && this.props.location.state.code) {
-      this.setState({
-        showDataView: false,
-        dbzt: '',
-        badw: this.props.location.state.code,
-        gjsj:  [this.props.location.state.kssj ? moment(this.props.location.state.kssj) : null, this.props.location.state.jssj ? moment(this.props.location.state.jssj) : null],
-      });
-      this.props.form.setFieldsValue({
-        bar: this.props.location.state.bar_name,
-      });
-      const formValues = {
-        badw: this.props.location.state.code,
-        gjsj_ks: this.props.location.state.kssj,
-        gjsj_js: this.props.location.state.jssj,
-        is_tz: this.props.location.state.is_tz ? this.props.location.state.is_tz : '1',
-        bar:this.props.location.state.bar_name || '',
-      };
-      this.setState({
-        formValues,
-        is_tz: this.props.location.state.is_tz ? this.props.location.state.is_tz : '1',
-      });
-      const params = {
-        currentPage: 1,
-        showCount: tableList,
-        pd: {
-          ...formValues,
-        },
-      };
-      this.getDossier(params);
-    } else {
-      this.getDossier();
-    }
+    this.getAllList(this.props);
     this.getSuperviseStatusDict();
     this.getWtlxDictionary();
     this.getRectificationStatusDict();
     this.getDossierSaveTypeDict();
   }
-
+    getAllList = (props) =>{
+        if (props.location.state && props.location.state.code) {
+            this.setState({
+                showDataView: false,
+                dbzt: '',
+                badw: props.location.state.code,
+                gjsj:  [props.location.state.kssj ? moment(props.location.state.kssj) : null, props.location.state.jssj ? moment(props.location.state.jssj) : null],
+            });
+            this.props.form.setFieldsValue({
+                bar: props.location.state.bar_name,
+            });
+            const formValues = {
+                badw: props.location.state.code,
+                gjsj_ks: props.location.state.kssj,
+                gjsj_js: props.location.state.jssj,
+                is_tz: props.location.state.is_tz ? props.location.state.is_tz : '1',
+                bar:props.location.state.bar_name || '',
+            };
+            this.setState({
+                formValues,
+                is_tz: props.location.state.is_tz ? props.location.state.is_tz : '1',
+            });
+            const params = {
+                currentPage: 1,
+                showCount: tableList,
+                pd: {
+                    ...formValues,
+                },
+            };
+            this.getDossier(params);
+        } else {
+            this.getDossier();
+        }
+    }
+    componentWillReceiveProps(nextProps) {
+        if(nextProps.history.location.query.isReset&&nextProps.history.location.pathname==='/dossierPolice/DossierPolice'){
+            this.getAllList(nextProps.history);
+            this.props.history.replace(nextProps.history.location.pathname);
+        }
+    }
   // 切换tab
   onTabChange = (activeKey) => {
     this.setState({

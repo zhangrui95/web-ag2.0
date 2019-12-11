@@ -109,15 +109,14 @@ export default class caseDetail extends PureComponent {
   };
 
   componentDidMount() {
-    console.log('this.props', this.props);
     if (
       this.props.location &&
       this.props.location.query.record &&
-      this.props.location.query.record.id &&
+      this.props.location.query.id &&
       this.props.location.query.record.system_id
     ) {
       this.caseDetailDatas(
-        this.props.location.query.record.id,
+        this.props.location.query.id,
         this.props.location.query.record.system_id,
       );
     }
