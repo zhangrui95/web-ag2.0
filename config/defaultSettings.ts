@@ -1,4 +1,5 @@
 import { MenuTheme } from 'antd/es/menu/MenuContext';
+import iconFont from '../src/utils/iconfont'
 
 export type ContentWidth = 'Fluid' | 'Fixed';
 
@@ -59,5 +60,5 @@ export default {
   },
   title: '智慧执法案管系统',
   pwa: false,
-  iconfontUrl: '/icons/iconfont.js',
+  iconfontUrl: iconFont,
 } as DefaultSettings;
