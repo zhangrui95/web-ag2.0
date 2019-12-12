@@ -1,8 +1,8 @@
-@body-background: #171925; //body主背景色
-@component-background: #252c3c; //组件背景颜色
+@body-background: #eceeef; //body主背景色
+@component-background: #fff; //组件背景颜色
 @text-color: #b7b7b7; //文本颜色
-@text-word-color: #fff;
-@highlight-color: #3285ff; //选择高亮颜色
+@text-word-color: #333;
+@highlight-color: #3D63D1; //选择高亮颜色
 @tabs-active-color: #b2d8ff; //选中底部边框颜色
 @alert-warning-bg-color: #f4eee0; //告警message背景
 @alert-warning-border-color: #f6ddab; //告警message边框
@@ -10,9 +10,9 @@
 @alert-error-border-color: #f4aeb3; //错误message边框
 @alert-success-bg-color: #e3f1e1; //成功message背景
 @alert-success-border-color: #bde5ad; //成功message边框
-@table-body-sort-bg: #2e394c; //Table tr颜色
+@table-body-sort-bg: #f5f5fa; //Table tr颜色
 @checkbox-color: #4662d5; //多选选中颜色
-@dropdown-selected-color: rgba(23, 25, 37, 0.9); //下拉背景色
+@dropdown-selected-color: rgba(255, 255, 255, 0.9); //下拉背景色
 //@btn-search-color: #3285FF;//查询按钮的背景色、督办按钮背景色
 //@btn-reset-color: #171925;//重置、展开筛选、导出表格、查询条件框的背景颜色、导出按钮
 //@btn-export-color: #3285FF;//导出按钮、导出表格按钮字体的颜色、问题判定按钮颜色
@@ -36,9 +36,9 @@
 @red: #f5222d;
 @orange: #faad14;
 body {
-  color: #fff;
+  color: #333;
 }
-.dark {
+.light {
   :global {
     .ant-select-selection,
     .ant-calendar-picker-input,
@@ -786,18 +786,4 @@ body {
       border-radius:0 !important;
     }
   }
-}
-.test{
-  width: 40px;
-  height: 40px;
-  background:rgba(24,144,255,0.75);
-  color: #fff;
-  font-size: 14px;
-  text-align: center;
-  line-height: 40px;
-  position: fixed;
-  bottom: 100px;
-  right: 30px;
-  border-radius: 80px;
-  cursor: pointer;
 }

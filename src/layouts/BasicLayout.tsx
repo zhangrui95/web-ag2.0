@@ -8,7 +8,7 @@ import ProLayout, {
   BasicLayoutProps as ProLayoutProps,
   Settings,
 } from '@ant-design/pro-layout';
-import React, { useEffect } from 'react';
+import React, { useEffect , useState } from 'react';
 import Link from 'umi/link';
 import { Dispatch } from 'redux';
 import { connect } from 'dva';
@@ -18,6 +18,7 @@ import { ConnectState } from '@/models/connect';
 import logo from '../assets/logo.png';
 import Navigation from '@/components/Navigation';
 import styles from '@/theme/darkTheme.less';
+import stylesLight from '@/theme/lightTheme.less';
 import {message} from "antd";
 
 
@@ -100,7 +101,7 @@ const BasicLayout: React.FC<BasicLayoutProps> = props => {
   /**
    * constructor
    */
-
+       const [bgColor, setbgColor] = useState('dark');
       useEffect(() => {
           let options = {getContainer:()=>document.getElementById('messageBox')};
           message.config(options);
@@ -125,9 +126,13 @@ const BasicLayout: React.FC<BasicLayoutProps> = props => {
       });
     }
   };
+  const getChangeBg = () => {
+      setbgColor(bgColor==='dark' ? 'light' : 'dark');
+      sessionStorage.setItem('bgColor',bgColor==='dark' ? 'light' : 'dark');
+  };
 
   return (
-      <div className={styles.dark} id={'messageBox'}>
+      <div className={bgColor==='dark' ? styles.dark : stylesLight.light} id={'messageBox'}>
           <ProLayout
               //修改logo以及title
               logo={logo}
@@ -167,7 +172,7 @@ const BasicLayout: React.FC<BasicLayoutProps> = props => {
               {...settings}
           >
               <Navigation {...props} />
-
+              <div className={styles.test} onClick={getChangeBg}>{bgColor==='dark' ? '白' : '黑'}</div>
               {/*{children}*/}
           </ProLayout >
       </div>
