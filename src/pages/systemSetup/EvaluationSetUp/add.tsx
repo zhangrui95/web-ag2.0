@@ -49,9 +49,9 @@ export default class Add extends PureComponent {
                     },
                     callback:()=>{
                         message.success('操作成功');
+                        this.onEdit(true);
                     }
                 });
-                this.onEdit(true);
             }
         });
     }
@@ -60,6 +60,7 @@ export default class Add extends PureComponent {
         // 删除当前tab并且将路由跳转至前一个tab的path
         const { dispatch } = this.props;
         if (dispatch) {
+            dispatch( routerRedux.push({pathname: '/systemSetup/EvaluationSetup',query: isReset ? {isReset} : {}}));
             dispatch({
                 type: 'global/changeSessonNavigation',
                 payload: {
@@ -72,10 +73,7 @@ export default class Add extends PureComponent {
                 payload: {
                     key,
                     isShow: false,
-                },callback: (data: NavigationItem[]) => {
-                    this.props.history.replace("/");
-                    dispatch( routerRedux.push({pathname: '/systemSetup/EvaluationSetup',query: isReset ? {isReset} : {}}));
-                },
+                }
             });
         }
     };

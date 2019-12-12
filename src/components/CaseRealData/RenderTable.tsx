@@ -48,7 +48,11 @@ class RenderTable extends PureComponent {
       this.deatils(record);
     }
   }
-
+    componentWillReceiveProps(nextProps) {
+      if(this.props.isReset!==nextProps.isReset){
+          this.refreshTable();
+      }
+    }
   deatils = record => {
     this.props.dispatch(
       routerRedux.push({
@@ -147,10 +151,13 @@ class RenderTable extends PureComponent {
           message.warning('该数据已完成退补功能');
           this.refreshTable();
         } else {
-          this.setState({
-            RetrieveRecord: res,
-            RetrieveVisible: !!flag,
-          });
+            res.url = this.props.location.pathname;
+            this.props.dispatch(
+                routerRedux.push({
+                    pathname: '/Retrieve',
+                    query: { id: res && res.ajbh ? res.ajbh : '1', record: res },
+                }),
+            );
         }
       },
     });

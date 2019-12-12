@@ -86,10 +86,20 @@ export default class CriminalCaseDocDetail extends PureComponent {
         isTb: authorityIsTrue(userAuthorityCode.TUIBU), // 退补权限
         loading: false, // 默认详情页是否为加载状态
         first:true,
+        path:this.props.location.pathname,
     };
 
     componentDidMount() {
         this.caseDetailDatas(this.props.location.query.id);
+    }
+
+    componentWillReceiveProps(nextProps) {
+        if(nextProps.history.location.query.isReset){
+            if(nextProps.history.location.pathname === this.state.path){
+                this.refreshCaseDetail();
+                this.props.history.replace(`${nextProps.history.location.pathname}?id=${nextProps.history.location.query.id}&record=${nextProps.history.location.query.record}`);
+            }
+        }
     }
 
     scrollHandler = () => {
@@ -216,7 +226,6 @@ export default class CriminalCaseDocDetail extends PureComponent {
                     source: '警情',
                     target: (event.jjnr ? this.formatter(event.jjnr):'')+ index,
                 });
-                console.log('list.indexOf(event.jjnr)',JSON.stringify(list).indexOf(this.formatter(event.jjnr)))
                 list.push({
                     name: event.jjnr ? this.formatter(event.jjnr) : null,
                     id:(event.jjnr ? this.formatter(event.jjnr):'')+ index,
@@ -337,7 +346,6 @@ export default class CriminalCaseDocDetail extends PureComponent {
             },
         ];
         let dataList = datas.concat(list);
-        console.log('dataList======>',dataList)
         dataList.forEach(function (node) {
             node.itemStyle = null;
             node.symbolSize /= 1.5;
@@ -478,10 +486,14 @@ export default class CriminalCaseDocDetail extends PureComponent {
                     message.warning('该数据已完成退补功能');
                     this.refreshCaseDetail();
                 } else {
-                    this.setState({
-                        RetrieveVisible: !!flag,
-                        tbDetail:data.list[0],
-                    });
+                    let reson = data.list[0];
+                    reson.url = this.state.path;
+                    this.props.dispatch(
+                        routerRedux.push({
+                            pathname: '/Retrieve',
+                            query: { id: reson && reson.ajbh ? reson.ajbh : '1', record: reson, isDetail: true },//如果详情跳转isDetail为true
+                        }),
+                    );
                 }
             },
         });
@@ -972,7 +984,7 @@ export default class CriminalCaseDocDetail extends PureComponent {
             },
         ];
         return (
-            <Card style={{ height: autoheight() - 210 + 'px',marginTop:'12px' }}
+            <Card style={{ height: autoheight() - 225 + 'px',marginTop:'12px' }}
                   // onScrollCapture={this.scrollHandler} id={'scroll'}
                  className={styles.detailBoxScroll}>
                 <Spin spinning={loading}>
@@ -1121,7 +1133,6 @@ export default class CriminalCaseDocDetail extends PureComponent {
 
     render() {
         const { makeTableModalVisible, RetrieveVisible, RetrieveRecord,tbDetail } = this.state;
-        console.log('this.props',this.props.location)
         return (
             <div>
                 <div>
@@ -1135,7 +1146,7 @@ export default class CriminalCaseDocDetail extends PureComponent {
                         className={!(this.state.Anchor && this.state.AnchorShow) ? styles.AnchorHide : this.state.AnchorShow ? styles.fadeBoxIn : styles.fadeBoxOut}
                         offsetTop={70}>
                         <Link
-                            href={'#'+this.props.location.pathname+'/#' + this.props.location.query.id + 'gxtp'}
+                            href={'#'+this.state.path+'/#' + this.props.location.query.id + 'gxtp'}
                             title="关系图谱"/>
                         <Link
                             href={'#/allDocuments/caseDoc/criminalCaseDocTransfer/criminalCaseDoc/#' + this.props.location.query.id + 'jqxx'}
@@ -1157,18 +1168,6 @@ export default class CriminalCaseDocDetail extends PureComponent {
                             title="告警信息"/>
                     </Anchor>
                 </div>
-                {
-                    RetrieveVisible ? (
-                        <RetrieveModal
-                            title="退补侦查设置"
-                            RetrieveVisible={RetrieveVisible}
-                            handleCancel={this.RetrieveHandleCancel}
-                            RetrieveRecord={this.state.caseDetails} // 列表对应数据的详情
-                            refreshPage={this.refreshCaseDetail}
-                            tbDetail={tbDetail}
-                        />
-                    ) : null
-                }
             </div>
         );
     }

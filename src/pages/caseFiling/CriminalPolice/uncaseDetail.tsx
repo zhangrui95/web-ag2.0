@@ -883,7 +883,7 @@ export default class uncaseDetail extends PureComponent {
           )}
         </div>
         {unCaseDetailData && unCaseDetailData.ajzt ? (
-          <div style={{ borderBottom: '3px solid #171925' }}>
+          <div style={{ borderBottom: '1px solid #171925' }}>
             <div className={styles.title}>| 案件轨迹</div>
             <CaseModalTrail {...this.props} caseDetails={unCaseDetailData} from="刑事" />
           </div>

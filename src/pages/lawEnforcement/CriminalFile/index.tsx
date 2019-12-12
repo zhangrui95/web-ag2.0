@@ -47,6 +47,8 @@ export default class CriminalFile extends PureComponent {
         seniorSearchModalVisible:false, // 高级查询框
         isY:'0', // 判断是高级查询还是普通查询，0是普通查询，1是高级查询
         statusDate:'102', // 初始状态下，查询项默认为立案日期（code = 102），
+        path:this.props.location.pathname,
+        isReset: false,
     };
 
     componentDidMount() {
@@ -78,7 +80,16 @@ export default class CriminalFile extends PureComponent {
         this.getCaseStatus();
         this.getEnforcementDictType();
     }
-
+    componentWillReceiveProps(nextProps) {
+        if(nextProps.history.location.query.isReset){
+            if(nextProps.history.location.pathname === this.state.path){
+                this.setState({
+                    isReset:!this.state.isReset,
+                });
+                this.props.history.replace(this.state.path);
+            }
+        }
+    }
     onChange = (activeKey) => {
         this.setState({
             activeKey,
@@ -856,6 +867,7 @@ export default class CriminalFile extends PureComponent {
                     location={this.props.location}
                     formValues={this.state.formValues}
                     isDocument={true}
+                    isReset={this.state.isReset}
                 />
             </div>
         );

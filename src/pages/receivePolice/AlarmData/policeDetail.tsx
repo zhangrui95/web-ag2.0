@@ -433,7 +433,7 @@ export default class policeDetail extends PureComponent {
           </div>
         )}
         <Card
-          title={<div style={{ borderLeft: '2px solid #fff', paddingLeft: 16 }}>接警信息</div>}
+          title={<div style={{ borderLeft: '1px solid #fff', paddingLeft: 16 }}>接警信息</div>}
           className={liststyles.card}
           bordered={false}
         >
@@ -500,7 +500,7 @@ export default class policeDetail extends PureComponent {
         </Card>
 
         <Card
-          title={<div style={{ borderLeft: '2px solid #fff', paddingLeft: 16 }}>处警信息</div>}
+          title={<div style={{ borderLeft: '1px solid #fff', paddingLeft: 16 }}>处警信息</div>}
           className={liststyles.card}
           bordered={false}
         >
@@ -512,7 +512,7 @@ export default class policeDetail extends PureComponent {
               <div className={liststyles.Indextail} style={{ paddingLeft: 78 }}>
                 <div
                   className={liststyles.special1}
-                  style={{ color: this.props.isDd ? '#f00' : 'rgba(0, 0, 0, 0.65)' }}
+                  style={{ color: this.props.isDd ? '#f00' : 'rgba(255, 255, 255)' }}
                 >
                   {policeDetails && policeDetails.czjg_mc ? policeDetails.czjg_mc : ''}
                 </div>

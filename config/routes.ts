@@ -618,6 +618,11 @@ export function routes() {
                             name: '制表',
                             component: './Tabulation/MakeTableModal.tsx',
                             hideInMenu: true,
+                        }, {
+                            path: '/Retrieve',
+                            name: '退补侦查',
+                            component: './Retrieve/RetrieveModal.tsx',
+                            hideInMenu: true,
                         },
                         {
                             name: '全局综合查统',

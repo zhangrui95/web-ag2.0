@@ -61,13 +61,13 @@ export default class Detail extends PureComponent {
                 },
                 callback: (data) => {
                     message.success('操作成功');
+                    this.onEdit(true);
                     this.getKhDetail(this.state.recordKp, '',true);
                     this.setState({
                         targetKeys:[],
                     });
                 }
             });
-            this.onEdit(true);
         }else{
             message.warn('请选择考评项目');
         }
@@ -138,6 +138,7 @@ export default class Detail extends PureComponent {
         let key = '/Evaluation/CaseEvaluation/Detail'+this.props.location.query.id;
         const { dispatch } = this.props;
         if (dispatch) {
+            dispatch( routerRedux.push({pathname: '/Evaluation/CaseEvaluation',query: isReset ? {isReset} : {}}));
             dispatch({
                 type: 'global/changeSessonNavigation',
                 payload: {
@@ -150,9 +151,6 @@ export default class Detail extends PureComponent {
                 payload: {
                     key,
                     isShow: false,
-                },
-                callback: (data: NavigationItem[]) => {
-                    dispatch( routerRedux.push({pathname: '/Evaluation/CaseEvaluation',query: isReset ? {isReset} : {}}));
                 },
             });
         }

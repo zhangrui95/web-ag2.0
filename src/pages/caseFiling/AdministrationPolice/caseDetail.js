@@ -784,7 +784,7 @@ export default class caseDetail extends PureComponent {
         </div>
 
         {caseDetails && caseDetails.ajzt ? (
-          <div style={{ borderBottom: '3px solid #171925' }}>
+          <div style={{ borderBottom: '1px solid #171925' }}>
             <div className={styles.title}>案件轨迹</div>
             <CaseModalTrail {...this.props} caseDetails={caseDetails} from="行政" />
           </div>

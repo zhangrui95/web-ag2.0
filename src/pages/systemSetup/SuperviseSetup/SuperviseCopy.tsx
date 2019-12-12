@@ -212,13 +212,13 @@ export default class SuperviseCopy extends PureComponent {
         callback: res => {
           if (!res.error) {
             message.success('添加成功');
+            this.onEdit(true);
           } else {
             message.warn('操作失败，请重试');
             return false;
           }
         },
       });
-      this.onEdit(true);
     } else {
       message.warn('请选择复用监管点');
     }
@@ -230,6 +230,17 @@ export default class SuperviseCopy extends PureComponent {
         let key = '/systemSetup/SuperviseSetup/Copy'+this.props.location.query.id;
         const { dispatch } = this.props;
         if (dispatch) {
+            if(isReset){
+                dispatch(routerRedux.push({
+                    pathname: '/systemSetup/SuperviseSetup' ,
+                    query: {isReset,type:'0'},
+                }))
+            }else{
+                dispatch(routerRedux.push({
+                    pathname: '/systemSetup/SuperviseSetup/Add' ,
+                    query: { id: '1' ,record: {type:0}},
+                }))
+            }
             dispatch({
                 type: 'global/changeSessonNavigation',
                 payload: {
@@ -242,19 +253,6 @@ export default class SuperviseCopy extends PureComponent {
                 payload: {
                     key,
                     isShow: false,
-                },
-                callback: (data: NavigationItem[]) => {
-                    if(isReset){
-                        dispatch(routerRedux.push({
-                            pathname: '/systemSetup/SuperviseSetup' ,
-                            query: {isReset,type:'0'},
-                        }))
-                    }else{
-                        dispatch(routerRedux.push({
-                            pathname: '/systemSetup/SuperviseSetup/Add' ,
-                            query: { id: '1' ,record: {type:0}},
-                        }))
-                    }
                 },
             });
         }
