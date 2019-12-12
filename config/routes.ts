@@ -20,6 +20,11 @@ export function routes() {
             component: '../layouts/bigShow',
         },
         {
+            // token登录
+            path: '/loginByToken',
+            component: '../layouts/LoginByToken',
+        },
+        {
             path: '/',
             component: '../layouts/SecurityLayout',
             routes: [
