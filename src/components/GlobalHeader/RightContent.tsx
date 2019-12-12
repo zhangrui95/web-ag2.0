@@ -29,16 +29,16 @@ const GlobalHeaderRight: React.SFC<GlobalHeaderRightProps> = props => {
     <div className={className}>
         <div className={styles.btnBox}>
             <div className={styles.border}></div>
-            <Button type="primary" shape="round" size={'large'}>
+            <Button type="primary" shape="round">
                 <IconFont type='icon-jiankongmianban-mianxing' /> 监管问题
             </Button>
-            <Button shape="round" size={'large'}>
+            <Button shape="round">
                 <IconFont type='icon-gongzuojingli' /> 办案区管理
             </Button>
-            <Button shape="round" size={'large'}>
+            <Button shape="round">
                 <IconFont type='icon-caiwu' /> 涉案物品管理
             </Button>
-            <Button shape="round" size={'large'}>
+            <Button shape="round">
                 <IconFont type='icon-dangan1' /> 卷宗管理
             </Button>
         </div>
