@@ -45,7 +45,7 @@ class RenderTable extends PureComponent {
           this.props.dispatch(
             routerRedux.push({
               pathname: '/receivePolice/AlarmData/policeDetail',
-              query: { record: record,id: record && record.id ? record.id : '1' },
+              query: { record: record,id: record && record.id ? record.id : '1',movefrom:'警情常规' },
             }),
           )
 
@@ -73,11 +73,32 @@ class RenderTable extends PureComponent {
             shareRecord: res,
         });
         if (type === 2) {
-            this.setState({
-                shareVisible: true,
-                shareItem: res,
-            });
-        } else {
+          let detail=(<Row style={{ lineHeight: '50px',paddingLeft:66 }}>
+            <Col
+              span={8}>接警人：{res && res.jjr ? res.jjr : ''}</Col>
+            <Col span={8}>管辖单位：<Tooltip
+              title={res && res.jjdw && res.jjdw.length > 25 ? res.jjdw : null}>{res && res.jjdw ? res.jjdw.length > 25 ? res.jjdw.substring(0, 25) + '...' : res.jjdw : ''}</Tooltip></Col>
+            <Col span={8}>接警信息：<Tooltip
+              title={res && res.jjnr && res.jjnr.length > 25 ? res.jjnr : null}>{res && res.jjnr ? res.jjnr.length > 25 ? res.jjnr.substring(0, 25) + '...' : res.jjnr : ''}</Tooltip></Col>
+            <Col
+              span={8}>处警人：{res && res.cjr ? res.cjr : ''}</Col>
+            <Col span={8}>处警单位：<Tooltip
+              title={res && res.cjdw && res.cjdw.length > 25 ? res.cjdw : null}>{res && res.cjdw ? res.cjdw.length > 25 ? res.cjdw.substring(0, 25) + '...' : res.cjdw : ''}</Tooltip></Col>
+            <Col span={8}>处警信息：<Tooltip
+              title={res && res.cjqk && res.cjqk.length > 25 ? res.cjqk : null}>{res && res.cjqk ? res.cjqk.length > 25 ? res.cjqk.substring(0, 25) + '...' : res.cjqk : ''}</Tooltip></Col>
+          </Row>)
+            this.props.dispatch(
+              routerRedux.push({
+                pathname: '/ModuleAll/Share',
+                query: { record: res,id: res && res.id ? res.id : '1',from:'警情信息',tzlx:'jqxx',fromPath:'/receivePolice/AlarmData',detail,tab:'表格' },
+              }),
+            )
+            // this.setState({
+            //     shareVisible: true,
+            //     shareItem: res,
+            // });
+        }
+        else {
             this.props.dispatch({
                 type: 'share/getMyFollow',
                 payload: {
@@ -250,6 +271,7 @@ class RenderTable extends PureComponent {
                                         </Menu>
                                     }
                                     trigger={['click']}
+                                    getPopupContainer={() => document.getElementById('jqsjcardArea')}
                                 >
                                     <a href="javascript:;">关注</a>
                                 </Dropdown>
@@ -293,7 +315,7 @@ class RenderTable extends PureComponent {
         return (
             <div className={styles.standardTable}>
                 {/*<div>数据长度:{data.list?data.list.length:'无数据'}</div>*/}
-              <Card className={styles.cardArea}>
+              <Card className={styles.cardArea} id='jqsjcardArea'>
                 <Table
                     // size={'middle'}
                     loading={loading}

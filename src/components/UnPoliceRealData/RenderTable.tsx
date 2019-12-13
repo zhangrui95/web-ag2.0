@@ -77,10 +77,32 @@ class RenderTable extends PureComponent {
             shareRecord: res,
         });
         if (type === 2) {
-            this.setState({
-                shareVisible: true,
-                shareItem: res,
-            });
+          let detail = (
+            <Row style={{ lineHeight: '50px',paddingLeft:66 }}>
+              <Col
+                span={8}>接警人：{res && res.jjr ? res.jjr : ''}</Col>
+              <Col span={8}>管辖单位：<Tooltip
+                title={res && res.jjdw_mc && res.jjdw_mc.length > 12 ? res.jjdw_mc : null}>{res && res.jjdw_mc ? res.jjdw_mc.length > 12 ? res.jjdw_mc.substring(0, 12) + '...' : res.jjdw_mc : ''}</Tooltip></Col>
+              <Col span={8}>接警信息：<Tooltip
+                title={res && res.jjnr && res.jjnr.length > 12 ? res.jjnr : null}>{res && res.jjnr ? res.jjnr.length > 12 ? res.jjnr.substring(0, 12) + '...' : res.jjnr : ''}</Tooltip></Col>
+              <Col
+                span={8}>处警人：{res && res.cjr ? res.cjr : ''}</Col>
+              <Col span={8}>处警单位：<Tooltip
+                title={res && res.cjdw_mc && res.cjdw_mc.length > 12 ? res.cjdw_mc : null}>{res && res.cjdw_mc ? res.cjdw_mc.length > 12 ? res.cjdw_mc.substring(0, 12) + '...' : res.cjdw_mc : ''}</Tooltip></Col>
+              <Col span={8}>处警信息：<Tooltip
+                title={res && res.cjqk && res.cjqk.length > 12 ? res.cjqk : null}>{res && res.cjqk ? res.cjqk.length > 12 ? res.cjqk.substring(0, 12) + '...' : res.cjqk : ''}</Tooltip></Col>
+            </Row>
+          )
+          this.props.dispatch(
+            routerRedux.push({
+              pathname: '/ModuleAll/Share',
+              query: { record: res,id: res && res.id ? res.id : '1',from:'警情信息',tzlx:'jqxx',fromPath:'/receivePolice/AlarmPolice',detail,tab:'表格' },
+            }),
+          )
+            // this.setState({
+            //     shareVisible: true,
+            //     shareItem: res,
+            // });
         } else {
             this.props.dispatch({
                 type: 'share/getMyFollow',
@@ -158,7 +180,14 @@ class RenderTable extends PureComponent {
             },
             callback: (data) => {
                 if (data.list[0].dbzt === '00') {
-                    this.props.openModal(this.state.searchDetail, flag, record);
+                  const {searchDetail} = this.state;
+                    // this.props.openModal(this.state.searchDetail, flag, record);
+                    this.props.dispatch(
+                      routerRedux.push({
+                        pathname: '/ModuleAll/Supervise',
+                        query: { record:searchDetail,searchDetail:record,id: searchDetail && searchDetail.id ? searchDetail.id : '1',from:'督办',tzlx:'jqxx',fromPath:'/receivePolice/AlarmPolice',tab:'表格'},
+                      }),
+                    )
                 } else {
                     message.warning('该问题已督办，请点击详情查看');
                     this.props.refreshTable();
@@ -294,6 +323,7 @@ class RenderTable extends PureComponent {
                                             </Menu>
                                         }
                                         trigger={['click']}
+                                        getPopupContainer={() => document.getElementById('jqgjcardArea')}
                                     >
                                         <a href="javascript:;">关注</a>
                                     </Dropdown>
@@ -336,7 +366,7 @@ class RenderTable extends PureComponent {
             </Row>
         );
         return (
-            <div className={styles.standardTable}>
+            <div className={styles.standardTable} id='jqgjcardArea'>
                 <Table
                     // size={'middle'}
                     loading={loading}
@@ -346,17 +376,17 @@ class RenderTable extends PureComponent {
                     pagination={paginationProps}
                     onChange={this.handleTableChange}
                 />
-                <ShareModal
-                    title="警情信息分享"
-                    detail={detail}
-                    shareVisible={this.state.shareVisible}
-                    handleCancel={this.handleCancel}
-                    shareItem={this.state.shareItem}
-                    personList={this.state.personList}
-                    lx={this.state.lx}
-                    tzlx={this.state.tzlx}
-                    sx={this.state.sx}
-                />
+                {/*<ShareModal*/}
+                    {/*title="警情信息分享"*/}
+                    {/*detail={detail}*/}
+                    {/*shareVisible={this.state.shareVisible}*/}
+                    {/*handleCancel={this.handleCancel}*/}
+                    {/*shareItem={this.state.shareItem}*/}
+                    {/*personList={this.state.personList}*/}
+                    {/*lx={this.state.lx}*/}
+                    {/*tzlx={this.state.tzlx}*/}
+                    {/*sx={this.state.sx}*/}
+                {/*/>*/}
             </div>
         );
     }

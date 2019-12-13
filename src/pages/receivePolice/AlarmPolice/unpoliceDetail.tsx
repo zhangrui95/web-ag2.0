@@ -31,6 +31,7 @@ import SupervisionLog from '../../../components/Common/SupervisionLog';
 import styles from './unpoliceDetail.less';
 import { authorityIsTrue } from '../../../utils/authority';
 import { autoheight, userResourceCodeDb } from '../../../utils/utils';
+import {routerRedux} from "dva/router";
 
 const FormItem = Form.Item;
 const { Step } = Steps;
@@ -75,6 +76,13 @@ export default class unpoliceDetail extends PureComponent {
     if (this.props.location && this.props.location.query && this.props.location.query.record) {
       this.getDetail(this.props.location.query.record);
     }
+  }
+
+  componentWillReceiveProps(nextProps) {
+   if(nextProps.history.location.query.isReset&&nextProps.history.location.pathname==='/receivePolice/AlarmPolice/unpoliceDetail'){
+        this.getDetail(this.props.location.query.record);
+        this.props.history.replace(nextProps.history.location.pathname+'?id='+nextProps.location.query.id+'&record='+nextProps.location.query.record);
+   }
   }
 
   getDetail(record) {
@@ -162,16 +170,18 @@ export default class unpoliceDetail extends PureComponent {
           data.list[0].dbzt === '00' ||
           (data.list[0].dbzt === '30' && data.list[0].fkzt === '1')
         ) {
-          this.setState({
-            superviseVisibleModal: !!flag,
-            superviseWtlx: wtlx,
-            // superviseZrdw: kfgly_dwmc,
-            // superviseZrdwId: kfgly_dwdm,
-            // superviseZrr: kfgly,
-            id: wtid,
-            sfzh: kfgly_zjhm,
-            // UnitemDetail: [],
-          });
+          this.props.dispatch(
+            routerRedux.push({
+              pathname: '/ModuleAll/Supervise',
+              query: { record:policeDetails,id: policeDetails && policeDetails.id ? policeDetails.id : '1',from:'督办',tzlx:'jqxx',fromPath:'/receivePolice/AlarmPolice/unpoliceDetail',tab:'详情'},
+            }),
+          )
+          // this.setState({
+          //   superviseVisibleModal: !!flag,
+          //   superviseWtlx: wtlx,
+          //   id: wtid,
+          //   sfzh: kfgly_zjhm,
+          // });
         } else {
           message.warning('该问题已督办或暂无反馈信息');
           if (
@@ -199,9 +209,15 @@ export default class unpoliceDetail extends PureComponent {
       },
       callback: data => {
         if (data.list[0].fkzt !== '1') {
-          this.setState({
-            feedbackVisibleModal: !!flag,
-          });
+          this.props.dispatch(
+            routerRedux.push({
+              pathname: '/ModuleAll/FeedBack',
+              query: { record:unCaseDetailData,id: unCaseDetailData && unCaseDetailData.id ? unCaseDetailData.id : '1',from:'反馈',tzlx:'jqxx',fromPath:'/receivePolice/AlarmPolice/unpoliceDetail',tab:'详情'},
+            }),
+          )
+          // this.setState({
+          //   feedbackVisibleModal: !!flag,
+          // });
         } else {
           message.warning('该问题已反馈');
           if (
@@ -334,7 +350,7 @@ export default class unpoliceDetail extends PureComponent {
         id: this.state.dbid,
       },
       callback: () => {
-        message.info('督办整改完成');
+        message.success('督办整改完成');
         if (this.props.location && this.props.location.query && this.props.location.query.record) {
           this.getDetail(this.props.location.query.record);
         }

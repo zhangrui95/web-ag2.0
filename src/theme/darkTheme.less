@@ -19,7 +19,7 @@
 @btn-choose: #5d7fda; // 单选按钮选中颜色
 @depart-choose: #1c2132; // 机构查询框背景色
 @depart-choose-back: #151b2a; // 机构选择背景色
-//@choose-more-back: #202839; // 多选中每个选中的背景色
+@choose-more-back: #202839; // 多选中每个选中的背景色
 @date-unchoose: #1f2839; // 无法选择的日期的背景色
 @switch-color: #0097d9;
 @rangepicker-border: #1e2230; // 日期弹出窗边框颜色
@@ -761,9 +761,9 @@ body {
     .ant-empty-description{
       color: #fff;
     }
-    .ant-dropdown-menu{
-      background-color: @dropdown-selected-color!important;
-    }
+    //.ant-dropdown-menu{
+    //  background-color: @dropdown-selected-color!important;
+    //}
     .ant-popover-inner{
       background-color:rgba(37,44,60,0.8)!important;
     }
@@ -774,8 +774,14 @@ body {
     .ant-radio-button-wrapper:last-child{
       border-radius:0 !important;
     }
-    .antd-pro-pages-receive-police-alarm-data-index-listPageWrap .antd-pro-pages-receive-police-alarm-data-index-listPageHeader .antd-pro-pages-receive-police-alarm-data-index-typeButtonsArea button{
+    .ant-btn-circle, .ant-btn-circle-outline{
       border-radius:0 !important;
+    }
+    .ant-dropdown-menu-item{
+      color: @white;
+    }
+    .ant-dropdown-menu{
+      background-color: @body-background;
     }
   }
 }
