@@ -17,6 +17,7 @@ export interface GlobalModelState {
     notices?: NoticeItem[];
     navigation: NavigationItem[];
     navigationSession: NavigationItem[];
+    dark?: boolean;
 }
 
 export interface GlobalModelType {
@@ -33,13 +34,16 @@ export interface GlobalModelType {
         saveNotices: Reducer<GlobalModelState>;
         saveClearedNotices: Reducer<GlobalModelState>;
         saveNavigation: Reducer<GlobalModelState>;
+        saveBgColor: Reducer<GlobalModelState>;
     };
     subscriptions: { setup: Subscription };
 }
-
+let dark = sessionStorage.getItem('dark') === 'false' ? false : true;
+console.log('dark-------->',dark)
 const GlobalModel: GlobalModelType = {
     namespace: 'global',
     state: {
+        dark: sessionStorage.getItem('dark') ? dark : true,
         collapsed: false,
         notices: [],
         navigation: sessionStorage.getItem('navigationNews') ? JSON.parse(sessionStorage.getItem('navigationNews')) : [welcomeItem],
@@ -163,6 +167,13 @@ const GlobalModel: GlobalModelType = {
             });
             sessionStorage.setItem('navigationNews', JSON.stringify(navigationNews));
         },
+        * changeBgColor({payload, callback}, {put, select}) {
+            let dark = payload;
+            yield put({
+                type: 'saveBgColor',
+                payload: dark,
+            });
+        },
     },
 
     reducers: {
@@ -194,7 +205,13 @@ const GlobalModel: GlobalModelType = {
                 navigation: payload,
             };
         },
-
+        saveBgColor(state, {payload}): GlobalModelState {
+            console.log('payload111----------->',payload)
+            return {
+                ...state,
+                dark: payload,
+            };
+        },
         saveSessonNavigation(state, {payload}): GlobalModelState {
             return {
                 ...state,

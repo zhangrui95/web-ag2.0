@@ -5,7 +5,8 @@ import {ConnectState} from '@/models/connect';
 import {routerRedux} from 'dva/router';
 import {getMenuData} from '@ant-design/pro-layout';
 import {NavigationItem} from './navigation';
-import styles from './index.less';
+import styles1 from './index.less';
+import styles2 from './indexLight.less';
 
 const {TabPane} = Tabs;
 const Navigation = props => {
@@ -166,6 +167,7 @@ const Navigation = props => {
     };
 
     const showTab = [...navigationData];
+    let styles =  props.dark ? styles1 : styles2;
     return (
         <div
             className={styles.card}

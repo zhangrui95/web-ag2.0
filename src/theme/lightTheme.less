@@ -1,9 +1,9 @@
-@body-background: #eceeef; //body主背景色
+@body-background: #ebebeb; //body主背景色
 @component-background: #fff; //组件背景颜色
-@text-color: #b7b7b7; //文本颜色
+@text-color: #727272; //文本颜色
 @text-word-color: #333;
-@highlight-color: #3D63D1; //选择高亮颜色
-@tabs-active-color: #b2d8ff; //选中底部边框颜色
+@highlight-color: #4662d5; //选择高亮颜色
+@tabs-active-color: #172c9e; //选中底部边框颜色
 @alert-warning-bg-color: #f4eee0; //告警message背景
 @alert-warning-border-color: #f6ddab; //告警message边框
 @alert-error-bg-color: #f4e0e3; //错误message背景
@@ -25,6 +25,7 @@
 @rangepicker-border: #1e2230; // 日期弹出窗边框颜色
 @title-color: #989898;
 @menu-item-active-bg: #606d8c; //侧边栏选中颜色
+@white:#fff;
 //-------------------------自定义-----------------------
 @zero: 0;
 @no-box-shadow: none; //无阴影
@@ -180,11 +181,16 @@ body {
     }
     .ant-menu-inline .ant-menu-item{
       margin-top: 0;
+      a{
+        &:hover{
+          color: @text-word-color!important;
+        }
+      }
     }
     .ant-menu {
       background: @component-background;
       color: @text-color;
-      border-top: 2px solid @body-background;
+      //border-top: 2px solid @body-background;
       padding: @zero!important;
       a {
         color: @text-color;
@@ -194,18 +200,42 @@ body {
         background-color: @highlight-color;
         border-right: 4px solid @tabs-active-color;
         a {
-          color: @text-word-color;
+          color: @white!important;
         }
       }
       .ant-menu-submenu-title {
         margin: @zero;
         height: 50px;
         line-height: 50px;
+        &:hover{
+          color: @text-word-color;
+        }
+      }
+      .ant-menu-submenu-title .ant-menu-submenu-arrow::before,.ant-menu-submenu-title .ant-menu-submenu-arrow::after{
+        background: #72729f;
+        &:hover{
+          background:@text-word-color;
+        }
       }
       .ant-menu-submenu-selected {
         .ant-menu-submenu-title {
           background: @highlight-color;
           border-right: 4px solid @tabs-active-color;
+          color: #fff!important;
+          &:hover{
+            color: #fff;
+          }
+        }
+        .ant-menu-inline{
+          .ant-menu-submenu-title {
+            color: #b9c8ff!important;
+            &:hover{
+              color: #fff;
+            }
+          }
+          .ant-menu-submenu-title .ant-menu-submenu-arrow::before,.ant-menu-submenu-title .ant-menu-submenu-arrow::after{
+            background: #fff!important;
+          }
         }
       }
       .ant-menu-sub {
@@ -215,18 +245,43 @@ body {
           margin: @zero;
         }
         .ant-menu-item-selected {
-          color: @text-word-color;
-          background-color: @menu-item-active-bg;
+          color: @white!important;
+          background-color:@transparent;//@menu-item-active-bg
           border-right: @zero !important;
+        }
+      }
+      .ant-menu-submenu-open{
+        color: @text-word-color;
+        .ant-menu-inline{
+          .ant-menu-submenu-title{
+            color: #b9c8ff;
+            &:hover{
+              color: #fff;
+            }
+          }
+          .ant-menu-item-active{
+            a{
+              color: #fff!important;
+            }
+            color: #fff!important;
+          }
         }
       }
     }
     .ant-layout-sider {
       background: @body-background;
     }
-    .ant-menu-dark .ant-menu-inline.ant-menu-sub {
-      background: @body-background;
+    .ant-menu-inline.ant-menu-sub {
+      background: #5f89ff;
       box-shadow: @no-box-shadow;
+      a{
+        color: #b9c8ff;
+      }
+      a{
+        &:hover{
+          color: #fff;
+        }
+      }
     }
     .ant-menu-submenu-active {
       color: @text-color;
@@ -235,10 +290,13 @@ body {
       box-shadow: @no-box-shadow;
     }
     .ant-pro-global-header {
-      background: @component-background;
+      background: #21328A;
     }
     .ant-pro-sider-menu-logo {
-      background: @component-background!important;
+      background: #21328A!important;
+      h1{
+        color: white;
+      }
     }
     .ant-card-bordered {
       border: 1px solid @body-background;
@@ -268,11 +326,15 @@ body {
     }
     .ant-tabs.ant-tabs-card .ant-tabs-card-bar .ant-tabs-tab-active {
       //color: @highlight-color!important;
-      background: @highlight-color;
+      background: @component-background;
       border-right: @zero;
+      color: @highlight-color;
+      box-shadow: 0 0 12px #aaa;
+      z-index: 1;
     }
     .ant-tabs-ink-bar {
       background-color: @tabs-active-color;
+      bottom: 0;
     }
     .ant-card-body {
       color: @text-word-color;
@@ -285,7 +347,7 @@ body {
     }
     .ant-btn {
       background: @highlight-color;
-      color: @text-word-color;
+      color: @white;
       border: @zero;
     }
     .ant-table {
