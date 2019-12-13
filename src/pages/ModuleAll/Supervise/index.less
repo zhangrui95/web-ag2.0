@@ -1,6 +1,5 @@
-@import '~antd/lib/style/themes/default.less';
-@import '../../utils/utils.less';
-@import '../../theme/darkTheme';
+@import '~antd/es/style/themes/default.less';
+@import '../../../theme/darkTheme';
 
 .standardTable{
   background-color: @choose-more-back;
@@ -17,7 +16,6 @@
 .standardForm{
   color: @white;
 }
-
 .outtext {
   display: block;
   padding-left: 70px;
@@ -58,12 +56,6 @@
 }
 
 .indexmodal {
-  //position: absolute;
-  //top: 50%;
-  //left: 50%;
-  //margin-left: -400px;
-  //margin-top: -252px;
-
   :global {
     .ant-modal-header {
       background-color: #1890FF;
@@ -77,6 +69,7 @@
 }
 
 .indexdeepmodal {
+  //background-color: @component-background;
   //position: absolute;
   //top: 50%;
   //left: 50%;
@@ -84,9 +77,6 @@
   //margin-top: -101px;
   color: #fff;
   :global{
-    .ant-modal-header{
-      display: none;
-    }
     .ant-modal-content{
       background: @component-background;
     }
@@ -100,7 +90,7 @@
 }
 
 .none {
-  display: none;
+  display: none!important;
 }
 
 .btns{
@@ -129,3 +119,14 @@
 .zrrStyle{
   color: #fff;
 }
+.dark{
+  :global{
+    .ant-message{
+      //color: @white;
+    }
+    .ant-message-notice-content {
+      background: @white!important;
+    }
+  }
+}
+

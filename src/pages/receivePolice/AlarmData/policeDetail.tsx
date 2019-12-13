@@ -21,6 +21,7 @@ import liststyles from '../../common/listDetail.less';
 import { autoheight, userResourceCodeDb } from '../../../utils/utils';
 import { authorityIsTrue } from '../../../utils/authority';
 import DispatchModal from '../../../components/DispatchModal/DispatchModal';
+import {routerRedux} from "dva/router";
 
 let imgBase = [];
 
@@ -45,15 +46,15 @@ export default class policeDetail extends PureComponent {
       lx: '警情信息',
       tzlx: 'jqxx',
       sx: '',
-      sfgz: this.props.sfgz,
+      sfgz: props.location&&props.location.query&&props.location.query.record&&props.location.query.record.sfgz?props.location.query.record.sfgz:'',
       IsSure: false, // 确认详情是否加载成功
       isDb: authorityIsTrue(userResourceCodeDb.police), // 督办权限
-      isDd: this.props.isDd || false,
+      isDd: props.location&&props.location.query&&props.location.query.record&&props.location.query.record.isDd?props.location.query.record.isDd : false,
       // keyWord:['打','杀','伤','刀','剑','棍','棒','偷','盗','抢','骗','死','赌','毒','卖淫','嫖娼','侮辱'],
       policeDispatchVisible: false, // 调度模态框
       policeDispatchItem: null, // 调度信息
     };
-    if (this.props.isDd) {
+    if (props.isDd) {
       this.getPoliceKeyword();
     }
   }
@@ -83,18 +84,24 @@ export default class policeDetail extends PureComponent {
   };
 
   componentDidMount() {
-    console.log('this.props', this.props);
-    if (this.props.location && this.props.location.query && this.props.location.query.id) {
+    if (this.props.location && this.props.location.query && this.props.location.query.id&&this.props.location.query.movefrom&&this.props.location.query.movefrom==='警情常规'){
       this.getDetail(this.props.location.query.id);
+    }
+    else if(this.props.location && this.props.location.query &&this.props.location.query.record&&this.props.location.query.record.system_id&&this.props.location.query.movefrom&&this.props.location.query.movefrom==='警情预警'){
+      this.getDetail(this.props.location.query.record.system_id);
     }
   }
 
   componentWillReceiveProps(nextProps) {
     if (nextProps) {
-      if (nextProps.sfgz !== null && nextProps.sfgz !== this.props.sfgz) {
+      if (nextProps.location.query&&nextProps.location.query.record&&nextProps.location.query.record.sfgz&&nextProps.location.query.record.sfgz !== null && nextProps.location.query.record.sfgz !== this.props.location.query.record.sfgz) {
         this.setState({
-          sfgz: nextProps.sfgz,
+          sfgz: nextProps.location.query.record.sfgz,
         });
+      }
+      else if(nextProps.history.location.query.isReset&&nextProps.history.location.pathname==='/receivePolice/AlarmData/policeDetail'){
+        this.getDetail(this.props.location.query.id);
+        this.props.history.replace(nextProps.history.location.pathname+'?id='+nextProps.location.query.id+'&record='+nextProps.location.query.record);
       }
     }
   }
@@ -125,39 +132,57 @@ export default class policeDetail extends PureComponent {
 
   // 根据案件编号打开案件窗口
   openCaseDetail = policeDetails => {
-    // if (policeDetails.ajlx === '22001') { // 刑事案件
-    //     const divs = (
-    //         <div>
-    //             <CaseDetail
-    //                 {...this.props}
-    //                 id={policeDetails.ajbh}
-    //             />
-    //         </div>
-    //     );
-    //     const AddNewDetail = { title: '刑事案件详情', content: divs, key: policeDetails.ajbh };
-    //     this.props.newDetail(AddNewDetail);
-    // } else if (policeDetails.ajlx === '22002') { // 行政案件
-    //     const divs = (
-    //         <div>
-    //             <XzCaseDetail
-    //                 {...this.props}
-    //                 systemId={policeDetails.ajbh}
-    //             />
-    //         </div>
-    //     );
-    //     const AddNewDetail = { title: '行政案件详情', content: divs, key: policeDetails.ajbh };
-    //     this.props.newDetail(AddNewDetail);
-    // }
+    if (policeDetails.ajlx === '22001') { // 刑事案件
+      this.props.dispatch(
+        routerRedux.push({
+          pathname: '/newcaseFiling/caseData/CriminalData/caseDetail',
+          query: { id: policeDetails && policeDetails.id ? policeDetails.id : '1', record: policeDetails },
+        }),
+      );
+        // const divs = (
+        //     <div>
+        //         <CaseDetail
+        //             {...this.props}
+        //             id={policeDetails.ajbh}
+        //         />
+        //     </div>
+        // );
+        // const AddNewDetail = { title: '刑事案件详情', content: divs, key: policeDetails.ajbh };
+        // this.props.newDetail(AddNewDetail);
+    } else if (policeDetails.ajlx === '22002') { // 行政案件
+      this.props.dispatch(
+        routerRedux.push({
+          pathname: '/newcaseFiling/caseData/AdministrationData/caseDetail',
+          query: { id: policeDetails && policeDetails.id ? policeDetails.id : '1', record: policeDetails },
+        }),
+      );
+        // const divs = (
+        //     <div>
+        //         <XzCaseDetail
+        //             {...this.props}
+        //             systemId={policeDetails.ajbh}
+        //         />
+        //     </div>
+        // );
+        // const AddNewDetail = { title: '行政案件详情', content: divs, key: policeDetails.ajbh };
+        // this.props.newDetail(AddNewDetail);
+    }
   };
 
   // 问题判定
   onceSupervise = (policeDetails, flag, from) => {
     if (policeDetails) {
-      this.setState({
-        superviseVisibleModal: !!flag,
-        superviseWtlx: policeDetails.wtlx,
-        from,
-      });
+      this.props.dispatch(
+        routerRedux.push({
+          pathname: '/ModuleAll/Supervise',
+          query: { record: policeDetails,id: policeDetails && policeDetails.id ? policeDetails.id : '1',from:'警情详情问题判定',tzlx:'jqxx',fromPath:'/receivePolice/AlarmData/policeDetail',wtflId:'230201',wtflMc:'警情' },
+        }),
+      )
+      // this.setState({
+      //   superviseVisibleModal: !!flag,
+      //   superviseWtlx: policeDetails.wtlx,
+      //   from,
+      // });
     } else {
       message.info('该案件无法进行问题判定');
     }
@@ -186,10 +211,30 @@ export default class policeDetail extends PureComponent {
         (res.jjsj ? res.jjsj : ''),
     });
     if (type === 2) {
-      this.setState({
-        shareVisible: true,
-        shareItem: res,
-      });
+      let detail=(<Row style={{ lineHeight: '50px',paddingLeft:66 }}>
+        <Col
+          span={8}>接警人：{res && res.jjr ? res.jjr : ''}</Col>
+        <Col span={8}>管辖单位：<Tooltip
+          title={res && res.jjdw && res.jjdw.length > 25 ? res.jjdw : null}>{res && res.jjdw ? res.jjdw.length > 25 ? res.jjdw.substring(0, 25) + '...' : res.jjdw : ''}</Tooltip></Col>
+        <Col span={8}>接警信息：<Tooltip
+          title={res && res.jjnr && res.jjnr.length > 25 ? res.jjnr : null}>{res && res.jjnr ? res.jjnr.length > 25 ? res.jjnr.substring(0, 25) + '...' : res.jjnr : ''}</Tooltip></Col>
+        <Col
+          span={8}>处警人：{res && res.cjr ? res.cjr : ''}</Col>
+        <Col span={8}>处警单位：<Tooltip
+          title={res && res.cjdw && res.cjdw.length > 25 ? res.cjdw : null}>{res && res.cjdw ? res.cjdw.length > 25 ? res.cjdw.substring(0, 25) + '...' : res.cjdw : ''}</Tooltip></Col>
+        <Col span={8}>处警信息：<Tooltip
+          title={res && res.cjqk && res.cjqk.length > 25 ? res.cjqk : null}>{res && res.cjqk ? res.cjqk.length > 25 ? res.cjqk.substring(0, 25) + '...' : res.cjqk : ''}</Tooltip></Col>
+      </Row>)
+      this.props.dispatch(
+        routerRedux.push({
+          pathname: '/ModuleAll/Share',
+          query: { record: res,id: res && res.id ? res.id : '1',from:'警情信息',tzlx:'jqxx',fromPath:'/receivePolice/AlarmData/policeDetail',detail,tab:'详情' },
+        }),
+      )
+      // this.setState({
+      //   shareVisible: true,
+      //   shareItem: res,
+      // });
     } else {
       if (this.state.IsSure) {
         this.props.dispatch({
@@ -332,7 +377,7 @@ export default class policeDetail extends PureComponent {
 
   Topdetail() {
     const { policeDetails, sfgz, isDb } = this.state;
-    const { record } = this.props;
+    const { query:{record} } = this.props.location;
     return (
       <div style={{ backgroundColor: '#252C3C', margin: '16px 0' }}>
         <Row gutter={{ md: 8, lg: 24, xl: 48 }}>
@@ -370,7 +415,7 @@ export default class policeDetail extends PureComponent {
                     {sfgz === 0 ? (
                       <Tooltip title="关注">
                         <img
-                          src={nocollect}
+                          src={collect}
                           width={25}
                           height={25}
                           style={{ marginLeft: 12 }}
@@ -381,7 +426,7 @@ export default class policeDetail extends PureComponent {
                     ) : (
                       <Tooltip title="取消关注">
                         <img
-                          src={collect}
+                          src={nocollect}
                           width={25}
                           height={25}
                           style={{ marginLeft: 12 }}
@@ -420,7 +465,7 @@ export default class policeDetail extends PureComponent {
         id={`jqDetail${this.props.id}`}
         className={styles.detailBoxScroll}
       >
-        {policeDetails && policeDetails.ajbh && policeDetails.is_sa === 1 ? (
+        {policeDetails && policeDetails.ajbh && policeDetails.is_sa === 0 ? (
           ''
         ) : (
           <div style={{ textAlign: 'right', padding: '16px 32px' }}>
@@ -509,7 +554,7 @@ export default class policeDetail extends PureComponent {
               <div className={liststyles.Indexfrom}>
                 <div className={liststyles.special}>处置结果：</div>
               </div>
-              <div className={liststyles.Indextail} style={{ paddingLeft: 78 }}>
+              <div className={liststyles.Indextail} style={{ paddingLeft: 58 }}>
                 <div
                   className={liststyles.special1}
                   style={{ color: this.props.isDd ? '#f00' : 'rgba(255, 255, 255)' }}

@@ -83,7 +83,8 @@ export default class Index extends PureComponent {
       }, () => {
         this.handleSearch();
       });
-    } else {
+    }
+    else {
       this.handleFormReset();
       const org = getQueryString(this.props.location.search, 'org') || '';
       const jjsj_js = getQueryString(this.props.location.search, 'jjsj_js') || '';
@@ -113,6 +114,13 @@ export default class Index extends PureComponent {
     this.getHandleStatusDict();
     this.getDepTree(newjigouArea.department);
     this.getCaseTypeTree(window.configUrl.is_ssds);
+  }
+
+  componentWillReceiveProps(nextProps) {
+       if(nextProps&&nextProps.history.location.query.isReset&&nextProps.history.location.pathname==='/receivePolice/AlarmData'){
+        this.handleFormReset();
+        this.props.history.replace(nextProps.history.location.pathname);
+      }
   }
 
   onChange = (activeKey) => {
@@ -749,7 +757,7 @@ export default class Index extends PureComponent {
               <Button
                 style={{ marginLeft: 8 }}
                 type="primary"
-                onClick={() => this.props.handleSearch(0)}
+                htmlType="submit"
               >
                 查询
               </Button>

@@ -299,24 +299,13 @@ export default class Index extends PureComponent {
     // );
     // const AddNewDetail = { title: '警情预警详情', content: divs, key: record.id };
     // this.newDetail(AddNewDetail);
-    this.props.dispatch({
-      type: 'global/changeNavigation',
-      payload: {
-        key: record && record.id ? record.id : '1',
-        name: '警情预警详情',
-        path: '/receivePolice/AlarmData/policeDetail',
-        isShow: true,
-        query: { record, id: record && record.id ? record.id : '1' },
-      },
-      callback: () => {
+
         this.props.dispatch(
           routerRedux.push({
             pathname: '/receivePolice/AlarmData/policeDetail',
-            query: { record: record, id: record && record.id ? record.id : '1' },
+            query: { record: record, id: record && record.id ? record.id : '1',movefrom:'警情预警' },
           }),
         );
-      },
-    });
   };
 
   // 打开新的详情页面
@@ -393,13 +382,93 @@ export default class Index extends PureComponent {
         txItem: res,
       });
       this.thisNewDetails(res);
-    } else if (type === 2) {
-      this.setState({
-        shareVisible: true,
-        shareItem: res,
-      });
-      this.thisNewDetails(res);
-    } else {
+    }
+    else if (type === 2) {
+      let detail=(<Row style={{ lineHeight: '50px',paddingLeft:66 }}>
+        <Col span={8}>接警人：{res && res.jjr ? res.jjr : ''}</Col>
+        <Col span={8}>管辖单位：
+          <Tooltip
+            title={
+              res &&
+              res.jjdw_mc &&
+              res.jjdw_mc.length > 12
+                ? res.jjdw_mc
+                : null
+            }
+          >
+            {res && res.jjdw_mc
+              ? res.jjdw_mc.length > 12
+                ? res.jjdw_mc.substring(0, 12) + '...'
+                : res.jjdw_mc
+              : ''}
+          </Tooltip></Col>
+        <Col span={8}>接警信息：
+          <Tooltip
+            title={
+              res &&
+              res.jjnr &&
+              res.jjnr.length > 12
+                ? res.jjnr
+                : null
+            }
+          >
+            {res && res.jjnr
+              ? res.jjnr.length > 12
+                ? res.jjnr.substring(0, 12) + '...'
+                : res.jjnr
+              : ''}
+          </Tooltip></Col>
+        <Col
+          span={8}>处警人：
+          {res && res.cjr
+            ? res.cjr
+            : ''}</Col>
+        <Col span={8}>处警单位：
+          <Tooltip
+            title={
+              res &&
+              res.cjdw &&
+              res.cjdw.length > 12
+                ? res.cjdw
+                : null
+            }
+          >
+            {res && res.cjdw
+              ? res.cjdw.length > 12
+                ? res.cjdw.substring(0, 12) + '...'
+                : res.cjdw
+              : ''}
+          </Tooltip></Col>
+        <Col span={8}>处警信息：
+          <Tooltip
+            title={
+              res &&
+              res.cjqk &&
+              res.cjqk.length > 12
+                ? res.cjqk
+                : null
+            }
+          >
+            {res && res.cjqk
+              ? res.cjqk.length > 12
+                ? res.cjqk.substring(0, 12) + '...'
+                : res.cjqk
+              : ''}
+          </Tooltip></Col>
+      </Row>)
+      this.props.dispatch(
+        routerRedux.push({
+          pathname: '/ModuleAll/Share',
+          query: { record: res,id: res && res.id ? res.id : '1',from:'警情信息',tzlx:'jqxx',fromPath:'/receivePolice/AlarmWarning',detail,tab:'表格'},
+        }),
+      )
+      // this.setState({
+      //   shareVisible: true,
+      //   shareItem: res,
+      // });
+      // this.thisNewDetails(res);
+    }
+    else {
       this.props.dispatch({
         type: 'share/getMyFollow',
         payload: {
@@ -425,21 +494,21 @@ export default class Index extends PureComponent {
       });
     }
   };
-  handleCancel = () => {
-    this.setState({
-      shareVisible: false,
-      txVisible: false,
-    });
-  };
-  handleCancels = () => {
-    this.setState({
-      AnnouncementVisible: false,
-    });
-  };
+  // handleCancel = () => {
+  //   this.setState({
+  //     shareVisible: false,
+  //     txVisible: false,
+  //   });
+  // };
+  // handleCancels = () => {
+  //   this.setState({
+  //     AnnouncementVisible: false,
+  //   });
+  // };
   getTg = record => {
-    this.setState({
-      AnnouncementVisible: true,
-    });
+    // this.setState({
+    //   AnnouncementVisible: true,
+    // });
     this.props.dispatch({
       type: 'share/getRz',
       payload: {
@@ -447,9 +516,15 @@ export default class Index extends PureComponent {
         yj_id: record.id,
       },
       callback: res => {
-        this.setState({
-          RzList: res.list,
-        });
+        this.props.dispatch(
+          routerRedux.push({
+            pathname: '/ModuleAll/DailyRecord',
+            query: { record: record,RzList:res.list,id: record && record.id ? record.id : '1',movefrom:'警情预警' },
+          }),
+        )
+        // this.setState({
+        //   RzList: res.list,
+        // });
       },
     });
   };
