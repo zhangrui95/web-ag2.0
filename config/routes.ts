@@ -20,6 +20,11 @@ export function routes() {
             component: '../layouts/bigShow',
         },
         {
+            // token登录
+            path: '/loginByToken',
+            component: '../layouts/LoginByToken',
+        },
+        {
             path: '/',
             component: '../layouts/SecurityLayout',
             routes: [
@@ -612,6 +617,17 @@ export function routes() {
                                     hideInMenu: true,
                                 },
                             ],
+                        },
+                        {
+                            path: '/Tabulation/Make',
+                            name: '制表',
+                            component: './Tabulation/MakeTableModal.tsx',
+                            hideInMenu: true,
+                        }, {
+                            path: '/Retrieve',
+                            name: '退补侦查',
+                            component: './Retrieve/RetrieveModal.tsx',
+                            hideInMenu: true,
                         },
                         {
                             name: '全局综合查统',

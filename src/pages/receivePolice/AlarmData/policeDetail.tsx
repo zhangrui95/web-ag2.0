@@ -478,7 +478,7 @@ export default class policeDetail extends PureComponent {
           </div>
         )}
         <Card
-          title={<div style={{ borderLeft: '2px solid #fff', paddingLeft: 16 }}>接警信息</div>}
+          title={<div style={{ borderLeft: '1px solid #fff', paddingLeft: 16 }}>接警信息</div>}
           className={liststyles.card}
           bordered={false}
         >
@@ -545,7 +545,7 @@ export default class policeDetail extends PureComponent {
         </Card>
 
         <Card
-          title={<div style={{ borderLeft: '2px solid #fff', paddingLeft: 16 }}>处警信息</div>}
+          title={<div style={{ borderLeft: '1px solid #fff', paddingLeft: 16 }}>处警信息</div>}
           className={liststyles.card}
           bordered={false}
         >

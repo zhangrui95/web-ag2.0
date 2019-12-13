@@ -8,23 +8,23 @@ import React, { PureComponent } from 'react';
 import numeral from 'numeral';
 import { connect } from 'dva';
 import {
-  Row,
-  Col,
-  Form,
-  Card,
-  Select,
-  Icon,
-  Avatar,
-  List,
-  Tooltip,
-  Dropdown,
-  Menu,
-  Button,
-  Input,
-  Steps,
-  Table,
-  Modal,
-  message,
+    Row,
+    Col,
+    Form,
+    Card,
+    Select,
+    Icon,
+    Avatar,
+    List,
+    Tooltip,
+    Dropdown,
+    Menu,
+    Button,
+    Input,
+    Steps,
+    Table,
+    Modal,
+    message, Empty,
 } from 'antd';
 // import Result from '../../components/Result';
 // import SuperviseModal from '../../components/UnCaseRealData/SuperviseModal';
@@ -44,6 +44,7 @@ import styles from './areaDetail.less';
 import liststyles from '../../common/listDetail.less';
 import { autoheight, getUserInfos, userResourceCodeDb } from '../../../utils/utils';
 import { authorityIsTrue } from '../../../utils/authority';
+import noList from "@/assets/viewData/noList.png";
 
 const FormItem = Form.Item;
 const { Step } = Steps;
@@ -1541,6 +1542,7 @@ export default class areaDetail extends PureComponent {
             }}
             dataSource={areaDetails ? areaDetails.sswoodList : []}
             columns={ssWoodColumns}
+            locale={{ emptyText: <Empty image={noList} description={'暂无记录'} /> }}
           />
         </div>
         <div className={styles.title}>涉案物品信息</div>
@@ -1562,6 +1564,7 @@ export default class areaDetail extends PureComponent {
             }}
             dataSource={areaDetails ? areaDetails.sawoodList : []}
             columns={ajWoodColumns}
+            locale={{ emptyText: <Empty image={noList} description={'暂无记录'} /> }}
           />
         </div>
       </div>

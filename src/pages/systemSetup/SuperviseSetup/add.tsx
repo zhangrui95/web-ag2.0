@@ -551,12 +551,12 @@ class Detail extends Component {
                     callback: res => {
                         if (!res.error) {
                             message.success('修改成功');
+                            this.onEdit(true);
                         } else {
                             message.warn('操作失败，请重试');
                         }
                     },
                 });
-              this.onEdit(true);
             }
         });
     };
@@ -647,12 +647,12 @@ class Detail extends Component {
                         callback: res => {
                             if (!res.error) {
                                 message.success('添加成功');
+                                this.onEdit(true);
                             } else {
                                 message.warn('操作失败，请重试');
                             }
                         },
                     });
-                    this.onEdit(true);
                 }
             });
     };
@@ -784,6 +784,7 @@ class Detail extends Component {
         // 删除当前tab并且将路由跳转至前一个tab的path
         const { dispatch } = this.props;
         if (dispatch) {
+            dispatch( routerRedux.push({pathname: '/systemSetup/SuperviseSetup',query: isReset ? {isReset,type:'0'} : {}}));
             dispatch({
                 type: 'global/changeSessonNavigation',
                 payload: {
@@ -796,9 +797,6 @@ class Detail extends Component {
                 payload: {
                     key,
                     isShow: false,
-                },
-                callback: (data: NavigationItem[]) => {
-                   dispatch( routerRedux.push({pathname: '/systemSetup/SuperviseSetup',query: isReset ? {isReset,type:'0'} : {}}));
                 },
             });
         }

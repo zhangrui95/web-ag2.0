@@ -7,18 +7,18 @@
 import React, { PureComponent, Fragment } from 'react';
 import { connect } from 'dva';
 import {
-  Row,
-  Col,
-  Form,
-  Card,
-  Steps,
-  Button,
-  Badge,
-  Table,
-  List,
-  Tooltip,
-  message,
-  Modal,
+    Row,
+    Col,
+    Form,
+    Card,
+    Steps,
+    Button,
+    Badge,
+    Table,
+    List,
+    Tooltip,
+    message,
+    Modal, Empty,
 } from 'antd';
 // import DescriptionList from 'components/DescriptionList';
 import styles from './uncaseDetail.less';
@@ -35,6 +35,7 @@ import FeedbackModal from '../../../components/Common/FeedbackModal';
 import { authorityIsTrue } from '../../../utils/authority';
 import SupervisionLog from '../../../components/Common/SupervisionLog';
 import Ellipsis from 'ant-design-pro/lib/Ellipsis';
+import noList from "@/assets/viewData/noList.png";
 
 const FormItem = Form.Item;
 // const { Description } = DescriptionList;
@@ -808,6 +809,7 @@ export default class uncaseDetail extends PureComponent {
             className={styles.jqxxTable}
             dataSource={unCaseDetailData ? unCaseDetailData.jqxxList : []}
             columns={JqColumns}
+            locale={{ emptyText: <Empty image={noList} description={'暂无记录'} /> }}
           />
         </div>
         <div className={styles.title}>| 案件信息</div>
@@ -883,7 +885,7 @@ export default class uncaseDetail extends PureComponent {
           )}
         </div>
         {unCaseDetailData && unCaseDetailData.ajzt ? (
-          <div style={{ borderBottom: '3px solid #171925' }}>
+          <div style={{ borderBottom: '1px solid #171925' }}>
             <div className={styles.title}>| 案件轨迹</div>
             <CaseModalTrail {...this.props} caseDetails={unCaseDetailData} from="刑事" />
           </div>

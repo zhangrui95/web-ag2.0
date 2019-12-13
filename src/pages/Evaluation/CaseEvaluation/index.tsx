@@ -826,6 +826,11 @@ export default class Index extends PureComponent {
                                 </div>
                     <div style={!showDataView ? {} : { display:'none' }}>
                                 {this.renderForm()}
+                                <div className={stylescommon.btnTableBox}>
+                                    <Button onClick={this.exportData} icon="download">
+                                        导出表格
+                                    </Button>
+                                </div>
                                 <EvaluationTable onChange={this.handleTableChange} newDetail={this.newDetail} handleSearch={this.handleSearch} getKpSearch={this.getKpSearch}
                                                  data={AssessmentPgList} {...this.props} {...this.state}/>
                             </div>

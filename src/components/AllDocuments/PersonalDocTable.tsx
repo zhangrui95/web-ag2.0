@@ -25,54 +25,17 @@ export default class PersonalDocTable extends PureComponent {
         });
     };
     openPersonDetail = (record) => {
-        // this.props.dispatch({
-        //     type: 'global/changeNavigation',
-        //     payload: {
-        //         key: record && record.system_id ? record.system_id : '1',
-        //         name: '人员档案详情',
-        //         path: '/lawEnforcement/PersonFile/Detail',
-        //         isShow: true,
-        //         query: { record, id: record && record.system_id ? record.system_id : '1' },
-        //     },
-        //     callback: () => {
-                this.props.dispatch(
-                    routerRedux.push({
-                        pathname: '/lawEnforcement/PersonFile/Detail',
-                        query: { id: record && record.system_id ? record.system_id : '1', record: record},
-                    }),
-                );
-        //     },
-        // });
-        // const { xyr_sfzh: idcard, system_id } = record;
-        // if (idcard) {
-        //     this.props.dispatch({
-        //         type: 'AllDetail/AllDetailPersonFetch',
-        //         payload: {
-        //             sfzh: idcard,
-        //         },
-        //         callback: (data) => {
-        //             if (data && data.ryxx) {
-        //                 const divs = (
-        //                     <div>
-        //                         <PersonDetail
-        //                             {...this.props}
-        //                             idcard={idcard}
-        //                             id={system_id}
-        //                             ly='常规数据'
-        //                             from='人员档案'
-        //                         />
-        //                     </div>
-        //                 );
-        //                 const AddNewDetail = { title: '人员档案', content: divs, key: idcard + 'ryda' };
-        //                 this.props.newDetail(AddNewDetail);
-        //             } else {
-        //                 message.error('该人员暂无人员档案');
-        //             }
-        //         },
-        //     });
-        // } else {
-        //     message.error('该人员暂无人员档案');
-        // }
+        const { xyr_sfzh: idcard, system_id } = record;
+        if (idcard) {
+            this.props.dispatch(
+                routerRedux.push({
+                    pathname: '/lawEnforcement/PersonFile/Detail',
+                    query: { id: idcard, record: record},
+                }),
+            );
+        } else {
+            message.error('该人员暂无人员档案');
+        }
 
     };
 

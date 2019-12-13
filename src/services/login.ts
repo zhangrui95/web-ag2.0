@@ -18,3 +18,9 @@ export async function fakeAccountLogin(params: LoginParamsType) {
 export async function getFakeCaptcha(mobile: string) {
   return request(`/api/login/captcha?mobile=${mobile}`);
 }
+export async function tokenLogin(params) {
+    return request(`${securityCenterUrl}/api/loginToken`, {
+        method: 'POST',
+        data: params,
+    });
+}

@@ -1,11 +1,12 @@
 import React, { PureComponent } from 'react';
-import { Table, Divider, Tooltip, Row, Col } from 'antd';
+import {Table, Divider, Tooltip, Row, Col, Empty} from 'antd';
 import styles from './common.less';
 import SLAXZDetail from '../../routes/UnXzCaseRealData/caseDetail';
 import DispatchModal from '../DispatchModal/DispatchModal';
 import DispatchingRecordModal from '../DispatchModal/DispatchingRecordModal';
 import Ellipsis from '../Ellipsis';
 import { authorityIsTrue } from '../../utils/authority';
+import noList from "@/assets/viewData/noList.png";
 
 class RenderTableXz extends PureComponent {
     state = {
@@ -279,6 +280,7 @@ class RenderTableXz extends PureComponent {
                     columns={columns}
                     pagination={paginationProps}
                     onChange={this.handleTableChange}
+                    locale={{ emptyText: <Empty image={noList} description={'暂无记录'} /> }}
                 />
                 {
                   this.state.shareVisible?

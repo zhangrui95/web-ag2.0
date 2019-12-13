@@ -10,28 +10,28 @@ import Debounce from 'lodash-decorators/debounce';
 import Bind from 'lodash-decorators/bind';
 import { connect } from 'dva';
 import {
-  Row,
-  Col,
-  Form,
-  Card,
-  Steps,
-  Popover,
-  Button,
-  Menu,
-  Dropdown,
-  Badge,
-  Timeline,
-  Table,
-  Collapse,
-  Divider,
-  Select,
-  Icon,
-  Avatar,
-  List,
-  Tooltip,
-  Input,
-  message,
-  Modal,
+    Row,
+    Col,
+    Form,
+    Card,
+    Steps,
+    Popover,
+    Button,
+    Menu,
+    Dropdown,
+    Badge,
+    Timeline,
+    Table,
+    Collapse,
+    Divider,
+    Select,
+    Icon,
+    Avatar,
+    List,
+    Tooltip,
+    Input,
+    message,
+    Modal, Empty,
 } from 'antd';
 
 // import DescriptionList from 'components/DescriptionList';
@@ -49,6 +49,7 @@ import CaseModalStep from '../../../components/Common/CaseModalStep';
 // import FeedbackModal from '../../components/Common/FeedbackModal';
 import { authorityIsTrue } from '../../../utils/authority';
 import SupervisionLog from '../../../components/Common/SupervisionLog';
+import noList from "@/assets/viewData/noList.png";
 
 const FormItem = Form.Item;
 // const { Description } = DescriptionList;
@@ -703,6 +704,7 @@ export default class caseDetail extends PureComponent {
             className={styles.jqxxTable}
             dataSource={caseDetails ? caseDetails.jqxxList : []}
             columns={JqColumns}
+            locale={{ emptyText: <Empty image={noList} description={'暂无记录'} /> }}
           />
         </div>
         <div className={styles.title}>| 案件信息</div>
@@ -784,7 +786,7 @@ export default class caseDetail extends PureComponent {
         </div>
 
         {caseDetails && caseDetails.ajzt ? (
-          <div style={{ borderBottom: '3px solid #171925' }}>
+          <div style={{ borderBottom: '1px solid #171925' }}>
             <div className={styles.title}>案件轨迹</div>
             <CaseModalTrail {...this.props} caseDetails={caseDetails} from="行政" />
           </div>

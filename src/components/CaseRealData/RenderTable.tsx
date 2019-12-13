@@ -48,80 +48,27 @@ class RenderTable extends PureComponent {
       this.deatils(record);
     }
   }
-
+    componentWillReceiveProps(nextProps) {
+      if(this.props.isReset!==nextProps.isReset){
+          this.refreshTable();
+      }
+    }
   deatils = record => {
-    // this.props.dispatch({
-    //   type: 'global/changeNavigation',
-    //   payload: {
-    //     key: record && record.id ? record.id : '1',
-    //     name: '刑事案件详情',
-    //     path: '/caseFiling/caseData/CriminalData/caseDetail',
-    //     isShow: true,
-    //     query: { record, id: record && record.id ? record.id : '1' },
-    //   },
-    //   callback: () => {
     this.props.dispatch(
       routerRedux.push({
         pathname: '/newcaseFiling/caseData/CriminalData/caseDetail',
-        query: { id: record && record.id ? record.id : '1', record: record },
+        query: { id: record.id, record: record },
       }),
     );
-    // },
-    // });
-    // const divs = (
-    //     <div>
-    //         // <Detail
-    //         //     record={record}
-    //         //     id={record.system_id}
-    //         //     sfgz={record.sfgz}
-    //         //     gzid={record.gzid}
-    //         //     ajbh={record.ajbh}
-    //         //     tzlx={this.state.tzlx}
-    //         //     {...this.props}
-    //         //     current={this.state.current}
-    //         // />
-    //     </div>
-    // );
-    // const AddNewDetail = { title: '刑事案件详情', content: divs, key: record.system_id };
-    // this.props.newDetail(AddNewDetail);
   };
   // 刑事案件档案
   caseDocdeatils = record => {
-    // this.props.dispatch({
-    //   type: 'global/changeNavigation',
-    //   payload: {
-    //     key: record && record.system_id ? record.system_id : '1',
-    //     name: '刑事案件档案详情',
-    //     path: '/lawEnforcement/File/CriminalFile/Detail',
-    //     isShow: true,
-    //     query: { record, id: record && record.system_id ? record.system_id : '1' },
-    //   },
-    //   callback: () => {
-      console.log('执行？？？')
     this.props.dispatch(
       routerRedux.push({
         pathname: '/lawEnforcement/File/CriminalFile/Detail',
         query: { id: record && record.system_id ? record.system_id : '1', record: record },
       }),
     );
-    //   },
-    // });
-    // const divs = (
-    //     // <div>
-    //         // <CriminalCaseDocDetail
-    //         //     record={record}
-    //         //     id={record.system_id}
-    //         //     sfgz={record.sfgz}
-    //         //     gzid={record.gzid}
-    //         //     tzlx={record.tzlx}
-    //         //     ajbh={record.ajbh}
-    //         //     from='刑事案件档案导出'
-    //         //     {...this.props}
-    //         // />
-    //     // </div>
-    // );
-    // const AddNewDetail = { title: '刑事案件档案详情', content: divs, key: record.system_id };
-    // this.props.newDetail(AddNewDetail);
   };
   saveShare = (res, type, ajGzLx) => {
     this.setState({
@@ -180,11 +127,13 @@ class RenderTable extends PureComponent {
     });
   };
   // 制表
-  makeTable = (record, flag) => {
-    this.setState({
-      caseRecord: record,
-      makeTableModalVisible: !!flag,
-    });
+  makeTable = (record) => {
+      this.props.dispatch(
+          routerRedux.push({
+              pathname: '/Tabulation/Make',
+              query: { id: record && record.ajbh ? record.ajbh : '1', record: record },
+          }),
+      );
   };
   // 退补
   saveRetrieve = (res, flag) => {
@@ -202,10 +151,13 @@ class RenderTable extends PureComponent {
           message.warning('该数据已完成退补功能');
           this.refreshTable();
         } else {
-          this.setState({
-            RetrieveRecord: res,
-            RetrieveVisible: !!flag,
-          });
+            res.url = this.props.location.pathname;
+            this.props.dispatch(
+                routerRedux.push({
+                    pathname: '/Retrieve',
+                    query: { id: res && res.ajbh ? res.ajbh : '1', record: res },
+                }),
+            );
         }
       },
     });
@@ -308,7 +260,7 @@ class RenderTable extends PureComponent {
                       {isZb ? (
                         <span>
                           <Divider type="vertical" />
-                          <a onClick={() => this.makeTable(record, true)}>制表</a>
+                          <a onClick={() => this.makeTable(record)}>制表</a>
                         </span>
                       ) : null}
                       {isTb ? (
@@ -361,7 +313,7 @@ class RenderTable extends PureComponent {
                     {isZb ? (
                       <span>
                         <Divider type="vertical" />
-                        <a onClick={() => this.makeTable(record, true)}>制表</a>
+                        <a onClick={() => this.makeTable(record)}>制表</a>
                       </span>
                     ) : null}
                     {isTb ? (
@@ -462,7 +414,7 @@ class RenderTable extends PureComponent {
                       {isZb ? (
                         <span>
                           <Divider type="vertical" />
-                          <a onClick={() => this.makeTable(record, true)}>制表</a>
+                          <a onClick={() => this.makeTable(record)}>制表</a>
                         </span>
                       ) : null}
                     </div>

@@ -6,7 +6,7 @@
 
 import React, { PureComponent, Fragment } from 'react';
 import { connect } from 'dva';
-import { Row, Col, Card, Button, Table, Tooltip, message, Modal } from 'antd';
+import {Row, Col, Card, Button, Table, Tooltip, message, Modal, Empty} from 'antd';
 import styles from './caseDetail.less';
 import liststyles from '../../common/listDetail.less';
 import {
@@ -29,6 +29,7 @@ import Ellipsis from 'ant-design-pro/lib/Ellipsis';
 import CaseModalTrail from '../../../components/Common/CaseModalTrail';
 import CaseModalStep from '../../../components/Common/CaseModalStep';
 import { authorityIsTrue } from '../../../utils/authority';
+import noList from "@/assets/viewData/noList.png";
 // import MakeTableModal from '../../../components/CaseRealData/MakeTableModal';
 
 @connect(({ XzCaseData, loading, CaseData, AllDetail }) => ({
@@ -1048,6 +1049,7 @@ export default class caseDetail extends PureComponent {
             }}
             dataSource={caseDetails ? caseDetails.jqxxList : []}
             columns={JqColumns}
+            locale={{ emptyText: <Empty image={noList} description={'暂无记录'} /> }}
           />
         </Modal>
         <Modal
@@ -1077,6 +1079,7 @@ export default class caseDetail extends PureComponent {
             }}
             dataSource={caseDetails ? caseDetails.sawpList : []}
             columns={WpColumns}
+            locale={{ emptyText: <Empty image={noList} description={'暂无记录'} /> }}
           />
         </Modal>
         <Modal
@@ -1106,6 +1109,7 @@ export default class caseDetail extends PureComponent {
             }}
             dataSource={caseDetails ? caseDetails.rqxyrList : []}
             columns={AreaColumns}
+            locale={{ emptyText: <Empty image={noList} description={'暂无记录'} /> }}
           />
         </Modal>
         <Modal
@@ -1135,6 +1139,7 @@ export default class caseDetail extends PureComponent {
             }}
             dataSource={caseDetails ? caseDetails.jzList : []}
             columns={DossierColumns}
+            locale={{ emptyText: <Empty image={noList} description={'暂无记录'} /> }}
           />
         </Modal>
         {/*{*/}

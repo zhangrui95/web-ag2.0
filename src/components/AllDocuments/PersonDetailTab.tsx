@@ -123,7 +123,7 @@ export default class PersonDetailTab extends PureComponent {
                                 </div>
                             </div>
                             <div className={styles.operationButton}
-                                 onClick={() => this.props.SaWpdeatils(item.system_id)}>查看
+                                 onClick={() => this.props.SaWpdeatils(item)}>查看
                             </div>
                         </div>
                     </List.Item>
@@ -172,7 +172,7 @@ export default class PersonDetailTab extends PureComponent {
                 width: 50,
                 render: (record) => (
                     <div>
-                        <a onClick={() => this.props.IntoArea(caseData.ajbh)}>详情</a>
+                        <a onClick={() => this.props.IntoArea(caseData)}>详情</a>
                     </div>
                 ),
             },
@@ -267,7 +267,7 @@ export default class PersonDetailTab extends PureComponent {
                                                 caseData.ajbh ? (
                                                     caseData.system_id && caseData.ajlx ? (
                                                         <a
-                                                            onClick={() => this.props.openCaseDetail(caseData.system_id, caseData.ajlx, caseData.ajbh)}
+                                                            onClick={() => this.props.openCaseDetail(caseData)}
                                                             style={{ textDecoration: 'underline' }}
                                                         >
                                                             {caseData.ajbh}
@@ -429,7 +429,7 @@ export default class PersonDetailTab extends PureComponent {
                                             caseData.ajbh ? (
                                                 caseData.system_id && caseData.ajlx ? (
                                                     <a
-                                                        onClick={() => this.props.openCaseDetail(caseData.system_id, caseData.ajlx, caseData.ajbh)}
+                                                        onClick={() => this.props.openCaseDetail(caseData)}
                                                         style={{ textDecoration: 'underline' }}
                                                     >
                                                         {caseData.ajbh}

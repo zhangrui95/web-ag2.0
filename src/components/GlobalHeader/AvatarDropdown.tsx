@@ -1,4 +1,4 @@
-import { Avatar, Icon } from 'antd';
+import { Avatar, Icon,Modal, Button } from 'antd';
 import { ClickParam } from 'antd/es/menu';
 import React from 'react';
 import { connect } from 'dva';
@@ -6,7 +6,8 @@ import router from 'umi/router';
 import { ConnectProps, ConnectState } from '@/models/connect';
 import { CurrentUser } from '@/models/user';
 import styles from './index.less';
-import {routerRedux} from "dva/router";
+
+const { confirm } = Modal;
 
 export interface GlobalHeaderRightProps extends ConnectProps {
   currentUser?: CurrentUser;
@@ -32,6 +33,23 @@ class AvatarDropdown extends React.Component<GlobalHeaderRightProps> {
     router.push(`/account/${key}`);
   };
 
+  //退出
+  onClickBack = () => {
+      let that = this;
+      confirm({
+          title: '确认退出当前系统?',
+          centered:true,
+          okText: '确认',
+          cancelText: '取消',
+          getContainer:document.getElementById('boxAll'),
+          onOk() {
+              that.onClick();
+          },
+          onCancel() {
+              console.log('Cancel');
+          },
+      });
+  }
   //退出
   onClick = () => {
     const { dispatch } = this.props;
@@ -65,12 +83,12 @@ class AvatarDropdown extends React.Component<GlobalHeaderRightProps> {
       //     <span className={styles.name}>李华</span>
       //   </span>
       // </HeaderDropdown>
-      <div style={{ paddingRight: '48px' }}>
+      <div style={{ paddingRight: '48px' }} className={styles.goOut} id={'boxAll'}>
         <span className={`${styles.action} ${styles.account}`}>
           <Avatar size="small" className={styles.avatar} src={require('@/assets/user.png')} alt="avatar" />
           <span className={styles.name}>{JSON.parse(sessionStorage.getItem('user')).name}</span>
         </span>
-        <span className={styles.logout} onClick={this.onClick}>
+        <span className={styles.logout} onClick={this.onClickBack}>
           <Icon className={styles.logoutIcon} type="poweroff" />
         </span>
       </div>

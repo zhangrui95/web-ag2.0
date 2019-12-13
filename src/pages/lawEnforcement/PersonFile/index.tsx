@@ -1,26 +1,3 @@
-// import React, { useState, useEffect } from 'react';
-// import { Spin } from 'antd';
-//
-// interface Person {
-//   name: string
-// }
-// export default function PersonFile(props: Person) {
-//   const [loading, setLoading] = useState<boolean>(false);
-//
-//   useEffect(() => {
-//     setTimeout(() => {
-//       setLoading(false);
-//     }, 1000);
-//   }, []);
-//
-//   return (
-//     <div style={{ paddingTop: 100, textAlign: 'center' }}>
-//      人员档案
-//       <Spin spinning={loading} size="large"></Spin>
-//     </div>
-//   );
-// };
-//
 /*
 * PersonalDoc 人员档案列表
 * author：lyp
@@ -41,9 +18,6 @@ const { Option } = Select;
 const { RangePicker } = DatePicker;
 const TabPane = Tabs.TabPane;
 const TreeNode = TreeSelect.TreeNode;
-
-let timeout;
-let currentValue;
 
 @connect(({ personDocData, loading, common }) => ({
     personDocData, common,

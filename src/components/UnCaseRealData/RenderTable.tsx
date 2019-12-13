@@ -1,9 +1,10 @@
 import React, { PureComponent } from 'react';
-import { Table, Divider, Tooltip, message, Dropdown, Menu, Row, Col } from 'antd';
+import {Table, Divider, Tooltip, message, Dropdown, Menu, Row, Col, Empty} from 'antd';
 import { connect } from 'dva';
 import styles from './RenderTable.less';
 import Ellipsis from 'ant-design-pro/lib/Ellipsis';
 import { routerRedux } from 'dva/router';
+import noList from "@/assets/viewData/noList.png";
 // import ShareModal from './../ShareModal/ShareModal';
 // import SLAXSDetail from '../../../routes/UnCaseRealData/uncaseDetail';
 // import Ellipsis from '../Ellipsis';
@@ -369,6 +370,7 @@ class RenderTable extends PureComponent {
           columns={columns}
           pagination={paginationProps}
           onChange={this.handleTableChange}
+          locale={{ emptyText: <Empty image={noList} description={'暂无记录'} /> }}
         />
         {/*<ShareModal*/}
         {/*title="案件信息分享"*/}

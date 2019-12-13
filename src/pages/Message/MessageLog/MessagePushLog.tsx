@@ -84,7 +84,7 @@ export default class MessagePushLogModal extends PureComponent {
                     this.props.dispatch(
                         routerRedux.push({
                             pathname: '/articlesInvolved/ArticlesData/itemDetail',
-                            query: { record:item,id: item.system_id,newDetail:this.props.newDetail },
+                            query: { record:item,id: item.system_id },
                         }),
                     )
                 } else {//涉案物品告警详情
@@ -106,7 +106,7 @@ export default class MessagePushLogModal extends PureComponent {
                     this.props.dispatch(
                         routerRedux.push({
                             pathname: '/handlingArea/AreaData/areaDetail',
-                            query: { record:item,id: item.system_id,sfzh:item.ryzjhm,ajbh:item.system_id, newDetail:this.props.newDetail},
+                            query: { record:item,id: item.system_id,sfzh:item.ryzjhm,ajbh:item.system_id},
                         }),
                     );
                 } else {//人员在区告警详情

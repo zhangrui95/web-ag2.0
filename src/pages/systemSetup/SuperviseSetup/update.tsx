@@ -771,13 +771,13 @@ class Detail extends Component {
                         if (!res.error) {
                             this.handleCancel();
                             message.success('修改成功');
+                            this.onEdit(true);
                             this.getJgdList(this.state.pd, this.state.current);
                         } else {
                             message.warn('操作失败，请重试');
                         }
                     },
                 });
-                this.onEdit(true);
             }
         });
     };
@@ -870,13 +870,13 @@ class Detail extends Component {
                             if (!res.error) {
                                 this.handleCancel();
                                 message.success('添加成功');
+                                this.onEdit(true);
                                 this.getJgdList(this.state.pd, 1);
                             } else {
                                 message.warn('操作失败，请重试');
                             }
                         },
                     });
-                    this.onEdit(true);
                 }
             });
         }
@@ -1013,6 +1013,7 @@ class Detail extends Component {
         let key = '/systemSetup/SuperviseSetup/Update'+this.props.location.query.id;
         const { dispatch } = this.props;
         if (dispatch) {
+            dispatch( routerRedux.push({pathname: '/systemSetup/SuperviseSetup',query: isReset ? {isReset,type:'2'} : {}}));
             dispatch({
                 type: 'global/changeSessonNavigation',
                 payload: {
@@ -1025,9 +1026,6 @@ class Detail extends Component {
                 payload: {
                     key,
                     isShow: false,
-                },
-                callback: (data: NavigationItem[]) => {
-                    dispatch( routerRedux.push({pathname: '/systemSetup/SuperviseSetup',query: isReset ? {isReset,type:'2'} : {}}));
                 },
             });
         }

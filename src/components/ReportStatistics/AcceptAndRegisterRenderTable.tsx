@@ -1,8 +1,9 @@
 import React, { PureComponent } from 'react';
-import { Table, Alert, Badge, Divider, Tooltip, Button, Radio, Icon, message, Form, Switch } from 'antd';
+import {Table, Alert, Badge, Divider, Tooltip, Button, Radio, Icon, message, Form, Switch, Empty} from 'antd';
 import styles from './AcceptAndRegisterRenderTable.less';
 import { routerRedux } from 'dva/router';
 import Detail from '../../routes/ReportStatistics/AcceptAndRegisterDetail';
+import noList from "@/assets/viewData/noList.png";
 
 
 const FormItem = Form.Item;
@@ -193,6 +194,7 @@ class AcceptAndRegisterRenderTable extends PureComponent {
                     columns={child}
                     pagination={paginationProps}
                     onChange={this.handleTableChange}
+                    locale={{ emptyText: <Empty image={noList} description={'暂无记录'} /> }}
                     style={{ marginLeft: 8 }}
                     // title:'点击进入下一级机构'
                     onRow={(record) => {

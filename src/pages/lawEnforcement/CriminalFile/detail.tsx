@@ -20,22 +20,9 @@ import tree from 'echarts/lib/chart/tree';
 import styles from '../docDetail.less';
 import liststyles from '../docListStyle.less';
 import { autoheight, getQueryString, tableList, userAuthorityCode } from '../../../utils/utils';
-// import ItemDetail from '../ItemRealData/itemDetail';
-// import PersonDetail from './PersonalDocDetail';
-import SuperviseModal from '../../../components/UnCaseRealData/SuperviseModal';
-// import JqDetail from '../../routes/PoliceRealData/policeDetail';
-// import JzDetail from '../../routes/DossierData/DossierDetail';
-// import XsDetail from '../../routes/UnCaseRealData/uncaseDetail';
-// import BaqDetail from '../../routes/UnAreaRealData/unareaDetail';
-// import JzgjDetail from '../../routes/UnDossierData/UnDossierDetail';
-// import WpDetail from '../../routes/UnItemRealData/unitemDetail';
-// import JqgjDetail from '../../routes/UnPoliceRealData/unpoliceDetail';
-// import XzDetail from '../../routes/UnXzCaseRealData/caseDetail';
-// import PersonIntoArea from '../../routes/CaseRealData/IntoArea';
 import Ellipsis from 'ant-design-pro/lib/Ellipsis';
 import CaseModalTrail from '../../../components/Common/CaseModalTrail';
 import CaseModalStep from '../../../components/Common/CaseModalStep';
-import MakeTableModal from '../../../components/CaseRealData/MakeTableModal';
 import RetrieveModal from '../../../components/ShareModal/RetrieveModal';
 import { authorityIsTrue } from '../../../utils/authority';
 import noList from "@/assets/viewData/noList.png";
@@ -45,6 +32,7 @@ import tar from "@/assets/common/tar.png";
 import wp from "@/assets/common/wp.png";
 import jzxx from "@/assets/common/jzxx.png";
 import jqImg from "@/assets/common/jq.png";
+import {routerRedux} from "dva/router";
 
 const FormItem = Form.Item;
 const { Link } = Anchor;
@@ -58,50 +46,75 @@ let imgBase = [];
 
 
 export default class CriminalCaseDocDetail extends PureComponent {
-    state = {
-        current: 1, // 涉案物品默认在第一页
-        jqcurrent: 1, // 警情信息默认在第一页
-        jzcurrent: 1, // 卷宗信息默认在第一页
-        gjcurrent: 1, // 告警信息默认在第一页
-        trailLeft: '0',
-        is_ok: '0', // 是否在该详情页督办过，默认0,没有督办过
-        loading1: false, // 按钮状态，默认false没加载,true是点击后的加载状态
-        caseDetails: null,
-        TrackPaddingTop: '', // 初始状态的message的paddingtop;
-        TrackPaddingBottom: '',// 初始状态的message的paddingbottom;
-        TrackPaddingBottom1: '220px', // 初始状态的listStyle的paddingbottom;(TrackPaddingBottom下面的一个子集)
-        open: '0', // 显示‘显示更多’还是‘收起更多’,默认显示更多；
-        colortrailleft: 'gray', // 左滑动按钮，若到达开始或者结束，是gray(置灰)，否则是blue(蓝色)(轨迹)
-        colortrailright: 'blue', // 右滑动按钮，若到达开始或者结束，是gray(置灰)，否则是blue(蓝色)(轨迹)
-        // 督办模态框
-        superviseVisibleModal: false,
-        // 点击列表的督办显示的基本信息
-        superviseWtlx: '',
-        superviseZrdw: '',
-        superviseZrr: '',
-        superviseZrdwId: '',
-        id: '',
-        sfzh: '',
-        // 问题判定的来源参数
-        from: '',
-        // 子系统的id
-        systemId: '',
-        sabar: '',
-        AnchorShow: false,
-        Anchor: false,
-        afterScrollTop: 0,
-        load: false,
-        makeTableModalVisible: false, // 制表model
-        RetrieveRecord: null,
-        RetrieveVisible: false,
-        isZb: authorityIsTrue(userAuthorityCode.ZHIBIAO), // 制表权限
-        isTb: authorityIsTrue(userAuthorityCode.TUIBU), // 退补权限
-        loading: false, // 默认详情页是否为加载状态
-        first:true,
-    };
+    constructor(props) {
+        super(props);
+        let res = this.props.location.query&&this.props.location.query.record ? this.props.location.query.record : '';
+        if(typeof res == 'string'){
+            res = JSON.parse(sessionStorage.getItem('query')).query.record;
+        }
+        this.state = {
+            current: 1, // 涉案物品默认在第一页
+            jqcurrent: 1, // 警情信息默认在第一页
+            jzcurrent: 1, // 卷宗信息默认在第一页
+            gjcurrent: 1, // 告警信息默认在第一页
+            trailLeft: '0',
+            is_ok: '0', // 是否在该详情页督办过，默认0,没有督办过
+            loading1: false, // 按钮状态，默认false没加载,true是点击后的加载状态
+            caseDetails: null,
+            TrackPaddingTop: '', // 初始状态的message的paddingtop;
+            TrackPaddingBottom: '',// 初始状态的message的paddingbottom;
+            TrackPaddingBottom1: '220px', // 初始状态的listStyle的paddingbottom;(TrackPaddingBottom下面的一个子集)
+            open: '0', // 显示‘显示更多’还是‘收起更多’,默认显示更多；
+            colortrailleft: 'gray', // 左滑动按钮，若到达开始或者结束，是gray(置灰)，否则是blue(蓝色)(轨迹)
+            colortrailright: 'blue', // 右滑动按钮，若到达开始或者结束，是gray(置灰)，否则是blue(蓝色)(轨迹)
+            // 督办模态框
+            superviseVisibleModal: false,
+            // 点击列表的督办显示的基本信息
+            superviseWtlx: '',
+            superviseZrdw: '',
+            superviseZrr: '',
+            superviseZrdwId: '',
+            id: '',
+            sfzh: '',
+            // 问题判定的来源参数
+            from: '',
+            // 子系统的id
+            systemId: '',
+            sabar: '',
+            AnchorShow: false,
+            Anchor: false,
+            afterScrollTop: 0,
+            load: false,
+            makeTableModalVisible: false, // 制表model
+            RetrieveRecord: null,
+            RetrieveVisible: false,
+            isZb: authorityIsTrue(userAuthorityCode.ZHIBIAO), // 制表权限
+            isTb: authorityIsTrue(userAuthorityCode.TUIBU), // 退补权限
+            loading: false, // 默认详情页是否为加载状态
+            first:true,
+            path:this.props.location.pathname,
+            res:res,
+            link:'',
+        };
+    }
 
     componentDidMount() {
         this.caseDetailDatas(this.props.location.query.id);
+    }
+
+    componentWillReceiveProps(nextProps) {
+        if(nextProps.history.location.query.isReset){
+            if(nextProps.history.location.pathname === this.state.path){
+                this.refreshCaseDetail();
+                this.props.history.replace(`${nextProps.history.location.pathname}?id=${nextProps.history.location.query.id}&record=${nextProps.history.location.query.record}`);
+            }
+        }
+        if(this.props.location.pathname!==nextProps.pathname&&this.state.link){
+            this.props.history.replace(`${this.props.location.pathname}?id=${this.state.res.ajbh}&record=${this.state.res}/${this.state.link}`);
+            this.setState({
+                link:''
+            });
+        }
     }
 
     scrollHandler = () => {
@@ -228,7 +241,6 @@ export default class CriminalCaseDocDetail extends PureComponent {
                     source: '警情',
                     target: (event.jjnr ? this.formatter(event.jjnr):'')+ index,
                 });
-                console.log('list.indexOf(event.jjnr)',JSON.stringify(list).indexOf(this.formatter(event.jjnr)))
                 list.push({
                     name: event.jjnr ? this.formatter(event.jjnr) : null,
                     id:(event.jjnr ? this.formatter(event.jjnr):'')+ index,
@@ -322,7 +334,7 @@ export default class CriminalCaseDocDetail extends PureComponent {
             }
         ]
         let links = link.concat(jq).concat(sar).concat(sawp).concat(jz);
-        echartTree = echarts.init(document.getElementById('RegulateTree' + this.props.location.query.id));
+        echartTree = echarts.init(document.getElementById('RegulateTree' + this.state.res.ajbh));
         echartTree.hideLoading();
 
         let categories = [];
@@ -349,7 +361,6 @@ export default class CriminalCaseDocDetail extends PureComponent {
             },
         ];
         let dataList = datas.concat(list);
-        console.log('dataList======>',dataList)
         dataList.forEach(function (node) {
             node.itemStyle = null;
             node.symbolSize /= 1.5;
@@ -451,69 +462,28 @@ export default class CriminalCaseDocDetail extends PureComponent {
 
     };
 // 根据物品案件编号和身份证号打开人员档案窗口
-    openPersonDetail = (idcard, xyrName, xyrId) => {
-        // if (idcard && xyrName && xyrId) {
-        //     this.props.dispatch({
-        //         type: 'AllDetail/AllDetailPersonFetch',
-        //         payload: {
-        //             name: xyrName,
-        //             sfzh: idcard,
-        //             xyrId,
-        //         },
-        //         callback: (data) => {
-        //             if (data && data.ryxx) {
-        //                 const divs = (
-        //                     <div>
-        //                         <PersonDetail
-        //                             {...this.props}
-        //                             idcard={idcard}
-        //                             name={xyrName}
-        //                             xyrId={xyrId}
-        //                             ly='常规数据'
-        //                         />
-        //                     </div>
-        //                 );
-        //                 const AddNewDetail = { title: '人员档案', content: divs, key: idcard + 'ryda' };
-        //                 this.props.newDetail(AddNewDetail);
-        //             } else {
-        //                 message.error('该人员暂无人员档案');
-        //             }
-        //         },
-        //     });
-        // } else {
-        //     message.error('该人员暂无人员档案');
-        // }
-    };
-    // 点击案件轨迹人员的在区情况
-    IntoArea = (sfzh, ajbh) => {
-        if (sfzh && ajbh) {
-            const divs = (
-                <div>
-                    <PersonIntoArea
-                        {...this.props} //告警信息
-                        sfzh={sfzh}
-                        ajbh={ajbh}
-                    />
-                </div>
+    openPersonDetail = (record,idcard, xyrName, xyrId) => {
+        if (idcard && xyrName && xyrId) {
+            record.xyr_sfzh = idcard;
+            this.props.dispatch(
+                routerRedux.push({
+                    pathname: '/lawEnforcement/PersonFile/Detail',
+                    query: { id: idcard, record: record},
+                }),
             );
-            const AddNewDetail = { title: '涉案人员在区情况', content: divs, key: sfzh + 'ryzq' };
-            this.props.newDetail(AddNewDetail);
         } else {
-            message.warning('暂无涉案人员在区情况');
+            message.error('该人员暂无人员档案');
         }
     };
 
     // 制表
-    makeTable = (record, flag) => {
-        this.setState({
-            makeTableModalVisible: !!flag,
-        });
-    };
-    // 关闭制表modal
-    MakeTableCancel = () => {
-        this.setState({
-            makeTableModalVisible: false,
-        });
+    makeTable = (record) => {
+        this.props.dispatch(
+            routerRedux.push({
+                pathname: '/Tabulation/Make',
+                query: { id: record && record.ajbh ? record.ajbh : '1', record: record },
+            }),
+        );
     };
     // 退补
     saveRetrieve = (res, flag) => {
@@ -531,10 +501,14 @@ export default class CriminalCaseDocDetail extends PureComponent {
                     message.warning('该数据已完成退补功能');
                     this.refreshCaseDetail();
                 } else {
-                    this.setState({
-                        RetrieveVisible: !!flag,
-                        tbDetail:data.list[0],
-                    });
+                    let reson = data.list[0];
+                    reson.url = this.state.path;
+                    this.props.dispatch(
+                        routerRedux.push({
+                            pathname: '/Retrieve',
+                            query: { id: reson && reson.ajbh ? reson.ajbh : '1', record: reson, isDetail: true },//如果详情跳转isDetail为true
+                        }),
+                    );
                 }
             },
         });
@@ -547,7 +521,7 @@ export default class CriminalCaseDocDetail extends PureComponent {
     };
     // 刷新详情
     refreshCaseDetail = () => {
-        this.caseDetailDatas(this.props.location.query.id);
+        this.caseDetailDatas(this.state.res.ajbh);
     };
     // 图表统计导出功能请求
     exprotService = (imagesBase) => {
@@ -587,13 +561,13 @@ export default class CriminalCaseDocDetail extends PureComponent {
             loading: true,
         });
         imgBase = [];
-        const Namegxtp = `#Namegxtp${this.props.location.query.id}`;
-        const Namejqxx = `#Namejqxx${this.props.location.query.id}`;
-        const Nameajxx = `#Nameajxx${this.props.location.query.id}`;
-        const Nameajgj = `#Nameajgj${this.props.location.query.id}`;
-        const Namesawp = `#Namesawp${this.props.location.query.id}`;
-        const Namejzxx = `#Namejzxx${this.props.location.query.id}`;
-        const Namegjxx = `#Namegjxx${this.props.location.query.id}`;
+        const Namegxtp = `#Namegxtp${this.state.res.ajbh}`;
+        const Namejqxx = `#Namejqxx${this.state.res.ajbh}`;
+        const Nameajxx = `#Nameajxx${this.state.res.ajbh}`;
+        const Nameajgj = `#Nameajgj${this.state.res.ajbh}`;
+        const Namesawp = `#Namesawp${this.state.res.ajbh}`;
+        const Namejzxx = `#Namejzxx${this.state.res.ajbh}`;
+        const Namegjxx = `#Namegjxx${this.state.res.ajbh}`;
         html2canvas(document.querySelector(Namegxtp)).then(canvas1 => {
             this.addBase(canvas1.toDataURL().split('base64,')[1]);
             html2canvas(document.querySelector(Namejqxx)).then(canvas2 => {
@@ -643,7 +617,7 @@ export default class CriminalCaseDocDetail extends PureComponent {
                                   <span>
                                       {
                                           isZb ? <Button type="primary" style={{ marginLeft: 8 }}
-                                                         onClick={() => this.makeTable(caseDetails, true)}>制表</Button> : null
+                                                         onClick={() => this.makeTable(caseDetails)}>制表</Button> : null
                                       }
                                       { // 案件状态为移送才能退补
                                           caseDetails.ajzt === '结案' ||  !isTb || caseDetails.qsrq === '' || (caseDetails.tbrq2 && caseDetails.tbyy2) ? null : (
@@ -664,17 +638,13 @@ export default class CriminalCaseDocDetail extends PureComponent {
     }
 
     // 根据物品ID打开物品详细窗口
-    openItemsDetail = (systemId) => {
-        // const divs = (
-        //     <div>
-        //         <ItemDetail
-        //             {...this.props}
-        //             id={systemId}
-        //         />
-        //     </div>
-        // );
-        // const AddNewDetail = { title: '涉案物品详情', content: divs, key: systemId };
-        // this.props.newDetail(AddNewDetail);
+    openItemsDetail = (item) => {
+        this.props.dispatch(
+            routerRedux.push({
+                pathname: '/articlesInvolved/ArticlesData/itemDetail',
+                query: { record:item,id: item.system_id },
+            }),
+        )
     };
 
     extraBottomTitle(text, caseDetails) {
@@ -688,7 +658,7 @@ export default class CriminalCaseDocDetail extends PureComponent {
                                     姓名：{text.xyrName}
                                 </Col>
                                 <Col md={6} sm={24}>
-                                    <a onClick={() => this.openPersonDetail(text.sfzh, text.xyrName, text.xyrId)}>人员档案</a>
+                                    <a onClick={() => this.openPersonDetail(text,text.sfzh, text.xyrName, text.xyrId)}>人员档案</a>
                                 </Col>
                             </Row>
                             <div style={{ textAlign: 'left', padding: '5px 0' }}>
@@ -738,7 +708,7 @@ export default class CriminalCaseDocDetail extends PureComponent {
                                     overlayStyle={{ wordBreak: 'break-all' }}
                                     title={item.wpzlMc}>{item.wpzlMc}</Tooltip></div>
                             </div>
-                            <div className={styles.sawpSee} onClick={() => this.openItemsDetail(item.system_id)}>查看
+                            <div className={styles.sawpSee} onClick={() => this.openItemsDetail(item,item.system_id)}>查看
                             </div>
                         </div>
                     </List.Item>
@@ -808,113 +778,66 @@ export default class CriminalCaseDocDetail extends PureComponent {
     }
 
     openGjxxDetail = (item) => {
-        // let divs;
-        // if (item.wtfl_id === '203201') {
-        //     divs = (
-        //         <div>
-        //             <JqgjDetail
-        //                 {...this.props}
-        //                 id={item.id}
-        //                 wtid={item.wtid}
-        //             />
-        //         </div>
-        //     );
-        //     const AddNewDetail = { title: '警情告警详情', content: divs, key: item.id };
-        //     this.props.newDetail(AddNewDetail);
-        // } else if (item.wtfl_id === '203202') {
-        //     divs = (
-        //         <div>
-        //             <XsDetail
-        //                 {...this.props}
-        //                 id={item.wtid}
-        //                 systemId={item.system_id}
-        //                 is_da={true}
-        //             />
-        //         </div>
-        //     );
-        //     const AddNewDetail = { title: '刑事案件告警详情', content: divs, key: item.wtid };
-        //     this.props.newDetail(AddNewDetail);
-        // } else if (item.wtfl_id === '203203') {//unareaDetail
-        //     divs = (
-        //         <div>
-        //             <BaqDetail
-        //                 {...this.props}
-        //                 id={item.wtid}
-        //                 baqId={item.id}
-        //             />
-        //         </div>
-        //     );
-        //     const AddNewDetail = { title: '人员在区告警详情', content: divs, key: item.wtid };
-        //     this.props.newDetail(AddNewDetail);
-        // } else if (item.wtfl_id === '203204') {//unitemDetail
-        //     divs = (
-        //         <div>
-        //             <WpDetail
-        //                 {...this.props}
-        //                 id={item.wtid}
-        //                 systemId={item.system_id}
-        //             />
-        //         </div>
-        //     );
-        //     const AddNewDetail = { title: '涉案物品告警详情', content: divs, key: item.wtid };
-        //     this.props.newDetail(AddNewDetail);
-        //
-        // } else if (item.wtfl_id === '203205') {//unXzcaseDetail
-        //     divs = (
-        //         <div>
-        //             <XzDetail
-        //                 {...this.props}
-        //                 id={item.wtid}
-        //                 systemId={item.system_id}
-        //             />
-        //         </div>
-        //     );
-        //     const AddNewDetail = { title: '行政案件告警详情', content: divs, key: item.wtid };
-        //     this.props.newDetail(AddNewDetail);
-        // } else if (item.wtfl_id === '203206') {//UnDossierDetail
-        //     divs = (
-        //         <div>
-        //             <JzgjDetail
-        //                 {...this.props}
-        //                 id={item.id}
-        //                 wtid={item.wtid}
-        //                 dossierId={item.system_id}
-        //             />
-        //         </div>
-        //     );
-        //     const addDetail = { title: '卷宗告警详情', content: divs, key: item.wtid };
-        //     this.props.newDetail(addDetail);
-        // }
+        if (item.wtfl_id === '203201') {//警情告警详情
+            this.props.dispatch(
+                routerRedux.push({
+                    pathname: '/receivePolice/AlarmPolice/unpoliceDetail',
+                    query: { record:item,id: item.id,wtid:item.wtid},
+                }),
+            )
+        } else if (item.wtfl_id === '203202') {//刑事案件告警详情
+            this.props.dispatch(
+                routerRedux.push({
+                    pathname: '/newcaseFiling/casePolice/CriminalPolice/uncaseDetail',
+                    query: { record:item,id: item.wtid,system_id:item.system_id },
+                }),
+            )
+        } else if (item.wtfl_id === '203203') {//人员在区告警详情
+            this.props.dispatch(
+                routerRedux.push({
+                    pathname: '/handlingArea/AreaPolice/UnareaDetail',
+                    query: { record:item,id: item.wtid,baqId:item.id},
+                }),
+            );
+        } else if (item.wtfl_id === '203204') {//涉案物品告警详情
+            this.props.dispatch(
+                routerRedux.push({
+                    pathname: '/articlesInvolved/ArticlesPolice/unitemDetail',
+                    query: { record:item,id: item.wtid,system_id:item.system_id },
+                }),
+            )
+
+        } else if (item.wtfl_id === '203205') {//行政案件告警详情
+            this.props.dispatch(
+                routerRedux.push({
+                    pathname: '/newcaseFiling/casePolice/AdministrationPolice/uncaseDetail',
+                    query: { record:item,id: item.wtid,system_id:item.system_id },
+                }),
+            )
+        } else if (item.wtfl_id === '203206') {//卷宗告警详情
+            this.props.dispatch(
+                routerRedux.push({
+                    pathname: '/dossierPolice/DossierPolice/UnDossierDetail',
+                    query: { record:item,id: item.id, wtid:item.wtid,dossierId:item.system_id},
+                }),
+            );
+        }
     };
-    jqDetail = (id) => {
-        // const divs = (
-        //     <div>
-        //         <JqDetail
-        //             {...this.props}
-        //             id={id}
-        //         />
-        //     </div>
-        // );
-        // const AddJqDetail = { title: '警情详情', content: divs, key: id };
-        // this.props.newDetail(AddJqDetail);
+    jqDetail = (record,id) => {
+        this.props.dispatch(
+            routerRedux.push({
+                pathname: '/receivePolice/AlarmData/policeDetail',
+                query: { record:record, id: id },
+            }),
+        )
     };
     JzDetail = (record) => {
-        // const divs = (
-        //     <div>
-        //         <JzDetail
-        //             {...this.props}
-        //             record={record}
-        //             sfgz={record.sfgz}
-        //             gzid={record.gzid}
-        //             tzlx={record.tzlx}
-        //             ajbh={record.ajbh}
-        //             id={record.dossier_id}
-        //             current={this.state.jzcurrent}
-        //         />
-        //     </div>
-        // );
-        // const addDetail = { title: '卷宗详情', content: divs, key: record.dossier_id };
-        // this.props.newDetail(addDetail);
+        this.props.dispatch(
+            routerRedux.push({
+                pathname: '/dossierPolice/DossierData/DossierDetail',
+                query: { record:record,id: record.dossier_id},
+            }),
+        );
     };
 
     renderDetail() {
@@ -1034,7 +957,7 @@ export default class CriminalCaseDocDetail extends PureComponent {
                 width: 50,
                 render: (record) => (
                     <div>
-                        <a onClick={() => this.jqDetail(record.id)}>详情</a>
+                        <a onClick={() => this.jqDetail(record,record.id)}>详情</a>
                     </div>
                 ),
             },
@@ -1076,17 +999,17 @@ export default class CriminalCaseDocDetail extends PureComponent {
             },
         ];
         return (
-            <Card style={{ height: autoheight() - 210 + 'px',marginTop:'12px' }}
-                  // onScrollCapture={this.scrollHandler} id={'scroll'}
+            <Card style={{ height: autoheight() - 225 + 'px',marginTop:'12px' }}
+                  onScrollCapture={this.scrollHandler} id={'scroll'}
                  className={styles.detailBoxScroll}>
                 <Spin spinning={loading}>
                     <div id='capture1'>
-                        <div id={`Namegxtp${this.props.location.query.id}`} className={styles.borderBottom}>
+                        <div id={`Namegxtp${this.state.res.ajbh}`} className={styles.borderBottom}>
                             <Card title="| 关系图谱" className={liststyles.cardCharts} bordered={false}
-                                  id={this.props.location.query.id + 'gxtp'}>
+                                  id={this.state.res.ajbh + 'gxtp'}>
                                 <Spin spinning={this.state.load}>
                                     <div
-                                        id={'RegulateTree' + this.props.location.query.id}
+                                        id={'RegulateTree' + this.state.res.ajbh}
                                         style={
                                             {
                                                 height: this.getChartTreeHeight(caseDetails),
@@ -1097,8 +1020,8 @@ export default class CriminalCaseDocDetail extends PureComponent {
                                 </Spin>
                             </Card>
                         </div>
-                        <div id={`Namejqxx${this.props.location.query.id}`} className={styles.borderBottom}>
-                            <Card title="| 警情信息" className={liststyles.card} bordered={false} id={this.props.location.query.id + 'jqxx'}>
+                        <div id={`Namejqxx${this.state.res.ajbh}`} className={styles.borderBottom}>
+                            <Card title="| 警情信息" className={liststyles.card} bordered={false} id={this.state.res.ajbh + 'jqxx'}>
                                 <Table
                                     bordered
                                     pagination={{
@@ -1116,8 +1039,8 @@ export default class CriminalCaseDocDetail extends PureComponent {
                                 />
                             </Card>
                         </div>
-                        <div id={`Nameajxx${this.props.location.query.id}`} className={styles.borderBottom}>
-                            <div className={styles.title} id={this.props.location.query.id + 'ajxx'}>| 案件信息</div>
+                        <div id={`Nameajxx${this.state.res.ajbh}`} className={styles.borderBottom}>
+                            <div className={styles.title} id={this.state.res.ajbh + 'ajxx'}>| 案件信息</div>
                             <div className={styles.message} style={{ padding: '24px' }}>
                                 <Row gutter={rowLayout}>
                                     <Col md={6} sm={24}>
@@ -1171,8 +1094,8 @@ export default class CriminalCaseDocDetail extends PureComponent {
                             </div>
                         </div>
                         {caseDetails && caseDetails.ajzt ?
-                            <div id={`Nameajgj${this.props.location.query.id}`} className={styles.borderBottom}>
-                                <div className={styles.title} id={this.props.location.query.id + 'ajgj'}>| 案件轨迹</div>
+                            <div id={`Nameajgj${this.state.res.ajbh}`} className={styles.borderBottom}>
+                                <div className={styles.title} id={this.state.res.ajbh + 'ajgj'}>| 案件轨迹</div>
                                 <CaseModalTrail
                                     {...this.props}
                                     caseDetails={caseDetails}
@@ -1183,15 +1106,15 @@ export default class CriminalCaseDocDetail extends PureComponent {
                             :
                             ''
                         }
-                        <div id={`Namesawp${this.props.location.query.id}`} className={styles.borderBottom}>
-                            <Card title="| 涉案物品" className={liststyles.card} bordered={false} id={this.props.location.query.id + 'sawp'}>
+                        <div id={`Namesawp${this.state.res.ajbh}`} className={styles.borderBottom}>
+                            <Card title="| 涉案物品" className={liststyles.card} bordered={false} id={this.state.res.ajbh + 'sawp'}>
                                 <div>
                                     {this.sawpCol(caseDetails && caseDetails.sawpList ? caseDetails.sawpList : [])}
                                 </div>
                             </Card>
                         </div>
-                        <div id={`Namejzxx${this.props.location.query.id}`} className={styles.borderBottom}>
-                            <Card title="| 卷宗信息" className={liststyles.card} bordered={false} id={this.props.location.query.id + 'jzxx'}>
+                        <div id={`Namejzxx${this.state.res.ajbh}`} className={styles.borderBottom}>
+                            <Card title="| 卷宗信息" className={liststyles.card} bordered={false} id={this.state.res.ajbh + 'jzxx'}>
                                 <Table
                                     bordered
                                     pagination={{
@@ -1209,8 +1132,8 @@ export default class CriminalCaseDocDetail extends PureComponent {
                                 />
                             </Card>
                         </div>
-                        <div id={`Namegjxx${this.props.location.query.id}`} className={styles.borderBottom}>
-                            <Card title="| 告警信息" className={liststyles.card} bordered={false} id={this.props.location.query.id + 'gjxx'}>
+                        <div id={`Namegjxx${this.state.res.ajbh}`} className={styles.borderBottom}>
+                            <Card title="| 告警信息" className={liststyles.card} bordered={false} id={this.state.res.ajbh + 'gjxx'}>
                                 <div>
                                     {this.gjxxCol(caseDetails && caseDetails.problemList ? caseDetails.problemList : [])}
                                 </div>
@@ -1222,10 +1145,13 @@ export default class CriminalCaseDocDetail extends PureComponent {
         );
     }
 
-
+    goLink = (link) =>{
+        this.setState({
+            link:link
+        });
+    }
     render() {
         const { makeTableModalVisible, RetrieveVisible, RetrieveRecord,tbDetail } = this.state;
-        console.log('this.props',this.props.location)
         return (
             <div>
                 <div>
@@ -1234,55 +1160,34 @@ export default class CriminalCaseDocDetail extends PureComponent {
                 <div>
                     {this.renderDetail()}
                 </div>
+
                 <div className={styles.anchorBox}>
                     <Anchor
                         className={!(this.state.Anchor && this.state.AnchorShow) ? styles.AnchorHide : this.state.AnchorShow ? styles.fadeBoxIn : styles.fadeBoxOut}
-                        offsetTop={70}>
+                        offsetTop={70} onChange={this.goLink}>
                         <Link
-                            href={'#'+this.props.location.pathname+'/#' + this.props.location.query.id + 'gxtp'}
+                            href={`#${this.state.res.ajbh}gxtp`}
                             title="关系图谱"/>
                         <Link
-                            href={'#/allDocuments/caseDoc/criminalCaseDocTransfer/criminalCaseDoc/#' + this.props.location.query.id + 'jqxx'}
+                            href={`#${this.state.res.ajbh}jqxx`}
                             title="警情信息"/>
                         <Link
-                            href={'#/allDocuments/caseDoc/criminalCaseDocTransfer/criminalCaseDoc/#' + this.props.location.query.id + 'ajxx'}
+                            href={`#${this.state.res.ajbh}ajxx`}
                             title="案件信息"/>
                         <Link
-                            href={'#/allDocuments/caseDoc/criminalCaseDocTransfer/criminalCaseDoc/#' + this.props.location.query.id + 'ajgj'}
+                            href={`#${this.state.res.ajbh}ajgj`}
                             title="案件轨迹"/>
                         <Link
-                            href={'#/allDocuments/caseDoc/criminalCaseDocTransfer/criminalCaseDoc/#' + this.props.location.query.id + 'sawp'}
+                            href={`#${this.state.res.ajbh}sawp`}
                             title="涉案物品"/>
                         <Link
-                            href={'#/allDocuments/caseDoc/criminalCaseDocTransfer/criminalCaseDoc/#' + this.props.location.query.id + 'jzxx'}
+                            href={`#${this.state.res.ajbh}jzxx`}
                             title="卷宗信息"/>
                         <Link
-                            href={'#/allDocuments/caseDoc/criminalCaseDocTransfer/criminalCaseDoc/#' + this.props.location.query.id + 'gjxx'}
+                            href={`#${this.state.res.ajbh}gjxx`}
                             title="告警信息"/>
                     </Anchor>
                 </div>
-                {
-                    makeTableModalVisible ? (
-                        <MakeTableModal
-                            title='表格选择'
-                            makeTableModalVisible={makeTableModalVisible}
-                            MakeTableCancel={this.MakeTableCancel}
-                            caseRecord={this.state.caseDetails}
-                        />
-                    ) : null
-                }
-                {
-                    RetrieveVisible ? (
-                        <RetrieveModal
-                            title="退补侦查设置"
-                            RetrieveVisible={RetrieveVisible}
-                            handleCancel={this.RetrieveHandleCancel}
-                            RetrieveRecord={this.state.caseDetails} // 列表对应数据的详情
-                            refreshPage={this.refreshCaseDetail}
-                            tbDetail={tbDetail}
-                        />
-                    ) : null
-                }
             </div>
         );
     }

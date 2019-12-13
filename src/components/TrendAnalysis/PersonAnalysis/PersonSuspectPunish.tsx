@@ -5,7 +5,7 @@
 * */
 
 import React, { PureComponent } from 'react';
-import { Tooltip, Icon, Table, Spin } from 'antd';
+import {Tooltip, Icon, Table, Spin, Empty} from 'antd';
 import { routerRedux } from 'dva/router';
 import echarts from 'echarts/lib/echarts';
 import bar from 'echarts/lib/chart/bar';
@@ -16,6 +16,7 @@ import title from 'echarts/lib/component/title';
 import AnalysisTitleArea from '../AnalysisTitleArea';
 import styles from '../analysisStyles.less';
 import moment from 'moment';
+import noList from "@/assets/viewData/noList.png";
 
 let myChart;
 let ratePie;
@@ -494,11 +495,11 @@ export default class PersonSuspectPunish extends PureComponent {
                 <div className={styles.analysis}>
                     <AnalysisTitleArea analysisTitle="犯罪嫌疑人强制措施分析" {...this.props} />
                     <div className="suspectPunishType" style={{ height: 300 }}/>
-                    <Table columns={columns} dataSource={tableData} bordered className={styles.tableArea}
+                    <Table columns={columns} dataSource={tableData} bordered className={styles.tableArea} locale={{ emptyText: <Empty image={noList} description={'暂无记录'} /> }}
                            pagination={false}/>
                     <h2 className={styles.areaTitle}>犯罪嫌疑人强制措施占比分析</h2>
                     <div className="suspectPunishRate" style={{ height: 400 }}/>
-                    <Table columns={rateTableColumns} dataSource={rateTableData} bordered className={styles.tableArea}
+                    <Table columns={rateTableColumns} dataSource={rateTableData} bordered className={styles.tableArea} locale={{ emptyText: <Empty image={noList} description={'暂无记录'} /> }}
                            pagination={false}/>
                 </div>
             </Spin>

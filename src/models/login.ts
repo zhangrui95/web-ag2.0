@@ -2,7 +2,7 @@ import { Reducer } from 'redux';
 import { routerRedux } from 'dva/router';
 import { Effect } from 'dva';
 import { stringify } from 'querystring';
-import { fakeAccountLogin, getFakeCaptcha } from '@/services/login';
+import { fakeAccountLogin, getFakeCaptcha,tokenLogin } from '@/services/login';
 import { setAuthority } from '@/utils/authority';
 import { getPageQuery } from '@/utils/utils';
 import {reloadAuthorized} from '@/utils/Authorized';
@@ -47,7 +47,22 @@ const Model: LoginModelType = {
         return false;
       }
     },
-
+      * tokenLogin({ payload, callback }, { call, put }) {
+          const response = yield call(tokenLogin, payload);
+          yield put({
+              type: 'setTokenLogin',
+              payload: response && response.error === null ? response.data : [],
+          });
+          if (response && response.data && response.data.token) {
+              sessionStorage.setItem('userToken', response.data.token);
+              sessionStorage.setItem('user', JSON.stringify(response.data.user));
+              sessionStorage.setItem('authoMenuList', JSON.stringify(response.data.menu));
+              reloadAuthorized();
+              if (callback) {
+                  callback(response);
+              }
+          }
+      },
     *getCaptcha({ payload }, { call }) {
       yield call(getFakeCaptcha, payload);
     },

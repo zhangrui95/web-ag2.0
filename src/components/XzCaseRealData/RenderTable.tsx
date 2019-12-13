@@ -5,7 +5,7 @@
  * */
 
 import React, { PureComponent } from 'react';
-import { Table, Divider, Tooltip, message, Dropdown, Menu, Row, Col, Card } from 'antd';
+import {Table, Divider, Tooltip, message, Dropdown, Menu, Row, Col, Card, Empty} from 'antd';
 import { connect } from 'dva';
 import styles from './RenderTable.less';
 // import ShareModal from './../ShareModal/ShareModal';
@@ -17,6 +17,7 @@ import { authorityIsTrue } from '../../utils/authority';
 import Ellipsis from 'ant-design-pro/lib/Ellipsis';
 import stylescommon from '@/pages/common/common.less';
 import { routerRedux } from 'dva/router';
+import noList from "@/assets/viewData/noList.png";
 
 @connect(({ share }) => ({
   share,
@@ -88,42 +89,12 @@ class RenderTable extends PureComponent {
   };
   // 行政案件档案详情
   administrativeCaseDocDetails = record => {
-      // this.props.dispatch({
-      //     type: 'global/changeNavigation',
-      //     payload: {
-      //         key: record && record.system_id ? record.system_id : '1',
-      //         name: '行政案件档案详情',
-      //         path: '/lawEnforcement/File/AdministrativeFile/Detail',
-      //         isShow: true,
-      //         query: { record, id: record && record.system_id ? record.system_id : '1' },
-      //     },
-      //     callback: () => {
-              this.props.dispatch(
-                  routerRedux.push({
-                      pathname: '/lawEnforcement/File/AdministrativeFile/Detail',
-                      query: { id: record && record.system_id ? record.system_id : '1',record: record },
-                  }),
-              );
-      //     },
-      // });
-    // const divs = (
-    //     <div>
-    //         <AdministrativeCaseDocDetail
-    //             {...this.props}
-    //             id={record.id}
-    //             systemId={record.system_id}
-    //             record={record}
-    //             sfgz={record.sfgz}
-    //             gzid={record.gzid}
-    //             tzlx={this.state.tzlx}
-    //             ajbh={record.ajbh}
-    //             details={this.deatils}
-    //             from='行政案件档案导出'
-    //         />
-    //     </div>
-    // );
-    // const AddNewDetail = { title: '行政案件档案详情', content: divs, key: record.id };
-    // this.props.newDetail(AddNewDetail);
+      this.props.dispatch(
+          routerRedux.push({
+              pathname: '/lawEnforcement/File/AdministrativeFile/Detail',
+              query: { id: record && record.system_id ? record.system_id : '1',record: record },
+          }),
+      );
   };
   saveShare = (res, type, ajGzLx) => {
     this.setState({
@@ -182,11 +153,13 @@ class RenderTable extends PureComponent {
     });
   };
   // 制表
-  makeTable = (record, flag) => {
-    this.setState({
-      caseRecord: record,
-      makeTableModalVisible: !!flag,
-    });
+  makeTable = (record) => {
+      this.props.dispatch(
+          routerRedux.push({
+              pathname: '/Tabulation/Make',
+              query: { id: record && record.ajbh ? record.ajbh : '1', record: record },
+          }),
+      );
   };
   // 关闭制表modal
   MakeTableCancel = () => {
@@ -274,7 +247,7 @@ class RenderTable extends PureComponent {
                 {isZb ? (
                   <span>
                     <Divider type="vertical" />
-                    <a onClick={() => this.makeTable(record, true)}>制表</a>
+                    <a onClick={() => this.makeTable(record)}>制表</a>
                   </span>
                 ) : null}
               </div>
@@ -312,7 +285,7 @@ class RenderTable extends PureComponent {
               {isZb ? (
                 <span>
                   <Divider type="vertical" />
-                  <a onClick={() => this.makeTable(record, true)}>制表</a>
+                  <a onClick={() => this.makeTable(record)}>制表</a>
                 </span>
               ) : null}
             </div>
@@ -406,6 +379,7 @@ class RenderTable extends PureComponent {
           columns={columns}
           pagination={paginationProps}
           onChange={this.handleTableChange}
+          locale={{ emptyText: <Empty image={noList} description={'暂无记录'} /> }}
         />
         {/*<ShareModal title="案件信息分享" detail={detail} shareVisible={this.state.shareVisible}*/}
         {/*            handleCancel={this.handleCancel} shareItem={this.state.shareItem}*/}

@@ -5,12 +5,13 @@
 * */
 
 import React, { PureComponent } from 'react';
-import { Table, Divider, Tooltip, message, Dropdown, Menu, Row, Col, Card } from 'antd';
+import {Table, Divider, Tooltip, message, Dropdown, Menu, Row, Col, Card, Empty} from 'antd';
 import styles from './RenderTable.less';
 import Detail from '../../pages/receivePolice/AlarmData/policeDetail';
 import ShareModal from './../ShareModal/ShareModal';
 import Ellipsis from 'ant-design-pro/lib/Ellipsis';
 import {routerRedux} from "dva/router";
+import noList from "@/assets/viewData/noList.png";
 
 class RenderTable extends PureComponent {
     constructor(props, context) {
@@ -324,6 +325,7 @@ class RenderTable extends PureComponent {
                     columns={columns}
                     pagination={paginationProps}
                     onChange={this.handleTableChange}
+                    locale={{ emptyText: <Empty image={noList} description={'暂无记录'} /> }}
                 />
               </Card>
                   {/*<ShareModal*/}

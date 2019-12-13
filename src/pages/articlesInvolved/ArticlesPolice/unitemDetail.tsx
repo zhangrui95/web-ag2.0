@@ -408,14 +408,14 @@ export default class unitemDetail extends PureComponent {
                                     <Carousel autoplay>
                                         {UnitemDetail.imageList.map(pane =>
                                             <div>
-                                                <img width='100%' src={pane.imageurl ? pane.imageurl : ''}/>
+                                                <img width='200' src={pane.imageurl ? pane.imageurl : ''}/>
                                             </div>,
                                         )
                                         }
                                     </Carousel>
                                     :
                                     <div>
-                                        <img width='100%' src={nophoto}/>
+                                        <img width='200' src={nophoto}/>
                                     </div>
                                 }
                             </div>

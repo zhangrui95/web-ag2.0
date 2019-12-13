@@ -48,7 +48,6 @@ const errorHandler = (error: { response: Response }): Response => {
 /**
  * 配置request请求时的默认参数
  */
-let token = getUserToken();
 
 const request = extend({
   errorHandler, // 默认错误处理
@@ -56,6 +55,7 @@ const request = extend({
 });
 // request拦截器, 改变url 或 options.
 request.interceptors.request.use(async (url, options) => {
+    let token = getUserToken();
     if(options.method === "post"){
         const headers = {
             Accept: 'application/json',

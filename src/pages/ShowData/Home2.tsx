@@ -7,20 +7,20 @@ import React, { PureComponent } from 'react';
 import { connect } from 'dva';
 import moment from 'moment';
 import {
-  Row,
-  Col,
-  Card,
-  Table,
-  Tag,
-  Tooltip,
-  Divider,
-  message,
-  Modal,
-  Form,
-  Select,
-  Dropdown,
-  Menu,
-  TreeSelect,
+    Row,
+    Col,
+    Card,
+    Table,
+    Tag,
+    Tooltip,
+    Divider,
+    message,
+    Modal,
+    Form,
+    Select,
+    Dropdown,
+    Menu,
+    TreeSelect, Empty,
 } from 'antd';
 import styles from './Show.less';
 import { getUserInfos } from '../../utils/utils';
@@ -30,6 +30,7 @@ import MyShare from '../../components/HomePage/MyShare';
 import MyNews from '../../components/HomePage/MyNews';
 import TabsTable from '../../components/HomePage/TabsTable';
 import TabsFollowTable from '../../components/HomePage/TabsFollowTable';
+import noList from "@/assets/viewData/noList.png";
 
 const { Option } = Select;
 const TreeNode = TreeSelect.TreeNode;
@@ -1352,6 +1353,7 @@ export default class Home2 extends PureComponent {
                 columns={this.state.columns}
                 dataSource={this.state.data}
                 className={styles.homeTable}
+                locale={{ emptyText: <Empty image={noList} description={'暂无记录'} /> }}
               />
             </Card>
           ) : this.state.idx === 2 ? (

@@ -1,4 +1,4 @@
-import { Icon, Tooltip } from 'antd';
+import { Icon, Tooltip,Button } from 'antd';
 import React from 'react';
 import { connect } from 'dva';
 import { ConnectProps, ConnectState } from '@/models/connect';
@@ -6,6 +6,10 @@ import Avatar from './AvatarDropdown';
 import HeaderSearch from '../HeaderSearch';
 import SelectLang from '../SelectLang';
 import styles from './index.less';
+import iconFont from '../../utils/iconfont'
+const IconFont = Icon.createFromIconfontCN({
+    scriptUrl: iconFont
+})
 
 export type SiderTheme = 'light' | 'dark';
 export interface GlobalHeaderRightProps extends ConnectProps {
@@ -23,30 +27,22 @@ const GlobalHeaderRight: React.SFC<GlobalHeaderRightProps> = props => {
 
   return (
     <div className={className}>
-      {/* <HeaderSearch
-        className={`${styles.action} ${styles.search}`}
-        placeholder="站内搜索"
-        defaultValue="umi ui"
-        dataSource={['搜索提示一', '搜索提示二', '搜索提示三']}
-        onSearch={value => {
-          console.log('input', value);
-        }}
-        onPressEnter={value => {
-          console.log('enter', value);
-        }}
-      />
-      <Tooltip title="使用文档">
-        <a
-          target="_blank"
-          href="https://pro.ant.design/docs/getting-started"
-          rel="noopener noreferrer"
-          className={styles.action}
-        >
-          <Icon type="question-circle-o" />
-        </a>
-      </Tooltip> */}
+        <div className={styles.btnBox}>
+            <div className={styles.border}></div>
+            <Button type="primary" shape="round">
+                <IconFont type='icon-jiankongmianban-mianxing' /> 监管问题
+            </Button>
+            <Button shape="round">
+                <IconFont type='icon-gongzuojingli' /> 办案区管理
+            </Button>
+            <Button shape="round">
+                <IconFont type='icon-caiwu' /> 涉案物品管理
+            </Button>
+            <Button shape="round">
+                <IconFont type='icon-dangan1' /> 卷宗管理
+            </Button>
+        </div>
       <Avatar />
-      {/* <SelectLang className={styles.action} /> */}
     </div>
   );
 };

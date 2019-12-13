@@ -1,11 +1,12 @@
 import React, { PureComponent } from 'react';
-import { Table, Badge, Divider, Tooltip, message, Dropdown, Menu, Row, Col } from 'antd';
+import {Table, Badge, Divider, Tooltip, message, Dropdown, Menu, Row, Col, Empty} from 'antd';
 import { connect } from 'dva';
 import styles from './RenderTable.less';
 import ShareModal from './../ShareModal/ShareModal';
 import {routerRedux} from "dva/router";
 // import Detail from '../../routes/UnPoliceRealData/unpoliceDetail';
 import Ellipsis from 'ant-design-pro/lib/Ellipsis';
+import noList from "@/assets/viewData/noList.png";
 
 @connect(({ share }) => ({
     share,
@@ -375,6 +376,7 @@ class RenderTable extends PureComponent {
                     columns={columns}
                     pagination={paginationProps}
                     onChange={this.handleTableChange}
+                    locale={{ emptyText: <Empty image={noList} description={'暂无记录'} /> }}
                 />
                 {/*<ShareModal*/}
                     {/*title="警情信息分享"*/}

@@ -5,23 +5,24 @@
  * */
 import React, { PureComponent } from 'react';
 import {
-  Col,
-  Row,
-  Card,
-  Form,
-  TreeSelect,
-  Select,
-  Spin,
-  Button,
-  Table,
-  Tabs,
-  DatePicker,
-  Icon,
+    Col,
+    Row,
+    Card,
+    Form,
+    TreeSelect,
+    Select,
+    Spin,
+    Button,
+    Table,
+    Tabs,
+    DatePicker,
+    Icon, Empty,
 } from 'antd';
 import { connect } from 'dva';
 import styles from '../../pages/ShowData/Show.less';
 import stylescommon from '../../pages/common/common.less';
 import iconperson from '../../assets/menuimage/iconpreson.png';
+import noList from "@/assets/viewData/noList.png";
 
 const TabPane = Tabs.TabPane;
 const FormItem = Form.Item;
@@ -130,6 +131,7 @@ export default class TabsTable extends PureComponent {
                 columns={this.props.columns}
                 dataSource={this.props.data}
                 className={styles.homeTable}
+                locale={{ emptyText: <Empty image={noList} description={'暂无记录'} /> }}
               />
             </Card>
           </TabPane>
@@ -213,6 +215,7 @@ export default class TabsTable extends PureComponent {
                 columns={this.props.columns}
                 dataSource={this.props.data}
                 className={styles.homeTable}
+                locale={{ emptyText: <Empty image={noList} description={'暂无记录'} /> }}
               />
             </Card>
           </TabPane>

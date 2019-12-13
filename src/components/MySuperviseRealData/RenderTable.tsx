@@ -24,9 +24,12 @@ class RenderTable extends PureComponent {
 
   // 根据案件编号打开案件窗口
   deatils = record => {
+     let index = this.props.data.list.indexOf(record);
+     if(index > -1){
+         this.props.data.list[index].dqzt = '1';
+     }
     const { wt_id: wtId, system_id: systemId, wtflId, dqzt, id, dbid, fkzt } = record;
     record.wtid = wtId;
-    console.log('record--------->',record)
     if (wtflId === '203203') { // 办案区
         this.props.dispatch(
             routerRedux.push({

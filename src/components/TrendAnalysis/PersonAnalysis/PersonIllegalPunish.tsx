@@ -5,7 +5,7 @@
 * */
 
 import React, { PureComponent } from 'react';
-import { Tooltip, Icon, Table, Spin } from 'antd';
+import {Tooltip, Icon, Table, Spin, Empty} from 'antd';
 import echarts from 'echarts/lib/echarts';
 import bar from 'echarts/lib/chart/bar';
 import tooltip from 'echarts/lib/component/tooltip';
@@ -15,6 +15,7 @@ import title from 'echarts/lib/component/title';
 import AnalysisTitleArea from '../AnalysisTitleArea';
 import styles from '../analysisStyles.less';
 import moment from 'moment';
+import noList from "@/assets/viewData/noList.png";
 
 let myChart;
 let ratePie;
@@ -485,11 +486,11 @@ export default class PersonIllegalPunish extends PureComponent {
                     <AnalysisTitleArea analysisTitle="违法行为人处罚措施分析" {...this.props} />
                     <div id="illegalPunishType" style={{ height: 300 }}/>
                     <Table columns={columns} dataSource={tableData} bordered className={styles.tableArea}
-                           pagination={false}/>
+                           pagination={false} locale={{ emptyText: <Empty image={noList} description={'暂无记录'} /> }}/>
                     <h2 className={styles.areaTitle}>违法行为人处罚占比分析</h2>
                     <div id="illegalPunishRate" style={{ height: 400 }}/>
                     <Table columns={rateTableColumns} dataSource={rateTableData} bordered className={styles.tableArea}
-                           pagination={false}/>
+                           pagination={false} locale={{ emptyText: <Empty image={noList} description={'暂无记录'} /> }}/>
                 </div>
             </Spin>
         );

@@ -5,7 +5,7 @@
 * */
 
 import React, { PureComponent } from 'react';
-import { Tooltip, Icon, Table, Spin } from 'antd';
+import {Tooltip, Icon, Table, Spin, Empty} from 'antd';
 import echarts from 'echarts/lib/echarts';
 import bar from 'echarts/lib/chart/bar';
 import tooltip from 'echarts/lib/component/tooltip';
@@ -13,6 +13,7 @@ import legend from 'echarts/lib/component/legend';
 import grid from 'echarts/lib/component/grid';
 import AnalysisTitleArea from '../AnalysisTitleArea';
 import styles from '../analysisStyles.less';
+import noList from "@/assets/viewData/noList.png";
 
 let myChart;
 
@@ -268,7 +269,7 @@ export default class CriminalCaseOverview extends PureComponent {
                     <AnalysisTitleArea analysisTitle="综述" {...this.props} />
                     <div id="criminalCaseOverview" style={{ height: 300 }}/>
                     <Table columns={columns} dataSource={tableData} bordered className={styles.tableArea}
-                           pagination={false}/>
+                           pagination={false} locale={{ emptyText: <Empty image={noList} description={'暂无记录'} /> }}/>
                 </div>
             </Spin>
         );
