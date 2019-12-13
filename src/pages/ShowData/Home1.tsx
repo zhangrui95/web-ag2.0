@@ -7,21 +7,21 @@ import React, { PureComponent } from 'react';
 import { connect } from 'dva';
 import moment from 'moment';
 import {
-  Row,
-  Col,
-  DatePicker,
-  Card,
-  Table,
-  Tag,
-  Tooltip,
-  Divider,
-  message,
-  Tabs,
-  Form,
-  Select,
-  Dropdown,
-  Menu,
-  TreeSelect,
+    Row,
+    Col,
+    DatePicker,
+    Card,
+    Table,
+    Tag,
+    Tooltip,
+    Divider,
+    message,
+    Tabs,
+    Form,
+    Select,
+    Dropdown,
+    Menu,
+    TreeSelect, Empty,
 } from 'antd';
 import styles from './Show.less';
 import stylescommon from '../common/common.less';
@@ -34,6 +34,7 @@ import TabsTable from '../../components/HomePage/TabsTable';
 import TabsFollowTable from '../../components/HomePage/TabsFollowTable';
 import iconpreson from '../../assets/menuimage/iconpreson.png';
 import header from '../../assets/common/header.png';
+import noList from "@/assets/viewData/noList.png";
 
 const { Option } = Select;
 const TreeNode = TreeSelect.TreeNode;
@@ -1337,6 +1338,7 @@ export default class Home1 extends PureComponent {
                   columns={this.state.columns}
                   dataSource={this.state.data}
                   className={styles.homeTable}
+                  locale={{ emptyText: <Empty image={noList} description={'暂无记录'} /> }}
                 />
               </Card>
             ) : this.state.idx === 2 ? (

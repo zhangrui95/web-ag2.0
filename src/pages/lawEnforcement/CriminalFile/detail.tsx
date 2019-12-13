@@ -46,48 +46,57 @@ let imgBase = [];
 
 
 export default class CriminalCaseDocDetail extends PureComponent {
-    state = {
-        current: 1, // 涉案物品默认在第一页
-        jqcurrent: 1, // 警情信息默认在第一页
-        jzcurrent: 1, // 卷宗信息默认在第一页
-        gjcurrent: 1, // 告警信息默认在第一页
-        trailLeft: '0',
-        is_ok: '0', // 是否在该详情页督办过，默认0,没有督办过
-        loading1: false, // 按钮状态，默认false没加载,true是点击后的加载状态
-        caseDetails: null,
-        TrackPaddingTop: '', // 初始状态的message的paddingtop;
-        TrackPaddingBottom: '',// 初始状态的message的paddingbottom;
-        TrackPaddingBottom1: '220px', // 初始状态的listStyle的paddingbottom;(TrackPaddingBottom下面的一个子集)
-        open: '0', // 显示‘显示更多’还是‘收起更多’,默认显示更多；
-        colortrailleft: 'gray', // 左滑动按钮，若到达开始或者结束，是gray(置灰)，否则是blue(蓝色)(轨迹)
-        colortrailright: 'blue', // 右滑动按钮，若到达开始或者结束，是gray(置灰)，否则是blue(蓝色)(轨迹)
-        // 督办模态框
-        superviseVisibleModal: false,
-        // 点击列表的督办显示的基本信息
-        superviseWtlx: '',
-        superviseZrdw: '',
-        superviseZrr: '',
-        superviseZrdwId: '',
-        id: '',
-        sfzh: '',
-        // 问题判定的来源参数
-        from: '',
-        // 子系统的id
-        systemId: '',
-        sabar: '',
-        AnchorShow: false,
-        Anchor: false,
-        afterScrollTop: 0,
-        load: false,
-        makeTableModalVisible: false, // 制表model
-        RetrieveRecord: null,
-        RetrieveVisible: false,
-        isZb: authorityIsTrue(userAuthorityCode.ZHIBIAO), // 制表权限
-        isTb: authorityIsTrue(userAuthorityCode.TUIBU), // 退补权限
-        loading: false, // 默认详情页是否为加载状态
-        first:true,
-        path:this.props.location.pathname,
-    };
+    constructor(props) {
+        super(props);
+        let res = this.props.location.query&&this.props.location.query.record ? this.props.location.query.record : '';
+        if(typeof res == 'string'){
+            res = JSON.parse(sessionStorage.getItem('query')).query.record;
+        }
+        this.state = {
+            current: 1, // 涉案物品默认在第一页
+            jqcurrent: 1, // 警情信息默认在第一页
+            jzcurrent: 1, // 卷宗信息默认在第一页
+            gjcurrent: 1, // 告警信息默认在第一页
+            trailLeft: '0',
+            is_ok: '0', // 是否在该详情页督办过，默认0,没有督办过
+            loading1: false, // 按钮状态，默认false没加载,true是点击后的加载状态
+            caseDetails: null,
+            TrackPaddingTop: '', // 初始状态的message的paddingtop;
+            TrackPaddingBottom: '',// 初始状态的message的paddingbottom;
+            TrackPaddingBottom1: '220px', // 初始状态的listStyle的paddingbottom;(TrackPaddingBottom下面的一个子集)
+            open: '0', // 显示‘显示更多’还是‘收起更多’,默认显示更多；
+            colortrailleft: 'gray', // 左滑动按钮，若到达开始或者结束，是gray(置灰)，否则是blue(蓝色)(轨迹)
+            colortrailright: 'blue', // 右滑动按钮，若到达开始或者结束，是gray(置灰)，否则是blue(蓝色)(轨迹)
+            // 督办模态框
+            superviseVisibleModal: false,
+            // 点击列表的督办显示的基本信息
+            superviseWtlx: '',
+            superviseZrdw: '',
+            superviseZrr: '',
+            superviseZrdwId: '',
+            id: '',
+            sfzh: '',
+            // 问题判定的来源参数
+            from: '',
+            // 子系统的id
+            systemId: '',
+            sabar: '',
+            AnchorShow: false,
+            Anchor: false,
+            afterScrollTop: 0,
+            load: false,
+            makeTableModalVisible: false, // 制表model
+            RetrieveRecord: null,
+            RetrieveVisible: false,
+            isZb: authorityIsTrue(userAuthorityCode.ZHIBIAO), // 制表权限
+            isTb: authorityIsTrue(userAuthorityCode.TUIBU), // 退补权限
+            loading: false, // 默认详情页是否为加载状态
+            first:true,
+            path:this.props.location.pathname,
+            res:res,
+            link:'',
+        };
+    }
 
     componentDidMount() {
         this.caseDetailDatas(this.props.location.query.id);
@@ -99,6 +108,12 @@ export default class CriminalCaseDocDetail extends PureComponent {
                 this.refreshCaseDetail();
                 this.props.history.replace(`${nextProps.history.location.pathname}?id=${nextProps.history.location.query.id}&record=${nextProps.history.location.query.record}`);
             }
+        }
+        if(this.props.location.pathname!==nextProps.pathname&&this.state.link){
+            this.props.history.replace(`${this.props.location.pathname}?id=${this.state.res.ajbh}&record=${this.state.res}/${this.state.link}`);
+            this.setState({
+                link:''
+            });
         }
     }
 
@@ -319,7 +334,7 @@ export default class CriminalCaseDocDetail extends PureComponent {
             }
         ]
         let links = link.concat(jq).concat(sar).concat(sawp).concat(jz);
-        echartTree = echarts.init(document.getElementById('RegulateTree' + this.props.location.query.id));
+        echartTree = echarts.init(document.getElementById('RegulateTree' + this.state.res.ajbh));
         echartTree.hideLoading();
 
         let categories = [];
@@ -506,7 +521,7 @@ export default class CriminalCaseDocDetail extends PureComponent {
     };
     // 刷新详情
     refreshCaseDetail = () => {
-        this.caseDetailDatas(this.props.location.query.id);
+        this.caseDetailDatas(this.state.res.ajbh);
     };
     // 图表统计导出功能请求
     exprotService = (imagesBase) => {
@@ -546,13 +561,13 @@ export default class CriminalCaseDocDetail extends PureComponent {
             loading: true,
         });
         imgBase = [];
-        const Namegxtp = `#Namegxtp${this.props.location.query.id}`;
-        const Namejqxx = `#Namejqxx${this.props.location.query.id}`;
-        const Nameajxx = `#Nameajxx${this.props.location.query.id}`;
-        const Nameajgj = `#Nameajgj${this.props.location.query.id}`;
-        const Namesawp = `#Namesawp${this.props.location.query.id}`;
-        const Namejzxx = `#Namejzxx${this.props.location.query.id}`;
-        const Namegjxx = `#Namegjxx${this.props.location.query.id}`;
+        const Namegxtp = `#Namegxtp${this.state.res.ajbh}`;
+        const Namejqxx = `#Namejqxx${this.state.res.ajbh}`;
+        const Nameajxx = `#Nameajxx${this.state.res.ajbh}`;
+        const Nameajgj = `#Nameajgj${this.state.res.ajbh}`;
+        const Namesawp = `#Namesawp${this.state.res.ajbh}`;
+        const Namejzxx = `#Namejzxx${this.state.res.ajbh}`;
+        const Namegjxx = `#Namegjxx${this.state.res.ajbh}`;
         html2canvas(document.querySelector(Namegxtp)).then(canvas1 => {
             this.addBase(canvas1.toDataURL().split('base64,')[1]);
             html2canvas(document.querySelector(Namejqxx)).then(canvas2 => {
@@ -985,16 +1000,16 @@ export default class CriminalCaseDocDetail extends PureComponent {
         ];
         return (
             <Card style={{ height: autoheight() - 225 + 'px',marginTop:'12px' }}
-                  // onScrollCapture={this.scrollHandler} id={'scroll'}
+                  onScrollCapture={this.scrollHandler} id={'scroll'}
                  className={styles.detailBoxScroll}>
                 <Spin spinning={loading}>
                     <div id='capture1'>
-                        <div id={`Namegxtp${this.props.location.query.id}`} className={styles.borderBottom}>
+                        <div id={`Namegxtp${this.state.res.ajbh}`} className={styles.borderBottom}>
                             <Card title="| 关系图谱" className={liststyles.cardCharts} bordered={false}
-                                  id={this.props.location.query.id + 'gxtp'}>
+                                  id={this.state.res.ajbh + 'gxtp'}>
                                 <Spin spinning={this.state.load}>
                                     <div
-                                        id={'RegulateTree' + this.props.location.query.id}
+                                        id={'RegulateTree' + this.state.res.ajbh}
                                         style={
                                             {
                                                 height: this.getChartTreeHeight(caseDetails),
@@ -1005,8 +1020,8 @@ export default class CriminalCaseDocDetail extends PureComponent {
                                 </Spin>
                             </Card>
                         </div>
-                        <div id={`Namejqxx${this.props.location.query.id}`} className={styles.borderBottom}>
-                            <Card title="| 警情信息" className={liststyles.card} bordered={false} id={this.props.location.query.id + 'jqxx'}>
+                        <div id={`Namejqxx${this.state.res.ajbh}`} className={styles.borderBottom}>
+                            <Card title="| 警情信息" className={liststyles.card} bordered={false} id={this.state.res.ajbh + 'jqxx'}>
                                 <Table
                                     bordered
                                     pagination={{
@@ -1024,8 +1039,8 @@ export default class CriminalCaseDocDetail extends PureComponent {
                                 />
                             </Card>
                         </div>
-                        <div id={`Nameajxx${this.props.location.query.id}`} className={styles.borderBottom}>
-                            <div className={styles.title} id={this.props.location.query.id + 'ajxx'}>| 案件信息</div>
+                        <div id={`Nameajxx${this.state.res.ajbh}`} className={styles.borderBottom}>
+                            <div className={styles.title} id={this.state.res.ajbh + 'ajxx'}>| 案件信息</div>
                             <div className={styles.message} style={{ padding: '24px' }}>
                                 <Row gutter={rowLayout}>
                                     <Col md={6} sm={24}>
@@ -1079,8 +1094,8 @@ export default class CriminalCaseDocDetail extends PureComponent {
                             </div>
                         </div>
                         {caseDetails && caseDetails.ajzt ?
-                            <div id={`Nameajgj${this.props.location.query.id}`} className={styles.borderBottom}>
-                                <div className={styles.title} id={this.props.location.query.id + 'ajgj'}>| 案件轨迹</div>
+                            <div id={`Nameajgj${this.state.res.ajbh}`} className={styles.borderBottom}>
+                                <div className={styles.title} id={this.state.res.ajbh + 'ajgj'}>| 案件轨迹</div>
                                 <CaseModalTrail
                                     {...this.props}
                                     caseDetails={caseDetails}
@@ -1091,15 +1106,15 @@ export default class CriminalCaseDocDetail extends PureComponent {
                             :
                             ''
                         }
-                        <div id={`Namesawp${this.props.location.query.id}`} className={styles.borderBottom}>
-                            <Card title="| 涉案物品" className={liststyles.card} bordered={false} id={this.props.location.query.id + 'sawp'}>
+                        <div id={`Namesawp${this.state.res.ajbh}`} className={styles.borderBottom}>
+                            <Card title="| 涉案物品" className={liststyles.card} bordered={false} id={this.state.res.ajbh + 'sawp'}>
                                 <div>
                                     {this.sawpCol(caseDetails && caseDetails.sawpList ? caseDetails.sawpList : [])}
                                 </div>
                             </Card>
                         </div>
-                        <div id={`Namejzxx${this.props.location.query.id}`} className={styles.borderBottom}>
-                            <Card title="| 卷宗信息" className={liststyles.card} bordered={false} id={this.props.location.query.id + 'jzxx'}>
+                        <div id={`Namejzxx${this.state.res.ajbh}`} className={styles.borderBottom}>
+                            <Card title="| 卷宗信息" className={liststyles.card} bordered={false} id={this.state.res.ajbh + 'jzxx'}>
                                 <Table
                                     bordered
                                     pagination={{
@@ -1117,8 +1132,8 @@ export default class CriminalCaseDocDetail extends PureComponent {
                                 />
                             </Card>
                         </div>
-                        <div id={`Namegjxx${this.props.location.query.id}`} className={styles.borderBottom}>
-                            <Card title="| 告警信息" className={liststyles.card} bordered={false} id={this.props.location.query.id + 'gjxx'}>
+                        <div id={`Namegjxx${this.state.res.ajbh}`} className={styles.borderBottom}>
+                            <Card title="| 告警信息" className={liststyles.card} bordered={false} id={this.state.res.ajbh + 'gjxx'}>
                                 <div>
                                     {this.gjxxCol(caseDetails && caseDetails.problemList ? caseDetails.problemList : [])}
                                 </div>
@@ -1130,7 +1145,11 @@ export default class CriminalCaseDocDetail extends PureComponent {
         );
     }
 
-
+    goLink = (link) =>{
+        this.setState({
+            link:link
+        });
+    }
     render() {
         const { makeTableModalVisible, RetrieveVisible, RetrieveRecord,tbDetail } = this.state;
         return (
@@ -1141,30 +1160,31 @@ export default class CriminalCaseDocDetail extends PureComponent {
                 <div>
                     {this.renderDetail()}
                 </div>
+
                 <div className={styles.anchorBox}>
                     <Anchor
                         className={!(this.state.Anchor && this.state.AnchorShow) ? styles.AnchorHide : this.state.AnchorShow ? styles.fadeBoxIn : styles.fadeBoxOut}
-                        offsetTop={70}>
+                        offsetTop={70} onChange={this.goLink}>
                         <Link
-                            href={'#'+this.state.path+'/#' + this.props.location.query.id + 'gxtp'}
+                            href={`#${this.state.res.ajbh}gxtp`}
                             title="关系图谱"/>
                         <Link
-                            href={'#/allDocuments/caseDoc/criminalCaseDocTransfer/criminalCaseDoc/#' + this.props.location.query.id + 'jqxx'}
+                            href={`#${this.state.res.ajbh}jqxx`}
                             title="警情信息"/>
                         <Link
-                            href={'#/allDocuments/caseDoc/criminalCaseDocTransfer/criminalCaseDoc/#' + this.props.location.query.id + 'ajxx'}
+                            href={`#${this.state.res.ajbh}ajxx`}
                             title="案件信息"/>
                         <Link
-                            href={'#/allDocuments/caseDoc/criminalCaseDocTransfer/criminalCaseDoc/#' + this.props.location.query.id + 'ajgj'}
+                            href={`#${this.state.res.ajbh}ajgj`}
                             title="案件轨迹"/>
                         <Link
-                            href={'#/allDocuments/caseDoc/criminalCaseDocTransfer/criminalCaseDoc/#' + this.props.location.query.id + 'sawp'}
+                            href={`#${this.state.res.ajbh}sawp`}
                             title="涉案物品"/>
                         <Link
-                            href={'#/allDocuments/caseDoc/criminalCaseDocTransfer/criminalCaseDoc/#' + this.props.location.query.id + 'jzxx'}
+                            href={`#${this.state.res.ajbh}jzxx`}
                             title="卷宗信息"/>
                         <Link
-                            href={'#/allDocuments/caseDoc/criminalCaseDocTransfer/criminalCaseDoc/#' + this.props.location.query.id + 'gjxx'}
+                            href={`#${this.state.res.ajbh}gjxx`}
                             title="告警信息"/>
                     </Anchor>
                 </div>

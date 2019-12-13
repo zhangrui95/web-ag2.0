@@ -5,7 +5,7 @@
  * */
 
 import React, { PureComponent } from 'react';
-import { Tooltip, Icon, Table, Row, Col, Spin } from 'antd';
+import {Tooltip, Icon, Table, Row, Col, Spin, Empty} from 'antd';
 import echarts from 'echarts/lib/echarts';
 import bar from 'echarts/lib/chart/bar';
 import pie from 'echarts/lib/chart/pie';
@@ -16,6 +16,7 @@ import AnalysisTitleArea from '../AnalysisTitleArea';
 import styles from '../analysisStyles.less';
 import { routerRedux } from 'dva/router';
 import moment from 'moment';
+import noList from "@/assets/viewData/noList.png";
 
 let suspectCountBar;
 let dealSuspectTypeBar;
@@ -669,6 +670,7 @@ export default class PersonOverview extends PureComponent {
                 bordered
                 className={styles.tableArea}
                 pagination={false}
+                locale={{ emptyText: <Empty image={noList} description={'暂无记录'} /> }}
               />
             </Col>
           </Row>
@@ -680,6 +682,7 @@ export default class PersonOverview extends PureComponent {
             className={styles.fraudTable}
             bordered
             pagination={false}
+            locale={{ emptyText: <Empty image={noList} description={'暂无记录'} /> }}
           />
         </div>
       </Spin>

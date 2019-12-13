@@ -4,7 +4,7 @@
  * 20190304
  * */
 import React, { PureComponent } from 'react';
-import { Card, Table, Radio, Tooltip, message, Tabs } from 'antd';
+import {Card, Table, Radio, Tooltip, message, Tabs, Empty} from 'antd';
 import { connect } from 'dva';
 import moment from 'moment';
 import styles from '../../pages/ShowData/Show.less';
@@ -15,6 +15,7 @@ import { getUserInfos } from '../../utils/utils';
 import Ellipsis from 'ant-design-pro/lib/Ellipsis';
 import { userAuthorityCode } from '../../utils/utils';
 import { authorityIsTrue } from '../../utils/authority';
+import noList from "@/assets/viewData/noList.png";
 
 const back = require('../../assets/common/back.png');
 const zhtjImage = require('../../assets/common/tj.png');
@@ -856,6 +857,7 @@ export default class Statistics extends PureComponent {
                 className={styles.homeTable}
                 pagination={paginationPage}
                 onChange={this.handleTableChange}
+                locale={{ emptyText: <Empty image={noList} description={'暂无记录'} /> }}
               />
             </Card>
           ) : (
@@ -891,6 +893,7 @@ export default class Statistics extends PureComponent {
                       className={styles.homeTable}
                       pagination={paginationPage}
                       onChange={this.handleTableChange}
+                      locale={{ emptyText: <Empty image={noList} description={'暂无记录'} /> }}
                     />
                   </Card>
                 </TabPane>
@@ -950,6 +953,7 @@ export default class Statistics extends PureComponent {
                     className={styles.homeTable}
                     pagination={paginationPage}
                     onChange={this.handleTableChange}
+                    locale={{ emptyText: <Empty image={noList} description={'暂无记录'} /> }}
                   />
                 </Card>
               </TabPane>

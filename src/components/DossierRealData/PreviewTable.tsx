@@ -5,9 +5,10 @@
 * */
 import React, { PureComponent } from 'react';
 import { connect } from 'dva';
-import { Form, Input, Button, Row, Col, Radio, Modal, message, Select, Table, Tooltip } from 'antd';
+import {Form, Input, Button, Row, Col, Radio, Modal, message, Select, Table, Tooltip, Empty} from 'antd';
 import styles from './Index.less';
 import { routerRedux } from 'dva/router';
+import noList from "@/assets/viewData/noList.png";
 
 const FormItem = Form.Item;
 const confirm = Modal.confirm;
@@ -196,6 +197,7 @@ export default class PreviewTable extends PureComponent {
                     pagination={false}
                     bordered
                     loading={this.props.loading}
+                    locale={{ emptyText: <Empty image={noList} description={'暂无记录'} /> }}
                     onRow={(record) => {
                         return {
                             onClick: () => {

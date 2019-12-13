@@ -8,23 +8,23 @@ import React, { PureComponent } from 'react';
 import numeral from 'numeral';
 import { connect } from 'dva';
 import {
-  Row,
-  Col,
-  Form,
-  Card,
-  Select,
-  Icon,
-  Avatar,
-  List,
-  Tooltip,
-  Dropdown,
-  Menu,
-  Button,
-  Input,
-  Steps,
-  Table,
-  message,
-  Modal,
+    Row,
+    Col,
+    Form,
+    Card,
+    Select,
+    Icon,
+    Avatar,
+    List,
+    Tooltip,
+    Dropdown,
+    Menu,
+    Button,
+    Input,
+    Steps,
+    Table,
+    message,
+    Modal, Empty,
 } from 'antd';
 // import Result from '../../components/Result';
 // import SuperviseModal from '../../../components/UnCaseRealData/SuperviseModal';
@@ -40,6 +40,7 @@ import { authorityIsTrue } from '../../../utils/authority';
 import { autoheight, userResourceCodeDb } from '../../../utils/utils';
 import SupervisionLog from '../../../components/Common/SupervisionLog';
 import nophoto from '../../../assets/common/nophoto.png';
+import noList from "@/assets/viewData/noList.png";
 
 const FormItem = Form.Item;
 const { Step } = Steps;
@@ -1620,6 +1621,7 @@ export default class unareaDetail extends PureComponent {
             }}
             dataSource={UnareaDetail ? UnareaDetail.sswoodList : []}
             columns={ssWoodColumns}
+            locale={{ emptyText: <Empty image={noList} description={'暂无记录'} /> }}
           />
         </div>
 
@@ -1644,6 +1646,7 @@ export default class unareaDetail extends PureComponent {
             }}
             dataSource={UnareaDetail ? UnareaDetail.sawoodList : []}
             columns={ajWoodColumns}
+            locale={{ emptyText: <Empty image={noList} description={'暂无记录'} /> }}
           />
         </div>
       </div>

@@ -6,22 +6,22 @@
 import React, { PureComponent } from 'react';
 import { connect } from 'dva';
 import {
-  Row,
-  Col,
-  Form,
-  Select,
-  Table,
-  TreeSelect,
-  Input,
-  Button,
-  DatePicker,
-  Tabs,
-  message,
-  Divider,
-  Dropdown,
-  Menu,
-  Tooltip,
-  Radio,Icon,
+    Row,
+    Col,
+    Form,
+    Select,
+    Table,
+    TreeSelect,
+    Input,
+    Button,
+    DatePicker,
+    Tabs,
+    message,
+    Divider,
+    Dropdown,
+    Menu,
+    Tooltip,
+    Radio, Icon, Empty,
 } from 'antd';
 import moment from 'moment/moment';
 import Ellipsis from 'ant-design-pro/lib/Ellipsis';
@@ -33,6 +33,7 @@ import DossierDataView from '../../../components/DossierRealData/DossierDataView
 import DataViewButtonArea from '../../../components/Common/DataViewButtonArea';
 import SyncTime from '../../../components/Common/SyncTime';
 import {routerRedux} from "dva/router";
+import noList from "@/assets/viewData/noList.png";
 
 const { Option } = Select;
 const { RangePicker } = DatePicker;
@@ -948,6 +949,7 @@ export default class Index extends PureComponent {
                     columns={columns}
                     pagination={paginationProps}
                     onChange={this.handleTableChange}
+                    locale={{ emptyText: <Empty image={noList} description={'暂无记录'} /> }}
                   />
                 </div>
                 {/*<ShareModal*/}

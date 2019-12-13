@@ -5,7 +5,7 @@
 * */
 
 import React, { PureComponent } from 'react';
-import { Tooltip, Icon, Table, Button, Spin } from 'antd';
+import {Tooltip, Icon, Table, Button, Spin, Empty} from 'antd';
 import echarts from 'echarts/lib/echarts';
 import line from 'echarts/lib/chart/line';
 import tooltip from 'echarts/lib/component/tooltip';
@@ -13,6 +13,7 @@ import legend from 'echarts/lib/component/legend';
 import grid from 'echarts/lib/component/grid';
 import AnalysisTitleArea from '../AnalysisTitleArea';
 import styles from '../analysisStyles.less';
+import noList from "@/assets/viewData/noList.png";
 
 let myChart;
 
@@ -270,7 +271,7 @@ export default class CriminalCaseType extends PureComponent {
                                 onClick={() => this.changeCaseType('sh')}>伤害</Button>
                     </div>
                     <Table columns={columns} dataSource={tableData} bordered className={styles.tableArea}
-                           pagination={false}/>
+                           pagination={false} locale={{ emptyText: <Empty image={noList} description={'暂无记录'} /> }}/>
                 </div>
             </Spin>
         );

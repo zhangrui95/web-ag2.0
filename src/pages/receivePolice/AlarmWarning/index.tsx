@@ -6,23 +6,23 @@
 import React, { PureComponent } from 'react';
 import { connect } from 'dva';
 import {
-  Row,
-  Col,
-  Form,
-  Select,
-  Table,
-  TreeSelect,
-  Tag,
-  Button,
-  DatePicker,
-  Tabs,
-  message,
-  Divider,
-  Radio,
-  Tooltip,
-  Dropdown,
-  Menu,
-  Icon,
+    Row,
+    Col,
+    Form,
+    Select,
+    Table,
+    TreeSelect,
+    Tag,
+    Button,
+    DatePicker,
+    Tabs,
+    message,
+    Divider,
+    Radio,
+    Tooltip,
+    Dropdown,
+    Menu,
+    Icon, Empty,
 } from 'antd';
 import moment from 'moment/moment';
 // import Ellipsis from '../../../src/components/Ellipsis';
@@ -34,6 +34,7 @@ import Detail from '../AlarmData/policeDetail';
 // import ShareModal from '../../../components/ShareModal/ShareModal';
 import { routerRedux } from 'dva/router';
 import Ellipsis from 'ant-design-pro/lib/Ellipsis';
+import noList from "@/assets/viewData/noList.png";
 
 const { Option } = Select;
 const { RangePicker } = DatePicker;
@@ -837,6 +838,7 @@ export default class Index extends PureComponent {
             columns={columns}
             pagination={paginationProps}
             onChange={this.handleTableChange}
+            locale={{ emptyText: <Empty image={noList} description={'暂无记录'} /> }}
           />
           {/*<RemindModal caseDetails={this.state.caseDetails} txVisible={this.state.txVisible}*/}
           {/*detail={detail} handleCancel={this.handleCancel} txItem={this.state.txItem}*/}

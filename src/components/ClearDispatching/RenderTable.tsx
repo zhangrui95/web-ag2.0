@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react';
-import { Table, Divider, Tooltip, Row, Col, Popconfirm, message } from 'antd';
+import {Table, Divider, Tooltip, Row, Col, Popconfirm, message, Empty} from 'antd';
 import styles from './common.less';
 import Detail from '../../routes/PoliceRealData/policeDetail';
 import DispatchModal from './../DispatchModal/DispatchModal';
@@ -9,6 +9,7 @@ import FeedModal from './../DispatchModal/FeedModal';
 import LeightWord from './LeightWord';
 import Ellipsis from '../Ellipsis';
 import { authorityIsTrue } from '../../utils/authority';
+import noList from "@/assets/viewData/noList.png";
 
 class RenderTable extends PureComponent {
     constructor(props, context) {
@@ -576,6 +577,7 @@ class RenderTable extends PureComponent {
                     columns={columns}
                     pagination={paginationProps}
                     onChange={this.handleTableChange}
+                    locale={{ emptyText: <Empty image={noList} description={'暂无记录'} /> }}
                 />
               {
                 this.state.shareVisible?

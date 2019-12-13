@@ -5,7 +5,7 @@
  * */
 
 import React, { PureComponent } from 'react';
-import { Table, Divider, Tooltip, message, Dropdown, Menu, Row, Col, Card } from 'antd';
+import {Table, Divider, Tooltip, message, Dropdown, Menu, Row, Col, Card, Empty} from 'antd';
 import { connect } from 'dva';
 import styles from './RenderTable.less';
 // import ShareModal from './../ShareModal/ShareModal';
@@ -17,6 +17,7 @@ import { authorityIsTrue } from '../../utils/authority';
 import Ellipsis from 'ant-design-pro/lib/Ellipsis';
 import stylescommon from '@/pages/common/common.less';
 import { routerRedux } from 'dva/router';
+import noList from "@/assets/viewData/noList.png";
 
 @connect(({ share }) => ({
   share,
@@ -378,6 +379,7 @@ class RenderTable extends PureComponent {
           columns={columns}
           pagination={paginationProps}
           onChange={this.handleTableChange}
+          locale={{ emptyText: <Empty image={noList} description={'暂无记录'} /> }}
         />
         {/*<ShareModal title="案件信息分享" detail={detail} shareVisible={this.state.shareVisible}*/}
         {/*            handleCancel={this.handleCancel} shareItem={this.state.shareItem}*/}

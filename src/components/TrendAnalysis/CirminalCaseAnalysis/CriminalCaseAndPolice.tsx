@@ -5,7 +5,7 @@
 * */
 
 import React, { PureComponent } from 'react';
-import { Tooltip, Icon, Table, Row, Col, Spin } from 'antd';
+import {Tooltip, Icon, Table, Row, Col, Spin, Empty} from 'antd';
 import echarts from 'echarts/lib/echarts';
 import bar from 'echarts/lib/chart/bar';
 import pie from 'echarts/lib/chart/pie';
@@ -15,6 +15,7 @@ import legend from 'echarts/lib/component/legend';
 import grid from 'echarts/lib/component/grid';
 import AnalysisTitleArea from '../AnalysisTitleArea';
 import styles from '../analysisStyles.less';
+import noList from "@/assets/viewData/noList.png";
 
 let treePie;
 let criminalCaseAcceptBar;
@@ -479,7 +480,7 @@ export default class CriminalCaseAndPolice extends PureComponent {
                             <div className="criminalCaseAccept" style={{ height: 310 }}/>
                         </Col>
                         <Col lg={12} md={24}>
-                            <Table columns={acceptCaseColumns} dataSource={acceptCaseTableData}
+                            <Table columns={acceptCaseColumns} dataSource={acceptCaseTableData} locale={{ emptyText: <Empty image={noList} description={'暂无记录'} /> }}
                                    className={styles.fraudTable} bordered pagination={false}/>
                         </Col>
                     </Row>

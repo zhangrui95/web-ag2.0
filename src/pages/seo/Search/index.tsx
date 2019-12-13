@@ -1341,7 +1341,7 @@ export default class GeneralQuery extends PureComponent {
         : null;
     let dataSource = this.state.res.map(e => <Option key={e.ssnr}>{e.ssnr}</Option>);
     return (
-      <div className={stylescommon.statistics}>
+      <div className={stylescommon.statistics} id={'formSearch'}>
         <Affix offsetTop={0}>
           <div className={styles.searchArea}>
             <AutoComplete
@@ -1361,7 +1361,7 @@ export default class GeneralQuery extends PureComponent {
             </AutoComplete>
           </div>
         </Affix>
-        <Card className={stylescommon.cardArea} style={{ padding: '5px 0' }} id={'formSearch'}>
+        <Card className={stylescommon.cardArea} style={{ padding: '5px 0' }}>
           <div className={styles.searchConditionArea}>
             <div className={styles.searchType}>
               {/*<a className={searchType === 'all' ? styles.chosenType : null}*/}

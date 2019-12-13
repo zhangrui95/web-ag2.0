@@ -6,29 +6,30 @@
 import React, { PureComponent } from 'react';
 import { connect } from 'dva';
 import {
-  Row,
-  Col,
-  Form,
-  Select,
-  Table,
-  TreeSelect,
-  Tag,
-  Button,
-  DatePicker,
-  Tabs,
-  message,
-  Divider,
-  Radio,
-  Tooltip,
-  Dropdown,
-  Menu,
-  Icon,
+    Row,
+    Col,
+    Form,
+    Select,
+    Table,
+    TreeSelect,
+    Tag,
+    Button,
+    DatePicker,
+    Tabs,
+    message,
+    Divider,
+    Radio,
+    Tooltip,
+    Dropdown,
+    Menu,
+    Icon, Empty,
 } from 'antd';
 import moment from 'moment/moment';
 import Ellipsis from 'ant-design-pro/lib/Ellipsis';
 import styles from '../../common/listPage.less';
 import { exportListDataMaxDays, getUserInfos, tableList } from '../../../utils/utils';
 import { routerRedux } from 'dva/router';
+import noList from "@/assets/viewData/noList.png";
 // import Detail from '../../routes/AreaRealData/areaDetail';
 // import RemindModal from '../../../src/components/RemindModal/RemindModal';
 // import AnnouncementModal from '../../../src/components/AnnouncementModal/AnnouncementModal';
@@ -823,6 +824,7 @@ export default class Index extends PureComponent {
             columns={columns}
             pagination={paginationProps}
             onChange={this.handleTableChange}
+            locale={{ emptyText: <Empty image={noList} description={'暂无记录'} /> }}
           />
           {/*<RemindModal caseDetails={this.state.caseDetails} txVisible={this.state.txVisible}*/}
           {/*detail={detail} handleCancel={this.handleCancel} txItem={this.state.txItem}*/}
