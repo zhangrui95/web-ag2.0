@@ -126,6 +126,7 @@ class SendConfig extends Component {
             <div id={'boxSend'}>
                 <Card className={style.cardBox} id={'Messageform'}>
                     <Form>
+                        <h6 className={style.title}>参数配置</h6>
                         <Form.Item label="是否启用" {...formItemLayout}>
                             {getFieldDecorator('dxts_sfqy', {
                                 valuePropName: 'checked',
@@ -184,7 +185,7 @@ class SendConfig extends Component {
                                         <TimePicker value={this.state.endTime0 ? this.state.endTime0 === 'clear' ? null:this.state.endTime0 : time1 ? moment(time1, 'HH:mm:ss') : ''}
                                                     getPopupContainer={() => document.getElementById('Messageform')}
                                                     onChange={(time, timeString)=>this.onChangeTimes(time, timeString, 0)} defaultOpenValue={moment('00:00:00', 'HH:mm:ss')} />
-                                        <span onClick={this.getAdd} className={style.iconAdd}><Icon type={this.state.autoHeight ? "up" : "down"}/><span>  {this.state.autoHeight ? '折叠' : '展开'} </span></span>
+                                        <span onClick={this.getAdd} className={style.iconAdd}><span>  {this.state.autoHeight ? '折叠' : '展开'}  </span><Icon type={this.state.autoHeight ? "up" : "down"}/></span>
                                     </div>
                                     <div>
                                         <TimePicker value={this.state.startTime1 ? this.state.startTime1=== 'clear' ? null:this.state.startTime1 : time2 ? moment(time2, 'HH:mm:ss') : ''}

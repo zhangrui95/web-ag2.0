@@ -46,7 +46,7 @@ class AvatarDropdown extends React.Component<GlobalHeaderRightProps> {
           centered:true,
           okText: '确认',
           cancelText: '取消',
-          getContainer:document.getElementById('boxAll'),
+          getContainer:document.getElementById('messageBox'),
           onOk() {
               that.onClick();
           },
@@ -92,7 +92,7 @@ class AvatarDropdown extends React.Component<GlobalHeaderRightProps> {
       //     <span className={styles.name}>李华</span>
       //   </span>
       // </HeaderDropdown>
-      <div style={{ paddingRight: '48px' }} className={styles.goOut} id={'boxAll'}>
+      <div style={{ paddingRight: '48px' }} className={styles.goOut}>
         <span className={`${styles.action} ${styles.account}`}>
           <Avatar size="small" className={styles.avatar} src={require('@/assets/user.png')} alt="avatar" />
           <span className={styles.name}>{JSON.parse(sessionStorage.getItem('user')).name}</span>

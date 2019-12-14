@@ -96,12 +96,31 @@
   background: #FF9191!important;
 }
 .okBtn{
-  background: linear-gradient(#4662D5,#0083FA, #03A3FF);
+  background: linear-gradient(#4662D5,#0083FA, #03A3FF)!important;
 }
 .lxsm{
   margin-left: 8px;
 }
+.title {
+  font-size: @font-size-lg;
+  font-weight: 600;
+  color: @white;
+  border-left: 2px solid @white;
+  padding-left: 10px;
+  margin:0 0 20px 20px;
+}
+.darkBox,.lightBox{
+  :global{
+    textarea.ant-input{
+      height: auto!important;
+    }
+  }
+}
 .lightBox{
+  .title {
+    color: #3D63D1;
+    border-left: 2px solid #3D63D1;
+  }
   .formBoxBorder{
     border-bottom: 1px solid #E6E6E6;
   }
@@ -115,7 +134,7 @@
     background: linear-gradient(#3D63D1, #333FE4)!important;
   }
   :global{
-    .ant-select-selection,.ant-calendar-picker-input{
+    .ant-input,.ant-select-selection,.ant-calendar-picker-input{
       background: #FAFAFA;
       border: 1px solid #DEDEDE;
     }

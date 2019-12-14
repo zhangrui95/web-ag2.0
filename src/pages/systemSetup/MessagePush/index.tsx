@@ -65,8 +65,10 @@ const MessagePush = (props: MessagePushProps) => {
         console.log('e--->',e)
         setTab(e);
     }
+    console.log('global========>',props.global)
+    let className = props.global.dark ? style.sendMessage : style.sendMessage + ' ' + style.lightBox;
   return (
-    <div className={style.sendMessage}>
+    <div className={className}>
         <Tabs defaultActiveKey="cspz" onChange={getTabs} activeKey={tab}>
             <TabPane tab={tab === "cspz" ? "● 参数配置" : "参数配置"} key="cspz">
                 <SendConfig formItemLayout={formItemLayout} setMessageData={setMessageData}
@@ -88,6 +90,7 @@ const MessagePush = (props: MessagePushProps) => {
     </div>
   );
 };
-export default connect(({ systemSetup }: ConnectState) => ({
+export default connect(({ systemSetup,global }: ConnectState) => ({
     messageList: systemSetup.messageList,
+    global,
 }))(MessagePush);

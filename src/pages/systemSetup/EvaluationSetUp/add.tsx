@@ -21,8 +21,8 @@ import {NavigationItem} from "@/components/Navigation/navigation";
 import {routerRedux} from "dva/router";
 const FormItem = Form.Item;
 const { TextArea } = Input;
-@connect(({ common,Evaluation }) => ({
-    common,Evaluation
+@connect(({ common,Evaluation,global }) => ({
+    common,Evaluation,global
 }))
 @Form.create()
 export default class Add extends PureComponent {
@@ -81,12 +81,13 @@ export default class Add extends PureComponent {
         const {form: { getFieldDecorator }} = this.props
         const rowLayout = { md: 8, xl: 16, xxl: 24 };
         const modleLayouts = {
-            labelCol: { span: 7 },
-            wrapperCol: { span: 13 },
+            labelCol: { span: 5 },
+            wrapperCol: { span: 15 },
         };
         return (
-            <div>
-            <Card style={{padding:'30px 0',marginBottom:12}}>
+            <div  className={this.props.global.dark ? styles.darkBox : styles.lightBox}>
+            <Card style={{padding:'20px 0 300px',marginBottom:12}}>
+                    <div className={styles.title}>添加{this.props.location.query.id==='0' ? '扣分项目' : this.props.location.query.id==='1' ? '补分项目' : '加分项目'}</div>
                     <Form>
                         <Row gutter={rowLayout}>
                             <Col span={24}>
@@ -98,7 +99,7 @@ export default class Add extends PureComponent {
                                             {max:50, message:'最多输入50字'}
                                         ],
                                     })(
-                                        <TextArea placeholder="最多输入50字" autosize />
+                                        <TextArea placeholder="最多输入50字" autosize rows={3}/>
                                     )}
                                 </FormItem>
                                 <FormItem label={this.props.location.query.id==='0' ? '扣分值' : this.props.location.query.id==='1' ? '补分值' : '加分值'} {...modleLayouts}>
@@ -118,11 +119,11 @@ export default class Add extends PureComponent {
             </Card>
                 <Card>
                     <div className={styles.btns}>
-                        <Button type="primary" style={{ marginLeft: 8 }} className={styles.qxBtn} onClick={()=>this.onEdit(false)}>
-                            取消
-                        </Button>
-                        <Button type="primary" style={{ marginLeft: 8 }} onClick={this.handleOk}>
-                            确定
+                        {/*<Button type="primary" style={{ marginLeft: 8 }} className={styles.qxBtn} onClick={()=>this.onEdit(false)}>*/}
+                        {/*    取消*/}
+                        {/*</Button>*/}
+                        <Button type="primary" style={{ marginLeft: 8 }} onClick={this.handleOk}  className={styles.okBtn}>
+                            添加
                         </Button>
                     </div>
                 </Card>
