@@ -834,7 +834,7 @@ export default class Index extends PureComponent {
             </FormItem>
           </Col>
         </Row>
-        <Row className={styles.search} style={{ position: 'absolute', top: 10, right: 32 }}>
+        <Row className={styles.search} style={{ position: 'absolute', top: 18, right: 32 }}>
           <span style={{ float: 'right', marginBottom: 24, marginTop: 5 }}>
             <Button
               style={{ marginLeft: 8 }}

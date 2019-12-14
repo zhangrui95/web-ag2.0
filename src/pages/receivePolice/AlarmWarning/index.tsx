@@ -666,6 +666,7 @@ export default class Index extends PureComponent {
                     </Menu.Item>
                   </Menu>
                 }
+                getPopupContainer={() => document.getElementById('jqyjcardArea')}
                 trigger={['click']}
               >
                 <a href="javascript:;">关注</a>
@@ -900,7 +901,7 @@ export default class Index extends PureComponent {
             </Row>
           </Form>
         </div>
-        <div className={styles.tableListOperator}>
+        <div className={styles.tableListOperator} id='jqyjcardArea'>
           <Button style={{ borderColor: '#2095FF', marginBottom: 16 }} onClick={this.exportData} icon="download">
             导出表格
           </Button>

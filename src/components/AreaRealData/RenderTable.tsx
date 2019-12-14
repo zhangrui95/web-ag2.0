@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react';
 import {Table, Divider, Tooltip, message, Dropdown, Menu, Row, Col, Empty} from 'antd';
 import styles from './RenderTable.less';
 // import Detail from '../../routes/AreaRealData/areaDetail';
-import ShareModal from './../ShareModal/ShareModal';
+// import ShareModal from './../ShareModal/ShareModal';
 import Ellipsis from 'ant-design-pro/lib/Ellipsis';
 import { routerRedux } from 'dva/router';
 import noList from "@/assets/viewData/noList.png";
@@ -64,10 +64,92 @@ class RenderTable extends PureComponent {
       shareRecord: res,
     });
     if (type === 2) {
-      this.setState({
-        shareVisible: true,
-        shareItem: res,
-      });
+      let detail=(
+        <Row style={{lineHeight:'50px',paddingLeft:66}}>
+          <Col span={6}>
+            人员姓名：
+            {res && res.name ? res.name : ''}
+          </Col>
+          <Col span={6}>
+            性别：
+            {res && res.xb ? res.xb : ''}
+          </Col>
+          <Col span={6}>
+            人员类型：
+            {res && res.salx_mc
+              ? res.salx_mc
+              : ''}
+          </Col>
+          <Col span={6}>
+            强制措施：
+            <Tooltip
+              title={
+                res &&
+                res.qzcs &&
+                res.qzcs.length > 7
+                  ? res.qzcs
+                  : null
+              }
+            >
+              {res && res.qzcs
+                ? res.qzcs.length > 7
+                  ? res.qzcs.substring(0, 7) + '...'
+                  : res.qzcs
+                : ''}
+            </Tooltip>
+          </Col>
+          <Col span={6}>
+            案件名称：
+            <Tooltip
+              title={
+                res &&
+                res.ajmc &&
+                res.ajmc.length > 7
+                  ? res.ajmc
+                  : null
+              }
+            >
+              {res && res.ajmc
+                ? res.ajmc.length > 7
+                  ? res.ajmc.substring(0, 7) + '...'
+                  : res.ajmc
+                : ''}
+            </Tooltip>
+          </Col>
+          <Col span={6}>
+            办案单位：
+            <Tooltip
+              title={
+                res &&
+                res.badw &&
+                res.badw.length > 7
+                  ? res.badw
+                  : null
+              }
+            >
+              {res && res.badw
+                ? res.badw.length > 7
+                  ? res.badw.substring(0, 7) + '...'
+                  : res.badw
+                : ''}
+            </Tooltip>
+          </Col>
+          <Col span={12}>
+            办案民警：
+            {res && res.bar ? res.bar : ''}
+          </Col>
+        </Row>
+      )
+      this.props.dispatch(
+        routerRedux.push({
+          pathname: '/ModuleAll/Share',
+          query: { record: res,id: res && res.id ? res.id : '1',from:'人员信息',tzlx:'baqxx',fromPath:'/handlingArea/AreaData',detail,tab:'表格' },
+        }),
+      )
+      // this.setState({
+      //   shareVisible: true,
+      //   shareItem: res,
+      // });
     } else {
       this.props.dispatch({
         type: 'share/getMyFollow',
@@ -228,6 +310,7 @@ class RenderTable extends PureComponent {
                   </Menu>
                 }
                 trigger={['click']}
+                getPopupContainer={() => document.getElementById('baqcardArea')}
               >
                 <a href="javascript:;">关注</a>
               </Dropdown>
@@ -338,7 +421,7 @@ class RenderTable extends PureComponent {
       </Row>
     );
     return (
-      <div className={styles.standardTable}>
+      <div className={styles.standardTable} id='baqcardArea'>
         <Table
           // size={'middle'}
           loading={loading}

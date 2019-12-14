@@ -5,14 +5,18 @@
  * */
 
 import React, { PureComponent } from 'react';
+import { connect } from 'dva';
+import {routerRedux} from "dva/router";
 import { Row, Col, Button, Steps, Tooltip } from 'antd';
 import styles from './SupervisionLog.less';
 import listStyles from '../../pages/common/listDetail.less';
-// import DbHistory from '../personnelFiles/HistoryModal';
-// import SeeDetail from '../personnelFiles/SeeDetail';
+// import DbHistory from '../../personnelFiles/HistoryModal';
+// import SeeDetail from '../../personnelFiles/SeeDetail';
 
 const { Step } = Steps;
-
+@connect(({ share }) => ({
+  share,
+}))
 export default class SupervisionLog extends PureComponent {
   state = {
     history: false, // 查看督办日志历史记录
@@ -23,11 +27,17 @@ export default class SupervisionLog extends PureComponent {
   };
 
   // 查看历史督办记录
-  SeeHistory = (flag, RestDbrz) => {
-    this.setState({
-      history: !!flag,
-      RestDbrz,
-    });
+  SeeHistory = ( RestDbrz,detail) => {
+    this.props.dispatch(
+      routerRedux.push({
+        pathname: '/ModuleAll/DbHistory',
+        query: { record: RestDbrz,id: detail && detail.id ? detail.id : '1',fromPath:'/handlingArea/AreaPolice/UnareaDetail',detail },
+      }),
+    )
+    // this.setState({
+    //   history: !!flag,
+    //   RestDbrz,
+    // });
   };
   // 关闭历史督办记录
   closeHistoryModal = flag => {
@@ -36,12 +46,19 @@ export default class SupervisionLog extends PureComponent {
     });
   };
 
-  seeDetail = (flag, Isdetail, NowDbrz) => {
-    this.setState({
-      seeDetailVisible: !!flag,
-      Isdetail,
-      NowDbrzState: NowDbrz,
-    });
+  seeDetail = ( Isdetail, NowDbrz,detail) => {
+    this.props.dispatch(
+      routerRedux.push({
+        pathname: '/ModuleAll/SeeDetail',
+        query: { record: NowDbrz,id: detail && detail.wtid ? detail.wtid : '1',fromPath:'/handlingArea/AreaPolice/UnareaDetail',detail,Isdetail },
+      }),
+    )
+
+    // this.setState({
+    //   seeDetailVisible: !!flag,
+    //   Isdetail,
+    //   NowDbrzState: NowDbrz,
+    // });
   };
   closeSeeDetailModal = () => {
     this.setState({
@@ -49,7 +66,7 @@ export default class SupervisionLog extends PureComponent {
     });
   };
 
-  extraDescription = (NowDbrz, Isdetail) => {
+  extraDescription = (NowDbrz, Isdetail,detailData) => {
     const { zrrMc, zrdwMc, clsj } = NowDbrz;
     return (
       <div style={{ position: 'relative', left: '-30px', top: '10px', paddingBottom: '10px' }}>
@@ -70,13 +87,13 @@ export default class SupervisionLog extends PureComponent {
         </p>
         {Isdetail === '发起督办' ? (
           <div>
-            <Button type="primary" onClick={() => this.seeDetail(true, Isdetail, NowDbrz)}>
+            <Button type="primary" onClick={() => this.seeDetail( Isdetail, NowDbrz,detailData)}>
               查看督办详情
             </Button>
           </div>
         ) : Isdetail === '处理反馈' && zrrMc && zrdwMc && clsj ? (
           <div>
-            <Button type="primary" onClick={() => this.seeDetail(true, Isdetail, NowDbrz)}>
+            <Button type="primary" onClick={() => this.seeDetail( Isdetail, NowDbrz,detailData)}>
               查看反馈详情
             </Button>
           </div>
@@ -200,19 +217,19 @@ export default class SupervisionLog extends PureComponent {
                 <Steps current={currentNum}>
                   <Step
                     title={<span style={{ fontSize: 14 }}>发起督办</span>}
-                    description={this.extraDescription(NowDbrz[0], '发起督办')}
+                    description={this.extraDescription(NowDbrz[0], '发起督办',detailData)}
                   />
                   <Step
                     title={<span style={{ fontSize: 14 }}>整改中</span>}
-                    description={this.extraDescription(NowDbrz[1], '整改中')}
+                    description={this.extraDescription(NowDbrz[1], '整改中',detailData)}
                   />
                   <Step
                     title={<span style={{ fontSize: 14 }}>处理反馈</span>}
-                    description={this.extraDescription(NowDbrz[2], '处理反馈')}
+                    description={this.extraDescription(NowDbrz[2], '处理反馈',detailData)}
                   />
                   <Step
                     title={<span style={{ fontSize: 14 }}>完成</span>}
-                    description={this.extraDescription(NowDbrz[3], '完成')}
+                    description={this.extraDescription(NowDbrz[3], '完成',detailData)}
                   />
                 </Steps>
                 <div>
@@ -221,7 +238,7 @@ export default class SupervisionLog extends PureComponent {
                       {detailData.dbList.length > 1 ? (
                         <span
                           className={styles.recordList}
-                          onClick={() => this.SeeHistory(true, dbHistoryData)}
+                          onClick={() => this.SeeHistory(dbHistoryData,detailData)}
                         >
                           查看历史督办记录
                         </span>
@@ -327,22 +344,22 @@ export default class SupervisionLog extends PureComponent {
         )}
         {/*{*/}
         {/*history ? (*/}
-        {/*<DbHistory*/}
-        {/*visible={history}*/}
-        {/*closeHistoryModal={this.closeHistoryModal}*/}
-        {/*dblist={RestDbrz}*/}
-        {/*DetailData={detailData}*/}
-        {/*/>*/}
+          {/*<DbHistory*/}
+            {/*visible={history}*/}
+            {/*closeHistoryModal={this.closeHistoryModal}*/}
+            {/*dblist={RestDbrz}*/}
+            {/*DetailData={detailData}*/}
+          {/*/>*/}
         {/*) : null*/}
         {/*}*/}
         {/*{*/}
         {/*seeDetailVisible ? (*/}
-        {/*<SeeDetail*/}
-        {/*visible={seeDetailVisible}*/}
-        {/*closeSeeDetailModal={this.closeSeeDetailModal}*/}
-        {/*Isdetail={Isdetail}*/}
-        {/*NowDbrz={NowDbrzState}*/}
-        {/*/>*/}
+          {/*<SeeDetail*/}
+            {/*visible={seeDetailVisible}*/}
+            {/*closeSeeDetailModal={this.closeSeeDetailModal}*/}
+            {/*Isdetail={Isdetail}*/}
+            {/*NowDbrz={NowDbrzState}*/}
+          {/*/>*/}
         {/*) : null*/}
         {/*}*/}
       </div>
