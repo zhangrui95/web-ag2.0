@@ -206,7 +206,6 @@ const GlobalModel: GlobalModelType = {
             };
         },
         saveBgColor(state, {payload}): GlobalModelState {
-            console.log('payload111----------->',payload)
             return {
                 ...state,
                 dark: payload,

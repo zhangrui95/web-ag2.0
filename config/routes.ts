@@ -38,6 +38,12 @@ export function routes() {
                             redirect: '/ShowData/RegulatePanel',
                         },
                         {
+                            path: '/ThemeChange',
+                            name: '主题切换',
+                            component: './ThemeChange',
+                            hideInMenu: true,
+                        },
+                        {
                             path: '/ShowData/RegulatePanel',
                             name: '首页',
                             icon: 'icon-jingwuicon_svg_huaban',

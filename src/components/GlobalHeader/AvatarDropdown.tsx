@@ -5,8 +5,13 @@ import { connect } from 'dva';
 import router from 'umi/router';
 import { ConnectProps, ConnectState } from '@/models/connect';
 import { CurrentUser } from '@/models/user';
-import styles from './index.less';
-
+import styles1 from './index.less';
+import styles2 from './indexLight.less';
+import { routerRedux } from 'dva/router';
+import iconFont from '../../utils/iconfont'
+const IconFont = Icon.createFromIconfontCN({
+    scriptUrl: iconFont
+})
 const { confirm } = Modal;
 
 export interface GlobalHeaderRightProps extends ConnectProps {
@@ -73,8 +78,12 @@ class AvatarDropdown extends React.Component<GlobalHeaderRightProps> {
 
     return;
   }
-
+  getChangeBg = () =>{
+      const { dispatch } = this.props;
+      dispatch(routerRedux.push('/ThemeChange'));
+  }
   render(): React.ReactNode {
+    let styles = this.props.dark ? styles1 : styles2;
     return (
       // currentUser && currentUser.name ? 
       // <HeaderDropdown overlay={}>
@@ -87,6 +96,9 @@ class AvatarDropdown extends React.Component<GlobalHeaderRightProps> {
         <span className={`${styles.action} ${styles.account}`}>
           <Avatar size="small" className={styles.avatar} src={require('@/assets/user.png')} alt="avatar" />
           <span className={styles.name}>{JSON.parse(sessionStorage.getItem('user')).name}</span>
+        </span>
+        <span className={styles.logout} onClick={this.getChangeBg}>
+            <IconFont className={styles.logoutIcon} type='icon-zhuti' />
         </span>
         <span className={styles.logout} onClick={this.onClickBack}>
           <Icon className={styles.logoutIcon} type="poweroff" />
@@ -105,6 +117,7 @@ class AvatarDropdown extends React.Component<GlobalHeaderRightProps> {
   }
 }
 
-export default connect(({ user }: ConnectState) => ({
+export default connect(({ user,global }: ConnectState) => ({
   currentUser: user.currentUser,
+  dark:global.dark,
 }))(AvatarDropdown);
