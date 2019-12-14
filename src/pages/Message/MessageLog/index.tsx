@@ -24,7 +24,8 @@ import {
 } from 'antd';
 import moment from 'moment';
 import Ellipsis from 'ant-design-pro/lib/Ellipsis';
-import stylescommon from '../../common/common.less';
+import stylescommon1 from '../../common/common.less';
+import stylescommon2 from '../../common/commonLight.less';
 import noList from '@/assets/viewData/noList.png';
 // import MessagePushLogModal from './MessagePushLogModal';
 import styles from './index.less';
@@ -339,8 +340,10 @@ class MessageLog extends Component {
       form: { getFieldDecorator },
       common: {
         common: { depTree, pushMattersDict, pushTypeDict, pushWayDict },
+        global:{ dark }
       },
     } = this.props;
+    let stylescommon = dark ? stylescommon1: stylescommon2;
     const allPoliceOptions = this.state.allPolice.map(d => (
       <Option
         key={`${d.idcard},${d.pcard}`}
@@ -526,8 +529,10 @@ class MessageLog extends Component {
       common: {
         messagePushLog: { data },
         loading,
+        global:{ dark }
       },
     } = this.props;
+    let stylescommon = dark ? stylescommon1: stylescommon2;
     const columns = [
       {
         title: '问题类型',
@@ -618,23 +623,10 @@ class MessageLog extends Component {
             locale={{ emptyText: <Empty image={noList} description={'暂无记录'} /> }}
           />
         </Card>
-        {/*{newAddDetail.map(pane => <TabPane tab={pane.title} key={pane.key}>{pane.content}</TabPane>)}*/}
-        {/*{*/}
-        {/*    logDetailVisible ? (*/}
-        {/*        <MessagePushLogModal*/}
-        {/*            {...this.props}*/}
-        {/*            logDetail={logDetail}*/}
-        {/*            logDetailVisible={logDetailVisible}*/}
-        {/*            showLogDetailVisible={this.showLogDetailVisible}*/}
-        {/*            newDetail={this.newDetail}*/}
-        {/*            renderDiv={() => document.getElementById('messagePushLogTableDiv')}*/}
-        {/*        />*/}
-        {/*    ) : null*/}
-        {/*}*/}
       </div>
     );
   }
 }
 export default Form.create()(
-  connect((common, messagePushLog, loading) => ({ common, messagePushLog, loading }))(MessageLog),
+  connect((common, messagePushLog, loading, global) => ({ common, messagePushLog, loading, global }))(MessageLog),
 );
