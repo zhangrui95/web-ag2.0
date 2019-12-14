@@ -15,15 +15,16 @@ import {
     message,
     Card, Modal, Table, Empty,
 } from 'antd';
-import stylescommon from '../../common/common.less';
+import stylescommon1 from '../../common/common.less';
+import stylescommon2 from '../../common/commonLight.less';
 import noList from "@/assets/viewData/noList.png";
 import {routerRedux} from "dva/router";
 const FormItem = Form.Item;
 const TabPane = Tabs.TabPane;
 const { confirm } = Modal;
 const { TextArea } = Input;
-@connect(({ common,Evaluation }) => ({
-   common,Evaluation
+@connect(({ common,Evaluation,global }) => ({
+   common,Evaluation,global
 }))
 @Form.create()
 export default class PoliceClear extends PureComponent {
@@ -186,6 +187,8 @@ export default class PoliceClear extends PureComponent {
         });
     }
     render() {
+        console.log('this.props',this.props.global.dark);
+        let stylescommon = this.props.global.dark ? stylescommon1 : stylescommon2;
         const {form: { getFieldDecorator }} = this.props
         const rowLayout = { md: 8, xl: 16, xxl: 24 };
         const modleLayouts = {

@@ -1,12 +1,17 @@
-import { Avatar, Icon,Modal, Button } from 'antd';
+import { Avatar, Icon,Modal, Button, Tooltip } from 'antd';
 import { ClickParam } from 'antd/es/menu';
 import React from 'react';
 import { connect } from 'dva';
 import router from 'umi/router';
 import { ConnectProps, ConnectState } from '@/models/connect';
 import { CurrentUser } from '@/models/user';
-import styles from './index.less';
-
+import styles1 from './index.less';
+import styles2 from './indexLight.less';
+import { routerRedux } from 'dva/router';
+import iconFont from '../../utils/iconfont'
+const IconFont = Icon.createFromIconfontCN({
+    scriptUrl: iconFont
+})
 const { confirm } = Modal;
 
 export interface GlobalHeaderRightProps extends ConnectProps {
@@ -41,7 +46,7 @@ class AvatarDropdown extends React.Component<GlobalHeaderRightProps> {
           centered:true,
           okText: '确认',
           cancelText: '取消',
-          getContainer:document.getElementById('boxAll'),
+          getContainer:document.getElementById('messageBox'),
           onOk() {
               that.onClick();
           },
@@ -73,8 +78,12 @@ class AvatarDropdown extends React.Component<GlobalHeaderRightProps> {
 
     return;
   }
-
+  getChangeBg = () =>{
+      const { dispatch } = this.props;
+      dispatch(routerRedux.push('/ThemeChange'));
+  }
   render(): React.ReactNode {
+    let styles = this.props.dark ? styles1 : styles2;
     return (
       // currentUser && currentUser.name ? 
       // <HeaderDropdown overlay={}>
@@ -83,11 +92,16 @@ class AvatarDropdown extends React.Component<GlobalHeaderRightProps> {
       //     <span className={styles.name}>李华</span>
       //   </span>
       // </HeaderDropdown>
-      <div style={{ paddingRight: '48px' }} className={styles.goOut} id={'boxAll'}>
+      <div style={{ paddingRight: '48px' }} className={styles.goOut}>
         <span className={`${styles.action} ${styles.account}`}>
           <Avatar size="small" className={styles.avatar} src={require('@/assets/user.png')} alt="avatar" />
           <span className={styles.name}>{JSON.parse(sessionStorage.getItem('user')).name}</span>
         </span>
+          <Tooltip title={'主题切换'}>
+               <span className={styles.logout} onClick={this.getChangeBg}>
+                    <IconFont className={styles.logoutIcon} type='icon-zhuti' />
+                </span>
+          </Tooltip>
         <span className={styles.logout} onClick={this.onClickBack}>
           <Icon className={styles.logoutIcon} type="poweroff" />
         </span>
@@ -105,6 +119,7 @@ class AvatarDropdown extends React.Component<GlobalHeaderRightProps> {
   }
 }
 
-export default connect(({ user }: ConnectState) => ({
+export default connect(({ user,global }: ConnectState) => ({
   currentUser: user.currentUser,
+  dark:global.dark,
 }))(AvatarDropdown);

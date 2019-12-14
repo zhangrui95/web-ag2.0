@@ -1001,7 +1001,7 @@ class Detail extends Component {
             </Menu>
         );
         return (
-            <div id={'boxSeperDetail'}>
+            <div id={'boxSeperDetail'} className={this.props.SuperviseSetup.global.dark ? '' : styles.lightBox}>
                 <Card className={stylescommon.statistics + ' ' + styles.detailBox} id={'formSeperDetail'+this.props.location.query.id}>
                     <Form>
                         <Row gutter={rowLayout} className={styles.formBoxBorder}>
@@ -1438,7 +1438,7 @@ class Detail extends Component {
                         {this.state.modleType == 1 ? <Button type="primary" style={{ marginLeft: 8 }} className={styles.delBtn} onClick={() => this.del(this.props.location.query.id)}>
                             删除
                         </Button> : ''}
-                        <Button type="primary" style={{ marginLeft: 8 }} onClick={this.state.addHave ? this.updateJgdOk : this.handleOk}>
+                        <Button type="primary" style={{ marginLeft: 8 }} className={styles.okBtn} onClick={this.state.addHave ? this.updateJgdOk : this.handleOk}>
                             确定
                         </Button>
                     </div>
@@ -1448,5 +1448,5 @@ class Detail extends Component {
     }
 }
 export default Form.create()(
-    connect((SuperviseSetup, common) => ({ SuperviseSetup, common }))(Detail),
+    connect((SuperviseSetup, common,global) => ({ SuperviseSetup, common,global }))(Detail),
 );

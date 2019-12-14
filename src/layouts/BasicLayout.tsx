@@ -97,11 +97,10 @@ const menuDataRender = (menuList: MenuDataItem[]): MenuDataItem[] =>
 // };
 
 const BasicLayout: React.FC<BasicLayoutProps> = props => {
-  const { dispatch, children, settings } = props;
+  const { dispatch, children, settings, dark } = props;
   /**
    * constructor
    */
-       const [bgColor, setbgColor] = useState(props.dark);
       useEffect(() => {
           let options = {getContainer:()=>document.getElementById('messageBox')};
           message.config(options);
@@ -126,16 +125,8 @@ const BasicLayout: React.FC<BasicLayoutProps> = props => {
       });
     }
   };
-  const getChangeBg = () => {
-      setbgColor(!bgColor);
-      dispatch({
-          type: 'global/changeBgColor',
-          payload: !bgColor,
-      });
-      sessionStorage.setItem('dark',!bgColor);
-  };
   return (
-      <div className={bgColor ? styles.dark : stylesLight.light} id={'messageBox'}>
+      <div className={dark ? styles.dark : stylesLight.light} id={'messageBox'}>
           <ProLayout
               //修改logo以及title
               logo={logo}
@@ -175,7 +166,6 @@ const BasicLayout: React.FC<BasicLayoutProps> = props => {
               {...settings}
           >
               <Navigation {...props} />
-              <div className={styles.test} onClick={getChangeBg}>{bgColor ? '白' : '黑'}</div>
               {/*{children}*/}
           </ProLayout >
       </div>

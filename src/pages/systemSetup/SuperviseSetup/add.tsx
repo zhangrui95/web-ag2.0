@@ -874,7 +874,7 @@ class Detail extends Component {
             wrapperCol: { span: 16 },
         };
         return (
-            <div id={'box'}>
+            <div className={this.props.SuperviseSetup.global.dark ? '' : styles.lightBox}>
                 <Card className={stylescommon.statistics + ' ' + styles.detailBox} id={'formSeperAdd'+this.props.location.query.id}>
                     <Form>
                         <Row gutter={rowLayout} className={styles.formBoxBorder}>
@@ -1301,7 +1301,7 @@ class Detail extends Component {
                         <Button type="primary" style={{ marginLeft: 8 }} className={styles.qxBtn} onClick={()=>this.onEdit(false)}>
                             取消
                         </Button>
-                        <Button type="primary" style={{ marginLeft: 8 }} onClick={this.state.addHave ? this.updateJgdOk : this.handleOk}>
+                        <Button type="primary" style={{ marginLeft: 8 }} className={styles.okBtn} onClick={this.state.addHave ? this.updateJgdOk : this.handleOk}>
                             确定
                         </Button>
                     </div>
@@ -1311,5 +1311,5 @@ class Detail extends Component {
     }
 }
 export default Form.create()(
-    connect((SuperviseSetup, common) => ({ SuperviseSetup, common }))(Detail),
+    connect((SuperviseSetup, common,global) => ({ SuperviseSetup, common,global }))(Detail),
 );

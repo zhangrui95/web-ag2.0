@@ -5,12 +5,12 @@ import { ConnectProps, ConnectState } from '@/models/connect';
 import Avatar from './AvatarDropdown';
 import HeaderSearch from '../HeaderSearch';
 import SelectLang from '../SelectLang';
-import styles from './index.less';
+import styles1 from './index.less';
+import styles2 from './indexLight.less';
 import iconFont from '../../utils/iconfont'
 const IconFont = Icon.createFromIconfontCN({
     scriptUrl: iconFont
 })
-
 export type SiderTheme = 'light' | 'dark';
 export interface GlobalHeaderRightProps extends ConnectProps {
   theme?: SiderTheme;
@@ -18,15 +18,9 @@ export interface GlobalHeaderRightProps extends ConnectProps {
 }
 
 const GlobalHeaderRight: React.SFC<GlobalHeaderRightProps> = props => {
-  const { theme, layout } = props;
-  let className = styles.right;
-
-  if (theme === 'dark' && layout === 'topmenu') {
-    className = `${styles.right}  ${styles.dark}`;
-  }
-
+  let styles = props.dark ? styles1 : styles2;
   return (
-    <div className={className}>
+    <div className={styles.right}>
         <div className={styles.btnBox}>
             <div className={styles.border}></div>
             <Button type="primary" shape="round">
@@ -47,7 +41,8 @@ const GlobalHeaderRight: React.SFC<GlobalHeaderRightProps> = props => {
   );
 };
 
-export default connect(({ settings }: ConnectState) => ({
+export default connect(({ global,settings }: ConnectState) => ({
   theme: settings.navTheme,
   layout: settings.layout,
+  dark:global.dark,
 }))(GlobalHeaderRight);

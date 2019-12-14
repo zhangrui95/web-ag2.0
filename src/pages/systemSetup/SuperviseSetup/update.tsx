@@ -487,41 +487,6 @@ class Detail extends Component {
             this.getCommon('500772'); //预警监管事项
         }
     };
-    del = (id, modleType) => {
-        this.handleCancel();
-        let that = this;
-        confirm({
-            title: '确认删除该监管点？',
-            content: null,
-            okText: '确定',
-            cancelText: '取消',
-            centered:true,
-            getContainer:document.getElementById('box'),
-            onOk() {
-                that.props.dispatch({
-                    type: 'SuperviseSetup/getdelJgd',
-                    payload: {
-                        id: id,
-                    },
-                    callback: res => {
-                        if (!res.error) {
-                            message.success('删除成功');
-                            that.getJgdList(that.state.pd, that.state.current);
-                        } else {
-                            message.warn('操作失败，请重试');
-                        }
-                    },
-                });
-            },
-            onCancel() {
-                if (modleType && modleType == 1) {
-                    that.setState({
-                        visible: true,
-                    });
-                }
-            },
-        });
-    };
     getFyModel = () => {
         this.props.form.validateFields((err, values) => {
             if (values.addjgxz) {
@@ -1102,7 +1067,7 @@ class Detail extends Component {
             </Menu>
         );
         return (
-            <div id={'box'}>
+            <div className={this.props.SuperviseSetup.global.dark ? '' : styles.lightBox}>
                 <Card className={stylescommon.statistics + ' ' + styles.detailBox} id={'formSeperUpdate'+this.props.location.query.id}>
                     <Form>
                         <Row gutter={rowLayout} className={styles.formBoxBorder}>
@@ -1543,7 +1508,7 @@ class Detail extends Component {
                         <Button type="primary" style={{ marginLeft: 8 }} className={styles.qxBtn} onClick={()=>this.onEdit(false)}>
                             取消
                         </Button>
-                        <Button type="primary" style={{ marginLeft: 8 }} onClick={this.state.addHave ? this.updateJgdOk : this.handleOk}>
+                        <Button type="primary" style={{ marginLeft: 8 }} className={styles.okBtn} onClick={this.state.addHave ? this.updateJgdOk : this.handleOk}>
                             确定
                         </Button>
                     </div>
@@ -1553,5 +1518,5 @@ class Detail extends Component {
     }
 }
 export default Form.create()(
-    connect((SuperviseSetup, common) => ({ SuperviseSetup, common }))(Detail),
+    connect((SuperviseSetup, common,global) => ({ SuperviseSetup, common,global }))(Detail),
 );

@@ -5,7 +5,8 @@
  * */
 import React, { Component, useState, useEffect } from 'react';
 import { connect } from 'dva';
-import stylescommon from '../../common/common.less';
+import stylescommon1 from '../../common/common.less';
+import stylescommon2 from '../../common/commonLight.less';
 import styles from './index.less';
 import {
   Card,
@@ -510,6 +511,7 @@ class SuperviseSetup extends Component {
     });
   };
   render() {
+    let stylescommon = this.props.SuperviseSetup.global.dark ? stylescommon1: stylescommon2;
     const {
       form: { getFieldDecorator },
       SuperviseSetup: {
@@ -863,5 +865,5 @@ class SuperviseSetup extends Component {
   }
 }
 export default Form.create()(
-  connect((SuperviseSetup, common) => ({ SuperviseSetup, common }))(SuperviseSetup),
+  connect((SuperviseSetup, common,global) => ({ SuperviseSetup, common, global }))(SuperviseSetup),
 );
