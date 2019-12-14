@@ -45,6 +45,7 @@ import liststyles from '../../common/listDetail.less';
 import { autoheight, getUserInfos, userResourceCodeDb } from '../../../utils/utils';
 import { authorityIsTrue } from '../../../utils/authority';
 import noList from "@/assets/viewData/noList.png";
+import {routerRedux} from "dva/router";
 
 const FormItem = Form.Item;
 const { Step } = Steps;
@@ -95,7 +96,7 @@ export default class areaDetail extends PureComponent {
       lx: '人员信息',
       tzlx: 'baqxx',
       sx: '',
-      sfgz: this.props.sfgz,
+      sfgz: props.location&&props.location.query&&props.location.query.record&&props.location.query.record.sfgz===0?props.location.query.record.sfgz:'',
 
       IsSure: false, // 确认详情是否加载成功
       isDb: authorityIsTrue(userResourceCodeDb.baq), // 督办权限
@@ -115,16 +116,21 @@ export default class areaDetail extends PureComponent {
   }
 
   componentWillReceiveProps(nextProps) {
-    // console.log('nextProps',nextProps.sfgz);
-    // alert(1)
     if (nextProps) {
-      if (nextProps.sfgz !== null && nextProps.sfgz !== this.props.sfgz) {
+      if (nextProps.location.query&&nextProps.location.query.record&&nextProps.location.query.record.sfgz !== null && nextProps.location.query.record.sfgz !== this.props.location.query.record.sfgz) {
+        alert(1)
         this.setState({
-          sfgz: nextProps.sfgz,
+          sfgz: nextProps.location.query.record.sfgz,
         });
+      }
+      else if(nextProps.history.location.query.isReset&&nextProps.history.location.pathname==='/receivePolice/AlarmData/policeDetail'){
+        alert(2)
+        this.getDetail(this.props.location.query.id);
+        this.props.history.replace(nextProps.history.location.pathname+'?id='+nextProps.location.query.id+'&record='+nextProps.location.query.record);
       }
     }
   }
+
 
   getDetail(id) {
     this.setState(
@@ -165,17 +171,24 @@ export default class areaDetail extends PureComponent {
 
   onceSupervise = (areaDetails, flag, from) => {
     if (areaDetails) {
-      this.setState({
-        // systemId: areaDetails.ryxx.system_id,
-        superviseVisibleModal: !!flag,
-        superviseWtlx: areaDetails.wtlx,
-        // superviseZrdw: areaDetails.ryxx.badw,
-        // superviseZrdwId: areaDetails.ryxx.badwDm,
-        // superviseZrr: areaDetails.ryxx.bar,
-        // id: areaDetails.wtid,
-        // sfzh: areaDetails.ryxx.barzjhm,
-        from: from,
-      });
+      this.props.dispatch(
+        routerRedux.push({
+          pathname: '/ModuleAll/Supervise',
+          query: { record: areaDetails,id: areaDetails && areaDetails.id ? areaDetails.id : '1',from:'办案区详情问题判定',tzlx:'baqxx',fromPath:'/handlingArea/AreaData/areaDetail',wtflId:'230204',wtflMc:'办案区详情' },
+        }),
+      )
+
+      // this.setState({
+      //   // systemId: areaDetails.ryxx.system_id,
+      //   superviseVisibleModal: !!flag,
+      //   superviseWtlx: areaDetails.wtlx,
+      //   // superviseZrdw: areaDetails.ryxx.badw,
+      //   // superviseZrdwId: areaDetails.ryxx.badwDm,
+      //   // superviseZrr: areaDetails.ryxx.bar,
+      //   // id: areaDetails.wtid,
+      //   // sfzh: areaDetails.ryxx.barzjhm,
+      //   from: from,
+      // });
     } else {
       message.info('该人员无法进行问题判定');
     }
@@ -258,10 +271,74 @@ export default class areaDetail extends PureComponent {
         (res.name ? res.name : ''),
     });
     if (type === 2) {
-      this.setState({
-        shareVisible: true,
-        shareItem: res,
-      });
+      let detail=(
+        <Row style={{lineHeight:'50px',paddingLeft:66}}>
+          <Col span={6}>人员姓名：{areaDetails && areaDetails.name ? areaDetails.name : ''}</Col>
+          <Col span={6}>性别：{areaDetails && areaDetails.sex ? areaDetails.sex : ''}</Col>
+          <Col span={6}>
+            人员类型：{areaDetails && areaDetails.salx_mc ? areaDetails.salx_mc : ''}
+          </Col>
+          <Col span={6}>
+            强制措施：
+            <Tooltip
+              title={
+                areaDetails && areaDetails.qzcs && areaDetails.qzcs.length > 7
+                  ? areaDetails.qzcs
+                  : null
+              }
+            >
+              {areaDetails && areaDetails.qzcs
+                ? areaDetails.qzcs.length > 7
+                  ? areaDetails.qzcs.substring(0, 7) + '...'
+                  : areaDetails.qzcs
+                : ''}
+            </Tooltip>
+          </Col>
+          <Col span={6}>
+            案件名称：
+            <Tooltip
+              title={
+                areaDetails && areaDetails.ajmc && areaDetails.ajmc.length > 7
+                  ? areaDetails.ajmc
+                  : null
+              }
+            >
+              {areaDetails && areaDetails.ajmc
+                ? areaDetails.ajmc.length > 7
+                  ? areaDetails.ajmc.substring(0, 7) + '...'
+                  : areaDetails.ajmc
+                : ''}
+            </Tooltip>
+          </Col>
+          <Col span={6}>
+            办案单位：
+            <Tooltip
+              title={
+                areaDetails && areaDetails.badw && areaDetails.badw.length > 7
+                  ? areaDetails.badw
+                  : null
+              }
+            >
+              {areaDetails && areaDetails.badw
+                ? areaDetails.badw.length > 7
+                  ? areaDetails.badw.substring(0, 7) + '...'
+                  : areaDetails.badw
+                : ''}
+            </Tooltip>
+          </Col>
+          <Col span={12}>办案民警：{areaDetails && areaDetails.bar ? areaDetails.bar : ''}</Col>
+        </Row>
+      )
+      this.props.dispatch(
+        routerRedux.push({
+          pathname: '/ModuleAll/Share',
+          query: { record: res,id: res && res.id ? res.id : '1',from:'人员信息',tzlx:'baqxx',fromPath:'/handlingArea/AreaData/areaDetail',detail,tab:'详情' },
+        }),
+      )
+      // this.setState({
+      //   shareVisible: true,
+      //   shareItem: res,
+      // });
     } else {
       if (this.state.IsSure) {
         this.props.dispatch({
@@ -331,7 +408,7 @@ export default class areaDetail extends PureComponent {
         },
       });
     } else {
-      message.info('您的操作太频繁，请稍后再试');
+      message.warning('您的操作太频繁，请稍后再试');
     }
   };
   handleCancel = e => {
@@ -342,7 +419,7 @@ export default class areaDetail extends PureComponent {
 
   Topdetail() {
     const { areaDetails, sfgz, isDb } = this.state;
-    const { record } = this.props;
+    const { query:{record} } = this.props.location;
     return (
       <div style={{ backgroundColor: '#252C3C', margin: '16px 0' }}>
         <Row gutter={{ md: 8, lg: 24, xl: 48 }}>
@@ -356,25 +433,27 @@ export default class areaDetail extends PureComponent {
                   <span className={liststyles.collect}>
                     {sfgz === 0 ? (
                       <Tooltip title="关注">
-                        <img
-                          src={nocollect}
-                          width={25}
-                          height={25}
-                          style={{ marginLeft: 12 }}
-                          onClick={() => this.saveShare(areaDetails, record, 1, 0)}
-                        />
-                        <div style={{ fontSize: 12, textAlign: 'center', width: 48 }}>关注</div>
+                        <div onClick={() => this.saveShare(areaDetails, record, 1, 0)}>
+                          <img
+                            src={nocollect}
+                            width={25}
+                            height={25}
+                            style={{ marginLeft: 12 }}
+                          />
+                          <div style={{ fontSize: 12, textAlign: 'center', width: 48 }}>关注</div>
+                        </div>
                       </Tooltip>
                     ) : (
                       <Tooltip title="取消关注">
-                        <img
-                          src={collect}
-                          width={25}
-                          height={25}
-                          style={{ marginLeft: 12 }}
-                          onClick={() => this.noFollow(areaDetails)}
-                        />
-                        <div style={{ fontSize: 12, textAlign: 'center', width: 48 }}>取消关注</div>
+                        <div onClick={() => this.noFollow(areaDetails)}>
+                          <img
+                            src={collect}
+                            width={25}
+                            height={25}
+                            style={{ marginLeft: 12 }}
+                          />
+                          <div style={{ fontSize: 12, textAlign: 'center', width: 48 }}>取消关注</div>
+                        </div>
                       </Tooltip>
                     )}
                   </span>
@@ -794,20 +873,32 @@ export default class areaDetail extends PureComponent {
     }
   };
   // 根据随身物品ID打开物品随身物品信息的弹窗
-  ssWoodDetail = (systemId, flag) => {
-    this.setState({
-      isState: '0',
-      SsWpId: systemId,
-      ssWpList: !!flag,
-    });
+  ssWoodDetail = (res,record) => {
+    this.props.dispatch(
+      routerRedux.push({
+        pathname: '/ModuleAll/SsWoodMessage',
+        query: { record: res.sswoodList,res:record,id: record && record.id ? record.id : '1' },
+      }),
+    )
+    // this.setState({
+    //   isState: '0',
+    //   SsWpId: systemId,
+    //   ssWpList: !!flag,
+    // });
   };
   // 根据涉案物品ID打开物品详细窗口
-  ajWoodDetail = (systemId, flag) => {
-    this.setState({
-      isState: '1',
-      SsWpId: systemId,
-      ssWpList: !!flag,
-    });
+  ajWoodDetail = (res,record) => {
+    this.props.dispatch(
+      routerRedux.push({
+        pathname: '/ModuleAll/SaWoodMessage',
+        query: { record: res.sawoodList,res:record,id: record && record.id ? res.id : '1' },
+      }),
+    )
+    // this.setState({
+    //   isState: '1',
+    //   SsWpId: systemId,
+    //   ssWpList: !!flag,
+    // });
   };
   playVideo = areaDetails => {
     this.props.dispatch({
@@ -840,6 +931,12 @@ export default class areaDetail extends PureComponent {
         },
         callback: data => {
           if (data && data.ryxx) {
+            this.props.dispatch(
+              routerRedux.push({
+                pathname: '/lawEnforcement/PersonFile/Detail',
+                query: { id: idcard, record: data},
+              }),
+            );
             // const divs = (
             //     <div>
             //         <PersonDetail
@@ -864,6 +961,12 @@ export default class areaDetail extends PureComponent {
   openCaseDetail = areaDetails => {
     if (areaDetails.ajxx.ajlx === '22001') {
       // 刑事案件
+      this.props.dispatch(
+        routerRedux.push({
+          pathname: '/newcaseFiling/caseData/CriminalData/caseDetail',
+          query: { id: areaDetails.ajxx.system_id, record: areaDetails},
+        }),
+      );
       // const divs = (
       //     <div>
       //         <CaseDetail
@@ -876,6 +979,12 @@ export default class areaDetail extends PureComponent {
       // this.props.newDetail(AddNewDetail);
     } else if (areaDetails.ajxx.ajlx === '22002') {
       // 行政案件
+      this.props.dispatch(
+        routerRedux.push({
+          pathname: '/newcaseFiling/caseData/AdministrationData/caseDetail',
+          query: { id: areaDetails.ajxx.system_id, record: areaDetails},
+        }),
+      );
       // const divs = (
       //     <div>
       //         <XzCaseDetail
@@ -989,7 +1098,7 @@ export default class areaDetail extends PureComponent {
         title: '操作',
         render: record => (
           <div>
-            <a onClick={() => this.ajWoodDetail(record.wp_id, true)}>详情</a>
+            <a onClick={() => this.ajWoodDetail(areaDetails,record)}>详情</a>
           </div>
         ),
       },
@@ -1089,7 +1198,7 @@ export default class areaDetail extends PureComponent {
         title: '操作',
         render: record => (
           <div>
-            <a onClick={() => this.ssWoodDetail(record.wp_id, true)}>详情</a>
+            <a onClick={() => this.ssWoodDetail(areaDetails,record)}>详情</a>
           </div>
         ),
       },
@@ -1185,12 +1294,16 @@ export default class areaDetail extends PureComponent {
     );
     return (
       <div
-        style={{ background: '#252c3c', height: autoheight() - 280 + 'px' }}
+        style={{ background: '#252c3c', /*height: autoheight() - 280 + 'px'*/ }}
         className={styles.detailBoxScroll}
       >
         {areaDetails && areaDetails.ajxx ? (
-          <div style={{ textAlign: 'right' }}>
-            <Button type="primary" onClick={() => this.openCaseDetail(areaDetails)}>
+          <div style={{ textAlign: 'right',padding: '16px 32px' }}>
+            <Button
+              // type="primary"
+              onClick={() => this.openCaseDetail(areaDetails)}
+              style={{ marginRight: 70, background: 'linear-gradient(to right, #0084FA, #03A3FF)' }}
+            >
               查看当前涉案信息
             </Button>
           </div>
@@ -1532,7 +1645,7 @@ export default class areaDetail extends PureComponent {
             pagination={{
               pageSize: 3,
               showTotal: (total, range) => (
-                <div style={{ position: 'absolute', left: '12px', color: '#fff' }}>
+                <div style={{ position: 'absolute', left: '-190px', color: '#fff' }}>
                   共 {Math.ceil(total / 3)} 页，{total} 条记录
                 </div>
               ),
@@ -1554,7 +1667,7 @@ export default class areaDetail extends PureComponent {
             pagination={{
               pageSize: 3,
               showTotal: (total, range) => (
-                <div style={{ position: 'absolute', left: '12px', color: '#fff' }}>
+                <div style={{ position: 'absolute', left: '-190px', color: '#fff' }}>
                   共 {Math.ceil(total / 3)} 页， {total} 条记录
                 </div>
               ),

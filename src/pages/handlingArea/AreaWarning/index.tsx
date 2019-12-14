@@ -276,24 +276,24 @@ export default class Index extends PureComponent {
   };
   // 打开新的详情页面
   details = record => {
-    this.props.dispatch({
-      type: 'global/changeNavigation',
-      payload: {
-        key: record && record.id ? record.id : '1',
-        name: '人员在区详情',
-        path: '/handlingArea/AreaData/areaDetail',
-        isShow: true,
-        query: { record, id: record && record.id ? record.id : '1' },
-      },
-      callback: () => {
+    // this.props.dispatch({
+    //   type: 'global/changeNavigation',
+    //   payload: {
+    //     key: record && record.id ? record.id : '1',
+    //     name: '人员在区详情',
+    //     path: '/handlingArea/AreaData/areaDetail',
+    //     isShow: true,
+    //     query: { record, id: record && record.id ? record.id : '1' },
+    //   },
+    //   callback: () => {
         this.props.dispatch(
           routerRedux.push({
             pathname: '/handlingArea/AreaData/areaDetail',
             query: { record: record, id: record && record.id ? record.id : '1' },
           }),
         );
-      },
-    });
+    //   },
+    // });
     // const divs = (
     //   <div>
     //     <Detail
@@ -392,11 +392,93 @@ export default class Index extends PureComponent {
       });
       this.thisNewDetails(res);
     } else if (type === 2) {
-      this.setState({
-        shareVisible: true,
-        shareItem: res,
-      });
-      this.thisNewDetails(res);
+      let detail=(
+        <Row style={{lineHeight:'50px',paddingLeft:66}}>
+          <Col span={6}>
+            人员姓名：
+            {this.state.areaDetails && this.state.areaDetails.name ? this.state.areaDetails.name : ''}
+          </Col>
+          <Col span={6}>
+            性别：
+            {this.state.areaDetails && this.state.areaDetails.sex ? this.state.areaDetails.sex : ''}
+          </Col>
+          <Col span={6}>
+            人员类型：
+            {this.state.areaDetails && this.state.areaDetails.salx_mc
+              ? this.state.areaDetails.salx_mc
+              : ''}
+          </Col>
+          <Col span={6}>
+            强制措施：
+            <Tooltip
+              title={
+                this.state.areaDetails &&
+                this.state.areaDetails.qzcs &&
+                this.state.areaDetails.qzcs.length > 7
+                  ? this.state.areaDetails.qzcs
+                  : null
+              }
+            >
+              {this.state.areaDetails && this.state.areaDetails.qzcs
+                ? this.state.areaDetails.qzcs.length > 7
+                  ? this.state.areaDetails.qzcs.substring(0, 7) + '...'
+                  : this.state.areaDetails.qzcs
+                : ''}
+            </Tooltip>
+          </Col>
+          <Col span={6}>
+            案件名称：
+            <Tooltip
+              title={
+                this.state.areaDetails &&
+                this.state.areaDetails.ajmc &&
+                this.state.areaDetails.ajmc.length > 7
+                  ? this.state.areaDetails.ajmc
+                  : null
+              }
+            >
+              {this.state.areaDetails && this.state.areaDetails.ajmc
+                ? this.state.areaDetails.ajmc.length > 7
+                  ? this.state.areaDetails.ajmc.substring(0, 7) + '...'
+                  : this.state.areaDetails.ajmc
+                : ''}
+            </Tooltip>
+          </Col>
+          <Col span={6}>
+            办案单位：
+            <Tooltip
+              title={
+                this.state.areaDetails &&
+                this.state.areaDetails.badw &&
+                this.state.areaDetails.badw.length > 7
+                  ? this.state.areaDetails.badw
+                  : null
+              }
+            >
+              {this.state.areaDetails && this.state.areaDetails.badw
+                ? this.state.areaDetails.badw.length > 7
+                  ? this.state.areaDetails.badw.substring(0, 7) + '...'
+                  : this.state.areaDetails.badw
+                : ''}
+            </Tooltip>
+          </Col>
+          <Col span={12}>
+            办案民警：
+            {this.state.areaDetails && this.state.areaDetails.bar ? this.state.areaDetails.bar : ''}
+          </Col>
+        </Row>
+      )
+      this.props.dispatch(
+        routerRedux.push({
+          pathname: '/ModuleAll/Share',
+          query: { record: res,id: res && res.id ? res.id : '1',from:'人员信息',tzlx:'baqyj',fromPath:'/handlingArea/AreaWarning',detail,tab:'表格'},
+        }),
+      )
+      // this.setState({
+      //   shareVisible: true,
+      //   shareItem: res,
+      // });
+      // this.thisNewDetails(res);
     } else {
       this.props.dispatch({
         type: 'share/getMyFollow',
@@ -436,9 +518,9 @@ export default class Index extends PureComponent {
     });
   };
   getTg = record => {
-    this.setState({
-      AnnouncementVisible: true,
-    });
+    // this.setState({
+    //   AnnouncementVisible: true,
+    // });
     this.props.dispatch({
       type: 'share/getRz',
       payload: {
@@ -446,9 +528,15 @@ export default class Index extends PureComponent {
         yj_id: record.id,
       },
       callback: res => {
-        this.setState({
-          RzList: res.list,
-        });
+        this.props.dispatch(
+          routerRedux.push({
+            pathname: '/ModuleAll/DailyRecord',
+            query: { record: record,RzList:res.list,id: record && record.id ? record.id : '1',movefrom:'办案区预警' },
+          }),
+        )
+        // this.setState({
+        //   RzList: res.list,
+        // });
       },
     });
   };
@@ -604,6 +692,7 @@ export default class Index extends PureComponent {
                   </Menu>
                 }
                 trigger={['click']}
+                getPopupContainer={() => document.getElementById('baqyjcardArea')}
               >
                 <a href="javascript:;">关注</a>
               </Dropdown>
@@ -790,7 +879,7 @@ export default class Index extends PureComponent {
                 </FormItem>
               </Col>
             </Row>
-            <Row gutter={rowLayout} className={styles.search}>
+            <Row className={styles.search}>
               <span style={{ float: 'right', marginBottom: 24, marginTop: 5 }}>
                 <Button style={{ marginLeft: 8 }} type="primary" htmlType="submit">
                   查询
@@ -814,7 +903,7 @@ export default class Index extends PureComponent {
             </Row>
           </Form>
         </div>
-        <div className={styles.tableListOperator}>
+        <div className={styles.tableListOperator} id='baqyjcardArea'>
           <Table
             className={styles.listStandardTable}
             // size="middle"

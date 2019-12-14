@@ -1,0 +1,78 @@
+@import '~antd/es/style/themes/default.less';
+@import '../../../theme/darkTheme';
+.indexmodal {
+  //position: absolute;
+  //top: 50%;
+  //left: 50%;
+  //margin-left: -600px;
+  //margin-top: -200px;
+
+  :global {
+    .ant-modal-body {
+      padding: @padding-sm;
+    }
+
+    .ant-modal-header {
+      background-color: @primary-color;
+      color: @body-background;
+    }
+
+    .ant-modal-close {
+      color: @body-background;
+    }
+  }
+}
+
+.indexmenu {
+  height: 400px;
+  overflow-y: auto;
+  overflow-x: hidden;
+
+  :global {
+    .ant-tabs-content {
+      height: 100%;
+    }
+  }
+}
+
+.woodName {
+  border-right: 1px solid #EBEBEB;
+}
+
+.woodNameThird {
+  padding: 0 @padding-lg;
+}
+
+.indexmenu li {
+  list-style: none;
+  margin-bottom: @padding-sm;
+}
+
+.indexmenu li:last-child {
+  margin-bottom: 0;
+}
+
+.break1 {
+  word-break: break-all;
+  font-size: @font-size-lg;
+  margin-bottom: @form-item-margin-bottom;
+}
+
+.break2 {
+  word-break: break-all;
+  font-size: @font-size-base;
+  margin-bottom: @form-item-margin-bottom;
+}
+
+.break3 {
+  word-break: break-all;
+  font-size: @font-size-lg;
+  margin: @form-item-margin-bottom 0;
+}
+
+.break4 {
+  word-break: break-all;
+  font-size: @font-size-base;
+}
+
+

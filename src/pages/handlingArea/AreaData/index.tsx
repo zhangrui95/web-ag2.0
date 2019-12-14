@@ -111,6 +111,13 @@ export default class Index extends PureComponent {
     }
   }
 
+  componentWillReceiveProps(nextProps) {
+    if(nextProps&&nextProps.history.location.query.isReset&&nextProps.history.location.pathname==='/handlingArea/AreaData'){
+      this.handleFormReset();
+      this.props.history.replace(nextProps.history.location.pathname);
+    }
+  }
+
   onChange = activeKey => {
     this.setState({
       activeKey,

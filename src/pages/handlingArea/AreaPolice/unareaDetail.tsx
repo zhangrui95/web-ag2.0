@@ -41,6 +41,7 @@ import { autoheight, userResourceCodeDb } from '../../../utils/utils';
 import SupervisionLog from '../../../components/Common/SupervisionLog';
 import nophoto from '../../../assets/common/nophoto.png';
 import noList from "@/assets/viewData/noList.png";
+import {routerRedux} from "dva/router";
 
 const FormItem = Form.Item;
 const { Step } = Steps;
@@ -112,6 +113,7 @@ export default class unareaDetail extends PureComponent {
 
   // 再次督办
   onceSupervise = (flag, UnareaDetail) => {
+    console.log('UnareaDetail',UnareaDetail);
     // this.props.supervise(flag,wtlx,zrdw,zrdwId,zrr,wtid,zjhm)
     const {
       wtlx,
@@ -132,18 +134,24 @@ export default class unareaDetail extends PureComponent {
           data.list[0].dbzt === '00' ||
           (data.list[0].dbzt === '30' && data.list[0].fkzt === '1')
         ) {
-          this.setState({
-            superviseVisibleModal: !!flag,
-            superviseWtlx: wtlx,
-            superviseZrdw: badw,
-            superviseZrdwId: badwDm,
-            superviseZrr: bar,
-            id: wtid,
-            sfzh: barzjhm,
-          });
+          this.props.dispatch(
+            routerRedux.push({
+              pathname: '/ModuleAll/Supervise',
+              query: { record: UnareaDetail,id: UnareaDetail && UnareaDetail.wtid ? UnareaDetail.wtid : '1',from:'办案区详情问题判定',tzlx:'baqxx',fromPath:'/handlingArea/AreaPolice/UnareaDetail',wtflId:'230204',wtflMc:'办案区详情' },
+            }),
+          )
+          // this.setState({
+          //   superviseVisibleModal: !!flag,
+          //   superviseWtlx: wtlx,
+          //   superviseZrdw: badw,
+          //   superviseZrdwId: badwDm,
+          //   superviseZrr: bar,
+          //   id: wtid,
+          //   sfzh: barzjhm,
+          // });
         } else {
           message.warning('该问题已督办或暂无反馈信息');
-          this.getDetail(this.props.id, this.props.baqId);
+          this.getDetail(this.props.location.query.record.id, this.props.location.query.record.baq_id);
         }
       },
     });
@@ -162,12 +170,18 @@ export default class unareaDetail extends PureComponent {
       },
       callback: data => {
         if (data.list[0].fkzt !== '1') {
-          this.setState({
-            feedbackVisibleModal: !!flag,
-          });
+          this.props.dispatch(
+            routerRedux.push({
+              pathname: '/ModuleAll/FeedBack',
+              query: { record:unCaseDetailData,id: unCaseDetailData && unCaseDetailData.wtid ? unCaseDetailData.wtid : '1',from:'反馈',tzlx:'jqxx',fromPath:'/handlingArea/AreaPolice/UnareaDetail',tab:'详情'},
+            }),
+          )
+          // this.setState({
+          //   feedbackVisibleModal: !!flag,
+          // });
         } else {
           message.warning('该问题已反馈');
-          this.getDetail(this.props.id, this.props.systemId);
+          this.getDetail(this.props.location.query.record.id, this.props.location.query.record.system_id);
         }
       },
     });
@@ -357,16 +371,16 @@ export default class unareaDetail extends PureComponent {
       },
     });
   };
-  foot1 = () => {
-    return (
-      <div>
-        <Button onClick={this.onReformCancel}>取消</Button>
-        <Button type="primary" onClick={this.handleReformSure}>
-          整改完毕
-        </Button>
-      </div>
-    );
-  };
+  // foot1 = () => {
+  //   return (
+  //     <div>
+  //       <Button onClick={this.onReformCancel}>取消</Button>
+  //       <Button type="primary" onClick={this.handleReformSure}>
+  //         整改完毕
+  //       </Button>
+  //     </div>
+  //   );
+  // };
 
   Topdetail() {
     const { UnareaDetail, isDb } = this.state;
@@ -752,6 +766,12 @@ export default class unareaDetail extends PureComponent {
         },
         callback: data => {
           if (data && data.ryxx) {
+            this.props.dispatch(
+              routerRedux.push({
+                pathname: '/lawEnforcement/PersonFile/Detail',
+                query: { id: idcard, record: data},
+              }),
+            );
             // const divs = (
             //     <div>
             //         <PersonDetail
@@ -773,9 +793,16 @@ export default class unareaDetail extends PureComponent {
     }
   };
   // 根据案件编号打开案件窗口
-  openCaseDetail = (systemId, caseType, ajbh) => {
-    if (caseType === '22001') {
+  openCaseDetail = (areaDetails) => {
+    console.log('areaDetails',areaDetails);
+    if (areaDetails.ajxx.ajlx === '22001') {
       // 刑事案件
+      this.props.dispatch(
+        routerRedux.push({
+          pathname: '/newcaseFiling/caseData/CriminalData/caseDetail',
+          query: { id: areaDetails.ajxx.system_id, record: areaDetails},
+        }),
+      );
       // const divs = (
       //     <div>
       //         <CaseDetail
@@ -786,8 +813,14 @@ export default class unareaDetail extends PureComponent {
       // );
       // const AddNewDetail = { title: '刑事案件详情', content: divs, key: ajbh };
       // this.props.newDetail(AddNewDetail);
-    } else if (caseType === '22002') {
+    } else if (areaDetails.ajxx.ajlx === '22002') {
       // 行政案件
+      this.props.dispatch(
+        routerRedux.push({
+          pathname: '/newcaseFiling/caseData/AdministrationData/caseDetail',
+          query: { id: areaDetails.ajxx.system_id, record: areaDetails},
+        }),
+      );
       // const divs = (
       //     <div>
       //         <XzCaseDetail
@@ -1017,19 +1050,31 @@ export default class unareaDetail extends PureComponent {
     }
   };
   // 根据随身物品ID打开物品随身物品信息的弹窗
-  ssWoodDetail = (systemId, flag) => {
-    this.setState({
-      isState: '0',
-      SsWpId: systemId,
-      ssWpList: !!flag,
-    });
+  ssWoodDetail = (res,record) => {
+    this.props.dispatch(
+      routerRedux.push({
+        pathname: '/ModuleAll/SsWoodMessage',
+        query: { record: res.sswoodList,res:record,id: record && record.id ? record.id : '1' },
+      }),
+    )
+    // this.setState({
+    //   isState: '0',
+    //   SsWpId: systemId,
+    //   ssWpList: !!flag,
+    // });
   };
-  ajWoodDetail = (systemId, flag) => {
-    this.setState({
-      isState: '1',
-      SsWpId: systemId,
-      ssWpList: !!flag,
-    });
+  ajWoodDetail = (res,record) => {
+    this.props.dispatch(
+      routerRedux.push({
+        pathname: '/ModuleAll/SaWoodMessage',
+        query: { record: res.sawoodList,res:record,id: record && record.id ? res.id : '1' },
+      }),
+    )
+    // this.setState({
+    //   isState: '1',
+    //   SsWpId: systemId,
+    //   ssWpList: !!flag,
+    // });
   };
   playVideo = UnareaDetail => {
     this.props.dispatch({
@@ -1143,7 +1188,7 @@ export default class unareaDetail extends PureComponent {
         title: '操作',
         render: record => (
           <div>
-            <a onClick={() => this.ajWoodDetail(record.wp_id, true)}>详情</a>
+            <a onClick={() => this.ajWoodDetail(UnareaDetail,record)}>详情</a>
           </div>
         ),
       },
@@ -1235,7 +1280,7 @@ export default class unareaDetail extends PureComponent {
         title: '操作',
         render: record => (
           <div>
-            <a onClick={() => this.ssWoodDetail(record.wp_id, true)}>详情</a>
+            <a onClick={() => this.ssWoodDetail(UnareaDetail,record)}>详情</a>
           </div>
         ),
       },
@@ -1404,13 +1449,7 @@ export default class unareaDetail extends PureComponent {
                           {UnareaDetail && UnareaDetail.ajxx && UnareaDetail.ajxx.ajbh ? (
                             UnareaDetail.ajxx.system_id && UnareaDetail.ajxx.ajlx ? (
                               <a
-                                onClick={() =>
-                                  this.openCaseDetail(
-                                    UnareaDetail.ajxx.system_id,
-                                    UnareaDetail.ajxx.ajlx,
-                                    UnareaDetail.ajxx.ajbh,
-                                  )
-                                }
+                                onClick={() => this.openCaseDetail(UnareaDetail)}
                                 style={{ textDecoration: 'underline' }}
                               >
                                 {UnareaDetail.ajxx.ajbh}
