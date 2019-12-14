@@ -1,4 +1,4 @@
-import { Avatar, Icon,Modal, Button } from 'antd';
+import { Avatar, Icon,Modal, Button, Tooltip } from 'antd';
 import { ClickParam } from 'antd/es/menu';
 import React from 'react';
 import { connect } from 'dva';
@@ -97,9 +97,11 @@ class AvatarDropdown extends React.Component<GlobalHeaderRightProps> {
           <Avatar size="small" className={styles.avatar} src={require('@/assets/user.png')} alt="avatar" />
           <span className={styles.name}>{JSON.parse(sessionStorage.getItem('user')).name}</span>
         </span>
-        <span className={styles.logout} onClick={this.getChangeBg}>
-            <IconFont className={styles.logoutIcon} type='icon-zhuti' />
-        </span>
+          <Tooltip title={'主题切换'}>
+               <span className={styles.logout} onClick={this.getChangeBg}>
+                    <IconFont className={styles.logoutIcon} type='icon-zhuti' />
+                </span>
+          </Tooltip>
         <span className={styles.logout} onClick={this.onClickBack}>
           <Icon className={styles.logoutIcon} type="poweroff" />
         </span>
