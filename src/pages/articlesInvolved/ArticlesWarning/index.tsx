@@ -276,7 +276,7 @@ export default class Index extends PureComponent {
     this.props.dispatch(
       routerRedux.push({
         pathname: '/articlesInvolved/ArticlesData/itemDetail',
-        query: { record: record,id: record && record.id ? record.id : '1' },
+        query: { record: record,id: record && record.system_id ? record.system_id : '1' },
       }),
     )
     // const divs = (
@@ -331,7 +331,7 @@ export default class Index extends PureComponent {
     return current && current.valueOf() > Date.now();
   };
   // 请求当前数据的详情（提醒弹窗中的回显数据从此处获取）
-  thisNewDetails = (res) => {
+  thisNewDetails = (res,type) => {
     this.props.dispatch({
       type: 'itemData/getSawpXqById',
       payload: {
@@ -342,6 +342,38 @@ export default class Index extends PureComponent {
           this.setState({
             itemDetails: data,
           });
+          let detail = (
+            <Row style={{ lineHeight:'55px',paddingLeft:66}}>
+              <Col
+                span={6}>物品名称：{data && data.wpmc ? data.wpmc : ''}</Col>
+              <Col
+                span={6}>物品种类：{data && data.wpzlName ? data.wpzlName : ''}</Col>
+              <Col
+                span={6}>物品状态：{data && data.wpzt ? data.wpzt : ''}</Col>
+              <Col span={6}>库房信息：<Tooltip
+                title={data && data.szkf && data.szkf.length > 8 ? data.szkf : null}>{data && data.szkf ? data.szkf.length > 8 ? data.szkf.substring(0, 8) + '...' : data.szkf : ''}</Tooltip></Col>
+              <Col span={12}>关联案件名称：<Tooltip
+                title={data && data.ajmc && data.ajmc.length > 18 ? data.ajmc : null}>{data && data.ajmc ? data.ajmc.length > 18 ? data.ajmc.substring(0, 18) + '...' : data.ajmc : ''}</Tooltip></Col>
+              <Col span={12}>办案单位：<Tooltip
+                title={data && data.badw && data.badw.length > 18 ? data.badw : null}>{data && data.badw ? data.badw.length > 18 ? data.badw.substring(0, 18) + '...' : data.badw : ''}</Tooltip></Col>
+            </Row>
+          );
+          if(type===3){
+            this.props.dispatch(
+              routerRedux.push({
+                pathname: '/ModuleAll/Remind',
+                query: { record: res,itemDetails:data,id: res && res.system_id ? res.system_id : '1',from:'涉案物品预警',fromPath:'/articlesInvolved/ArticlesWarning',detail,tab:'表格' },
+              }),
+            )
+          }
+          else if(type===2){
+            this.props.dispatch(
+              routerRedux.push({
+                pathname: '/ModuleAll/Share',
+                query: { record: res,id: res && res.system_id ? res.system_id : '1',from:'涉案物品预警',tzlx:'wpxx',fromPath:'/articlesInvolved/ArticlesWarning',detail,tab:'表格' },
+              }),
+            )
+          }
         }
       },
     });
@@ -365,17 +397,19 @@ export default class Index extends PureComponent {
       shareRecord: res,
     });
     if (type === 3) {
-      this.setState({
-        txVisible: true,
-        txItem: res,
-      });
-      this.thisNewDetails(res);
+      this.thisNewDetails(res,type);
+
+      // this.setState({
+      //   txVisible: true,
+      //   txItem: res,
+      // });
     } else if (type === 2) {
-      this.setState({
-        shareVisible: true,
-        shareItem: res,
-      });
-      this.thisNewDetails(res);
+      this.thisNewDetails(res,type);
+      // this.setState({
+      //   shareVisible: true,
+      //   shareItem: res,
+      // });
+      // this.thisNewDetails(res);
     } else {
       this.props.dispatch({
         type: 'share/getMyFollow',
@@ -530,14 +564,16 @@ export default class Index extends PureComponent {
             <Divider type="vertical"/>
             <a href="javascript:;" onClick={() => this.getTg(record)}>日志</a>
             <Divider type="vertical"/>
-            {record.sfgz === 0 ? <Dropdown overlay={<Menu>
+            {record.sfgz === 0 ?
+              <Dropdown overlay={<Menu>
                 <Menu.Item key="0">
                   <a onClick={() => this.saveShare(record, 1, 0)}>本物品关注</a>
                 </Menu.Item>
                 <Menu.Item key="1">
                   <a onClick={() => this.saveShare(record, 1, 1)}>全要素关注</a>
                 </Menu.Item>
-              </Menu>} trigger={['click']}><a href="javascript:;">关注</a></Dropdown> :
+              </Menu>} trigger={['click']} getPopupContainer={() => document.getElementById('sawpyjtableListOperator')}>
+                <a href="javascript:;">关注</a></Dropdown> :
               <a href="javascript:;"
                  onClick={() => this.noFollow(record)}>取消{record.ajgzlx && record.ajgzlx === '0' ? '本物品' : '全要素'}关注</a>}
             <Divider type="vertical"/>
@@ -581,8 +617,8 @@ export default class Index extends PureComponent {
       </Row>
     );
     const paginationProps = {
-      showSizeChanger: true,
-      showQuickJumper: true,
+      // showSizeChanger: true,
+      // showQuickJumper: true,
       current: page ? page.currentPage : '',
       total: page ? page.totalResult : '',
       pageSize: page ? page.showCount : '',
@@ -672,7 +708,7 @@ export default class Index extends PureComponent {
                 </Row>
               </Form>
             </div>
-            <div className={styles.tableListOperator}>
+            <div className={styles.tableListOperator} id='sawpyjtableListOperator'>
               <Button style={{ color: '#3285FF',backgroundColor:'#171925',border:'1px solid #3285FF',borderRadius:'5px',marginBottom:16}} icon="download" onClick={this.exportData}>导出表格</Button>
               <Table
                 className={styles.listStandardTable}

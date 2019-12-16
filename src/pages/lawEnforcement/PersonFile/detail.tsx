@@ -48,7 +48,15 @@ export default class PersonalDocDetail extends PureComponent {
     }
     componentDidMount() {
         const idcard = this.state.res.xyr_sfzh;
-        this.getPersonDetail(idcard);
+        const {query:{id}} = this.props.location;
+        console.log('id',id)
+        if(id){
+          this.getPersonDetail(id);
+        }
+        else{
+          this.getPersonDetail(idcard);
+        }
+
     }
     componentWillReceiveProps(nextProps) {
         if(this.props.global.dark !== nextProps.global.dark){

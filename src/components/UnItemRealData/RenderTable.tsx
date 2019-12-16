@@ -85,7 +85,14 @@ class RenderTable extends PureComponent {
       },
       callback: data => {
         if (data.list[0].dbzt === '00') {
-          this.props.openModal(this.state.searchDetail, flag, record);
+          const {searchDetail} = this.state;
+          this.props.dispatch(
+            routerRedux.push({
+              pathname: '/ModuleAll/Supervise',
+              query: { record:searchDetail,searchDetail:record,id: searchDetail && searchDetail.id ? searchDetail.id : '1',from:'督办',tzlx:'baqwt',fromPath:'/articlesInvolved/ArticlesPolice',tab:'表格'},
+            }),
+          )
+          // this.props.openModal(this.state.searchDetail, flag, record);
         } else {
           message.warning('该问题已督办，请点击详情查看');
           this.props.refreshTable();
@@ -104,10 +111,93 @@ class RenderTable extends PureComponent {
       shareRecord: res,
     });
     if (type === 2) {
-      this.setState({
-        shareVisible: true,
-        shareItem: res,
-      });
+      let detail=(
+        <Row
+          style={{
+            lineHeight:'55px',
+            paddingLeft:66,
+          }}
+        >
+          <Col span={6}>
+            物品名称：
+            {res && res.wpmc ? res.wpmc : ''}
+          </Col>
+          <Col span={6}>
+            物品种类：
+            {res && res.wpzlMc
+              ? res.wpzlMc
+              : ''}
+          </Col>
+          <Col span={6}>
+            物品状态：
+            {res && res.wpzt ? res.wpzt : ''}
+          </Col>
+          <Col span={6}>
+            库房信息：
+            <Tooltip
+              title={
+                res &&
+                res.szkf &&
+                res.szkf.length > 8
+                  ? res.szkf
+                  : null
+              }
+            >
+              {res && res.szkf
+                ? res.szkf.length > 8
+                  ? res.szkf.substring(0, 8) + '...'
+                  : res.szkf
+                : ''}
+            </Tooltip>
+          </Col>
+          <Col span={12}>
+            关联案件名称：
+            <Tooltip
+              title={
+                res &&
+                res.ajmc &&
+                res.ajmc.length > 18
+                  ? res.ajmc
+                  : null
+              }
+            >
+              {res && res.ajmc
+                ? res.ajmc.length > 18
+                  ? res.ajmc.substring(0, 18) + '...'
+                  : res.ajmc
+                : ''}
+            </Tooltip>
+          </Col>
+          <Col span={12}>
+            办案单位：
+            <Tooltip
+              title={
+                res &&
+                res.kfgly_dwmc &&
+                res.kfgly_dwmc.length > 18
+                  ? res.kfgly_dwmc
+                  : null
+              }
+            >
+              {res && res.kfgly_dwmc
+                ? res.kfgly_dwmc.length > 18
+                  ? res.kfgly_dwmc.substring(0, 18) + '...'
+                  : res.kfgly_dwmc
+                : ''}
+            </Tooltip>
+          </Col>
+        </Row>
+      )
+      this.props.dispatch(
+        routerRedux.push({
+          pathname: '/ModuleAll/Share',
+          query: { record: res,id: res && res.system_id ? res.system_id : '1',from:'物品信息',tzlx:'wpxx',fromPath:'/articlesInvolved/ArticlesPolice',detail,tab:'表格' },
+        }),
+      )
+      // this.setState({
+      //   shareVisible: true,
+      //   shareItem: res,
+      // });
     } else {
       this.props.dispatch({
         type: 'share/getMyFollow',
@@ -260,6 +350,7 @@ class RenderTable extends PureComponent {
                     </Menu>
                   }
                   trigger={['click']}
+                  getPopupContainer={() => document.getElementById('sawpgjcardArea')}
                 >
                   <a href="javascript:;">关注</a>
                 </Dropdown>
@@ -279,8 +370,8 @@ class RenderTable extends PureComponent {
     ];
 
     const paginationProps = {
-      showSizeChanger: true,
-      showQuickJumper: true,
+      // showSizeChanger: true,
+      // showQuickJumper: true,
       current: data.page ? data.page.currentPage : '',
       total: data.page ? data.page.totalResult : '',
       pageSize: data.page ? data.page.showCount : '',
@@ -372,9 +463,9 @@ class RenderTable extends PureComponent {
       </Row>
     );
     return (
-      <div className={styles.standardTable}>
+      <div className={styles.standardTable} id='sawpgjcardArea'>
         <Table
-          size={'middle'}
+          // size={'middle'}
           loading={loading}
           rowKey={record => record.key}
           dataSource={data.list}

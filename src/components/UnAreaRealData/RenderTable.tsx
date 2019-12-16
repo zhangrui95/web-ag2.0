@@ -96,7 +96,14 @@ class RenderTable extends PureComponent {
       },
       callback: data => {
         if (data.list[0].dbzt === '00') {
-          this.props.openModal(this.state.searchDetail, flag, record);
+          const {searchDetail} = this.state;
+          this.props.dispatch(
+            routerRedux.push({
+              pathname: '/ModuleAll/Supervise',
+              query: { record:searchDetail,searchDetail:record,id: searchDetail && searchDetail.id ? searchDetail.id : '1',from:'督办',tzlx:'baqwt',fromPath:'/handlingArea/AreaPolice',tab:'表格'},
+            }),
+          )
+          // this.props.openModal(this.state.searchDetail, flag, record);
         } else {
           message.warning('该问题已督办，请点击详情查看');
           this.props.refreshTable();
