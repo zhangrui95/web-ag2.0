@@ -129,7 +129,7 @@ export default class PersonalDocTable extends PureComponent {
                     columns={columns}
                     pagination={paginationProps}
                     onChange={this.handleTableChange}
-                    locale={{ emptyText: <Empty image={noList} description={'暂无记录'} /> }}
+                    locale={{ emptyText: <Empty image={noList} description={'暂无数据'} /> }}
                 />
             </Card>
         );

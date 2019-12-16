@@ -197,7 +197,7 @@ export default class PreviewTable extends PureComponent {
                     pagination={false}
                     bordered
                     loading={this.props.loading}
-                    locale={{ emptyText: <Empty image={noList} description={'暂无记录'} /> }}
+                    locale={{ emptyText: <Empty image={noList} description={'暂无数据'} /> }}
                     onRow={(record) => {
                         return {
                             onClick: () => {

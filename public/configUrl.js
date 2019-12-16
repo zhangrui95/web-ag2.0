@@ -38,11 +38,11 @@ const configItem = {
   isSyncCaseItems: true, // 涉案物品
   isSmartLinKey: true, // 是否登录smartlinkey客户端
   mainlineMenu: true, // 首页是否存在办案区/涉案物品/卷宗数据
-  personQueryIndex: 'index_saryxx_dq', // 人员索引
-  itemsQueryIndex: 'index_wpxx_dq', // 物品索引
-  caseQueryIndex: 'index_ajxx_dq', // 案件索引
-  baqQueryIndex: 'index_rqxx_dq', // 办案区索引
-  dossierQueryIndex: 'index_jzxx_dq', // 卷宗索引
+  personQueryIndex: 'index_saryxx', // 人员索引
+  itemsQueryIndex: 'index_wpxx', // 物品索引
+  caseQueryIndex: 'index_ajxx', // 案件索引
+  baqQueryIndex: 'index_rqxx', // 办案区索引
+  dossierQueryIndex: 'index_jzxx', // 卷宗索引
   smartlinKeyUrl: 'http://127.0.0.1:1234', // smartlinkey登录地址(无需修改)
   clearHome: false, //是否显示三清调度首页（鹤壁定制）
   is_zsj: '0', //首页综合统计显示本级还是下级'1'本级，'0'下级
@@ -58,7 +58,7 @@ const developConfigUrl = {
   securityCenterUrl: `${ips.aqzxIp}:8100`, // 安全中心
   baqServerUrl: `${ips.maintainIp}:7500`, // 办案区服务
   maintainCenterUrl: `${ips.maintainIp}:7402`, // 运维中心
-  generalQueryUrl: `http://192.168.3.201:9200/`, // 综合查询es服务地址,
+  generalQueryUrl: `http://192.168.3.92:9200/`, // 综合查询es服务地址,
   srcUrl: `${ips.maintainIp}:7300/raqReport-service/reportJsp/`, //润乾报表地址
   tbtjExportUrl: `${ips.TbtjDcIp}:8750`, // 图表统计导出功能
   smartLinkWindow7: `${ips.downLoadIp}/download/SmartLinkey_win7_2.3.0.1.zip`, //samrtLinkeyWindows版下载地址

@@ -193,7 +193,7 @@ export default class TabsTable extends PureComponent {
                 columns={this.props.columns}
                 dataSource={this.props.data}
                 className={styles.homeTable}
-                locale={{ emptyText: <Empty image={noList} description={'暂无记录'} /> }}
+                locale={{ emptyText: <Empty image={noList} description={'暂无数据'} /> }}
               />
             </Card>
           </TabPane>
@@ -319,7 +319,7 @@ export default class TabsTable extends PureComponent {
                 columns={this.props.columns}
                 dataSource={this.props.data}
                 className={styles.homeTable}
-                locale={{ emptyText: <Empty image={noList} description={'暂无记录'} /> }}
+                locale={{ emptyText: <Empty image={noList} description={'暂无数据'} /> }}
               />
             </Card>
           </TabPane>

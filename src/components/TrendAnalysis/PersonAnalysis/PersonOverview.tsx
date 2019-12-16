@@ -670,7 +670,7 @@ export default class PersonOverview extends PureComponent {
                 bordered
                 className={styles.tableArea}
                 pagination={false}
-                locale={{ emptyText: <Empty image={noList} description={'暂无记录'} /> }}
+                locale={{ emptyText: <Empty image={noList} description={'暂无数据'} /> }}
               />
             </Col>
           </Row>
@@ -682,7 +682,7 @@ export default class PersonOverview extends PureComponent {
             className={styles.fraudTable}
             bordered
             pagination={false}
-            locale={{ emptyText: <Empty image={noList} description={'暂无记录'} /> }}
+            locale={{ emptyText: <Empty image={noList} description={'暂无数据'} /> }}
           />
         </div>
       </Spin>

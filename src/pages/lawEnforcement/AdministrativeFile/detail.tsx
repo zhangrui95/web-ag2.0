@@ -559,7 +559,7 @@ export default class AdministrativeCaseDocDetail extends PureComponent {
             <List
                 itemLayout="vertical"
                 size="small"
-                locale={{ emptyText: <Empty image={noList} description={'暂无记录'} /> }}
+                locale={{ emptyText: <Empty image={noList} description={'暂无数据'} /> }}
                 pagination={sawpList.length > 0 ? {
                     size: 'small',
                     pageSize: 8,
@@ -628,7 +628,7 @@ export default class AdministrativeCaseDocDetail extends PureComponent {
             <List
                 itemLayout="vertical"
                 size="small"
-                locale={{ emptyText: <Empty image={noList} description={'暂无记录'} /> }}
+                locale={{ emptyText: <Empty image={noList} description={'暂无数据'} /> }}
                 pagination={gjxxList.length > 0 ? {
                     size: 'small',
                     pageSize: 8,
@@ -908,7 +908,7 @@ export default class AdministrativeCaseDocDetail extends PureComponent {
                                             this.setState({ jqcurrent: page });
                                         },
                                     }}
-                                    locale={{ emptyText: <Empty image={noList} description={'暂无记录'} /> }}
+                                    locale={{ emptyText: <Empty image={noList} description={'暂无数据'} /> }}
                                     dataSource={caseDetails ? caseDetails.jqxxList : []}
                                     columns={JqColumns}
                                 />
@@ -1010,7 +1010,7 @@ export default class AdministrativeCaseDocDetail extends PureComponent {
                                             this.setState({ jzcurrent: page });
                                         },
                                     }}
-                                    locale={{ emptyText: <Empty image={noList} description={'暂无记录'} /> }}
+                                    locale={{ emptyText: <Empty image={noList} description={'暂无数据'} /> }}
                                     dataSource={caseDetails ? caseDetails.jzList : []}
                                     columns={JzColumns}
 

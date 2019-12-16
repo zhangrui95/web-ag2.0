@@ -26,13 +26,15 @@ import stylescommon from '../../common/common.less';
 import StatisticsDateSelect from '../../../components/ReportStatistics/StatisticsDateSelect';
 import Ellipsis from 'ant-design-pro/lib/Ellipsis';
 import noList from '@/assets/viewData/noList.png';
+import noListLight from "@/assets/viewData/noListLight.png";
 
 // const {Column, ColumnGroup} = Table;
 const TreeNode = TreeSelect.TreeNode;
 
-@connect(({ common, TzList }) => ({
+@connect(({ common, TzList, global }) => ({
   common,
   TzList,
+  global
 }))
 @Form.create()
 export default class RYCZTZ extends PureComponent {
@@ -376,7 +378,7 @@ export default class RYCZTZ extends PureComponent {
               dataSource={this.state.data.list}
               scroll={{ x: '100%' }}
               className={stylescommon.scrollTable}
-              locale={{ emptyText: <Empty image={noList} description={'暂无记录'} /> }}
+              locale={{ emptyText:  <Empty image={this.props.global.dark ? noList : noListLight} description={'暂无数据'} />}}
             />
           </div>
         </Card>

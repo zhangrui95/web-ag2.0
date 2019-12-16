@@ -65,7 +65,6 @@ const MessagePush = (props: MessagePushProps) => {
         console.log('e--->',e)
         setTab(e);
     }
-    console.log('global========>',props.global)
     let className = props.global.dark ? style.sendMessage : style.sendMessage + ' ' + style.lightBox;
   return (
     <div className={className}>

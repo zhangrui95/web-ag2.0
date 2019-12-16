@@ -36,6 +36,7 @@ import { getUserInfos, userAuthorityCode } from '../../../utils/utils';
 import { routerRedux } from 'dva/router';
 import { authorityIsTrue } from '../../../utils/authority';
 import noList from '@/assets/viewData/noList.png';
+import noListLight from "@/assets/viewData/noListLight.png";
 
 const FormItem = Form.Item;
 const RadioGroup = Radio.Group;
@@ -849,7 +850,7 @@ class SuperviseSetup extends Component {
             onChange={this.handleTableChange}
             columns={columns}
             dataSource={this.state.data ? this.state.data.list : []}
-            locale={{ emptyText: <Empty image={noList} description={'暂无记录'} /> }}
+            locale={{ emptyText:  <Empty image={this.props.SuperviseSetup.global.dark ? noList : noListLight} description={'暂无数据'} />}}
           />
         </Card>
         {/*<SuperviseCopy*/}

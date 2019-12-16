@@ -6,7 +6,8 @@ import styles from './index.less';
 import RenderTable from '../../../components/MySuperviseRealData/RenderTable';
 import { tableList, getQueryString, exportListDataMaxDays } from '../../../utils/utils';
 import { message, TreeSelect } from 'antd/lib/index';
-import stylescommon from '../../common/common.less';
+import stylescommon1 from '../../common/common.less';
+import stylescommon2 from '../../common/commonLight.less';
 import MessageState from '../../../components/Common/MessageState';
 
 const FormItem = Form.Item;
@@ -458,6 +459,7 @@ class  mySupervise extends Component {
             wrapperCol: { xs: { span: 24 }, md: { span: 16 }, xl: { span: 18 }, xxl: { span: 19 } },
         };
         const rowLayout = { md: 8, xl: 16, xxl: 24 };
+        let stylescommon = this.props.MySuperviseData.global.dark ? stylescommon1:stylescommon2;
         return (
             <Card className={stylescommon.listPageWrap} id={'form'}>
                 <Form onSubmit={this.handleSearch} layout="inline" style={{height:this.state.searchHeight ?  'auto' : '50px'}}>
@@ -628,20 +630,10 @@ class  mySupervise extends Component {
     }
 
     render() {
+        let stylescommon = this.props.MySuperviseData.global.dark ? stylescommon1:stylescommon2;
         const newAddDetail = this.state.arrayDetail;
         return (
             <div className={stylescommon.statistics}>
-                {/*<Card className={stylescommon.titleArea}>*/}
-                {/*    我的督办*/}
-                {/*    <div className={stylescommon.btnHeader}>*/}
-                {/*        <Button*/}
-                {/*            className={stylescommon.export}*/}
-                {/*            onClick={this.exportData}*/}
-                {/*        >*/}
-                {/*            导出表格*/}
-                {/*        </Button>*/}
-                {/*    </div>*/}
-                {/*</Card>*/}
                 {this.renderForm()}
                 <div className={stylescommon.btnTableBox}>
                     <Button onClick={this.exportData} icon="download">
@@ -649,32 +641,10 @@ class  mySupervise extends Component {
                     </Button>
                 </div>
                 {this.renderTable()}
-                {/*<Tabs*/}
-                {/*    hideAdd*/}
-                {/*    onChange={this.onChange}*/}
-                {/*    activeKey={this.state.activeKey}*/}
-                {/*    type="editable-card"*/}
-                {/*    onEdit={this.onEdit}*/}
-                {/*    tabBarStyle={{ margin: 0 }}*/}
-                {/*>*/}
-                {/*    <TabPane tab='我的督办' key='0' closable={false}>*/}
-                {/*        <div className={styles.listPageWrap}>*/}
-                {/*            <div>*/}
-                {/*                <div className={styles.tableListForm}>*/}
-                {/*                    {this.renderForm()}*/}
-                {/*                </div>*/}
-                {/*                <div className={styles.tableListOperator}>*/}
-                {/*                    {this.renderTable()}*/}
-                {/*                </div>*/}
-                {/*            </div>*/}
-                {/*        </div>*/}
-                {/*    </TabPane>*/}
-                {/*    {newAddDetail.map(pane => <TabPane tab={pane.title} key={pane.key}>{pane.content}</TabPane>)}*/}
-                {/*</Tabs>*/}
             </div>
         );
     }
 }
 export default Form.create()(
-    connect((MySuperviseData, loading, common) => ({ MySuperviseData, loading, common }))(mySupervise),
+    connect((MySuperviseData, loading, common, global) => ({ MySuperviseData, loading, common, global }))(mySupervise),
 );

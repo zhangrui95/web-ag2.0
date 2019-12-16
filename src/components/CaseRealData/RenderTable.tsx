@@ -18,6 +18,7 @@ import { authorityIsTrue } from '../../utils/authority';
 import stylescommon from '../../pages/common/common.less';
 import noList from '../../assets/viewData/noList.png';
 import { routerRedux } from 'dva/router';
+import noListLight from "@/assets/viewData/noListLight.png";
 
 class RenderTable extends PureComponent {
   state = {
@@ -481,18 +482,6 @@ class RenderTable extends PureComponent {
         } 条数据 `}</span>
       ),
     };
-    // let detail = (
-    //     <Row style={{ width: '90%', margin: '0 38px 10px', lineHeight: '36px', color: 'rgba(0, 0, 0, 0.85)' }}>
-    //         <Col span={12}>案件名称：<Tooltip
-    //             title={this.state.shareRecord && this.state.shareRecord.ajmc && this.state.shareRecord.ajmc.length > 20 ? this.state.shareRecord.ajmc : null}>{this.state.shareRecord && this.state.shareRecord.ajmc ? this.state.shareRecord.ajmc.length > 20 ? this.state.shareRecord.ajmc.substring(0, 20) + '...' : this.state.shareRecord.ajmc : ''}</Tooltip></Col>
-    //         <Col span={12}>办案单位：<Tooltip
-    //             title={this.state.shareRecord && this.state.shareRecord.bardwmc && this.state.shareRecord.bardwmc.length > 20 ? this.state.shareRecord.bardwmc : null}>{this.state.shareRecord && this.state.shareRecord.bardwmc ? this.state.shareRecord.bardwmc.length > 20 ? this.state.shareRecord.bardwmc.substring(0, 20) + '...' : this.state.shareRecord.bardwmc : ''}</Tooltip></Col>
-    //         <Col
-    //             span={12}>案件状态：{this.state.shareRecord && this.state.shareRecord.schj ? this.state.shareRecord.schj : ''}</Col>
-    //         <Col
-    //             span={12}>办案民警：{this.state.shareRecord && this.state.shareRecord.barxm ? this.state.shareRecord.barxm : ''}</Col>
-    //     </Row>
-    // );
 
     return (
       <Card className={stylescommon.cardArea}>
@@ -503,33 +492,8 @@ class RenderTable extends PureComponent {
           columns={columns}
           pagination={paginationProps}
           onChange={this.handleTableChange}
-          locale={{ emptyText: <Empty image={noList} description={'暂无记录'} /> }}
+          locale={{ emptyText:  <Empty image={this.props.global.dark ? noList : noListLight} description={'暂无数据'} />}}
         />
-        {/*<ShareModal title="案件信息分享" detail={detail} shareVisible={this.state.shareVisible}*/}
-        {/*               handleCancel={this.handleCancel} shareItem={this.state.shareItem}*/}
-        {/*               personList={this.state.personList} lx={this.state.lx} tzlx={this.state.tzlx}*/}
-        {/*              sx={this.state.sx}/>*/}
-        {/*// {*/}
-        {/*//     RetrieveVisible ? (*/}
-        {/*//         <RetrieveModal*/}
-        {/*//             title="退补侦查设置"*/}
-        {/*//             RetrieveVisible={RetrieveVisible}*/}
-        {/*//             handleCancel={this.RetrieveHandleCancel}*/}
-        {/*//             RetrieveRecord={this.state.RetrieveRecord} // 列表对应数据的详情*/}
-        {/*//             refreshPage={this.refreshTable}*/}
-        {/*//         />*/}
-        {/*//     ) : null*/}
-        {/*// }*/}
-        {/*// {*/}
-        {/*//     makeTableModalVisible ? (*/}
-        {/*//         <MakeTableModal*/}
-        {/*//             title='表格选择'*/}
-        {/*//             makeTableModalVisible={makeTableModalVisible}*/}
-        {/*//             MakeTableCancel={this.MakeTableCancel}*/}
-        {/*//             caseRecord={caseRecord}*/}
-        {/*//         />*/}
-        {/*//     ) : null*/}
-        {/*// }*/}
       </Card>
     );
   }

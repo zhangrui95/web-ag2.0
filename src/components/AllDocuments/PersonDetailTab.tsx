@@ -52,7 +52,7 @@ export default class PersonDetailTab extends PureComponent {
                     },
                 } : null}
                 dataSource={tarList}
-                locale={{ emptyText: <Empty image={noList} description={'暂无记录'} /> }}
+                locale={{ emptyText: <Empty image={noList} description={'暂无数据'} /> }}
                 grid={{
                     gutter: 16, xs: 1, sm: 2, md: 4, lg: 4,
                 }}
@@ -98,7 +98,7 @@ export default class PersonDetailTab extends PureComponent {
                         this.setState({ sawpCurrent: page });
                     },
                 } : null}
-                locale={{ emptyText: <Empty image={noList} description={'暂无记录'} /> }}
+                locale={{ emptyText: <Empty image={noList} description={'暂无数据'} /> }}
                 dataSource={sawpList}
                 grid={{
                     gutter: 32, xs: 1, sm: 2, md: 4, lg: 4,
@@ -339,7 +339,7 @@ export default class PersonDetailTab extends PureComponent {
                                                 },
                                             }}
                                             dataSource={caseData.rqList || []}
-                                            locale={{ emptyText: <Empty image={noList} description={'暂无记录'} /> }}
+                                            locale={{ emptyText: <Empty image={noList} description={'暂无数据'} /> }}
                                             columns={rqColumns}
                                         />
                                     </Col>
@@ -387,7 +387,7 @@ export default class PersonDetailTab extends PureComponent {
                                     }}
                                     dataSource={caseData.sswpList || []}
                                     columns={sswpColumns}
-                                    locale={{ emptyText: <Empty image={noList} description={'暂无记录'} /> }}
+                                    locale={{ emptyText: <Empty image={noList} description={'暂无数据'} /> }}
                                 />
                             </div>
                         </TabPane>
@@ -410,7 +410,7 @@ export default class PersonDetailTab extends PureComponent {
                                             this.setState({ jzCurrent: page });
                                         },
                                     }}
-                                    locale={{ emptyText: <Empty image={noList} description={'暂无记录'} /> }}
+                                    locale={{ emptyText: <Empty image={noList} description={'暂无数据'} /> }}
                                     dataSource={caseData ? caseData.jzList : []}
                                     columns={JzColumns}
                                 />
@@ -502,7 +502,7 @@ export default class PersonDetailTab extends PureComponent {
                                                 this.setState({ rqCurrent: page });
                                             },
                                         }}
-                                        locale={{ emptyText: <Empty image={noList} description={'暂无记录'} /> }}
+                                        locale={{ emptyText: <Empty image={noList} description={'暂无数据'} /> }}
                                         dataSource={caseData.rqList || []}
                                         columns={rqColumns}
                                     />
@@ -557,7 +557,7 @@ export default class PersonDetailTab extends PureComponent {
                                         this.setState({ sswpCurrent: page });
                                     },
                                 }}
-                                locale={{ emptyText: <Empty image={noList} description={'暂无记录'} /> }}
+                                locale={{ emptyText: <Empty image={noList} description={'暂无数据'} /> }}
                                 dataSource={caseData.sswpList || []}
                                 columns={sswpColumns}
                             />
@@ -586,7 +586,7 @@ export default class PersonDetailTab extends PureComponent {
                                         this.setState({ jzCurrent: page });
                                     },
                                 }}
-                                locale={{ emptyText: <Empty image={noList} description={'暂无记录'} /> }}
+                                locale={{ emptyText: <Empty image={noList} description={'暂无数据'} /> }}
                                 dataSource={caseData ? caseData.jzList : []}
                                 columns={JzColumns}
                             />

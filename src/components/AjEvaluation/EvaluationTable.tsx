@@ -249,7 +249,7 @@ export default class EvaluationTable extends PureComponent {
                             })}
                             pagination={{pageSize:999}}
                             scroll={{ y: 220 }}
-                            locale={{ emptyText: <Empty image={noList} description={'暂无记录'} /> }}
+                            locale={{ emptyText: <Empty image={noList} description={'暂无数据'} /> }}
                         />
                     );
                 }}
@@ -400,7 +400,7 @@ export default class EvaluationTable extends PureComponent {
                     pagination={paginationProps}
                     onChange={this.handleTableChange}
                     className={styles.standardTable}
-                    locale={{ emptyText: <Empty image={noList} description={'暂无记录'} /> }}
+                    locale={{ emptyText: <Empty image={noList} description={'暂无数据'} /> }}
                 />
                 <DetailModal visible={this.state.visible} record={this.state.record} handleCancel={this.handleCancel}/>
                 <Modal

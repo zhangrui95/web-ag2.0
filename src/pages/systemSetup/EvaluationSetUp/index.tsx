@@ -19,6 +19,7 @@ import stylescommon1 from '../../common/common.less';
 import stylescommon2 from '../../common/commonLight.less';
 import noList from "@/assets/viewData/noList.png";
 import {routerRedux} from "dva/router";
+import noListLight from "@/assets/viewData/noListLight.png";
 const FormItem = Form.Item;
 const TabPane = Tabs.TabPane;
 const { confirm } = Modal;
@@ -246,7 +247,7 @@ export default class PoliceClear extends PureComponent {
                 columns={columns}
                 dataSource={this.state.data&&this.state.data.list ? this.state.data.list : []}
                 rowSelection={rowSelection}
-                locale={{ emptyText: <Empty image={noList} description={'暂无记录'} /> }}
+                locale={{ emptyText:  <Empty image={this.props.global.dark ? noList : noListLight} description={'暂无数据'} />}}
             />
         );
         return (
@@ -271,46 +272,6 @@ export default class PoliceClear extends PureComponent {
                         </TabPane>
                     </Tabs>
                 </Card>
-                {/*<Modal*/}
-                {/*    title={'添加'+(this.state.tab==='0' ? '扣分' : this.state.tab==='1' ? '补分' : '加分')+'项'}*/}
-                {/*    width={800}*/}
-                {/*    visible={this.state.visible}*/}
-                {/*    onOk={this.handleOk}*/}
-                {/*    okText={'添加'}*/}
-                {/*    onCancel={this.handleCancel}*/}
-                {/*    className={stylescommon.modalStyle}*/}
-                {/*    maskClosable={false}*/}
-                {/*    centered={true}*/}
-                {/*>*/}
-                {/*    <Form>*/}
-                {/*        <Row gutter={rowLayout}>*/}
-                {/*            <Col span={24}>*/}
-                {/*                <FormItem label={this.state.tab==='0' ? '扣分项目' : this.state.tab==='1' ? '补分项目' : '加分项目'} {...modleLayouts}>*/}
-                {/*                    {getFieldDecorator('kfxm', {*/}
-                {/*                        initialValue: this.state.kfxm,*/}
-                {/*                        rules: [*/}
-                {/*                            { required: true, message: this.state.tab==='0' ? '请输入扣分项目' : this.state.tab==='1' ? '请输入补分项目' : '请输入加分项目' },*/}
-                {/*                            {max:50, message:'最多输入50字'}*/}
-                {/*                        ],*/}
-                {/*                    })(*/}
-                {/*                        <TextArea placeholder="最多输入50字" autosize />*/}
-                {/*                    )}*/}
-                {/*                </FormItem>*/}
-                {/*                <FormItem label={this.state.tab==='0' ? '扣分值' : this.state.tab==='1' ? '补分值' : '加分值'} {...modleLayouts}>*/}
-                {/*                    {getFieldDecorator('kfz', {*/}
-                {/*                        initialValue: this.state.kfz,*/}
-                {/*                        rules: [*/}
-                {/*                            { required: true, message: this.state.tab==='0' ? '请输入扣分值' : this.state.tab==='1' ? '请输入补分值' : '请输入加分值' },*/}
-                {/*                             {validator: this.getNum},*/}
-                {/*                        ],*/}
-                {/*                    })(*/}
-                {/*                        <Input placeholder='1-100数字'/>,*/}
-                {/*                    )}*/}
-                {/*                </FormItem>*/}
-                {/*            </Col>*/}
-                {/*        </Row>*/}
-                {/*    </Form>*/}
-                {/*</Modal>*/}
             </div>
         );
     }

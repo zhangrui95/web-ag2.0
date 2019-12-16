@@ -188,3 +188,60 @@
     right: 0;
   }
 }
+.lightBox{
+  .searchArea {
+    background: #ebebeb;
+    padding: 10px 0;
+    :global {
+      .ant-input {
+        background: #fff!important;
+        height: 40px !important;
+        line-height: 40px !important;
+      }
+    }
+  }
+  .searchConditionArea {
+    .searchType {
+      padding: 12px 24px;
+      border-left: none;
+      border-right: none;
+      border-bottom: 1px solid #E6E6E6;
+      a {
+        color: #4662d5;
+        padding: 12px 10px;
+        font-size: 18px;
+        font-weight: 400;
+
+        &:hover {
+          color: #4662d5;
+        }
+      }
+    }
+    a.showSearchDetail {
+      font-size: 14px;
+      color: #19368A!important;
+      :global {
+        .anticon svg {
+          color: #19368A !important;
+        }
+      }
+    }
+    :global{
+      .ant-divider{
+        background: #e6e6e6;
+        font-size: 20px;
+      }
+    }
+  }
+  .searchTitle {
+    color: #999;
+  }
+  .searchDetails{
+    border-bottom: 1px solid #e6e6e6;
+    :global{
+      .ant-radio-button-wrapper-checked:not(.ant-radio-button-wrapper-disabled){
+        color: #3344DA;
+      }
+    }
+  }
+}

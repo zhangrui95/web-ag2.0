@@ -219,7 +219,7 @@ export default class Detail extends PureComponent {
                             })}
                             pagination={{pageSize:999}}
                             scroll={{ y: 250 }}
-                            locale={{ emptyText: <Empty image={noList} description={'暂无记录'} /> }}
+                            locale={{ emptyText: <Empty image={noList} description={'暂无数据'} /> }}
                         />
                     );
                 }}

@@ -1655,7 +1655,7 @@ export default class areaDetail extends PureComponent {
             }}
             dataSource={areaDetails ? areaDetails.sswoodList : []}
             columns={ssWoodColumns}
-            locale={{ emptyText: <Empty image={noList} description={'暂无记录'} /> }}
+            locale={{ emptyText: <Empty image={noList} description={'暂无数据'} /> }}
           />
         </div>
         <div className={styles.title}>涉案物品信息</div>
@@ -1677,7 +1677,7 @@ export default class areaDetail extends PureComponent {
             }}
             dataSource={areaDetails ? areaDetails.sawoodList : []}
             columns={ajWoodColumns}
-            locale={{ emptyText: <Empty image={noList} description={'暂无记录'} /> }}
+            locale={{ emptyText: <Empty image={noList} description={'暂无数据'} /> }}
           />
         </div>
       </div>

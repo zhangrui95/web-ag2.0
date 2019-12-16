@@ -34,6 +34,8 @@ export default {
       });
       if (callback && response && !response.error) {
         callback(response);
+      }else{
+          callback();
       }
     },
 
@@ -45,6 +47,8 @@ export default {
       const response = yield call(generalQueryService.getSsNrXX, payload);
       if (callback && response) {
         callback(response);
+      }else{
+          callback();
       }
     },
   },

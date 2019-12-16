@@ -24,12 +24,14 @@ import {
 } from 'antd';
 import moment from 'moment';
 import Ellipsis from 'ant-design-pro/lib/Ellipsis';
-import stylescommon from '../../common/common.less';
+import stylescommon1 from '../../common/common.less';
+import stylescommon2 from '../../common/commonLight.less';
 import noList from '@/assets/viewData/noList.png';
 // import MessagePushLogModal from './MessagePushLogModal';
 import styles from './index.less';
 import { exportListDataMaxDays, tableList } from '../../../utils/utils';
 import {routerRedux} from "dva/router";
+import noListLight from "@/assets/viewData/noListLight.png";
 
 const FormItem = Form.Item;
 const { Option } = Select;
@@ -339,8 +341,10 @@ class MessageLog extends Component {
       form: { getFieldDecorator },
       common: {
         common: { depTree, pushMattersDict, pushTypeDict, pushWayDict },
+        global:{ dark }
       },
     } = this.props;
+    let stylescommon = dark ? stylescommon1: stylescommon2;
     const allPoliceOptions = this.state.allPolice.map(d => (
       <Option
         key={`${d.idcard},${d.pcard}`}
@@ -526,8 +530,10 @@ class MessageLog extends Component {
       common: {
         messagePushLog: { data },
         loading,
+        global:{ dark }
       },
     } = this.props;
+    let stylescommon = dark ? stylescommon1: stylescommon2;
     const columns = [
       {
         title: '问题类型',
@@ -615,26 +621,13 @@ class MessageLog extends Component {
             columns={columns}
             pagination={paginationProps}
             onChange={this.handleTableChange}
-            locale={{ emptyText: <Empty image={noList} description={'暂无记录'} /> }}
+            locale={{ emptyText:  <Empty image={dark ? noList : noListLight} description={'暂无数据'} />}}
           />
         </Card>
-        {/*{newAddDetail.map(pane => <TabPane tab={pane.title} key={pane.key}>{pane.content}</TabPane>)}*/}
-        {/*{*/}
-        {/*    logDetailVisible ? (*/}
-        {/*        <MessagePushLogModal*/}
-        {/*            {...this.props}*/}
-        {/*            logDetail={logDetail}*/}
-        {/*            logDetailVisible={logDetailVisible}*/}
-        {/*            showLogDetailVisible={this.showLogDetailVisible}*/}
-        {/*            newDetail={this.newDetail}*/}
-        {/*            renderDiv={() => document.getElementById('messagePushLogTableDiv')}*/}
-        {/*        />*/}
-        {/*    ) : null*/}
-        {/*}*/}
       </div>
     );
   }
 }
 export default Form.create()(
-  connect((common, messagePushLog, loading) => ({ common, messagePushLog, loading }))(MessageLog),
+  connect((common, messagePushLog, loading, global) => ({ common, messagePushLog, loading, global }))(MessageLog),
 );

@@ -12,7 +12,8 @@ import RenderTable from '../../../components/CaseRealData/RenderTable';
 // import SeniorSearchModal from '../../../components/CaseRealData/SeniorSearchModal';
 import { exportListDataMaxDays, getQueryString, tableList } from '../../../utils/utils';
 import SyncTime from '../../../components/Common/SyncTime';
-import stylescommon from "@/pages/common/common.less";
+import stylescommon1 from "@/pages/common/common.less";
+import stylescommon2 from "@/pages/common/commonLight.less";
 
 const FormItem = Form.Item;
 const { Option } = Select;
@@ -23,8 +24,8 @@ const TreeNode = TreeSelect.TreeNode;
 let timeout;
 let currentValue;
 
-@connect(({ common, CaseData, loading }) => ({
-    CaseData, loading, common,
+@connect(({ common, CaseData, loading,global }) => ({
+    CaseData, loading, common,global
     // loading: loading.models.alarmManagement,
 }))
 @Form.create()
@@ -581,6 +582,7 @@ export default class CriminalFile extends PureComponent {
         });
     }
     renderForm() {
+        let stylescommon = this.props.global.dark ? stylescommon1 : stylescommon2;
         const { form: { getFieldDecorator }, common: { depTree, specialCaseType, CaseStatusType,enforcementTypeDict } } = this.props;
         const allPoliceOptions = this.state.allPolice.map(d => <Option key={`${d.idcard},${d.pcard}`}
                                                                        value={`${d.idcard},${d.pcard}$$`}
@@ -868,6 +870,7 @@ export default class CriminalFile extends PureComponent {
                     formValues={this.state.formValues}
                     isDocument={true}
                     isReset={this.state.isReset}
+                    global={this.props.global}
                 />
             </div>
         );
@@ -877,6 +880,7 @@ export default class CriminalFile extends PureComponent {
         const newAddDetail = this.state.arrayDetail;
         const { CaseData: { returnData, loading },common: { depTree,CaseStatusType} } = this.props;
         const { showDataView, typeButtons, seniorSearchModalVisible } = this.state;
+        let stylescommon = this.props.global.dark ? stylescommon1 : stylescommon2;
         return (
             <div>
                 {this.renderForm()}
@@ -886,18 +890,7 @@ export default class CriminalFile extends PureComponent {
                     </Button>
                 </div>
                 {this.renderTable()}
-                {/*{newAddDetail.map((pane, idx) => <TabPane tab={pane.title} key={pane.key}*/}
-                {/*                                          closable={this.props.location.query && this.props.location.query.id && idx === 0 ? false : true}>{pane.content}</TabPane>)}*/}
                 <SyncTime dataLatestTime={returnData.tbCount ? returnData.tbCount.tbsj : ''} {...this.props} />
-                {/*<SeniorSearchModal*/}
-                {/*    visible={seniorSearchModalVisible}*/}
-                {/*    SeniorSearchCancel={this.SeniorSearchCancel}*/}
-                {/*    treeDefaultExpandedKeys={this.state.treeDefaultExpandedKeys}*/}
-                {/*    depTree={depTree}*/}
-                {/*    SearchSuccess={this.SearchSuccess}*/}
-                {/*    CaseStatusType={CaseStatusType}*/}
-                {/*    id='xsajda'*/}
-                {/*/>*/}
             </div>
         );
     }
