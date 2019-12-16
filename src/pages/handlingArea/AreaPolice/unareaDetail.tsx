@@ -363,24 +363,25 @@ export default class unareaDetail extends PureComponent {
         id: this.state.dbid,
       },
       callback: () => {
-        message.info('督办整改完成');
-        this.getDetail(this.props.id, this.props.baqId);
+        const {query:{record}} = this.props.location;
+        message.success('督办整改完成');
+        this.getDetail(record.id, record.baqId);
         if (this.props.refreshTable) {
           this.props.refreshTable();
         }
       },
     });
   };
-  // foot1 = () => {
-  //   return (
-  //     <div>
-  //       <Button onClick={this.onReformCancel}>取消</Button>
-  //       <Button type="primary" onClick={this.handleReformSure}>
-  //         整改完毕
-  //       </Button>
-  //     </div>
-  //   );
-  // };
+  foot1 = () => {
+    return (
+      <div>
+        <Button onClick={this.onReformCancel}>取消</Button>
+        <Button type="primary" onClick={this.handleReformSure}>
+          整改完毕
+        </Button>
+      </div>
+    );
+  };
 
   Topdetail() {
     const { UnareaDetail, isDb } = this.state;
@@ -719,16 +720,16 @@ export default class unareaDetail extends PureComponent {
       }
     }
   };
-  foot = () => {
-    return (
-      <div>
-        <Button onClick={this.onCancel}>取消</Button>
-        <Button type="primary" onClick={this.onCancel}>
-          确定
-        </Button>
-      </div>
-    );
-  };
+  // foot = () => {
+  //   return (
+  //     <div>
+  //       <Button onClick={this.onCancel}>取消</Button>
+  //       <Button type="primary" onClick={this.onCancel}>
+  //         确定
+  //       </Button>
+  //     </div>
+  //   );
+  // };
   trajectoryTitle = paneData => {
     this.props.dispatch({
       type: 'areaData/areaPartVideo',
@@ -1753,21 +1754,21 @@ export default class unareaDetail extends PureComponent {
         {/*: ''*/}
         {/*}*/}
 
-        {/*{reformModal ?*/}
-        {/*<Modal*/}
-        {/*maskClosable={false}*/}
-        {/*visible={reformModal}*/}
-        {/*title={<p>提示</p>}*/}
-        {/*width='1000px'*/}
-        {/*footer={this.foot1()}*/}
-        {/*onCancel={() => this.onReformCancel()}*/}
-        {/*// onOk={() => this.onOk(this.props.id)}*/}
-        {/*centered={true}*/}
-        {/*className={styles.indexdeepmodal}*/}
-        {/*>*/}
-        {/*<div className={styles.question}>问题是否已经整改完毕？</div>*/}
-        {/*</Modal> : ''*/}
-        {/*}*/}
+        {reformModal ?
+          <Modal
+            maskClosable={false}
+            visible={reformModal}
+            title={<p>提示</p>}
+            width='1000px'
+            footer={this.foot1()}
+            onCancel={() => this.onReformCancel()}
+            // onOk={() => this.onOk(this.props.id)}
+            centered={true}
+            className={styles.indexdeepmodal}
+          >
+          <div className={styles.question}>问题是否已经整改完毕？</div>
+          </Modal> : ''
+        }
       </div>
     );
   }

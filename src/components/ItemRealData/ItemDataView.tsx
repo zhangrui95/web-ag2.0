@@ -198,6 +198,9 @@ export default class ItemDataView extends PureComponent {
                   normal: {
                     formatter: '物品总数\n\n' + count.toString(),
                   },
+                  textStyle:{
+                    color:'#fff',
+                  }
                 },
                 data: newData1,
               },
@@ -477,6 +480,7 @@ export default class ItemDataView extends PureComponent {
               top: '5%',
               right: '15%',
               // data:[],
+
             },
             xAxis: {
               type: 'category',
@@ -698,6 +702,11 @@ export default class ItemDataView extends PureComponent {
       legend: {
         // data:['邮件营销','联盟广告'],
         data: [],
+        textStyle: {
+          color: '#fff',
+          fontSize: 16,
+          // lineHeight: 24,
+        },
       },
       grid: {
         left: '3%',
@@ -710,9 +719,19 @@ export default class ItemDataView extends PureComponent {
         boundaryGap: false,
         // data: ['周一','周二','周三','周四','周五','周六','周日']
         data: [],
+        axisLabel: {
+          textStyle: {
+            color: '#fff',
+          },
+        },
       },
       yAxis: {
         type: 'value',
+        axisLabel: {
+          textStyle: {
+            color: '#fff',
+          },
+        },
       },
       series: [],
     };
@@ -791,7 +810,7 @@ export default class ItemDataView extends PureComponent {
               textStyle: {
                 fontSize: '22',
                 // fontWeight: 'bold',
-                color: '#66ccff',
+                color: '#fff',
               },
             },
             emphasis: {
@@ -960,42 +979,42 @@ export default class ItemDataView extends PureComponent {
             </Row>
             <Row gutter={rowLayout} className={styles.listPageRow}>
               <Col {...colLayout1}>
-                <div className={styles.listPageWrap} >
+                <div className={styles.listPageWrap} style={{top:50}}>
                   <div className={styles.listPageHeader}>
                     {showrkDataViewDJ ? (
                       <a className={styles.listPageHeaderCurrent}>登记</a>
                     ) : (
-                      <a onClick={() => this.changeRkListPageHeader('dj')}>登记</a>
+                      <a className={styles.UnlistPageHeaderCurrent} onClick={() => this.changeRkListPageHeader('dj')}>登记</a>
                     )}
                     <span>|</span>
                     {showrkDataViewZK ? (
                       <a className={styles.listPageHeaderCurrent}>在库</a>
                     ) : (
-                      <a onClick={() => this.changeRkListPageHeader('zk')}>在库</a>
+                      <a className={styles.UnlistPageHeaderCurrent} onClick={() => this.changeRkListPageHeader('zk')}>在库</a>
                     )}
                     <span>|</span>
                     {showrkDataViewDY ? (
                       <a className={styles.listPageHeaderCurrent}>调用</a>
                     ) : (
-                      <a onClick={() => this.changeRkListPageHeader('dy')}>调用</a>
+                      <a className={styles.UnlistPageHeaderCurrent} onClick={() => this.changeRkListPageHeader('dy')}>调用</a>
                     )}
                     <span>|</span>
                     {showrkDataViewYS ? (
                       <a className={styles.listPageHeaderCurrent}>移送</a>
                     ) : (
-                      <a onClick={() => this.changeRkListPageHeader('ys')}>移送</a>
+                      <a className={styles.UnlistPageHeaderCurrent} onClick={() => this.changeRkListPageHeader('ys')}>移送</a>
                     )}
                     <span>|</span>
                     {showrkDataViewCZ ? (
                       <a className={styles.listPageHeaderCurrent}>处置</a>
                     ) : (
-                      <a onClick={() => this.changeRkListPageHeader('cz')}>处置</a>
+                      <a className={styles.UnlistPageHeaderCurrent} onClick={() => this.changeRkListPageHeader('cz')}>处置</a>
                     )}
                     <span>|</span>
                     {showrkDataViewYCCK ? (
                       <a className={styles.listPageHeaderCurrent}>异常出库</a>
                     ) : (
-                      <a onClick={() => this.changeRkListPageHeader('ycck')}>异常出库</a>
+                      <a className={styles.UnlistPageHeaderCurrent} onClick={() => this.changeRkListPageHeader('ycck')}>异常出库</a>
                     )}
                   </div>
                 </div>

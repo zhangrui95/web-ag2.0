@@ -221,7 +221,7 @@ export default class caseDetail extends PureComponent {
           });
         } else {
           message.warning('该问题已反馈');
-          this.caseDetailDatas(this.props.id, this.props.systemId);
+          this.caseDetailDatas(this.props.location.query.id, this.props.location.query.record.system_id);
         }
       },
     });

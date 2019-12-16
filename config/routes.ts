@@ -874,6 +874,13 @@ export function routes() {
                           hideInMenu: true,
                         },
                         {
+                          path: '/ModuleAll/Remind',
+                          name: '提醒',
+                          icon: 'smile',
+                          component: './ModuleAll/Remind',
+                          hideInMenu: true,
+                        },
+                        {
                             component: './404',
                         },
                     ],

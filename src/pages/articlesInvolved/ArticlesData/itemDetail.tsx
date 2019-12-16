@@ -38,6 +38,7 @@ import nophoto from '../../../assets/common/nophoto.png';
 import share from '../../../assets/common/share.png';
 import { autoheight, getUserInfos, userResourceCodeDb } from '../../../utils/utils';
 import { authorityIsTrue } from '../../../utils/authority';
+import {routerRedux} from "dva/router";
 
 const FormItem = Form.Item;
 
@@ -73,7 +74,7 @@ export default class itemDetail extends PureComponent {
             lx: '物品信息',
             tzlx: 'wpxx',
             sx: '',
-            sfgz: this.props.sfgz,
+            sfgz: props.location&&props.location.query&&props.location.query.record&&props.location.query.record.sfgz===0?props.location.query.record.sfgz:'',
             IsSure: false, // 确认详情是否加载成功
             isDb: authorityIsTrue(userResourceCodeDb.item), // 督办权限
         };
@@ -81,6 +82,7 @@ export default class itemDetail extends PureComponent {
 
     componentDidMount() {
       const { location } = this.props;
+      // conosle.log('location',location);
       if (location && location.query && location.query.record && location.query.id) {
         this.itemDetailDatas(location.query.id);
       }
@@ -102,17 +104,23 @@ export default class itemDetail extends PureComponent {
     // 问题判定
     onceSupervise = (itemDetails, flag, from) => {
         if (itemDetails) {
-            this.setState({
-                // systemId: itemDetails.system_id,
-                superviseVisibleModal: !!flag,
-                superviseWtlx: itemDetails.wtlx,
-                // superviseZrdw: itemDetails.kfgly_dwmc,
-                // superviseZrdwId: itemDetails.kfgly_dwdm,
-                // superviseZrr: itemDetails.kfgly,
-                // id: itemDetails.wtid,
-                // sfzh: itemDetails.kfgly_zjhm,
-                from: from,
-            });
+          this.props.dispatch(
+            routerRedux.push({
+              pathname: '/ModuleAll/Supervise',
+              query: { record: itemDetails,id: itemDetails && itemDetails.system_id ? itemDetails.system_id : '1',from:from,tzlx:'wpwt',fromPath:'/articlesInvolved/ArticlesData/itemDetail',wtflId:'230204',wtflMc:'涉案财物' },
+            }),
+          )
+            // this.setState({
+            //     // systemId: itemDetails.system_id,
+            //     superviseVisibleModal: !!flag,
+            //     superviseWtlx: itemDetails.wtlx,
+            //     // superviseZrdw: itemDetails.kfgly_dwmc,
+            //     // superviseZrdwId: itemDetails.kfgly_dwdm,
+            //     // superviseZrr: itemDetails.kfgly,
+            //     // id: itemDetails.wtid,
+            //     // sfzh: itemDetails.kfgly_zjhm,
+            //     from: from,
+            // });
         } else {
             message.info('该物品无法进行问题判定');
         }
@@ -140,15 +148,21 @@ export default class itemDetail extends PureComponent {
         );
     };
 
-    person = (ajbh, sfzh) => {
+    person = (itemDetails) => {
         this.props.dispatch({
             type: 'AllDetail/AllDetailPersonFetch',
             payload: {
-                ajbh: ajbh,
-                sfzh: sfzh,
+                ajbh: itemDetails.ajbh,
+                sfzh: itemDetails.syrSfzh,
             },
             callback: (data) => {
                 if (data && data.ryxx) {
+                  this.props.dispatch(
+                    routerRedux.push({
+                      pathname: '/lawEnforcement/PersonFile/Detail',
+                      query: { record: itemDetails,id: itemDetails && itemDetails.syrSfzh ? itemDetails.syrSfzh : '1',fromPath:'/articlesInvolved/ArticlesData/itemDetail'},
+                    }),
+                  )
                     // const divs = (
                     //     <div>
                     //         <PersonDetail
@@ -169,8 +183,14 @@ export default class itemDetail extends PureComponent {
 
     };
     // 根据案件编号打开案件窗口
-    openCaseDetail = (systemId, caseType, ajbh) => {
-        if (caseType === '22001') { // 刑事案件
+    openCaseDetail = (itemDetails) => {
+        if (itemDetails.ajlx === '22001') { // 刑事案件
+          this.props.dispatch(
+            routerRedux.push({
+              pathname: '/newcaseFiling/caseData/CriminalData/caseDetail',
+              query: { id: itemDetails && itemDetails.system_id ? itemDetails.system_id : '1', record: itemDetails },
+            }),
+          );
             // const divs = (
             //     <div>
             //         <CaseDetail
@@ -181,7 +201,13 @@ export default class itemDetail extends PureComponent {
             // );
             // const AddNewDetail = { title: '刑事案件详情', content: divs, key: ajbh };
             // this.props.newDetail(AddNewDetail);
-        } else if (caseType === '22002') { // 行政案件
+        } else if (itemDetails.ajlx === '22002') { // 行政案件
+          this.props.dispatch(
+            routerRedux.push({
+              pathname: '/newcaseFiling/caseData/AdministrationData/caseDetail',
+              query: { id: itemDetails && itemDetails.id ? itemDetails.id : '1', record: itemDetails },
+            }),
+          );
             // const divs = (
             //     <div>
             //         <XzCaseDetail
@@ -210,15 +236,35 @@ export default class itemDetail extends PureComponent {
     };
     // 分享和关注（2为分享，1为关注）
     saveShare = (itemDetails, res, type, ajGzLx) => {
+      // console.log('res',res);
         // console.log('aaa',(res.jjdw?res.jjdw+'、':'') + (res.jjly_mc?res.jjly_mc:''));
         this.setState({
             sx: (res.ajmc ? res.ajmc + '、' : '') + (res.wpmc ? res.wpmc + '、' : '') + (res.zt ? res.zt : ''),
         });
         if (type === 2) {
-            this.setState({
-                shareVisible: true,
-                shareItem: res,
-            });
+          let detail=(
+            <Row style={{ lineHeight:'50px',paddingLeft:66 }}>
+              <Col span={6}>物品名称：{itemDetails && itemDetails.wpmc ? itemDetails.wpmc : ''}</Col>
+              <Col span={6}>物品种类：{itemDetails && itemDetails.wpzlName ? itemDetails.wpzlName : ''}</Col>
+              <Col span={6}>物品状态：{itemDetails && itemDetails.wpzt ? itemDetails.wpzt : ''}</Col>
+              <Col span={6}>库房信息：<Tooltip
+                title={itemDetails && itemDetails.szkf && itemDetails.szkf.length > 8 ? itemDetails.szkf : null}>{itemDetails && itemDetails.szkf ? itemDetails.szkf.length > 8 ? itemDetails.szkf.substring(0, 8) + '...' : itemDetails.szkf : ''}</Tooltip></Col>
+              <Col span={12}>关联案件名称：<Tooltip
+                title={itemDetails && itemDetails.ajmc && itemDetails.ajmc.length > 18 ? itemDetails.ajmc : null}>{itemDetails && itemDetails.ajmc ? itemDetails.ajmc.length > 18 ? itemDetails.ajmc.substring(0, 18) + '...' : itemDetails.ajmc : ''}</Tooltip></Col>
+              <Col span={12}>办案单位：<Tooltip
+                title={itemDetails && itemDetails.kfgly_dwmc && itemDetails.kfgly_dwmc.length > 18 ? itemDetails.kfgly_dwmc : null}>{itemDetails && itemDetails.kfgly_dwmc ? itemDetails.kfgly_dwmc.length > 18 ? itemDetails.kfgly_dwmc.substring(0, 18) + '...' : itemDetails.kfgly_dwmc : ''}</Tooltip></Col>
+            </Row>
+          )
+          this.props.dispatch(
+            routerRedux.push({
+              pathname: '/ModuleAll/Share',
+              query: { record: res,id: res && res.system_id ? res.system_id : '1',from:'物品信息',tzlx:'wpxx',fromPath:'/articlesInvolved/ArticlesData/itemDetail',detail,tab:'详情' },
+            }),
+          )
+            // this.setState({
+            //     shareVisible: true,
+            //     shareItem: res,
+            // });
         } else {
             if (this.state.IsSure) {
                 this.props.dispatch({
@@ -291,14 +337,14 @@ export default class itemDetail extends PureComponent {
 
     Topdetail() {
         const { itemDetails, sfgz, isDb } = this.state;
-        const { record } = this.props;
+        const { query:{record} } = this.props.location;
         return (
             <div style={{ backgroundColor: '#252C3C',margin: '16px 0' }}>
                 <Row gutter={{ md: 8, lg: 24, xl: 48 }}>
                     <Col md={8} sm={24}>
                         {/*<span style={{ margin: '16px', display: 'block' }}>涉案物品详情</span>*/}
                       {isDb && itemDetails && itemDetails.zrdwList && itemDetails.zrdwList.length > 0 ?
-                        <Button type="primary" style={{ marginLeft: 8 }} onClick={() => this.onceSupervise(itemDetails, true, '涉案物品详情问题判定')}>问题判定</Button>
+                        <Button type="primary" className={styles.TopMenu} onClick={() => this.onceSupervise(itemDetails, true, '涉案物品详情问题判定')}>问题判定</Button>
                         :
                         ''
                       }
@@ -341,7 +387,7 @@ export default class itemDetail extends PureComponent {
             <div style={{ background: '#202839', /*height: autoheight() - 180 + 'px'*/ }} className={styles.detailBoxScroll}>
               {itemDetails && itemDetails.system_id && itemDetails.ajlx ?
                 <div style={{ textAlign: 'center' }}>
-                  <Button type='primary' onClick={() => this.openCaseDetail(itemDetails.system_id, itemDetails.ajlx, itemDetails.ajbh)}>查看关联案件</Button>
+                  <Button type='primary' onClick={() => this.openCaseDetail(itemDetails)}>查看关联案件</Button>
                 </div>
                 :
                 ''
@@ -405,8 +451,7 @@ export default class itemDetail extends PureComponent {
                                     <Col md={8} sm={24}>
                                         <div className={styles.Indexfrom}>物品所有人：</div>
                                         <div className={styles.Indextail} style={{ paddingLeft: '84px' }}>
-                                            <a onClick={() => this.person(itemDetails.ajbh, itemDetails.syrSfzh)}
-                                               style={{ textDecoration: 'underline' }}>{itemDetails.syrName}</a>
+                                            <a onClick={() => this.person(itemDetails)} style={{ textDecoration: 'underline' }}>{itemDetails.syrName}</a>
                                         </div>
                                     </Col>
                                     <Col md={8} sm={24}>

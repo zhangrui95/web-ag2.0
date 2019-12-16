@@ -126,9 +126,15 @@ export default class unpoliceDetail extends PureComponent {
     });
   };
   // 根据案件编号打开案件窗口
-  openCaseDetail = (systemId, caseType) => {
-    if (caseType === '22001') {
+  openCaseDetail = (policeDetails) => {policeDetails.ajbh, policeDetails.ajlx
+    if (policeDetails.ajlx === '22001') {
       // 刑事案件
+      this.props.dispatch(
+        routerRedux.push({
+          pathname: '/newcaseFiling/caseData/CriminalData/caseDetail',
+          query: { record:policeDetails,id: policeDetails.system_id },
+        }),
+      )
       // const divs = (
       //     <div>
       //         <CaseDetail
@@ -139,8 +145,14 @@ export default class unpoliceDetail extends PureComponent {
       // );
       // const AddNewDetail = { title: '刑事案件详情', content: divs, key: systemId };
       // this.props.newDetail(AddNewDetail);
-    } else if (caseType === '22002') {
+    } else if (policeDetails.ajlx === '22002') {
       // 行政案件
+      this.props.dispatch(
+        routerRedux.push({
+          pathname: '/newcaseFiling/caseData/AdministrationData/caseDetail',
+          query: { record:policeDetails,id: policeDetails.system_id },
+        }),
+      )
       // const divs = (
       //     <div>
       //         <XzajDetail
@@ -524,7 +536,7 @@ export default class unpoliceDetail extends PureComponent {
                   <div className={liststyles.Indextail}>
                     {policeDetails && policeDetails.ajbh ? (
                       <a
-                        onClick={() => this.openCaseDetail(policeDetails.ajbh, policeDetails.ajlx)}
+                        onClick={() => this.openCaseDetail(policeDetails)}
                         style={{ textDecoration: 'underline' }}
                       >
                         {policeDetails.ajbh}
@@ -644,20 +656,20 @@ export default class unpoliceDetail extends PureComponent {
         {/*/>*/}
         {/*) : null*/}
         {/*}*/}
-        {/*{reformModal ?*/}
-        {/*<Modal*/}
-        {/*maskClosable={false}*/}
-        {/*visible={reformModal}*/}
-        {/*title={<p>提示</p>}*/}
-        {/*width='1000px'*/}
-        {/*footer={this.foot1()}*/}
-        {/*onCancel={() => this.onReformCancel()}*/}
-        {/*// onOk={() => this.onOk(this.props.id)}*/}
-        {/*className={styles.indexdeepmodal}*/}
-        {/*>*/}
-        {/*<div className={styles.question}>问题是否已经整改完毕？</div>*/}
-        {/*</Modal> : ''*/}
-        {/*}*/}
+        {reformModal ?
+          <Modal
+            maskClosable={false}
+            visible={reformModal}
+            title={<p>提示</p>}
+            width='1000px'
+            footer={this.foot1()}
+            onCancel={() => this.onReformCancel()}
+            // onOk={() => this.onOk(this.props.id)}
+            className={styles.indexdeepmodal}
+          >
+          <div className={styles.question}>问题是否已经整改完毕？</div>
+          </Modal> : ''
+        }
       </div>
     );
   }

@@ -38,6 +38,7 @@ import { autoheight, getQueryString, userResourceCodeDb } from '../../../utils/u
 import { authorityIsTrue } from '../../../utils/authority';
 import SupervisionLog from '../../../components/Common/SupervisionLog';
 import nophoto from '../../../assets/common/nophoto.png';
+import {routerRedux} from "dva/router";
 
 const FormItem = Form.Item;
 const { Step } = Steps;
@@ -101,16 +102,22 @@ export default class unitemDetail extends PureComponent {
             },
             callback: (data) => {
                 if (data.list[0].dbzt === '00' || (data.list[0].dbzt === '30' && data.list[0].fkzt === '1')) {
-                    this.setState({
-                        superviseVisibleModal: !!flag,
-                        superviseWtlx: wtlx,
-                        superviseZrdw: kfgly_dwmc,
-                        superviseZrdwId: kfgly_dwdm,
-                        superviseZrr: kfgly,
-                        id: wtid,
-                        sfzh: kfgly_zjhm,
-                        // UnitemDetail: [],
-                    });
+                  this.props.dispatch(
+                    routerRedux.push({
+                      pathname: '/ModuleAll/Supervise',
+                      query: { record: UnitemDetail,id: UnitemDetail && UnitemDetail.wtid ? UnitemDetail.wtid : '1',from:'涉案财物详情问题判定',tzlx:'wpwt',fromPath:'/articlesInvolved/ArticlesPolice/unitemDetail',wtflId:'230205',wtflMc:'涉案财物详情' },
+                    }),
+                  )
+                    // this.setState({
+                    //     superviseVisibleModal: !!flag,
+                    //     superviseWtlx: wtlx,
+                    //     superviseZrdw: kfgly_dwmc,
+                    //     superviseZrdwId: kfgly_dwdm,
+                    //     superviseZrr: kfgly,
+                    //     id: wtid,
+                    //     sfzh: kfgly_zjhm,
+                    //     // UnitemDetail: [],
+                    // });
                 } else {
                     message.warning('该问题已督办或暂无反馈信息');
                     this.itemDetailDatas(this.props.id, this.props.systemId);
@@ -120,8 +127,8 @@ export default class unitemDetail extends PureComponent {
 
     };
     // 反馈
-    feedback = (flag, unCaseDetailData) => {
-        const { wtid } = unCaseDetailData;
+    feedback = (flag, unItemDetailData) => {
+        const { wtid } = unItemDetailData;
         this.props.dispatch({
             type: 'UnItemData/getUnitemByProblemId',
             payload: {
@@ -133,12 +140,15 @@ export default class unitemDetail extends PureComponent {
             },
             callback: (data) => {
                 if (data.list[0].fkzt !== '1') {
-                    this.setState({
-                        feedbackVisibleModal: !!flag,
-                    });
+                  this.props.dispatch(
+                    routerRedux.push({
+                      pathname: '/ModuleAll/FeedBack',
+                      query: { record:unItemDetailData,id: unItemDetailData && unItemDetailData.wtid ? unItemDetailData.wtid : '1',from:'反馈',tzlx:'wpwt',fromPath:'/articlesInvolved/ArticlesPolice/unitemDetail',tab:'详情'},
+                    }),
+                  )
                 } else {
                     message.warning('该问题已反馈');
-                    this.itemDetailDatas(this.props.id, this.props.systemId);
+                    this.itemDetailDatas(this.props.location.query.record.id, this.props.location.query.record.system_id);
                 }
             },
         });
@@ -244,8 +254,9 @@ export default class unitemDetail extends PureComponent {
                 id: this.state.dbid,
             },
             callback: () => {
-                message.info('督办整改完成');
-                this.caseDetailDatas(this.props.id, this.props.systemId);
+                const {query:{record}} = this.props.location;
+                message.success('督办整改完成');
+                this.caseDetailDatas(record.id, record.systemId);
                 if (this.props.refreshTable) {
                     this.props.refreshTable();
                 }
@@ -330,15 +341,21 @@ export default class unitemDetail extends PureComponent {
     }
 
     // 点击物品所有人查询人员档案
-    person = (ajbh, sfzh) => {
+    person = (UnitemDetail) => {
         this.props.dispatch({
             type: 'AllDetail/AllDetailPersonFetch',
             payload: {
-                ajbh: ajbh,
-                sfzh: sfzh,
+                ajbh: UnitemDetail.ajbh,
+                sfzh: UnitemDetail.syrSfzh,
             },
             callback: (data) => {
                 if (data && data.ryxx) {
+                  this.props.dispatch(
+                    routerRedux.push({
+                      pathname: '/lawEnforcement/PersonFile/Detail',
+                      query: { record: UnitemDetail,id: UnitemDetail && UnitemDetail.syrSfzh ? UnitemDetail.syrSfzh : '1',fromPath:'/articlesInvolved/ArticlesPolice/unitemDetail'},
+                    }),
+                  )
                     // const divs = (
                     //     <div>
                     //         <PersonDetail
@@ -359,8 +376,14 @@ export default class unitemDetail extends PureComponent {
     };
 
     // 根据案件编号打开案件窗口
-    openCaseDetail = (systemId, caseType, ajbh) => {
-        if (caseType === '22001') { // 刑事案件
+    openCaseDetail = ( UnitemDetail ) => {
+        if (UnitemDetail.ajlx === '22001') { // 刑事案件
+          this.props.dispatch(
+            routerRedux.push({
+              pathname: '/newcaseFiling/caseData/CriminalData/caseDetail',
+              query: { record:UnitemDetail,id: UnitemDetail.system_id },
+            }),
+          )
             // const divs = (
             //     <div>
             //         <CaseDetail
@@ -371,7 +394,13 @@ export default class unitemDetail extends PureComponent {
             // );
             // const AddNewDetail = { title: '刑事案件详情', content: divs, key: ajbh };
             // this.props.newDetail(AddNewDetail);
-        } else if (caseType === '22002') { // 行政案件
+        } else if (UnitemDetail.ajlx === '22002') { // 行政案件
+          this.props.dispatch(
+            routerRedux.push({
+              pathname: '/newcaseFiling/caseData/AdministrationData/caseDetail',
+              query: { record:UnitemDetail,id: UnitemDetail.system_id },
+            }),
+          )
             // const divs = (
             //     <div>
             //         <XzCaseDetail
@@ -454,7 +483,7 @@ export default class unitemDetail extends PureComponent {
                                     <Col md={8} sm={24}>
                                         <div className={styles.Indexfrom}>物品所有人：</div>
                                         <div className={styles.Indextail} style={{ paddingLeft: 86 }}>
-                                            <a onClick={() => this.person(UnitemDetail.ajbh, UnitemDetail.syrSfzh)}
+                                            <a onClick={() => this.person(UnitemDetail)}
                                                style={{ textDecoration: 'underline' }}>{UnitemDetail.syrName}</a>
                                         </div>
                                     </Col>
@@ -586,11 +615,8 @@ export default class unitemDetail extends PureComponent {
                             <div className={styles.Indextail} style={{ paddingLeft: 96 }}>
                                 {
                                     UnitemDetail && UnitemDetail.ajbh ? (
-                                        UnitemDetail.system_id && UnitemDetail.ajlx ? (
-                                            <a onClick={() => this.openCaseDetail(UnitemDetail.system_id, UnitemDetail.ajlx, UnitemDetail.ajbh)} style={{ textDecoration: 'underline' }}>{UnitemDetail.ajbh}</a>
-                                        ) : UnitemDetail.ajbh
-
-                                    ) : ''
+                                        UnitemDetail.system_id && UnitemDetail.ajlx ?
+                                          (<a onClick={() => this.openCaseDetail(UnitemDetail)} style={{ textDecoration: 'underline' }}>{UnitemDetail.ajbh}</a>) : UnitemDetail.ajbh) : ''
                                 }
                             </div>
                         </Col>
@@ -684,22 +710,22 @@ export default class unitemDetail extends PureComponent {
                             {/*detailsData={this.state.UnitemDetail}*/}
                         {/*/>*/}
                     {/*) : null*/}
-                {/*}*/}
-                {/*{reformModal ?*/}
-                    {/*<Modal*/}
-                        {/*maskClosable={false}*/}
-                        {/*visible={reformModal}*/}
-                        {/*title={<p>提示</p>}*/}
-                        {/*width='1000px'*/}
-                        {/*footer={this.foot1()}*/}
-                        {/*onCancel={() => this.onReformCancel()}*/}
-                        {/*// onOk={() => this.onOk(this.props.id)}*/}
-                        {/*className={styles.indexdeepmodal}*/}
-                        {/*centered={true}*/}
-                    {/*>*/}
-                        {/*<div className={styles.question}>问题是否已经整改完毕？</div>*/}
-                    {/*</Modal> : ''*/}
-                {/*}*/}
+                }
+                {reformModal ?
+                    <Modal
+                        maskClosable={false}
+                        visible={reformModal}
+                        title={<p>提示</p>}
+                        width='1000px'
+                        footer={this.foot1()}
+                        onCancel={() => this.onReformCancel()}
+                        // onOk={() => this.onOk(this.props.id)}
+                        className={styles.indexdeepmodal}
+                        centered={true}
+                    >
+                        <div className={styles.question}>问题是否已经整改完毕？</div>
+                    </Modal> : ''
+                }
             </div>
         );
     }

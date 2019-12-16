@@ -41,7 +41,7 @@ class RenderTable extends PureComponent {
     this.props.dispatch(
       routerRedux.push({
         pathname: '/articlesInvolved/ArticlesData/itemDetail',
-        query: { record: record,id: record && record.id ? record.id : '1' },
+        query: { record: record,id: record && record.system_id ? record.system_id : '1' },
       }),
     )
     // const divs = (
@@ -62,18 +62,101 @@ class RenderTable extends PureComponent {
     // this.props.newDetail(AddNewDetail);
   };
   saveShare = (res, type, ajGzLx) => {
-    this.setState({
-      sx:
-        (res.ajmc ? res.ajmc + '、' : '') +
-        (res.wpmc ? res.wpmc + '、' : '') +
-        (res.zt ? res.zt : ''),
-      shareRecord: res,
-    });
+    // this.setState({
+    //   sx:
+    //     (res.ajmc ? res.ajmc + '、' : '') +
+    //     (res.wpmc ? res.wpmc + '、' : '') +
+    //     (res.zt ? res.zt : ''),
+    //   shareRecord: res,
+    // });
     if (type === 2) {
-      this.setState({
-        shareVisible: true,
-        shareItem: res,
-      });
+      let detail=(
+        <Row
+          style={{
+            lineHeight:'50px',
+            paddingLeft:66,
+          }}
+        >
+          <Col span={6}>
+            物品名称：
+            {res && res.wpmc ? res.wpmc : ''}
+          </Col>
+          <Col span={6}>
+            物品种类：
+            {res && res.wplx_mc
+              ? res.wplx_mc
+              : ''}
+          </Col>
+          <Col span={6}>
+            物品状态：
+            {res && res.zt ? res.zt : ''}
+          </Col>
+          <Col span={6}>
+            库房信息：
+            <Tooltip
+              title={
+                res &&
+                res.szkf &&
+                res.szkf.length > 8
+                  ? res.szkf
+                  : null
+              }
+            >
+              {res && res.szkf
+                ? res.szkf.length > 8
+                  ? res.szkf.substring(0, 8) + '...'
+                  : res.szkf
+                : ''}
+            </Tooltip>
+          </Col>
+          <Col span={12}>
+            关联案件名称：
+            <Tooltip
+              title={
+                res &&
+                res.ajmc &&
+                res.ajmc.length > 18
+                  ? res.ajmc
+                  : null
+              }
+            >
+              {res && res.ajmc
+                ? res.ajmc.length > 18
+                  ? res.ajmc.substring(0, 18) + '...'
+                  : res.ajmc
+                : ''}
+            </Tooltip>
+          </Col>
+          <Col span={12}>
+            办案单位：
+            <Tooltip
+              title={
+                res &&
+                res.kfgly_dwmc &&
+                res.kfgly_dwmc.length > 18
+                  ? res.kfgly_dwmc
+                  : null
+              }
+            >
+              {res && res.kfgly_dwmc
+                ? res.kfgly_dwmc.length > 18
+                  ? res.kfgly_dwmc.substring(0, 18) + '...'
+                  : res.kfgly_dwmc
+                : ''}
+            </Tooltip>
+          </Col>
+        </Row>
+      )
+      this.props.dispatch(
+        routerRedux.push({
+          pathname: '/ModuleAll/Share',
+          query: { record: res,id: res && res.system_id ? res.system_id : '1',from:'物品信息',tzlx:'wpxx',fromPath:'/articlesInvolved/ArticlesData',detail,tab:'表格' },
+        }),
+      )
+      // this.setState({
+      //   shareVisible: true,
+      //   shareItem: res,
+      // });
     } else {
       this.props.dispatch({
         type: 'share/getMyFollow',
@@ -194,6 +277,7 @@ class RenderTable extends PureComponent {
                     </Menu>
                   }
                   trigger={['click']}
+                  getPopupContainer={() => document.getElementById('sawpsjcardArea')}
                 >
                   <a href="javascript:;">关注</a>
                 </Dropdown>
@@ -304,7 +388,7 @@ class RenderTable extends PureComponent {
       </Row>
     );
     return (
-      <div className={styles.standardTable}>
+      <div className={styles.standardTable} id='sawpsjcardArea'>
         <Table
           // size={'middle'}
           loading={loading}
