@@ -6,6 +6,8 @@ import {connect} from 'dva';
 import SelectLang from '@/components/SelectLang';
 import {ConnectProps, ConnectState} from '@/models/connect';
 import logo from '../assets/logo.png';
+import leftBg from '../assets/leftBg.png';
+import rightBg from '../assets/rightBg.png';
 import styles from './UserLayout.less';
 
 export interface UserLayoutProps extends ConnectProps {
@@ -40,16 +42,18 @@ const UserLayout: React.SFC<UserLayoutProps> = props => {
                 {/*<div className={styles.lang}>*/}
                 {/*  <SelectLang />*/}
                 {/*</div>*/}
-                <div className={styles.content}>
-                    <div className={styles.top}>
-                        <div className={styles.header}>
-                            <Link to="/">
-                                <img alt="logo" className={styles.logo} src={logo}/>
-                                <span className={styles.title}>智慧执法案管系统</span>
-                            </Link>
+                <div className={styles.top}>
+                    <div className={styles.header}>
+                        <img alt="logo" className={styles.logo} src={logo}/>
+                        <div className={styles.title}>
+                            <img src={leftBg}/>
+                            <span className={styles.centerTitle}>执法线管理系统</span>
+                            <img src={rightBg}/>
                         </div>
-                        {/*<div className={styles.desc}>Ant Design 是西湖区最具影响力的 Web 设计规范</div>*/}
                     </div>
+                    {/*<div className={styles.desc}>Ant Design 是西湖区最具影响力的 Web 设计规范</div>*/}
+                </div>
+                <div className={styles.content}>
                     {children}
                 </div>
                 {/*<DefaultFooter />*/}

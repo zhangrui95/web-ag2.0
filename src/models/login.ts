@@ -71,15 +71,18 @@ const Model: LoginModelType = {
             const {redirect} = getPageQuery();
             // redirect
             if (window.location.pathname !== '/user/login' && !redirect) {
-                // window.location.href = (`http://192.168.3.24:8001/#/user/login`);
-                yield put(
-                    routerRedux.replace({
-                        pathname: '/user/login',
-                        search: stringify({
-                            redirect: window.location.href,
+                if(window.configUrl.loginHttp){
+                    window.location.href = (`${window.configUrl.loginHttp}/#/user/login`);
+                }else{
+                    yield put(
+                        routerRedux.replace({
+                            pathname: '/user/login',
+                            search: stringify({
+                                redirect: window.location.href,
+                            }),
                         }),
-                    }),
-                );
+                    );
+                }
             }
         },
     },

@@ -89,13 +89,21 @@ export default class DossierCount extends PureComponent {
             xAxis: [
                 {
                     type: 'category',
+                    silent: false,
+                    splitArea: {show: false},
                     axisLabel: {
-                        textStyle: {
-                            color: '#fff',
-                        },
-                        rotate: 20,
-                        interval: 0,
-                    },
+                        // textStyle: {
+                        //     color: '#fff',
+                        // },
+                        // rotate: 20,
+                        // interval: 0,
+                        show: false,
+                        // interval: 0,
+                        // formatter:function(value)
+                        // {
+                        //     return value.split("").join("\n");
+                        // }
+                },
                     axisLine: {
                         lineStyle: {
                             color: '#01E7CA',

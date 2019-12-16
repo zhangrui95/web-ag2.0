@@ -68,7 +68,6 @@ export default class Index extends PureComponent {
 
 
     componentDidMount() {
-      console.log('this.props.location',this.props.location);
         if (this.props.location.query && this.props.location.query.id) {
             this.setState({
                 showDataView: false,

@@ -114,17 +114,17 @@ export default class AllCriminalCaseLinksCount extends PureComponent {
             },
             legend: {
                 orient: 'vertical',
-                right: '10%',
+                right: '8%',
                 top: '20%',
                 show: true,
                 itemWidth: 10,
                 itemHeight: 10,
-                itemGap: 25,
+                itemGap: 15,
                 selectedMode: false, // 点击
                 textStyle: {
                     color: '#fff',
                     fontSize: 16,
-                    lineHeight: 24,
+                    lineHeight: 18,
                 },
                 data: [],
             },

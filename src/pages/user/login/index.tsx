@@ -1,4 +1,4 @@
-import {Alert, Checkbox, Icon} from 'antd';
+import {Alert, Checkbox, Form, Icon} from 'antd';
 import React, {Component} from 'react';
 import {CheckboxChangeEvent} from 'antd/es/checkbox';
 import {Dispatch, AnyAction} from 'redux';
@@ -10,8 +10,11 @@ import LoginComponents from './components/Login';
 import styles from './style.less';
 import {LoginParamsType} from '@/services/login';
 import {ConnectState} from '@/models/connect';
+import userName from '@/assets/userName.png';
+import pwd from '@/assets/pwd.png';
+import kpi from '@/assets/kpi.png';
 import MD5 from 'md5-es';
-
+import cookie from 'react-cookies'
 
 const {Tab, UserName, Password, Mobile, Captcha, Submit} = LoginComponents;
 
@@ -30,14 +33,25 @@ interface LoginState {
     userLogin: login,
     submitting: loading.effects['login/login'],
 }))
+@Form.create()
 class Login extends Component<LoginProps, LoginState> {
     loginForm: FormComponentProps['form'] | undefined | null = undefined;
 
     state: LoginState = {
         type: 'account',
         autoLogin: true,
+        savePwd: cookie.load('checked') ? JSON.parse(cookie.load('checked')) : false,
     };
-
+    componentDidMount() {
+        setTimeout(()=>{
+            if (cookie.load('userName') && cookie.load('passWord')) {
+                this.loginForm.setFieldsValue({
+                    userName: cookie.load('userName'),
+                    password: atob(cookie.load('passWord')),
+                });
+            }
+        },10);
+    }
     changeAutoLogin = (e: CheckboxChangeEvent) => {
         this.setState({
             autoLogin: e.target.checked,
@@ -55,6 +69,14 @@ class Login extends Component<LoginProps, LoginState> {
                 password: MD5.hash(values.password),
                 sid: window.configUrl.sid,
             };
+            if (this.state.savePwd) {
+                cookie.save('userName', values.userName, {maxAge: 31536000});
+                cookie.save('passWord', btoa(values.password), {maxAge: 31536000});
+            } else {
+                cookie.remove('userName');
+                cookie.remove('passWord');
+            }
+            cookie.save('checked', JSON.stringify(this.state.savePwd), {maxAge: 31536000});
             dispatch({
                 type: 'login/login',
                 payload: {...param},
@@ -96,6 +118,11 @@ class Login extends Component<LoginProps, LoginState> {
                 },
             );
         });
+    getSavePwd = (e) => {
+        this.setState({
+            savePwd: e.target.checked,
+        });
+    };
 
     renderMessage = (content: string) => (
         <Alert
@@ -122,36 +149,49 @@ class Login extends Component<LoginProps, LoginState> {
                         this.loginForm = form;
                     }}
                 >
-                    <div className={styles.loginBox}>
-                        <UserName
-                            name="userName"
-                            placeholder={`${'用户名'}`}
-                            rules={[
-                                {
-                                    required: true,
-                                    message: '请输入用户名!',
-                                },
-                            ]}
-                        />
-                        <Password
-                            name="password"
-                            placeholder={`${'密码'}`}
-                            rules={[
-                                {
-                                    required: true,
-                                    message: '请输入密码！',
-                                },
-                            ]}
-                            onPressEnter={e => {
-                                e.preventDefault();
+                    <Tab key="account" tab="账号登录">
+                        <div className={styles.loginBox}>
+                            <UserName
+                                name="userName"
+                                placeholder={`${'用户名'}`}
+                                prefix={<img src={userName} style={{ width:'20px' }} />}
+                                rules={[
+                                    {
+                                        required: true,
+                                        message: '请输入用户名!',
+                                    },
+                                ]}
+                            />
+                            <Password
+                                name="password"
+                                placeholder={`${'密码'}`}
+                                prefix={<img src={pwd} style={{ width:'20px' }} />}
+                                rules={[
+                                    {
+                                        required: true,
+                                        message: '请输入密码！',
+                                    },
+                                ]}
+                                onPressEnter={e => {
+                                    e.preventDefault();
 
-                                if (this.loginForm) {
-                                    this.loginForm.validateFields(this.handleSubmit);
-                                }
-                            }}
-                        />
-                    </div>
-                    <Submit loading={submitting}>登录</Submit>
+                                    if (this.loginForm) {
+                                        this.loginForm.validateFields(this.handleSubmit);
+                                    }
+                                }}
+                            />
+                        </div>
+                        <Checkbox onChange={this.getSavePwd} checked={this.state.savePwd}>
+                            记住密码
+                        </Checkbox>
+                        <Submit loading={submitting}>登录</Submit>
+                    </Tab>
+                    <Tab key="pki" tab="PKI登录">
+                        <div className={styles.kpiBox}>
+                            <img src={kpi}/>
+                            <div>请插入PKI</div>
+                        </div>
+                    </Tab>
                 </LoginComponents>
             </div>
         );

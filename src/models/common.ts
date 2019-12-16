@@ -445,11 +445,11 @@ export default {
         //根据id,获取字典项
         * getDictTypeOld({payload, callback}, {call, put}) {
             const response = yield call(getDictTypeOld, payload);
-            if (payload.pid === '2000') {
+            if (payload.pd&&payload.pd.pid === '2000') {
                 // 接警来源字典
                 yield put({
                     type: 'setSourceOfAlarmDict',
-                    payload: response && response.error === null ? response.data : [],
+                    payload: response && response.error === null&&response.data.list ? response.data.list : [],
                 });
             }
             if (payload.isCaseAll) {

@@ -46,6 +46,7 @@ const configItem = {
   is_ssds: 'pl', // 接处警报警类别的所属地市dltq
   startTheme:true,//初始化主题深色版本true,浅色版本false,
   is_sawpbb:'2', // 涉案物品后台数据版本;1为1.0版本,2为2.0版本;
+  loginHttp:'',//登录界面地址，如为''默认使用子系统自身登录;
 };
 // 开发模式地址
 const developConfigUrl = {
