@@ -271,7 +271,7 @@ export default class CriminalCaseType extends PureComponent {
                                 onClick={() => this.changeCaseType('sh')}>伤害</Button>
                     </div>
                     <Table columns={columns} dataSource={tableData} bordered className={styles.tableArea}
-                           pagination={false} locale={{ emptyText: <Empty image={noList} description={'暂无记录'} /> }}/>
+                           pagination={false} locale={{ emptyText: <Empty image={noList} description={'暂无数据'} /> }}/>
                 </div>
             </Spin>
         );

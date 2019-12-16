@@ -480,7 +480,7 @@ export default class CriminalCaseAndPolice extends PureComponent {
                             <div className="criminalCaseAccept" style={{ height: 310 }}/>
                         </Col>
                         <Col lg={12} md={24}>
-                            <Table columns={acceptCaseColumns} dataSource={acceptCaseTableData} locale={{ emptyText: <Empty image={noList} description={'暂无记录'} /> }}
+                            <Table columns={acceptCaseColumns} dataSource={acceptCaseTableData} locale={{ emptyText: <Empty image={noList} description={'暂无数据'} /> }}
                                    className={styles.fraudTable} bordered pagination={false}/>
                         </Col>
                     </Row>

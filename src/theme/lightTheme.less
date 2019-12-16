@@ -97,10 +97,10 @@ body {
       color: @text-word-color;
     }
     .ant-calendar-month-panel {
-      background: @body-background;
+      background: @dropdown-selected-color;
     }
     .ant-calendar-input {
-      background-color: @depart-choose-back;
+      background-color: @component-background;
       color: @text-word-color;
     }
     .ant-calendar-date,
@@ -108,6 +108,9 @@ body {
     .ant-calendar-month-panel-month {
       //background-color: @date-unchoose;
       color: @text-word-color;
+      &:hover{
+        color: white;
+      }
     }
     .ant-calendar-input-wrap {
       border-bottom: 1px solid @rangepicker-border;
@@ -395,7 +398,7 @@ body {
       border: @zero;
       padding: 70px 16px;
       .ant-empty-description {
-        color: @text-word-color;
+        color: #999;
       }
     }
     .ant-table-tbody > tr:hover:not(.ant-table-expanded-row) > td {
@@ -464,20 +467,23 @@ body {
         background-color: @checkbox-color;
       }
       .ant-input {
-        background-color: @component-background;
+        background-color: @body-background;
         border: @zero;
       }
     }
     .ant-transfer-list {
       width: 370px;
-      background: @body-background;
+      background:@component-background;
       color: @text-word-color;
-      border: @zero;
+      border: 1px solid #e6e6e6;
       .ant-transfer-list-content {
         .ant-transfer-list-content-item {
           background: @component-background;
         }
         margin: 0 10px;
+      }
+      .ant-empty-image{
+        height: 80px;
       }
     }
     .ant-transfer-list-header {
@@ -528,6 +534,9 @@ body {
     .ant-cascader-menu-item,
     .ant-select-tree li .ant-select-tree-node-content-wrapper {
       color: @text-word-color;
+      .ant-empty-image {
+        height: 80px;
+      }
       &:hover {
         background: @highlight-color;
         color: white;
@@ -669,7 +678,22 @@ body {
       color: @text-word-color;
       &:hover {
         background: @highlight-color;
-        color: white;
+        color: white!important;
+      }
+    }
+    .ant-calendar-month-panel-cell{
+      &:hover {
+        .ant-calendar-month-panel-month{
+          background: @highlight-color;
+          color: white!important;
+        }
+      }
+    }
+    .ant-calendar-month-panel-selected-cell .ant-calendar-month-panel-month{
+      background: @highlight-color;
+      &:hover {
+        background: @highlight-color;
+        color: white!important;
       }
     }
     .ant-calendar-disabled-cell .ant-calendar-date,
@@ -693,21 +717,31 @@ body {
       background-color: @component-background;
     }
     .ant-radio-button-wrapper{
-      background: @body-background;
+      background: @component-background;
       color: @text-word-color;
-      border: @zero;
+      border: 1px solid #ccc;
+      &:hover{
+        color: @highlight-color;
+      }
     }
-    .ant-radio-button-wrapper:first-child {
-      border: @zero;
+    //.ant-radio-button-wrapper:first-child {
+    //  border: @zero;
+    //}
+    .ant-radio-group-solid .ant-radio-button-wrapper-checked:not(.ant-radio-button-wrapper-disabled){
+      background: @highlight-color;
+      border-color: @highlight-color;
+      box-shadow: -1px 0 0 0 @highlight-color!important;
+      &:hover{
+        background: @highlight-color;
+        border-color: @highlight-color;
+        box-shadow: none;
+      }
     }
     .ant-radio-disabled + span {
       color: @title-color;
     }
     .ant-list-empty-text {
       color: @text-word-color;
-    }
-    .ant-empty-image {
-      height: 60px;
     }
     .ant-modal-body {
       background: @component-background;
@@ -846,16 +880,24 @@ body {
     }
     .ant-steps-item-finish .ant-steps-item-icon{
       background: @transparent;
+      border: 2px solid @highlight-color;
+      .anticon{
+        color: @highlight-color;
+      }
+    }
+    .ant-steps-item-finish > .ant-steps-item-container > .ant-steps-item-content > .ant-steps-item-title::after {
+      background-color: @highlight-color;
     }
     .ant-steps-item-process .ant-steps-item-icon{
       background: @highlight-color;
+      border: 2px solid @highlight-color;
       color: white;
     }
     .ant-steps-item-title,.ant-steps-item-description{
       color: @text-word-color!important;
     }
     .ant-empty-description{
-      color: @text-color;
+      color: #999;
     }
     .ant-dropdown-menu{
       background-color: @dropdown-selected-color!important;
@@ -872,6 +914,9 @@ body {
     }
     .antd-pro-pages-receive-police-alarm-data-index-listPageWrap .antd-pro-pages-receive-police-alarm-data-index-listPageHeader .antd-pro-pages-receive-police-alarm-data-index-typeButtonsArea button{
       border-radius:0 !important;
+    }
+    .ant-empty-image{
+      height: 250px;
     }
   }
 }

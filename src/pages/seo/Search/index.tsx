@@ -33,6 +33,7 @@ import zjzbImg from '../../../assets/generalQuery/jz_zjzb.png';
 import xzajImg from '../../../assets/generalQuery/xzaj.png';
 import stylescommon from '@/pages/common/common.less';
 import noList from '../../../assets/viewData/noList.png';
+import noListLight from '../../../assets/viewData/noListLight.png';
 import {routerRedux} from "dva/router";
 // import XsajDetail from '../../routes/CaseRealData/caseDetail';
 // import XzajDetail from '../../routes/XzCaseRealData/caseDetail';
@@ -53,9 +54,10 @@ let currentValue;
 let timeoutBaq;
 let currentValueBaq;
 
-@connect(({ common, generalQuery, loading }) => ({
+@connect(({ common, generalQuery, loading, global }) => ({
   common,
   generalQuery,
+  global,
   loading:
     loading.effects['generalQuery/getSearchData'] ||
     loading.effects['generalQuery/getSearchDataNew'],
@@ -1340,8 +1342,9 @@ export default class GeneralQuery extends PureComponent {
           })
         : null;
     let dataSource = this.state.res.map(e => <Option key={e.ssnr}>{e.ssnr}</Option>);
+    let className = this.props.global.dark ? stylescommon.statistics : stylescommon.statistics + ' ' + styles.lightBox;
     return (
-      <div className={stylescommon.statistics} id={'formSearch'}>
+      <div className={className} id={'formSearch'}>
         <Affix offsetTop={0}>
           <div className={styles.searchArea}>
             <AutoComplete
@@ -1601,7 +1604,7 @@ export default class GeneralQuery extends PureComponent {
                   : null
               }
               renderItem={item => <List.Item>{this.creatCardComponent(item)}</List.Item>}
-              locale={{ emptyText: <Empty image={noList} description={'暂无记录'} /> }}
+              locale={{ emptyText:  <Empty image={this.props.global.dark ? noList : noListLight} description={'暂无数据'} />}}
             />
           </div>
         </Card>

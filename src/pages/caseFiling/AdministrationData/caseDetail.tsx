@@ -1049,7 +1049,7 @@ export default class caseDetail extends PureComponent {
             }}
             dataSource={caseDetails ? caseDetails.jqxxList : []}
             columns={JqColumns}
-            locale={{ emptyText: <Empty image={noList} description={'暂无记录'} /> }}
+            locale={{ emptyText: <Empty image={noList} description={'暂无数据'} /> }}
           />
         </Modal>
         <Modal
@@ -1079,7 +1079,7 @@ export default class caseDetail extends PureComponent {
             }}
             dataSource={caseDetails ? caseDetails.sawpList : []}
             columns={WpColumns}
-            locale={{ emptyText: <Empty image={noList} description={'暂无记录'} /> }}
+            locale={{ emptyText: <Empty image={noList} description={'暂无数据'} /> }}
           />
         </Modal>
         <Modal
@@ -1109,7 +1109,7 @@ export default class caseDetail extends PureComponent {
             }}
             dataSource={caseDetails ? caseDetails.rqxyrList : []}
             columns={AreaColumns}
-            locale={{ emptyText: <Empty image={noList} description={'暂无记录'} /> }}
+            locale={{ emptyText: <Empty image={noList} description={'暂无数据'} /> }}
           />
         </Modal>
         <Modal
@@ -1139,7 +1139,7 @@ export default class caseDetail extends PureComponent {
             }}
             dataSource={caseDetails ? caseDetails.jzList : []}
             columns={DossierColumns}
-            locale={{ emptyText: <Empty image={noList} description={'暂无记录'} /> }}
+            locale={{ emptyText: <Empty image={noList} description={'暂无数据'} /> }}
           />
         </Modal>
         {/*{*/}

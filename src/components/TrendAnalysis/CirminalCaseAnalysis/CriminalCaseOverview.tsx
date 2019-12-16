@@ -269,7 +269,7 @@ export default class CriminalCaseOverview extends PureComponent {
                     <AnalysisTitleArea analysisTitle="综述" {...this.props} />
                     <div id="criminalCaseOverview" style={{ height: 300 }}/>
                     <Table columns={columns} dataSource={tableData} bordered className={styles.tableArea}
-                           pagination={false} locale={{ emptyText: <Empty image={noList} description={'暂无记录'} /> }}/>
+                           pagination={false} locale={{ emptyText: <Empty image={noList} description={'暂无数据'} /> }}/>
                 </div>
             </Spin>
         );

@@ -12,6 +12,7 @@ import { connect } from 'dva';
 import stylescommon from '../../pages/common/common.less';
 import noList from '@/assets/viewData/noList.png';
 import {routerRedux} from "dva/router";
+import noListLight from "@/assets/viewData/noListLight.png";
 
 class RenderTable extends PureComponent {
   state = {};
@@ -171,7 +172,7 @@ class RenderTable extends PureComponent {
           columns={columns}
           pagination={paginationProps}
           onChange={this.handleTableChange}
-          locale={{ emptyText: <Empty image={noList} description={'暂无记录'} /> }}
+          locale={{ emptyText:  <Empty image={this.props.MySuperviseData.global.dark ? noList : noListLight} description={'暂无数据'} />}}
         />
       </Card>
     );
@@ -179,7 +180,7 @@ class RenderTable extends PureComponent {
 }
 
 export default Form.create()(
-  connect((MySuperviseData, loading, common) => ({ MySuperviseData, loading, common }))(
+  connect((MySuperviseData, loading, common,global) => ({ MySuperviseData, loading, common,global }))(
     RenderTable,
   ),
 );

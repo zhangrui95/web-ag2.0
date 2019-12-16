@@ -857,7 +857,7 @@ export default class Statistics extends PureComponent {
                 className={styles.homeTable}
                 pagination={paginationPage}
                 onChange={this.handleTableChange}
-                locale={{ emptyText: <Empty image={noList} description={'暂无记录'} /> }}
+                locale={{ emptyText: <Empty image={noList} description={'暂无数据'} /> }}
               />
             </Card>
           ) : (
@@ -893,7 +893,7 @@ export default class Statistics extends PureComponent {
                       className={styles.homeTable}
                       pagination={paginationPage}
                       onChange={this.handleTableChange}
-                      locale={{ emptyText: <Empty image={noList} description={'暂无记录'} /> }}
+                      locale={{ emptyText: <Empty image={noList} description={'暂无数据'} /> }}
                     />
                   </Card>
                 </TabPane>
@@ -953,7 +953,7 @@ export default class Statistics extends PureComponent {
                     className={styles.homeTable}
                     pagination={paginationPage}
                     onChange={this.handleTableChange}
-                    locale={{ emptyText: <Empty image={noList} description={'暂无记录'} /> }}
+                    locale={{ emptyText: <Empty image={noList} description={'暂无数据'} /> }}
                   />
                 </Card>
               </TabPane>

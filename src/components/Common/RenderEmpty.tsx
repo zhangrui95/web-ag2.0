@@ -7,7 +7,7 @@ export default class RenderEmpty extends PureComponent {
     render() {
         const { emptyWords } = this.props;
         return (
-            <Empty image={noList} description={'暂无记录'}/>
+            <Empty image={noList} description={'暂无数据'}/>
         );
     }
 }

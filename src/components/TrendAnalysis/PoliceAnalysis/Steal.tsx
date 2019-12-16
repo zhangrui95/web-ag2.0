@@ -519,7 +519,7 @@ export default class Steal extends PureComponent {
                             <div className="stealAllType" style={{ height: 300 }}/>
                         </Col>
                     </Row>
-                    <Table columns={columns} dataSource={tableData} bordered className={styles.tableArea}  locale={{ emptyText: <Empty image={noList} description={'暂无记录'} /> }}
+                    <Table columns={columns} dataSource={tableData} bordered className={styles.tableArea}  locale={{ emptyText: <Empty image={noList} description={'暂无数据'} /> }}
                            pagination={false}/>
                 </div>
             </Spin>

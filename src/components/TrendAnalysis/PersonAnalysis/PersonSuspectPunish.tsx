@@ -495,11 +495,11 @@ export default class PersonSuspectPunish extends PureComponent {
                 <div className={styles.analysis}>
                     <AnalysisTitleArea analysisTitle="犯罪嫌疑人强制措施分析" {...this.props} />
                     <div className="suspectPunishType" style={{ height: 300 }}/>
-                    <Table columns={columns} dataSource={tableData} bordered className={styles.tableArea} locale={{ emptyText: <Empty image={noList} description={'暂无记录'} /> }}
+                    <Table columns={columns} dataSource={tableData} bordered className={styles.tableArea} locale={{ emptyText: <Empty image={noList} description={'暂无数据'} /> }}
                            pagination={false}/>
                     <h2 className={styles.areaTitle}>犯罪嫌疑人强制措施占比分析</h2>
                     <div className="suspectPunishRate" style={{ height: 400 }}/>
-                    <Table columns={rateTableColumns} dataSource={rateTableData} bordered className={styles.tableArea} locale={{ emptyText: <Empty image={noList} description={'暂无记录'} /> }}
+                    <Table columns={rateTableColumns} dataSource={rateTableData} bordered className={styles.tableArea} locale={{ emptyText: <Empty image={noList} description={'暂无数据'} /> }}
                            pagination={false}/>
                 </div>
             </Spin>

@@ -135,7 +135,7 @@ class DetailModal extends PureComponent {
                             span={24}>整改结果：{this.state.detail && this.state.detail.zgjg ? this.state.detail.zgjg.replace(/\/r\/n/g, '') : ''}</Col>
                     </Row>
                     <div className={styles.yybz}>引用标准</div>
-                    <Table size={'middle'} dataSource={this.state.detailList ? this.state.detailList.list : []} locale={{ emptyText: <Empty image={noList} description={'暂无记录'} /> }}
+                    <Table size={'middle'} dataSource={this.state.detailList ? this.state.detailList.list : []} locale={{ emptyText: <Empty image={noList} description={'暂无数据'} /> }}
                            columns={columns} pagination={paginationProps} onChange={this.handleTableChange}/>
                 </Modal>
             </div>

@@ -24,13 +24,15 @@ import { getUserInfos } from '../../../utils/utils';
 import noList from "@/assets/viewData/noList.png";
 import {NavigationItem} from "@/components/Navigation/navigation";
 import {routerRedux} from "dva/router";
+import noListLight from "@/assets/viewData/noListLight.png";
 
 const FormItem = Form.Item;
 @Form.create()
-@connect(({ SuperviseSetup, common, share }) => ({
+@connect(({ SuperviseSetup, common, share,global }) => ({
   SuperviseSetup,
   common,
   share,
+  global
 }))
 export default class SuperviseCopy extends PureComponent {
   state = {
@@ -267,7 +269,7 @@ export default class SuperviseCopy extends PureComponent {
       wrapperCol: { span: 19 },
     };
     return (
-        <div>
+        <div className={this.props.global.dark ? '' : styles.lightBox}>
              <Card style={{padding:24,marginBottom:'12px'}} id={'SupCopyform'}>
                 <Form>
                   <Row gutter={rowLayout}>
@@ -322,7 +324,7 @@ export default class SuperviseCopy extends PureComponent {
                         onChange={this.handleChange}
                         selectedKeys={this.state.selectedKeys}
                         onSelectChange={this.handleSelectChange}
-                        locale={{notFoundContent:<Empty image={noList} description={'暂无记录'} />}}
+                        locale={{notFoundContent:<Empty image={this.props.global.dark ? noList : noListLight} description={'暂无数据'} />}}
                       />
                     </Col>
                   </Row>
@@ -333,7 +335,7 @@ export default class SuperviseCopy extends PureComponent {
                     <Button type="primary" style={{ marginLeft: 8 }} className={styles.qxBtn} onClick={()=>this.onEdit(false)}>
                         取消
                     </Button>
-                    <Button type="primary" style={{ marginLeft: 8 }} onClick={this.handleOks}>
+                    <Button type="primary" style={{ marginLeft: 8 }} className={styles.okBtn} onClick={this.handleOks}>
                        确定
                     </Button>
                 </div>

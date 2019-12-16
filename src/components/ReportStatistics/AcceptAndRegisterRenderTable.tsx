@@ -194,7 +194,7 @@ class AcceptAndRegisterRenderTable extends PureComponent {
                     columns={child}
                     pagination={paginationProps}
                     onChange={this.handleTableChange}
-                    locale={{ emptyText: <Empty image={noList} description={'暂无记录'} /> }}
+                    locale={{ emptyText: <Empty image={noList} description={'暂无数据'} /> }}
                     style={{ marginLeft: 8 }}
                     // title:'点击进入下一级机构'
                     onRow={(record) => {

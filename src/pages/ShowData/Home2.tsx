@@ -1353,7 +1353,7 @@ export default class Home2 extends PureComponent {
                 columns={this.state.columns}
                 dataSource={this.state.data}
                 className={styles.homeTable}
-                locale={{ emptyText: <Empty image={noList} description={'暂无记录'} /> }}
+                locale={{ emptyText: <Empty image={noList} description={'暂无数据'} /> }}
               />
             </Card>
           ) : this.state.idx === 2 ? (

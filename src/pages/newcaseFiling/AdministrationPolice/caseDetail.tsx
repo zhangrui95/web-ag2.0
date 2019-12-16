@@ -703,7 +703,7 @@ export default class caseDetail extends PureComponent {
             className={styles.jqxxTable}
             dataSource={caseDetails ? caseDetails.jqxxList : []}
             columns={JqColumns}
-            locale={{ emptyText: <Empty image={noList} description={'暂无记录'} /> }}
+            locale={{ emptyText: <Empty image={noList} description={'暂无数据'} /> }}
           />
         </div>
         <div className={styles.title}>| 案件信息</div>

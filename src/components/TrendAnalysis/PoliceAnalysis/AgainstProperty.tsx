@@ -344,7 +344,7 @@ export default class AgainstProperty extends PureComponent {
                             <div id="againstPropertyChart" style={{ height: 300 }}/>
                         </Col>
                         <Col lg={12} md={24}>
-                            <Table columns={columns} dataSource={tableData} bordered className={styles.tableArea}  locale={{ emptyText: <Empty image={noList} description={'暂无记录'} /> }}
+                            <Table columns={columns} dataSource={tableData} bordered className={styles.tableArea}  locale={{ emptyText: <Empty image={noList} description={'暂无数据'} /> }}
                                    pagination={false}/>
                         </Col>
                     </Row>
@@ -354,7 +354,7 @@ export default class AgainstProperty extends PureComponent {
                             <div id="hurtBar" style={{ height: 300 }}/>
                         </Col>
                         <Col lg={12} md={24}>
-                            <Table columns={columns} dataSource={shanghaiTableData} className={styles.tableArea}  locale={{ emptyText: <Empty image={noList} description={'暂无记录'} /> }}
+                            <Table columns={columns} dataSource={shanghaiTableData} className={styles.tableArea}  locale={{ emptyText: <Empty image={noList} description={'暂无数据'} /> }}
                                    bordered pagination={false}/>
                         </Col>
                     </Row>

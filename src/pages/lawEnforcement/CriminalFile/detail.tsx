@@ -33,6 +33,7 @@ import wp from "@/assets/common/wp.png";
 import jzxx from "@/assets/common/jzxx.png";
 import jqImg from "@/assets/common/jq.png";
 import {routerRedux} from "dva/router";
+import noListLight from "@/assets/viewData/noListLight.png";
 
 const FormItem = Form.Item;
 const { Link } = Anchor;
@@ -40,8 +41,8 @@ const { Step } = Steps;
 let echartTree;
 let imgBase = [];
 
-@connect(({ CaseData, MySuperviseData, AllDetail }) => ({
-    CaseData, MySuperviseData, AllDetail,
+@connect(({ CaseData, MySuperviseData, AllDetail,global }) => ({
+    CaseData, MySuperviseData, AllDetail,global
 }))
 
 
@@ -115,6 +116,11 @@ export default class CriminalCaseDocDetail extends PureComponent {
                 link:''
             });
         }
+        if(this.props.global.dark !== nextProps.global.dark){
+            if(this.state.caseDetails){
+                this.showEchart(this.state.caseDetails,nextProps.global.dark);
+            }
+        }
     }
 
     scrollHandler = () => {
@@ -186,7 +192,7 @@ export default class CriminalCaseDocDetail extends PureComponent {
         // }
         return heightCount;
     };
-    showEchart = (data) =>{
+    showEchart = (data,dark) =>{
         let jq = [];
         let sar = [];
         let sawp = [];
@@ -385,7 +391,7 @@ export default class CriminalCaseDocDetail extends PureComponent {
                 data: categories2.map(function (a) {
                     return a.name;
                 }),
-                textStyle: { color: "#fff" },
+                textStyle: { color: dark ? "#fff" : '#333' },
             }],
             animationDuration: 1500,
             animationEasingUpdate: 'quinticInOut',
@@ -406,7 +412,7 @@ export default class CriminalCaseDocDetail extends PureComponent {
                     focusNodeAdjacency: true,
                     itemStyle: {
                         normal: {
-                            borderColor: '#fff',
+                            borderColor: dark ? '#fff' : '#e6e6e6',
                             borderWidth: 1,
                             shadowBlur: 10,
                             shadowColor: 'rgba(0, 0, 0, 0.3)',
@@ -416,7 +422,7 @@ export default class CriminalCaseDocDetail extends PureComponent {
                         position: 'bottom',
                         formatter: '{b}',
                         textStyle: {
-                            color: '#eee',
+                            color: dark ?  '#eee' : '#333',
                         }
                     },
                     lineStyle: {
@@ -453,7 +459,7 @@ export default class CriminalCaseDocDetail extends PureComponent {
                     this.setState({
                         caseDetails: data,
                     }, () => {
-                        this.showEchart(data);
+                        this.showEchart(data,this.props.global.dark);
                         // window.addEventListener("resize", echartTree.resize);
                     });
                 }
@@ -683,7 +689,7 @@ export default class CriminalCaseDocDetail extends PureComponent {
                 pagination={sawpList.length > 0 ? {
                     size: 'small',
                     pageSize: 8,
-                    showTotal: (total, range) => <div style={{ position: 'absolute', left: '12px',color:'#fff' }}>共 {total} 条记录
+                    showTotal: (total, range) => <div style={{ position: 'absolute', left: '12px',color:this.props.global.dark ? '#fff':'#e6e6e6' }}>共 {total} 条记录
                         第 {this.state.current} / {(Math.ceil(total / 8))} 页</div>,
                     onChange: (page) => {
                         this.setState({ current: page });
@@ -692,7 +698,7 @@ export default class CriminalCaseDocDetail extends PureComponent {
                 dataSource={sawpList}
                 className={styles.sawpListName}
                 style={{ color: '#faa' }}
-                locale={{ emptyText: <Empty image={noList} description={'暂无记录'} /> }}
+                locale={{ emptyText: <Empty image={this.props.global.dark ? noList : noListLight} description={'暂无数据'} /> }}
                 renderItem={item => (
                     <List.Item>
                         <div className={styles.colsImg}>
@@ -749,7 +755,7 @@ export default class CriminalCaseDocDetail extends PureComponent {
                         this.setState({ gjcurrent: page });
                     },
                 } : false}
-                locale={{ emptyText: <Empty image={noList} description={'暂无记录'} /> }}
+                locale={{ emptyText: <Empty image={this.props.global.dark ? noList : noListLight} description={'暂无数据'} /> }}
                 dataSource={gjxxList}
                 className={styles.sawpListName}
                 style={{ color: '#faa' }}
@@ -998,10 +1004,11 @@ export default class CriminalCaseDocDetail extends PureComponent {
                 ),
             },
         ];
+        let className  = this.props.global.dark ? styles.detailBoxScroll : styles.detailBoxScroll+' ' + styles.detailBoxLight;
         return (
             <Card style={{ height: autoheight() - 225 + 'px',marginTop:'12px' }}
                   onScrollCapture={this.scrollHandler} id={'scroll'}
-                 className={styles.detailBoxScroll}>
+                 className={className}>
                 <Spin spinning={loading}>
                     <div id='capture1'>
                         <div id={`Namegxtp${this.state.res.ajbh}`} className={styles.borderBottom}>
@@ -1035,7 +1042,7 @@ export default class CriminalCaseDocDetail extends PureComponent {
                                     }}
                                     dataSource={caseDetails ? caseDetails.jqxxList : []}
                                     columns={JqColumns}
-                                    locale={{ emptyText: <Empty image={noList} description={'暂无记录'} /> }}
+                                    locale={{ emptyText: <Empty image={this.props.global.dark ? noList : noListLight} description={'暂无数据'} /> }}
                                 />
                             </Card>
                         </div>
@@ -1085,6 +1092,7 @@ export default class CriminalCaseDocDetail extends PureComponent {
                                             {/*{this.ajlc(caseDetails, superveWidth)}*/}
                                             <CaseModalStep
                                                 caseDetails={caseDetails}
+                                                {...this.props}
                                             />
                                         </Card>
                                     </div>
@@ -1128,7 +1136,7 @@ export default class CriminalCaseDocDetail extends PureComponent {
                                     }}
                                     dataSource={caseDetails ? caseDetails.jzList : []}
                                     columns={JzColumns}
-                                    locale={{ emptyText: <Empty image={noList} description={'暂无记录'} /> }}
+                                    locale={{ emptyText: <Empty image={this.props.global.dark ? noList : noListLight} description={'暂无数据'} /> }}
                                 />
                             </Card>
                         </div>

@@ -1061,7 +1061,7 @@ export default class Index extends PureComponent {
                     columns={columns}
                     pagination={paginationProps}
                     onChange={this.handleTableChange}
-                    locale={{ emptyText: <Empty image={noList} description={'暂无记录'} /> }}
+                    locale={{ emptyText: <Empty image={noList} description={'暂无数据'} /> }}
                   />
                   {/*<ShareModal*/}
                     {/*title="卷宗信息分享"*/}

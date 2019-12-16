@@ -38,7 +38,7 @@ export default class CaseModalTrail extends PureComponent {
       xbrxmTrue = true;
     }
     return (
-      <div style={{ position: 'relative', left: '-40px', top: '10px' }}>
+      <div style={{ position: 'relative', left: '-40px', top: '10px' }} className={this.props.global.dark ? '' : styles.lightBox}>
         {time ? (
           <p className={styles.clsj_time}>
             <Tooltip overlayStyle={{ wordBreak: 'break-all' }} title={time}>
@@ -84,7 +84,7 @@ export default class CaseModalTrail extends PureComponent {
         <Steps current={this.currentNum(policeDetails)}>
           {policeDetails.ajgjList.map((item, idx) => (
             <Step
-              title={<span style={{ fontSize: 14, color: '#fff' }}>{item.ajzt}</span>}
+              title={<span style={{ fontSize: 14, color: this.props.global.dark ? '#fff' : '#4D4D4D' }}>{item.ajzt}</span>}
               description={this.extraDescription(item, idx, policeDetails.ajgjList)}
             />
           ))}

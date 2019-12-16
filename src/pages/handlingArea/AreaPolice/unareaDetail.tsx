@@ -1660,7 +1660,7 @@ export default class unareaDetail extends PureComponent {
             }}
             dataSource={UnareaDetail ? UnareaDetail.sswoodList : []}
             columns={ssWoodColumns}
-            locale={{ emptyText: <Empty image={noList} description={'暂无记录'} /> }}
+            locale={{ emptyText: <Empty image={noList} description={'暂无数据'} /> }}
           />
         </div>
 
@@ -1685,7 +1685,7 @@ export default class unareaDetail extends PureComponent {
             }}
             dataSource={UnareaDetail ? UnareaDetail.sawoodList : []}
             columns={ajWoodColumns}
-            locale={{ emptyText: <Empty image={noList} description={'暂无记录'} /> }}
+            locale={{ emptyText: <Empty image={noList} description={'暂无数据'} /> }}
           />
         </div>
       </div>

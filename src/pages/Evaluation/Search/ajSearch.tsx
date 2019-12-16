@@ -777,7 +777,7 @@ class AjSearch extends PureComponent {
                         columns={columns}
                         pagination={paginationProps}
                         onChange={this.handleTableChanges}
-                        locale={{ emptyText: <Empty image={noList} description={'暂无记录'} /> }}
+                        locale={{ emptyText: <Empty image={noList} description={'暂无数据'} /> }}
                     />
                 </div>
             </div>
