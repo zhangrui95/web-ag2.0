@@ -593,8 +593,9 @@ export default class DossierDataView extends PureComponent {
                     textStyle: {
                         color: nextProps.global && nextProps.global.dark ? '#fff' : '#4d4d4d',
                     },
-                    rotate: 30,
+                    // rotate: 30,
                     interval: 0,
+                    formatter: value => this.insertFlg(value, '\n', 6),
                 },
                 axisTick: {
                     show: false,
@@ -603,6 +604,12 @@ export default class DossierDataView extends PureComponent {
                     show: false,
                 },
                 z: 10,
+            },
+            grid: {
+              left: '3%',
+              right: '4%',
+              bottom: '3%',
+              containLabel: true,
             },
             yAxis: {
                 axisLine: {
@@ -702,9 +709,9 @@ export default class DossierDataView extends PureComponent {
                 },
             },
             grid: {
-                left: '5%',
-                right: '5%',
-                bottom: 25,
+                left: '3%',
+                right: '4%',
+                bottom: '3%',
                 containLabel: true,
             },
             xAxis: {
@@ -717,27 +724,28 @@ export default class DossierDataView extends PureComponent {
                       color: nextProps.global && nextProps.global.dark ? '#fff' : '#4d4d4d',
                   },
                   interval:0,
-                  formatter:function(value,index) {
-                    let ret = "";//拼接加\n返回的类目项
-                    const maxLength = 5;//每项显示文字个数
-                    const valLength = value.length;//X轴类目项的文字个数
-                    const rowN = Math.ceil(valLength / maxLength); //类目项需要换行的行数
-                    if (rowN > 1)//如果类目项的文字大于3,
-                    {
-                      for (let i = 0; i < rowN; i++) {
-                        const temp = "";//每次截取的字符串
-                        const start = i * maxLength;//开始截取的位置
-                        const end = start + maxLength;//结束截取的位置
-                        //这里也可以加一个是否是最后一行的判断，但是不加也没有影响，那就不加吧
-                        temp = value.substring(start, end) + "\n";
-                        ret += temp; //凭借最终的字符串
-                      }
-                      return ret;
-                    }
-                    else {
-                      return value;
-                    }
-                  },
+                  formatter: value => this.insertFlg(value, '\n', 11),
+                  // formatter:function(value,index) {
+                  //   let ret = "";//拼接加\n返回的类目项
+                  //   const maxLength = 5;//每项显示文字个数
+                  //   const valLength = value.length;//X轴类目项的文字个数
+                  //   const rowN = Math.ceil(valLength / maxLength); //类目项需要换行的行数
+                  //   if (rowN > 1)//如果类目项的文字大于3,
+                  //   {
+                  //     for (let i = 0; i < rowN; i++) {
+                  //       const temp = "";//每次截取的字符串
+                  //       const start = i * maxLength;//开始截取的位置
+                  //       const end = start + maxLength;//结束截取的位置
+                  //       //这里也可以加一个是否是最后一行的判断，但是不加也没有影响，那就不加吧
+                  //       temp = value.substring(start, end) + "\n";
+                  //       ret += temp; //凭借最终的字符串
+                  //     }
+                  //     return ret;
+                  //   }
+                  //   else {
+                  //     return value;
+                  //   }
+                  // },
                 },
 
             },
@@ -931,7 +939,7 @@ export default class DossierDataView extends PureComponent {
     render() {
         const rowLayout = {md: 8, xl: 16, xxl: 24};
         const colLayout = {sm: 24, lg: 24, xl: 8, xxl: 8};
-        const colLayout1 = {sm: 24, lg: 16};
+        const colLayout1 = {sm: 24, lg: 24};
         const colLayout2 = {sm: 24, lg: 8};
         const {searchType, selectedDateVal, showDataView} = this.props;
         const {currentType, ZkjzData, ZkjzTotal, showrkDataView, jzqsNoData, selectedDateData} = this.state;
@@ -989,44 +997,16 @@ export default class DossierDataView extends PureComponent {
                     }}>
                         <Row gutter={rowLayout} className={styles.listPageRow}>
                             <Col {...colLayout}>
-                                <div className={styles.cardBoxTitle}><span
+                                <div className={styles.cardBoxTitle}>
+                                  <span
                                     style={{
                                         borderLeft: this.props.global && this.props.global.dark ? '3px solid #fff' : '3px solid #3D63D1',
                                         paddingLeft: 10,
-                                    }}
-                                >卷宗数量展示</span></div>
-                                <div id="jzslzs" className={styles.cardBox} style={{marginLeft:'3%'}}></div>
-                            </Col>
-                            <Col {...colLayout}>
-                                <div className={styles.listPageWrap} style={{top: 52}}>
-                                    <div className={styles.listPageHeader}>
-                                        {
-                                            showrkDataView ? (
-                                                <a className={styles.listPageHeaderCurrent}>在库</a>
-                                            ) : (
-                                                <a className={styles.UnlistPageHeaderCurrent}
-                                                   onClick={this.changeRkListPageHeader}>在库</a>
-                                            )
-                                        }
-                                        <span>|</span>
-                                        {
-                                            showrkDataView ? (
-                                                <a className={styles.UnlistPageHeaderCurrent}
-                                                   onClick={this.changeRkListPageHeader}>出库</a>
-                                            ) : (
-                                                <a className={styles.listPageHeaderCurrent}>出库</a>
-                                            )
-                                        }
-                                    </div>
+                                    }}>卷宗数量展示</span>
                                 </div>
-                                <div className={styles.cardBoxTitle}><span
-                                    style={{
-                                        borderLeft: this.props.global && this.props.global.dark ? '3px solid #fff' : '3px solid #3D63D1',
-                                        paddingLeft: 10,
-                                    }}
-                                >卷宗在库情况</span></div>
-                                <div id="jzcrkqk" className={styles.cardBox} style={{marginLeft:'3%'}}></div>
+                                <div id="jzslzs" className={styles.cardBox} ></div>
                             </Col>
+
                             <Col {...colLayout}>
                                 <div className={styles.cardBoxTitle}><span
                                     style={{
@@ -1034,7 +1014,7 @@ export default class DossierDataView extends PureComponent {
                                         paddingLeft: 10,
                                     }}
                                 >在库卷宗数量展示</span></div>
-                                <div className={styles.cardBoxzk} style={{padding: '10px 5px',marginLeft:'3%'}}>
+                                <div className={styles.cardBoxzk} style={{padding: '10px 5px'}}>
                                     {ZkjzData.length > 0 ?
                                         <div>
                                             <Row gutter={rowLayout}>
@@ -1085,6 +1065,47 @@ export default class DossierDataView extends PureComponent {
                                     }
                                 </div>
                             </Col>
+                            <Col {...colLayout}>
+                              <div className={styles.cardBoxTitle}><span
+                                style={{
+                                  borderLeft: this.props.global && this.props.global.dark ? '3px solid #fff' : '3px solid #3D63D1',
+                                  paddingLeft: 10,
+                                }}
+                              >电子化情况展示</span></div>
+                              <div id="dzhqkzs" className={styles.cardBox} ></div>
+                            </Col>
+                        </Row>
+                        <Row gutter={rowLayout} className={styles.listPageRow}>
+                          <Col {...colLayout1}>
+                            <div className={styles.listPageWrap} style={{top: 52}}>
+                              <div className={styles.listPageHeader}>
+                                {
+                                  showrkDataView ? (
+                                    <a className={styles.listPageHeaderCurrent}>在库</a>
+                                  ) : (
+                                    <a className={styles.UnlistPageHeaderCurrent}
+                                       onClick={this.changeRkListPageHeader}>在库</a>
+                                  )
+                                }
+                                <span>|</span>
+                                {
+                                  showrkDataView ? (
+                                    <a className={styles.UnlistPageHeaderCurrent}
+                                       onClick={this.changeRkListPageHeader}>出库</a>
+                                  ) : (
+                                    <a className={styles.listPageHeaderCurrent}>出库</a>
+                                  )
+                                }
+                              </div>
+                            </div>
+                            <div className={styles.cardBoxTitle}><span
+                              style={{
+                                borderLeft: this.props.global && this.props.global.dark ? '3px solid #fff' : '3px solid #3D63D1',
+                                paddingLeft: 10,
+                              }}
+                            >卷宗在库情况</span></div>
+                            <div id="jzcrkqk" className={styles.cardBox} style={{ width: '98.5%', marginLeft: '0.7%' }}></div>
+                          </Col>
                         </Row>
                         <Row gutter={rowLayout} className={styles.listPageRow}>
                             <Col {...colLayout1} style={{marginBottom: 32}}>
@@ -1094,7 +1115,7 @@ export default class DossierDataView extends PureComponent {
                                         paddingLeft: 10,
                                     }}
                                 >卷宗趋势</span></div>
-                                <div id="jzqs" className={styles.cardBox} style={{marginLeft: '1.5%',width: '98%'}}></div>
+                                <div id="jzqs" className={styles.cardBox} style={{ width: '98.5%', marginLeft: '0.7%' }}></div>
                                 {
                                     jzqsNoData ? (
                                         <div style={{
@@ -1125,16 +1146,8 @@ export default class DossierDataView extends PureComponent {
                                     ) : null
                                 }
                             </Col>
-                            <Col {...colLayout2} style={{marginBottom: 32}}>
-                                <div className={styles.cardBoxTitle}><span
-                                    style={{
-                                        borderLeft: this.props.global && this.props.global.dark ? '3px solid #fff' : '3px solid #3D63D1',
-                                        paddingLeft: 10,
-                                    }}
-                                >电子化情况展示</span></div>
-                                <div id="dzhqkzs" className={styles.cardBox} style={{marginLeft:'3%'}}></div>
-                            </Col>
                         </Row>
+
                     </div>
                 </div>
             </Card>

@@ -638,6 +638,12 @@ export default class ItemDataView extends PureComponent {
         //   fontWeight: 'normal',
         // },
       },
+      grid: {
+        left: '3%',
+        right: '4%',
+        bottom: '3%',
+        containLabel: true,
+      },
       xAxis: {
         // data: dataAxis,
         data: [],
