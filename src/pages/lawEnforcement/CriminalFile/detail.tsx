@@ -749,7 +749,7 @@ export default class CriminalCaseDocDetail extends PureComponent {
                 pagination={gjxxList.length > 0 ? {
                     size: 'small',
                     pageSize: 8,
-                    showTotal: (total, range) => <div style={{ position: 'absolute', left: '12px',color:'#fff' }}>共 {total} 条记录
+                    showTotal: (total, range) => <div style={{ position: 'absolute', left: '12px',color:this.props.global.dark ? '#fff':'#e6e6e6' }}>共 {total} 条记录
                         第 {this.state.gjcurrent} / {(Math.ceil(total / 8))} 页</div>,
                     onChange: (page) => {
                         this.setState({ gjcurrent: page });
@@ -1007,7 +1007,8 @@ export default class CriminalCaseDocDetail extends PureComponent {
         let className  = this.props.global.dark ? styles.detailBoxScroll : styles.detailBoxScroll+' ' + styles.detailBoxLight;
         return (
             <Card style={{ height: autoheight() - 225 + 'px',marginTop:'12px' }}
-                  onScrollCapture={this.scrollHandler} id={'scroll'}
+                  // onScrollCapture={this.scrollHandler}
+                  id={'scroll'}
                  className={className}>
                 <Spin spinning={loading}>
                     <div id='capture1'>
@@ -1034,7 +1035,7 @@ export default class CriminalCaseDocDetail extends PureComponent {
                                     pagination={{
                                         pageSize: 3,
                                         showTotal: (total, range) => <div
-                                            style={{ position: 'absolute', left: '-150px',color:'#fff' }}>共 {total} 条记录
+                                            style={{ position: 'absolute', left: '-150px',color:this.props.global.dark ? '#fff':'#e6e6e6' }}>共 {total} 条记录
                                             第 {this.state.jqcurrent} / {(Math.ceil(total / 3))} 页</div>,
                                         onChange: (page) => {
                                             this.setState({ jqcurrent: page });
@@ -1128,7 +1129,7 @@ export default class CriminalCaseDocDetail extends PureComponent {
                                     pagination={{
                                         pageSize: 3,
                                         showTotal: (total, range) => <div
-                                            style={{ position: 'absolute', left: '-150px',color:'#fff' }}>共 {total} 条记录
+                                            style={{ position: 'absolute', left: '-150px',color:this.props.global.dark ? '#fff':'#e6e6e6' }}>共 {total} 条记录
                                             第 {this.state.jzcurrent} / {(Math.ceil(total / 3))} 页</div>,
                                         onChange: (page) => {
                                             this.setState({ jzcurrent: page });

@@ -12,8 +12,8 @@ const { TextArea } = Input;
 const Option = Select.Option;
 const FormItem = Form.Item;
 
-@connect(({ share }) => ({
-    share,
+@connect(({ share,global }) => ({
+    share,global
 }))
 class RetrieveModal extends PureComponent {
     constructor(props, context) {
@@ -128,13 +128,13 @@ class RetrieveModal extends PureComponent {
             RetrieveRecord = JSON.parse(sessionStorage.getItem('query')).query.record;
         }
         return (
-            <div  id={'RetrieveForm'+RetrieveRecord.ajbh}>
+            <div  id={'RetrieveForm'+RetrieveRecord.ajbh} className={this.props.global.dark ? '':styles.lightBox}>
                 <Card className={styles.standardTable}>
                     <Row style={{
                         width: '82%',
                         margin: '0 9% 10px',
                         lineHeight: '36px',
-                        color: '#fff',
+                        color: this.props.global.dark ? '#fff' : '#333',
                     }}>
                         <Col span={12}>
                             案件名称：{RetrieveRecord && RetrieveRecord.ajmc ? RetrieveRecord.ajmc : ''}
@@ -187,7 +187,7 @@ class RetrieveModal extends PureComponent {
                         <Button type="primary" style={{ marginLeft: 8 }} className={styles.qxBtn} onClick={()=>this.onEdit(false)}>
                             取消
                         </Button>
-                        <Button type="primary" style={{ marginLeft: 8 }} onClick={this.handleOk}>
+                        <Button type="primary" style={{ marginLeft: 8 }} className={styles.okBtn} onClick={this.handleOk}>
                             确定
                         </Button>
                     </div>

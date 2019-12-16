@@ -18,6 +18,7 @@ import Ellipsis from 'ant-design-pro/lib/Ellipsis';
 import stylescommon from '@/pages/common/common.less';
 import { routerRedux } from 'dva/router';
 import noList from "@/assets/viewData/noList.png";
+import noListLight from "@/assets/viewData/noListLight.png";
 
 @connect(({ share }) => ({
   share,
@@ -379,22 +380,8 @@ class RenderTable extends PureComponent {
           columns={columns}
           pagination={paginationProps}
           onChange={this.handleTableChange}
-          locale={{ emptyText: <Empty image={noList} description={'暂无数据'} /> }}
+          locale={{ emptyText: <Empty image={this.props.global.dark ? noList : noListLight} description={'暂无数据'} /> }}
         />
-        {/*<ShareModal title="案件信息分享" detail={detail} shareVisible={this.state.shareVisible}*/}
-        {/*            handleCancel={this.handleCancel} shareItem={this.state.shareItem}*/}
-        {/*            personList={this.state.personList}*/}
-        {/*            lx={this.state.lx} tzlx={this.state.tzlx} sx={this.state.sx}/>*/}
-        {/*{*/}
-        {/*    makeTableModalVisible ? (*/}
-        {/*        <MakeTableModal*/}
-        {/*            title='表格选择'*/}
-        {/*            makeTableModalVisible={makeTableModalVisible}*/}
-        {/*            MakeTableCancel={this.MakeTableCancel}*/}
-        {/*            caseRecord={caseRecord}*/}
-        {/*        />*/}
-        {/*    ) : null*/}
-        {/*}*/}
       </Card>
     );
   }

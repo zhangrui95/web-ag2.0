@@ -91,7 +91,7 @@ export default class PunishTimeLine extends PureComponent {
 
             </div>
         ) : (
-            <RenderEmpty emptyWords="暂无数据"/>
+            <RenderEmpty emptyWords="暂无数据" {...this.props}/>
         );
     };
     moveLeft = () => {
@@ -115,7 +115,7 @@ export default class PunishTimeLine extends PureComponent {
         const { punishData } = this.props;
         const { leftPx, moreStepNum, showStepButton } = this.state;
         return (
-            <div className={styles.tabDiv}>
+            <div className={this.props.global&&this.props.global.dark ? styles.tabDiv : styles.tabDiv + ' ' + styles.lightBox}>
                 {this.showSteps(punishData)}
                 {
                     showStepButton ? (

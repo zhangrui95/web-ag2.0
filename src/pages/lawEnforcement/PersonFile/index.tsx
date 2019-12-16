@@ -11,7 +11,8 @@ import styles from './index.less';
 import PersonalDocTable from '../../../components/AllDocuments/PersonalDocTable';
 import { exportListDataMaxDays, getQueryString, tableList } from '../../../utils/utils';
 import SyncTime from '../../../components/Common/SyncTime';
-import stylescommon from "@/pages/common/common.less";
+import stylescommon1 from "@/pages/common/common.less";
+import stylescommon2 from "@/pages/common/commonLight.less";
 
 const FormItem = Form.Item;
 const { Option } = Select;
@@ -19,8 +20,8 @@ const { RangePicker } = DatePicker;
 const TabPane = Tabs.TabPane;
 const TreeNode = TreeSelect.TreeNode;
 
-@connect(({ personDocData, loading, common }) => ({
-    personDocData, common,
+@connect(({ personDocData, loading, common,global }) => ({
+    personDocData, common,global,
     loading: loading.models.personDocData,
 }))
 @Form.create()
@@ -390,6 +391,7 @@ export default class PersonalDoc extends PureComponent {
         });
     }
     renderForm() {
+        let stylescommon = this.props.global.dark ? stylescommon1 : stylescommon2;
         const { form: { getFieldDecorator }, common: { depTree, involvedType, enforcementTypeDict } } = this.props;
         const {caseTypeTreeXZ,caseTypeTreeXS} = this.state;
         let involvedTypeOptions = [];
@@ -652,6 +654,7 @@ export default class PersonalDoc extends PureComponent {
     render() {
         const { personDocData: { personData }, loading } = this.props;
         const newAddDetail = this.state.arrayDetail;
+        let stylescommon = this.props.global.dark ? stylescommon1 : stylescommon2;
         return (
             <div>
                 {this.renderForm()}
@@ -661,8 +664,6 @@ export default class PersonalDoc extends PureComponent {
                     </Button>
                 </div>
                 {this.renderTable()}
-                    {/*{newAddDetail.map((pane, idx) => <TabPane tab={pane.title} key={pane.key}*/}
-                    {/*                                          closable={this.props.location.query && this.props.location.query.id && idx === 0 ? false : true}>{pane.content}</TabPane>)}*/}
                 <SyncTime dataLatestTime={personData.tbCount ? personData.tbCount.tbsj : ''} {...this.props} />
             </div>
         );

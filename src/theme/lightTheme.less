@@ -918,5 +918,16 @@ body {
     .ant-empty-image{
       height: 250px;
     }
+    .ant-anchor-link-title{
+      &:hover{
+        color: @highlight-color;
+      }
+    }
+    .ant-anchor-link-active > .ant-anchor-link-title{
+      color: @highlight-color;
+    }
+    .ant-anchor-ink-ball{
+      border:1px solid @highlight-color!important;
+    }
   }
 }

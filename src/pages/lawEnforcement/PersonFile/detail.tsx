@@ -10,13 +10,8 @@ import html2canvas from 'html2canvas';
 import echarts from 'echarts';
 import tree from 'echarts/lib/chart/tree';
 import nophoto from '../../../assets/common/nophoto.png'
+import nophotoLight from '../../../assets/common/nophotoLight.png'
 import tooltip from 'echarts/lib/component/tooltip';
-// import PersonIntoArea from '../../routes/CaseRealData/IntoArea';
-// import ItemDetail from '../../routes/ItemRealData/itemDetail';
-// import CaseDetail from '../../routes/CaseRealData/caseDetail';
-// import XzCaseDetail from '../../routes/XzCaseRealData/caseDetail';
-// import PersonDetail from '../../routes/AllDocuments/PersonalDocDetail';
-// import JzDetail from '../../routes/DossierData/DossierDetail';
 import PersonDetailTab from '../../../components/AllDocuments/PersonDetailTab';
 import styles from '../docDetail.less';
 import listStyles from '../docListStyle.less';
@@ -35,8 +30,8 @@ const { Step } = Steps;
 const TabPane = Tabs.TabPane;
 let echartTree;
 let imgBase = [];
-@connect(({ UnPoliceData,common }) => ({
-    UnPoliceData,common
+@connect(({ UnPoliceData,common,global }) => ({
+    UnPoliceData,common,global
 }))
 export default class PersonalDocDetail extends PureComponent {
     constructor(props){
@@ -55,6 +50,13 @@ export default class PersonalDocDetail extends PureComponent {
         const idcard = this.state.res.xyr_sfzh;
         this.getPersonDetail(idcard);
     }
+    componentWillReceiveProps(nextProps) {
+        if(this.props.global.dark !== nextProps.global.dark){
+            if(this.state.personData){
+                this.showEchart(this.state.personData,nextProps.global.dark);
+            }
+        }
+    }
 
     getPersonDetail = (sfzh) => {
         this.props.dispatch({
@@ -67,7 +69,7 @@ export default class PersonalDocDetail extends PureComponent {
                     this.setState({
                         personData: data,
                     }, () => {
-                        this.showEchart(data);
+                        this.showEchart(data,this.props.global.dark);
                         // window.addEventListener("resize", echartTree.resize);
                     });
                 } else {
@@ -156,7 +158,7 @@ export default class PersonalDocDetail extends PureComponent {
         return y - Math.cos(d*idx) * r;
     }
     // 脑图
-    showEchart = (data) => {
+    showEchart = (data,dark) => {
         echartTree = echarts.init(document.getElementById('ryRegulateTree' + this.state.res.xyr_sfzh));
         const { ajxx, ryxx } = data;
         let link = [];
@@ -165,7 +167,7 @@ export default class PersonalDocDetail extends PureComponent {
             attributes:{
                 modularity_class:0,
             },
-            symbolSize: 45,
+            symbolSize: 50,
             x: -1500,
             y: 350,
         }];
@@ -457,7 +459,7 @@ export default class PersonalDocDetail extends PureComponent {
                     show: true,
                     formatter: '{b}',
                     textStyle: {
-                        color: '#eee',
+                        color:  dark ? '#eee' : '#333',
                         fontSize: node.attributes.modularity_class===0 ? 18 :
                             node.attributes.modularity_class===1 ? 14 : 12
                     }
@@ -480,7 +482,7 @@ export default class PersonalDocDetail extends PureComponent {
                 data: categories2.map(function (a) {
                     return a.name;
                 }),
-                textStyle: { color: "#fff" },
+                textStyle: { color: dark ?"#fff":'#333' },
             }],
             animationDuration: 1500,
             animationEasingUpdate: 'quinticInOut',
@@ -501,17 +503,17 @@ export default class PersonalDocDetail extends PureComponent {
                     focusNodeAdjacency: true,
                     itemStyle: {
                         normal: {
-                            borderColor: '#fff',
+                            borderColor: dark ? '#fff' : '#e6e6e6',
                             borderWidth: 1,
-                            shadowBlur: 10,
-                            shadowColor: 'rgba(0, 0, 0, 0.3)',
+                            shadowBlur: 0,
+                            shadowColor: 'rgba(0, 0, 0, 0)',
                         }
                     },
                     label: {
                         position: 'bottom',
                         formatter: '{b}',
                         textStyle: {
-                            color: '#eee',
+                            color: dark ?'#eee':'#333',
                         }
                     },
                     lineStyle: {
@@ -625,6 +627,7 @@ export default class PersonalDocDetail extends PureComponent {
 
     render() {
         const { personData, loading } = this.state;
+        let className  = this.props.global.dark ? styles.detailBoxScroll : styles.detailBoxScroll+' ' + styles.detailBoxLight;
         return (
             <div>
                 <Spin spinning={loading}>
@@ -643,7 +646,7 @@ export default class PersonalDocDetail extends PureComponent {
                         </Row>
                     </Card>
                     <Card style={{ height: autoheight() - 210 + 'px',marginTop:'12px' }} ref={'scroll'}
-                          className={styles.detailBoxScroll}>
+                          className={className}>
                         <div>
                             <div id={`Nameryxx${this.props.location.query.id}`} className={styles.borderBottom}>
                                 <Card title="|  人员信息" className={listStyles.cardCharts} bordered={false} id='capture1'>
@@ -652,7 +655,7 @@ export default class PersonalDocDetail extends PureComponent {
                                             <Col md={2} sm={24} style={{textAlign:'right'}}>
                                                 <div>
                                                     <img
-                                                        src={personData && personData.ryxx && personData.ryxx.photo ? personData.ryxx.photo : nophoto}
+                                                        src={personData && personData.ryxx && personData.ryxx.photo ? personData.ryxx.photo : this.props.global&&this.props.global.dark ? nophoto : nophotoLight}
                                                         alt='暂无图片显示'
                                                         width='100'
                                                     />
@@ -741,6 +744,7 @@ export default class PersonalDocDetail extends PureComponent {
                                                 {...this.props}
                                                 caseData={item}
                                                 key={item.ajbh}
+                                                {...this.props}
                                             />
                                         ))
                                     ) : null

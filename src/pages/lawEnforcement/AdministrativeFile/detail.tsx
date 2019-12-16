@@ -23,13 +23,14 @@ import wp from "@/assets/common/wp.png";
 import jzxx from "@/assets/common/jzxx.png";
 import jqImg from "@/assets/common/jq.png";
 import {routerRedux} from "dva/router";
+import noListLight from "@/assets/viewData/noListLight.png";
 
 const { Link } = Anchor;
 let echartTree;
 let imgBase = [];
 
-@connect(({ XzCaseData, CaseData, AllDetail }) => ({
-    XzCaseData, CaseData, AllDetail,
+@connect(({ XzCaseData, CaseData, AllDetail,global }) => ({
+    XzCaseData, CaseData, AllDetail,global
 }))
 
 
@@ -92,6 +93,11 @@ export default class AdministrativeCaseDocDetail extends PureComponent {
             this.setState({
                 link:''
             });
+        }
+        if(this.props.global.dark !== nextProps.global.dark){
+            if(this.state.caseDetails){
+                this.showEchart(this.state.caseDetails,nextProps.global.dark);
+            }
         }
     }
 
@@ -164,7 +170,7 @@ export default class AdministrativeCaseDocDetail extends PureComponent {
         return y - Math.cos(d*idx) * r;
     }
     // 脑图
-    showEchart = (data) =>{
+    showEchart = (data,dark) =>{
         let jq = [];
         let sar = [];
         let sawp = [];
@@ -365,7 +371,7 @@ export default class AdministrativeCaseDocDetail extends PureComponent {
                 data: categories2.map(function (a) {
                     return a.name;
                 }),
-                textStyle: { color: "#fff" },
+                textStyle: { color: dark ? "#fff" : '#333' },
             }],
             animationDuration: 1500,
             animationEasingUpdate: 'quinticInOut',
@@ -386,7 +392,7 @@ export default class AdministrativeCaseDocDetail extends PureComponent {
                     focusNodeAdjacency: true,
                     itemStyle: {
                         normal: {
-                            borderColor: '#fff',
+                            borderColor: dark ? '#fff' : '#e6e6e6',
                             borderWidth: 1,
                             shadowBlur: 10,
                             shadowColor: 'rgba(0, 0, 0, 0.3)',
@@ -396,7 +402,7 @@ export default class AdministrativeCaseDocDetail extends PureComponent {
                         position: 'bottom',
                         formatter: '{b}',
                         textStyle: {
-                            color: '#eee',
+                            color: dark ?  '#eee' : '#333',
                         }
                     },
                     lineStyle: {
@@ -433,7 +439,7 @@ export default class AdministrativeCaseDocDetail extends PureComponent {
                     this.setState({
                         caseDetails: data,
                     }, () => {
-                        this.showEchart(data);
+                        this.showEchart(data,this.props.global.dark);
                         // window.addEventListener("resize", echartTree.resize);
                     });
                 }
@@ -559,11 +565,11 @@ export default class AdministrativeCaseDocDetail extends PureComponent {
             <List
                 itemLayout="vertical"
                 size="small"
-                locale={{ emptyText: <Empty image={noList} description={'暂无数据'} /> }}
+                locale={{ emptyText: <Empty image={this.props.global.dark ? noList : noListLight} description={'暂无数据'} /> }}
                 pagination={sawpList.length > 0 ? {
                     size: 'small',
                     pageSize: 8,
-                    showTotal: (total, range) => <div style={{ position: 'absolute', left: '12px' }}>共 {total} 条记录
+                    showTotal: (total, range) => <div style={{ position: 'absolute', left: '12px',color:this.props.global.dark ? '#fff':'#e6e6e6'  }}>共 {total} 条记录
                         第 {this.state.current} / {(Math.ceil(total / 8))} 页</div>,
                     onChange: (page) => {
                         this.setState({ current: page });
@@ -628,11 +634,11 @@ export default class AdministrativeCaseDocDetail extends PureComponent {
             <List
                 itemLayout="vertical"
                 size="small"
-                locale={{ emptyText: <Empty image={noList} description={'暂无数据'} /> }}
+                locale={{ emptyText: <Empty image={this.props.global.dark ? noList : noListLight} description={'暂无数据'} /> }}
                 pagination={gjxxList.length > 0 ? {
                     size: 'small',
                     pageSize: 8,
-                    showTotal: (total, range) => <div style={{ position: 'absolute', left: '12px' }}>共 {total} 条记录
+                    showTotal: (total, range) => <div style={{ position: 'absolute', left: '12px',color:this.props.global.dark ? '#fff':'#e6e6e6' }}>共 {total} 条记录
                         第 {this.state.gjcurrent} / {(Math.ceil(total / 8))} 页</div>,
                     onChange: (page) => {
                         this.setState({ gjcurrent: page });
@@ -873,9 +879,12 @@ export default class AdministrativeCaseDocDetail extends PureComponent {
                 ),
             },
         ];
+        let className  = this.props.global.dark ? styles.detailBoxScroll : styles.detailBoxScroll+' ' + styles.detailBoxLight;
         return (
-            <Card style={{ height: autoheight() - 225 + 'px',marginTop:'12px' }}  onScrollCapture={this.scrollHandler} id={'scrollAdmin'}
-                  className={styles.detailBoxScroll}>
+            <Card style={{ height: autoheight() - 225 + 'px',marginTop:'12px' }}
+                 // onScrollCapture={this.scrollHandler}
+                  id={'scrollAdmin'}
+                  className={className}>
                 <Spin spinning={loading}>
                     <div id='capture1'>
                         <div id={`Namegxtp${this.props.location.query.id}`} className={styles.borderBottom}>
@@ -902,13 +911,13 @@ export default class AdministrativeCaseDocDetail extends PureComponent {
                                     pagination={{
                                         pageSize: 3,
                                         showTotal: (total, range) => <div
-                                            style={{ position: 'absolute', left: '-150px',color:'#fff' }}>共 {total} 条记录
+                                            style={{ position: 'absolute', left: '-150px',color:this.props.global.dark ? '#fff':'#e6e6e6' }}>共 {total} 条记录
                                             第 {this.state.jqcurrent} / {(Math.ceil(total / 3))} 页</div>,
                                         onChange: (page) => {
                                             this.setState({ jqcurrent: page });
                                         },
                                     }}
-                                    locale={{ emptyText: <Empty image={noList} description={'暂无数据'} /> }}
+                                    locale={{ emptyText: <Empty image={this.props.global.dark ? noList : noListLight} description={'暂无数据'} /> }}
                                     dataSource={caseDetails ? caseDetails.jqxxList : []}
                                     columns={JqColumns}
                                 />
@@ -967,6 +976,7 @@ export default class AdministrativeCaseDocDetail extends PureComponent {
                                             {/*{this.ajlc(caseDetails,superveWidth)}*/}
                                             <CaseModalStep
                                                 caseDetails={caseDetails}
+                                                {...this.props}
                                             />
                                         </Card>
                                     </div>
@@ -1004,13 +1014,13 @@ export default class AdministrativeCaseDocDetail extends PureComponent {
                                     pagination={{
                                         pageSize: 3,
                                         showTotal: (total, range) => <div
-                                            style={{ position: 'absolute', left: '-150px',color:'#fff' }}>共 {total} 条记录
+                                            style={{ position: 'absolute', left: '-150px',color:this.props.global.dark ? '#fff':'#e6e6e6' }}>共 {total} 条记录
                                             第 {this.state.jzcurrent} / {(Math.ceil(total / 3))} 页</div>,
                                         onChange: (page) => {
                                             this.setState({ jzcurrent: page });
                                         },
                                     }}
-                                    locale={{ emptyText: <Empty image={noList} description={'暂无数据'} /> }}
+                                    locale={{ emptyText: <Empty image={this.props.global.dark ? noList : noListLight} description={'暂无数据'} /> }}
                                     dataSource={caseDetails ? caseDetails.jzList : []}
                                     columns={JzColumns}
 

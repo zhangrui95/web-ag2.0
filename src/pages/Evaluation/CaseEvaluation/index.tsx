@@ -40,8 +40,8 @@ const formItemLayoutShow = {
 const colLayoutShow = { sm: 24, md: 12, xl: 11, xxl: 11 };
 let start = moment(moment().subtract('month', 1).format('YYYY-MM') + '-01');
 let end = moment(moment(start).subtract('month', -1).add('days', -1).format('YYYY-MM-DD'));
-@connect(({ Evaluation, common }) => ({
-    Evaluation, common,
+@connect(({ Evaluation, common,global }) => ({
+    Evaluation, common,global
 }))
 @Form.create()
 export default class Index extends PureComponent {

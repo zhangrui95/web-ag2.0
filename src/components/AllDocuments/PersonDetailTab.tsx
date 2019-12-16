@@ -9,6 +9,7 @@ import Ellipsis from 'ant-design-pro/lib/Ellipsis';
 import styles from './personDetailTab.less';
 import PunishTimeLine from './PunishTimeLine';
 import noList from "@/assets/viewData/noList.png";
+import noListLight from "@/assets/viewData/noListLight.png";
 
 const TabPane = Tabs.TabPane;
 
@@ -45,14 +46,14 @@ export default class PersonDetailTab extends PureComponent {
                 pagination={tarList.length > 0 ? {
                     size: 'small',
                     pageSize: 8,
-                    showTotal: (total, range) => <div style={{ position: 'absolute', left: '12px',color:'#fff' }}>共 {total} 条记录
+                    showTotal: (total, range) => <div style={{ position: 'absolute', left: '12px',color:this.props.global.dark ? '#fff':'#e6e6e6' }}>共 {total} 条记录
                         第 {this.state.gjCurrent} / {(Math.ceil(total / 8))} 页</div>,
                     onChange: (page) => {
                         this.setState({ gjCurrent: page });
                     },
                 } : null}
                 dataSource={tarList}
-                locale={{ emptyText: <Empty image={noList} description={'暂无数据'} /> }}
+                locale={{ emptyText: <Empty image={this.props.global.dark ? noList : noListLight} description={'暂无数据'} /> }}
                 grid={{
                     gutter: 16, xs: 1, sm: 2, md: 4, lg: 4,
                 }}
@@ -92,13 +93,13 @@ export default class PersonDetailTab extends PureComponent {
                 pagination={sawpList.length > 0 ? {
                     size: 'small',
                     pageSize: 8,
-                    showTotal: (total, range) => <div style={{ position: 'absolute', left: '12px',color:'#fff' }}>共 {total} 条记录
+                    showTotal: (total, range) => <div style={{ position: 'absolute', left: '12px',color:this.props.global.dark ? '#fff':'#e6e6e6' }}>共 {total} 条记录
                         第 {this.state.sawpCurrent} / {(Math.ceil(total / 8))} 页</div>,
                     onChange: (page) => {
                         this.setState({ sawpCurrent: page });
                     },
                 } : null}
-                locale={{ emptyText: <Empty image={noList} description={'暂无数据'} /> }}
+                locale={{ emptyText: <Empty image={this.props.global.dark ? noList : noListLight} description={'暂无数据'} /> }}
                 dataSource={sawpList}
                 grid={{
                     gutter: 32, xs: 1, sm: 2, md: 4, lg: 4,
@@ -254,8 +255,9 @@ export default class PersonDetailTab extends PureComponent {
                 dataIndex: 'jlry',
             },
         ];
+        let personTabLight = this.props.global.dark ? styles.personTab : styles.personTab + ' ' + styles.lightBox;
         return (
-            <div style={{ padding: 16 }} className={styles.personTab} ref="stepRef">
+            <div style={{ padding: 16 }} className={personTabLight} ref="stepRef">
                 <div className={styles.NameShow}>
                     <Tabs type="card" tabBarGutter={0} className='tabName'>
                         <TabPane tab={caseData.ajmc} key="1" forceRender className='Namesaxx1'>
@@ -332,14 +334,14 @@ export default class PersonDetailTab extends PureComponent {
                                             pagination={{
                                                 pageSize: 3,
                                                 showTotal: (total, range) => <div
-                                                    style={{ position: 'absolute', left: '-150px',color:'#fff' }}>共 {total} 条记录
+                                                    style={{ position: 'absolute', left: '-150px',color:this.props.global.dark ? '#fff':'#e6e6e6' }}>共 {total} 条记录
                                                     第 {this.state.rqCurrent} / {(Math.ceil(total / 3))} 页</div>,
                                                 onChange: (page) => {
                                                     this.setState({ rqCurrent: page });
                                                 },
                                             }}
                                             dataSource={caseData.rqList || []}
-                                            locale={{ emptyText: <Empty image={noList} description={'暂无数据'} /> }}
+                                            locale={{ emptyText: <Empty image={this.props.global.dark ? noList : noListLight} description={'暂无数据'} /> }}
                                             columns={rqColumns}
                                         />
                                     </Col>
@@ -357,6 +359,7 @@ export default class PersonDetailTab extends PureComponent {
                                     <PunishTimeLine
                                         oWidth={oWidth}
                                         punishData={caseData.xzcfList}
+                                        {...this.props}
                                     />
                                 ) : null
                             }
@@ -367,6 +370,7 @@ export default class PersonDetailTab extends PureComponent {
                                     <PunishTimeLine
                                         oWidth={oWidth}
                                         punishData={caseData.qzcsList}
+                                        {...this.props}
                                     />
                                 ) : null
                             }
@@ -379,7 +383,7 @@ export default class PersonDetailTab extends PureComponent {
                                     pagination={{
                                         pageSize: 3,
                                         showTotal: (total, range) => <div
-                                            style={{ position: 'absolute', left: '-150px',color:'#fff' }}>共 {total} 条记录
+                                            style={{ position: 'absolute', left: '-150px',color:this.props.global.dark ? '#fff':'#e6e6e6' }}>共 {total} 条记录
                                             第 {this.state.sswpCurrent} / {(Math.ceil(total / 3))} 页</div>,
                                         onChange: (page) => {
                                             this.setState({ sswpCurrent: page });
@@ -387,7 +391,7 @@ export default class PersonDetailTab extends PureComponent {
                                     }}
                                     dataSource={caseData.sswpList || []}
                                     columns={sswpColumns}
-                                    locale={{ emptyText: <Empty image={noList} description={'暂无数据'} /> }}
+                                    locale={{ emptyText: <Empty image={this.props.global.dark ? noList : noListLight} description={'暂无数据'} /> }}
                                 />
                             </div>
                         </TabPane>
@@ -404,13 +408,13 @@ export default class PersonDetailTab extends PureComponent {
                                     pagination={{
                                         pageSize: 3,
                                         showTotal: (total, range) => <div
-                                            style={{ position: 'absolute', left: '-150px',color:'#fff' }}>共 {total} 条记录
+                                            style={{ position: 'absolute', left: '-150px',color:this.props.global.dark ? '#fff':'#e6e6e6' }}>共 {total} 条记录
                                             第 {this.state.jzCurrent} / {(Math.ceil(total / 3))} 页</div>,
                                         onChange: (page) => {
                                             this.setState({ jzCurrent: page });
                                         },
                                     }}
-                                    locale={{ emptyText: <Empty image={noList} description={'暂无数据'} /> }}
+                                    locale={{ emptyText: <Empty image={this.props.global.dark ? noList : noListLight} description={'暂无数据'} /> }}
                                     dataSource={caseData ? caseData.jzList : []}
                                     columns={JzColumns}
                                 />
@@ -496,13 +500,13 @@ export default class PersonDetailTab extends PureComponent {
                                         pagination={{
                                             pageSize: 3,
                                             showTotal: (total, range) => <div
-                                                style={{ position: 'absolute', left: '-150px',color:'#fff' }}>共 {total} 条记录
+                                                style={{ position: 'absolute', left: '-150px',color:this.props.global.dark ? '#fff':'#e6e6e6' }}>共 {total} 条记录
                                                 第 {this.state.rqCurrent} / {(Math.ceil(total / 3))} 页</div>,
                                             onChange: (page) => {
                                                 this.setState({ rqCurrent: page });
                                             },
                                         }}
-                                        locale={{ emptyText: <Empty image={noList} description={'暂无数据'} /> }}
+                                        locale={{ emptyText: <Empty image={this.props.global.dark ? noList : noListLight} description={'暂无数据'} /> }}
                                         dataSource={caseData.rqList || []}
                                         columns={rqColumns}
                                     />
@@ -551,13 +555,13 @@ export default class PersonDetailTab extends PureComponent {
                                 pagination={{
                                     pageSize: 3,
                                     showTotal: (total, range) => <div
-                                        style={{ position: 'absolute', left: '-150px',color:'#fff' }}>共 {total} 条记录
+                                        style={{ position: 'absolute', left: '-150px',color:this.props.global.dark ? '#fff':'#e6e6e6' }}>共 {total} 条记录
                                         第 {this.state.sswpCurrent} / {(Math.ceil(total / 3))} 页</div>,
                                     onChange: (page) => {
                                         this.setState({ sswpCurrent: page });
                                     },
                                 }}
-                                locale={{ emptyText: <Empty image={noList} description={'暂无数据'} /> }}
+                                locale={{ emptyText: <Empty image={this.props.global.dark ? noList : noListLight} description={'暂无数据'} /> }}
                                 dataSource={caseData.sswpList || []}
                                 columns={sswpColumns}
                             />
@@ -580,13 +584,13 @@ export default class PersonDetailTab extends PureComponent {
                                 pagination={{
                                     pageSize: 3,
                                     showTotal: (total, range) => <div
-                                        style={{ position: 'absolute', left: '-150px',color:'#fff' }}>共 {total} 条记录
+                                        style={{ position: 'absolute', left: '-150px',color:this.props.global.dark ? '#fff':'#e6e6e6' }}>共 {total} 条记录
                                         第 {this.state.jzCurrent} / {(Math.ceil(total / 3))} 页</div>,
                                     onChange: (page) => {
                                         this.setState({ jzCurrent: page });
                                     },
                                 }}
-                                locale={{ emptyText: <Empty image={noList} description={'暂无数据'} /> }}
+                                locale={{ emptyText: <Empty image={this.props.global.dark ? noList : noListLight} description={'暂无数据'} /> }}
                                 dataSource={caseData ? caseData.jzList : []}
                                 columns={JzColumns}
                             />

@@ -6,7 +6,10 @@ import styles from '../listPage.less';
 import RenderTable from '../../../components/XzCaseRealData/RenderTable';
 import { exportListDataMaxDays, getQueryString, tableList } from '../../../utils/utils';
 import SyncTime from '../../../components/Common/SyncTime';
-import stylescommon from "@/pages/common/common.less";
+import stylescommon1 from "@/pages/common/common.less";
+import stylescommon2 from "@/pages/common/commonLight.less";
+import noList from "@/assets/viewData/noList.png";
+import noListLight from "@/assets/viewData/noListLight.png";
 
 const FormItem = Form.Item;
 const { Option } = Select;
@@ -17,8 +20,8 @@ const TreeNode = TreeSelect.TreeNode;
 let timeout;
 let currentValue;
 
-@connect(({ XzCaseData, loading, common }) => ({
-    XzCaseData, loading, common,
+@connect(({ XzCaseData, loading, common,global }) => ({
+    XzCaseData, loading, common,global
     // loading: loading.models.alarmManagement,
 }))
 @Form.create()
@@ -336,6 +339,7 @@ export default class AdministrativeCaseDoc extends PureComponent {
         });
     }
     renderForm() {
+        let stylescommon = this.props.global.dark ? stylescommon1 : stylescommon2;
         const { form: { getFieldDecorator }, common: { depTree, XzCaseStatusType } } = this.props;
         const allPoliceOptions = this.state.allPolice.map(d => <Option key={`${d.idcard},${d.pcard}`}
                                                                        value={`${d.idcard},${d.pcard}$$`}
@@ -514,6 +518,7 @@ export default class AdministrativeCaseDoc extends PureComponent {
                     location={this.props.location}
                     formValues={this.state.formValues}
                     isDocument
+                    global={this.props.global}
                 />
             </div>
         );
@@ -522,6 +527,7 @@ export default class AdministrativeCaseDoc extends PureComponent {
     render() {
         const { XzCaseData: { returnData, loading } } = this.props;
         const newAddDetail = this.state.arrayDetail;
+        let stylescommon = this.props.global.dark ? stylescommon1 : stylescommon2;
         return (
             <div>
                     {this.renderForm()}
@@ -531,10 +537,7 @@ export default class AdministrativeCaseDoc extends PureComponent {
                         </Button>
                     </div>
                     {this.renderTable()}
-                    {/*{newAddDetail.map((pane, idx) => <TabPane tab={pane.title} key={pane.key}*/}
-                    {/*                                          closable={this.props.location.query && this.props.location.query.id && idx === 0 ? false : true}>{pane.content}</TabPane>)}*/}
                 <SyncTime dataLatestTime={returnData.tbCount ? returnData.tbCount.tbsj : ''} {...this.props} />
-
             </div>
         );
     }
