@@ -183,10 +183,15 @@ export default class CriminalCaseType extends PureComponent {
             xAxis: {
                 type: 'category',
                 data: xData,
+                axisLabel: {   // x轴线 标签修改
+                    textStyle: {
+                        color: this.props.global && this.props.global.dark ? '#fff' : '#4d4d4d', //坐标值得具体的颜色
+                    }
+                },
                 axisLine: {
                     show: true, // X轴 网格线 颜色类型的修改
                     lineStyle: {
-                        color: '#fff'
+                        color: this.props.global && this.props.global.dark ? '#fff' : '#e6e6e6'
                     }
                 },
             },
@@ -194,13 +199,13 @@ export default class CriminalCaseType extends PureComponent {
                 type: 'value',
                 axisLabel: {   // y轴线 标签修改
                     textStyle: {
-                        color: '#fff', //坐标值得具体的颜色
+                        color: this.props.global && this.props.global.dark ? '#fff' : '#4d4d4d', //坐标值得具体的颜色
                     }
                 },
                 axisLine: {
                     show: true, // y轴 网格线 颜色类型的修改
                     lineStyle: {
-                        color: '#fff'
+                        color: this.props.global && this.props.global.dark ? '#fff' : '#e6e6e6'
                     }
                 },
             },

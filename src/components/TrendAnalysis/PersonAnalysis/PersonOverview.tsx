@@ -363,13 +363,13 @@ export default class PersonOverview extends PureComponent {
         axisLabel: {
           // X轴线 标签修改
           textStyle: {
-            color: '#fff', //坐标值得具体的颜色
+            color: this.props.global && this.props.global.dark ? '#fff' : '#4d4d4d', //坐标值得具体的颜色
           },
         },
         axisLine: {
           show: true, // X轴 网格线 颜色类型的修改
           lineStyle: {
-            color: '#fff',
+            color: this.props.global && this.props.global.dark ? '#fff' : '#e6e6e6',
           },
         },
       },
@@ -378,13 +378,13 @@ export default class PersonOverview extends PureComponent {
         axisLabel: {
           // X轴线 标签修改
           textStyle: {
-            color: '#fff', //坐标值得具体的颜色
+            color: this.props.global && this.props.global.dark ? '#fff' : '#4d4d4d', //坐标值得具体的颜色
           },
         },
         axisLine: {
           show: true, // X轴 网格线 颜色类型的修改
           lineStyle: {
-            color: '#fff',
+            color: this.props.global && this.props.global.dark ? '#fff' : '#e6e6e6',
           },
         },
       },
@@ -444,13 +444,13 @@ export default class PersonOverview extends PureComponent {
         axisLabel: {
           // X轴线 标签修改
           textStyle: {
-            color: '#fff', //坐标值得具体的颜色
+            color: this.props.global && this.props.global.dark ? '#fff' : '#4d4d4d', //坐标值得具体的颜色
           },
         },
         axisLine: {
           show: true, // X轴 网格线 颜色类型的修改
           lineStyle: {
-            color: '#fff',
+            color: this.props.global && this.props.global.dark ? '#fff' : '#e6e6e6',
           },
         },
       },
@@ -466,7 +466,7 @@ export default class PersonOverview extends PureComponent {
         },
         axisLabel: {
           textStyle: {
-            color: '#fff',
+            color: this.props.global && this.props.global.dark ? '#fff' : '#4d4d4d',
           },
         },
       },
@@ -654,10 +654,10 @@ export default class PersonOverview extends PureComponent {
         key: 'illegal',
       },
     ];
-
+      let className = this.props.global && this.props.global.dark ? styles.analysis : styles.analysis+' '+styles.lightBox
     return (
       <Spin spinning={loadingData} size="large" tip="数据加载中...">
-        <div className={styles.analysis}>
+        <div className={className}>
           <AnalysisTitleArea analysisTitle="人员综述" {...this.props} />
           <Row className={styles.fraudArea}>
             <Col lg={12} md={24}>

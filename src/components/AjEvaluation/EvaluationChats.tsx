@@ -325,15 +325,18 @@ export default class EvaluationChats extends PureComponent {
                 },
             },
             // toolbox: {
-            //     show: true,
-            //     feature: {
-            //         saveAsImage: { show: true },
-            //     },
+                // show: true,
+                // feature: {
+                //     saveAsImage: { show: true },
+                // },
             // },
             legend: {
                 data: legendData,
                 textStyle: { color: this.props.global&&this.props.global.dark ? "#fff" : '#4D4D4D' },
-                y: 'bottom',//图例说明文字设置
+                x:'88%',
+                y: 'top',//图例说明文字设置
+                itemWidth: 10,  // 设置宽度
+                itemHeight: 10, // 设置高度
             },
             grid: {
                 left: '2%',
@@ -370,7 +373,7 @@ export default class EvaluationChats extends PureComponent {
                 axisLine: {
                     show: true, // X轴 网格线 颜色类型的修改
                     lineStyle: {
-                        color: this.props.global&&this.props.global.dark ? "#fff" : '#E6E6E6'
+                        color: 'transparent'
                     }
                 },
             }],
@@ -760,7 +763,7 @@ export default class EvaluationChats extends PureComponent {
                 axisLine: {
                     show: true, // X轴 网格线 颜色类型的修改
                     lineStyle: {
-                        color: this.props.global&&this.props.global.dark ? "#fff" : '#E6E6E6'
+                        color: 'transparent'
                     }
                 },
             }],
