@@ -881,6 +881,13 @@ export function routes() {
                           hideInMenu: true,
                         },
                         {
+                          path: '/ModuleAll/DossierMarking',
+                          name: '阅卷',
+                          icon: 'smile',
+                          component: './ModuleAll/DossierMarking',
+                          hideInMenu: true,
+                        },
+                        {
                             component: './404',
                         },
                     ],

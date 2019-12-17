@@ -386,7 +386,7 @@ export default class Index extends PureComponent {
     this.props.dispatch(
       routerRedux.push({
         pathname: '/dossierPolice/DossierData/DossierDetail',
-        query: { record: record, id: record && record.id ? record.id : '1' },
+        query: { record: record, id: record && record.dossier_id ? record.dossier_id : '1' },
       }),
     );
     // const divs = (
@@ -459,12 +459,33 @@ export default class Index extends PureComponent {
           this.setState({
             personList: res.list,
           });
+          let detail = (
+            <Row style={{ lineHeight:'55px',paddingLeft:66 }}>
+              <Col span={8}>卷宗名称：<Tooltip
+                title={this.state.shareRecord && this.state.shareRecord.jzmc && this.state.shareRecord.jzmc.length > 12 ? this.state.shareRecord.jzmc : null}>{this.state.shareRecord && this.state.shareRecord.jzmc ? this.state.shareRecord.jzmc.length > 12 ? this.state.shareRecord.jzmc.substring(0, 12) + '...' : this.state.shareRecord.jzmc : ''}</Tooltip></Col>
+              <Col
+                span={8}>卷宗类别：{this.state.shareRecord && this.state.shareRecord.jzlb_mc ? this.state.shareRecord.jzlb_mc : ''}</Col>
+              <Col span={8}>卷宗描述：<Tooltip
+                title={this.state.shareRecord && this.state.shareRecord.jzms && this.state.shareRecord.jzms.length > 12 ? this.state.shareRecord.jzms : null}>{this.state.shareRecord && this.state.shareRecord.jzms ? this.state.shareRecord.jzms.length > 12 ? this.state.shareRecord.jzms.substring(0, 12) + '...' : this.state.shareRecord.jzms : ''}</Tooltip></Col>
+              <Col span={8}>案件名称：<Tooltip
+                title={this.state.shareRecord && this.state.shareRecord.ajmc && this.state.shareRecord.ajmc.length > 12 ? this.state.shareRecord.ajmc : null}>{this.state.shareRecord && this.state.shareRecord.ajmc ? this.state.shareRecord.ajmc.length > 12 ? this.state.shareRecord.ajmc.substring(0, 12) + '...' : this.state.shareRecord.ajmc : ''}</Tooltip></Col>
+              <Col
+                span={8}>案件状态：{this.state.shareRecord && this.state.shareRecord.ajzt ? this.state.shareRecord.ajzt : ''}</Col>
+            </Row>
+          );
+          this.props.dispatch(
+            routerRedux.push({
+              pathname: '/ModuleAll/Share',
+              query: { record: res,id: res && res.id ? res.id : '1',from:'卷宗信息',tzlx:'jzxx',fromPath:'/dossierPolice/DossierData',detail,tab:'表格' },
+            }),
+          )
         },
       });
-      this.setState({
-        shareVisible: true,
-        shareItem: res,
-      });
+
+      // this.setState({
+      //   shareVisible: true,
+      //   shareItem: res,
+      // });
     } else {
       this.props.dispatch({
         type: 'share/getMyFollow',
@@ -649,6 +670,7 @@ export default class Index extends PureComponent {
                     </Menu>
                   }
                   trigger={['click']}
+                  getPopupContainer={() => document.getElementById('jzsjtableListForm')}
                 >
                   <a href="javascript:;">关注</a>
                 </Dropdown>
@@ -681,20 +703,6 @@ export default class Index extends PureComponent {
       showTotal: (total, range) =>
         <span className={styles.listPagination}>{`共 ${page ? page.totalPage : 1} 页， ${page ? page.totalResult : 0} 条记录 `}</span>,
     };
-    let detail = (
-      <Row style={{ width: '90%', margin: '0 38px 10px', lineHeight: '36px', color: 'rgba(0, 0, 0, 0.85)' }}>
-        <Col span={8}>卷宗名称：<Tooltip
-          title={this.state.shareRecord && this.state.shareRecord.jzmc && this.state.shareRecord.jzmc.length > 12 ? this.state.shareRecord.jzmc : null}>{this.state.shareRecord && this.state.shareRecord.jzmc ? this.state.shareRecord.jzmc.length > 12 ? this.state.shareRecord.jzmc.substring(0, 12) + '...' : this.state.shareRecord.jzmc : ''}</Tooltip></Col>
-        <Col
-          span={8}>卷宗类别：{this.state.shareRecord && this.state.shareRecord.jzlb_mc ? this.state.shareRecord.jzlb_mc : ''}</Col>
-        <Col span={8}>卷宗描述：<Tooltip
-          title={this.state.shareRecord && this.state.shareRecord.jzms && this.state.shareRecord.jzms.length > 12 ? this.state.shareRecord.jzms : null}>{this.state.shareRecord && this.state.shareRecord.jzms ? this.state.shareRecord.jzms.length > 12 ? this.state.shareRecord.jzms.substring(0, 12) + '...' : this.state.shareRecord.jzms : ''}</Tooltip></Col>
-        <Col span={8}>案件名称：<Tooltip
-          title={this.state.shareRecord && this.state.shareRecord.ajmc && this.state.shareRecord.ajmc.length > 12 ? this.state.shareRecord.ajmc : null}>{this.state.shareRecord && this.state.shareRecord.ajmc ? this.state.shareRecord.ajmc.length > 12 ? this.state.shareRecord.ajmc.substring(0, 12) + '...' : this.state.shareRecord.ajmc : ''}</Tooltip></Col>
-        <Col
-          span={8}>案件状态：{this.state.shareRecord && this.state.shareRecord.ajzt ? this.state.shareRecord.ajzt : ''}</Col>
-      </Row>
-    );
     return (
       <div className={this.props.location.query && this.props.location.query.id ? styles.onlyDetail : ''}>
             <div className={styles.listPageWrap}>
@@ -939,7 +947,7 @@ export default class Index extends PureComponent {
                     </Row>
                   </Form>
                 </div>
-                <div className={styles.tableListOperator}>
+                <div className={styles.tableListOperator} id='jzsjtableListForm'>
                   <Table
                     className={styles.listStandardTable}
                     // size="middle"

@@ -29,6 +29,7 @@ import { autoheight, getUserInfos, userResourceCodeDb } from '../../../utils/uti
 // import DossierMarkingModal from '../../components/DossierRealData/DossierMarkingModal';
 import Ellipsis from 'ant-design-pro/lib/Ellipsis';
 import { authorityIsTrue } from '../../../utils/authority';
+import {routerRedux} from "dva/router";
 
 @connect(({ DossierData, common, MySuperviseData, AllDetail }) => ({
     DossierData, common, MySuperviseData, AllDetail,
@@ -134,10 +135,29 @@ export default class DossierDetail extends PureComponent {
             sx: (DossierDetailData.ajmc ? DossierDetailData.ajmc + '、' : '') + (DossierDetailData.jzlb_mc ? DossierDetailData.jzlb_mc : ''),
         });
         if (type === 2) {
-            this.setState({
-                shareVisible: true,
-                shareItem: DossierDetailData,
-            });
+          let detail = (
+            <Row style={{ lineHeight:'55px',paddingLeft:66 }}>
+              <Col span={8}>卷宗名称：<Tooltip
+                title={DossierDetailData && DossierDetailData.jzmc && DossierDetailData.jzmc.length > 12 ? DossierDetailData.jzmc : null}>{DossierDetailData && DossierDetailData.jzmc ? DossierDetailData.jzmc.length > 12 ? DossierDetailData.jzmc.substring(0, 12) + '...' : DossierDetailData.jzmc : ''}</Tooltip></Col>
+              <Col
+                span={8}>卷宗类别：{DossierDetailData && DossierDetailData.jzlb_mc ? DossierDetailData.jzlb_mc : ''}</Col>
+              <Col span={8}>卷宗描述：<Tooltip
+                title={DossierDetailData && DossierDetailData.jzms && DossierDetailData.jzms.length > 12 ? DossierDetailData.jzms : null}>{DossierDetailData && DossierDetailData.jzms ? DossierDetailData.jzms.length > 12 ? DossierDetailData.jzms.substring(0, 12) + '...' : DossierDetailData.jzms : ''}</Tooltip></Col>
+              <Col span={8}>案件名称：<Tooltip
+                title={DossierDetailData && DossierDetailData.ajmc && DossierDetailData.ajmc.length > 12 ? DossierDetailData.ajmc : null}>{DossierDetailData && DossierDetailData.ajmc ? DossierDetailData.ajmc.length > 12 ? DossierDetailData.ajmc.substring(0, 12) + '...' : DossierDetailData.ajmc : ''}</Tooltip></Col>
+              <Col span={8}>案件状态：{DossierDetailData && DossierDetailData.ajzt ? DossierDetailData.ajzt : ''}</Col>
+            </Row>
+          );
+          this.props.dispatch(
+            routerRedux.push({
+              pathname: '/ModuleAll/Share',
+              query: { record: DossierDetailData,id: DossierDetailData && DossierDetailData.dossier_id ? DossierDetailData.dossier_id : '1',from:'卷宗信息',tzlx:'jzxx',fromPath:'/dossierPolice/DossierData/DossierDetail',detail,tab:'详情' },
+            }),
+          )
+            // this.setState({
+            //     shareVisible: true,
+            //     shareItem: DossierDetailData,
+            // });
         } else {
             if (this.state.IsSure) {
                 this.props.dispatch({
@@ -268,16 +288,22 @@ export default class DossierDetail extends PureComponent {
         });
         this.getDossierDetail(this.props.id);
     };
-    Marking = (flag) => {
-        this.setState({
-            mark: !!flag,
-        });
+    Marking = (DossierDetailData,flag) => {
+      this.props.dispatch(
+        routerRedux.push({
+          pathname: '/ModuleAll/DossierMarking',
+          query: { record: DossierDetailData,id: DossierDetailData && DossierDetailData.dossier_id ? DossierDetailData.dossier_id : '1',from:'卷宗信息',tzlx:'jzxx',fromPath:'/dossierPolice/DossierData/DossierDetail',tab:'详情' },
+        }),
+      )
+        // this.setState({
+        //     mark: !!flag,
+        // });
     };
-    MarkClose = () => {
-        this.setState({
-            mark: false,
-        });
-    };
+    // MarkClose = () => {
+    //     this.setState({
+    //         mark: false,
+    //     });
+    // };
 
     IntoCase = (record) => {
         if (record.ajlx === '22001') {
@@ -337,7 +363,7 @@ export default class DossierDetail extends PureComponent {
                         ''
                       }
                       {DossierDetailData && DossierDetailData.is_gldzj && DossierDetailData.is_gldzjdm === '1' ?
-                        <Button className={styles.TopMenu} onClick={() => this.Marking(true)}>阅卷</Button>
+                        <Button className={styles.TopMenu} onClick={() => this.Marking(DossierDetailData,true)}>阅卷</Button>
                         :
                         ''
                       }
@@ -349,12 +375,12 @@ export default class DossierDetail extends PureComponent {
                                 <span className={liststyles.collect}>
                                   {DossierDetailData.sfgz === 0 ?
                                     <Tooltip title="关注">
-                                      <img src={collect} width={25} height={25} style={{ marginLeft: 12 }} onClick={() => this.saveShare(DossierDetailData, 1, 0)}/>
+                                      <img src={nocollect} width={25} height={25} style={{ marginLeft: 12 }} onClick={() => this.saveShare(DossierDetailData, 1, 0)}/>
                                       <div style={{ fontSize: 12, textAlign: 'center', width: 48 }}>关注</div>
                                     </Tooltip>
                                     :
                                       <Tooltip title="取消关注">
-                                        <img src={nocollect} width={25} height={25} style={{ marginLeft: 12 }} onClick={() => this.noFollow(DossierDetailData)}/>
+                                        <img src={collect} width={25} height={25} style={{ marginLeft: 12 }} onClick={() => this.noFollow(DossierDetailData)}/>
                                         <div style={{ fontSize: 12, textAlign: 'center', width: 48 }}>取消关注</div>
                                       </Tooltip>
                                   }
