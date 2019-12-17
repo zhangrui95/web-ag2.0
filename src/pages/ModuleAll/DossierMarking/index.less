@@ -1,0 +1,88 @@
+@import '~antd/es/style/themes/default.less';
+@import '../../../utils/utils.less';
+@import '../../../theme/darkTheme';
+
+.markModal {
+  :global {
+    .ant-modal-body {
+      background-color: #F2F2F2;
+    }
+
+    .ant-modal-header {
+      background: linear-gradient(to right, #1F83DF, #FCFDFF);
+      color: #fff;
+    }
+
+    .ant-modal-title {
+      color: #fff;
+    }
+
+    .ant-modal-close-x {
+      font-size: 30px;
+      font-weight: bold;
+      color: #3AA0FF;
+    }
+  }
+}
+
+.MarkName {
+  background-color: #fff;
+}
+
+.prevCarousel, .nextCarousel {
+  position: absolute;
+  top: 350px;
+
+  .buttonIcon {
+    color: #999;
+    font-size: 60px;
+    cursor: pointer;
+
+    &:hover {
+      color: #4DA9FF;
+    }
+  }
+}
+
+.prevCarousel {
+  left: 15px;
+}
+
+.nextCarousel {
+  right: 15px;
+}
+
+.standardTable{
+  background-color: @choose-more-back;
+  margin: 12px 0;
+  color: @white;
+  padding:40px 70px;
+  min-height: 600px;
+  :global{
+    .ant-select-dropdown-menu-item-group-title{
+      color: @text-color;
+    }
+  }
+}
+
+.btns{
+  padding: 12px 20px;
+  float: right;
+  :global{
+    .ant-btn{
+      width:100px;
+      height: 36px;
+      line-height: 36px;
+      font-size: 16px;
+    }
+  }
+}
+.qxBtn{
+  background: @body-background!important;
+}
+.delBtn{
+  background: #FF9191!important;
+}
+.lxsm{
+  margin-left: 8px;
+}

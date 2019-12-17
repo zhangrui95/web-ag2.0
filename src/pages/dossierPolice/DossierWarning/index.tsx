@@ -276,7 +276,7 @@ export default class Index extends PureComponent {
     this.props.dispatch(
       routerRedux.push({
         pathname: '/dossierPolice/DossierData/DossierDetail',
-        query: { record: record, id: record && record.id ? record.id : '1' },
+        query: { record: record, id: record && record.dossier_id ? record.dossier_id : '1' },
       }),
     );
     // const divs = (

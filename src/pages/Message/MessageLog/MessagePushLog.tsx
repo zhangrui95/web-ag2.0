@@ -128,7 +128,7 @@ export default class MessagePushLogModal extends PureComponent {
                     this.props.dispatch(
                         routerRedux.push({
                             pathname: '/dossierPolice/DossierData/DossierDetail',
-                            query: { record:item,id: item.system_id},
+                            query: { record:item,id: item.dossier_id},
                         }),
                     );
                 } else {//卷宗告警详情
