@@ -54,9 +54,6 @@ body {
       border: @no-box-shadow;
       color: @text-word-color!important;
     }
-    .ant-cascader-picker-label{
-      z-index: 1;
-    }
     .antd-pro-pages-receive-police-alarm-data-index-redioGroup .ant-radio-button-wrapper {
       background-color: #f2f2f2;
       border-top: @no-box-shadow;
@@ -72,6 +69,14 @@ body {
         background-color: @body-background !important;
       }
     }
+    .ant-cascader-picker{
+      .ant-input{
+        &:hover{
+          background: transparent!important;
+        }
+      }
+    }
+
     .ant-calendar-picker-input:hover {
       border: none;
       box-shadow: none !important;
