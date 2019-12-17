@@ -21,6 +21,7 @@ import styles from '@/theme/darkTheme.less';
 import stylesLight from '@/theme/lightTheme.less';
 import {message} from "antd";
 import { watermark } from '../utils/function';
+import {getUserInfos} from "@/utils/utils";
 
 
 export interface BasicLayoutProps extends ProLayoutProps {
@@ -111,6 +112,10 @@ const BasicLayout: React.FC<BasicLayoutProps> = props => {
             //   type: 'user/fetchCurrent',
             // });
             dispatch({
+                type: 'login/httpPermission',
+                payload: {idCard: getUserInfos().idCard},
+            })
+            dispatch({
                 type: 'settings/getSetting',
             });
         }
@@ -175,8 +180,9 @@ const BasicLayout: React.FC<BasicLayoutProps> = props => {
     );
 };
 
-export default connect(({global, settings}: ConnectState) => ({
+export default connect(({global, settings,login}: ConnectState) => ({
     collapsed: global.collapsed,
     dark: global.dark,
+    topList:login.topList,
     settings,
 }))(BasicLayout);

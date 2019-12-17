@@ -100,7 +100,8 @@ export default class PoliceSituationFrom extends PureComponent {
                     axisLabel: {
                         textStyle: {
                             color: '#fff',
-                            fontSize: 12,
+                            fontSize: 10,
+                            zoom:0.9,
                         },
                         rotate: 30,
                         interval: 0,

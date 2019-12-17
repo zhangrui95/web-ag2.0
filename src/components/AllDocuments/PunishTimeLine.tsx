@@ -66,7 +66,6 @@ export default class PunishTimeLine extends PureComponent {
     };
     // 处罚步骤
     showSteps = (punishData) => {
-        console.log('punishData',punishData)
         const {leftPx} = this.state;
         const stepData = [...punishData] || [];
         const stepLenght = stepData.length;

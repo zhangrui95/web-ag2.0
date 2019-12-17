@@ -65,7 +65,7 @@ export default class LoginByToken extends PureComponent {
     render() {
         return (
             <DocumentTitle title="">
-                <div className={styles.container}>
+                <div className={styles.containers}>
                     <div className={styles.top}>
                         {this.state.word}
                     </div>

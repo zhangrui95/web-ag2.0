@@ -433,7 +433,6 @@ export default class Index extends PureComponent {
     };
     // 设置手动选择日期
     setSelectedDate = val => {
-        console.log('执行？？？')
         this.setState({
             typeButtons: 'selectedDate',
             selectedDateVal: val,
