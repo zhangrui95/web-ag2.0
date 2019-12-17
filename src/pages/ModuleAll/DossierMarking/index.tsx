@@ -48,9 +48,9 @@ export default class DossierMarkingModal extends PureComponent {
 
   componentDidMount() {
     // 获取目录
-    this.getCatalogList();
-    // 获取电子卷列表
-    this.getElectronicVolumeList();
+      this.getCatalogList();
+      // 获取电子卷列表
+      this.getElectronicVolumeList();
   };
 
   // componentWillReceiveProps(nextProps) {
