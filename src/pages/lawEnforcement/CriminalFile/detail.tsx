@@ -414,8 +414,8 @@ export default class CriminalCaseDocDetail extends PureComponent {
                         normal: {
                             borderColor: dark ? '#fff' : '#e6e6e6',
                             borderWidth: 1,
-                            shadowBlur: 10,
-                            shadowColor: 'rgba(0, 0, 0, 0.3)',
+                            shadowBlur: 0,
+                            shadowColor: 'rgba(0, 0, 0, 0)',
                         }
                     },
                     label: {
@@ -689,7 +689,7 @@ export default class CriminalCaseDocDetail extends PureComponent {
                 pagination={sawpList.length > 0 ? {
                     size: 'small',
                     pageSize: 8,
-                    showTotal: (total, range) => <div style={{ position: 'absolute', left: '12px',color:this.props.global.dark ? '#fff':'#e6e6e6' }}>共 {total} 条记录
+                    showTotal: (total, range) => <div style={{ position: 'absolute', left: '12px',color:this.props.global&&this.props.global.dark ? '#fff':'#e6e6e6' }}>共 {total} 条记录
                         第 {this.state.current} / {(Math.ceil(total / 8))} 页</div>,
                     onChange: (page) => {
                         this.setState({ current: page });
@@ -698,7 +698,7 @@ export default class CriminalCaseDocDetail extends PureComponent {
                 dataSource={sawpList}
                 className={styles.sawpListName}
                 style={{ color: '#faa' }}
-                locale={{ emptyText: <Empty image={this.props.global.dark ? noList : noListLight} description={'暂无数据'} /> }}
+                locale={{ emptyText: <Empty image={this.props.global&&this.props.global.dark ? noList : noListLight} description={'暂无数据'} /> }}
                 renderItem={item => (
                     <List.Item>
                         <div className={styles.colsImg}>
@@ -749,13 +749,13 @@ export default class CriminalCaseDocDetail extends PureComponent {
                 pagination={gjxxList.length > 0 ? {
                     size: 'small',
                     pageSize: 8,
-                    showTotal: (total, range) => <div style={{ position: 'absolute', left: '12px',color:this.props.global.dark ? '#fff':'#e6e6e6' }}>共 {total} 条记录
+                    showTotal: (total, range) => <div style={{ position: 'absolute', left: '12px',color:this.props.global&&this.props.global.dark ? '#fff':'#e6e6e6' }}>共 {total} 条记录
                         第 {this.state.gjcurrent} / {(Math.ceil(total / 8))} 页</div>,
                     onChange: (page) => {
                         this.setState({ gjcurrent: page });
                     },
                 } : false}
-                locale={{ emptyText: <Empty image={this.props.global.dark ? noList : noListLight} description={'暂无数据'} /> }}
+                locale={{ emptyText: <Empty image={this.props.global&&this.props.global.dark ? noList : noListLight} description={'暂无数据'} /> }}
                 dataSource={gjxxList}
                 className={styles.sawpListName}
                 style={{ color: '#faa' }}
@@ -1004,7 +1004,7 @@ export default class CriminalCaseDocDetail extends PureComponent {
                 ),
             },
         ];
-        let className  = this.props.global.dark ? styles.detailBoxScroll : styles.detailBoxScroll+' ' + styles.detailBoxLight;
+        let className  = this.props.global&&this.props.global.dark ? styles.detailBoxScroll : styles.detailBoxScroll+' ' + styles.detailBoxLight;
         return (
             <Card style={{ height: autoheight() - 225 + 'px',marginTop:'12px' }}
                   // onScrollCapture={this.scrollHandler}
@@ -1035,7 +1035,7 @@ export default class CriminalCaseDocDetail extends PureComponent {
                                     pagination={{
                                         pageSize: 3,
                                         showTotal: (total, range) => <div
-                                            style={{ position: 'absolute', left: '-150px',color:this.props.global.dark ? '#fff':'#e6e6e6' }}>共 {total} 条记录
+                                            style={{ position: 'absolute', left: '-150px',color:this.props.global&&this.props.global.dark ? '#fff':'#e6e6e6' }}>共 {total} 条记录
                                             第 {this.state.jqcurrent} / {(Math.ceil(total / 3))} 页</div>,
                                         onChange: (page) => {
                                             this.setState({ jqcurrent: page });
@@ -1043,7 +1043,7 @@ export default class CriminalCaseDocDetail extends PureComponent {
                                     }}
                                     dataSource={caseDetails ? caseDetails.jqxxList : []}
                                     columns={JqColumns}
-                                    locale={{ emptyText: <Empty image={this.props.global.dark ? noList : noListLight} description={'暂无数据'} /> }}
+                                    locale={{ emptyText: <Empty image={this.props.global&&this.props.global.dark ? noList : noListLight} description={'暂无数据'} /> }}
                                 />
                             </Card>
                         </div>
@@ -1129,7 +1129,7 @@ export default class CriminalCaseDocDetail extends PureComponent {
                                     pagination={{
                                         pageSize: 3,
                                         showTotal: (total, range) => <div
-                                            style={{ position: 'absolute', left: '-150px',color:this.props.global.dark ? '#fff':'#e6e6e6' }}>共 {total} 条记录
+                                            style={{ position: 'absolute', left: '-150px',color:this.props.global&&this.props.global.dark ? '#fff':'#e6e6e6' }}>共 {total} 条记录
                                             第 {this.state.jzcurrent} / {(Math.ceil(total / 3))} 页</div>,
                                         onChange: (page) => {
                                             this.setState({ jzcurrent: page });
@@ -1137,7 +1137,7 @@ export default class CriminalCaseDocDetail extends PureComponent {
                                     }}
                                     dataSource={caseDetails ? caseDetails.jzList : []}
                                     columns={JzColumns}
-                                    locale={{ emptyText: <Empty image={this.props.global.dark ? noList : noListLight} description={'暂无数据'} /> }}
+                                    locale={{ emptyText: <Empty image={this.props.global&&this.props.global.dark ? noList : noListLight} description={'暂无数据'} /> }}
                                 />
                             </Card>
                         </div>

@@ -391,7 +391,7 @@ export default class PersonalDoc extends PureComponent {
         });
     }
     renderForm() {
-        let stylescommon = this.props.global.dark ? stylescommon1 : stylescommon2;
+        let stylescommon = this.props.global&&this.props.global.dark ? stylescommon1 : stylescommon2;
         const { form: { getFieldDecorator }, common: { depTree, involvedType, enforcementTypeDict } } = this.props;
         const {caseTypeTreeXZ,caseTypeTreeXS} = this.state;
         let involvedTypeOptions = [];
@@ -654,7 +654,7 @@ export default class PersonalDoc extends PureComponent {
     render() {
         const { personDocData: { personData }, loading } = this.props;
         const newAddDetail = this.state.arrayDetail;
-        let stylescommon = this.props.global.dark ? stylescommon1 : stylescommon2;
+        let stylescommon = this.props.global&&this.props.global.dark ? stylescommon1 : stylescommon2;
         return (
             <div>
                 {this.renderForm()}

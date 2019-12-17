@@ -189,7 +189,7 @@ export default class PoliceClear extends PureComponent {
     }
     render() {
         console.log('this.props',this.props.global.dark);
-        let stylescommon = this.props.global.dark ? stylescommon1 : stylescommon2;
+        let stylescommon = this.props.global&&this.props.global.dark ? stylescommon1 : stylescommon2;
         const {form: { getFieldDecorator }} = this.props
         const rowLayout = { md: 8, xl: 16, xxl: 24 };
         const modleLayouts = {
@@ -247,7 +247,7 @@ export default class PoliceClear extends PureComponent {
                 columns={columns}
                 dataSource={this.state.data&&this.state.data.list ? this.state.data.list : []}
                 rowSelection={rowSelection}
-                locale={{ emptyText:  <Empty image={this.props.global.dark ? noList : noListLight} description={'暂无数据'} />}}
+                locale={{ emptyText:  <Empty image={this.props.global&&this.props.global.dark ? noList : noListLight} description={'暂无数据'} />}}
             />
         );
         return (

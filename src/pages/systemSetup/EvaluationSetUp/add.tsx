@@ -85,7 +85,7 @@ export default class Add extends PureComponent {
             wrapperCol: { span: 15 },
         };
         return (
-            <div  className={this.props.global.dark ? styles.darkBox : styles.lightBox}>
+            <div  className={this.props.global&&this.props.global.dark ? styles.darkBox : styles.lightBox}>
             <Card style={{padding:'20px 0 300px',marginBottom:12}}>
                     <div className={styles.title}>添加{this.props.location.query.id==='0' ? '扣分项目' : this.props.location.query.id==='1' ? '补分项目' : '加分项目'}</div>
                     <Form>

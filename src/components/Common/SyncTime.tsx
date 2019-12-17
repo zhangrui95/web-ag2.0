@@ -27,7 +27,7 @@ export default class SyncTime extends PureComponent {
     render() {
         const { common: { syncTime: { zxxgsj } }, dataLatestTime } = this.props;
         return (
-            <div className={this.props.global.dark ? styles.statistic : styles.statisticLight}>
+            <div className={this.props.global&&this.props.global.dark ? styles.statistic : styles.statisticLight}>
                 <span>数据最新时间：{dataLatestTime}</span>
                 <span style={{ marginLeft: 40 }}>数据同步时间：{zxxgsj}</span>
             </div>

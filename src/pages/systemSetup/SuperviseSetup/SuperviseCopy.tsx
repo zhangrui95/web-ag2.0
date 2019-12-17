@@ -269,7 +269,7 @@ export default class SuperviseCopy extends PureComponent {
       wrapperCol: { span: 19 },
     };
     return (
-        <div className={this.props.global.dark ? '' : styles.lightBox}>
+        <div className={this.props.global&&this.props.global.dark ? '' : styles.lightBox}>
              <Card style={{padding:24,marginBottom:'12px'}} id={'SupCopyform'}>
                 <Form>
                   <Row gutter={rowLayout}>
@@ -324,7 +324,7 @@ export default class SuperviseCopy extends PureComponent {
                         onChange={this.handleChange}
                         selectedKeys={this.state.selectedKeys}
                         onSelectChange={this.handleSelectChange}
-                        locale={{notFoundContent:<Empty image={this.props.global.dark ? noList : noListLight} description={'暂无数据'} />}}
+                        locale={{notFoundContent:<Empty image={this.props.global&&this.props.global.dark ? noList : noListLight} description={'暂无数据'} />}}
                       />
                     </Col>
                   </Row>

@@ -339,7 +339,7 @@ export default class AdministrativeCaseDoc extends PureComponent {
         });
     }
     renderForm() {
-        let stylescommon = this.props.global.dark ? stylescommon1 : stylescommon2;
+        let stylescommon = this.props.global&&this.props.global.dark ? stylescommon1 : stylescommon2;
         const { form: { getFieldDecorator }, common: { depTree, XzCaseStatusType } } = this.props;
         const allPoliceOptions = this.state.allPolice.map(d => <Option key={`${d.idcard},${d.pcard}`}
                                                                        value={`${d.idcard},${d.pcard}$$`}
@@ -527,7 +527,7 @@ export default class AdministrativeCaseDoc extends PureComponent {
     render() {
         const { XzCaseData: { returnData, loading } } = this.props;
         const newAddDetail = this.state.arrayDetail;
-        let stylescommon = this.props.global.dark ? stylescommon1 : stylescommon2;
+        let stylescommon = this.props.global&&this.props.global.dark ? stylescommon1 : stylescommon2;
         return (
             <div>
                     {this.renderForm()}

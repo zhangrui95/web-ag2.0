@@ -748,7 +748,7 @@ export default class CaseModalTrail extends PureComponent {
     }
     return (
       <div
-        className={this.props.global.dark ? styles.message : styles.message+' '+styles.lightBoxMessage}
+        className={this.props.global&&this.props.global.dark ? styles.message : styles.message+' '+styles.lightBoxMessage}
         style={{
           paddingBottom: this.state.TrackPaddingBottom,
           paddingTop: this.state.TrackPaddingTop,

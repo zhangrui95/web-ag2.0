@@ -128,13 +128,13 @@ class RetrieveModal extends PureComponent {
             RetrieveRecord = JSON.parse(sessionStorage.getItem('query')).query.record;
         }
         return (
-            <div  id={'RetrieveForm'+RetrieveRecord.ajbh} className={this.props.global.dark ? '':styles.lightBox}>
+            <div  id={'RetrieveForm'+RetrieveRecord.ajbh} className={this.props.global&&this.props.global.dark ? '':styles.lightBox}>
                 <Card className={styles.standardTable}>
                     <Row style={{
                         width: '82%',
                         margin: '0 9% 10px',
                         lineHeight: '36px',
-                        color: this.props.global.dark ? '#fff' : '#333',
+                        color: this.props.global&&this.props.global.dark ? '#fff' : '#333',
                     }}>
                         <Col span={12}>
                             案件名称：{RetrieveRecord && RetrieveRecord.ajmc ? RetrieveRecord.ajmc : ''}

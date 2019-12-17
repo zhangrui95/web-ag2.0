@@ -362,7 +362,7 @@ export default class XZAJBLJDGLTZ extends PureComponent {
                     ? '250%'
                     : '100%',
               }}
-              locale={{ emptyText:  <Empty image={this.props.global.dark ? noList : noListLight} description={'暂无数据'} />}}
+              locale={{ emptyText:  <Empty image={this.props.global&&this.props.global.dark ? noList : noListLight} description={'暂无数据'} />}}
             />
           </div>
         </Card>

@@ -582,7 +582,7 @@ export default class CriminalFile extends PureComponent {
         });
     }
     renderForm() {
-        let stylescommon = this.props.global.dark ? stylescommon1 : stylescommon2;
+        let stylescommon = this.props.global&&this.props.global.dark ? stylescommon1 : stylescommon2;
         const { form: { getFieldDecorator }, common: { depTree, specialCaseType, CaseStatusType,enforcementTypeDict } } = this.props;
         const allPoliceOptions = this.state.allPolice.map(d => <Option key={`${d.idcard},${d.pcard}`}
                                                                        value={`${d.idcard},${d.pcard}$$`}
@@ -880,7 +880,7 @@ export default class CriminalFile extends PureComponent {
         const newAddDetail = this.state.arrayDetail;
         const { CaseData: { returnData, loading },common: { depTree,CaseStatusType} } = this.props;
         const { showDataView, typeButtons, seniorSearchModalVisible } = this.state;
-        let stylescommon = this.props.global.dark ? stylescommon1 : stylescommon2;
+        let stylescommon = this.props.global&&this.props.global.dark ? stylescommon1 : stylescommon2;
         return (
             <div>
                 {this.renderForm()}

@@ -245,7 +245,7 @@ export default class RYCZTZ extends PureComponent {
               columns={columns}
               dataSource={this.state.data.list}
               className={stylescommon.scrollTable}
-              locale={{ emptyText:  <Empty image={this.props.global.dark ? noList : noListLight} description={'暂无数据'} />}}
+              locale={{ emptyText:  <Empty image={this.props.global&&this.props.global.dark ? noList : noListLight} description={'暂无数据'} />}}
             />
           </div>
         </Card>
