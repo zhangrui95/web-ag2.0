@@ -11,6 +11,7 @@ import {Card,Checkbox,Icon} from 'antd';
 import theme from "../../assets/common/theme.png";
 import {ConnectState} from "@/models/connect";
 import iconFont from '../../utils/iconfont'
+import cookie from 'react-cookies'
 const IconFont = Icon.createFromIconfontCN({
     scriptUrl: iconFont
 })
@@ -24,7 +25,7 @@ class ThemeChange extends Component {
             type: 'global/changeBgColor',
             payload: bgColor,
         });
-        sessionStorage.setItem('dark',bgColor);
+        cookie.save('dark', bgColor);
     }
     render() {
         let styles = this.props.dark ? styles1 : styles2;

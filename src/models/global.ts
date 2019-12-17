@@ -1,5 +1,6 @@
 import {Reducer} from 'redux';
 import {Subscription, Effect} from 'dva';
+import cookie from 'react-cookies'
 
 import {NoticeIconData} from '@/components/NoticeIcon';
 import {queryNotices} from '@/services/user';
@@ -38,12 +39,11 @@ export interface GlobalModelType {
     };
     subscriptions: { setup: Subscription };
 }
-let dark = sessionStorage.getItem('dark') === 'false' ? false : true;
-console.log('dark-------->',dark)
+let dark = cookie.load('dark') === 'false' ? false : true;
 const GlobalModel: GlobalModelType = {
     namespace: 'global',
     state: {
-        dark: sessionStorage.getItem('dark') ? dark : true,
+        dark: cookie.load('dark') ? dark : true,
         collapsed: false,
         notices: [],
         navigation: sessionStorage.getItem('navigationNews') ? JSON.parse(sessionStorage.getItem('navigationNews')) : [welcomeItem],
