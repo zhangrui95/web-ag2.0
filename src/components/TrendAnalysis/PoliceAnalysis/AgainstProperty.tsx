@@ -10,6 +10,7 @@ import echarts from 'echarts'
 import AnalysisTitleArea from '../AnalysisTitleArea';
 import styles from '../analysisStyles.less';
 import noList from "@/assets/viewData/noList.png";
+import noListLight from "@/assets/viewData/noListLight.png";
 
 let myChart;
 let hurtBar;
@@ -344,7 +345,7 @@ export default class AgainstProperty extends PureComponent {
                             <div id="againstPropertyChart" style={{ height: 300 }}/>
                         </Col>
                         <Col lg={12} md={24}>
-                            <Table columns={columns} dataSource={tableData} bordered className={styles.tableArea}  locale={{ emptyText: <Empty image={noList} description={'暂无数据'} /> }}
+                            <Table columns={columns} dataSource={tableData} bordered className={styles.tableArea}  locale={{ emptyText: <Empty image={this.props.global&&this.props.global.dark ? noList : noListLight} description={'暂无数据'} /> }}
                                    pagination={false}/>
                         </Col>
                     </Row>
@@ -354,7 +355,7 @@ export default class AgainstProperty extends PureComponent {
                             <div id="hurtBar" style={{ height: 300 }}/>
                         </Col>
                         <Col lg={12} md={24}>
-                            <Table columns={columns} dataSource={shanghaiTableData} className={styles.tableArea}  locale={{ emptyText: <Empty image={noList} description={'暂无数据'} /> }}
+                            <Table columns={columns} dataSource={shanghaiTableData} className={styles.tableArea}  locale={{ emptyText: <Empty image={this.props.global&&this.props.global.dark ? noList : noListLight} description={'暂无数据'} /> }}
                                    bordered pagination={false}/>
                         </Col>
                     </Row>

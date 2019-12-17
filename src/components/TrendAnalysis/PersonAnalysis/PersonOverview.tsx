@@ -17,6 +17,7 @@ import styles from '../analysisStyles.less';
 import { routerRedux } from 'dva/router';
 import moment from 'moment';
 import noList from "@/assets/viewData/noList.png";
+import noListLight from "@/assets/viewData/noListLight.png";
 
 let suspectCountBar;
 let dealSuspectTypeBar;
@@ -670,7 +671,7 @@ export default class PersonOverview extends PureComponent {
                 bordered
                 className={styles.tableArea}
                 pagination={false}
-                locale={{ emptyText: <Empty image={noList} description={'暂无数据'} /> }}
+                locale={{ emptyText: <Empty image={this.props.global&&this.props.global.dark ? noList : noListLight} description={'暂无数据'} /> }}
               />
             </Col>
           </Row>
@@ -682,7 +683,7 @@ export default class PersonOverview extends PureComponent {
             className={styles.fraudTable}
             bordered
             pagination={false}
-            locale={{ emptyText: <Empty image={noList} description={'暂无数据'} /> }}
+            locale={{ emptyText: <Empty image={this.props.global&&this.props.global.dark ? noList : noListLight} description={'暂无数据'} /> }}
           />
         </div>
       </Spin>

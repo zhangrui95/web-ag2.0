@@ -10,6 +10,7 @@ import echarts from 'echarts'
 import AnalysisTitleArea from '../AnalysisTitleArea';
 import styles from '../analysisStyles.less';
 import noList from "@/assets/viewData/noList.png";
+import noListLight from "@/assets/viewData/noListLight.png";
 
 let treePie;
 let fraudBar;
@@ -423,7 +424,7 @@ export default class RobGrabFraud extends PureComponent {
                 <div className={className}>
                     <AnalysisTitleArea analysisTitle="两抢案件" {...this.props} />
                     <div id="robGrabPie" style={{ height: 300 }}/>
-                    <Table columns={columns} dataSource={liangqiangTableData} bordered className={styles.tableArea}  locale={{ emptyText: <Empty image={noList} description={'暂无数据'} /> }}
+                    <Table columns={columns} dataSource={liangqiangTableData} bordered className={styles.tableArea}  locale={{ emptyText: <Empty image={this.props.global&&this.props.global.dark ? noList : noListLight} description={'暂无数据'} /> }}
                            pagination={false} />
                     <h2 className={styles.areaTitle}>诈骗案件</h2>
                     <Row className={styles.fraudArea}>
@@ -431,7 +432,7 @@ export default class RobGrabFraud extends PureComponent {
                             <div id="fraudBar" style={{ height: 300 }}/>
                         </Col>
                         <Col lg={12} md={24}>
-                            <Table columns={fraudColumns} dataSource={zhapianTableData} className={styles.fraudTable}  locale={{ emptyText: <Empty image={noList} description={'暂无数据'} /> }}
+                            <Table columns={fraudColumns} dataSource={zhapianTableData} className={styles.fraudTable}  locale={{ emptyText: <Empty image={this.props.global&&this.props.global.dark ? noList : noListLight} description={'暂无数据'} /> }}
                                    bordered pagination={false}/>
                         </Col>
                     </Row>

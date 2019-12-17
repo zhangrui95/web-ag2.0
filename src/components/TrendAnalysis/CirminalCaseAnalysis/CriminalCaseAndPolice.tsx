@@ -16,6 +16,7 @@ import grid from 'echarts/lib/component/grid';
 import AnalysisTitleArea from '../AnalysisTitleArea';
 import styles from '../analysisStyles.less';
 import noList from "@/assets/viewData/noList.png";
+import noListLight from "@/assets/viewData/noListLight.png";
 
 let treePie;
 let criminalCaseAcceptBar;
@@ -480,7 +481,7 @@ export default class CriminalCaseAndPolice extends PureComponent {
                             <div className="criminalCaseAccept" style={{ height: 310 }}/>
                         </Col>
                         <Col lg={12} md={24}>
-                            <Table columns={acceptCaseColumns} dataSource={acceptCaseTableData} locale={{ emptyText: <Empty image={noList} description={'暂无数据'} /> }}
+                            <Table columns={acceptCaseColumns} dataSource={acceptCaseTableData} locale={{ emptyText: <Empty image={this.props.global&&this.props.global.dark ? noList : noListLight} description={'暂无数据'} /> }}
                                    className={styles.fraudTable} bordered pagination={false}/>
                         </Col>
                     </Row>

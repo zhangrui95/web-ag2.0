@@ -14,6 +14,7 @@ import grid from 'echarts/lib/component/grid';
 import AnalysisTitleArea from '../AnalysisTitleArea';
 import styles from '../analysisStyles.less';
 import noList from "@/assets/viewData/noList.png";
+import noListLight from "@/assets/viewData/noListLight.png";
 
 let myChart;
 
@@ -276,7 +277,7 @@ export default class CriminalCaseType extends PureComponent {
                                 onClick={() => this.changeCaseType('sh')}>伤害</Button>
                     </div>
                     <Table columns={columns} dataSource={tableData} bordered className={styles.tableArea}
-                           pagination={false} locale={{ emptyText: <Empty image={noList} description={'暂无数据'} /> }}/>
+                           pagination={false} locale={{ emptyText: <Empty image={this.props.global&&this.props.global.dark ? noList : noListLight} description={'暂无数据'} /> }}/>
                 </div>
             </Spin>
         );

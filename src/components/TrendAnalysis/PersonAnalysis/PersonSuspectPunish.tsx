@@ -17,6 +17,7 @@ import AnalysisTitleArea from '../AnalysisTitleArea';
 import styles from '../analysisStyles.less';
 import moment from 'moment';
 import noList from "@/assets/viewData/noList.png";
+import noListLight from "@/assets/viewData/noListLight.png";
 
 let myChart;
 let ratePie;
@@ -496,11 +497,11 @@ export default class PersonSuspectPunish extends PureComponent {
                 <div className={className}>
                     <AnalysisTitleArea analysisTitle="犯罪嫌疑人强制措施分析" {...this.props} />
                     <div className="suspectPunishType" style={{ height: 300 }}/>
-                    <Table columns={columns} dataSource={tableData} bordered className={styles.tableArea} locale={{ emptyText: <Empty image={noList} description={'暂无数据'} /> }}
+                    <Table columns={columns} dataSource={tableData} bordered className={styles.tableArea} locale={{ emptyText: <Empty image={this.props.global&&this.props.global.dark ? noList : noListLight} description={'暂无数据'} /> }}
                            pagination={false}/>
                     <h2 className={styles.areaTitle}>犯罪嫌疑人强制措施占比分析</h2>
                     <div className="suspectPunishRate" style={{ height: 400 }}/>
-                    <Table columns={rateTableColumns} dataSource={rateTableData} bordered className={styles.tableArea} locale={{ emptyText: <Empty image={noList} description={'暂无数据'} /> }}
+                    <Table columns={rateTableColumns} dataSource={rateTableData} bordered className={styles.tableArea} locale={{ emptyText: <Empty image={this.props.global&&this.props.global.dark ? noList : noListLight} description={'暂无数据'} /> }}
                            pagination={false}/>
                 </div>
             </Spin>
