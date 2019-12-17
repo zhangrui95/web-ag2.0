@@ -371,7 +371,7 @@ export default class AdministrativeCaseDocDetail extends PureComponent {
                 data: categories2.map(function (a) {
                     return a.name;
                 }),
-                textStyle: { color: dark ? "#fff" : '#333' },
+                textStyle: { color: dark ? "#fff" : '#4D4D4D' },
             }],
             animationDuration: 1500,
             animationEasingUpdate: 'quinticInOut',
@@ -402,7 +402,7 @@ export default class AdministrativeCaseDocDetail extends PureComponent {
                         position: 'bottom',
                         formatter: '{b}',
                         textStyle: {
-                            color: dark ?  '#eee' : '#333',
+                            color: dark ?  '#eee' : '#4D4D4D',
                         }
                     },
                     lineStyle: {

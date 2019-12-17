@@ -134,7 +134,7 @@ class RetrieveModal extends PureComponent {
                         width: '82%',
                         margin: '0 9% 10px',
                         lineHeight: '36px',
-                        color: this.props.global&&this.props.global.dark ? '#fff' : '#333',
+                        color: this.props.global&&this.props.global.dark ? '#fff' : '#4D4D4D',
                     }}>
                         <Col span={12}>
                             案件名称：{RetrieveRecord && RetrieveRecord.ajmc ? RetrieveRecord.ajmc : ''}

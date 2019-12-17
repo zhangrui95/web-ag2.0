@@ -8,7 +8,8 @@ import EvaluationChats from '../../../components/AjEvaluation/EvaluationChats';
 import { exportListDataMaxDays, getUserInfos } from '../../../utils/utils';
 // import SuperviseModal from '../../components/UnCaseRealData/SuperviseModal';
 import { routerRedux } from 'dva/router';
-import stylescommon from "@/pages/common/common.less";
+import stylescommon1 from "@/pages/common/common.less";
+import stylescommon2 from "@/pages/common/commonLight.less";
 
 const FormItem = Form.Item;
 const { Option } = Select;
@@ -24,20 +25,22 @@ const formItemLayout = {
     wrapperCol: { xs: { span: 24 }, md: { span: 16 }, xl: { span: 18 }, xxl: { span: 19 } },
 };
 const rowLayout = { md: 8, xl: 16, xxl: 24 };
-const colLayoutRadios = { sm: 24, md: 6, xl: 16 };
 const colLayout = { sm: 24, md: 12, xl: 8 };
-const colLayouts = { sm: 12, md: 12, xl: 8, xxl: 9 };
-const colLayoutRadio = { sm: 12, md: 12, xl: 6, xxl: 5 };
-const colLayoutBtn = { sm: 12, md: 12, xl: 4, xxl: 3 };
+const colLayouts = { sm: 12, md: 12, xl: 10, xxl: 9 };
+const colLayoutBox = { sm: 15, md: 15, xl: 14, xxl: 15 };
 const formItemLayoutRadio = {
-    labelCol: { xs: { span: 24 }, md: { span: 10 }, xl: { span: 3 }, xxl: { span: 4 } },
-    wrapperCol: { xs: { span: 24 }, md: { span: 14 }, xl: { span: 21 }, xxl: { span: 20 } },
+    labelCol: { xs: { span: 24 }, md: { span: 10 }, xl: { span: 4 }, xxl: { span: 7 } },
+    wrapperCol: { xs: { span: 24 }, md: { span: 14 }, xl: { span: 18 }, xxl: { span: 17 } },
+};
+const formItemLayoutRadios = {
+    labelCol: { xs: { span: 8 }, md: { span: 6 }, xl: { span: 4 }, xxl: { span: 3 } },
+    wrapperCol: { xs: { span: 14 }, md: { span: 16 }, xl: { span: 18 }, xxl: { span: 18 } },
 };
 const formItemLayoutShow = {
     labelCol: { xs: { span: 24 }, md: { span: 10 }, xl: { span: 6 }, xxl: { span: 5 } },
     wrapperCol: { xs: { span: 24 }, md: { span: 14 }, xl: { span: 18 }, xxl: { span:19 } },
 };
-const colLayoutShow = { sm: 24, md: 12, xl: 11, xxl: 11 };
+const colLayoutShow = { sm: 24, md: 12, xl: 14, xxl: 6 };
 let start = moment(moment().subtract('month', 1).format('YYYY-MM') + '-01');
 let end = moment(moment(start).subtract('month', -1).add('days', -1).format('YYYY-MM-DD'));
 @connect(({ Evaluation, common,global }) => ({
@@ -468,6 +471,7 @@ export default class Index extends PureComponent {
         let xmOption = xmType.map((item)=>{
             return <Option  key={item.code} value={item.code}>{item.name}情况</Option>
         })
+        let stylescommon = this.props.global&&this.props.global.dark ? stylescommon1 : stylescommon2;
         return (
             <Card className={stylescommon.cardArea} style={{ padding: '10px 0' }}>
                 <Form style={{ height: this.state.searchHeightTb ? 'auto' : '50px' }}>
@@ -524,8 +528,8 @@ export default class Index extends PureComponent {
                         )}
                     </FormItem>
                 </Col>
-                <Col {...colLayoutShow}>
-                    <FormItem label="统计内容" {...formItemLayoutRadio}>
+                <Col {...colLayoutBox}>
+                    <FormItem label="统计内容" {...formItemLayoutRadios}>
                         {getFieldDecorator('tjnr', {
                             initialValue: this.state.tjnr,
                         })(
@@ -534,7 +538,7 @@ export default class Index extends PureComponent {
                                     <Radio value="0">案件数量</Radio>
                                     <Radio value="1">告警数量</Radio>
                                     <Radio value="3">
-                                        <Select disabled={this.state.tjnr === '3' ? false : true} value={this.state.tjnrXm} placeholder="请选择"  style={{width:'200px'}} onChange={this.getTjnrXm} defaultValue={xmType&&xmType.length > 0 ? '0' : ''} getPopupContainer={() => document.getElementById('formCaseEvaluation')}>
+                                        <Select disabled={this.state.tjnr === '3' ? false : true} value={this.state.tjnrXm} placeholder="请选择"  style={{width:'120px'}} onChange={this.getTjnrXm} defaultValue={xmType&&xmType.length > 0 ? '0' : ''} getPopupContainer={() => document.getElementById('formCaseEvaluation')}>
                                             {xmOption}
                                         </Select>
                                     </Radio>
@@ -576,6 +580,7 @@ export default class Index extends PureComponent {
         const allPoliceOptions = this.state.allPolice&&this.state.allPolice.map(d => <Option key={`${d.pcard}`}
                                                                                              value={`${d.pcard}`}
                                                                                              title={d.name}>{`${d.name} ${d.pcard}`}</Option>);
+        let stylescommon = this.props.global&&this.props.global.dark ? stylescommon1 : stylescommon2;
         return (
             <Card className={stylescommon.cardArea} style={{ padding: '10px 0' }}>
                 <Form style={{ height: this.state.searchHeight ? 'auto' : '50px' }}>
@@ -794,8 +799,10 @@ export default class Index extends PureComponent {
         const { Evaluation: { AssessmentPgList } } = this.props;
         const newAddDetail = this.state.arrayDetail;
         const { showDataView, superviseVisibleModal } = this.state;
+        let stylescommon = this.props.global&&this.props.global.dark ? stylescommon1 : stylescommon2;
+        let boxStyle = this.props.global&&this.props.global.dark ? (this.props.location.query && this.props.location.query.id ? styles.onlyDetail:''): (this.props.location.query && this.props.location.query.id ? styles.onlyDetail +' '+styles.boxLight : styles.boxLight);
         return (
-            <div className={this.props.location.query && this.props.location.query.id ? styles.onlyDetail : ''} id={'formCaseEvaluation'}>
+            <div className={boxStyle} id={'formCaseEvaluation'}>
                         <div className={styles.listPageWrap}>
                     <Card className={styles.listPageHeader}>
                                 {
@@ -835,22 +842,6 @@ export default class Index extends PureComponent {
                                                  data={AssessmentPgList} {...this.props} {...this.state}/>
                             </div>
                         </div>
-                {/*{superviseVisibleModal ?*/}
-                {/*    <SuperviseModal*/}
-                {/*        visible={superviseVisibleModal}*/}
-                {/*        closeModal={this.closeModal}*/}
-                {/*        saveModal={this.saveModal}*/}
-                {/*        caseDetails={this.state.opendata}*/}
-                {/*        // 点击列表的督办显示的四个基本信息*/}
-                {/*        wtlx={this.state.superviseWtlx}*/}
-                {/*        zrdw={this.state.superviseZrdw}*/}
-                {/*        zrdwId={this.state.superviseZrdwId}*/}
-                {/*        zrr={this.state.sabar}*/}
-                {/*        id={this.state.id}*/}
-                {/*        zjhm={this.state.sfzh}*/}
-                {/*    />*/}
-                {/*    : ''*/}
-                {/*}*/}
             </div>
         );
     }

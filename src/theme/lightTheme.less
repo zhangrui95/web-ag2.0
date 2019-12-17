@@ -1,7 +1,7 @@
 @body-background: #ebebeb; //body主背景色
 @component-background: #fff; //组件背景颜色
 @text-color: #727272; //文本颜色
-@text-word-color: #333;
+@text-word-color: #4D4D4D;
 @highlight-color: #4662d5; //选择高亮颜色
 @tabs-active-color: #172c9e; //选中底部边框颜色
 @alert-warning-bg-color: #f4eee0; //告警message背景
@@ -38,7 +38,7 @@
 @red: #f5222d;
 @orange: #faad14;
 body {
-  color: #333;
+  color: #4D4D4D;
 }
 .light {
   :global {
@@ -48,12 +48,12 @@ body {
     .ant-input,
     .ant-transfer-list,
     .ant-time-picker-input {
-      background-color: @body-background;
+      background-color: #F2F2F2;
       border: @no-box-shadow;
       color: @text-word-color;
     }
     .antd-pro-pages-receive-police-alarm-data-index-redioGroup .ant-radio-button-wrapper{
-      background-color: @body-background;
+      background-color: #F2F2F2;
       border-top: @no-box-shadow;
       border-bottom: @no-box-shadow;
       border-left: @no-box-shadow;
@@ -77,7 +77,9 @@ body {
       background-color: @depart-choose-back;
     }
     .ant-select-selection__choice {
-      background-color: @component-background;
+      background-color: #E6E6E6;
+      border: 1px solid #fff;
+      color: @text-word-color;
     }
     .btnSearch,
     .ant-btn {
@@ -396,7 +398,7 @@ body {
     .ant-table-placeholder {
       background: @component-background;
       border: @zero;
-      padding: 70px 16px;
+      padding: 65px 16px;
       .ant-empty-description {
         color: #999;
       }
@@ -492,7 +494,7 @@ body {
       color: @text-word-color;
     }
     .ant-select-selection {
-      background: @body-background;
+      background: #F2F2F2;
       border: @zero;
       color: @text-word-color;
     }
@@ -579,20 +581,15 @@ body {
       border-color: @checkbox-color;
       color: @text-word-color;
     }
-    .ant-select-selection__choice {
-      background-color: @component-background;
-      color: @text-word-color;
-      border: @zero;
-    }
     .ant-select-selection--multiple .ant-select-selection__choice__remove {
-      color: @text-word-color;
+      color: #999;
     }
     .ant-select-search__field {
       background-color: @transparent;
     }
     .ant-select-disabled {
       .ant-select-selection {
-        background-color: @body-background;
+        background-color: #F2F2F2;
         opacity: 0.6;
         border: @zero;
       }
@@ -815,7 +812,7 @@ body {
       border-right: 1px solid @body-background!important;
     }
     .ant-table-bordered .ant-table-body > table{
-      border: 1px solid @body-background;
+      border: 1px solid @body-background!important;
     }
     .ant-table-bordered {
       .ant-table-thead > tr > th,

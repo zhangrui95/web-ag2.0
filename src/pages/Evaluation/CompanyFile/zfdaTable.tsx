@@ -28,9 +28,10 @@ const formItemLayout = {
 const TreeNode = TreeSelect.TreeNode;
 let timeout;
 let currentValue;
-@connect(({ common, TzList }) => ({
+@connect(({ common, TzList,global }) => ({
     common,
     TzList,
+    global
 }))
 @Form.create()
 export default class zfdaTable extends PureComponent {
@@ -310,8 +311,9 @@ export default class zfdaTable extends PureComponent {
                                                                        value={`${d.idcard},${d.pcard}$$`}
                                                                        title={d.name}>{`${d.name} ${d.pcard}`}</Option>);
         const { form: { getFieldDecorator }, common: { depTree }, treeDefaultExpandedKeys } = this.props;
+        let className = this.props.global&&this.props.global.dark ? styles.cardArea : styles.cardArea+' ' + styles.lightBox;
         return (
-            <Card className={styles.cardArea} id={'form'}>
+            <Card className={className} id={'form'+this.props.url}>
                 <div>
                     <Form>
                         <Row gutter={rowLayout}>
@@ -337,7 +339,7 @@ export default class zfdaTable extends PureComponent {
                                             key='jgSelect'
                                             treeDefaultExpandedKeys={treeDefaultExpandedKeys}
                                             treeNodeFilterProp="title"
-                                            getPopupContainer={() => document.getElementById('form')}
+                                            getPopupContainer={() => document.getElementById('form'+this.props.url)}
                                         >
                                             {depTree && depTree.length > 0 ? this.renderloop(depTree) : null}
                                         </TreeSelect>,
@@ -359,7 +361,7 @@ export default class zfdaTable extends PureComponent {
                                                 onSearch={(value) => this.getAllPolice(value)}
                                                 onFocus={(value) => this.getAllPolice(value)}
                                                 onChange={(e) => this.getChangeTable(this.state.treeId, this.state.data, e)}
-                                                getPopupContainer={() => document.getElementById('form')}
+                                                getPopupContainer={() => document.getElementById('form'+this.props.url)}
                                             >
                                                 {allPoliceOptions}
                                             </Select>,
@@ -373,7 +375,7 @@ export default class zfdaTable extends PureComponent {
                                         {getFieldDecorator('yf', {
                                             initialValue: this.state.data,
                                         })(
-                                            <MonthPicker allowClear={false} size='default' placeholder={'请选择月份'} getCalendarContainer={()=>document.getElementById('form')}
+                                            <MonthPicker allowClear={false} size='default' placeholder={'请选择月份'} getCalendarContainer={()=>document.getElementById('form'+this.props.url)}
                                                          disabledDate={this.disabledDate} onChange={this.dateChange}/>,
                                         )}
                                     </FormItem>
@@ -391,7 +393,7 @@ export default class zfdaTable extends PureComponent {
                                                 placeholder={'请选择日期'}
                                                 onChange={this.dateChange}
                                                 allowClear={false}
-                                                getCalendarContainer={()=>document.getElementById('form')}
+                                                getCalendarContainer={()=>document.getElementById('form'+this.props.url)}
                                             />,
                                         )}
                                     </FormItem>

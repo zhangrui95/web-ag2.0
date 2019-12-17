@@ -299,19 +299,19 @@ export default class Steal extends PureComponent {
                 type: 'value',
                 axisLabel: {   // X轴线 标签修改
                     textStyle: {
-                        color: '#fff', //坐标值得具体的颜色
+                        color: this.props.global && this.props.global.dark ? '#fff' : '#4d4d4d', //坐标值得具体的颜色
                     }
                 },
                 splitLine:{
                     show: true, // X轴线 颜色类型的修改
                     lineStyle: {
-                        color: '#fff'
+                        color: this.props.global && this.props.global.dark ? '#fff' : '#e6e6e6'
                     }
                 },
                 axisLine: {
                     show: true, // X轴 网格线 颜色类型的修改
                     lineStyle: {
-                        color: '#fff'
+                        color: this.props.global && this.props.global.dark ? '#fff' : '#e6e6e6'
                     }
                 },
             },
@@ -320,13 +320,13 @@ export default class Steal extends PureComponent {
                 data: [],
                 axisLabel: {   // y轴线 标签修改
                     textStyle: {
-                        color: '#fff', //坐标值得具体的颜色
+                        color: this.props.global && this.props.global.dark ? '#fff' : '#4d4d4d', //坐标值得具体的颜色
                     }
                 },
                 axisLine: {
                     show: true, // y轴 网格线 颜色类型的修改
                     lineStyle: {
-                        color: '#fff'
+                        color: this.props.global && this.props.global.dark ? '#fff' : '#e6e6e6'
                     }
                 },
             },
@@ -354,7 +354,7 @@ export default class Steal extends PureComponent {
                 // shape: 'circle',
                 name: {
                     textStyle: {
-                        color: '#fff',
+                        color: this.props.global && this.props.global.dark ? '#fff' : '#4d4d4d'
                     },
                 },
                 indicator: [],

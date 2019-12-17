@@ -129,7 +129,7 @@ export default class EvaluationChats extends PureComponent {
                 for (let i = 0; i < legendData.length; i++) {
                     let seriesDataVal = null;
                     seriesDataVal = {
-                        barWidth: 30,//柱状条宽度
+                        barWidth: 10,//柱状条宽度
                         name: legendData[i],
                         type: 'bar',
                         itemStyle: {
@@ -202,7 +202,7 @@ export default class EvaluationChats extends PureComponent {
                 for (let i = 0; i < legendData.length; i++) {
                     let seriesDataVal = null;
                     seriesDataVal = {
-                        barWidth: 30,//柱状条宽度
+                        barWidth: 10,//柱状条宽度
                         name: legendData[i],
                         type: 'bar',
                         itemStyle: {
@@ -275,7 +275,7 @@ export default class EvaluationChats extends PureComponent {
                 for (let i = 0; i < legendData.length; i++) {
                     let seriesDataVal = null;
                     seriesDataVal = {
-                        barWidth: 20,//柱状条宽度
+                        barWidth: 10,//柱状条宽度
                         name: legendData[i],
                         type: 'bar',
                         itemStyle: {
@@ -308,7 +308,7 @@ export default class EvaluationChats extends PureComponent {
                 textStyle: {
                     fontSize: 16,
                     fontWeight: '700',
-                    color:'#fff',
+                    color:this.props.global&&this.props.global.dark ? '#fff' : '#4662D5',
                 },
             },
             tooltip: {
@@ -332,7 +332,7 @@ export default class EvaluationChats extends PureComponent {
             // },
             legend: {
                 data: legendData,
-                textStyle: { color: "#fff" },
+                textStyle: { color: this.props.global&&this.props.global.dark ? "#fff" : '#4D4D4D' },
                 y: 'bottom',//图例说明文字设置
             },
             grid: {
@@ -348,13 +348,13 @@ export default class EvaluationChats extends PureComponent {
                 data: axisLabel,
                 axisLabel: {   // X轴线 标签修改
                     textStyle: {
-                        color: '#fff', //坐标值得具体的颜色
+                        color: this.props.global&&this.props.global.dark ? "#fff" : '#4D4D4D', //坐标值得具体的颜色
                     }
                 },
                 axisLine: {
                     show: true, // X轴 网格线 颜色类型的修改
                     lineStyle: {
-                        color: '#fff'
+                        color: this.props.global&&this.props.global.dark ? "#fff" : '#E6E6E6',
                     }
                 },
             }],
@@ -364,13 +364,13 @@ export default class EvaluationChats extends PureComponent {
                 splitArea: { show: false },
                 axisLabel: {   // X轴线 标签修改
                     textStyle: {
-                        color: '#fff', //坐标值得具体的颜色
+                        color: this.props.global&&this.props.global.dark ? "#fff" : '#4D4D4D', //坐标值得具体的颜色
                     }
                 },
                 axisLine: {
                     show: true, // X轴 网格线 颜色类型的修改
                     lineStyle: {
-                        color: '#fff'
+                        color: this.props.global&&this.props.global.dark ? "#fff" : '#E6E6E6'
                     }
                 },
             }],
@@ -455,7 +455,7 @@ export default class EvaluationChats extends PureComponent {
                 for (let i = 0; i < legendData.length; i++) {
                     let seriesDataVal = null;
                     seriesDataVal = {
-                        barWidth: 80,//柱状条宽度
+                        barWidth: 10,//柱状条宽度
                         name: legendData[i],
                         type: 'bar',
                         itemStyle: {
@@ -552,7 +552,7 @@ export default class EvaluationChats extends PureComponent {
                 for (let i = 0; i < legendData.length; i++) {
                     let seriesDataVal = null;
                     seriesDataVal = {
-                        barWidth: 30,//柱状条宽度
+                        barWidth: 10,//柱状条宽度
                         name: legendData[i],
                         type: 'bar',
                         itemStyle: {
@@ -648,7 +648,7 @@ export default class EvaluationChats extends PureComponent {
                 for (let i = 0; i < legendData.length; i++) {
                     let seriesDataVal = null;
                     seriesDataVal = {
-                        barWidth: 20,//柱状条宽度
+                        barWidth: 10,//柱状条宽度
                         name: legendData[i],
                         type: 'bar',
                         itemStyle: {
@@ -703,7 +703,7 @@ export default class EvaluationChats extends PureComponent {
                 textStyle: {
                     fontSize: 16,
                     fontWeight: '700',
-                    color:'#fff'
+                    color:this.props.global&&this.props.global.dark ? "#fff" : '#4662D5'
                 },
             },
             tooltip: {
@@ -738,13 +738,13 @@ export default class EvaluationChats extends PureComponent {
                 data: axisLabel,
                 axisLabel: {   // X轴线 标签修改
                     textStyle: {
-                        color: '#fff', //坐标值得具体的颜色
+                        color: this.props.global&&this.props.global.dark ? "#fff" : '#4D4D4D', //坐标值得具体的颜色
                     }
                 },
                 axisLine: {
                     show: true, // X轴 网格线 颜色类型的修改
                     lineStyle: {
-                        color: '#fff'
+                        color: this.props.global&&this.props.global.dark ? "#fff" : '#E6E6E6'
                     }
                 },
             }],
@@ -754,13 +754,13 @@ export default class EvaluationChats extends PureComponent {
                 splitArea: { show: false },
                 axisLabel: {   // X轴线 标签修改
                     textStyle: {
-                        color: '#fff', //坐标值得具体的颜色
+                        color: this.props.global&&this.props.global.dark ? "#fff" : '#4D4D4D', //坐标值得具体的颜色
                     }
                 },
                 axisLine: {
                     show: true, // X轴 网格线 颜色类型的修改
                     lineStyle: {
-                        color: '#fff'
+                        color: this.props.global&&this.props.global.dark ? "#fff" : '#E6E6E6'
                     }
                 },
             }],
@@ -811,15 +811,16 @@ export default class EvaluationChats extends PureComponent {
         const allPoliceOptions = this.props.allPolice&&this.props.allPolice.map(d => <Option key={`${d.idcard}`}
                                                                        value={`${d.idcard}`}
                                                                        title={d.name}>{`${d.name} ${d.pcard}`}</Option>);
+        let className = this.props.global&&this.props.global.dark ? styles.evalDataView : styles.evalDataView + ' '+ styles.lightBox;
         return (
-            <Card className={styles.evalDataView} id={'form'}>
+            <Card className={className} id={'form'}>
                 <Row gutter={rowLayout} className={styles.listPageRow}>
                     <Col {...colLayout} className={styles.viewBox}>
                         <Icon type="left" className={this.state.currentPage1 === 1 ? styles.none : styles.leftGo}
                               onClick={() => this.props.tjnrRedio === '0' ? this.initDataAj(-1, this.props, this.state.sortCharts1) : this.props.tjnrRedio === '1' ? this.initDataGj(-1, this.props, this.state.sortCharts1)  : this.initData(-1, this.props, this.state.sortCharts1,this.props.tjnrCode)}/>
                         <div className={styles.sortIcon} style={{ left: '120px' }} onClick={() => this.getSort('1')}>
-                            <Icon type="caret-up" style={this.state.sortCharts1 ? {} : { color: '#1890ff' }}/>
-                            <Icon type="caret-down" style={this.state.sortCharts1 ? { color: '#1890ff' } : {}}/>
+                            <Icon type="caret-up" style={this.state.sortCharts1 ? {} : { color: this.props.global&&this.props.global.dark ? '#1890ff' : '#4662D5' }}/>
+                            <Icon type="caret-down" style={this.state.sortCharts1 ? { color: this.props.global&&this.props.global.dark ? '#1890ff' : '#4662D5' } : {}}/>
                         </div>
                         <div id="kfqkAj" className={this.props.tjnrRedio === '0' ? styles.rightCharts : styles.none}></div>
                         <div id="kfqkGj" className={this.props.tjnrRedio === '1' ? styles.rightCharts : styles.none}></div>
@@ -846,8 +847,8 @@ export default class EvaluationChats extends PureComponent {
                               className={this.state.currentPage3 === 1 ? styles.none : styles.leftGo}
                               onClick={() => this.props.tjnrRedio === '0' ?  this.initRyDataAj(-1, this.props, this.state.sortCharts3, this.props.tjnrCode) : this.props.tjnrRedio === '1' ?  this.initRyDataGj(-1, this.props, this.state.sortCharts3, this.props.tjnrCode): this.initRyData(-1, this.props, this.state.sortCharts3, this.props.tjnrCode)}/>
                         <div className={styles.sortIcon} onClick={() => this.getSort('3')}>
-                            <Icon type="caret-up" style={this.state.sortCharts3 ? {} : { color: '#1890ff' }}/>
-                            <Icon type="caret-down" style={this.state.sortCharts3 ? { color: '#1890ff' } : {}}/>
+                            <Icon type="caret-up" style={this.state.sortCharts3 ? {} : { color: this.props.global&&this.props.global.dark ? '#1890ff' : '#4662D5' }}/>
+                            <Icon type="caret-down" style={this.state.sortCharts3 ? { color:this.props.global&&this.props.global.dark ? '#1890ff' : '#4662D5' } : {}}/>
                         </div>
                         <Select
                             showSearch
@@ -887,7 +888,7 @@ export default class EvaluationChats extends PureComponent {
                                             </div>
                                         </Col>
                                         <Col span={7}
-                                             style={{ lineHeight: '40px' }}>：{this.props.tjnrRedio === '0' ? event.aj_count :this.props.tjnrRedio === '1' ? event.gj_count : event.kfz == '0' ? event.kfz : event.kfz}</Col>
+                                             style={{ lineHeight: '40px',textAlign:'left' }}>：{this.props.tjnrRedio === '0' ? event.aj_count :this.props.tjnrRedio === '1' ? event.gj_count : event.kfz == '0' ? event.kfz : event.kfz}</Col>
                                     </Row>;
 
                                 })

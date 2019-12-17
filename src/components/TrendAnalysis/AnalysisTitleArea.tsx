@@ -11,8 +11,9 @@ import styles from './analysisStyles.less';
 export default class AnalysisTitleArea extends PureComponent {
     render() {
         const { analysisTitle } = this.props;
+        let className = this.props.global && this.props.global.dark ? styles.titleArea : styles.titleArea+' '+styles.lightBox
         return (
-            <div className={styles.titleArea}>
+            <div className={className}>
                 <h2 className={styles.title}>{analysisTitle}</h2>
                 <Row className={styles.titleDate}>
                     <Col xxl={6} xl={8} md={12}>

@@ -17,10 +17,12 @@ import {
 } from 'antd';
 import { connect } from 'dva';
 import styles from './ajSearch.less';
-import stylescommon from "@/pages/common/common.less";
+import stylescommon1 from "@/pages/common/common.less";
+import stylescommon2 from "@/pages/common/commonLight.less";
 import noList from "@/assets/viewData/noList.png";
 import {NavigationItem} from "@/components/Navigation/navigation";
 import {routerRedux} from "dva/router";
+import noListLight from "@/assets/viewData/noListLight.png";
 
 const { RangePicker } = DatePicker;
 const FormItem = Form.Item;
@@ -380,6 +382,7 @@ class AjSearch extends PureComponent {
                 );
             }
         }
+        let stylescommon = this.props.global&&this.props.global.dark ? stylescommon1 : stylescommon2;
         return (
             <Card style={{padding:'10px 0'}}>
                 <Form onSubmit={(e) => this.handleSearch(e, this.state.ajType)} style={{ height: this.state.searchHeight ? 'auto' : '50px' }}>
@@ -637,6 +640,7 @@ class AjSearch extends PureComponent {
         const { AllCaseData: { returnData, loading } } = this.props;
         let data = this.state.first ? [] : returnData;
         let columns;
+        let stylescommon = this.props.global&&this.props.global.dark ? stylescommon1 : stylescommon2;
         columns = [
             {
                 title: '案件编号',
@@ -777,7 +781,7 @@ class AjSearch extends PureComponent {
                         columns={columns}
                         pagination={paginationProps}
                         onChange={this.handleTableChanges}
-                        locale={{ emptyText: <Empty image={noList} description={'暂无数据'} /> }}
+                        locale={{ emptyText: <Empty image={this.props.global&&this.props.global.dark ? noList : noListLight} description={'暂无数据'} /> }}
                     />
                 </div>
             </div>
@@ -785,8 +789,9 @@ class AjSearch extends PureComponent {
     }
 
     render() {
+        let className = this.props.global&&this.props.global.dark ? '' : styles.lightBox;
         return (
-            <div>
+            <div className={className}>
                 <div className={styles.tableListForm}>
                     {this.renderForm()}
                 </div>
@@ -798,7 +803,7 @@ class AjSearch extends PureComponent {
                         <Button type="primary" style={{ marginLeft: 8 }} className={styles.qxBtn} onClick={()=>this.onEdit(false)}>
                             取消
                         </Button>
-                        <Button type="primary" style={{ marginLeft: 8 }} disabled={this.state.selectedRowsId && this.state.selectedRowsId.length > 0 ? false : true}
+                        <Button type="primary" style={{ marginLeft: 8 }} className={this.state.selectedRowsId && this.state.selectedRowsId.length > 0 ? styles.okBtn :''} disabled={this.state.selectedRowsId && this.state.selectedRowsId.length > 0 ? false : true}
                                 onClick={this.getOk}>
                            确认
                         </Button>

@@ -135,7 +135,7 @@ export default class RobGrabFraud extends PureComponent {
                                     position: 'center',
                                     textStyle: {
                                         fontSize: '20',
-                                        color: '#fff',
+                                        color: this.props.global && this.props.global.dark ? '#fff' : '#4d4d4d',
                                     },
                                     formatter: `${selectedDateStr}\n\n案发${liangqiang.nowtime}起`,
                                 },
@@ -152,7 +152,7 @@ export default class RobGrabFraud extends PureComponent {
                                     formatter: '{c}',
                                     textStyle: {
                                         fontSize: '20',
-                                        color: '#fff',
+                                        color: this.props.global && this.props.global.dark ? '#fff' : '#4d4d4d',
                                     },
                                     formatter: `${yearOnYearDateStr}\n\n案发${liangqiang.lastyear}起`,
                                 },
@@ -169,7 +169,7 @@ export default class RobGrabFraud extends PureComponent {
                                     formatter: '{c}',
                                     textStyle: {
                                         fontSize: '20',
-                                        color: '#fff',
+                                        color: this.props.global && this.props.global.dark ? '#fff' : '#4d4d4d',
                                     },
                                     formatter: `${monthOnMonthDateStr}\n\n案发${liangqiang.lastmonth}起`,
                                 },
@@ -323,13 +323,13 @@ export default class RobGrabFraud extends PureComponent {
             yAxis: {
                 axisLabel: {   // y轴线 标签修改
                     textStyle: {
-                        color: '#fff', //坐标值得具体的颜色
+                        color: this.props.global && this.props.global.dark ? '#fff' : '#4d4d4d', //坐标值得具体的颜色
                     }
                 },
                 axisLine: {
                     show: true, // y轴 网格线 颜色类型的修改
                     lineStyle: {
-                        color: '#fff'
+                        color: this.props.global && this.props.global.dark ? '#fff' : '#e6e6e6'
                     }
                 },
             },
@@ -343,7 +343,7 @@ export default class RobGrabFraud extends PureComponent {
                         formatter: '{c}',
                         textStyle: {
                             fontSize: 16,
-                            color: '#fff',
+                            color: this.props.global && this.props.global.dark ? '#fff' : '#4d4d4d',
                         },
                     },
                 },
@@ -417,10 +417,10 @@ export default class RobGrabFraud extends PureComponent {
                 key: 'fraud',
             },
         ];
-
+        let className = this.props.global && this.props.global.dark ? styles.analysis : styles.analysis+' '+styles.lightBox
         return (
             <Spin spinning={loadingData} size="large" tip="数据加载中...">
-                <div className={styles.analysis}>
+                <div className={className}>
                     <AnalysisTitleArea analysisTitle="两抢案件" {...this.props} />
                     <div id="robGrabPie" style={{ height: 300 }}/>
                     <Table columns={columns} dataSource={liangqiangTableData} bordered className={styles.tableArea}  locale={{ emptyText: <Empty image={noList} description={'暂无数据'} /> }}
