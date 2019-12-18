@@ -30,6 +30,10 @@
     .ant-divider{
       border-top:1px solid @body-background;
     }
+    .antd-pro-charts-water-wave-waterWave{
+      //background-image: linear-gradient(#0391fd,#36a6ff, #7fd6ff,#36a6ff,#0391fd);
+      border-radius: 50%;
+    }
   }
 }
 .leftBox{
@@ -165,7 +169,7 @@
 }
 .title{
   font-size: 16px;
-  border-left: 1px solid #fff;
+  border-left: 3px solid #fff;
   padding-left: 10px;
   margin-bottom: 20px;
 }
@@ -207,6 +211,105 @@
       line-height: 36px;
       font-size: 16px;
       background-image: linear-gradient(#4662D5,#0083FA, #03A3FF);
+    }
+  }
+}
+.lightBox{
+  .typeColorRed{
+    :global{
+      .ant-timeline-item-head{
+        background: #F94949;
+      }
+    }
+  }
+  .typeColorOrange{
+    :global{
+      .ant-timeline-item-head{
+        background: #ffbc3b;
+      }
+    }
+  }
+  .typeColorGreen{
+    :global{
+      .ant-timeline-item-head{
+        background: #0c0;
+      }
+    }
+  }
+  .title{
+    border-left: 3px solid #4662D5;
+    color: #4662D5;
+  }
+  .zf{
+    color:#4D4D4D;
+  }
+  .fs{
+    color: #4D4D4D;
+  }
+  .box{
+    :global{
+      .ant-divider{
+        border-top:1px solid #e6e6e6;
+      }
+    }
+  }
+  .rightBox{
+    border-left: 1px solid #e6e6e6;
+  }
+  .btns{
+    :global{
+      .ant-btn{
+        background-image: linear-gradient(#4662D5,#3C3EE9);
+      }
+    }
+  }
+  .tableTransferBox{
+    :global{
+      .ant-table-body,.ant-table-tbody > tr.ant-table-row-selected td,.ant-table-content .ant-table-header{
+        background: #fff!important;
+      }
+      .ant-table-thead > tr > th{
+        background: #F5F5F5!important;
+      }
+      .ant-table-tbody > tr {
+        background: #fff!important;
+        &:nth-child(2n) {
+          background: #f5f5fa!important;
+        }
+      }
+    }
+  }
+  .redioGroup {
+    :global {
+      .ant-radio-button-wrapper:not(:first-child)::before {
+        background: transparent !important;
+      }
+      .ant-radio-button-wrapper:first-child{
+        border-left: 1px solid #ccc;
+      }
+
+      .ant-radio-group-solid, .ant-radio-button-wrapper-checked {
+        outline: none !important;
+        background: transparent;
+      }
+
+      .ant-radio-button-wrapper {
+        border-color: #ccc;
+        color: #4D4D4D;
+        height: 28px;
+        line-height: 28px;
+        padding: 0 10px;
+        border-right: 0;
+        &:last-child{
+          border-right: 1px solid #ccc;
+        }
+      }
+
+      .ant-radio-button-wrapper-checked {
+        background: #3C43DF!important;
+        color: #fff !important;
+        box-shadow: none;
+      }
     }
   }
 }

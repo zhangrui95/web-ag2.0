@@ -80,7 +80,7 @@ class RetrieveModal extends PureComponent {
         // 删除当前tab并且将路由跳转至前一个tab的path
         const { dispatch } = this.props;
         if (dispatch) {
-            let query =  isReset ? this.props.location.query.isDetail ? {isReset,id:this.props.location.query.id} : {isReset} : {id:this.props.location.query.id};
+            let query =  isReset ? (this.props.location.query.isDetail ? {isReset,id:this.props.location.query.id} : {isReset}) : (this.props.location.query.isDetail ? {id:this.props.location.query.id} : {});
            dispatch( routerRedux.push({pathname: RetrieveRecord.url,query:query}));
            dispatch({
                 type: 'global/changeSessonNavigation',
@@ -134,7 +134,7 @@ class RetrieveModal extends PureComponent {
                         width: '82%',
                         margin: '0 9% 10px',
                         lineHeight: '36px',
-                        color: this.props.global&&this.props.global.dark ? '#fff' : '#333',
+                        color: this.props.global&&this.props.global.dark ? '#fff' : '#4D4D4D',
                     }}>
                         <Col span={12}>
                             案件名称：{RetrieveRecord && RetrieveRecord.ajmc ? RetrieveRecord.ajmc : ''}

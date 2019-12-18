@@ -8,7 +8,7 @@ import 'rc-banner-anim/assets/index.css';
 import 'moment/locale/zh-cn';
 
 
-class BannerAnim extends PureComponent {
+class BannerAnimMark extends PureComponent {
     constructor(props) {
         super(props);
 
@@ -140,4 +140,4 @@ class BannerAnim extends PureComponent {
     }
 }
 
-export default BannerAnim;
+export default BannerAnimMark;

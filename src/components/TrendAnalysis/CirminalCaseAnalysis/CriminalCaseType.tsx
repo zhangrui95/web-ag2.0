@@ -14,6 +14,7 @@ import grid from 'echarts/lib/component/grid';
 import AnalysisTitleArea from '../AnalysisTitleArea';
 import styles from '../analysisStyles.less';
 import noList from "@/assets/viewData/noList.png";
+import noListLight from "@/assets/viewData/noListLight.png";
 
 let myChart;
 
@@ -183,10 +184,15 @@ export default class CriminalCaseType extends PureComponent {
             xAxis: {
                 type: 'category',
                 data: xData,
+                axisLabel: {   // x轴线 标签修改
+                    textStyle: {
+                        color: this.props.global && this.props.global.dark ? '#fff' : '#4d4d4d', //坐标值得具体的颜色
+                    }
+                },
                 axisLine: {
                     show: true, // X轴 网格线 颜色类型的修改
                     lineStyle: {
-                        color: '#fff'
+                        color: this.props.global && this.props.global.dark ? '#fff' : '#e6e6e6'
                     }
                 },
             },
@@ -194,13 +200,13 @@ export default class CriminalCaseType extends PureComponent {
                 type: 'value',
                 axisLabel: {   // y轴线 标签修改
                     textStyle: {
-                        color: '#fff', //坐标值得具体的颜色
+                        color: this.props.global && this.props.global.dark ? '#fff' : '#4d4d4d', //坐标值得具体的颜色
                     }
                 },
                 axisLine: {
                     show: true, // y轴 网格线 颜色类型的修改
                     lineStyle: {
-                        color: '#fff'
+                        color: this.props.global && this.props.global.dark ? '#fff' : '#e6e6e6'
                     }
                 },
             },
@@ -271,7 +277,7 @@ export default class CriminalCaseType extends PureComponent {
                                 onClick={() => this.changeCaseType('sh')}>伤害</Button>
                     </div>
                     <Table columns={columns} dataSource={tableData} bordered className={styles.tableArea}
-                           pagination={false} locale={{ emptyText: <Empty image={noList} description={'暂无数据'} /> }}/>
+                           pagination={false} locale={{ emptyText: <Empty image={this.props.global&&this.props.global.dark ? noList : noListLight} description={'暂无数据'} /> }}/>
                 </div>
             </Spin>
         );

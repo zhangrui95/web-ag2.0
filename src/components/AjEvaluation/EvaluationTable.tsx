@@ -23,6 +23,7 @@ import { WaterWave } from 'ant-design-pro/lib/Charts';
 import difference from 'lodash/difference';
 import {routerRedux} from "dva/router";
 import noList from "@/assets/viewData/noList.png";
+import noListLight from "@/assets/viewData/noListLight.png";
 // import CaseDetail from '../../routes/CaseRealData/caseDetail';
 // import XzCaseDetail from '../../routes/XzCaseRealData/caseDetail';
 
@@ -249,7 +250,7 @@ export default class EvaluationTable extends PureComponent {
                             })}
                             pagination={{pageSize:999}}
                             scroll={{ y: 220 }}
-                            locale={{ emptyText: <Empty image={noList} description={'暂无数据'} /> }}
+                            locale={{ emptyText: <Empty image={this.props.global&&this.props.global.dark ? noList : noListLight} description={'暂无数据'} /> }}
                         />
                     );
                 }}
@@ -400,7 +401,7 @@ export default class EvaluationTable extends PureComponent {
                     pagination={paginationProps}
                     onChange={this.handleTableChange}
                     className={styles.standardTable}
-                    locale={{ emptyText: <Empty image={noList} description={'暂无数据'} /> }}
+                    locale={{ emptyText: <Empty image={this.props.global&&this.props.global.dark ? noList : noListLight} description={'暂无数据'} /> }}
                 />
                 <DetailModal visible={this.state.visible} record={this.state.record} handleCancel={this.handleCancel}/>
                 <Modal

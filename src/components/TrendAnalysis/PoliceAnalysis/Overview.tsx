@@ -10,6 +10,7 @@ import echarts from 'echarts'
 import AnalysisTitleArea from '../AnalysisTitleArea';
 import styles from '../analysisStyles.less';
 import noList from "@/assets/viewData/noList.png";
+import noListLight from "@/assets/viewData/noListLight.png";
 
 let myChart;
 
@@ -175,26 +176,26 @@ export default class Overview extends PureComponent {
                 data: ['行政', '刑事', '其他'],
                 bottom: 0,
                 textStyle: {
-                    color: '#fff'
+                    color: this.props.global && this.props.global.dark ? '#fff' : '#4d4d4d',
                 }
             },
             xAxis: {
                 type: 'value',
                 axisLabel: {   // X轴线 标签修改
                     textStyle: {
-                        color: '#fff', //坐标值得具体的颜色
+                        color: this.props.global && this.props.global.dark ? '#fff' : '#4d4d4d', //坐标值得具体的颜色
                     }
                 },
                 splitLine:{
                     show: true, // X轴线 颜色类型的修改
                     lineStyle: {
-                        color: '#fff'
+                        color: this.props.global && this.props.global.dark ? '#fff' : '#e6e6e6'
                     }
                 },
                 axisLine: {
                     show: true, // X轴 网格线 颜色类型的修改
                     lineStyle: {
-                        color: '#fff'
+                        color:  this.props.global && this.props.global.dark ? '#fff' : '#e6e6e6'
                     }
                 },
             },
@@ -203,13 +204,13 @@ export default class Overview extends PureComponent {
                 data: ['刑事', '行政', '其他'],
                 axisLabel: {   // y轴线 标签修改
                     textStyle: {
-                        color: '#fff', //坐标值得具体的颜色
+                        color: this.props.global && this.props.global.dark ? '#fff' : '#4d4d4d', //坐标值得具体的颜色
                     }
                 },
                 axisLine: {
                     show: true, // y轴 网格线 颜色类型的修改
                     lineStyle: {
-                        color: '#fff'
+                        color: this.props.global && this.props.global.dark ? '#fff' : '#e6e6e6'
                     }
                 },
             },
@@ -262,7 +263,7 @@ export default class Overview extends PureComponent {
                     <AnalysisTitleArea analysisTitle="综述" {...this.props} />
                     <div id="overviewCharts" style={{ height: 300 }}/>
                     <Table columns={columns} dataSource={tableData} bordered className={styles.tableArea}
-                           pagination={false}  locale={{ emptyText: <Empty image={noList} description={'暂无数据'} /> }}/>
+                           pagination={false}  locale={{ emptyText: <Empty image={this.props.global&&this.props.global.dark ? noList : noListLight} description={'暂无数据'} /> }}/>
                 </div>
             </Spin>
         );

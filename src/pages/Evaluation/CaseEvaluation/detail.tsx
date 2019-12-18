@@ -8,8 +8,9 @@ import difference from 'lodash/difference';
 import noList from "@/assets/viewData/noList.png";
 import {NavigationItem} from "@/components/Navigation/navigation";
 import {routerRedux} from "dva/router";
-@connect(({ Evaluation }) => ({
-    Evaluation,
+import noListLight from "@/assets/viewData/noListLight.png";
+@connect(({ Evaluation,global }) => ({
+    Evaluation,global
 }))
 export default class Detail extends PureComponent {
     constructor(props){
@@ -219,7 +220,7 @@ export default class Detail extends PureComponent {
                             })}
                             pagination={{pageSize:999}}
                             scroll={{ y: 250 }}
-                            locale={{ emptyText: <Empty image={noList} description={'暂无数据'} /> }}
+                            locale={{ emptyText: <Empty image={this.props.global&&this.props.global.dark ? noList : noListLight} description={'暂无数据'} /> }}
                         />
                     );
                 }}
@@ -255,8 +256,10 @@ export default class Detail extends PureComponent {
                 title: '项目',
             },
         ];
+        let dark = this.props.global&&this.props.global.dark;
+        let stylesBox = dark ? '' : styles.lightBox;
         return (
-            <div>
+            <div className={stylesBox}>
                 <Card className={styles.box}>
                     <div className={styles.leftBox}>
                         <Row style={{height:'170px'}}>
@@ -265,8 +268,10 @@ export default class Detail extends PureComponent {
                                 {
                                     detail&&detail.total_score.toString()  ?
                                         <WaterWave
+                                            color={'#2056ef'}
                                             height={120}
                                             style={{borderRadius:'200px',overflow:'hidden'}}
+                                            className={styles.water}
                                             title={<div>
                                                 <div className={styles.zf}>总分</div>
                                                 <div className={styles.fs}>{detail&&detail.total_score ? detail.total_score : 0}</div>
@@ -320,7 +325,7 @@ export default class Detail extends PureComponent {
                                     detail&&detail.kpJlList&&detail.kpJlList.map((item)=>{
                                         return <Timeline.Item className={item.xm_type==='0' ? styles.typeColorRed : item.xm_type==='1' ? styles.typeColorOrange: item.xm_type==='2' ? styles.typeColorGreen : styles.typeColorBlue}>
                                             <div>时间：{item.kpsj}</div>
-                                            <div>详情：<span style={{color:item.xm_type==='0' ? '#FF8080' : item.xm_type==='1' ? '#FFD086': item.xm_type==='2' ? '#8cffa7' : '#7dc6ff'}}>{item.fz_lasted}</span><span style={{marginLeft:'6px'}}>{item.xm_mc}</span></div>
+                                            <div>详情：<span style={{color:item.xm_type==='0' ? (dark ? '#FF8080' : '#F94949') : item.xm_type==='1' ? (dark ?'#FFD086' :'#ffbc3b'): item.xm_type==='2' ? (dark ? '#8cffa7':'#0c0') : '#7dc6ff'}}>{item.fz_lasted}</span><span style={{marginLeft:'6px'}}>{item.xm_mc}</span></div>
                                             <div>考评人：{item.kpr_name}</div>
                                         </Timeline.Item>
                                     })

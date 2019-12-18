@@ -198,7 +198,7 @@ export default class RegulateMap extends PureComponent {
                         emphasis: {
                             label: {
                                 show: true,
-                                color: '#333',
+                                color: '#4D4D4D',
                             },
                             areaColor: '#3398DB',
 

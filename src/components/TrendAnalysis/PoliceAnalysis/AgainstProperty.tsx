@@ -10,6 +10,7 @@ import echarts from 'echarts'
 import AnalysisTitleArea from '../AnalysisTitleArea';
 import styles from '../analysisStyles.less';
 import noList from "@/assets/viewData/noList.png";
+import noListLight from "@/assets/viewData/noListLight.png";
 
 let myChart;
 let hurtBar;
@@ -208,19 +209,19 @@ export default class AgainstProperty extends PureComponent {
                 type: 'value',
                 axisLabel: {   // X轴线 标签修改
                     textStyle: {
-                        color: '#fff', //坐标值得具体的颜色
+                        color: this.props.global && this.props.global.dark ? '#fff' : '#4d4d4d', //坐标值得具体的颜色
                     }
                 },
                 splitLine:{
                     show: true, // X轴线 颜色类型的修改
                     lineStyle: {
-                        color: '#fff'
+                        color: this.props.global && this.props.global.dark ? '#fff' : '#e6e6e6'
                     }
                 },
                 axisLine: {
                     show: true, // X轴 网格线 颜色类型的修改
                     lineStyle: {
-                        color: '#fff'
+                        color: this.props.global && this.props.global.dark ? '#fff' : '#e6e6e6'
                     }
                 },
             },
@@ -230,13 +231,13 @@ export default class AgainstProperty extends PureComponent {
                 data: ['侵财类警情', '刑事侵财', '治安侵财'],
                 axisLabel: {   // y轴线 标签修改
                     textStyle: {
-                        color: '#fff', //坐标值得具体的颜色
+                        color: this.props.global && this.props.global.dark ? '#fff' : '#4d4d4d', //坐标值得具体的颜色
                     }
                 },
                 axisLine: {
                     show: true, // y轴 网格线 颜色类型的修改
                     lineStyle: {
-                        color: '#fff'
+                        color: this.props.global && this.props.global.dark ? '#fff' : '#e6e6e6'
                     }
                 },
             },
@@ -253,26 +254,26 @@ export default class AgainstProperty extends PureComponent {
                 data: xData,
                 axisLabel: {   // X轴线 标签修改
                     textStyle: {
-                        color: '#fff', //坐标值得具体的颜色
+                        color: this.props.global && this.props.global.dark ? '#fff' : '#4d4d4d', //坐标值得具体的颜色
                     }
                 },
                 axisLine: {
                     show: true, // X轴 网格线 颜色类型的修改
                     lineStyle: {
-                        color: '#fff'
+                        color: this.props.global && this.props.global.dark ? '#fff' : '#e6e6e6'
                     }
                 },
             },
             yAxis: {
                 axisLabel: {   // y轴线 标签修改
                     textStyle: {
-                        color: '#fff', //坐标值得具体的颜色
+                        color: this.props.global && this.props.global.dark ? '#fff' : '#e6e6e6', //坐标值得具体的颜色
                     }
                 },
                 axisLine: {
                     show: true, // y轴 网格线 颜色类型的修改
                     lineStyle: {
-                        color: '#fff'
+                        color: this.props.global && this.props.global.dark ? '#fff' : '#e6e6e6'
                     }
                 },
             },
@@ -286,7 +287,7 @@ export default class AgainstProperty extends PureComponent {
                         formatter: '{c}',
                         textStyle: {
                             fontSize: 16,
-                            color: '#fff',
+                            color: this.props.global && this.props.global.dark ? '#fff' : '#4d4d4d',
                         },
                     },
                 },
@@ -344,7 +345,7 @@ export default class AgainstProperty extends PureComponent {
                             <div id="againstPropertyChart" style={{ height: 300 }}/>
                         </Col>
                         <Col lg={12} md={24}>
-                            <Table columns={columns} dataSource={tableData} bordered className={styles.tableArea}  locale={{ emptyText: <Empty image={noList} description={'暂无数据'} /> }}
+                            <Table columns={columns} dataSource={tableData} bordered className={styles.tableArea}  locale={{ emptyText: <Empty image={this.props.global&&this.props.global.dark ? noList : noListLight} description={'暂无数据'} /> }}
                                    pagination={false}/>
                         </Col>
                     </Row>
@@ -354,7 +355,7 @@ export default class AgainstProperty extends PureComponent {
                             <div id="hurtBar" style={{ height: 300 }}/>
                         </Col>
                         <Col lg={12} md={24}>
-                            <Table columns={columns} dataSource={shanghaiTableData} className={styles.tableArea}  locale={{ emptyText: <Empty image={noList} description={'暂无数据'} /> }}
+                            <Table columns={columns} dataSource={shanghaiTableData} className={styles.tableArea}  locale={{ emptyText: <Empty image={this.props.global&&this.props.global.dark ? noList : noListLight} description={'暂无数据'} /> }}
                                    bordered pagination={false}/>
                         </Col>
                     </Row>

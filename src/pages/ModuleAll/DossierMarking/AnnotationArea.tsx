@@ -6,9 +6,8 @@
 import React, { PureComponent } from 'react';
 // import VDraggable from 'vdraggle';
 import styles from './AnnotationPreview.less';
-import BannerAnimImg from './BannerAnim';
+import BannerAnimMark from './BannerAnimMark';
 import { Card, Row, Button, Upload, Icon, Modal, Col, Menu, Dropdown, Switch, Popconfirm } from 'antd';
-import { getSessionData } from '../../../utils/utils';
 
 export default class AnnotationArea extends React.Component {
     constructor(props) {
@@ -71,7 +70,6 @@ export default class AnnotationArea extends React.Component {
                 });
             }
         }
-        // const resourceCode = getSessionData('resourceCode', false) ? getSessionData('resourceCode', false) : '';
         return (
             <Row className={styles.imgAreaWrap} gutter={{ md: 6, lg: 12, xl: 24 }}>
 
@@ -81,7 +79,7 @@ export default class AnnotationArea extends React.Component {
                             {this.state.titleName} {this.state.pagenumber ? `(${this.state.pagenumber}页) ` : ''}
                         </h3>
                         <div style={{ textAlign: 'center', height: '870px' }}>
-                            <BannerAnimImg
+                            <BannerAnimMark
                                 arrayImg={imgUrlIdList}
                                 currentImg={this.state.currentImg}
                                 index={this.state.currentIndex}

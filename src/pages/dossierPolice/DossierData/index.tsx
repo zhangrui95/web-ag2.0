@@ -45,9 +45,10 @@ const RadioGroup = Radio.Group;
 let timeout;
 let currentValue;
 
-@connect(({ DossierData, loading, common }) => ({
+@connect(({ DossierData, loading, common,global }) => ({
   DossierData,
   common,
+  global,
   loading: loading.models.DossierData,
 }))
 @Form.create()

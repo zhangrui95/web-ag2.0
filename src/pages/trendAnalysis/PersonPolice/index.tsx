@@ -20,10 +20,11 @@ const { MonthPicker } = DatePicker;
 const TreeNode = TreeSelect.TreeNode;
 let imgBase = [];
 
-@connect(({ common, trendAnalysis, loading }) => ({
+@connect(({ common, trendAnalysis, loading,global }) => ({
     common,
     trendAnalysis,
     loading: loading.models.trendAnalysis,
+    global
 }))
 export default class PeopleTrendAnalysis extends PureComponent {
 
@@ -218,8 +219,9 @@ export default class PeopleTrendAnalysis extends PureComponent {
             monthOnMonthDateStr:monthOnMonthDateStr,
         }
         const objStr = JSON.stringify(obj);
+        let className = this.props.global&&this.props.global.dark ? styles.trendAnalysis : styles.trendAnalysis + ' '+ styles.lightBox
         return (
-            <div className={styles.trendAnalysis}>
+            <div className={className}>
                 <div className={styles.titleArea}>
                     <Card style={{padding:'10px'}} id={'formPersonPolice'}>
                         <Row>

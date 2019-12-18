@@ -680,7 +680,7 @@ export default class ChinaMap extends PureComponent {
                 //         normal: {
                 //             color: '#FF0066',
                 //             shadowBlur: 10,
-                //             shadowColor: '#333',
+                //             shadowColor: '#4D4D4D',
                 //         },
                 //     },
                 //     zlevel: 1,

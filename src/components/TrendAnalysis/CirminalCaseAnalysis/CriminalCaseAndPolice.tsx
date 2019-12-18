@@ -16,6 +16,7 @@ import grid from 'echarts/lib/component/grid';
 import AnalysisTitleArea from '../AnalysisTitleArea';
 import styles from '../analysisStyles.less';
 import noList from "@/assets/viewData/noList.png";
+import noListLight from "@/assets/viewData/noListLight.png";
 
 let treePie;
 let criminalCaseAcceptBar;
@@ -121,7 +122,7 @@ export default class CriminalCaseAndPolice extends PureComponent {
                                 textStyle: {
                                     fontSize: 16,
                                     fontWeight: 'normal',
-                                    color:'#fff'
+                                    color:this.props.global && this.props.global.dark ? '#fff' : '#4d4d4d'
                                 },
                                 x: '50%',
                                 y: '45%',
@@ -133,7 +134,7 @@ export default class CriminalCaseAndPolice extends PureComponent {
                                 textStyle: {
                                     fontSize: 16,
                                     fontWeight: 'normal',
-                                    color:'#fff'
+                                    color:this.props.global && this.props.global.dark ? '#fff' : '#4d4d4d'
                                 },
                                 x: '20%',
                                 y: '45%',
@@ -145,7 +146,7 @@ export default class CriminalCaseAndPolice extends PureComponent {
                                 textStyle: {
                                     fontSize: 16,
                                     fontWeight: 'normal',
-                                    color:'#fff'
+                                    color:this.props.global && this.props.global.dark ? '#fff' : '#4d4d4d'
                                 },
                                 x: '80%',
                                 y: '45%',
@@ -345,7 +346,7 @@ export default class CriminalCaseAndPolice extends PureComponent {
             },
             legend: {
                 data: ['受理', '立案'],
-                textStyle: { color: "#fff" },
+                textStyle: { color: this.props.global && this.props.global.dark ? '#fff' : '#4d4d4d' },
                 bottom: 0,
             },
             xAxis: {
@@ -357,7 +358,7 @@ export default class CriminalCaseAndPolice extends PureComponent {
                 },
                 axisLabel: {   // X轴线 标签修改
                     textStyle: {
-                        color: '#fff', //坐标值得具体的颜色
+                        color: this.props.global && this.props.global.dark ? '#fff' : '#4d4d4d', //坐标值得具体的颜色
                     }
                 },
                 // splitLine:{
@@ -369,7 +370,7 @@ export default class CriminalCaseAndPolice extends PureComponent {
                 axisLine: {
                     show: true, // X轴 网格线 颜色类型的修改
                     lineStyle: {
-                        color: '#fff'
+                        color: this.props.global && this.props.global.dark ? '#fff' : '#e6e6e6'
                     }
                 },
             },
@@ -385,7 +386,7 @@ export default class CriminalCaseAndPolice extends PureComponent {
                 },
                 axisLabel: {
                     textStyle: {
-                        color: '#fff',
+                        color: this.props.global && this.props.global.dark ? '#fff' : '#4d4d4d',
                     },
                 },
             },
@@ -466,10 +467,10 @@ export default class CriminalCaseAndPolice extends PureComponent {
                 key: 'registerCaseRate',
             },
         ];
-
+        let className = this.props.global && this.props.global.dark ? styles.analysis : styles.analysis+' '+styles.lightBox
         return (
             <Spin spinning={loadingData} size="large" tip="数据加载中...">
-                <div className={styles.analysis}>
+                <div className={className}>
                     <AnalysisTitleArea analysisTitle="警情、受案分析" {...this.props} />
                     <div className="criminalCaseAndPolice" style={{ height: 310 }}/>
                     <Table columns={columns} dataSource={caseAndPoliceTableData} bordered className={styles.tableArea}
@@ -480,7 +481,7 @@ export default class CriminalCaseAndPolice extends PureComponent {
                             <div className="criminalCaseAccept" style={{ height: 310 }}/>
                         </Col>
                         <Col lg={12} md={24}>
-                            <Table columns={acceptCaseColumns} dataSource={acceptCaseTableData} locale={{ emptyText: <Empty image={noList} description={'暂无数据'} /> }}
+                            <Table columns={acceptCaseColumns} dataSource={acceptCaseTableData} locale={{ emptyText: <Empty image={this.props.global&&this.props.global.dark ? noList : noListLight} description={'暂无数据'} /> }}
                                    className={styles.fraudTable} bordered pagination={false}/>
                         </Col>
                     </Row>

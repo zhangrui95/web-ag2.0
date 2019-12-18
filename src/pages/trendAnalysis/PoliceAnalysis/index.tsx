@@ -18,10 +18,11 @@ import styles from './index.less';
 const { MonthPicker } = DatePicker;
 let imgBase = [];
 
-@connect(({ common, trendAnalysis, loading }) => ({
+@connect(({ common, trendAnalysis, loading,global }) => ({
     common,
     trendAnalysis,
     loading: loading.models.trendAnalysis,
+    global
 }))
 export default class PoliceTrendAnalysis extends PureComponent {
 
@@ -155,8 +156,9 @@ export default class PoliceTrendAnalysis extends PureComponent {
     render() {
         const { overViewLoadingStatus, againstPropertyLoadingStatus, robGrabFraudLoadingStatus, stealLoadingStatus } = this.state;
         const exportButtonStatus = overViewLoadingStatus || againstPropertyLoadingStatus || robGrabFraudLoadingStatus || stealLoadingStatus; // 导出按钮禁用状态
+        let className = this.props.global&&this.props.global.dark ? styles.trendAnalysis : styles.trendAnalysis + ' '+ styles.lightBox
         return (
-            <div className={styles.trendAnalysis}>
+            <div className={className}>
                 <div className={styles.titleArea}>
                     <Card style={{padding:'10px'}} id={'formPoliceAnalysis'}>
                         <Row>
