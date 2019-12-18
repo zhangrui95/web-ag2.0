@@ -24,17 +24,15 @@ import {
     TreeSelect, Empty, Icon,
 } from 'antd';
 import styles from './Show.less';
-import stylescommon from '../common/common.less';
 import { getUserInfos } from '../../utils/utils';
 import { routerRedux } from 'dva/router';
 import Statistics from '../../components/HomePage/Statistics';
-import MyShare from '../../components/HomePage/MyShare';
-import MyNews from '../../components/HomePage/MyNews';
 import TabsTable from '../../components/HomePage/TabsTable';
 import TabsFollowTable from '../../components/HomePage/TabsFollowTable';
 import header from '../../assets/common/header.png';
 import noList from "@/assets/viewData/noList.png";
 import iconFont from '../../utils/iconfont'
+import noListLight from "@/assets/viewData/noListLight.png";
 const IconFont = Icon.createFromIconfontCN({
     scriptUrl: iconFont
 })
@@ -1168,6 +1166,7 @@ export default class Home1 extends PureComponent {
         }
       },
     };
+    let dark = this.props.global&&this.props.global.dark;
     let className = this.props.global&&this.props.global.dark ? styles.allBox : styles.lightBox;
     return (
       <div id="home1ID" className={className}>
@@ -1205,7 +1204,7 @@ export default class Home1 extends PureComponent {
                     className={styles.DataTotal}
                     style={{
                       textDecoration: 'underline',
-                      color: '#47B2FF',
+                      color: dark ? '#47B2FF' : '#2564CE',
                       fontSize: 18,
                       cursor: 'auto',
                     }}
@@ -1216,7 +1215,7 @@ export default class Home1 extends PureComponent {
                   <a
                     style={{
                       textDecoration: 'underline',
-                      color: '#47B2FF',
+                      color: dark ? '#47B2FF' : '#2564CE',
                       fontSize: 18,
                       cursor: 'auto',
                     }}
@@ -1242,7 +1241,7 @@ export default class Home1 extends PureComponent {
                   <a
                     style={{
                       textDecoration: 'underline',
-                      color: '#47B2FF',
+                      color: dark ? '#47B2FF' : '#2564CE',
                       fontSize: 18,
                       cursor: 'auto',
                     }}
@@ -1253,7 +1252,7 @@ export default class Home1 extends PureComponent {
                   <a
                     style={{
                       textDecoration: 'underline',
-                      color: '#47B2FF',
+                      color: dark ? '#47B2FF' : '#2564CE',
                       fontSize: 18,
                       cursor: 'auto',
                     }}
@@ -1326,7 +1325,7 @@ export default class Home1 extends PureComponent {
                   columns={this.state.columns}
                   dataSource={this.state.data}
                   className={styles.homeTable}
-                  locale={{ emptyText: <Empty image={noList} description={'暂无数据'} /> }}
+                  locale={{ emptyText: <Empty image={this.props.global&&this.props.global.dark ? noList : noListLight} description={'暂无数据'} /> }}
                 />
               </Card>
             ) : this.state.idx === 2 ? (

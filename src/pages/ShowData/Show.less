@@ -233,7 +233,7 @@
   //float: left;
   width: 165px;
   line-height: 25px;
-  font-size: 10px;
+  font-size: 14px;
   color: #fff;
   font-weight: 600;
   padding: 3px 20px 3px 9px;
@@ -597,6 +597,7 @@
 .dwmcName {
   color: #2095ff;
   cursor: pointer;
+  text-decoration:underline;
 }
 
 .redioGroup {
@@ -635,16 +636,6 @@
     .ant-radio-button-wrapper:first-child {
       border-left: 0;
     }
-
-    .ant-radio-button-wrapper-disabled:first-child,
-    .ant-radio-button-wrapper-disabled:hover {
-      background-color: @body-background;
-    }
-
-    .ant-radio-button-wrapper-checked:first-child,
-    .ant-radio-button-wrapper-disabled:hover {
-      background-color: #1890ff;
-    }
   }
 }
 
@@ -670,7 +661,7 @@
   //border-bottom: 1px solid #ccc;
   line-height: 33px;
   color: #fff;
-  font-weight: 600;
+  //font-weight: 600;
 }
 
 .glajNum {
@@ -696,7 +687,7 @@
   //border-right: 1px solid #ccc;
   line-height: 33px;
   color: #fff;
-  font-weight: 600;
+  //font-weight: 600;
 }
 
 .homeStyle {
@@ -819,27 +810,114 @@
 .iconLefts{
   color: #fff;
   float: left;
-  font-size: 20px;
-  margin: 2px 10px 2px 5px;
+  font-size: 16px;
+  margin: 4px 10px 0px 5px;
   line-height: 20px;
 }
 .lightBox{
-  .tabsBox {
+  .iconPerson {
+    color: #333333;
+  }
+  .BottomLeftStyle{
+    background-color: #fff!important;
+  }
+  .mysharestyle {
+    span{
+      color:#999;
+    }
+  }
+  .rightStyle {
     :global {
-      .ant-tabs-bar {
-        background: #fff;
+      .ant-card-head {
+        border-bottom: 1px solid #e6e6e6;
       }
     }
   }
-  :global{
-    .ant-tabs-tab{
-      background: #fff!important;
+  .TabsStyle {
+    :global {
+      .ant-tabs.ant-tabs-card .ant-tabs-card-bar .ant-tabs-tab-active {
+        span {
+          color: #3C43DF !important;
+        }
+      }
     }
-    .ant-tabs-tab-active{
-      box-shadow: none;
+  }
+  .tabsBox {
+    border-radius:10px;
+    overflow:hidden;
+    :global {
+      .ant-card-body{
+        padding: 0;
+      }
+      .ant-card{
+        border-radius: 0 0 10px 10px;
+      }
+      .ant-tabs-bar {
+        background: #fff;
+      }
+      .ant-tabs.ant-tabs-card .ant-tabs-card-bar .ant-tabs-tab {
+        background: #fff!important;
+      }
+      .ant-tabs-tab-active{
+        box-shadow: none!important;
+      }
     }
   }
   .iconLefts{
     color: #4662D5!important;
+  }
+  .glajStyle{
+    border: 1px solid #e6e6e6;
+  }
+  .headerNumGlaj,.timeLogin,.headerNumZfxx{
+    color: #4d4d4d;
+  }
+  .version{
+    color: #4d4d4d;
+  }
+  .personNews{
+    color: #2564CE;
+  }
+  .redNum{
+    color: #E25A5A!important;
+  }
+  .redAllNum{
+    color:#475366!important;
+  }
+  .redioGroup {
+    :global{
+      .ant-radio-button-wrapper {
+        border-color: #e6e6e6 !important;
+        color: #4d4d4d;
+      }
+      .ant-radio-button-wrapper-checked {
+        background: #3C43DF!important;
+        color: #fff !important;
+        box-shadow: none!important;
+      }
+      .ant-radio-button-wrapper:first-child {
+        border-left: 1px solid #e6e6e6 !important;
+      }
+      .ant-radio-button-wrapper-checked:not(.ant-radio-button-wrapper-disabled){
+        box-shadow: none!important;
+      }
+    }
+  }
+  .dwmcName {
+    color: #2564CE;
+  }
+  :global{
+    .antd-pro-pages-show-data-show-homeTable .ant-table-thead > tr > th{
+      background: #F5F5F5!important;
+    }
+    .ant-table{
+      border-radius: 0!important;
+    }
+    .ant-table-tbody > tr {
+      background: #fff;
+      &:nth-child(2n) {
+        background: #f5f5fa!important;
+      }
+    }
   }
 }

@@ -20,9 +20,11 @@ import {
 } from 'antd';
 import { connect } from 'dva';
 import styles from '../../pages/ShowData/Show.less';
-import stylescommon from '../../pages/common/common.less';
+import stylescommon1 from '../../pages/common/common.less';
+import stylescommon2 from '../../pages/common/commonLight.less';
 import noList from "@/assets/viewData/noList.png";
 import iconFont from '../../utils/iconfont'
+import noListLight from "@/assets/viewData/noListLight.png";
 const IconFont = Icon.createFromIconfontCN({
     scriptUrl: iconFont
 })
@@ -31,8 +33,8 @@ const FormItem = Form.Item;
 const RangePicker = DatePicker.RangePicker;
 const { Option } = Select;
 
-@connect(({ home }) => ({
-  home,
+@connect(({ home,global }) => ({
+  home,global
 }))
 @Form.create()
 export default class TabsTable extends PureComponent {
@@ -70,6 +72,7 @@ export default class TabsTable extends PureComponent {
     const {
       common: { depTree },
     } = this.props;
+      let stylescommon = this.props.global&&this.props.global.dark ? stylescommon1 : stylescommon2;
     return (
       <div className={styles.TabsStyle}>
         <Tabs defaultActiveKey="s1" onChange={this.props.callBackTabs} type="card">
@@ -189,13 +192,14 @@ export default class TabsTable extends PureComponent {
                 </Row>
               </Form>
               <Table
+                style={{marginTop:10}}
                 size="middle"
                 loading={this.props.loading}
                 pagination={this.props.paginationPage}
                 columns={this.props.columns}
                 dataSource={this.props.data}
                 className={styles.homeTable}
-                locale={{ emptyText: <Empty image={noList} description={'暂无数据'} /> }}
+                locale={{ emptyText: <Empty image={this.props.global&&this.props.global.dark ? noList : noListLight} description={'暂无数据'} /> }}
               />
             </Card>
           </TabPane>
@@ -314,13 +318,13 @@ export default class TabsTable extends PureComponent {
                 </Row>
               </Form>
               <Table
-                // size="middle"
+                style={{marginTop:10}}
                 loading={this.props.loading}
                 pagination={this.props.paginationPage}
                 columns={this.props.columns}
                 dataSource={this.props.data}
                 className={styles.homeTable}
-                locale={{ emptyText: <Empty image={noList} description={'暂无数据'} /> }}
+                locale={{ emptyText: <Empty image={this.props.global&&this.props.global.dark ? noList : noListLight} description={'暂无数据'} /> }}
               />
             </Card>
           </TabPane>
