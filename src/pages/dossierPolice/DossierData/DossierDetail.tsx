@@ -78,30 +78,47 @@ export default class DossierDetail extends PureComponent {
     }
 
     componentWillReceiveProps(nextProps) {
+        // if (nextProps) {
+        //     if (nextProps.sfgz !== null && nextProps.sfgz !== this.props.sfgz) {
+        //         // this.setState({
+        //         //     sfgz: nextProps.sfgz,
+        //         // })
+        //         this.getDossierDetail(this.props.id);
+        //     }
+        // }
         if (nextProps) {
-            if (nextProps.sfgz !== null && nextProps.sfgz !== this.props.sfgz) {
-                // this.setState({
-                //     sfgz: nextProps.sfgz,
-                // })
-                this.getDossierDetail(this.props.id);
-            }
+          if (nextProps.location.query&&nextProps.location.query.record&&nextProps.location.query.record.sfgz !== null && nextProps.location.query.record.sfgz !== this.props.location.query.record.sfgz) {
+            this.setState({
+              sfgz: nextProps.location.query.record.sfgz,
+            });
+          }
+          else if(nextProps.history.location.query.isReset&&nextProps.history.location.pathname==='/receivePolice/AlarmData/policeDetail'){
+            this.getDossierDetail(this.props.location.query.id);
+            this.props.history.replace(nextProps.history.location.pathname+'?id='+nextProps.location.query.id+'&record='+nextProps.location.query.record);
+          }
         }
-
     }
 
     onceSupervise = (DossierDetailData, flag, from) => {
         if (DossierDetailData) {
-            this.setState({
-                // systemId: systemId,
-                superviseVisibleModal: !!flag,
-                superviseWtlx: DossierDetailData.wtlx,
-                // superviseZrdw: zrdw,
-                // superviseZrdwId: zrdwId,
-                // superviseZrr: zrr,
-                // id: wtid,
-                // sfzh: zjhm,
-                from: from,
-            });
+          this.props.dispatch(
+            routerRedux.push({
+              pathname: '/ModuleAll/Supervise',
+              query: { record: DossierDetailData,id: DossierDetailData && DossierDetailData.dossier_id ? DossierDetailData.dossier_id : '1',from:'卷宗详情问题判定',tzlx:'jzxx',fromPath:'/dossierPolice/DossierData/DossierDetail',wtflId:'230205',wtflMc:'卷宗详情' },
+            }),
+          )
+
+            // this.setState({
+            //     // systemId: systemId,
+            //     superviseVisibleModal: !!flag,
+            //     superviseWtlx: DossierDetailData.wtlx,
+            //     // superviseZrdw: zrdw,
+            //     // superviseZrdwId: zrdwId,
+            //     // superviseZrr: zrr,
+            //     // id: wtid,
+            //     // sfzh: zjhm,
+            //     from: from,
+            // });
         } else {
             message.info('该人员无法进行问题判定');
         }
@@ -307,6 +324,13 @@ export default class DossierDetail extends PureComponent {
 
     IntoCase = (record) => {
         if (record.ajlx === '22001') {
+          // 刑事案件
+          this.props.dispatch(
+            routerRedux.push({
+              pathname: '/newcaseFiling/caseData/CriminalData/caseDetail',
+              query: { record:record,id: record.system_id },
+            }),
+          )
             // const divs = (
             //     <div>
             //         <Detail
@@ -317,7 +341,14 @@ export default class DossierDetail extends PureComponent {
             // );
             // const AddNewDetail = { title: '刑事案件详情', content: divs, key: record.system_id };
             // this.props.newDetail(AddNewDetail);
-        } else {
+        } else if(record.ajlx === '22002') {
+          // 行政案件
+          this.props.dispatch(
+            routerRedux.push({
+              pathname: '/newcaseFiling/caseData/AdministrationData/caseDetail',
+              query: { id: record.system_id, record: record},
+            }),
+          );
             // const divs = (
             //     <div>
             //         <XZDetail
@@ -673,33 +704,33 @@ export default class DossierDetail extends PureComponent {
                     {/*:*/}
                     {/*''*/}
                 {/*}*/}
-                {/*<Modal*/}
-                    {/*visible={casevisible}*/}
-                    {/*title="选择查看案件"*/}
-                    {/*centered*/}
-                    {/*className={styles.policeModal}*/}
-                    {/*width={1000}*/}
-                    {/*maskClosable={false}*/}
-                    {/*onCancel={this.CaseCancel}*/}
-                    {/*footer={null}*/}
-                    {/*getContainer={() => document.getElementById(this.ResultId())}*/}
-                {/*>*/}
-                    {/*<Table*/}
-                        {/*size={'middle'}*/}
-                        {/*style={{ backgroundColor: '#fff' }}*/}
-                        {/*pagination={{*/}
-                            {/*pageSize: 3,*/}
-                            {/*showTotal: (total, range) => <div*/}
-                                {/*style={{ position: 'absolute', left: '12px' }}>共 {total} 条记录*/}
-                                {/*第 {this.state.casecurrent} / {(Math.ceil(total / 3))} 页</div>,*/}
-                            {/*onChange: (page) => {*/}
-                                {/*this.setState({ casecurrent: page });*/}
-                            {/*},*/}
-                        {/*}}*/}
-                        {/*dataSource={DossierDetailData ? DossierDetailData.jzList : []}*/}
-                        {/*columns={AreaColumns}*/}
-                    {/*/>*/}
-                {/*</Modal>*/}
+                <Modal
+                    visible={casevisible}
+                    title="选择查看案件"
+                    centered
+                    className={styles.policeModal}
+                    width={1000}
+                    maskClosable={false}
+                    onCancel={this.CaseCancel}
+                    footer={null}
+                    getContainer={() => document.getElementById(this.ResultId())}
+                >
+                    <Table
+                        size={'middle'}
+                        style={{ backgroundColor: '#262C3D' }}
+                        pagination={{
+                            pageSize: 3,
+                            showTotal: (total, range) => <div
+                                style={{ position: 'absolute', left: '12px' }}>共 {total} 条记录
+                                第 {this.state.casecurrent} / {(Math.ceil(total / 3))} 页</div>,
+                            onChange: (page) => {
+                                this.setState({ casecurrent: page });
+                            },
+                        }}
+                        dataSource={DossierDetailData ? DossierDetailData.jzList : []}
+                        columns={AreaColumns}
+                    />
+                </Modal>
             </div>
         );
     }

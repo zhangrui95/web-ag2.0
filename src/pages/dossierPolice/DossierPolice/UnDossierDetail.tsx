@@ -25,6 +25,7 @@ import { authorityIsTrue } from '../../../utils/authority';
 import { autoheight, userResourceCodeDb } from '../../../utils/utils';
 import SupervisionLog from '../../../components/Common/SupervisionLog';
 import RenderEmpty from '../../../components/Common/RenderEmpty';
+import {routerRedux} from "dva/router";
 
 const { Step } = Steps;
 
@@ -74,6 +75,7 @@ export default class DossierDetail extends PureComponent {
     // 再次督办
     onceSupervise = (flag, UnitemDetail) => {
         const { wtlx, kfgly_dwmc, kfgly_dwdm, kfgly, wtid, kfgly_zjhm } = UnitemDetail;
+        const {query:{record,id}} = this.props.location;
         this.props.dispatch({
             type: 'UnDossierData/getUnDossierByProblemId',
             payload: {
@@ -85,19 +87,25 @@ export default class DossierDetail extends PureComponent {
             },
             callback: (data) => {
                 if (data.list[0].dbzt === '00' || (data.list[0].dbzt === '30' && data.list[0].fkzt === '1')) {
-                    this.setState({
-                        superviseVisibleModal: !!flag,
-                        superviseWtlx: wtlx,
-                        superviseZrdw: kfgly_dwmc,
-                        superviseZrdwId: kfgly_dwdm,
-                        superviseZrr: kfgly,
-                        id: wtid,
-                        sfzh: kfgly_zjhm,
-                        // UnitemDetail: [],
-                    });
+                  this.props.dispatch(
+                    routerRedux.push({
+                      pathname: '/ModuleAll/Supervise',
+                      query: { record:UnitemDetail,id: UnitemDetail && UnitemDetail.id ? UnitemDetail.id : '1',from:'督办',tzlx:'jzwt',fromPath:'/dossierPolice/DossierPolice/UnDossierDetail',tab:'表格'},
+                    }),
+                  )
+                    // this.setState({
+                    //     superviseVisibleModal: !!flag,
+                    //     superviseWtlx: wtlx,
+                    //     superviseZrdw: kfgly_dwmc,
+                    //     superviseZrdwId: kfgly_dwdm,
+                    //     superviseZrr: kfgly,
+                    //     id: wtid,
+                    //     sfzh: kfgly_zjhm,
+                    //     // UnitemDetail: [],
+                    // });
                 } else {
                     message.warning('该问题已督办或暂无反馈信息');
-                    this.getDossierDetail(this.props.id, this.props.wtid, this.props.dossierId);
+                    this.getDossierDetail(record.id, record.wtid, record.dossier_id);
                 }
             },
         });
@@ -117,6 +125,12 @@ export default class DossierDetail extends PureComponent {
             },
             callback: (data) => {
                 if (data.list[0].fkzt !== '1') {
+                    this.props.dispatch(
+                      routerRedux.push({
+                        pathname: '/ModuleAll/FeedBack',
+                        query: { record:unCaseDetailData,id: unCaseDetailData && unCaseDetailData.id ? unCaseDetailData.id : '1',from:'反馈',tzlx:'jzwt',fromPath:'/dossierPolice/DossierPolice/UnDossierDetail',tab:'详情'},
+                      }),
+                    )
                     this.setState({
                         feedbackVisibleModal: !!flag,
                     });
@@ -448,6 +462,7 @@ export default class DossierDetail extends PureComponent {
                     onceSupervise={this.onceSupervise}
                     sureReform={this.sureReform}
                     rowLayout={rowLayout}
+                    fromPath='/dossierPolice/DossierPolice/UnDossierDetail'
                 />
 
                 <Card title="| 卷宗信息" className={styles.wpxxcard} bordered={false}>
@@ -568,21 +583,21 @@ export default class DossierDetail extends PureComponent {
                         {/*/>*/}
                     {/*) : null*/}
                 {/*}*/}
-                {/*{reformModal ?*/}
-                    {/*<Modal*/}
-                        {/*maskClosable={false}*/}
-                        {/*visible={reformModal}*/}
-                        {/*title={<p>提示</p>}*/}
-                        {/*width='1000px'*/}
-                        {/*footer={this.foot1()}*/}
-                        {/*onCancel={() => this.onReformCancel()}*/}
-                        {/*// onOk={() => this.onOk(this.props.id)}*/}
-                        {/*centered={true}*/}
-                        {/*className={styles.indexdeepmodal}*/}
-                    {/*>*/}
-                        {/*<div className={styles.question}>问题是否已经整改完毕？</div>*/}
-                    {/*</Modal> : ''*/}
-                {/*}*/}
+                {reformModal ?
+                    <Modal
+                        maskClosable={false}
+                        visible={reformModal}
+                        title={<p>提示</p>}
+                        width='1000px'
+                        footer={this.foot1()}
+                        onCancel={() => this.onReformCancel()}
+                        // onOk={() => this.onOk(this.props.id)}
+                        centered={true}
+                        className={styles.indexdeepmodal}
+                    >
+                        <div className={styles.question}>问题是否已经整改完毕？</div>
+                    </Modal> : ''
+                }
             </div>
         );
     }

@@ -1377,6 +1377,7 @@ export default class unareaDetail extends PureComponent {
           isDb={isDb}
           onceSupervise={this.onceSupervise}
           sureReform={this.sureReform}
+          frompath='/handlingArea/AreaPolice/UnareaDetail'
         />
         <div className={styles.title}>| 人员信息</div>
         <div className={styles.message}>

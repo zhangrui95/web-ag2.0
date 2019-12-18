@@ -13,6 +13,7 @@ const Option = Select.Option;
 import { connect } from 'dva';
 import { getUserInfos } from '../../../utils/utils';
 import Ellipsis from 'ant-design-pro/lib/Ellipsis';
+import {routerRedux} from "dva/router";
 
 const FormItem = Form.Item;
 
@@ -21,9 +22,33 @@ const FormItem = Form.Item;
 }))
 class DailyRecord extends PureComponent {
 
+  onEdit = (isReset) => {
+    const {query:{record,tab}} = this.props.location;
+    let key = '/ModuleAll/DailyRecord'+this.props.location.query.id;
+    // 删除当前tab并且将路由跳转至前一个tab的path
+    const { dispatch } = this.props;
+    if (dispatch) {
+      dispatch( routerRedux.push({pathname: this.props.location.query.fromPath,query: isReset ? {isReset,id:tab==='表格'?'':this.props.location.query.id,record:tab==='表格'?'':this.props.location.query.record} : {id:tab==='表格'?'':this.props.location.query.id,record:tab==='表格'?'':this.props.location.query.record}}));
+      dispatch({
+        type: 'global/changeSessonNavigation',
+        payload: {
+          key,
+          isShow: false,
+        },
+      });
+      dispatch({
+        type: 'global/changeNavigation',
+        payload: {
+          key,
+          isShow: false,
+        },
+      });
+    }
+  };
+
   render() {
     const {query:{record,RzList}} = this.props.location;
-    console.log('record',record);
+    console.log('this.props',this.props);
     let list = [];
     if (RzList) {
       RzList.map((item, idx) => {

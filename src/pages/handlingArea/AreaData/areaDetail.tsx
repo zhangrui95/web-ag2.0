@@ -118,13 +118,11 @@ export default class areaDetail extends PureComponent {
   componentWillReceiveProps(nextProps) {
     if (nextProps) {
       if (nextProps.location.query&&nextProps.location.query.record&&nextProps.location.query.record.sfgz !== null && nextProps.location.query.record.sfgz !== this.props.location.query.record.sfgz) {
-        alert(1)
         this.setState({
           sfgz: nextProps.location.query.record.sfgz,
         });
       }
       else if(nextProps.history.location.query.isReset&&nextProps.history.location.pathname==='/receivePolice/AlarmData/policeDetail'){
-        alert(2)
         this.getDetail(this.props.location.query.id);
         this.props.history.replace(nextProps.history.location.pathname+'?id='+nextProps.location.query.id+'&record='+nextProps.location.query.record);
       }
