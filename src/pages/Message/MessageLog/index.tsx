@@ -615,7 +615,7 @@ class MessageLog extends Component {
         </div>
         <Card className={stylescommon.cardArea}>
           <Table
-            loading={loading.global}
+            loading={loading.models.messagePushLog}
             rowKey={record => record.key}
             dataSource={data && data.list ? data.list : []}
             columns={columns}

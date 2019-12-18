@@ -1169,7 +1169,6 @@ export default class Home1 extends PureComponent {
       },
     };
     let className = this.props.global&&this.props.global.dark ? styles.allBox : styles.lightBox;
-    console.log('this.props.global.dark',this.props.global.dark)
     return (
       <div id="home1ID" className={className}>
         <div className={styles.homeStyle}>
