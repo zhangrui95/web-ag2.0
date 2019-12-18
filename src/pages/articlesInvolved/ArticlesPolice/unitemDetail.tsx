@@ -427,6 +427,7 @@ export default class unitemDetail extends PureComponent {
                     isDb={isDb}
                     onceSupervise={this.onceSupervise}
                     sureReform={this.sureReform}
+                    frompath='/articlesInvolved/ArticlesPolice/unitemDetail'
                 />
                 <Card title="| 物品信息" className={styles.wpxxcard} bordered={false}>
                     <Row gutter={{ md: 8, lg: 24, xl: 48 }}>

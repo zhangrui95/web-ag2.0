@@ -285,7 +285,7 @@ export default class Home1 extends PureComponent {
               query: { record: record, id: record && record.id ? record.id : '1' },
             }),
           );
-        } else if (record.wtflMc === '涉案物品') {
+        } else if (record.wtflMc === '涉案物品'||record.wtflMc === '物品'||record.wtflMc === '涉案财物') {
           this.props.dispatch(
             routerRedux.push({
               pathname: '/articlesInvolved/ArticlesPolice/unitemDetail',

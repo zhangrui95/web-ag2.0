@@ -108,46 +108,69 @@ export default class Index extends PureComponent {
     this.getRectificationStatusDict();
     this.getDossierSaveTypeDict();
   }
-    getAllList = (props) =>{
-        if (props.location.state && props.location.state.code) {
-            this.setState({
-                showDataView: false,
-                dbzt: '',
-                badw: props.location.state.code,
-                gjsj:  [props.location.state.kssj ? moment(props.location.state.kssj) : null, props.location.state.jssj ? moment(props.location.state.jssj) : null],
-            });
-            this.props.form.setFieldsValue({
-                bar: props.location.state.bar_name,
-            });
-            const formValues = {
-                badw: props.location.state.code,
-                gjsj_ks: props.location.state.kssj,
-                gjsj_js: props.location.state.jssj,
-                is_tz: props.location.state.is_tz ? props.location.state.is_tz : '1',
-                bar:props.location.state.bar_name || '',
-            };
-            this.setState({
-                formValues,
-                is_tz: props.location.state.is_tz ? props.location.state.is_tz : '1',
-            });
-            const params = {
-                currentPage: 1,
-                showCount: tableList,
-                pd: {
-                    ...formValues,
-                },
-            };
-            this.getDossier(params);
-        } else {
-            this.getDossier();
-        }
+  componentWillReceiveProps(nextProps) {
+    console.log('nextProps',nextProps);
+    if(nextProps.history.location.query.isReset&&nextProps.history.location.pathname==='/dossierPolice/DossierPolice'){
+      this.getAllList(nextProps);
+      this.props.history.replace(nextProps.history.location.pathname);
     }
-    componentWillReceiveProps(nextProps) {
-        if(nextProps.history.location.query.isReset&&nextProps.history.location.pathname==='/dossierPolice/DossierPolice'){
-            this.getAllList(nextProps.history);
-            this.props.history.replace(nextProps.history.location.pathname);
-        }
+  }
+
+  getAllList = (props) =>{
+      if (props.location.state && props.location.state.code) {
+          this.setState({
+              showDataView: false,
+              dbzt: '',
+              badw: props.location.state.code,
+              gjsj:  [props.location.state.kssj ? moment(props.location.state.kssj) : null, props.location.state.jssj ? moment(props.location.state.jssj) : null],
+          });
+          this.props.form.setFieldsValue({
+              bar: props.location.state.bar_name,
+          });
+          const formValues = {
+              badw: props.location.state.code,
+              gjsj_ks: props.location.state.kssj,
+              gjsj_js: props.location.state.jssj,
+              is_tz: props.location.state.is_tz ? props.location.state.is_tz : '1',
+              bar:props.location.state.bar_name || '',
+          };
+          this.setState({
+              formValues,
+              is_tz: props.location.state.is_tz ? props.location.state.is_tz : '1',
+          });
+          const params = {
+              currentPage: 1,
+              showCount: tableList,
+              pd: {
+                  ...formValues,
+              },
+          };
+          this.getDossier(params);
+      }
+      else if(props.history.location.query.isReset){
+        this.setState({
+          dbzt: '',
+        });
+        const formValues = {
+
+        };
+        this.setState({
+          formValues,
+        });
+        const params = {
+          currentPage: 1,
+          showCount: tableList,
+          pd: {
+            ...formValues,
+          },
+        };
+        this.getDossier(params);
+      }
+      else {
+         this.getDossier();
+      }
     }
+
   // 切换tab
   onTabChange = (activeKey) => {
     this.setState({
@@ -477,10 +500,30 @@ export default class Index extends PureComponent {
       shareRecord: res,
     });
     if (type === 2) {
-      this.setState({
-        shareVisible: true,
-        shareItem: res,
-      });
+      let detail = (
+        <Row style={{ lineHeight:'55px',paddingLeft:66 }}>
+          <Col span={8}>卷宗名称：<Tooltip
+            title={res && res.jzmc && res.jzmc.length > 12 ? res.jzmc : null}>{res && res.jzmc ? res.jzmc.length > 12 ? res.jzmc.substring(0, 12) + '...' : res.jzmc : ''}</Tooltip></Col>
+          <Col
+            span={8}>卷宗类别：{res && res.jzlb_mc ? res.jzlb_mc : ''}</Col>
+          <Col span={8}>卷宗描述：<Tooltip
+            title={res && res.jzms && res.jzms.length > 12 ? res.jzms : null}>{res && res.jzms ? res.jzms.length > 12 ? res.jzms.substring(0, 12) + '...' : res.jzms : ''}</Tooltip></Col>
+          <Col span={8}>案件名称：<Tooltip
+            title={res && res.ajmc && res.ajmc.length > 12 ? res.ajmc : null}>{res && res.ajmc ? res.ajmc.length > 12 ? res.ajmc.substring(0, 12) + '...' : res.ajmc : ''}</Tooltip></Col>
+          <Col
+            span={8}>案件状态：{res && res.ajzt ? res.ajzt : ''}</Col>
+        </Row>
+      );
+      this.props.dispatch(
+        routerRedux.push({
+          pathname: '/ModuleAll/Share',
+          query: { record: res,id: res && res.id ? res.id : '1',from:'卷宗信息',tzlx:'jzwt',fromPath:'/dossierPolice/DossierPolice',detail,tab:'表格' },
+        }),
+      )
+      // this.setState({
+      //   shareVisible: true,
+      //   shareItem: res,
+      // });
     } else {
       this.props.dispatch({
         type: 'share/getMyFollow',
@@ -560,7 +603,14 @@ export default class Index extends PureComponent {
       callback: (data) => {
         if (data.list.length > 0) {
           if (data.list[0].dbzt === '00') {
-            this.openModal(this.state.NewDossierDetail, flag, record);
+            const {NewDossierDetail} = this.state;
+            this.props.dispatch(
+              routerRedux.push({
+                pathname: '/ModuleAll/Supervise',
+                query: { record:NewDossierDetail,searchDetail:record,id: NewDossierDetail && NewDossierDetail.id ? NewDossierDetail.id : '1',from:'督办',tzlx:'jzwt',fromPath:'/dossierPolice/DossierPolice',tab:'表格'},
+              }),
+            )
+            // this.openModal(this.state.NewDossierDetail, flag, record);
           } else {
             message.warning('该问题已督办，请点击详情查看');
             this.refreshTable();
@@ -765,6 +815,7 @@ export default class Index extends PureComponent {
                     </Menu>
                   }
                   trigger={['click']}
+                  getPopupContainer={() => document.getElementById('jzgjtableListOperator')}
                 >
                   <a href="javascript:;">关注</a>
                 </Dropdown>
@@ -818,20 +869,6 @@ export default class Index extends PureComponent {
       showTotal: (total, range) =>
         <span className={styles.listPagination}>{`共 ${page ? page.totalPage : 1} 页， ${page ? page.totalResult : 0} 条记录 `}</span>,
     };
-    let detail = (
-      <Row style={{ width: '90%', margin: '0 38px 10px', lineHeight: '36px', color: 'rgba(0, 0, 0, 0.85)' }}>
-        <Col span={8}>卷宗名称：<Tooltip
-          title={this.state.shareRecord && this.state.shareRecord.jzmc && this.state.shareRecord.jzmc.length > 12 ? this.state.shareRecord.jzmc : null}>{this.state.shareRecord && this.state.shareRecord.jzmc ? this.state.shareRecord.jzmc.length > 12 ? this.state.shareRecord.jzmc.substring(0, 12) + '...' : this.state.shareRecord.jzmc : ''}</Tooltip></Col>
-        <Col
-          span={8}>卷宗类别：{this.state.shareRecord && this.state.shareRecord.jzlb_mc ? this.state.shareRecord.jzlb_mc : ''}</Col>
-        <Col span={8}>卷宗描述：<Tooltip
-          title={this.state.shareRecord && this.state.shareRecord.jzms && this.state.shareRecord.jzms.length > 12 ? this.state.shareRecord.jzms : null}>{this.state.shareRecord && this.state.shareRecord.jzms ? this.state.shareRecord.jzms.length > 12 ? this.state.shareRecord.jzms.substring(0, 12) + '...' : this.state.shareRecord.jzms : ''}</Tooltip></Col>
-        <Col span={8}>案件名称：<Tooltip
-          title={this.state.shareRecord && this.state.shareRecord.ajmc && this.state.shareRecord.ajmc.length > 12 ? this.state.shareRecord.ajmc : null}>{this.state.shareRecord && this.state.shareRecord.ajmc ? this.state.shareRecord.ajmc.length > 12 ? this.state.shareRecord.ajmc.substring(0, 12) + '...' : this.state.shareRecord.ajmc : ''}</Tooltip></Col>
-        <Col
-          span={8}>案件状态：{this.state.shareRecord && this.state.shareRecord.ajzt ? this.state.shareRecord.ajzt : ''}</Col>
-      </Row>
-    );
     return (
       <div className={this.props.location.query && this.props.location.query.id ? styles.onlyDetail : ''}>
             <div className={styles.listPageWrap}>
@@ -1051,7 +1088,7 @@ export default class Index extends PureComponent {
                     </Row>
                   </Form>
                 </div>
-                <div className={styles.tableListOperator}>
+                <div className={styles.tableListOperator} id='jzgjtableListOperator'>
                   <Table
                     className={styles.listStandardTable}
                     // size="middle"

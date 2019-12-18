@@ -126,7 +126,7 @@ export default class unpoliceDetail extends PureComponent {
     });
   };
   // 根据案件编号打开案件窗口
-  openCaseDetail = (policeDetails) => {policeDetails.ajbh, policeDetails.ajlx
+  openCaseDetail = (policeDetails) => {
     if (policeDetails.ajlx === '22001') {
       // 刑事案件
       this.props.dispatch(
@@ -409,6 +409,7 @@ export default class unpoliceDetail extends PureComponent {
           isDb={isDb}
           onceSupervise={this.onceSupervise}
           sureReform={this.sureReform}
+          frompath='/receivePolice/AlarmPolice/unpoliceDetail'
         />
         <div className={styles.title}>| 接警信息</div>
         <div className={styles.message}>

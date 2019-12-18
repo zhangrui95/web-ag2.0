@@ -370,11 +370,31 @@ export default class Index extends PureComponent {
       });
       this.thisNewDetails(res);
     } else if (type === 2) {
-      this.setState({
-        shareVisible: true,
-        shareItem: res,
-      });
-      this.thisNewDetails(res);
+      let detail = (
+        <Row style={{ lineHeight:'55px',paddingLeft:66 }}>
+          <Col span={8}>卷宗名称：<Tooltip
+            title={res && res.jzmc && res.jzmc.length > 12 ? res.jzmc : null}>{res && res.jzmc ? res.jzmc.length > 12 ? res.jzmc.substring(0, 12) + '...' : res.jzmc : ''}</Tooltip></Col>
+          <Col
+            span={8}>卷宗类别：{res && res.jzlb_mc ? res.jzlb_mc : ''}</Col>
+          <Col span={8}>卷宗描述：<Tooltip
+            title={res && res.jzms && res.jzms.length > 12 ? res.jzms : null}>{res && res.jzms ? res.jzms.length > 12 ? res.jzms.substring(0, 12) + '...' : res.jzms : ''}</Tooltip></Col>
+          <Col span={8}>案件名称：<Tooltip
+            title={res && res.ajmc && res.ajmc.length > 12 ? res.ajmc : null}>{res && res.ajmc ? res.ajmc.length > 12 ? res.ajmc.substring(0, 12) + '...' : res.ajmc : ''}</Tooltip></Col>
+          <Col
+            span={8}>案件状态：<Tooltip>{res && res.ajzt ? res.ajzt : ''}</Tooltip></Col>
+        </Row>
+      );
+      this.props.dispatch(
+        routerRedux.push({
+          pathname: '/ModuleAll/Share',
+          query: { record: res,id: res && res.id ? res.id : '1',from:'卷宗信息',tzlx:'jzyj',fromPath:'/dossierPolice/DossierWarning',detail,tab:'表格'},
+        }),
+      )
+      // this.setState({
+      //   shareVisible: true,
+      //   shareItem: res,
+      // });
+      // this.thisNewDetails(res);
     } else {
       this.props.dispatch({
         type: 'share/getMyFollow',
@@ -420,9 +440,16 @@ export default class Index extends PureComponent {
         yj_id: record.id,
       },
       callback: (res) => {
-        this.setState({
-          RzList: res.list,
-        });
+        console.log('res',res);
+        // this.setState({
+        //   RzList: res.list,
+        // });
+        this.props.dispatch(
+          routerRedux.push({
+            pathname: '/ModuleAll/DailyRecord',
+            query: { record: record,RzList:res.list,id: record && record.dossier_id ? record.dossier_id : '1',fromPath:'/dossierPolice/DossierWarning',movefrom:'卷宗预警',tab:'表格' },
+          }),
+        )
       },
     });
   };
@@ -533,7 +560,7 @@ export default class Index extends PureComponent {
                 <Menu.Item key="1">
                   <a onClick={() => this.saveShare(record, 1, 1)}>全要素关注</a>
                 </Menu.Item>
-              </Menu>} trigger={['click']}><a href="javascript:;">关注</a></Dropdown> :
+              </Menu>} trigger={['click']} getPopupContainer={() => document.getElementById('jzyjtableListOperator')}><a href="javascript:;">关注</a></Dropdown> :
               <a href="javascript:;"
                  onClick={() => this.noFollow(record)}>取消{record.ajgzlx && record.ajgzlx === '0' ? '本物品' : '全要素'}关注</a>}
             <Divider type="vertical"/>
@@ -560,20 +587,7 @@ export default class Index extends PureComponent {
         );
       }
     }
-    let detail = (
-      <Row style={{ width: '90%', margin: '0 38px 10px', lineHeight: '36px', color: 'rgba(0, 0, 0, 0.85)' }}>
-        <Col span={8}>卷宗名称：<Tooltip
-          title={this.state.itemDetails && this.state.itemDetails.jzmc && this.state.itemDetails.jzmc.length > 12 ? this.state.itemDetails.jzmc : null}>{this.state.itemDetails && this.state.itemDetails.jzmc ? this.state.itemDetails.jzmc.length > 12 ? this.state.itemDetails.jzmc.substring(0, 12) + '...' : this.state.itemDetails.jzmc : ''}</Tooltip></Col>
-        <Col
-          span={8}>卷宗类别：{this.state.itemDetails && this.state.itemDetails.jzlb_mc ? this.state.itemDetails.jzlb_mc : ''}</Col>
-        <Col span={8}>卷宗描述：<Tooltip
-          title={this.state.itemDetails && this.state.itemDetails.jzms && this.state.itemDetails.jzms.length > 12 ? this.state.itemDetails.jzms : null}>{this.state.itemDetails && this.state.itemDetails.jzms ? this.state.itemDetails.jzms.length > 12 ? this.state.itemDetails.jzms.substring(0, 12) + '...' : this.state.itemDetails.jzms : ''}</Tooltip></Col>
-        <Col span={8}>案件名称：<Tooltip
-          title={this.state.itemDetails && this.state.itemDetails.ajmc && this.state.itemDetails.ajmc.length > 12 ? this.state.itemDetails.ajmc : null}>{this.state.itemDetails && this.state.itemDetails.ajmc ? this.state.itemDetails.ajmc.length > 12 ? this.state.itemDetails.ajmc.substring(0, 12) + '...' : this.state.itemDetails.ajmc : ''}</Tooltip></Col>
-        <Col
-          span={8}>案件状态：<Tooltip>{this.state.itemDetails && this.state.itemDetails.ajzt ? this.state.itemDetails.ajzt : ''}</Tooltip></Col>
-      </Row>
-    );
+
     const paginationProps = {
       // showSizeChanger: true,
       // showQuickJumper: true,
@@ -665,7 +679,7 @@ export default class Index extends PureComponent {
               </Row>
             </Form>
           </div>
-          <div className={styles.tableListOperator}>
+          <div className={styles.tableListOperator} id='jzyjtableListOperator'>
             <Button style={{ borderColor: '#2095FF', marginBottom:16 }} onClick={this.exportData} icon="download">导出表格</Button>
             <Table
               className={styles.listStandardTable}

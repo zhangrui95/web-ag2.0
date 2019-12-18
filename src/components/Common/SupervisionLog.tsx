@@ -50,7 +50,7 @@ export default class SupervisionLog extends PureComponent {
     this.props.dispatch(
       routerRedux.push({
         pathname: '/ModuleAll/SeeDetail',
-        query: { record: NowDbrz,id: detail && detail.wtid ? detail.wtid : '1',fromPath:'/handlingArea/AreaPolice/UnareaDetail',detail,Isdetail },
+        query: { record: NowDbrz,id: detail && detail.wtid ? detail.wtid : '1',fromPath:this.props.fromPath,detail,Isdetail },
       }),
     )
 
