@@ -296,8 +296,9 @@ export default class XSAJBLJDGLTZ extends PureComponent {
         ],
       },
     ];
+      let className = this.props.global&&this.props.global.dark ? stylescommon.statistics : stylescommon.statistics + ' ' + stylescommon.lightFromBox;
     return (
-      <div className={stylescommon.statistics}>
+      <div className={className}>
         <Card className={stylescommon.listPageWrap}>{this.search()}</Card>
         <Card className={stylescommon.cardArea}>
           <div>
