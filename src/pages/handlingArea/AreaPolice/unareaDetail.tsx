@@ -42,6 +42,7 @@ import SupervisionLog from '../../../components/Common/SupervisionLog';
 import nophoto from '../../../assets/common/nophoto.png';
 import noList from "@/assets/viewData/noList.png";
 import {routerRedux} from "dva/router";
+import noListLight from "@/assets/viewData/noListLight.png";
 
 const FormItem = Form.Item;
 const { Step } = Steps;
@@ -1662,7 +1663,7 @@ export default class unareaDetail extends PureComponent {
             }}
             dataSource={UnareaDetail ? UnareaDetail.sswoodList : []}
             columns={ssWoodColumns}
-            locale={{ emptyText: <Empty image={noList} description={'暂无数据'} /> }}
+            locale={{ emptyText: <Empty image={this.props.global&&this.props.global.dark ? noList : noListLight} description={'暂无数据'} /> }}
           />
         </div>
 
@@ -1687,7 +1688,7 @@ export default class unareaDetail extends PureComponent {
             }}
             dataSource={UnareaDetail ? UnareaDetail.sawoodList : []}
             columns={ajWoodColumns}
-            locale={{ emptyText: <Empty image={noList} description={'暂无数据'} /> }}
+            locale={{ emptyText: <Empty image={this.props.global&&this.props.global.dark ? noList : noListLight} description={'暂无数据'} /> }}
           />
         </div>
       </div>

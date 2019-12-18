@@ -6,6 +6,7 @@ import styles from './RenderTable.less';
 import Ellipsis from 'ant-design-pro/lib/Ellipsis';
 import {routerRedux} from "dva/router";
 import noList from "@/assets/viewData/noList.png";
+import noListLight from "@/assets/viewData/noListLight.png";
 
 class RenderTable extends PureComponent {
   state = {
@@ -472,7 +473,7 @@ class RenderTable extends PureComponent {
           columns={columns}
           pagination={paginationProps}
           onChange={this.itemTableChange}
-          locale={{ emptyText: <Empty image={noList} description={'暂无数据'} /> }}
+          locale={{ emptyText: <Empty image={this.props.global&&this.props.global.dark ? noList : noListLight} description={'暂无数据'} /> }}
         />
         {/*<ShareModal*/}
           {/*title="物品信息分享"*/}

@@ -17,6 +17,7 @@ import { userAuthorityCode } from '../../utils/utils';
 import { authorityIsTrue } from '../../utils/authority';
 import noList from "@/assets/viewData/noList.png";
 import iconFont from '../../utils/iconfont'
+import noListLight from "@/assets/viewData/noListLight.png";
 const IconFont = Icon.createFromIconfontCN({
     scriptUrl: iconFont
 })
@@ -860,7 +861,7 @@ export default class Statistics extends PureComponent {
                 className={styles.homeTable}
                 pagination={paginationPage}
                 onChange={this.handleTableChange}
-                locale={{ emptyText: <Empty image={noList} description={'暂无数据'} /> }}
+                locale={{ emptyText: <Empty image={this.props.global&&this.props.global.dark ? noList : noListLight} description={'暂无数据'} /> }}
               />
             </Card>
           ) : (
@@ -896,7 +897,7 @@ export default class Statistics extends PureComponent {
                       className={styles.homeTable}
                       pagination={paginationPage}
                       onChange={this.handleTableChange}
-                      locale={{ emptyText: <Empty image={noList} description={'暂无数据'} /> }}
+                      locale={{ emptyText: <Empty image={this.props.global&&this.props.global.dark ? noList : noListLight} description={'暂无数据'} /> }}
                     />
                   </Card>
                 </TabPane>
@@ -956,7 +957,7 @@ export default class Statistics extends PureComponent {
                     className={styles.homeTable}
                     pagination={paginationPage}
                     onChange={this.handleTableChange}
-                    locale={{ emptyText: <Empty image={noList} description={'暂无数据'} /> }}
+                    locale={{ emptyText: <Empty image={this.props.global&&this.props.global.dark ? noList : noListLight} description={'暂无数据'} /> }}
                   />
                 </Card>
               </TabPane>

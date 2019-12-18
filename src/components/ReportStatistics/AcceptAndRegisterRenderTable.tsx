@@ -4,6 +4,7 @@ import styles from './AcceptAndRegisterRenderTable.less';
 import { routerRedux } from 'dva/router';
 import Detail from '../../routes/ReportStatistics/AcceptAndRegisterDetail';
 import noList from "@/assets/viewData/noList.png";
+import noListLight from "@/assets/viewData/noListLight.png";
 
 
 const FormItem = Form.Item;
@@ -194,7 +195,7 @@ class AcceptAndRegisterRenderTable extends PureComponent {
                     columns={child}
                     pagination={paginationProps}
                     onChange={this.handleTableChange}
-                    locale={{ emptyText: <Empty image={noList} description={'暂无数据'} /> }}
+                    locale={{ emptyText: <Empty image={this.props.global&&this.props.global.dark ? noList : noListLight} description={'暂无数据'} /> }}
                     style={{ marginLeft: 8 }}
                     // title:'点击进入下一级机构'
                     onRow={(record) => {

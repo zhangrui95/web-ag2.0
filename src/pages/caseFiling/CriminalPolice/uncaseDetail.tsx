@@ -36,6 +36,7 @@ import { authorityIsTrue } from '../../../utils/authority';
 import SupervisionLog from '../../../components/Common/SupervisionLog';
 import Ellipsis from 'ant-design-pro/lib/Ellipsis';
 import noList from "@/assets/viewData/noList.png";
+import noListLight from "@/assets/viewData/noListLight.png";
 
 const FormItem = Form.Item;
 // const { Description } = DescriptionList;
@@ -809,7 +810,7 @@ export default class uncaseDetail extends PureComponent {
             className={styles.jqxxTable}
             dataSource={unCaseDetailData ? unCaseDetailData.jqxxList : []}
             columns={JqColumns}
-            locale={{ emptyText: <Empty image={noList} description={'暂无数据'} /> }}
+            locale={{ emptyText: <Empty image={this.props.global&&this.props.global.dark ? noList : noListLight} description={'暂无数据'} /> }}
           />
         </div>
         <div className={styles.title}>| 案件信息</div>
