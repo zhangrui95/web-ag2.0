@@ -37,10 +37,11 @@ const RadioGroup = Radio.Group;
 let timeout;
 let currentValue;
 
-@connect(({ areaData, loading, common }) => ({
+@connect(({ areaData, loading, common,global }) => ({
   areaData,
   loading,
   common,
+    global
   // loading: loading.models.alarmManagement,
 }))
 @Form.create()

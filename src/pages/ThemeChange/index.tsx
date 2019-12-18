@@ -25,7 +25,7 @@ class ThemeChange extends Component {
             type: 'global/changeBgColor',
             payload: bgColor,
         });
-        cookie.save('dark', bgColor);
+        cookie.save('dark', bgColor,{maxAge: 31536000});
     }
     render() {
         let styles = this.props.dark ? styles1 : styles2;

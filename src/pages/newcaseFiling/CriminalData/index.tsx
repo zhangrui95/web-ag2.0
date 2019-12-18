@@ -25,8 +25,8 @@ const TreeNode = TreeSelect.TreeNode;
 let timeout;
 let currentValue;
 
-@connect(({ common, CaseData, loading }) => ({
-  CaseData, loading, common,
+@connect(({ common, CaseData, loading,global }) => ({
+  CaseData, loading, common,global
   // loading: loading.models.alarmManagement,
 }))
 @Form.create()

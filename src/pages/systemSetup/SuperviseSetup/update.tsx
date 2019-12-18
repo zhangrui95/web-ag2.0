@@ -1188,7 +1188,7 @@ class Detail extends Component {
                                             })}
                                         </Select>,
                                     )}
-                                    <Tooltip title={this.state.NoticeNote}><Icon type="info-circle-o" theme="twoTone" twoToneColor="#f40" className={styles.lxsm}/></Tooltip>
+                                    <Tooltip title={this.state.NoticeNote}><Icon type="info-circle" className={styles.lxsm} /></Tooltip>
                                 </FormItem>
                             </Col>
                             <Col span={8}>

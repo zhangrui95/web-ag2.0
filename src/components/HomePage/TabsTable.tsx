@@ -21,9 +21,11 @@ import {
 import { connect } from 'dva';
 import styles from '../../pages/ShowData/Show.less';
 import stylescommon from '../../pages/common/common.less';
-import iconperson from '../../assets/menuimage/iconpreson.png';
 import noList from "@/assets/viewData/noList.png";
-
+import iconFont from '../../utils/iconfont'
+const IconFont = Icon.createFromIconfontCN({
+    scriptUrl: iconFont
+})
 const TabPane = Tabs.TabPane;
 const FormItem = Form.Item;
 const RangePicker = DatePicker.RangePicker;
@@ -74,7 +76,7 @@ export default class TabsTable extends PureComponent {
           <TabPane
             tab={
               <div className={styles.mysharestyle}>
-                <img src={iconperson} />
+                <IconFont type={'icon-fenxiang'} className={styles.iconLefts}/>
                 <span>我的分享({this.props.wdfx ? this.props.wdfx : 0})</span>
               </div>
             }
@@ -200,7 +202,6 @@ export default class TabsTable extends PureComponent {
           <TabPane
             tab={
               <div className={styles.mysharestyle}>
-                <img src={iconperson} />
                 <span>分享给我({this.props.fxgw ? this.props.fxgw : 0})</span>
               </div>
             }

@@ -37,10 +37,11 @@ const TreeNode = TreeSelect.TreeNode;
 let timeout;
 let currentValue;
 
-@connect(({ XzCaseData, loading, common }) => ({
+@connect(({ XzCaseData, loading, common,global }) => ({
   XzCaseData,
   loading,
   common,
+    global
   // loading: loading.models.alarmManagement,
 }))
 @Form.create()
