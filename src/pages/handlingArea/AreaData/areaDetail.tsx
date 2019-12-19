@@ -110,6 +110,10 @@ export default class areaDetail extends PureComponent {
   }
 
   componentDidMount() {
+    let res = this.props.location.query.record;
+    if(typeof res == 'string'){
+      res = JSON.parse(sessionStorage.getItem('query')).query.record;
+    }
     if (
         (this.props.location &&
       this.props.location.query &&

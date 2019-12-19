@@ -82,6 +82,10 @@ export default class unitemDetail extends PureComponent {
     };
 
     componentDidMount() {
+      let res = this.props.location.query.record;
+      if(typeof res == 'string'){
+        res = JSON.parse(sessionStorage.getItem('query')).query.record;
+      }
       const { location } = this.props;
       if(location&&location.query&&location.query.record&&location.query.record.id&&location.query.record.system_id){
         this.itemDetailDatas(location.query.record.id, location.query.record.system_id);

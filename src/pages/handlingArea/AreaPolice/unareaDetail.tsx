@@ -100,6 +100,10 @@ export default class unareaDetail extends PureComponent {
   };
 
   componentDidMount() {
+    let res = this.props.location.query.record;
+    if(typeof res == 'string'){
+      res = JSON.parse(sessionStorage.getItem('query')).query.record;
+    }
     const { location } = this.props;
     if (
       location &&
