@@ -387,7 +387,7 @@ export default class Index extends PureComponent {
       this.props.dispatch(
         routerRedux.push({
           pathname: '/ModuleAll/Share',
-          query: { record: res,id: res && res.id ? res.id : '1',from:'卷宗信息',tzlx:'jzyj',fromPath:'/dossierPolice/DossierWarning',detail,tab:'表格'},
+          query: { record: res,id: res && res.id ? res.id : '1',from:'卷宗信息',tzlx:'jzyj',fromPath:'/dossierPolice/DossierWarning',detail,tab:'表格',sx: (res.jzmc ? res.jzmc + '、' : '') + (res.yjlxmc ? res.yjlxmc + '、' : '') + (res.yjsj ? res.yjsj : ''),},
         }),
       )
       // this.setState({

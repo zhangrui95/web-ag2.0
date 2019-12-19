@@ -58,7 +58,7 @@ class RenderTable extends PureComponent {
     this.props.dispatch(
       routerRedux.push({
         pathname: '/newcaseFiling/caseData/CriminalData/caseDetail',
-        query: { id: record.id, record: record },
+        query: { id: record.system_id, record: record },
       }),
     );
   };
@@ -77,10 +77,28 @@ class RenderTable extends PureComponent {
       shareRecord: res,
     });
     if (type === 2) {
-      this.setState({
-        shareVisible: true,
-        shareItem: res,
-      });
+      let detail = (
+        <Row style={{ lineHeight:'55px',paddingLeft:66 }}>
+          <Col span={12}>案件名称：<Tooltip
+            title={res && res.ajmc && res.ajmc.length > 20 ? res.ajmc : null}>{res && res.ajmc ? res.ajmc.length > 20 ? res.ajmc.substring(0, 20) + '...' : res.ajmc : ''}</Tooltip></Col>
+          <Col span={12}>办案单位：<Tooltip
+            title={res && res.bardwmc && res.bardwmc.length > 20 ? res.bardwmc : null}>{res && res.bardwmc ? res.bardwmc.length > 20 ? res.bardwmc.substring(0, 20) + '...' : res.bardwmc : ''}</Tooltip></Col>
+          <Col
+            span={12}>案件状态：{res && res.schj ? res.schj : ''}</Col>
+          <Col
+            span={12}>办案民警：{res && res.barxm ? res.barxm : ''}</Col>
+        </Row>
+      );
+      this.props.dispatch(
+        routerRedux.push({
+          pathname: '/ModuleAll/Share',
+          query: { record: res,id: res && res.system_id ? res.system_id : '1',from:'案件信息',tzlx:'xsajxx2',fromPath:'/newcaseFiling/caseData/CriminalData',detail,tab:'表格',sx: (res.ajmc ? res.ajmc + '、' : '') + (res.schj ? res.schj : '') },
+        }),
+      )
+      // this.setState({
+      //   shareVisible: true,
+      //   shareItem: res,
+      // });
     } else {
       this.props.dispatch({
         type: 'share/getMyFollow',
@@ -299,6 +317,7 @@ class RenderTable extends PureComponent {
                           </Menu>
                         }
                         trigger={['click']}
+                        getPopupContainer={() => document.getElementById('slacardArea')}
                       >
                         <a href="javascript:;">关注</a>
                       </Dropdown>
@@ -438,6 +457,7 @@ class RenderTable extends PureComponent {
                           </Menu>
                         }
                         trigger={['click']}
+                        getPopupContainer={() => document.getElementById('slacardArea')}
                       >
                         <a href="javascript:;">关注</a>
                       </Dropdown>
@@ -484,7 +504,7 @@ class RenderTable extends PureComponent {
     };
 
     return (
-      <Card className={stylescommon.cardArea}>
+      <Card className={stylescommon.cardArea} id='slacardArea'>
         <Table
           loading={loading}
           rowKey={record => record.key}

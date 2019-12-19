@@ -1,5 +1,5 @@
 /*
- * CaseEnforcementDataView.js 刑事案件数据展示(牡丹江专用，受立案和执法办案合并后)
+ * CaseEnforcementDataView.js 刑事案件数据展示(受立案和执法办案合并后)
  * author：jhm
  * 20190917
  * */

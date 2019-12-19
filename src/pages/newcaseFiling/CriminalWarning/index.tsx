@@ -342,7 +342,7 @@ export default class Index extends PureComponent {
     return current && current.valueOf() > Date.now();
   };
   // 请求当前数据的详情（提醒弹窗中的回显数据从此处获取）
-  thisNewDetails = (res) => {
+  thisNewDetails = (res,type) => {
     this.props.dispatch({
       type: 'CaseData/getAjxxXqById',
       payload: {
@@ -353,6 +353,34 @@ export default class Index extends PureComponent {
           this.setState({
             caseDetails: data,
           });
+          let detail = (
+            <Row style={{ lineHeight:'55px',paddingLeft:66 }}>
+              <Col span={12}>案件名称：<Tooltip
+                title={res && res.ajmc && res.ajmc.length > 20 ? res.ajmc : null}>{res && res.ajmc ? res.ajmc.length > 20 ? res.ajmc.substring(0, 20) + '...' : res.ajmc : ''}</Tooltip></Col>
+              <Col span={12}>办案单位：<Tooltip
+                title={data && data.bardwmc && data.bardwmc.length > 20 ? data.bardwmc : null}>{data && data.bardwmc ? data.bardwmc.length > 20 ? data.bardwmc.substring(0, 20) + '...' : data.bardwmc : ''}</Tooltip></Col>
+              <Col
+                span={12}>案件状态：{data && data.schj ? data.schj : ''}</Col>
+              <Col
+                span={12}>办案民警：{data && data.barxm ? data.barxm : ''}</Col>
+            </Row>
+          );
+          if(type===3){
+            this.props.dispatch(
+              routerRedux.push({
+                pathname: '/ModuleAll/Remind',
+                query: { record: res,itemDetails:data,id: res && res.system_id ? res.system_id : '1',from:'案件预警',fromPath:'/newcaseFiling/caseWarning/CriminalWarning',detail,tab:'表格' },
+              }),
+            )
+          }
+          else if(type===2){
+            this.props.dispatch(
+              routerRedux.push({
+                pathname: '/ModuleAll/Share',
+                query: { record: res,id: res && res.system_id ? res.system_id : '1',from:'案件预警',tzlx:this.state.tzlx,fromPath:'/newcaseFiling/caseWarning/CriminalWarning',detail,tab:'表格',sx: (res.wpmc ? res.wpmc + '、' : '') + (res.wplx_mc ? res.wplx_mc + '、' : '') + (res.yjlxmc ? res.yjlxmc + '、' : '') + (res.yjsj ? res.yjsj : ''), },
+              }),
+            )
+          }
         }
       },
     });
@@ -376,17 +404,17 @@ export default class Index extends PureComponent {
       shareRecord: res,
     });
     if (type === 3) {
-      this.setState({
-        txVisible: true,
-        txItem: res,
-      });
-      this.thisNewDetails(res);
+      // this.setState({
+      //   txVisible: true,
+      //   txItem: res,
+      // });
+      this.thisNewDetails(res,type);
     } else if (type === 2) {
-      this.setState({
-        shareVisible: true,
-        shareItem: res,
-      });
-      this.thisNewDetails(res);
+      // this.setState({
+      //   shareVisible: true,
+      //   shareItem: res,
+      // });
+      this.thisNewDetails(res,type);
     } else {
       this.props.dispatch({
         type: 'share/getMyFollow',
@@ -422,21 +450,39 @@ export default class Index extends PureComponent {
     });
   };
   getTg = (record) => {
-    this.setState({
-      AnnouncementVisible: true,
-    });
     this.props.dispatch({
       type: 'share/getRz',
       payload: {
         ag_id: record.ag_id,
         yj_id: record.id,
       },
-      callback: (res) => {
-        this.setState({
-          RzList: res.list,
-        });
+      callback: res => {
+        this.props.dispatch(
+          routerRedux.push({
+            pathname: '/ModuleAll/DailyRecord',
+            query: {record: record, RzList: res.list, id: record && record.id ? record.id : '1',fromPath:'/newcaseFiling/caseWarning/CriminalWarning', movefrom: '案件预警',tab:'表格'},
+          }),
+        )
+        // this.setState({
+        //   RzList: res.list,
+        // });
       },
-    });
+    })
+    // this.setState({
+    //   AnnouncementVisible: true,
+    // });
+    // this.props.dispatch({
+    //   type: 'share/getRz',
+    //   payload: {
+    //     ag_id: record.ag_id,
+    //     yj_id: record.id,
+    //   },
+    //   callback: (res) => {
+    //     this.setState({
+    //       RzList: res.list,
+    //     });
+    //   },
+    // });
   };
   noFollow = (record) => {
     this.props.dispatch({
@@ -557,6 +603,7 @@ export default class Index extends PureComponent {
                     </Menu>
                   }
                   trigger={['click']}
+                  getPopupContainer={() => document.getElementById('xsajyjtableListOperator')}
                 >
                   <a href="javascript:;">关注</a>
                 </Dropdown>
@@ -587,18 +634,7 @@ export default class Index extends PureComponent {
         );
       }
     }
-    let detail = (
-      <Row style={{ width: '90%', margin: '0 38px 10px', lineHeight: '36px', color: 'rgba(0, 0, 0, 0.85)' }}>
-        <Col span={12}>案件名称：<Tooltip
-          title={this.state.caseDetails && this.state.caseDetails.ajmc && this.state.caseDetails.ajmc.length > 20 ? this.state.caseDetails.ajmc : null}>{this.state.caseDetails && this.state.caseDetails.ajmc ? this.state.caseDetails.ajmc.length > 20 ? this.state.caseDetails.ajmc.substring(0, 20) + '...' : this.state.caseDetails.ajmc : ''}</Tooltip></Col>
-        <Col span={12}>办案单位：<Tooltip
-          title={this.state.caseDetails && this.state.caseDetails.bardwmc && this.state.caseDetails.bardwmc.length > 20 ? this.state.caseDetails.bardwmc : null}>{this.state.caseDetails && this.state.caseDetails.bardwmc ? this.state.caseDetails.bardwmc.length > 20 ? this.state.caseDetails.bardwmc.substring(0, 20) + '...' : this.state.caseDetails.bardwmc : ''}</Tooltip></Col>
-        <Col
-          span={12}>案件状态：{this.state.caseDetails && this.state.caseDetails.schj ? this.state.caseDetails.schj : ''}</Col>
-        <Col
-          span={12}>办案民警：{this.state.caseDetails && this.state.caseDetails.sabar ? this.state.caseDetails.sabar : ''}</Col>
-      </Row>
-    );
+
     const paginationProps = {
       // showSizeChanger: true,
       // showQuickJumper: true,
@@ -691,7 +727,7 @@ export default class Index extends PureComponent {
               </Row>
             </Form>
           </div>
-          <div className={styles.tableListOperator}>
+          <div className={styles.tableListOperator} id='xsajyjtableListOperator'>
             <Button
               style={{ borderColor: '#2095FF', marginBottom: 16 }}
               onClick={this.exportData}

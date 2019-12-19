@@ -168,7 +168,7 @@ export default class DossierDetail extends PureComponent {
           this.props.dispatch(
             routerRedux.push({
               pathname: '/ModuleAll/Share',
-              query: { record: DossierDetailData,id: DossierDetailData && DossierDetailData.dossier_id ? DossierDetailData.dossier_id : '1',from:'卷宗信息',tzlx:'jzxx',fromPath:'/dossierPolice/DossierData/DossierDetail',detail,tab:'详情' },
+              query: { record: DossierDetailData,id: DossierDetailData && DossierDetailData.dossier_id ? DossierDetailData.dossier_id : '1',from:'卷宗信息',tzlx:'jzxx',fromPath:'/dossierPolice/DossierData/DossierDetail',detail,tab:'详情',sx: (DossierDetailData.ajmc ? DossierDetailData.ajmc + '、' : '') + (DossierDetailData.jzlb_mc ? DossierDetailData.jzlb_mc : ''), },
             }),
           )
             // this.setState({

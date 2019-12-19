@@ -58,10 +58,10 @@ class DispatchModal extends PureComponent {
                 this.props.dispatch({
                     type: 'Dispatch/getAddDd',
                     payload: {
-                        dd_type: this.props.tzlx,
+                        dd_type: this.props.location.query.tzlx,
                         is_xcdd: values.isLiveDispatch === undefined ? undefined : (values.isLiveDispatch ? '1' : '0'),
                         ddyj: values.suggest,
-                        glid: this.props.tzlx === 'xsaj' || this.props.tzlx === 'xzaj' ? this.props.shareItem.wtid : this.props.shareItem.id,
+                        glid: this.props.location.query.querytzlx === 'xsaj' || this.props.location.tzlx === 'xzaj' ? this.props.shareItem.wtid : this.props.shareItem.id,
                         is_zdgz: values.zdgz ? '1' : '0',
                         ddxh: ddxh,
                     },

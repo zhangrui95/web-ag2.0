@@ -459,7 +459,10 @@ export default class Index extends PureComponent {
       this.props.dispatch(
         routerRedux.push({
           pathname: '/ModuleAll/Share',
-          query: { record: res,id: res && res.id ? res.id : '1',from:'警情信息',tzlx:'jqxx',fromPath:'/receivePolice/AlarmWarning',detail,tab:'表格'},
+          query: { record: res,id: res && res.id ? res.id : '1',from:'警情信息',tzlx:'jqxx',fromPath:'/receivePolice/AlarmWarning',detail,tab:'表格',sx:
+            (res.jjdw_mc ? res.jjdw_mc + '、' : '') +
+            (res.yjlxmc ? res.yjlxmc + '、' : '') +
+            (res.cjddsj ? res.cjddsj : '')},
         }),
       )
       // this.setState({
@@ -519,7 +522,7 @@ export default class Index extends PureComponent {
         this.props.dispatch(
           routerRedux.push({
             pathname: '/ModuleAll/DailyRecord',
-            query: { record: record,RzList:res.list,id: record && record.id ? record.id : '1',movefrom:'警情预警' },
+            query: { record: record,RzList:res.list,id: record && record.id ? record.id : '1',fromPath:'/receivePolice/AlarmWarning',movefrom:'警情预警',tab:'表格' },
           }),
         )
         // this.setState({

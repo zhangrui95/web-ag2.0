@@ -59,14 +59,22 @@
 .shareSuccess {
   :global {
     .ant-modal-header {
+      display: none;
       background-color: #1890FF;
       color: #fff;
       height: 46px;
     }
 
     .ant-modal-close-x {
+      display: none;
       height: 46px;
       line-height: 46px;
+    }
+
+    .ant-modal-content {
+      width: 452px;
+      height: 158px;
+      background-color: #262c3d;
     }
 
     .ant-modal-title {
@@ -74,13 +82,21 @@
     }
 
     .ant-modal-footer {
-      text-align: center;
+      text-align: right;
+      border-top: 0;
     }
 
     .ant-modal-body {
       font-weight: 700;
       font-size: 22px;
       text-align: center;
+      height: 102px;
+      color: @white;
+    }
+
+    .antd-pro-pages-module-all-share-index-successBtn {
+      width: 68px;
+      height: 36px;
     }
 
     .ant-modal-close {

@@ -471,7 +471,11 @@ export default class Index extends PureComponent {
       this.props.dispatch(
         routerRedux.push({
           pathname: '/ModuleAll/Share',
-          query: { record: res,id: res && res.id ? res.id : '1',from:'人员信息',tzlx:'baqyj',fromPath:'/handlingArea/AreaWarning',detail,tab:'表格'},
+          query: { record: res,id: res && res.id ? res.id : '1',from:'人员信息',tzlx:'baqyj',fromPath:'/handlingArea/AreaWarning',detail,tab:'表格',sx:
+            (res.baqmc ? res.baqmc + '、' : '') +
+            (res.ajmc ? res.ajmc + '、' : '') +
+            (res.yjlxmc ? res.yjlxmc + '、' : '') +
+            (res.yjsj ? res.yjsj : ''),},
         }),
       )
       // this.setState({
@@ -531,7 +535,7 @@ export default class Index extends PureComponent {
         this.props.dispatch(
           routerRedux.push({
             pathname: '/ModuleAll/DailyRecord',
-            query: { record: record,RzList:res.list,id: record && record.id ? record.id : '1',movefrom:'办案区预警' },
+            query: { record: record,RzList:res.list,id: record && record.id ? record.id : '1',fromPath:'/handlingArea/AreaWarning',movefrom:'办案区预警',tab:'表格' },
           }),
         )
         // this.setState({

@@ -72,7 +72,7 @@ export default class caseDetail extends PureComponent {
       personList: [],
       lx: '案件信息',
       sx: '',
-      sfgz: this.props.sfgz,
+      sfgz: props.location&&props.location.query&&props.location.query.record&&props.location.query.record.sfgz===0?props.location.query.record.sfgz:'',
 
       policevisible: false,
       resvisible: false,
@@ -214,7 +214,7 @@ export default class caseDetail extends PureComponent {
               (caseDetails.ajmc ? caseDetails.ajmc + '、' : '') +
               (caseDetails.ajzt ? caseDetails.ajzt : ''),
             type: type,
-            tzlx: this.props.tzlx,
+            tzlx: this.props.location.query.tzlx,
             wtid: caseDetails.wtid,
             ajbh: caseDetails.ajbh,
             system_id: caseDetails.system_id,
@@ -1018,7 +1018,7 @@ export default class caseDetail extends PureComponent {
           shareItem={this.state.shareItem}
           personList={this.state.personList}
           lx={this.state.lx}
-          tzlx={this.props.tzlx}
+          tzlx={this.props.location.query.tzlx}
           sx={this.state.sx}
         />
 

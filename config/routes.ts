@@ -888,6 +888,13 @@ export function routes() {
                           hideInMenu: true,
                         },
                         {
+                          path: '/ModuleAll/IntoArea',
+                          name: '人员在区情况',
+                          icon: 'smile',
+                          component: './ModuleAll/IntoArea',
+                          hideInMenu: true,
+                        },
+                        {
                             component: './404',
                         },
                     ],

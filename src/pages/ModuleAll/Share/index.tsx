@@ -40,7 +40,7 @@ class ShareModal extends PureComponent {
   }
 
   handleOk = () => {
-    const {query:{record,from,tzlx}} = this.props.location;
+    const {query:{record,from,tzlx,sx}} = this.props.location;
     this.props.form.validateFields((err, values) => {
       if (!values.sharePerson || values.sharePerson.length === 0) {
         message.warn('请选择分享人');
@@ -67,7 +67,7 @@ class ShareModal extends PureComponent {
             agid: record&&(record.tzlx === 'jqwt' || record.tzlx === 'jzwt') ? record.wtid : record.id,
             fxjy: values.shareSuggest,
             lx: from?from:'',
-            sx: (record.jjdw ? record.jjdw + '、' : '') + (record.jjly_mc ? record.jjly_mc + '、' : '') + (record.jqlb ? record.jqlb + '、' : '') + (record.jjsj ? record.jjsj : ''),
+            sx: sx?sx:'',
             type: 2,
             tzlx: tzlx?tzlx:'',
             wtid: record&&record.wtid?record.wtid:'',
