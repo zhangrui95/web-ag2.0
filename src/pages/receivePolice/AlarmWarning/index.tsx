@@ -46,10 +46,11 @@ const RadioGroup = Radio.Group;
 let timeout;
 let currentValue;
 
-@connect(({ EarlyWarning, loading, common, policeData }) => ({
+@connect(({ EarlyWarning, loading, common, policeData,global }) => ({
   EarlyWarning,
   common,
   policeData,
+  global,
   loading: loading.models.EarlyWarning,
 }))
 @Form.create()
@@ -815,11 +816,11 @@ export default class Index extends PureComponent {
       </Row>
     );
     return (
-      <div>
+      <div className={this.props.global&&this.props.global.dark ? '' : styles.lightBox}>
         <div className={styles.tableListForm} id="jqyjtableListForm">
           <Form
             onSubmit={this.handleSearch}
-            style={{ height: this.state.searchHeight ? 'auto' : '59px' }}
+            style={{ height: this.state.searchHeight ? 'auto' : '50px' }}
           >
             <Row gutter={rowLayout} className={styles.searchForm}>
               <Col {...colLayout}>
