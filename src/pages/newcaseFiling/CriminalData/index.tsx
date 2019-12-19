@@ -699,7 +699,7 @@ export default class Index extends PureComponent {
       }
     }
     return (
-      <Form onSubmit={this.handleSearch} style={{ height: this.state.searchHeight ? 'auto' : '59px' }}>
+      <Form onSubmit={this.handleSearch} style={{ height: this.state.searchHeight ? 'auto' : '50px' }}>
         <Row gutter={rowLayout} className={styles.searchForm}>
           <Col {...colLayout}>
             <FormItem label="案件编号" {...formItemLayout}>
@@ -962,9 +962,10 @@ export default class Index extends PureComponent {
     const { CaseData: { returnData, loading }, common: { depTree,CaseStatusType } } = this.props;
     const { showDataView, typeButtons, selectedDeptVal, selectedDateVal, treeDefaultExpandedKeys,seniorSearchModalVisible } = this.state;
     const orgcodeVal = selectedDeptVal !== '' ? JSON.parse(selectedDeptVal).id : '';
+    let className = this.props.global&&this.props.global.dark ?styles.listPageWrap : styles.listPageWrap + ' '+styles.lightBox;
     return (
       <div className={this.props.location.query && this.props.location.query.id ? styles.onlyDetail : ''}>
-            <div className={styles.listPageWrap}>
+            <div className={className}>
               <div className={styles.listPageHeader}>
                 {
                   showDataView ? (
@@ -986,12 +987,7 @@ export default class Index extends PureComponent {
                 ) : (
                   <div style={{ float: 'right' }}>
                     <Button
-                      style={{
-                        color: '#3285FF',
-                        backgroundColor: '#171925',
-                        border: '1px solid #3285FF',
-                        borderRadius: '5px',
-                      }}
+                        className={styles.downloadBtn}
                       onClick={this.exportData}
                       icon="download"
                     >
@@ -1032,14 +1028,6 @@ export default class Index extends PureComponent {
               </div>
             </div>
         <SyncTime dataLatestTime={returnData.tbCount ? returnData.tbCount.tbsj : ''} {...this.props} />
-        {/*<SeniorSearchModal*/}
-          {/*visible={seniorSearchModalVisible}*/}
-          {/*SeniorSearchCancel={this.SeniorSearchCancel}*/}
-          {/*treeDefaultExpandedKeys={this.state.treeDefaultExpandedKeys}*/}
-          {/*depTree={depTree}*/}
-          {/*SearchSuccess={this.SearchSuccess}*/}
-          {/*CaseStatusType={CaseStatusType}*/}
-        {/*/>*/}
       </div>
     );
   }

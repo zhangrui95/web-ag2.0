@@ -125,7 +125,7 @@ export default class Index extends PureComponent {
   // 获取案件类别树
   getCaseTypeTree = (areaNum) => {
     this.props.dispatch({
-      type: areaNum==='2'?'common/getPlCaseTypeTree':'common/getPlCaseTypeTree',
+      type: areaNum==='2'?'common/getPlCaseTypeTree':'common/getCaseTypeTree',
       payload: {
         ajlb: 'xz', // 案件类别xs,xz
         is_area:'0',
@@ -489,7 +489,7 @@ export default class Index extends PureComponent {
       }
     }
     return (
-      <Form onSubmit={this.handleSearch} style={{ height: this.state.searchHeight ? 'auto' : '59px' }}>
+      <Form onSubmit={this.handleSearch} style={{ height: this.state.searchHeight ? 'auto' : '50px' }}>
         <Row gutter={rowLayout} className={styles.searchForm}>
           <Col {...colLayout}>
             <FormItem label="案件编号" {...formItemLayout}>
@@ -677,13 +677,14 @@ export default class Index extends PureComponent {
   }
 
   render() {
+      let className = this.props.global&&this.props.global.dark ?styles.listPageWrap : styles.listPageWrap + ' '+styles.lightBox;
     const { XzCaseData: { returnData, loading }, common: { depTree } } = this.props;
     const newAddDetail = this.state.arrayDetail;
     const { showDataView, typeButtons, selectedDeptVal, selectedDateVal, treeDefaultExpandedKeys } = this.state;
     const orgcodeVal = selectedDeptVal !== '' ? JSON.parse(selectedDeptVal).id : '';
     return (
       <div className={this.props.location.query && this.props.location.query.id ? styles.onlyDetail : ''}>
-            <div className={styles.listPageWrap}>
+            <div className={className}>
               <div className={styles.listPageHeader}>
                 {
                   showDataView ? (
@@ -705,14 +706,9 @@ export default class Index extends PureComponent {
                 ) : (
                   <div style={{ float: 'right' }}>
                     <Button
-                      style={{
-                        color: '#3285FF',
-                        backgroundColor: '#171925',
-                        border: '1px solid #3285FF',
-                        borderRadius: '5px',
-                      }}
+                        className={styles.downloadBtn}
                       onClick={this.exportData}
-                      // icon="download"
+                      icon="download"
                     >
                       导出表格
                     </Button>

@@ -25,6 +25,9 @@ import ShareModal from '../../../components/ShareModal/ShareModal';
 import collect from '../../../assets/common/collect.png';
 import nocollect from '../../../assets/common/nocollect.png';
 import share from '../../../assets/common/share.png';
+import collect1 from '../../../assets/common/collect1.png';
+import nocollect1 from '../../../assets/common/nocollect1.png';
+import share1 from '../../../assets/common/share1.png';
 import Ellipsis from 'ant-design-pro/lib/Ellipsis';
 import CaseModalTrail from '../../../components/Common/CaseModalTrail';
 import CaseModalStep from '../../../components/Common/CaseModalStep';
@@ -33,11 +36,12 @@ import noList from "@/assets/viewData/noList.png";
 import noListLight from "@/assets/viewData/noListLight.png";
 // import MakeTableModal from '../../../components/CaseRealData/MakeTableModal';
 
-@connect(({ XzCaseData, loading, CaseData, AllDetail }) => ({
+@connect(({ XzCaseData, loading, CaseData, AllDetail,global }) => ({
   XzCaseData,
   loading,
   CaseData,
   AllDetail,
+  global
   // loading: loading.models.alarmManagement,
 }))
 export default class caseDetail extends PureComponent {
@@ -295,8 +299,9 @@ export default class caseDetail extends PureComponent {
   Topdetail() {
     const { caseDetails, sfgz, isDb, isZb } = this.state;
     const { record } = this.props;
+      let dark = this.props.global&&this.props.global.dark;
     return (
-      <div style={{ backgroundColor: '#252C3C', margin: '16px 0' }}>
+      <div style={{ backgroundColor:  dark ? '#252C3C' : '#fff', margin: '16px 0' }}>
         <Row gutter={{ md: 8, lg: 24, xl: 48 }}>
           <Col md={8} sm={24}>
             {/*<span style={{ margin: '16px', display: 'block' }}>行政案件详情</span>*/}
@@ -337,7 +342,7 @@ export default class caseDetail extends PureComponent {
                     {sfgz === 0 ? (
                       <Tooltip title="关注">
                         <img
-                          src={nocollect}
+                            src={dark ? nocollect : nocollect1}
                           width={25}
                           height={25}
                           style={{ marginLeft: 12 }}
@@ -348,7 +353,7 @@ export default class caseDetail extends PureComponent {
                     ) : (
                       <Tooltip title="取消关注">
                         <img
-                          src={collect}
+                            src={dark ? collect : collect1}
                           width={25}
                           height={25}
                           style={{ marginLeft: 12 }}
@@ -363,7 +368,7 @@ export default class caseDetail extends PureComponent {
                     onClick={() => this.saveShare(caseDetails, record, 2)}
                   >
                     <Tooltip title="分享">
-                      <img src={share} width={25} height={25} />
+                      <img src={dark ? share : share1} width={25} height={25} />
                       <div style={{ fontSize: 12 }}>分享</div>
                     </Tooltip>
                   </span>
@@ -513,9 +518,10 @@ export default class caseDetail extends PureComponent {
   renderDetail() {
     const { caseDetails } = this.state;
     const rowLayout = { md: 8, xl: 16, xxl: 24 };
+      let dark = this.props.global&&this.props.global.dark;
     return (
       <div
-        style={{ background: '#252C3C' /*height: autoheight() - 180 + 'px'*/ }}
+        style={{ background:  dark ? '#252c3c' : '#fff' /*height: autoheight() - 180 + 'px'*/ }}
         className={styles.detailBoxScroll}
       >
         <div style={{ textAlign: 'right', marginTop: 30 }}>
@@ -523,7 +529,7 @@ export default class caseDetail extends PureComponent {
             <Button
               type="primary"
               onClick={() => this.seePolice(true, caseDetails.jqxxList)}
-              style={{ marginRight: 70 }}
+              style={{ marginRight: 70, background: dark ? 'linear-gradient(to right, #0084FA, #03A3FF)' : 'linear-gradient(to right, #3D63D1, #333FE4)' }}
             >
               查看关联警情
             </Button>
@@ -534,7 +540,7 @@ export default class caseDetail extends PureComponent {
             <Button
               type="primary"
               onClick={() => this.seeArea(true, caseDetails.rqxyrList)}
-              style={{ marginRight: 16 }}
+              style={{ marginRight: 16, background: dark ? 'linear-gradient(to right, #0084FA, #03A3FF)' : 'linear-gradient(to right, #3D63D1, #333FE4)' }}
             >
               查看涉案人员在区情况
             </Button>
@@ -696,463 +702,11 @@ export default class caseDetail extends PureComponent {
   }
 
   render() {
-    const {
-      superviseVisibleModal,
-      caseDetails,
-      policevisible,
-      resvisible,
-      areavisible,
-      Dossiervisible,
-      makeTableModalVisible,
-    } = this.state;
-    const JqColumns = [
-      {
-        title: '接警来源',
-        dataIndex: 'jjly_mc',
-        render: text => {
-          return text ? (
-            <Ellipsis length={10} tooltip>
-              {text}
-            </Ellipsis>
-          ) : (
-            ''
-          );
-        },
-      },
-      {
-        title: '接警时间',
-        dataIndex: 'jjsj',
-        render: text => {
-          return text ? (
-            <Ellipsis length={20} tooltip>
-              {text}
-            </Ellipsis>
-          ) : (
-            ''
-          );
-        },
-      },
-      {
-        title: '管辖单位',
-        dataIndex: 'jjdw',
-        render: text => {
-          if (text) {
-            let str = '';
-            const strArry = text.split(',');
-            if (strArry.length > 0) {
-              str = strArry[strArry.length - 1];
-              return (
-                <Ellipsis length={20} tooltip>
-                  {str}
-                </Ellipsis>
-              );
-            }
-            return str;
-          }
-          return '';
-          // return(
-          //   text.split(',')[record.split(',').length-1] && record.split(',')[record.split(',').length-1].length <= 20 ? record.split(',')[record.split(',').length-1] :
-          //     <Tooltip title={record.split(',')[record.split(',').length-1]}>
-          //       <span>{record.split(',')[record.split(',').length-1] && record.split(',')[record.split(',').length-1].substring(0, 20) + '...'}</span>
-          //     </Tooltip>
-          // )
-        },
-      },
-      {
-        title: '操作',
-        width: 50,
-        render: record => (
-          <div>
-            <a onClick={() => this.jqDetail(record.id)}>详情</a>
-          </div>
-        ),
-      },
-    ];
-    const WpColumns = [
-      {
-        title: '物品名称',
-        dataIndex: 'wpmc',
-        render: text => {
-          return text ? (
-            <Ellipsis length={10} tooltip>
-              {text}
-            </Ellipsis>
-          ) : (
-            ''
-          );
-        },
-      },
-      {
-        title: '物品种类',
-        dataIndex: 'wpzlMc',
-        render: text => {
-          return text ? (
-            <Ellipsis length={20} tooltip>
-              {text}
-            </Ellipsis>
-          ) : (
-            ''
-          );
-        },
-      },
-      {
-        title: '操作',
-        width: 50,
-        render: record => (
-          <div>
-            <a onClick={() => this.openItemsDetail(record.system_id)}>查看</a>
-          </div>
-        ),
-      },
-    ];
-    const AreaColumns = [
-      {
-        title: '姓名',
-        dataIndex: 'xyrName',
-        render: text => {
-          return text ? (
-            <Ellipsis length={10} tooltip>
-              {text}
-            </Ellipsis>
-          ) : (
-            ''
-          );
-        },
-      },
-      {
-        title: '性别',
-        dataIndex: 'sex',
-        render: text => {
-          return text ? (
-            <Ellipsis length={20} tooltip>
-              {text}
-            </Ellipsis>
-          ) : (
-            ''
-          );
-        },
-      },
-      {
-        title: '证件号',
-        dataIndex: 'sfzh',
-        render: text => {
-          if (text) {
-            let str = '';
-            const strArry = text.split(',');
-            if (strArry.length > 0) {
-              str = strArry[strArry.length - 1];
-              return (
-                <Ellipsis length={20} tooltip>
-                  {str}
-                </Ellipsis>
-              );
-            }
-            return str;
-          }
-          return '';
-          // return(
-          //   text.split(',')[record.split(',').length-1] && record.split(',')[record.split(',').length-1].length <= 20 ? record.split(',')[record.split(',').length-1] :
-          //     <Tooltip title={record.split(',')[record.split(',').length-1]}>
-          //       <span>{record.split(',')[record.split(',').length-1] && record.split(',')[record.split(',').length-1].substring(0, 20) + '...'}</span>
-          //     </Tooltip>
-          // )
-        },
-      },
-      {
-        title: '操作',
-        width: 50,
-        render: record => (
-          <div>
-            <a onClick={() => this.IntoArea(record.sfzh, record.ajbh)}>详情</a>
-          </div>
-        ),
-      },
-    ];
-    const DossierColumns = [
-      {
-        title: '卷宗名称',
-        dataIndex: 'jzmc',
-        render: text => {
-          return text ? (
-            <Ellipsis length={16} tooltip>
-              {text}
-            </Ellipsis>
-          ) : (
-            ''
-          );
-        },
-      },
-      {
-        title: '卷宗类别',
-        dataIndex: 'jzlb_mc',
-        render: text => {
-          return text ? (
-            <Ellipsis length={10} tooltip>
-              {text}
-            </Ellipsis>
-          ) : (
-            ''
-          );
-        },
-      },
-      {
-        title: '储存状态',
-        dataIndex: 'cczt_mc',
-        render: text => {
-          return text ? (
-            <Ellipsis length={10} tooltip>
-              {text}
-            </Ellipsis>
-          ) : (
-            ''
-          );
-        },
-      },
-      {
-        title: '卷宗页数',
-        dataIndex: 'jzys',
-        render: text => {
-          return text ? (
-            <Ellipsis length={10} tooltip>
-              {text}
-            </Ellipsis>
-          ) : (
-            ''
-          );
-        },
-      },
-      {
-        title: '电子化',
-        dataIndex: 'is_gldzj',
-        render: text => {
-          return text ? (
-            <Ellipsis length={10} tooltip>
-              {text}
-            </Ellipsis>
-          ) : (
-            ''
-          );
-        },
-      },
-      {
-        title: '操作',
-        width: 50,
-        render: record => (
-          <div>
-            <a onClick={() => this.IntoDossierDetail(record.dossier_id)}>详情</a>
-          </div>
-        ),
-      },
-    ];
-    let detail = (
-      <Row
-        style={{
-          width: '90%',
-          margin: '0 38px 10px',
-          lineHeight: '36px',
-          color: 'rgba(0, 0, 0, 0.85)',
-        }}
-      >
-        <Col span={12}>
-          案件名称：
-          <Tooltip
-            title={
-              caseDetails && caseDetails.ajmc && caseDetails.ajmc.length > 20
-                ? caseDetails.ajmc
-                : null
-            }
-          >
-            {caseDetails && caseDetails.ajmc
-              ? caseDetails.ajmc.length > 20
-                ? caseDetails.ajmc.substring(0, 20) + '...'
-                : caseDetails.ajmc
-              : ''}
-          </Tooltip>
-        </Col>
-        <Col span={12}>
-          受理单位：
-          <Tooltip
-            title={
-              caseDetails && caseDetails.sldw_name && caseDetails.sldw_name.length > 20
-                ? caseDetails.sldw_name
-                : null
-            }
-          >
-            {caseDetails && caseDetails.sldw_name
-              ? caseDetails.sldw_name.length > 20
-                ? caseDetails.sldw_name.substring(0, 20) + '...'
-                : caseDetails.sldw_name
-              : ''}
-          </Tooltip>
-        </Col>
-        <Col span={12}>案件状态：{caseDetails && caseDetails.ajzt ? caseDetails.ajzt : ''}</Col>
-        <Col span={12}>
-          办案民警：{caseDetails && caseDetails.bar_name ? caseDetails.bar_name : ''}
-        </Col>
-      </Row>
-    );
+    let dark = this.props.global&&this.props.global.dark;
     return (
-      <div id="caseDetail">
+      <div id="caseDetail" className={dark?'':styles.lightBox}>
         <div>{this.Topdetail()}</div>
         <div>{this.renderDetail()}</div>
-
-        {/*{superviseVisibleModal ?*/}
-        {/*<SuperviseModal*/}
-        {/*{...this.props}*/}
-        {/*visible={superviseVisibleModal}*/}
-        {/*closeModal={this.closeModal}*/}
-        {/*// saveModal={this.saveModal}*/}
-        {/*caseDetails={this.state.caseDetails}*/}
-        {/*getRefresh={this.Refresh}*/}
-        {/*wtflId='203205'*/}
-        {/*wtflMc='行政案件'*/}
-        {/*// 点击列表的督办显示的四个基本信息*/}
-        {/*wtlx={this.state.superviseWtlx}*/}
-        {/*from={this.state.from}*/}
-        {/*/>*/}
-        {/*: ''*/}
-        {/*}*/}
-        <ShareModal
-          detail={detail}
-          shareVisible={this.state.shareVisible}
-          handleCancel={this.handleCancel}
-          shareItem={this.state.shareItem}
-          personList={this.state.personList}
-          lx={this.state.lx}
-          tzlx={this.props.tzlx}
-          sx={this.state.sx}
-        />
-
-        <Modal
-          visible={policevisible}
-          title="警情信息"
-          centered
-          className={styles.policeModal}
-          width={1000}
-          maskClosable={false}
-          onCancel={this.policeCancel}
-          footer={null}
-          getContainer={() => document.getElementById('caseDetail')}
-        >
-          <Table
-            size={'middle'}
-            style={{ backgroundColor: '#fff' }}
-            pagination={{
-              pageSize: 3,
-              showTotal: (total, range) => (
-                <div style={{ position: 'absolute', left: '12px' }}>
-                  共 {total} 条记录 第 {this.state.jqcurrent} / {Math.ceil(total / 3)} 页
-                </div>
-              ),
-              onChange: page => {
-                this.setState({ jqcurrent: page });
-              },
-            }}
-            dataSource={caseDetails ? caseDetails.jqxxList : []}
-            columns={JqColumns}
-            locale={{ emptyText: <Empty image={this.props.global&&this.props.global.dark ? noList : noListLight} description={'暂无数据'} /> }}
-          />
-        </Modal>
-        <Modal
-          visible={resvisible}
-          title="涉案物品信息"
-          centered
-          className={styles.policeModal}
-          width={1000}
-          maskClosable={false}
-          onCancel={this.ResCancel}
-          footer={null}
-          getContainer={() => document.getElementById('caseDetail')}
-        >
-          <Table
-            size={'middle'}
-            style={{ backgroundColor: '#fff' }}
-            pagination={{
-              pageSize: 3,
-              showTotal: (total, range) => (
-                <div style={{ position: 'absolute', left: '12px' }}>
-                  共 {total} 条记录 第 {this.state.wpcurrent} / {Math.ceil(total / 3)} 页
-                </div>
-              ),
-              onChange: page => {
-                this.setState({ wpcurrent: page });
-              },
-            }}
-            dataSource={caseDetails ? caseDetails.sawpList : []}
-            columns={WpColumns}
-            locale={{ emptyText: <Empty image={this.props.global&&this.props.global.dark ? noList : noListLight} description={'暂无数据'} /> }}
-          />
-        </Modal>
-        <Modal
-          visible={areavisible}
-          title="选择查看人员在区情况"
-          centered
-          className={styles.policeModal}
-          width={1000}
-          maskClosable={false}
-          onCancel={this.AreaCancel}
-          footer={null}
-          getContainer={() => document.getElementById('caseDetail')}
-        >
-          <Table
-            size={'middle'}
-            style={{ backgroundColor: '#fff' }}
-            pagination={{
-              pageSize: 3,
-              showTotal: (total, range) => (
-                <div style={{ position: 'absolute', left: '12px' }}>
-                  共 {total} 条记录 第 {this.state.areacurrent} / {Math.ceil(total / 3)} 页
-                </div>
-              ),
-              onChange: page => {
-                this.setState({ areacurrent: page });
-              },
-            }}
-            dataSource={caseDetails ? caseDetails.rqxyrList : []}
-            columns={AreaColumns}
-            locale={{ emptyText: <Empty image={this.props.global&&this.props.global.dark ? noList : noListLight} description={'暂无数据'} /> }}
-          />
-        </Modal>
-        <Modal
-          visible={Dossiervisible}
-          title="选择查看卷宗"
-          centered
-          className={styles.policeModal}
-          width={1000}
-          maskClosable={false}
-          onCancel={this.DossierCancel}
-          footer={null}
-          getContainer={() => document.getElementById('caseDetail')}
-        >
-          <Table
-            size={'middle'}
-            style={{ backgroundColor: '#fff' }}
-            pagination={{
-              pageSize: 3,
-              showTotal: (total, range) => (
-                <div style={{ position: 'absolute', left: '12px' }}>
-                  共 {total} 条记录 第 {this.state.dossiercurrent} / {Math.ceil(total / 3)} 页
-                </div>
-              ),
-              onChange: page => {
-                this.setState({ dossiercurrent: page });
-              },
-            }}
-            dataSource={caseDetails ? caseDetails.jzList : []}
-            columns={DossierColumns}
-            locale={{ emptyText: <Empty image={this.props.global&&this.props.global.dark ? noList : noListLight} description={'暂无数据'} /> }}
-          />
-        </Modal>
-        {/*{*/}
-        {/*makeTableModalVisible ? (*/}
-        {/*<MakeTableModal*/}
-        {/*title='表格选择'*/}
-        {/*makeTableModalVisible={makeTableModalVisible}*/}
-        {/*MakeTableCancel={this.MakeTableCancel}*/}
-        {/*caseRecord={this.state.caseDetails}*/}
-        {/*/>*/}
-        {/*) : null*/}
-        {/*}*/}
       </div>
     );
   }
