@@ -4,7 +4,7 @@
  * 20190304
  * */
 import React, { PureComponent } from 'react';
-import {Card, Table, Radio, Tooltip, message, Tabs, Empty} from 'antd';
+import {Card, Table, Radio, Tooltip, message, Tabs, Empty,Icon} from 'antd';
 import { connect } from 'dva';
 import moment from 'moment';
 import styles from '../../pages/ShowData/Show.less';
@@ -16,7 +16,11 @@ import Ellipsis from 'ant-design-pro/lib/Ellipsis';
 import { userAuthorityCode } from '../../utils/utils';
 import { authorityIsTrue } from '../../utils/authority';
 import noList from "@/assets/viewData/noList.png";
-
+import iconFont from '../../utils/iconfont'
+import noListLight from "@/assets/viewData/noListLight.png";
+const IconFont = Icon.createFromIconfontCN({
+    scriptUrl: iconFont
+})
 const back = require('../../assets/common/back.png');
 const zhtjImage = require('../../assets/common/tj.png');
 const mainlineMenu = window.configUrl.mainlineMenu;
@@ -805,7 +809,7 @@ export default class Statistics extends PureComponent {
               className={styles.tableBox}
               title={
                 <div className={styles.iconPerson}>
-                  <img src={zhtjImage} />
+                  <IconFont type={'icon-biaoge'} className={styles.iconLefts}/>
                   <span>综合统计</span>
                   <Tooltip placement="top" title="返回">
                     <img
@@ -857,7 +861,7 @@ export default class Statistics extends PureComponent {
                 className={styles.homeTable}
                 pagination={paginationPage}
                 onChange={this.handleTableChange}
-                locale={{ emptyText: <Empty image={noList} description={'暂无数据'} /> }}
+                locale={{ emptyText: <Empty image={this.props.global&&this.props.global.dark ? noList : noListLight} description={'暂无数据'} /> }}
               />
             </Card>
           ) : (
@@ -866,7 +870,7 @@ export default class Statistics extends PureComponent {
                 <TabPane
                   tab={
                     <div className={styles.iconPerson}>
-                      <img src={zhtjImage} />
+                        <IconFont type={'icon-biaoge'} className={styles.iconLefts}/>
                       <span>疑似警情</span>
                     </div>
                   }
@@ -893,7 +897,7 @@ export default class Statistics extends PureComponent {
                       className={styles.homeTable}
                       pagination={paginationPage}
                       onChange={this.handleTableChange}
-                      locale={{ emptyText: <Empty image={noList} description={'暂无数据'} /> }}
+                      locale={{ emptyText: <Empty image={this.props.global&&this.props.global.dark ? noList : noListLight} description={'暂无数据'} /> }}
                     />
                   </Card>
                 </TabPane>
@@ -901,7 +905,7 @@ export default class Statistics extends PureComponent {
               <TabPane
                 tab={
                   <div className={styles.iconPerson}>
-                    <img src={zhtjImage} />
+                      <IconFont type={'icon-biaoge'} className={styles.iconLefts}/>
                     <span>综合统计</span>
                   </div>
                 }
@@ -953,7 +957,7 @@ export default class Statistics extends PureComponent {
                     className={styles.homeTable}
                     pagination={paginationPage}
                     onChange={this.handleTableChange}
-                    locale={{ emptyText: <Empty image={noList} description={'暂无数据'} /> }}
+                    locale={{ emptyText: <Empty image={this.props.global&&this.props.global.dark ? noList : noListLight} description={'暂无数据'} /> }}
                   />
                 </Card>
               </TabPane>

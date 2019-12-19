@@ -51,6 +51,9 @@ import Ellipsis from 'ant-design-pro/lib/Ellipsis';
 import collect from '../../../assets/common/collect.png';
 import nocollect from '../../../assets/common/nocollect.png';
 import share from '../../../assets/common/share.png';
+import collect1 from '../../../assets/common/collect1.png';
+import nocollect1 from '../../../assets/common/nocollect1.png';
+import share1 from '../../../assets/common/share1.png';
 import CaseModalTrail from '../../../components/Common/CaseModalTrail';
 import CaseModalStep from '../../../components/Common/CaseModalStep';
 // import RetrieveModal from '../../components/ShareModal/RetrieveModal';
@@ -58,11 +61,12 @@ import { authorityIsTrue } from '../../../utils/authority';
 import {routerRedux} from "dva/router";
 // import MakeTableModal from '../../../components/CaseRealData/MakeTableModal';
 
-@connect(({ CaseData, loading, MySuperviseData, AllDetail }) => ({
+@connect(({ CaseData, loading, MySuperviseData, AllDetail,global }) => ({
   CaseData,
   loading,
   MySuperviseData,
   AllDetail,
+    global,
   // loading: loading.models.alarmManagement,
 }))
 export default class caseDetail extends PureComponent {
@@ -214,7 +218,7 @@ export default class caseDetail extends PureComponent {
   // 分享和关注（2为分享，1为关注）
   saveShare = (caseDetails, res, type, ajGzLx) => {
     this.setState({
-      sx: (res.ajmc ? res.ajmc + '、' : '') + (res.schj ? res.schj : ''),
+      sx: (res&&res.ajmc ? res.ajmc + '、' : '') + (res&&res.schj ? res.schj : ''),
     });
     if (type === 2) {
       let detail = (
@@ -246,7 +250,7 @@ export default class caseDetail extends PureComponent {
           payload: {
             agid: this.props.yjType === 'yj' ? this.props.yjid : caseDetails.id,
             lx: this.state.lx,
-            sx: (res.ajmc ? res.ajmc + '、' : '') + (res.schj ? res.schj : ''),
+            sx: (res&&res.ajmc ? res.ajmc + '、' : '') + (res&&res.schj ? res.schj : ''),
             type: type,
             tzlx: this.props.location.query.tzlx,
             wtid: res.wtid,
@@ -375,9 +379,14 @@ export default class caseDetail extends PureComponent {
   Topdetail() {
     const { caseDetails, sfgz, isDb, isZb, isTb } = this.state;
     const { query:{record} } = this.props.location;
+    if(typeof record == 'string'){
+        record = JSON.parse(sessionStorage.getItem('query')).query.record;
+    }
+    let dark = this.props.global&&this.props.global.dark;
+
 
     return (
-      <div style={{ backgroundColor: '#252C3C', margin: '16px 0' }}>
+      <div style={{ backgroundColor: dark ? '#252C3C' : '#fff', margin: '16px 0' }}>
         <Row gutter={{ md: 8, lg: 24, xl: 48 }}>
           <Col md={8} sm={24}>
             {/*<span style={{ margin: '16px', display: 'block' }}>刑事案件详情</span>*/}
@@ -425,7 +434,7 @@ export default class caseDetail extends PureComponent {
                     {sfgz === 0 ? (
                       <Tooltip title="关注">
                         <img
-                          src={nocollect}
+                          src={dark ? nocollect : nocollect1}
                           width={25}
                           height={25}
                           style={{ marginLeft: 12 }}
@@ -436,7 +445,7 @@ export default class caseDetail extends PureComponent {
                     ) : (
                       <Tooltip title="取消关注">
                         <img
-                          src={collect}
+                          src={dark ? collect : collect1}
                           width={25}
                           height={25}
                           style={{ marginLeft: 12 }}
@@ -451,7 +460,7 @@ export default class caseDetail extends PureComponent {
                     onClick={() => this.saveShare(caseDetails, record, 2)}
                   >
                     <Tooltip title="分享">
-                      <img src={share} width={25} height={25} />
+                      <img src={dark ? share : share1} width={25} height={25} />
                       <div style={{ fontSize: 12 }}>分享</div>
                     </Tooltip>
                   </span>
@@ -628,7 +637,7 @@ export default class caseDetail extends PureComponent {
     const objheight = obj1[0].clientHeight;
     const allheight = obj1[0].scrollHeight;
     const objwidth = obj1[0].clientWidth;
-
+    let dark = this.props.global&&this.props.global.dark;
     let newObjWidth = '',
       superveWidth = '';
     if (objheight >= allheight) {
@@ -680,7 +689,7 @@ export default class caseDetail extends PureComponent {
     }
     return (
       <div
-        style={{ padding: '24px 0', background: '#252C3C' /*height: autoheight() - 280 + 'px'*/ }}
+        style={{ padding: '24px 0', background: dark ? '#252c3c' : '#fff' /*height: autoheight() - 280 + 'px'*/ }}
         className={styles.detailBoxScroll}
       >
         <div style={{ textAlign: 'right' }}>
@@ -688,7 +697,7 @@ export default class caseDetail extends PureComponent {
             <Button
               // type="primary"
               onClick={() => this.seePolice(true, caseDetails.jqxxList)}
-              style={{ marginRight: 70, background: 'linear-gradient(to right, #0084FA, #03A3FF)' }}
+              style={{ marginRight: 70, background: dark ? 'linear-gradient(to right, #0084FA, #03A3FF)' : 'linear-gradient(to right, #3D63D1, #333FE4)' }}
             >
               查看关联警情
             </Button>
@@ -699,7 +708,7 @@ export default class caseDetail extends PureComponent {
             <Button
               // type="primary"
               onClick={() => this.seeArea(true, caseDetails.rqxyrList)}
-              style={{ marginRight: 16, background: 'linear-gradient(to right, #0084FA, #03A3FF)' }}
+              style={{ marginRight: 16, background: dark ? 'linear-gradient(to right, #0084FA, #03A3FF)' : 'linear-gradient(to right, #3D63D1, #333FE4)' }}
             >
               查看涉案人员在区情况
             </Button>
@@ -839,6 +848,7 @@ export default class caseDetail extends PureComponent {
   };
 
   render() {
+     let dark = this.props.global&&this.props.global.dark;
     const {
       superviseVisibleModal,
       caseDetails,
@@ -1136,7 +1146,7 @@ export default class caseDetail extends PureComponent {
       },
     ];
     return (
-      <div id={this.ResultId()}>
+      <div id={this.ResultId()} className={dark?'':styles.lightBox}>
         <div>{this.Topdetail()}</div>
         <div>{this.renderDetail()}</div>
 

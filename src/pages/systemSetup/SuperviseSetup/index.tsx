@@ -552,7 +552,7 @@ class SuperviseSetup extends Component {
                       text?
                           <div>
                               <span>{text}</span>
-                              <Tooltip title={record.lxsm}><Icon type="info-circle-o" theme="twoTone" twoToneColor="#f40" className={styles.lxsm} /></Tooltip>
+                              <Tooltip title={record.lxsm}><Icon type="info-circle" className={styles.lxsm} /></Tooltip>
                           </div>
                           :
                           ''
@@ -578,7 +578,7 @@ class SuperviseSetup extends Component {
               render: (text,record) => {
                   return (
                       record.jgqx_ks&&record.jgqx_js?
-                          <div>{record.jgqx_ks}至{record.jgqx_js}</div>
+                          <div>{record.jgqx_ks}  至  {record.jgqx_js}</div>
                           :
                           ''
                   )

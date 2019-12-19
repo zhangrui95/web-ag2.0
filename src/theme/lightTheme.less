@@ -314,7 +314,7 @@ body {
       }
     }
     .ant-card-bordered {
-      border: 1px solid @body-background;
+      border: 1px solid @body-background!important;
     }
     .ant-card-head {
       border-bottom: 1px solid @body-background;
@@ -817,7 +817,7 @@ body {
     .ant-table-bordered {
       .ant-table-thead > tr > th,
       .ant-table-placeholder {
-        border-bottom: 1px solid @body-background!important;
+        border-bottom: 1px solid #D9D9D9!important;
       }
     }
     .ant-empty {
@@ -900,7 +900,7 @@ body {
       background-color: @dropdown-selected-color!important;
     }
     .ant-popover-inner{
-      background-color:rgba(37,44,60,0.8)!important;
+      background-color:@dropdown-selected-color!important;
     }
     .ant-popover-arrow{
       border-top-color:@component-background!important;
@@ -909,9 +909,9 @@ body {
     .ant-radio-button-wrapper:last-child{
       border-radius:0 4px 4px 0 !important;
     }
-    .antd-pro-pages-receive-police-alarm-data-index-listPageWrap .antd-pro-pages-receive-police-alarm-data-index-listPageHeader .antd-pro-pages-receive-police-alarm-data-index-typeButtonsArea button{
-      border-radius:0 !important;
-    }
+    //.antd-pro-pages-receive-police-alarm-data-index-listPageWrap .antd-pro-pages-receive-police-alarm-data-index-listPageHeader .antd-pro-pages-receive-police-alarm-data-index-typeButtonsArea button{
+    //  border-radius:0 !important;
+    //}
     .ant-empty-image{
       height: 250px;
     }
@@ -925,6 +925,10 @@ body {
     }
     .ant-anchor-ink-ball{
       border:1px solid @highlight-color!important;
+    }
+    .ant-select-tree-checkbox-checked .ant-select-tree-checkbox-inner{
+      background-color: @highlight-color!important;
+      border-color:@highlight-color!important;
     }
   }
 }

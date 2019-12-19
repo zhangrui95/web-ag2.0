@@ -20,17 +20,21 @@ import {
 } from 'antd';
 import { connect } from 'dva';
 import styles from '../../pages/ShowData/Show.less';
-import stylescommon from '../../pages/common/common.less';
-import iconperson from '../../assets/menuimage/iconpreson.png';
+import stylescommon1 from '../../pages/common/common.less';
+import stylescommon2 from '../../pages/common/commonLight.less';
 import noList from "@/assets/viewData/noList.png";
-
+import iconFont from '../../utils/iconfont'
+import noListLight from "@/assets/viewData/noListLight.png";
+const IconFont = Icon.createFromIconfontCN({
+    scriptUrl: iconFont
+})
 const TabPane = Tabs.TabPane;
 const FormItem = Form.Item;
 const RangePicker = DatePicker.RangePicker;
 const { Option } = Select;
 
-@connect(({ home }) => ({
-  home,
+@connect(({ home,global }) => ({
+  home,global
 }))
 @Form.create()
 export default class TabsTable extends PureComponent {
@@ -44,6 +48,7 @@ export default class TabsTable extends PureComponent {
     } = this.props;
     const rowLayout = { md: 8, xl: 16, xxl: 24 };
     const colLayout = { sm: 24, md: 12, xl: 12 };
+      let stylescommon = this.props.global&&this.props.global.dark ? stylescommon1 : stylescommon2;
     return (
       <div className={styles.TabsStyle}>
         <Tabs
@@ -55,7 +60,7 @@ export default class TabsTable extends PureComponent {
           <TabPane
             tab={
               <div className={styles.mysharestyle}>
-                <img src={iconperson} />
+                <IconFont type={'icon-xingxing'} className={styles.iconLefts}/>
                 <span>正在关注({this.props.zzgz ? this.props.zzgz : 0})</span>
               </div>
             }
@@ -131,14 +136,13 @@ export default class TabsTable extends PureComponent {
                 columns={this.props.columns}
                 dataSource={this.props.data}
                 className={styles.homeTable}
-                locale={{ emptyText: <Empty image={noList} description={'暂无数据'} /> }}
+                locale={{ emptyText: <Empty image={this.props.global&&this.props.global.dark ? noList : noListLight} description={'暂无数据'} /> }}
               />
             </Card>
           </TabPane>
           <TabPane
             tab={
               <div className={styles.mysharestyle}>
-                <img src={iconperson} />
                 <span>历史关注({this.props.lsgz ? this.props.lsgz : 0})</span>
               </div>
             }
@@ -215,7 +219,7 @@ export default class TabsTable extends PureComponent {
                 columns={this.props.columns}
                 dataSource={this.props.data}
                 className={styles.homeTable}
-                locale={{ emptyText: <Empty image={noList} description={'暂无数据'} /> }}
+                locale={{ emptyText: <Empty image={this.props.global&&this.props.global.dark ? noList : noListLight} description={'暂无数据'} /> }}
               />
             </Card>
           </TabPane>

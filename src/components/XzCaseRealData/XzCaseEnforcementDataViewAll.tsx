@@ -17,16 +17,20 @@ import styles from '../../pages/common/dataView.less';
 import { getDefaultDaysForMonth, getTimeDistance } from '../../utils/utils';
 import DataViewDateShow from '../Common/DataViewDateShow';
 import nonDivImg from '../../assets/viewData/nonData.png';
+import {connect} from "dva";
 
 let xzCaseEchartBar;
 let xzCaseEchartRingPie;
 let xzCaseEchartLine;
 let caseTypeStatisticsBar;
 const colors1 = ['#FF3200', '#009AFE'];
-
+@connect(({ global }) => ({
+    global
+}))
 export default class XzCaseEnforcementDataView extends PureComponent {
   state = {
     currentType: 'week',
+    type: 'week',
     nowData: [0, 0],
     nowDataName: [],
     lastData: [0, 0],
@@ -59,9 +63,9 @@ export default class XzCaseEnforcementDataView extends PureComponent {
     this.getAllXzTypeCase('week');
     this.getCaseTypeStatistics(weekTypeTime[0], weekTypeTime[1]);
 
-    this.showXzCaseEchartRingPie();
-    this.showXzCaseEchartLine();
-    this.showCaseTypeStatisticsBar();
+    this.showXzCaseEchartRingPie(this.props);
+    this.showXzCaseEchartLine(this.props);
+    this.showCaseTypeStatisticsBar(this.props);
 
     window.addEventListener('resize', xzCaseEchartRingPie.resize);
     window.addEventListener('resize', xzCaseEchartLine.resize);
@@ -119,6 +123,12 @@ export default class XzCaseEnforcementDataView extends PureComponent {
           );
         }
       }
+        if(this.props.global.dark !== nextProps.global.dark){
+            this.showXzCaseEchartRingPie(nextProps);
+            this.showXzCaseEchartLine(nextProps);
+            this.showCaseTypeStatisticsBar(nextProps);
+            this.changeCountButtonCurrent(this.state.type);
+        }
     }
   }
 
@@ -139,8 +149,8 @@ export default class XzCaseEnforcementDataView extends PureComponent {
   };
   getTime = type => {
     const time = getTimeDistance(type);
-    const startTime = time[0] === '' ? '' : moment(time[0]).format('YYYY-MM-DD');
-    const endTime = time[1] === '' ? '' : moment(time[1]).format('YYYY-MM-DD');
+  const startTime = time&&time [0] ? moment(time[0]).format('YYYY-MM-DD') : '';
+  const endTime = time&&time[1] ? moment(time[1]).format('YYYY-MM-DD') : '';
     return [startTime, endTime];
   };
   // 案件情况展示
@@ -267,7 +277,7 @@ export default class XzCaseEnforcementDataView extends PureComponent {
                 xData.push(data.list[i].name);
                 barData.push(data.list[i].count);
               }
-              this.showXzCaseEchartBar();
+              this.showXzCaseEchartBar(this.props);
               xzCaseEchartBar.setOption({
                 xAxis: {
                   data: xData,
@@ -438,6 +448,7 @@ export default class XzCaseEnforcementDataView extends PureComponent {
     }
     this.setState({
       currentType,
+        type,
     });
     const dataTime = this.getTime(currentType);
     this.getAllXzCaseProgress(dataTime[0], dataTime[1]);
@@ -446,7 +457,7 @@ export default class XzCaseEnforcementDataView extends PureComponent {
     this.getCaseTypeStatistics(dataTime[0], dataTime[1]);
   };
   // 人员行政处罚情况柱状图
-  showXzCaseEchartBar = () => {
+  showXzCaseEchartBar = (nextProps) => {
     xzCaseEchartBar = echarts.init(document.getElementById('ryxzcfqk'));
     const option = {
       color: ['#3398DB'],
@@ -467,7 +478,7 @@ export default class XzCaseEnforcementDataView extends PureComponent {
         },
         axisLabel:{
           textStyle:{
-            color:'#fff',
+            color:nextProps.global&&nextProps.global.dark ? '#fff' : '#4d4d4d',
           }
         }
       },
@@ -483,7 +494,7 @@ export default class XzCaseEnforcementDataView extends PureComponent {
         },
         axisLabel: {
           textStyle: {
-            color: '#fff',
+            color: nextProps.global&&nextProps.global.dark ? '#fff' : '#4d4d4d',
           },
         },
       },
@@ -511,7 +522,7 @@ export default class XzCaseEnforcementDataView extends PureComponent {
   };
 
   // 案件情况展示环形饼状图
-  showXzCaseEchartRingPie = () => {
+  showXzCaseEchartRingPie = (nextProps) => {
     const that = this;
     xzCaseEchartRingPie = echarts.init(document.getElementById('ajqkzs'));
     const option = {
@@ -528,13 +539,14 @@ export default class XzCaseEnforcementDataView extends PureComponent {
         formatter: '{b}: {c} ({d}%)',
       },
       legend: {
-        data: [],
-        bottom: 0,
-        textStyle: {
-          color: '#fff',
-          // fontSize: 20,
-          // lineHeight: 24,
-        },
+          data: [],
+          top: 10,
+          right: 10,
+          itemWidth: 10,  // 设置宽度
+          itemHeight: 10, // 设置高度
+          textStyle: {
+              color: nextProps.global && nextProps.global.dark ? '#fff' : '#4d4d4d',
+          },
       },
       series: [
         {
@@ -551,7 +563,7 @@ export default class XzCaseEnforcementDataView extends PureComponent {
               textStyle: {
                 fontSize: '22',
                 // fontWeight: 'bold',
-                color: '#fff',
+                color: nextProps.global&&nextProps.global.dark ? '#fff' : '#4d4d4d',
               },
             },
             emphasis: {
@@ -580,7 +592,7 @@ export default class XzCaseEnforcementDataView extends PureComponent {
     });
   };
   // 受结情况展示
-  showXzCaseEchartLine = () => {
+  showXzCaseEchartLine = (nextProps) => {
     xzCaseEchartLine = echarts.init(document.getElementById('sjqkzs'));
     const option = {
       title: {
@@ -599,7 +611,7 @@ export default class XzCaseEnforcementDataView extends PureComponent {
         top: '5%',
         right: '15%',
         textStyle:{
-          color:'#fff',
+          color:nextProps.global&&nextProps.global.dark ? '#fff' : '#4d4d4d',
         }
       },
       grid: {
@@ -619,7 +631,7 @@ export default class XzCaseEnforcementDataView extends PureComponent {
         data: [],
         axisLabel: {
           textStyle: {
-            color: '#fff',
+            color:nextProps.global&&nextProps.global.dark ? '#fff' : '#4d4d4d',
           },
         },
       },
@@ -627,7 +639,7 @@ export default class XzCaseEnforcementDataView extends PureComponent {
         type: 'value',
         axisLabel: {
           textStyle: {
-            color: '#FFF',
+            color: nextProps.global&&nextProps.global.dark ? '#fff' : '#4d4d4d',
           },
         },
       },
@@ -665,7 +677,7 @@ export default class XzCaseEnforcementDataView extends PureComponent {
     return newstr;
   };
   // 案件类型统计柱状图
-  showCaseTypeStatisticsBar = () => {
+  showCaseTypeStatisticsBar = (nextProps) => {
     const that = this;
     caseTypeStatisticsBar = echarts.init(document.getElementById('ajlxtj'));
     const option = {
@@ -696,7 +708,7 @@ export default class XzCaseEnforcementDataView extends PureComponent {
           interval: 0,
           formatter: value => this.insertFlg(value, '\n', 10),
           textStyle:{
-            color:'#fff',
+            color:nextProps.global&&nextProps.global.dark ? '#fff' : '#4d4d4d',
           }
         },
       },
@@ -712,7 +724,7 @@ export default class XzCaseEnforcementDataView extends PureComponent {
         },
         axisLabel: {
           textStyle: {
-            color: '#fff',
+            color:nextProps.global&&nextProps.global.dark ? '#fff' : '#4d4d4d',
           },
         },
       },
@@ -771,9 +783,10 @@ export default class XzCaseEnforcementDataView extends PureComponent {
       sjqkzsNoData,
       selectedDateData,
     } = this.state;
+    let className = this.props.global&&this.props.global.dark ?styles.xzCaseDataView : styles.xzCaseDataView + ' '+styles.lightBox;
     return (
       <div
-        className={styles.xzCaseDataView}
+        className={className}
         style={showDataView ? {} : { position: 'absolute', zIndex: -1 }}
       >
         {currentType !== 'selectedDate' ? (
@@ -861,7 +874,7 @@ export default class XzCaseEnforcementDataView extends PureComponent {
           </div>
         )}
 
-        <div style={{ backgroundColor: '#252c3c', padding: '0 16px' }}>
+        <div style={{ backgroundColor: this.props.global&&this.props.global.dark ? '#252c3c' : '#fff', padding: '0 16px',borderRadius: 10 }}>
           <Row gutter={rowLayout} className={styles.listPageRow}>
             <Col sm={24} lg={12} xl={6}>
               <div className={styles.cardBoxTitle}>| 案件情况展示</div>

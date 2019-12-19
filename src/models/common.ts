@@ -464,7 +464,7 @@ export default {
         type: 'setDepTree',
         payload: response && response.error === null ? response.data : [],
       });
-      if (callback && !response.error) callback(response.data);
+      if (callback && !response.error&& response.data) callback(response.data);
     },
     // 获取机构及管辖树
     *getDepAndGxTree({ payload, callback }, { call, put }) {
@@ -473,7 +473,7 @@ export default {
         type: 'setDepTrees',
         payload: response && response.error === null ? response.data : [],
       });
-      if (callback && !response.error) callback(response.data);
+      if (callback && !response.error&& response.data) callback(response.data);
     },
     // 根据机构代码获取机构信息
     *getDeptmentByCode({ payload, callback }, { call, put }) {
@@ -482,7 +482,7 @@ export default {
         type: 'setDeptmentByCode',
         payload: response && response.error === null ? response.data : [],
       });
-      if (callback && !response.error) callback(response.data);
+      if (callback && !response.error&& response.data) callback(response.data);
     },
     // 获取所在仓库
     *getItemsStorage({ payload, callback }, { call, put }) {
@@ -491,7 +491,7 @@ export default {
         type: 'setItemsStorage',
         payload: response && response.error === null ? response.data : [],
       });
-      if (callback && !response.error) callback(response.data);
+      if (callback && !response.error&& response.data) callback(response.data);
     },
     // 获取所有警员
     *getAllPolice({ payload, callback }, { call, put }) {
@@ -500,7 +500,7 @@ export default {
         type: 'setAllPolice',
         payload: response && response.error === null ? response.data : [],
       });
-      if (callback && !response.error) callback(response.data);
+      if (callback && !response.error&& response.data) callback(response.data);
     },
     // 导出
     *exportData({ payload, callback }, { call, put }) {
@@ -540,16 +540,16 @@ export default {
       //     type: 'setNextLevelDeps',
       //     payload: response && response.error === null ? response.data.list : [],
       // });
-      if (callback && !response.error) callback(response.data);
+      if (callback && !response.error&& response.data) callback(response.data);
     },
     // 获取当前机构
     *getQueryLowerDepts({ payload, callback }, { call, put }) {
       const response = yield call(getQueryLowerDept, payload);
-      if (callback && !response.error) callback(response.data);
+      if (callback && !response.error&& response.data) callback(response.data);
     },
     *saveSystemInfo({ payload, callback }, { call, put }) {
       const response = yield call(saveSystemInfo, payload);
-      if (callback && !response.error) callback(response.data);
+      if (callback && !response.error&& response.data) callback(response.data);
     },
     // 案件类别树
     *getCaseTypeTree({ payload, callback }, { call, put }) {
@@ -589,7 +589,7 @@ export default {
         type: 'setSyncTime',
         payload: response && response.error === null ? response.data : [],
       });
-      if (callback && !response.error) callback(response.data);
+      if (callback && !response.error&& response.data) callback(response.data);
     },
   },
 

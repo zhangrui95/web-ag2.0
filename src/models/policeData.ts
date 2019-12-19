@@ -44,7 +44,7 @@ export default {
                 type: 'changeLoading',
                 payload: false,
             });
-            if (callback && response && !response.error) {
+            if (callback && response && !response.error && response.data) {
                 callback(response.data);
             }
         },
@@ -73,7 +73,7 @@ export default {
                 type: 'PoliceSuperviseMessage',
                 payload: response && response.error === null ? response.data : [],
             });
-            if (callback && response && !response.error) {
+            if (callback && response && !response.error && response.data) {
                 callback(response.data);
             }
         },
@@ -84,7 +84,7 @@ export default {
                 type: 'setPoliceSituationCount',
                 payload: response && response.error === null ? response.data : [],
             });
-            if (callback && response && !response.error) {
+            if (callback && response && !response.error && response.data) {
                 callback(response.data);
             }
         },
@@ -95,7 +95,7 @@ export default {
                 type: 'setHandleResult',
                 payload: response && response.error === null ? response.data : [],
             });
-            if (callback && response && !response.error) {
+            if (callback && response && !response.error&& response.data) {
                 callback(response.data);
             }
         },
@@ -106,7 +106,7 @@ export default {
                 type: 'setHandlePoliceSituationHadResult',
                 payload: response && response.error === null ? response.data : [],
             });
-            if (callback && response && !response.error) {
+            if (callback && response && !response.error&& response.data) {
                 callback(response.data);
             }
         },
@@ -117,7 +117,7 @@ export default {
                 type: 'setAcceptPoliceSituation',
                 payload: response && response.error === null ? response.data : [],
             });
-            if (callback && response && !response.error) {
+            if (callback && response && !response.error && response.data) {
                 callback(response.data);
             }
         },
@@ -128,14 +128,14 @@ export default {
                 type: 'setHandlePoliceSituation',
                 payload: response && response.error === null ? response.data : [],
             });
-            if (callback && response && !response.error) {
+            if (callback && response && !response.error&& response.data) {
                 callback(response.data);
             }
         },
         // 领导点评
         * getComments({ payload, callback }, { call, put }) {
             const response = yield call(getComment, payload);
-            if (callback && response && !response.error) {
+            if (callback && response && !response.error&& response.data) {
                 callback(response.data);
             }else{
                 message.warn('点评失败，请重新操作');
@@ -144,7 +144,7 @@ export default {
         // 获取领导点评
         * commentsItem({ payload, callback }, { call, put }) {
             const response = yield call(commentsItems, payload);
-            if (callback && response && !response.error) {
+            if (callback && response && !response.error&& response.data) {
                 callback(response.data);
             }
         },

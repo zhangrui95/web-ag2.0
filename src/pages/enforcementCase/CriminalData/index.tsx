@@ -37,10 +37,11 @@ const TreeNode = TreeSelect.TreeNode;
 let timeout;
 let currentValue;
 
-@connect(({ common, CaseData, loading }) => ({
+@connect(({ common, CaseData, loading,global }) => ({
   CaseData,
   loading,
   common,
+  global
   // loading: loading.models.alarmManagement,
 }))
 @Form.create()
@@ -1034,6 +1035,7 @@ export default class Index extends PureComponent {
               setSelectedDep={this.setSelectedDep}
               hideDayButton
               treeDefaultExpandedKeys={treeDefaultExpandedKeys}
+              {...this.props}
             />
           </div>
           <CaseDataView

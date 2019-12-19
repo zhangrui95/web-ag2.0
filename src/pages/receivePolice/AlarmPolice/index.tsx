@@ -24,7 +24,6 @@ import moment from 'moment/moment';
 import styles from '../../common/listPage.less';
 import RenderTable from '../../../components/UnPoliceRealData/RenderTable';
 import UnPoliceDataView from '../../../components/UnPoliceRealData/UnPoliceDataView';
-import stylescommon from '../../common/common.less';
 import {
   exportListDataMaxDays,
   getQueryString,
@@ -35,6 +34,7 @@ import SuperviseModal from '../../../components/UnCaseRealData/SuperviseModal';
 import MessageState from '../../../components/Common/MessageState';
 import DataViewButtonArea from '../../../components/Common/DataViewButtonArea';
 import { authorityIsTrue } from '../../../utils/authority';
+import style from "@/components/Common/DataViewButtonArea.less";
 
 const FormItem = Form.Item;
 const { Option } = Select;
@@ -46,10 +46,11 @@ const RadioGroup = Radio.Group;
 let timeout;
 let currentValue;
 
-@connect(({ UnPoliceData, loading, common }) => ({
+@connect(({ UnPoliceData, loading, common,global }) => ({
   UnPoliceData,
   loading,
   common,
+  global
   // loading: loading.models.alarmManagement,
 }))
 @Form.create()
@@ -943,13 +944,14 @@ export default class Index extends PureComponent {
       common: { depTree },
     } = this.props;
     // const orgcodeVal = selectedDeptVal !== '' ? JSON.parse(selectedDeptVal).id : '';
+    let className = this.props.global&&this.props.global.dark ?styles.listPageWrap : styles.listPageWrap + ' '+styles.lightBox;
     return (
       <div
         className={
           this.props.location.query && this.props.location.query.id ? styles.onlyDetail : ''
         }
       >
-        <div className={styles.listPageWrap}>
+        <div className={className}>
           <div className={styles.listPageHeader}>
             {showDataView ? (
               <a className={styles.listPageHeaderCurrent}>
@@ -1000,6 +1002,7 @@ export default class Index extends PureComponent {
               hideWeekButton={true}
               hideMonthButton={true}
               treeDefaultExpandedKeys={treeDefaultExpandedKeys}
+              {...this.props}
             />
           </div>
           <UnPoliceDataView
@@ -1020,21 +1023,6 @@ export default class Index extends PureComponent {
             </div>
           </div>
         </div>
-        {/*{superviseVisibleModal ? (*/}
-          {/*<SuperviseModal*/}
-            {/*visible={superviseVisibleModal}*/}
-            {/*closeModal={this.closeModal}*/}
-            {/*caseDetails={this.state.opendata}*/}
-            {/*getRefresh={this.Refresh}*/}
-            {/*// 点击列表的督办显示的四个基本信息*/}
-            {/*wtlx={this.state.superviseWtlx}*/}
-            {/*wtid={this.state.wtid}*/}
-            {/*id={this.state.id}*/}
-            {/*from="督办"*/}
-          {/*/>*/}
-        {/*) : (*/}
-          {/*''*/}
-        {/*)}*/}
       </div>
     );
   }

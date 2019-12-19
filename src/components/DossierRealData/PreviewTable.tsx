@@ -9,6 +9,7 @@ import {Form, Input, Button, Row, Col, Radio, Modal, message, Select, Table, Too
 import styles from './Index.less';
 import { routerRedux } from 'dva/router';
 import noList from "@/assets/viewData/noList.png";
+import noListLight from "@/assets/viewData/noListLight.png";
 
 const FormItem = Form.Item;
 const confirm = Modal.confirm;
@@ -197,7 +198,7 @@ export default class PreviewTable extends PureComponent {
                     pagination={false}
                     bordered
                     loading={this.props.loading}
-                    locale={{ emptyText: <Empty image={noList} description={'暂无数据'} /> }}
+                    locale={{ emptyText: <Empty image={this.props.global&&this.props.global.dark ? noList : noListLight} description={'暂无数据'} /> }}
                     onRow={(record) => {
                         return {
                             onClick: () => {

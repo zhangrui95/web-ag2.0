@@ -33,7 +33,7 @@ export default {
                 type: 'setDossierData',
                 payload: response && response.error === null ? response.data : [],
             });
-            if (callback && response && response.error === null) {
+            if (callback && response && response.error === null&& response.data) {
                 callback(response.data);
             }
         },
@@ -43,7 +43,7 @@ export default {
                 type: 'setDossierDetail',
                 payload: response && response.error === null ? response.data : [],
             });
-            if (callback && response && response.error === null) {
+            if (callback && response && response.error === null&& response.data) {
                 callback(response.data);
             }
         },
@@ -53,7 +53,7 @@ export default {
                 type: 'setDossierDataView',
                 payload: response && response.error === null ? response.data : {},
             });
-            if (callback && response && !response.error) {
+            if (callback && response && !response.error&& response.data) {
                 callback(response.data);
             }
         },
@@ -63,7 +63,7 @@ export default {
                 type: 'setDossierCRKDataView',
                 payload: response && response.error === null ? response.data : {},
             });
-            if (callback && response && !response.error) {
+            if (callback && response && !response.error&& response.data) {
                 callback(response.data);
             }
         },
@@ -74,7 +74,7 @@ export default {
                 type: 'setDossierZKNumDataView',
                 payload: response && response.error === null ? response.data : {},
             });
-            if (callback && response && !response.error) {
+            if (callback && response && !response.error&& response.data) {
                 callback(response.data);
             }
         },
@@ -85,7 +85,7 @@ export default {
                 type: 'setDossierJzqsDataView',
                 payload: response && response.error === null ? response.data : {},
             });
-            if (callback && response && !response.error) {
+            if (callback && response && !response.error&& response.data) {
                 callback(response.data);
             }
         },
@@ -96,7 +96,7 @@ export default {
                 type: 'setDossierDZHQKZSDataView',
                 payload: response && response.error === null ? response.data : {},
             });
-            if (callback && response && !response.error) {
+            if (callback && response && !response.error&& response.data) {
                 callback(response.data);
             }
         },
@@ -107,7 +107,7 @@ export default {
                 type: 'setDossierSynchronizationDataView',
                 payload: response && response.reason === null ? response.data : {},
             });
-            if (callback && response && !response.reason) {
+            if (callback && response && !response.reason&& response.data) {
                 callback(response.result);
             }
         },
@@ -118,7 +118,7 @@ export default {
                 type: 'setDossierElectronicPageListDataView',
                 payload: response && response.reason === null ? response.data : {},
             });
-            if (callback && response && !response.reason) {
+            if (callback && response && !response.reason&& response.data) {
                 callback(response.result);
             }
         },

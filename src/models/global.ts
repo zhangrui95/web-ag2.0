@@ -43,7 +43,7 @@ let dark = cookie.load('dark') === 'false' ? false : true;
 const GlobalModel: GlobalModelType = {
     namespace: 'global',
     state: {
-        dark: cookie.load('dark') ? dark : true,
+        dark: cookie.load('dark') ? dark : window.configUrl.startTheme,
         collapsed: false,
         notices: [],
         navigation: sessionStorage.getItem('navigationNews') ? JSON.parse(sessionStorage.getItem('navigationNews')) : [welcomeItem],

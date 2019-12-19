@@ -943,7 +943,7 @@ export default class GeneralQuery extends PureComponent {
                 this.props.dispatch(
                     routerRedux.push({
                         pathname: '/newcaseFiling/caseData/CriminalData/caseDetail',
-                        query: { record:item,id:item.o_surce.ajbh },
+                        query: { record:item,id:item._source.ajbh },
                     }),
                 )
             } else {

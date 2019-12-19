@@ -32,7 +32,7 @@ export default {
                 type: 'changeLoading',
                 payload: false,
             });
-            if (callback && response && !response.error) {
+            if (callback && response && !response.error&& response.data) {
                 callback(response.data);
             }
         },
@@ -43,7 +43,7 @@ export default {
                 type: 'caseDetail',
                 payload: response && response.error === null ? response.data : {},
             });
-            if (callback && response && !response.error) {
+            if (callback && response && !response.error&& response.data) {
                 callback(response.data);
             }
         },
@@ -61,14 +61,14 @@ export default {
                 type: 'changeLoading',
                 payload: false,
             });
-            if (callback && response && !response.error) {
+            if (callback && response && !response.error&& response.data) {
                 callback(response.data);
             }
         },
         // 根据问题ID查询问题数据
         * getUnXzCaseByProblemId({ payload, callback }, { call, put }) {
             const response = yield call(UnXzCaseDatas, payload);
-            if (callback && response && !response.error) {
+            if (callback && response && !response.error&& response.data) {
                 callback(response.data);
             }
         },
@@ -79,7 +79,7 @@ export default {
                 type: 'setUnXzCaseAllTypeWarnings',
                 payload: response && response.error === null ? response.data : {},
             });
-            if (callback && response && !response.error) {
+            if (callback && response && !response.error&& response.data) {
                 callback(response.data);
             }
         },

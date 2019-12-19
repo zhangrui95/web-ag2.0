@@ -29,7 +29,7 @@ export default {
                 type: 'changeLoading',
                 payload: false,
             });
-            if (callback && response && !response.error) {
+            if (callback && response && !response.error && response.data) {
                 callback(response.data);
             }
         },

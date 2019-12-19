@@ -31,6 +31,7 @@ import MyNews from '../../components/HomePage/MyNews';
 import TabsTable from '../../components/HomePage/TabsTable';
 import TabsFollowTable from '../../components/HomePage/TabsFollowTable';
 import noList from "@/assets/viewData/noList.png";
+import noListLight from "@/assets/viewData/noListLight.png";
 
 const { Option } = Select;
 const TreeNode = TreeSelect.TreeNode;
@@ -1353,7 +1354,7 @@ export default class Home2 extends PureComponent {
                 columns={this.state.columns}
                 dataSource={this.state.data}
                 className={styles.homeTable}
-                locale={{ emptyText: <Empty image={noList} description={'暂无数据'} /> }}
+                locale={{ emptyText: <Empty image={this.props.global&&this.props.global.dark ? noList : noListLight} description={'暂无数据'} /> }}
               />
             </Card>
           ) : this.state.idx === 2 ? (

@@ -33,7 +33,7 @@ export default {
                 type: 'setDossierData',
                 payload: response && response.error === null ? response.data : [],
             });
-            if (callback && response && response.error === null) {
+            if (callback && response && response.error === null&& response.data) {
                 callback(response.data);
             }
         },
@@ -43,7 +43,7 @@ export default {
                 type: 'NewsetDossierData',
                 payload: response && response.error === null ? response.data : [],
             });
-            if (callback && response && response.error === null) {
+            if (callback && response && response.error === null&& response.data) {
                 callback(response.data);
             }
         },
@@ -53,7 +53,7 @@ export default {
                 type: 'setDossierDetail',
                 payload: response && response.error === null ? response.data : [],
             });
-            if (callback && response && response.error === null) {
+            if (callback && response && response.error === null&& response.data) {
                 callback(response.data);
             }
         },
@@ -64,13 +64,13 @@ export default {
                 type: 'CaseSupervise',
                 payload: response && response.error === null ? response.data : {},
             });
-            if (callback && response && !response.error) {
+            if (callback && response && !response.error&& response.data) {
                 callback(response.data);
             }
         },
         * getUnDossierByProblemId({ payload, callback }, { call, put }) {
             const response = yield call(dossierService.getDossierData, payload);
-            if (callback && response && !response.error) {
+            if (callback && response && !response.error&& response.data) {
                 callback(response.data);
             }
         },
@@ -81,7 +81,7 @@ export default {
                 type: 'SureRefomSupervise',
                 payload: response && response.error === null ? response.data : {},
             });
-            if (callback && response && !response.error) {
+            if (callback && response && !response.error&& response.data) {
                 callback(response.data);
             }
         },
@@ -91,7 +91,7 @@ export default {
                 type: 'UnDossierAllTypeWarningsSupervise',
                 payload: response && response.error === null ? response.data : {},
             });
-            if (callback && response && !response.error) {
+            if (callback && response && !response.error&& response.data) {
                 callback(response.data);
             }
         },

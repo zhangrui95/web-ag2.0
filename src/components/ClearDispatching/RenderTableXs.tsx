@@ -8,6 +8,7 @@ import DispatchingRecordModal from '../DispatchModal/DispatchingRecordModal';
 import Ellipsis from '../Ellipsis';
 import { authorityIsTrue } from '../../utils/authority';
 import noList from "@/assets/viewData/noList.png";
+import noListLight from "@/assets/viewData/noListLight.png";
 
 @connect(({ Dispatch }) => ({
     Dispatch,
@@ -280,7 +281,7 @@ class RenderTableXs extends PureComponent {
                     columns={columns}
                     pagination={paginationProps}
                     onChange={this.handleTableChange}
-                    locale={{ emptyText: <Empty image={noList} description={'暂无数据'} /> }}
+                    locale={{ emptyText: <Empty image={this.props.global&&this.props.global.dark ? noList : noListLight} description={'暂无数据'} /> }}
                 />
               {
                 this.state.shareVisible?

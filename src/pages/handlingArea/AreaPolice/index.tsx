@@ -981,6 +981,7 @@ export default class Index extends PureComponent {
               hideWeekButton={true}
               hideMonthButton={true}
               treeDefaultExpandedKeys={treeDefaultExpandedKeys}
+              {...this.props}
             />
           </div>
           <UnAreaDataView

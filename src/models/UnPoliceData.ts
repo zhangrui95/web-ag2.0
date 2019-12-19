@@ -54,7 +54,7 @@ export default {
         type: 'changeLoading',
         payload: false,
       });
-      if (callback && response && !response.error) {
+      if (callback && response && !response.error&& response.data) {
         callback(response.data);
       }
     },
@@ -65,7 +65,7 @@ export default {
         type: 'CaseSupervise',
         payload: response && response.error === null ? response.data : {},
       });
-      if (callback && response && !response.error) {
+      if (callback && response && !response.error&& response.data) {
         callback(response.data);
       }
     },
@@ -76,13 +76,13 @@ export default {
         type: 'SureRefomSupervise',
         payload: response && response.error === null ? response.data : {},
       });
-      if (callback && response && !response.error) {
+      if (callback && response && !response.error&& response.data) {
         callback(response.data);
       }
     },
     *getUnPoliceByProblemId({ payload, callback }, { call, put }) {
       const response = yield call(UnpoliceDatas, payload);
-      if (callback && response && !response.error) {
+      if (callback && response && !response.error&& response.data) {
         callback(response.data);
       }
     },
@@ -101,7 +101,7 @@ export default {
         type: 'changeLoading',
         payload: false,
       });
-      if (callback && response && !response.error) {
+      if (callback && response && !response.error&& response.data) {
         callback(response.data);
       }
     },
@@ -112,7 +112,7 @@ export default {
         type: 'setNewAddWarnings',
         payload: response && response.error === null ? response.data : {},
       });
-      if (callback && response && !response.error) {
+      if (callback && response && !response.error&& response.data) {
         callback(response.data);
       }
     },

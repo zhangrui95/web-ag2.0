@@ -36,8 +36,8 @@ import woman from '../../assets/common/woman.png';
 
 const { Option } = Select;
 const { Step } = Steps;
-@connect(({ AllDetail }) => ({
-    AllDetail,
+@connect(({ AllDetail,global }) => ({
+    AllDetail,global
 }))
 export default class CaseModalTrail extends PureComponent {
   constructor(props) {
@@ -746,6 +746,7 @@ export default class CaseModalTrail extends PureComponent {
         superveWidth = 1545;
       }
     }
+    console.log('this.props.global&&this.props.global.dark',this.props.global&&this.props.global.dark)
     return (
       <div
         className={this.props.global&&this.props.global.dark ? styles.message : styles.message+' '+styles.lightBoxMessage}

@@ -11,7 +11,7 @@ const developips = {
   // ip: 'http://192.168.3.224', // zyz
   // ip: 'http://192.168.38.179', // 孙金龙
   ip: 'http://192.168.3.36', // 202
-  maintainIp: 'http://192.168.3.202', // 运维中心地址
+  maintainIp: 'http://192.168.3.36', // 运维中心地址
   aqzxIp: 'http://192.168.3.36', // 安全中心地址
   // aqzxIp: 'http://192.168.3.155',// 李卓奇安全中心地址
   // aqzxIp:'http://192.168.41.249',// 安全中心地址
@@ -48,6 +48,7 @@ const configItem = {
   is_zsj: '0', //首页综合统计显示本级还是下级'1'本级，'0'下级
   is_area: '5', // 刑事案件案件类别根据不同地区调用不同的接口；1表示牡丹江,2表示平乐,0表示主线，5表示达拉特旗
   is_ssds: 'dltq', // 接处警报警类别的所属地市dltq
+  startTheme:true,//初始化主题深色版本true,浅色版本false,
 };
 // 开发模式地址
 const developConfigUrl = {
@@ -57,8 +58,8 @@ const developConfigUrl = {
   // securityCenterUrl: `${ips.aqzxIp}:8100/security-service`, // 安全中心
   securityCenterUrl: `${ips.aqzxIp}:8100`, // 安全中心
   baqServerUrl: `${ips.maintainIp}:7500`, // 办案区服务
-  maintainCenterUrl: `${ips.maintainIp}:7402`, // 运维中心
-  generalQueryUrl: `http://192.168.3.92:9200/`, // 综合查询es服务地址,
+  maintainCenterUrl: `${ips.maintainIp}:7400`, // 运维中心
+  generalQueryUrl: `http://192.168.3.36:9200/`, // 综合查询es服务地址,
   srcUrl: `${ips.maintainIp}:7300/raqReport-service/reportJsp/`, //润乾报表地址
   tbtjExportUrl: `${ips.TbtjDcIp}:8750`, // 图表统计导出功能
   smartLinkWindow7: `${ips.downLoadIp}/download/SmartLinkey_win7_2.3.0.1.zip`, //samrtLinkeyWindows版下载地址

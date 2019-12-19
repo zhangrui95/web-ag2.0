@@ -141,7 +141,7 @@ body {
 }
 
 .spanTitle {
-  display: block;
+  display: inline-block;
   height: 21px;
 }
 
@@ -1073,7 +1073,7 @@ body {
 }
 .ajlcCard {
   margin-top: -2px;
-  background-color: #0f1220;
+  background-color: #171a26!important;
   color: @white;
   :global {
     .antd-pro-theme-dark-theme-dark .ant-card {
@@ -1092,6 +1092,50 @@ body {
     }
     .ant-steps-item-process .ant-steps-item-icon {
       border: 1px solid #fff;
+    }
+  }
+}
+.lightBox{
+  :global{
+    .ant-card-body{
+      border-bottom:1px solid #e6e6e6!important;
+    }
+  }
+  .title{
+    background: #fff!important;
+    color: #3D63D1!important;
+  }
+  .TopMenu {
+    background-color: #3D63D1 !important;
+    border: 1px solid #3D63D1 !important;
+    color: #fff !important;
+  }
+  .xqrow{
+    border-bottom: 0;
+  }
+  .message {
+    background-color: #fff!important;
+  }
+  .ajlcCard{
+    background-color: #fafafa!important;
+    color: #475568;
+    :global{
+      .ant-steps-item-finish .ant-steps-item-icon {
+        background-color: transparent!important;
+        border: 2px solid #4662d5!important;
+      }
+      .ant-card-bordered{
+        background: #fafafa;
+      }
+      .ant-card-head{
+        border-bottom: 1px solid #eeeeee;
+      }
+      .ant-card-head-title{
+        color: #475568!important;
+      }
+      .ant-card-body{
+        padding: 24px;
+      }
     }
   }
 }

@@ -17,8 +17,8 @@ import {NavigationItem} from "@/components/Navigation/navigation";
 
 const FormItem = Form.Item;
 
-@connect(({ share }) => ({
-  share,
+@connect(({ share,global }) => ({
+  share,global
 }))
 class ShareModal extends PureComponent {
   constructor(props, context) {
@@ -171,8 +171,9 @@ class ShareModal extends PureComponent {
     }
     const { getFieldDecorator } = this.props.form;
     const {query:{record,detail}} = this.props.location;
+     let className = this.props.global&&this.props.global.dark ? '' : styles.lightBox;
     return (
-      <div>
+      <div className={className}>
         <Card className={styles.standardTable}  id='shareModule'>
           {detail}
           <Form style={{padding:0}}>
@@ -204,7 +205,7 @@ class ShareModal extends PureComponent {
             <Button type="primary" style={{ marginLeft: 8 }} className={styles.qxBtn} onClick={()=>this.onEdit(false)}>
               取消
             </Button>
-            <Button type="primary" style={{ marginLeft: 8 }} onClick={this.handleOk}>
+            <Button type="primary" style={{ marginLeft: 8 }}  className={styles.okBtn} onClick={this.handleOk}>
               确定
             </Button>
           </div>

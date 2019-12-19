@@ -33,7 +33,7 @@ export default {
                 type: 'changeLoading',
                 payload: false,
             });
-            if (callback && response && !response.error) {
+            if (callback && response && !response.error&& response.data) {
                 callback(response.data);
             }
         },
@@ -51,13 +51,13 @@ export default {
             //   type: 'changeLoading',
             //   payload: false,
             // });
-            if (callback && response && !response.error) {
+            if (callback && response && !response.error&& response.data) {
                 callback(response.data);
             }
         },
         * changeReadStatus({ payload, callback }, { call, put }) {
             const response = yield call(changeReadStatus, payload);
-            if (callback && !response.error) {
+            if (callback && !response.error&& response.data) {
                 callback(response.data);
             }
         },
@@ -68,14 +68,14 @@ export default {
                 type: 'setAllTypeWarningCount',
                 payload: response && response.data ? response.data : [],
             });
-            if (callback && response && !response.error) {
+            if (callback && response && !response.error&& response.data) {
                 callback(response.data);
             }
         },
         // 反馈
         * saveFeedback({ payload, callback }, { call, put }) {
             const response = yield call(saveFeedback, payload);
-            if (callback && response) {
+            if (callback && response&& response.data) {
                 callback(response.data);
             }
         },

@@ -12,7 +12,7 @@ const {TabPane} = Tabs;
 const Navigation = props => {
     const {navigationData, dispatch, location, children, history} = props; // //如果导航是空数组，则将当前路由
     // 获取到当前路由
-    const currentUrl = location.pathname;
+    const currentUrl = location.pathname;///ShowData/RegulatePanel
     let queryLoc = location.query;
     const id = location.query && location.query.id ? location.query.id : '';
     // 获取到当前路由对应的路径的唯一标识key
@@ -44,33 +44,37 @@ const Navigation = props => {
                 setActiveKey(selectTabKey);
             }
         } else {
-            // 没有tab情况下，将当前页面的路由对比数据添加tab
-            const {
-                route: {routes},
-            } = props;
-            //根据路由获取到所有平铺路由
-            const {breadcrumb} = getMenuData(routes);
-            const item = breadcrumb[currentUrl];
-            if (dispatch && item) {
-                let payload = {
-                    key: id ? item.path + id : item.path,
-                    name: item.name,
-                    path: item.path,
-                    isShow: true,
-                    query: queryLoc,
-                };
-                sessionStorage.setItem('query', JSON.stringify(payload));
-                dispatch({
-                    type: 'global/changeNavigation',
-                    payload: {
-                        ...payload,
-                        children,
-                    },
-                });
-                dispatch({
-                    type: 'global/changeSessonNavigation',
-                    payload: payload,
-                });
+            if(currentUrl === '/'){
+                dispatch(routerRedux.push('/ShowData/RegulatePanel'));
+            }else{
+                // 没有tab情况下，将当前页面的路由对比数据添加tab
+                const {
+                    route: {routes},
+                } = props;
+                //根据路由获取到所有平铺路由
+                const {breadcrumb} = getMenuData(routes);
+                const item = breadcrumb[currentUrl];
+                if (dispatch && item) {
+                    let payload = {
+                        key: id ? item.path + id : item.path,
+                        name: item.name,
+                        path: item.path,
+                        isShow: true,
+                        query: queryLoc,
+                    };
+                    sessionStorage.setItem('query', JSON.stringify(payload));
+                    dispatch({
+                        type: 'global/changeNavigation',
+                        payload: {
+                            ...payload,
+                            children,
+                        },
+                    });
+                    dispatch({
+                        type: 'global/changeSessonNavigation',
+                        payload: payload,
+                    });
+                }
             }
         }
     }, [selectTabKey]);

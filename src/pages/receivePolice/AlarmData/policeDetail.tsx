@@ -14,7 +14,10 @@ import SuperviseModal from '../../../components/UnCaseRealData/SuperviseModal';
 import ShareModal from '../../../components/ShareModal/ShareModal';
 import collect from '../../../assets/common/collect.png';
 import nocollect from '../../../assets/common/nocollect.png';
+import collect1 from '../../../assets/common/collect1.png';
+import nocollect1 from '../../../assets/common/nocollect1.png';
 import share from '../../../assets/common/share.png';
+import share1 from '../../../assets/common/share1.png';
 import LeightWord from '../../../components/ClearDispatching/LeightWord';
 import styles from './policeDetail.less';
 import liststyles from '../../common/listDetail.less';
@@ -25,9 +28,10 @@ import {routerRedux} from "dva/router";
 
 let imgBase = [];
 
-@connect(({ policeData, loading }) => ({
+@connect(({ policeData, loading,global }) => ({
   policeData,
   loading,
+    global,
   // loading: loading.models.alarmManagement,
 }))
 @Form.create()
@@ -382,8 +386,9 @@ export default class policeDetail extends PureComponent {
   Topdetail() {
     const { policeDetails, sfgz, isDb } = this.state;
     const { query:{record} } = this.props.location;
+      let dark = this.props.global&&this.props.global.dark;
     return (
-      <div style={{ backgroundColor: '#252C3C', margin: '16px 0' }}>
+      <div style={{ backgroundColor: dark ? '#252C3C' : '#fff', margin: '16px 0',borderRadius: 10 }}>
         <Row gutter={{ md: 8, lg: 24, xl: 48 }}>
           <Col md={8} sm={24}>
             {/*<span style={{ margin: '16px', display: 'block' }}>警情详情</span>*/}
@@ -419,7 +424,7 @@ export default class policeDetail extends PureComponent {
                     {sfgz === 0 ? (
                       <Tooltip title="关注">
                         <img
-                          src={collect}
+                          src={dark ? nocollect : nocollect1}
                           width={25}
                           height={25}
                           style={{ marginLeft: 12 }}
@@ -430,7 +435,7 @@ export default class policeDetail extends PureComponent {
                     ) : (
                       <Tooltip title="取消关注">
                         <img
-                          src={nocollect}
+                          src={dark ? collect : collect1}
                           width={25}
                           height={25}
                           style={{ marginLeft: 12 }}
@@ -445,7 +450,7 @@ export default class policeDetail extends PureComponent {
                     onClick={() => this.saveShare(policeDetails, record, 2)}
                   >
                     <Tooltip title="分享">
-                      <img src={share} width={25} height={25} />
+                      <img src={dark ? share : share1} width={20} height={20} />
                       <div style={{ fontSize: 12 }}>分享</div>
                     </Tooltip>
                   </span>
@@ -459,13 +464,13 @@ export default class policeDetail extends PureComponent {
       </div>
     );
   }
-
   renderDetail() {
     const { policeDetails } = this.state;
     const rowLayout = { md: 8, xl: 16, xxl: 24 };
+    let dark = this.props.global&&this.props.global.dark;
     return (
       <div
-        style={{ background: '#252c3c', height: autoheight() - 280 + 'px' }}
+        style={{ background: dark ? '#252c3c' : '#fff', height: autoheight() - 280 + 'px' }}
         id={`jqDetail${this.props.id}`}
         className={styles.detailBoxScroll}
       >
@@ -482,7 +487,7 @@ export default class policeDetail extends PureComponent {
           </div>
         )}
         <Card
-          title={<div style={{ borderLeft: '1px solid #fff', paddingLeft: 16 }}>接警信息</div>}
+          title={<div style={{ borderLeft: dark ? '3px solid #fff':'3px solid #3D63D1', paddingLeft: 16 }}>接警信息</div>}
           className={liststyles.card}
           bordered={false}
         >
@@ -549,7 +554,7 @@ export default class policeDetail extends PureComponent {
         </Card>
 
         <Card
-          title={<div style={{ borderLeft: '1px solid #fff', paddingLeft: 16 }}>处警信息</div>}
+          title={<div style={{ borderLeft:  dark ? '3px solid #fff':'3px solid #3D63D1', paddingLeft: 16 }}>处警信息</div>}
           className={liststyles.card}
           bordered={false}
         >
@@ -619,6 +624,7 @@ export default class policeDetail extends PureComponent {
 
   render() {
     const { superviseVisibleModal, policeDetails } = this.state;
+    let dark = this.props.global&&this.props.global.dark;
     let detail = (
       <Row
         style={{
@@ -699,51 +705,9 @@ export default class policeDetail extends PureComponent {
       </Row>
     );
     return (
-      <div>
+      <div className={dark?'':styles.lightBox}>
         <div>{this.Topdetail()}</div>
-        <div>{this.renderDetail()}</div>
-
-        {/*{superviseVisibleModal ? (*/}
-          {/*<SuperviseModal*/}
-            {/*{...this.props}*/}
-            {/*visible={superviseVisibleModal}*/}
-            {/*closeModal={this.closeModal}*/}
-            {/*// saveModal={this.saveModal}*/}
-            {/*caseDetails={this.state.policeDetails}*/}
-            {/*getRefresh={this.Refresh}*/}
-            {/*wtflId="203201"*/}
-            {/*wtflMc="警情"*/}
-            {/*// 点击列表的督办显示的四个基本信息*/}
-            {/*wtlx={this.state.superviseWtlx}*/}
-            {/*from={this.state.from}*/}
-          {/*/>*/}
-        {/*) : (*/}
-          {/*''*/}
-        {/*)}*/}
-        {/*<ShareModal*/}
-          {/*detail={detail}*/}
-          {/*shareVisible={this.state.shareVisible}*/}
-          {/*handleCancel={this.handleCancel}*/}
-          {/*shareItem={this.state.shareItem}*/}
-          {/*personList={this.state.personList}*/}
-          {/*lx={this.state.lx}*/}
-          {/*tzlx={this.props.tzlx}*/}
-          {/*sx={this.state.sx}*/}
-        {/*/>*/}
-
-        {/*<DispatchModal*/}
-          {/*handleSearch={this.props.handleSearch}*/}
-          {/*title="警情调度"*/}
-          {/*isPoliceDispatch*/}
-          {/*detail={detail}*/}
-          {/*shareVisible={this.state.policeDispatchVisible}*/}
-          {/*handleCancel={this.handleCancel}*/}
-          {/*closehandleCancel={this.closehandleCancel}*/}
-          {/*shareItem={this.state.policeDispatchItem}*/}
-          {/*tzlx="jq"*/}
-          {/*refreshDetail={this.refreshDetail}*/}
-          {/*hideDispatchButton={this.hideDispatchButton}*/}
-        {/*/>*/}
+        <div className={styles.detailBox}>{this.renderDetail()}</div>
       </div>
     );
   }

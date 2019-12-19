@@ -73,11 +73,13 @@ export default class DataViewButtonArea extends PureComponent {
     } = this.props;
     const { popoverVisible } = this.state;
     const screeWidth = document.body.offsetWidth;
+    let dark = this.props.global&&this.props.global.dark;
+    let pathname = this.props.location&&this.props.location.pathname ? this.props.location.pathname : '';
     return (
       <div
-        className={styles.typeButtonsArea}
+        className={dark ? styles.typeButtonsArea :  styles.typeButtonsArea + ' '+style.lightBox}
         style={showDataView ? {} : { position: 'absolute', zIndex: -1 }}
-        id="tongjiCommon"
+        id={"tongjiCommon"+pathname}
       >
         {isPolice ? (
           <span>
@@ -95,7 +97,7 @@ export default class DataViewButtonArea extends PureComponent {
                   treeDefaultExpandedKeys={treeDefaultExpandedKeys}
                   onChange={this.jJTreeSelectChange}
                   treeNodeFilterProp="title"
-                  getPopupContainer={() => document.getElementById('tongjiCommon')}
+                  getPopupContainer={() => document.getElementById('tongjiCommon'+pathname)}
                 >
                   {depTree && depTree.length > 0 ? renderloop(depTree) : null}
                 </TreeSelect>
@@ -115,7 +117,7 @@ export default class DataViewButtonArea extends PureComponent {
                   treeDefaultExpandedKeys={treeDefaultExpandedKeys}
                   onChange={this.cJTreeSelectChange}
                   treeNodeFilterProp="title"
-                  getPopupContainer={() => document.getElementById('tongjiCommon')}
+                  getPopupContainer={() => document.getElementById('tongjiCommon'+pathname)}
                 >
                   {depTree && depTree.length > 0 ? renderloop(depTree) : null}
                 </TreeSelect>
@@ -136,58 +138,42 @@ export default class DataViewButtonArea extends PureComponent {
                 onChange={this.handleTreeSelectChange}
                 treeDefaultExpandedKeys={treeDefaultExpandedKeys}
                 treeNodeFilterProp="title"
-                getPopupContainer={() => document.getElementById('tongjiCommon')}
+                getPopupContainer={() => document.getElementById('tongjiCommon'+pathname)}
               >
                 {depTree && depTree.length > 0 ? renderloop(depTree) : null}
               </TreeSelect>
             </span>
           </span>
         )}
+        {
+        hideDayButton ? null : <Button type="primary" className={style.btnRadius + ' ' + style.btnFirst} style={{color:typeButtons === 'day'? '#fff' : dark ? '#fff' : '#4d4d4d',backgroundColor:typeButtons === 'day'? (dark ? '#3285FF' : '#3C43DF'):(dark ? '#171925' : '#fff'),borderRight:'1px solid #252C3C'}} onClick={() => changeTypeButtons('day')}>日</Button>
+        }
+        {
+        hideWeekButton ? null : <Button type="primary"  className={style.btnRadius+ ' ' +(hideDayButton ? style.btnFirst : '')} style={{color:typeButtons === 'week'? '#fff' : dark ? '#fff' : '#4d4d4d',backgroundColor:typeButtons === 'week'?(dark ? '#3285FF' : '#3C43DF'):(dark ? '#171925' : '#fff'),borderRight:'1px solid #252C3C'}} onClick={() => changeTypeButtons('week')}>周</Button>
+        }
+        {
+        hideMonthButton ? null : <Button type="primary" className={style.btnRadius} style={{color:typeButtons === 'month'? '#fff' : dark ? '#fff' : '#4d4d4d',backgroundColor:typeButtons === 'month'?(dark ? '#3285FF' : '#3C43DF'):(dark ? '#171925' : '#fff'),borderRight:'1px solid #252C3C'}} onClick={() => changeTypeButtons('month')}>月</Button>
+        }
 
-        {
-        hideDayButton ? null : <Button type="primary" shape="circle" className={style.btnRadius} style={{backgroundColor:typeButtons === 'day'?'#3285FF':'#171925',borderRight:'1px solid #252C3C'}} onClick={() => changeTypeButtons('day')}>日</Button>
-        }
-        {
-        hideWeekButton ? null : <Button type="primary" shape="circle" className={style.btnRadius} style={{backgroundColor:typeButtons === 'week'?'#3285FF':'#171925',borderRight:'1px solid #252C3C'}} onClick={() => changeTypeButtons('week')}>周</Button>
-        }
-        {
-        hideMonthButton ? null : <Button type="primary" shape="circle" className={style.btnRadius} style={{backgroundColor:typeButtons === 'month'?'#3285FF':'#171925',borderRight:'1px solid #252C3C'}} onClick={() => changeTypeButtons('month')}>月</Button>
-        }
-
-        {/*<Radio.Group*/}
-          {/*defaultValue="3"*/}
-          {/*buttonStyle="solid"*/}
-          {/*className={styles.redioGroup}*/}
-          {/*style={{ right: this.state.firstList ? '20px' : '45px' }}*/}
-          {/*// onChange={this.getRadioChange}*/}
-          {/*disabled={this.state.loading ? true : false}*/}
-        {/*>*/}
-          {/*<Radio.Button value="3" onClick={() => changeTypeButtons('day')}>日</Radio.Button>*/}
-          {/*<Radio.Button value="6" onClick={() => changeTypeButtons('week')}>周</Radio.Button>*/}
-          {/*<Radio.Button value="9" onClick={() => changeTypeButtons('month')}>月</Radio.Button>*/}
-          {/*/!*<Radio.Button>*!/*/}
-          {/*/!**!/*/}
-          {/*/!*</Radio.Button>*!/*/}
-        {/*</Radio.Group>*/}
         <Popover
           content={
             <RangePicker
               disabledDate={disabledDate}
               style={{ width: '200' }}
               onChange={this.handleRangePickerChange}
-              getCalendarContainer={() => document.getElementById('tongjiCommon')}
+              getCalendarContainer={() => document.getElementById('tongjiCommon'+pathname)}
             />
           }
           placement="bottomRight"
           trigger="click"
           visible={popoverVisible}
           onVisibleChange={this.handlePopoverVisibleChange}
-          getPopupContainer={() => document.getElementById('tongjiCommon')}
+          getPopupContainer={() => document.getElementById('tongjiCommon'+pathname)}
         >
           <Button
             // type="primary"
-            className={style.btnRadius}
-            style={{backgroundColor:typeButtons === 'selectedDate'?'#3285FF':'#171925'}}
+            className={style.btnRadius+' '+style.btnLast}
+            style={{color:typeButtons === 'selectedDate'? '#fff' : dark ? '#fff' : '#4d4d4d',backgroundColor:typeButtons === 'selectedDate'?(dark ? '#3285FF' : '#3C43DF'):(dark ? '#171925' : '#fff')}}
           >
             其他
           </Button>

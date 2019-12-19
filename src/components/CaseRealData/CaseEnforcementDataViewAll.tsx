@@ -17,12 +17,15 @@ import 'echarts/lib/component/dataZoom';
 import styles from '../../pages/common/dataView.less';
 import { getTimeDistance } from '../../utils/utils';
 import DataViewDateShow from '../Common/DataViewDateShow';
+import {connect} from "dva";
 
 let caseEchartBar;
 let caseEchartRingPie;
 let caseTypeStatisticsBar;
 const colors1 = ['#279DF5', '#3F557E', '#FFD401', '#3470AF', '#72C4B8'];
-
+@connect(({ global }) => ({
+    global
+}))
 export default class CaseEnforcementDataView extends PureComponent {
   state = {
     currentType: 'week',
@@ -35,6 +38,7 @@ export default class CaseEnforcementDataView extends PureComponent {
     selectedDateData: ['立案：0', '受案：0'], // 头部统计警情总数——手动选择日期
     weekType: ['week', 'lastWeek', 'beforeLastWeek'],
     monthType: ['month', 'lastMonth', 'beforeLastMonth'],
+    type:'week',
   };
 
   componentDidMount() {
@@ -45,9 +49,9 @@ export default class CaseEnforcementDataView extends PureComponent {
     this.getEnforcementMeasure(weekTypeTime[0], weekTypeTime[1]);
     this.getCaseTypeStatistics(weekTypeTime[0], weekTypeTime[1]);
 
-    this.showCaseEchartBar();
-    this.showCaseEchartRingPie();
-    this.showCaseTypeStatisticsBar();
+    this.showCaseEchartBar(this.props);
+    this.showCaseEchartRingPie(this.props);
+    this.showCaseTypeStatisticsBar(this.props);
 
     window.addEventListener('resize', caseEchartBar.resize);
     window.addEventListener('resize', caseEchartRingPie.resize);
@@ -93,6 +97,12 @@ export default class CaseEnforcementDataView extends PureComponent {
           );
         }
       }
+        if(this.props.global.dark !== nextProps.global.dark){
+            this.showCaseEchartBar(nextProps);
+            this.showCaseEchartRingPie(nextProps);
+            this.showCaseTypeStatisticsBar(nextProps);
+            this.changeCountButtonCurrent(this.state.type);
+        }
     }
   }
 
@@ -113,8 +123,8 @@ export default class CaseEnforcementDataView extends PureComponent {
   };
   getTime = type => {
     const time = getTimeDistance(type);
-    const startTime = time[0] === '' ? '' : moment(time[0]).format('YYYY-MM-DD');
-    const endTime = time[1] === '' ? '' : moment(time[1]).format('YYYY-MM-DD');
+    const startTime = time&&time [0] ? moment(time[0]).format('YYYY-MM-DD') : '';
+    const endTime = time&&time[1] ? moment(time[1]).format('YYYY-MM-DD') : '';
     return [startTime, endTime];
   };
   // 案件办理进度
@@ -311,7 +321,7 @@ export default class CaseEnforcementDataView extends PureComponent {
     });
   };
   // 本、昨、前change
-  changeCountButtonCurrent = type => {
+  changeCountButtonCurrent = (type) => {
     const { searchType } = this.props;
     let currentType = '';
     if (type === 'now') {
@@ -323,6 +333,7 @@ export default class CaseEnforcementDataView extends PureComponent {
     }
     this.setState({
       currentType,
+      type,
     });
     const dataTime = this.getTime(currentType);
     this.getAllCaseProgress(dataTime[0], dataTime[1]);
@@ -334,7 +345,7 @@ export default class CaseEnforcementDataView extends PureComponent {
     return a - b;
   };
   // 案件办理进度柱状图
-  showCaseEchartBar = () => {
+  showCaseEchartBar = (nextProps) => {
     const that = this;
     caseEchartBar = echarts.init(document.getElementById('ajbljd'));
     const option = {
@@ -356,7 +367,7 @@ export default class CaseEnforcementDataView extends PureComponent {
         },
         axisLabel: {
           textStyle:{
-            color:'#fff',
+            color:nextProps.global&&nextProps.global.dark ? '#fff' : '#4d4d4d',
           }
         },
       },
@@ -372,7 +383,7 @@ export default class CaseEnforcementDataView extends PureComponent {
         },
         axisLabel: {
           textStyle: {
-            color: '#fff',
+            color: nextProps.global&&nextProps.global.dark ? '#fff' : '#4d4d4d',
           },
         },
       },
@@ -400,7 +411,7 @@ export default class CaseEnforcementDataView extends PureComponent {
               formatter: '{c}',
               textStyle: {
                 fontSize: 16,
-                color: '#fff',
+                color:nextProps.global&&nextProps.global.dark ? '#fff' : '#4d4d4d',
               },
             },
           },
@@ -434,7 +445,7 @@ export default class CaseEnforcementDataView extends PureComponent {
   };
 
   // 人员强制措施环形饼状图
-  showCaseEchartRingPie = () => {
+  showCaseEchartRingPie = (nextProps) => {
     caseEchartRingPie = echarts.init(document.getElementById('ryqzcsqk'));
     const option = {
       title: {
@@ -459,7 +470,7 @@ export default class CaseEnforcementDataView extends PureComponent {
         itemGap: 15,
         selectedMode: true, // 点击
         textStyle: {
-          color: '#fff',
+          color: nextProps.global&&nextProps.global.dark ? '#fff' : '#4d4d4d',
           fontSize: 16,
           lineHeight: 24,
         },
@@ -480,7 +491,7 @@ export default class CaseEnforcementDataView extends PureComponent {
               textStyle: {
                 fontSize: '22',
                 // fontWeight: 'bold',
-                color: '#fff',
+                color:nextProps.global&&nextProps.global.dark ? '#fff' : '#4d4d4d',
               },
             },
             emphasis: {
@@ -508,7 +519,7 @@ export default class CaseEnforcementDataView extends PureComponent {
     return newstr;
   };
   // 案件类型统计柱状图
-  showCaseTypeStatisticsBar = () => {
+  showCaseTypeStatisticsBar = (nextProps) => {
     const that = this;
     caseTypeStatisticsBar = echarts.init(document.getElementById('ajlxtj'));
     const option = {
@@ -539,7 +550,7 @@ export default class CaseEnforcementDataView extends PureComponent {
           interval: 0,
           formatter: value => this.insertFlg(value, '\n', 10),
           textStyle:{
-            color:'#fff',
+            color:nextProps.global&&nextProps.global.dark ? '#fff' : '#4d4d4d',
           }
         },
       },
@@ -555,7 +566,7 @@ export default class CaseEnforcementDataView extends PureComponent {
         },
         axisLabel: {
           textStyle: {
-            color: '#fff',
+            color: nextProps.global&&nextProps.global.dark ? '#fff' : '#4d4d4d',
           },
         },
       },
@@ -571,7 +582,7 @@ export default class CaseEnforcementDataView extends PureComponent {
               formatter: '{c}',
               textStyle: {
                 fontSize: 16,
-                color: '#fff',
+                color: nextProps.global&&nextProps.global.dark ? '#fff' : '#4d4d4d',
               },
             },
           },
@@ -609,8 +620,9 @@ export default class CaseEnforcementDataView extends PureComponent {
       beforeLastDataName,
       selectedDateData,
     } = this.state;
+      let className = this.props.global&&this.props.global.dark ?styles.policeDataCard : styles.policeDataCard + ' '+styles.lightBox;
     return (
-      <Card style={{ position: 'relative' }} className={styles.policeDataCard}>
+      <Card style={{ position: 'relative' }} className={className}>
         <div
           className={styles.caseDataView}
           style={showDataView ? {} : { position: 'absolute', zIndex: -1 }}
@@ -699,7 +711,7 @@ export default class CaseEnforcementDataView extends PureComponent {
               </div>
             </div>
           )}
-          <div style={{ backgroundColor: '#252c3c', padding: '0 16px' }}>
+          <div style={{ backgroundColor: this.props.global&&this.props.global.dark ? '#252c3c' : '#fff', padding: '0 16px',borderRadius: 10 }}>
             <Row gutter={rowLayout} className={styles.listPageRow}>
               <Col {...colLayout}>
                 <div className={styles.cardBoxTitle}>| 案件办理进度</div>

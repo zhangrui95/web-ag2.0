@@ -9,8 +9,8 @@ import { getUserInfos } from '../../utils/utils';
 
 const FormItem = Form.Item;
 
-@connect(({ share }) => ({
-    share,
+@connect(({ share,global }) => ({
+    share,global
 }))
 class ShareModal extends PureComponent {
     constructor(props, context) {
@@ -147,8 +147,9 @@ class ShareModal extends PureComponent {
             });
         }
         const { getFieldDecorator } = this.props.form;
+        let className = this.props.global&&this.props.global.dark ? styles.standardTable : styles.standardTable+' '+styles.lightBox
         return (
-            <div className={styles.standardTable}>
+            <div className={className}>
                 <Modal
                     title="分享"
                     visible={this.props.shareVisible}

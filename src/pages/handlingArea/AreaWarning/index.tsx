@@ -30,6 +30,7 @@ import styles from '../../common/listPage.less';
 import { exportListDataMaxDays, getUserInfos, tableList } from '../../../utils/utils';
 import { routerRedux } from 'dva/router';
 import noList from "@/assets/viewData/noList.png";
+import noListLight from "@/assets/viewData/noListLight.png";
 // import Detail from '../../routes/AreaRealData/areaDetail';
 // import RemindModal from '../../../src/components/RemindModal/RemindModal';
 // import AnnouncementModal from '../../../src/components/AnnouncementModal/AnnouncementModal';
@@ -917,7 +918,7 @@ export default class Index extends PureComponent {
             columns={columns}
             pagination={paginationProps}
             onChange={this.handleTableChange}
-            locale={{ emptyText: <Empty image={noList} description={'暂无数据'} /> }}
+            locale={{ emptyText: <Empty image={this.props.global&&this.props.global.dark ? noList : noListLight} description={'暂无数据'} /> }}
           />
           {/*<RemindModal caseDetails={this.state.caseDetails} txVisible={this.state.txVisible}*/}
           {/*detail={detail} handleCancel={this.handleCancel} txItem={this.state.txItem}*/}

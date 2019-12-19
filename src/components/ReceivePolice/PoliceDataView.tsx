@@ -4,6 +4,7 @@
  * 20181113
  * */
 import React, { PureComponent } from 'react';
+import { connect } from 'dva';
 import { Row, Col, Card } from 'antd';
 import moment from 'moment/moment';
 import echarts from 'echarts/lib/echarts';
@@ -36,7 +37,9 @@ const colors1 = [
   '#6465FD',
   '#FF6600',
 ];
-
+@connect(({ global }) => ({
+    global
+}))
 export default class PoliceDataView extends PureComponent {
   state = {
     currentType: 'today',
@@ -60,6 +63,7 @@ export default class PoliceDataView extends PureComponent {
     },
     jqzkNoData: false, // 警情状况无数据
     jqslNoData: false, // 警情数量无数据
+    type:'now',
   };
 
   componentDidMount() {
@@ -73,11 +77,11 @@ export default class PoliceDataView extends PureComponent {
     this.getHandlePoliceSituation('today');
 
     // setTimeout(()=>{
-    this.showPoliceEchartBar();
-    this.showPoliceEchartRingPie();
-    this.showPoliceEchartLine();
-    this.showPoliceThreePie1();
-    this.showPoliceThreePie2();
+    this.showPoliceEchartBar(this.props);
+    this.showPoliceEchartRingPie(this.props);
+    this.showPoliceEchartLine(this.props);
+    this.showPoliceThreePie1(this.props);
+    this.showPoliceThreePie2(this.props);
     // },500)
 
     window.addEventListener('resize', policeEchartBar.resize);
@@ -216,6 +220,14 @@ export default class PoliceDataView extends PureComponent {
         }
       }
     }
+    if(this.props.global.dark !== nextProps.global.dark){
+        this.showPoliceEchartBar(nextProps);
+        this.showPoliceEchartRingPie(nextProps);
+        this.showPoliceEchartLine(nextProps);
+        this.showPoliceThreePie1(nextProps);
+        this.showPoliceThreePie2(nextProps);
+        this.changeCountButtonCurrent(this.state.type);
+    }
   }
 
   // 获取头部本、上、前按键数据
@@ -264,6 +276,7 @@ export default class PoliceDataView extends PureComponent {
     }
     this.setState({
       currentType,
+      type:type,
     });
     const dataTime = this.getTime(currentType);
     this.getPoliceSituationCount(dataTime[0], dataTime[1]);
@@ -685,16 +698,16 @@ export default class PoliceDataView extends PureComponent {
               hadResult.push({
                 name: data.list[i].name,
                 value: data.list[i].count,
-                itemStyle: { color: colors1[6] },
+                itemStyle: { color: '#1ECE79' },
               });
             if (data.list[i].name === '未处警' || data.list[i].name === '未分流')
               noResult.push({
                 name: data.list[i].name,
                 value: data.list[i].count,
-                itemStyle: { color: colors1[7] },
+                itemStyle: { color: '#1E50CE' },
               });
           }
-          pieData.push({ name: '警情', value: countData, itemStyle: { color: colors1[8] } });
+          pieData.push({ name: '警情', value: countData, itemStyle: { color: '#1EB8CE' } });
           policeThreePie1.setOption({
             series: [
               {
@@ -744,16 +757,16 @@ export default class PoliceDataView extends PureComponent {
               hadResult.push({
                 name: data.list[i].name,
                 value: data.list[i].count,
-                itemStyle: { color: colors1[9] },
+                itemStyle: { color:'#1ECE79' },
               });
             if (data.list[i].name === '未受案')
               noResult.push({
                 name: data.list[i].name,
                 value: data.list[i].count,
-                itemStyle: { color: colors1[10] },
+                itemStyle: { color: '#1E50CE' },
               });
           }
-          pieData.push({ name: '警情', value: countData, itemStyle: { color: colors1[8] } });
+          pieData.push({ name: '警情', value: countData, itemStyle: { color: '#1EB8CE' } });
           policeThreePie2.setOption({
             series: [
               {
@@ -786,7 +799,7 @@ export default class PoliceDataView extends PureComponent {
     return newstr;
   };
   // 警情数量柱状图
-  showPoliceEchartBar = () => {
+  showPoliceEchartBar = (nextProps) => {
     const that = this;
     policeEchartBar = echarts.init(document.getElementById('jqsl'));
     const option = {
@@ -811,7 +824,7 @@ export default class PoliceDataView extends PureComponent {
           interval: 0,
           formatter: value => this.insertFlg(value, '\n', 6),
           textStyle: {
-            color: '#fff',
+            color: nextProps.global&&nextProps.global.dark ? '#fff' : '#4d4d4d',
           },
         },
       },
@@ -856,7 +869,7 @@ export default class PoliceDataView extends PureComponent {
               formatter: '{c}',
               textStyle: {
                 fontSize: 16,
-                color: '#fff',
+                color: nextProps.global&&nextProps.global.dark ? '#fff' : '#4d4d4d',
               },
             },
           },
@@ -879,7 +892,7 @@ export default class PoliceDataView extends PureComponent {
         },
       ],
     };
-    policeEchartBar.setOption(option);
+    policeEchartBar.setOption(option,true);
     policeEchartBar.on('click', function(params) {
       const { currentType } = that.state;
       const dataTime =
@@ -888,7 +901,7 @@ export default class PoliceDataView extends PureComponent {
     });
   };
   //处置结果环形饼状图
-  showPoliceEchartRingPie = () => {
+  showPoliceEchartRingPie = (nextProps) => {
     policeEchartRingPie = echarts.init(document.getElementById('czjg'));
     const option = {
       // title: {
@@ -913,7 +926,7 @@ export default class PoliceDataView extends PureComponent {
         itemGap: 15,
         selectedMode: true, // 点击
         textStyle: {
-          color: '#fff',
+          color: nextProps.global&&nextProps.global.dark ? '#fff' : '#4d4d4d',
           fontSize: 16,
           lineHeight: 24,
         },
@@ -932,7 +945,7 @@ export default class PoliceDataView extends PureComponent {
               position: 'center',
               textStyle: {
                 fontSize: '22',
-                color: '#fff',
+                color: nextProps.global&&nextProps.global.dark ? '#fff' : '#4d4d4d',
               },
             },
             emphasis: {
@@ -951,7 +964,7 @@ export default class PoliceDataView extends PureComponent {
     policeEchartRingPie.setOption(option, true);
   };
   // 警情状况折线图
-  showPoliceEchartLine = () => {
+  showPoliceEchartLine = (nextProps) => {
     policeEchartLine = echarts.init(document.getElementById('jqzk'));
     const option = {
       // title: {
@@ -969,9 +982,11 @@ export default class PoliceDataView extends PureComponent {
         data: ['处警', '接警'],
         icon: 'stack',
         top: '5%',
-        right: '15%',
+        right: '5%',
+          itemWidth: 10,  // 设置宽度
+          itemHeight: 10, // 设置高度
         textStyle: {
-          color: '#fff',
+          color:nextProps.global&&nextProps.global.dark ? '#fff' : '#4d4d4d',
         },
       },
       grid: {
@@ -984,7 +999,7 @@ export default class PoliceDataView extends PureComponent {
         type: 'category',
         boundaryGap: false,
         axisLabel: {
-          color: '#fff',
+          color: nextProps.global&&nextProps.global.dark ? '#fff' : '#4d4d4d',
         },
         data: [],
       },
@@ -992,7 +1007,7 @@ export default class PoliceDataView extends PureComponent {
         type: 'value',
         axisLabel: {
           textStyle: {
-            color: '#fff',
+            color: nextProps.global&&nextProps.global.dark ? '#fff' : '#4d4d4d',
           },
         },
       },
@@ -1020,7 +1035,7 @@ export default class PoliceDataView extends PureComponent {
     // })
   };
   // 处警情况三环形饼状图
-  showPoliceThreePie1 = () => {
+  showPoliceThreePie1 = (nextProps) => {
     const that = this;
     policeThreePie1 = echarts.init(document.getElementById('cjqk'));
     const option = {
@@ -1038,7 +1053,7 @@ export default class PoliceDataView extends PureComponent {
           textStyle: {
             fontSize: 16,
             fontWeight: 'normal',
-            color: '#fff',
+            color: nextProps.global&&nextProps.global.dark ? '#fff' : '#4d4d4d',
           },
           x: '15%',
           y: '80%',
@@ -1050,7 +1065,7 @@ export default class PoliceDataView extends PureComponent {
           textStyle: {
             fontSize: 16,
             fontWeight: 'normal',
-            color: '#fff',
+            color: nextProps.global&&nextProps.global.dark ? '#fff' : '#4d4d4d',
           },
           x: '85%',
           y: '80%',
@@ -1102,7 +1117,7 @@ export default class PoliceDataView extends PureComponent {
               formatter: '{c}',
               textStyle: {
                 fontSize: '22',
-                color: '#fff',
+                color: nextProps.global&&nextProps.global.dark ? '#fff' : '#4d4d4d',
               },
             },
             emphasis: {
@@ -1129,7 +1144,7 @@ export default class PoliceDataView extends PureComponent {
               formatter: '{c}',
               textStyle: {
                 fontSize: '22',
-                color: '#fff',
+                color: nextProps.global&&nextProps.global.dark ? '#fff' : '#4d4d4d',
               },
             },
             emphasis: {
@@ -1162,7 +1177,7 @@ export default class PoliceDataView extends PureComponent {
     });
   };
   // 受案情况三环形饼状图
-  showPoliceThreePie2 = () => {
+  showPoliceThreePie2 = (nextProps) => {
     const that = this;
     policeThreePie2 = echarts.init(document.getElementById('saqk'));
     const option = {
@@ -1180,7 +1195,7 @@ export default class PoliceDataView extends PureComponent {
           textStyle: {
             fontSize: 16,
             fontWeight: 'normal',
-            color: '#fff',
+            color:nextProps.global&&nextProps.global.dark ? '#fff' : '#4d4d4d',
           },
           x: '15%',
           y: '80%',
@@ -1192,7 +1207,7 @@ export default class PoliceDataView extends PureComponent {
           textStyle: {
             fontSize: 16,
             fontWeight: 'normal',
-            color: '#fff',
+            color:nextProps.global&&nextProps.global.dark ? '#fff' : '#4d4d4d',
           },
           x: '85%',
           y: '80%',
@@ -1217,7 +1232,7 @@ export default class PoliceDataView extends PureComponent {
               position: 'center',
               textStyle: {
                 fontSize: '22',
-                color: '#fff',
+                color: nextProps.global&&nextProps.global.dark ? '#fff' : '#4d4d4d',
               },
             },
             emphasis: {
@@ -1244,7 +1259,7 @@ export default class PoliceDataView extends PureComponent {
               formatter: '{c}',
               textStyle: {
                 fontSize: '22',
-                color: '#fff',
+                color:nextProps.global&&nextProps.global.dark ? '#fff' : '#4d4d4d',
               },
             },
             emphasis: {
@@ -1271,7 +1286,7 @@ export default class PoliceDataView extends PureComponent {
               formatter: '{c}',
               textStyle: {
                 fontSize: '22',
-                color: '#fff',
+                color: nextProps.global&&nextProps.global.dark ? '#fff' : '#4d4d4d',
               },
             },
             emphasis: {
@@ -1317,8 +1332,9 @@ export default class PoliceDataView extends PureComponent {
       jqslNoData,
       selectedDateData,
     } = this.state;
+      let className = this.props.global&&this.props.global.dark ?styles.policeDataCard : styles.policeDataCard + ' '+styles.lightBox;
     return (
-      <Card style={{ position: 'relative' }} className={styles.policeDataCard}>
+      <Card style={{ position: 'relative' }} className={className}>
         <div
           className={styles.policeDataView}
           style={showDataView ? {} : { position: 'absolute', zIndex: -1 }}
@@ -1401,7 +1417,7 @@ export default class PoliceDataView extends PureComponent {
               </div>
             </div>
           )}
-          <div style={{ backgroundColor: '#252c3c', padding: '0 16px' }}>
+          <div style={{ backgroundColor: this.props.global&&this.props.global.dark ? '#252c3c' : '#fff', padding: '0 16px',borderRadius: 10 }}>
             <Row gutter={rowLayout} className={styles.listPageRow}>
               <Col {...colLayout}>
                 <div className={styles.cardBoxTitle}>| 警情数量</div>

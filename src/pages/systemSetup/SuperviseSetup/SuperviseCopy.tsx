@@ -35,23 +35,32 @@ const FormItem = Form.Item;
   global
 }))
 export default class SuperviseCopy extends PureComponent {
-  state = {
-    fyjgList: [],
-    fyjgsxList: [],
-    ssjg_dm: '',
-    fyjgdList: [],
-    yyjgdList: [],
-    list: [],
-    listKey: [],
-    selectedKeys: [],
-  };
+    constructor(props) {
+        super(props);
+        let query = props.location.query;
+        let res = query.fyxzjg;
+        if(typeof res == 'string'){
+            query = JSON.parse(sessionStorage.getItem('query')).query;
+        }
+        this.state = {
+            fyjgList: [],
+            fyjgsxList: [],
+            ssjg_dm: '',
+            fyjgdList: [],
+            yyjgdList: [],
+            list: [],
+            listKey: [],
+            selectedKeys: [],
+            query:query,
+        }
+    }
 
   componentDidMount() {
     this.getfyJg();
   }
 
   componentWillReceiveProps(next) {
-    if (this.props.location.query.yyjgdList !== next.yyjgdList) {
+    if (this.state.query.yyjgdList !== next.yyjgdList) {
       this.setState({
         fyjgsxList: [],
         selectedKeys: [],
@@ -68,7 +77,7 @@ export default class SuperviseCopy extends PureComponent {
     this.props.dispatch({
       type: 'SuperviseSetup/getfyJg',
       payload: {
-        ssjg_dm: this.props.location.query.fyxzjg.id,
+        ssjg_dm: this.state.query.fyxzjg.id,
       },
       callback: res => {
         this.setState({
@@ -117,8 +126,8 @@ export default class SuperviseCopy extends PureComponent {
   choiceJgsx = e => {
     let yyjgd = [];
     let list1 = [];
-    this.props.location.query.yyjgdList &&
-      this.props.location.query.yyjgdList.map(event => {
+    this.state.query.yyjgdList &&
+      this.state.query.yyjgdList.map(event => {
         yyjgd.push({
           key: event.id,
           title: `${event.jgd_mc}(${
@@ -142,8 +151,8 @@ export default class SuperviseCopy extends PureComponent {
       callback: res => {
         let torf = true;
         res.data.map(event => {
-          if (this.props.location.query.yyjgdList.length > 0) {
-            this.props.location.query.yyjgdList.map(e => {
+          if (this.state.query.yyjgdList.length > 0) {
+            this.state.query.yyjgdList.map(e => {
               if (e.id === event.id || e.jgd_mc === event.jgd_mc) {
                 torf = false;
               }
@@ -207,9 +216,9 @@ export default class SuperviseCopy extends PureComponent {
         type: 'SuperviseSetup/getSaveFy',
         payload: {
           id: ids.toString(),
-          ssjg_dm: this.props.location.query.fyxzjg.id,
-          ssjg_mc: this.props.location.query.fyxzjg.label,
-          sf_qjjg: this.props.location.query.qjjg ? '1' : '0',
+          ssjg_dm: this.state.query.fyxzjg.id,
+          ssjg_mc: this.state.query.fyxzjg.label,
+          sf_qjjg: this.state.query.qjjg ? '1' : '0',
         },
         callback: res => {
           if (!res.error) {
@@ -229,7 +238,7 @@ export default class SuperviseCopy extends PureComponent {
     this.setState({ selectedKeys: [...sourceSelectedKeys, ...targetSelectedKeys] });
   };
     onEdit = (isReset) => {
-        let key = '/systemSetup/SuperviseSetup/Copy'+this.props.location.query.id;
+        let key = '/systemSetup/SuperviseSetup/Copy'+this.state.query.id;
         const { dispatch } = this.props;
         if (dispatch) {
             if(isReset){
@@ -274,7 +283,7 @@ export default class SuperviseCopy extends PureComponent {
                 <Form>
                   <Row gutter={rowLayout}>
                     <Col span={6}>
-                      <div style={{color:'#fff',margin:'16px'}}>机构：{this.props.location.query.fyxzjg.label}</div>
+                      <div style={{color:this.props.global&&this.props.global.dark ? '#fff' : '#4d4d4d',margin:'16px'}}>机构：{this.state.query.fyxzjg.label}</div>
                     </Col>
                     <Col span={9}>
                       <FormItem label="复用机构" {...modleLayouts}>
