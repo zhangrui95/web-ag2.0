@@ -6,4 +6,25 @@
   //background-color: @body-background!important;
   width:61px;
   margin-right: 0!important;
+  border-radius:0;
+}
+.btnFirst{
+  border-radius: 5px 0 0 5px!important;
+}
+.btnLast{
+  border-radius: 0 5px 5px 0!important;
+}
+.lightBox{
+  :global{
+    .ant-btn{
+      color: #4D4D4D;
+    }
+  }
+  .btnRadius{
+    border: 1px solid #ccc!important;
+    border-left: 0!important;
+  }
+  .btnFirst{
+    border-left: 1px solid #ccc!important;
+  }
 }

@@ -39,7 +39,7 @@
 }
 
 .tableListOperator {
-  background-color: @body-background;
+  //background-color: @body-background;
   margin-bottom: 48px;
 
   button {
@@ -222,9 +222,43 @@
 .empty {
   background: @body-background!important;
 }
+.downloadBtn{
+  color: #3285FF;
+  background:#171925;
+  border:1px solid #3285FF;
+  border-radius:5px
+}
 .searchForm {
   width: calc(~'100% - 260px');
   float: left;
   border-right: 1px solid @body-background;
   overflow: hidden;
+}
+.lightBox{
+  background-color: transparent;
+  .tableListForm {
+    background-color: #fff;
+  }
+  .listPageHeader {
+    background: #fff!important;
+    color: #E6E6E6;
+  }
+  .typeButtonsArea{
+    color: #475366!important;
+  }
+  .listPageHeaderCurrent{
+    color: #3D63D1!important;
+  }
+  .empty {
+    background: #EBEBEB!important;
+    color: #455365!important;
+  }
+  .searchForm {
+    border-right: 1px solid #DBDBDB!important;
+  }
+  .downloadBtn{
+    background: #4662D5;
+    color: #fff;
+    border:1px solid #4662D5;
+  }
 }

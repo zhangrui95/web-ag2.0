@@ -887,6 +887,7 @@ export default class Index extends PureComponent {
               setSelectedDep={this.setSelectedDep}
               treeDefaultExpandedKeys={treeDefaultExpandedKeys}
               hideDayButton
+              {...this.props}
             />
           </div>
           <CaseDataView

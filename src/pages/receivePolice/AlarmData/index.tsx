@@ -580,7 +580,7 @@ export default class Index extends PureComponent {
     const rowLayout = { md: 8, xl: 16, xxl: 24 };
     const colLayout = { sm: 24, md: 12, xl: 8 };
     return (
-        <Form onSubmit={this.handleSearch} style={{height: this.state.searchHeight ? 'auto' : '59px',}}>
+        <Form onSubmit={this.handleSearch} style={{height: this.state.searchHeight ? 'auto' : '50px',}}>
           <Row gutter={rowLayout} className={styles.searchForm}>
             <Col {...colLayout}>
               <FormItem label="接警来源" {...formItemLayout}>
@@ -810,12 +810,11 @@ export default class Index extends PureComponent {
     const { arrayDetail } = this.state;
     const { showDataView, typeButtons, selectedDeptVal, selectedDateVal, jjdw, cjdw, treeDefaultExpandedKeys } = this.state;
     const orgcodeVal = selectedDeptVal !== '' ? JSON.parse(selectedDeptVal).id : '';
-    // const jjdwVal = jjdw !== '' ? JSON.parse(jjdw).id : '';
-    // const cjdwVal = cjdw !== '' ? JSON.parse(cjdw).id : '';
+    let className = this.props.global&&this.props.global.dark ?styles.listPageWrap : styles.listPageWrap + ' '+styles.lightBox;
     return (
       <div className={this.props.location.query && this.props.location.query.id ? styles.onlyDetail : ''}>
 
-            <div className={styles.listPageWrap}>
+            <div className={className}>
               <div className={styles.listPageHeader}>
                 {
                   showDataView ? (
@@ -836,7 +835,7 @@ export default class Index extends PureComponent {
                   showDataView?
                     '':
                   <div style={{float:'right'}}>
-                    <Button style={{ color: '#3285FF',backgroundColor:'#171925',border:'1px solid #3285FF',borderRadius:'5px'}} icon="download" onClick={this.exportData}>导出表格</Button>
+                    <Button className={styles.downloadBtn} icon="download" onClick={this.exportData}>导出表格</Button>
                   </div>
                 }
 
@@ -854,6 +853,7 @@ export default class Index extends PureComponent {
                   setJjdw={this.setJjdw}
                   setCjdw={this.setCjdw}
                   treeDefaultExpandedKeys={treeDefaultExpandedKeys}
+                  {...this.props}
                 />
               </div>
               <PoliceDataView

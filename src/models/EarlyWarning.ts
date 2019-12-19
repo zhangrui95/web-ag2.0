@@ -17,7 +17,7 @@ export default {
         type: 'setList',
         payload: response && response.error === null ? response.data : [],
       });
-      if (callback && response && response.error === null) {
+      if (callback && response && response.error === null&& response.data) {
         callback(response.data);
       }
     },

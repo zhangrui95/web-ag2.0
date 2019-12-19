@@ -21,7 +21,7 @@ export default {
                 type: 'setPersonData',
                 payload: response && response.error === null ? response.data : [],
             });
-            if (callback && !response.error) {
+            if (callback && !response.error && response.data) {
                 callback(response.data);
             }
         },

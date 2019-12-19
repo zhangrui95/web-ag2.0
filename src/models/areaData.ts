@@ -55,7 +55,7 @@ export default {
         type: 'areaDetail',
         payload: response && response.error === null ? response.data : {},
       });
-      if (callback && response && !response.error) {
+      if (callback && response && !response.error&& response.data) {
         callback(response.data);
       }
     },
@@ -66,7 +66,7 @@ export default {
         type: 'ReturnProblemAid',
         payload: response && response.error === null ? response.data : {},
       });
-      if (callback && response && !response.error) {
+      if (callback && response && !response.error && response.data) {
         callback(response.data);
       }
     },
@@ -85,7 +85,7 @@ export default {
         type: 'changeLoading',
         payload: false,
       });
-      if (callback && response && !response.error) {
+      if (callback && response && !response.error && response.data) {
         callback(response.data);
       }
     },
@@ -104,7 +104,7 @@ export default {
         type: 'changeLoading',
         payload: false,
       });
-      if (callback && response && !response.error) {
+      if (callback && response && !response.error && response.data) {
         callback(response.data);
       }
     },
@@ -116,7 +116,7 @@ export default {
         // payload: response,
         payload: response && response.error === null ? response.data : {},
       });
-      if (callback && response && !response.error) {
+      if (callback && response && !response.error && response.data) {
         callback(response.data);
       }
     },
@@ -128,7 +128,7 @@ export default {
         // payload: response,
         payload: response && response.error === null ? response.data : {},
       });
-      if (callback && response && !response.error) {
+      if (callback && response && !response.error && response.data) {
         callback(response.data);
       }
     },
@@ -140,7 +140,7 @@ export default {
         // payload: response,
         payload: response && response.error === null ? response.data : {},
       });
-      if (callback && response && !response.error) {
+      if (callback && response && !response.error && response.data) {
         callback(response.data);
       }
     },
@@ -152,7 +152,7 @@ export default {
         // payload: response,
         payload: response && response.error === null ? response.data : {},
       });
-      if (callback && response && !response.error) {
+      if (callback && response && !response.error&& response.data) {
         callback(response.data);
       }
     },
@@ -164,7 +164,7 @@ export default {
         // payload: response,
         payload: response && response.error === null ? response.data : {},
       });
-      if (callback && response && !response.error) {
+      if (callback && response && !response.error&& response.data) {
         callback(response.data);
       }
     },
@@ -176,7 +176,7 @@ export default {
         // payload: response,
         payload: response && response.error === null ? response.data : {},
       });
-      if (callback && response && !response.error) {
+      if (callback && response && !response.error&& response.data) {
         callback(response.data);
       }
     },
@@ -188,7 +188,7 @@ export default {
         // payload: response,
         payload: response && response.error === null ? response.data : {},
       });
-      if (callback && response && !response.error) {
+      if (callback && response && !response.error && response.data) {
         callback(response.data);
       }
     },
@@ -200,7 +200,7 @@ export default {
         // payload: response,
         payload: response && response.error === null ? response.data : {},
       });
-      if (callback && response && !response.error) {
+      if (callback && response && !response.error && response.data) {
         callback(response.data);
       }
     },

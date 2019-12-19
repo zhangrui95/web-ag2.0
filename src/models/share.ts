@@ -29,7 +29,7 @@ export default {
     // 分享人员
     *sharePerson({ payload, callback }, { call, put }) {
       const response = yield call(getPerson, payload);
-      if (response) {
+      if (response&&response.result) {
         callback(response.result);
       }
     },
@@ -45,7 +45,7 @@ export default {
     // 日志
     *getRz({ payload, callback }, { call, put }) {
       const response = yield call(getRZ, payload);
-      if (response) {
+      if (response&&response.data) {
         callback(response.data);
       }
     },

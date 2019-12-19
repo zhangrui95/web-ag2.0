@@ -113,7 +113,6 @@
 
 .listPageRow {
   margin: 16px 16px 16px;
-
   .cardBox {
     //border: 1px solid #e8e8e8;
     border-top:0;
@@ -366,10 +365,37 @@
   color: @white;
   font-size: 16px;
 }
-.policeDataCard {
-  :global {
-    .ant-card-body {
-      background-color: @body-background;
+.lightBox{
+    :global{
+      .ant-card-body{
+        background-color:#ebebeb!important;
+      }
+    }
+  .listPageRow {
+    .cardBox {
+      background: #fff;
+    }
+  }
+  .cardBoxTitle{
+    background: #fff;
+    color: #4662D5;
+  }
+  .cardBox{
+    border: 1px solid #e6e6e6;
+    width: 96%;
+    margin-left: 2%;
+    box-shadow: 0 0 8px #eee;
+    border-radius: 6px;
+  }
+  .viewCount {
+    background: url("../../assets/viewData/Headerbg.png") no-repeat #fff!important;
+    border-radius: 10px;
+  }
+  .countButton {
+    background: #BFBFBF;
+
+    .countButtonTitle {
+      background: #cFcFcF;
     }
   }
 }

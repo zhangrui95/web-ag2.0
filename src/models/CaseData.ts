@@ -39,14 +39,14 @@ export default {
                 type: 'changeLoading',
                 payload: false,
             });
-            if (callback && response && !response.error) {
+            if (callback && response && !response.error&& response.data) {
                 callback(response.data);
             }
         },
         // 通过详情请求案件编号获取表格的退补信息
         * caseRetrieveFetch({ payload, callback }, { call, put }) {
             const response = yield call(caseDatas, payload);
-            if (callback && response && !response.error) {
+            if (callback && response && !response.error&& response.data) {
                 callback(response.data);
             }
         },
@@ -57,7 +57,7 @@ export default {
                 type: 'caseDetail',
                 payload: response && response.error === null ? response.data : {},
             });
-            if (callback && response && !response.error) {
+            if (callback && response && !response.error&& response.data) {
                 callback(response.data);
             }
 
@@ -69,7 +69,7 @@ export default {
                 type: 'CaseSupervise',
                 payload: response && response.error === null ? response.data : {},
             });
-            if (callback && response && !response.error) {
+            if (callback && response && !response.error&& response.data) {
                 callback(response.data);
             }
         },
@@ -80,7 +80,7 @@ export default {
                 type: 'setIntoAreaData',
                 payload: response && response.error === null ? response.data : {},
             });
-            if (callback && response && !response.error) {
+            if (callback && response && !response.error&& response.data) {
                 callback(response.data);
             }
         },
@@ -91,7 +91,7 @@ export default {
                 type: 'setAllCaseProgress',
                 payload: response && response.error === null ? response.data : {},
             });
-            if (callback && response && !response.error) {
+            if (callback && response && !response.error&& response.data) {
                 callback(response.data);
             }
         },
@@ -102,7 +102,7 @@ export default {
                 type: 'setEnforcementMeasure',
                 payload: response && response.error === null ? response.data : {},
             });
-            if (callback && response && !response.error) {
+            if (callback && response && !response.error&& response.data) {
                 callback(response.data);
             }
         },
@@ -113,14 +113,14 @@ export default {
                 type: 'setEnforcementMeasure',
                 payload: response && response.error === null ? response.data : {},
             });
-            if (callback && response && !response.error) {
+            if (callback && response && !response.error&& response.data) {
                 callback(response.data);
             }
         },
         // 获取刑事案件类别统计
         * getCaseTypeStatistics({ payload, callback }, { call, put }) {
             const response = yield call(getCaseTypeStatistics, payload);
-            if (callback && response && !response.error) {
+            if (callback && response && !response.error && response.data) {
                 callback(response.data);
             }
         },

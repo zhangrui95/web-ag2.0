@@ -42,7 +42,7 @@ export default {
                 type: 'caseDetail',
                 payload: response && response.error === null ? response.data : [],
             });
-            if (callback && response && !response.error) {
+            if (callback && response && !response.error&& response.data) {
                 callback(response.data);
             }
         },
@@ -53,7 +53,7 @@ export default {
                 type: 'setAllXzCaseProgress',
                 payload: response && response.error === null ? response.data : [],
             });
-            if (callback && response && !response.error) {
+            if (callback && response && !response.error&& response.data) {
                 callback(response.data);
             }
         },
@@ -64,7 +64,7 @@ export default {
                 type: 'setAllXzTypeCase',
                 payload: response && response.error === null ? response.data : [],
             });
-            if (callback && response && !response.error) {
+            if (callback && response && !response.error&& response.data) {
                 callback(response.data);
             }
         },
@@ -75,14 +75,14 @@ export default {
                 type: 'setAdministrativePenalty',
                 payload: response && response.error === null ? response.data : [],
             });
-            if (callback && response && !response.error) {
+            if (callback && response && !response.error&& response.data) {
                 callback(response.data);
             }
         },
         // 案件类型统计
         * getCaseTypeStatistics({ payload, callback }, { call, put }) {
             const response = yield call(getCaseTypeStatistics, payload);
-            if (callback && response && !response.error) {
+            if (callback && response && !response.error&& response.data) {
                 callback(response.data);
             }
         },

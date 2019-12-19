@@ -21,7 +21,7 @@ export default {
                 type: 'setMessagePushLogList',
                 payload: response && response.error === null ? response.data : [],
             });
-            if (callback && response && !response.error) {
+            if (callback && response && !response.error&& response.data) {
                 callback(response.data);
             }
 
