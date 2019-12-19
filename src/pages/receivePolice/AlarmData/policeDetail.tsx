@@ -88,6 +88,10 @@ export default class policeDetail extends PureComponent {
   };
 
   componentDidMount() {
+    let res = this.props.location.query.record;
+    if(typeof res == 'string'){
+      res = JSON.parse(sessionStorage.getItem('query')).query.record;
+    }
     if (this.props.location && this.props.location.query && this.props.location.query.id&&this.props.location.query.movefrom&&this.props.location.query.movefrom==='警情常规'){
       this.getDetail(this.props.location.query.id);
     }
@@ -140,7 +144,7 @@ export default class policeDetail extends PureComponent {
       this.props.dispatch(
         routerRedux.push({
           pathname: '/newcaseFiling/caseData/CriminalData/caseDetail',
-          query: { id: policeDetails && policeDetails.id ? policeDetails.id : '1', record: policeDetails },
+          query: { id: policeDetails && policeDetails.ajbh ? policeDetails.ajbh : '1', record: policeDetails },
         }),
       );
         // const divs = (

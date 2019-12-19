@@ -81,6 +81,10 @@ export default class itemDetail extends PureComponent {
     }
 
     componentDidMount() {
+      let res = this.props.location.query.record;
+      if(typeof res == 'string'){
+        res = JSON.parse(sessionStorage.getItem('query')).query.record;
+      }
       const { location } = this.props;
       // conosle.log('location',location);
       if (location && location.query && location.query.record && location.query.id) {
