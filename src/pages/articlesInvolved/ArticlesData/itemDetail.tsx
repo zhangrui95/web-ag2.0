@@ -36,14 +36,18 @@ import collect from '../../../assets/common/collect.png';
 import nocollect from '../../../assets/common/nocollect.png';
 import nophoto from '../../../assets/common/nophoto.png';
 import share from '../../../assets/common/share.png';
+import collect1 from '../../../assets/common/collect1.png';
+import nocollect1 from '../../../assets/common/nocollect1.png';
+import share1 from '../../../assets/common/share1.png';
 import { autoheight, getUserInfos, userResourceCodeDb } from '../../../utils/utils';
 import { authorityIsTrue } from '../../../utils/authority';
 import {routerRedux} from "dva/router";
+import nophotoLight from "@/assets/common/nophotoLight.png";
 
 const FormItem = Form.Item;
 
-@connect(({ itemData, loading, MySuperviseData, CaseData }) => ({
-    itemData, loading, MySuperviseData, CaseData,
+@connect(({ itemData, loading, MySuperviseData, CaseData,global }) => ({
+    itemData, loading, MySuperviseData, CaseData,global
     // loading: loading.models.alarmManagement,
 }))
 
@@ -338,8 +342,9 @@ export default class itemDetail extends PureComponent {
     Topdetail() {
         const { itemDetails, sfgz, isDb } = this.state;
         const { query:{record} } = this.props.location;
+        let dark = this.props.global&&this.props.global.dark;
         return (
-            <div style={{ backgroundColor: '#252C3C',margin: '16px 0' }}>
+            <div style={{ backgroundColor:  dark ? '#252C3C' : '#fff', margin: '16px 0' }}>
                 <Row gutter={{ md: 8, lg: 24, xl: 48 }}>
                     <Col md={8} sm={24}>
                         {/*<span style={{ margin: '16px', display: 'block' }}>涉案物品详情</span>*/}
@@ -350,23 +355,23 @@ export default class itemDetail extends PureComponent {
                       }
                     </Col>
                     <Col>
-                       <span style={{ float: 'right', margin: '6px 16px 6px 0',color:'#fff' }}>
+                       <span style={{ float: 'right', margin: '6px 16px 6px 0' }}>
                             {
                                 itemDetails ?
                                     <span>
                                       <span className={liststyles.collect}>
                                         {sfgz === 0 ?
                                           <Tooltip title="关注">
-                                            <img src={nocollect} width={25} height={25} style={{ marginLeft: 12 }} onClick={() => this.saveShare(itemDetails, record, 1, 0)}/>
+                                            <img src={dark ? nocollect : nocollect1} width={25} height={25} style={{ marginLeft: 12 }} onClick={() => this.saveShare(itemDetails, record, 1, 0)}/>
                                             <div style={{ fontSize: 12, textAlign: 'center', width: 48 }}>关注</div>
                                           </Tooltip> :
                                           <Tooltip title="取消关注">
-                                            <img src={collect} width={25} height={25} style={{ marginLeft: 12 }} onClick={() => this.noFollow(itemDetails)}/>
+                                            <img src={dark ? collect : collect1} width={25} height={25} style={{ marginLeft: 12 }} onClick={() => this.noFollow(itemDetails)}/>
                                             <div style={{ fontSize: 12, textAlign: 'center', width: 48 }}>取消关注</div>
                                           </Tooltip>}
                                       </span>
                                       <span className={liststyles.collect} onClick={() => this.saveShare(itemDetails, record, 2)}>
-                                        <Tooltip title="分享"><img src={share} style={{ marginLeft: 12 }} width={25} height={25}/></Tooltip>
+                                        <Tooltip title="分享"><img src={dark ? share : share1} style={{ marginLeft: 12 }} width={25} height={25}/></Tooltip>
                                         <div style={{ fontSize: 12, textAlign: 'center', width: 48 }}>分享</div>
                                       </span>
                                     </span>
@@ -383,8 +388,9 @@ export default class itemDetail extends PureComponent {
     renderDetail() {
         const { itemDetails,isDb } = this.state;
         const rowLayout = { md: 8, xl: 16, xxl: 24 };
+        let dark = this.props.global&&this.props.global.dark;
         return (
-            <div style={{ background: '#202839', /*height: autoheight() - 180 + 'px'*/ }} className={styles.detailBoxScroll}>
+            <div style={{ background:  dark ? '#202839' : '#fff', /*height: autoheight() - 180 + 'px'*/ }} className={styles.detailBoxScroll}>
               {itemDetails && itemDetails.system_id && itemDetails.ajlx ?
                 <div style={{ textAlign: 'center' }}>
                   <Button type='primary' onClick={() => this.openCaseDetail(itemDetails)}>查看关联案件</Button>
@@ -392,7 +398,7 @@ export default class itemDetail extends PureComponent {
                 :
                 ''
               }
-                <Card title="物品信息" className={styles.wpxxcard} bordered={false}>
+                <Card title="| 物品信息" className={styles.wpxxcard} bordered={false}>
                     <Row gutter={rowLayout} style={{ marginLeft: 0, marginRight: 0 }}>
                         <Col md={6} sm={24}>
                             <div>
@@ -401,13 +407,13 @@ export default class itemDetail extends PureComponent {
                                         {itemDetails.imageList.map(pane =>
                                             <div>
                                                 <img width='200'
-                                                     src={pane.imageurl ? pane.imageurl : nophoto}/>
+                                                     src={pane.imageurl ? pane.imageurl : dark ? nophoto : nophotoLight}/>
                                             </div>,
                                         )
                                         }
                                     </Carousel>
                                     :
-                                    <img width='200' src={nophoto} />
+                                    <img width='200' src={dark ? nophoto : nophotoLight} />
                                 }
                             </div>
                         </Col>
@@ -536,7 +542,7 @@ export default class itemDetail extends PureComponent {
                 {itemDetails && itemDetails.wpgjList && itemDetails.wpgjList.length > 0 ?
                   (window.configUrl.is_area === '5' ?
                       <div>
-                        <Card title="物品轨迹" className={liststyles.card} bordered={false}>
+                        <Card title="| 物品轨迹" className={liststyles.card} bordered={false}>
                           {itemDetails.wpgjList.map(wpgj =>
                             <Row gutter={8} style={{ marginBottom: '24px' }}>
                               <Col md={4} sm={24} style={{ paddingLeft: 36 }}>
@@ -560,7 +566,7 @@ export default class itemDetail extends PureComponent {
                       </div>
                       :
                       <div>
-                        <Card title="物品轨迹" className={liststyles.card} bordered={false}>
+                        <Card title="| 物品轨迹" className={liststyles.card} bordered={false}>
                           {itemDetails.wpgjList.map(wpgj =>
                             <Row gutter={8} style={{ marginBottom: '24px' }}>
                               <Col md={4} sm={24} style={{ paddingLeft: 36 }}>
@@ -590,6 +596,7 @@ export default class itemDetail extends PureComponent {
     }
 
     render() {
+        let dark = this.props.global&&this.props.global.dark;
         const { superviseVisibleModal, itemDetails } = this.state;
         let detail = (
             <Row style={{ width: '90%', margin: '0 38px 10px', lineHeight: '36px', color: 'rgba(0, 0, 0, 0.85)' }}>
@@ -605,7 +612,7 @@ export default class itemDetail extends PureComponent {
             </Row>
         );
         return (
-            <div>
+            <div className={dark?'':styles.lightBox}>
                 <div>
                     {this.Topdetail()}
                 </div>

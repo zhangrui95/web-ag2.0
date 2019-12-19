@@ -20,15 +20,20 @@ import { getDefaultDaysForMonth, getTimeDistance } from '../../utils/utils';
 import DataViewDateShow from '../Common/DataViewDateShow';
 import { MiniProgress, ChartCard } from 'ant-design-pro/lib/Charts';
 import nonDivImg from '../../assets/viewData/nonData.png';
+import {connect} from "dva";
+import noListLight from "@/assets/viewData/noListLight.png";
 
 let itemEchartpictorialBar;
 let itemEchartRingPie;
 let itemEchartwpqsBar;
 const colors1 = ['#0099FF', '#33CC00', '#FF3300', '#9933FF', '#33CBCC'];
-
+@connect(({ global }) => ({
+    global
+}))
 export default class ItemDataView extends PureComponent {
   state = {
     currentType: 'week',
+    type: 'now',
     ZkwpData: [],
     ZkwpTotal: '',
     showrkDataViewDJ: true, // 控制物品出入库情况登记状态选择；true为选中状态，false为未选中状态
@@ -48,9 +53,9 @@ export default class ItemDataView extends PureComponent {
   };
 
   componentDidMount() {
-    this.showCaseEchartBar();
-    this.showCaseEchartRingPie();
-    this.showCaseEchartwpqsBar();
+    this.showCaseEchartBar(this.props);
+    this.showCaseEchartRingPie(this.props);
+    this.showCaseEchartwpqsBar(this.props);
     window.addEventListener('resize', itemEchartpictorialBar.resize);
     window.addEventListener('resize', itemEchartRingPie.resize);
     window.addEventListener('resize', itemEchartwpqsBar.resize);
@@ -138,13 +143,19 @@ export default class ItemDataView extends PureComponent {
           );
         }
       }
+        if(this.props.global.dark !== nextProps.global.dark){
+            this.showCaseEchartBar(nextProps);
+            this.showCaseEchartRingPie(nextProps);
+            this.showCaseEchartwpqsBar(nextProps);
+            this.changeCountButtonCurrent(this.state.type);
+        }
     }
   }
 
   getTime = type => {
     const time = getTimeDistance(type);
-    const startTime = time[0] === '' ? '' : moment(time[0]).format('YYYY-MM-DD');
-    const endTime = time[1] === '' ? '' : moment(time[1]).format('YYYY-MM-DD');
+      const startTime = time&&time [0] ? moment(time[0]).format('YYYY-MM-DD') : '';
+      const endTime = time&&time[1] ? moment(time[1]).format('YYYY-MM-DD') : '';
     return [startTime, endTime];
   };
 
@@ -199,7 +210,7 @@ export default class ItemDataView extends PureComponent {
                     formatter: '物品总数\n\n' + count.toString(),
                   },
                   textStyle:{
-                    color:'#fff',
+                    color:this.props.global&&this.props.global.dark ? '#fff' : '#4d4d4d',
                   }
                 },
                 data: newData1,
@@ -520,6 +531,7 @@ export default class ItemDataView extends PureComponent {
       showrkDataViewYS: false,
       showrkDataViewCZ: false,
       showrkDataViewYCCK: false,
+        type,
     });
     this.getItemNumCount(weekTypeTime[0], weekTypeTime[1]);
     this.getItemCRKCount(weekTypeTime[0], weekTypeTime[1], '登记');
@@ -538,7 +550,7 @@ export default class ItemDataView extends PureComponent {
   };
 
   // 物品出入库情况柱状图
-  showCaseEchartBar = () => {
+  showCaseEchartBar = (nextProps) => {
     itemEchartpictorialBar = echarts.init(document.getElementById('wpcrkqk'));
     const option = {
       title: {
@@ -554,7 +566,7 @@ export default class ItemDataView extends PureComponent {
         axisLabel: {
           inside: false,
           textStyle: {
-            color: '#fff',
+            color: nextProps.global&&nextProps.global.dark ? '#fff' : '#4d4d4d',
           },
           // rotate: 10,
           interval: 0,
@@ -577,7 +589,7 @@ export default class ItemDataView extends PureComponent {
         },
         axisLabel: {
           textStyle: {
-            color: '#fff',
+            color: nextProps.global&&nextProps.global.dark ? '#fff' : '#4d4d4d',
           },
         },
       },
@@ -686,7 +698,7 @@ export default class ItemDataView extends PureComponent {
     }
   };
   // 物品趋势
-  showCaseEchartRingPie = () => {
+  showCaseEchartRingPie = (nextProps) => {
     itemEchartwpqsBar = echarts.init(document.getElementById('wpqs'));
     const option = {
       title: {
@@ -703,7 +715,7 @@ export default class ItemDataView extends PureComponent {
         // data:['邮件营销','联盟广告'],
         data: [],
         textStyle: {
-          color: '#fff',
+          color: nextProps.global&&nextProps.global.dark ? '#fff' : '#4d4d4d',
           fontSize: 16,
           // lineHeight: 24,
         },
@@ -721,7 +733,7 @@ export default class ItemDataView extends PureComponent {
         data: [],
         axisLabel: {
           textStyle: {
-            color: '#fff',
+            color:nextProps.global&&nextProps.global.dark ? '#fff' : '#4d4d4d',
           },
         },
       },
@@ -729,7 +741,7 @@ export default class ItemDataView extends PureComponent {
         type: 'value',
         axisLabel: {
           textStyle: {
-            color: '#fff',
+            color: nextProps.global&&nextProps.global.dark ? '#fff' : '#4d4d4d',
           },
         },
       },
@@ -764,7 +776,7 @@ export default class ItemDataView extends PureComponent {
     });
   };
   // 物品数量展示
-  showCaseEchartwpqsBar = () => {
+  showCaseEchartwpqsBar = (nextProps) => {
     itemEchartRingPie = echarts.init(document.getElementById('wpslzs'));
     const option = {
       title: {
@@ -789,7 +801,7 @@ export default class ItemDataView extends PureComponent {
         itemGap: 25,
         selectedMode: true, // 点击
         textStyle: {
-          color: '#fff',
+          color: nextProps.global&&nextProps.global.dark ? '#fff' : '#4d4d4d',
           fontSize: 16,
           lineHeight: 24,
         },
@@ -810,7 +822,7 @@ export default class ItemDataView extends PureComponent {
               textStyle: {
                 fontSize: '22',
                 // fontWeight: 'bold',
-                color: '#fff',
+                color: nextProps.global&&nextProps.global.dark ? '#fff' : '#4d4d4d',
               },
             },
             emphasis: {
@@ -854,8 +866,9 @@ export default class ItemDataView extends PureComponent {
       wpqsNoData,
       selectedDateData,
     } = this.state;
+    let className = this.props.global&&this.props.global.dark ?styles.policeDataCard : styles.policeDataCard + ' '+styles.lightBox;
     return (
-      <Card style={{ position: 'relative' }} className={styles.policeDataCard}>
+      <Card style={{ position: 'relative' }} className={className}>
         <div className={styles.ItemDataView} style={showDataView ? {} : { position: 'absolute', zIndex: -1 }}>
           {currentType !== 'selectedDate' ? (
             <div className={styles.viewCount}>
@@ -913,7 +926,7 @@ export default class ItemDataView extends PureComponent {
               </div>
             </div>
           )}
-          <div style={{ backgroundColor: '#252c3c', padding: '0 16px' }}>
+          <div style={{ backgroundColor: this.props.global&&this.props.global.dark ? '#252c3c' : '#fff', padding: '0 16px',borderRadius: 10 }}>
             <Row gutter={rowLayout} className={styles.listPageRow}>
               <Col {...colLayout}>
                 <div className={styles.cardBoxTitle}>| 物品数量展示</div>
@@ -921,7 +934,7 @@ export default class ItemDataView extends PureComponent {
               </Col>
               <Col {...colLayout}>
                 <div className={styles.cardBoxTitle}>| 在库物品数量展示</div>
-                <div className={styles.cardBoxzk} style={{ padding: '0 5px' }}>
+                <Card className={styles.cardBoxzk} style={{ padding: '0 5px' }}>
                   {ZkwpData.length > 0 ? (
                     <div>
                       <Row gutter={rowLayout}>
@@ -969,17 +982,17 @@ export default class ItemDataView extends PureComponent {
                           justifyContent: 'center',
                         }}
                       >
-                        <img src={nonDivImg} alt="暂无数据" />
-                        <div style={{ fontSize: 18,color:'#fff' }}>暂无数据</div>
+                        <img src={this.props.global&&this.props.global.dark ? nonDivImg : noListLight} height={200} alt="暂无数据" />
+                        <div style={{ fontSize: 18,color:this.props.global&&this.props.global.dark ? '#fff' : '#999', }}>暂无数据</div>
                       </div>
                     </div>
                   )}
-                </div>
+                </Card>
               </Col>
             </Row>
             <Row gutter={rowLayout} className={styles.listPageRow}>
               <Col {...colLayout1}>
-                <div className={styles.listPageWrap} style={{top:50}}>
+                <div className={styles.listPageWrap} style={{top:51,right:45}}>
                   <div className={styles.listPageHeader}>
                     {showrkDataViewDJ ? (
                       <a className={styles.listPageHeaderCurrent}>登记</a>
@@ -1047,8 +1060,8 @@ export default class ItemDataView extends PureComponent {
                       justifyContent: 'center',
                     }}
                   >
-                    <img src={nonDivImg} alt="暂无数据" />
-                    <div style={{ fontSize: 18,color:'#fff' }}>暂无数据</div>
+                    <img src={this.props.global&&this.props.global.dark ? nonDivImg : noListLight} alt="暂无数据" height={200}/>
+                    <div style={{ fontSize: 18,color:this.props.global&&this.props.global.dark ? '#fff' : '#999' }}>暂无数据</div>
                   </div>
                 </div>
               </Col>

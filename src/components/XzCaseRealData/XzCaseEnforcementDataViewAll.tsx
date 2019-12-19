@@ -30,7 +30,7 @@ const colors1 = ['#FF3200', '#009AFE'];
 export default class XzCaseEnforcementDataView extends PureComponent {
   state = {
     currentType: 'week',
-    type: 'week',
+    type: 'now',
     nowData: [0, 0],
     nowDataName: [],
     lastData: [0, 0],
@@ -679,7 +679,7 @@ export default class XzCaseEnforcementDataView extends PureComponent {
   // 案件类型统计柱状图
   showCaseTypeStatisticsBar = (nextProps) => {
     const that = this;
-    caseTypeStatisticsBar = echarts.init(document.getElementById('ajlxtj'));
+    caseTypeStatisticsBar = echarts.init(document.getElementById('ajlxtjXz'));
     const option = {
       color: ['#3398DB'],
       tooltip: {
@@ -920,7 +920,7 @@ export default class XzCaseEnforcementDataView extends PureComponent {
           <Row gutter={rowLayout} className={styles.listPageRow}>
             <Col span={24} style={{marginBottom:32}}>
               <div className={styles.cardBoxTitle}>| 案件类型统计</div>
-              <div id="ajlxtj" className={styles.cardBox}></div>
+              <div id="ajlxtjXz" className={styles.cardBox}></div>
             </Col>
           </Row>
         </div>

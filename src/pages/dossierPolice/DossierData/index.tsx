@@ -705,9 +705,10 @@ export default class Index extends PureComponent {
       showTotal: (total, range) =>
         <span className={styles.listPagination}>{`共 ${page ? page.totalPage : 1} 页， ${page ? page.totalResult : 0} 条记录 `}</span>,
     };
+      let className = this.props.global&&this.props.global.dark ?styles.listPageWrap : styles.listPageWrap + ' '+styles.lightBox;
     return (
       <div className={this.props.location.query && this.props.location.query.id ? styles.onlyDetail : ''}>
-            <div className={styles.listPageWrap}>
+            <div className={className}>
               <div className={styles.listPageHeader}>
                 {
                   showDataView ? (
@@ -729,13 +730,9 @@ export default class Index extends PureComponent {
                 ) : (
                   <div style={{ float: 'right' }}>
                     <Button
-                      style={{
-                        color: '#3285FF',
-                        backgroundColor: '#171925',
-                        border: '1px solid #3285FF',
-                        borderRadius: '5px',
-                      }}
-                      onClick={this.exportData}
+                        className={styles.downloadBtn}
+                        onClick={this.exportData}
+                        icon="download"
                     >
                       导出表格
                     </Button>
@@ -766,7 +763,7 @@ export default class Index extends PureComponent {
               />
               <div style={showDataView ? { display: 'none' } : { display: 'block' }}>
                 <div className={styles.tableListForm} id='jzsjtableListForm'>
-                  <Form onSubmit={this.handleSearch}  style={{ height: this.state.searchHeight ? 'auto' : '59px' }}>
+                  <Form onSubmit={this.handleSearch}  style={{ height: this.state.searchHeight ? 'auto' : '50px' }}>
                     <Row gutter={rowLayout} className={styles.searchForm}>
                       <Col {...colLayout}>
                         <FormItem label="案件类型" {...formItemLayout}>
