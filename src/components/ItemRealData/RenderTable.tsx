@@ -63,13 +63,13 @@ class RenderTable extends PureComponent {
     // this.props.newDetail(AddNewDetail);
   };
   saveShare = (res, type, ajGzLx) => {
-    // this.setState({
-    //   sx:
-    //     (res.ajmc ? res.ajmc + '、' : '') +
-    //     (res.wpmc ? res.wpmc + '、' : '') +
-    //     (res.zt ? res.zt : ''),
-    //   shareRecord: res,
-    // });
+    this.setState({
+      sx:
+        (res.ajmc ? res.ajmc + '、' : '') +
+        (res.wpmc ? res.wpmc + '、' : '') +
+        (res.zt ? res.zt : ''),
+      shareRecord: res,
+    });
     if (type === 2) {
       let detail=(
         <Row
@@ -151,7 +151,10 @@ class RenderTable extends PureComponent {
       this.props.dispatch(
         routerRedux.push({
           pathname: '/ModuleAll/Share',
-          query: { record: res,id: res && res.system_id ? res.system_id : '1',from:'物品信息',tzlx:'wpxx',fromPath:'/articlesInvolved/ArticlesData',detail,tab:'表格' },
+          query: { record: res,id: res && res.system_id ? res.system_id : '1',from:'物品信息',tzlx:'wpxx',fromPath:'/articlesInvolved/ArticlesData',detail,tab:'表格',sx:
+            (res.ajmc ? res.ajmc + '、' : '') +
+            (res.wpmc ? res.wpmc + '、' : '') +
+            (res.zt ? res.zt : ''), },
         }),
       )
       // this.setState({

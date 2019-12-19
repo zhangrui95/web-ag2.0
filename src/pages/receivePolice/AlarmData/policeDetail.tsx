@@ -232,7 +232,11 @@ export default class policeDetail extends PureComponent {
       this.props.dispatch(
         routerRedux.push({
           pathname: '/ModuleAll/Share',
-          query: { record: res,id: res && res.id ? res.id : '1',from:'警情信息',tzlx:'jqxx',fromPath:'/receivePolice/AlarmData/policeDetail',detail,tab:'详情' },
+          query: { record: res,id: res && res.id ? res.id : '1',from:'警情信息',tzlx:'jqxx',fromPath:'/receivePolice/AlarmData/policeDetail',detail,tab:'详情',sx:
+            (res.jjdw ? res.jjdw + '、' : '') +
+            (res.jjly_mc ? res.jjly_mc + '、' : '') +
+            (res.jqlb ? res.jqlb + '、' : '') +
+            (res.jjsj ? res.jjsj : ''), },
         }),
       )
       // this.setState({
@@ -244,7 +248,7 @@ export default class policeDetail extends PureComponent {
         this.props.dispatch({
           type: 'share/getMyFollow',
           payload: {
-            agid: this.props.tzlx === 'jqyj' ? this.props.yjid : policeDetails.id,
+            agid: this.props.location.query.tzlx === 'jqyj' ? this.props.yjid : policeDetails.id,
             lx: this.state.lx,
             sx:
               (res.jjdw ? res.jjdw + '、' : '') +
@@ -252,11 +256,11 @@ export default class policeDetail extends PureComponent {
               (res.jqlb ? res.jqlb + '、' : '') +
               (res.jjsj ? res.jjsj : ''),
             type: type,
-            tzlx: this.props.tzlx,
+            tzlx: this.props.location.query.tzlx,
             wtid: res.wtid,
             ajbh: res.ajbh,
             system_id:
-              this.props.tzlx === 'jqyj' || this.props.tzlx === 'jqxx'
+              this.props.location.query.tzlx === 'jqyj' || this.props.location.query.tzlx === 'jqxx'
                 ? policeDetails.id
                 : policeDetails.system_id,
             ajGzLx: ajGzLx,

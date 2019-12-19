@@ -103,10 +103,71 @@ class RenderTable extends PureComponent {
       shareRecord: res,
     });
     if (type === 2) {
-      this.setState({
-        shareVisible: true,
-        shareItem: res,
-      });
+      let detail = (
+        <Row
+          style={{
+            lineHeight:'55px',
+            paddingLeft:66,
+          }}
+        >
+          <Col span={12}>
+            案件名称：
+            <Tooltip
+              title={
+                this.state.shareRecord &&
+                this.state.shareRecord.ajmc &&
+                this.state.shareRecord.ajmc.length > 20
+                  ? this.state.shareRecord.ajmc
+                  : null
+              }
+            >
+              {this.state.shareRecord && this.state.shareRecord.ajmc
+                ? this.state.shareRecord.ajmc.length > 20
+                  ? this.state.shareRecord.ajmc.substring(0, 20) + '...'
+                  : this.state.shareRecord.ajmc
+                : ''}
+            </Tooltip>
+          </Col>
+          <Col span={12}>
+            受理单位：
+            <Tooltip
+              title={
+                this.state.shareRecord &&
+                this.state.shareRecord.sldwName &&
+                this.state.shareRecord.sldwName.length > 20
+                  ? this.state.shareRecord.sldwName
+                  : null
+              }
+            >
+              {this.state.shareRecord && this.state.shareRecord.sldwName
+                ? this.state.shareRecord.sldwName.length > 20
+                  ? this.state.shareRecord.sldwName.substring(0, 20) + '...'
+                  : this.state.shareRecord.sldwName
+                : ''}
+            </Tooltip>
+          </Col>
+          <Col span={12}>
+            案件状态：
+            {this.state.shareRecord && this.state.shareRecord.ajzt ? this.state.shareRecord.ajzt : ''}
+          </Col>
+          <Col span={12}>
+            办案民警：
+            {this.state.shareRecord && this.state.shareRecord.barxm
+              ? this.state.shareRecord.barxm
+              : ''}
+          </Col>
+        </Row>
+      );
+      this.props.dispatch(
+        routerRedux.push({
+          pathname: '/ModuleAll/Share',
+          query: { record: res,id: res && res.system_id ? res.system_id : '1',from:'案件信息',tzlx:'xzajxx2',fromPath:'/newcaseFiling/caseData/AdministrationData',detail,tab:'表格',sx: (res.ajmc ? res.ajmc + '、' : '') + (res.ajzt ? res.ajzt : ''), },
+        }),
+      )
+      // this.setState({
+      //   shareVisible: true,
+      //   shareItem: res,
+      // });
     } else {
       this.props.dispatch({
         type: 'share/getMyFollow',
@@ -271,6 +332,7 @@ class RenderTable extends PureComponent {
                     </Menu>
                   }
                   trigger={['click']}
+                  getPopupContainer={() => document.getElementById('xzajcardArea')}
                 >
                   <a href="javascript:;">关注</a>
                 </Dropdown>
@@ -314,65 +376,9 @@ class RenderTable extends PureComponent {
         } 条数据 `}</span>
       ),
     };
-    let detail = (
-      <Row
-        style={{
-          width: '90%',
-          margin: '0 38px 10px',
-          lineHeight: '36px',
-          color: 'rgba(0, 0, 0, 0.85)',
-        }}
-      >
-        <Col span={12}>
-          案件名称：
-          <Tooltip
-            title={
-              this.state.shareRecord &&
-              this.state.shareRecord.ajmc &&
-              this.state.shareRecord.ajmc.length > 20
-                ? this.state.shareRecord.ajmc
-                : null
-            }
-          >
-            {this.state.shareRecord && this.state.shareRecord.ajmc
-              ? this.state.shareRecord.ajmc.length > 20
-                ? this.state.shareRecord.ajmc.substring(0, 20) + '...'
-                : this.state.shareRecord.ajmc
-              : ''}
-          </Tooltip>
-        </Col>
-        <Col span={12}>
-          受理单位：
-          <Tooltip
-            title={
-              this.state.shareRecord &&
-              this.state.shareRecord.sldwName &&
-              this.state.shareRecord.sldwName.length > 20
-                ? this.state.shareRecord.sldwName
-                : null
-            }
-          >
-            {this.state.shareRecord && this.state.shareRecord.sldwName
-              ? this.state.shareRecord.sldwName.length > 20
-                ? this.state.shareRecord.sldwName.substring(0, 20) + '...'
-                : this.state.shareRecord.sldwName
-              : ''}
-          </Tooltip>
-        </Col>
-        <Col span={12}>
-          案件状态：
-          {this.state.shareRecord && this.state.shareRecord.ajzt ? this.state.shareRecord.ajzt : ''}
-        </Col>
-        <Col span={12}>
-          办案民警：
-          {this.state.shareRecord && this.state.shareRecord.barxm
-            ? this.state.shareRecord.barxm
-            : ''}
-        </Col>
-      </Row>
-    );
+
     return (
-      <Card className={stylescommon.cardArea}>
+      <Card className={stylescommon.cardArea} id='xzajcardArea'>
         <Table
           loading={loading}
           rowKey={record => record.key}

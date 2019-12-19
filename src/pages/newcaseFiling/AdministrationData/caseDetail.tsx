@@ -34,6 +34,7 @@ import CaseModalStep from '../../../components/Common/CaseModalStep';
 import { authorityIsTrue } from '../../../utils/authority';
 import noList from "@/assets/viewData/noList.png";
 import noListLight from "@/assets/viewData/noListLight.png";
+import {routerRedux} from "dva/router";
 // import MakeTableModal from '../../../components/CaseRealData/MakeTableModal';
 
 @connect(({ XzCaseData, loading, CaseData, AllDetail,global }) => ({
@@ -77,7 +78,7 @@ export default class caseDetail extends PureComponent {
       personList: [],
       lx: '案件信息',
       sx: '',
-      sfgz: this.props.sfgz,
+      sfgz: props.location&&props.location.query&&props.location.query.record&&props.location.query.record.sfgz===0?props.location.query.record.sfgz:'',
 
       policevisible: false,
       resvisible: false,
@@ -169,17 +170,27 @@ export default class caseDetail extends PureComponent {
   };
   // 问题判定
   onceSupervise = (caseDetails, flag, from) => {
-    this.setState({
-      // systemId: caseDetails.system_id,
-      superviseVisibleModal: !!flag,
-      superviseWtlx: caseDetails.wtlx,
-      // superviseZrdw: caseDetails.sldw_name,
-      // superviseZrdwId: caseDetails.sldw_dm,
-      // superviseZrr: caseDetails.bar_name,
-      // id: caseDetails.wtid,
-      // sfzh: caseDetails.bar_sfzh,
-      from: from,
-    });
+    if (caseDetails) {
+      this.props.dispatch(
+        routerRedux.push({
+          pathname: '/ModuleAll/Supervise',
+          query: { record: caseDetails,id: caseDetails && caseDetails.id ? caseDetails.id : '1',from:'行政案件详情问题判定',fromPath:'/newcaseFiling/caseData/AdministrationData/caseDetail',wtflId:'230202',wtflMc:'案件' },
+        }),
+      )
+      // this.setState({
+      //   // systemId: caseDetails.system_id,
+      //   superviseVisibleModal: !!flag,
+      //   superviseWtlx: caseDetails.wtlx,
+      //   // superviseZrdw: caseDetails.sldw_name,
+      //   // superviseZrdwId: caseDetails.sldw_dm,
+      //   // superviseZrr: caseDetails.bar_name,
+      //   // id: caseDetails.wtid,
+      //   // sfzh: caseDetails.bar_sfzh,
+      //   from: from,
+      // });
+    } else {
+      message.info('该案件无法进行问题判定');
+    }
   };
   // 关闭督办模态框
   closeModal = (flag, param) => {
@@ -204,10 +215,60 @@ export default class caseDetail extends PureComponent {
         (caseDetails.ajzt ? caseDetails.ajzt : ''),
     });
     if (type === 2) {
-      this.setState({
-        shareVisible: true,
-        shareItem: res,
-      });
+      let detail = (
+        <Row
+          style={{
+            lineHeight:'55px',paddingLeft:66,
+          }}
+        >
+          <Col span={12}>
+            案件名称：
+            <Tooltip
+              title={
+                caseDetails && caseDetails.ajmc && caseDetails.ajmc.length > 20
+                  ? caseDetails.ajmc
+                  : null
+              }
+            >
+              {caseDetails && caseDetails.ajmc
+                ? caseDetails.ajmc.length > 20
+                  ? caseDetails.ajmc.substring(0, 20) + '...'
+                  : caseDetails.ajmc
+                : ''}
+            </Tooltip>
+          </Col>
+          <Col span={12}>
+            受理单位：
+            <Tooltip
+              title={
+                caseDetails && caseDetails.sldw_name && caseDetails.sldw_name.length > 20
+                  ? caseDetails.sldw_name
+                  : null
+              }
+            >
+              {caseDetails && caseDetails.sldw_name
+                ? caseDetails.sldw_name.length > 20
+                  ? caseDetails.sldw_name.substring(0, 20) + '...'
+                  : caseDetails.sldw_name
+                : ''}
+            </Tooltip>
+          </Col>
+          <Col span={12}>案件状态：{caseDetails && caseDetails.ajzt ? caseDetails.ajzt : ''}</Col>
+          <Col span={12}>
+            办案民警：{caseDetails && caseDetails.bar_name ? caseDetails.bar_name : ''}
+          </Col>
+        </Row>
+      );
+      this.props.dispatch(
+        routerRedux.push({
+          pathname: '/ModuleAll/Share',
+          query: { record: res,id: res && res.system_id ? res.system_id : '1',from:'案件信息',tzlx:'xzajxx2',fromPath:'/newcaseFiling/caseData/AdministrationData/caseDetail',detail,tab:'详情',sx:(caseDetails.ajmc ? caseDetails.ajmc + '、' : '') + (caseDetails.ajzt ? caseDetails.ajzt : '') },
+        }),
+      )
+      // this.setState({
+      //   shareVisible: true,
+      //   shareItem: res,
+      // });
     } else {
       if (this.state.IsSure) {
         this.props.dispatch({
@@ -219,7 +280,7 @@ export default class caseDetail extends PureComponent {
               (caseDetails.ajmc ? caseDetails.ajmc + '、' : '') +
               (caseDetails.ajzt ? caseDetails.ajzt : ''),
             type: type,
-            tzlx: this.props.tzlx,
+            tzlx: this.props.locaton&&this.props.locaton.query&&this.props.locaton.query.tzlx?this.props.locaton.query.tzlx:'',
             wtid: caseDetails.wtid,
             ajbh: caseDetails.ajbh,
             system_id: caseDetails.system_id,
@@ -285,9 +346,15 @@ export default class caseDetail extends PureComponent {
   };
   // 制表
   makeTable = (record, flag) => {
-    this.setState({
-      makeTableModalVisible: !!flag,
-    });
+    this.props.dispatch(
+      routerRedux.push({
+        pathname: '/Tabulation/Make',
+        query: { id: record && record.ajbh ? record.ajbh : '1', record: record },
+      }),
+    );
+    // this.setState({
+    //   makeTableModalVisible: !!flag,
+    // });
   };
   // 关闭制表modal
   MakeTableCancel = () => {
@@ -397,7 +464,13 @@ export default class caseDetail extends PureComponent {
   }
 
   // 根据物品ID打开物品详细窗口
-  openItemsDetail = system_id => {
+  openItemsDetail = record => {
+    this.props.dispatch(
+      routerRedux.push({
+        pathname: '/articlesInvolved/ArticlesData/itemDetail',
+        query: { record: record,id: record && record.system_id ? record.system_id : '1' },
+      }),
+    )
     // const divs = (
     //     <div>
     //         <ItemDetail
@@ -410,7 +483,13 @@ export default class caseDetail extends PureComponent {
     // this.props.newDetail(AddNewDetail);
   };
 
-  jqDetail = id => {
+  jqDetail = record => {
+    this.props.dispatch(
+      routerRedux.push({
+        pathname: '/receivePolice/AlarmData/policeDetail',
+        query: { record: record,id: record && record.id ? record.id : '1',movefrom:'警情常规' },
+      }),
+    )
     // const divs = (
     //     <div>
     //         <JqDetail
@@ -423,8 +502,14 @@ export default class caseDetail extends PureComponent {
     // this.props.newDetail(AddJqDetail);
   };
   // 点击案件轨迹人员的在区情况
-  IntoArea = (sfzh, ajbh) => {
-    if (sfzh && ajbh) {
+  IntoArea = (record) => {
+    if (record) {
+      this.props.dispatch(
+        routerRedux.push({
+          pathname: '/ModuleAll/IntoArea',
+          query: { record: record,id: record && record.id ? record.id : '1',movefrom:'警情常规' },
+        }),
+      )
       // const divs = (
       //     <div>
       //         <PersonIntoArea
@@ -442,7 +527,7 @@ export default class caseDetail extends PureComponent {
   };
   seePolice = (flag, list) => {
     if (list.length === 1) {
-      this.jqDetail(list[0].id);
+      this.jqDetail(list[0]);
     } else {
       this.setState({
         policevisible: !!flag,
@@ -458,7 +543,7 @@ export default class caseDetail extends PureComponent {
 
   seeRes = (flag, list) => {
     if (list.length === 1) {
-      this.openItemsDetail(list[0].system_id);
+      this.openItemsDetail(list[0]);
     } else {
       this.setState({
         resvisible: !!flag,
@@ -474,7 +559,7 @@ export default class caseDetail extends PureComponent {
 
   seeArea = (flag, list) => {
     if (list.length === 1) {
-      this.IntoArea(list[0].sfzh, list[0].ajbh);
+      this.IntoArea(list[0]);
     } else {
       this.setState({
         areavisible: !!flag,
@@ -489,7 +574,7 @@ export default class caseDetail extends PureComponent {
   };
   seeDossier = (flag, list) => {
     if (list.length === 1) {
-      this.IntoDossierDetail(list[0].dossier_id);
+      this.IntoDossierDetail(list[0]);
     } else {
       this.setState({
         Dossiervisible: !!flag,
@@ -502,7 +587,13 @@ export default class caseDetail extends PureComponent {
       Dossiervisible: false,
     });
   };
-  IntoDossierDetail = id => {
+  IntoDossierDetail = record => {
+    this.props.dispatch(
+      routerRedux.push({
+        pathname: '/dossierPolice/DossierData/DossierDetail',
+        query: { record: record, id: record && record.dossier_id ? record.dossier_id : '1' },
+      }),
+    );
     // const divs = (
     //     <div>
     //         <DossierDetail
@@ -703,10 +794,463 @@ export default class caseDetail extends PureComponent {
 
   render() {
     let dark = this.props.global&&this.props.global.dark;
+    const {
+      superviseVisibleModal,
+      caseDetails,
+      policevisible,
+      resvisible,
+      areavisible,
+      Dossiervisible,
+      makeTableModalVisible,
+    } = this.state;
+    const JqColumns = [
+      {
+        title: '接警来源',
+        dataIndex: 'jjly_mc',
+        render: text => {
+          return text ? (
+            <Ellipsis length={10} tooltip>
+              {text}
+            </Ellipsis>
+          ) : (
+            ''
+          );
+        },
+      },
+      {
+        title: '接警时间',
+        dataIndex: 'jjsj',
+        render: text => {
+          return text ? (
+            <Ellipsis length={20} tooltip>
+              {text}
+            </Ellipsis>
+          ) : (
+            ''
+          );
+        },
+      },
+      {
+        title: '管辖单位',
+        dataIndex: 'jjdw',
+        render: text => {
+          if (text) {
+            let str = '';
+            const strArry = text.split(',');
+            if (strArry.length > 0) {
+              str = strArry[strArry.length - 1];
+              return (
+                <Ellipsis length={20} tooltip>
+                  {str}
+                </Ellipsis>
+              );
+            }
+            return str;
+          }
+          return '';
+          // return(
+          //   text.split(',')[record.split(',').length-1] && record.split(',')[record.split(',').length-1].length <= 20 ? record.split(',')[record.split(',').length-1] :
+          //     <Tooltip title={record.split(',')[record.split(',').length-1]}>
+          //       <span>{record.split(',')[record.split(',').length-1] && record.split(',')[record.split(',').length-1].substring(0, 20) + '...'}</span>
+          //     </Tooltip>
+          // )
+        },
+      },
+      {
+        title: '操作',
+        width: 50,
+        render: record => (
+          <div>
+            <a onClick={() => this.jqDetail(record.id)}>详情</a>
+          </div>
+        ),
+      },
+    ];
+    const WpColumns = [
+      {
+        title: '物品名称',
+        dataIndex: 'wpmc',
+        render: text => {
+          return text ? (
+            <Ellipsis length={10} tooltip>
+              {text}
+            </Ellipsis>
+          ) : (
+            ''
+          );
+        },
+      },
+      {
+        title: '物品种类',
+        dataIndex: 'wpzlMc',
+        render: text => {
+          return text ? (
+            <Ellipsis length={20} tooltip>
+              {text}
+            </Ellipsis>
+          ) : (
+            ''
+          );
+        },
+      },
+      {
+        title: '操作',
+        width: 50,
+        render: record => (
+          <div>
+            <a onClick={() => this.openItemsDetail(record.system_id)}>查看</a>
+          </div>
+        ),
+      },
+    ];
+    const AreaColumns = [
+      {
+        title: '姓名',
+        dataIndex: 'xyrName',
+        render: text => {
+          return text ? (
+            <Ellipsis length={10} tooltip>
+              {text}
+            </Ellipsis>
+          ) : (
+            ''
+          );
+        },
+      },
+      {
+        title: '性别',
+        dataIndex: 'sex',
+        render: text => {
+          return text ? (
+            <Ellipsis length={20} tooltip>
+              {text}
+            </Ellipsis>
+          ) : (
+            ''
+          );
+        },
+      },
+      {
+        title: '证件号',
+        dataIndex: 'sfzh',
+        render: text => {
+          if (text) {
+            let str = '';
+            const strArry = text.split(',');
+            if (strArry.length > 0) {
+              str = strArry[strArry.length - 1];
+              return (
+                <Ellipsis length={20} tooltip>
+                  {str}
+                </Ellipsis>
+              );
+            }
+            return str;
+          }
+          return '';
+          // return(
+          //   text.split(',')[record.split(',').length-1] && record.split(',')[record.split(',').length-1].length <= 20 ? record.split(',')[record.split(',').length-1] :
+          //     <Tooltip title={record.split(',')[record.split(',').length-1]}>
+          //       <span>{record.split(',')[record.split(',').length-1] && record.split(',')[record.split(',').length-1].substring(0, 20) + '...'}</span>
+          //     </Tooltip>
+          // )
+        },
+      },
+      {
+        title: '操作',
+        width: 50,
+        render: record => (
+          <div>
+            <a onClick={() => this.IntoArea(record.sfzh, record.ajbh)}>详情</a>
+          </div>
+        ),
+      },
+    ];
+    const DossierColumns = [
+      {
+        title: '卷宗名称',
+        dataIndex: 'jzmc',
+        render: text => {
+          return text ? (
+            <Ellipsis length={16} tooltip>
+              {text}
+            </Ellipsis>
+          ) : (
+            ''
+          );
+        },
+      },
+      {
+        title: '卷宗类别',
+        dataIndex: 'jzlb_mc',
+        render: text => {
+          return text ? (
+            <Ellipsis length={10} tooltip>
+              {text}
+            </Ellipsis>
+          ) : (
+            ''
+          );
+        },
+      },
+      {
+        title: '储存状态',
+        dataIndex: 'cczt_mc',
+        render: text => {
+          return text ? (
+            <Ellipsis length={10} tooltip>
+              {text}
+            </Ellipsis>
+          ) : (
+            ''
+          );
+        },
+      },
+      {
+        title: '卷宗页数',
+        dataIndex: 'jzys',
+        render: text => {
+          return text ? (
+            <Ellipsis length={10} tooltip>
+              {text}
+            </Ellipsis>
+          ) : (
+            ''
+          );
+        },
+      },
+      {
+        title: '电子化',
+        dataIndex: 'is_gldzj',
+        render: text => {
+          return text ? (
+            <Ellipsis length={10} tooltip>
+              {text}
+            </Ellipsis>
+          ) : (
+            ''
+          );
+        },
+      },
+      {
+        title: '操作',
+        width: 50,
+        render: record => (
+          <div>
+            <a onClick={() => this.IntoDossierDetail(record.dossier_id)}>详情</a>
+          </div>
+        ),
+      },
+    ];
+    let detail = (
+      <Row
+        style={{
+          width: '90%',
+          margin: '0 38px 10px',
+          lineHeight: '36px',
+          color: 'rgba(0, 0, 0, 0.85)',
+        }}
+      >
+        <Col span={12}>
+          案件名称：
+          <Tooltip
+            title={
+              caseDetails && caseDetails.ajmc && caseDetails.ajmc.length > 20
+                ? caseDetails.ajmc
+                : null
+            }
+          >
+            {caseDetails && caseDetails.ajmc
+              ? caseDetails.ajmc.length > 20
+                ? caseDetails.ajmc.substring(0, 20) + '...'
+                : caseDetails.ajmc
+              : ''}
+          </Tooltip>
+        </Col>
+        <Col span={12}>
+          受理单位：
+          <Tooltip
+            title={
+              caseDetails && caseDetails.sldw_name && caseDetails.sldw_name.length > 20
+                ? caseDetails.sldw_name
+                : null
+            }
+          >
+            {caseDetails && caseDetails.sldw_name
+              ? caseDetails.sldw_name.length > 20
+                ? caseDetails.sldw_name.substring(0, 20) + '...'
+                : caseDetails.sldw_name
+              : ''}
+          </Tooltip>
+        </Col>
+        <Col span={12}>案件状态：{caseDetails && caseDetails.ajzt ? caseDetails.ajzt : ''}</Col>
+        <Col span={12}>
+          办案民警：{caseDetails && caseDetails.bar_name ? caseDetails.bar_name : ''}
+        </Col>
+      </Row>
+    );
     return (
       <div id="caseDetail" className={dark?'':styles.lightBox}>
         <div>{this.Topdetail()}</div>
         <div>{this.renderDetail()}</div>
+
+        {/*{superviseVisibleModal ?*/}
+        {/*<SuperviseModal*/}
+        {/*{...this.props}*/}
+        {/*visible={superviseVisibleModal}*/}
+        {/*closeModal={this.closeModal}*/}
+        {/*// saveModal={this.saveModal}*/}
+        {/*caseDetails={this.state.caseDetails}*/}
+        {/*getRefresh={this.Refresh}*/}
+        {/*wtflId='203205'*/}
+        {/*wtflMc='行政案件'*/}
+        {/*// 点击列表的督办显示的四个基本信息*/}
+        {/*wtlx={this.state.superviseWtlx}*/}
+        {/*from={this.state.from}*/}
+        {/*/>*/}
+        {/*: ''*/}
+        {/*}*/}
+        <ShareModal
+          detail={detail}
+          shareVisible={this.state.shareVisible}
+          handleCancel={this.handleCancel}
+          shareItem={this.state.shareItem}
+          personList={this.state.personList}
+          lx={this.state.lx}
+          tzlx={this.props.tzlx}
+          sx={this.state.sx}
+        />
+
+        <Modal
+          visible={policevisible}
+          title="警情信息"
+          centered
+          className={styles.policeModal}
+          width={1000}
+          maskClosable={false}
+          onCancel={this.policeCancel}
+          footer={null}
+          getContainer={() => document.getElementById('caseDetail')}
+        >
+          <Table
+            size={'middle'}
+            style={{ backgroundColor: '#fff' }}
+            pagination={{
+              pageSize: 3,
+              showTotal: (total, range) => (
+                <div style={{ position: 'absolute', left: '12px' }}>
+                  共 {total} 条记录 第 {this.state.jqcurrent} / {Math.ceil(total / 3)} 页
+                </div>
+              ),
+              onChange: page => {
+                this.setState({ jqcurrent: page });
+              },
+            }}
+            dataSource={caseDetails ? caseDetails.jqxxList : []}
+            columns={JqColumns}
+            locale={{ emptyText: <Empty image={noList} description={'暂无数据'} /> }}
+          />
+        </Modal>
+        <Modal
+          visible={resvisible}
+          title="涉案物品信息"
+          centered
+          className={styles.policeModal}
+          width={1000}
+          maskClosable={false}
+          onCancel={this.ResCancel}
+          footer={null}
+          getContainer={() => document.getElementById('caseDetail')}
+        >
+          <Table
+            size={'middle'}
+            style={{ backgroundColor: '#fff' }}
+            pagination={{
+              pageSize: 3,
+              showTotal: (total, range) => (
+                <div style={{ position: 'absolute', left: '12px' }}>
+                  共 {total} 条记录 第 {this.state.wpcurrent} / {Math.ceil(total / 3)} 页
+                </div>
+              ),
+              onChange: page => {
+                this.setState({ wpcurrent: page });
+              },
+            }}
+            dataSource={caseDetails ? caseDetails.sawpList : []}
+            columns={WpColumns}
+            locale={{ emptyText: <Empty image={noList} description={'暂无数据'} /> }}
+          />
+        </Modal>
+        <Modal
+          visible={areavisible}
+          title="选择查看人员在区情况"
+          centered
+          className={styles.policeModal}
+          width={1000}
+          maskClosable={false}
+          onCancel={this.AreaCancel}
+          footer={null}
+          getContainer={() => document.getElementById('caseDetail')}
+        >
+          <Table
+            size={'middle'}
+            style={{ backgroundColor: '#fff' }}
+            pagination={{
+              pageSize: 3,
+              showTotal: (total, range) => (
+                <div style={{ position: 'absolute', left: '12px' }}>
+                  共 {total} 条记录 第 {this.state.areacurrent} / {Math.ceil(total / 3)} 页
+                </div>
+              ),
+              onChange: page => {
+                this.setState({ areacurrent: page });
+              },
+            }}
+            dataSource={caseDetails ? caseDetails.rqxyrList : []}
+            columns={AreaColumns}
+            locale={{ emptyText: <Empty image={noList} description={'暂无数据'} /> }}
+          />
+        </Modal>
+        <Modal
+          visible={Dossiervisible}
+          title="选择查看卷宗"
+          centered
+          className={styles.policeModal}
+          width={1000}
+          maskClosable={false}
+          onCancel={this.DossierCancel}
+          footer={null}
+          getContainer={() => document.getElementById('caseDetail')}
+        >
+          <Table
+            size={'middle'}
+            style={{ backgroundColor: '#fff' }}
+            pagination={{
+              pageSize: 3,
+              showTotal: (total, range) => (
+                <div style={{ position: 'absolute', left: '12px' }}>
+                  共 {total} 条记录 第 {this.state.dossiercurrent} / {Math.ceil(total / 3)} 页
+                </div>
+              ),
+              onChange: page => {
+                this.setState({ dossiercurrent: page });
+              },
+            }}
+            dataSource={caseDetails ? caseDetails.jzList : []}
+            columns={DossierColumns}
+            locale={{ emptyText: <Empty image={noList} description={'暂无数据'} /> }}
+          />
+        </Modal>
+        {/*{*/}
+        {/*makeTableModalVisible ? (*/}
+        {/*<MakeTableModal*/}
+        {/*title='表格选择'*/}
+        {/*makeTableModalVisible={makeTableModalVisible}*/}
+        {/*MakeTableCancel={this.MakeTableCancel}*/}
+        {/*caseRecord={this.state.caseDetails}*/}
+        {/*/>*/}
+        {/*) : null*/}
+        {/*}*/}
       </div>
     );
   }

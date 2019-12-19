@@ -36,6 +36,7 @@ import { authorityIsTrue } from '../../../utils/authority';
 import SupervisionLog from '../../../components/Common/SupervisionLog';
 import Ellipsis from 'ant-design-pro/lib/Ellipsis';
 import noList from "@/assets/viewData/noList.png";
+import {routerRedux} from "dva/router";
 
 const FormItem = Form.Item;
 // const { Description } = DescriptionList;
@@ -122,16 +123,12 @@ export default class uncaseDetail extends PureComponent {
           data.list[0].dbzt === '00' ||
           (data.list[0].dbzt === '30' && data.list[0].fkzt === '1')
         ) {
-          this.setState({
-            superviseVisibleModal: !!flag,
-            superviseWtlx: wtlx,
-            superviseZrdw: bardwmc,
-            superviseZrdwId: bardw,
-            superviseZrr: barxm,
-            id: wtid,
-            sfzh: barzjhm,
-            sabar,
-          });
+          this.props.dispatch(
+            routerRedux.push({
+              pathname: '/ModuleAll/Supervise',
+              query: { record:unCaseDetailData,id: unCaseDetailData && unCaseDetailData.wtid ? unCaseDetailData.wtid : '1',from:'案件信息',tzlx:'xsajwt',fromPath:'/newcaseFiling/casePolice/CriminalPolice/uncaseDetail',tab:'详情'},
+            }),
+          )
         } else {
           this.setState({
             dbzt: data.list[0].dbzt,
@@ -157,9 +154,15 @@ export default class uncaseDetail extends PureComponent {
       },
       callback: data => {
         if (data.list[0].fkzt !== '1') {
-          this.setState({
-            feedbackVisibleModal: !!flag,
-          });
+          this.props.dispatch(
+            routerRedux.push({
+              pathname: '/ModuleAll/FeedBack',
+              query: { record:unCaseDetailData,id: unCaseDetailData && unCaseDetailData.wtid ? unCaseDetailData.wtid : '1',from:'案件信息',tzlx:'xsajwt',fromPath:'/newcaseFiling/casePolice/CriminalPolice/uncaseDetail',tab:'详情'},
+            }),
+          )
+          // this.setState({
+          //   feedbackVisibleModal: !!flag,
+          // });
         } else {
           message.warning('该问题已反馈');
           this.caseDetailDatas(this.props.location.query.id, this.props.location.query.record.system_id);
@@ -301,10 +304,13 @@ export default class uncaseDetail extends PureComponent {
       },
       callback: () => {
         message.info('督办整改完成');
-        this.caseDetailDatas(this.props.location.query.id, this.props.location.query.record.system_id);
-        if (this.props.refreshTable) {
-          this.props.refreshTable();
+        if (this.props.location && this.props.location.query && this.props.location.query.record) {
+          this.caseDetailDatas(this.props.location.query.id, this.props.location.query.record.system_id);
         }
+
+        // if (this.props.refreshTable) {
+        //   this.props.refreshTable();
+        // }
       },
     });
   };
@@ -588,7 +594,13 @@ export default class uncaseDetail extends PureComponent {
   }
 
   // 根据物品ID打开物品详情窗口
-  openItemsDetail = systemId => {
+  openItemsDetail = record => {
+    this.props.dispatch(
+      routerRedux.push({
+        pathname: '/articlesInvolved/ArticlesData/itemDetail',
+        query: { record: record, id: record && record.system_id ? record.system_id : '1' },
+      }),
+    );
     // const divs = (
     //     <div>
     //         <ItemsDetail
@@ -648,7 +660,7 @@ export default class uncaseDetail extends PureComponent {
                   </Tooltip>
                 </div>
               </div>
-              <div className={styles.sawpSee} onClick={() => this.openItemsDetail(item.system_id)}>
+              <div className={styles.sawpSee} onClick={() => this.openItemsDetail(item)}>
                 在区情况
               </div>
             </div>
@@ -658,7 +670,13 @@ export default class uncaseDetail extends PureComponent {
     );
   }
 
-  jqDetail = id => {
+  jqDetail = record => {
+    this.props.dispatch(
+      routerRedux.push({
+        pathname: '/receivePolice/AlarmData/policeDetail',
+        query: { record: record,id: record && record.id ? record.id : '1',movefrom:'警情常规' },
+      }),
+    )
     // const divs = (
     //     <div>
     //         <JqDetail
@@ -768,7 +786,7 @@ export default class uncaseDetail extends PureComponent {
         width: 50,
         render: record => (
           <div>
-            <a onClick={() => this.jqDetail(record.id)}>详情</a>
+            <a onClick={() => this.jqDetail(record)}>详情</a>
           </div>
         ),
       },
@@ -789,6 +807,7 @@ export default class uncaseDetail extends PureComponent {
           onceSupervise={this.onceSupervise}
           sureReform={this.sureReform}
           rowLayout={rowLayout}
+          frompath='/newcaseFiling/casePolice/CriminalPolice/uncaseDetail'
         />
         <div className={styles.title}>| 警情信息</div>
         <div className={styles.tablemessage}>
@@ -942,14 +961,14 @@ export default class uncaseDetail extends PureComponent {
         ) : (
           ''
         )}
-        {feedbackVisibleModal ? (
-          <FeedbackModal
-            closeModal={this.closeFeedbackModal}
-            saveModal={this.saveFeedbackModal}
-            visible={feedbackVisibleModal}
-            detailsData={this.state.unCaseDetailData}
-          />
-        ) : null}
+        {/*{feedbackVisibleModal ? (*/}
+          {/*<FeedbackModal*/}
+            {/*closeModal={this.closeFeedbackModal}*/}
+            {/*saveModal={this.saveFeedbackModal}*/}
+            {/*visible={feedbackVisibleModal}*/}
+            {/*detailsData={this.state.unCaseDetailData}*/}
+          {/*/>*/}
+        {/*) : null}*/}
         {reformModal ? (
           <Modal
             maskClosable={false}

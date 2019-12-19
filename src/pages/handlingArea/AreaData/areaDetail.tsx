@@ -331,7 +331,10 @@ export default class areaDetail extends PureComponent {
       this.props.dispatch(
         routerRedux.push({
           pathname: '/ModuleAll/Share',
-          query: { record: res,id: res && res.id ? res.id : '1',from:'人员信息',tzlx:'baqxx',fromPath:'/handlingArea/AreaData/areaDetail',detail,tab:'详情' },
+          query: { record: res,id: res && res.id ? res.id : '1',from:'人员信息',tzlx:'baqxx',fromPath:'/handlingArea/AreaData/areaDetail',detail,tab:'详情',sx:
+            (res.ajmc ? res.ajmc + '、' : '') +
+            (res.salx_mc ? res.salx_mc + '、' : '') +
+            (res.name ? res.name : ''), },
         }),
       )
       // this.setState({

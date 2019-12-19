@@ -101,7 +101,14 @@ class RenderTable extends PureComponent {
             callback: (data) => {
                 if (data.list.length > 0) {
                     if (data.list[0].dbzt === '00') {
-                        this.props.openModal(this.state.searchDetail, flag, record);
+                      const {searchDetail} = this.state;
+                      // this.props.openModal(this.state.searchDetail, flag, record);
+                      this.props.dispatch(
+                        routerRedux.push({
+                          pathname: '/ModuleAll/Supervise',
+                          query: { record:searchDetail,searchDetail:record,id: searchDetail && searchDetail.id ? searchDetail.id : '1',from:'督办',tzlx:this.state.tzlx,fromPath:'/newcaseFiling/casePolice/AdministrationPolice',tab:'表格'},
+                        }),
+                      )
                     } else {
                         message.warning('该问题已督办，请点击详情查看');
                         this.props.refreshTable();
@@ -118,10 +125,28 @@ class RenderTable extends PureComponent {
             shareRecord: res,
         });
         if (type === 2) {
-            this.setState({
-                shareVisible: true,
-                shareItem: res,
-            });
+          let detail = (
+            <Row style={{ lineHeight:'55px',paddingLeft:66 }}>
+              <Col span={12}>案件名称：<Tooltip
+                title={res && res.ajmc && res.ajmc.length > 20 ? res.ajmc : null}>{res && res.ajmc ? res.ajmc.length > 20 ? res.ajmc.substring(0, 20) + '...' : res.ajmc : ''}</Tooltip></Col>
+              <Col span={12}>受理单位：<Tooltip
+                title={res && res.sldw_name && res.sldw_name.length > 20 ? res.sldw_name : null}>{res && res.sldw_name ? res.sldw_name.length > 20 ? res.sldw_name.substring(0, 20) + '...' : res.sldw_name : ''}</Tooltip></Col>
+              <Col
+                span={12}>案件状态：{res && res.ajzt ? res.ajzt : ''}</Col>
+              <Col
+                span={12}>办案民警：{res && res.bar_name ? res.bar_name : ''}</Col>
+            </Row>
+          );
+          this.props.dispatch(
+            routerRedux.push({
+              pathname: '/ModuleAll/Share',
+              query: { record: res,id: res && res.id ? res.id : '1',from:this.state.lx,tzlx:this.state.tzlx,fromPath:'/newcaseFiling/casePolice/AdministrationPolice',detail,tab:'表格',sx: (res.ajmc ? res.ajmc + '、' : '') + (res.ajzt ? res.ajzt + '、' : '') + (res.wtlx ? res.wtlx + '、' : '') + (res.gjsj ? res.gjsj : '')},
+            }),
+          )
+            // this.setState({
+            //     shareVisible: true,
+            //     shareItem: res,
+            // });
         } else {
             this.props.dispatch({
                 type: 'share/getMyFollow',
@@ -135,7 +160,7 @@ class RenderTable extends PureComponent {
                     ajbh: res.ajbh,
                     system_id: res.system_id,
                     ajGzLx: ajGzLx,
-                    ssmk: this.props.ssmk,
+                    // ssmk: this.props.ssmk,
                 },
                 callback: (res) => {
                     if (!res.error) {
@@ -258,6 +283,7 @@ class RenderTable extends PureComponent {
                                         </Menu>
                                     }
                                     trigger={['click']}
+                                    getPopupContainer={() => document.getElementById('xzajgjstandardTable')}
                                 >
                                     <a href="javascript:;">关注</a>
                                 </Dropdown>
@@ -282,20 +308,8 @@ class RenderTable extends PureComponent {
             showTotal: (total, range) =>
                 <span className={styles.pagination}>{`共 ${data.page ? data.page.totalPage : 1} 页， ${data.page ? data.page.totalResult : 0} 条记录`}</span>,
         };
-        let detail = (
-            <Row style={{ width: '90%', margin: '0 38px 10px', lineHeight: '36px', color: 'rgba(0, 0, 0, 0.85)' }}>
-                <Col span={12}>案件名称：<Tooltip
-                    title={this.state.shareRecord && this.state.shareRecord.ajmc && this.state.shareRecord.ajmc.length > 20 ? this.state.shareRecord.ajmc : null}>{this.state.shareRecord && this.state.shareRecord.ajmc ? this.state.shareRecord.ajmc.length > 20 ? this.state.shareRecord.ajmc.substring(0, 20) + '...' : this.state.shareRecord.ajmc : ''}</Tooltip></Col>
-                <Col span={12}>受理单位：<Tooltip
-                    title={this.state.shareRecord && this.state.shareRecord.sldw_name && this.state.shareRecord.sldw_name.length > 20 ? this.state.shareRecord.sldw_name : null}>{this.state.shareRecord && this.state.shareRecord.sldw_name ? this.state.shareRecord.sldw_name.length > 20 ? this.state.shareRecord.sldw_name.substring(0, 20) + '...' : this.state.shareRecord.sldw_name : ''}</Tooltip></Col>
-                <Col
-                    span={12}>案件状态：{this.state.shareRecord && this.state.shareRecord.ajzt ? this.state.shareRecord.ajzt : ''}</Col>
-                <Col
-                    span={12}>办案民警：{this.state.shareRecord && this.state.shareRecord.bar_name ? this.state.shareRecord.bar_name : ''}</Col>
-            </Row>
-        );
         return (
-            <div className={styles.standardTable}>
+            <div className={styles.standardTable} id='xzajgjstandardTable'>
                 <Table
                     // size={'middle'}
                     loading={loading}

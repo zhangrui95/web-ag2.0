@@ -258,7 +258,7 @@ export default class itemDetail extends PureComponent {
           this.props.dispatch(
             routerRedux.push({
               pathname: '/ModuleAll/Share',
-              query: { record: res,id: res && res.system_id ? res.system_id : '1',from:'物品信息',tzlx:'wpxx',fromPath:'/articlesInvolved/ArticlesData/itemDetail',detail,tab:'详情' },
+              query: { record: res,id: res && res.system_id ? res.system_id : '1',from:'物品信息',tzlx:'wpxx',fromPath:'/articlesInvolved/ArticlesData/itemDetail',detail,tab:'详情',sx: (res.ajmc ? res.ajmc + '、' : '') + (res.wpmc ? res.wpmc + '、' : '') + (res.zt ? res.zt : ''), },
             }),
           )
             // this.setState({

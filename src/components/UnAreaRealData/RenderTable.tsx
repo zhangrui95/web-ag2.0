@@ -204,7 +204,12 @@ class RenderTable extends PureComponent {
       this.props.dispatch(
         routerRedux.push({
           pathname: '/ModuleAll/Share',
-          query: { record: res,id: res && res.id ? res.id : '1',from:'人员信息',tzlx:'baqxx',fromPath:'/handlingArea/AreaPolice',detail,tab:'表格' },
+          query: { record: res,id: res && res.id ? res.id : '1',from:'人员信息',tzlx:'baqxx',fromPath:'/handlingArea/AreaPolice',detail,tab:'表格',sx:
+            (res.ajmc ? res.ajmc + '、' : '') +
+            (res.salxMc ? res.salxMc + '、' : '') +
+            (res.name ? res.name + '、' : '') +
+            (res.wtlxMc ? res.wtlxMc + '、' : '') +
+            (res.gjsj ? res.gjsj : '') },
         }),
       )
       this.setState({

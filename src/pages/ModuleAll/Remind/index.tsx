@@ -133,7 +133,6 @@ class Index extends PureComponent {
 
   render() {
     const {query:{record,id,detail,itemDetails}} =this.props.location;
-    console.log('this.props',this.props)
     const formItemLayout = {
       labelCol: {
         xs: { span: 3 },

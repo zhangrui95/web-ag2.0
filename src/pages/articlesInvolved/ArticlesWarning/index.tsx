@@ -44,10 +44,11 @@ const RadioGroup = Radio.Group;
 let timeout;
 let currentValue;
 
-@connect(({ EarlyWarning, loading, common }) => ({
+@connect(({ EarlyWarning, loading, common,share }) => ({
   EarlyWarning,
   common,
   loading: loading.models.EarlyWarning,
+  share
 }))
 @Form.create()
 
@@ -371,7 +372,7 @@ export default class Index extends PureComponent {
             this.props.dispatch(
               routerRedux.push({
                 pathname: '/ModuleAll/Share',
-                query: { record: res,id: res && res.system_id ? res.system_id : '1',from:'涉案物品预警',tzlx:'wpxx',fromPath:'/articlesInvolved/ArticlesWarning',detail,tab:'表格' },
+                query: { record: res,id: res && res.system_id ? res.system_id : '1',from:'涉案物品预警',tzlx:'wpxx',fromPath:'/articlesInvolved/ArticlesWarning',detail,tab:'表格',sx: (res.wpmc ? res.wpmc + '、' : '') + (res.wplx_mc ? res.wplx_mc + '、' : '') + (res.yjlxmc ? res.yjlxmc + '、' : '') + (res.yjsj ? res.yjsj : ''), },
               }),
             )
           }
@@ -446,21 +447,39 @@ export default class Index extends PureComponent {
     });
   };
   getTg = (record) => {
-    this.setState({
-      AnnouncementVisible: true,
-    });
     this.props.dispatch({
       type: 'share/getRz',
       payload: {
         ag_id: record.ag_id,
         yj_id: record.id,
       },
-      callback: (res) => {
-        this.setState({
-          RzList: res.list,
-        });
+      callback: res => {
+        this.props.dispatch(
+          routerRedux.push({
+            pathname: '/ModuleAll/DailyRecord',
+            query: {record: record, RzList: res.list, id: record && record.id ? record.id : '1',fromPath:'/articlesInvolved/ArticlesWarning', movefrom: '物品预警',tab:'表格'},
+          }),
+        )
+        // this.setState({
+        //   RzList: res.list,
+        // });
       },
-    });
+    })
+    // this.setState({
+    //   AnnouncementVisible: true,
+    // });
+    // this.props.dispatch({
+    //   type: 'share/getRz',
+    //   payload: {
+    //     ag_id: record.ag_id,
+    //     yj_id: record.id,
+    //   },
+    //   callback: (res) => {
+    //     this.setState({
+    //       RzList: res.list,
+    //     });
+    //   },
+    // });
   };
   noFollow = (record) => {
     this.props.dispatch({

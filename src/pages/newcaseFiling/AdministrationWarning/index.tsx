@@ -44,10 +44,11 @@ const RadioGroup = Radio.Group;
 let timeout;
 let currentValue;
 
-@connect(({ EarlyWarning, loading, common }) => ({
+@connect(({ EarlyWarning, loading, common, share }) => ({
   EarlyWarning,
   common,
   loading: loading.models.EarlyWarning,
+  share,
 }))
 @Form.create()
 
@@ -333,7 +334,7 @@ export default class Index extends PureComponent {
     return current && current.valueOf() > Date.now();
   };
   // 请求当前数据的详情（提醒弹窗中的回显数据从此处获取）
-  thisNewDetails = (res) => {
+  thisNewDetails = (res,type) => {
     this.props.dispatch({
       type: 'XzCaseData/getXzAjxxXqById',
       payload: {
@@ -344,6 +345,34 @@ export default class Index extends PureComponent {
           this.setState({
             xzcaseDetails: data,
           });
+          let detail = (
+            <Row style={{ lineHeight:'55px',paddingLeft:66 }}>
+              <Col span={12}>案件名称：<Tooltip
+                title={this.state.xzcaseDetails && this.state.xzcaseDetails.ajmc && this.state.xzcaseDetails.ajmc.length > 20 ? this.state.xzcaseDetails.ajmc : null}>{this.state.xzcaseDetails && this.state.xzcaseDetails.ajmc ? this.state.xzcaseDetails.ajmc.length > 20 ? this.state.xzcaseDetails.ajmc.substring(0, 20) + '...' : this.state.xzcaseDetails.ajmc : ''}</Tooltip></Col>
+              <Col span={12}>受理单位：<Tooltip
+                title={this.state.xzcaseDetails && this.state.xzcaseDetails.sldw_name && this.state.xzcaseDetails.sldw_name.length > 20 ? this.state.xzcaseDetails.sldw_name : null}>{this.state.xzcaseDetails && this.state.xzcaseDetails.sldw_name ? this.state.xzcaseDetails.sldw_name.length > 20 ? this.state.xzcaseDetails.sldw_name.substring(0, 20) + '...' : this.state.xzcaseDetails.sldw_name : ''}</Tooltip></Col>
+              <Col
+                span={12}>案件状态：{this.state.xzcaseDetails && this.state.xzcaseDetails.ajzt ? this.state.xzcaseDetails.ajzt : ''}</Col>
+              <Col
+                span={12}>办案民警：{this.state.xzcaseDetails && this.state.xzcaseDetails.bar_name ? this.state.xzcaseDetails.bar_name : ''}</Col>
+            </Row>
+          );
+          if(type===3){
+            this.props.dispatch(
+              routerRedux.push({
+                pathname: '/ModuleAll/Remind',
+                query: { record: res,itemDetails:data,id: res && res.system_id ? res.system_id : '1',from:'案件预警',fromPath:'/newcaseFiling/caseWarning/AdministrationWarning',detail,tab:'表格' },
+              }),
+            )
+          }
+          else if(type===2){
+            this.props.dispatch(
+              routerRedux.push({
+                pathname: '/ModuleAll/Share',
+                query: { record: res,id: res && res.system_id ? res.system_id : '1',from:'案件预警',tzlx:this.state.tzlx,fromPath:'/newcaseFiling/caseWarning/AdministrationWarning',detail,tab:'表格',sx: (res.ajmc ? res.ajmc + '、' : '') + (res.yjlxmc ? res.yjlxmc + '、' : '') + (res.yjsj ? res.yjsj : '')},
+              }),
+            )
+          }
         }
       },
     });
@@ -367,17 +396,17 @@ export default class Index extends PureComponent {
       shareRecord: res,
     });
     if (type === 3) {
-      this.setState({
-        txVisible: true,
-        txItem: res,
-      });
-      this.thisNewDetails(res);
+      // this.setState({
+      //   txVisible: true,
+      //   txItem: res,
+      // });
+      this.thisNewDetails(res,type);
     } else if (type === 2) {
-      this.setState({
-        shareVisible: true,
-        shareItem: res,
-      });
-      this.thisNewDetails(res);
+      // this.setState({
+      //   shareVisible: true,
+      //   shareItem: res,
+      // });
+      this.thisNewDetails(res,type);
     } else {
       this.props.dispatch({
         type: 'share/getMyFollow',
@@ -413,21 +442,43 @@ export default class Index extends PureComponent {
     });
   };
   getTg = (record) => {
-    this.setState({
-      AnnouncementVisible: true,
-    });
     this.props.dispatch({
       type: 'share/getRz',
       payload: {
         ag_id: record.ag_id,
         yj_id: record.id,
       },
-      callback: (res) => {
-        this.setState({
-          RzList: res.list,
-        });
-      },
-    });
+      callback: res => {
+        this.props.dispatch(
+          routerRedux.push({
+            pathname: '/ModuleAll/DailyRecord',
+            query: {
+              record: record,
+              RzList: res.list,
+              id: record && record.id ? record.id : '1',
+              fromPath: '/newcaseFiling/caseWarning/AdministrationWarning',
+              movefrom: '案件预警',
+              tab: '表格',
+            },
+          }),
+        )
+      }
+      })
+    // this.setState({
+    //   AnnouncementVisible: true,
+    // });
+    // this.props.dispatch({
+    //   type: 'share/getRz',
+    //   payload: {
+    //     ag_id: record.ag_id,
+    //     yj_id: record.id,
+    //   },
+    //   callback: (res) => {
+    //     this.setState({
+    //       RzList: res.list,
+    //     });
+    //   },
+    // });
   };
   noFollow = (record) => {
     this.props.dispatch({
@@ -540,7 +591,7 @@ export default class Index extends PureComponent {
                 <Menu.Item key="1">
                   <a onClick={() => this.saveShare(record, 1, 1)}>全要素关注</a>
                 </Menu.Item>
-              </Menu>} trigger={['click']}><a href="javascript:;">关注</a></Dropdown> :
+              </Menu>} trigger={['click']} getPopupContainer={() => document.getElementById('xzajyjtableListOperator')}><a href="javascript:;">关注</a></Dropdown> :
               <a href="javascript:;"
                  onClick={() => this.noFollow(record)}>取消{record.ajgzlx && record.ajgzlx === '0' ? '本案件' : '全要素'}关注</a>}
             <Divider type="vertical"/>
@@ -669,7 +720,7 @@ export default class Index extends PureComponent {
                 </Row>
               </Form>
             </div>
-            <div className={styles.tableListOperator}>
+            <div className={styles.tableListOperator} id='xzajyjtableListOperator'>
               <Button
                 style={{ borderColor: '#2095FF', marginBottom: 16 }}
                 onClick={this.exportData}

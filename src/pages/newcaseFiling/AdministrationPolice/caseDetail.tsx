@@ -50,6 +50,7 @@ import CaseModalStep from '../../../components/Common/CaseModalStep';
 import { authorityIsTrue } from '../../../utils/authority';
 import SupervisionLog from '../../../components/Common/SupervisionLog';
 import noList from "@/assets/viewData/noList.png";
+import {routerRedux} from "dva/router";
 
 const FormItem = Form.Item;
 // const { Description } = DescriptionList;
@@ -182,18 +183,25 @@ export default class caseDetail extends PureComponent {
             data.list[0].dbzt === '00' ||
             (data.list[0].dbzt === '30' && data.list[0].fkzt === '1')
           ) {
-            this.setState({
-              superviseVisibleModal: !!flag,
-              superviseWtlx: wtlx,
-              superviseZrdw: sldw_name,
-              superviseZrdwId: sldw_dm,
-              superviseZrr: bar_name,
-              id: wtid,
-              sfzh: barzjhm,
-            });
+            this.props.dispatch(
+              routerRedux.push({
+                pathname: '/ModuleAll/Supervise',
+                query: { record:caseDetails,id: caseDetails && caseDetails.wtid ? caseDetails.wtid : '1',from:'案件信息',tzlx:'xzajwt',fromPath:'/newcaseFiling/casePolice/AdministrationPolice/uncaseDetail',tab:'详情'},
+              }),
+            )
+            // this.setState({
+            //   superviseVisibleModal: !!flag,
+            //   superviseWtlx: wtlx,
+            //   superviseZrdw: sldw_name,
+            //   superviseZrdwId: sldw_dm,
+            //   superviseZrr: bar_name,
+            //   id: wtid,
+            //   sfzh: barzjhm,
+            // });
           } else {
             message.warning('该问题已督办或暂无反馈信息');
-            this.caseDetailDatas(this.props.id, this.props.systemId);
+            // this.caseDetailDatas(this.props.id, this.props.systemId);
+            this.caseDetailDatas(this.props.location.query.id, this.props.location.query.record.system_id);
           }
         } else {
           message.info('该数据无法督办');
@@ -215,9 +223,15 @@ export default class caseDetail extends PureComponent {
       },
       callback: data => {
         if (data.list[0].fkzt !== '1') {
-          this.setState({
-            feedbackVisibleModal: !!flag,
-          });
+          this.props.dispatch(
+            routerRedux.push({
+              pathname: '/ModuleAll/FeedBack',
+              query: { record:unCaseDetailData,id: unCaseDetailData && unCaseDetailData.wtid ? unCaseDetailData.wtid : '1',from:'案件信息',tzlx:'xzajwt',fromPath:'/newcaseFiling/casePolice/AdministrationPolice/uncaseDetail',tab:'详情'},
+            }),
+          )
+          // this.setState({
+          //   feedbackVisibleModal: !!flag,
+          // });
         } else {
           message.warning('该问题已反馈');
           this.caseDetailDatas(this.props.location.query.id, this.props.location.query.record.system_id);
@@ -411,7 +425,13 @@ export default class caseDetail extends PureComponent {
   }
 
   // 根据物品ID打开物品详细窗口
-  openItemsDetail = system_id => {
+  openItemsDetail = record => {
+    this.props.dispatch(
+      routerRedux.push({
+        pathname: '/articlesInvolved/ArticlesData/itemDetail',
+        query: { record: record, id: record && record.system_id ? record.system_id : '1' },
+      }),
+    );
     // const divs = (
     //     <div>
     //         <ItemDetail
@@ -489,7 +509,7 @@ export default class caseDetail extends PureComponent {
                   </Tooltip>
                 </div>
               </div>
-              <div className={styles.sawpSee} onClick={() => this.openItemsDetail(item.system_id)}>
+              <div className={styles.sawpSee} onClick={() => this.openItemsDetail(item)}>
                 查看
               </div>
             </div>
@@ -499,7 +519,13 @@ export default class caseDetail extends PureComponent {
     );
   }
 
-  jqDetail = id => {
+  jqDetail = record => {
+    this.props.dispatch(
+      routerRedux.push({
+        pathname: '/receivePolice/AlarmData/policeDetail',
+        query: { record: record,id: record && record.id ? record.id : '1',movefrom:'警情常规' },
+      }),
+    )
     // const divs = (
     //     <div>
     //         <JqDetail
@@ -530,10 +556,13 @@ export default class caseDetail extends PureComponent {
       },
       callback: () => {
         message.info('督办整改完成');
-        this.caseDetailDatas(this.props.id, this.props.systemId);
-        if (this.props.refreshTable) {
-          this.props.refreshTable();
+        if (this.props.location && this.props.location.query && this.props.location.query.record) {
+          this.caseDetailDatas(this.props.location.query.id, this.props.location.query.record.system_id);
         }
+        // this.caseDetailDatas(this.props.id, this.props.systemId);
+        // if (this.props.refreshTable) {
+        //   this.props.refreshTable();
+        // }
       },
     });
   };
@@ -663,7 +692,7 @@ export default class caseDetail extends PureComponent {
         width: 50,
         render: record => (
           <div>
-            <a onClick={() => this.jqDetail(record.id)}>详情</a>
+            <a onClick={() => this.jqDetail(record)}>详情</a>
           </div>
         ),
       },
@@ -839,21 +868,21 @@ export default class caseDetail extends PureComponent {
         {/*/>*/}
         {/*: ''*/}
         {/*}*/}
-        {/*{reformModal ?*/}
-        {/*<Modal*/}
-        {/*maskClosable={false}*/}
-        {/*visible={reformModal}*/}
-        {/*title={<p>提示</p>}*/}
-        {/*width='1000px'*/}
-        {/*footer={this.foot1()}*/}
-        {/*onCancel={() => this.onReformCancel()}*/}
-        {/*// onOk={() => this.onOk(this.props.id)}*/}
-        {/*className={styles.indexdeepmodal}*/}
-        {/*centered={true}*/}
-        {/*>*/}
-        {/*<div className={styles.question}>问题是否已经整改完毕？</div>*/}
-        {/*</Modal> : ''*/}
-        {/*}*/}
+        {reformModal ?
+        <Modal
+          maskClosable={false}
+          visible={reformModal}
+          title={<p>提示</p>}
+          width='1000px'
+          footer={this.foot1()}
+          onCancel={() => this.onReformCancel()}
+          // onOk={() => this.onOk(this.props.id)}
+          className={styles.indexdeepmodal}
+          centered={true}
+        >
+        <div className={styles.question}>问题是否已经整改完毕？</div>
+        </Modal> : ''
+        }
         {/*{*/}
         {/*feedbackVisibleModal ? (*/}
         {/*<FeedbackModal*/}
