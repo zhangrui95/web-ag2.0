@@ -1,29 +1,38 @@
 /*
-*  UndossierData/index.js 卷宗问题告警
-*  author：jhm
-*  20181205
-* */
+ *  UndossierData/index.js 卷宗问题告警
+ *  author：jhm
+ *  20181205
+ * */
 import React, { PureComponent } from 'react';
 import { connect } from 'dva';
 import {
-    Row,
-    Col,
-    Form,
-    Select,
-    Table,
-    TreeSelect,
-    Input,
-    Button,
-    DatePicker,
-    Tabs,
-    message,
-    Divider,
-    Dropdown, Menu, Tooltip, Icon, Empty,
+  Row,
+  Col,
+  Form,
+  Select,
+  Table,
+  TreeSelect,
+  Input,
+  Button,
+  DatePicker,
+  Tabs,
+  message,
+  Divider,
+  Dropdown,
+  Menu,
+  Tooltip,
+  Icon,
+  Empty,
 } from 'antd';
 import moment from 'moment/moment';
 import Ellipsis from 'ant-design-pro/lib/Ellipsis';
 import styles from '../../common/listPage.less';
-import { exportListDataMaxDays, getUserInfos, tableList, userResourceCodeDb } from '../../../utils/utils';
+import {
+  exportListDataMaxDays,
+  getUserInfos,
+  tableList,
+  userResourceCodeDb,
+} from '../../../utils/utils';
 // import UnDossierDetail from './UnDossierDetail';
 // import ShareModal from '../../../src/components/ShareModal/ShareModal';
 // import SuperviseModal from '../../components/UnCaseRealData/SuperviseModal';
@@ -31,9 +40,9 @@ import UnDossierDataView from '../../../components/UnDossierRealData/UnDossierDa
 import DataViewButtonArea from '../../../components/Common/DataViewButtonArea';
 import MessageState from '../../../components/Common/MessageState';
 import { authorityIsTrue } from '../../../utils/authority';
-import {routerRedux} from "dva/router";
-import noList from "@/assets/viewData/noList.png";
-import noListLight from "@/assets/viewData/noListLight.png";
+import { routerRedux } from 'dva/router';
+import noList from '@/assets/viewData/noList.png';
+import noListLight from '@/assets/viewData/noListLight.png';
 
 const { Option } = Select;
 const { RangePicker } = DatePicker;
@@ -51,7 +60,6 @@ let currentValue;
   global,
 }))
 @Form.create()
-
 export default class Index extends PureComponent {
   state = {
     ajlx: '', // 案件类型
@@ -111,80 +119,82 @@ export default class Index extends PureComponent {
     this.getDossierSaveTypeDict();
   }
   componentWillReceiveProps(nextProps) {
-    console.log('nextProps',nextProps);
-    if(nextProps.history.location.query.isReset&&nextProps.history.location.pathname==='/dossierPolice/DossierPolice'){
+    console.log('nextProps', nextProps);
+    if (
+      nextProps.history.location.query.isReset &&
+      nextProps.history.location.pathname === '/dossierPolice/DossierPolice'
+    ) {
       this.getAllList(nextProps);
       this.props.history.replace(nextProps.history.location.pathname);
     }
   }
 
-  getAllList = (props) =>{
-      if (props.location.state && props.location.state.code) {
-          this.setState({
-              showDataView: false,
-              dbzt: '',
-              badw: props.location.state.code,
-              gjsj:  [props.location.state.kssj ? moment(props.location.state.kssj) : null, props.location.state.jssj ? moment(props.location.state.jssj) : null],
-          });
-          this.props.form.setFieldsValue({
-              bar: props.location.state.bar_name,
-          });
-          const formValues = {
-              badw: props.location.state.code,
-              gjsj_ks: props.location.state.kssj,
-              gjsj_js: props.location.state.jssj,
-              is_tz: props.location.state.is_tz ? props.location.state.is_tz : '1',
-              bar:props.location.state.bar_name || '',
-          };
-          this.setState({
-              formValues,
-              is_tz: props.location.state.is_tz ? props.location.state.is_tz : '1',
-          });
-          const params = {
-              currentPage: 1,
-              showCount: tableList,
-              pd: {
-                  ...formValues,
-              },
-          };
-          this.getDossier(params);
-      }
-      else if(props.history.location.query.isReset){
-        this.setState({
-          dbzt: '',
-        });
-        const formValues = {
-
-        };
-        this.setState({
-          formValues,
-        });
-        const params = {
-          currentPage: 1,
-          showCount: tableList,
-          pd: {
-            ...formValues,
-          },
-        };
-        this.getDossier(params);
-      }
-      else {
-         this.getDossier();
-      }
+  getAllList = props => {
+    if (props.location.state && props.location.state.code) {
+      this.setState({
+        showDataView: false,
+        dbzt: '',
+        badw: props.location.state.code,
+        gjsj: [
+          props.location.state.kssj ? moment(props.location.state.kssj) : null,
+          props.location.state.jssj ? moment(props.location.state.jssj) : null,
+        ],
+      });
+      this.props.form.setFieldsValue({
+        bar: props.location.state.bar_name,
+      });
+      const formValues = {
+        badw: props.location.state.code,
+        gjsj_ks: props.location.state.kssj,
+        gjsj_js: props.location.state.jssj,
+        is_tz: props.location.state.is_tz ? props.location.state.is_tz : '1',
+        bar: props.location.state.bar_name || '',
+      };
+      this.setState({
+        formValues,
+        is_tz: props.location.state.is_tz ? props.location.state.is_tz : '1',
+      });
+      const params = {
+        currentPage: 1,
+        showCount: tableList,
+        pd: {
+          ...formValues,
+        },
+      };
+      this.getDossier(params);
+    } else if (props.history.location.query.isReset) {
+      this.setState({
+        dbzt: '',
+      });
+      const formValues = {};
+      this.setState({
+        formValues,
+      });
+      const params = {
+        currentPage: 1,
+        showCount: tableList,
+        pd: {
+          ...formValues,
+        },
+      };
+      this.getDossier(params);
+    } else {
+      this.getDossier();
     }
+  };
 
   // 切换tab
-  onTabChange = (activeKey) => {
+  onTabChange = activeKey => {
     this.setState({
       activeKey,
     });
   };
   // 关闭页面
   onTabEdit = (targetKey, action) => {
-    this[action](targetKey);  // this.remove(targetKey);
+    this[action](targetKey); // this.remove(targetKey);
   };
   // 关闭页面链接的函数
-  remove = (targetKey) => {
+  remove = targetKey => {
     let activeKey = this.state.activeKey;
     let lastIndex;
     this.state.arrayDetail.forEach((pane, i) => {
@@ -213,7 +223,7 @@ export default class Index extends PureComponent {
     }
   };
   // 获取卷宗数据
-  getDossier = (param) => {
+  getDossier = param => {
     const defaultParams = {
       currentPage: 1,
       showCount: tableList,
@@ -224,7 +234,7 @@ export default class Index extends PureComponent {
     this.props.dispatch({
       type: 'UnDossierData/getDossierData',
       payload: param || defaultParams,
-      callback: (data) => {
+      callback: data => {
         if (data) {
           this.setState({
             DossierDetail: data,
@@ -285,7 +295,7 @@ export default class Index extends PureComponent {
     });
   };
   // 获取机构树
-  getDepTree = (area) => {
+  getDepTree = area => {
     const areaNum = [];
     if (area) {
       areaNum.push(area);
@@ -295,7 +305,7 @@ export default class Index extends PureComponent {
       payload: {
         departmentNum: areaNum,
       },
-      callback: (data) => {
+      callback: data => {
         if (data) {
           this.setState({
             treeDefaultExpandedKeys: [data[0].code],
@@ -305,7 +315,7 @@ export default class Index extends PureComponent {
     });
   };
   // 获取所有警员
-  getAllPolice = (name) => {
+  getAllPolice = name => {
     const that = this;
     if (timeout) {
       clearTimeout(timeout);
@@ -318,8 +328,8 @@ export default class Index extends PureComponent {
         payload: {
           search: name,
         },
-        callback: (data) => {
-          if (data && (currentValue === name)) {
+        callback: data => {
+          if (data && currentValue === name) {
             that.setState({
               allPolice: data.slice(0, 50),
             });
@@ -327,7 +337,6 @@ export default class Index extends PureComponent {
         },
       });
     }, 300);
-
   };
 
   // 重置
@@ -361,8 +370,11 @@ export default class Index extends PureComponent {
       gjsj_js: gjsjTime && gjsjTime.length > 0 ? gjsjTime[1].format('YYYY-MM-DD') : '',
     };
     if (gjsjTime && gjsjTime.length > 0) {
-      const isAfterDate = moment(formValues.gjsj_js).isAfter(moment(formValues.gjsj_ks).add(exportListDataMaxDays, 'days'));
-      if (isAfterDate) { // 选择时间间隔应小于exportListDataMaxDays
+      const isAfterDate = moment(formValues.gjsj_js).isAfter(
+        moment(formValues.gjsj_ks).add(exportListDataMaxDays, 'days'),
+      );
+      if (isAfterDate) {
+        // 选择时间间隔应小于exportListDataMaxDays
         message.warning(`日期间隔需小于${exportListDataMaxDays}天`);
       } else {
         this.props.dispatch({
@@ -371,7 +383,7 @@ export default class Index extends PureComponent {
             tableType: '31',
             ...formValues,
           },
-          callback: (data) => {
+          callback: data => {
             if (data.text) {
               message.error(data.text);
             } else {
@@ -383,11 +395,10 @@ export default class Index extends PureComponent {
     } else {
       message.warning(`请选择需要导出的数据日期，日期间隔需小于${exportListDataMaxDays}天`);
     }
-
   };
 
   // 查询
-  handleSearch = (e) => {
+  handleSearch = e => {
     if (e) e.preventDefault();
     const values = this.props.form.getFieldsValue();
     const gjsjTime = values.gjsj;
@@ -401,8 +412,10 @@ export default class Index extends PureComponent {
       dbzt: values.dbzt && values.dbzt.dbzt ? values.dbzt.dbzt : '',
       cljg_dm: values.dbzt && values.dbzt.zgzt ? values.dbzt.zgzt : '',
       csfs: values.csfs || '',
-      gjsj_ks: gjsjTime && gjsjTime.length > 0 && gjsjTime[0]? gjsjTime[0].format('YYYY-MM-DD') : '',
-      gjsj_js: gjsjTime && gjsjTime.length > 0 && gjsjTime[1]? gjsjTime[1].format('YYYY-MM-DD') : '',
+      gjsj_ks:
+        gjsjTime && gjsjTime.length > 0 && gjsjTime[0] ? gjsjTime[0].format('YYYY-MM-DD') : '',
+      gjsj_js:
+        gjsjTime && gjsjTime.length > 0 && gjsjTime[1] ? gjsjTime[1].format('YYYY-MM-DD') : '',
       is_tz: this.state.is_tz,
     };
     this.setState({
@@ -418,7 +431,7 @@ export default class Index extends PureComponent {
     this.getDossier(params);
   };
   // 获取办案人信息
-  handleAllPoliceOptionChange = (value) => {
+  handleAllPoliceOptionChange = value => {
     this.getAllPolice(value);
   };
   // 表格分页功能
@@ -441,7 +454,8 @@ export default class Index extends PureComponent {
     });
   };
   // 打开新的详情页面
-  newDetail = (record) => { //record.id, record.wtid, record.dossier_id
+  newDetail = record => {
+    //record.id, record.wtid, record.dossier_id
     this.props.dispatch(
       routerRedux.push({
         pathname: '/dossierPolice/DossierPolice/UnDossierDetail',
@@ -479,49 +493,90 @@ export default class Index extends PureComponent {
     //     activeKey: addDetail.key,
     //   });
     // }
-
   };
   // 无法选择的日期
-  disabledDate = (current) => {
+  disabledDate = current => {
     // Can not select days before today and today
     return current && current.valueOf() > Date.now();
   };
 
   // 渲染机构树
-  renderloop = data => data.map((item) => {
-
-    if (item.childrenList && item.childrenList.length) {
-      return <TreeNode value={item.code} key={item.code}
-                       title={item.name}>{this.renderloop(item.childrenList)}</TreeNode>;
-    }
-    return <TreeNode key={item.code} value={item.code} title={item.name}/>;
-  });
+  renderloop = data =>
+    data.map(item => {
+      if (item.childrenList && item.childrenList.length) {
+        return (
+          <TreeNode value={item.code} key={item.code} title={item.name}>
+            {this.renderloop(item.childrenList)}
+          </TreeNode>
+        );
+      }
+      return <TreeNode key={item.code} value={item.code} title={item.name} />;
+    });
   saveShare = (res, type, ajGzLx) => {
     this.setState({
-      sx: (res.ajmc ? res.ajmc + '、' : '') + (res.jzlb_mc ? res.jzlb_mc + '、' : '') + (res.wtlxMc ? res.wtlxMc + '、' : '') + (res.gjsj ? res.gjsj : ''),
+      sx:
+        (res.ajmc ? res.ajmc + '、' : '') +
+        (res.jzlb_mc ? res.jzlb_mc + '、' : '') +
+        (res.wtlxMc ? res.wtlxMc + '、' : '') +
+        (res.gjsj ? res.gjsj : ''),
       shareRecord: res,
     });
     if (type === 2) {
       let detail = (
-        <Row style={{ lineHeight:'55px',paddingLeft:66 }}>
-          <Col span={8}>卷宗名称：<Tooltip
-            title={res && res.jzmc && res.jzmc.length > 12 ? res.jzmc : null}>{res && res.jzmc ? res.jzmc.length > 12 ? res.jzmc.substring(0, 12) + '...' : res.jzmc : ''}</Tooltip></Col>
-          <Col
-            span={8}>卷宗类别：{res && res.jzlb_mc ? res.jzlb_mc : ''}</Col>
-          <Col span={8}>卷宗描述：<Tooltip
-            title={res && res.jzms && res.jzms.length > 12 ? res.jzms : null}>{res && res.jzms ? res.jzms.length > 12 ? res.jzms.substring(0, 12) + '...' : res.jzms : ''}</Tooltip></Col>
-          <Col span={8}>案件名称：<Tooltip
-            title={res && res.ajmc && res.ajmc.length > 12 ? res.ajmc : null}>{res && res.ajmc ? res.ajmc.length > 12 ? res.ajmc.substring(0, 12) + '...' : res.ajmc : ''}</Tooltip></Col>
-          <Col
-            span={8}>案件状态：{res && res.ajzt ? res.ajzt : ''}</Col>
+        <Row style={{ lineHeight: '55px', paddingLeft: 66 }}>
+          <Col span={8}>
+            卷宗名称：
+            <Tooltip title={res && res.jzmc && res.jzmc.length > 12 ? res.jzmc : null}>
+              {res && res.jzmc
+                ? res.jzmc.length > 12
+                  ? res.jzmc.substring(0, 12) + '...'
+                  : res.jzmc
+                : ''}
+            </Tooltip>
+          </Col>
+          <Col span={8}>卷宗类别：{res && res.jzlb_mc ? res.jzlb_mc : ''}</Col>
+          <Col span={8}>
+            卷宗描述：
+            <Tooltip title={res && res.jzms && res.jzms.length > 12 ? res.jzms : null}>
+              {res && res.jzms
+                ? res.jzms.length > 12
+                  ? res.jzms.substring(0, 12) + '...'
+                  : res.jzms
+                : ''}
+            </Tooltip>
+          </Col>
+          <Col span={8}>
+            案件名称：
+            <Tooltip title={res && res.ajmc && res.ajmc.length > 12 ? res.ajmc : null}>
+              {res && res.ajmc
+                ? res.ajmc.length > 12
+                  ? res.ajmc.substring(0, 12) + '...'
+                  : res.ajmc
+                : ''}
+            </Tooltip>
+          </Col>
+          <Col span={8}>案件状态：{res && res.ajzt ? res.ajzt : ''}</Col>
         </Row>
       );
       this.props.dispatch(
         routerRedux.push({
           pathname: '/ModuleAll/Share',
-          query: { record: res,id: res && res.id ? res.id : '1',from:'卷宗信息',tzlx:'jzwt',fromPath:'/dossierPolice/DossierPolice',detail,tab:'表格',sx: (res.ajmc ? res.ajmc + '、' : '') + (res.jzlb_mc ? res.jzlb_mc + '、' : '') + (res.wtlxMc ? res.wtlxMc + '、' : '') + (res.gjsj ? res.gjsj : ''), },
+          query: {
+            record: res,
+            id: res && res.id ? res.id : '1',
+            from: '卷宗信息',
+            tzlx: 'jzwt',
+            fromPath: '/dossierPolice/DossierPolice',
+            detail,
+            tab: '表格',
+            sx:
+              (res.ajmc ? res.ajmc + '、' : '') +
+              (res.jzlb_mc ? res.jzlb_mc + '、' : '') +
+              (res.wtlxMc ? res.wtlxMc + '、' : '') +
+              (res.gjsj ? res.gjsj : ''),
+          },
         }),
-      )
+      );
       // this.setState({
       //   shareVisible: true,
       //   shareItem: res,
@@ -532,7 +587,11 @@ export default class Index extends PureComponent {
         payload: {
           agid: res.wtid,
           lx: this.state.lx,
-          sx: (res.ajmc ? res.ajmc + '、' : '') + (res.jzlb_mc ? res.jzlb_mc + '、' : '') + (res.wtlxMc ? res.wtlxMc + '、' : '') + (res.gjsj ? res.gjsj : ''),
+          sx:
+            (res.ajmc ? res.ajmc + '、' : '') +
+            (res.jzlb_mc ? res.jzlb_mc + '、' : '') +
+            (res.wtlxMc ? res.wtlxMc + '、' : '') +
+            (res.gjsj ? res.gjsj : ''),
           type: type,
           tzlx: this.state.tzlx,
           wtid: res.wtid,
@@ -540,7 +599,7 @@ export default class Index extends PureComponent {
           system_id: res.dossier_id,
           ajGzLx: ajGzLx,
         },
-        callback: (res) => {
+        callback: res => {
           if (!res.error) {
             message.success('关注成功');
             this.getDossier({ currentPage: this.state.current, pd: this.state.formValues });
@@ -549,12 +608,12 @@ export default class Index extends PureComponent {
       });
     }
   };
-  handleCancel = (e) => {
+  handleCancel = e => {
     this.setState({
       shareVisible: false,
     });
   };
-  noFollow = (record) => {
+  noFollow = record => {
     this.props.dispatch({
       type: 'share/getNoFollow',
       payload: {
@@ -563,7 +622,7 @@ export default class Index extends PureComponent {
         ajbh: record.ajbh,
         ajGzlx: record.ajgzlx,
       },
-      callback: (res) => {
+      callback: res => {
         if (!res.error) {
           message.success('取消关注成功');
           this.getDossier({ currentPage: this.state.current, pd: this.state.formValues });
@@ -581,7 +640,7 @@ export default class Index extends PureComponent {
         wtid,
         dossier_id,
       },
-      callback: (data) => {
+      callback: data => {
         if (data) {
           this.setState({
             NewDossierDetail: data,
@@ -602,16 +661,24 @@ export default class Index extends PureComponent {
         currentPage: 1,
         showCount: 9999,
       },
-      callback: (data) => {
+      callback: data => {
         if (data.list.length > 0) {
           if (data.list[0].dbzt === '00') {
-            const {NewDossierDetail} = this.state;
+            const { NewDossierDetail } = this.state;
             this.props.dispatch(
               routerRedux.push({
                 pathname: '/ModuleAll/Supervise',
-                query: { record:NewDossierDetail,searchDetail:record,id: NewDossierDetail && NewDossierDetail.id ? NewDossierDetail.id : '1',from:'督办',tzlx:'jzwt',fromPath:'/dossierPolice/DossierPolice',tab:'表格'},
+                query: {
+                  record: NewDossierDetail,
+                  searchDetail: record,
+                  id: NewDossierDetail && NewDossierDetail.id ? NewDossierDetail.id : '1',
+                  from: '督办',
+                  tzlx: 'jzwt',
+                  fromPath: '/dossierPolice/DossierPolice',
+                  tab: '表格',
+                },
               }),
-            )
+            );
             // this.openModal(this.state.NewDossierDetail, flag, record);
           } else {
             message.warning('该问题已督办，请点击详情查看');
@@ -657,7 +724,7 @@ export default class Index extends PureComponent {
   };
 
   // 督办成功后刷新列表
-  Refresh = (flag) => {
+  Refresh = flag => {
     this.setState({
       superviseVisibleModal: !!flag,
     });
@@ -672,20 +739,20 @@ export default class Index extends PureComponent {
     });
   };
   // 设置手动选择日期
-  setSelectedDate = (val) => {
+  setSelectedDate = val => {
     this.setState({
       typeButtons: 'selectedDate',
       selectedDateVal: val,
     });
   };
   // 设置手动选择机构
-  setSelectedDep = (val) => {
+  setSelectedDep = val => {
     this.setState({
       selectedDeptVal: val,
     });
   };
   // 改变图表类别
-  changeTypeButtons = (val) => {
+  changeTypeButtons = val => {
     this.setState({
       typeButtons: val,
     });
@@ -693,26 +760,29 @@ export default class Index extends PureComponent {
   // 图表点击跳转到列表页面
   changeToListPage = (name, dateArry) => {
     this.props.form.resetFields();
-    this.setState({
-      showDataView: false,
-    }, () => {
-      this.props.form.setFieldsValue({
-        gjsj: [moment(dateArry[0], 'YYYY-MM-DD'), moment(dateArry[1], 'YYYY-MM-DD')],
-        bardw: this.state.selectedDeptVal || null,
-        ...name,
-      });
+    this.setState(
+      {
+        showDataView: false,
+      },
+      () => {
+        this.props.form.setFieldsValue({
+          gjsj: [moment(dateArry[0], 'YYYY-MM-DD'), moment(dateArry[1], 'YYYY-MM-DD')],
+          bardw: this.state.selectedDeptVal || null,
+          ...name,
+        });
 
-      this.handleSearch();
-    });
+        this.handleSearch();
+      },
+    );
   };
-  getCsfs = (e) =>{
-    if(e !== ''){
+  getCsfs = e => {
+    if (e !== '') {
       this.props.form.resetFields(['dbzt']);
       this.setState({
-        dbzt:'',
-      })
+        dbzt: '',
+      });
     }
-  }
+  };
   // 展开筛选和关闭筛选
   getSearchHeight = () => {
     this.setState({
@@ -720,13 +790,39 @@ export default class Index extends PureComponent {
     });
   };
   render() {
-    const { form: { getFieldDecorator }, common: { depTree, superviseStatusDict, rectificationStatusDict, JzCaseStatusType, dossierSaveTypeDict }, UnDossierData: { data: { page, list, tbCount } }, loading } = this.props;
-    const { superviseVisibleModal, DossierDetail, showDataView, isDb, typeButtons, selectedDeptVal, selectedDateVal, treeDefaultExpandedKeys } = this.state;
+    const {
+      form: { getFieldDecorator },
+      common: {
+        depTree,
+        superviseStatusDict,
+        rectificationStatusDict,
+        JzCaseStatusType,
+        dossierSaveTypeDict,
+      },
+      UnDossierData: {
+        data: { page, list, tbCount },
+      },
+      loading,
+    } = this.props;
+    const {
+      superviseVisibleModal,
+      DossierDetail,
+      showDataView,
+      isDb,
+      typeButtons,
+      selectedDeptVal,
+      selectedDateVal,
+      treeDefaultExpandedKeys,
+    } = this.state;
     const orgcodeVal = selectedDeptVal !== '' ? JSON.parse(selectedDeptVal).id : '';
     const newAddDetail = this.state.arrayDetail;
-    const allPoliceOptions = this.state.allPolice.map(d => <Option key={`${d.idcard},${d.pcard}`}
-                                                                   value={`${d.idcard},${d.pcard}$$`}
-                                                                   title={d.name}>{`${d.name} ${d.pcard}`}</Option>);
+    const allPoliceOptions = this.state.allPolice.map(d => (
+      <Option
+        key={`${d.idcard},${d.pcard}`}
+        value={`${d.idcard},${d.pcard}$$`}
+        title={d.name}
+      >{`${d.name} ${d.pcard}`}</Option>
+    ));
     const formItemLayout = {
       labelCol: { xs: { span: 24 }, md: { span: 8 }, xl: { span: 6 }, xxl: { span: 4 } },
       wrapperCol: { xs: { span: 24 }, md: { span: 16 }, xl: { span: 18 }, xxl: { span: 20 } },
@@ -752,8 +848,12 @@ export default class Index extends PureComponent {
         title: '所属案件',
         dataIndex: 'ajmc',
         width: '20%',
-        render: (text) => {
-          return <Ellipsis lines={2} tooltip>{text}</Ellipsis>;
+        render: text => {
+          return (
+            <Ellipsis lines={2} tooltip>
+              {text}
+            </Ellipsis>
+          );
         },
       },
       {
@@ -764,15 +864,23 @@ export default class Index extends PureComponent {
       {
         title: '办案单位',
         dataIndex: 'badw_mc',
-        render: (text) => {
-          return <Ellipsis length={12} tooltip>{text}</Ellipsis>;
+        render: text => {
+          return (
+            <Ellipsis length={12} tooltip>
+              {text}
+            </Ellipsis>
+          );
         },
       },
       {
         title: '办案人',
         dataIndex: 'bar',
-        render: (text) => {
-          return <Ellipsis length={8} tooltip>{text}</Ellipsis>;
+        render: text => {
+          return (
+            <Ellipsis length={8} tooltip>
+              {text}
+            </Ellipsis>
+          );
         },
       },
       {
@@ -785,49 +893,46 @@ export default class Index extends PureComponent {
       },
       {
         title: '操作',
-        render: (record) => (
+        render: record => (
           <div>
-            {
-              isDb ? (
-                <span style={{ display: 'inlineBlock' }}>
-                                    {
-                                      record.dbzt === '00' ? (
-                                        <a onClick={() => this.supervise(true, record)}>督办</a>
-                                      ) : (
-                                        <a style={{ color: '#C3C3C3' }}>督办</a>
-                                      )
-                                    }
-                  <Divider type="vertical"/>
-                                </span>
-              ) : null
-            }
+            {isDb ? (
+              <span style={{ display: 'inlineBlock' }}>
+                {record.dbzt === '00' ? (
+                  <a onClick={() => this.supervise(true, record)}>督办</a>
+                ) : (
+                  <a style={{ color: '#C3C3C3' }}>督办</a>
+                )}
+                <Divider type="vertical" />
+              </span>
+            ) : null}
             <a onClick={() => this.newDetail(record)}>详情</a>
-            <Divider type="vertical"/>
-            {
-              record.sfgz === 0 ? (
-                <Dropdown
-                  overlay={
-                    <Menu>
-                      <Menu.Item key="0">
-                        <a onClick={() => this.saveShare(record, 1, 0)}>本卷宗关注</a>
-                      </Menu.Item>
-                      <Menu.Item key="1">
-                        <a onClick={() => this.saveShare(record, 1, 1)}>全要素关注</a>
-                      </Menu.Item>
-                    </Menu>
-                  }
-                  trigger={['click']}
-                  getPopupContainer={() => document.getElementById('jzgjtableListOperator')}
-                >
-                  <a href="javascript:;">关注</a>
-                </Dropdown>
-              ) : (
-                <a href="javascript:;"
-                   onClick={() => this.noFollow(record)}>取消{record.ajgzlx && record.ajgzlx === '0' ? '本卷宗' : '全要素'}关注</a>
-              )
-            }
-            <Divider type="vertical"/>
-            <a href="javascript:;" onClick={() => this.saveShare(record, 2)}>分享</a>
+            <Divider type="vertical" />
+            {record.sfgz === 0 ? (
+              <Dropdown
+                overlay={
+                  <Menu>
+                    <Menu.Item key="0">
+                      <a onClick={() => this.saveShare(record, 1, 0)}>本卷宗关注</a>
+                    </Menu.Item>
+                    <Menu.Item key="1">
+                      <a onClick={() => this.saveShare(record, 1, 1)}>全要素关注</a>
+                    </Menu.Item>
+                  </Menu>
+                }
+                trigger={['click']}
+                getPopupContainer={() => document.getElementById('jzgjtableListOperator')}
+              >
+                <a href="javascript:;">关注</a>
+              </Dropdown>
+            ) : (
+              <a href="javascript:;" onClick={() => this.noFollow(record)}>
+                取消{record.ajgzlx && record.ajgzlx === '0' ? '本卷宗' : '全要素'}关注
+              </a>
+            )}
+            <Divider type="vertical" />
+            <a href="javascript:;" onClick={() => this.saveShare(record, 2)}>
+              分享
+            </a>
           </div>
         ),
       },
@@ -837,7 +942,9 @@ export default class Index extends PureComponent {
       for (let i = 0; i < superviseStatusDict.length; i++) {
         const item = superviseStatusDict[i];
         superviseStatusOptions.push(
-          <Option key={item.id} value={item.code}>{item.name}</Option>,
+          <Option key={item.id} value={item.code}>
+            {item.name}
+          </Option>,
         );
       }
     }
@@ -846,7 +953,9 @@ export default class Index extends PureComponent {
       for (let i = 0; i < JzCaseStatusType.length; i++) {
         const item = JzCaseStatusType[i];
         superviseJzGjStatusOptions.push(
-          <Option key={item.id} value={item.code}>{item.name}</Option>,
+          <Option key={item.id} value={item.code}>
+            {item.name}
+          </Option>,
         );
       }
     }
@@ -855,286 +964,330 @@ export default class Index extends PureComponent {
       for (let i = 0; i < rectificationStatusDict.length; i++) {
         const item = rectificationStatusDict[i];
         rectificationStatusOptions.push(
-          <Option key={item.id} value={item.code}>{item.name}</Option>,
+          <Option key={item.id} value={item.code}>
+            {item.name}
+          </Option>,
         );
       }
     }
-    const dossierSaveTypeDictGroup = dossierSaveTypeDict.length > 0 ? dossierSaveTypeDict.map(item => {
-      return <Option key={item.code} value={item.code}>{item.name}</Option>;
-    }) : null;
+    const dossierSaveTypeDictGroup =
+      dossierSaveTypeDict.length > 0
+        ? dossierSaveTypeDict.map(item => {
+            return (
+              <Option key={item.code} value={item.code}>
+                {item.name}
+              </Option>
+            );
+          })
+        : null;
     const paginationProps = {
       // showSizeChanger: true,
       // showQuickJumper: true,
       current: page ? page.currentPage : '',
       total: page ? page.totalResult : '',
       pageSize: page ? page.showCount : '',
-      showTotal: (total, range) =>
-        <span className={styles.listPagination}>{`共 ${page ? page.totalPage : 1} 页， ${page ? page.totalResult : 0} 条记录 `}</span>,
+      showTotal: (total, range) => (
+        <span className={styles.listPagination}>{`共 ${page ? page.totalPage : 1} 页， ${
+          page ? page.totalResult : 0
+        } 条记录 `}</span>
+      ),
     };
-    let className = this.props.global&&this.props.global.dark ?styles.listPageWrap : styles.listPageWrap + ' '+styles.lightBox;
+    let className =
+      this.props.global && this.props.global.dark
+        ? styles.listPageWrap
+        : styles.listPageWrap + ' ' + styles.lightBox;
     return (
-      <div className={this.props.location.query && this.props.location.query.id ? styles.onlyDetail : ''}>
-            <div className={className}>
-              <div className={styles.listPageHeader}>
-                {
-                  showDataView ? (
-                    <a className={styles.listPageHeaderCurrent}><span>●</span>告警统计</a>
-                  ) : (
-                    <a className={styles.UnlistPageHeaderCurrent} onClick={this.changeListPageHeader}>告警统计</a>
-                  )
-                }
-                <span>|</span>
-                {
-                  showDataView ? (
-                    <a className={styles.UnlistPageHeaderCurrent} onClick={this.changeListPageHeader}>告警列表</a>
-                  ) : (
-                    <a className={styles.listPageHeaderCurrent}><span>●</span>告警列表</a>
-                  )
-                }
-                {showDataView ? (
-                  ''
-                ) : (
-                  <div style={{ float: 'right' }}>
-                    <Button
-                      style={{
-                        color: '#3285FF',
-                        backgroundColor: '#171925',
-                        border: '1px solid #3285FF',
-                        borderRadius: '5px',
-                      }}
-                      onClick={this.exportData}
-                    >
-                      导出表格
+      <div
+        className={
+          this.props.location.query && this.props.location.query.id ? styles.onlyDetail : ''
+        }
+      >
+        <div className={className}>
+          <div className={styles.listPageHeader}>
+            {showDataView ? (
+              <a className={styles.listPageHeaderCurrent}>
+                <span>●</span>告警统计
+              </a>
+            ) : (
+              <a className={styles.UnlistPageHeaderCurrent} onClick={this.changeListPageHeader}>
+                告警统计
+              </a>
+            )}
+            <span>|</span>
+            {showDataView ? (
+              <a className={styles.UnlistPageHeaderCurrent} onClick={this.changeListPageHeader}>
+                告警列表
+              </a>
+            ) : (
+              <a className={styles.listPageHeaderCurrent}>
+                <span>●</span>告警列表
+              </a>
+            )}
+            {showDataView ? (
+              ''
+            ) : (
+              <div style={{ float: 'right' }}>
+                <Button className={styles.downloadBtn} onClick={this.exportData} icon="download">
+                  导出表格
+                </Button>
+              </div>
+            )}
+            <DataViewButtonArea
+              showDataView={showDataView}
+              styles={styles}
+              typeButtons={typeButtons}
+              changeTypeButtons={this.changeTypeButtons}
+              disabledDate={this.disabledDate}
+              depTree={depTree}
+              renderloop={this.renderloop}
+              setSelectedDate={this.setSelectedDate}
+              setSelectedDep={this.setSelectedDep}
+              hideWeekButton={true}
+              hideMonthButton={true}
+              treeDefaultExpandedKeys={treeDefaultExpandedKeys}
+              {...this.props}
+            />
+          </div>
+          <UnDossierDataView
+            style={{ display: 'none' }}
+            changeToListPage={this.changeToListPage}
+            showDataView={showDataView}
+            searchType={typeButtons}
+            orgcode={orgcodeVal}
+            selectedDateVal={selectedDateVal}
+            {...this.props}
+          />
+          <div style={showDataView ? { display: 'none' } : { display: 'block' }}>
+            <div
+              className={styles.tableListForm}
+              id="jzgjtableListForm"
+              style={{ position: 'relative' }}
+            >
+              <Form
+                onSubmit={this.handleSearch}
+                style={{ height: this.state.searchHeight ? 'auto' : '59px' }}
+              >
+                <Row gutter={rowLayout} className={styles.searchForm}>
+                  <Col {...colLayout}>
+                    <FormItem label="问题类型" {...formItemLayout}>
+                      {getFieldDecorator('wtlx', {
+                        initialValue: this.state.wtlx,
+                      })(
+                        <Select
+                          placeholder="请选择问题类型"
+                          style={{ width: '100%' }}
+                          getPopupContainer={() => document.getElementById('jzgjtableListForm')}
+                        >
+                          <Option value="">全部</Option>
+                          {/*<Option value="1">超期归还</Option>*/}
+                          {/*<Option value="0">超期送卷</Option>*/}
+                          {/*/!*<Option value="201903">归还预警</Option>*!/*/}
+                          {superviseJzGjStatusOptions}
+                        </Select>,
+                      )}
+                    </FormItem>
+                  </Col>
+                  <Col {...colLayout}>
+                    <FormItem label="案件类型" {...formItemLayout}>
+                      {getFieldDecorator('ajlx', {
+                        initialValue: this.state.ajlx,
+                      })(
+                        <Select
+                          placeholder="请选择案件类型"
+                          style={{ width: '100%' }}
+                          getPopupContainer={() => document.getElementById('jzgjtableListForm')}
+                        >
+                          <Option value="">全部</Option>
+                          <Option value="0">刑事案件</Option>
+                          <Option value="1">行政案件</Option>
+                          <Option value="2">其他</Option>
+                        </Select>,
+                      )}
+                    </FormItem>
+                  </Col>
+                  <Col {...colLayout}>
+                    <FormItem label="所属案件" {...formItemLayout}>
+                      {getFieldDecorator('ssaj', {
+                        rules: [{ max: 128, message: '最多输入128个字！' }],
+                      })(<Input placeholder="请输入案件名称或案件编号" />)}
+                    </FormItem>
+                  </Col>
+                  <Col {...colLayout}>
+                    <FormItem label="办案单位" {...formItemLayout}>
+                      {getFieldDecorator('bardw', {
+                        initialValue: this.state.badw ? this.state.badw : undefined,
+                      })(
+                        <TreeSelect
+                          showSearch
+                          style={{ width: '100%' }}
+                          dropdownStyle={{ maxHeight: 400, overflow: 'auto' }}
+                          placeholder="请输入办案单位"
+                          allowClear
+                          key="badwSelect"
+                          treeDefaultExpandedKeys={this.state.treeDefaultExpandedKeys}
+                          treeNodeFilterProp="title"
+                          getPopupContainer={() => document.getElementById('jzgjtableListForm')}
+                        >
+                          {depTree && depTree.length > 0 ? this.renderloop(depTree) : null}
+                        </TreeSelect>,
+                      )}
+                    </FormItem>
+                  </Col>
+                  <Col {...colLayout}>
+                    <FormItem label="办案人" {...formItemLayout}>
+                      {getFieldDecorator('bar', {
+                        rules: [{ max: 32, message: '最多输入32个字！' }],
+                      })(
+                        <Select
+                          mode="combobox"
+                          defaultActiveFirstOption={false}
+                          optionLabelProp="title"
+                          showArrow={false}
+                          filterOption={false}
+                          placeholder="请输入办案人"
+                          onChange={this.handleAllPoliceOptionChange}
+                          onFocus={this.handleAllPoliceOptionChange}
+                          // getPopupContainer={() => document.getElementById('jzgjtableListForm')}
+                        >
+                          {allPoliceOptions}
+                        </Select>,
+                      )}
+                    </FormItem>
+                  </Col>
+                  <Col {...colLayout}>
+                    <FormItem label="存储状态" {...formItemLayout}>
+                      {getFieldDecorator('cczt', {
+                        initialValue: this.state.cczt,
+                      })(
+                        <Select
+                          placeholder="请选择存储状态"
+                          style={{ width: '100%' }}
+                          getPopupContainer={() => document.getElementById('jzgjtableListForm')}
+                        >
+                          <Option value="">全部</Option>
+                          {dossierSaveTypeDictGroup}
+                        </Select>,
+                      )}
+                    </FormItem>
+                  </Col>
+                  <Col {...colLayout}>
+                    <FormItem label="消息状态" {...formItemLayout}>
+                      {getFieldDecorator('dbzt', {
+                        initialValue: { dbzt: this.state.dbzt, zgzt: '' },
+                      })(
+                        <MessageState
+                          superviseStatusOptions={superviseStatusOptions}
+                          rectificationStatusOptions={rectificationStatusOptions}
+                          newId="jzgjtableListForm"
+                        />,
+                      )}
+                    </FormItem>
+                  </Col>
+                  <Col {...colLayout}>
+                    <FormItem label="告警时间" {...formItemLayout}>
+                      {getFieldDecorator('gjsj', {
+                        initialValue: this.state.gjsj ? this.state.gjsj : undefined,
+                      })(
+                        <RangePicker
+                          disabledDate={this.disabledDate}
+                          style={{ width: '100%' }}
+                          getCalendarContainer={() => document.getElementById('jzgjtableListForm')}
+                        />,
+                      )}
+                    </FormItem>
+                  </Col>
+                  <Col {...colLayout}>
+                    <FormItem label="产生方式" {...formItemLayout}>
+                      {getFieldDecorator('csfs', {
+                        initialValue: '',
+                      })(
+                        <Select
+                          placeholder="请选择产生方式"
+                          style={{ width: '100%' }}
+                          onChange={this.getCsfs}
+                          getPopupContainer={() => document.getElementById('jzgjtableListForm')}
+                        >
+                          <Option value="">全部</Option>
+                          <Option value="系统判定">系统判定</Option>
+                          <Option value="人工判定">人工判定</Option>
+                        </Select>,
+                      )}
+                    </FormItem>
+                  </Col>
+                </Row>
+                <Row className={styles.search}>
+                  <span style={{ float: 'right', marginBottom: 24, marginTop: 5 }}>
+                    <Button style={{ marginLeft: 8 }} type="primary" htmlType="submit">
+                      查询
                     </Button>
-                  </div>
-                )}
-                <DataViewButtonArea
-                  showDataView={showDataView}
-                  styles={styles}
-                  typeButtons={typeButtons}
-                  changeTypeButtons={this.changeTypeButtons}
-                  disabledDate={this.disabledDate}
-                  depTree={depTree}
-                  renderloop={this.renderloop}
-                  setSelectedDate={this.setSelectedDate}
-                  setSelectedDep={this.setSelectedDep}
-                  hideWeekButton={true}
-                  hideMonthButton={true}
-                  treeDefaultExpandedKeys={treeDefaultExpandedKeys}
-                  {...this.props}
-                />
-              </div>
-              <UnDossierDataView
-                style={{ display: 'none' }}
-                changeToListPage={this.changeToListPage}
-                showDataView={showDataView}
-                searchType={typeButtons}
-                orgcode={orgcodeVal}
-                selectedDateVal={selectedDateVal}
-                {...this.props}
-              />
-              <div style={showDataView ? { display: 'none' } : { display: 'block' }}>
-                <div className={styles.tableListForm} id='jzgjtableListForm' style={{ position: 'relative' }}>
-                  <Form onSubmit={this.handleSearch} style={{ height: this.state.searchHeight ? 'auto' : '59px' }}>
-                    <Row gutter={rowLayout} className={styles.searchForm}>
-                      <Col {...colLayout}>
-                        <FormItem label="问题类型" {...formItemLayout}>
-                          {getFieldDecorator('wtlx', {
-                            initialValue: this.state.wtlx,
-                          })(
-                            <Select placeholder="请选择问题类型" style={{ width: '100%' }} getPopupContainer={() => document.getElementById('jzgjtableListForm')}>
-                              <Option value="">全部</Option>
-                              {/*<Option value="1">超期归还</Option>*/}
-                              {/*<Option value="0">超期送卷</Option>*/}
-                              {/*/!*<Option value="201903">归还预警</Option>*!/*/}
-                              {superviseJzGjStatusOptions}
-                            </Select>,
-                          )}
-                        </FormItem>
-                      </Col>
-                      <Col {...colLayout}>
-                        <FormItem label="案件类型" {...formItemLayout}>
-                          {getFieldDecorator('ajlx', {
-                            initialValue: this.state.ajlx,
-                          })(
-                            <Select placeholder="请选择案件类型" style={{ width: '100%' }} getPopupContainer={() => document.getElementById('jzgjtableListForm')}>
-                              <Option value="">全部</Option>
-                              <Option value="0">刑事案件</Option>
-                              <Option value="1">行政案件</Option>
-                              <Option value="2">其他</Option>
-                            </Select>,
-                          )}
-                        </FormItem>
-                      </Col>
-                      <Col {...colLayout}>
-                        <FormItem label="所属案件" {...formItemLayout}>
-                          {getFieldDecorator('ssaj', {
-                            rules: [{ max: 128, message: '最多输入128个字！' }],
-                          })(
-                            <Input placeholder="请输入案件名称或案件编号"/>,
-                          )}
-                        </FormItem>
-                      </Col>
-                      <Col {...colLayout}>
-                        <FormItem label="办案单位" {...formItemLayout} >
-                          {getFieldDecorator('bardw', {
-                            initialValue: this.state.badw ? this.state.badw : undefined,
-                          })(
-                            <TreeSelect
-                              showSearch
-                              style={{ width: '100%' }}
-                              dropdownStyle={{ maxHeight: 400, overflow: 'auto' }}
-                              placeholder="请输入办案单位"
-                              allowClear
-                              key="badwSelect"
-                              treeDefaultExpandedKeys={this.state.treeDefaultExpandedKeys}
-                              treeNodeFilterProp="title"
-                              getPopupContainer={() => document.getElementById('jzgjtableListForm')}
-                            >
-                              {depTree && depTree.length > 0 ? this.renderloop(depTree) : null}
-                            </TreeSelect>,
-                          )}
-                        </FormItem>
-                      </Col>
-                      <Col {...colLayout}>
-                        <FormItem label="办案人" {...formItemLayout}>
-                          {getFieldDecorator('bar', {
-                            rules: [{ max: 32, message: '最多输入32个字！' }],
-                          })(
-                            <Select
-                              mode="combobox"
-                              defaultActiveFirstOption={false}
-                              optionLabelProp='title'
-                              showArrow={false}
-                              filterOption={false}
-                              placeholder="请输入办案人"
-                              onChange={this.handleAllPoliceOptionChange}
-                              onFocus={this.handleAllPoliceOptionChange}
-                              // getPopupContainer={() => document.getElementById('jzgjtableListForm')}
-                            >
-                              {allPoliceOptions}
-                            </Select>,
-                          )}
-                        </FormItem>
-                      </Col>
-                      <Col {...colLayout}>
-                        <FormItem label="存储状态" {...formItemLayout}>
-                          {getFieldDecorator('cczt', {
-                            initialValue: this.state.cczt,
-                          })(
-                            <Select placeholder="请选择存储状态" style={{ width: '100%' }} getPopupContainer={() => document.getElementById('jzgjtableListForm')}>
-                              <Option value="">全部</Option>
-                              {dossierSaveTypeDictGroup}
-                            </Select>,
-                          )}
-                        </FormItem>
-                      </Col>
-                      <Col {...colLayout}>
-                        <FormItem label="消息状态" {...formItemLayout}>
-                          {getFieldDecorator('dbzt', {
-                            initialValue: { dbzt: this.state.dbzt, zgzt: '' },
-                          })(
-                            <MessageState superviseStatusOptions={superviseStatusOptions}
-                                          rectificationStatusOptions={rectificationStatusOptions}
-                                          newId='jzgjtableListForm' />,
-                          )}
-                        </FormItem>
-                      </Col>
-                      <Col {...colLayout}>
-                        <FormItem label="告警时间" {...formItemLayout}>
-                          {getFieldDecorator('gjsj', {
-                            initialValue: this.state.gjsj ? this.state.gjsj : undefined,
-                          })(
-                            <RangePicker
-                              disabledDate={this.disabledDate}
-                              style={{ width: '100%' }}
-                              getCalendarContainer={() => document.getElementById('jzgjtableListForm')}
-                            />,
-                          )}
-                        </FormItem>
-                      </Col>
-                      <Col {...colLayout}>
-                        <FormItem label="产生方式" {...formItemLayout}>
-                          {getFieldDecorator('csfs', {
-                            initialValue: '',
-                          })(
-                            <Select placeholder="请选择产生方式" style={{ width: '100%' }} onChange={this.getCsfs} getPopupContainer={() => document.getElementById('jzgjtableListForm')}>
-                              <Option value="">全部</Option>
-                              <Option value="系统判定">系统判定</Option>
-                              <Option value="人工判定">人工判定</Option>
-                            </Select>,
-                          )}
-                        </FormItem>
-                      </Col>
-
-                    </Row>
-                    <Row className={styles.search}>
-                      <span style={{ float: 'right', marginBottom: 24, marginTop: 5 }}>
-                        <Button style={{ marginLeft: 8 }} type="primary" htmlType="submit">
-                          查询
-                        </Button>
-                        <Button
-                          style={{ marginLeft: 8 }}
-                          onClick={this.handleFormReset}
-                          className={styles.empty}
-                        >
-                          重置
-                        </Button>
-                        <Button
-                          style={{ marginLeft: 8 }}
-                          onClick={this.getSearchHeight}
-                          className={styles.empty}
-                        >
-                          {this.state.searchHeight ? '收起筛选' : '展开筛选'}{' '}
-                          <Icon type={this.state.searchHeight ? 'up' : 'down'} />
-                        </Button>
-                      </span>
-                    </Row>
-                  </Form>
-                </div>
-                <div className={styles.tableListOperator} id='jzgjtableListOperator'>
-                  <Table
-                    className={styles.listStandardTable}
-                    // size="middle"
-                    loading={loading}
-                    rowKey={record => record.wtid}
-                    dataSource={DossierDetail.list}
-                    columns={columns}
-                    pagination={paginationProps}
-                    onChange={this.handleTableChange}
-                    locale={{ emptyText: <Empty image={this.props.global&&this.props.global.dark ? noList : noListLight} description={'暂无数据'} /> }}
-                  />
-                  {/*<ShareModal*/}
-                    {/*title="卷宗信息分享"*/}
-                    {/*detail={detail}*/}
-                    {/*shareVisible={this.state.shareVisible}*/}
-                    {/*handleCancel={this.handleCancel}*/}
-                    {/*shareItem={this.state.shareItem}*/}
-                    {/*personList={this.state.personList}*/}
-                    {/*lx={this.state.lx}*/}
-                    {/*tzlx={this.state.tzlx}*/}
-                    {/*sx={this.state.sx}*/}
-                  {/*/>*/}
-                </div>
-              </div>
+                    <Button
+                      style={{ marginLeft: 8 }}
+                      onClick={this.handleFormReset}
+                      className={styles.empty}
+                    >
+                      重置
+                    </Button>
+                    <Button
+                      style={{ marginLeft: 8 }}
+                      onClick={this.getSearchHeight}
+                      className={styles.empty}
+                    >
+                      {this.state.searchHeight ? '收起筛选' : '展开筛选'}{' '}
+                      <Icon type={this.state.searchHeight ? 'up' : 'down'} />
+                    </Button>
+                  </span>
+                </Row>
+              </Form>
             </div>
+            <div className={styles.tableListOperator} id="jzgjtableListOperator">
+              <Table
+                className={styles.listStandardTable}
+                // size="middle"
+                loading={loading}
+                rowKey={record => record.wtid}
+                dataSource={DossierDetail.list}
+                columns={columns}
+                pagination={paginationProps}
+                onChange={this.handleTableChange}
+                locale={{
+                  emptyText: (
+                    <Empty
+                      image={this.props.global && this.props.global.dark ? noList : noListLight}
+                      description={'暂无数据'}
+                    />
+                  ),
+                }}
+              />
+              {/*<ShareModal*/}
+              {/*title="卷宗信息分享"*/}
+              {/*detail={detail}*/}
+              {/*shareVisible={this.state.shareVisible}*/}
+              {/*handleCancel={this.handleCancel}*/}
+              {/*shareItem={this.state.shareItem}*/}
+              {/*personList={this.state.personList}*/}
+              {/*lx={this.state.lx}*/}
+              {/*tzlx={this.state.tzlx}*/}
+              {/*sx={this.state.sx}*/}
+              {/*/>*/}
+            </div>
+          </div>
+        </div>
 
         {/*{superviseVisibleModal ?*/}
-          {/*<SuperviseModal*/}
-            {/*visible={superviseVisibleModal}*/}
-            {/*closeModal={this.closeModal}*/}
-            {/*caseDetails={this.state.opendata}*/}
-            {/*getRefresh={this.Refresh}*/}
-            {/*// 点击列表的督办显示的四个基本信息*/}
-            {/*wtlx={this.state.superviseWtlx}*/}
-            {/*wtid={this.state.wtid}*/}
-            {/*id={this.state.id}*/}
-            {/*from='督办'*/}
-          {/*/>*/}
-          {/*: ''*/}
+        {/*<SuperviseModal*/}
+        {/*visible={superviseVisibleModal}*/}
+        {/*closeModal={this.closeModal}*/}
+        {/*caseDetails={this.state.opendata}*/}
+        {/*getRefresh={this.Refresh}*/}
+        {/*// 点击列表的督办显示的四个基本信息*/}
+        {/*wtlx={this.state.superviseWtlx}*/}
+        {/*wtid={this.state.wtid}*/}
+        {/*id={this.state.id}*/}
+        {/*from='督办'*/}
+        {/*/>*/}
+        {/*: ''*/}
         {/*}*/}
       </div>
     );
   }
-
 }

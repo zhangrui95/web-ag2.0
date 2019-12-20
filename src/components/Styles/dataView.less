@@ -1,11 +1,11 @@
 @import '~antd/lib/style/themes/default.less';
 @import '../../utils/utils.less';
-@import "../../theme/darkTheme";
+@import '../../theme/darkTheme';
 
-.policeDataCard{
-  :global{
-    .ant-card-body{
-      background-color:@body-background;
+.policeDataCard {
+  :global {
+    .ant-card-body {
+      background-color: @body-background;
     }
   }
 }
@@ -122,7 +122,7 @@
 
   .cardBox {
     //border: 1px solid #e8e8e8;
-    border-top:0;
+    border-top: 0;
     width: 100%;
     height: 250px;
     background: @body-background;
@@ -355,7 +355,7 @@
 }
 .choiceRy {
   width: 300px;
-  position: absolute!important;
+  position: absolute !important;
   left: 180px;
   z-index: 9999;
   top: 14px;
@@ -378,50 +378,51 @@
     }
   }
 }
-.topView{
+.topView {
   width: 100%;
   height: 170px;
-  .leftView{
+  .leftView {
     float: left;
-    width: calc(~"50% - 10px");
-    margin: 15px 10px  0 0;
-    border-radius:10px;
-    overflow:hidden;
-    font-size:20px;
-    :global{
-      .ant-card-body{
-        padding: 0 15%;
-        color: #fff;
-        height: 150px;
-        line-height: 150px;
-        text-align: center;
-        background: linear-gradient(#04CDE2, #00BAFF)!important;
-      }
-    }
-  }
-  .rightView{
-    float: left;
-    width: calc(~"50% - 10px");
-    margin: 15px 0 0 10px;
-    border-radius:10px;
-    overflow:hidden;
-    font-size:20px;
+    width: calc(~'50% - 10px');
+    margin: 15px 10px 0 0;
+    border-radius: 10px;
+    overflow: hidden;
+    font-size: 20px;
     :global {
       .ant-card-body {
         padding: 0 15%;
         color: #fff;
-        background: linear-gradient(#8C80F8, #B588FC)!important;
+        height: 150px;
+        line-height: 150px;
+        text-align: center;
+        background: linear-gradient(#04cde2, #00baff) !important;
+      }
+    }
+  }
+  .rightView {
+    float: left;
+    width: calc(~'50% - 10px');
+    margin: 15px 0 0 10px;
+    border-radius: 10px;
+    overflow: hidden;
+    font-size: 20px;
+    :global {
+      .ant-card-body {
+        padding: 0 15%;
+        color: #fff;
+        background: linear-gradient(#8c80f8, #b588fc) !important;
         height: 150px;
         line-height: 150px;
         text-align: center;
       }
     }
   }
-  .viewNumber{
+  .viewNumber {
     font-size: 40px;
-    font-style:italic;
+    font-style: italic;
   }
-  .warningCountButtonNumberBlue, .warningCountButtonNumberPink {
+  .warningCountButtonNumberBlue,
+  .warningCountButtonNumberPink {
     position: relative;
     text-align: center;
     margin: 0 10px;
@@ -437,25 +438,25 @@
     }
   }
 }
-.lightBox{
-  :global{
-    .ant-card-body{
-      background-color:#ebebeb!important;
-    }
-  }
-  .viewBox{
+.lightBox {
+  .viewBox {
     border-top: 1px solid #ebebeb;
+  }
+  :global {
+    .ant-card-body {
+      background-color: #ebebeb !important;
+    }
   }
   .listPageRow {
     .cardBox {
       background: #fff;
     }
   }
-  .cardBoxTitle{
+  .cardBoxTitle {
     background: #fff;
-    color: #4662D5;
+    color: #4662d5;
   }
-  .cardBox{
+  .cardBox {
     border: 1px solid #e6e6e6;
     width: 96%;
     margin-left: 2%;
@@ -463,17 +464,17 @@
     border-radius: 6px;
   }
   .viewCount {
-    background: url("../../assets/viewData/Headerbg.png") no-repeat #fff!important;
+    background: url('../../assets/viewData/Headerbg.png') no-repeat #fff !important;
     border-radius: 10px;
   }
   .countButton {
-    background: #BFBFBF;
+    background: #bfbfbf;
 
     .countButtonTitle {
-      background: #cFcFcF;
+      background: #cfcfcf;
     }
   }
-  .cardBoxzk{
+  .cardBoxzk {
     background: #fff;
     box-shadow: 0 0 8px #eee;
     border-radius: 6px;
@@ -481,28 +482,28 @@
     width: 96%;
     margin-left: 2%;
   }
-  .listPageRow{
-    :global{
-      .ant-card-body{
-        background-color:#fff!important;
+  .listPageRow {
+    :global {
+      .ant-card-body {
+        background-color: #fff !important;
       }
     }
   }
-  .listPageHeader{
+  .listPageHeader {
     background: #fff;
   }
-  .listPageHeaderCurrent{
-    color: #4662D5!important;
+  .listPageHeaderCurrent {
+    color: #4662d5 !important;
   }
-  .UnlistPageHeaderCurrent{
-    color: #4d4d4d!important;
+  .UnlistPageHeaderCurrent {
+    color: #4d4d4d !important;
   }
 }
-.lightBoxEval{
-  :global{
-    .ant-card-body{
-      background-color:#fff!important;
-      border-radius: 10px!important;
+.lightBoxEval {
+  :global {
+    .ant-card-body {
+      background-color: #fff !important;
+      border-radius: 10px !important;
     }
   }
 }

@@ -4,7 +4,7 @@
  * 20180112
  * */
 import React, { PureComponent } from 'react';
-import { Row, Col } from 'antd';
+import { Row, Col, Card } from 'antd';
 import moment from 'moment/moment';
 import echarts from 'echarts/lib/echarts';
 import 'echarts/lib/chart/bar';
@@ -17,10 +17,15 @@ import styles from '../Styles/dataView.less';
 import { getTimeDistance } from '../../utils/utils';
 import warningCountButtonNumberPink from '../../assets/viewData/warningCountButtonNumberPink.png';
 import warningCountButtonNumberBlue from '../../assets/viewData/warningCountButtonNumberBlue.png';
+import crial from '../../assets/common/crial.png';
+import { connect } from 'dva';
 
 let unItemEchartBar;
 let unItemEchartRingPie;
 
+@connect(({ global }) => ({
+  global,
+}))
 export default class UnDossierDataView extends PureComponent {
   state = {
     currentType: 'today',
@@ -40,6 +45,7 @@ export default class UnDossierDataView extends PureComponent {
       lastMonth: '7',
       beforeLastMonth: '8',
     },
+    type: 'now',
   };
 
   componentDidMount() {
@@ -49,8 +55,8 @@ export default class UnDossierDataView extends PureComponent {
     this.getNewAddWarnings(dayTypeTime[0], dayTypeTime[1], 'today');
     this.getAllTypeWarningCount(dayTypeTime[0], dayTypeTime[1], 'today');
 
-    this.showUnItemEchartBar();
-    this.showUnItemEchartRingPie();
+    this.showUnItemEchartBar(this.props);
+    this.showUnItemEchartRingPie(this.props);
     //
     window.addEventListener('resize', unItemEchartBar.resize);
     window.addEventListener('resize', unItemEchartRingPie.resize);
@@ -70,7 +76,7 @@ export default class UnDossierDataView extends PureComponent {
           this.getViewCountData('day', nextProps.orgcode);
           const dayTypeTime = this.getTime('today');
           this.getNewAddWarnings(dayTypeTime[0], dayTypeTime[1], 'today', nextProps.orgcode);
-          this.getAllTypeWarningCount(dayTypeTime[0], dayTypeTime[1], 'today', nextProps.orgcode);
+          // this.getAllTypeWarningCount(dayTypeTime[0], dayTypeTime[1], 'today', nextProps.orgcode);
         } else if (nextProps.searchType === 'selectedDate') {
           this.setState(
             {
@@ -94,6 +100,11 @@ export default class UnDossierDataView extends PureComponent {
           );
         }
       }
+      if (this.props.global.dark !== nextProps.global.dark) {
+        this.showUnPoliceEchartBar(nextProps);
+        this.showUnPoliceEchartRingPie(nextProps);
+        this.changeCountButtonCurrent(this.state.type);
+      }
     }
   }
 
@@ -109,8 +120,8 @@ export default class UnDossierDataView extends PureComponent {
   };
   getTime = type => {
     const time = getTimeDistance(type);
-    const startTime = time[0] === '' ? '' : moment(time[0]).format('YYYY-MM-DD');
-    const endTime = time[1] === '' ? '' : moment(time[1]).format('YYYY-MM-DD');
+    const startTime = time && time[0] ? moment(time[0]).format('YYYY-MM-DD') : '';
+    const endTime = time && time[1] ? moment(time[1]).format('YYYY-MM-DD') : '';
     return [startTime, endTime];
   };
 
@@ -126,6 +137,7 @@ export default class UnDossierDataView extends PureComponent {
     }
     this.setState({
       currentType,
+      type,
     });
     const dataTime = this.getTime(currentType);
     this.getViewCountData('day');
@@ -181,9 +193,11 @@ export default class UnDossierDataView extends PureComponent {
             series: [
               {
                 data: dataShadow,
+                barWidth: 10,
               },
               {
                 data: barData,
+                barWidth: 10,
               },
             ],
           });
@@ -192,11 +206,11 @@ export default class UnDossierDataView extends PureComponent {
     });
   };
   // 新增告警柱状图
-  showUnItemEchartBar = () => {
+  showUnItemEchartBar = nextProps => {
     const that = this;
     unItemEchartBar = echarts.init(document.getElementById('unItemXzgj'));
     const option = {
-      color: ['#3398DB'],
+      color: ['#00B8CC'],
       title: {
         // text: '新增告警',
         // textStyle: {
@@ -214,7 +228,7 @@ export default class UnDossierDataView extends PureComponent {
         },
         axisLabel: {
           textStyle: {
-            color: '#fff',
+            color: nextProps.global && nextProps.global.dark ? '#fff' : '#4d4d4d',
           },
         },
       },
@@ -230,7 +244,7 @@ export default class UnDossierDataView extends PureComponent {
         },
         axisLabel: {
           textStyle: {
-            color: '#fff',
+            color: nextProps.global && nextProps.global.dark ? '#fff' : '#4d4d4d',
           },
         },
       },
@@ -258,7 +272,7 @@ export default class UnDossierDataView extends PureComponent {
               formatter: '{c}',
               textStyle: {
                 fontSize: 16,
-                color: '#fff',
+                color: nextProps.global && nextProps.global.dark ? '#fff' : '#4d4d4d',
               },
             },
           },
@@ -369,7 +383,7 @@ export default class UnDossierDataView extends PureComponent {
     });
   };
   // 告警情况环形饼状图
-  showUnItemEchartRingPie = () => {
+  showUnItemEchartRingPie = nextProps => {
     const that = this;
     unItemEchartRingPie = echarts.init(document.getElementById('unItemGjqk'));
     const option = {
@@ -388,16 +402,16 @@ export default class UnDossierDataView extends PureComponent {
       legend: {
         orient: 'vertical',
         right: 60,
-        top: 60,
+        top: 40,
         show: true,
         itemWidth: 10,
         itemHeight: 10,
         itemGap: 25,
         selectedMode: true, // 点击
         textStyle: {
-          color: '#fff',
+          color: nextProps.global && nextProps.global.dark ? '#fff' : '#4d4d4d',
           fontSize: 16,
-          lineHeight: 24,
+          lineHeight: 20,
         },
         data: [],
       },
@@ -414,7 +428,7 @@ export default class UnDossierDataView extends PureComponent {
               position: 'center',
               textStyle: {
                 fontSize: '22',
-                color: '#fff',
+                color: nextProps.global && nextProps.global.dark ? '#fff' : '#4d4d4d',
               },
             },
             emphasis: {
@@ -444,73 +458,95 @@ export default class UnDossierDataView extends PureComponent {
     const colLayout = { sm: 24, lg: 12 };
     const { searchType, selectedDateVal, showDataView } = this.props;
     const { lastData, nowData, selectedDateData, currentType } = this.state;
+    let className =
+      this.props.global && this.props.global.dark
+        ? styles.policeDataCard
+        : styles.policeDataCard + ' ' + styles.lightBox;
     return (
-      <div
-        className={styles.policeDataView}
-        style={showDataView ? {} : { position: 'absolute', zIndex: -1 }}
-      >
-        {currentType !== 'selectedDate' ? (
-          <div className={styles.viewCount}>
-            <div onClick={() => this.changeCountButtonCurrent('now')}>
-              <div className={styles.warningCountButtonArea}>
-                <div className={styles.warningCountButtonTitleBlue}>今日新增告警</div>
-                <div className={styles.warningCountButtonNumberBlue}>
-                  <img src={warningCountButtonNumberBlue} alt="" />
-                  {nowData}
+      <Card style={{ position: 'relative' }} className={className}>
+        <div
+          className={styles.policeDataView}
+          style={showDataView ? {} : { position: 'absolute', zIndex: -1 }}
+        >
+          {currentType !== 'selectedDate' ? (
+            <div className={styles.topView}>
+              <Card
+                className={styles.leftView}
+                onClick={() => this.changeCountButtonCurrent('now')}
+              >
+                <Row>
+                  <Col span={12}>今日新增告警</Col>
+                  <Col span={12} className={styles.viewNumber}>
+                    <div className={styles.warningCountButtonNumberPink}>
+                      <img src={crial} alt="" />
+                      {nowData}
+                    </div>
+                  </Col>
+                </Row>
+              </Card>
+              <Card
+                className={styles.rightView}
+                onClick={() => this.changeCountButtonCurrent('last')}
+              >
+                <Row>
+                  <Col span={12}>昨日告警数量</Col>
+                  <Col span={12} className={styles.viewNumber}>
+                    <div className={styles.warningCountButtonNumberPink}>
+                      <img src={crial} alt="" />
+                      {lastData}
+                    </div>
+                  </Col>
+                </Row>
+              </Card>
+            </div>
+          ) : (
+            <div className={styles.viewCount}>
+              <div className={styles.countButtonCurrent}>
+                <div className={styles.countButtonTitle}>
+                  <div>{selectedDateVal[0]}</div>
+                  <div style={{ lineHeight: '6px' }}>~</div>
+                  <div>{selectedDateVal[1]}</div>
+                </div>
+                <div className={styles.countButtonNumber}>
+                  <div>告警：{selectedDateData}</div>
                 </div>
               </div>
             </div>
-            <div onClick={() => this.changeCountButtonCurrent('last')}>
-              <div className={styles.warningCountButtonArea}>
-                <div className={styles.warningCountButtonTitlePink}>昨日告警数量</div>
-                <div className={styles.warningCountButtonNumberPink}>
-                  <img src={warningCountButtonNumberPink} alt="" />
-                  {lastData}
-                </div>
-              </div>
-            </div>
-          </div>
-        ) : (
-          <div className={styles.viewCount}>
-            <div className={styles.countButtonCurrent}>
-              <div className={styles.countButtonTitle}>
-                <div>{selectedDateVal[0]}</div>
-                <div style={{ lineHeight: '6px' }}>~</div>
-                <div>{selectedDateVal[1]}</div>
-              </div>
-              <div className={styles.countButtonNumber}>
-                <div>告警：{selectedDateData}</div>
-              </div>
-            </div>
-          </div>
-        )}
-        <div style={{ backgroundColor: '#252c3c', padding: '0 16px' }}>
-          <Row gutter={rowLayout} className={styles.listPageRow} >
-            <Col {...colLayout} style={{marginBottom:32}}>
-              <div className={styles.cardBoxTitle}>
-                |{' '}
-                {currentType === 'today'
-                  ? '今日新增告警'
-                  : currentType === 'selectedDate'
+          )}
+          <div
+            style={{
+              backgroundColor: this.props.global && this.props.global.dark ? '#252c3c' : '#fff',
+              padding: '0 16px',
+              borderRadius: 10,
+            }}
+          >
+            <Row gutter={rowLayout} className={styles.listPageRow}>
+              <Col {...colLayout} style={{ marginBottom: 32 }}>
+                <div className={styles.cardBoxTitle}>
+                  |{' '}
+                  {currentType === 'today'
+                    ? '今日新增告警'
+                    : currentType === 'selectedDate'
                     ? '告警'
                     : '昨日告警'}
-              </div>
-              <div id="unItemXzgj" className={styles.cardBox}></div>
-            </Col>
-            <Col {...colLayout} style={{marginBottom:32}}>
-              <div className={styles.cardBoxTitle}>
-                |{' '}
-                {currentType === 'today'
-                  ? '今日告警情况'
-                  : currentType === 'selectedDate'
+                </div>
+                <div id="unItemXzgj" className={styles.cardBox}></div>
+              </Col>
+              <Col {...colLayout} style={{ marginBottom: 32 }}>
+                <div className={styles.cardBoxTitle}>
+                  |{' '}
+                  {currentType === 'today'
+                    ? '今日告警情况'
+                    : currentType === 'selectedDate'
                     ? '告警情况'
                     : '昨日告警情况'}
-              </div>
-              <div id="unItemGjqk" className={styles.cardBox}></div>
-            </Col>
-          </Row>
+                </div>
+                <div id="unItemGjqk" className={styles.cardBox}></div>
+              </Col>
+            </Row>
+          </div>
         </div>
-      </div>
+      </Card>
     );
   }
 }

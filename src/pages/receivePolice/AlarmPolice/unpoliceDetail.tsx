@@ -31,15 +31,15 @@ import SupervisionLog from '../../../components/Common/SupervisionLog';
 import styles from './unpoliceDetail.less';
 import { authorityIsTrue } from '../../../utils/authority';
 import { autoheight, userResourceCodeDb } from '../../../utils/utils';
-import {routerRedux} from "dva/router";
+import { routerRedux } from 'dva/router';
 
 const FormItem = Form.Item;
 const { Step } = Steps;
-@connect(({ UnPoliceData, loading, MySuperviseData,global }) => ({
+@connect(({ UnPoliceData, loading, MySuperviseData, global }) => ({
   UnPoliceData,
   loading,
   MySuperviseData, // loading: loading.models.alarmManagement,
-  global
+  global,
 }))
 @Form.create()
 export default class unpoliceDetail extends PureComponent {
@@ -75,20 +75,29 @@ export default class unpoliceDetail extends PureComponent {
 
   componentDidMount() {
     let res = this.props.location.query.record;
-    if(typeof res == 'string'){
+    if (typeof res == 'string') {
       res = JSON.parse(sessionStorage.getItem('query')).query.record;
     }
-    console.log('dfdf',JSON.parse(sessionStorage.getItem('query')));
+    console.log('dfdf', JSON.parse(sessionStorage.getItem('query')));
     if (this.props.location && this.props.location.query && this.props.location.query.record) {
       this.getDetail(res);
     }
   }
 
   componentWillReceiveProps(nextProps) {
-   if(nextProps.history.location.query.isReset&&nextProps.history.location.pathname==='/receivePolice/AlarmPolice/unpoliceDetail'){
-        this.getDetail(this.props.location.query.record);
-        this.props.history.replace(nextProps.history.location.pathname+'?id='+nextProps.location.query.id+'&record='+nextProps.location.query.record);
-   }
+    if (
+      nextProps.history.location.query.isReset &&
+      nextProps.history.location.pathname === '/receivePolice/AlarmPolice/unpoliceDetail'
+    ) {
+      this.getDetail(this.props.location.query.record);
+      this.props.history.replace(
+        nextProps.history.location.pathname +
+          '?id=' +
+          nextProps.location.query.id +
+          '&record=' +
+          nextProps.location.query.record,
+      );
+    }
   }
 
   getDetail(record) {
@@ -132,15 +141,15 @@ export default class unpoliceDetail extends PureComponent {
     });
   };
   // 根据案件编号打开案件窗口
-  openCaseDetail = (policeDetails) => {
+  openCaseDetail = policeDetails => {
     if (policeDetails.ajlx === '22001') {
       // 刑事案件
       this.props.dispatch(
         routerRedux.push({
           pathname: '/newcaseFiling/caseData/CriminalData/caseDetail',
-          query: { record:policeDetails,id: policeDetails.system_id },
+          query: { record: policeDetails, id: policeDetails.system_id },
         }),
-      )
+      );
       // const divs = (
       //     <div>
       //         <CaseDetail
@@ -156,9 +165,9 @@ export default class unpoliceDetail extends PureComponent {
       this.props.dispatch(
         routerRedux.push({
           pathname: '/newcaseFiling/caseData/AdministrationData/caseDetail',
-          query: { record:policeDetails,id: policeDetails.system_id },
+          query: { record: policeDetails, id: policeDetails.system_id },
         }),
-      )
+      );
       // const divs = (
       //     <div>
       //         <XzajDetail
@@ -191,9 +200,16 @@ export default class unpoliceDetail extends PureComponent {
           this.props.dispatch(
             routerRedux.push({
               pathname: '/ModuleAll/Supervise',
-              query: { record:policeDetails,id: policeDetails && policeDetails.id ? policeDetails.id : '1',from:'督办',tzlx:'jqxx',fromPath:'/receivePolice/AlarmPolice/unpoliceDetail',tab:'详情'},
+              query: {
+                record: policeDetails,
+                id: policeDetails && policeDetails.id ? policeDetails.id : '1',
+                from: '督办',
+                tzlx: 'jqxx',
+                fromPath: '/receivePolice/AlarmPolice/unpoliceDetail',
+                tab: '详情',
+              },
             }),
-          )
+          );
           // this.setState({
           //   superviseVisibleModal: !!flag,
           //   superviseWtlx: wtlx,
@@ -230,9 +246,16 @@ export default class unpoliceDetail extends PureComponent {
           this.props.dispatch(
             routerRedux.push({
               pathname: '/ModuleAll/FeedBack',
-              query: { record:unCaseDetailData,id: unCaseDetailData && unCaseDetailData.id ? unCaseDetailData.id : '1',from:'反馈',tzlx:'jqxx',fromPath:'/receivePolice/AlarmPolice/unpoliceDetail',tab:'详情'},
+              query: {
+                record: unCaseDetailData,
+                id: unCaseDetailData && unCaseDetailData.id ? unCaseDetailData.id : '1',
+                from: '反馈',
+                tzlx: 'jqxx',
+                fromPath: '/receivePolice/AlarmPolice/unpoliceDetail',
+                tab: '详情',
+              },
             }),
-          )
+          );
           // this.setState({
           //   feedbackVisibleModal: !!flag,
           // });
@@ -309,9 +332,11 @@ export default class unpoliceDetail extends PureComponent {
 
   Topdetail() {
     const { policeDetails, isDb } = this.state;
-      let dark = this.props.global&&this.props.global.dark;
+    let dark = this.props.global && this.props.global.dark;
     return (
-      <div style={{ backgroundColor: dark ? '#252C3C' : '#fff', margin: '16px 0',borderRadius: 10 }}>
+      <div
+        style={{ backgroundColor: dark ? '#252C3C' : '#fff', margin: '16px 0', borderRadius: 10 }}
+      >
         <Row gutter={{ md: 8, lg: 24, xl: 48 }}>
           <Col md={8} sm={24}>
             {/*<span style={{ margin: '16px', display: 'block' }}>警情详情</span>*/}
@@ -353,10 +378,25 @@ export default class unpoliceDetail extends PureComponent {
 
   // 确认整改完成
   sureReform = (dbid, flag) => {
-    this.setState({
-      reformModal: !!flag,
-      dbid: dbid,
+    let that = this;
+    confirm({
+      title: '确认整改完毕?',
+      centered: true,
+      okText: '确认',
+      cancelText: '取消',
+      getContainer: document.getElementById('messageBox'),
+      onOk() {
+        // that.onClick();
+        () => that.handleReformSure();
+      },
+      onCancel() {
+        // console.log('Cancel');
+      },
     });
+    // this.setState({
+    //   reformModal: !!flag,
+    //   dbid: dbid,
+    // });
   };
   handleReformSure = () => {
     this.setState({
@@ -382,31 +422,31 @@ export default class unpoliceDetail extends PureComponent {
       },
     });
   };
-  foot1 = () => {
-    return (
-      <div>
-        <Button onClick={this.onReformCancel}>取消</Button>
-        <Button type="primary" onClick={this.handleReformSure}>
-          整改完毕
-        </Button>
-      </div>
-    );
-  };
-  onReformCancel = () => {
-    this.setState({
-      reformModal: false,
-    });
-  };
+  // foot1 = () => {
+  //   return (
+  //     <div>
+  //       <Button onClick={this.onReformCancel}>取消</Button>
+  //       <Button type="primary" onClick={this.handleReformSure}>
+  //         整改完毕
+  //       </Button>
+  //     </div>
+  //   );
+  // };
+  // onReformCancel = () => {
+  //   this.setState({
+  //     reformModal: false,
+  //   });
+  // };
 
   renderDetail() {
     const { getFieldDecorator } = this.props.form;
     // const { policeData:{ policeDetails } } = this.props;
     const { policeDetails, isDb, sureChange, loading2 } = this.state;
     const rowLayout = { md: 8, xl: 16, xxl: 24 };
-      let dark = this.props.global&&this.props.global.dark;
+    let dark = this.props.global && this.props.global.dark;
     return (
       <div
-        style={{ background:  dark ? '#252c3c' : '#fff', height: autoheight() - 290 + 'px' }}
+        style={{ background: dark ? '#252c3c' : '#fff', height: autoheight() - 290 + 'px' }}
         className={styles.detailBoxScroll}
       >
         <SupervisionLog
@@ -417,7 +457,7 @@ export default class unpoliceDetail extends PureComponent {
           isDb={isDb}
           onceSupervise={this.onceSupervise}
           sureReform={this.sureReform}
-          frompath='/receivePolice/AlarmPolice/unpoliceDetail'
+          frompath="/receivePolice/AlarmPolice/unpoliceDetail"
         />
         <div className={styles.title}>| 接警信息</div>
         <div className={styles.message}>
@@ -619,7 +659,7 @@ export default class unpoliceDetail extends PureComponent {
   }
 
   render() {
-      let dark = this.props.global&&this.props.global.dark;
+    let dark = this.props.global && this.props.global.dark;
     const {
       policeDetails,
       superviseVisibleModal,
@@ -633,7 +673,7 @@ export default class unpoliceDetail extends PureComponent {
       feedbackVisibleModal,
     } = this.state;
     return (
-      <div className={dark?'':styles.lightBox}>
+      <div className={dark ? '' : styles.lightBox}>
         <div>{this.Topdetail()}</div>
         <div>{this.renderDetail()}</div>
 
@@ -666,20 +706,20 @@ export default class unpoliceDetail extends PureComponent {
         {/*/>*/}
         {/*) : null*/}
         {/*}*/}
-        {reformModal ?
-          <Modal
-            maskClosable={false}
-            visible={reformModal}
-            title={<p>提示</p>}
-            width='1000px'
-            footer={this.foot1()}
-            onCancel={() => this.onReformCancel()}
-            // onOk={() => this.onOk(this.props.id)}
-            className={styles.indexdeepmodal}
-          >
-          <div className={styles.question}>问题是否已经整改完毕？</div>
-          </Modal> : ''
-        }
+        {/*{reformModal ?*/}
+        {/*<Modal*/}
+        {/*maskClosable={false}*/}
+        {/*visible={reformModal}*/}
+        {/*title={<p>提示</p>}*/}
+        {/*width='500px'*/}
+        {/*footer={this.foot1()}*/}
+        {/*onCancel={() => this.onReformCancel()}*/}
+        {/*// onOk={() => this.onOk(this.props.id)}*/}
+        {/*className={styles.indexdeepmodal}*/}
+        {/*>*/}
+        {/*<div className={styles.question}>问题是否已经整改完毕？</div>*/}
+        {/*</Modal> : ''*/}
+        {/*}*/}
       </div>
     );
   }
