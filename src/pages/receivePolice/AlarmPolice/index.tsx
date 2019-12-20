@@ -639,7 +639,7 @@ export default class Index extends PureComponent {
     const rowLayout = { md: 8, xl: 16, xxl: 24 };
     const colLayout = { sm: 24, md: 12, xl: 8 };
     return (
-      <Form style={{ height: this.state.searchHeight ? 'auto' : '59px' }} >
+      <Form style={{ height: this.state.searchHeight ? 'auto' : '50px' }} >
         <Row gutter={rowLayout} className={styles.searchForm}>
           <Col {...colLayout}>
             <FormItem label="告警时间" {...formItemLayout}>
@@ -908,7 +908,6 @@ export default class Index extends PureComponent {
     const {
       UnPoliceData: { unPoliceDatas, loading },
     } = this.props;
-    console.log('unPoliceDatas',unPoliceDatas);
     const { isDb } = this.state;
     return (
       <div>
@@ -977,12 +976,7 @@ export default class Index extends PureComponent {
             ) : (
               <div style={{ float: 'right' }}>
                 <Button
-                  style={{
-                    color: '#3285FF',
-                    backgroundColor: '#171925',
-                    border: '1px solid #3285FF',
-                    borderRadius: '5px',
-                  }}
+                    className={styles.downloadBtn}
                   onClick={this.exportData} icon="download"
                 >
                   导出表格

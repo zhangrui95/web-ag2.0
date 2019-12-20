@@ -35,10 +35,11 @@ import {routerRedux} from "dva/router";
 
 const FormItem = Form.Item;
 const { Step } = Steps;
-@connect(({ UnPoliceData, loading, MySuperviseData }) => ({
+@connect(({ UnPoliceData, loading, MySuperviseData,global }) => ({
   UnPoliceData,
   loading,
   MySuperviseData, // loading: loading.models.alarmManagement,
+  global
 }))
 @Form.create()
 export default class unpoliceDetail extends PureComponent {
@@ -307,8 +308,9 @@ export default class unpoliceDetail extends PureComponent {
 
   Topdetail() {
     const { policeDetails, isDb } = this.state;
+      let dark = this.props.global&&this.props.global.dark;
     return (
-      <div style={{ backgroundColor: '#252C3C', margin: '16px 0' }}>
+      <div style={{ backgroundColor: dark ? '#252C3C' : '#fff', margin: '16px 0',borderRadius: 10 }}>
         <Row gutter={{ md: 8, lg: 24, xl: 48 }}>
           <Col md={8} sm={24}>
             {/*<span style={{ margin: '16px', display: 'block' }}>警情详情</span>*/}
@@ -400,9 +402,10 @@ export default class unpoliceDetail extends PureComponent {
     // const { policeData:{ policeDetails } } = this.props;
     const { policeDetails, isDb, sureChange, loading2 } = this.state;
     const rowLayout = { md: 8, xl: 16, xxl: 24 };
+      let dark = this.props.global&&this.props.global.dark;
     return (
       <div
-        style={{ background: '#252C3C', height: autoheight() - 290 + 'px' }}
+        style={{ background:  dark ? '#252c3c' : '#fff', height: autoheight() - 290 + 'px' }}
         className={styles.detailBoxScroll}
       >
         <SupervisionLog
@@ -615,6 +618,7 @@ export default class unpoliceDetail extends PureComponent {
   }
 
   render() {
+      let dark = this.props.global&&this.props.global.dark;
     const {
       policeDetails,
       superviseVisibleModal,
@@ -628,7 +632,7 @@ export default class unpoliceDetail extends PureComponent {
       feedbackVisibleModal,
     } = this.state;
     return (
-      <div>
+      <div className={dark?'':styles.lightBox}>
         <div>{this.Topdetail()}</div>
         <div>{this.renderDetail()}</div>
 
