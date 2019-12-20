@@ -21,6 +21,7 @@ import warningCountButtonNumberBlue from '../../assets/viewData/warningCountButt
 import nonDivImg from '../../assets/viewData/nonData.png';
 import {connect} from "dva";
 import crial from "@/assets/common/crial.png";
+import noListLight from "@/assets/viewData/noListLight.png";
 
 let unXzCaseEchartFunnel;
 let unXzCaseEchartRingPie;
@@ -30,6 +31,7 @@ let unXzCaseEchartRingPie;
 export default class UnXzCaseDataView extends PureComponent {
     state = {
         currentType: 'today',
+        type:'now',
         nowData: 0,
         lastData: 0,
         beforeLastData: 0,
@@ -120,6 +122,7 @@ export default class UnXzCaseDataView extends PureComponent {
         }
         this.setState({
             currentType,
+            type,
         });
         const dataTime = this.getTime(currentType);
         this.getViewCountData('day');
@@ -155,7 +158,7 @@ export default class UnXzCaseDataView extends PureComponent {
                     }
                     if (isAllZero) {
                         unXzCaseEchartFunnel = document.getElementById('unXzCaseXzgj');
-                        const nonDataDiv = <div style={styles.noneDataDiv}><img src={nonDivImg} alt="暂无数据"/>
+                        const nonDataDiv = <div style={styles.noneDataDiv}><img src={this.props.global&&this.props.global.dark ? nonDivImg : noListLight} alt="暂无数据"/>
                             <div>暂无数据</div>
                         </div>;
                         // unXzCaseEchartFunnel.innerHTML = '<div style="height: 100%;width: 100%;display: flex;align-items: center;flex-direction: column;justify-content: center">' +
@@ -165,7 +168,7 @@ export default class UnXzCaseDataView extends PureComponent {
                         unXzCaseEchartFunnel.innerHTML = '<div style="height: 100%;width: 100%;">' +
                             '<div style="font-size: 16px;padding: 4px 0 0 4px;color:rgba(255,255,255)">今日新增告警</div>' +
                             '<div style="display: flex;align-items: center;flex-direction: column;justify-content: center">' +
-                            '<img src=' + nonDivImg + ' alt="暂无数据" />' +
+                            '<img src=' + this.props.global&&this.props.global.dark ? nonDivImg : noListLight + ' alt="暂无数据" />' +
                             '<div style="font-size:18px">暂无数据</div>' +
                             '</div>' +
                             '</div>';
@@ -177,6 +180,7 @@ export default class UnXzCaseDataView extends PureComponent {
                             },
                             series: [{
                                 data: barData,
+                                barWidth: 10,
                             }],
                         });
                     }
@@ -191,7 +195,7 @@ export default class UnXzCaseDataView extends PureComponent {
         const that = this;
         unXzCaseEchartFunnel = echarts.init(document.getElementById('unXzCaseXzgj'));
         const option = {
-            color: ['#fff'],
+            color: [this.props.global&&this.props.global.dark ? '#fff' : '#00B8CC'],
             title: {
                 // text: '新增告警',
                 // textStyle: {
@@ -343,7 +347,7 @@ export default class UnXzCaseDataView extends PureComponent {
             legend: {
                 orient: 'vertical',
                 right: 60,
-                top: 60,
+                top: 40,
                 show: true,
                 itemWidth: 10,
                 itemHeight: 10,
@@ -352,7 +356,7 @@ export default class UnXzCaseDataView extends PureComponent {
                 textStyle: {
                     color: nextProps.global&&nextProps.global.dark ? '#fff' : '#4d4d4d',
                     fontSize: 16,
-                    lineHeight: 24,
+                    lineHeight: 20,
                 },
                 data: [],
 

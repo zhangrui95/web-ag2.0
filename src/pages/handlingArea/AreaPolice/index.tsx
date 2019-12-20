@@ -44,11 +44,12 @@ const TreeNode = TreeSelect.TreeNode;
 let timeout;
 let currentValue;
 
-@connect(({ UnareaData, loading, common, MySuperviseData }) => ({
+@connect(({ UnareaData, loading, common, MySuperviseData,global }) => ({
   UnareaData,
   loading,
   common,
   MySuperviseData,
+    global
   // loading: loading.models.alarmManagement,
 }))
 @Form.create()
@@ -687,7 +688,7 @@ export default class Index extends PureComponent {
     return (
       <Form
         onSubmit={this.handleSearch}
-        style={{ height: this.state.searchHeight ? 'auto' : '59px', position: 'relative' }}
+        style={{ height: this.state.searchHeight ? 'auto' : '50px', position: 'relative' }}
       >
         <Row gutter={rowLayout} className={styles.searchForm}>
           <Col {...colLayout}>
@@ -911,6 +912,7 @@ export default class Index extends PureComponent {
   }
 
   render() {
+      let className = this.props.global&&this.props.global.dark ?styles.listPageWrap : styles.listPageWrap + ' '+styles.lightBox;
     const newAddDetail = this.state.arrayDetail;
     const {
       superviseVisibleModal,
@@ -930,7 +932,7 @@ export default class Index extends PureComponent {
           this.props.location.query && this.props.location.query.id ? styles.onlyDetail : ''
         }
       >
-        <div className={styles.listPageWrap}>
+        <div className={className}>
           <div className={styles.listPageHeader}>
             {showDataView ? (
               <a className={styles.listPageHeaderCurrent}>
@@ -955,17 +957,13 @@ export default class Index extends PureComponent {
               ''
             ) : (
               <div style={{ float: 'right' }}>
-                <Button
-                  style={{
-                    color: '#3285FF',
-                    backgroundColor: '#171925',
-                    border: '1px solid #3285FF',
-                    borderRadius: '5px',
-                  }}
-                  onClick={this.exportData}
-                >
-                  导出表格
-                </Button>
+                  <Button
+                      className={styles.downloadBtn}
+                      onClick={this.exportData}
+                      icon="download"
+                  >
+                      导出表格
+                  </Button>
               </div>
             )}
             <DataViewButtonArea

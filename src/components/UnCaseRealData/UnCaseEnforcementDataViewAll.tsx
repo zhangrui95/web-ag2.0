@@ -136,6 +136,7 @@ export default class UnCaseEnforcementDataView extends PureComponent {
     }
     this.setState({
       currentType,
+        type,
     });
     const dataTime = this.getTime(currentType);
     this.getViewCountData('day');
@@ -191,9 +192,11 @@ export default class UnCaseEnforcementDataView extends PureComponent {
             series: [
               {
                 data: dataShadow,
+                  barWidth: 10,
               },
               {
                 data: barData,
+                  barWidth: 10,
               },
             ],
           });
@@ -399,7 +402,7 @@ export default class UnCaseEnforcementDataView extends PureComponent {
       legend: {
         orient: 'vertical',
         right: 60,
-        top: 60,
+        top: 40,
         show: true,
         itemWidth: 10,
         itemHeight: 10,
@@ -408,7 +411,7 @@ export default class UnCaseEnforcementDataView extends PureComponent {
         textStyle: {
           color: nextProps.global&&nextProps.global.dark ? '#fff' : '#4d4d4d',
           fontSize: 16,
-          lineHeight: 24,
+          lineHeight: 20,
         },
         data: [],
       },
