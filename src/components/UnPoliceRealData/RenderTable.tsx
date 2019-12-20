@@ -54,24 +54,12 @@ class RenderTable extends PureComponent {
         // );
         // const AddNewDetail = { title: '警情告警详情', content: divs, key: id };
         // this.props.newDetail(AddNewDetail);
-        this.props.dispatch({
-          type: 'global/changeNavigation',
-          payload: {
-            key: record && record.id ? record.id : '1',
-            name: '警情告警详情',
-            path: '/receivePolice/AlarmPolice/unpoliceDetail',
-            isShow: true,
-            query: { record, id: record && record.id ? record.id : '1' },
-          },
-          callback: () => {
             this.props.dispatch(
               routerRedux.push({
                 pathname: '/receivePolice/AlarmPolice/unpoliceDetail',
                 query: { record: record,id: record && record.id ? record.id : '1' },
               }),
             )
-          },
-        });
     };
     saveShare = (res, type, ajGzLx) => {
         this.setState({

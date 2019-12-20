@@ -204,7 +204,6 @@ export default class SuperviseModal extends PureComponent {
     const {query:{record,from}} = this.props.location;
     this.props.form.validateFields((err, fieldsValue) => {
       const { zrrValue } = this.state;
-      console.log('from',from);
       if (from === '警情详情问题判定' || from === '刑事案件详情问题判定' || from === '行政案件详情问题判定' || from === '办案区详情问题判定' || from === '涉案物品详情问题判定' || from === '卷宗详情问题判定') {
         if (fieldsValue.wtlx === '' || fieldsValue.wtlx === undefined || fieldsValue.wtlx === null) {
           message.warning('请选择问题类型');

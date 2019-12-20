@@ -27,6 +27,7 @@ import DispatchModal from '../../../components/DispatchModal/DispatchModal';
 import {routerRedux} from "dva/router";
 
 let imgBase = [];
+let res = {};
 
 @connect(({ policeData, loading,global }) => ({
   policeData,
@@ -38,6 +39,10 @@ let imgBase = [];
 export default class policeDetail extends PureComponent {
   constructor(props) {
     super(props);
+    res = props.location.query.record;
+    if(res&&typeof res == 'string'){
+      res = JSON.parse(sessionStorage.getItem('query')).query.record;
+    }
     this.state = {
       policeDetails: null,
       // 督办模态框
@@ -50,10 +55,10 @@ export default class policeDetail extends PureComponent {
       lx: '警情信息',
       tzlx: 'jqxx',
       sx: '',
-      sfgz: props.location&&props.location.query&&props.location.query.record&&props.location.query.record.sfgz===0?props.location.query.record.sfgz:'',
+      sfgz: res&&res.sfgz===0?res.sfgz:'',
       IsSure: false, // 确认详情是否加载成功
       isDb: authorityIsTrue(userResourceCodeDb.police), // 督办权限
-      isDd: props.location&&props.location.query&&props.location.query.record&&props.location.query.record.isDd?props.location.query.record.isDd : false,
+      isDd: res&&res.isDd?res.isDd : false,
       // keyWord:['打','杀','伤','刀','剑','棍','棒','偷','盗','抢','骗','死','赌','毒','卖淫','嫖娼','侮辱'],
       policeDispatchVisible: false, // 调度模态框
       policeDispatchItem: null, // 调度信息
@@ -88,10 +93,6 @@ export default class policeDetail extends PureComponent {
   };
 
   componentDidMount() {
-    let res = this.props.location.query.record;
-    if(typeof res == 'string'){
-      res = JSON.parse(sessionStorage.getItem('query')).query.record;
-    }
     if (this.props.location && this.props.location.query && this.props.location.query.id&&this.props.location.query.movefrom&&this.props.location.query.movefrom==='警情常规'){
       this.getDetail(this.props.location.query.id);
     }
@@ -101,16 +102,13 @@ export default class policeDetail extends PureComponent {
   }
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps) {
-      if (nextProps.location.query&&nextProps.location.query.record&&nextProps.location.query.record.sfgz&&nextProps.location.query.record.sfgz !== null && nextProps.location.query.record.sfgz !== this.props.location.query.record.sfgz) {
-        this.setState({
-          sfgz: nextProps.location.query.record.sfgz,
-        });
-      }
-      else if(nextProps.history.location.query.isReset&&nextProps.history.location.pathname==='/receivePolice/AlarmData/policeDetail'){
-        this.getDetail(this.props.location.query.id);
-        this.props.history.replace(nextProps.history.location.pathname+'?id='+nextProps.location.query.id+'&record='+nextProps.location.query.record);
-      }
+    let res = nextProps.location.query.record;
+    if(typeof res == 'string'){
+      res = JSON.parse(sessionStorage.getItem('query')).query.record;
+    }
+    if(nextProps&&nextProps.history.location.query.isReset&&nextProps.history.location.pathname==='/receivePolice/AlarmData/policeDetail'){
+      this.getDetail(this.props.location.query.id);
+      this.props.history.replace(nextProps.history.location.pathname+'?id='+nextProps.location.query.id+'&record='+nextProps.location.query.record);
     }
   }
 
@@ -183,7 +181,7 @@ export default class policeDetail extends PureComponent {
       this.props.dispatch(
         routerRedux.push({
           pathname: '/ModuleAll/Supervise',
-          query: { record: policeDetails,id: policeDetails && policeDetails.id ? policeDetails.id : '1',from:'警情详情问题判定',tzlx:'jqxx',fromPath:'/receivePolice/AlarmData/policeDetail',wtflId:'230201',wtflMc:'警情' },
+          query: { record: policeDetails,id: policeDetails && policeDetails.id ? policeDetails.id : '1',from:'警情详情问题判定',tzlx:this.state.tzlx,fromPath:'/receivePolice/AlarmData/policeDetail',wtflId:'230201',wtflMc:'警情' },
         }),
       )
       // this.setState({
@@ -409,7 +407,7 @@ export default class policeDetail extends PureComponent {
             ) : (
               ''
             )}
-            {this.state.isDd && this.props.record && this.props.record.is_sqdd === '0' ? (
+            {this.state.isDd && this.props.location.query.record && this.props.location.query.record.is_sqdd === '0' ? (
               <Button
                 className={styles.TopMenu}
                 onClick={() => this.saveDispatch(this.props.record)}
@@ -427,25 +425,27 @@ export default class policeDetail extends PureComponent {
                   <span className={liststyles.collect}>
                     {sfgz === 0 ? (
                       <Tooltip title="关注">
-                        <img
-                          src={dark ? nocollect : nocollect1}
-                          width={25}
-                          height={25}
-                          style={{ marginLeft: 12 }}
-                          onClick={() => this.saveShare(policeDetails, record, 1, 0)}
-                        />
-                        <div style={{ fontSize: 12, textAlign: 'center', width: 48 }}>关注</div>
+                        <div onClick={() => this.saveShare(policeDetails, record, 1, 0)}>
+                          <img
+                            src={dark ? nocollect : nocollect1}
+                            width={25}
+                            height={25}
+                            style={{ marginLeft: 12 }}
+                          />
+                          <div style={{ fontSize: 12, textAlign: 'center', width: 48 }}>关注</div>
+                        </div>
                       </Tooltip>
                     ) : (
                       <Tooltip title="取消关注">
-                        <img
-                          src={dark ? collect : collect1}
-                          width={25}
-                          height={25}
-                          style={{ marginLeft: 12 }}
-                          onClick={() => this.noFollow(policeDetails)}
-                        />
-                        <div style={{ fontSize: 12, textAlign: 'center', width: 48 }}>取消关注</div>
+                        <div onClick={() => this.noFollow(policeDetails)}>
+                          <img
+                            src={dark ? collect : collect1}
+                            width={25}
+                            height={25}
+                            style={{ marginLeft: 12 }}
+                          />
+                          <div style={{ fontSize: 12, textAlign: 'center', width: 48 }}>取消关注</div>
+                        </div>
                       </Tooltip>
                     )}
                   </span>
@@ -478,9 +478,7 @@ export default class policeDetail extends PureComponent {
         id={`jqDetail${this.props.id}`}
         className={styles.detailBoxScroll}
       >
-        {policeDetails && policeDetails.ajbh && policeDetails.is_sa === 0 ? (
-          ''
-        ) : (
+        {policeDetails && policeDetails.ajbh && policeDetails.is_sa === 1 ? (
           <div style={{ textAlign: 'right', padding: '16px 32px' }}>
             <Button
               className={styles.connectBtn}
@@ -489,6 +487,8 @@ export default class policeDetail extends PureComponent {
               查看关联案件
             </Button>
           </div>
+        ):(
+          ''
         )}
         <Card
           title={<div style={{ borderLeft: dark ? '3px solid #fff':'3px solid #3D63D1', paddingLeft: 16 }}>接警信息</div>}
