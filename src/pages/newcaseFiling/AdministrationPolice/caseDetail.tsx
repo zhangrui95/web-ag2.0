@@ -51,6 +51,7 @@ import { authorityIsTrue } from '../../../utils/authority';
 import SupervisionLog from '../../../components/Common/SupervisionLog';
 import noList from "@/assets/viewData/noList.png";
 import {routerRedux} from "dva/router";
+import noListLight from "@/assets/viewData/noListLight.png";
 
 const FormItem = Form.Item;
 // const { Description } = DescriptionList;
@@ -61,12 +62,13 @@ function callback(key) {
   console.log(key);
 }
 
-@connect(({ UnXzCaseData, loading, UnCaseData, AllDetail, MySuperviseData }) => ({
+@connect(({ UnXzCaseData, loading, UnCaseData, AllDetail, MySuperviseData,global }) => ({
   UnXzCaseData,
   loading,
   UnCaseData,
   AllDetail,
   MySuperviseData,
+    global
   // loading: loading.models.alarmManagement,
 }))
 export default class caseDetail extends PureComponent {
@@ -377,12 +379,13 @@ export default class caseDetail extends PureComponent {
 
   Topdetail() {
     const { caseDetails, isDb } = this.state;
+      let dark = this.props.global&&this.props.global.dark;
     return (
-      <div style={{ backgroundColor: '#252C3C', margin: '16px 0' }}>
+      <div style={{ backgroundColor:  dark ? '#252C3C' : '#fff', margin: '16px 0' }}>
         <Row gutter={{ md: 8, lg: 24, xl: 48 }}>
-          <Col md={8} sm={24}>
-            <span style={{ margin: '16px', display: 'block' }}>行政案件详情</span>
-          </Col>
+          {/*<Col md={8} sm={24}>*/}
+          {/*  <span style={{ margin: '16px', display: 'block' }}>行政案件详情</span>*/}
+          {/*</Col>*/}
           <Col>
             <span style={{ float: 'right', margin: '12px 16px 12px 0' }}>
               {caseDetails && caseDetails.zt === '待督办' && isDb ? (
@@ -471,6 +474,7 @@ export default class caseDetail extends PureComponent {
       <List
         itemLayout="vertical"
         size="small"
+        locale={{ emptyText: <Empty image={this.props.global&&this.props.global.dark ? noList : noListLight} description={'暂无数据'} /> }}
         pagination={
           sawpList.length > 0
             ? {
@@ -701,10 +705,10 @@ export default class caseDetail extends PureComponent {
         ),
       },
     ];
-
+      let dark = this.props.global&&this.props.global.dark;
     return (
       <div
-        style={{ background: '#252C3C' /*height: autoheight() - 290 + 'px'*/ }}
+        style={{ background: dark ? '#252c3c' : '#fff' /*height: autoheight() - 290 + 'px'*/ }}
         className={styles.detailBoxScroll}
       >
         <SupervisionLog
@@ -721,7 +725,8 @@ export default class caseDetail extends PureComponent {
         <div className={styles.tablemessage}>
           <Table
             // size={'middle'}
-            style={{ backgroundColor: '#252c3c', borderRadius: 0, padding: 24 }}
+            style={{  borderRadius: 0, padding: 24 }}
+            bordered
             pagination={{
               pageSize: 3,
               showTotal: (total, range) => (
@@ -736,7 +741,7 @@ export default class caseDetail extends PureComponent {
             className={styles.jqxxTable}
             dataSource={caseDetails ? caseDetails.jqxxList : []}
             columns={JqColumns}
-            locale={{ emptyText: <Empty image={noList} description={'暂无数据'} /> }}
+            locale={{ emptyText: <Empty image={this.props.global&&this.props.global.dark ? noList : noListLight} description={'暂无数据'} /> }}
           />
         </div>
         <div className={styles.title}>| 案件信息</div>
@@ -818,7 +823,7 @@ export default class caseDetail extends PureComponent {
         </div>
 
         {caseDetails && caseDetails.ajzt ? (
-          <div style={{ borderBottom: '1px solid #171925' }}>
+          <div style={{ borderBottom: dark ? '1px solid #171925' : '1px solid #e6e6e6' }}>
             <div className={styles.title}>案件轨迹</div>
             <CaseModalTrail {...this.props} caseDetails={caseDetails} from="行政" />
           </div>
@@ -837,6 +842,7 @@ export default class caseDetail extends PureComponent {
   }
 
   render() {
+      let dark = this.props.global&&this.props.global.dark;
     const {
       superviseVisibleModal,
       reformModal,
@@ -848,7 +854,7 @@ export default class caseDetail extends PureComponent {
       feedbackVisibleModal,
     } = this.state;
     return (
-      <div>
+      <div className={dark?'':styles.lightBox}>
         <div>{this.Topdetail()}</div>
         <div>{this.renderDetail()}</div>
 

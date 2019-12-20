@@ -18,6 +18,7 @@ import styles from '../../pages/common/dataView.less';
 import DataViewDateShow from '../Common/DataViewDateShow';
 import { getDefaultDaysForMonth, getTimeDistance } from '../../utils/utils';
 import nonDivImg from '../../assets/viewData/nonData.png';
+import noListLight from "@/assets/viewData/noListLight.png";
 
 let policeEchartBar;
 let policeEchartRingPie;
@@ -1435,8 +1436,8 @@ export default class PoliceDataView extends PureComponent {
                         justifyContent: 'center',
                       }}
                     >
-                      <img src={nonDivImg} alt="暂无数据" />
-                      <div style={{ fontSize: 18 }}>暂无数据</div>
+                      <img src={this.props.global&&this.props.global.dark ? nonDivImg : noListLight} alt="暂无数据" />
+                      <div style={{ fontSize: 18,color:this.props.global&&this.props.global.dark ? '#fff' : '#999'}}>暂无数据</div>
                     </div>
                   </div>
                 ) : null}
@@ -1481,8 +1482,8 @@ export default class PoliceDataView extends PureComponent {
                         justifyContent: 'center',
                       }}
                     >
-                      <img src={nonDivImg} alt="暂无数据" />
-                      <div style={{ fontSize: 18 }}>暂无数据</div>
+                      <img src={this.props.global&&this.props.global.dark ? nonDivImg : noListLight} alt="暂无数据" />
+                      <div style={{ fontSize: 18,color:this.props.global&&this.props.global.dark ? '#fff' : '#999'}}>暂无数据</div>
                     </div>
                   </div>
                 ) : null}

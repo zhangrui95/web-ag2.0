@@ -17,10 +17,14 @@ import styles from '../Styles/dataView.less';
 import { getTimeDistance } from '../../utils/utils';
 import warningCountButtonNumberPink from '../../assets/viewData/warningCountButtonNumberPink.png';
 import warningCountButtonNumberBlue from '../../assets/viewData/warningCountButtonNumberBlue.png';
+import {connect} from "dva";
+import crial from "@/assets/common/crial.png";
 
 let unAreaEchartBar;
 let unAreaEchartRingPie;
-
+@connect(({ global }) => ({
+    global
+}))
 export default class UnAreaDataView extends PureComponent {
   state = {
     currentType: 'today',
@@ -49,8 +53,8 @@ export default class UnAreaDataView extends PureComponent {
     this.getNewAddWarnings(dayTypeTime[0], dayTypeTime[1], 'today');
     this.getAllTypeWarningCount(dayTypeTime[0], dayTypeTime[1], 'today');
 
-    this.showUnAreaEchartBar();
-    this.showUnAreaEchartRingPie();
+    this.showUnAreaEchartBar(this.props);
+    this.showUnAreaEchartRingPie(this.props);
     //
     window.addEventListener('resize', unAreaEchartBar.resize);
     window.addEventListener('resize', unAreaEchartRingPie.resize);
@@ -94,6 +98,11 @@ export default class UnAreaDataView extends PureComponent {
           );
         }
       }
+        if(this.props.global.dark !== nextProps.global.dark){
+            this.showUnAreaEchartBar(nextProps);
+            this.showUnAreaEchartRingPie(nextProps);
+            this.changeCountButtonCurrent(this.state.type);
+        }
     }
   }
 
@@ -176,9 +185,11 @@ export default class UnAreaDataView extends PureComponent {
             series: [
               {
                 data: dataShadow,
+                  barWidth: 10,
               },
               {
                 data: barData,
+                  barWidth: 10,
               },
             ],
           });
@@ -187,7 +198,7 @@ export default class UnAreaDataView extends PureComponent {
     });
   };
   // 新增告警柱状图
-  showUnAreaEchartBar = () => {
+  showUnAreaEchartBar = (nextProps) => {
     const that = this;
     unAreaEchartBar = echarts.init(document.getElementById('unAreaXzgj'));
     const option = {
@@ -211,7 +222,7 @@ export default class UnAreaDataView extends PureComponent {
           rotate: 20,
           interval: 0,
           textStyle: {
-            color: '#fff',
+            color: nextProps.global&&nextProps.global.dark ? '#fff' : '#4d4d4d',
           },
         },
       },
@@ -227,7 +238,7 @@ export default class UnAreaDataView extends PureComponent {
         },
         axisLabel: {
           textStyle: {
-            color: '#fff',
+            color: nextProps.global&&nextProps.global.dark ? '#fff' : '#4d4d4d',
           },
         },
       },
@@ -255,7 +266,7 @@ export default class UnAreaDataView extends PureComponent {
               formatter: '{c}',
               textStyle: {
                 fontSize: 16,
-                color: '#fff',
+                color: nextProps.global&&nextProps.global.dark ? '#fff' : '#4d4d4d',
               },
             },
           },
@@ -361,7 +372,7 @@ export default class UnAreaDataView extends PureComponent {
     });
   };
   // 告警情况环形饼状图
-  showUnAreaEchartRingPie = () => {
+  showUnAreaEchartRingPie = (nextProps) => {
     const that = this;
     unAreaEchartRingPie = echarts.init(document.getElementById('unAreaGjqk'));
     const option = {
@@ -379,17 +390,17 @@ export default class UnAreaDataView extends PureComponent {
       },
       legend: {
         orient: 'vertical',
-        right: '10%',
-        top: '20%',
+        right: '8%',
+        top: 40,
         show: true,
         itemWidth: 10,
         itemHeight: 10,
         itemGap: 25,
         selectedMode: true, // 点击
         textStyle: {
-          color: '#fff',
+          color: nextProps.global&&nextProps.global.dark ? '#fff' : '#4d4d4d',
           fontSize: 16,
-          lineHeight: 24,
+          lineHeight: 20,
         },
         data: [],
       },
@@ -406,7 +417,7 @@ export default class UnAreaDataView extends PureComponent {
               position: 'center',
               textStyle: {
                 fontSize: '22',
-                color: '#fff',
+                color: nextProps.global&&nextProps.global.dark ? '#fff' : '#4d4d4d',
               },
             },
             emphasis: {
@@ -436,33 +447,38 @@ export default class UnAreaDataView extends PureComponent {
     const colLayout = { sm: 24, lg: 12 };
     const { searchType, selectedDateVal, showDataView } = this.props;
     const { lastData, nowData, selectedDateData, currentType } = this.state;
+      let className = this.props.global&&this.props.global.dark ?styles.policeDataCard : styles.policeDataCard + ' '+styles.lightBox;
     return (
-      <Card style={{ position: 'relative' }} className={styles.policeDataCard}>
+      <Card style={{ position: 'relative' }} className={className}>
         <div
           className={styles.policeDataView}
           style={showDataView ? {} : { position: 'absolute', zIndex: -1 }}
         >
           {currentType !== 'selectedDate' ? (
-            <div className={styles.viewCount}>
-              <div onClick={() => this.changeCountButtonCurrent('now')}>
-                <div className={styles.warningCountButtonArea}>
-                  <div className={styles.warningCountButtonTitleBlue}>今日新增告警</div>
-                  <div className={styles.warningCountButtonNumberBlue}>
-                    <img src={warningCountButtonNumberBlue} alt="" />
-                    {nowData}
-                  </div>
-                </div>
+              <div className={styles.topView}>
+                  <Card className={styles.leftView}  onClick={() => this.changeCountButtonCurrent('now')}>
+                      <Row>
+                          <Col span={12}>今日新增告警</Col>
+                          <Col span={12} className={styles.viewNumber}>
+                              <div className={styles.warningCountButtonNumberPink}>
+                                  <img src={crial} alt="" />
+                                  {nowData}
+                              </div>
+                          </Col>
+                      </Row>
+                  </Card>
+                  <Card className={styles.rightView} onClick={() => this.changeCountButtonCurrent('last')}>
+                      <Row>
+                          <Col span={12}>昨日告警数量</Col>
+                          <Col span={12} className={styles.viewNumber}>
+                              <div className={styles.warningCountButtonNumberPink}>
+                                  <img src={crial} alt="" />
+                                  {lastData}
+                              </div>
+                          </Col>
+                      </Row>
+                  </Card>
               </div>
-              <div onClick={() => this.changeCountButtonCurrent('last')}>
-                <div className={styles.warningCountButtonArea}>
-                  <div className={styles.warningCountButtonTitlePink}>昨日告警数量</div>
-                  <div className={styles.warningCountButtonNumberPink}>
-                    <img src={warningCountButtonNumberPink} alt="" />
-                    {lastData}
-                  </div>
-                </div>
-              </div>
-            </div>
           ) : (
             <div className={styles.viewCount}>
               <div className={styles.countButtonCurrent}>
@@ -477,9 +493,9 @@ export default class UnAreaDataView extends PureComponent {
               </div>
             </div>
           )}
-          <div style={{ backgroundColor: '#252c3c', padding: '0 16px' }}>
+          <div style={{ backgroundColor: this.props.global&&this.props.global.dark ? '#252c3c' : '#fff', padding: '0 16px',borderRadius: 10 }}>
             <Row gutter={rowLayout} className={styles.listPageRow}>
-              <Col sm={24} lg={16} style={{ marginBottom: 32 }}>
+              <Col xl={24} xxl={15} style={{ marginBottom: 32 }}>
                 <div className={styles.cardBoxTitle}>
                   |{' '}
                   {currentType === 'today'
@@ -490,7 +506,7 @@ export default class UnAreaDataView extends PureComponent {
                 </div>
                 <div id="unAreaXzgj" className={styles.cardBox}></div>
               </Col>
-              <Col sm={24} lg={8} style={{ marginBottom: 32 }}>
+              <Col xl={24} xxl={9} style={{ marginBottom: 32 }}>
                 <div className={styles.cardBoxTitle}>
                   |{' '}
                   {currentType === 'today'

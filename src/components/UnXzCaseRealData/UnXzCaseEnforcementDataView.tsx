@@ -19,6 +19,7 @@ import { getTimeDistance } from '../../utils/utils';
 import warningCountButtonNumberPink from '../../assets/viewData/warningCountButtonNumberPink.png';
 import warningCountButtonNumberBlue from '../../assets/viewData/warningCountButtonNumberBlue.png';
 import nonDivImg from '../../assets/viewData/nonData.png';
+import noListLight from "@/assets/viewData/noListLight.png";
 
 let unXzCaseEchartFunnel;
 let unXzCaseEchartRingPie;
@@ -165,8 +166,8 @@ export default class UnXzCaseDataView extends PureComponent {
             unXzCaseEchartFunnel = document.getElementById('unXzCaseXzgj');
             const nonDataDiv = (
               <div style={styles.noneDataDiv}>
-                <img src={nonDivImg} alt="暂无数据" />
-                <div>暂无数据</div>
+                <img src={this.props.global&&this.props.global.dark ? nonDivImg : noListLight} alt="暂无数据" />
+                <div style={{ fontSize: 18,color:this.props.global&&this.props.global.dark ? '#fff' : '#999'}}>暂无数据</div>
               </div>
             );
             // unXzCaseEchartFunnel.innerHTML = '<div style="height: 100%;width: 100%;display: flex;align-items: center;flex-direction: column;justify-content: center">' +

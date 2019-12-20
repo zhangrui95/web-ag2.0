@@ -182,7 +182,7 @@ export default class PersonalDocDetail extends PureComponent {
         if (ajxx && ajxx.length > 0) {
             for (let i = 0; i < ajxx.length; i++) {
                 const caseData = ajxx[i];
-                let deg = ajxx.length >  3 ? 360/(ajxx.length + 1) : 90;
+                let deg = 270/ajxx.length;
                 let x = this.getX(-1500,deg,i,ajxx.length >  3 ? ajxx.length%2 ==0 ? 5000 : 3000 : 3000);
                 let y = this.getY(350,deg,i,3000);
                 let lxX =  this.getX(x,20,1,1300);
