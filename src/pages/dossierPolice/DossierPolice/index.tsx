@@ -896,13 +896,8 @@ export default class Index extends PureComponent {
                 ) : (
                   <div style={{ float: 'right' }}>
                     <Button
-                      style={{
-                        color: '#3285FF',
-                        backgroundColor: '#171925',
-                        border: '1px solid #3285FF',
-                        borderRadius: '5px',
-                      }}
-                      onClick={this.exportData}
+                      className={styles.downloadBtn}
+                      onClick={this.exportData} icon="download"
                     >
                       导出表格
                     </Button>

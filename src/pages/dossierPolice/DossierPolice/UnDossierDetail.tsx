@@ -69,11 +69,10 @@ export default class DossierDetail extends PureComponent {
         if(typeof res == 'string'){
           res = JSON.parse(sessionStorage.getItem('query')).query.record;
         }
-        const {location} = this.props;
-        if(location && location.query && location.query.record && location.query.record.id && location.query.record.wtid && location.query.record.dossier_id){
-          this.getDossierDetail(location.query.record.id, location.query.record.wtid, location.query.record.dossier_id);
+        // const {location} = this.props;
+        if(res.id && res.wtid && res.dossier_id){
+          this.getDossierDetail(res.id, res.wtid, res.dossier_id);
         }
-
     }
 
     // 再次督办
@@ -471,7 +470,7 @@ export default class DossierDetail extends PureComponent {
                     fromPath='/dossierPolice/DossierPolice/UnDossierDetail'
                 />
 
-                <Card title="| 卷宗信息" className={styles.wpxxcard} bordered={false}>
+                <Card title="| 卷宗信息" className={dark?styles.wpxxcard:styles.wpxxcard1} bordered={false}>
                     <Row gutter={rowLayout}>
                         <Col {...colLayout}>
                             <div className={styles.Indexfrom}>案件名称：</div>
@@ -535,7 +534,7 @@ export default class DossierDetail extends PureComponent {
                         </Col>
                     </Row>
                 </Card>
-                <Card title="| 卷宗轨迹" className={liststyles.card} bordered={false} style={{ marginBottom: 0 }}>
+                <Card title="| 卷宗轨迹" className={dark?liststyles.card:liststyles.card1} bordered={false} style={{ marginBottom: 0 }}>
                     {DossierDetailData && DossierDetailData.jzgjList && DossierDetailData.jzgjList.length > 0 ?
                         <div style={{ overflow: 'auto' }}>
                             <Timeline style={{ marginTop: 20, marginLeft: 20 }}>{stap1}</Timeline>
