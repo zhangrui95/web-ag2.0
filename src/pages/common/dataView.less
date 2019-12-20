@@ -103,9 +103,7 @@
         left: 0;
         top: 0;
         animation: animated_div 5s linear infinite;
-        -webkit-animation: animated_div 5s linear infinite;
         animation-direction: normal;
-        -webkit-animation-direction: normal;
       }
     }
   }
@@ -289,7 +287,7 @@
   justify-content: center;
 }
 
-@-webkit-keyframes animated_div {
+@keyframes animated_div {
   0% {
     -webkit-transform: rotate(0deg);
   }
@@ -365,6 +363,65 @@
   color: @white;
   font-size: 16px;
 }
+.topView{
+  width: 100%;
+  height: 170px;
+  .leftView{
+    float: left;
+    width: calc(~"50% - 10px");
+    margin: 15px 10px  0 0;
+    border-radius:10px;
+    overflow:hidden;
+    font-size:20px;
+    :global{
+      .ant-card-body{
+        padding: 0 15%;
+        color: #fff;
+        height: 150px;
+        line-height: 150px;
+        text-align: center;
+        background: linear-gradient(#04CDE2, #00BAFF)!important;
+      }
+    }
+  }
+  .rightView{
+    float: left;
+    width: calc(~"50% - 10px");
+    margin: 15px 0 0 10px;
+    border-radius:10px;
+    overflow:hidden;
+    font-size:20px;
+    :global {
+      .ant-card-body {
+        padding: 0 15%;
+        color: #fff;
+        background: linear-gradient(#8C80F8, #B588FC)!important;
+        height: 150px;
+        line-height: 150px;
+        text-align: center;
+      }
+    }
+  }
+  .viewNumber{
+    font-size: 40px;
+    font-style:italic;
+  }
+  .warningCountButtonNumberBlue, .warningCountButtonNumberPink {
+    position: relative;
+    text-align: center;
+    margin: 0 10px;
+    img {
+      width: 120px;
+      height: 120px;
+      position: absolute;
+      left: -60px;
+      top: 16px;
+      margin-left: 50%;
+      animation: animated_div 5s linear infinite;
+      animation-direction: normal;
+    }
+  }
+}
 .lightBox{
     :global{
       .ant-card-body{
@@ -397,5 +454,29 @@
     .countButtonTitle {
       background: #cFcFcF;
     }
+  }
+  .cardBoxzk{
+    background: #fff;
+    box-shadow: 0 0 8px #eee;
+    border-radius: 6px;
+    border: 1px solid #e6e6e6;
+    width: 96%;
+    margin-left: 2%;
+  }
+  .listPageRow{
+    :global{
+      .ant-card-body{
+        background-color:#fff!important;
+      }
+    }
+  }
+  .listPageHeader{
+    background: #fff;
+  }
+  .listPageHeaderCurrent{
+    color: #4662D5!important;
+  }
+  .UnlistPageHeaderCurrent{
+    color: #4d4d4d!important;
   }
 }

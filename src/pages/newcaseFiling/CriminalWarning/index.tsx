@@ -44,9 +44,10 @@ const RadioGroup = Radio.Group;
 let timeout;
 let currentValue;
 
-@connect(({ EarlyWarning, loading, common }) => ({
+@connect(({ EarlyWarning, loading, common,global }) => ({
   EarlyWarning,
   common,
+    global,
   loading: loading.models.EarlyWarning,
 }))
 @Form.create()
@@ -647,9 +648,9 @@ export default class Index extends PureComponent {
           className={styles.listPagination}>{`共 ${page ? page.totalPage : 1} 页， ${page ? page.totalResult : 0} 条记录 `}</span>,
     };
     return (
-      <div>
+      <div className={this.props.global&&this.props.global.dark ? '' : styles.lightBox}>
           <div className={styles.tableListForm} id="newslaxsajyjtableListForm">
-            <Form onSubmit={this.handleSearch} style={{ height: this.state.searchHeight ? 'auto' : '59px' }}>
+            <Form onSubmit={this.handleSearch} style={{ height: this.state.searchHeight ? 'auto' : '50px' }}>
               <Row gutter={rowLayout} className={styles.searchForm}>
                 <Col {...colLayout}>
                   <FormItem label="预警类型" {...formItemLayout}>

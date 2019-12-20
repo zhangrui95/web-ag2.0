@@ -17,10 +17,14 @@ import styles from '../../pages/common/dataView.less';
 import { getTimeDistance } from '../../utils/utils';
 import warningCountButtonNumberPink from '../../assets/viewData/warningCountButtonNumberPink.png';
 import warningCountButtonNumberBlue from '../../assets/viewData/warningCountButtonNumberBlue.png';
+import {connect} from "dva";
+import crial from "@/assets/common/crial.png";
 
 let unCaseEchartBar;
 let unCaseEchartRingPie;
-
+@connect(({ global }) => ({
+    global
+}))
 export default class UnCaseEnforcementDataView extends PureComponent {
   state = {
     currentType: 'today',
@@ -29,6 +33,7 @@ export default class UnCaseEnforcementDataView extends PureComponent {
     beforeLastData: 0,
     selectedDateData: 0, // 头部统计告警总数——手动选择日期
     dayType: ['today', 'lastDay'],
+    type:"now",
     dateType: {
       today: '0',
       lastDay: '1',
@@ -49,8 +54,8 @@ export default class UnCaseEnforcementDataView extends PureComponent {
     this.getNewAddWarnings(dayTypeTime[0], dayTypeTime[1], 'today');
     this.getAllTypeWarningCount(dayTypeTime[0], dayTypeTime[1], 'today');
 
-    this.showUnCaseEchartBar();
-    this.showUnCaseEchartRingPie();
+    this.showUnCaseEchartBar(this.props);
+    this.showUnCaseEchartRingPie(this.props);
     //
     window.addEventListener('resize', unCaseEchartBar.resize);
     window.addEventListener('resize', unCaseEchartRingPie.resize);
@@ -94,6 +99,11 @@ export default class UnCaseEnforcementDataView extends PureComponent {
           );
         }
       }
+        if(this.props.global.dark !== nextProps.global.dark){
+            this.showUnCaseEchartBar(nextProps);
+            this.showUnCaseEchartRingPie(nextProps);
+            this.changeCountButtonCurrent(this.state.type);
+        }
     }
   }
 
@@ -109,8 +119,8 @@ export default class UnCaseEnforcementDataView extends PureComponent {
   };
   getTime = type => {
     const time = getTimeDistance(type);
-    const startTime = time[0] === '' ? '' : moment(time[0]).format('YYYY-MM-DD');
-    const endTime = time[1] === '' ? '' : moment(time[1]).format('YYYY-MM-DD');
+      const startTime = time&&time [0] ? moment(time[0]).format('YYYY-MM-DD') : '';
+      const endTime = time&&time[1] ? moment(time[1]).format('YYYY-MM-DD') : '';
     return [startTime, endTime];
   };
 
@@ -192,7 +202,7 @@ export default class UnCaseEnforcementDataView extends PureComponent {
     });
   };
   // 新增告警柱状图
-  showUnCaseEchartBar = () => {
+  showUnCaseEchartBar = (nextProps) => {
     const that = this;
     unCaseEchartBar = echarts.init(document.getElementById('unCaseXzgj'));
     const option = {
@@ -215,7 +225,7 @@ export default class UnCaseEnforcementDataView extends PureComponent {
         axisLabel: {
           interval: 0,
           textStyle:{
-            color:'#fff',
+            color:nextProps.global&&nextProps.global.dark ? '#fff' : '#4d4d4d',
           }
         },
       },
@@ -231,7 +241,7 @@ export default class UnCaseEnforcementDataView extends PureComponent {
         },
         axisLabel: {
           textStyle: {
-            color: '#fff',
+            color: nextProps.global&&nextProps.global.dark ? '#fff' : '#4d4d4d',
           },
         },
       },
@@ -259,7 +269,7 @@ export default class UnCaseEnforcementDataView extends PureComponent {
               formatter: '{c}',
               textStyle: {
                 fontSize: 16,
-                color: '#fff',
+                color:nextProps.global&&nextProps.global.dark ? '#fff' : '#4d4d4d',
               },
             },
           },
@@ -370,7 +380,7 @@ export default class UnCaseEnforcementDataView extends PureComponent {
     });
   };
   // 告警情况环形饼状图
-  showUnCaseEchartRingPie = () => {
+  showUnCaseEchartRingPie = (nextProps) => {
     const that = this;
     unCaseEchartRingPie = echarts.init(document.getElementById('unCaseGjqk'));
     const option = {
@@ -396,7 +406,7 @@ export default class UnCaseEnforcementDataView extends PureComponent {
         itemGap: 25,
         selectedMode: true, // 点击
         textStyle: {
-          color: '#fff',
+          color: nextProps.global&&nextProps.global.dark ? '#fff' : '#4d4d4d',
           fontSize: 16,
           lineHeight: 24,
         },
@@ -415,7 +425,7 @@ export default class UnCaseEnforcementDataView extends PureComponent {
               position: 'center',
               textStyle: {
                 fontSize: '22',
-                color: '#fff',
+                color: nextProps.global&&nextProps.global.dark ? '#fff' : '#4d4d4d',
               },
             },
             emphasis: {
@@ -445,33 +455,38 @@ export default class UnCaseEnforcementDataView extends PureComponent {
     const colLayout = { sm: 24, lg: 12 };
     const { searchType, selectedDateVal, showDataView } = this.props;
     const { lastData, nowData, selectedDateData, currentType } = this.state;
+      let className = this.props.global&&this.props.global.dark ?styles.policeDataCard : styles.policeDataCard + ' '+styles.lightBox;
     return (
-      <Card style={{ position: 'relative' }} className={styles.policeDataCard}>
+      <Card style={{ position: 'relative' }} className={className}>
         <div
           className={styles.policeDataView}
           style={showDataView ? {} : { position: 'absolute', zIndex: -1 }}
         >
           {currentType !== 'selectedDate' ? (
-            <div className={styles.viewCount}>
-              <div onClick={() => this.changeCountButtonCurrent('now')}>
-                <div className={styles.warningCountButtonArea}>
-                  <div className={styles.warningCountButtonTitleBlue}>今日新增告警</div>
-                  <div className={styles.warningCountButtonNumberBlue}>
-                    <img src={warningCountButtonNumberBlue} alt="" />
-                    {nowData}
-                  </div>
-                </div>
+              <div className={styles.topView}>
+                  <Card className={styles.leftView}  onClick={() => this.changeCountButtonCurrent('now')}>
+                      <Row>
+                          <Col span={12}>今日新增告警</Col>
+                          <Col span={12} className={styles.viewNumber}>
+                              <div className={styles.warningCountButtonNumberPink}>
+                                  <img src={crial} alt="" />
+                                  {nowData}
+                              </div>
+                          </Col>
+                      </Row>
+                  </Card>
+                  <Card className={styles.rightView} onClick={() => this.changeCountButtonCurrent('last')}>
+                      <Row>
+                          <Col span={12}>昨日告警数量</Col>
+                          <Col span={12} className={styles.viewNumber}>
+                              <div className={styles.warningCountButtonNumberPink}>
+                                  <img src={crial} alt="" />
+                                  {lastData}
+                              </div>
+                          </Col>
+                      </Row>
+                  </Card>
               </div>
-              <div onClick={() => this.changeCountButtonCurrent('last')}>
-                <div className={styles.warningCountButtonArea}>
-                  <div className={styles.warningCountButtonTitlePink}>昨日告警数量</div>
-                  <div className={styles.warningCountButtonNumberPink}>
-                    <img src={warningCountButtonNumberPink} alt="" />
-                    {lastData}
-                  </div>
-                </div>
-              </div>
-            </div>
           ) : (
             <div className={styles.viewCount}>
               <div className={styles.countButtonCurrent}>
@@ -486,7 +501,7 @@ export default class UnCaseEnforcementDataView extends PureComponent {
               </div>
             </div>
           )}
-          <div style={{ backgroundColor: '#252c3c', padding: '0 16px' }}>
+          <div style={{ backgroundColor: this.props.global&&this.props.global.dark ? '#252c3c' : '#fff', padding: '0 16px',borderRadius: 10}}>
             <Row gutter={rowLayout} className={styles.listPageRow}>
               <Col {...colLayout} style={{marginBottom:32}}>
                 <div className={styles.cardBoxTitle}>

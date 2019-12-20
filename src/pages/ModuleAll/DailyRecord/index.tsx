@@ -17,8 +17,8 @@ import {routerRedux} from "dva/router";
 
 const FormItem = Form.Item;
 
-@connect(({ share }) => ({
-  share,
+@connect(({ share,global }) => ({
+  share,global
 }))
 class DailyRecord extends PureComponent {
 
@@ -207,7 +207,7 @@ class DailyRecord extends PureComponent {
       });
     }
     return (
-      <div>
+      <div className={this.props.global&&this.props.global.dark ? '' : styles.lightBox}>
         <Card className={styles.standardTable}>
           <Timeline style={{ marginTop: 20, marginLeft: 20 }} className={styles.timeline}>
             {list}

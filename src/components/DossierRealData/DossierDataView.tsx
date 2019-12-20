@@ -20,6 +20,8 @@ import DataViewDateShow from '../Common/DataViewDateShow';
 // import { MiniProgress, ChartCard } from '../../components/Charts';
 import { MiniProgress, ChartCard } from 'ant-design-pro/lib/Charts';
 import nonDivImg from '../../assets/viewData/nonData.png';
+import {connect} from "dva";
+import noListLight from "@/assets/viewData/noListLight.png";
 
 let itemEchartpictorialBar;
 let itemEchartRingPie;
@@ -27,9 +29,13 @@ let itemEchartdzhqkPie;
 let itemEchartwpqsBar;
 const colors1 = ['#0099FF', '#33CC00', '#FF3300', '#9933FF', '#33CBCC', '#0198FF', '#9933FF'];
 const colors2 = ['#0198FF', '#9933FF'];
+@connect(({ global }) => ({
+    global
+}))
 export default class DossierDataView extends PureComponent {
     state = {
         currentType: 'week',
+        type: 'now',
         ZkjzData: [],
         ZkjzTotal: '',
         showrkDataView: true, // 控制显示入库或者出库（true显示入库）
@@ -39,10 +45,10 @@ export default class DossierDataView extends PureComponent {
     };
 
     componentDidMount() {
-        this.showCaseEchartBar();
-        this.showCaseEchartRingPie();
-        this.showCaseEchartwpqsBar();
-        this.showCaseEchartdzhqkzsBar();
+        this.showCaseEchartBar(this.props);
+        this.showCaseEchartRingPie(this.props);
+        this.showCaseEchartwpqsBar(this.props);
+        this.showCaseEchartdzhqkzsBar(this.props);
         window.addEventListener('resize', itemEchartpictorialBar.resize);
         window.addEventListener('resize', itemEchartRingPie.resize);
         window.addEventListener('resize', itemEchartwpqsBar.resize);
@@ -95,13 +101,20 @@ export default class DossierDataView extends PureComponent {
                 }
 
             }
+            if(this.props.global.dark !== nextProps.global.dark){
+                this.showCaseEchartBar(nextProps);
+                this.showCaseEchartRingPie(nextProps);
+                this.showCaseEchartwpqsBar(nextProps);
+                this.showCaseEchartdzhqkzsBar(nextProps);
+                this.changeCountButtonCurrent(this.state.type);
+            }
         }
     }
 
     getTime = (type) => {
         const time = getTimeDistance(type);
-        const startTime = time[0] === '' ? '' : moment(time[0]).format('YYYY-MM-DD');
-        const endTime = time[1] === '' ? '' : moment(time[1]).format('YYYY-MM-DD');
+        const startTime = time&&time [0] ? moment(time[0]).format('YYYY-MM-DD') : '';
+        const endTime = time&&time[1] ? moment(time[1]).format('YYYY-MM-DD') : '';
         return [startTime, endTime];
     };
 
@@ -426,6 +439,7 @@ export default class DossierDataView extends PureComponent {
             currentType,
             TypeTime: weekTypeTime,
             showrkDataView: true,
+            type,
         });
         this.getDossierNumCount(weekTypeTime[0], weekTypeTime[1]);
         this.getDossierCRKCount(weekTypeTime[0], weekTypeTime[1], '3');
@@ -434,7 +448,7 @@ export default class DossierDataView extends PureComponent {
         this.getDossierDZHQKShow(weekTypeTime[0], weekTypeTime[1]);
     };
     // 物品出入库情况柱状图
-    showCaseEchartBar = () => {
+    showCaseEchartBar = (nextProps) => {
         itemEchartpictorialBar = echarts.init(document.getElementById('wpcrkqk'));
         const option = {
             title: {
@@ -450,7 +464,7 @@ export default class DossierDataView extends PureComponent {
                 axisLabel: {
                     inside: false,
                     textStyle: {
-                        color: '#fff',
+                        color: nextProps.global&&nextProps.global.dark ? '#fff' : '#4d4d4d',
                     },
                     rotate: 30,
                     interval: 0,
@@ -472,7 +486,7 @@ export default class DossierDataView extends PureComponent {
                 },
                 axisLabel: {
                     textStyle: {
-                        color: '#fff',
+                        color: nextProps.global&&nextProps.global.dark ? '#fff' : '#4d4d4d',
                     },
                 },
             },
@@ -545,7 +559,7 @@ export default class DossierDataView extends PureComponent {
         this.props.changeToListPage({ szkf: name,cczt:'3' }, dataTime);
     };
     // 卷宗趋势
-    showCaseEchartRingPie = () => {
+    showCaseEchartRingPie = (nextProps) => {
         itemEchartwpqsBar = echarts.init(document.getElementById('jzqs'));
         const option = {
             title: {
@@ -562,7 +576,7 @@ export default class DossierDataView extends PureComponent {
                 // data:['邮件营销','联盟广告'],
                 data: [],
                 textStyle: {
-                  color: '#fff',
+                  color: nextProps.global&&nextProps.global.dark ? '#fff' : '#4d4d4d',
                 },
             },
             grid: {
@@ -578,7 +592,7 @@ export default class DossierDataView extends PureComponent {
                 data: [],
                 axisLabel: {
                   textStyle: {
-                    color: '#fff',
+                    color: nextProps.global&&nextProps.global.dark ? '#fff' : '#4d4d4d',
                   },
                 },
             },
@@ -586,7 +600,7 @@ export default class DossierDataView extends PureComponent {
                 type: 'value',
                 axisLabel: {
                   textStyle: {
-                    color: '#fff',
+                    color:nextProps.global&&nextProps.global.dark ? '#fff' : '#4d4d4d',
                   },
                 },
             },
@@ -600,7 +614,7 @@ export default class DossierDataView extends PureComponent {
         });
     };
     // 卷宗数量展示
-    showCaseEchartwpqsBar = () => {
+    showCaseEchartwpqsBar = (nextProps) => {
         itemEchartRingPie = echarts.init(document.getElementById('jzslzs'));
         const option = {
             title: {
@@ -625,7 +639,7 @@ export default class DossierDataView extends PureComponent {
                 itemGap: 25,
                 selectedMode: true, // 点击
                 textStyle: {
-                    color: '#fff',
+                    color: nextProps.global&&nextProps.global.dark ? '#fff' : '#4d4d4d',
                     fontSize: 16,
                     lineHeight: 24,
                 },
@@ -646,7 +660,7 @@ export default class DossierDataView extends PureComponent {
                             textStyle: {
                                 fontSize: '22',
                                 // fontWeight: 'bold',
-                                color: '#fff',
+                                color: nextProps.global&&nextProps.global.dark ? '#fff' : '#4d4d4d',
                             },
                         },
                         emphasis: {
@@ -671,7 +685,7 @@ export default class DossierDataView extends PureComponent {
         });
     };
     // 电子化情况展示
-    showCaseEchartdzhqkzsBar = () => {
+    showCaseEchartdzhqkzsBar = (nextProps) => {
         itemEchartdzhqkPie = echarts.init(document.getElementById('dzhqkzs'));
         const option = {
             title: {
@@ -696,7 +710,7 @@ export default class DossierDataView extends PureComponent {
                 itemGap: 25,
                 selectedMode: true, // 点击
                 textStyle: {
-                    color: '#fff',
+                    color: nextProps.global&&nextProps.global.dark ? '#fff' : '#4d4d4d',
                     fontSize: 16,
                     lineHeight: 24,
                 },
@@ -717,7 +731,7 @@ export default class DossierDataView extends PureComponent {
                             textStyle: {
                                 fontSize: '22',
                                 // fontWeight: 'bold',
-                                color: '#fff',
+                                color:nextProps.global&&nextProps.global.dark ? '#fff' : '#4d4d4d',
                             },
                         },
                         emphasis: {
@@ -752,8 +766,9 @@ export default class DossierDataView extends PureComponent {
       const colLayout2 = { sm: 24, lg: 8 };
       const { searchType, selectedDateVal, showDataView } = this.props;
       const { currentType, ZkjzData, ZkjzTotal, showrkDataView, jzqsNoData, selectedDateData } = this.state;
+      let className = this.props.global&&this.props.global.dark ?styles.policeDataCard : styles.policeDataCard + ' '+styles.lightBox;
       return (
-        <Card style={{ position: 'relative' }} className={styles.policeDataCard}>
+        <Card style={{ position: 'relative' }} className={className}>
           <div className={styles.ItemDataView} style={showDataView ? {} : { position: 'absolute', zIndex: -1 }}>
             {
               currentType !== 'selectedDate' ? (
@@ -798,7 +813,7 @@ export default class DossierDataView extends PureComponent {
                 </div>
               )
             }
-            <div style={{ backgroundColor: '#252c3c', padding: '0 16px' }}>
+            <div style={{ backgroundColor: this.props.global&&this.props.global.dark ? '#252c3c' : '#fff', padding: '0 16px',borderRadius: 10 }}>
               <Row gutter={rowLayout} className={styles.listPageRow}>
                 <Col {...colLayout}>
                   <div className={styles.cardBoxTitle}>| 卷宗数量展示</div>
@@ -865,8 +880,8 @@ export default class DossierDataView extends PureComponent {
                           justifyContent: 'center',
                           marginTop:22,
                         }}>
-                          <img src={nonDivImg} alt="暂无数据"/>
-                          <div style={{ fontSize: 18 }}>暂无数据</div>
+                            <img src={this.props.global&&this.props.global.dark ? nonDivImg : noListLight} height={200} alt="暂无数据" />
+                            <div style={{ fontSize: 18,color:this.props.global&&this.props.global.dark ? '#fff' : '#999', }}>暂无数据</div>
                         </div>
                       </div>
                     }
@@ -895,8 +910,8 @@ export default class DossierDataView extends PureComponent {
                           flexDirection: 'column',
                           justifyContent: 'center',
                         }}>
-                          <img src={nonDivImg} alt="暂无数据"/>
-                          <div style={{ fontSize: 18 }}>暂无数据</div>
+                            <img src={this.props.global&&this.props.global.dark ? nonDivImg : noListLight} alt="暂无数据" height={200}/>
+                            <div style={{ fontSize: 18,color:this.props.global&&this.props.global.dark ? '#fff' : '#999' }}>暂无数据</div>
                         </div>
                       </div>
                     ) : null

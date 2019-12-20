@@ -14,8 +14,8 @@ import listStyles from '../../pages/common/listDetail.less';
 // import SeeDetail from '../../personnelFiles/SeeDetail';
 
 const { Step } = Steps;
-@connect(({ share }) => ({
-  share,
+@connect(({ share,global }) => ({
+  share,global
 }))
 export default class SupervisionLog extends PureComponent {
   state = {
@@ -166,8 +166,9 @@ export default class SupervisionLog extends PureComponent {
         }
       }
     }
+      let dark = this.props.global&&this.props.global.dark;
     return (
-      <div>
+      <div className={dark?'':styles.lightBox}>
         {detailData && detailData.dbList && detailData.dbList.length > 0 ? (
           <div>
             <div className={styles.title}>

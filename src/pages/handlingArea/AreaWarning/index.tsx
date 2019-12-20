@@ -46,9 +46,10 @@ const RadioGroup = Radio.Group;
 let timeout;
 let currentValue;
 
-@connect(({ EarlyWarning, loading, common }) => ({
+@connect(({ EarlyWarning, loading, common,global }) => ({
   EarlyWarning,
   common,
+    global,
   loading: loading.models.EarlyWarning,
 }))
 @Form.create()
@@ -832,11 +833,11 @@ export default class Index extends PureComponent {
       ),
     };
     return (
-      <div>
+      <div className={this.props.global&&this.props.global.dark ? '' : styles.lightBox}>
         <div className={styles.tableListForm} id="baqyjtableListForm">
           <Form
             onSubmit={this.handleSearch}
-            style={{ height: this.state.searchHeight ? 'auto' : '59px' }}
+            style={{ height: this.state.searchHeight ? 'auto' : '50px' }}
           >
             <Row gutter={rowLayout} className={styles.searchForm}>
               <Col {...colLayout}>
@@ -909,6 +910,13 @@ export default class Index extends PureComponent {
           </Form>
         </div>
         <div className={styles.tableListOperator} id='baqyjcardArea'>
+            <Button
+                style={{ borderColor: '#2095FF', marginBottom: 16 }}
+                onClick={this.exportData}
+                icon="download"
+            >
+                导出表格
+            </Button>
           <Table
             className={styles.listStandardTable}
             // size="middle"

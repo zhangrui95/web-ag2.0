@@ -252,8 +252,8 @@ export default class PoliceDataView extends PureComponent {
   };
   getTime = type => {
     const time = getTimeDistance(type);
-    const startTime = time[0] === '' ? '' : moment(time[0]).format('YYYY-MM-DD');
-    const endTime = time[1] === '' ? '' : moment(time[1]).format('YYYY-MM-DD');
+      const startTime = time&&time [0] ? moment(time[0]).format('YYYY-MM-DD') : '';
+      const endTime = time&&time[1] ? moment(time[1]).format('YYYY-MM-DD') : '';
     return [startTime, endTime];
   };
 

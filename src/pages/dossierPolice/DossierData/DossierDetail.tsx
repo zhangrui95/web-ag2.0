@@ -25,14 +25,17 @@ import styles from './DossierDetail.less';
 import collect from '../../../assets/common/collect.png';
 import nocollect from '../../../assets/common/nocollect.png';
 import share from '../../../assets/common/share.png';
+import collect1 from '../../../assets/common/collect1.png';
+import nocollect1 from '../../../assets/common/nocollect1.png';
+import share1 from '../../../assets/common/share1.png';
 import { autoheight, getUserInfos, userResourceCodeDb } from '../../../utils/utils';
 // import DossierMarkingModal from '../../components/DossierRealData/DossierMarkingModal';
 import Ellipsis from 'ant-design-pro/lib/Ellipsis';
 import { authorityIsTrue } from '../../../utils/authority';
 import {routerRedux} from "dva/router";
 
-@connect(({ DossierData, common, MySuperviseData, AllDetail }) => ({
-    DossierData, common, MySuperviseData, AllDetail,
+@connect(({ DossierData, common, MySuperviseData, AllDetail,global }) => ({
+    DossierData, common, MySuperviseData, AllDetail,global
     // loading: loading.models.alarmManagement,
 }))
 
@@ -386,9 +389,9 @@ export default class DossierDetail extends PureComponent {
         // const {record} = this.props;
         const rowLayout = { md: 8, lg: 24, xl: 48 };
         const colLayout = { sm: 24, md: 12, xl: 8 };
-
+        let dark = this.props.global&&this.props.global.dark;
         return (
-            <div style={{ backgroundColor: '#252C3C', margin: '16px 0' }}>
+            <div style={{  backgroundColor:  dark ? '#252C3C' : '#fff', margin: '16px 0' }}>
                 <Row gutter={rowLayout}>
                     <Col {...colLayout}>
                         {/*<span style={{ margin: '16px', display: 'block' }}>卷宗详情</span>*/}
@@ -410,19 +413,19 @@ export default class DossierDetail extends PureComponent {
                                 <span className={liststyles.collect}>
                                   {DossierDetailData.sfgz === 0 ?
                                     <Tooltip title="关注">
-                                      <img src={nocollect} width={25} height={25} style={{ marginLeft: 12 }} onClick={() => this.saveShare(DossierDetailData, 1, 0)}/>
+                                      <img src={dark ? nocollect : nocollect1} width={25} height={25} style={{ marginLeft: 12 }} onClick={() => this.saveShare(DossierDetailData, 1, 0)}/>
                                       <div style={{ fontSize: 12, textAlign: 'center', width: 48 }}>关注</div>
                                     </Tooltip>
                                     :
                                       <Tooltip title="取消关注">
-                                        <img src={collect} width={25} height={25} style={{ marginLeft: 12 }} onClick={() => this.noFollow(DossierDetailData)}/>
+                                        <img src={dark ? collect : collect1} width={25} height={25} style={{ marginLeft: 12 }} onClick={() => this.noFollow(DossierDetailData)}/>
                                         <div style={{ fontSize: 12, textAlign: 'center', width: 48 }}>取消关注</div>
                                       </Tooltip>
                                   }
                                 </span>
                                 <span className={liststyles.collect} onClick={() => this.saveShare(DossierDetailData, 2)}>
                                   <Tooltip title="分享">
-                                    <img src={share} width={25} height={25}/>
+                                    <img src={dark ? share : share1} width={25} height={25}/>
                                     <div style={{ fontSize: 12 }}>分享</div>
                                   </Tooltip>
                                 </span>
@@ -444,6 +447,7 @@ export default class DossierDetail extends PureComponent {
         const colLayoutInData = { sm: 24, md: 20, xl: 20 };
         const specialcolLayout = { sm: 24, md: 24, xl: 24 };
         const { DossierDetailData } = this.state;
+        let dark = this.props.global&&this.props.global.dark;
         let stap1 = [];
         let stap2 = [];
         let relevanceInfo = DossierDetailData.jzgjList ? DossierDetailData.jzgjList : [];
@@ -523,7 +527,7 @@ export default class DossierDetail extends PureComponent {
             );
         }
         return (
-            <div style={{ background: '#F0F2F5', /*height: autoheight() - 180 + 'px'*/ }} className={styles.detailBoxScroll}>
+            <div style={{ background: dark ? '#252c3c' : '#fff', /*height: autoheight() - 180 + 'px'*/ }} className={styles.detailBoxScroll}>
                 <div style={{ textAlign: 'right', marginTop: 24 }}>
                   {DossierDetailData && DossierDetailData.ajxxList && DossierDetailData.ajxxList.length > 0 ?
                     <Button type='primary' onClick={() => this.seeCase(true, DossierDetailData.ajxxList)} style={{ marginRight: 16 }}>查看关联案件</Button>
@@ -619,6 +623,7 @@ export default class DossierDetail extends PureComponent {
     };
 
     render() {
+        let dark = this.props.global&&this.props.global.dark;
         const { superviseVisibleModal, mark, DossierDetailData, casevisible } = this.state;
         let detail = (
             <Row style={{ width: '90%', margin: '0 38px 10px', lineHeight: '36px', color: 'rgba(0, 0, 0, 0.85)' }}>
@@ -664,7 +669,7 @@ export default class DossierDetail extends PureComponent {
             },
         ];
         return (
-            <div id={this.ResultId()}>
+            <div id={this.ResultId()} className={dark?'':styles.lightBox}>
                 <div>
                     {this.Topdetail()}
                 </div>

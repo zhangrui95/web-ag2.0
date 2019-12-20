@@ -32,6 +32,7 @@ import { getDefaultDaysForMonth, getTimeDistance } from '../../utils/utils';
 import DataViewDateShow from '../Common/DataViewDateShow';
 import { MiniProgress, ChartCard } from 'ant-design-pro/lib/Charts';
 import nonDivImg from '../../assets/viewData/nonData.png';
+import {connect} from "dva";
 
 let itemEchartRYCFPie;
 let itemEchartRingPie;
@@ -52,10 +53,13 @@ const colors1 = [
   '#FE0000',
   '#42C92E',
 ];
-
+@connect(({ global }) => ({
+    global
+}))
 export default class ItemDataView extends PureComponent {
   state = {
     currentType: 'week',
+    type: 'now',
     rqtype: '3',
     TypeTime: [
       moment(getTimeDistance('week')[0]).format('YYYY-MM-DD'),
@@ -92,11 +96,11 @@ export default class ItemDataView extends PureComponent {
   componentDidMount() {
     this.getViewCountData('week');
 
-    this.showCaseEchartRYCFBar();
+    this.showCaseEchartRYCFBar(this.props);
     // this.showCaseEchartRingPie();
-    this.showCaseEchartSALXBar();
-    this.showCaseEchartRQYYBar();
-    this.showCaseEchartRQRCQSZSPie();
+    this.showCaseEchartSALXBar(this.props);
+    this.showCaseEchartRQYYBar(this.props);
+    this.showCaseEchartRQRCQSZSPie(this.props);
     // this.showCaseEchartSARYRQRCPie();
     window.addEventListener('resize', itemEchartRYCFPie.resize);
     // window.addEventListener('resize', itemEchartRingPie.resize);
@@ -183,14 +187,21 @@ export default class ItemDataView extends PureComponent {
           );
         }
       }
+        if(this.props.global.dark !== nextProps.global.dark){
+            this.showCaseEchartRYCFBar(nextProps);
+            this.showCaseEchartSALXBar(nextProps);
+            this.showCaseEchartRQYYBar(nextProps);
+            this.showCaseEchartRQRCQSZSPie(nextProps);
+            this.changeCountButtonCurrent(this.state.type);
+        }
     }
   }
 
   getTime = type => {
     const time = getTimeDistance(type);
-    const startTime = time[0] === '' ? '' : moment(time[0]).format('YYYY-MM-DD');
-    const endTime = time[1] === '' ? '' : moment(time[1]).format('YYYY-MM-DD');
-    return [startTime, endTime];
+      const startTime = time&&time [0] ? moment(time[0]).format('YYYY-MM-DD') : '';
+      const endTime = time&&time[1] ? moment(time[1]).format('YYYY-MM-DD') : '';
+      return [startTime, endTime];
   };
   // 获取头部本、上、前按键数据
   getViewCountData = (type, orgcode = this.props.orgcode) => {
@@ -675,6 +686,7 @@ export default class ItemDataView extends PureComponent {
       SARYRQRCdataLength: '',
       NLFBTotal: 0,
       SARYRQRCTotal: '',
+        type,
     });
 
     this.getAreaRYCFCount(weekTypeTime[0], weekTypeTime[1]);
@@ -686,7 +698,7 @@ export default class ItemDataView extends PureComponent {
     this.getAreaRQRCQSCount(rqtype);
   };
   // 人员成分echart
-  showCaseEchartRYCFBar = () => {
+  showCaseEchartRYCFBar = (nextProps) => {
     itemEchartRYCFPie = echarts.init(document.getElementById('rycf'));
     const option = {
       title: {
@@ -711,7 +723,7 @@ export default class ItemDataView extends PureComponent {
         itemGap: 25,
         selectedMode: true, // 点击
         textStyle: {
-          color: '#fff',
+          color: nextProps.global&&nextProps.global.dark ? '#fff' : '#4d4d4d',
           fontSize: 16,
           lineHeight: 24,
         },
@@ -733,7 +745,7 @@ export default class ItemDataView extends PureComponent {
               textStyle: {
                 fontSize: '22',
                 // fontWeight: 'bold',
-                color: '#fff',
+                color: nextProps.global&&nextProps.global.dark ? '#fff' : '#4d4d4d',
               },
             },
             emphasis: {
@@ -777,7 +789,7 @@ export default class ItemDataView extends PureComponent {
         itemGap: 25,
         selectedMode: true, // 点击
         textStyle: {
-          color: '#fff',
+          color: this.props.global&&this.props.global.dark ? '#fff' : '#4d4d4d',
           fontSize: 16,
           lineHeight: 24,
         },
@@ -799,7 +811,7 @@ export default class ItemDataView extends PureComponent {
               textStyle: {
                 fontSize: '22',
                 // fontWeight: 'bold',
-                color: '#fff',
+                color:  this.props.global&&this.props.global.dark ? '#fff' : '#4d4d4d',
               },
             },
             emphasis: {
@@ -825,7 +837,7 @@ export default class ItemDataView extends PureComponent {
     });
   };
   // 人员类型echart
-  showCaseEchartSALXBar = () => {
+  showCaseEchartSALXBar = (nextProps) => {
     const that = this;
     itemEchartSALXBar = echarts.init(document.getElementById('salx'));
     const dataAxis = ['点', '击', '柱', '子', '或', '者', '两', '指', '在'];
@@ -852,7 +864,7 @@ export default class ItemDataView extends PureComponent {
         axisLabel: {
           inside: false,
           textStyle: {
-            color: '#fff',
+            color: nextProps.global&&nextProps.global.dark ? '#fff' : '#4d4d4d',
           },
           rotate: 50,
           interval: 0,
@@ -874,7 +886,7 @@ export default class ItemDataView extends PureComponent {
         },
         axisLabel: {
           textStyle: {
-            color: '#fff',
+            color:nextProps.global&&nextProps.global.dark ? '#fff' : '#4d4d4d',
           },
         },
       },
@@ -919,7 +931,7 @@ export default class ItemDataView extends PureComponent {
   };
 
   // 入区原因echart
-  showCaseEchartRQYYBar = () => {
+  showCaseEchartRQYYBar = (nextProps) => {
     itemEchartRQYYBar = echarts.init(document.getElementById('rqyy'));
     const newData = [
       {
@@ -981,7 +993,7 @@ export default class ItemDataView extends PureComponent {
         itemGap: 15,
         selectedMode: true, // 点击
         textStyle: {
-          color: '#fff',
+          color: nextProps.global&&nextProps.global.dark ? '#fff' : '#4d4d4d',
           fontSize: 16,
           lineHeight: 24,
         },
@@ -1010,7 +1022,7 @@ export default class ItemDataView extends PureComponent {
               textStyle: {
                 fontSize: '22',
                 // fontWeight: 'bold',
-                color: '#fff',
+                color: nextProps.global&&nextProps.global.dark ? '#fff' : '#4d4d4d',
               },
             },
             emphasis: {
@@ -1036,7 +1048,7 @@ export default class ItemDataView extends PureComponent {
     });
   };
   // 入区人次趋势展示
-  showCaseEchartRQRCQSZSPie = () => {
+  showCaseEchartRQRCQSZSPie = (nextProps) => {
     itemEchartRQRCQSZSPie = echarts.init(document.getElementById('rqrcqszs'));
     const option = {
       title: {
@@ -1053,7 +1065,7 @@ export default class ItemDataView extends PureComponent {
         // data:['邮件营销','联盟广告'],
         // data:[],
         textStyle: {
-          color: '#fff',
+          color: nextProps.global&&nextProps.global.dark ? '#fff' : '#4d4d4d',
         },
       },
       grid: {
@@ -1074,7 +1086,7 @@ export default class ItemDataView extends PureComponent {
         data: [],
         axisLabel: {
           textStyle: {
-            color: '#fff',
+            color: nextProps.global&&nextProps.global.dark ? '#fff' : '#4d4d4d',
           },
         },
       },
@@ -1082,7 +1094,7 @@ export default class ItemDataView extends PureComponent {
         type: 'value',
         axisLabel: {
           textStyle: {
-            color: '#fff',
+            color: nextProps.global&&nextProps.global.dark ? '#fff' : '#4d4d4d',
           },
         },
       },
@@ -1096,7 +1108,7 @@ export default class ItemDataView extends PureComponent {
           label: {
             normal: {
               textStyle: {
-                color: '#fff',
+                color: nextProps.global&&nextProps.global.dark ? '#fff' : '#4d4d4d',
               },
             },
           },
@@ -1199,8 +1211,9 @@ export default class ItemDataView extends PureComponent {
       chooseBaq,
       selectedDateData,
     } = this.state;
+      let className = this.props.global&&this.props.global.dark ?styles.policeDataCard : styles.policeDataCard + ' '+styles.lightBox;
     return (
-      <Card style={{ position: 'relative' }} className={styles.policeDataCard}>
+      <Card style={{ position: 'relative' }} className={className}>
         <div
           className={styles.AreaDataView}
           style={showDataView ? {} : { position: 'absolute', zIndex: -1 }}
@@ -1273,22 +1286,22 @@ export default class ItemDataView extends PureComponent {
               </div>
             </div>
           )}
-          <div style={{ backgroundColor: '#252c3c', padding: '0 16px' }}>
+          <div style={{  backgroundColor: this.props.global&&this.props.global.dark ? '#252c3c' : '#fff', padding: '0 16px',borderRadius: 10 }}>
             <Row gutter={rowLayout} className={styles.listPageRow}>
               <Col {...colLayout}>
-                <div className={AreaDataViewStyles.rycfBox}>
+                {/*<div className={AreaDataViewStyles.rycfBox}>*/}
                   <div className={styles.cardBoxTitle}>| 性别统计</div>
-                  <div id="rycf" className={styles.cardBox} style={{ height: '380px' }}></div>
-                </div>
+                  <div id="rycf" className={styles.cardBox} style={{ height: '350px' }}></div>
+                {/*</div>*/}
               </Col>
               <Col {...colLayout2}>
-                <div id="nlhf" className={styles.cardBox} style={{ height: 380, padding: 0 }}>
                   <div className={styles.cardBoxTitle}>| 年龄划分</div>
-                  <ChartCard
-                    // title="年龄划分"
-                    // contentHeight={46}
-                    className={AreaDataViewStyles.nlhfBox}
-                  >
+                  {/*<ChartCard*/}
+                  {/*  // title="年龄划分"*/}
+                  {/*  // contentHeight={46}*/}
+                  {/*  className={AreaDataViewStyles.nlhfBox}*/}
+                  {/*>*/}
+                  <div id="nlhf" className={styles.cardBox} style={{ height: 350,padding:30 }}>
                     {NLFBdata.length > 0
                       ? NLFBdata.map(item => (
                           <Row gutter={rowLayout} style={{ height: 44 }}>
@@ -1309,16 +1322,16 @@ export default class ItemDataView extends PureComponent {
                           </Row>
                         ))
                       : ''}
-                  </ChartCard>
-                </div>
+                  </div>
+                  {/*</ChartCard>*/}
               </Col>
             </Row>
             <Row gutter={rowLayout} className={styles.listPageRow}>
               <Col {...colLayout}>
-                <div
-                  className={styles.cardBox}
-                  style={{ padding: SARYRQRCdataLength > 1 ? 21 : 0 }}
-                >
+                {/*<div*/}
+                {/*  className={styles.cardBox}*/}
+                {/*  style={{ padding: SARYRQRCdataLength > 1 ? 21 : 0 }}*/}
+                {/*>*/}
                   {/*<div className={styles.cardBoxTitle}>|  办案区入区人次展示</div>*/}
                   {this.returnSaryrqrczs(
                     SARYRQRCdataLength,
@@ -1326,7 +1339,7 @@ export default class ItemDataView extends PureComponent {
                     SARYRQRCTotal,
                     chooseBaq,
                   )}
-                </div>
+                {/*</div>*/}
               </Col>
               <Col {...colLayout}>
                 <div className={styles.cardBoxTitle}>| 人员类型</div>

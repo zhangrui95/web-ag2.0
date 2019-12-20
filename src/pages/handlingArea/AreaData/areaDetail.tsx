@@ -38,7 +38,11 @@ import Ellipsis from 'ant-design-pro/lib/Ellipsis';
 import collect from '../../../assets/common/collect.png';
 import nocollect from '../../../assets/common/nocollect.png';
 import nophoto from '../../../assets/common/nophoto.png';
+import nophotoLight from '../../../assets/common/nophotoLight.png';
 import share from '../../../assets/common/share.png';
+import collect1 from '../../../assets/common/collect1.png';
+import nocollect1 from '../../../assets/common/nocollect1.png';
+import share1 from '../../../assets/common/share1.png';
 
 import styles from './areaDetail.less';
 import liststyles from '../../common/listDetail.less';
@@ -51,13 +55,14 @@ import noListLight from "@/assets/viewData/noListLight.png";
 const FormItem = Form.Item;
 const { Step } = Steps;
 const { Option } = Select;
-@connect(({ areaData, loading, common, MySuperviseData, CaseData, AllDetail }) => ({
+@connect(({ areaData, loading, common, MySuperviseData, CaseData, AllDetail,global }) => ({
   areaData,
   loading,
   common,
   MySuperviseData,
   CaseData,
   AllDetail,
+  global
   // loading: loading.models.alarmManagement,
 }))
 @Form.create()
@@ -426,8 +431,9 @@ export default class areaDetail extends PureComponent {
   Topdetail() {
     const { areaDetails, sfgz, isDb } = this.state;
     const { query:{record} } = this.props.location;
+      let dark = this.props.global&&this.props.global.dark;
     return (
-      <div style={{ backgroundColor: '#252C3C', margin: '16px 0' }}>
+      <div style={{ backgroundColor:  dark ? '#252C3C' : '#fff', margin: '16px 0' }}>
         <Row gutter={{ md: 8, lg: 24, xl: 48 }}>
           {/*<Col md={8} sm={24}>*/}
           {/*<span style={{ margin: '16px', display: 'block' }}>人员在区详情</span>*/}
@@ -441,7 +447,7 @@ export default class areaDetail extends PureComponent {
                       <Tooltip title="关注">
                         <div onClick={() => this.saveShare(areaDetails, record, 1, 0)}>
                           <img
-                            src={nocollect}
+                              src={dark ? nocollect : nocollect1}
                             width={25}
                             height={25}
                             style={{ marginLeft: 12 }}
@@ -453,7 +459,7 @@ export default class areaDetail extends PureComponent {
                       <Tooltip title="取消关注">
                         <div onClick={() => this.noFollow(areaDetails)}>
                           <img
-                            src={collect}
+                              src={dark ? collect : collect1}
                             width={25}
                             height={25}
                             style={{ marginLeft: 12 }}
@@ -468,7 +474,7 @@ export default class areaDetail extends PureComponent {
                     onClick={() => this.saveShare(areaDetails, record, 2)}
                   >
                     <Tooltip title="分享">
-                      <img src={share} width={25} height={25} />
+                      <img  src={dark ? share : share1} width={25} height={25} />
                       <div style={{ fontSize: 12 }}>分享</div>
                     </Tooltip>
                   </span>
@@ -1009,6 +1015,7 @@ export default class areaDetail extends PureComponent {
     const { areaDetails, isDb } = this.state;
     const colLayoutInName = { sm: 24, md: 5, xl: 5 };
     const colLayoutInData = { sm: 24, md: 19, xl: 19 };
+      let dark = this.props.global&&this.props.global.dark;
     const ajWoodColumns = [
       {
         title: '物品名称',
@@ -1300,7 +1307,7 @@ export default class areaDetail extends PureComponent {
     );
     return (
       <div
-        style={{ background: '#252c3c', /*height: autoheight() - 280 + 'px'*/ }}
+        style={{ background: dark ? '#252c3c' : '#fff', /*height: autoheight() - 280 + 'px'*/ }}
         className={styles.detailBoxScroll}
       >
         {areaDetails && areaDetails.ajxx ? (
@@ -1337,9 +1344,9 @@ export default class areaDetail extends PureComponent {
                   src={
                     areaDetails && areaDetails.ryxx && areaDetails.ryxx.photo
                       ? areaDetails.ryxx.photo
-                      : nophoto
+                      : dark ? nophoto : nophotoLight
                   }
-                  width="100%"
+                  width="120"
                   alt="暂无图片显示"
                 />
               </div>
@@ -1646,8 +1653,9 @@ export default class areaDetail extends PureComponent {
         <div className={styles.tablemessage} style={{ marginBottom: '16px', padding: '24px' }}>
           <Table
             // size={'middle'}
-            style={{ backgroundColor: '#252C3C' }}
+            // style={{ backgroundColor: '#252C3C' }}
             className={styles.sswpxxTable}
+            bordered
             pagination={{
               pageSize: 3,
               showTotal: (total, range) => (
@@ -1664,12 +1672,13 @@ export default class areaDetail extends PureComponent {
             locale={{ emptyText: <Empty image={this.props.global&&this.props.global.dark ? noList : noListLight} description={'暂无数据'} /> }}
           />
         </div>
-        <div className={styles.title}>涉案物品信息</div>
+        <div className={styles.title}>| 涉案物品信息</div>
         <div className={styles.tablemessage} style={{ padding: '24px', marginBottom: 24 }}>
           <Table
             // size={'middle'}
-            style={{ backgroundColor: '#252C3C' }}
+            // style={{ backgroundColor: '#252C3C' }}
             className={styles.sswpxxTable}
+            bordered
             pagination={{
               pageSize: 3,
               showTotal: (total, range) => (
@@ -1691,6 +1700,7 @@ export default class areaDetail extends PureComponent {
   }
 
   render() {
+      let dark = this.props.global&&this.props.global.dark;
     const { superviseVisibleModal, ssWpList, SsWpId, isState } = this.state;
     const { getFieldDecorator } = this.props.form;
     const {
@@ -1763,7 +1773,7 @@ export default class areaDetail extends PureComponent {
       </Row>
     );
     return (
-      <div>
+      <div className={dark?'':styles.lightBox}>
         <div>{this.Topdetail()}</div>
         <div>{this.renderDetail()}</div>
 

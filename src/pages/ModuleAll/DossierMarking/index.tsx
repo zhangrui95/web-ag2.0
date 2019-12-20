@@ -34,8 +34,8 @@ import { getUserInfos } from '../../../utils/utils';
 
 const FormItem = Form.Item;
 
-@connect(({ DossierData }) => ({
-  DossierData,
+@connect(({ DossierData,global }) => ({
+  DossierData,global
 }))
 export default class DossierMarkingModal extends PureComponent {
   state = {
@@ -176,8 +176,9 @@ export default class DossierMarkingModal extends PureComponent {
         }
       }
     }
+    let dark = this.props.global&&this.props.global.dark
     return (
-      <div>
+      <div className={dark ? '' : styles.lightBox}>
         {/*<Modal*/}
           {/*maskClosable={false}*/}
           {/*visible={this.props.visible}*/}

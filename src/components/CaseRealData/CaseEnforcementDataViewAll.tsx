@@ -38,7 +38,7 @@ export default class CaseEnforcementDataView extends PureComponent {
     selectedDateData: ['立案：0', '受案：0'], // 头部统计警情总数——手动选择日期
     weekType: ['week', 'lastWeek', 'beforeLastWeek'],
     monthType: ['month', 'lastMonth', 'beforeLastMonth'],
-    type:'week',
+    type:'now',
   };
 
   componentDidMount() {

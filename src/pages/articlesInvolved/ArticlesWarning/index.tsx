@@ -44,9 +44,10 @@ const RadioGroup = Radio.Group;
 let timeout;
 let currentValue;
 
-@connect(({ EarlyWarning, loading, common,share }) => ({
+@connect(({ EarlyWarning, loading, common,share,global }) => ({
   EarlyWarning,
   common,
+    global,
   loading: loading.models.EarlyWarning,
   share
 }))
@@ -646,9 +647,9 @@ export default class Index extends PureComponent {
         <span className={styles.listPagination}>{`共 ${page ? page.totalPage : 1} 页，${page ? page.totalResult : 0} 条记录 `}</span>,
     };
     return (
-      <div>
+      <div className={this.props.global&&this.props.global.dark ? '' : styles.lightBox}>
             <div className={styles.tableListForm} id='sawpyjtableListForm'>
-              <Form onSubmit={this.handleSearch} style={{height: this.state.searchHeight ? 'auto' : '59px',}}>
+              <Form onSubmit={this.handleSearch} style={{height: this.state.searchHeight ? 'auto' : '50px',}}>
                 <Row gutter={rowLayout} className={styles.searchForm}>
                   <Col {...colLayout}>
                     <FormItem label="预警类型" {...formItemLayout}>
@@ -729,7 +730,12 @@ export default class Index extends PureComponent {
               </Form>
             </div>
             <div className={styles.tableListOperator} id='sawpyjtableListOperator'>
-              <Button style={{ color: '#3285FF',backgroundColor:'#171925',border:'1px solid #3285FF',borderRadius:'5px',marginBottom:16}} icon="download" onClick={this.exportData}>导出表格</Button>
+                <Button
+                    className={styles.downloadBtn}
+                    onClick={this.exportData}
+                    style={{marginBottom:16}}
+                    icon="download"
+                >导出表格</Button>
               <Table
                 className={styles.listStandardTable}
                 // size="middle"
