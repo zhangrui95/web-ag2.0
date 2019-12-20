@@ -29,8 +29,8 @@ import {routerRedux} from "dva/router";
 
 const { Step } = Steps;
 
-@connect(({ UnDossierData, common, MySuperviseData, AllDetail }) => ({
-    UnDossierData, common, MySuperviseData, AllDetail,
+@connect(({ UnDossierData, common, MySuperviseData, AllDetail, global }) => ({
+    UnDossierData, common, MySuperviseData, AllDetail, global
     // loading: loading.models.alarmManagement,
 }))
 
@@ -299,10 +299,11 @@ export default class DossierDetail extends PureComponent {
 
     Topdetail() {
         const { DossierDetailData, isDb } = this.state;
+        let dark = this.props.global&&this.props.global.dark;
         const rowLayout = { md: 8, lg: 24, xl: 48 };
         const colLayout = { sm: 24, md: 12, xl: 8 };
         return (
-            <div style={{ backgroundColor: '#252C3C', margin: '16px 0' }}>
+            <div style={{ backgroundColor: dark ? '#252C3C' : '#fff', margin: '16px 0',borderRadius: 10 }}>
                 <Row gutter={rowLayout}>
                     {/*<Col {...colLayout}>*/}
                         {/*<span style={{ margin: '16px', display: 'block' }}>卷宗详情</span>*/}
@@ -371,6 +372,7 @@ export default class DossierDetail extends PureComponent {
         const colLayoutInName = { sm: 24, md: 4, xl: 4 };
         const colLayoutInData = { sm: 24, md: 20, xl: 20 };
         const specialcolLayout = { sm: 24, md: 24, xl: 24 };
+        let dark = this.props.global&&this.props.global.dark;
         const { DossierDetailData, isDb, sureChange, loading2 } = this.state;
         let stap1 = [];
         let stap2 = [];
@@ -456,7 +458,7 @@ export default class DossierDetail extends PureComponent {
 
 
         return (
-            <div style={{ background: '#F0F2F5', /*height: autoheight() - 180 + 'px'*/ }}
+            <div style={{ background:  dark ? '#252c3c' : '#fff', /*height: autoheight() - 290 + 'px'*/ }}
                  className={styles.detailBoxScroll}>
                 <SupervisionLog
                     detailData={DossierDetailData}
@@ -548,8 +550,9 @@ export default class DossierDetail extends PureComponent {
 
     render() {
         const { history, RestDbrz, UnitemDetail, reformModal, seeDetail, Isdetail, NowDbrz, superviseVisibleModal, feedbackVisibleModal } = this.state;
+        let dark = this.props.global&&this.props.global.dark;
         return (
-            <div>
+            <div className={dark?'':styles.lightBox}>
                 <div>
                     {this.Topdetail()}
                 </div>
