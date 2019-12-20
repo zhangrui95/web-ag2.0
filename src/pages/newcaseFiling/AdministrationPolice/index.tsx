@@ -26,8 +26,8 @@ const TreeNode = TreeSelect.TreeNode;
 let timeout;
 let currentValue;
 
-@connect(({ UnXzCaseData, loading, common, UnCaseData }) => ({
-  UnXzCaseData, loading, common, UnCaseData, // 督办和刑事案件用一个
+@connect(({ UnXzCaseData, loading, common, UnCaseData,global }) => ({
+  UnXzCaseData, loading, common, UnCaseData,global // 督办和刑事案件用一个
   // loading: loading.models.alarmManagement,
 }))
 @Form.create()
@@ -642,7 +642,7 @@ export default class Index extends PureComponent {
       }
     }
     return (
-      <Form onSubmit={this.handleSearch} style={{ height: this.state.searchHeight ? 'auto' : '59px',position:'relative' }}>
+      <Form onSubmit={this.handleSearch} style={{ height: this.state.searchHeight ? 'auto' : '50px',position:'relative' }}>
         <Row gutter={rowLayout} className={styles.searchForm}>
           <Col {...colLayout}>
             <FormItem label="问题类型" {...formItemLayout}>
@@ -821,9 +821,10 @@ export default class Index extends PureComponent {
     const { superviseVisibleModal, showDataView, typeButtons, selectedDeptVal, selectedDateVal, treeDefaultExpandedKeys } = this.state;
     const { common: { depTree } } = this.props;
     const orgcodeVal = selectedDeptVal !== '' ? JSON.parse(selectedDeptVal).id : '';
+      let className = this.props.global&&this.props.global.dark ?styles.listPageWrap : styles.listPageWrap + ' '+styles.lightBox;
     return (
       <div className={this.props.location.query && this.props.location.query.id ? styles.onlyDetail : ''}>
-            <div className={styles.listPageWrap}>
+            <div className={className}>
               <div className={styles.listPageHeader}>
                 {
                   showDataView ? (
@@ -845,14 +846,9 @@ export default class Index extends PureComponent {
                 ) : (
                   <div style={{ float: 'right' }}>
                     <Button
-                      style={{
-                        color: '#3285FF',
-                        backgroundColor: '#171925',
-                        border: '1px solid #3285FF',
-                        borderRadius: '5px',
-                      }}
-                      onClick={this.exportData}
-                      icon="download"
+                        className={styles.downloadBtn}
+                        onClick={this.exportData}
+                        icon="download"
                     >
                       导出表格
                     </Button>

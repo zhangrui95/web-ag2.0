@@ -20,8 +20,8 @@ import { routerRedux } from 'dva/router';
 import noList from "@/assets/viewData/noList.png";
 import noListLight from "@/assets/viewData/noListLight.png";
 
-@connect(({ share }) => ({
-  share,
+@connect(({ share,global }) => ({
+  share,global
 }))
 class RenderTable extends PureComponent {
   state = {

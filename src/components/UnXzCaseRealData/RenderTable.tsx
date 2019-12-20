@@ -6,7 +6,10 @@ import styles from './RenderTable.less';
 import Ellipsis from 'ant-design-pro/lib/Ellipsis';
 import {routerRedux} from "dva/router";
 import noList from "@/assets/viewData/noList.png";
-
+import {connect} from "dva";
+@connect(({ global }) => ({
+    global
+}))
 class RenderTable extends PureComponent {
     state = {
         searchDetail: '',
