@@ -19,7 +19,10 @@ import stylescommon from '../../pages/common/common.less';
 import noList from '../../assets/viewData/noList.png';
 import { routerRedux } from 'dva/router';
 import noListLight from "@/assets/viewData/noListLight.png";
-
+import {connect} from "dva";
+@connect(({ global }) => ({
+    global
+}))
 class RenderTable extends PureComponent {
   state = {
     shareVisible: false,

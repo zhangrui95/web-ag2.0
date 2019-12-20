@@ -10,8 +10,8 @@ import noListLight from "@/assets/viewData/noListLight.png";
 // import SLAXSDetail from '../../../routes/UnCaseRealData/uncaseDetail';
 // import Ellipsis from '../Ellipsis';
 
-@connect(({ share }) => ({
-  share,
+@connect(({ share,global }) => ({
+  share,global
 }))
 class RenderTable extends PureComponent {
   state = {

@@ -37,16 +37,18 @@ import SupervisionLog from '../../../components/Common/SupervisionLog';
 import Ellipsis from 'ant-design-pro/lib/Ellipsis';
 import noList from "@/assets/viewData/noList.png";
 import {routerRedux} from "dva/router";
+import noListLight from "@/assets/viewData/noListLight.png";
 
 const FormItem = Form.Item;
 // const { Description } = DescriptionList;
 const { Step } = Steps;
 
-@connect(({ UnCaseData, loading, MySuperviseData, AllDetail }) => ({
+@connect(({ UnCaseData, loading, MySuperviseData, AllDetail,global }) => ({
   UnCaseData,
   loading,
   MySuperviseData,
   AllDetail,
+  global
   // loading: loading.models.alarmManagement,
 }))
 export default class uncaseDetail extends PureComponent {
@@ -547,9 +549,9 @@ export default class uncaseDetail extends PureComponent {
 
   Topdetail() {
     const { unCaseDetailData, isDb } = this.state;
-
+      let dark = this.props.global&&this.props.global.dark;
     return (
-      <div style={{ backgroundColor: '#252C3C', margin: '16px 0' }}>
+      <div style={{ backgroundColor:  dark ? '#252C3C' : '#fff', margin: '16px 0' }}>
         <Row gutter={{ md: 8, lg: 24, xl: 48 }}>
           <Col md={8} sm={24}>
             {/*<span style={{ margin: '16px', display: 'block' }}>刑事案件详情</span>*/}
@@ -622,6 +624,7 @@ export default class uncaseDetail extends PureComponent {
       <List
         itemLayout="vertical"
         size="small"
+        locale={{ emptyText: <Empty image={this.props.global&&this.props.global.dark ? noList : noListLight} description={'暂无数据'} /> }}
         pagination={
           sawpList.length > 0
             ? {
@@ -797,10 +800,10 @@ export default class uncaseDetail extends PureComponent {
     ];
 
     const rowLayout = { md: 8, xl: 16, xxl: 24 };
-
+      let dark = this.props.global&&this.props.global.dark;
     return (
       <div
-        style={{ background: '#252C3C' /*height: autoheight() - 290 + 'px'*/ }}
+        style={{ background:  dark ? '#252c3c' : '#fff'  /*height: autoheight() - 290 + 'px'*/ }}
         className={styles.detailBoxScroll}
       >
         <SupervisionLog
@@ -817,7 +820,8 @@ export default class uncaseDetail extends PureComponent {
         <div className={styles.tablemessage}>
           <Table
             // size={'middle'}
-            style={{ backgroundColor: '#252c3c', borderRadius: 0, padding: 24 }}
+            style={{ borderRadius: 0, padding: 24 }}
+            bordered
             pagination={{
               pageSize: 3,
               showTotal: (total, range) => (
@@ -832,7 +836,7 @@ export default class uncaseDetail extends PureComponent {
             className={styles.jqxxTable}
             dataSource={unCaseDetailData ? unCaseDetailData.jqxxList : []}
             columns={JqColumns}
-            locale={{ emptyText: <Empty image={noList} description={'暂无数据'} /> }}
+            locale={{ emptyText: <Empty image={this.props.global&&this.props.global.dark ? noList : noListLight} description={'暂无数据'} /> }}
           />
         </div>
         <div className={styles.title}>| 案件信息</div>
@@ -928,6 +932,7 @@ export default class uncaseDetail extends PureComponent {
   }
 
   render() {
+      let dark = this.props.global&&this.props.global.dark;
     const {
       superviseVisibleModal,
       history,
@@ -940,7 +945,7 @@ export default class uncaseDetail extends PureComponent {
       feedbackVisibleModal,
     } = this.state;
     return (
-      <div>
+      <div className={dark?'':styles.lightBox}>
         <div>{this.Topdetail()}</div>
         <div>{this.renderDetail(unCaseDetailData)}</div>
 

@@ -13,7 +13,10 @@ import Ellipsis from 'ant-design-pro/lib/Ellipsis';
 import {routerRedux} from "dva/router";
 import noList from "@/assets/viewData/noList.png";
 import noListLight from "@/assets/viewData/noListLight.png";
-
+import {connect} from "dva";
+@connect(({ global }) => ({
+    global
+}))
 class RenderTable extends PureComponent {
     constructor(props, context) {
         super(props);

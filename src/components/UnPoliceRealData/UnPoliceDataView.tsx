@@ -43,8 +43,8 @@ export default class UnPoliceDataView extends PureComponent {
       month: '6',
       lastMonth: '7',
       beforeLastMonth: '8',
-      type: 'now',
     },
+    type: 'now',
   };
 
   componentDidMount() {
@@ -102,7 +102,7 @@ export default class UnPoliceDataView extends PureComponent {
         if(this.props.global.dark !== nextProps.global.dark){
             this.showUnPoliceEchartBar(nextProps);
             this.showUnPoliceEchartRingPie(nextProps);
-            this.changeCountButtonCurrent('now');
+            this.changeCountButtonCurrent(this.state.type);
         }
     }
   }
