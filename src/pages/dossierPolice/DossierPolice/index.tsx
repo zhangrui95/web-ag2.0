@@ -44,10 +44,11 @@ const FormItem = Form.Item;
 let timeout;
 let currentValue;
 
-@connect(({ UnDossierData, loading, common }) => ({
+@connect(({ UnDossierData, loading, common, global }) => ({
   UnDossierData,
   common,
   loading: loading.models.UnDossierData,
+  global,
 }))
 @Form.create()
 
@@ -870,9 +871,10 @@ export default class Index extends PureComponent {
       showTotal: (total, range) =>
         <span className={styles.listPagination}>{`共 ${page ? page.totalPage : 1} 页， ${page ? page.totalResult : 0} 条记录 `}</span>,
     };
+    let className = this.props.global&&this.props.global.dark ?styles.listPageWrap : styles.listPageWrap + ' '+styles.lightBox;
     return (
       <div className={this.props.location.query && this.props.location.query.id ? styles.onlyDetail : ''}>
-            <div className={styles.listPageWrap}>
+            <div className={className}>
               <div className={styles.listPageHeader}>
                 {
                   showDataView ? (
