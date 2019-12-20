@@ -908,7 +908,6 @@ export default class Index extends PureComponent {
     const {
       UnPoliceData: { unPoliceDatas, loading },
     } = this.props;
-    console.log('unPoliceDatas',unPoliceDatas);
     const { isDb } = this.state;
     return (
       <div>

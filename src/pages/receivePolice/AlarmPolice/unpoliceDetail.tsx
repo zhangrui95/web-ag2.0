@@ -77,8 +77,9 @@ export default class unpoliceDetail extends PureComponent {
     if(typeof res == 'string'){
       res = JSON.parse(sessionStorage.getItem('query')).query.record;
     }
+    console.log('dfdf',JSON.parse(sessionStorage.getItem('query')));
     if (this.props.location && this.props.location.query && this.props.location.query.record) {
-      this.getDetail(this.props.location.query.record);
+      this.getDetail(res);
     }
   }
 
