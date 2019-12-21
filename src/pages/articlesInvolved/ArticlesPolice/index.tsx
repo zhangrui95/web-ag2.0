@@ -26,8 +26,8 @@ const TreeNode = TreeSelect.TreeNode;
 let timeout;
 let currentValue;
 
-@connect(({ UnItemData, loading, common, MySuperviseData }) => ({
-  UnItemData, loading, common, MySuperviseData,
+@connect(({ UnItemData, loading, common, MySuperviseData,global }) => ({
+  UnItemData, loading, common, MySuperviseData,global
   // loading: loading.models.alarmManagement,
 }))
 @Form.create()
@@ -672,7 +672,7 @@ export default class Index extends PureComponent {
     const rowLayout = { md: 8, xl: 16, xxl: 24 };
     const colLayout = { sm: 24, md: 12, xl: 8 };
     return (
-      <Form onSubmit={this.itemSearch} style={{height: this.state.searchHeight ? 'auto' : '59px',position:'relative'}}>
+      <Form onSubmit={this.itemSearch} style={{height: this.state.searchHeight ? 'auto' : '50px',position:'relative'}}>
         <Row gutter={rowLayout} className={styles.searchForm}>
           <Col {...colLayout}>
             <FormItem label="问题类型" {...formItemLayout}>
@@ -902,9 +902,10 @@ export default class Index extends PureComponent {
     const { superviseVisibleModal, showDataView, typeButtons, selectedDeptVal, selectedDateVal, treeDefaultExpandedKeys } = this.state;
     const { common: { depTree } } = this.props;
     const orgcodeVal = selectedDeptVal !== '' ? JSON.parse(selectedDeptVal).id : '';
+      let className = this.props.global&&this.props.global.dark ?styles.listPageWrap : styles.listPageWrap + ' '+styles.lightBox;
     return (
       <div className={this.props.location.query && this.props.location.query.id ? styles.onlyDetail : ''}>
-            <div className={styles.listPageWrap}>
+            <div className={className}>
               <div className={styles.listPageHeader}>
                 {
                   showDataView ? (
@@ -925,7 +926,9 @@ export default class Index extends PureComponent {
                   showDataView?
                     '':
                     <div style={{float:'right'}}>
-                      <Button style={{ color: '#3285FF',backgroundColor:'#171925',border:'1px solid #3285FF',borderRadius:'5px'}} icon="download" onClick={this.exportData}>导出表格</Button>
+                      <Button  className={styles.downloadBtn}
+                               onClick={this.exportData}
+                               icon="download">导出表格</Button>
                     </div>
                 }
                 <DataViewButtonArea
