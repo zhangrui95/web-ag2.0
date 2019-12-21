@@ -39,12 +39,13 @@ import { authorityIsTrue } from '../../../utils/authority';
 import SupervisionLog from '../../../components/Common/SupervisionLog';
 import nophoto from '../../../assets/common/nophoto.png';
 import {routerRedux} from "dva/router";
+import nophotoLight from "@/assets/common/nophotoLight.png";
 
 const FormItem = Form.Item;
 const { Step } = Steps;
 
-@connect(({ UnItemData, loading, MySuperviseData }) => ({
-    UnItemData, loading, MySuperviseData,
+@connect(({ UnItemData, loading, MySuperviseData,global }) => ({
+    UnItemData, loading, MySuperviseData,global
     // loading: loading.models.alarmManagement,
 }))
 
@@ -311,8 +312,9 @@ export default class unitemDetail extends PureComponent {
 
     Topdetail() {
         const { UnitemDetail, isDb } = this.state;
+        let dark = this.props.global&&this.props.global.dark;
         return (
-            <div style={{ backgroundColor: '#252C3C', margin: '16px 0' }}>
+            <div style={{ backgroundColor:  dark ? '#252C3C' : '#fff', margin: '16px 0' }}>
                 <Row gutter={{ md: 8, lg: 24, xl: 48 }}>
                     {/*<Col md={8} sm={24}>*/}
                         {/*<span style={{ margin: '16px', display: 'block' }}>涉案物品详情</span>*/}
@@ -421,8 +423,9 @@ export default class unitemDetail extends PureComponent {
     renderDetail() {
         // const { UnItemData:{ UnitemDetail, loading } } = this.props;
         const { UnitemDetail, isDb, sureChange, loading2 } = this.state;
+        let dark = this.props.global&&this.props.global.dark;
         return (
-            <div style={{ background: '#252c3c', /*height: autoheight() - 180 + 'px'*/ }}
+            <div style={{ background: dark ? '#252c3c' : '#fff' , /*height: autoheight() - 180 + 'px'*/ }}
                  className={styles.detailBoxScroll}>
                 <SupervisionLog
                     detailData={UnitemDetail}
@@ -449,7 +452,7 @@ export default class unitemDetail extends PureComponent {
                                     </Carousel>
                                     :
                                     <div>
-                                        <img width='200' src={nophoto}/>
+                                        <img width='200' src={dark ? nophoto : nophotoLight}/>
                                     </div>
                                 }
                             </div>
@@ -559,7 +562,7 @@ export default class unitemDetail extends PureComponent {
                 {UnitemDetail && UnitemDetail.wpgjList && UnitemDetail.wpgjList.length > 0 ?
                   (window.configUrl.is_area === '5' ?
                     <div>
-                      <Card title="| 物品轨迹" className={liststyles.card} bordered={false}>
+                      <Card title="| 物品轨迹" className={styles.wpxxcard} bordered={false}>
                         {UnitemDetail.wpgjList.map(wpgj =>
                           <Row gutter={8} style={{ marginBottom: '24px' }}>
                             <Col md={4} sm={24} style={{ paddingLeft: 36 }}>
@@ -678,8 +681,9 @@ export default class unitemDetail extends PureComponent {
 
     render() {
         const { superviseVisibleModal, history, RestDbrz, UnitemDetail, reformModal, seeDetail, Isdetail, NowDbrz, feedbackVisibleModal } = this.state;
+        let dark = this.props.global&&this.props.global.dark;
         return (
-            <div>
+            <div className={dark?'':styles.lightBox}>
                 <div>
                     {this.Topdetail()}
                 </div>
@@ -715,7 +719,6 @@ export default class unitemDetail extends PureComponent {
                             {/*detailsData={this.state.UnitemDetail}*/}
                         {/*/>*/}
                     {/*) : null*/}
-                }
                 {reformModal ?
                     <Modal
                         maskClosable={false}

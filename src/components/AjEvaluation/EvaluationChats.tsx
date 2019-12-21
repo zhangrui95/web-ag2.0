@@ -30,7 +30,7 @@ export default class EvaluationChats extends PureComponent {
     }
 
     componentWillReceiveProps(nextProps, nextContext) {
-        if (this.props.isSearch !== nextProps.isSearch || this.props.reset !== nextProps.reset) {
+        if (this.props.isSearch !== nextProps.isSearch || this.props.reset !== nextProps.reset || this.props.global.dark !== nextProps.global.dark) {
             this.setState({
                 ryValue:undefined,
             })
@@ -814,7 +814,7 @@ export default class EvaluationChats extends PureComponent {
         const allPoliceOptions = this.props.allPolice&&this.props.allPolice.map(d => <Option key={`${d.idcard}`}
                                                                        value={`${d.idcard}`}
                                                                        title={d.name}>{`${d.name} ${d.pcard}`}</Option>);
-        let className = this.props.global&&this.props.global.dark ? styles.evalDataView : styles.evalDataView + ' '+ styles.lightBox;
+        let className = this.props.global&&this.props.global.dark ? styles.evalDataView : styles.evalDataView + ' '+ styles.lightBox  + ' '+ styles.lightBoxEval;
         return (
             <Card className={className} id={'form'}>
                 <Row gutter={rowLayout} className={styles.listPageRow}>

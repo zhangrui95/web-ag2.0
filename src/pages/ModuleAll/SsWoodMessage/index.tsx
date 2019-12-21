@@ -28,6 +28,8 @@ import {
 } from 'antd';
 import { routerRedux } from 'dva/router';
 import styles from './index.less';
+import nophoto from '../../../assets/common/nophoto.png';
+import nophotoLight from "@/assets/common/nophotoLight.png";
 
 
 const FormItem = Form.Item;
@@ -41,7 +43,7 @@ export default class SsWoodMessage extends PureComponent {
   content = (pane) => {
     const picture = pane.photo;
     return (
-      <div>
+      <Card>
         <Row>
           <Col md={8}>
             <div className={styles.woodName}>
@@ -49,7 +51,7 @@ export default class SsWoodMessage extends PureComponent {
                 {/*<li>*/}
                 {/*<img width={250} src={pane.photo_url} alt='暂无图片' />*/}
                 {/*</li>*/}
-                {picture.map(pic => <li><img width={250} src={pic} alt='暂无图片'/></li>)}
+                {picture.map(pic => <li><img width={250} src={pic ? pic : dark ? nophoto : nophotoLight} alt='暂无图片'/></li>)}
               </ul>
             </div>
           </Col>
@@ -100,7 +102,7 @@ export default class SsWoodMessage extends PureComponent {
             </div>
           </Col>
         </Row>
-      </div>
+      </Card>
     );
   };
 

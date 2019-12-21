@@ -43,16 +43,18 @@ import nophoto from '../../../assets/common/nophoto.png';
 import noList from "@/assets/viewData/noList.png";
 import {routerRedux} from "dva/router";
 import noListLight from "@/assets/viewData/noListLight.png";
+import nophotoLight from "@/assets/common/nophotoLight.png";
 
 const FormItem = Form.Item;
 const { Step } = Steps;
 
-@connect(({ UnareaData, loading, MySuperviseData, areaData, AllDetail }) => ({
+@connect(({ UnareaData, loading, MySuperviseData, areaData, AllDetail,global }) => ({
   UnareaData,
   loading,
   MySuperviseData,
   areaData,
   AllDetail,
+    global
   // loading: loading.models.alarmManagement,
 }))
 @Form.create()
@@ -390,8 +392,9 @@ export default class unareaDetail extends PureComponent {
 
   Topdetail() {
     const { UnareaDetail, isDb } = this.state;
+      let dark = this.props.global&&this.props.global.dark;
     return (
-      <div style={{ backgroundColor: '#252C3C', margin: '16px 0' }}>
+      <div style={{ backgroundColor: dark ? '#252C3C' : '#fff', margin: '16px 0' }}>
         <Row gutter={{ md: 8, lg: 24, xl: 48 }}>
           {/*<Col md={8} sm={24}>*/}
           {/*<span style={{ margin: '16px', display: 'block' }}>人员在区详情</span>*/}
@@ -1370,9 +1373,10 @@ export default class unareaDetail extends PureComponent {
         )}
       </div>
     );
+      let dark = this.props.global&&this.props.global.dark;
     return (
       <div
-        style={{ background: '#252c3c' /*height: autoheight() - 180 + 'px'*/ }}
+        style={{ background: dark ? '#252c3c' : '#fff' /*height: autoheight() - 180 + 'px'*/ }}
         className={styles.detailBoxScroll}
       >
         <SupervisionLog
@@ -1390,7 +1394,7 @@ export default class unareaDetail extends PureComponent {
             <Col md={3} sm={24}>
               <div>
                 <img
-                  src={UnareaDetail && UnareaDetail.photo ? UnareaDetail.photo : nophoto}
+                  src={UnareaDetail && UnareaDetail.photo ? UnareaDetail.photo : dark ? nophoto : nophotoLight}
                   style={{ width: '100%' }}
                   alt="暂无图片显示"
                 />
@@ -1651,8 +1655,9 @@ export default class unareaDetail extends PureComponent {
         </div>
         <div className={styles.tablemessage} style={{ marginBottom: '16px', padding: '24px' }}>
           <Table
+            bordered
             // size={'middle'}
-            style={{ backgroundColor: '#252C3C' }}
+            style={{ backgroundColor: dark ? '#252C3C' : '#fff' }}
             className={styles.sswpxxTable}
             pagination={{
               pageSize: 3,
@@ -1677,6 +1682,7 @@ export default class unareaDetail extends PureComponent {
         <div className={styles.tablemessage} style={{ padding: '24px' }}>
           <Table
             // size={'middle'}
+            bordered
             style={{ backgroundColor: '#252C3C' }}
             className={styles.sswpxxTable}
             pagination={{
@@ -1715,8 +1721,9 @@ export default class unareaDetail extends PureComponent {
       feedbackVisibleModal,
     } = this.state;
     // const { getFieldDecorator } = this.props.form;
+      let dark = this.props.global&&this.props.global.dark;
     return (
-      <div>
+      <div className={dark?'':styles.lightBox}>
         <div>{this.Topdetail()}</div>
         <div>{this.renderDetail()}</div>
 

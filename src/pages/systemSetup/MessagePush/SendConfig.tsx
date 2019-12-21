@@ -12,7 +12,9 @@ import {connect} from "dva";
 
 const { TabPane } = Tabs;
 const confirm = Modal.confirm;
-
+@connect(({ systemSetup,global }) => ({
+    systemSetup,global
+}))
 class SendConfig extends Component {
     constructor(props){
         super(props);
@@ -20,9 +22,9 @@ class SendConfig extends Component {
             autoHeight: false,
             list:[],
             num:0,
+            startTime:[],
+            endTime:[],
         }
-        this.startTime = [];
-        this.endTime = [];
     }
     componentWillReceiveProps(nextProps, nextContext) {
         if(nextProps.systemSetup.messageList !== this.props.systemSetup.messageList){
@@ -32,16 +34,13 @@ class SendConfig extends Component {
     getTimeChange = (nextProps) =>{
         let messageList = nextProps.systemSetup.messageList;
         let time = messageList&&messageList.mdrsd ? messageList.mdrsd.replace("$$1","").split(",") : '';
+        let startTime = [time&&time[0] ? time[0].split("~")[0] : '',time&&time[1] ? time[1].split("~")[0] : '',time&&time[2] ? time[2].split("~")[0] : ''];
+        let endTime = [time&&time[0] ? time[0].split("~")[1] : '',time&&time[1] ? time[1].split("~")[1] : '',time&&time[2] ? time[2].split("~")[1] : ''];
+
         this.setState({
-            time0:time&&time[0] ? time[0].split("~")[0] : '',
-            time1:time&&time[0] ? time[0].split("~")[1] : '',
-            time2:time&&time[1] ? time[1].split("~")[0] : '',
-            time3:time&&time[1] ? time[1].split("~")[1] : '',
-            time4:time&&time[2] ? time[2].split("~")[0] : '',
-            time5:time&&time[2] ? time[2].split("~")[1] : '',
+            startTime: startTime,
+            endTime: endTime,
         });
-        this.startTime = [time&&time[0] ? time[0].split("~")[0] : '',time&&time[1] ? time[1].split("~")[0] : '',time&&time[2] ? time[2].split("~")[0] : ''];
-        this.endTime = [time&&time[0] ? time[0].split("~")[1] : '',time&&time[1] ? time[1].split("~")[1] : '',time&&time[2] ? time[2].split("~")[1] : ''];
     }
     // 保存确认框
     showConfirm = () => {
@@ -63,18 +62,17 @@ class SendConfig extends Component {
             if (!errors) {
                 let time = [];
                 let times = [];
-                this.startTime.map((item,idx)=>{
+                this.state.startTime.map((item,idx)=>{
                     if(item){
-                        if(item > this.endTime[idx]){
-                            times.push(item+'~23:59:59,00:00:00~'+this.endTime[idx]);
+                        if(item > this.state.endTime[idx]){
+                            times.push(item+'~23:59:59,00:00:00~'+this.state.endTime[idx]);
                         }else{
-                            times.push(item+'~'+this.endTime[idx]);
+                            times.push(item+'~'+this.state.endTime[idx]);
                         }
-                        time.push(item+'~'+this.endTime[idx]);
+                        time.push(item+'~'+this.state.endTime[idx]);
                     }else{
                         time.push('');
                     }
-                    this.endTime[idx] = '';
                 })
                 values.mdrsd = time.toString();
                 values.mdrsd_sy = times.toString();
@@ -96,32 +94,48 @@ class SendConfig extends Component {
         });
     };
     onChangeTime(time, timeString,idx) {
+        let startTime= [...this.state.startTime];
+        startTime[idx] = timeString;
         this.setState({
-             ['startTime'+idx]:time ? time : 'clear'
+             ['startTime'+idx]:time ? time : 'clear',
+             startTime: startTime,
         });
-        this.startTime[idx] = timeString;
     }
     onChangeTimes(time, timeString,idx) {
+        let endTime= [...this.state.endTime];
+        endTime[idx] = timeString;
         this.setState({
-            ['endTime'+idx]:time ? time : 'clear'
+            ['endTime'+idx]:time ? time : 'clear',
+            endTime:endTime
         });
-        this.endTime[idx] = timeString;
     }
     getAdd = () =>{
         this.setState({
             autoHeight:!this.state.autoHeight,
         })
     }
+    timeList = () =>{
+        let timeList = [];
+        let dark = this.props.global&&this.props.global.dark;
+        const { systemSetup: { messageList } } = this.props;
+        let time = messageList&&messageList.mdrsd ? messageList.mdrsd.replace("$$1","").split(",") : null;
+        for(let i = 0;i < 3;i++){
+            let startTime = time&&time[i] ? time[i].split("~")[0] : null;
+            let endTime = time&&time[i] ? time[i].split("~")[1] : null;
+            timeList.push(<div>
+                <TimePicker value={this.state['startTime'+i] ? this.state['startTime'+i] === 'clear' ? null:this.state['startTime'+i] : startTime ? moment(startTime, 'HH:mm:ss') : ''}
+                    getPopupContainer={() => document.getElementById('Messageform')}
+                    onChange={(time, timeString)=>this.onChangeTime(time, timeString, i)} defaultOpenValue={moment('00:00:00', 'HH:mm:ss')} /> <span style={{color:dark ? '#fff' : '#999'}}>  ~  </span>
+                <TimePicker value={this.state['endTime'+i] ? this.state['endTime'+i] === 'clear' ? null:this.state['endTime'+i] : endTime ? moment(endTime, 'HH:mm:ss') : ''}
+                    getPopupContainer={() => document.getElementById('Messageform')}
+                    onChange={(time, timeString)=>this.onChangeTimes(time, timeString, i)} defaultOpenValue={moment('00:00:00', 'HH:mm:ss')} />
+                <span onClick={this.getAdd} className={i==0 ? style.iconAdd : style.none}><span>  {this.state.autoHeight ? '折叠' : '展开'}  </span><Icon type={this.state.autoHeight ? "up" : "down"}/></span>
+            </div>);
+        }
+        return timeList;
+    }
     render() {
-        const { formItemLayout, form: { getFieldDecorator }, systemSetup:{systemSetup: { messageList }} } = this.props;
-        console.log('this.props',this.props.systemSetup,messageList)
-        let time = messageList&&messageList.mdrsd ? messageList.mdrsd.replace("$$1","").split(",") : '';
-        let time0 = time&&time[0] ? time[0].split("~")[0] : '';
-        let time1 =  time&&time[0] ? time[0].split("~")[1] : '';
-        let time2 =  time&&time[1] ? time[1].split("~")[0] : '';
-        let time3 =  time&&time[1] ? time[1].split("~")[1] : '';
-        let time4 =  time&&time[2] ? time[2].split("~")[0] : '';
-        let time5 =  time&&time[2] ? time[2].split("~")[1] : '';
+        const { formItemLayout, form: { getFieldDecorator }, systemSetup: { messageList } } = this.props;
         return (
             <div id={'boxSend'}>
                 <Card className={style.cardBox} id={'Messageform'}>
@@ -178,31 +192,7 @@ class SendConfig extends Component {
                                 initialValue: '',
                             })(
                                 <div style={{height: this.state.autoHeight ? 'auto' : '40px',overflow: 'hidden'}}>
-                                    <div>
-                                        <TimePicker value={this.state.startTime0 ? this.state.startTime0 === 'clear' ? null:this.state.startTime0 : time0 ? moment(time0, 'HH:mm:ss') : ''}
-                                                    getPopupContainer={() => document.getElementById('Messageform')}
-                                                    onChange={(time, timeString)=>this.onChangeTime(time, timeString, 0)} defaultOpenValue={moment('00:00:00', 'HH:mm:ss')} /> <span style={{color:'#fff'}}>  ~  </span>
-                                        <TimePicker value={this.state.endTime0 ? this.state.endTime0 === 'clear' ? null:this.state.endTime0 : time1 ? moment(time1, 'HH:mm:ss') : ''}
-                                                    getPopupContainer={() => document.getElementById('Messageform')}
-                                                    onChange={(time, timeString)=>this.onChangeTimes(time, timeString, 0)} defaultOpenValue={moment('00:00:00', 'HH:mm:ss')} />
-                                        <span onClick={this.getAdd} className={style.iconAdd}><span>  {this.state.autoHeight ? '折叠' : '展开'}  </span><Icon type={this.state.autoHeight ? "up" : "down"}/></span>
-                                    </div>
-                                    <div>
-                                        <TimePicker value={this.state.startTime1 ? this.state.startTime1=== 'clear' ? null:this.state.startTime1 : time2 ? moment(time2, 'HH:mm:ss') : ''}
-                                                    getPopupContainer={() => document.getElementById('Messageform')}
-                                                    onChange={(time, timeString)=>this.onChangeTime(time, timeString, 1)} defaultOpenValue={moment('00:00:00', 'HH:mm:ss')} /> <span style={{color:'#fff'}}>  ~  </span>
-                                        <TimePicker value={this.state.endTime1 ? this.state.endTime1=== 'clear' ? null:this.state.endTime1 : time3 ? moment(time3, 'HH:mm:ss') : ''}
-                                                    getPopupContainer={() => document.getElementById('Messageform')}
-                                                    onChange={(time, timeString)=>this.onChangeTimes(time, timeString, 1)} defaultOpenValue={moment('00:00:00', 'HH:mm:ss')} />
-                                    </div>
-                                    <div>
-                                        <TimePicker value={this.state.startTime2 ? this.state.startTime2=== 'clear' ? null:this.state.startTime2 : time4 ? moment(time4, 'HH:mm:ss') : ''}
-                                                    getPopupContainer={() => document.getElementById('Messageform')}
-                                                    onChange={(time, timeString)=>this.onChangeTime(time, timeString, 2)} defaultOpenValue={moment('00:00:00', 'HH:mm:ss')} /> <span style={{color:'#fff'}}>  ~  </span>
-                                        <TimePicker value={this.state.endTime2 ? this.state.endTime2=== 'clear' ? null:this.state.endTime2: time5 ? moment(time5, 'HH:mm:ss') : ''}
-                                                    getPopupContainer={() => document.getElementById('Messageform')}
-                                                    onChange={(time, timeString)=>this.onChangeTimes(time, timeString, 2)} defaultOpenValue={moment('00:00:00', 'HH:mm:ss')} />
-                                    </div>
+                                    {this.timeList()}
                                 </div>
                             )}
                         </Form.Item>

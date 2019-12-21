@@ -4,7 +4,7 @@
  * 20180112
  * */
 import React, { PureComponent } from 'react';
-import { Row, Col,Card } from 'antd';
+import { Row, Col, Card } from 'antd';
 import moment from 'moment/moment';
 import echarts from 'echarts/lib/echarts';
 import 'echarts/lib/chart/bar';
@@ -18,13 +18,13 @@ import { getTimeDistance } from '../../utils/utils';
 import warningCountButtonNumberPink from '../../assets/viewData/warningCountButtonNumberPink.png';
 import warningCountButtonNumberBlue from '../../assets/viewData/warningCountButtonNumberBlue.png';
 import crial from '../../assets/common/crial.png';
-import {connect} from "dva";
+import { connect } from 'dva';
 
 let unItemEchartBar;
 let unItemEchartRingPie;
 
 @connect(({ global }) => ({
-  global
+  global,
 }))
 export default class UnDossierDataView extends PureComponent {
   state = {
@@ -100,7 +100,7 @@ export default class UnDossierDataView extends PureComponent {
           );
         }
       }
-      if(this.props.global.dark !== nextProps.global.dark){
+      if (this.props.global.dark !== nextProps.global.dark) {
         this.showUnPoliceEchartBar(nextProps);
         this.showUnPoliceEchartRingPie(nextProps);
         this.changeCountButtonCurrent(this.state.type);
@@ -120,8 +120,8 @@ export default class UnDossierDataView extends PureComponent {
   };
   getTime = type => {
     const time = getTimeDistance(type);
-    const startTime = time&&time[0] ? moment(time[0]).format('YYYY-MM-DD'):'';
-    const endTime = time&&time[1] ?  moment(time[1]).format('YYYY-MM-DD'):'';
+    const startTime = time && time[0] ? moment(time[0]).format('YYYY-MM-DD') : '';
+    const endTime = time && time[1] ? moment(time[1]).format('YYYY-MM-DD') : '';
     return [startTime, endTime];
   };
 
@@ -206,7 +206,7 @@ export default class UnDossierDataView extends PureComponent {
     });
   };
   // 新增告警柱状图
-  showUnItemEchartBar = (nextProps) => {
+  showUnItemEchartBar = nextProps => {
     const that = this;
     unItemEchartBar = echarts.init(document.getElementById('unItemXzgj'));
     const option = {
@@ -228,7 +228,7 @@ export default class UnDossierDataView extends PureComponent {
         },
         axisLabel: {
           textStyle: {
-            color: nextProps.global&&nextProps.global.dark ? '#fff' : '#4d4d4d',
+            color: nextProps.global && nextProps.global.dark ? '#fff' : '#4d4d4d',
           },
         },
       },
@@ -244,7 +244,7 @@ export default class UnDossierDataView extends PureComponent {
         },
         axisLabel: {
           textStyle: {
-            color: nextProps.global&&nextProps.global.dark ? '#fff' : '#4d4d4d',
+            color: nextProps.global && nextProps.global.dark ? '#fff' : '#4d4d4d',
           },
         },
       },
@@ -272,7 +272,7 @@ export default class UnDossierDataView extends PureComponent {
               formatter: '{c}',
               textStyle: {
                 fontSize: 16,
-                color: nextProps.global&&nextProps.global.dark ? '#fff' : '#4d4d4d',
+                color: nextProps.global && nextProps.global.dark ? '#fff' : '#4d4d4d',
               },
             },
           },
@@ -383,7 +383,7 @@ export default class UnDossierDataView extends PureComponent {
     });
   };
   // 告警情况环形饼状图
-  showUnItemEchartRingPie = (nextProps) => {
+  showUnItemEchartRingPie = nextProps => {
     const that = this;
     unItemEchartRingPie = echarts.init(document.getElementById('unItemGjqk'));
     const option = {
@@ -409,7 +409,7 @@ export default class UnDossierDataView extends PureComponent {
         itemGap: 25,
         selectedMode: true, // 点击
         textStyle: {
-          color: nextProps.global&&nextProps.global.dark ? '#fff' : '#4d4d4d',
+          color: nextProps.global && nextProps.global.dark ? '#fff' : '#4d4d4d',
           fontSize: 16,
           lineHeight: 20,
         },
@@ -428,7 +428,7 @@ export default class UnDossierDataView extends PureComponent {
               position: 'center',
               textStyle: {
                 fontSize: '22',
-                color: nextProps.global&&nextProps.global.dark ? '#fff' : '#4d4d4d',
+                color: nextProps.global && nextProps.global.dark ? '#fff' : '#4d4d4d',
               },
             },
             emphasis: {
@@ -458,7 +458,10 @@ export default class UnDossierDataView extends PureComponent {
     const colLayout = { sm: 24, lg: 12 };
     const { searchType, selectedDateVal, showDataView } = this.props;
     const { lastData, nowData, selectedDateData, currentType } = this.state;
-    let className = this.props.global&&this.props.global.dark ?styles.policeDataCard : styles.policeDataCard + ' '+styles.lightBox;
+    let className =
+      this.props.global && this.props.global.dark
+        ? styles.policeDataCard
+        : styles.policeDataCard + ' ' + styles.lightBox;
     return (
       <Card style={{ position: 'relative' }} className={className}>
         <div
@@ -467,7 +470,10 @@ export default class UnDossierDataView extends PureComponent {
         >
           {currentType !== 'selectedDate' ? (
             <div className={styles.topView}>
-              <Card className={styles.leftView}  onClick={() => this.changeCountButtonCurrent('now')}>
+              <Card
+                className={styles.leftView}
+                onClick={() => this.changeCountButtonCurrent('now')}
+              >
                 <Row>
                   <Col span={12}>今日新增告警</Col>
                   <Col span={12} className={styles.viewNumber}>
@@ -478,7 +484,10 @@ export default class UnDossierDataView extends PureComponent {
                   </Col>
                 </Row>
               </Card>
-              <Card className={styles.rightView} onClick={() => this.changeCountButtonCurrent('last')}>
+              <Card
+                className={styles.rightView}
+                onClick={() => this.changeCountButtonCurrent('last')}
+              >
                 <Row>
                   <Col span={12}>昨日告警数量</Col>
                   <Col span={12} className={styles.viewNumber}>
@@ -504,27 +513,33 @@ export default class UnDossierDataView extends PureComponent {
               </div>
             </div>
           )}
-          <div style={{ backgroundColor: this.props.global&&this.props.global.dark ? '#252c3c' : '#fff', padding: '0 16px',borderRadius: 10}}>
-            <Row gutter={rowLayout} className={styles.listPageRow} >
-              <Col {...colLayout} style={{marginBottom:32}}>
+          <div
+            style={{
+              backgroundColor: this.props.global && this.props.global.dark ? '#252c3c' : '#fff',
+              padding: '0 16px',
+              borderRadius: 10,
+            }}
+          >
+            <Row gutter={rowLayout} className={styles.listPageRow}>
+              <Col {...colLayout} style={{ marginBottom: 32 }}>
                 <div className={styles.cardBoxTitle}>
                   |{' '}
                   {currentType === 'today'
                     ? '今日新增告警'
                     : currentType === 'selectedDate'
-                      ? '告警'
-                      : '昨日告警'}
+                    ? '告警'
+                    : '昨日告警'}
                 </div>
                 <div id="unItemXzgj" className={styles.cardBox}></div>
               </Col>
-              <Col {...colLayout} style={{marginBottom:32}}>
+              <Col {...colLayout} style={{ marginBottom: 32 }}>
                 <div className={styles.cardBoxTitle}>
                   |{' '}
                   {currentType === 'today'
                     ? '今日告警情况'
                     : currentType === 'selectedDate'
-                      ? '告警情况'
-                      : '昨日告警情况'}
+                    ? '告警情况'
+                    : '昨日告警情况'}
                 </div>
                 <div id="unItemGjqk" className={styles.cardBox}></div>
               </Col>
