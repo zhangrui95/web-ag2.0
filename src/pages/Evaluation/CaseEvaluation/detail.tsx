@@ -9,6 +9,7 @@ import noList from "@/assets/viewData/noList.png";
 import {NavigationItem} from "@/components/Navigation/navigation";
 import {routerRedux} from "dva/router";
 import noListLight from "@/assets/viewData/noListLight.png";
+import Ellipsis from "ant-design-pro/lib/Ellipsis";
 @connect(({ Evaluation,global }) => ({
     Evaluation,global
 }))
@@ -239,6 +240,13 @@ export default class Detail extends PureComponent {
             {
                 dataIndex: 'xm_mc',
                 title: '项目',
+                render: text => {
+                    return (
+                        <Ellipsis lines={1} tooltip>
+                            {text}
+                        </Ellipsis>
+                    );
+                },
             },
         ];
 
@@ -254,6 +262,13 @@ export default class Detail extends PureComponent {
             {
                 dataIndex: 'xm_mc',
                 title: '项目',
+                render: text => {
+                    return (
+                        <Ellipsis lines={1} tooltip>
+                            {text}
+                        </Ellipsis>
+                    );
+                },
             },
         ];
         let dark = this.props.global&&this.props.global.dark;
