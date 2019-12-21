@@ -42,9 +42,9 @@ export default class FeedBack extends PureComponent {
   // };
   // 关闭反馈确认模态框
   onCancelConfirmModal = () => {
-    this.setState({
-      SureModalVisible: false,
-    });
+    // this.setState({
+    //   SureModalVisible: false,
+    // });
   };
 
   // 获取处理结果(整改完毕状态)
@@ -66,8 +66,19 @@ export default class FeedBack extends PureComponent {
       if (err) {
         message.warning(err.zrr ? err.zrr.errors[0].message : err.fkjg.errors[0].message);
       } else {
-        this.setState({
-          SureModalVisible: true,
+        let that = this;
+        confirm({
+          title: '是否取消反馈?',
+          centered:true,
+          okText: '确认',
+          cancelText: '取消',
+          getContainer:document.getElementById('messageBox'),
+          onOk() {
+            ()=>that.handleAlarmSure();
+          },
+          onCancel() {
+            console.log('Cancel');
+          },
         });
       }
     });
@@ -105,7 +116,8 @@ export default class FeedBack extends PureComponent {
       zrr_dwmc = zrdw.join(',');
       zrr_name = zrr.join(',');
       zrr_sfzh = zrrsfzh.join(',');
-    } else {
+    }
+    else {
       if (record.dbList && record.dbList.length > 0) {
         const nowDbIndex = record.dbList.length - 1; // 当前督办流程index
         zrr_name = record.dbList[nowDbIndex].bdbrMC;
@@ -131,9 +143,9 @@ export default class FeedBack extends PureComponent {
       zrr_name,
       zrr_sfzh,
     };
-    this.setState({
-      SureModalVisible: false,
-    });
+    // this.setState({
+    //   SureModalVisible: false,
+    // });
     this.saveFeedbackModal(params);
     // this.props.saveModal(params);
   };
@@ -168,14 +180,14 @@ export default class FeedBack extends PureComponent {
   //   );
   // };
   // 确认反馈模态框底部按钮
-  confirmModalFoot = () => {
-    return (
-      <div>
-        <Button className={styles.qxBtn} onClick={this.onCancelConfirmModal}>取消</Button>
-        <Button type="primary" onClick={this.handleAlarmSure}>确认反馈</Button>
-      </div>
-    );
-  };
+  // confirmModalFoot = () => {
+  //   return (
+  //     <div>
+  //       <Button className={styles.qxBtn} onClick={this.onCancelConfirmModal}>取消</Button>
+  //       <Button type="primary" onClick={this.handleAlarmSure}>确认反馈</Button>
+  //     </div>
+  //   );
+  // };
 
   beforeUploadFun = (file, fileList) => {
 
@@ -416,22 +428,22 @@ export default class FeedBack extends PureComponent {
             </Button>
           </div>
         </Card>
-        {
-          SureModalVisible ? (
-            <Modal
-              maskClosable={false}
-              visible={SureModalVisible}
-              title={<p>反馈</p>}
-              width='500px'
-              centered={true}
-              footer={this.confirmModalFoot()}
-              onCancel={() => this.onCancelConfirmModal()}
-              className={styles.indexdeepmodal}
-            >
-              <div className={styles.question}>是否对该问题进行反馈？</div>
-            </Modal>
-          ) : null
-        }
+        {/*{*/}
+          {/*SureModalVisible ? (*/}
+            {/*<Modal*/}
+              {/*maskClosable={false}*/}
+              {/*visible={SureModalVisible}*/}
+              {/*title={<p>反馈</p>}*/}
+              {/*width='500px'*/}
+              {/*centered={true}*/}
+              {/*footer={this.confirmModalFoot()}*/}
+              {/*onCancel={() => this.onCancelConfirmModal()}*/}
+              {/*className={styles.indexdeepmodal}*/}
+            {/*>*/}
+              {/*<div className={styles.question}>是否对该问题进行反馈？</div>*/}
+            {/*</Modal>*/}
+          {/*) : null*/}
+        {/*}*/}
       </div>
     );
   }

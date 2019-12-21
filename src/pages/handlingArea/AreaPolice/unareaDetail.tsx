@@ -355,8 +355,23 @@ export default class unareaDetail extends PureComponent {
   // 确认整改完成
   sureReform = (dbid, flag) => {
     this.setState({
-      reformModal: !!flag,
+      // reformModal: !!flag,
       dbid: dbid,
+    },()=>{
+      let that = this;
+      confirm({
+        title: '确认整改完成?',
+        centered:true,
+        okText: '确认',
+        cancelText: '取消',
+        getContainer:document.getElementById('messageBox'),
+        onOk() {
+          ()=>that.handleReformSure()
+        },
+        onCancel() {
+          console.log('Cancel');
+        },
+      });
     });
   };
   handleReformSure = () => {
@@ -379,16 +394,16 @@ export default class unareaDetail extends PureComponent {
       },
     });
   };
-  foot1 = () => {
-    return (
-      <div>
-        <Button onClick={this.onReformCancel}>取消</Button>
-        <Button type="primary" onClick={this.handleReformSure}>
-          整改完毕
-        </Button>
-      </div>
-    );
-  };
+  // foot1 = () => {
+  //   return (
+  //     <div>
+  //       <Button onClick={this.onReformCancel}>取消</Button>
+  //       <Button type="primary" onClick={this.handleReformSure}>
+  //         整改完毕
+  //       </Button>
+  //     </div>
+  //   );
+  // };
 
   Topdetail() {
     const { UnareaDetail, isDb } = this.state;
@@ -1767,21 +1782,21 @@ export default class unareaDetail extends PureComponent {
         {/*: ''*/}
         {/*}*/}
 
-        {reformModal ?
-          <Modal
-            maskClosable={false}
-            visible={reformModal}
-            title={<p>提示</p>}
-            width='1000px'
-            footer={this.foot1()}
-            onCancel={() => this.onReformCancel()}
-            // onOk={() => this.onOk(this.props.id)}
-            centered={true}
-            className={styles.indexdeepmodal}
-          >
-          <div className={styles.question}>问题是否已经整改完毕？</div>
-          </Modal> : ''
-        }
+        {/*{reformModal ?*/}
+          {/*<Modal*/}
+            {/*maskClosable={false}*/}
+            {/*visible={reformModal}*/}
+            {/*title={<p>提示</p>}*/}
+            {/*width='1000px'*/}
+            {/*footer={this.foot1()}*/}
+            {/*onCancel={() => this.onReformCancel()}*/}
+            {/*// onOk={() => this.onOk(this.props.id)}*/}
+            {/*centered={true}*/}
+            {/*className={styles.indexdeepmodal}*/}
+          {/*>*/}
+          {/*<div className={styles.question}>问题是否已经整改完毕？</div>*/}
+          {/*</Modal> : ''*/}
+        {/*}*/}
       </div>
     );
   }

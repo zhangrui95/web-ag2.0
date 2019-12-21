@@ -218,9 +218,23 @@ export default class SuperviseModal extends PureComponent {
         } else if (zrrValue && zrrValue.length === 0) {
           message.warning('请选择责任人');
         } else {
-          this.setState({
-            SureModalVisible: true,
+          let that = this;
+          confirm({
+            title: '是否退出督办?',
+            centered:true,
+            okText: '确认',
+            cancelText: '取消',
+            getContainer:document.getElementById('messageBox'),
+            onOk() {
+              ()=>that.handleAlarmSure()
+            },
+            onCancel() {
+              console.log('Cancel');
+            },
           });
+          // this.setState({
+          //   SureModalVisible: true,
+          // });
         }
       } else {
         if (fieldsValue && fieldsValue.zgyj === '' || fieldsValue.zgyj === undefined || fieldsValue.zgyj === null) {
@@ -234,9 +248,23 @@ export default class SuperviseModal extends PureComponent {
         } else if (zrrValue && zrrValue.length === 0) {
           message.warning('请选择责任人');
         } else {
-          this.setState({
-            SureModalVisible: true,
+          let that = this;
+          confirm({
+            title: '是否退出督办?',
+            centered:true,
+            okText: '确认',
+            cancelText: '取消',
+            getContainer:document.getElementById('messageBox'),
+            onOk() {
+              ()=>that.handleAlarmSure()
+            },
+            onCancel() {
+              console.log('Cancel');
+            },
           });
+          // this.setState({
+          //   SureModalVisible: true,
+          // });
         }
       }
     });
@@ -345,14 +373,14 @@ export default class SuperviseModal extends PureComponent {
   //     </div>
   //   );
   // };
-  foot1 = () => {
-    return (
-      <div>
-        <Button className={styles.qxBtn} onClick={this.onCancel2}>取消</Button>
-        <Button type="primary" onClick={this.handleAlarmSure} loading={this.state.dbLoading}>确认督办</Button>
-      </div>
-    );
-  };
+  // foot1 = () => {
+  //   return (
+  //     <div>
+  //       <Button className={styles.qxBtn} onClick={this.onCancel2}>取消</Button>
+  //       <Button type="primary" onClick={this.handleAlarmSure} loading={this.state.dbLoading}>确认督办</Button>
+  //     </div>
+  //   );
+  // };
 
   beforeUploadFun = (file, fileList) => {
 
@@ -711,21 +739,21 @@ export default class SuperviseModal extends PureComponent {
               </Button>
             </div>
           </Card>
-        {SureModalVisible ?
-          <Modal
-            maskClosable={false}
-            visible={SureModalVisible}
-            // title={<p>督办</p>}
-            width='500px'
-            footer={this.foot1()}
-            centered={true}
-            onCancel={() => this.onCancel2()}
-            // onOk={() => this.onOk(this.props.id)}
-            className={styles.indexdeepmodal}
-          >
-            <div className={styles.question}>是否对该问题进行督办？</div>
-          </Modal> : ''
-        }
+        {/*{SureModalVisible ?*/}
+          {/*<Modal*/}
+            {/*maskClosable={false}*/}
+            {/*visible={SureModalVisible}*/}
+            {/*// title={<p>督办</p>}*/}
+            {/*width='500px'*/}
+            {/*footer={this.foot1()}*/}
+            {/*centered={true}*/}
+            {/*onCancel={() => this.onCancel2()}*/}
+            {/*// onOk={() => this.onOk(this.props.id)}*/}
+            {/*className={styles.indexdeepmodal}*/}
+          {/*>*/}
+            {/*<div className={styles.question}>是否对该问题进行督办？</div>*/}
+          {/*</Modal> : ''*/}
+        {/*}*/}
       </div>
     );
   }
