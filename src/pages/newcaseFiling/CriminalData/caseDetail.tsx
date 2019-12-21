@@ -358,7 +358,7 @@ export default class caseDetail extends PureComponent {
           this.props.dispatch(
             routerRedux.push({
               pathname: '/Retrieve',
-              query: { id: res && res.ajbh ? res.ajbh : '1', record: res },
+              query: { id: res && res.ajbh ? res.ajbh : '1', record: res, isDetail: true },
             }),
           );
           // this.setState({
