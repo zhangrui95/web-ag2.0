@@ -18,8 +18,8 @@ const FormItem = Form.Item;
 const { TextArea } = Input;
 const userInfo = getUserInfos();
 
-@connect(({ common }) => ({
-  common,
+@connect(({ common,global }) => ({
+  common,global
   // loading: loading.models.alarmManagement,
 }))
 @Form.create()
@@ -294,7 +294,7 @@ export default class FeedBack extends PureComponent {
       </Button>
     );
     return (
-      <div className={styles.ModalTitle}>
+      <div className={styles.ModalTitle}  className={this.props.global&&this.props.global.dark ? '' : styles.lightBox}>
 
         <Card className={styles.standardTable}  id='FeedBackModule'>
             <Form className={styles.standardForm}>
@@ -411,7 +411,7 @@ export default class FeedBack extends PureComponent {
             <Button type="primary" style={{ marginLeft: 8 }} className={styles.qxBtn} onClick={()=>this.onEdit(false)}>
               取消
             </Button>
-            <Button type="primary" style={{ marginLeft: 8 }} onClick={this.handleFeedback}>
+            <Button type="primary" style={{ marginLeft: 8 }} onClick={this.handleFeedback} className={styles.okBtn}>
               确定
             </Button>
           </div>

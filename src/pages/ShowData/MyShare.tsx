@@ -10,8 +10,8 @@ import { connect } from 'dva';
 import styles from './HomepageCommon.less';
 import { routerRedux } from 'dva/router';
 
-@connect(({ home }) => ({
-  home,
+@connect(({ home,global }) => ({
+  home,global
 }))
 export default class MyShare extends PureComponent {
   goCaseData = record => {
@@ -91,6 +91,7 @@ export default class MyShare extends PureComponent {
   render() {
     console.log('this.props', this.props);
     const rowLayout = { md: 8, xl: 16, xxl: 24 };
+      let dark = this.props.global&&this.props.global.dark;
     return (
       /*<Modal
         title="我的分享"
@@ -173,12 +174,12 @@ export default class MyShare extends PureComponent {
         </Row>
       </Modal>*/
       <div>
-        <div style={{ backgroundColor: '#202839' }}>
+        <div style={{ backgroundColor: dark ? '#202839' : '#fff' }}>
           <span style={{ margin: '16px', display: 'block', lineHeight: '61px', fontSize: 20 }}>
             我的分享
           </span>
         </div>
-        <div className={styles.myNewsMessage}>
+        <div className={styles.myNewsMessage} style={{ backgroundColor: dark ? '#202839' : '#fff' }}>
           <Row gutter={rowLayout} style={{ marginBottom: 24 }}>
             <Col span={8}>
               被分享人：
