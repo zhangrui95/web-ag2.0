@@ -91,6 +91,10 @@ class RenderTable extends PureComponent {
               title={res && res.cjdw && res.cjdw.length > 25 ? res.cjdw : null}>{res && res.cjdw ? res.cjdw.length > 25 ? res.cjdw.substring(0, 25) + '...' : res.cjdw : ''}</Tooltip></Col>
             <Col span={8}>处警信息：<Tooltip
               title={res && res.cjqk && res.cjqk.length > 25 ? res.cjqk : null}>{res && res.cjqk ? res.cjqk.length > 25 ? res.cjqk.substring(0, 25) + '...' : res.cjqk : ''}</Tooltip></Col>
+            <Col span={24}>处置结果：<span style={{
+              color: '#f00',
+              fontWeight: '700',
+            }}>{res && res.czjg_mc ? res.czjg_mc : ''}</span></Col>
           </Row>)
             this.props.dispatch(
               routerRedux.push({

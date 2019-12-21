@@ -102,10 +102,6 @@ export default class policeDetail extends PureComponent {
   }
 
   componentWillReceiveProps(nextProps) {
-    let res = nextProps.location.query.record;
-    if(typeof res == 'string'){
-      res = JSON.parse(sessionStorage.getItem('query')).query.record;
-    }
     if(nextProps&&nextProps.history.location.query.isReset&&nextProps.history.location.pathname==='/receivePolice/AlarmData/policeDetail'){
       this.getDetail(this.props.location.query.id);
       this.props.history.replace(nextProps.history.location.pathname+'?id='+nextProps.location.query.id+'&record='+nextProps.location.query.record);
@@ -159,7 +155,7 @@ export default class policeDetail extends PureComponent {
       this.props.dispatch(
         routerRedux.push({
           pathname: '/newcaseFiling/caseData/AdministrationData/caseDetail',
-          query: { id: policeDetails && policeDetails.id ? policeDetails.id : '1', record: policeDetails },
+          query: { id: policeDetails && policeDetails.system_id ? policeDetails.system_id : '1', record: policeDetails },
         }),
       );
         // const divs = (
@@ -181,7 +177,7 @@ export default class policeDetail extends PureComponent {
       this.props.dispatch(
         routerRedux.push({
           pathname: '/ModuleAll/Supervise',
-          query: { record: policeDetails,id: policeDetails && policeDetails.id ? policeDetails.id : '1',from:'警情详情问题判定',tzlx:this.state.tzlx,fromPath:'/receivePolice/AlarmData/policeDetail',wtflId:'230201',wtflMc:'警情' },
+          query: { record: policeDetails,id: policeDetails && policeDetails.id ? policeDetails.id : '1',from:from,tzlx:this.state.tzlx,fromPath:'/receivePolice/AlarmData/policeDetail',wtflId:'230201',wtflMc:'警情' },
         }),
       )
       // this.setState({
@@ -209,36 +205,38 @@ export default class policeDetail extends PureComponent {
   };
   // 分享和关注（2为分享，1为关注）
   saveShare = (policeDetails, res, type, ajGzLx) => {
+    console.log('res',res);
+    console.log('policeDetails',policeDetails)
     this.setState({
       sx:
-        (res.jjdw ? res.jjdw + '、' : '') +
-        (res.jjly_mc ? res.jjly_mc + '、' : '') +
-        (res.jqlb ? res.jqlb + '、' : '') +
-        (res.jjsj ? res.jjsj : ''),
+        (policeDetails.jjdw ? policeDetails.jjdw + '、' : '') +
+        (policeDetails.jjly_mc ? policeDetails.jjly_mc + '、' : '') +
+        (policeDetails.jqlb ? policeDetails.jqlb + '、' : '') +
+        (policeDetails.jjsj ? policeDetails.jjsj : ''),
     });
     if (type === 2) {
       let detail=(<Row style={{ lineHeight: '50px',paddingLeft:66 }}>
         <Col
-          span={8}>接警人：{res && res.jjr ? res.jjr : ''}</Col>
+          span={8}>接警人：{policeDetails && policeDetails.jjr ? policeDetails.jjr : ''}</Col>
         <Col span={8}>管辖单位：<Tooltip
-          title={res && res.jjdw && res.jjdw.length > 25 ? res.jjdw : null}>{res && res.jjdw ? res.jjdw.length > 25 ? res.jjdw.substring(0, 25) + '...' : res.jjdw : ''}</Tooltip></Col>
+          title={policeDetails && policeDetails.jjdw && policeDetails.jjdw.length > 25 ? policeDetails.jjdw : null}>{policeDetails && policeDetails.jjdw ? policeDetails.jjdw.length > 25 ? policeDetails.jjdw.substring(0, 25) + '...' : policeDetails.jjdw : ''}</Tooltip></Col>
         <Col span={8}>接警信息：<Tooltip
-          title={res && res.jjnr && res.jjnr.length > 25 ? res.jjnr : null}>{res && res.jjnr ? res.jjnr.length > 25 ? res.jjnr.substring(0, 25) + '...' : res.jjnr : ''}</Tooltip></Col>
+          title={policeDetails && policeDetails.jjnr && policeDetails.jjnr.length > 25 ? policeDetails.jjnr : null}>{policeDetails && policeDetails.jjnr ? policeDetails.jjnr.length > 25 ? policeDetails.jjnr.substring(0, 25) + '...' : policeDetails.jjnr : ''}</Tooltip></Col>
         <Col
-          span={8}>处警人：{res && res.cjr ? res.cjr : ''}</Col>
+          span={8}>处警人：{policeDetails && policeDetails.cjr ? policeDetails.cjr : ''}</Col>
         <Col span={8}>处警单位：<Tooltip
-          title={res && res.cjdw && res.cjdw.length > 25 ? res.cjdw : null}>{res && res.cjdw ? res.cjdw.length > 25 ? res.cjdw.substring(0, 25) + '...' : res.cjdw : ''}</Tooltip></Col>
+          title={policeDetails && policeDetails.cjdw && policeDetails.cjdw.length > 25 ? policeDetails.cjdw : null}>{policeDetails && policeDetails.cjdw ? policeDetails.cjdw.length > 25 ? policeDetails.cjdw.substring(0, 25) + '...' : policeDetails.cjdw : ''}</Tooltip></Col>
         <Col span={8}>处警信息：<Tooltip
-          title={res && res.cjqk && res.cjqk.length > 25 ? res.cjqk : null}>{res && res.cjqk ? res.cjqk.length > 25 ? res.cjqk.substring(0, 25) + '...' : res.cjqk : ''}</Tooltip></Col>
+          title={policeDetails && policeDetails.cjqk && policeDetails.cjqk.length > 25 ? policeDetails.cjqk : null}>{policeDetails && policeDetails.cjqk ? policeDetails.cjqk.length > 25 ? policeDetails.cjqk.substring(0, 25) + '...' : policeDetails.cjqk : ''}</Tooltip></Col>
+        <Col span={24}>处置结果：<span style={{
+          color: '#f00',
+          fontWeight: '700',
+        }}>{policeDetails && policeDetails.czjg_mc ? policeDetails.czjg_mc : ''}</span></Col>
       </Row>)
       this.props.dispatch(
         routerRedux.push({
           pathname: '/ModuleAll/Share',
-          query: { record: res,id: res && res.id ? res.id : '1',from:'警情信息',tzlx:'jqxx',fromPath:'/receivePolice/AlarmData/policeDetail',detail,tab:'详情',sx:
-            (res.jjdw ? res.jjdw + '、' : '') +
-            (res.jjly_mc ? res.jjly_mc + '、' : '') +
-            (res.jqlb ? res.jqlb + '、' : '') +
-            (res.jjsj ? res.jjsj : ''), },
+          query: { record: policeDetails,id: policeDetails && policeDetails.id ? policeDetails.id : '1',from:this.state.lx,tzlx:this.state.tzlx,fromPath:'/receivePolice/AlarmData/policeDetail',detail,tab:'详情',sx: (policeDetails.jjdw ? policeDetails.jjdw + '、' : '') + (policeDetails.jjly_mc ? policeDetails.jjly_mc + '、' : '') + (policeDetails.jqlb ? policeDetails.jqlb + '、' : '') + (policeDetails.jjsj ? policeDetails.jjsj : '')},
         }),
       )
       // this.setState({
@@ -250,17 +248,17 @@ export default class policeDetail extends PureComponent {
         this.props.dispatch({
           type: 'share/getMyFollow',
           payload: {
-            agid: this.props.location.query.tzlx === 'jqyj' ? this.props.yjid : policeDetails.id,
+            agid: this.props.location.query.tzlx === 'jqyj' ? this.props.location.query.yjid : policeDetails.id,
             lx: this.state.lx,
             sx:
-              (res.jjdw ? res.jjdw + '、' : '') +
-              (res.jjly_mc ? res.jjly_mc + '、' : '') +
-              (res.jqlb ? res.jqlb + '、' : '') +
-              (res.jjsj ? res.jjsj : ''),
+              (policeDetails.jjdw ? policeDetails.jjdw + '、' : '') +
+              (policeDetails.jjly_mc ? policeDetails.jjly_mc + '、' : '') +
+              (policeDetails.jqlb ? policeDetails.jqlb + '、' : '') +
+              (policeDetails.jjsj ? policeDetails.jjsj : ''),
             type: type,
             tzlx: this.props.location.query.tzlx,
-            wtid: res.wtid,
-            ajbh: res.ajbh,
+            wtid: policeDetails.wtid,
+            ajbh: policeDetails.ajbh,
             system_id:
               this.props.location.query.tzlx === 'jqyj' || this.props.location.query.tzlx === 'jqxx'
                 ? policeDetails.id

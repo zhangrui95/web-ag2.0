@@ -845,7 +845,7 @@ export default class Index extends PureComponent {
                   {getFieldDecorator('yjlx', {
                     initialValue: this.state.yjlx,
                   })(
-                    <Select placeholder="请选择" style={{ width: '100%' }}>
+                    <Select placeholder="请选择" style={{ width: '100%' }} getPopupContainer={() => document.getElementById('baqyjtableListForm')}>
                       <Option value="">全部</Option>
                       <Option value="5025501">滞留超时</Option>
                     </Select>,
@@ -857,7 +857,7 @@ export default class Index extends PureComponent {
                   {getFieldDecorator('yjjb', {
                     initialValue: this.state.yjjb,
                   })(
-                    <Select placeholder="请选择" style={{ width: '100%' }}>
+                    <Select placeholder="请选择" style={{ width: '100%' }} getPopupContainer={() => document.getElementById('baqyjtableListForm')}>
                       <Option value="">全部</Option>
                       {YJJBStatusOptions}
                     </Select>,
@@ -878,7 +878,7 @@ export default class Index extends PureComponent {
                 </FormItem>
               </Col>
               <Col {...colLayout}>
-                <FormItem label="预警时间" {...formItemLayout}>
+                <FormItem label="预警时间" {...formItemLayout} getCalendarContainer={() => document.getElementById('baqyjtableListForm')}>
                   {getFieldDecorator('yjsj')(
                     <RangePicker disabledDate={this.disabledDate} style={{ width: '100%' }} />,
                   )}
