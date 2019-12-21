@@ -30,8 +30,8 @@ import styles from './index.less';
 const { Option } = Select;
 const { Step } = Steps;
 
-@connect(({ common }) => ({
-  common,
+@connect(({ common,global }) => ({
+  common,global
   // loading: loading.models.alarmManagement,
 }))
 @Form.create()
@@ -107,7 +107,7 @@ export default class DbHistory extends PureComponent {
     // const { Isdetail, NowDbrz } = this.props;
     const { query:{record,detail,Isdetail} } = this.props.location;
     return (
-      <div className={styles.ModalTitle}>
+      <div className={this.props.global&&this.props.global.dark ? styles.ModalTitle : styles.ModalTitle +' '+styles.lightBox}>
         {/*<Modal*/}
           {/*maskClosable={false}*/}
           {/*visible={this.props.visible}*/}

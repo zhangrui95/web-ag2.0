@@ -8,13 +8,14 @@ import { Col, Row, Modal, Card } from 'antd';
 import { connect } from 'dva';
 import styles from './HomepageCommon.less';
 
-@connect(({ home }) => ({
-  home,
+@connect(({ home,global }) => ({
+  home,global
 }))
 export default class MyNews extends PureComponent {
   render() {
     const rowLayout = { md: 8, xl: 16, xxl: 24 };
     const {query} = this.props.location;
+    let dark = this.props.global&&this.props.global.dark;
     return (
       /*<Modal
         title="我的消息"
@@ -51,10 +52,10 @@ export default class MyNews extends PureComponent {
         </div>
       </Modal>*/
       <div>
-        <div style={{ backgroundColor: '#202839' }}>
+        <div style={{ backgroundColor: dark ? '#202839' : '#fff' }}>
             <span style={{ margin: '16px', display: 'block',lineHeight:'61px',fontSize:20 }}>我的消息</span>
         </div>
-        <div className={styles.myNewsMessage}>
+        <div className={styles.myNewsMessage} style={{ backgroundColor: dark ? '#202839' : '#fff' }}>
             <Row gutter={rowLayout} style={{marginBottom:24}}>
               <Col span={8}>案件编号：{query&&query.record&&query.record.ajbh?query.record.ajbh:''}</Col>
               <Col span={query&&query.record&&query.record.name&&query.record.name.length > 16 ? 16 : 8}>

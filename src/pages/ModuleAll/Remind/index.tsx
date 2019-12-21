@@ -16,8 +16,8 @@ import {routerRedux} from "dva/router";
 
 const FormItem = Form.Item;
 
-@connect(({ share,itemData }) => ({
-  share,itemData,
+@connect(({ share,itemData,global }) => ({
+  share,itemData,global
 }))
 class Index extends PureComponent {
   constructor(props, context) {
@@ -40,7 +40,6 @@ class Index extends PureComponent {
     // console.log('fromPath',fromPath);
     // console.log('isReset',isReset);
     let key = '/ModuleAll/Remind'+this.props.location.query.id;
-    // 鍒犻櫎褰撳墠tab骞朵笖灏嗚矾鐢辫烦杞嚦鍓嶄竴涓猼ab鐨刾ath
     const { dispatch } = this.props;
     if (dispatch) {
       dispatch( routerRedux.push({pathname: fromPath?fromPath:'',query: isReset ? {isReset,id:tab==='表格'?'':id,record:tab==='表格'?'':record} : {id:tab==='表格'?'':id,record:tab==='表格'?'':record}}));
@@ -174,7 +173,7 @@ class Index extends PureComponent {
     }
     const { getFieldDecorator } = this.props.form;
     return (
-      <div>
+      <div className={this.props.global&&this.props.global.dark ? '' : styles.lightBox}>
         <Card className={styles.standardTable}  id='RemindModule'>
           {detail ? detail : ''}
           <Form>
@@ -200,7 +199,7 @@ class Index extends PureComponent {
             <Button type="primary" style={{ marginLeft: 8 }} className={styles.qxBtn} onClick={()=>this.onEdit(false)}>
               取消
             </Button>
-            <Button type="primary" style={{ marginLeft: 8 }} onClick={this.handleOk}>
+            <Button type="primary" style={{ marginLeft: 8 }} onClick={this.handleOk}  className={styles.okBtn}>
               确定
             </Button>
           </div>

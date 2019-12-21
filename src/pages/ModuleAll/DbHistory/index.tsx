@@ -30,8 +30,8 @@ import styles from './index.less';
 const { Option } = Select;
 const { Step } = Steps;
 
-@connect(({ common }) => ({
-  common,
+@connect(({ common,global }) => ({
+  common,global
   // loading: loading.models.alarmManagement,
 }))
 @Form.create()
@@ -164,7 +164,7 @@ export default class DbHistory extends PureComponent {
       }
     }
     return (
-      <div className={styles.ModalTitle}>
+      <div className={this.props.global&&this.props.global.dark ? styles.ModalTitle : styles.ModalTitle +' '+styles.lightBox}>
         <Card className={styles.standardTable}  id='DbhistoryModule'>
           <div style={{ borderBottom: '1px solid #ccc' }}>
             <div className={styles.title}>

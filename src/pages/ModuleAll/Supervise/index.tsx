@@ -36,8 +36,8 @@ const { Option, OptGroup } = Select;
 const FormItem = Form.Item;
 const { TextArea } = Input;
 
-@connect(({ common }) => ({
-  common,
+@connect(({ common,global }) => ({
+  common,global
   // loading: loading.models.alarmManagement,
 }))
 @Form.create()
@@ -642,12 +642,12 @@ export default class SuperviseModal extends PureComponent {
     const { getFieldDecorator } = this.props.form;
     const { query:{record,from} } = this.props.location;
     const uploadButton = (
-      <Button style={{backgroundColor:'#171925',border:'2px solid #2b6ccc'}}>
-        <Icon type="upload"/>上传文件
+      <Button >
+        <Icon type="upload" icon={"upload"}/>上传文件
       </Button>
     );
     return (
-      <div>
+      <div  className={this.props.global&&this.props.global.dark ? '' : styles.lightBox}>
           <Card className={styles.standardTable}  id='superviseModule'>
             <Form className={styles.standardForm}>
               <Row gutter={{ md: 8, lg: 24, xl: 48 }} style={{ marginBottom: '16px' }}>
@@ -734,7 +734,7 @@ export default class SuperviseModal extends PureComponent {
               <Button type="primary" style={{ marginLeft: 8 }} className={styles.qxBtn} onClick={()=>this.onEdit(false)}>
                 取消
               </Button>
-              <Button type="primary" style={{ marginLeft: 8 }} onClick={this.handleAlarm}>
+              <Button type="primary" style={{ marginLeft: 8 }} onClick={this.handleAlarm} className={styles.okBtn}>
                 确定
               </Button>
             </div>
