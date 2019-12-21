@@ -105,7 +105,7 @@ export default class caseDetail extends PureComponent {
         this.props.location.query.record.ajbh) ||
         this.props.location.query.id
     ) {
-      this.caseDetailDatas(this.props.location.query.record.ajbh || this.props.location.query.id);
+      this.caseDetailDatas(this.props.location.query.id);
     }
   }
 
