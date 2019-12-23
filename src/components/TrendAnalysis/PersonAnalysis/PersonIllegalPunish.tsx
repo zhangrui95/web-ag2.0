@@ -34,7 +34,7 @@ export default class PersonIllegalPunish extends PureComponent {
 
     componentWillReceiveProps(nextProps) {
         if (nextProps) {
-            if ((nextProps.selectedDate !== null) && ((this.props.selectedDate !== nextProps.selectedDate) || (this.props.userOrgCode !== nextProps.userOrgCode))) {
+            if (((nextProps.selectedDate !== null) && ((this.props.selectedDate !== nextProps.selectedDate) || (this.props.userOrgCode !== nextProps.userOrgCode)))|| this.props.global.dark !== nextProps.global.dark) {
                 this.getPunishTypeData(nextProps);
             }
         }
@@ -485,7 +485,7 @@ export default class PersonIllegalPunish extends PureComponent {
             <Spin spinning={loadingData} size="large" tip="数据加载中...">
                 <div className={className}>
                     <AnalysisTitleArea analysisTitle="违法行为人处罚措施分析" {...this.props} />
-                    <div id="illegalPunishType" style={{ height: 300 }}/>
+                    <div id="illegalPunishType" style={{ height: 300 }} className={ this.props.global&&this.props.global.dark ? '' : styles.lightChartBox}/>
                     <Table columns={columns} dataSource={tableData} bordered className={styles.tableArea}
                            pagination={false} locale={{ emptyText: <Empty image={this.props.global&&this.props.global.dark ? noList : noListLight} description={'暂无数据'} /> }}/>
                     <h2 className={styles.areaTitle}>违法行为人处罚占比分析</h2>

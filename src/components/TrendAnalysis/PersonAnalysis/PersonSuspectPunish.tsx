@@ -35,7 +35,7 @@ export default class PersonSuspectPunish extends PureComponent {
 
     componentWillReceiveProps(nextProps) {
         if (nextProps) {
-            if ((nextProps.selectedDate !== null) && ((this.props.selectedDate !== nextProps.selectedDate) || (this.props.userOrgCode !== nextProps.userOrgCode))) {
+            if (((nextProps.selectedDate !== null) && ((this.props.selectedDate !== nextProps.selectedDate) || (this.props.userOrgCode !== nextProps.userOrgCode)))|| this.props.global.dark !== nextProps.global.dark) {
                 this.getSuspectPunishTypeData(nextProps);
             }
         }
@@ -496,11 +496,11 @@ export default class PersonSuspectPunish extends PureComponent {
             <Spin spinning={loadingData} size="large" tip="数据加载中...">
                 <div className={className}>
                     <AnalysisTitleArea analysisTitle="犯罪嫌疑人强制措施分析" {...this.props} />
-                    <div className="suspectPunishType" style={{ height: 300 }}/>
+                    <div className={"suspectPunishType"+ ' ' + (this.props.global&&this.props.global.dark ? '' :styles.lightChartBox)} style={{ height: 300 }}/>
                     <Table columns={columns} dataSource={tableData} bordered className={styles.tableArea} locale={{ emptyText: <Empty image={this.props.global&&this.props.global.dark ? noList : noListLight} description={'暂无数据'} /> }}
                            pagination={false}/>
                     <h2 className={styles.areaTitle}>犯罪嫌疑人强制措施占比分析</h2>
-                    <div className="suspectPunishRate" style={{ height: 400 }}/>
+                    <div className={"suspectPunishRate"} style={{ height: 400 }}/>
                     <Table columns={rateTableColumns} dataSource={rateTableData} bordered className={styles.tableArea} locale={{ emptyText: <Empty image={this.props.global&&this.props.global.dark ? noList : noListLight} description={'暂无数据'} /> }}
                            pagination={false}/>
                 </div>

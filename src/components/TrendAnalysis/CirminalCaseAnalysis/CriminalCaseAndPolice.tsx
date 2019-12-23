@@ -34,7 +34,7 @@ export default class CriminalCaseAndPolice extends PureComponent {
 
     componentWillReceiveProps(nextProps) {
         if (nextProps) {
-            if ((nextProps.selectedDate !== null) && (this.props.selectedDate !== nextProps.selectedDate)) {
+            if ((nextProps.selectedDate !== null) && (this.props.selectedDate !== nextProps.selectedDate)|| this.props.global.dark !== nextProps.global.dark) {
                 this.getCriminalCaseAndPolice(nextProps);
             }
         }
@@ -478,7 +478,7 @@ export default class CriminalCaseAndPolice extends PureComponent {
                     <h2 className={styles.areaTitle}>受、立案分析</h2>
                     <Row className={styles.fraudArea}>
                         <Col lg={12} md={24}>
-                            <div className="criminalCaseAccept" style={{ height: 310 }}/>
+                            <div className={"criminalCaseAccept" + ' ' + (this.props.global&&this.props.global.dark ? '' :styles.lightChartBox)} style={{ height: 425,marginTop:25 }}/>
                         </Col>
                         <Col lg={12} md={24}>
                             <Table columns={acceptCaseColumns} dataSource={acceptCaseTableData} locale={{ emptyText: <Empty image={this.props.global&&this.props.global.dark ? noList : noListLight} description={'暂无数据'} /> }}
