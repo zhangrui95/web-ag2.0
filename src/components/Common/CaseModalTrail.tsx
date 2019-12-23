@@ -69,7 +69,7 @@ export default class CaseModalTrail extends PureComponent {
       TrackPaddingBottom: TrackPaddingBottom,
       TrackPaddingTop: TrackPaddingTop,
       TrackPaddingBottom1: 220,
-      trailLeft: '4px',
+      trailLeft: 4,
       open: '0', // 显示‘显示更多’还是‘收起更多’,默认显示更多；
       colortrailleft: 'gray', // 左滑动按钮，若到达开始或者结束，是gray(置灰)，否则是blue(蓝色)(轨迹)
       colortrailright: 'blue', // 右滑动按钮，若到达开始或者结束，是gray(置灰)，否则是blue(蓝色)(轨迹)
@@ -78,7 +78,7 @@ export default class CaseModalTrail extends PureComponent {
 
   // 根据物品案件编号和身份证号打开人员档案窗口
   openPersonDetail = (text) => {
-      console.log('text',text)
+      // console.log('text',text)
     if (text.sfzh) {
       text.xyr_sfzh = text.sfzh;
       this.props.dispatch(
@@ -357,7 +357,8 @@ export default class CaseModalTrail extends PureComponent {
           colortrailright: 'blue',
         });
       }
-    } else if (newObjWidth === 1600) {
+    }
+    else if (newObjWidth === 1600) {
       if (this.state.trailLeft + 350 * 2 >= 0) {
         this.setState({
           trailLeft: 0,
@@ -372,7 +373,8 @@ export default class CaseModalTrail extends PureComponent {
           colortrailright: 'blue',
         });
       }
-    } else if (newObjWidth === 1680) {
+    }
+    else if (newObjWidth === 1680) {
       if (this.state.trailLeft + 390 * 2 >= 0) {
         this.setState({
           trailLeft: 0,
@@ -387,7 +389,8 @@ export default class CaseModalTrail extends PureComponent {
           colortrailright: 'blue',
         });
       }
-    } else if (newObjWidth === 1920) {
+    }
+    else if (newObjWidth === 1920) {
       if (this.state.trailLeft + 340 * 3 >= 0) {
         this.setState({
           trailLeft: 0,
@@ -428,7 +431,8 @@ export default class CaseModalTrail extends PureComponent {
         });
         // message.info('已经到达最末端');
       }
-    } else if (newObjWidth === 1600) {
+    }
+    else if (newObjWidth === 1600) {
       if (num > 2) {
         if (this.state.trailLeft - 350 * 2 <= -(350 * (num - 2))) {
           this.setState({
@@ -451,7 +455,8 @@ export default class CaseModalTrail extends PureComponent {
         });
         // message.info('已经到达最末端');
       }
-    } else if (newObjWidth === 1680) {
+    }
+    else if (newObjWidth === 1680) {
       if (num > 2) {
         if (this.state.trailLeft - 390 * 2 <= -(390 * (num - 2))) {
           this.setState({
@@ -474,7 +479,8 @@ export default class CaseModalTrail extends PureComponent {
         });
         // message.info('已经到达最末端');
       }
-    } else if (newObjWidth === 1920) {
+    }
+    else if (newObjWidth === 1920) {
       if (num > 3) {
         if (this.state.trailLeft - 340 * 3 <= -(340 * (num - 3))) {
           this.setState({
@@ -490,7 +496,8 @@ export default class CaseModalTrail extends PureComponent {
             trailLeft: this.state.trailLeft - 340 * 3,
           });
         }
-      } else {
+      }
+      else {
         this.setState({
           colortrailright: 'gray',
           colortrailleft: 'blue',
@@ -746,7 +753,7 @@ export default class CaseModalTrail extends PureComponent {
         superveWidth = 1545;
       }
     }
-    console.log('this.props.global&&this.props.global.dark',this.props.global&&this.props.global.dark)
+    // console.log('this.props.global&&this.props.global.dark',this.props.global&&this.props.global.dark)
     return (
       <div
         className={this.props.global&&this.props.global.dark ? styles.message : styles.message+' '+styles.lightBoxMessage}
