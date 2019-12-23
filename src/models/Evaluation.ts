@@ -117,25 +117,25 @@ export default {
         },
         * addList({ payload, callback }, { call, put }) {
             const response = yield call(getSave, payload);
-            if (callback && response && !response.error&& response.data) {
+            if (callback && response && !response.error) {
                 callback(response.data);
             };
         },
         * delList({ payload, callback }, { call, put }) {
             const response = yield call(getDel, payload);
-            if (callback && response && !response.error&& response.data) {
+            if (callback && response && !response.error) {
                 callback(response.data);
             };
         },
         * getAjkpXqByAjbh({ payload, callback }, { call, put }) {
             const response = yield call(getDetail, payload);
-            if (callback && response && !response.error&& response.data) {
+            if (callback && response && !response.error) {
                 callback(response.data);
             };
         },
         * saveAjkpXx({ payload, callback }, { call, put }) {
             const response = yield call(getSaveKp, payload);
-            if (callback && response && !response.error&& response.data) {
+            if (callback && response && !response.error) {
                 callback(response.data);
             };
         },

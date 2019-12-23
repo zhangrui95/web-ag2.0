@@ -96,10 +96,12 @@ class DailyRecord extends PureComponent {
                 <Col md={2} span={24}>
                   <div className={styles.Line} />
                 </Col>
-                <Col md={4} span={24}>预警时间：{item.insertime}</Col>
-                <Col md={15} span={24}>
-                  <span>预警类型：{item.yjlxmc}</span>
-                </Col>
+              <Col span={12} className={styles.bgLine}>
+                  <Col md={10} span={24}>
+                      <span>预警类型：{item.yjlxmc}</span>
+                  </Col>
+                  <Col md={14} span={24}>预警时间：{item.insertime}</Col>
+              </Col>
               </Row>
             </Timeline.Item>,
           );
@@ -141,14 +143,12 @@ class DailyRecord extends PureComponent {
                   <div className={styles.Line} />
                 </Col>
                 {item.jsr.split(',').map((e, idx) => {
-                  return <Col md={19} span={24} key={idx}>
-                    <Row>
-                      <Col md={5} span={24}>发送时间：{item.insertime}</Col>
-                      <Col md={4} span={24}>接收人：{e}</Col>
+                  return <Col md={12} span={12} key={idx}>
+                    <Row className={styles.bgLine}>
+                      <Col md={5} span={24}>接收人：{e}</Col>
+                      <Col md={8} span={24}>发送时间：{item.insertime}</Col>
                       <Col md={11} span={24} style={{ paddingBottom: 8 }}>接收单位：<Tooltip
                         title={item.jsdw.split(',')[idx].length > 15 ? item.jsdw.split(',')[idx] : null}>{item.jsdw.split(',')[idx].length > 15 ? item.jsdw.split(',')[idx].substring(0, 15) + '...' : item.jsdw.split(',')[idx]}</Tooltip></Col>
-                    </Row>
-                    <Row>
                       <Col md={24} span={24}>提醒建议：{item.txjy}</Col>
                     </Row>
                   </Col>;
@@ -196,10 +196,12 @@ class DailyRecord extends PureComponent {
                 <Col span={2}>
                   <div className={styles.Line} />
                 </Col>
-                <Col span={4}>失效时间：{item.insertime}</Col>
-                <Col span={15}>
-                  <span>失效原因：{item.sxyy}</span>
-                </Col>
+                  <Col span={12} className={styles.bgLine}>
+                      <Col md={10} span={24}>
+                          <span>失效原因：{item.sxyy}</span>
+                      </Col>
+                      <Col md={14} span={24}>失效时间：{item.insertime}</Col>
+                  </Col>
               </Row>
             </Timeline.Item>
           </div>);

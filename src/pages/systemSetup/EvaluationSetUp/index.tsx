@@ -20,6 +20,8 @@ import stylescommon2 from '../../common/commonLight.less';
 import noList from "@/assets/viewData/noList.png";
 import {routerRedux} from "dva/router";
 import noListLight from "@/assets/viewData/noListLight.png";
+import {inspect} from "util";
+import styles = module
 const FormItem = Form.Item;
 const TabPane = Tabs.TabPane;
 const { confirm } = Modal;
@@ -40,7 +42,6 @@ export default class PoliceClear extends PureComponent {
     }
 
     componentDidMount() {
-        console.log('this.props.location',this.props.location);
         this.getList('0',1);
     }
     componentWillReceiveProps(nextProps) {
@@ -188,7 +189,6 @@ export default class PoliceClear extends PureComponent {
         });
     }
     render() {
-        console.log('this.props',this.props.global.dark);
         let stylescommon = this.props.global&&this.props.global.dark ? stylescommon1 : stylescommon2;
         const {form: { getFieldDecorator }} = this.props
         const rowLayout = { md: 8, xl: 16, xxl: 24 };
@@ -238,39 +238,33 @@ export default class PoliceClear extends PureComponent {
             },
             selectedRowKeys:this.state.selectedRowKeys,
         };
-        let list = (
-            <Table
-                loading={this.state.loading}
-                rowKey={record => record.id}
-                pagination={paginationProps}
-                onChange={this.handleTableChange}
-                columns={columns}
-                dataSource={this.state.data&&this.state.data.list ? this.state.data.list : []}
-                rowSelection={rowSelection}
-                locale={{ emptyText:  <Empty image={this.props.global&&this.props.global.dark ? noList : noListLight} description={'暂无数据'} />}}
-            />
-        );
         return (
             <div className={stylescommon.statistics} id={'boxEval'}>
                 <Card className={stylescommon.titleArea}>
-                    <Button type="primary" onClick={this.addList}>添加{this.state.tab==='0' ? '扣分' : this.state.tab==='1' ? '补分' : '加分'}项</Button>
+                    <div className={stylescommon.tabTopBox}>
+                        <Tabs defaultActiveKey="0" onChange={this.changeTab} activeKey={this.state.tab}>
+                            <TabPane tab={(this.state.tab === '0' ? "● ":'') + "扣分设置"} key="0"></TabPane>
+                            <TabPane tab={(this.state.tab === '1' ? "● ":'') + "补分设置"} key="1"></TabPane>
+                            <TabPane tab={(this.state.tab === '2' ? "● ":'') + "加分设置"} key="2"></TabPane>
+                        </Tabs>
+                    </div>
                     <div className={stylescommon.btnBox}>
-                        <Button style={{marginLeft:10}} onClick={this.getDel}>删除</Button>
-                        <Button style={{marginLeft:10}} onClick={this.getEmpty}>清空</Button>
+                        <Button type="primary" onClick={this.addList}>添加{this.state.tab==='0' ? '扣分' : this.state.tab==='1' ? '补分' : '加分'}项</Button>
+                        <Button style={{marginLeft:10}} onClick={this.getDel} className={stylescommon.topDelBtn}>删除</Button>
+                        <Button style={{marginLeft:10}} onClick={this.getEmpty} className={stylescommon.topDelBtn}>清空</Button>
                     </div>
                 </Card>
-                <Card className={stylescommon.cardArea + ' ' + stylescommon.kfTab}>
-                    <Tabs defaultActiveKey="0" onChange={this.changeTab} activeKey={this.state.tab}>
-                        <TabPane tab="扣分设置" key="0">
-                            {list}
-                        </TabPane>
-                        <TabPane tab="补分设置" key="1">
-                            {list}
-                        </TabPane>
-                        <TabPane tab="加分设置" key="2">
-                           {list}
-                        </TabPane>
-                    </Tabs>
+                <Card  style={{marginTop:12}}>
+                    <Table
+                        loading={this.state.loading}
+                        rowKey={record => record.id}
+                        pagination={paginationProps}
+                        onChange={this.handleTableChange}
+                        columns={columns}
+                        dataSource={this.state.data&&this.state.data.list ? this.state.data.list : []}
+                        rowSelection={rowSelection}
+                        locale={{ emptyText:  <Empty image={this.props.global&&this.props.global.dark ? noList : noListLight} description={'暂无数据'} />}}
+                    />
                 </Card>
             </div>
         );

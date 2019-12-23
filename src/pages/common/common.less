@@ -193,6 +193,40 @@
     }
   }
 }
+.tabTopBox{
+  float: left;
+  width:500px;
+  :global{
+    .ant-tabs-bar{
+      border: @zero;
+      color: @white;
+      margin: @zero;
+      background: @component-background;
+      border-radius: @borderRadius;
+    }
+    .ant-tabs-nav-wrap{
+      padding: 0;
+      margin-top: 4px;
+    }
+    .ant-tabs-tab{
+      margin: @zero;
+      padding: 0 24px;
+      border-right: 1px solid @body-background!important;
+      font-size: 16px;
+      &:last-child{
+        border-right:@zero!important;
+      }
+    }
+    .ant-tabs-ink-bar{
+      height: @zero;
+    }
+  }
+}
+.topDelBtn{
+  background: @component-background!important;
+  color: @highlight-color!important;
+  border: 1px solid @highlight-color!important;
+}
 .lightFromBox{
   :global{
     .ant-input,.ant-select-selection,.ant-calendar-picker-input{
