@@ -5,15 +5,15 @@
 * */
 
 import React, {Component, PureComponent} from 'react';
-import { Tabs, Form, Input, Button, Modal, Switch,Card } from 'antd';
+import {Tabs, Form, Input, Button, Modal, Switch, Card} from 'antd';
 import MessageInput from './MessageInput';
 import style from './systemSetup.less';
 import {connect} from "dva";
 
-const { TabPane } = Tabs;
+const {TabPane} = Tabs;
 const confirm = Modal.confirm;
 
-class  EarlyWarningMessages extends Component {
+class EarlyWarningMessages extends Component {
     // 保存确认框
     showConfirm = (e) => {
         e.preventDefault();
@@ -22,8 +22,8 @@ class  EarlyWarningMessages extends Component {
             title: '确定要保存预警推送消息吗？',
             okText: '确定',
             cancelText: '取消',
-            centered:true,
-            getContainer:document.getElementById('boxSend2'),
+            centered: true,
+            getContainer: document.getElementById('boxSend2'),
             onOk() {
                 that.saveEarlyWarningMessages();
             },
@@ -57,7 +57,7 @@ class  EarlyWarningMessages extends Component {
     };
 
     render() {
-        const { formItemLayout, form: { getFieldDecorator }, systemSetup:{systemSetup: { messageList }}, splitMessage } = this.props;
+        const {formItemLayout, form: {getFieldDecorator}, systemSetup: {systemSetup: {messageList}}, splitMessage} = this.props;
         return (
             <div id={'boxSend2'}>
                 <Card className={style.cardBox}>
@@ -171,6 +171,7 @@ class  EarlyWarningMessages extends Component {
         );
     }
 }
+
 export default Form.create()(
-    connect((systemSetup, common) => ({ systemSetup, common }))(EarlyWarningMessages),
+    connect((systemSetup, common) => ({systemSetup, common}))(EarlyWarningMessages),
 );

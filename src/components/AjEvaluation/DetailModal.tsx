@@ -1,17 +1,17 @@
-import React, { PureComponent } from 'react';
+import React, {PureComponent} from 'react';
 import {Modal, Form, Input, Select, message, button, Spin, Row, Col, Table, Tooltip, Empty} from 'antd';
 import styles from './DetailModal.less';
 
-const { TextArea } = Input;
+const {TextArea} = Input;
 const Option = Select.Option;
-import { connect } from 'dva';
-import { getUserInfos } from '../../utils/utils';
+import {connect} from 'dva';
+import {getUserInfos} from '../../utils/utils';
 import noList from "@/assets/viewData/noList.png";
 import noListLight from "@/assets/viewData/noListLight.png";
 
 const FormItem = Form.Item;
 
-@connect(({ Evaluation }) => ({
+@connect(({Evaluation}) => ({
     Evaluation,
 }))
 class DetailModal extends PureComponent {
@@ -105,7 +105,7 @@ class DetailModal extends PureComponent {
                 },
             },
         ];
-        const { detailList } = this.state;
+        const {detailList} = this.state;
         const paginationProps = {
             current: detailList && detailList.page ? detailList.page.currentPage : '',
             total: detailList && detailList.page ? detailList.page.totalResult : '',
@@ -120,7 +120,7 @@ class DetailModal extends PureComponent {
                     className={styles.shareHeader}
                     width={900}
                     maskClosable={false}
-                    style={{ top: '200px' }}
+                    style={{top: '200px'}}
                     onCancel={this.props.handleCancel}
                 >
                     <Row className={styles.detailRow}>
@@ -136,7 +136,12 @@ class DetailModal extends PureComponent {
                             span={24}>整改结果：{this.state.detail && this.state.detail.zgjg ? this.state.detail.zgjg.replace(/\/r\/n/g, '') : ''}</Col>
                     </Row>
                     <div className={styles.yybz}>引用标准</div>
-                    <Table size={'middle'} dataSource={this.state.detailList ? this.state.detailList.list : []} locale={{ emptyText: <Empty image={this.props.global&&this.props.global.dark ? noList : noListLight} description={'暂无数据'} /> }}
+                    <Table size={'middle'} dataSource={this.state.detailList ? this.state.detailList.list : []}
+                           locale={{
+                               emptyText: <Empty
+                                   image={this.props.global && this.props.global.dark ? noList : noListLight}
+                                   description={'暂无数据'}/>
+                           }}
                            columns={columns} pagination={paginationProps} onChange={this.handleTableChange}/>
                 </Modal>
             </div>

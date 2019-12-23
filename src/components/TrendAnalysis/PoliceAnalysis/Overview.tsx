@@ -4,7 +4,7 @@
 * 20181214
 * */
 
-import React, { PureComponent } from 'react';
+import React, {PureComponent} from 'react';
 import {Tooltip, Icon, Table, Spin, Empty} from 'antd';
 import echarts from 'echarts'
 import AnalysisTitleArea from '../AnalysisTitleArea';
@@ -33,9 +33,9 @@ export default class Overview extends PureComponent {
     }
 
     getOverviewData = (propsData) => {
-        this.props.changeLoadingStatus({ overViewLoadingStatus: true });
-        this.setState({ loadingData: true });
-        const { dispatch, selectedDateStr, yearOnYearDateStr, monthOnMonthDateStr, selectedDate, yearOnYearDate, monthOnMonthDate } = propsData;
+        this.props.changeLoadingStatus({overViewLoadingStatus: true});
+        this.setState({loadingData: true});
+        const {dispatch, selectedDateStr, yearOnYearDateStr, monthOnMonthDateStr, selectedDate, yearOnYearDate, monthOnMonthDate} = propsData;
         dispatch({
             type: 'trendAnalysis/getOverviewData',
             payload: {
@@ -45,7 +45,7 @@ export default class Overview extends PureComponent {
             },
             callback: (data) => {
                 if (data) {
-                    const { jjzl, xsl, xzl } = data;
+                    const {jjzl, xsl, xzl} = data;
                     let barData = [];
                     let tableData = [];
                     if (jjzl && xsl && xzl) {
@@ -61,12 +61,12 @@ export default class Overview extends PureComponent {
                                     },
                                 },
                                 data: [
-                                    { name: '刑事', value: xsl.nowtime || 0, itemStyle: { color: '#3AA0FF' } },
-                                    { name: '行政', value: xzl.nowtime || 0, itemStyle: { color: '#3AA0FF' } },
+                                    {name: '刑事', value: xsl.nowtime || 0, itemStyle: {color: '#3AA0FF'}},
+                                    {name: '行政', value: xzl.nowtime || 0, itemStyle: {color: '#3AA0FF'}},
                                     {
                                         name: '其他',
                                         value: jjzl.nowtime - xsl.nowtime - xzl.nowtime,
-                                        itemStyle: { color: '#3AA0FF' },
+                                        itemStyle: {color: '#3AA0FF'},
                                     },
                                 ],
                             },
@@ -81,12 +81,12 @@ export default class Overview extends PureComponent {
                                     },
                                 },
                                 data: [
-                                    { name: '刑事', value: xsl.lastyear || 0, itemStyle: { color: '#DCCA23' } },
-                                    { name: '行政', value: xzl.lastyear || 0, itemStyle: { color: '#DCCA23' } },
+                                    {name: '刑事', value: xsl.lastyear || 0, itemStyle: {color: '#DCCA23'}},
+                                    {name: '行政', value: xzl.lastyear || 0, itemStyle: {color: '#DCCA23'}},
                                     {
                                         name: '其他',
                                         value: jjzl.lastyear - xsl.lastyear - xzl.lastyear,
-                                        itemStyle: { color: '#DCCA23' },
+                                        itemStyle: {color: '#DCCA23'},
                                     },
                                 ],
                             },
@@ -101,12 +101,12 @@ export default class Overview extends PureComponent {
                                     },
                                 },
                                 data: [
-                                    { name: '刑事', value: xsl.lastmonth, itemStyle: { color: '#31BD74' } },
-                                    { name: '行政', value: xzl.lastmonth, itemStyle: { color: '#31BD74' } },
+                                    {name: '刑事', value: xsl.lastmonth, itemStyle: {color: '#31BD74'}},
+                                    {name: '行政', value: xzl.lastmonth, itemStyle: {color: '#31BD74'}},
                                     {
                                         name: '其他',
                                         value: jjzl.lastmonth - xsl.lastmonth - xzl.lastmonth,
-                                        itemStyle: { color: '#31BD74' },
+                                        itemStyle: {color: '#31BD74'},
                                     },
                                 ],
                             },
@@ -152,13 +152,13 @@ export default class Overview extends PureComponent {
                     //     series: barData,
                     // });
                     this.props.goToCarousel(0);
-                    if(document.getElementById('overviewCharts')){
+                    if (document.getElementById('overviewCharts')) {
                         this.showEchart(barData);
                         window.addEventListener('resize', myChart.resize);
                     }
                 }
-                this.setState({ loadingData: false });
-                this.props.changeLoadingStatus({ overViewLoadingStatus: false });
+                this.setState({loadingData: false});
+                this.props.changeLoadingStatus({overViewLoadingStatus: false});
             },
         });
     };
@@ -186,7 +186,7 @@ export default class Overview extends PureComponent {
                         color: this.props.global && this.props.global.dark ? '#fff' : '#4d4d4d', //坐标值得具体的颜色
                     }
                 },
-                splitLine:{
+                splitLine: {
                     show: true, // X轴线 颜色类型的修改
                     lineStyle: {
                         color: this.props.global && this.props.global.dark ? '#fff' : '#e6e6e6'
@@ -195,7 +195,7 @@ export default class Overview extends PureComponent {
                 axisLine: {
                     show: true, // X轴 网格线 颜色类型的修改
                     lineStyle: {
-                        color:  this.props.global && this.props.global.dark ? '#fff' : '#e6e6e6'
+                        color: this.props.global && this.props.global.dark ? '#fff' : '#e6e6e6'
                     }
                 },
             },
@@ -220,8 +220,8 @@ export default class Overview extends PureComponent {
     };
 
     render() {
-        const { selectedDateStr, yearOnYearDateStr, monthOnMonthDateStr } = this.props;
-        const { tableData, loadingData } = this.state;
+        const {selectedDateStr, yearOnYearDateStr, monthOnMonthDateStr} = this.props;
+        const {tableData, loadingData} = this.state;
         const columns = [{
             title: '类别',
             dataIndex: 'categories',
@@ -261,9 +261,13 @@ export default class Overview extends PureComponent {
             <Spin spinning={loadingData} size="large" tip="数据加载中...">
                 <div className={styles.analysis}>
                     <AnalysisTitleArea analysisTitle="综述" {...this.props} />
-                    <div id="overviewCharts" style={{ height: 300 }} className={ this.props.global&&this.props.global.dark ? '' : styles.lightChartBox}/>
+                    <div id="overviewCharts" style={{height: 300}}
+                         className={this.props.global && this.props.global.dark ? '' : styles.lightChartBox}/>
                     <Table columns={columns} dataSource={tableData} bordered className={styles.tableArea}
-                           pagination={false}  locale={{ emptyText: <Empty image={this.props.global&&this.props.global.dark ? noList : noListLight} description={'暂无数据'} /> }}/>
+                           pagination={false} locale={{
+                        emptyText: <Empty image={this.props.global && this.props.global.dark ? noList : noListLight}
+                                          description={'暂无数据'}/>
+                    }}/>
                 </div>
             </Spin>
         );

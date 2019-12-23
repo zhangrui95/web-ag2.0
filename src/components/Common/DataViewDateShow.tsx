@@ -3,12 +3,12 @@
 * author：lyp
 * 20190618
 * */
-import React, { PureComponent } from 'react';
+import React, {PureComponent} from 'react';
 import moment from 'moment/moment';
 // import styles from '../Styles/dataView.less';
 import styles from '../../pages/common/dataView.less';
 
-import { getTimeDistance } from '../../utils/utils';
+import {getTimeDistance} from '../../utils/utils';
 
 export default class DataViewDateShow extends PureComponent {
     setDateButton = (dataTypeStr) => {
@@ -59,14 +59,14 @@ export default class DataViewDateShow extends PureComponent {
             <div className={styles.countButtonTitle}>
                 <div>{dataTypeStr}</div>
                 <div>{startTime}</div>
-                <div style={{ lineHeight: '6px' }}>~</div>
+                <div style={{lineHeight: '6px'}}>~</div>
                 <div>{endTime}</div>
             </div>
         );
     };
 
     render() {
-        const { dataTypeStr } = this.props;
+        const {dataTypeStr} = this.props;
         return this.setDateButton(dataTypeStr);
     }
 }

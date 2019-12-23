@@ -4,8 +4,8 @@
 * 20190703
 * */
 
-import React, { PureComponent } from 'react';
-import { Modal, Timeline, Row, Col } from 'antd';
+import React, {PureComponent} from 'react';
+import {Modal, Timeline, Row, Col} from 'antd';
 import styles from './DispatchModal.less';
 
 export default class ClearOutModal extends PureComponent {
@@ -35,13 +35,13 @@ export default class ClearOutModal extends PureComponent {
                         }
                         color='#00CC33'
                     >
-                        <Row style={{ paddingLeft: 30, paddingBottom: 8 }}>
+                        <Row style={{paddingLeft: 30, paddingBottom: 8}}>
                             <Col md={10} span={24}>
                                 清除人：{item.czr_name ? item.czr_name : ''}
                             </Col>
                             <Col md={14} span={24}>所属单位：{item.czr_dwmc ? item.czr_dwmc : ''}</Col>
                         </Row>
-                        <Row style={{ paddingLeft: 30, paddingBottom: 8 }}>
+                        <Row style={{paddingLeft: 30, paddingBottom: 8}}>
                             <Col md={21} span={24}>清除时间：{item.zxxgsj ? item.zxxgsj : ''}</Col>
                         </Row>
                     </Timeline.Item>,
@@ -58,9 +58,9 @@ export default class ClearOutModal extends PureComponent {
                     footer={null}
                     width={900}
                     maskClosable={false}
-                    style={{ top: '200px' }}
+                    style={{top: '200px'}}
                 >
-                    <Timeline style={{ marginTop: 20, marginLeft: 20 }}>
+                    <Timeline style={{marginTop: 20, marginLeft: 20}}>
                         {list}
                     </Timeline>
                 </Modal>

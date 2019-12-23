@@ -3,14 +3,14 @@
 * author：lyp
 * 20190530
 * */
-import React, { PureComponent } from 'react';
-import { Modal, Select, Card } from 'antd';
-import { connect } from 'dva';
+import React, {PureComponent} from 'react';
+import {Modal, Select, Card} from 'antd';
+import {connect} from 'dva';
 import styles from './MakeTableModal.less';
-import { getUserInfos } from '../../utils/utils';
+import {getUserInfos} from '../../utils/utils';
 
-const { Option } = Select;
-@connect(({ common }) => ({
+const {Option} = Select;
+@connect(({common}) => ({
     common,
 }))
 export default class MakeTableModal extends PureComponent {
@@ -25,10 +25,10 @@ export default class MakeTableModal extends PureComponent {
 
     componentDidMount() {
         let res = this.props.location.query.record;
-        if(typeof res == 'string'){
+        if (typeof res == 'string') {
             res = JSON.parse(sessionStorage.getItem('query')).query.record;
         }
-        this.getDeptmentByCode(res&&res.bardw ? res.bardw : '');
+        this.getDeptmentByCode(res && res.bardw ? res.bardw : '');
     }
 
     // 警种
@@ -42,18 +42,18 @@ export default class MakeTableModal extends PureComponent {
     };
 
     render() {
-        const { word } = this.state;
-        const { srcUrl } = window.configUrl;
+        const {word} = this.state;
+        const {srcUrl} = window.configUrl;
         let res = this.props.location.query.record;
-        if(typeof res == 'string'){
+        if (typeof res == 'string') {
             res = JSON.parse(sessionStorage.getItem('query')).query.record;
         }
-        let ajbh = res&&res.ajbh ? res.ajbh : '';
+        let ajbh = res && res.ajbh ? res.ajbh : '';
         let police_categorymc = this.props.common.itemsCode && this.props.common.itemsCode.police_categorymc ? this.props.common.itemsCode.police_categorymc : '';
         return (
             <div>
                 <Card className={styles.headerBox}>
-                    <Select placeholder="请选择" style={{ width: '300px' }} onChange={this.change} value={word}
+                    <Select placeholder="请选择" style={{width: '300px'}} onChange={this.change} value={word}
                             getPopupContainer={triggerNode => triggerNode.parentNode}>
                         <Option value="1">集体通案记载表</Option>
                         <Option value="2">案件审核审批表</Option>

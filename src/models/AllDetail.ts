@@ -1,4 +1,4 @@
-import { AllDetailPersonDatas } from '../services/AllDetail';
+import {AllDetailPersonDatas} from '../services/AllDetail';
 
 export default {
     namespace: 'AllDetail',
@@ -9,7 +9,7 @@ export default {
     },
 
     effects: {
-        * AllDetailPersonFetch({ payload, callback }, { call, put }) {
+        * AllDetailPersonFetch({payload, callback}, {call, put}) {
             yield put({
                 type: 'changeLoading',
                 payload: true,
@@ -23,7 +23,7 @@ export default {
                 type: 'changeLoading',
                 payload: false,
             });
-            if (callback && response && !response.error&& response.data) {
+            if (callback && response && !response.error && response.data) {
                 callback(response.data);
             }
         },

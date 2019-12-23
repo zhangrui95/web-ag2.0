@@ -3,10 +3,10 @@
 * author：lyp
 * 20180612
 * */
-import React, { PureComponent } from 'react';
-import { connect } from 'dva';
-import { Row, Col } from 'antd';
-import { Pie } from '../Charts';
+import React, {PureComponent} from 'react';
+import {connect} from 'dva';
+import {Row, Col} from 'antd';
+import {Pie} from '../Charts';
 import styles from './ComponentStyles.less';
 import img1 from '../../assets/show/5-1.png';
 import img2 from '../../assets/show/5-2.png';
@@ -129,7 +129,7 @@ export default class InvolvedItems extends PureComponent {
     };
 
     render() {
-        const { ffck, pdyc, warehouseData, warehouseGroupB, qkwp, zkwp, ckwp } = this.state;
+        const {ffck, pdyc, warehouseData, warehouseGroupB, qkwp, zkwp, ckwp} = this.state;
         return (
             <div className={styles.fullPartBlock}>
                 {/*<div className={styles.echartBlock}>*/}
@@ -196,7 +196,7 @@ export default class InvolvedItems extends PureComponent {
                 <Row className={styles.warningCount} gutter={16}>
                     {
                         warehouseGroupB.map((item) =>
-                            <Col span={6} className={styles.countNumber} style={{ paddingBottom: 0 }}>
+                            <Col span={6} className={styles.countNumber} style={{paddingBottom: 0}}>
                                 <div style={{
                                     fontSize: '1.8rem',
                                     color: '#ff9600',

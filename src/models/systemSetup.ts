@@ -15,7 +15,7 @@ export default {
 
     effects: {
         // 获取消息推送配置项
-        * getMessageList({ payload, callback }, { call, put }) {
+        * getMessageList({payload, callback}, {call, put}) {
             const response = yield call(systemSetupService.getMessageList, payload);
 
             yield put({
@@ -27,7 +27,7 @@ export default {
             }
         },
         // 提交消息推送配置
-        * setMessageData({ payload, callback }, { call, put }) {
+        * setMessageData({payload, callback}, {call, put}) {
             const response = yield call(systemSetupService.setMessageData, payload);
             if (callback && response && !response.error) {
                 callback();

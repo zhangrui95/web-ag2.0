@@ -4,20 +4,20 @@
 * 20181120
 * */
 
-import React, { PureComponent } from 'react';
+import React, {PureComponent} from 'react';
 import echarts from 'echarts/lib/echarts';
 import pie from 'echarts/lib/chart/pie';
 import title from 'echarts/lib/component/title';
 import legend from 'echarts/lib/component/legend';
 import tooltip from 'echarts/lib/component/tooltip';
-import { routerRedux } from 'dva/router';
+import {routerRedux} from 'dva/router';
 
 let myChart;
 
 export default class CriminalCaseWarningCount extends PureComponent {
 
     componentDidMount() {
-        const { selectDate, orgCode, org, orglist } = this.props;
+        const {selectDate, orgCode, org, orglist} = this.props;
         this.showEchart();
         this.getUnCaseAllTypeWarnings(selectDate[0], selectDate[1], org, orgCode, orglist);
         window.addEventListener('resize', myChart.resize);
@@ -33,7 +33,7 @@ export default class CriminalCaseWarningCount extends PureComponent {
 
     // 刑事案件告警数量
     getUnCaseAllTypeWarnings = (startTime, endTime, org, orgCode, orglist) => {
-        const { shadeColors } = this.props;
+        const {shadeColors} = this.props;
         this.props.dispatch({
             type: 'UnCaseData/getUnCaseAllTypeWarnings',
             payload: {
@@ -79,7 +79,7 @@ export default class CriminalCaseWarningCount extends PureComponent {
                     myChart.setOption({
                         legend: {
                             data: legendData,
-                            formatter: function(name) {
+                            formatter: function (name) {
                                 let formatStr = '';
                                 for (let i = 0; i < pieData.length; i++) {
                                     if (name === pieData[i].name) {
@@ -170,20 +170,22 @@ export default class CriminalCaseWarningCount extends PureComponent {
         };
         let that = this;
         myChart.setOption(option);
-        myChart.on('click', function(params) {
-            console.log('that.props.dep',that.props.dep)
-            that.props.dispatch(routerRedux.push({ pathname:'/newregister/newalarm/newalarmCriminal', state:{
-                code: that.props.dep ? that.props.dep : '',
-                kssj: that.props.selectDate[0] ? that.props.selectDate[0] : '',
-                jssj: that.props.selectDate[1] ? that.props.selectDate[1] : '',
-                wtlx_id: params.data.code ? params.data.code : '',
-            }}));
+        myChart.on('click', function (params) {
+            // console.log('that.props.dep',that.props.dep)
+            that.props.dispatch(routerRedux.push({
+                pathname: '/newregister/newalarm/newalarmCriminal', state: {
+                    code: that.props.dep ? that.props.dep : '',
+                    kssj: that.props.selectDate[0] ? that.props.selectDate[0] : '',
+                    jssj: that.props.selectDate[1] ? that.props.selectDate[1] : '',
+                    wtlx_id: params.data.code ? params.data.code : '',
+                }
+            }));
         });
     };
 
     render() {
         return (
-            <div id="CriminalCaseWarningCount" style={{ height: '100%', width: '100%' }}></div>
+            <div id="CriminalCaseWarningCount" style={{height: '100%', width: '100%'}}></div>
         );
     }
 }

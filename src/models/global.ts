@@ -39,6 +39,7 @@ export interface GlobalModelType {
     };
     subscriptions: { setup: Subscription };
 }
+
 let dark = cookie.load('dark') === 'false' ? false : true;
 const GlobalModel: GlobalModelType = {
     namespace: 'global',

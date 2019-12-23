@@ -1,8 +1,10 @@
 @import '~antd/lib/style/themes/default.less';
 @import '../../theme/darkTheme';
+
 body {
   //overflow: hidden !important;
 }
+
 .title {
   color: #fff;
   font-weight: bold;
@@ -930,6 +932,7 @@ body {
   height: 126px;
   padding: 12px;
   color: @white;
+
   .sawpName1 {
     width: 100%;
   }
@@ -975,7 +978,7 @@ body {
     }
 
     .ant-spin-container > .ant-list-item:last-child {
-      border-bottom: 0!important;
+      border-bottom: 0 !important;
     }
 
     .ant-list-item-content {
@@ -1135,82 +1138,100 @@ body {
   overflow-x: hidden;
   background: @component-background;
 }
-.ajlxBg{
- :global{
-   .ant-card-bordered{
-     background: @body-background;
-   }
-   .ant-card-head{
-     border-bottom: 1px solid @component-background;
-   }
-   .ant-card-body{
-     padding: 24px;
-   }
- }
-}
-.borderBottom{
-  border-bottom: 1px solid @body-background;
-  :global{
-    .ant-list-item:last-child {
-      border-bottom: 0!important;
+
+.ajlxBg {
+  :global {
+    .ant-card-bordered {
+      background: @body-background;
+    }
+
+    .ant-card-head {
+      border-bottom: 1px solid @component-background;
+    }
+
+    .ant-card-body {
+      padding: 24px;
     }
   }
 }
-.saxx{
-  :global{
-    .ant-card-head{
+
+.borderBottom {
+  border-bottom: 1px solid @body-background;
+
+  :global {
+    .ant-list-item:last-child {
+      border-bottom: 0 !important;
+    }
+  }
+}
+
+.saxx {
+  :global {
+    .ant-card-head {
       position: absolute;
       top: 5px;
     }
   }
 }
-.detailBoxLight{
-  :global{
-    .ant-card-head-title{
-      color: #3D63D1!important;
+
+.detailBoxLight {
+  :global {
+    .ant-card-head-title {
+      color: #3D63D1 !important;
     }
   }
+
   .gjxxName {
     color: #4D4D4D;
   }
 
-  .title{
+  .title {
     color: #3D63D1;
   }
-  .borderBottom{
+
+  .borderBottom {
     border-bottom: 1px solid #e6e6e6;
   }
+
   .colsImg {
     border: 1px solid #e6e6e6;
   }
+
   .gzxxTitle {
     background: #ebebeb;
     color: #4D4D4D;
   }
-  .sawpSee{
+
+  .sawpSee {
     background-color: #ebebeb;
-    border-top:1px solid #e6e6e6;
+    border-top: 1px solid #e6e6e6;
     color: #4662D5;
-    &:hover{
+
+    &:hover {
       color: #4662D5;
     }
   }
-  .ajlxBg{
-    :global{
-      .ant-steps-item-icon{
-        background-color: transparent!important;
-        border: 2px solid #4662d5!important;
+
+  .ajlxBg {
+    :global {
+      .ant-steps-item-icon {
+        background-color: transparent !important;
+        border: 2px solid #4662d5 !important;
       }
-      .ant-card-bordered{
+
+      .ant-card-bordered {
         background: #fafafa;
       }
-      .ant-card-head{
+
+      .ant-card-head {
         border-bottom: 1px solid #eeeeee;
       }
-      .ant-card-head-title{
-        color: #475568!important;
+
+      .ant-card-head-title {
+        color: #475568 !important;
       }
-      .ant-card-body{
+
+      .ant-card-body {
         padding: 24px;
       }
     }

@@ -3,11 +3,11 @@
 * author：jhm
 * 20181211
 * */
-import React, { PureComponent } from 'react';
-import { connect } from 'dva';
+import React, {PureComponent} from 'react';
+import {connect} from 'dva';
 import moment from 'moment/moment';
 import styles from './NewSCMDataShow.less';
-import { getTimeDistance } from '../../utils/utils';
+import {getTimeDistance} from '../../utils/utils';
 
 import headerLeftImg from '../../assets/show/header_left.png';
 import headerTitleImg from '../../assets/show/showTitle.png';
@@ -32,7 +32,7 @@ import CloseAndDetectionRate from '../../components/Show/bigScreenDisplay/CloseA
 
 import NewVideoShow from '../../components/Show/NewVideoShow';
 
-@connect(({ common, MySuperviseData, UnPoliceData, UnCaseData, UnXzCaseData, UnItemData, XzCaseData, areaData, CaseData, itemData, show }) => ({
+@connect(({common, MySuperviseData, UnPoliceData, UnCaseData, UnXzCaseData, UnItemData, XzCaseData, areaData, CaseData, itemData, show}) => ({
     UnXzCaseData,
     common,
     MySuperviseData,
@@ -108,7 +108,7 @@ export default class SCMDataShow extends PureComponent {
     };
     // 配置模块
     handleModuelChange = (type) => {
-        const { selectDate, shadeColors } = this.state;
+        const {selectDate, shadeColors} = this.state;
         switch (type) {
             case 'xzcf-sl': // 行政处罚数量
                 return <SCMAdministrativePenalty selectDate={selectDate} shadeColors={shadeColors} {...this.props}  />;
@@ -161,7 +161,7 @@ export default class SCMDataShow extends PureComponent {
     };
 
     render() {
-        const { nowTime, currentDateType, selectDate, shadeColors, position1, position2, position3, position4, position5, position6, position7, position8, position9, position10, position11 } = this.state;
+        const {nowTime, currentDateType, selectDate, shadeColors, position1, position2, position3, position4, position5, position6, position7, position8, position9, position10, position11} = this.state;
         return (
             <div className={styles.SCMDataShow}>
                 <div className={styles.header}>
@@ -200,7 +200,7 @@ export default class SCMDataShow extends PureComponent {
                         </div>
                     </div>
                     <div className={styles.wrapRight}>
-                        <div className={styles.globalCard} style={{ height: 620 }}>
+                        <div className={styles.globalCard} style={{height: 620}}>
                             {/*{this.handleModuelChange(position7)}*/}
                             <div className={styles.smallBlock}>
                                 <div className={styles.blockHeader}>

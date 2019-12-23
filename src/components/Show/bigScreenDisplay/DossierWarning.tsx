@@ -4,7 +4,7 @@
 * 20190116
 * */
 
-import React, { PureComponent } from 'react';
+import React, {PureComponent} from 'react';
 import echarts from 'echarts/lib/echarts';
 import pie from 'echarts/lib/chart/pie';
 import title from 'echarts/lib/component/title';
@@ -16,7 +16,7 @@ let myChart;
 export default class DossierWarning extends PureComponent {
 
     componentDidMount() {
-        const { selectDate, org, orgCode, orglist } = this.props;
+        const {selectDate, org, orgCode, orglist} = this.props;
         this.showEchart();
         this.getDossierWarning(selectDate[0], selectDate[1], org, orgCode, orglist);
         window.addEventListener('resize', myChart.resize);
@@ -32,7 +32,7 @@ export default class DossierWarning extends PureComponent {
 
     // 卷宗告警数量
     getDossierWarning = (startTime, endTime, org, orgCode, orglist) => {
-        const { shadeColors } = this.props;
+        const {shadeColors} = this.props;
         this.props.dispatch({
             type: 'show/getDossierWarning',
             payload: {
@@ -77,7 +77,7 @@ export default class DossierWarning extends PureComponent {
                     myChart.setOption({
                         legend: {
                             data: legendData,
-                            formatter: function(name) {
+                            formatter: function (name) {
                                 let formatStr = '';
                                 for (let i = 0; i < pieData.length; i++) {
                                     if (name === pieData[i].name) {
@@ -171,7 +171,7 @@ export default class DossierWarning extends PureComponent {
 
     render() {
         return (
-            <div id="DossierWarning" style={{ height: '100%', width: '100%' }}></div>
+            <div id="DossierWarning" style={{height: '100%', width: '100%'}}></div>
         );
     }
 }

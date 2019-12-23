@@ -3,14 +3,14 @@
 * author：lyp
 * 20180601
 * */
-import React, { PureComponent } from 'react';
-import { connect } from 'dva';
-import { Row, Col } from 'antd';
+import React, {PureComponent} from 'react';
+import {connect} from 'dva';
+import {Row, Col} from 'antd';
 import echarts from 'echarts/lib/echarts';
 import bar from 'echarts/lib/chart/bar';
 import styles from './ComponentStyles.less';
 import moment from 'moment/moment';
-import { getTimeDistance } from '../../utils/utils';
+import {getTimeDistance} from '../../utils/utils';
 
 let echartBar;
 
@@ -93,8 +93,8 @@ export default class EchartBar extends PureComponent {
                 // },
                 // z: 10,
                 data: [],
-                axisTick: { show: false },
-                axisLine: { show: false },
+                axisTick: {show: false},
+                axisLine: {show: false},
                 axisLabel: {
                     textStyle: {
                         color: '#fff',
@@ -103,10 +103,10 @@ export default class EchartBar extends PureComponent {
                 },
             },
             yAxis: {
-                axisLine: { show: false },
-                axisTick: { show: false },
-                axisLabel: { show: false },
-                splitLine: { show: false },
+                axisLine: {show: false},
+                axisTick: {show: false},
+                axisLabel: {show: false},
+                splitLine: {show: false},
             },
             series: [
                 {
@@ -136,11 +136,11 @@ export default class EchartBar extends PureComponent {
                             //         {offset: 1, color: '#005fec'}
                             //     ]
                             // )
-                            color: function(params) {
+                            color: function (params) {
                                 var normalColor = new echarts.graphic.LinearGradient(0, 0, 1, 0, [{
                                     offset: 0,
                                     color: '#00c6fa',
-                                }, { offset: 1, color: '#005fec' }]);
+                                }, {offset: 1, color: '#005fec'}]);
                                 return normalColor;
 
                             },
@@ -193,22 +193,22 @@ export default class EchartBar extends PureComponent {
     };
 
     render() {
-        const { nowTab } = this.state;
+        const {nowTab} = this.state;
         return (
             <div className={styles.componentBlock}>
                 <div className={styles.componentBlockHeader}>
-                    <span className={nowTab === 'all' ? styles.tabHeader : null} style={{ width: '20%' }}
+                    <span className={nowTab === 'all' ? styles.tabHeader : null} style={{width: '20%'}}
                           onClick={() => this.clickTab('all')}>全部</span>
-                    <span className={nowTab === 'today' ? styles.tabHeader : null} style={{ width: '20%' }}
+                    <span className={nowTab === 'today' ? styles.tabHeader : null} style={{width: '20%'}}
                           onClick={() => this.clickTab('today')}>本日</span>
-                    <span className={nowTab === 'week' ? styles.tabHeader : null} style={{ width: '20%' }}
+                    <span className={nowTab === 'week' ? styles.tabHeader : null} style={{width: '20%'}}
                           onClick={() => this.clickTab('week')}>本周</span>
-                    <span className={nowTab === 'month' ? styles.tabHeader : null} style={{ width: '20%' }}
+                    <span className={nowTab === 'month' ? styles.tabHeader : null} style={{width: '20%'}}
                           onClick={() => this.clickTab('month')}>本月</span>
-                    <span className={nowTab === 'year' ? styles.tabHeader : null} style={{ width: '20%' }}
+                    <span className={nowTab === 'year' ? styles.tabHeader : null} style={{width: '20%'}}
                           onClick={() => this.clickTab('year')}>本年</span>
                 </div>
-                <p id="echartBar" style={{ width: '100%', height: '90%' }}></p>
+                <p id="echartBar" style={{width: '100%', height: '90%'}}></p>
             </div>
         );
     }

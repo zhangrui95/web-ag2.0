@@ -4,7 +4,7 @@
 * 20181120
 * */
 
-import React, { PureComponent } from 'react';
+import React, {PureComponent} from 'react';
 import echarts from 'echarts/lib/echarts';
 import funnel from 'echarts/lib/chart/funnel';
 import title from 'echarts/lib/component/title';
@@ -14,7 +14,7 @@ let myChart;
 export default class CaseItemCount extends PureComponent {
 
     componentDidMount() {
-        const { selectDate, org, orgCode, orglist } = this.props;
+        const {selectDate, org, orgCode, orglist} = this.props;
         this.getCaseItemCount(selectDate[0], selectDate[1], org, orgCode, orglist);
         this.showEchart();
         window.addEventListener('resize', myChart.resize);
@@ -30,7 +30,7 @@ export default class CaseItemCount extends PureComponent {
 
     // 获取涉案物品数量
     getCaseItemCount = (startTime, endTime, org, orgCode, orglist) => {
-        const { shadeColors } = this.props;
+        const {shadeColors} = this.props;
         this.props.dispatch({
             type: 'itemData/itemDataView',
             payload: {
@@ -141,7 +141,7 @@ export default class CaseItemCount extends PureComponent {
                         normal: {
                             show: true,
                             position: 'inside',
-                            formatter: function(param) {
+                            formatter: function (param) {
                                 return param.value;
                             },
                         },
@@ -165,7 +165,7 @@ export default class CaseItemCount extends PureComponent {
 
     render() {
         return (
-            <div id="CaseItemCount" style={{ height: '100%', width: '100%' }}></div>
+            <div id="CaseItemCount" style={{height: '100%', width: '100%'}}></div>
         );
     }
 }

@@ -1,16 +1,16 @@
-import React, { PureComponent } from 'react';
-import { Modal, Form, Input, Select, message, Button, Spin, DatePicker, Row, Col } from 'antd';
+import React, {PureComponent} from 'react';
+import {Modal, Form, Input, Select, message, Button, Spin, DatePicker, Row, Col} from 'antd';
 import moment from 'moment';
 import Ellipsis from 'ant-design-pro/lib/Ellipsis';
 import styles from './ShareModal.less';
-import { connect } from 'dva';
-import { getUserInfos } from '../../utils/utils';
+import {connect} from 'dva';
+import {getUserInfos} from '../../utils/utils';
 
-const { TextArea } = Input;
+const {TextArea} = Input;
 const Option = Select.Option;
 const FormItem = Form.Item;
 
-@connect(({ share }) => ({
+@connect(({share}) => ({
     share,
 }))
 class RetrieveModal extends PureComponent {
@@ -35,7 +35,7 @@ class RetrieveModal extends PureComponent {
     handleOk = () => {
         this.props.form.validateFields((err, values) => {
             if (!err) {
-                const { RetrieveRecord } = this.props;
+                const {RetrieveRecord} = this.props;
                 this.props.dispatch({
                     type: 'share/getTb',
                     payload: {
@@ -58,7 +58,7 @@ class RetrieveModal extends PureComponent {
     // 无法选择的日期
     disabledDate = (current) => {
         // Can not select days before today and today
-        const { RetrieveRecord: { tbrq1, qsrq } } = this.props;
+        const {RetrieveRecord: {tbrq1, qsrq}} = this.props;
         if (tbrq1) return current && (current > moment().endOf('day') || current < moment(tbrq1));
         return current && (current > moment().endOf('day') || current < moment(qsrq)); // 退补日期必须小于移送起诉日期
     };
@@ -66,27 +66,27 @@ class RetrieveModal extends PureComponent {
     render() {
         const formItemLayout = {
             labelCol: {
-                xs: { span: 3 },
-                sm: { span: 3 },
+                xs: {span: 3},
+                sm: {span: 3},
             },
             wrapperCol: {
-                xs: { span: 20 },
-                sm: { span: 20 },
+                xs: {span: 20},
+                sm: {span: 20},
             },
         };
-        const rowLayout = { md: 8, xl: 16, xxl: 24 };
-        const colLayout = { sm: 24, md: 12, xl: 8 };
+        const rowLayout = {md: 8, xl: 16, xxl: 24};
+        const colLayout = {sm: 24, md: 12, xl: 8};
         const children = [];
         if (this.state.personList && this.state.personList.length > 0) {
             this.state.personList.map((event, idx) => {
                 if (event.idcard !== getUserInfos().idCard) {
                     children.push(<Option key={event.idcard} label={event.depname}><span>{event.name}</span><span
-                        style={{ color: '#ccc' }}>&nbsp;&nbsp;{event.depname}</span><span
-                        style={{ display: 'none' }}>{event.department}</span></Option>);
+                        style={{color: '#ccc'}}>&nbsp;&nbsp;{event.depname}</span><span
+                        style={{display: 'none'}}>{event.department}</span></Option>);
                 }
             });
         }
-        const { form: { getFieldDecorator }, RetrieveVisible, handleCancel, RetrieveRecord,tbDetail } = this.props;
+        const {form: {getFieldDecorator}, RetrieveVisible, handleCancel, RetrieveRecord, tbDetail} = this.props;
         return (
             <div className={styles.standardTable}>
                 <Modal
@@ -98,7 +98,7 @@ class RetrieveModal extends PureComponent {
                     // confirmLoading={this.state.btnLoading}
                     width={900}
                     maskClosable={false}
-                    style={{ top: '250px' }}
+                    style={{top: '250px'}}
                 >
                     <Row style={{
                         width: '90%',
@@ -114,10 +114,11 @@ class RetrieveModal extends PureComponent {
                         <Col span={12}>
                             办案单位：
                             <Ellipsis length={20}
-                                      tooltip>{RetrieveRecord && RetrieveRecord.bardwmc ? RetrieveRecord.bardwmc : tbDetail && tbDetail.bardwmc ?  tbDetail.bardwmc : ''}</Ellipsis>
+                                      tooltip>{RetrieveRecord && RetrieveRecord.bardwmc ? RetrieveRecord.bardwmc : tbDetail && tbDetail.bardwmc ? tbDetail.bardwmc : ''}</Ellipsis>
                         </Col>
                         <Col span={12}>案件状态：{RetrieveRecord && RetrieveRecord.ajzt ? RetrieveRecord.ajzt : ''}</Col>
-                        <Col span={12}>办案民警：{RetrieveRecord && RetrieveRecord.barxm ? RetrieveRecord.barxm : tbDetail && tbDetail.barxm ?  tbDetail.barxm : ''}</Col>
+                        <Col
+                            span={12}>办案民警：{RetrieveRecord && RetrieveRecord.barxm ? RetrieveRecord.barxm : tbDetail && tbDetail.barxm ? tbDetail.barxm : ''}</Col>
                     </Row>
                     <Form>
                         <FormItem {...formItemLayout} label="退补日期">
@@ -131,7 +132,7 @@ class RetrieveModal extends PureComponent {
                             })(
                                 <DatePicker
                                     disabledDate={this.disabledDate}
-                                    style={{ width: '40%' }}
+                                    style={{width: '40%'}}
                                     // showTime={{ format: 'HH:mm:ss' }}
                                     // format="YYYY-MM-DD HH:mm:ss"
                                 />,

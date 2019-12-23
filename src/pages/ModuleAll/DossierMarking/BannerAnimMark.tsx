@@ -1,7 +1,7 @@
 // banner动效
 //2018-11-19
-import React, { PureComponent } from 'react';
-import BannerAnim, { Element } from 'rc-banner-anim';
+import React, {PureComponent} from 'react';
+import BannerAnim, {Element} from 'rc-banner-anim';
 
 const BgElement = Element.BgElement;
 import 'rc-banner-anim/assets/index.css';
@@ -76,7 +76,7 @@ class BannerAnimMark extends PureComponent {
         if (imgArray && imgArray.length > 0) {
             for (let i = 0; i < imgArray.length; i++) {
                 showCurret.push(
-                    <Element key={'ele' + i} style={{ textAlign: 'center' }}>
+                    <Element key={'ele' + i} style={{textAlign: 'center'}}>
                         <BgElement
                             key="bg"
                             className="bg"
@@ -124,7 +124,7 @@ class BannerAnimMark extends PureComponent {
                     prefixCls="banner-user"
                     type='acrossOverlay'
                     thumb={false}
-                    style={{ height: '860px' }}
+                    style={{height: '860px'}}
                     onChange={this.photoChange}
                     // initShow={0}
                     // slickGoTo={()=>this.slickGoTo(3)}

@@ -4,7 +4,7 @@
 * 20181120
 * */
 
-import React, { PureComponent } from 'react';
+import React, {PureComponent} from 'react';
 import echarts from 'echarts/lib/echarts';
 import pictorialBar from 'echarts/lib/chart/pictorialBar';
 import title from 'echarts/lib/component/title';
@@ -15,7 +15,7 @@ const spirit = 'image://data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFoAAABaCA
 export default class PersonCount extends PureComponent {
 
     componentDidMount() {
-        const { selectDate, org, orgCode, orglist } = this.props;
+        const {selectDate, org, orgCode, orglist} = this.props;
         this.getPersonCount(selectDate[0], selectDate[1], org, orgCode, orglist);
         this.showEchart();
         window.addEventListener('resize', myChart.resize);
@@ -88,7 +88,7 @@ export default class PersonCount extends PureComponent {
                 },
             },
             xAxis: {
-                splitLine: { show: false },
+                splitLine: {show: false},
                 axisLine: {
                     show: false,
                 },
@@ -102,8 +102,8 @@ export default class PersonCount extends PureComponent {
             yAxis: {
                 data: [],
                 inverse: true,
-                axisTick: { show: false },
-                axisLine: { show: false },
+                axisTick: {show: false},
+                axisLine: {show: false},
                 axisLabel: {
                     margin: 10,
                     textStyle: {
@@ -139,7 +139,7 @@ export default class PersonCount extends PureComponent {
                 label: {
                     normal: {
                         show: true,
-                        formatter: function(params) {
+                        formatter: function (params) {
                             return params.value;
                         },
                         position: 'right',
@@ -164,7 +164,7 @@ export default class PersonCount extends PureComponent {
 
     render() {
         return (
-            <div id="PersonCount" style={{ height: '100%', width: '100%' }}></div>
+            <div id="PersonCount" style={{height: '100%', width: '100%'}}></div>
         );
     }
 }

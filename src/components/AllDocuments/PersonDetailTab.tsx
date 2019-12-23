@@ -3,7 +3,7 @@
 * author：lyp
 * 20180123
 * */
-import React, { PureComponent } from 'react';
+import React, {PureComponent} from 'react';
 import {Tabs, Row, Col, Table, List, Steps, Tooltip, Empty} from 'antd';
 import Ellipsis from 'ant-design-pro/lib/Ellipsis';
 import styles from './personDetailTab.less';
@@ -46,24 +46,31 @@ export default class PersonDetailTab extends PureComponent {
                 pagination={tarList.length > 0 ? {
                     size: 'small',
                     pageSize: 8,
-                    showTotal: (total, range) => <div style={{ position: 'absolute', left: '12px',color:this.props.global&&this.props.global.dark ? '#fff':'#e6e6e6' }}>共 {total} 条记录
+                    showTotal: (total, range) => <div style={{
+                        position: 'absolute',
+                        left: '12px',
+                        color: this.props.global && this.props.global.dark ? '#fff' : '#e6e6e6'
+                    }}>共 {total} 条记录
                         第 {this.state.gjCurrent} / {(Math.ceil(total / 8))} 页</div>,
                     onChange: (page) => {
-                        this.setState({ gjCurrent: page });
+                        this.setState({gjCurrent: page});
                     },
                 } : null}
                 dataSource={tarList}
-                locale={{ emptyText: <Empty image={this.props.global&&this.props.global.dark ? noList : noListLight} description={'暂无数据'} /> }}
+                locale={{
+                    emptyText: <Empty image={this.props.global && this.props.global.dark ? noList : noListLight}
+                                      description={'暂无数据'}/>
+                }}
                 grid={{
                     gutter: 16, xs: 1, sm: 2, md: 4, lg: 4,
                 }}
                 className={styles.listItem}
-                style={{ color: '#faa' }}
+                style={{color: '#faa'}}
                 renderItem={item => (
                     <List.Item>
                         <div className={styles.blueItems}>
                             <div className={styles.listItemContents}>
-                                <Row style={{ padding: '10px' }}>
+                                <Row style={{padding: '10px'}}>
                                     <Col span={12}>姓名：{item.name}</Col>
                                     <Col span={8}>性别：{item.sex}</Col>
                                     <Col span={4}>
@@ -71,7 +78,7 @@ export default class PersonDetailTab extends PureComponent {
                                             className={item.xszk_name && item.xszk_name === '在逃' ? styles.tag : styles.tagBlue}>{item.xszk_name ? item.xszk_name : '未知'}</span>
                                     </Col>
                                 </Row>
-                                <Row style={{ padding: '10px' }}>
+                                <Row style={{padding: '10px'}}>
                                     <Col span={24}>证件号：{item.xyr_sfzh}</Col>
                                 </Row>
                             </div>
@@ -93,19 +100,26 @@ export default class PersonDetailTab extends PureComponent {
                 pagination={sawpList.length > 0 ? {
                     size: 'small',
                     pageSize: 8,
-                    showTotal: (total, range) => <div style={{ position: 'absolute', left: '12px',color:this.props.global&&this.props.global.dark ? '#fff':'#e6e6e6' }}>共 {total} 条记录
+                    showTotal: (total, range) => <div style={{
+                        position: 'absolute',
+                        left: '12px',
+                        color: this.props.global && this.props.global.dark ? '#fff' : '#e6e6e6'
+                    }}>共 {total} 条记录
                         第 {this.state.sawpCurrent} / {(Math.ceil(total / 8))} 页</div>,
                     onChange: (page) => {
-                        this.setState({ sawpCurrent: page });
+                        this.setState({sawpCurrent: page});
                     },
                 } : null}
-                locale={{ emptyText: <Empty image={this.props.global&&this.props.global.dark ? noList : noListLight} description={'暂无数据'} /> }}
+                locale={{
+                    emptyText: <Empty image={this.props.global && this.props.global.dark ? noList : noListLight}
+                                      description={'暂无数据'}/>
+                }}
                 dataSource={sawpList}
                 grid={{
                     gutter: 32, xs: 1, sm: 2, md: 4, lg: 4,
                 }}
                 className={styles.listItem}
-                style={{ color: '#faa' }}
+                style={{color: '#faa'}}
                 renderItem={item => (
                     <List.Item>
                         <div className={styles.whiteItems}>
@@ -116,10 +130,10 @@ export default class PersonDetailTab extends PureComponent {
                                 </div>
                                 <div className={styles.sawpName}>
                                     <div className={styles.sawpName1}>物品名称：<Tooltip
-                                        overlayStyle={{ wordBreak: 'break-all' }}
+                                        overlayStyle={{wordBreak: 'break-all'}}
                                         title={item.wpmc}>{item.wpmc}</Tooltip></div>
                                     <div className={styles.sawpName1}>物品种类：<Tooltip
-                                        overlayStyle={{ wordBreak: 'break-all' }}
+                                        overlayStyle={{wordBreak: 'break-all'}}
                                         title={item.wpzlMc}>{item.wpzlMc}</Tooltip></div>
                                 </div>
                             </div>
@@ -134,9 +148,9 @@ export default class PersonDetailTab extends PureComponent {
     };
 
     render() {
-        const { caseData } = this.props;
-        console.log('caseData',caseData);
-        const { oWidth } = this.state;
+        const {caseData} = this.props;
+        // console.log('caseData',caseData);
+        const {oWidth} = this.state;
         // 同案人表头
         const rqColumns = [
             {
@@ -255,9 +269,9 @@ export default class PersonDetailTab extends PureComponent {
                 dataIndex: 'jlry',
             },
         ];
-        let personTabLight = this.props.global&&this.props.global.dark ? styles.personTab : styles.personTab + ' ' + styles.lightBox;
+        let personTabLight = this.props.global && this.props.global.dark ? styles.personTab : styles.personTab + ' ' + styles.lightBox;
         return (
-            <div style={{ padding: 16 }} className={personTabLight} ref="stepRef">
+            <div style={{padding: 16}} className={personTabLight} ref="stepRef">
                 <div className={styles.NameShow}>
                     <Tabs type="card" tabBarGutter={0} className='tabName'>
                         <TabPane tab={caseData.ajmc} key="1" forceRender className='Namesaxx1'>
@@ -270,7 +284,7 @@ export default class PersonDetailTab extends PureComponent {
                                                     caseData.system_id && caseData.ajlx ? (
                                                         <a
                                                             onClick={() => this.props.openCaseDetail(caseData)}
-                                                            style={{ textDecoration: 'underline' }}
+                                                            style={{textDecoration: 'underline'}}
                                                         >
                                                             {caseData.ajbh}
                                                         </a>
@@ -330,18 +344,26 @@ export default class PersonDetailTab extends PureComponent {
                                     <Col md={24} sm={24}>
                                         <Table
                                             bordered
-                                            style={{ backgroundColor: '#fff' }}
+                                            style={{backgroundColor: '#fff'}}
                                             pagination={{
                                                 pageSize: 3,
                                                 showTotal: (total, range) => <div
-                                                    style={{ position: 'absolute', left: '-150px',color:this.props.global&&this.props.global.dark ? '#fff':'#e6e6e6' }}>共 {total} 条记录
+                                                    style={{
+                                                        position: 'absolute',
+                                                        left: '-150px',
+                                                        color: this.props.global && this.props.global.dark ? '#fff' : '#e6e6e6'
+                                                    }}>共 {total} 条记录
                                                     第 {this.state.rqCurrent} / {(Math.ceil(total / 3))} 页</div>,
                                                 onChange: (page) => {
-                                                    this.setState({ rqCurrent: page });
+                                                    this.setState({rqCurrent: page});
                                                 },
                                             }}
                                             dataSource={caseData.rqList || []}
-                                            locale={{ emptyText: <Empty image={this.props.global&&this.props.global.dark ? noList : noListLight} description={'暂无数据'} /> }}
+                                            locale={{
+                                                emptyText: <Empty
+                                                    image={this.props.global && this.props.global.dark ? noList : noListLight}
+                                                    description={'暂无数据'}/>
+                                            }}
                                             columns={rqColumns}
                                         />
                                     </Col>
@@ -379,19 +401,27 @@ export default class PersonDetailTab extends PureComponent {
                             <div className={styles.tabDiv}>
                                 <Table
                                     bordered
-                                    style={{ backgroundColor: '#fff' }}
+                                    style={{backgroundColor: '#fff'}}
                                     pagination={{
                                         pageSize: 3,
                                         showTotal: (total, range) => <div
-                                            style={{ position: 'absolute', left: '-150px',color:this.props.global&&this.props.global.dark ? '#fff':'#e6e6e6' }}>共 {total} 条记录
+                                            style={{
+                                                position: 'absolute',
+                                                left: '-150px',
+                                                color: this.props.global && this.props.global.dark ? '#fff' : '#e6e6e6'
+                                            }}>共 {total} 条记录
                                             第 {this.state.sswpCurrent} / {(Math.ceil(total / 3))} 页</div>,
                                         onChange: (page) => {
-                                            this.setState({ sswpCurrent: page });
+                                            this.setState({sswpCurrent: page});
                                         },
                                     }}
                                     dataSource={caseData.sswpList || []}
                                     columns={sswpColumns}
-                                    locale={{ emptyText: <Empty image={this.props.global&&this.props.global.dark ? noList : noListLight} description={'暂无数据'} /> }}
+                                    locale={{
+                                        emptyText: <Empty
+                                            image={this.props.global && this.props.global.dark ? noList : noListLight}
+                                            description={'暂无数据'}/>
+                                    }}
                                 />
                             </div>
                         </TabPane>
@@ -404,17 +434,25 @@ export default class PersonDetailTab extends PureComponent {
                             <div className={styles.tabDiv}>
                                 <Table
                                     bordered
-                                    style={{ backgroundColor: '#fff' }}
+                                    style={{backgroundColor: '#fff'}}
                                     pagination={{
                                         pageSize: 3,
                                         showTotal: (total, range) => <div
-                                            style={{ position: 'absolute', left: '-150px',color:this.props.global&&this.props.global.dark ? '#fff':'#e6e6e6' }}>共 {total} 条记录
+                                            style={{
+                                                position: 'absolute',
+                                                left: '-150px',
+                                                color: this.props.global && this.props.global.dark ? '#fff' : '#e6e6e6'
+                                            }}>共 {total} 条记录
                                             第 {this.state.jzCurrent} / {(Math.ceil(total / 3))} 页</div>,
                                         onChange: (page) => {
-                                            this.setState({ jzCurrent: page });
+                                            this.setState({jzCurrent: page});
                                         },
                                     }}
-                                    locale={{ emptyText: <Empty image={this.props.global&&this.props.global.dark ? noList : noListLight} description={'暂无数据'} /> }}
+                                    locale={{
+                                        emptyText: <Empty
+                                            image={this.props.global && this.props.global.dark ? noList : noListLight}
+                                            description={'暂无数据'}/>
+                                    }}
                                     dataSource={caseData ? caseData.jzList : []}
                                     columns={JzColumns}
                                 />
@@ -422,9 +460,9 @@ export default class PersonDetailTab extends PureComponent {
                         </TabPane>
                     </Tabs>
                 </div>
-                <div className='NameHide' style={{ display: 'none' }}>
+                <div className='NameHide' style={{display: 'none'}}>
                     <div className='tabDiv1'>
-                        <div style={{ border: '1px solid #ccc', lineHeight: '32px' }}>{caseData.ajmc}</div>
+                        <div style={{border: '1px solid #ccc', lineHeight: '32px'}}>{caseData.ajmc}</div>
                         <div className={styles.tabDiv}>
                             <Row className={styles.contentRow}>
                                 <Col md={6} sm={24}>
@@ -434,7 +472,7 @@ export default class PersonDetailTab extends PureComponent {
                                                 caseData.system_id && caseData.ajlx ? (
                                                     <a
                                                         onClick={() => this.props.openCaseDetail(caseData)}
-                                                        style={{ textDecoration: 'underline' }}
+                                                        style={{textDecoration: 'underline'}}
                                                     >
                                                         {caseData.ajbh}
                                                     </a>
@@ -490,23 +528,31 @@ export default class PersonDetailTab extends PureComponent {
                     </div>
 
                     <div className='tabDiv2'>
-                        <div style={{ border: '1px solid #ccc', lineHeight: '32px' }}>历史入区信息</div>
+                        <div style={{border: '1px solid #ccc', lineHeight: '32px'}}>历史入区信息</div>
                         <div className={styles.tabDiv}>
                             <Row className={styles.contentRow}>
                                 <Col md={24} sm={24}>
                                     <Table
                                         bordered
-                                        style={{ backgroundColor: '#fff' }}
+                                        style={{backgroundColor: '#fff'}}
                                         pagination={{
                                             pageSize: 3,
                                             showTotal: (total, range) => <div
-                                                style={{ position: 'absolute', left: '-150px',color:this.props.global&&this.props.global.dark ? '#fff':'#e6e6e6' }}>共 {total} 条记录
+                                                style={{
+                                                    position: 'absolute',
+                                                    left: '-150px',
+                                                    color: this.props.global && this.props.global.dark ? '#fff' : '#e6e6e6'
+                                                }}>共 {total} 条记录
                                                 第 {this.state.rqCurrent} / {(Math.ceil(total / 3))} 页</div>,
                                             onChange: (page) => {
-                                                this.setState({ rqCurrent: page });
+                                                this.setState({rqCurrent: page});
                                             },
                                         }}
-                                        locale={{ emptyText: <Empty image={this.props.global&&this.props.global.dark ? noList : noListLight} description={'暂无数据'} /> }}
+                                        locale={{
+                                            emptyText: <Empty
+                                                image={this.props.global && this.props.global.dark ? noList : noListLight}
+                                                description={'暂无数据'}/>
+                                        }}
                                         dataSource={caseData.rqList || []}
                                         columns={rqColumns}
                                     />
@@ -516,14 +562,14 @@ export default class PersonDetailTab extends PureComponent {
                     </div>
 
                     <div className='tabDiv3'>
-                        <div style={{ border: '1px solid #ccc', lineHeight: '32px' }}>同案人</div>
+                        <div style={{border: '1px solid #ccc', lineHeight: '32px'}}>同案人</div>
                         <div className={styles.tabDiv}>
                             {this.showTarList(caseData.tarList || [])}
                         </div>
                     </div>
 
                     <div className='tabDiv4'>
-                        <div style={{ border: '1px solid #ccc', lineHeight: '32px' }}>行政处罚记录</div>
+                        <div style={{border: '1px solid #ccc', lineHeight: '32px'}}>行政处罚记录</div>
                         {
                             oWidth ? (
                                 <PunishTimeLine
@@ -535,7 +581,7 @@ export default class PersonDetailTab extends PureComponent {
                     </div>
 
                     <div className='tabDiv5'>
-                        <div style={{ border: '1px solid #ccc', lineHeight: '32px' }}>强制措施记录</div>
+                        <div style={{border: '1px solid #ccc', lineHeight: '32px'}}>强制措施记录</div>
                         {
                             oWidth ? (
                                 <PunishTimeLine
@@ -547,21 +593,29 @@ export default class PersonDetailTab extends PureComponent {
                     </div>
 
                     <div className='tabDiv6'>
-                        <div style={{ border: '1px solid #ccc', lineHeight: '32px' }}>随身物品</div>
+                        <div style={{border: '1px solid #ccc', lineHeight: '32px'}}>随身物品</div>
                         <div className={styles.tabDiv}>
                             <Table
                                 bordered
-                                style={{ backgroundColor: '#fff' }}
+                                style={{backgroundColor: '#fff'}}
                                 pagination={{
                                     pageSize: 3,
                                     showTotal: (total, range) => <div
-                                        style={{ position: 'absolute', left: '-150px',color:this.props.global&&this.props.global.dark ? '#fff':'#e6e6e6' }}>共 {total} 条记录
+                                        style={{
+                                            position: 'absolute',
+                                            left: '-150px',
+                                            color: this.props.global && this.props.global.dark ? '#fff' : '#e6e6e6'
+                                        }}>共 {total} 条记录
                                         第 {this.state.sswpCurrent} / {(Math.ceil(total / 3))} 页</div>,
                                     onChange: (page) => {
-                                        this.setState({ sswpCurrent: page });
+                                        this.setState({sswpCurrent: page});
                                     },
                                 }}
-                                locale={{ emptyText: <Empty image={this.props.global&&this.props.global.dark ? noList : noListLight} description={'暂无数据'} /> }}
+                                locale={{
+                                    emptyText: <Empty
+                                        image={this.props.global && this.props.global.dark ? noList : noListLight}
+                                        description={'暂无数据'}/>
+                                }}
                                 dataSource={caseData.sswpList || []}
                                 columns={sswpColumns}
                             />
@@ -569,28 +623,36 @@ export default class PersonDetailTab extends PureComponent {
                     </div>
 
                     <div className='tabDiv7'>
-                        <div style={{ border: '1px solid #ccc', lineHeight: '32px' }}>涉案物品</div>
+                        <div style={{border: '1px solid #ccc', lineHeight: '32px'}}>涉案物品</div>
                         <div className={styles.tabDiv}>
                             {this.showSawpList(caseData.sawpList || [])}
                         </div>
                     </div>
 
                     <div className='tabDiv8'>
-                        <div style={{ border: '1px solid #ccc', lineHeight: '32px' }}>相关卷宗</div>
+                        <div style={{border: '1px solid #ccc', lineHeight: '32px'}}>相关卷宗</div>
                         <div className={styles.tabDiv}>
                             <Table
                                 bordered
-                                style={{ backgroundColor: '#fff' }}
+                                style={{backgroundColor: '#fff'}}
                                 pagination={{
                                     pageSize: 3,
                                     showTotal: (total, range) => <div
-                                        style={{ position: 'absolute', left: '-150px',color:this.props.global&&this.props.global.dark ? '#fff':'#e6e6e6' }}>共 {total} 条记录
+                                        style={{
+                                            position: 'absolute',
+                                            left: '-150px',
+                                            color: this.props.global && this.props.global.dark ? '#fff' : '#e6e6e6'
+                                        }}>共 {total} 条记录
                                         第 {this.state.jzCurrent} / {(Math.ceil(total / 3))} 页</div>,
                                     onChange: (page) => {
-                                        this.setState({ jzCurrent: page });
+                                        this.setState({jzCurrent: page});
                                     },
                                 }}
-                                locale={{ emptyText: <Empty image={this.props.global&&this.props.global.dark ? noList : noListLight} description={'暂无数据'} /> }}
+                                locale={{
+                                    emptyText: <Empty
+                                        image={this.props.global && this.props.global.dark ? noList : noListLight}
+                                        description={'暂无数据'}/>
+                                }}
                                 dataSource={caseData ? caseData.jzList : []}
                                 columns={JzColumns}
                             />

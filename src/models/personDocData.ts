@@ -15,7 +15,7 @@ export default {
 
     effects: {
         // 综述
-        * getPersonData({ payload, callback }, { call, put }) {
+        * getPersonData({payload, callback}, {call, put}) {
             const response = yield call(personDocDataService.getPersonData, payload);
             yield put({
                 type: 'setPersonData',

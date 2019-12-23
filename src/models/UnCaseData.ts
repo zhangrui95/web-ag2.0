@@ -6,7 +6,7 @@ import {
     AllDetailPersonDatas,
     getUnCaseAllTypeWarnings,
 } from '../services/UnCaseData';
-import { getNewAddWarnings } from '../services/UnPoliceData';
+import {getNewAddWarnings} from '../services/UnPoliceData';
 
 export default {
     namespace: 'UnCaseData',
@@ -22,7 +22,7 @@ export default {
     },
 
     effects: {
-        * UnCaseFetch({ payload, callback }, { call, put }) {
+        * UnCaseFetch({payload, callback}, {call, put}) {
             yield put({
                 type: 'changeLoading',
                 payload: true,
@@ -36,11 +36,11 @@ export default {
                 type: 'changeLoading',
                 payload: false,
             });
-            if (callback && response && !response.error&& response.data) {
+            if (callback && response && !response.error && response.data) {
                 callback(response.data);
             }
         },
-        * UnCaseDetailFetch({ payload, callback }, { call, put }) {
+        * UnCaseDetailFetch({payload, callback}, {call, put}) {
             yield put({
                 type: 'changeLoading',
                 payload: true,
@@ -54,34 +54,34 @@ export default {
                 type: 'changeLoading',
                 payload: false,
             });
-            if (callback && response && !response.error&& response.data) {
+            if (callback && response && !response.error && response.data) {
                 callback(response.data);
             }
         },
         // 保存督办
-        * SureSupervise({ payload, callback }, { call, put }) {
+        * SureSupervise({payload, callback}, {call, put}) {
             const response = yield call(SuperviseMessage, payload);
             yield put({
                 type: 'CaseSupervise',
                 payload: response && response.error === null ? response.data : {},
             });
-            if (callback && response && !response.error&& response.data) {
+            if (callback && response && !response.error && response.data) {
                 callback(response.data);
             }
         },
         // 确认整改完成
-        * sureRefomFetch({ payload, callback }, { call, put }) {
+        * sureRefomFetch({payload, callback}, {call, put}) {
             const response = yield call(SureRefomMessage, payload);
             yield put({
                 type: 'SureRefomSupervise',
                 payload: response && response.error === null ? response.data : {},
             });
-            if (callback && response && !response.error&& response.data) {
+            if (callback && response && !response.error && response.data) {
                 callback(response.data);
             }
         },
         // 获取人员档案
-        * AllDetailPersonFetch({ payload, callback }, { call, put }) {
+        * AllDetailPersonFetch({payload, callback}, {call, put}) {
             yield put({
                 type: 'changeLoading',
                 payload: true,
@@ -95,24 +95,24 @@ export default {
                 type: 'changeLoading',
                 payload: false,
             });
-            if (callback && response && !response.error&& response.data) {
+            if (callback && response && !response.error && response.data) {
                 callback(response.data);
             }
         },
-        * getUnCaseByProblemId({ payload, callback }, { call, put }) {
+        * getUnCaseByProblemId({payload, callback}, {call, put}) {
             const response = yield call(UncaseDatas, payload);
-            if (callback && response && !response.error&& response.data) {
+            if (callback && response && !response.error && response.data) {
                 callback(response.data);
             }
         },
         // 新增告警图表
-        * getUnCaseAllTypeWarnings({ payload, callback }, { call, put }) {
+        * getUnCaseAllTypeWarnings({payload, callback}, {call, put}) {
             const response = yield call(getUnCaseAllTypeWarnings, payload);
             yield put({
                 type: 'setUnCaseAllTypeWarnings',
                 payload: response && response.error === null ? response.data : {},
             });
-            if (callback && response && !response.error&& response.data) {
+            if (callback && response && !response.error && response.data) {
                 callback(response.data);
             }
         },

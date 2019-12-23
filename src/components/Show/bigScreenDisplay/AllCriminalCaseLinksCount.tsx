@@ -4,7 +4,7 @@
 * 20181207
 * */
 
-import React, { PureComponent } from 'react';
+import React, {PureComponent} from 'react';
 import echarts from 'echarts/lib/echarts';
 import bar from 'echarts/lib/chart/bar';
 import title from 'echarts/lib/component/title';
@@ -16,7 +16,7 @@ const colors = ['#05c1ca', '#15bbcb', '#33a7d0', '#5393d3', '#6d81d8', '#896ddc'
 
 export default class AllCriminalCaseLinksCount extends PureComponent {
     componentDidMount() {
-        const { selectDate, org, orgCode, orglist } = this.props;
+        const {selectDate, org, orgCode, orglist} = this.props;
         this.getAllCriminalCaseLinksCount(selectDate[0], selectDate[1], org, orgCode, orglist);
         this.showEchart();
         window.addEventListener('resize', myChart.resize);
@@ -32,7 +32,7 @@ export default class AllCriminalCaseLinksCount extends PureComponent {
 
     // 获取警情来源数据
     getAllCriminalCaseLinksCount = (startTime, endTime, org, orgCode, orglist) => {
-        const { shadeColors } = this.props;
+        const {shadeColors} = this.props;
         this.props.dispatch({
             type: 'CaseData/getAllCaseProgress',
             payload: {
@@ -146,7 +146,7 @@ export default class AllCriminalCaseLinksCount extends PureComponent {
                         normal: {
                             show: true,
                             position: 'inside',
-                            formatter: function(param) {
+                            formatter: function (param) {
                                 return param.value;
                             },
                         },
@@ -171,7 +171,7 @@ export default class AllCriminalCaseLinksCount extends PureComponent {
 
     render() {
         return (
-            <div id="AllCriminalCaseLinksCount" style={{ height: '100%', width: '100%' }}></div>
+            <div id="AllCriminalCaseLinksCount" style={{height: '100%', width: '100%'}}></div>
         );
     }
 }

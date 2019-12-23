@@ -1,19 +1,19 @@
-import React, { PureComponent } from 'react';
-import { Modal, Form, Input, Select, message, Button, Spin, DatePicker, Row, Col,Card } from 'antd';
+import React, {PureComponent} from 'react';
+import {Modal, Form, Input, Select, message, Button, Spin, DatePicker, Row, Col, Card} from 'antd';
 import moment from 'moment';
 import Ellipsis from 'ant-design-pro/lib/Ellipsis';
 import styles from './RetrieveModal.less';
-import { connect } from 'dva';
-import { getUserInfos } from '../../utils/utils';
+import {connect} from 'dva';
+import {getUserInfos} from '../../utils/utils';
 import {NavigationItem} from "@/components/Navigation/navigation";
 import {routerRedux} from "dva/router";
 
-const { TextArea } = Input;
+const {TextArea} = Input;
 const Option = Select.Option;
 const FormItem = Form.Item;
 
-@connect(({ share,global }) => ({
-    share,global
+@connect(({share, global}) => ({
+    share, global
 }))
 class RetrieveModal extends PureComponent {
     constructor(props, context) {
@@ -38,7 +38,7 @@ class RetrieveModal extends PureComponent {
         this.props.form.validateFields((err, values) => {
             if (!err) {
                 let RetrieveRecord = this.props.location.query.record;
-                if(typeof RetrieveRecord == 'string'){
+                if (typeof RetrieveRecord == 'string') {
                     RetrieveRecord = JSON.parse(sessionStorage.getItem('query')).query.record;
                 }
                 this.props.dispatch({
@@ -64,7 +64,7 @@ class RetrieveModal extends PureComponent {
     disabledDate = (current) => {
         // Can not select days before today and today
         let RetrieveRecord = this.props.location.query.record;
-        if(typeof RetrieveRecord == 'string'){
+        if (typeof RetrieveRecord == 'string') {
             RetrieveRecord = JSON.parse(sessionStorage.getItem('query')).query.record;
         }
         if (RetrieveRecord.tbrq1) return current && (current > moment().endOf('day') || current < moment(RetrieveRecord.tbrq1));
@@ -73,16 +73,19 @@ class RetrieveModal extends PureComponent {
 
     onEdit = async (isReset) => {
         let RetrieveRecord = this.props.location.query.record;
-        if(typeof RetrieveRecord == 'string'){
+        if (typeof RetrieveRecord == 'string') {
             RetrieveRecord = JSON.parse(sessionStorage.getItem('query')).query.record;
         }
-        let key = '/Retrieve'+this.props.location.query.id;
+        let key = '/Retrieve' + this.props.location.query.id;
         // 删除当前tab并且将路由跳转至前一个tab的path
-        const { dispatch } = this.props;
+        const {dispatch} = this.props;
         if (dispatch) {
-            let query =  isReset ? (this.props.location.query.isDetail ? {isReset,id:this.props.location.query.id} : {isReset}) : (this.props.location.query.isDetail ? {id:this.props.location.query.id} : {});
-           dispatch( routerRedux.push({pathname: RetrieveRecord.url,query:query}));
-           dispatch({
+            let query = isReset ? (this.props.location.query.isDetail ? {
+                isReset,
+                id: this.props.location.query.id
+            } : {isReset}) : (this.props.location.query.isDetail ? {id: this.props.location.query.id} : {});
+            dispatch(routerRedux.push({pathname: RetrieveRecord.url, query: query}));
+            dispatch({
                 type: 'global/changeSessonNavigation',
                 payload: {
                     key,
@@ -102,48 +105,50 @@ class RetrieveModal extends PureComponent {
     render() {
         const formItemLayout = {
             labelCol: {
-                xs: { span: 3 },
-                sm: { span: 3 },
+                xs: {span: 3},
+                sm: {span: 3},
             },
             wrapperCol: {
-                xs: { span: 20 },
-                sm: { span: 20 },
+                xs: {span: 20},
+                sm: {span: 20},
             },
         };
-        const rowLayout = { md: 8, xl: 16, xxl: 24 };
-        const colLayout = { sm: 24, md: 12, xl: 8 };
+        const rowLayout = {md: 8, xl: 16, xxl: 24};
+        const colLayout = {sm: 24, md: 12, xl: 8};
         const children = [];
         if (this.state.personList && this.state.personList.length > 0) {
             this.state.personList.map((event, idx) => {
                 if (event.idcard !== getUserInfos().idCard) {
                     children.push(<Option key={event.idcard} label={event.depname}><span>{event.name}</span><span
-                        style={{ color: '#ccc' }}>&nbsp;&nbsp;{event.depname}</span><span
-                        style={{ display: 'none' }}>{event.department}</span></Option>);
+                        style={{color: '#ccc'}}>&nbsp;&nbsp;{event.depname}</span><span
+                        style={{display: 'none'}}>{event.department}</span></Option>);
                 }
             });
         }
-        const { form: { getFieldDecorator }, RetrieveVisible, handleCancel, tbDetail } = this.props;
+        const {form: {getFieldDecorator}, RetrieveVisible, handleCancel, tbDetail} = this.props;
         let RetrieveRecord = this.props.location.query.record;
-        if(typeof RetrieveRecord == 'string'){
+        if (typeof RetrieveRecord == 'string') {
             RetrieveRecord = JSON.parse(sessionStorage.getItem('query')).query.record;
         }
         return (
-            <div  id={'RetrieveForm'+RetrieveRecord.ajbh} className={this.props.global&&this.props.global.dark ? '':styles.lightBox}>
+            <div id={'RetrieveForm' + RetrieveRecord.ajbh}
+                 className={this.props.global && this.props.global.dark ? '' : styles.lightBox}>
                 <Card className={styles.standardTable}>
                     <Row style={{
                         width: '82%',
                         margin: '0 9% 10px',
                         lineHeight: '36px',
-                        color: this.props.global&&this.props.global.dark ? '#fff' : '#4D4D4D',
+                        color: this.props.global && this.props.global.dark ? '#fff' : '#4D4D4D',
                     }}>
                         <Col span={12}>
                             案件名称：{RetrieveRecord && RetrieveRecord.ajmc ? RetrieveRecord.ajmc : ''}
                         </Col>
                         <Col span={12}>
-                            办案单位：{RetrieveRecord && RetrieveRecord.bardwmc ? RetrieveRecord.bardwmc : tbDetail && tbDetail.bardwmc ?  tbDetail.bardwmc : ''}
+                            办案单位：{RetrieveRecord && RetrieveRecord.bardwmc ? RetrieveRecord.bardwmc : tbDetail && tbDetail.bardwmc ? tbDetail.bardwmc : ''}
                         </Col>
                         <Col span={12}>案件状态：{RetrieveRecord && RetrieveRecord.ajzt ? RetrieveRecord.ajzt : ''}</Col>
-                        <Col span={12}>办案民警：{RetrieveRecord && RetrieveRecord.barxm ? RetrieveRecord.barxm : tbDetail && tbDetail.barxm ?  tbDetail.barxm : ''}</Col>
+                        <Col
+                            span={12}>办案民警：{RetrieveRecord && RetrieveRecord.barxm ? RetrieveRecord.barxm : tbDetail && tbDetail.barxm ? tbDetail.barxm : ''}</Col>
                     </Row>
                     <Form>
                         <FormItem {...formItemLayout} label="退补日期">
@@ -157,8 +162,8 @@ class RetrieveModal extends PureComponent {
                             })(
                                 <DatePicker
                                     disabledDate={this.disabledDate}
-                                    style={{ width: '40%' }}
-                                    getCalendarContainer={()=>document.getElementById('RetrieveForm'+RetrieveRecord.ajbh)}
+                                    style={{width: '40%'}}
+                                    getCalendarContainer={() => document.getElementById('RetrieveForm' + RetrieveRecord.ajbh)}
                                     // showTime={{ format: 'HH:mm:ss' }}
                                     // format="YYYY-MM-DD HH:mm:ss"
                                 />,
@@ -184,10 +189,11 @@ class RetrieveModal extends PureComponent {
                 </Card>
                 <Card>
                     <div className={styles.btns}>
-                        <Button type="primary" style={{ marginLeft: 8 }} className={styles.qxBtn} onClick={()=>this.onEdit(false)}>
+                        <Button type="primary" style={{marginLeft: 8}} className={styles.qxBtn}
+                                onClick={() => this.onEdit(false)}>
                             取消
                         </Button>
-                        <Button type="primary" style={{ marginLeft: 8 }} className={styles.okBtn} onClick={this.handleOk}>
+                        <Button type="primary" style={{marginLeft: 8}} className={styles.okBtn} onClick={this.handleOk}>
                             确定
                         </Button>
                     </div>

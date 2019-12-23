@@ -4,7 +4,7 @@
 * 20181218
 * */
 
-import React, { PureComponent } from 'react';
+import React, {PureComponent} from 'react';
 import {Tooltip, Icon, Table, Row, Col, Spin, Empty} from 'antd';
 import echarts from 'echarts'
 import AnalysisTitleArea from '../AnalysisTitleArea';
@@ -28,16 +28,16 @@ export default class RobGrabFraud extends PureComponent {
 
     componentWillReceiveProps(nextProps) {
         if (nextProps) {
-            if ((nextProps.selectedDate !== null) && (this.props.selectedDate !== nextProps.selectedDate)|| this.props.global.dark !== nextProps.global.dark) {
+            if ((nextProps.selectedDate !== null) && (this.props.selectedDate !== nextProps.selectedDate) || this.props.global.dark !== nextProps.global.dark) {
                 this.getRobGrabFraud(nextProps);
             }
         }
     }
 
     getRobGrabFraud = (propsData) => {
-        this.props.changeLoadingStatus({ robGrabFraudLoadingStatus: true });
-        this.setState({ loadingData: true });
-        const { dispatch, selectedDateStr, yearOnYearDateStr, monthOnMonthDateStr, selectedDate, yearOnYearDate, monthOnMonthDate } = propsData;
+        this.props.changeLoadingStatus({robGrabFraudLoadingStatus: true});
+        this.setState({loadingData: true});
+        const {dispatch, selectedDateStr, yearOnYearDateStr, monthOnMonthDateStr, selectedDate, yearOnYearDate, monthOnMonthDate} = propsData;
         dispatch({
             type: 'trendAnalysis/getRobGrabFraud',
             payload: {
@@ -47,7 +47,7 @@ export default class RobGrabFraud extends PureComponent {
             },
             callback: (data) => {
                 if (data) {
-                    const { liangqiang, zhapian } = data;
+                    const {liangqiang, zhapian} = data;
                     let pie1 = [];
                     let pie2 = [];
                     let pie3 = [];
@@ -179,7 +179,7 @@ export default class RobGrabFraud extends PureComponent {
                                 },
                             },
                         }];
-                        if(document.getElementById('robGrabPie')){
+                        if (document.getElementById('robGrabPie')) {
                             this.showEchart(serise);
                             window.addEventListener('resize', treePie.resize);
                         }
@@ -222,17 +222,17 @@ export default class RobGrabFraud extends PureComponent {
                             {
                                 name: selectedDateStr,
                                 value: zhapian.nowtime,
-                                itemStyle: { color: '#3AA0FF' },
+                                itemStyle: {color: '#3AA0FF'},
                             },
                             {
                                 name: yearOnYearDateStr,
                                 value: zhapian.lastyear,
-                                itemStyle: { color: '#DCCA23' },
+                                itemStyle: {color: '#DCCA23'},
                             },
                             {
                                 name: monthOnMonthDateStr,
                                 value: zhapian.lastmonth,
-                                itemStyle: { color: '#31BD74' },
+                                itemStyle: {color: '#31BD74'},
                             },
                         ];
                         // fraudBar.setOption({
@@ -244,8 +244,8 @@ export default class RobGrabFraud extends PureComponent {
                         //         data: barData,
                         //     },
                         // });
-                        if(document.getElementById('fraudBar')){
-                            this.showFraudBar(xData,barData);
+                        if (document.getElementById('fraudBar')) {
+                            this.showFraudBar(xData, barData);
                             window.addEventListener('resize', fraudBar.resize);
                         }
                     }
@@ -255,8 +255,8 @@ export default class RobGrabFraud extends PureComponent {
                     });
                     this.props.goToCarousel(2);
                 }
-                this.setState({ loadingData: false });
-                this.props.changeLoadingStatus({ robGrabFraudLoadingStatus: false });
+                this.setState({loadingData: false});
+                this.props.changeLoadingStatus({robGrabFraudLoadingStatus: false});
             },
         });
     };
@@ -309,13 +309,13 @@ export default class RobGrabFraud extends PureComponent {
         treePie.setOption(option);
     };
     // 诈骗bar
-    showFraudBar = (xData,barData) => {
+    showFraudBar = (xData, barData) => {
         fraudBar = echarts.init(document.getElementById('fraudBar'));
         const option = {
             color: ['#3AA0FF', '#DCCA23', '#31BD74'],
             xAxis: {
                 type: 'category',
-                axisLine: { show: false },
+                axisLine: {show: false},
                 data: xData,
                 axisTick: {
                     alignWithLabel: true,
@@ -355,8 +355,8 @@ export default class RobGrabFraud extends PureComponent {
     };
 
     render() {
-        const { selectedDateStr, yearOnYearDateStr, monthOnMonthDateStr } = this.props;
-        const { liangqiangTableData, zhapianTableData, loadingData } = this.state;
+        const {selectedDateStr, yearOnYearDateStr, monthOnMonthDateStr} = this.props;
+        const {liangqiangTableData, zhapianTableData, loadingData} = this.state;
         const columns = [{
             title: '类别',
             dataIndex: 'categories',
@@ -418,21 +418,32 @@ export default class RobGrabFraud extends PureComponent {
                 key: 'fraud',
             },
         ];
-        let className = this.props.global && this.props.global.dark ? styles.analysis : styles.analysis+' '+styles.lightBox
+        let className = this.props.global && this.props.global.dark ? styles.analysis : styles.analysis + ' ' + styles.lightBox
         return (
             <Spin spinning={loadingData} size="large" tip="数据加载中...">
                 <div className={className}>
                     <AnalysisTitleArea analysisTitle="两抢案件" {...this.props} />
-                    <div id="robGrabPie" style={{ height: 300 }}/>
-                    <Table columns={columns} dataSource={liangqiangTableData} bordered className={styles.tableArea}  locale={{ emptyText: <Empty image={this.props.global&&this.props.global.dark ? noList : noListLight} description={'暂无数据'} /> }}
-                           pagination={false} />
+                    <div id="robGrabPie" style={{height: 300}}/>
+                    <Table columns={columns} dataSource={liangqiangTableData} bordered className={styles.tableArea}
+                           locale={{
+                               emptyText: <Empty
+                                   image={this.props.global && this.props.global.dark ? noList : noListLight}
+                                   description={'暂无数据'}/>
+                           }}
+                           pagination={false}/>
                     <h2 className={styles.areaTitle}>诈骗案件</h2>
                     <Row className={styles.fraudArea}>
                         <Col lg={12} md={24}>
-                            <div id="fraudBar" style={{ height: 420,marginTop:25 }} className={ this.props.global&&this.props.global.dark ? '' : styles.lightChartBox}/>
+                            <div id="fraudBar" style={{height: 420, marginTop: 25}}
+                                 className={this.props.global && this.props.global.dark ? '' : styles.lightChartBox}/>
                         </Col>
                         <Col lg={12} md={24}>
-                            <Table columns={fraudColumns} dataSource={zhapianTableData} className={styles.fraudTable}  locale={{ emptyText: <Empty image={this.props.global&&this.props.global.dark ? noList : noListLight} description={'暂无数据'} /> }}
+                            <Table columns={fraudColumns} dataSource={zhapianTableData} className={styles.fraudTable}
+                                   locale={{
+                                       emptyText: <Empty
+                                           image={this.props.global && this.props.global.dark ? noList : noListLight}
+                                           description={'暂无数据'}/>
+                                   }}
                                    bordered pagination={false}/>
                         </Col>
                     </Row>

@@ -3,19 +3,19 @@
 * author：lyp
 * 20190122
 * */
-import React, { PureComponent, Fragment } from 'react';
-import { connect } from 'dva';
+import React, {PureComponent, Fragment} from 'react';
+import {connect} from 'dva';
 import {Row, Col, Card, Button, Badge, Table, List, Tooltip, message, Anchor, Spin, Empty} from 'antd';
 import html2canvas from 'html2canvas';
 import styles from '../docDetail.less';
 import liststyles from '../docListStyle.less';
-import { autoheight, getQueryString, userAuthorityCode } from '../../../utils/utils';
+import {autoheight, getQueryString, userAuthorityCode} from '../../../utils/utils';
 import echarts from 'echarts'
 import tree from 'echarts/lib/chart/tree';
 import Ellipsis from 'ant-design-pro/lib/Ellipsis';
 import CaseModalTrail from '../../../components/Common/CaseModalTrail';
 import CaseModalStep from '../../../components/Common/CaseModalStep';
-import { authorityIsTrue } from '../../../utils/authority';
+import {authorityIsTrue} from '../../../utils/authority';
 import noList from "@/assets/viewData/noList.png";
 import aj from "@/assets/common/aj.png";
 import tar from "@/assets/common/tar.png";
@@ -25,12 +25,12 @@ import jqImg from "@/assets/common/jq.png";
 import {routerRedux} from "dva/router";
 import noListLight from "@/assets/viewData/noListLight.png";
 
-const { Link } = Anchor;
+const {Link} = Anchor;
 let echartTree;
 let imgBase = [];
 
-@connect(({ XzCaseData, CaseData, AllDetail,global }) => ({
-    XzCaseData, CaseData, AllDetail,global
+@connect(({XzCaseData, CaseData, AllDetail, global}) => ({
+    XzCaseData, CaseData, AllDetail, global
 }))
 
 
@@ -77,9 +77,9 @@ export default class AdministrativeCaseDocDetail extends PureComponent {
             RetrieveRecord: null,
             isZb: authorityIsTrue(userAuthorityCode.ZHIBIAO), // 制表权限
             loading: false, // 默认详情页是否为加载状态
-            first:true,
-            res:res,
-            link:''
+            first: true,
+            res: res,
+            link: ''
         };
     }
 
@@ -88,21 +88,21 @@ export default class AdministrativeCaseDocDetail extends PureComponent {
     }
 
     componentWillReceiveProps(nextProps) {
-        if(this.props.location.pathname!==nextProps.pathname&&this.state.link){
+        if (this.props.location.pathname !== nextProps.pathname && this.state.link) {
             this.props.history.replace(`${this.props.location.pathname}?id=${this.state.res.ajbh}&record=${this.state.res}/${this.state.link}`);
             this.setState({
-                link:''
+                link: ''
             });
         }
-        if(this.props.global.dark !== nextProps.global.dark){
-            if(this.state.caseDetails){
-                this.showEchart(this.state.caseDetails,nextProps.global.dark);
+        if (this.props.global.dark !== nextProps.global.dark) {
+            if (this.state.caseDetails) {
+                this.showEchart(this.state.caseDetails, nextProps.global.dark);
             }
         }
     }
 
     scrollHandler = () => {
-        if(this.state.first){
+        if (this.state.first) {
             let scroll = document.getElementById("scrollAdmin");
             if (scroll) {
                 scroll.addEventListener("scroll", e => {
@@ -124,7 +124,7 @@ export default class AdministrativeCaseDocDetail extends PureComponent {
                 });
             }
             this.setState({
-                first:false,
+                first: false,
             });
         }
     };
@@ -163,14 +163,14 @@ export default class AdministrativeCaseDocDetail extends PureComponent {
         // }
         return heightCount;
     };
-    getX = (x,d,idx,r) =>{
-        return x + Math.sin(d*idx) * r;
+    getX = (x, d, idx, r) => {
+        return x + Math.sin(d * idx) * r;
     }
-    getY = (y,d,idx,r) =>{
-        return y - Math.cos(d*idx) * r;
+    getY = (y, d, idx, r) => {
+        return y - Math.cos(d * idx) * r;
     }
     // 脑图
-    showEchart = (data,dark) =>{
+    showEchart = (data, dark) => {
         let jq = [];
         let sar = [];
         let sawp = [];
@@ -178,40 +178,40 @@ export default class AdministrativeCaseDocDetail extends PureComponent {
         let datas = [                     //data就是node
             {
                 name: data.ajmc,
-                attributes:{
-                    modularity_class:0,
+                attributes: {
+                    modularity_class: 0,
                 },
                 symbolSize: 40,
                 x: -900,
                 y: 350,
             }, {
                 name: '卷宗',
-                attributes:{
-                    modularity_class:4,
+                attributes: {
+                    modularity_class: 4,
                 },
                 symbolSize: 30,
                 x: -700,
                 y: 450
             }, {
                 name: '警情',
-                attributes:{
-                    modularity_class:1,
+                attributes: {
+                    modularity_class: 1,
                 },
                 symbolSize: 30,
                 x: -700,
                 y: 250
             }, {
                 name: '涉案人员',
-                attributes:{
-                    modularity_class:2,
+                attributes: {
+                    modularity_class: 2,
                 },
                 symbolSize: 30,
                 x: -1100,
                 y: 300
             }, {
                 name: '涉案物品',
-                attributes:{
-                    modularity_class:3,
+                attributes: {
+                    modularity_class: 3,
                 },
                 symbolSize: 30,
                 x: -900,
@@ -220,82 +220,82 @@ export default class AdministrativeCaseDocDetail extends PureComponent {
         ]
         let list = [];
         if (data.jqxxList && data.jqxxList.length > 0) {
-            data.jqxxList.map((event,index) => {
+            data.jqxxList.map((event, index) => {
                 jq.push({
                     source: '警情',
                     target: (event.jjnr ? this.formatter(event.jjnr) : null) + index,
                 });
-                console.log('list.indexOf(event.jjnr)',JSON.stringify(list).indexOf(this.formatter(event.jjnr)))
+                // console.log('list.indexOf(event.jjnr)',JSON.stringify(list).indexOf(this.formatter(event.jjnr)))
                 list.push({
                     name: event.jjnr ? this.formatter(event.jjnr) : null,
-                    id:(event.jjnr ? this.formatter(event.jjnr) : null) + index,
-                    attributes:{
-                        modularity_class:1,
+                    id: (event.jjnr ? this.formatter(event.jjnr) : null) + index,
+                    attributes: {
+                        modularity_class: 1,
                     },
                     symbolSize: 20,
-                    x: this.getX(-500,45,index,200),
-                    y: this.getY(250,45,index,200),
+                    x: this.getX(-500, 45, index, 200),
+                    y: this.getY(250, 45, index, 200),
                 });
             });
         }
         if (data.xyrList && data.xyrList.length > 0) {
-            data.xyrList.map((event,index) => {
+            data.xyrList.map((event, index) => {
                 // const sartag=event.xszk_name&&event.xszk_name==='在逃'?(event.xszk_name):'';
                 const sartag = event.xszk_name ? `(${event.xszk_name})` : '';
                 sar.push({
                     source: '涉案人员',
-                    target: (event.xyrName ? this.formatter(event.xyrName + sartag) : null)+index,
+                    target: (event.xyrName ? this.formatter(event.xyrName + sartag) : null) + index,
                 });
                 list.push(
                     {
                         name: event.xyrName ? this.formatter(event.xyrName + sartag) : null,
-                        id:(event.xyrName ? this.formatter(event.xyrName + sartag) : null)+index,
-                        attributes:{
-                            modularity_class:2,
+                        id: (event.xyrName ? this.formatter(event.xyrName + sartag) : null) + index,
+                        attributes: {
+                            modularity_class: 2,
                         },
                         symbolSize: 20,
-                        x: this.getX(-1100,20,index,100),
-                        y: this.getY(300,20,index,100),
+                        x: this.getX(-1100, 20, index, 100),
+                        y: this.getY(300, 20, index, 100),
                     }
                 )
             });
         }
         if (data.sawpList && data.sawpList.length > 0) {
-            data.sawpList.map((event,index) => {
+            data.sawpList.map((event, index) => {
                 sawp.push({
                     source: '涉案物品',
-                    target: (event.wpmc ? this.formatter(event.wpmc) : null)+index,
+                    target: (event.wpmc ? this.formatter(event.wpmc) : null) + index,
                 });
                 list.push(
                     {
                         name: event.wpmc ? this.formatter(event.wpmc) : null,
-                        id:(event.wpmc ? this.formatter(event.wpmc) : null)+index,
-                        attributes:{
-                            modularity_class:2,
+                        id: (event.wpmc ? this.formatter(event.wpmc) : null) + index,
+                        attributes: {
+                            modularity_class: 2,
                         },
                         symbolSize: 20,
-                        x: this.getX(-900,20,index,80),
-                        y: this.getY(150,20,index,80),
+                        x: this.getX(-900, 20, index, 80),
+                        y: this.getY(150, 20, index, 80),
                     }
                 )
             });
         }
         if (data.jzList && data.jzList.length > 0) {
-            data.jzList.map((event,index) => {
+            data.jzList.map((event, index) => {
                 jz.push({
                     source: '卷宗',
-                    target: (event.jzmc ? this.formatter(event.jzmc) : null)+index,
+                    target: (event.jzmc ? this.formatter(event.jzmc) : null) + index,
                 })
                 list.push(
                     {
                         name: event.jzmc ? this.formatter(event.jzmc) : null,
-                        id:(event.jzmc ? this.formatter(event.jzmc) : null)+index,
-                        attributes:{
-                            modularity_class:2,
+                        id: (event.jzmc ? this.formatter(event.jzmc) : null) + index,
+                        attributes: {
+                            modularity_class: 2,
                         },
                         symbolSize: 20,
-                        x: this.getX(-700,20,index,70),
-                        y: this.getY(450,20,index,70),
+                        x: this.getX(-700, 20, index, 70),
+                        y: this.getY(450, 20, index, 70),
                     }
                 )
             });
@@ -328,7 +328,7 @@ export default class AdministrativeCaseDocDetail extends PureComponent {
                 name: i
             };
         }
-        const categories2 =[                //节点分类的类目，可选。
+        const categories2 = [                //节点分类的类目，可选。
             {
                 name: '案件名称',    //类目名称
             },
@@ -336,7 +336,7 @@ export default class AdministrativeCaseDocDetail extends PureComponent {
                 name: '警情',    //类目名称
             },
             {
-                name:  '涉案人员',    //类目名称
+                name: '涉案人员',    //类目名称
             },
             {
                 name: "涉案物品",    //类目名称
@@ -346,7 +346,7 @@ export default class AdministrativeCaseDocDetail extends PureComponent {
             },
         ];
         let dataList = datas.concat(list);
-        console.log('dataList======>',dataList)
+        // console.log('dataList======>',dataList)
         dataList.forEach(function (node) {
             node.itemStyle = null;
             node.symbolSize /= 1.5;
@@ -357,7 +357,7 @@ export default class AdministrativeCaseDocDetail extends PureComponent {
                 }
             };
             node.category = node.attributes.modularity_class;
-            node.symbol= node.attributes.modularity_class===0 ? `image://${aj}` :
+            node.symbol = node.attributes.modularity_class === 0 ? `image://${aj}` :
                 node.name === '涉案人员' ? `image://${tar}` :
                     node.name === "涉案物品" ? `image://${wp}` :
                         node.name === "卷宗" ? `image://${jzxx}` :
@@ -371,17 +371,17 @@ export default class AdministrativeCaseDocDetail extends PureComponent {
                 data: categories2.map(function (a) {
                     return a.name;
                 }),
-                textStyle: { color: dark ? "#fff" : '#4D4D4D' },
+                textStyle: {color: dark ? "#fff" : '#4D4D4D'},
             }],
             animationDuration: 1500,
             animationEasingUpdate: 'quinticInOut',
-            color:['#52818c','#A2A16C','#5b6a87','#a27970','#6d9289','#92687E'],
-            tooltip : {
+            color: ['#52818c', '#A2A16C', '#5b6a87', '#a27970', '#6d9289', '#92687E'],
+            tooltip: {
                 trigger: 'item',
-                show:false,
+                show: false,
                 formatter: "{a}"
             },
-            series : [
+            series: [
                 {
                     type: 'graph',
                     layout: 'none',
@@ -402,11 +402,11 @@ export default class AdministrativeCaseDocDetail extends PureComponent {
                         position: 'bottom',
                         formatter: '{b}',
                         textStyle: {
-                            color: dark ?  '#eee' : '#4D4D4D',
+                            color: dark ? '#eee' : '#4D4D4D',
                         }
                     },
                     lineStyle: {
-                        width : '2',
+                        width: '2',
                         color: 'source',
                         curveness: 0.2
                     },
@@ -439,7 +439,7 @@ export default class AdministrativeCaseDocDetail extends PureComponent {
                     this.setState({
                         caseDetails: data,
                     }, () => {
-                        this.showEchart(data,this.props.global.dark);
+                        this.showEchart(data, this.props.global.dark);
                         // window.addEventListener("resize", echartTree.resize);
                     });
                 }
@@ -520,7 +520,7 @@ export default class AdministrativeCaseDocDetail extends PureComponent {
     };
 
     Topdetail() {
-        const { caseDetails, isZb } = this.state;
+        const {caseDetails, isZb} = this.state;
         const menu = sessionStorage.getItem('authoMenuList');
         const menus = JSON.parse(menu);
         const dbmenu = [];
@@ -531,17 +531,18 @@ export default class AdministrativeCaseDocDetail extends PureComponent {
         }
         return (
             <Card>
-                <Row gutter={{ md: 8, lg: 24, xl: 48 }}>
+                <Row gutter={{md: 8, lg: 24, xl: 48}}>
                     <Col md={8} sm={24}>
-                        <span style={{ margin: '16px', display: 'block' }}>行政案件档案详情</span>
+                        <span style={{margin: '16px', display: 'block'}}>行政案件档案详情</span>
                     </Col>
                     <Col>
-                        <span style={{ float: 'right', margin: '12px 16px 12px 0' }}>
+                        <span style={{float: 'right', margin: '12px 16px 12px 0'}}>
                             {
-                                isZb ? <Button type="primary" style={{ marginLeft: 8 }}
+                                isZb ? <Button type="primary" style={{marginLeft: 8}}
                                                onClick={() => this.makeTable(caseDetails)}>制表</Button> : null
                             }
-                            <Button type="primary" style={{ marginLeft: 8 }} onClick={() => this.ExportStatistics()}>导出</Button>
+                            <Button type="primary" style={{marginLeft: 8}}
+                                    onClick={() => this.ExportStatistics()}>导出</Button>
                         </span>
                     </Col>
                 </Row>
@@ -554,7 +555,7 @@ export default class AdministrativeCaseDocDetail extends PureComponent {
         this.props.dispatch(
             routerRedux.push({
                 pathname: '/articlesInvolved/ArticlesData/itemDetail',
-                query: { record:item,id: item.system_id },
+                query: {record: item, id: item.system_id},
             }),
         )
     };
@@ -565,19 +566,26 @@ export default class AdministrativeCaseDocDetail extends PureComponent {
             <List
                 itemLayout="vertical"
                 size="small"
-                locale={{ emptyText: <Empty image={this.props.global&&this.props.global.dark ? noList : noListLight} description={'暂无数据'} /> }}
+                locale={{
+                    emptyText: <Empty image={this.props.global && this.props.global.dark ? noList : noListLight}
+                                      description={'暂无数据'}/>
+                }}
                 pagination={sawpList.length > 0 ? {
                     size: 'small',
                     pageSize: 8,
-                    showTotal: (total, range) => <div style={{ position: 'absolute', left: '12px',color:this.props.global&&this.props.global.dark ? '#fff':'#999'  }}>共 {total} 条记录
+                    showTotal: (total, range) => <div style={{
+                        position: 'absolute',
+                        left: '12px',
+                        color: this.props.global && this.props.global.dark ? '#fff' : '#999'
+                    }}>共 {total} 条记录
                         第 {this.state.current} / {(Math.ceil(total / 8))} 页</div>,
                     onChange: (page) => {
-                        this.setState({ current: page });
+                        this.setState({current: page});
                     },
                 } : false}
                 dataSource={sawpList}
                 className={styles.sawpListName}
-                style={{ color: '#faa' }}
+                style={{color: '#faa'}}
                 renderItem={item => (
                     <List.Item>
                         <div className={styles.colsImg}>
@@ -587,10 +595,10 @@ export default class AdministrativeCaseDocDetail extends PureComponent {
                             </div>
                             <div className={styles.sawpName}>
                                 <div className={styles.sawpName1}>物品名称：<Tooltip
-                                    overlayStyle={{ wordBreak: 'break-all' }} title={item.wpmc}>{item.wpmc}</Tooltip>
+                                    overlayStyle={{wordBreak: 'break-all'}} title={item.wpmc}>{item.wpmc}</Tooltip>
                                 </div>
                                 <div className={styles.sawpName1}>物品种类：<Tooltip
-                                    overlayStyle={{ wordBreak: 'break-all' }}
+                                    overlayStyle={{wordBreak: 'break-all'}}
                                     title={item.wpzlMc}>{item.wpzlMc}</Tooltip></div>
                             </div>
                             <div className={styles.sawpSee} onClick={() => this.openItemsDetail(item)}>在区情况
@@ -624,7 +632,7 @@ export default class AdministrativeCaseDocDetail extends PureComponent {
         this.props.dispatch(
             routerRedux.push({
                 pathname: '/Tabulation/Make',
-                query: { id: record && record.ajbh ? record.ajbh : '1', record: record },
+                query: {id: record && record.ajbh ? record.ajbh : '1', record: record},
             }),
         );
     };
@@ -634,33 +642,40 @@ export default class AdministrativeCaseDocDetail extends PureComponent {
             <List
                 itemLayout="vertical"
                 size="small"
-                locale={{ emptyText: <Empty image={this.props.global&&this.props.global.dark ? noList : noListLight} description={'暂无数据'} /> }}
+                locale={{
+                    emptyText: <Empty image={this.props.global && this.props.global.dark ? noList : noListLight}
+                                      description={'暂无数据'}/>
+                }}
                 pagination={gjxxList.length > 0 ? {
                     size: 'small',
                     pageSize: 8,
-                    showTotal: (total, range) => <div style={{ position: 'absolute', left: '12px',color:this.props.global&&this.props.global.dark ? '#fff':'#999' }}>共 {total} 条记录
+                    showTotal: (total, range) => <div style={{
+                        position: 'absolute',
+                        left: '12px',
+                        color: this.props.global && this.props.global.dark ? '#fff' : '#999'
+                    }}>共 {total} 条记录
                         第 {this.state.gjcurrent} / {(Math.ceil(total / 8))} 页</div>,
                     onChange: (page) => {
-                        this.setState({ gjcurrent: page });
+                        this.setState({gjcurrent: page});
                     },
                 } : false}
                 dataSource={gjxxList}
                 className={styles.sawpListName}
-                style={{ color: '#faa' }}
+                style={{color: '#faa'}}
                 renderItem={item => (
                     <List.Item>
-                        <div className={styles.colsImg} style={{marginRight:16}}>
+                        <div className={styles.colsImg} style={{marginRight: 16}}>
                             <div className={styles.gzxxTitle}
-                                 style={{ borderTopColor: '#FF0000' }}>{this.getWarningTitle(item.wtfl_id)}</div>
+                                 style={{borderTopColor: '#FF0000'}}>{this.getWarningTitle(item.wtfl_id)}</div>
                             <div className={styles.gjxxName}>
                                 <div className={styles.sawpName1}>问题类型：<Tooltip
-                                    overlayStyle={{ wordBreak: 'break-all' }}
+                                    overlayStyle={{wordBreak: 'break-all'}}
                                     title={item.wtlx_mc}>{item.wtlx_mc}</Tooltip></div>
                                 <div className={styles.sawpName1}>告警时间：<Tooltip
-                                    overlayStyle={{ wordBreak: 'break-all' }} title={item.gjsj}>{item.gjsj}</Tooltip>
+                                    overlayStyle={{wordBreak: 'break-all'}} title={item.gjsj}>{item.gjsj}</Tooltip>
                                 </div>
                                 <div className={styles.sawpName1}>产生方式：<Tooltip
-                                    overlayStyle={{ wordBreak: 'break-all' }} title={item.fxfs}>{item.fxfs}</Tooltip>
+                                    overlayStyle={{wordBreak: 'break-all'}} title={item.fxfs}>{item.fxfs}</Tooltip>
                                 </div>
                             </div>
                             <div className={styles.sawpSee} onClick={() => this.openGjxxDetail(item)}>查看</div>
@@ -676,28 +691,28 @@ export default class AdministrativeCaseDocDetail extends PureComponent {
             this.props.dispatch(
                 routerRedux.push({
                     pathname: '/receivePolice/AlarmPolice/unpoliceDetail',
-                    query: { record:item,id: item.id,wtid:item.wtid},
+                    query: {record: item, id: item.id, wtid: item.wtid},
                 }),
             )
         } else if (item.wtfl_id === '203202') {//刑事案件告警详情
             this.props.dispatch(
                 routerRedux.push({
                     pathname: '/newcaseFiling/casePolice/CriminalPolice/uncaseDetail',
-                    query: { record:item,id: item.wtid,system_id:item.system_id },
+                    query: {record: item, id: item.wtid, system_id: item.system_id},
                 }),
             )
         } else if (item.wtfl_id === '203203') {//人员在区告警详情
             this.props.dispatch(
                 routerRedux.push({
                     pathname: '/handlingArea/AreaPolice/UnareaDetail',
-                    query: { record:item,id: item.wtid,baqId:item.id},
+                    query: {record: item, id: item.wtid, baqId: item.id},
                 }),
             );
         } else if (item.wtfl_id === '203204') {//涉案物品告警详情
             this.props.dispatch(
                 routerRedux.push({
                     pathname: '/articlesInvolved/ArticlesPolice/unitemDetail',
-                    query: { record:item,id: item.wtid,system_id:item.system_id },
+                    query: {record: item, id: item.wtid, system_id: item.system_id},
                 }),
             )
 
@@ -705,23 +720,23 @@ export default class AdministrativeCaseDocDetail extends PureComponent {
             this.props.dispatch(
                 routerRedux.push({
                     pathname: '/newcaseFiling/casePolice/AdministrationPolice/uncaseDetail',
-                    query: { record:item,id: item.wtid,system_id:item.system_id },
+                    query: {record: item, id: item.wtid, system_id: item.system_id},
                 }),
             )
         } else if (item.wtfl_id === '203206') {//卷宗告警详情
             this.props.dispatch(
                 routerRedux.push({
                     pathname: '/dossierPolice/DossierPolice/UnDossierDetail',
-                    query: { record:item,id: item.id, wtid:item.wtid,dossierId:item.system_id},
+                    query: {record: item, id: item.id, wtid: item.wtid, dossierId: item.system_id},
                 }),
             );
         }
     };
-    jqDetail = (record,id) => {
+    jqDetail = (record, id) => {
         this.props.dispatch(
             routerRedux.push({
                 pathname: '/receivePolice/AlarmData/policeDetail',
-                query: { record:record, id: id },
+                query: {record: record, id: id},
             }),
         )
     };
@@ -729,18 +744,18 @@ export default class AdministrativeCaseDocDetail extends PureComponent {
         this.props.dispatch(
             routerRedux.push({
                 pathname: '/dossierPolice/DossierData/DossierDetail',
-                query: { record:record,id: record.dossier_id},
+                query: {record: record, id: record.dossier_id},
             }),
         );
     };
 
     renderDetail() {
-        const { caseDetails, loading } = this.state;
+        const {caseDetails, loading} = this.state;
         const status = ['否', '是'];
         const statusMap = ['default', 'success'];
-        const rowLayout = { md: 8, xl: 16, xxl: 24 };
-        const colLayoutInName = { sm: 24, md: 5, xl: 5 };
-        const colLayoutInData = { sm: 24, md: 19, xl: 19 };
+        const rowLayout = {md: 8, xl: 16, xxl: 24};
+        const colLayoutInName = {sm: 24, md: 5, xl: 5};
+        const colLayoutInData = {sm: 24, md: 19, xl: 19};
         const JqColumns = [
             {
                 title: '接警来源',
@@ -838,7 +853,7 @@ export default class AdministrativeCaseDocDetail extends PureComponent {
                 width: 50,
                 render: (record) => (
                     <div>
-                        <a onClick={() => this.jqDetail(record,record.id)}>详情</a>
+                        <a onClick={() => this.jqDetail(record, record.id)}>详情</a>
                     </div>
                 ),
             },
@@ -879,10 +894,10 @@ export default class AdministrativeCaseDocDetail extends PureComponent {
                 ),
             },
         ];
-        let className  = this.props.global&&this.props.global.dark ? styles.detailBoxScroll : styles.detailBoxScroll+' ' + styles.detailBoxLight;
+        let className = this.props.global && this.props.global.dark ? styles.detailBoxScroll : styles.detailBoxScroll + ' ' + styles.detailBoxLight;
         return (
-            <Card style={{ height: autoheight() - 225 + 'px',marginTop:'12px' }}
-                 // onScrollCapture={this.scrollHandler}
+            <Card style={{height: autoheight() - 225 + 'px', marginTop: '12px'}}
+                // onScrollCapture={this.scrollHandler}
                   id={'scrollAdmin'}
                   className={className}>
                 <Spin spinning={loading}>
@@ -905,19 +920,27 @@ export default class AdministrativeCaseDocDetail extends PureComponent {
                         </div>
                         <div id={`Namejqxx${this.props.location.query.id}`} className={styles.borderBottom}>
                             <div className={styles.title} id={this.props.location.query.id + 'jqxx'}>| 警情信息</div>
-                            <div className={styles.tablemessage} style={{ marginBottom: '24px', padding: '24px' }}>
+                            <div className={styles.tablemessage} style={{marginBottom: '24px', padding: '24px'}}>
                                 <Table
                                     bordered
                                     pagination={{
                                         pageSize: 3,
                                         showTotal: (total, range) => <div
-                                            style={{ position: 'absolute', left: '-150px',color:this.props.global&&this.props.global.dark ? '#fff':'#999' }}>共 {total} 条记录
+                                            style={{
+                                                position: 'absolute',
+                                                left: '-150px',
+                                                color: this.props.global && this.props.global.dark ? '#fff' : '#999'
+                                            }}>共 {total} 条记录
                                             第 {this.state.jqcurrent} / {(Math.ceil(total / 3))} 页</div>,
                                         onChange: (page) => {
-                                            this.setState({ jqcurrent: page });
+                                            this.setState({jqcurrent: page});
                                         },
                                     }}
-                                    locale={{ emptyText: <Empty image={this.props.global&&this.props.global.dark ? noList : noListLight} description={'暂无数据'} /> }}
+                                    locale={{
+                                        emptyText: <Empty
+                                            image={this.props.global && this.props.global.dark ? noList : noListLight}
+                                            description={'暂无数据'}/>
+                                    }}
                                     dataSource={caseDetails ? caseDetails.jqxxList : []}
                                     columns={JqColumns}
                                 />
@@ -925,17 +948,17 @@ export default class AdministrativeCaseDocDetail extends PureComponent {
                         </div>
                         <div id={`Nameajxx${this.props.location.query.id}`} className={styles.borderBottom}>
                             <div className={styles.title} id={this.props.location.query.id + 'ajxx'}>| 案件信息</div>
-                            <div className={styles.message} style={{ padding: '24px' }}>
-                                <Row gutter={{ md: 8, lg: 24, xl: 48 }}>
+                            <div className={styles.message} style={{padding: '24px'}}>
+                                <Row gutter={{md: 8, lg: 24, xl: 48}}>
                                     <Col md={8} sm={24}>
                                         <div className={liststyles.Indexfrom}>案件编号：</div>
-                                        <div className={liststyles.Indextail} style={{ paddingLeft: 70 }}>
+                                        <div className={liststyles.Indextail} style={{paddingLeft: 70}}>
                                             {caseDetails && caseDetails.ajbh ? caseDetails.ajbh : ''}
                                         </div>
                                     </Col>
                                     <Col md={8} sm={24}>
                                         <div className={liststyles.Indexfrom}>案件名称：</div>
-                                        <div className={liststyles.Indextail} style={{ paddingLeft: 70 }}>
+                                        <div className={liststyles.Indextail} style={{paddingLeft: 70}}>
                                             {caseDetails && caseDetails.ajmc ? caseDetails.ajmc : ''}
                                         </div>
                                     </Col>
@@ -946,25 +969,25 @@ export default class AdministrativeCaseDocDetail extends PureComponent {
                                     </Col>
 
                                 </Row>
-                                <Row gutter={{ md: 8, lg: 24, xl: 48 }}>
+                                <Row gutter={{md: 8, lg: 24, xl: 48}}>
                                     <Col md={8} sm={24}>
                                         <div className={liststyles.Indexfrom}>案发时段：</div>
-                                        <div className={liststyles.Indextail} style={{ paddingLeft: 70 }}>
+                                        <div className={liststyles.Indextail} style={{paddingLeft: 70}}>
                                             {caseDetails && caseDetails.fasj_sx && caseDetails.fasj_xx ? caseDetails.fasj_sx + '~' + caseDetails.fasj_xx : ''}
                                         </div>
                                     </Col>
                                     <Col md={8} sm={24}>
                                         <div className={liststyles.Indexfrom}>案发地点：</div>
-                                        <div className={liststyles.Indextail} style={{ paddingLeft: 70 }}>
+                                        <div className={liststyles.Indextail} style={{paddingLeft: 70}}>
                                             {caseDetails && caseDetails.fadxz ? caseDetails.fadxz : ''}
                                         </div>
                                     </Col>
                                 </Row>
 
-                                <Row gutter={{ md: 8, lg: 24, xl: 48 }}>
+                                <Row gutter={{md: 8, lg: 24, xl: 48}}>
                                     <Col md={24} sm={24}>
                                         <div className={liststyles.Indexfrom}>简要案情：</div>
-                                        <div className={liststyles.Indextail} style={{ paddingLeft: 70 }}>
+                                        <div className={liststyles.Indextail} style={{paddingLeft: 70}}>
                                             {caseDetails && caseDetails.ajjj ? caseDetails.ajjj : ''}
                                         </div>
                                     </Col>
@@ -972,7 +995,7 @@ export default class AdministrativeCaseDocDetail extends PureComponent {
 
                                 {caseDetails && caseDetails.ajzt ?
                                     <div className={styles.ajlxBg}>
-                                        <Card title={'| 案件流程'} style={{ width: '100%' }}>
+                                        <Card title={'| 案件流程'} style={{width: '100%'}}>
                                             {/*{this.ajlc(caseDetails,superveWidth)}*/}
                                             <CaseModalStep
                                                 caseDetails={caseDetails}
@@ -1002,25 +1025,34 @@ export default class AdministrativeCaseDocDetail extends PureComponent {
                         <div id={`Namesawp${this.props.location.query.id}`} className={styles.borderBottom}>
                             <div className={styles.title} id={this.props.location.query.id + 'sawp'}>| 涉案物品</div>
                             <div className={styles.tablemessage}>
-                                <div style={{ padding: '24px 0' }}>
+                                <div style={{padding: '24px 0'}}>
                                     {this.sawpCol(caseDetails && caseDetails.sawpList ? caseDetails.sawpList : [])}
                                 </div>
                             </div>
                         </div>
                         <div id={`Namejzxx${this.props.location.query.id}`} className={styles.borderBottom}>
-                            <Card title="| 卷宗信息" className={liststyles.card} bordered={false} id={this.props.location.query.id + 'jzxx'}>
+                            <Card title="| 卷宗信息" className={liststyles.card} bordered={false}
+                                  id={this.props.location.query.id + 'jzxx'}>
                                 <Table
                                     bordered
                                     pagination={{
                                         pageSize: 3,
                                         showTotal: (total, range) => <div
-                                            style={{ position: 'absolute', left: '-150px',color:this.props.global&&this.props.global.dark ? '#fff':'#999' }}>共 {total} 条记录
+                                            style={{
+                                                position: 'absolute',
+                                                left: '-150px',
+                                                color: this.props.global && this.props.global.dark ? '#fff' : '#999'
+                                            }}>共 {total} 条记录
                                             第 {this.state.jzcurrent} / {(Math.ceil(total / 3))} 页</div>,
                                         onChange: (page) => {
-                                            this.setState({ jzcurrent: page });
+                                            this.setState({jzcurrent: page});
                                         },
                                     }}
-                                    locale={{ emptyText: <Empty image={this.props.global&&this.props.global.dark ? noList : noListLight} description={'暂无数据'} /> }}
+                                    locale={{
+                                        emptyText: <Empty
+                                            image={this.props.global && this.props.global.dark ? noList : noListLight}
+                                            description={'暂无数据'}/>
+                                    }}
                                     dataSource={caseDetails ? caseDetails.jzList : []}
                                     columns={JzColumns}
 
@@ -1028,7 +1060,8 @@ export default class AdministrativeCaseDocDetail extends PureComponent {
                             </Card>
                         </div>
                         <div id={`Namegjxx${this.props.location.query.id}`} className={styles.borderBottom}>
-                            <Card title="| 告警信息" className={liststyles.card} bordered={false} id={this.props.location.query.id + 'gjxx'}>
+                            <Card title="| 告警信息" className={liststyles.card} bordered={false}
+                                  id={this.props.location.query.id + 'gjxx'}>
                                 <div>
                                     {this.gjxxCol(caseDetails && caseDetails.problemList ? caseDetails.problemList : [])}
                                 </div>
@@ -1040,13 +1073,14 @@ export default class AdministrativeCaseDocDetail extends PureComponent {
         );
     }
 
-    goLink = (link) =>{
+    goLink = (link) => {
         this.setState({
-            link:link
+            link: link
         });
     }
+
     render() {
-        const { makeTableModalVisible, superviseVisibleModal } = this.state;
+        const {makeTableModalVisible, superviseVisibleModal} = this.state;
         return (
             <div>
                 <div>

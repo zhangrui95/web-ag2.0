@@ -3,13 +3,13 @@
 * author：lyp
 * 20180601
 * */
-import React, { PureComponent } from 'react';
-import { connect } from 'dva';
-import { Row, Col } from 'antd';
+import React, {PureComponent} from 'react';
+import {connect} from 'dva';
+import {Row, Col} from 'antd';
 import echarts from 'echarts/lib/echarts';
 import pictorialBar from 'echarts/lib/chart/pictorialBar';
 import styles from './ComponentStyles.less';
-import { getTimeDistance } from '../../utils/utils';
+import {getTimeDistance} from '../../utils/utils';
 import moment from 'moment';
 
 let myChart;
@@ -98,8 +98,8 @@ export default class PictorialBar extends PureComponent {
             xAxis: {
                 // data: ['接警', '处警', '复议复核', '来信来访', '到所报案', '电话报案'],
                 data: [],
-                axisTick: { show: false },
-                axisLine: { show: false },
+                axisTick: {show: false},
+                axisLine: {show: false},
                 axisLabel: {
                     textStyle: {
                         color: '#fff',
@@ -108,16 +108,16 @@ export default class PictorialBar extends PureComponent {
                 },
             },
             yAxis: {
-                splitLine: { show: false },
-                axisTick: { show: false },
-                axisLine: { show: false },
-                axisLabel: { show: false },
+                splitLine: {show: false},
+                axisTick: {show: false},
+                axisLine: {show: false},
+                axisLabel: {show: false},
             },
             color: new echarts.graphic.LinearGradient(
                 0, 0, 0, 1,
                 [
-                    { offset: 0, color: '#00ffcc' },
-                    { offset: 1, color: '#009966' },
+                    {offset: 0, color: '#00ffcc'},
+                    {offset: 1, color: '#009966'},
                 ],
             ),
             series: [{
@@ -163,23 +163,23 @@ export default class PictorialBar extends PureComponent {
     };
 
     render() {
-        const { nowTab } = this.state;
-        const { areaCode } = this.props;
+        const {nowTab} = this.state;
+        const {areaCode} = this.props;
         return (
             <div className={styles.componentBlock}>
                 <div className={styles.componentBlockHeader}>
-                    <span className={nowTab === 'all' ? styles.tabHeader : null} style={{ width: '20%' }}
+                    <span className={nowTab === 'all' ? styles.tabHeader : null} style={{width: '20%'}}
                           onClick={() => this.clickTab('all', areaCode)}>全部</span>
-                    <span className={nowTab === 'today' ? styles.tabHeader : null} style={{ width: '20%' }}
+                    <span className={nowTab === 'today' ? styles.tabHeader : null} style={{width: '20%'}}
                           onClick={() => this.clickTab('today', areaCode)}>本日</span>
-                    <span className={nowTab === 'week' ? styles.tabHeader : null} style={{ width: '20%' }}
+                    <span className={nowTab === 'week' ? styles.tabHeader : null} style={{width: '20%'}}
                           onClick={() => this.clickTab('week', areaCode)}>本周</span>
-                    <span className={nowTab === 'month' ? styles.tabHeader : null} style={{ width: '20%' }}
+                    <span className={nowTab === 'month' ? styles.tabHeader : null} style={{width: '20%'}}
                           onClick={() => this.clickTab('month', areaCode)}>本月</span>
-                    <span className={nowTab === 'year' ? styles.tabHeader : null} style={{ width: '20%' }}
+                    <span className={nowTab === 'year' ? styles.tabHeader : null} style={{width: '20%'}}
                           onClick={() => this.clickTab('year', areaCode)}>本年</span>
                 </div>
-                <p id="main" style={{ width: '100%', height: '90%' }}></p>
+                <p id="main" style={{width: '100%', height: '90%'}}></p>
             </div>
         );
     }

@@ -3,8 +3,8 @@
 * author：zr
 * 20190827
 * */
-import React, { PureComponent } from 'react';
-import { connect } from 'dva';
+import React, {PureComponent} from 'react';
+import {connect} from 'dva';
 import {
     Row,
     Col,
@@ -22,30 +22,32 @@ import {routerRedux} from "dva/router";
 import noListLight from "@/assets/viewData/noListLight.png";
 import {inspect} from "util";
 import styles = module
+
 const FormItem = Form.Item;
 const TabPane = Tabs.TabPane;
-const { confirm } = Modal;
-const { TextArea } = Input;
-@connect(({ common,Evaluation,global }) => ({
-   common,Evaluation,global
+const {confirm} = Modal;
+const {TextArea} = Input;
+@connect(({common, Evaluation, global}) => ({
+    common, Evaluation, global
 }))
 @Form.create()
 export default class PoliceClear extends PureComponent {
     constructor(props) {
         super(props);
         this.state = {
-            visible:false,
-            loading:false,
-            data:null,
-            tab:'0',
+            visible: false,
+            loading: false,
+            data: null,
+            tab: '0',
         };
     }
 
     componentDidMount() {
-        this.getList('0',1);
+        this.getList('0', 1);
     }
+
     componentWillReceiveProps(nextProps) {
-        if(nextProps.history.location.query.isReset&&nextProps.history.location.pathname==='/systemSetup/EvaluationSetup'){
+        if (nextProps.history.location.query.isReset && nextProps.history.location.pathname === '/systemSetup/EvaluationSetup') {
             this.setState({
                 loading: true,
             });
@@ -53,7 +55,8 @@ export default class PoliceClear extends PureComponent {
             this.props.history.replace(nextProps.history.location.pathname);
         }
     }
-    getList = (type,current) =>{
+
+    getList = (type, current) => {
         this.setState({
             loading: true,
         })
@@ -68,41 +71,41 @@ export default class PoliceClear extends PureComponent {
             },
             callback: (data) => {
                 this.setState({
-                    data:data,
+                    data: data,
                     loading: false,
                 })
             }
         });
     }
-    addList = () =>{
+    addList = () => {
         // this.setState({
         //     visible:true,
         // })
         this.props.dispatch(
             routerRedux.push({
                 pathname: '/systemSetup/EvaluationSetup/Add',
-                query: { id: this.state.tab },
+                query: {id: this.state.tab},
             }),
         );
     }
-    getNum = (rule, value, callback) =>{
+    getNum = (rule, value, callback) => {
         let reg = new RegExp("^([1-9]|[1-9]\\d|100)$");
-        if(value&&!reg.test(value)) {
+        if (value && !reg.test(value)) {
             callback('请输入1-100数字');
         }
         callback();
     }
-    handleOk = ()=>{
+    handleOk = () => {
         this.props.form.validateFields((err, values) => {
-            if(!err){
+            if (!err) {
                 this.props.dispatch({
                     type: 'Evaluation/addList',
                     payload: {
-                        fz:values.kfz,
-                        xm_mc:values.kfxm,
-                        xm_type:this.state.tab
+                        fz: values.kfz,
+                        xm_mc: values.kfxm,
+                        xm_type: this.state.tab
                     },
-                    callback:()=>{
+                    callback: () => {
                         message.success('操作成功');
                         this.getList(this.state.tab);
                         this.handleCancel();
@@ -111,9 +114,9 @@ export default class PoliceClear extends PureComponent {
             }
         });
     }
-    handleCancel = () =>{
+    handleCancel = () => {
         this.setState({
-            visible:false,
+            visible: false,
         });
         this.props.form.resetFields();
     }
@@ -127,22 +130,22 @@ export default class PoliceClear extends PureComponent {
     };
     changeTab = (e) => {
         this.setState({
-            tab:e,
-            selectedRowKeys:[],
-            selectedRows:[],
+            tab: e,
+            selectedRowKeys: [],
+            selectedRows: [],
         });
-        this.getList(e,1);
+        this.getList(e, 1);
     }
-    getDel = () =>{
+    getDel = () => {
         let that = this;
-        if(this.state.selectedRows&&this.state.selectedRows.length > 0){
+        if (this.state.selectedRows && this.state.selectedRows.length > 0) {
             confirm({
-                title: this.state.tab==='0' ? '确定删除选中的扣分项？' : this.state.tab==='1' ? '确定删除选中的补分项？' : '确定删除选中的加分项？',
+                title: this.state.tab === '0' ? '确定删除选中的扣分项？' : this.state.tab === '1' ? '确定删除选中的补分项？' : '确定删除选中的加分项？',
                 content: '',
-                okText:'确定',
-                cancelText:'取消',
-                centered:true,
-                getContainer:document.getElementById('boxEval'),
+                okText: '确定',
+                cancelText: '取消',
+                centered: true,
+                getContainer: document.getElementById('boxEval'),
                 onOk() {
                     that.getDelList(that.state.selectedRowKeys.toString());
                 },
@@ -150,20 +153,20 @@ export default class PoliceClear extends PureComponent {
                     console.log('Cancel');
                 },
             });
-        }else{
+        } else {
             message.warn('请选择删除项')
         }
     }
-    getEmpty = () =>{
+    getEmpty = () => {
         let that = this;
-        if(this.state.data && this.state.data.list && this.state.data.list.length > 0){
+        if (this.state.data && this.state.data.list && this.state.data.list.length > 0) {
             confirm({
-                title: '确定清空'+(this.state.tab==='0' ? '扣分项' : this.state.tab==='1' ? '补分项' : '加分项')+'列表？',
+                title: '确定清空' + (this.state.tab === '0' ? '扣分项' : this.state.tab === '1' ? '补分项' : '加分项') + '列表？',
                 content: '',
-                okText:'确定',
-                cancelText:'取消',
-                centered:true,
-                getContainer:document.getElementById('boxEval'),
+                okText: '确定',
+                cancelText: '取消',
+                centered: true,
+                getContainer: document.getElementById('boxEval'),
                 onOk() {
                     that.getDelList('');
                 },
@@ -171,32 +174,33 @@ export default class PoliceClear extends PureComponent {
                     console.log('Cancel');
                 },
             });
-        }else{
+        } else {
             message.warn('当前列表暂无数据，无需清空')
         }
     }
-    getDelList = (ids) =>{
+    getDelList = (ids) => {
         this.props.dispatch({
             type: 'Evaluation/delList',
             payload: {
-                xm_type:this.state.tab,
-                id:ids,
+                xm_type: this.state.tab,
+                id: ids,
             },
-            callback:()=>{
+            callback: () => {
                 message.success('操作成功');
                 this.getList(this.state.tab);
             }
         });
     }
+
     render() {
-        let stylescommon = this.props.global&&this.props.global.dark ? stylescommon1 : stylescommon2;
-        const {form: { getFieldDecorator }} = this.props
-        const rowLayout = { md: 8, xl: 16, xxl: 24 };
+        let stylescommon = this.props.global && this.props.global.dark ? stylescommon1 : stylescommon2;
+        const {form: {getFieldDecorator}} = this.props
+        const rowLayout = {md: 8, xl: 16, xxl: 24};
         const modleLayouts = {
-            labelCol: { span: 7 },
-            wrapperCol: { span: 13 },
+            labelCol: {span: 7},
+            wrapperCol: {span: 13},
         };
-        const { data } = this.state;
+        const {data} = this.state;
         const paginationProps = {
             current: data && data.page ? data.page.currentPage : '',
             total: data && data.page ? data.page.totalResult : '',
@@ -220,8 +224,8 @@ export default class PoliceClear extends PureComponent {
             {
                 title: '分值',
                 dataIndex: 'fz',
-                render:(text)=>{
-                   return <span>{this.state.tab==='0' ? '-' + text : '+' + text}</span>
+                render: (text) => {
+                    return <span>{this.state.tab === '0' ? '-' + text : '+' + text}</span>
                 }
             }, {
                 title: '项目',
@@ -232,38 +236,44 @@ export default class PoliceClear extends PureComponent {
             onChange: (selectedRowKeys, selectedRows) => {
                 this.state.selectedRowKeys = selectedRowKeys;
                 this.setState({
-                    selectedRowKeys:this.state.selectedRowKeys,
+                    selectedRowKeys: this.state.selectedRowKeys,
                     selectedRows: `${selectedRows}`,
                 })
             },
-            selectedRowKeys:this.state.selectedRowKeys,
+            selectedRowKeys: this.state.selectedRowKeys,
         };
         return (
             <div className={stylescommon.statistics} id={'boxEval'}>
                 <Card className={stylescommon.titleArea}>
                     <div className={stylescommon.tabTopBox}>
                         <Tabs defaultActiveKey="0" onChange={this.changeTab} activeKey={this.state.tab}>
-                            <TabPane tab={(this.state.tab === '0' ? "● ":'') + "扣分设置"} key="0"></TabPane>
-                            <TabPane tab={(this.state.tab === '1' ? "● ":'') + "补分设置"} key="1"></TabPane>
-                            <TabPane tab={(this.state.tab === '2' ? "● ":'') + "加分设置"} key="2"></TabPane>
+                            <TabPane tab={(this.state.tab === '0' ? "● " : '') + "扣分设置"} key="0"></TabPane>
+                            <TabPane tab={(this.state.tab === '1' ? "● " : '') + "补分设置"} key="1"></TabPane>
+                            <TabPane tab={(this.state.tab === '2' ? "● " : '') + "加分设置"} key="2"></TabPane>
                         </Tabs>
                     </div>
                     <div className={stylescommon.btnBox}>
-                        <Button type="primary" onClick={this.addList}>添加{this.state.tab==='0' ? '扣分' : this.state.tab==='1' ? '补分' : '加分'}项</Button>
-                        <Button style={{marginLeft:10}} onClick={this.getDel} className={stylescommon.topDelBtn}>删除</Button>
-                        <Button style={{marginLeft:10}} onClick={this.getEmpty} className={stylescommon.topDelBtn}>清空</Button>
+                        <Button type="primary"
+                                onClick={this.addList}>添加{this.state.tab === '0' ? '扣分' : this.state.tab === '1' ? '补分' : '加分'}项</Button>
+                        <Button style={{marginLeft: 10}} onClick={this.getDel}
+                                className={stylescommon.topDelBtn}>删除</Button>
+                        <Button style={{marginLeft: 10}} onClick={this.getEmpty}
+                                className={stylescommon.topDelBtn}>清空</Button>
                     </div>
                 </Card>
-                <Card  style={{marginTop:12}}>
+                <Card style={{marginTop: 12}}>
                     <Table
                         loading={this.state.loading}
                         rowKey={record => record.id}
                         pagination={paginationProps}
                         onChange={this.handleTableChange}
                         columns={columns}
-                        dataSource={this.state.data&&this.state.data.list ? this.state.data.list : []}
+                        dataSource={this.state.data && this.state.data.list ? this.state.data.list : []}
                         rowSelection={rowSelection}
-                        locale={{ emptyText:  <Empty image={this.props.global&&this.props.global.dark ? noList : noListLight} description={'暂无数据'} />}}
+                        locale={{
+                            emptyText: <Empty image={this.props.global && this.props.global.dark ? noList : noListLight}
+                                              description={'暂无数据'}/>
+                        }}
                     />
                 </Card>
             </div>

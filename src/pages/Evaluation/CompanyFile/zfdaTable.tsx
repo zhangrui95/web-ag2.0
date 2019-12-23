@@ -1,5 +1,5 @@
-import React, { PureComponent } from 'react';
-import { connect } from 'dva';
+import React, {PureComponent} from 'react';
+import {connect} from 'dva';
 import {
     Row,
     Col,
@@ -13,22 +13,22 @@ import {
 import moment from 'moment';
 import styles from './index.less';
 // import AjSearchModal from '../../../components/ajSearchModal/ajSearchModal';
-import { getUserInfos } from '../../../utils/utils';
+import {getUserInfos} from '../../../utils/utils';
 import {routerRedux} from "dva/router";
 
-const { MonthPicker, RangePicker } = DatePicker;
+const {MonthPicker, RangePicker} = DatePicker;
 const FormItem = Form.Item;
-const { Option } = Select;
-const rowLayout = { md: 8, xl: 16, xxl: 24 };
-const colLayouts = { sm: 12, md: 12, xl: 6, xxl: 6 };
+const {Option} = Select;
+const rowLayout = {md: 8, xl: 16, xxl: 24};
+const colLayouts = {sm: 12, md: 12, xl: 6, xxl: 6};
 const formItemLayout = {
-    labelCol: { xs: { span: 24 }, md: { span: 8 }, xl: { span: 6 }, xxl: { span: 4 } },
-    wrapperCol: { xs: { span: 24 }, md: { span: 16 }, xl: { span: 18 }, xxl: { span: 20 } },
+    labelCol: {xs: {span: 24}, md: {span: 8}, xl: {span: 6}, xxl: {span: 4}},
+    wrapperCol: {xs: {span: 24}, md: {span: 16}, xl: {span: 18}, xxl: {span: 20}},
 };
 const TreeNode = TreeSelect.TreeNode;
 let timeout;
 let currentValue;
-@connect(({ common, TzList,global }) => ({
+@connect(({common, TzList, global}) => ({
     common,
     TzList,
     global
@@ -84,7 +84,7 @@ export default class zfdaTable extends PureComponent {
                 this.getChangeTable(this.props.jg, nextProps.searchDay ? this.state.day : this.state.data, null, nextProps);
             }
         }
-        if(this.props.selectedRowsId !== nextProps.selectedRowsId){
+        if (this.props.selectedRowsId !== nextProps.selectedRowsId) {
             this.getChangeTables(nextProps.selectedRowsId, 0);
         }
     }
@@ -124,7 +124,7 @@ export default class zfdaTable extends PureComponent {
             timeout = null;
         }
         currentValue = name;
-        timeout = setTimeout(function() {
+        timeout = setTimeout(function () {
             that.props.dispatch({
                 type: 'common/getAllPolice',
                 payload: {
@@ -213,7 +213,7 @@ export default class zfdaTable extends PureComponent {
         this.props.dispatch(
             routerRedux.push({
                 pathname: '/Evaluation/File/Search/ajSearch',
-                query:{id:this.props.srcName[0],record:{ajType:this.props.ajType,url:this.props.url}}
+                query: {id: this.props.srcName[0], record: {ajType: this.props.ajType, url: this.props.url}}
             }),
         );
     };
@@ -310,16 +310,16 @@ export default class zfdaTable extends PureComponent {
         const allPoliceOptions = this.state.allPolice.map(d => <Option key={`${d.idcard},${d.pcard}`}
                                                                        value={`${d.idcard},${d.pcard}$$`}
                                                                        title={d.name}>{`${d.name} ${d.pcard}`}</Option>);
-        const { form: { getFieldDecorator }, common: { depTree }, treeDefaultExpandedKeys } = this.props;
-        let className = this.props.global&&this.props.global.dark ? styles.cardArea : styles.cardArea+' ' + styles.lightBox;
+        const {form: {getFieldDecorator}, common: {depTree}, treeDefaultExpandedKeys} = this.props;
+        let className = this.props.global && this.props.global.dark ? styles.cardArea : styles.cardArea + ' ' + styles.lightBox;
         return (
-            <Card className={className} id={'form'+this.props.url}>
+            <Card className={className} id={'form' + this.props.url}>
                 <div>
                     <Form>
                         <Row gutter={rowLayout}>
                             {
-                                this.props.searchAjBtn ? <Col {...colLayouts} style={{ margin: '24px 0' }}>
-                                    <Button style={{ marginLeft: 8 }} type="primary"
+                                this.props.searchAjBtn ? <Col {...colLayouts} style={{margin: '24px 0'}}>
+                                    <Button style={{marginLeft: 8}} type="primary"
                                             onClick={this.showModal}>案件查询</Button>
                                 </Col> : ''
                             }
@@ -331,15 +331,15 @@ export default class zfdaTable extends PureComponent {
                                         <TreeSelect
                                             disabled={this.state.disableJg}
                                             showSearch
-                                            style={{ width: '100%' }}
-                                            dropdownStyle={{ maxHeight: 400, overflow: 'auto' }}
+                                            style={{width: '100%'}}
+                                            dropdownStyle={{maxHeight: 400, overflow: 'auto'}}
                                             placeholder="请选择机构"
                                             allowClear
                                             onChange={this.treeChange}
                                             key='jgSelect'
                                             treeDefaultExpandedKeys={treeDefaultExpandedKeys}
                                             treeNodeFilterProp="title"
-                                            getPopupContainer={() => document.getElementById('form'+this.props.url)}
+                                            getPopupContainer={() => document.getElementById('form' + this.props.url)}
                                         >
                                             {depTree && depTree.length > 0 ? this.renderloop(depTree) : null}
                                         </TreeSelect>,
@@ -361,7 +361,7 @@ export default class zfdaTable extends PureComponent {
                                                 onSearch={(value) => this.getAllPolice(value)}
                                                 onFocus={(value) => this.getAllPolice(value)}
                                                 onChange={(e) => this.getChangeTable(this.state.treeId, this.state.data, e)}
-                                                getPopupContainer={() => document.getElementById('form'+this.props.url)}
+                                                getPopupContainer={() => document.getElementById('form' + this.props.url)}
                                             >
                                                 {allPoliceOptions}
                                             </Select>,
@@ -375,7 +375,8 @@ export default class zfdaTable extends PureComponent {
                                         {getFieldDecorator('yf', {
                                             initialValue: this.state.data,
                                         })(
-                                            <MonthPicker allowClear={false} size='default' placeholder={'请选择月份'} getCalendarContainer={()=>document.getElementById('form'+this.props.url)}
+                                            <MonthPicker allowClear={false} size='default' placeholder={'请选择月份'}
+                                                         getCalendarContainer={() => document.getElementById('form' + this.props.url)}
                                                          disabledDate={this.disabledDate} onChange={this.dateChange}/>,
                                         )}
                                     </FormItem>
@@ -389,11 +390,11 @@ export default class zfdaTable extends PureComponent {
                                         })(
                                             <DatePicker
                                                 disabledDate={this.disabledDate}
-                                                style={{ width: '100%' }}
+                                                style={{width: '100%'}}
                                                 placeholder={'请选择日期'}
                                                 onChange={this.dateChange}
                                                 allowClear={false}
-                                                getCalendarContainer={()=>document.getElementById('form'+this.props.url)}
+                                                getCalendarContainer={() => document.getElementById('form' + this.props.url)}
                                             />,
                                         )}
                                     </FormItem>
@@ -405,13 +406,13 @@ export default class zfdaTable extends PureComponent {
                 <div className={this.state.print ? styles.grayBoxPrint : styles.grayBox}>
                     <Icon type="left"
                           className={this.state.leftHideBtn ? styles.none : this.props.searchAjBtn ? styles.iconLeft : styles.none}
-                          style={{ top: this.props.height ? parseInt(this.props.height) / 2 : 575 + 'px' }}
+                          style={{top: this.props.height ? parseInt(this.props.height) / 2 : 575 + 'px'}}
                           onClick={() => this.getNextAj(-1)}/>
                     <iframe className={styles.box} src={this.state.srcUrl + '&jzmc=' + this.state.jz}
                             height={this.props.height ? this.props.height : '1150px'}></iframe>
                     <Icon type="right"
                           className={this.state.rightHideBtn ? styles.none : this.props.searchAjBtn ? styles.iconRight : styles.none}
-                          style={{ top: this.props.height ? parseInt(this.props.height) / 2 : 575 + 'px' }}
+                          style={{top: this.props.height ? parseInt(this.props.height) / 2 : 575 + 'px'}}
                           onClick={() => this.getNextAj(1)}/>
                 </div>
                 {/*<AjSearchModal visible={this.state.visible} handleCancel={this.handleCancel}*/}

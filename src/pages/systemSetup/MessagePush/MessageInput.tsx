@@ -4,8 +4,8 @@
 * 20190515
 * */
 
-import React, { PureComponent } from 'react';
-import { Input, Switch } from 'antd';
+import React, {PureComponent} from 'react';
+import {Input, Switch} from 'antd';
 
 export default class MessageInput extends PureComponent {
 
@@ -23,11 +23,11 @@ export default class MessageInput extends PureComponent {
     }
 
     handleInputChange = e => {
-        this.triggerChange({ mData: e.target.value });
+        this.triggerChange({mData: e.target.value});
     };
 
     handleSwitchChange = (sfqy) => {
-        this.triggerChange({ sfqy: sfqy ? 1 : 0 });
+        this.triggerChange({sfqy: sfqy ? 1 : 0});
     };
 
     triggerChange = (changedValue) => {
@@ -41,7 +41,7 @@ export default class MessageInput extends PureComponent {
 
 
     render() {
-        const { value: { mData, sfqy } } = this.props;
+        const {value: {mData, sfqy}} = this.props;
         const divStyle = {
             display: 'flex',
             justifyContent: 'space-between',
@@ -51,13 +51,13 @@ export default class MessageInput extends PureComponent {
         return (
             <div style={divStyle}>
                 <Input
-                    style={{ width: '90%', textAlign: 'left' }}
+                    style={{width: '90%', textAlign: 'left'}}
                     disabled={!sfqy}
                     value={mData}
                     onChange={this.handleInputChange}
                 />
                 <Switch
-                    style={{ width: '8%', maxWidth: '60px' }}
+                    style={{width: '8%', maxWidth: '60px'}}
                     onChange={this.handleSwitchChange}
                     checked={sfqy}
                     checkedChildren="启用"

@@ -15,13 +15,13 @@ export default {
 
     effects: {
         // 获取日志列表
-        * getMessagePushLogList({ payload, callback }, { call, put }) {
+        * getMessagePushLogList({payload, callback}, {call, put}) {
             const response = yield call(messagePushLogService.getMessagePushLogList, payload);
             yield put({
                 type: 'setMessagePushLogList',
                 payload: response && response.error === null ? response.data : [],
             });
-            if (callback && response && !response.error&& response.data) {
+            if (callback && response && !response.error && response.data) {
                 callback(response.data);
             }
 

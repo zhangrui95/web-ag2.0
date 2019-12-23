@@ -4,19 +4,19 @@
 * 20181122
 * */
 
-import React, { PureComponent } from 'react';
+import React, {PureComponent} from 'react';
 import echarts from 'echarts/lib/echarts';
 import pie from 'echarts/lib/chart/pie';
 import title from 'echarts/lib/component/title';
 import tooltip from 'echarts/lib/component/tooltip';
-import { routerRedux } from 'dva/router';
+import {routerRedux} from 'dva/router';
 
 let myChart;
 
 export default class AdministrativeCaseWarning extends PureComponent {
 
     componentDidMount() {
-        const { selectDate, org, orgCode, orglist } = this.props;
+        const {selectDate, org, orgCode, orglist} = this.props;
         this.getAdministrativeCaseWarning(selectDate[0], selectDate[1], org, orgCode, orglist);
         this.showEchart();
         window.addEventListener('resize', myChart.resize);
@@ -32,7 +32,7 @@ export default class AdministrativeCaseWarning extends PureComponent {
 
     // 行政案件告警统计
     getAdministrativeCaseWarning = (startTime, endTime, org, orgCode, orglist) => {
-        const { shadeColors } = this.props;
+        const {shadeColors} = this.props;
         this.props.dispatch({
             type: 'UnXzCaseData/getUnXzCaseAllTypeWarnings',
             payload: {
@@ -78,7 +78,7 @@ export default class AdministrativeCaseWarning extends PureComponent {
                     myChart.setOption({
                         legend: {
                             data: legendData,
-                            formatter: function(name) {
+                            formatter: function (name) {
                                 let formatStr = '';
                                 for (let i = 0; i < pieData.length; i++) {
                                     if (name === pieData[i].name) {
@@ -194,19 +194,21 @@ export default class AdministrativeCaseWarning extends PureComponent {
         };
         let that = this;
         myChart.setOption(option);
-        myChart.on('click', function(params) {
-            that.props.dispatch(routerRedux.push({ pathname:'/newregister/newalarm/newalarmAdministration', state:{
+        myChart.on('click', function (params) {
+            that.props.dispatch(routerRedux.push({
+                pathname: '/newregister/newalarm/newalarmAdministration', state: {
                     code: that.props.dep ? that.props.dep : '',
                     kssj: that.props.selectDate[0] ? that.props.selectDate[0] : '',
                     jssj: that.props.selectDate[1] ? that.props.selectDate[1] : '',
                     wtlx_id: params.data.code ? params.data.code : '',
-                }}));
+                }
+            }));
         });
     };
 
     render() {
         return (
-            <div id="AdministrativeCaseWarning" style={{ height: '100%', width: '100%' }}></div>
+            <div id="AdministrativeCaseWarning" style={{height: '100%', width: '100%'}}></div>
         );
     }
 }

@@ -1,5 +1,5 @@
-import React, { PureComponent } from 'react';
-import { Tooltip } from 'antd';
+import React, {PureComponent} from 'react';
+import {Tooltip} from 'antd';
 
 class LeightWord extends PureComponent {
     getLeight = (string, item) => {
@@ -23,8 +23,8 @@ class LeightWord extends PureComponent {
             <span>
                 <Tooltip
                     title={this.props.newsString.length > 16 && this.props.type !== 'all' ?
-                        <span dangerouslySetInnerHTML={{ __html: string }}></span> : null}>
-                    <span dangerouslySetInnerHTML={{ __html: this.props.type === 'all' ? string : strings }}></span>
+                        <span dangerouslySetInnerHTML={{__html: string}}></span> : null}>
+                    <span dangerouslySetInnerHTML={{__html: this.props.type === 'all' ? string : strings}}></span>
                 </Tooltip>
             </span>
         );

@@ -3,11 +3,11 @@
 * author：lyp
 * 20181119
 * */
-import React, { PureComponent } from 'react';
-import { connect } from 'dva';
+import React, {PureComponent} from 'react';
+import {connect} from 'dva';
 import moment from 'moment/moment';
 import styles from './SCMDataShow.less';
-import { getTimeDistance, getUserInfos } from '../../utils/utils';
+import {getTimeDistance, getUserInfos} from '../../utils/utils';
 
 import headerLeftImg from '../../assets/show/header_left.png';
 import headerTitleImg from '../../assets/show/showTitle.png';
@@ -43,9 +43,9 @@ import SystemUseInfo from '../../components/Show/bigScreenDisplay/SystemUseInfo'
 import ShowNumber from '../../components/Show/ShowNumber';
 import CenterStatistics from '../../components/Show/bigScreenDisplay/CenterStatistics';
 
-const { mapCityName } = configUrl;
+const {mapCityName} = configUrl;
 
-@connect(({ common, MySuperviseData, UnPoliceData, UnCaseData, UnXzCaseData, UnItemData, XzCaseData, areaData, CaseData, itemData, show }) => ({
+@connect(({common, MySuperviseData, UnPoliceData, UnCaseData, UnXzCaseData, UnItemData, XzCaseData, areaData, CaseData, itemData, show}) => ({
     UnXzCaseData,
     common,
     MySuperviseData,
@@ -115,8 +115,8 @@ export default class SCMDataShow extends PureComponent {
             payload: {},
             callback: (data) => {
                 const obj = {};
-                data&&data.list&&data.list.forEach(item => {
-                    const resource_code = item.resource_code?item.resource_code.split(','):[];
+                data && data.list && data.list.forEach(item => {
+                    const resource_code = item.resource_code ? item.resource_code.split(',') : [];
                     obj[item.wz] = resource_code[1] || resource_code[0] || '';
                 });
 
@@ -135,7 +135,7 @@ export default class SCMDataShow extends PureComponent {
 
     // 配置模块
     handleModuelChange = (type, idx) => {
-        const { selectDate, shadeColors, orgCode, org, orglist } = this.state;
+        const {selectDate, shadeColors, orgCode, org, orglist} = this.state;
         switch (type) {
             case 'xzcf-sl': // 行政处罚数量
                 return <SCMAdministrativePenalty idx={idx} getAllNum={(idx, num, name) => {
@@ -289,7 +289,7 @@ export default class SCMDataShow extends PureComponent {
         });
     };
     //修改orglist
-    setOrgList = (list,dep) => {
+    setOrgList = (list, dep) => {
         this.setState({
             orglist: list,
             dep: dep ? dep : '',
@@ -297,7 +297,7 @@ export default class SCMDataShow extends PureComponent {
     };
 
     render() {
-        const { nowTime, currentDateType, selectDate, shadeColors, position1, position2, position3, position4, position5, position6, position7, position8, position9, position10, position11, userDepNum } = this.state;
+        const {nowTime, currentDateType, selectDate, shadeColors, position1, position2, position3, position4, position5, position6, position7, position8, position9, position10, position11, userDepNum} = this.state;
         // console.log(position1, position2, position3, position4, position5, position6, position7, position8, position9, position10, position11)
         const userDepNumStr = userDepNum.substring(4, 12);
         const titleImg = mapCityName === 'hebi' ? headerTitleImgHeBi : headerTitleImg;

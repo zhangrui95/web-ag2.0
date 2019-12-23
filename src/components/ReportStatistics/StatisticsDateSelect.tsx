@@ -4,11 +4,11 @@
 * 20181017
 * */
 
-import React, { PureComponent } from 'react';
-import { Radio, DatePicker, Select, message } from 'antd';
+import React, {PureComponent} from 'react';
+import {Radio, DatePicker, Select, message} from 'antd';
 import moment from 'moment/moment';
 
-const { MonthPicker, RangePicker, WeekPicker } = DatePicker;
+const {MonthPicker, RangePicker, WeekPicker} = DatePicker;
 const Option = Select.Option;
 const dateFormat = 'YYYY-MM-DD';
 export default class StatisticsDateSelect extends PureComponent {
@@ -80,7 +80,7 @@ export default class StatisticsDateSelect extends PureComponent {
     };
     //
     switchDateSelect = (type) => {
-        const { selectYear, selectQuarter } = this.state;
+        const {selectYear, selectQuarter} = this.state;
         const nowYear = (new Date()).getFullYear();
         switch (type) {
             case '1': // 年报表
@@ -88,7 +88,7 @@ export default class StatisticsDateSelect extends PureComponent {
                     <Select
                         placeholder={this.props.placeholder ? this.props.placeholder : '请选择'}
                         value={selectYear}
-                        style={{ width: 145 }}
+                        style={{width: 145}}
                         onChange={this.handleChange}
                         getPopupContainer={() => document.getElementById(this.props.id)}
                     >
@@ -124,7 +124,7 @@ export default class StatisticsDateSelect extends PureComponent {
                     <Select
                         placeholder={this.props.placeholder ? this.props.placeholder : '请选择'}
                         value={selectQuarter}
-                        style={{ width: 145 }}
+                        style={{width: 145}}
                         onChange={this.handleChangeQuarter}
                         getPopupContainer={() => document.getElementById(this.props.id)}
                     >
@@ -159,11 +159,11 @@ export default class StatisticsDateSelect extends PureComponent {
     };
 
     render() {
-        const { radioValue } = this.state;
+        const {radioValue} = this.state;
 
         return (
             <div id={this.props.id}>
-                <span style={{marginLeft:'16px'}}>
+                <span style={{marginLeft: '16px'}}>
                     <Radio.Group buttonStyle="solid" value={radioValue} onChange={this.radioChange}>
                         <Radio.Button value="3">日报表</Radio.Button>
                         <Radio.Button value="4">周报表</Radio.Button>
@@ -172,7 +172,7 @@ export default class StatisticsDateSelect extends PureComponent {
                         <Radio.Button value="1">年报表</Radio.Button>
                     </Radio.Group>
                 </span>
-                <span style={{ paddingLeft: 10 }}>
+                <span style={{paddingLeft: 10}}>
                     {this.switchDateSelect(radioValue)}
                 </span>
             </div>

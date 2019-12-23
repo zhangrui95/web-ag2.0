@@ -4,8 +4,8 @@
 * 20181120
 * */
 
-import React, { PureComponent } from 'react';
-import { Button } from 'antd';
+import React, {PureComponent} from 'react';
+import {Button} from 'antd';
 import echarts from 'echarts/lib/echarts';
 import styles from './bigScreenDisplay.less';
 
@@ -31,40 +31,40 @@ let intervalId;
 let count = 0; // 轮播索引
 
 // 市区数据
-const { mapCityName } = configUrl;
+const {mapCityName} = configUrl;
 
 if (mapCityName === 'baishan') {
     MapData = baishan;
     cityName = [
-        { name: '抚松县', code: '220621' },
-        { name: '临江市', code: '220681' },
-        { name: '浑江区', code: '220602' },
-        { name: '江源区', code: '220605' },
-        { name: '靖宇县', code: '220622' },
-        { name: '长白朝鲜族自治县', code: '220623' },
+        {name: '抚松县', code: '220621'},
+        {name: '临江市', code: '220681'},
+        {name: '浑江区', code: '220602'},
+        {name: '江源区', code: '220605'},
+        {name: '靖宇县', code: '220622'},
+        {name: '长白朝鲜族自治县', code: '220623'},
     ];
 } else if (mapCityName === 'mudanjiang') {
     MapData = mudanjiang;
     cityName = [
-        { name: '宁安市', code: '231084', cp: [129.470019, 44.346836] },
-        { name: '林口县', code: '231025', cp: [130.268402, 45.286645] },
-        { name: '海林市', code: '231083', cp: [129.387902, 44.574149] },
-        { name: '阳明区', code: '231003', cp: [129.634645, 44.596328] },
-        { name: '西安区', code: '231005', cp: [129.61311, 44.581032] },
-        { name: '穆棱市', code: '231085', cp: [130.527085, 44.91967] },
-        { name: '爱民区', code: '231004', cp: [129.601232, 44.595443] },
-        { name: '东宁市', code: '231024', cp: [131.125296, 44.063578] }, // 地图信息代码为231086
-        { name: '东安区', code: '231002', cp: [129.623292, 44.582399] },
-        { name: '绥芬河市', code: '231081', cp: [131.164856, 44.396864] },
+        {name: '宁安市', code: '231084', cp: [129.470019, 44.346836]},
+        {name: '林口县', code: '231025', cp: [130.268402, 45.286645]},
+        {name: '海林市', code: '231083', cp: [129.387902, 44.574149]},
+        {name: '阳明区', code: '231003', cp: [129.634645, 44.596328]},
+        {name: '西安区', code: '231005', cp: [129.61311, 44.581032]},
+        {name: '穆棱市', code: '231085', cp: [130.527085, 44.91967]},
+        {name: '爱民区', code: '231004', cp: [129.601232, 44.595443]},
+        {name: '东宁市', code: '231024', cp: [131.125296, 44.063578]}, // 地图信息代码为231086
+        {name: '东安区', code: '231002', cp: [129.623292, 44.582399]},
+        {name: '绥芬河市', code: '231081', cp: [131.164856, 44.396864]},
     ];
 } else if (mapCityName === 'hebi') {
     MapData = hebi;
     cityName = [
-        { name: '山城区', code: '410655', cp: [114.184202, 35.896058] },
-        { name: '鹤山区', code: '410656', cp: [114.166551, 35.936128] },
-        { name: '淇滨区', code: '410651', cp: [114.293917, 35.748382] },
-        { name: '淇县', code: '410622', cp: [114.200379, 35.609478] },
-        { name: '浚县', code: '410621', cp: [114.550162, 35.671282] },
+        {name: '山城区', code: '410655', cp: [114.184202, 35.896058]},
+        {name: '鹤山区', code: '410656', cp: [114.166551, 35.936128]},
+        {name: '淇滨区', code: '410651', cp: [114.293917, 35.748382]},
+        {name: '淇县', code: '410622', cp: [114.200379, 35.609478]},
+        {name: '浚县', code: '410621', cp: [114.550162, 35.671282]},
     ];
 } else if (mapCityName === 'hulunbeier') {
     MapData = hulunbeier;
@@ -76,7 +76,7 @@ if (mapCityName === 'baishan') {
         // { name: '莫力达瓦达斡尔族自治旗', code: '150722', cp:[124.507401,48.478385]},
         // { name: '陈巴尔虎旗', code: '150725', cp:[119.437609,49.328422]},
         // { name: '根河市', code: '150785', cp:[121.532724,50.780454]},
-        { name: '海拉尔区', code: '150702', cp: [119.764923, 49.213889] },
+        {name: '海拉尔区', code: '150702', cp: [119.764923, 49.213889]},
         // { name: '鄂温克族自治旗', code: '150724', cp:[119.754041,49.143293]},
         // { name: '扎赉诺尔区', code: '150703', cp:[117.716373,49.456567]},
         // { name: '额尔古纳市', code: '150784', cp:[120.178636,50.2439]},
@@ -122,7 +122,7 @@ if (mapCityName === 'baishan') {
         // { name: '康巴什区', code: '150603', cp: [109.790076,39.607472]},
         // { name: '鄂托克前旗', code: '150623', cp: [107.48172,38.183257]},
         // { name: '东胜区', code: '150602', cp: [109.98945,39.81788]},
-        { name: '达拉特旗', code: '150621', cp: [110.040281, 40.404076] },
+        {name: '达拉特旗', code: '150621', cp: [110.040281, 40.404076]},
         // { name: '准格尔旗', code: '150622', cp: [111.238332,39.865221]},
         // { name: '鄂托克旗', code: '150624', cp: [107.982604,39.095752]},
         // { name: '乌审旗', code: '150626', cp: [108.842454,38.596611]},
@@ -146,7 +146,7 @@ if (mapCityName === 'baishan') {
         // { name: '灌阳县', code: '450327', cp: [111.160248,25.489098]},
         // { name: '龙胜各族自治县', code: '450328', cp: [110.009423,25.796428]},
         // { name: '资源县', code: '450329', cp: [110.642587,26.0342]},
-        { name: '平乐县', code: '450330', cp: [110.642821, 24.632216] },
+        {name: '平乐县', code: '450330', cp: [110.642821, 24.632216]},
         // { name: '恭城瑶族自治县', code: '450332', cp: [110.82952,24.833612]},
         // { name: '荔浦县', code: '450331', cp: [110.400149,24.497786]},
     ];
@@ -295,7 +295,7 @@ export default class ChinaMap extends PureComponent {
     loopMap = (arry) => {
         const that = this;
         intervalId && clearInterval(intervalId);
-        intervalId = setInterval(function() {
+        intervalId = setInterval(function () {
             if (count === arry.length) {
                 myChart.dispatchAction({
                     type: 'downplay',
@@ -329,7 +329,7 @@ export default class ChinaMap extends PureComponent {
     };
     // 重置地图
     resetMap = () => {
-        const { mapDataArry } = this.state;
+        const {mapDataArry} = this.state;
         if (mapDataArry.length > 0) {
             this.stopLoopMap();
             myChart.dispatchAction({
@@ -417,7 +417,7 @@ export default class ChinaMap extends PureComponent {
                         });
                     }
                     // 先排序
-                    arry = arry.sort(function(a, b) {
+                    arry = arry.sort(function (a, b) {
                         return b.value - a.value;
                     });
                     // 根据排序添加颜色：数据由大到小
@@ -461,11 +461,11 @@ export default class ChinaMap extends PureComponent {
                             // },
                         ],
                     });
-                    this.setState({ mapDataArry: arry });
+                    this.setState({mapDataArry: arry});
                     const that = this;
                     // let dataLength = arry.length;
                     this.loopMap(arry);
-                    myChart.on('click', function(params) {
+                    myChart.on('click', function (params) {
                         that.stopLoopMap();
                         myChart.dispatchAction({
                             type: 'downplay',
@@ -478,7 +478,7 @@ export default class ChinaMap extends PureComponent {
                         });
                         that.props.setAreaCode(params.data.code);
                     });
-                    myChart.on('mouseout', function(params) {
+                    myChart.on('mouseout', function (params) {
                         that.loopMap(arry);
                     });
 
@@ -501,7 +501,7 @@ export default class ChinaMap extends PureComponent {
     };
     // 根据位置显示数据
     handleCountNumPosition = (type) => {
-        const { caseCountNum, warningCountNum, criminalNum, illegalPersonNum } = this.state;
+        const {caseCountNum, warningCountNum, criminalNum, illegalPersonNum} = this.state;
         if (type === 'ajzs') {
             return (
                 <div className={styles.countType}>
@@ -691,11 +691,11 @@ export default class ChinaMap extends PureComponent {
     };
 
     render() {
-        const { position8, position9, position10, position11 } = this.props;
-        const { publicTransportation, economicalInvestigation, criminalInvestigation, foodMedicine, drug } = this.state;
+        const {position8, position9, position10, position11} = this.props;
+        const {publicTransportation, economicalInvestigation, criminalInvestigation, foodMedicine, drug} = this.state;
         return (
             <div className={styles.mapArea}>
-                <div id="ChinaMap" style={{ height: '100%', width: '100%' }}></div>
+                <div id="ChinaMap" style={{height: '100%', width: '100%'}}></div>
                 <div className={styles.countNumberArea}>
                     {this.handleCountNumPosition(position8)}
                     {this.handleCountNumPosition(position9)}

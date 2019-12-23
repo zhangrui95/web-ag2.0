@@ -4,7 +4,7 @@
 * 20190112
 * */
 
-import React, { PureComponent } from 'react';
+import React, {PureComponent} from 'react';
 import echarts from 'echarts/lib/echarts';
 import line from 'echarts/lib/chart/line';
 import title from 'echarts/lib/component/title';
@@ -14,7 +14,7 @@ let myChart;
 
 export default class WholeDetectionRate extends PureComponent {
     componentDidMount() {
-        const { selectDate, org, orgCode, orglist } = this.props;
+        const {selectDate, org, orgCode, orglist} = this.props;
         this.getWholeDetectionRate(selectDate[0], selectDate[1], org, orgCode, orglist);
         this.showEchart();
         window.addEventListener('resize', myChart.resize);
@@ -156,7 +156,7 @@ export default class WholeDetectionRate extends PureComponent {
 
     render() {
         return (
-            <div id="WholeDetectionRate" style={{ height: '100%', width: '100%' }}></div>
+            <div id="WholeDetectionRate" style={{height: '100%', width: '100%'}}></div>
         );
     }
 

@@ -1,18 +1,18 @@
 import React, {Component, PureComponent} from 'react';
 import moment from 'moment/moment';
-import { connect } from 'dva';
+import {connect} from 'dva';
 import {Row, Col, Form, Select, Input, Button, Radio, DatePicker, Tabs, Card, Icon} from 'antd';
 import styles from './index.less';
 import RenderTable from '../../../components/MySuperviseRealData/RenderTable';
-import { tableList, getQueryString, exportListDataMaxDays } from '../../../utils/utils';
-import { message, TreeSelect } from 'antd/lib/index';
+import {tableList, getQueryString, exportListDataMaxDays} from '../../../utils/utils';
+import {message, TreeSelect} from 'antd/lib/index';
 import stylescommon1 from '../../common/common.less';
 import stylescommon2 from '../../common/commonLight.less';
 import MessageState from '../../../components/Common/MessageState';
 
 const FormItem = Form.Item;
-const { Option } = Select;
-const { RangePicker } = DatePicker;
+const {Option} = Select;
+const {RangePicker} = DatePicker;
 const TabPane = Tabs.TabPane;
 const RadioGroup = Radio.Group;
 //
@@ -22,7 +22,7 @@ const RadioGroup = Radio.Group;
 // }))
 // @Form.create()
 // export default class Index extends mySupervise {
-class  mySupervise extends Component {
+class mySupervise extends Component {
     state = {
         NowDataPage: '', // 督办完成时当前督办的数据在第几页
         NowShowCount: tableList, // 督办完成时当前督办的数据每页显示几条
@@ -32,9 +32,9 @@ class  mySupervise extends Component {
         formValues: {},
         activeKey: '0',
         arrayDetail: [],
-        searchHeight:false,
+        searchHeight: false,
         yslx: '',
-        zgzt:'',
+        zgzt: '',
     };
 
     componentDidMount() {
@@ -280,7 +280,7 @@ class  mySupervise extends Component {
     };
     // 表格分页
     handleTableChange = (pagination, filtersArg, sorter) => {
-        const { formValues } = this.state;
+        const {formValues} = this.state;
         const params = {
             pd: {
                 ...formValues,
@@ -327,7 +327,7 @@ class  mySupervise extends Component {
     };
     getSearchHeight = () => {
         this.setState({
-            searchHeight:!this.state.searchHeight
+            searchHeight: !this.state.searchHeight
         });
     }
     // 重置
@@ -394,7 +394,7 @@ class  mySupervise extends Component {
     };
 
     renderForm() {
-        const { form: { getFieldDecorator }, MySuperviseData: {common: { problemTypeDict, WtlxSawpTypeData, WtlxBaqTypeData, jqproblemTypeDict, WtlxXzAjTypeData, superviseStatusDict, JzCaseStatusType, YSLXType, rectificationStatusDict }} } = this.props;
+        const {form: {getFieldDecorator}, MySuperviseData: {common: {problemTypeDict, WtlxSawpTypeData, WtlxBaqTypeData, jqproblemTypeDict, WtlxXzAjTypeData, superviseStatusDict, JzCaseStatusType, YSLXType, rectificationStatusDict}}} = this.props;
         const ownSurpreWtlx = [];
         for (let a = 0; a < problemTypeDict.length; a++) {
             ownSurpreWtlx.push(problemTypeDict[a]);
@@ -453,23 +453,25 @@ class  mySupervise extends Component {
                 );
             }
         }
-        const colLayout = { sm: 24, md: 12, xl: 8 };
+        const colLayout = {sm: 24, md: 12, xl: 8};
         const formItemLayout = {
-            labelCol: { xs: { span: 24 }, md: { span: 8 }, xl: { span: 6 }, xxl: { span: 5 } },
-            wrapperCol: { xs: { span: 24 }, md: { span: 16 }, xl: { span: 18 }, xxl: { span: 19 } },
+            labelCol: {xs: {span: 24}, md: {span: 8}, xl: {span: 6}, xxl: {span: 5}},
+            wrapperCol: {xs: {span: 24}, md: {span: 16}, xl: {span: 18}, xxl: {span: 19}},
         };
-        const rowLayout = { md: 8, xl: 16, xxl: 24 };
-        let stylescommon = this.props.MySuperviseData.global.dark ? stylescommon1:stylescommon2;
+        const rowLayout = {md: 8, xl: 16, xxl: 24};
+        let stylescommon = this.props.MySuperviseData.global.dark ? stylescommon1 : stylescommon2;
         return (
             <Card className={stylescommon.listPageWrap} id={'form'}>
-                <Form onSubmit={this.handleSearch} layout="inline" style={{height:this.state.searchHeight ?  'auto' : '50px'}}>
+                <Form onSubmit={this.handleSearch} layout="inline"
+                      style={{height: this.state.searchHeight ? 'auto' : '50px'}}>
                     <Row gutter={rowLayout} className={stylescommon.searchForm}>
                         <Col {...colLayout}>
                             <FormItem label="问题类型" {...formItemLayout}>
                                 {getFieldDecorator('wtlxId', {
                                     initialValue: this.state.wtlxId,
                                 })(
-                                    <Select placeholder="请选择问题类型" style={{ width: '100%' }}  getPopupContainer={() => document.getElementById('form')}>
+                                    <Select placeholder="请选择问题类型" style={{width: '100%'}}
+                                            getPopupContainer={() => document.getElementById('form')}>
                                         <Option value="">全部</Option>
                                         {/*{involvedType !== undefined ? this.Option() : ''}*/}
                                         {problemTypeOptions}
@@ -481,7 +483,7 @@ class  mySupervise extends Component {
                             <FormItem label="案件名称" {...formItemLayout}>
                                 {getFieldDecorator('ajmc', {
                                     // initialValue: this.state.MySuperviseType,
-                                    rules: [{ max: 128, message: '最多输入128个字！' }],
+                                    rules: [{max: 128, message: '最多输入128个字！'}],
                                 })(
                                     <Input placeholder="请输入案件名称"/>,
                                 )}
@@ -492,8 +494,8 @@ class  mySupervise extends Component {
                                 {getFieldDecorator('ajbh', {
                                     // initialValue: this.state.MySuperviseType,
                                     rules: [
-                                        { pattern: /^[A-Za-z0-9]+$/, message: '请输入正确的案件编号！' },
-                                        { max: 32, message: '最多输入32个字！' },
+                                        {pattern: /^[A-Za-z0-9]+$/, message: '请输入正确的案件编号！'},
+                                        {max: 32, message: '最多输入32个字！'},
                                     ],
                                 })(
                                     <Input placeholder="请输入案件编号"/>,
@@ -507,7 +509,7 @@ class  mySupervise extends Component {
                                 })(
                                     <RangePicker
                                         disabledDate={this.disabledDate}
-                                        style={{ width: '100%' }}
+                                        style={{width: '100%'}}
                                         getCalendarContainer={() => document.getElementById('form')}
                                     />,
                                 )}
@@ -520,7 +522,7 @@ class  mySupervise extends Component {
                                 })(
                                     <RangePicker
                                         disabledDate={this.disabledDate}
-                                        style={{ width: '100%' }}
+                                        style={{width: '100%'}}
                                         getCalendarContainer={() => document.getElementById('form')}
                                     />,
                                 )}
@@ -543,7 +545,7 @@ class  mySupervise extends Component {
                         <Col xl={8} md={12} sm={24}>
                             <FormItem label="督办状态" {...formItemLayout}>
                                 {getFieldDecorator('dbzt', {
-                                    initialValue: { dbzt: this.state.dbzt, zgzt: '' },
+                                    initialValue: {dbzt: this.state.dbzt, zgzt: ''},
                                 })(
                                     <MessageState superviseStatusOptions={superviseStatusOptions}
                                                   rectificationStatusOptions={rectificationStatusOptions}
@@ -556,7 +558,8 @@ class  mySupervise extends Component {
                                 {getFieldDecorator('yslx', {
                                     initialValue: this.state.yslx,
                                 })(
-                                    <Select placeholder="请选择要素类型" style={{ width: '100%' }}  getPopupContainer={() => document.getElementById('form')}>
+                                    <Select placeholder="请选择要素类型" style={{width: '100%'}}
+                                            getPopupContainer={() => document.getElementById('form')}>
                                         <Option value="">全部</Option>
                                         {YslxStatusOptions}
                                     </Select>,
@@ -565,15 +568,16 @@ class  mySupervise extends Component {
                         </Col>
                     </Row>
                     <Row className={stylescommon.search}>
-                        <span style={{ float: 'right', marginBottom: 24 }}>
-                          <Button style={{ marginLeft: 8 }} type="primary" onClick={this.handleSearch}>
+                        <span style={{float: 'right', marginBottom: 24}}>
+                          <Button style={{marginLeft: 8}} type="primary" onClick={this.handleSearch}>
                             查询
                           </Button>
-                          <Button style={{ marginLeft: 8 }} onClick={this.handleFormReset} className={stylescommon.empty}>
+                          <Button style={{marginLeft: 8}} onClick={this.handleFormReset} className={stylescommon.empty}>
                             重置
                           </Button>
-                          <Button style={{ marginLeft: 8 }} onClick={this.getSearchHeight} className={stylescommon.empty}>
-                              {this.state.searchHeight ? '收起筛选' : '展开筛选'} <Icon type={this.state.searchHeight ? "up" :"down"}/>
+                          <Button style={{marginLeft: 8}} onClick={this.getSearchHeight} className={stylescommon.empty}>
+                              {this.state.searchHeight ? '收起筛选' : '展开筛选'} <Icon
+                              type={this.state.searchHeight ? "up" : "down"}/>
                           </Button>
                         </span>
                     </Row>
@@ -599,7 +603,7 @@ class  mySupervise extends Component {
     };
 // 刷新列表
     refreshTable = () => {
-        const { NowDataPage, NowShowCount, formValues } = this.state;
+        const {NowDataPage, NowShowCount, formValues} = this.state;
         const saveparam = {
             currentPage: NowDataPage !== '' ? NowDataPage : 1,
             showCount: NowShowCount !== '' ? NowShowCount : 1,
@@ -611,7 +615,7 @@ class  mySupervise extends Component {
     };
 
     renderTable() {
-        const { MySuperviseData: {MySuperviseData: { returnData, loading }} } = this.props;
+        const {MySuperviseData: {MySuperviseData: {returnData, loading}}} = this.props;
         return (
             <div>
                 <RenderTable
@@ -630,7 +634,7 @@ class  mySupervise extends Component {
     }
 
     render() {
-        let stylescommon = this.props.MySuperviseData.global.dark ? stylescommon1:stylescommon2;
+        let stylescommon = this.props.MySuperviseData.global.dark ? stylescommon1 : stylescommon2;
         const newAddDetail = this.state.arrayDetail;
         return (
             <div className={stylescommon.statistics}>
@@ -645,6 +649,7 @@ class  mySupervise extends Component {
         );
     }
 }
+
 export default Form.create()(
-    connect((MySuperviseData, loading, common, global) => ({ MySuperviseData, loading, common, global }))(mySupervise),
+    connect((MySuperviseData, loading, common, global) => ({MySuperviseData, loading, common, global}))(mySupervise),
 );

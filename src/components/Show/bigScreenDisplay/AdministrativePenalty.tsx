@@ -4,7 +4,7 @@
 * 20181120
 * */
 
-import React, { PureComponent } from 'react';
+import React, {PureComponent} from 'react';
 import echarts from 'echarts/lib/echarts';
 import pictorialBar from 'echarts/lib/chart/pictorialBar';
 import title from 'echarts/lib/component/title';
@@ -14,7 +14,7 @@ let myChart;
 export default class AdministrativePenalty extends PureComponent {
 
     componentDidMount() {
-        const { selectDate, orgCode, org, orglist } = this.props;
+        const {selectDate, orgCode, org, orglist} = this.props;
         this.getAdministrativePenalty(selectDate[0], selectDate[1], org, orgCode, orglist);
         this.showEchart();
         window.addEventListener('resize', myChart.resize);
@@ -81,8 +81,8 @@ export default class AdministrativePenalty extends PureComponent {
             },
             xAxis: {
                 data: [],
-                axisTick: { show: false },
-                axisLine: { show: false },
+                axisTick: {show: false},
+                axisLine: {show: false},
                 axisLabel: {
                     textStyle: {
                         color: '#fff',
@@ -92,16 +92,16 @@ export default class AdministrativePenalty extends PureComponent {
                 },
             },
             yAxis: {
-                splitLine: { show: false },
-                axisTick: { show: false },
-                axisLine: { show: false },
-                axisLabel: { show: false },
+                splitLine: {show: false},
+                axisTick: {show: false},
+                axisLine: {show: false},
+                axisLabel: {show: false},
             },
             color: new echarts.graphic.LinearGradient(
                 0, 0, 0, 1,
                 [
-                    { offset: 0, color: 'rgba(111,5,195,0.85)' },
-                    { offset: 1, color: 'rgba(198,48,108,0.85)' },
+                    {offset: 0, color: 'rgba(111,5,195,0.85)'},
+                    {offset: 1, color: 'rgba(198,48,108,0.85)'},
                 ],
             ),
             series: [{
@@ -137,7 +137,7 @@ export default class AdministrativePenalty extends PureComponent {
 
     render() {
         return (
-            <div id="SCMAdministrativePenalty" style={{ height: '100%', width: '100%' }}></div>
+            <div id="SCMAdministrativePenalty" style={{height: '100%', width: '100%'}}></div>
         );
     }
 }

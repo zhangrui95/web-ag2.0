@@ -4,7 +4,7 @@
 * 20190116
 * */
 
-import React, { PureComponent } from 'react';
+import React, {PureComponent} from 'react';
 import styles from './bigScreenDisplay.less';
 
 export default class CaseItemInfo extends PureComponent {
@@ -16,7 +16,7 @@ export default class CaseItemInfo extends PureComponent {
     };
 
     componentDidMount() {
-        const { selectDate, org, orgCode, orglist } = this.props;
+        const {selectDate, org, orgCode, orglist} = this.props;
         this.getCaseItemInfo(selectDate[0], selectDate[1], org, orgCode, orglist);
     }
 
@@ -66,9 +66,9 @@ export default class CaseItemInfo extends PureComponent {
     };
 
     render() {
-        const { itemCount, itemDisposeRate, storeHouseCount, storeHouseUseRate } = this.state;
+        const {itemCount, itemDisposeRate, storeHouseCount, storeHouseUseRate} = this.state;
         return (
-            <div id="CaseItemInfo" style={{ height: '100%', width: '100%' }}>
+            <div id="CaseItemInfo" style={{height: '100%', width: '100%'}}>
                 <h4 className={styles.cardTitle}>涉案物品数据</h4>
                 <div className={styles.cardContent}>
                     <div className={styles.pinkFull}>

@@ -3,9 +3,9 @@
 * author：lyp
 * 20180601
 * */
-import React, { PureComponent } from 'react';
-import { connect } from 'dva';
-import { Row, Col } from 'antd';
+import React, {PureComponent} from 'react';
+import {connect} from 'dva';
+import {Row, Col} from 'antd';
 import echarts from 'echarts/lib/echarts';
 import pie from 'echarts/lib/chart/pie';
 import styles from './ComponentStyles.less';
@@ -13,7 +13,7 @@ import tooltip from 'echarts/lib/component/tooltip';
 import legend from 'echarts/lib/component/legend';
 import title from 'echarts/lib/component/title';
 import moment from 'moment/moment';
-import { getTimeDistance } from '../../utils/utils';
+import {getTimeDistance} from '../../utils/utils';
 
 let myChart;
 const colors = [['#00ccff', '#0000ff'], ['#00ffcc', '#009966'], ['#ffff00', '#ff9933']];
@@ -114,8 +114,8 @@ export default class DoughnutChart extends PureComponent {
                                 color: new echarts.graphic.LinearGradient(
                                     0, 0, 0, 1,
                                     [
-                                        { offset: 0, color: colors[i][0] },
-                                        { offset: 1, color: colors[i][1] },
+                                        {offset: 0, color: colors[i][0]},
+                                        {offset: 1, color: colors[i][1]},
                                     ],
                                 ),
                             },
@@ -145,7 +145,7 @@ export default class DoughnutChart extends PureComponent {
                         },
                         legend: {
                             data: headerArry,
-                            formatter: function(name) {
+                            formatter: function (name) {
                                 for (let i = 0; i < dataArry.length; i++) {
                                     if (dataArry[i].name === name) {
                                         return '{title|' + name + '}{number|' + dataArry[i].value + '}';
@@ -272,22 +272,22 @@ export default class DoughnutChart extends PureComponent {
     };
 
     render() {
-        const { nowTab } = this.state;
+        const {nowTab} = this.state;
         return (
             <div className={styles.componentBlock}>
                 <div className={styles.componentBlockHeader}>
-                    <span className={nowTab === 'all' ? styles.tabHeader : null} style={{ width: '20%' }}
+                    <span className={nowTab === 'all' ? styles.tabHeader : null} style={{width: '20%'}}
                           onClick={() => this.clickTab('all')}>全部</span>
-                    <span className={nowTab === 'today' ? styles.tabHeader : null} style={{ width: '20%' }}
+                    <span className={nowTab === 'today' ? styles.tabHeader : null} style={{width: '20%'}}
                           onClick={() => this.clickTab('today')}>本日</span>
-                    <span className={nowTab === 'week' ? styles.tabHeader : null} style={{ width: '20%' }}
+                    <span className={nowTab === 'week' ? styles.tabHeader : null} style={{width: '20%'}}
                           onClick={() => this.clickTab('week')}>本周</span>
-                    <span className={nowTab === 'month' ? styles.tabHeader : null} style={{ width: '20%' }}
+                    <span className={nowTab === 'month' ? styles.tabHeader : null} style={{width: '20%'}}
                           onClick={() => this.clickTab('month')}>本月</span>
-                    <span className={nowTab === 'year' ? styles.tabHeader : null} style={{ width: '20%' }}
+                    <span className={nowTab === 'year' ? styles.tabHeader : null} style={{width: '20%'}}
                           onClick={() => this.clickTab('year')}>本年</span>
                 </div>
-                <p id="oughnutChart" style={{ width: '100%', height: '90%' }}></p>
+                <p id="oughnutChart" style={{width: '100%', height: '90%'}}></p>
             </div>
         );
     }

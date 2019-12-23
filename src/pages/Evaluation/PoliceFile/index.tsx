@@ -1,15 +1,15 @@
-import React, { PureComponent } from 'react';
-import { connect } from 'dva';
+import React, {PureComponent} from 'react';
+import {connect} from 'dva';
 import {
     Card,
     Form,
     Select,
 } from 'antd';
-import { getUserInfos } from '../../../utils/utils';
+import {getUserInfos} from '../../../utils/utils';
 import styles from '../CompanyFile/index.less';
 import ZFDATable from '../CompanyFile/zfdaTable';
 
-const { Option } = Select;
+const {Option} = Select;
 let job = getUserInfos() ? getUserInfos().job : '';
 let srcName1 = ['mjJbQkDjb', '民警基本情况登记表'];
 let srcName2 = ['flPxKsKhQk', '法律培训考试考核情况登记表'];
@@ -24,7 +24,7 @@ let srcName9 = ['mjZfJcQkDjb', '民警执法奖惩情况登记表'];
 let srcName10 = ['btsZfxwDjb', '被投诉执法行为登记表（包括行政复议、诉讼、国家赔偿案件、信访案件）'];
 let srcName11 = ['zfJcQkJlMj', '执法检查情况记录'];
 let srcName12 = ['ygBmJdWs', '有关部门下发的执法监督文书登记表'];
-@connect(({ common, TzList }) => ({
+@connect(({common, TzList}) => ({
     common,
     TzList,
 }))
@@ -39,17 +39,18 @@ export default class PoliceArchives extends PureComponent {
             label: getUserInfos().group.name,
         }),
         treeDefaultExpandedKeys: [], // 办案单位树默认展开keys
-        url:'/Evaluation/File/PoliceFile',
+        url: '/Evaluation/File/PoliceFile',
     };
 
     componentWillMount() {
         this.getDepTree(JSON.parse(sessionStorage.getItem('user')).department);
     }
-    componentWillReceiveProps(nextProps){
-        if(nextProps.history&&nextProps.history.location&&nextProps.history.location.query&&nextProps.history.location.query.isReset){
-            if(nextProps.history.location.pathname === '/Evaluation/File/PoliceFile'){
+
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.history && nextProps.history.location && nextProps.history.location.query && nextProps.history.location.query.isReset) {
+            if (nextProps.history.location.pathname === '/Evaluation/File/PoliceFile') {
                 this.setState({
-                    selectedRowsId:nextProps.history.location.query.selectedRowsId,
+                    selectedRowsId: nextProps.history.location.query.selectedRowsId,
                 });
                 this.props.history.replace(nextProps.history.location.pathname);
             }
@@ -102,7 +103,8 @@ export default class PoliceArchives extends PureComponent {
                 break;
             case '3':
                 table = <ZFDATable jg={this.state.jg} searchJg={true} searchPolice={true} searchMonth={true}
-                                   srcName={srcName3} treeDefaultExpandedKeys={this.state.treeDefaultExpandedKeys} {...this.state}/>;
+                                   srcName={srcName3}
+                                   treeDefaultExpandedKeys={this.state.treeDefaultExpandedKeys} {...this.state}/>;
                 break;
             case '4':
                 table = <ZFDATable jg={this.state.jg} searchAjBtn={true} srcName={srcName4} ajType='xs'
@@ -145,7 +147,7 @@ export default class PoliceArchives extends PureComponent {
             <div className={styles.statistics} id={'formPoliceFile'}>
                 <Card className={styles.titleArea}>
                     <div className={styles.dwxz}>
-                        <Select placeholder="请选择" style={{ width: '100%' }} onChange={this.change}
+                        <Select placeholder="请选择" style={{width: '100%'}} onChange={this.change}
                                 getPopupContainer={() => document.getElementById('formPoliceFile')}
                                 value={this.state.word}>
                             <Option value="1">民警基本情况登记表</Option>

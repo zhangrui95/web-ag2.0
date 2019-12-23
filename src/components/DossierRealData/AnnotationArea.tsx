@@ -3,17 +3,17 @@
 * author：jhm
 * 20180117
 * */
-import React, { PureComponent } from 'react';
+import React, {PureComponent} from 'react';
 // import VDraggable from 'vdraggle';
 import styles from './Index.less';
 import BannerAnimImg from './BannerAnim';
-import { Card, Row, Button, Upload, Icon, Modal, Col, Menu, Dropdown, Switch, Popconfirm } from 'antd';
-import { getSessionData } from '../../utils/utils';
+import {Card, Row, Button, Upload, Icon, Modal, Col, Menu, Dropdown, Switch, Popconfirm} from 'antd';
+import {getSessionData} from '../../utils/utils';
 
 export default class AnnotationArea extends React.Component {
     constructor(props) {
         super(props);
-        console.log('props', props);
+        // console.log('props', props);
         this.state = {
             currentImg: '',
             currentIndex: this.props.index ? this.props.index : 0,
@@ -26,7 +26,6 @@ export default class AnnotationArea extends React.Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        console.log('nextProps', nextProps);
         if (nextProps !== this.props) {
             this.setState({
                 electronicVolumeData: nextProps.electronicVolumeData,
@@ -44,7 +43,7 @@ export default class AnnotationArea extends React.Component {
         this.setState({
             currentIndex: index,
         });
-        let { electronicVolumeData } = this.state;
+        let {electronicVolumeData} = this.state;
         if (electronicVolumeData) {
             let item = electronicVolumeData[index];
             // if(item&&item.electronic_page_number){
@@ -75,14 +74,14 @@ export default class AnnotationArea extends React.Component {
         }
         // const resourceCode = getSessionData('resourceCode', false) ? getSessionData('resourceCode', false) : '';
         return (
-            <Row className={styles.imgAreaWrap} gutter={{ md: 6, lg: 12, xl: 24 }}>
+            <Row className={styles.imgAreaWrap} gutter={{md: 6, lg: 12, xl: 24}}>
 
                 <Col xl={24} lg={24} md={24} sm={24}>
                     <Card>
-                        <h3 style={{ textAlign: 'center', marginBottom: 16, fontWeight: '700' }}>
+                        <h3 style={{textAlign: 'center', marginBottom: 16, fontWeight: '700'}}>
                             {this.state.titleName} {this.state.pagenumber ? `(${this.state.pagenumber}页) ` : ''}
                         </h3>
-                        <div style={{ textAlign: 'center', height: '870px' }}>
+                        <div style={{textAlign: 'center', height: '870px'}}>
                             <BannerAnimImg
                                 arrayImg={imgUrlIdList}
                                 currentImg={this.state.currentImg}

@@ -4,7 +4,7 @@
 * 20180605
 * */
 
-import React, { PureComponent } from 'react';
+import React, {PureComponent} from 'react';
 import {Table, Divider, Tooltip, message, Dropdown, Menu, Row, Col, Card, Empty} from 'antd';
 import styles from './RenderTable.less';
 import Detail from '../../pages/receivePolice/AlarmData/policeDetail';
@@ -14,7 +14,8 @@ import {routerRedux} from "dva/router";
 import noList from "@/assets/viewData/noList.png";
 import noListLight from "@/assets/viewData/noListLight.png";
 import {connect} from "dva";
-@connect(({ global }) => ({
+
+@connect(({global}) => ({
     global
 }))
 class RenderTable extends PureComponent {
@@ -47,12 +48,12 @@ class RenderTable extends PureComponent {
     }
 
     deatils = (record) => {
-          this.props.dispatch(
+        this.props.dispatch(
             routerRedux.push({
-              pathname: '/receivePolice/AlarmData/policeDetail',
-              query: { record: record,id: record && record.id ? record.id : '1',movefrom:'警情常规' },
+                pathname: '/receivePolice/AlarmData/policeDetail',
+                query: {record: record, id: record && record.id ? record.id : '1', movefrom: '警情常规'},
             }),
-          )
+        )
 
         // const divs = (
         //     <div>
@@ -78,36 +79,31 @@ class RenderTable extends PureComponent {
             shareRecord: res,
         });
         if (type === 2) {
-          let detail=(<Row style={{ lineHeight: '50px',paddingLeft:66 }}>
-            <Col
-              span={8}>接警人：{res && res.jjr ? res.jjr : ''}</Col>
-            <Col span={8}>管辖单位：<Tooltip
-              title={res && res.jjdw && res.jjdw.length > 25 ? res.jjdw : null}>{res && res.jjdw ? res.jjdw.length > 25 ? res.jjdw.substring(0, 25) + '...' : res.jjdw : ''}</Tooltip></Col>
-            <Col span={8}>接警信息：<Tooltip
-              title={res && res.jjnr && res.jjnr.length > 25 ? res.jjnr : null}>{res && res.jjnr ? res.jjnr.length > 25 ? res.jjnr.substring(0, 25) + '...' : res.jjnr : ''}</Tooltip></Col>
-            <Col
-              span={8}>处警人：{res && res.cjr ? res.cjr : ''}</Col>
-            <Col span={8}>处警单位：<Tooltip
-              title={res && res.cjdw && res.cjdw.length > 25 ? res.cjdw : null}>{res && res.cjdw ? res.cjdw.length > 25 ? res.cjdw.substring(0, 25) + '...' : res.cjdw : ''}</Tooltip></Col>
-            <Col span={8}>处警信息：<Tooltip
-              title={res && res.cjqk && res.cjqk.length > 25 ? res.cjqk : null}>{res && res.cjqk ? res.cjqk.length > 25 ? res.cjqk.substring(0, 25) + '...' : res.cjqk : ''}</Tooltip></Col>
-            <Col span={24}>处置结果：<span style={{
-              color: '#f00',
-              fontWeight: '700',
-            }}>{res && res.czjg_mc ? res.czjg_mc : ''}</span></Col>
-          </Row>)
+            let detail = [`接警人：${res && res.jjr ? res.jjr : ''}`, `管辖单位：${res && res.jjdw ? res.jjdw : ''}`,
+                `接警信息：${res && res.jjnr ? res.jjnr : ''}`, `处警人：${res && res.cjr ? res.cjr : ''}`,
+                `处警单位：${res && res.cjdw ? res.cjdw : ''}`, `处警信息：${res && res.cjqk ? res.cjqk : ''}`,
+                `处置结果：${res && res.czjg_mc ? res.czjg_mc : ''}`
+            ];
+            res.detail = detail;
             this.props.dispatch(
-              routerRedux.push({
-                pathname: '/ModuleAll/Share',
-                query: { record: res,id: res && res.id ? res.id : '1',from:'警情信息',tzlx:'jqxx',fromPath:'/receivePolice/AlarmData',detail,tab:'表格',sx: (res.jjdw ? res.jjdw + '、' : '') + (res.jjly_mc ? res.jjly_mc + '、' : '') + (res.jqlb ? res.jqlb + '、' : '') + (res.jjsj ? res.jjsj : ''), },
-              }),
+                routerRedux.push({
+                    pathname: '/ModuleAll/Share',
+                    query: {
+                        record: res,
+                        id: res && res.id ? res.id : '1',
+                        from: '警情信息',
+                        tzlx: 'jqxx',
+                        fromPath: '/receivePolice/AlarmData',
+                        tab: '表格',
+                        sx: (res.jjdw ? res.jjdw + '、' : '') + (res.jjly_mc ? res.jjly_mc + '、' : '') + (res.jqlb ? res.jqlb + '、' : '') + (res.jjsj ? res.jjsj : ''),
+                    },
+                }),
             )
             // this.setState({
             //     shareVisible: true,
             //     shareItem: res,
             // });
-        }
-        else {
+        } else {
             this.props.dispatch({
                 type: 'share/getMyFollow',
                 payload: {
@@ -124,7 +120,7 @@ class RenderTable extends PureComponent {
                 callback: (res) => {
                     if (!res.error) {
                         message.success('关注成功');
-                        this.props.getPolice({ currentPage: this.state.current, pd: this.props.formValues });
+                        this.props.getPolice({currentPage: this.state.current, pd: this.props.formValues});
                     }
                 },
             });
@@ -147,15 +143,15 @@ class RenderTable extends PureComponent {
             callback: (res) => {
                 if (!res.error) {
                     message.success('取消关注成功');
-                    this.props.getPolice({ currentPage: this.state.current, pd: this.props.formValues });
+                    this.props.getPolice({currentPage: this.state.current, pd: this.props.formValues});
                 }
             },
         });
     };
 
     render() {
-        const { data, loading } = this.props;
-        const { shareVisible } = this.state;
+        const {data, loading} = this.props;
+        const {shareVisible} = this.state;
         const status = ['否', '是'];
         let columns;
         columns = [
@@ -166,7 +162,7 @@ class RenderTable extends PureComponent {
             {
                 title: '报警类别',
                 dataIndex: 'jqlbmc',
-                width:80,
+                width: 80,
                 render: (text) => {
                     return (
                         <Ellipsis tooltip length='7'>{text}</Ellipsis>
@@ -216,7 +212,7 @@ class RenderTable extends PureComponent {
                 width: 287,
                 render: (text) => {
                     return (
-                        <Ellipsis tooltip lines={3} >{text}</Ellipsis>
+                        <Ellipsis tooltip lines={2}>{text}</Ellipsis>
                     );
                 },
             },
@@ -248,7 +244,7 @@ class RenderTable extends PureComponent {
                 },
             },
             {
-                title: window.configUrl.is_area === '2'?'是否分流':'是否处警',
+                title: window.configUrl.is_area === '2' ? '是否分流' : '是否处警',
                 dataIndex: 'is_cj',
                 // width: 50,
             },
@@ -303,50 +299,38 @@ class RenderTable extends PureComponent {
             total: data.page ? data.page.totalResult : '',
             pageSize: data.page ? data.page.showCount : '',
             showTotal: (total, range) =>
-                <span className={styles.pagination}>{`共 ${data.page ? data.page.totalPage : 1} 页， ${data.page ? data.page.totalResult : 0} 条记录`}</span>,
+                <span
+                    className={styles.pagination}>{`共 ${data.page ? data.page.totalPage : 1} 页， ${data.page ? data.page.totalResult : 0} 条记录`}</span>,
         };
-        let detail = (
-            <Row style={{ width: '90%', margin: '0 52px 10px', lineHeight: '36px', color: 'rgba(0, 0, 0, 0.85)' }}>
-                <Col
-                    span={8}>接警人：{this.state.shareRecord && this.state.shareRecord.jjr ? this.state.shareRecord.jjr : ''}</Col>
-                <Col span={8}>管辖单位：<Tooltip
-                    title={this.state.shareRecord && this.state.shareRecord.jjdw && this.state.shareRecord.jjdw.length > 12 ? this.state.shareRecord.jjdw : null}>{this.state.shareRecord && this.state.shareRecord.jjdw ? this.state.shareRecord.jjdw.length > 12 ? this.state.shareRecord.jjdw.substring(0, 12) + '...' : this.state.shareRecord.jjdw : ''}</Tooltip></Col>
-                <Col span={8}>接警信息：<Tooltip
-                    title={this.state.shareRecord && this.state.shareRecord.jjnr && this.state.shareRecord.jjnr.length > 12 ? this.state.shareRecord.jjnr : null}>{this.state.shareRecord && this.state.shareRecord.jjnr ? this.state.shareRecord.jjnr.length > 12 ? this.state.shareRecord.jjnr.substring(0, 12) + '...' : this.state.shareRecord.jjnr : ''}</Tooltip></Col>
-                <Col
-                    span={8}>处警人：{this.state.shareRecord && this.state.shareRecord.cjr ? this.state.shareRecord.cjr : ''}</Col>
-                <Col span={8}>处警单位：<Tooltip
-                    title={this.state.shareRecord && this.state.shareRecord.cjdw && this.state.shareRecord.cjdw.length > 12 ? this.state.shareRecord.cjdw : null}>{this.state.shareRecord && this.state.shareRecord.cjdw ? this.state.shareRecord.cjdw.length > 12 ? this.state.shareRecord.cjdw.substring(0, 12) + '...' : this.state.shareRecord.cjdw : ''}</Tooltip></Col>
-                <Col span={8}>处警信息：<Tooltip
-                    title={this.state.shareRecord && this.state.shareRecord.cjqk && this.state.shareRecord.cjqk.length > 12 ? this.state.shareRecord.cjqk : null}>{this.state.shareRecord && this.state.shareRecord.cjqk ? this.state.shareRecord.cjqk.length > 12 ? this.state.shareRecord.cjqk.substring(0, 12) + '...' : this.state.shareRecord.cjqk : ''}</Tooltip></Col>
-            </Row>
-        );
         return (
             <div className={styles.standardTable}>
                 {/*<div>数据长度:{data.list?data.list.length:'无数据'}</div>*/}
-              <Card className={styles.cardArea} id='jqsjcardArea'>
-                <Table
-                    // size={'middle'}
-                    loading={loading}
-                    rowKey={record => record.key}
-                    dataSource={data.list}
-                    columns={columns}
-                    pagination={paginationProps}
-                    onChange={this.handleTableChange}
-                    locale={{ emptyText: <Empty image={this.props.global&&this.props.global.dark ? noList : noListLight} description={'暂无数据'} /> }}
-                />
-              </Card>
-                  {/*<ShareModal*/}
-                      {/*title="警情信息分享"*/}
-                      {/*detail={detail}*/}
-                      {/*shareVisible={this.state.shareVisible}*/}
-                      {/*handleCancel={this.handleCancel}*/}
-                      {/*shareItem={this.state.shareItem}*/}
-                      {/*personList={this.state.personList}*/}
-                      {/*lx={this.state.lx}*/}
-                      {/*tzlx={this.state.tzlx}*/}
-                      {/*sx={this.state.sx}*/}
-                  {/*/>*/}
+                <Card className={styles.cardArea} id='jqsjcardArea'>
+                    <Table
+                        // size={'middle'}
+                        loading={loading}
+                        rowKey={record => record.key}
+                        dataSource={data.list}
+                        columns={columns}
+                        pagination={paginationProps}
+                        onChange={this.handleTableChange}
+                        locale={{
+                            emptyText: <Empty image={this.props.global && this.props.global.dark ? noList : noListLight}
+                                              description={'暂无数据'}/>
+                        }}
+                    />
+                </Card>
+                {/*<ShareModal*/}
+                {/*title="警情信息分享"*/}
+                {/*detail={detail}*/}
+                {/*shareVisible={this.state.shareVisible}*/}
+                {/*handleCancel={this.handleCancel}*/}
+                {/*shareItem={this.state.shareItem}*/}
+                {/*personList={this.state.personList}*/}
+                {/*lx={this.state.lx}*/}
+                {/*tzlx={this.state.tzlx}*/}
+                {/*sx={this.state.sx}*/}
+                {/*/>*/}
             </div>
         );
     }

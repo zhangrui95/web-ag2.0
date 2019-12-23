@@ -5,13 +5,14 @@
 * */
 
 import React, {Component, PureComponent} from 'react';
-import { Tabs, Form, Input, Button, Modal,Card } from 'antd';
+import {Tabs, Form, Input, Button, Modal, Card} from 'antd';
 import MessageInput from './MessageInput';
 import style from './systemSetup.less';
 import {connect} from "dva";
 
-const { TabPane } = Tabs;
+const {TabPane} = Tabs;
 const confirm = Modal.confirm;
+
 class WarningMessages extends Component {
     // 保存确认框
     showConfirm = (e) => {
@@ -21,8 +22,8 @@ class WarningMessages extends Component {
             title: '确定要保存告警推送消息吗？',
             okText: '确定',
             cancelText: '取消',
-            centered:true,
-            getContainer:document.getElementById('boxSend1'),
+            centered: true,
+            getContainer: document.getElementById('boxSend1'),
             onOk() {
                 that.saveWarningMessage();
             },
@@ -47,7 +48,7 @@ class WarningMessages extends Component {
     };
 
     render() {
-        const { formItemLayout, form: { getFieldDecorator }, systemSetup: {systemSetup: { messageList }} , splitMessage } = this.props;
+        const {formItemLayout, form: {getFieldDecorator}, systemSetup: {systemSetup: {messageList}}, splitMessage} = this.props;
         return (
             <div id={'boxSend1'}>
                 <Card className={style.cardBox}>
@@ -160,6 +161,7 @@ class WarningMessages extends Component {
         );
     }
 }
+
 export default Form.create()(
-    connect((systemSetup, common) => ({ systemSetup, common }))(WarningMessages),
+    connect((systemSetup, common) => ({systemSetup, common}))(WarningMessages),
 );

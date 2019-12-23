@@ -19,7 +19,7 @@ export default {
     },
 
     effects: {
-        * MySuperviseFetch({ payload, callback }, { call, put }) {
+        * MySuperviseFetch({payload, callback}, {call, put}) {
             yield put({
                 type: 'changeLoading',
                 payload: true,
@@ -33,11 +33,11 @@ export default {
                 type: 'changeLoading',
                 payload: false,
             });
-            if (callback && response && !response.error&& response.data) {
+            if (callback && response && !response.error && response.data) {
                 callback(response.data);
             }
         },
-        * MySuperviseCount({ payload, callback }, { call, put }) {
+        * MySuperviseCount({payload, callback}, {call, put}) {
             // yield put({
             //   type: 'changeLoading',
             //   payload: true,
@@ -51,36 +51,36 @@ export default {
             //   type: 'changeLoading',
             //   payload: false,
             // });
-            if (callback && response && !response.error&& response.data) {
+            if (callback && response && !response.error && response.data) {
                 callback(response.data);
             }
         },
-        * changeReadStatus({ payload, callback }, { call, put }) {
+        * changeReadStatus({payload, callback}, {call, put}) {
             const response = yield call(changeReadStatus, payload);
-            if (callback && !response.error&& response.data) {
+            if (callback && !response.error && response.data) {
                 callback(response.data);
             }
         },
         // 告警情况
-        * getAllTypeWarningCount({ payload, callback }, { call, put }) {
+        * getAllTypeWarningCount({payload, callback}, {call, put}) {
             const response = yield call(getAllTypeWarningCount, payload);
             yield put({
                 type: 'setAllTypeWarningCount',
                 payload: response && response.data ? response.data : [],
             });
-            if (callback && response && !response.error&& response.data) {
+            if (callback && response && !response.error && response.data) {
                 callback(response.data);
             }
         },
         // 反馈
-        * saveFeedback({ payload, callback }, { call, put }) {
+        * saveFeedback({payload, callback}, {call, put}) {
             const response = yield call(saveFeedback, payload);
-            if (callback && response&& response.data) {
+            if (callback && response && response.data) {
                 callback(response.data);
             }
         },
         //获取跳转子系统
-        * goLinkList({ payload, callback }, { call, put }) {
+        * goLinkList({payload, callback}, {call, put}) {
             const response = yield call(goLink, payload);
             yield put({
                 type: 'getChildLink',
@@ -88,7 +88,7 @@ export default {
             });
         },
         //修改跳转子系统
-        * updateLink({ payload, callback }, { call, put }) {
+        * updateLink({payload, callback}, {call, put}) {
             yield put({
                 type: 'getChildLink',
                 payload: payload,

@@ -3,11 +3,11 @@
 * author：jhm
 * 20180117
 * */
-import React, { PureComponent } from 'react';
+import React, {PureComponent} from 'react';
 // import VDraggable from 'vdraggle';
 import styles from './AnnotationPreview.less';
 import BannerAnimMark from './BannerAnimMark';
-import { Card, Row, Button, Upload, Icon, Modal, Col, Menu, Dropdown, Switch, Popconfirm } from 'antd';
+import {Card, Row, Button, Upload, Icon, Modal, Col, Menu, Dropdown, Switch, Popconfirm} from 'antd';
 
 export default class AnnotationArea extends React.Component {
     constructor(props) {
@@ -41,7 +41,7 @@ export default class AnnotationArea extends React.Component {
         this.setState({
             currentIndex: index,
         });
-        let { electronicVolumeData } = this.state;
+        let {electronicVolumeData} = this.state;
         if (electronicVolumeData) {
             let item = electronicVolumeData[index];
             // if(item&&item.electronic_page_number){
@@ -71,14 +71,14 @@ export default class AnnotationArea extends React.Component {
             }
         }
         return (
-            <Row className={styles.imgAreaWrap} gutter={{ md: 6, lg: 12, xl: 24 }}>
+            <Row className={styles.imgAreaWrap} gutter={{md: 6, lg: 12, xl: 24}}>
 
                 <Col xl={24} lg={24} md={24} sm={24}>
                     <Card>
-                        <h3 style={{ textAlign: 'center', marginBottom: 16, fontWeight: '700' }}>
+                        <h3 style={{textAlign: 'center', marginBottom: 16, fontWeight: '700'}}>
                             {this.state.titleName} {this.state.pagenumber ? `(${this.state.pagenumber}页) ` : ''}
                         </h3>
-                        <div style={{ textAlign: 'center', height: '870px' }}>
+                        <div style={{textAlign: 'center', height: '870px'}}>
                             <BannerAnimMark
                                 arrayImg={imgUrlIdList}
                                 currentImg={this.state.currentImg}

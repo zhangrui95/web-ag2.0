@@ -1,5 +1,5 @@
-import React, { PureComponent } from 'react';
-import { connect } from 'dva';
+import React, {PureComponent} from 'react';
+import {connect} from 'dva';
 import {
     Modal,
     Table,
@@ -19,17 +19,17 @@ import {
     Checkbox,
     Input,
 } from 'antd';
-import { routerRedux } from 'dva/router';
-import { getSysAuthority } from '../../utils/authority';
+import {routerRedux} from 'dva/router';
+import {getSysAuthority} from '../../utils/authority';
 import styles from './SuperviseModal.less';
 // import Ellipsis from '../../components/Ellipsis';
 
 const TreeNode = TreeSelect.TreeNode;
-const { Option, OptGroup } = Select;
+const {Option, OptGroup} = Select;
 const FormItem = Form.Item;
-const { TextArea } = Input;
+const {TextArea} = Input;
 
-@connect(({ common }) => ({
+@connect(({common}) => ({
     common,
     // loading: loading.models.alarmManagement,
 }))
@@ -195,7 +195,7 @@ export default class SuperviseModal extends PureComponent {
 
     handleAlarm = () => {
         this.props.form.validateFields((err, fieldsValue) => {
-            const { zrrValue } = this.state;
+            const {zrrValue} = this.state;
             if (this.props.from === '警情详情问题判定' || this.props.from === '刑事案件详情问题判定' || this.props.from === '行政案件详情问题判定' || this.props.from === '办案区详情问题判定' || this.props.from === '涉案物品详情问题判定' || this.props.from === '卷宗详情问题判定') {
                 if (fieldsValue.wtlx === '' || fieldsValue.wtlx === undefined || fieldsValue.wtlx === null) {
                     message.warning('请选择问题类型');
@@ -238,7 +238,7 @@ export default class SuperviseModal extends PureComponent {
             dbLoading: true,
         });
         const values = this.props.form.getFieldsValue();
-        const { fileList, zrrValue } = this.state;
+        const {fileList, zrrValue} = this.state;
         let wjxx = [];
         for (let i in fileList) {
             const obj = {
@@ -392,7 +392,7 @@ export default class SuperviseModal extends PureComponent {
             }
             return true;
         });
-        this.setState({ fileList });
+        this.setState({fileList});
     };
 // 点击文件查看
     fileOnPreview = (file) => {
@@ -415,8 +415,8 @@ export default class SuperviseModal extends PureComponent {
         });
     };
     selectJudge = () => {
-        const { getFieldDecorator } = this.props.form;
-        const { returnxsProblemType, returnjqProblemType, returnxzProblemType, returnbaqProblemType, returnsacwProblemType, returnjzProblemType } = this.state;
+        const {getFieldDecorator} = this.props.form;
+        const {returnxsProblemType, returnjqProblemType, returnxzProblemType, returnbaqProblemType, returnsacwProblemType, returnjzProblemType} = this.state;
         let problemTypeOptions = [];
         if (this.props.from === '刑事案件详情问题判定') {
             if (returnxsProblemType.length > 0) {
@@ -484,7 +484,7 @@ export default class SuperviseModal extends PureComponent {
         {getFieldDecorator('wtlx', {
             // initialValue: this.state.wtlx,
         })(
-            <Select placeholder="请选择问题类型" style={{ width: '100%' }} onChange={this.chooseWtlx}
+            <Select placeholder="请选择问题类型" style={{width: '100%'}} onChange={this.chooseWtlx}
                     getPopupContainer={triggerNode => triggerNode.parentNode}>
                 {/*<Option value="">全部</Option>*/}
                 {/*<Option value="1">全部1</Option>*/}
@@ -499,11 +499,11 @@ export default class SuperviseModal extends PureComponent {
     title() {
         if (this.props.from === '警情详情问题判定' || this.props.from === '刑事案件详情问题判定' || this.props.from === '行政案件详情问题判定' || this.props.from === '办案区详情问题判定' || this.props.from === '涉案物品详情问题判定' || this.props.from === '卷宗详情问题判定') {
             return (
-                <div style={{ color: '#fff' }}>问题判定</div>
+                <div style={{color: '#fff'}}>问题判定</div>
             );
         } else {
             return (
-                <div style={{ color: '#fff' }}>督办</div>
+                <div style={{color: '#fff'}}>督办</div>
             );
         }
     }
@@ -550,9 +550,9 @@ export default class SuperviseModal extends PureComponent {
             <Select
                 showSearch
                 mode="multiple"
-                style={{ width: '100%' }}
+                style={{width: '100%'}}
                 value={this.state.chooseValue}
-                dropdownStyle={{ maxHeight: 400, overflow: 'auto' }}
+                dropdownStyle={{maxHeight: 400, overflow: 'auto'}}
                 placeholder="请选择责任人"
                 allowClear
                 onChange={this.handleonChange}
@@ -579,9 +579,9 @@ export default class SuperviseModal extends PureComponent {
     };
 
     render() {
-        const { SureModalVisible } = this.state;
-        const { getFieldDecorator } = this.props.form;
-        const { caseDetails } = this.props;
+        const {SureModalVisible} = this.state;
+        const {getFieldDecorator} = this.props.form;
+        const {caseDetails} = this.props;
         const uploadButton = (
             <Button>
                 <Icon type="upload"/>上传文件
@@ -601,7 +601,7 @@ export default class SuperviseModal extends PureComponent {
                 >
                     <div>
                         <Form>
-                            <Row gutter={{ md: 8, lg: 24, xl: 48 }} style={{ marginBottom: '16px' }}>
+                            <Row gutter={{md: 8, lg: 24, xl: 48}} style={{marginBottom: '16px'}}>
                                 {/*<Col md={12} sm={24}>问题类型：{this.props.from && this.props.from === '案件详情问题判定' ? this.selectJudge():this.props.wtlx}</Col>*/}
                                 <Col md={12} sm={24}>
                                     <span className={styles.title1}>
@@ -613,12 +613,12 @@ export default class SuperviseModal extends PureComponent {
                                     </span>
                                 </Col>
                                 <Col md={12} sm={24}>
-                                    <span className={styles.title} style={{ left: '24px', top: '3px' }}>责任人：</span>
+                                    <span className={styles.title} style={{left: '24px', top: '3px'}}>责任人：</span>
                                     <span className={styles.outtext}
-                                          style={{ paddingLeft: '60px' }}>{this.zzrSelect(caseDetails)}</span>
+                                          style={{paddingLeft: '60px'}}>{this.zzrSelect(caseDetails)}</span>
                                 </Col>
                             </Row>
-                            <Row style={{ marginBottom: '16px' }}>
+                            <Row style={{marginBottom: '16px'}}>
                                 <Col md={24} sm={24}>
                                   <span className={styles.title}>
                                     整改意见：
@@ -626,11 +626,11 @@ export default class SuperviseModal extends PureComponent {
                                     <span className={styles.outtext}>
                                       {getFieldDecorator('zgyj', {
                                           initialValue: this.state.zgyj,
-                                          rules: [{ max: 500, message: '最多输入500个字！' }],
+                                          rules: [{max: 500, message: '最多输入500个字！'}],
                                       })(
                                           <TextArea placeholder="请输入整改意见" rows={3} onChange={this.getZg}/>,
                                       )}
-                                        <span style={{ color: '#1890FF' }}>*请在此处简要描述执法问题和给出整改意见</span>
+                                        <span style={{color: '#1890FF'}}>*请在此处简要描述执法问题和给出整改意见</span>
                                     </span>
                                 </Col>
                             </Row>
@@ -653,12 +653,12 @@ export default class SuperviseModal extends PureComponent {
                                   </span>
                                 </Col>
                             </Row>
-                            <Row style={{ paddingTop: 20 }}>
+                            <Row style={{paddingTop: 20}}>
                                 <Col>
-                                    <span className={styles.outtext} style={{ color: 'rgba(0, 0, 0, 0.45)' }}>文件上传最多10个，支持扩展名：.rar .zip .doc .docx .pdf .jpg .png .bmp</span>
+                                    <span className={styles.outtext} style={{color: 'rgba(0, 0, 0, 0.45)'}}>文件上传最多10个，支持扩展名：.rar .zip .doc .docx .pdf .jpg .png .bmp</span>
                                 </Col>
                             </Row>
-                            <Row style={{ margin: '16px 0' }}>
+                            <Row style={{margin: '16px 0'}}>
                                 <Col md={24} sm={24}>
                                     <Checkbox onChange={this.onChangeGq}>直接挂起</Checkbox>
                                 </Col>
@@ -671,7 +671,7 @@ export default class SuperviseModal extends PureComponent {
                                     <span className={styles.outtext}>
                                         {getFieldDecorator('gqyy', {
                                             initialValue: this.state.gqyy,
-                                            rules: [{ max: 500, message: '请输入不超过500字' }],
+                                            rules: [{max: 500, message: '请输入不超过500字'}],
                                         })(
                                             <TextArea placeholder="请输入不超过500字" rows={3} onChange={this.getGq}/>,
                                         )}

@@ -3,9 +3,9 @@
 * author：lyp
 * 20180604
 * */
-import React, { PureComponent } from 'react';
-import { connect } from 'dva';
-import { Row, Col, List, Avatar } from 'antd';
+import React, {PureComponent} from 'react';
+import {connect} from 'dva';
+import {Row, Col, List, Avatar} from 'antd';
 import styles from './ComponentStyles.less';
 import videoImg from '../../assets/show/videoImg.png';
 
@@ -55,7 +55,7 @@ export default class VideoShow extends PureComponent {
     };
 
     render() {
-        const { show: { videoList } } = this.props;
+        const {show: {videoList}} = this.props;
         return (
             <div className={styles.componentBlock}>
                 <div className={styles.videoShow}>
@@ -85,18 +85,18 @@ export default class VideoShow extends PureComponent {
                             {/*<div className={styles.blueBlock}>369</div>*/}
                             {/*</Col>*/}
                             {/*</Row>*/}
-                            <div style={{ height: '100%', width: '100%' }}>
+                            <div style={{height: '100%', width: '100%'}}>
                                 {
                                     videoList.list && videoList.list.length > 0 ? videoList.list.map(item => (
                                         <Row className={styles.videoListRow}>
                                             <Col span={8} className={styles.videoListContent}>
-                                                <img src={videoImg} alt="" style={{ cursor: 'pointer' }}
+                                                <img src={videoImg} alt="" style={{cursor: 'pointer'}}
                                                      onClick={() => this.videoPlay(item.person_id, item.handlearea_num)}/>
                                             </Col>
                                             <Col span={16} className={styles.videoListContent}>
-                                                <div style={{ paddingTop: 15 }}>{item.haName}</div>
-                                                <div style={{ paddingTop: 5 }}>
-                                                    <span style={{ paddingRight: 20 }}>{item.rqsj}</span>
+                                                <div style={{paddingTop: 15}}>{item.haName}</div>
+                                                <div style={{paddingTop: 5}}>
+                                                    <span style={{paddingRight: 20}}>{item.rqsj}</span>
                                                     <span>{item.name}</span>
                                                 </div>
                                             </Col>

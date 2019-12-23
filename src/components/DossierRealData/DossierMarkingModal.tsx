@@ -4,8 +4,8 @@
 * 20180115
 * */
 
-import React, { PureComponent } from 'react';
-import { connect } from 'dva';
+import React, {PureComponent} from 'react';
+import {connect} from 'dva';
 import {
     Modal,
     Table,
@@ -25,12 +25,12 @@ import {
     TreeSelect,
     Spin,
 } from 'antd';
-import { routerRedux } from 'dva/router';
+import {routerRedux} from 'dva/router';
 import styles from './DossierMarkingModal.less';
 import nocollect from '../../../public/images/nocollect.png';
 import PreviewTable from './PreviewTable';
 import AnnotationArea from './AnnotationArea';
-import { getUserInfos } from '../../utils/utils';
+import {getUserInfos} from '../../utils/utils';
 
 const FormItem = Form.Item;
 
@@ -107,7 +107,7 @@ export default class DossierMarkingModal extends PureComponent {
     // 获取电子卷
     getElectronicVolumeList = () => {
         let record = this.state.record;
-        let { dossier_id, electronic_apply_id } = this.state;
+        let {dossier_id, electronic_apply_id} = this.state;
         this.props.dispatch({
             type: 'DossierData/fetchElectronicPageList',
             payload: {
@@ -134,8 +134,8 @@ export default class DossierMarkingModal extends PureComponent {
     };
 
     render() {
-        const { CatalogList, electronicVolumeData } = this.state;
-        const { dossier_id } = this.props.DossierDetailData;
+        const {CatalogList, electronicVolumeData} = this.state;
+        const {dossier_id} = this.props.DossierDetailData;
         // console.log('CatalogList',CatalogList);
         let index = 0;
         if (electronicVolumeData && electronicVolumeData.length > 0) {

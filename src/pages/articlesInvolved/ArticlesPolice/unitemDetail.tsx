@@ -4,10 +4,10 @@
 * 20180605
 * */
 
-import React, { PureComponent } from 'react';
+import React, {PureComponent} from 'react';
 import numeral from 'numeral';
 
-import { connect } from 'dva';
+import {connect} from 'dva';
 import {
     Row,
     Col,
@@ -29,23 +29,23 @@ import {
 } from 'antd';
 import styles from './unitemDetail.less';
 import liststyles from '../../common/listDetail.less';
-import { autoheight, getQueryString, userResourceCodeDb } from '../../../utils/utils';
+import {autoheight, getQueryString, userResourceCodeDb} from '../../../utils/utils';
 // import SuperviseModal from '../../../components/UnCaseRealData/SuperviseModal';
 // import PersonDetail from '../AllDocuments/PersonalDocDetail';
 // import CaseDetail from '../CaseRealData/caseDetail';
 // import XzCaseDetail from '../XzCaseRealData/caseDetail';
 // import FeedbackModal from '../../components/Common/FeedbackModal';
-import { authorityIsTrue } from '../../../utils/authority';
+import {authorityIsTrue} from '../../../utils/authority';
 import SupervisionLog from '../../../components/Common/SupervisionLog';
 import nophoto from '../../../assets/common/nophoto.png';
 import {routerRedux} from "dva/router";
 import nophotoLight from "@/assets/common/nophotoLight.png";
 
 const FormItem = Form.Item;
-const { Step } = Steps;
+const {Step} = Steps;
 
-@connect(({ UnItemData, loading, MySuperviseData,global }) => ({
-    UnItemData, loading, MySuperviseData,global
+@connect(({UnItemData, loading, MySuperviseData, global}) => ({
+    UnItemData, loading, MySuperviseData, global
     // loading: loading.models.alarmManagement,
 }))
 
@@ -83,19 +83,19 @@ export default class unitemDetail extends PureComponent {
     };
 
     componentDidMount() {
-      let res = this.props.location.query.record;
-      if(typeof res == 'string'){
-        res = JSON.parse(sessionStorage.getItem('query')).query.record;
-      }
-      const { location } = this.props;
-      if(location&&location.query&&location.query.record&&location.query.record.id&&location.query.record.system_id){
-        this.itemDetailDatas(location.query.record.id, location.query.record.system_id);
-      }
+        let res = this.props.location.query.record;
+        if (typeof res == 'string') {
+            res = JSON.parse(sessionStorage.getItem('query')).query.record;
+        }
+        const {location} = this.props;
+        if (location && location.query && location.query.record && location.query.record.id && location.query.record.system_id) {
+            this.itemDetailDatas(location.query.record.id, location.query.record.system_id);
+        }
     }
 
     // 再次督办
     onceSupervise = (flag, UnitemDetail) => {
-        const { wtlx, kfgly_dwmc, kfgly_dwdm, kfgly, wtid, kfgly_zjhm } = UnitemDetail;
+        const {wtlx, kfgly_dwmc, kfgly_dwdm, kfgly, wtid, kfgly_zjhm} = UnitemDetail;
         this.props.dispatch({
             type: 'UnItemData/getUnitemByProblemId',
             payload: {
@@ -107,12 +107,20 @@ export default class unitemDetail extends PureComponent {
             },
             callback: (data) => {
                 if (data.list[0].dbzt === '00' || (data.list[0].dbzt === '30' && data.list[0].fkzt === '1')) {
-                  this.props.dispatch(
-                    routerRedux.push({
-                      pathname: '/ModuleAll/Supervise',
-                      query: { record: UnitemDetail,id: UnitemDetail && UnitemDetail.wtid ? UnitemDetail.wtid : '1',from:'涉案财物详情问题判定',tzlx:'wpwt',fromPath:'/articlesInvolved/ArticlesPolice/unitemDetail',wtflId:'230205',wtflMc:'涉案财物详情' },
-                    }),
-                  )
+                    this.props.dispatch(
+                        routerRedux.push({
+                            pathname: '/ModuleAll/Supervise',
+                            query: {
+                                record: UnitemDetail,
+                                id: UnitemDetail && UnitemDetail.wtid ? UnitemDetail.wtid : '1',
+                                from: '涉案财物详情问题判定',
+                                tzlx: 'wpwt',
+                                fromPath: '/articlesInvolved/ArticlesPolice/unitemDetail',
+                                wtflId: '230205',
+                                wtflMc: '涉案财物详情'
+                            },
+                        }),
+                    )
                     // this.setState({
                     //     superviseVisibleModal: !!flag,
                     //     superviseWtlx: wtlx,
@@ -133,7 +141,7 @@ export default class unitemDetail extends PureComponent {
     };
     // 反馈
     feedback = (flag, unItemDetailData) => {
-        const { wtid } = unItemDetailData;
+        const {wtid} = unItemDetailData;
         this.props.dispatch({
             type: 'UnItemData/getUnitemByProblemId',
             payload: {
@@ -145,12 +153,19 @@ export default class unitemDetail extends PureComponent {
             },
             callback: (data) => {
                 if (data.list[0].fkzt !== '1') {
-                  this.props.dispatch(
-                    routerRedux.push({
-                      pathname: '/ModuleAll/FeedBack',
-                      query: { record:unItemDetailData,id: unItemDetailData && unItemDetailData.wtid ? unItemDetailData.wtid : '1',from:'反馈',tzlx:'wpwt',fromPath:'/articlesInvolved/ArticlesPolice/unitemDetail',tab:'详情'},
-                    }),
-                  )
+                    this.props.dispatch(
+                        routerRedux.push({
+                            pathname: '/ModuleAll/FeedBack',
+                            query: {
+                                record: unItemDetailData,
+                                id: unItemDetailData && unItemDetailData.wtid ? unItemDetailData.wtid : '1',
+                                from: '反馈',
+                                tzlx: 'wpwt',
+                                fromPath: '/articlesInvolved/ArticlesPolice/unitemDetail',
+                                tab: '详情'
+                            },
+                        }),
+                    )
                 } else {
                     message.warning('该问题已反馈');
                     this.itemDetailDatas(this.props.location.query.record.id, this.props.location.query.record.system_id);
@@ -259,7 +274,7 @@ export default class unitemDetail extends PureComponent {
                 id: this.state.dbid,
             },
             callback: () => {
-                const {query:{record}} = this.props.location;
+                const {query: {record}} = this.props.location;
                 message.success('督办整改完成');
                 this.caseDetailDatas(record.id, record.systemId);
                 if (this.props.refreshTable) {
@@ -311,18 +326,18 @@ export default class unitemDetail extends PureComponent {
     };
 
     Topdetail() {
-        const { UnitemDetail, isDb } = this.state;
-        let dark = this.props.global&&this.props.global.dark;
+        const {UnitemDetail, isDb} = this.state;
+        let dark = this.props.global && this.props.global.dark;
         return (
-            <div style={{ backgroundColor:  dark ? '#252C3C' : '#fff', margin: '16px 0' }}>
-                <Row gutter={{ md: 8, lg: 24, xl: 48 }}>
+            <div style={{backgroundColor: dark ? '#252C3C' : '#fff', margin: '16px 0'}}>
+                <Row gutter={{md: 8, lg: 24, xl: 48}}>
                     {/*<Col md={8} sm={24}>*/}
-                        {/*<span style={{ margin: '16px', display: 'block' }}>涉案物品详情</span>*/}
+                    {/*<span style={{ margin: '16px', display: 'block' }}>涉案物品详情</span>*/}
                     {/*</Col>*/}
                     <Col>
-                      <span style={{ float: 'right', margin: '12px 16px 12px 0' }}>
+                      <span style={{float: 'right', margin: '12px 16px 12px 0'}}>
                         {UnitemDetail && UnitemDetail.zt === '待督办' && isDb ?
-                            <Button type="primary" style={{ marginLeft: 8 }} loading={this.state.loading1}
+                            <Button type="primary" style={{marginLeft: 8}} loading={this.state.loading1}
                                     onClick={() => this.onceSupervise(true, UnitemDetail)}>督办</Button>
                             :
                             ''
@@ -331,7 +346,7 @@ export default class unitemDetail extends PureComponent {
                               UnitemDetail && (UnitemDetail.dbid === '' || (UnitemDetail.dbList && UnitemDetail.dbList.length > 0 && UnitemDetail.dbList[UnitemDetail.dbList.length - 1].fkzt !== '1')) && isDb ? (
                                   <Button
                                       type="primary"
-                                      style={{ marginLeft: 8 }}
+                                      style={{marginLeft: 8}}
                                       loading={this.state.feedbackButtonLoading}
                                       onClick={() => this.feedback(true, UnitemDetail)}
                                   >
@@ -356,12 +371,16 @@ export default class unitemDetail extends PureComponent {
             },
             callback: (data) => {
                 if (data && data.ryxx) {
-                  this.props.dispatch(
-                    routerRedux.push({
-                      pathname: '/lawEnforcement/PersonFile/Detail',
-                      query: { record: UnitemDetail,id: UnitemDetail && UnitemDetail.syrSfzh ? UnitemDetail.syrSfzh : '1',fromPath:'/articlesInvolved/ArticlesPolice/unitemDetail'},
-                    }),
-                  )
+                    this.props.dispatch(
+                        routerRedux.push({
+                            pathname: '/lawEnforcement/PersonFile/Detail',
+                            query: {
+                                record: UnitemDetail,
+                                id: UnitemDetail && UnitemDetail.syrSfzh ? UnitemDetail.syrSfzh : '1',
+                                fromPath: '/articlesInvolved/ArticlesPolice/unitemDetail'
+                            },
+                        }),
+                    )
                     // const divs = (
                     //     <div>
                     //         <PersonDetail
@@ -382,14 +401,14 @@ export default class unitemDetail extends PureComponent {
     };
 
     // 根据案件编号打开案件窗口
-    openCaseDetail = ( UnitemDetail ) => {
+    openCaseDetail = (UnitemDetail) => {
         if (UnitemDetail.ajlx === '22001') { // 刑事案件
-          this.props.dispatch(
-            routerRedux.push({
-              pathname: '/newcaseFiling/caseData/CriminalData/caseDetail',
-              query: { record:UnitemDetail,id: UnitemDetail.system_id },
-            }),
-          )
+            this.props.dispatch(
+                routerRedux.push({
+                    pathname: '/newcaseFiling/caseData/CriminalData/caseDetail',
+                    query: {record: UnitemDetail, id: UnitemDetail.system_id},
+                }),
+            )
             // const divs = (
             //     <div>
             //         <CaseDetail
@@ -401,12 +420,12 @@ export default class unitemDetail extends PureComponent {
             // const AddNewDetail = { title: '刑事案件详情', content: divs, key: ajbh };
             // this.props.newDetail(AddNewDetail);
         } else if (UnitemDetail.ajlx === '22002') { // 行政案件
-          this.props.dispatch(
-            routerRedux.push({
-              pathname: '/newcaseFiling/caseData/AdministrationData/caseDetail',
-              query: { record:UnitemDetail,id: UnitemDetail.system_id },
-            }),
-          )
+            this.props.dispatch(
+                routerRedux.push({
+                    pathname: '/newcaseFiling/caseData/AdministrationData/caseDetail',
+                    query: {record: UnitemDetail, id: UnitemDetail.system_id},
+                }),
+            )
             // const divs = (
             //     <div>
             //         <XzCaseDetail
@@ -422,10 +441,10 @@ export default class unitemDetail extends PureComponent {
 
     renderDetail() {
         // const { UnItemData:{ UnitemDetail, loading } } = this.props;
-        const { UnitemDetail, isDb, sureChange, loading2 } = this.state;
-        let dark = this.props.global&&this.props.global.dark;
+        const {UnitemDetail, isDb, sureChange, loading2} = this.state;
+        let dark = this.props.global && this.props.global.dark;
         return (
-            <div style={{ background: dark ? '#252c3c' : '#fff' , /*height: autoheight() - 180 + 'px'*/ }}
+            <div style={{background: dark ? '#252c3c' : '#fff', /*height: autoheight() - 180 + 'px'*/}}
                  className={styles.detailBoxScroll}>
                 <SupervisionLog
                     detailData={UnitemDetail}
@@ -437,7 +456,7 @@ export default class unitemDetail extends PureComponent {
                     frompath='/articlesInvolved/ArticlesPolice/unitemDetail'
                 />
                 <Card title="| 物品信息" className={styles.wpxxcard} bordered={false}>
-                    <Row gutter={{ md: 8, lg: 24, xl: 48 }}>
+                    <Row gutter={{md: 8, lg: 24, xl: 48}}>
                         <Col md={6} sm={24}>
                             <div>
                                 {/*</Carousel>*/}
@@ -458,53 +477,59 @@ export default class unitemDetail extends PureComponent {
                             </div>
                         </Col>
                         <Col md={18} sm={24}>
-                            <div style={{ paddingRight: 24 }}>
-                                <Row gutter={{ md: 8, lg: 24, xl: 48 }}>
+                            <div style={{paddingRight: 24}}>
+                                <Row gutter={{md: 8, lg: 24, xl: 48}}>
                                     <Col md={8} sm={24}>
                                         <div className={styles.Indexfrom}>物品名称：</div>
                                         <div className={styles.Indextail}>{UnitemDetail ? UnitemDetail.wpmc : ''}</div>
                                     </Col>
                                     <Col md={8} sm={24}>
                                         <div className={styles.Indexfrom}>物品种类：</div>
-                                        <div className={styles.Indextail}>{UnitemDetail ? UnitemDetail.wpzlName : ''}</div>
+                                        <div
+                                            className={styles.Indextail}>{UnitemDetail ? UnitemDetail.wpzlName : ''}</div>
                                     </Col>
                                     <Col md={8} sm={24}>
                                         <div className={styles.Indexfrom}>重量：</div>
-                                        <div className={styles.Indextail} style={{paddingLeft:46}}>{UnitemDetail ? UnitemDetail.wpzl : ''}</div>
+                                        <div className={styles.Indextail}
+                                             style={{paddingLeft: 46}}>{UnitemDetail ? UnitemDetail.wpzl : ''}</div>
                                     </Col>
                                 </Row>
-                                <Row gutter={{ md: 8, lg: 24, xl: 48 }}>
+                                <Row gutter={{md: 8, lg: 24, xl: 48}}>
                                     <Col md={8} sm={24}>
                                         <div className={styles.Indexfrom}>物品编码：</div>
                                         <div className={styles.Indextail}>{UnitemDetail ? UnitemDetail.wpbh : ''}</div>
                                     </Col>
                                     <Col md={8} sm={24}>
                                         <div className={styles.Indexfrom}>型号：</div>
-                                        <div className={styles.Indextail} style={{paddingLeft:46}}>{UnitemDetail ? UnitemDetail.wpxh : ''}</div>
+                                        <div className={styles.Indextail}
+                                             style={{paddingLeft: 46}}>{UnitemDetail ? UnitemDetail.wpxh : ''}</div>
                                     </Col>
                                     <Col md={8} sm={24}>
                                         <div className={styles.Indexfrom}>规格：</div>
-                                        <div className={styles.Indextail} style={{paddingLeft:46}}>{UnitemDetail ? UnitemDetail.wpgg : ''}</div>
+                                        <div className={styles.Indextail}
+                                             style={{paddingLeft: 46}}>{UnitemDetail ? UnitemDetail.wpgg : ''}</div>
                                     </Col>
                                 </Row>
-                                <Row gutter={{ md: 8, lg: 24, xl: 48 }}>
+                                <Row gutter={{md: 8, lg: 24, xl: 48}}>
                                     <Col md={8} sm={24}>
                                         <div className={styles.Indexfrom}>物品所有人：</div>
-                                        <div className={styles.Indextail} style={{ paddingLeft: 86 }}>
+                                        <div className={styles.Indextail} style={{paddingLeft: 86}}>
                                             <a onClick={() => this.person(UnitemDetail)}
-                                               style={{ textDecoration: 'underline' }}>{UnitemDetail.syrName}</a>
+                                               style={{textDecoration: 'underline'}}>{UnitemDetail.syrName}</a>
                                         </div>
                                     </Col>
                                     <Col md={8} sm={24}>
                                         <div className={styles.Indexfrom}>特征：</div>
-                                        <div className={styles.Indextail} style={{paddingLeft:46}}>{UnitemDetail ? UnitemDetail.wptz : ''}</div>
+                                        <div className={styles.Indextail}
+                                             style={{paddingLeft: 46}}>{UnitemDetail ? UnitemDetail.wptz : ''}</div>
                                     </Col>
                                     <Col md={8} sm={24}>
                                         <div className={styles.Indexfrom}>数量：</div>
-                                        <div className={styles.Indextail} style={{paddingLeft:46}}>{UnitemDetail ? UnitemDetail.wpsl : ''}</div>
+                                        <div className={styles.Indextail}
+                                             style={{paddingLeft: 46}}>{UnitemDetail ? UnitemDetail.wpsl : ''}</div>
                                     </Col>
                                 </Row>
-                                <Row gutter={{ md: 8, lg: 24, xl: 48 }}>
+                                <Row gutter={{md: 8, lg: 24, xl: 48}}>
                                     <Col md={8} sm={24}>
                                         <div className={styles.Indexfrom}>扣押原因：</div>
                                         <div className={styles.Indextail}>{UnitemDetail ? UnitemDetail.kyyy : ''}</div>
@@ -518,40 +543,44 @@ export default class unitemDetail extends PureComponent {
                                         <div className={styles.Indextail}>{UnitemDetail ? UnitemDetail.bcqx : ''}</div>
                                     </Col>
                                 </Row>
-                                <Row gutter={{ md: 8, lg: 24, xl: 48 }}>
+                                <Row gutter={{md: 8, lg: 24, xl: 48}}>
                                     <Col md={8} sm={24}>
                                         <div className={styles.Indexfrom}>扣押批准人：</div>
-                                        <div className={styles.Indextail} style={{paddingLeft:84}}>{UnitemDetail ? UnitemDetail.kypzr : ''}</div>
+                                        <div className={styles.Indextail}
+                                             style={{paddingLeft: 84}}>{UnitemDetail ? UnitemDetail.kypzr : ''}</div>
                                     </Col>
                                     <Col md={8} sm={24}>
                                         <div className={styles.Indexfrom}>库房管理员：</div>
                                         <div className={styles.Indextail}
-                                             style={{ paddingLeft: 86 }}>{UnitemDetail ? UnitemDetail.kfgly : ''}</div>
+                                             style={{paddingLeft: 86}}>{UnitemDetail ? UnitemDetail.kfgly : ''}</div>
                                     </Col>
                                     <Col md={8} sm={24}>
                                         <div className={styles.Indexfrom}>保存方式：</div>
-                                        <div className={styles.Indextail}>{UnitemDetail ? UnitemDetail.bcfsName : ''}</div>
+                                        <div
+                                            className={styles.Indextail}>{UnitemDetail ? UnitemDetail.bcfsName : ''}</div>
                                     </Col>
                                 </Row>
-                                <Row gutter={{ md: 8, lg: 24, xl: 48 }}>
+                                <Row gutter={{md: 8, lg: 24, xl: 48}}>
                                     <Col md={8} sm={24}>
                                         <div className={styles.Indexfrom}>物品状态：</div>
                                         <div className={styles.Indextail}>{UnitemDetail ? UnitemDetail.wpzt : ''}</div>
                                     </Col>
                                     <Col md={8} sm={24}>
                                         <div className={styles.Indexfrom}>所在库位：</div>
-                                        <div className={styles.Indextail} style={{paddingLeft:76}}>{UnitemDetail ? UnitemDetail.szkw : ''}</div>
+                                        <div className={styles.Indextail}
+                                             style={{paddingLeft: 76}}>{UnitemDetail ? UnitemDetail.szkw : ''}</div>
                                     </Col>
                                     <Col md={8} sm={24}>
                                         <div className={styles.Indexfrom}>所在库房名称：</div>
                                         <div className={styles.Indextail}
-                                             style={{ paddingLeft: 100 }}>{UnitemDetail ? UnitemDetail.szkf : ''}</div>
+                                             style={{paddingLeft: 100}}>{UnitemDetail ? UnitemDetail.szkf : ''}</div>
                                     </Col>
                                 </Row>
-                                <Row gutter={{ md: 8, lg: 24, xl: 48 }}>
+                                <Row gutter={{md: 8, lg: 24, xl: 48}}>
                                     <Col md={24} sm={24}>
                                         <div className={styles.Indexfrom}>备注：</div>
-                                        <div className={styles.Indextail} style={{paddingLeft:45}}>{UnitemDetail ? UnitemDetail.bz : ''}</div>
+                                        <div className={styles.Indextail}
+                                             style={{paddingLeft: 45}}>{UnitemDetail ? UnitemDetail.bz : ''}</div>
                                     </Col>
 
                                 </Row>
@@ -560,118 +589,119 @@ export default class unitemDetail extends PureComponent {
                     </Row>
                 </Card>
                 {UnitemDetail && UnitemDetail.wpgjList && UnitemDetail.wpgjList.length > 0 ?
-                  (window.configUrl.is_area === '5' ?
-                    <div>
-                      <Card title="| 物品轨迹" className={styles.wpxxcard} bordered={false}>
-                        {UnitemDetail.wpgjList.map(wpgj =>
-                          <Row gutter={8} style={{ marginBottom: '24px' }}>
-                            <Col md={4} sm={24} style={{ paddingLeft: 36 }}>
-                              <div className={styles.break}>物品状态：{wpgj.wpzt}</div>
-                            </Col>
-                            <Col md={5} sm={24}>
-                              <div className={styles.break}>操作时间：{wpgj.czsj}</div>
-                            </Col>
-                            <Col md={4} sm={24}>
-                              <div className={styles.break}>操作人：{wpgj.czr}</div>
-                            </Col>
-                            <Col md={4} sm={24}>
-                              <div className={styles.break}>操作原因：{wpgj.czyy}</div>
-                            </Col>
-                            <Col md={4} sm={24}>
-                              <div className={styles.break}>归还期限：{wpgj.ghqx}</div>
-                            </Col>
-                          </Row>,
-                        )}
-                      </Card>
-                    </div>
+                    (window.configUrl.is_area === '5' ?
+                        <div>
+                            <Card title="| 物品轨迹" className={styles.wpxxcard} bordered={false}>
+                                {UnitemDetail.wpgjList.map(wpgj =>
+                                    <Row gutter={8} style={{marginBottom: '24px'}}>
+                                        <Col md={4} sm={24} style={{paddingLeft: 36}}>
+                                            <div className={styles.break}>物品状态：{wpgj.wpzt}</div>
+                                        </Col>
+                                        <Col md={5} sm={24}>
+                                            <div className={styles.break}>操作时间：{wpgj.czsj}</div>
+                                        </Col>
+                                        <Col md={4} sm={24}>
+                                            <div className={styles.break}>操作人：{wpgj.czr}</div>
+                                        </Col>
+                                        <Col md={4} sm={24}>
+                                            <div className={styles.break}>操作原因：{wpgj.czyy}</div>
+                                        </Col>
+                                        <Col md={4} sm={24}>
+                                            <div className={styles.break}>归还期限：{wpgj.ghqx}</div>
+                                        </Col>
+                                    </Row>,
+                                )}
+                            </Card>
+                        </div>
+                        :
+                        <div>
+                            <Card title="| 物品轨迹" className={liststyles.card} bordered={false}>
+                                {UnitemDetail.wpgjList.map(wpgj =>
+                                    <Row gutter={8} style={{marginBottom: '24px'}}>
+                                        <Col md={4} sm={24} style={{paddingLeft: 36}}>
+                                            <div className={styles.break}>{wpgj.wpzt}</div>
+                                        </Col>
+                                        <Col md={5} sm={24}>
+                                            <div className={styles.break}>{wpgj.czsj}</div>
+                                        </Col>
+                                        <Col md={4} sm={24}>
+                                            <div className={styles.break}>{wpgj.czr}</div>
+                                        </Col>
+                                        <Col md={4} sm={24}>
+                                            <div className={styles.break}>{wpgj.czyy}</div>
+                                        </Col>
+                                        <Col md={4} sm={24}>
+                                            <div className={styles.break}>{wpgj.ghqx}</div>
+                                        </Col>
+                                    </Row>,
+                                )}
+                            </Card>
+                        </div>)
                     :
-                    <div>
-                      <Card title="| 物品轨迹" className={liststyles.card} bordered={false}>
-                        {UnitemDetail.wpgjList.map(wpgj =>
-                          <Row gutter={8} style={{ marginBottom: '24px' }}>
-                            <Col md={4} sm={24} style={{ paddingLeft: 36 }}>
-                              <div className={styles.break}>{wpgj.wpzt}</div>
-                            </Col>
-                            <Col md={5} sm={24}>
-                              <div className={styles.break}>{wpgj.czsj}</div>
-                            </Col>
-                            <Col md={4} sm={24}>
-                              <div className={styles.break}>{wpgj.czr}</div>
-                            </Col>
-                            <Col md={4} sm={24}>
-                              <div className={styles.break}>{wpgj.czyy}</div>
-                            </Col>
-                            <Col md={4} sm={24}>
-                              <div className={styles.break}>{wpgj.ghqx}</div>
-                            </Col>
-                          </Row>,
-                        )}
-                      </Card>
-                    </div>)
-                  :
-                  ''
+                    ''
                 }
                 <Card title="| 案件信息" className={styles.wpxxcard} bordered={false}>
-                    <Row style={{ paddingRight: 24 }}>
+                    <Row style={{paddingRight: 24}}>
                         <Col md={12} sm={24}>
                             <div className={styles.Indexfrom}>案件名称：</div>
                             <div className={styles.Indextail}
-                                 style={{ paddingLeft: 96 }}>{UnitemDetail ? UnitemDetail.ajmc : ''}</div>
+                                 style={{paddingLeft: 96}}>{UnitemDetail ? UnitemDetail.ajmc : ''}</div>
                         </Col>
                         <Col md={12} sm={24}>
                             <div className={styles.Indexfrom}>案件编号：</div>
-                            <div className={styles.Indextail} style={{ paddingLeft: 96 }}>
+                            <div className={styles.Indextail} style={{paddingLeft: 96}}>
                                 {
                                     UnitemDetail && UnitemDetail.ajbh ? (
                                         UnitemDetail.system_id && UnitemDetail.ajlx ?
-                                          (<a onClick={() => this.openCaseDetail(UnitemDetail)} style={{ textDecoration: 'underline' }}>{UnitemDetail.ajbh}</a>) : UnitemDetail.ajbh) : ''
+                                            (<a onClick={() => this.openCaseDetail(UnitemDetail)}
+                                                style={{textDecoration: 'underline'}}>{UnitemDetail.ajbh}</a>) : UnitemDetail.ajbh) : ''
                                 }
                             </div>
                         </Col>
                     </Row>
 
-                    <Row style={{ paddingRight: 24 }}>
+                    <Row style={{paddingRight: 24}}>
                         <Col md={12} sm={24}>
                             <div className={styles.Indexfrom}>案件状态：</div>
                             <div className={styles.Indextail}
-                                 style={{ paddingLeft: 96 }}>{UnitemDetail ? UnitemDetail.ajzt : ''}</div>
+                                 style={{paddingLeft: 96}}>{UnitemDetail ? UnitemDetail.ajzt : ''}</div>
                         </Col>
                         <Col md={12} sm={24}>
                             <div className={styles.Indexfrom}>立案时间：</div>
                             <div className={styles.Indextail}
-                                 style={{ paddingLeft: 96 }}>{UnitemDetail ? UnitemDetail.larq : ''}</div>
+                                 style={{paddingLeft: 96}}>{UnitemDetail ? UnitemDetail.larq : ''}</div>
                         </Col>
                     </Row>
 
-                    <Row style={{ paddingRight: 24 }}>
+                    <Row style={{paddingRight: 24}}>
                         <Col md={12} sm={24}>
                             <div className={styles.Indexfrom}>办案单位：</div>
                             <div className={styles.Indextail}
-                                 style={{ paddingLeft: 96 }}>{UnitemDetail ? UnitemDetail.badw : ''}</div>
+                                 style={{paddingLeft: 96}}>{UnitemDetail ? UnitemDetail.badw : ''}</div>
                         </Col>
                         <Col md={12} sm={24}>
                             <div className={styles.Indexfrom}>办案人：</div>
                             <div className={styles.Indextail}
-                                 style={{ paddingLeft: 82 }}>{UnitemDetail ? UnitemDetail.bar : ''}</div>
+                                 style={{paddingLeft: 82}}>{UnitemDetail ? UnitemDetail.bar : ''}</div>
                         </Col>
                     </Row>
-                    <Row style={{ paddingRight: 24 }}>
+                    <Row style={{paddingRight: 24}}>
                         <Col md={12} sm={24}>
                             <div className={styles.Indexfrom}>案发时段：</div>
                             <div className={styles.Indextail}
-                                 style={{ paddingLeft: 96 }}>{UnitemDetail && UnitemDetail.fasjsx && UnitemDetail.fasjxx ? UnitemDetail.fasjsx + '~' + UnitemDetail.fasjxx : ''}</div>
+                                 style={{paddingLeft: 96}}>{UnitemDetail && UnitemDetail.fasjsx && UnitemDetail.fasjxx ? UnitemDetail.fasjsx + '~' + UnitemDetail.fasjxx : ''}</div>
                         </Col>
                         <Col md={12} sm={24}>
                             <div className={styles.Indexfrom}>案发地点：</div>
                             <div className={styles.Indextail}
-                                 style={{ paddingLeft: 96 }}>{UnitemDetail ? UnitemDetail.fadd : ''}</div>
+                                 style={{paddingLeft: 96}}>{UnitemDetail ? UnitemDetail.fadd : ''}</div>
                         </Col>
                     </Row>
-                    <Row style={{ paddingRight: 24 }}>
+                    <Row style={{paddingRight: 24}}>
                         <Col md={24} sm={24}>
                             <div className={styles.Indexfrom}>简要案情：</div>
                             <div className={styles.Indextail}
-                                 style={{ paddingLeft: 96 }}>{UnitemDetail ? UnitemDetail.jyaq : ''}</div>
+                                 style={{paddingLeft: 96}}>{UnitemDetail ? UnitemDetail.jyaq : ''}</div>
                         </Col>
                     </Row>
                 </Card>
@@ -680,10 +710,10 @@ export default class unitemDetail extends PureComponent {
     }
 
     render() {
-        const { superviseVisibleModal, history, RestDbrz, UnitemDetail, reformModal, seeDetail, Isdetail, NowDbrz, feedbackVisibleModal } = this.state;
-        let dark = this.props.global&&this.props.global.dark;
+        const {superviseVisibleModal, history, RestDbrz, UnitemDetail, reformModal, seeDetail, Isdetail, NowDbrz, feedbackVisibleModal} = this.state;
+        let dark = this.props.global && this.props.global.dark;
         return (
-            <div className={dark?'':styles.lightBox}>
+            <div className={dark ? '' : styles.lightBox}>
                 <div>
                     {this.Topdetail()}
                 </div>
@@ -692,33 +722,33 @@ export default class unitemDetail extends PureComponent {
                 </div>
 
                 {/*{superviseVisibleModal ?*/}
-                    {/*<SuperviseModal*/}
-                        {/*visible={superviseVisibleModal}*/}
-                        {/*closeModal={this.closeModal}*/}
-                        {/*// saveModal={this.saveModal}*/}
-                        {/*caseDetails={this.state.UnitemDetail}*/}
-                        {/*getRefresh={this.Refresh}*/}
-                        {/*// 点击列表的督办显示的四个基本信息*/}
-                        {/*wtlx={this.state.superviseWtlx}*/}
-                        {/*wtid={this.state.id}*/}
-                        {/*// zrdw={this.state.superviseZrdw}*/}
-                        {/*// zrdwId={this.state.superviseZrdwId}*/}
-                        {/*// zrr={this.state.superviseZrr}*/}
-                        {/*id={this.state.id}*/}
-                        {/*// zjhm={this.state.sfzh}*/}
-                        {/*from='督办'*/}
-                    {/*/>*/}
-                    {/*: ''*/}
+                {/*<SuperviseModal*/}
+                {/*visible={superviseVisibleModal}*/}
+                {/*closeModal={this.closeModal}*/}
+                {/*// saveModal={this.saveModal}*/}
+                {/*caseDetails={this.state.UnitemDetail}*/}
+                {/*getRefresh={this.Refresh}*/}
+                {/*// 点击列表的督办显示的四个基本信息*/}
+                {/*wtlx={this.state.superviseWtlx}*/}
+                {/*wtid={this.state.id}*/}
+                {/*// zrdw={this.state.superviseZrdw}*/}
+                {/*// zrdwId={this.state.superviseZrdwId}*/}
+                {/*// zrr={this.state.superviseZrr}*/}
+                {/*id={this.state.id}*/}
+                {/*// zjhm={this.state.sfzh}*/}
+                {/*from='督办'*/}
+                {/*/>*/}
+                {/*: ''*/}
                 {/*}*/}
                 {/*{*/}
-                    {/*feedbackVisibleModal ? (*/}
-                        {/*<FeedbackModal*/}
-                            {/*closeModal={this.closeFeedbackModal}*/}
-                            {/*saveModal={this.saveFeedbackModal}*/}
-                            {/*visible={feedbackVisibleModal}*/}
-                            {/*detailsData={this.state.UnitemDetail}*/}
-                        {/*/>*/}
-                    {/*) : null*/}
+                {/*feedbackVisibleModal ? (*/}
+                {/*<FeedbackModal*/}
+                {/*closeModal={this.closeFeedbackModal}*/}
+                {/*saveModal={this.saveFeedbackModal}*/}
+                {/*visible={feedbackVisibleModal}*/}
+                {/*detailsData={this.state.UnitemDetail}*/}
+                {/*/>*/}
+                {/*) : null*/}
                 {reformModal ?
                     <Modal
                         maskClosable={false}

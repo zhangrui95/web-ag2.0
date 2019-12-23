@@ -4,7 +4,7 @@
 * 20181122
 * */
 
-import React, { PureComponent } from 'react';
+import React, {PureComponent} from 'react';
 import echarts from 'echarts/lib/echarts';
 import bar from 'echarts/lib/chart/bar';
 import title from 'echarts/lib/component/title';
@@ -15,7 +15,7 @@ let myChart;
 export default class AdministrativeCaseCount extends PureComponent {
 
     componentDidMount() {
-        const { selectDate, org, orgCode, orglist } = this.props;
+        const {selectDate, org, orgCode, orglist} = this.props;
         this.getAdministrativeCaseCount(selectDate[0], selectDate[1], org, orgCode, orglist);
         this.showEchart();
         window.addEventListener('resize', myChart.resize);
@@ -82,7 +82,7 @@ export default class AdministrativeCaseCount extends PureComponent {
                 data: [],
                 silent: false,
                 // splitLine: {show: false},
-                splitArea: { show: false },
+                splitArea: {show: false},
                 axisLabel: {
                     // textStyle: {
                     //     color: '#fff'
@@ -106,7 +106,7 @@ export default class AdministrativeCaseCount extends PureComponent {
             },
             yAxis: {
                 // inverse: true,
-                splitArea: { show: false },
+                splitArea: {show: false},
                 axisLabel: {
                     textStyle: {
                         color: '#68CCFE',
@@ -171,7 +171,7 @@ export default class AdministrativeCaseCount extends PureComponent {
 
     render() {
         return (
-            <div id="AdministrativeCaseCount" style={{ height: '100%', width: '100%' }}></div>
+            <div id="AdministrativeCaseCount" style={{height: '100%', width: '100%'}}></div>
         );
     }
 }

@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React, {Fragment} from 'react';
 import SCMDataShow from '../pages/ShowData/SCMDataShow';
 
 class setupShow extends React.PureComponent {

@@ -3,8 +3,8 @@
 * author：lyp
 * 20180623
 * */
-import React, { PureComponent } from 'react';
-import { connect } from 'dva';
+import React, {PureComponent} from 'react';
+import {connect} from 'dva';
 import {
     Row,
     Col,
@@ -21,7 +21,7 @@ import {
 import Home1 from './Home1';
 import Home2 from './Home2';
 
-@connect(({ home, share, common }) => ({
+@connect(({home, share, common}) => ({
     home, share, common,
 }))
 @Form.create()

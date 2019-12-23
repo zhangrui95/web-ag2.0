@@ -7,58 +7,58 @@
 import * as generalQueryService from '../services/generalQuery';
 
 export default {
-  namespace: 'generalQuery',
+    namespace: 'generalQuery',
 
-  state: {
-    searchData: [],
-  },
-
-  effects: {
-    // 综合查询
-    *getSearchData({ payload, callback }, { call, put }) {
-      const response = yield call(generalQueryService.getSearchData, payload);
-      yield put({
-        type: 'setSearchData',
-        payload: response && response.error === null ? response.data : {},
-      });
-      if (callback && response && !response.error) {
-        callback(response);
-      }
+    state: {
+        searchData: [],
     },
 
-    *getSearchDataNew({ payload, callback }, { call, put }) {
-      const response = yield call(generalQueryService.getSearchDataNew, payload);
-      yield put({
-        type: 'setSearchData',
-        payload: response && response.error === null ? response.data : {},
-      });
-      if (callback && response && !response.error) {
-        callback(response);
-      }else{
-          callback();
-      }
+    effects: {
+        // 综合查询
+        * getSearchData({payload, callback}, {call, put}) {
+            const response = yield call(generalQueryService.getSearchData, payload);
+            yield put({
+                type: 'setSearchData',
+                payload: response && response.error === null ? response.data : {},
+            });
+            if (callback && response && !response.error) {
+                callback(response);
+            }
+        },
+
+        * getSearchDataNew({payload, callback}, {call, put}) {
+            const response = yield call(generalQueryService.getSearchDataNew, payload);
+            yield put({
+                type: 'setSearchData',
+                payload: response && response.error === null ? response.data : {},
+            });
+            if (callback && response && !response.error) {
+                callback(response);
+            } else {
+                callback();
+            }
+        },
+
+        * getSaveSsNrXX({payload, callback}, {call, put}) {
+            const response = yield call(generalQueryService.getSaveSsNrXX, payload);
+        },
+
+        * getssNrXX({payload, callback}, {call, put}) {
+            const response = yield call(generalQueryService.getSsNrXX, payload);
+            if (callback && response) {
+                callback(response);
+            } else {
+                callback();
+            }
+        },
     },
 
-    *getSaveSsNrXX({ payload, callback }, { call, put }) {
-      const response = yield call(generalQueryService.getSaveSsNrXX, payload);
+    reducers: {
+        setSearchData(state, action) {
+            return {
+                ...state,
+                searchData: action.payload,
+            };
+        },
     },
-
-    *getssNrXX({ payload, callback }, { call, put }) {
-      const response = yield call(generalQueryService.getSsNrXX, payload);
-      if (callback && response) {
-        callback(response);
-      }else{
-          callback();
-      }
-    },
-  },
-
-  reducers: {
-    setSearchData(state, action) {
-      return {
-        ...state,
-        searchData: action.payload,
-      };
-    },
-  },
 };

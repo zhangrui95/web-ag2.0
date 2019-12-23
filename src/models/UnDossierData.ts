@@ -4,8 +4,8 @@
 *  20181206
 * */
 import * as dossierService from '../services/Undossier';
-import { SuperviseMessage } from '../services/UnCaseData';
-import { SureRefomMessage, UnpoliceDatas } from '../services/UnPoliceData';
+import {SuperviseMessage} from '../services/UnCaseData';
+import {SureRefomMessage, UnpoliceDatas} from '../services/UnPoliceData';
 
 export default {
     namespace: 'UnDossierData',
@@ -27,71 +27,71 @@ export default {
     },
 
     effects: {
-        * getDossierData({ payload, callback }, { call, put }) {
+        * getDossierData({payload, callback}, {call, put}) {
             const response = yield call(dossierService.getDossierData, payload);
             yield put({
                 type: 'setDossierData',
                 payload: response && response.error === null ? response.data : [],
             });
-            if (callback && response && response.error === null&& response.data) {
+            if (callback && response && response.error === null && response.data) {
                 callback(response.data);
             }
         },
-        * NewgetDossierData({ payload, callback }, { call, put }) {
+        * NewgetDossierData({payload, callback}, {call, put}) {
             const response = yield call(dossierService.getDossierData, payload);
             yield put({
                 type: 'NewsetDossierData',
                 payload: response && response.error === null ? response.data : [],
             });
-            if (callback && response && response.error === null&& response.data) {
+            if (callback && response && response.error === null && response.data) {
                 callback(response.data);
             }
         },
-        * getDossierDetail({ payload, callback }, { call, put }) {
+        * getDossierDetail({payload, callback}, {call, put}) {
             const response = yield call(dossierService.getDossierDetail, payload);
             yield put({
                 type: 'setDossierDetail',
                 payload: response && response.error === null ? response.data : [],
             });
-            if (callback && response && response.error === null&& response.data) {
+            if (callback && response && response.error === null && response.data) {
                 callback(response.data);
             }
         },
         // 保存督办
-        * SureSupervise({ payload, callback }, { call, put }) {
+        * SureSupervise({payload, callback}, {call, put}) {
             const response = yield call(dossierService.SuperviseMessage, payload);
             yield put({
                 type: 'CaseSupervise',
                 payload: response && response.error === null ? response.data : {},
             });
-            if (callback && response && !response.error&& response.data) {
+            if (callback && response && !response.error && response.data) {
                 callback(response.data);
             }
         },
-        * getUnDossierByProblemId({ payload, callback }, { call, put }) {
+        * getUnDossierByProblemId({payload, callback}, {call, put}) {
             const response = yield call(dossierService.getDossierData, payload);
-            if (callback && response && !response.error&& response.data) {
+            if (callback && response && !response.error && response.data) {
                 callback(response.data);
             }
         },
         // 确认整改完成
-        * sureRefomFetch({ payload, callback }, { call, put }) {
+        * sureRefomFetch({payload, callback}, {call, put}) {
             const response = yield call(dossierService.SureRefomMessage, payload);
             yield put({
                 type: 'SureRefomSupervise',
                 payload: response && response.error === null ? response.data : {},
             });
-            if (callback && response && !response.error&& response.data) {
+            if (callback && response && !response.error && response.data) {
                 callback(response.data);
             }
         },
-        * getUnDossierAllTypeWarnings({ payload, callback }, { call, put }) {
+        * getUnDossierAllTypeWarnings({payload, callback}, {call, put}) {
             const response = yield call(dossierService.UnDossierAllTypeWarnings, payload);
             yield put({
                 type: 'UnDossierAllTypeWarningsSupervise',
                 payload: response && response.error === null ? response.data : {},
             });
-            if (callback && response && !response.error&& response.data) {
+            if (callback && response && !response.error && response.data) {
                 callback(response.data);
             }
         },

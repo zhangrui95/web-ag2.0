@@ -3,8 +3,8 @@
  * author：zr
  * 20190313
  * */
-import React, { Component,  useState, useEffect } from 'react';
-import { connect } from 'dva';
+import React, {Component, useState, useEffect} from 'react';
+import {connect} from 'dva';
 import stylescommon from '../../common/common.less';
 import styles from './index.less';
 import {
@@ -37,7 +37,7 @@ const RadioGroup = Radio.Group;
 const TreeNode = TreeSelect.TreeNode;
 const Option = Select.Option;
 const confirm = Modal.confirm;
-const { RangePicker } = DatePicker;
+const {RangePicker} = DatePicker;
 
 class Detail extends Component {
     constructor(props) {
@@ -63,9 +63,9 @@ class Detail extends Component {
             yyjgdList: [],
             qjjg: false,
             treeDefaultExpandedKeys: [], // 办案单位树默认展开keys
-            searchHeight:false,
-            addHave:true,
-            NoticeNote:'', // 监管点具体算法说明
+            searchHeight: false,
+            addHave: true,
+            NoticeNote: '', // 监管点具体算法说明
         };
     }
 
@@ -80,7 +80,7 @@ class Detail extends Component {
         this.getDepTree(JSON.parse(sessionStorage.getItem('user')).department);
         let type = 2;
         let res = this.props.location.query.record;
-        if(typeof res == 'string'){
+        if (typeof res == 'string') {
             res = JSON.parse(sessionStorage.getItem('query')).query.record;
         }
         this.props.form.resetFields([
@@ -116,7 +116,7 @@ class Detail extends Component {
                 tqsj1: null,
                 tqsj2: null,
                 tqsj3: null,
-                NoticeNote:null,
+                NoticeNote: null,
             });
         } else if (type == 1 || type == 2) {
             if (res.jglx === '0') {
@@ -165,7 +165,7 @@ class Detail extends Component {
             });
         }
         this.setState({
-          modleType: type,
+            modleType: type,
         });
         // this.getJgdList();
         // // this.getCommon('500830');//监管事项
@@ -264,7 +264,7 @@ class Detail extends Component {
         let person = [];
         if (resSfz && resSfz.length > 0) {
             resSfz.split(',').map((event, idx) => {
-                person.push({ key: event, label: resName.split(',')[idx] });
+                person.push({key: event, label: resName.split(',')[idx]});
             });
         }
         return person;
@@ -303,7 +303,7 @@ class Detail extends Component {
                 tqsj1: null,
                 tqsj2: null,
                 tqsj3: null,
-                NoticeNote:null,
+                NoticeNote: null,
             });
         } else if (type == 1 || type == 2) {
             if (res.jglx === '0') {
@@ -452,7 +452,7 @@ class Detail extends Component {
             tqsj1: null,
             tqsj2: null,
             tqsj3: null,
-            NoticeNote:null,
+            NoticeNote: null,
         });
         if (e.target.value === '0') {
             this.getCommon('500830'); //告警监管事项
@@ -479,7 +479,7 @@ class Detail extends Component {
             tqsj1: null,
             tqsj2: null,
             tqsj3: null,
-            NoticeNote:null,
+            NoticeNote: null,
         });
         if (e === '0') {
             this.getCommon('500830'); //告警监管事项
@@ -507,13 +507,21 @@ class Detail extends Component {
                                 name: '复用其他机构',
                                 path: '/systemSetup/SuperviseSetup/Copy',
                                 isShow: true,
-                                query: {  yyjgdList: res.data, id: JSON.parse(values.addjgxz).id ,fyxzjg:JSON.parse(values.addjgxz)},
+                                query: {
+                                    yyjgdList: res.data,
+                                    id: JSON.parse(values.addjgxz).id,
+                                    fyxzjg: JSON.parse(values.addjgxz)
+                                },
                             },
                             callback: () => {
                                 this.props.dispatch(
                                     routerRedux.push({
                                         pathname: '/systemSetup/SuperviseSetup/Copy',
-                                        query: { yyjgdList: res.data, id: JSON.parse(values.addjgxz).id,fyxzjg:JSON.parse(values.addjgxz)},
+                                        query: {
+                                            yyjgdList: res.data,
+                                            id: JSON.parse(values.addjgxz).id,
+                                            fyxzjg: JSON.parse(values.addjgxz)
+                                        },
                                     }),
                                 );
                             },
@@ -554,7 +562,7 @@ class Detail extends Component {
             sf_qy: null,
             qjjg: false,
             addHave: false,
-            NoticeNote:null,
+            NoticeNote: null,
         });
     };
     getJgd = e => {
@@ -577,7 +585,7 @@ class Detail extends Component {
         this.setState({
             jgdDm: null,
             jgdMc: null,
-            NoticeNote:null,
+            NoticeNote: null,
         });
         this.getSupervise(
             e.key === '5008301'
@@ -645,7 +653,7 @@ class Detail extends Component {
                     label: item.name,
                 };
                 let objStr = JSON.stringify(obj);
-                return <TreeNode key={objStr} value={objStr} title={item.name} />;
+                return <TreeNode key={objStr} value={objStr} title={item.name}/>;
             }
         });
     updateJgdOk = () => {
@@ -876,7 +884,7 @@ class Detail extends Component {
             } else if (!values.addjgxz && this.state.modleType == 0) {
                 message.warn('请选择监管事项');
             } else {
-                const res = { jglx: values.addjglx, jgd_mc: e.label };
+                const res = {jglx: values.addjglx, jgd_mc: e.label};
                 this.getExplain(res);
                 this.props.dispatch({
                     type: 'SuperviseSetup/getfyJgd',
@@ -946,7 +954,7 @@ class Detail extends Component {
     };
     // 导出
     exportData = () => {
-        const { formValues } = this.state;
+        const {formValues} = this.state;
         this.props.dispatch({
             type: 'common/exportData',
             payload: {
@@ -971,14 +979,17 @@ class Detail extends Component {
     };
     getSearchHeight = () => {
         this.setState({
-            searchHeight:!this.state.searchHeight
+            searchHeight: !this.state.searchHeight
         });
     }
     onEdit = (isReset) => {
-        let key = '/systemSetup/SuperviseSetup/Update'+this.props.location.query.id;
-        const { dispatch } = this.props;
+        let key = '/systemSetup/SuperviseSetup/Update' + this.props.location.query.id;
+        const {dispatch} = this.props;
         if (dispatch) {
-            dispatch( routerRedux.push({pathname: '/systemSetup/SuperviseSetup',query: isReset ? {isReset,type:'2'} : {}}));
+            dispatch(routerRedux.push({
+                pathname: '/systemSetup/SuperviseSetup',
+                query: isReset ? {isReset, type: '2'} : {}
+            }));
             dispatch({
                 type: 'global/changeSessonNavigation',
                 payload: {
@@ -995,9 +1006,10 @@ class Detail extends Component {
             });
         }
     };
+
     render() {
         const {
-            form: { getFieldDecorator },
+            form: {getFieldDecorator},
             SuperviseSetup: {
                 common: {
                     JgsxType,
@@ -1010,33 +1022,33 @@ class Detail extends Component {
                     ColorType3,
                     TxryType,
                 },
-                SuperviseSetup: { JgdType },
+                SuperviseSetup: {JgdType},
             },
         } = this.props;
-        const rowLayout = { md: 8, xl: 16, xxl: 24 };
+        const rowLayout = {md: 8, xl: 16, xxl: 24};
         const modleLayouts = {
-            labelCol: { span: 8 },
-            wrapperCol: { span: 14 },
+            labelCol: {span: 8},
+            wrapperCol: {span: 14},
         };
         const modleLayout = {
-            labelCol: { span: 9 },
-            wrapperCol: { span: 12 },
+            labelCol: {span: 9},
+            wrapperCol: {span: 12},
         };
         const modleLayoutColor = {
-            labelCol: { span: 8 },
-            wrapperCol: { span: 10 },
+            labelCol: {span: 8},
+            wrapperCol: {span: 10},
         };
         const modleLayoutjg = {
-            labelCol: { span: 8 },
-            wrapperCol: { span: 16 },
+            labelCol: {span: 8},
+            wrapperCol: {span: 16},
         };
         const menu = (
             <Menu onClick={this.handleMenuClick}>
                 {ColorType1 &&
                 ColorType1.map(event => {
                     return (
-                        <Menu.Item style={{ padding: '5px 4px' }} key={event.name}>
-                            <div style={{ width: '20px', height: '20px', background: `${event.name}` }}></div>
+                        <Menu.Item style={{padding: '5px 4px'}} key={event.name}>
+                            <div style={{width: '20px', height: '20px', background: `${event.name}`}}></div>
                         </Menu.Item>
                     );
                 })}
@@ -1047,8 +1059,8 @@ class Detail extends Component {
                 {ColorType2 &&
                 ColorType2.map(event => {
                     return (
-                        <Menu.Item style={{ padding: '5px 4px' }} key={event.name}>
-                            <div style={{ width: '20px', height: '20px', background: `${event.name}` }}></div>
+                        <Menu.Item style={{padding: '5px 4px'}} key={event.name}>
+                            <div style={{width: '20px', height: '20px', background: `${event.name}`}}></div>
                         </Menu.Item>
                     );
                 })}
@@ -1059,8 +1071,8 @@ class Detail extends Component {
                 {ColorType3 &&
                 ColorType3.map(event => {
                     return (
-                        <Menu.Item style={{ padding: '5px 4px' }} key={event.name}>
-                            <div style={{ width: '20px', height: '20px', background: `${event.name}` }}></div>
+                        <Menu.Item style={{padding: '5px 4px'}} key={event.name}>
+                            <div style={{width: '20px', height: '20px', background: `${event.name}`}}></div>
                         </Menu.Item>
                     );
                 })}
@@ -1068,7 +1080,8 @@ class Detail extends Component {
         );
         return (
             <div className={this.props.SuperviseSetup.global.dark ? '' : styles.lightBox}>
-                <Card className={stylescommon.statistics + ' ' + styles.detailBox} id={'formSeperUpdate'+this.props.location.query.id}>
+                <Card className={stylescommon.statistics + ' ' + styles.detailBox}
+                      id={'formSeperUpdate' + this.props.location.query.id}>
                     <Form>
                         <Row gutter={rowLayout} className={styles.formBoxBorder}>
                             {/*<Col*/}
@@ -1085,13 +1098,13 @@ class Detail extends Component {
                                     })(
                                         <TreeSelect
                                             showSearch
-                                            style={{ width: '100%' }}
-                                            dropdownStyle={{ maxHeight: 400, overflow: 'auto' }}
+                                            style={{width: '100%'}}
+                                            dropdownStyle={{maxHeight: 400, overflow: 'auto'}}
                                             placeholder="请选择机构"
                                             allowClear
                                             treeDefaultExpandedKeys={this.state.treeDefaultExpandedKeys}
                                             key="badwSelect"
-                                            getPopupContainer={()=>document.getElementById('formSeperUpdate'+this.props.location.query.id)}
+                                            getPopupContainer={() => document.getElementById('formSeperUpdate' + this.props.location.query.id)}
                                             treeNodeFilterProp="title"
                                             onChange={e => this.emptyJgxz(e)}
                                             disabled={this.state.modleType == 0 ? false : true}
@@ -1108,7 +1121,7 @@ class Detail extends Component {
                                         : styles.none
                                 }
                                 span={8}
-                                style={{ paddingLeft: '7.5%',margin: '18px 0' }}
+                                style={{paddingLeft: '7.5%', margin: '18px 0'}}
                             >
                                 <Checkbox onChange={this.onChangeQjjg} checked={this.state.qjjg}>
                                     全局监管
@@ -1117,7 +1130,7 @@ class Detail extends Component {
                             <Col
                                 className={this.state.modleType == 0 ? '' : styles.none}
                                 span={8}
-                                style={{ margin: '14px 0' }}
+                                style={{margin: '14px 0'}}
                             >
                                 <Button
                                     type="primary"
@@ -1153,11 +1166,11 @@ class Detail extends Component {
                                         <Select
                                             labelInValue={true}
                                             placeholder="请选择"
-                                            style={{ width: '100%' }}
+                                            style={{width: '100%'}}
                                             onChange={this.getJgd}
-                                            getPopupContainer={()=>document.getElementById('formSeperUpdate'+this.props.location.query.id)}
+                                            getPopupContainer={() => document.getElementById('formSeperUpdate' + this.props.location.query.id)}
                                         >
-                                            {JgsxType &&JgsxType.length > 0&&
+                                            {JgsxType && JgsxType.length > 0 &&
                                             JgsxType.map(event => {
                                                 return <Option value={event.code}>{event.name}</Option>;
                                             })}
@@ -1178,9 +1191,9 @@ class Detail extends Component {
                                         <Select
                                             labelInValue
                                             placeholder="请选择"
-                                            style={{ width: 'calc(100% - 40px)' }}
+                                            style={{width: 'calc(100% - 40px)'}}
                                             onChange={e => this.changeJgd(e)}
-                                            getPopupContainer={()=>document.getElementById('formSeperUpdate'+this.props.location.query.id)}
+                                            getPopupContainer={() => document.getElementById('formSeperUpdate' + this.props.location.query.id)}
                                         >
                                             {JgdType &&
                                             JgdType.map(event => {
@@ -1188,7 +1201,8 @@ class Detail extends Component {
                                             })}
                                         </Select>,
                                     )}
-                                    <Tooltip title={this.state.NoticeNote}><Icon type="info-circle" className={styles.lxsm} /></Tooltip>
+                                    <Tooltip title={this.state.NoticeNote}><Icon type="info-circle"
+                                                                                 className={styles.lxsm}/></Tooltip>
                                 </FormItem>
                             </Col>
                             <Col span={8}>
@@ -1200,8 +1214,8 @@ class Detail extends Component {
                                                 : undefined,
                                     })(
                                         <RangePicker
-                                            style={{ width: '100%' }}
-                                            getCalendarContainer={()=>document.getElementById('formSeperUpdate'+this.props.location.query.id)}
+                                            style={{width: '100%'}}
+                                            getCalendarContainer={() => document.getElementById('formSeperUpdate' + this.props.location.query.id)}
                                             disabledDate={this.disabledEndDate}
                                         />,
                                     )}
@@ -1223,8 +1237,8 @@ class Detail extends Component {
                                         <Select
                                             labelInValue
                                             placeholder="请选择"
-                                            style={{ width: '100%' }}
-                                            getPopupContainer={()=>document.getElementById('formSeperUpdate'+this.props.location.query.id)}
+                                            style={{width: '100%'}}
+                                            getPopupContainer={() => document.getElementById('formSeperUpdate' + this.props.location.query.id)}
                                         >
                                             {SjjgType &&
                                             SjjgType.map(event => {
@@ -1243,8 +1257,8 @@ class Detail extends Component {
                                             mode="multiple"
                                             labelInValue
                                             placeholder="请选择"
-                                            style={{ width: '100%' }}
-                                            getPopupContainer={()=>document.getElementById('formSeperUpdate'+this.props.location.query.id)}
+                                            style={{width: '100%'}}
+                                            getPopupContainer={() => document.getElementById('formSeperUpdate' + this.props.location.query.id)}
                                         >
                                             {TxryType &&
                                             TxryType.length > 0 &&
@@ -1264,8 +1278,8 @@ class Detail extends Component {
                                             mode="multiple"
                                             labelInValue
                                             placeholder="请选择"
-                                            style={{ width: '100%' }}
-                                            getPopupContainer={()=>document.getElementById('formSeperUpdate'+this.props.location.query.id)}
+                                            style={{width: '100%'}}
+                                            getPopupContainer={() => document.getElementById('formSeperUpdate' + this.props.location.query.id)}
                                         >
                                             {TxryType &&
                                             TxryType.length > 0 &&
@@ -1285,8 +1299,8 @@ class Detail extends Component {
                                             mode="multiple"
                                             labelInValue
                                             placeholder="请选择"
-                                            style={{ width: '100%' }}
-                                            getPopupContainer={()=>document.getElementById('formSeperUpdate'+this.props.location.query.id)}
+                                            style={{width: '100%'}}
+                                            getPopupContainer={() => document.getElementById('formSeperUpdate' + this.props.location.query.id)}
                                         >
                                             {TxryType &&
                                             TxryType.length > 0 &&
@@ -1304,7 +1318,7 @@ class Detail extends Component {
                                     <FormItem
                                         label="第一级提醒人员"
                                         {...modleLayouts}
-                                        getPopupContainer={()=>document.getElementById('formSeperUpdate'+this.props.location.query.id)}
+                                        getPopupContainer={() => document.getElementById('formSeperUpdate' + this.props.location.query.id)}
                                     >
                                         {getFieldDecorator('dyjtxry3', {
                                             initialValue: this.state.dyjtxry3,
@@ -1313,8 +1327,8 @@ class Detail extends Component {
                                                 mode="multiple"
                                                 labelInValue
                                                 placeholder="请选择"
-                                                style={{ width: '100%' }}
-                                                getPopupContainer={()=>document.getElementById('formSeperUpdate'+this.props.location.query.id)}
+                                                style={{width: '100%'}}
+                                                getPopupContainer={() => document.getElementById('formSeperUpdate' + this.props.location.query.id)}
                                             >
                                                 {TxryType &&
                                                 TxryType.length > 0 &&
@@ -1327,8 +1341,10 @@ class Detail extends Component {
                                 </Col>
                                 <Col span={8}>
                                     <FormItem label="显示颜色" {...modleLayoutColor}>
-                                        <Dropdown overlay={menu3} trigger={['click']} getPopupContainer={()=>document.getElementById('formSeperUpdate'+this.props.location.query.id)}>
-                                            <div className={styles.boxColor} style={{ background: this.state.xsys3 }}></div>
+                                        <Dropdown overlay={menu3} trigger={['click']}
+                                                  getPopupContainer={() => document.getElementById('formSeperUpdate' + this.props.location.query.id)}>
+                                            <div className={styles.boxColor}
+                                                 style={{background: this.state.xsys3}}></div>
                                         </Dropdown>
                                     </FormItem>
                                 </Col>
@@ -1339,9 +1355,9 @@ class Detail extends Component {
                                         })(
                                             <Select
                                                 placeholder="请选择"
-                                                style={{ width: '100%' }}
+                                                style={{width: '100%'}}
                                                 onChange={e => this.getTqsj(e, 'tqsj3')}
-                                                getPopupContainer={()=>document.getElementById('formSeperUpdate'+this.props.location.query.id)}
+                                                getPopupContainer={() => document.getElementById('formSeperUpdate' + this.props.location.query.id)}
                                             >
                                                 {TqsjType &&
                                                 TqsjType.map(event => {
@@ -1379,8 +1395,8 @@ class Detail extends Component {
                                                 mode="multiple"
                                                 labelInValue
                                                 placeholder="请选择"
-                                                style={{ width: '100%' }}
-                                                getPopupContainer={()=>document.getElementById('formSeperUpdate'+this.props.location.query.id)}
+                                                style={{width: '100%'}}
+                                                getPopupContainer={() => document.getElementById('formSeperUpdate' + this.props.location.query.id)}
                                             >
                                                 {TxryType &&
                                                 TxryType.length > 0 &&
@@ -1393,8 +1409,10 @@ class Detail extends Component {
                                 </Col>
                                 <Col span={8}>
                                     <FormItem label="显示颜色" {...modleLayoutColor}>
-                                        <Dropdown overlay={menu2} trigger={['click']} getPopupContainer={()=>document.getElementById('formSeperUpdate'+this.props.location.query.id)}>
-                                            <div className={styles.boxColor} style={{ background: this.state.xsys2 }}></div>
+                                        <Dropdown overlay={menu2} trigger={['click']}
+                                                  getPopupContainer={() => document.getElementById('formSeperUpdate' + this.props.location.query.id)}>
+                                            <div className={styles.boxColor}
+                                                 style={{background: this.state.xsys2}}></div>
                                         </Dropdown>
                                     </FormItem>
                                 </Col>
@@ -1405,9 +1423,9 @@ class Detail extends Component {
                                         })(
                                             <Select
                                                 placeholder="请选择"
-                                                style={{ width: '100%' }}
+                                                style={{width: '100%'}}
                                                 onChange={e => this.getTqsj(e, 'tqsj2')}
-                                                getPopupContainer={()=>document.getElementById('formSeperUpdate'+this.props.location.query.id)}
+                                                getPopupContainer={() => document.getElementById('formSeperUpdate' + this.props.location.query.id)}
                                             >
                                                 {TqsjType &&
                                                 TqsjType.map(event => {
@@ -1444,8 +1462,8 @@ class Detail extends Component {
                                                 mode="multiple"
                                                 labelInValue
                                                 placeholder="请选择"
-                                                style={{ width: '100%' }}
-                                                getPopupContainer={()=>document.getElementById('formSeperUpdate'+this.props.location.query.id)}
+                                                style={{width: '100%'}}
+                                                getPopupContainer={() => document.getElementById('formSeperUpdate' + this.props.location.query.id)}
                                             >
                                                 {TxryType &&
                                                 TxryType.length > 0 &&
@@ -1458,8 +1476,10 @@ class Detail extends Component {
                                 </Col>
                                 <Col span={8}>
                                     <FormItem label="显示颜色" {...modleLayoutColor}>
-                                        <Dropdown overlay={menu} trigger={['click']} getPopupContainer={()=>document.getElementById('formSeperUpdate'+this.props.location.query.id)}>
-                                            <div className={styles.boxColor} style={{ background: this.state.xsys1 }}></div>
+                                        <Dropdown overlay={menu} trigger={['click']}
+                                                  getPopupContainer={() => document.getElementById('formSeperUpdate' + this.props.location.query.id)}>
+                                            <div className={styles.boxColor}
+                                                 style={{background: this.state.xsys1}}></div>
                                         </Dropdown>
                                     </FormItem>
                                 </Col>
@@ -1470,9 +1490,9 @@ class Detail extends Component {
                                         })(
                                             <Select
                                                 placeholder="请选择"
-                                                style={{ width: '100%' }}
+                                                style={{width: '100%'}}
                                                 onChange={e => this.getTqsj(e, 'tqsj1')}
-                                                getPopupContainer={()=>document.getElementById('formSeperUpdate'+this.props.location.query.id)}
+                                                getPopupContainer={() => document.getElementById('formSeperUpdate' + this.props.location.query.id)}
                                             >
                                                 {TqsjType &&
                                                 TqsjType.map(event => {
@@ -1505,10 +1525,12 @@ class Detail extends Component {
                 </Card>
                 <Card>
                     <div className={styles.btns}>
-                        <Button type="primary" style={{ marginLeft: 8 }} className={styles.qxBtn} onClick={()=>this.onEdit(false)}>
+                        <Button type="primary" style={{marginLeft: 8}} className={styles.qxBtn}
+                                onClick={() => this.onEdit(false)}>
                             取消
                         </Button>
-                        <Button type="primary" style={{ marginLeft: 8 }} className={styles.okBtn} onClick={this.state.addHave ? this.updateJgdOk : this.handleOk}>
+                        <Button type="primary" style={{marginLeft: 8}} className={styles.okBtn}
+                                onClick={this.state.addHave ? this.updateJgdOk : this.handleOk}>
                             确定
                         </Button>
                     </div>
@@ -1517,6 +1539,7 @@ class Detail extends Component {
         );
     }
 }
+
 export default Form.create()(
-    connect((SuperviseSetup, common,global) => ({ SuperviseSetup, common,global }))(Detail),
+    connect((SuperviseSetup, common, global) => ({SuperviseSetup, common, global}))(Detail),
 );

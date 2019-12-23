@@ -3,8 +3,8 @@
 * author：jhm
 * 20180111
 * */
-import React, { PureComponent } from 'react';
-import { Row, Col, Card, Divider, Tooltip, Button, Radio, Icon, message, Progress } from 'antd';
+import React, {PureComponent} from 'react';
+import {Row, Col, Card, Divider, Tooltip, Button, Radio, Icon, message, Progress} from 'antd';
 import moment from 'moment/moment';
 import echarts from 'echarts/lib/echarts';
 import 'echarts/lib/chart/bar';
@@ -15,10 +15,10 @@ import 'echarts/lib/component/title';
 import 'echarts/lib/component/legend';
 import 'echarts/lib/component/tooltip';
 import styles from '../../pages/common/dataView.less';
-import { getDefaultDaysForMonth, getTimeDistance } from '../../utils/utils';
+import {getDefaultDaysForMonth, getTimeDistance} from '../../utils/utils';
 import DataViewDateShow from '../Common/DataViewDateShow';
 // import { MiniProgress, ChartCard } from '../../components/Charts';
-import { MiniProgress, ChartCard } from 'ant-design-pro/lib/Charts';
+import {MiniProgress, ChartCard} from 'ant-design-pro/lib/Charts';
 import nonDivImg from '../../assets/viewData/nonData.png';
 import {connect} from "dva";
 import noListLight from "@/assets/viewData/noListLight.png";
@@ -29,7 +29,7 @@ let itemEchartdzhqkPie;
 let itemEchartwpqsBar;
 const colors1 = ['#0099FF', '#33CC00', '#FF3300', '#9933FF', '#33CBCC', '#0198FF', '#9933FF'];
 const colors2 = ['#0198FF', '#9933FF'];
-@connect(({ global }) => ({
+@connect(({global}) => ({
     global
 }))
 export default class DossierDataView extends PureComponent {
@@ -89,9 +89,9 @@ export default class DossierDataView extends PureComponent {
                 } else if (nextProps.searchType === 'selectedDate') {
                     this.setState({
                         currentType: 'selectedDate',
-                        TypeTime:nextProps.selectedDateVal,
-                    }, function() {
-                        const { selectedDateVal } = nextProps;
+                        TypeTime: nextProps.selectedDateVal,
+                    }, function () {
+                        const {selectedDateVal} = nextProps;
                         this.getDossierNumCount(selectedDateVal[0], selectedDateVal[1], nextProps.orgcode);
                         this.getDossierCRKCount(selectedDateVal[0], selectedDateVal[1], '3', nextProps.orgcode);
                         this.showCaseZKNumpie(selectedDateVal[0], selectedDateVal[1], nextProps.orgcode);
@@ -101,7 +101,7 @@ export default class DossierDataView extends PureComponent {
                 }
 
             }
-            if(this.props.global.dark !== nextProps.global.dark){
+            if (this.props.global.dark !== nextProps.global.dark) {
                 this.showCaseEchartBar(nextProps);
                 this.showCaseEchartRingPie(nextProps);
                 this.showCaseEchartwpqsBar(nextProps);
@@ -113,8 +113,8 @@ export default class DossierDataView extends PureComponent {
 
     getTime = (type) => {
         const time = getTimeDistance(type);
-        const startTime = time&&time [0] ? moment(time[0]).format('YYYY-MM-DD') : '';
-        const endTime = time&&time[1] ? moment(time[1]).format('YYYY-MM-DD') : '';
+        const startTime = time && time [0] ? moment(time[0]).format('YYYY-MM-DD') : '';
+        const endTime = time && time[1] ? moment(time[1]).format('YYYY-MM-DD') : '';
         return [startTime, endTime];
     };
 
@@ -154,7 +154,7 @@ export default class DossierDataView extends PureComponent {
                     itemEchartRingPie.setOption({
                         legend: {
                             data: newData,
-                            formatter: function(name) {
+                            formatter: function (name) {
                                 for (let i = 0; i < newData.length; i++) {
                                     if (newData[i].name === name) {
                                         return `${name} ${newData[i].value}`;
@@ -212,7 +212,7 @@ export default class DossierDataView extends PureComponent {
                         yMax += 100;
                     }
                     for (let i = 0; i < data1.length; i++) {
-                        dataShadow.push({ value: yMax, code: data1[i].code });
+                        dataShadow.push({value: yMax, code: data1[i].code});
                     }
                     itemEchartpictorialBar.setOption({
                         tooltip: {
@@ -220,7 +220,7 @@ export default class DossierDataView extends PureComponent {
                             axisPointer: {
                                 type: 'none',
                             },
-                            formatter: function(params) {
+                            formatter: function (params) {
                                 return params[0].name + ': ' + params[1].value;
                             },
                         },
@@ -394,7 +394,7 @@ export default class DossierDataView extends PureComponent {
                     itemEchartdzhqkPie.setOption({
                         legend: {
                             data: newData,
-                            formatter: function(name) {
+                            formatter: function (name) {
                                 for (let i = 0; i < newData.length; i++) {
                                     if (newData[i].name === name) {
                                         return `${name} ${newData[i].value}`;
@@ -420,7 +420,7 @@ export default class DossierDataView extends PureComponent {
 
     // 本、昨、前change
     changeCountButtonCurrent = (type) => {
-        const { searchType } = this.props;
+        const {searchType} = this.props;
         let currentType = '';
         let rqtype = '';
         if (type === 'now') {
@@ -464,7 +464,7 @@ export default class DossierDataView extends PureComponent {
                 axisLabel: {
                     inside: false,
                     textStyle: {
-                        color: nextProps.global&&nextProps.global.dark ? '#fff' : '#4d4d4d',
+                        color: nextProps.global && nextProps.global.dark ? '#fff' : '#4d4d4d',
                     },
                     rotate: 30,
                     interval: 0,
@@ -486,7 +486,7 @@ export default class DossierDataView extends PureComponent {
                 },
                 axisLabel: {
                     textStyle: {
-                        color: nextProps.global&&nextProps.global.dark ? '#fff' : '#4d4d4d',
+                        color: nextProps.global && nextProps.global.dark ? '#fff' : '#4d4d4d',
                     },
                 },
             },
@@ -494,8 +494,8 @@ export default class DossierDataView extends PureComponent {
                 {
                     type: 'bar',
                     itemStyle: {
-                        normal: { color: 'rgba(0,0,0,0)' },
-                        emphasis: { color: 'rgba(0,0,0,0.05)' },
+                        normal: {color: 'rgba(0,0,0,0)'},
+                        emphasis: {color: 'rgba(0,0,0,0.05)'},
                     },
                     barGap: '-100%',
                     barCategoryGap: '40%',
@@ -510,9 +510,9 @@ export default class DossierDataView extends PureComponent {
                             color: new echarts.graphic.LinearGradient(
                                 0, 0, 0, 1,
                                 [
-                                    { offset: 0, color: '#83bff6' },
-                                    { offset: 0.5, color: '#188df0' },
-                                    { offset: 1, color: '#188df0' },
+                                    {offset: 0, color: '#83bff6'},
+                                    {offset: 0.5, color: '#188df0'},
+                                    {offset: 1, color: '#188df0'},
                                 ],
                             ),
                         },
@@ -520,9 +520,9 @@ export default class DossierDataView extends PureComponent {
                             color: new echarts.graphic.LinearGradient(
                                 0, 0, 0, 1,
                                 [
-                                    { offset: 0, color: '#2378f7' },
-                                    { offset: 0.7, color: '#2378f7' },
-                                    { offset: 1, color: '#83bff6' },
+                                    {offset: 0, color: '#2378f7'},
+                                    {offset: 0.7, color: '#2378f7'},
+                                    {offset: 1, color: '#83bff6'},
                                 ],
                             ),
                         },
@@ -534,15 +534,15 @@ export default class DossierDataView extends PureComponent {
         };
         itemEchartpictorialBar.setOption(option, true);
         let that = this;
-        itemEchartpictorialBar.on('click', function(params) {
-            const { currentType } = that.state;
+        itemEchartpictorialBar.on('click', function (params) {
+            const {currentType} = that.state;
             const dataTime = currentType === 'selectedDate' ? that.props.selectedDateVal : that.getTime(currentType);
-            that.props.changeToListPage({ jzlb: params.data.code, cczt: that.state.wpStatus }, dataTime);
+            that.props.changeToListPage({jzlb: params.data.code, cczt: that.state.wpStatus}, dataTime);
         });
     };
     // 入库出库切换
     changeRkListPageHeader = () => {
-        const { showrkDataView, TypeTime } = this.state;
+        const {showrkDataView, TypeTime} = this.state;
         this.setState({
             showrkDataView: !showrkDataView,
         });
@@ -554,9 +554,9 @@ export default class DossierDataView extends PureComponent {
         }
     };
     goList = (name) => {
-        const { currentType } = this.state;
+        const {currentType} = this.state;
         const dataTime = currentType === 'selectedDate' ? this.props.selectedDateVal : this.getTime(currentType);
-        this.props.changeToListPage({ szkf: name,cczt:'3' }, dataTime);
+        this.props.changeToListPage({szkf: name, cczt: '3'}, dataTime);
     };
     // 卷宗趋势
     showCaseEchartRingPie = (nextProps) => {
@@ -576,7 +576,7 @@ export default class DossierDataView extends PureComponent {
                 // data:['邮件营销','联盟广告'],
                 data: [],
                 textStyle: {
-                  color: nextProps.global&&nextProps.global.dark ? '#fff' : '#4d4d4d',
+                    color: nextProps.global && nextProps.global.dark ? '#fff' : '#4d4d4d',
                 },
             },
             grid: {
@@ -591,26 +591,26 @@ export default class DossierDataView extends PureComponent {
                 // data: ['周一','周二','周三','周四','周五','周六','周日']
                 data: [],
                 axisLabel: {
-                  textStyle: {
-                    color: nextProps.global&&nextProps.global.dark ? '#fff' : '#4d4d4d',
-                  },
+                    textStyle: {
+                        color: nextProps.global && nextProps.global.dark ? '#fff' : '#4d4d4d',
+                    },
                 },
             },
             yAxis: {
                 type: 'value',
                 axisLabel: {
-                  textStyle: {
-                    color:nextProps.global&&nextProps.global.dark ? '#fff' : '#4d4d4d',
-                  },
+                    textStyle: {
+                        color: nextProps.global && nextProps.global.dark ? '#fff' : '#4d4d4d',
+                    },
                 },
             },
             series: [],
         };
         itemEchartwpqsBar.setOption(option, true);
         let that = this;
-        itemEchartwpqsBar.on('click', function(params) {
+        itemEchartwpqsBar.on('click', function (params) {
             const dataTime = [params.name, params.name];
-            that.props.changeToListPage({ cczt: params.seriesName && params.seriesName === '出库' ? '1' : '3' }, dataTime);
+            that.props.changeToListPage({cczt: params.seriesName && params.seriesName === '出库' ? '1' : '3'}, dataTime);
         });
     };
     // 卷宗数量展示
@@ -639,7 +639,7 @@ export default class DossierDataView extends PureComponent {
                 itemGap: 25,
                 selectedMode: true, // 点击
                 textStyle: {
-                    color: nextProps.global&&nextProps.global.dark ? '#fff' : '#4d4d4d',
+                    color: nextProps.global && nextProps.global.dark ? '#fff' : '#4d4d4d',
                     fontSize: 16,
                     lineHeight: 24,
                 },
@@ -660,7 +660,7 @@ export default class DossierDataView extends PureComponent {
                             textStyle: {
                                 fontSize: '22',
                                 // fontWeight: 'bold',
-                                color: nextProps.global&&nextProps.global.dark ? '#fff' : '#4d4d4d',
+                                color: nextProps.global && nextProps.global.dark ? '#fff' : '#4d4d4d',
                             },
                         },
                         emphasis: {
@@ -678,10 +678,10 @@ export default class DossierDataView extends PureComponent {
         };
         itemEchartRingPie.setOption(option, true);
         let that = this;
-        itemEchartRingPie.on('click', function(params) {
-            const { currentType } = that.state;
+        itemEchartRingPie.on('click', function (params) {
+            const {currentType} = that.state;
             const dataTime = currentType === 'selectedDate' ? that.props.selectedDateVal : that.getTime(currentType);
-            that.props.changeToListPage({ cczt: params.name === '出库' ? '1' : params.name === '在库' ? '3' : params.name }, dataTime);
+            that.props.changeToListPage({cczt: params.name === '出库' ? '1' : params.name === '在库' ? '3' : params.name}, dataTime);
         });
     };
     // 电子化情况展示
@@ -710,7 +710,7 @@ export default class DossierDataView extends PureComponent {
                 itemGap: 25,
                 selectedMode: true, // 点击
                 textStyle: {
-                    color: nextProps.global&&nextProps.global.dark ? '#fff' : '#4d4d4d',
+                    color: nextProps.global && nextProps.global.dark ? '#fff' : '#4d4d4d',
                     fontSize: 16,
                     lineHeight: 24,
                 },
@@ -731,7 +731,7 @@ export default class DossierDataView extends PureComponent {
                             textStyle: {
                                 fontSize: '22',
                                 // fontWeight: 'bold',
-                                color:nextProps.global&&nextProps.global.dark ? '#fff' : '#4d4d4d',
+                                color: nextProps.global && nextProps.global.dark ? '#fff' : '#4d4d4d',
                             },
                         },
                         emphasis: {
@@ -749,8 +749,8 @@ export default class DossierDataView extends PureComponent {
         };
         itemEchartdzhqkPie.setOption(option, true);
         let that = this;
-        itemEchartdzhqkPie.on('click', function(params) {
-            const { currentType } = that.state;
+        itemEchartdzhqkPie.on('click', function (params) {
+            const {currentType} = that.state;
             const dataTime = currentType === 'selectedDate' ? that.props.selectedDateVal : that.getTime(currentType);
             that.props.changeToListPage({
                 dzh: params.name === '有电子卷' ? '1' : params.name === '无电子卷' ? '0' : params.name,
@@ -760,171 +760,190 @@ export default class DossierDataView extends PureComponent {
     };
 
     render() {
-      const rowLayout = { md: 8, xl: 16, xxl: 24 };
-      const colLayout = { sm: 24, lg: 24, xl: 8, xxl: 8 };
-      const colLayout1 = { sm: 24, lg: 16 };
-      const colLayout2 = { sm: 24, lg: 8 };
-      const { searchType, selectedDateVal, showDataView } = this.props;
-      const { currentType, ZkjzData, ZkjzTotal, showrkDataView, jzqsNoData, selectedDateData } = this.state;
-      let className = this.props.global&&this.props.global.dark ?styles.policeDataCard : styles.policeDataCard + ' '+styles.lightBox;
-      return (
-        <Card style={{ position: 'relative' }} className={className}>
-          <div className={styles.ItemDataView} style={showDataView ? {} : { position: 'absolute', zIndex: -1 }}>
-            {
-              currentType !== 'selectedDate' ? (
-                <div className={styles.viewCount}>
-                  <div
-                    className={(currentType === 'week' || currentType === 'month') ? styles.countButtonCurrent : styles.countButton}
-                    onClick={() => this.changeCountButtonCurrent('now')}
-                  >
+        const rowLayout = {md: 8, xl: 16, xxl: 24};
+        const colLayout = {sm: 24, lg: 24, xl: 8, xxl: 8};
+        const colLayout1 = {sm: 24, lg: 16};
+        const colLayout2 = {sm: 24, lg: 8};
+        const {searchType, selectedDateVal, showDataView} = this.props;
+        const {currentType, ZkjzData, ZkjzTotal, showrkDataView, jzqsNoData, selectedDateData} = this.state;
+        let className = this.props.global && this.props.global.dark ? styles.policeDataCard : styles.policeDataCard + ' ' + styles.lightBox;
+        return (
+            <Card style={{position: 'relative'}} className={className}>
+                <div className={styles.ItemDataView} style={showDataView ? {} : {position: 'absolute', zIndex: -1}}>
                     {
-                      searchType === 'week' ? <DataViewDateShow dataTypeStr='本周'/> :
-                        <DataViewDateShow dataTypeStr='本月'/>
-                    }
-                  </div>
-                  <div
-                    className={(currentType === 'lastWeek' || currentType === 'lastMonth') ? styles.countButtonCurrent : styles.countButton}
-                    onClick={() => this.changeCountButtonCurrent('last')}
-                  >
-                    {
-                      searchType === 'week' ? <DataViewDateShow dataTypeStr='前一周'/> :
-                        <DataViewDateShow dataTypeStr='前一月'/>
-                    }
-                  </div>
-                  <div
-                    className={(currentType === 'beforeLastWeek' || currentType === 'beforeLastMonth') ? styles.countButtonCurrent : styles.countButton}
-                    onClick={() => this.changeCountButtonCurrent('beforeLast')}
-                  >
-                    {
-                      searchType === 'week' ? <DataViewDateShow dataTypeStr='前二周'/> :
-                        <DataViewDateShow dataTypeStr='前二月'/>
-                    }
-                  </div>
-                </div>
-              ) : (
-                <div className={styles.viewCount}>
-                  <div className={styles.countButtonCurrent}>
-                    <div className={styles.countButtonTitle}>
-                      <div>{selectedDateVal[0]}</div>
-                      <div style={{ lineHeight: '6px' }}>~</div>
-                      <div>{selectedDateVal[1]}</div>
-                    </div>
-                  </div>
-                </div>
-              )
-            }
-            <div style={{ backgroundColor: this.props.global&&this.props.global.dark ? '#252c3c' : '#fff', padding: '0 16px',borderRadius: 10 }}>
-              <Row gutter={rowLayout} className={styles.listPageRow}>
-                <Col {...colLayout}>
-                  <div className={styles.cardBoxTitle}>| 卷宗数量展示</div>
-                  <div id="jzslzs" className={styles.cardBox}></div>
-                </Col>
-                <Col {...colLayout}>
-                  <div className={styles.listPageWrap} style={{top:52}}>
-                    <div className={styles.listPageHeader}>
-                      {
-                        showrkDataView ? (
-                          <a className={styles.listPageHeaderCurrent}>在库</a>
-                        ) : (
-                          <a className={styles.UnlistPageHeaderCurrent} onClick={this.changeRkListPageHeader}>在库</a>
-                        )
-                      }
-                      <span>|</span>
-                      {
-                        showrkDataView ? (
-                          <a className={styles.UnlistPageHeaderCurrent} onClick={this.changeRkListPageHeader}>出库</a>
-                        ) : (
-                          <a className={styles.listPageHeaderCurrent}>出库</a>
-                        )
-                      }
-                    </div>
-                  </div>
-                  <div className={styles.cardBoxTitle}>| 卷宗在库情况</div>
-                  <div id="wpcrkqk" className={styles.cardBox}></div>
-                </Col>
-                <Col {...colLayout}>
-                  <div className={styles.cardBoxTitle}>| 在库卷宗数量展示</div>
-                  <div className={styles.cardBoxzk} style={{ padding: '0 5px' }}>
-                    {ZkjzData.length > 0 ?
-                      <div>
-                        <Row gutter={rowLayout}>
-                          {/*<Col sm={24} lg={24} style={{*/}
-                            {/*fontSize: 16,*/}
-                            {/*marginBottom: 20,*/}
-                            {/*paddingTop: 18,*/}
-                            {/*paddingLeft: 28,*/}
-                          {/*}}>在库卷宗数量展示</Col>*/}
-                        </Row>
-                        {ZkjzData.map((item) =>
-                          <div onClick={() => this.goList(item.name)} style={{ cursor: 'pointer' }}>
-                            <div className={styles.progressName}>{item.name}</div>
-                            <div className={styles.progressCount}>
-                              <Tooltip title={item.name + ':' + item.count}>
-                                <Progress percent={Math.round((item.count / ZkjzTotal) * 100)}
-                                          status="active" strokeColor='#000' strokeWidth={16}/>
-                              </Tooltip>
+                        currentType !== 'selectedDate' ? (
+                            <div className={styles.viewCount}>
+                                <div
+                                    className={(currentType === 'week' || currentType === 'month') ? styles.countButtonCurrent : styles.countButton}
+                                    onClick={() => this.changeCountButtonCurrent('now')}
+                                >
+                                    {
+                                        searchType === 'week' ? <DataViewDateShow dataTypeStr='本周'/> :
+                                            <DataViewDateShow dataTypeStr='本月'/>
+                                    }
+                                </div>
+                                <div
+                                    className={(currentType === 'lastWeek' || currentType === 'lastMonth') ? styles.countButtonCurrent : styles.countButton}
+                                    onClick={() => this.changeCountButtonCurrent('last')}
+                                >
+                                    {
+                                        searchType === 'week' ? <DataViewDateShow dataTypeStr='前一周'/> :
+                                            <DataViewDateShow dataTypeStr='前一月'/>
+                                    }
+                                </div>
+                                <div
+                                    className={(currentType === 'beforeLastWeek' || currentType === 'beforeLastMonth') ? styles.countButtonCurrent : styles.countButton}
+                                    onClick={() => this.changeCountButtonCurrent('beforeLast')}
+                                >
+                                    {
+                                        searchType === 'week' ? <DataViewDateShow dataTypeStr='前二周'/> :
+                                            <DataViewDateShow dataTypeStr='前二月'/>
+                                    }
+                                </div>
                             </div>
-                          </div>,
-                        )}
-                      </div>
-                      :
-                      <div style={{ padding: 16 }}>
-                        {/*<div style={{ fontSize: 16, paddingTop: 2, color: 'rgba(0,0,0,0.85)' }}>在库卷宗数量展示*/}
-                        {/*</div>*/}
-                        <div style={{
-                          height: '100%',
-                          width: '100%',
-                          display: 'flex',
-                          alignItems: 'center',
-                          flexDirection: 'column',
-                          justifyContent: 'center',
-                          marginTop:22,
-                        }}>
-                            <img src={this.props.global&&this.props.global.dark ? nonDivImg : noListLight} height={200} alt="暂无数据" />
-                            <div style={{ fontSize: 18,color:this.props.global&&this.props.global.dark ? '#fff' : '#999', }}>暂无数据</div>
-                        </div>
-                      </div>
+                        ) : (
+                            <div className={styles.viewCount}>
+                                <div className={styles.countButtonCurrent}>
+                                    <div className={styles.countButtonTitle}>
+                                        <div>{selectedDateVal[0]}</div>
+                                        <div style={{lineHeight: '6px'}}>~</div>
+                                        <div>{selectedDateVal[1]}</div>
+                                    </div>
+                                </div>
+                            </div>
+                        )
                     }
-                  </div>
-                </Col>
-              </Row>
-              <Row gutter={rowLayout} className={styles.listPageRow}>
-                <Col {...colLayout1} style={{marginBottom:32}}>
-                  <div className={styles.cardBoxTitle}>| 卷宗趋势</div>
-                  <div id="jzqs" className={styles.cardBox}></div>
-                  {
-                    jzqsNoData ? (
-                      <div style={{
-                        width: '100%',
-                        height: '100%',
-                        position: 'absolute',
-                        top: 0,
-                        left: 0,
-                        padding: 16,
-                        backgroundColor: '#ffffff',
-                      }}>
-                        <div style={{ fontSize: 16, padding: '8px 0 0 8px' }}>卷宗趋势</div>
-                        <div style={{
-                          display: 'flex',
-                          alignItems: 'center',
-                          flexDirection: 'column',
-                          justifyContent: 'center',
-                        }}>
-                            <img src={this.props.global&&this.props.global.dark ? nonDivImg : noListLight} alt="暂无数据" height={200}/>
-                            <div style={{ fontSize: 18,color:this.props.global&&this.props.global.dark ? '#fff' : '#999' }}>暂无数据</div>
-                        </div>
-                      </div>
-                    ) : null
-                  }
-                </Col>
-                <Col {...colLayout2} style={{marginBottom:32}}>
-                  <div className={styles.cardBoxTitle}>| 电子化情况展示</div>
-                  <div id="dzhqkzs" className={styles.cardBox}></div>
-                </Col>
-              </Row>
-            </div>
-          </div>
-        </Card>
-      );
+                    <div style={{
+                        backgroundColor: this.props.global && this.props.global.dark ? '#252c3c' : '#fff',
+                        padding: '0 16px',
+                        borderRadius: 10
+                    }}>
+                        <Row gutter={rowLayout} className={styles.listPageRow}>
+                            <Col {...colLayout}>
+                                <div className={styles.cardBoxTitle}>| 卷宗数量展示</div>
+                                <div id="jzslzs" className={styles.cardBox}></div>
+                            </Col>
+                            <Col {...colLayout}>
+                                <div className={styles.listPageWrap} style={{top: 52}}>
+                                    <div className={styles.listPageHeader}>
+                                        {
+                                            showrkDataView ? (
+                                                <a className={styles.listPageHeaderCurrent}>在库</a>
+                                            ) : (
+                                                <a className={styles.UnlistPageHeaderCurrent}
+                                                   onClick={this.changeRkListPageHeader}>在库</a>
+                                            )
+                                        }
+                                        <span>|</span>
+                                        {
+                                            showrkDataView ? (
+                                                <a className={styles.UnlistPageHeaderCurrent}
+                                                   onClick={this.changeRkListPageHeader}>出库</a>
+                                            ) : (
+                                                <a className={styles.listPageHeaderCurrent}>出库</a>
+                                            )
+                                        }
+                                    </div>
+                                </div>
+                                <div className={styles.cardBoxTitle}>| 卷宗在库情况</div>
+                                <div id="wpcrkqk" className={styles.cardBox}></div>
+                            </Col>
+                            <Col {...colLayout}>
+                                <div className={styles.cardBoxTitle}>| 在库卷宗数量展示</div>
+                                <div className={styles.cardBoxzk} style={{padding: '0 5px'}}>
+                                    {ZkjzData.length > 0 ?
+                                        <div>
+                                            <Row gutter={rowLayout}>
+                                                {/*<Col sm={24} lg={24} style={{*/}
+                                                {/*fontSize: 16,*/}
+                                                {/*marginBottom: 20,*/}
+                                                {/*paddingTop: 18,*/}
+                                                {/*paddingLeft: 28,*/}
+                                                {/*}}>在库卷宗数量展示</Col>*/}
+                                            </Row>
+                                            {ZkjzData.map((item) =>
+                                                <div onClick={() => this.goList(item.name)} style={{cursor: 'pointer'}}>
+                                                    <div className={styles.progressName}>{item.name}</div>
+                                                    <div className={styles.progressCount}>
+                                                        <Tooltip title={item.name + ':' + item.count}>
+                                                            <Progress
+                                                                percent={Math.round((item.count / ZkjzTotal) * 100)}
+                                                                status="active" strokeColor='#000' strokeWidth={16}/>
+                                                        </Tooltip>
+                                                    </div>
+                                                </div>,
+                                            )}
+                                        </div>
+                                        :
+                                        <div style={{padding: 16}}>
+                                            {/*<div style={{ fontSize: 16, paddingTop: 2, color: 'rgba(0,0,0,0.85)' }}>在库卷宗数量展示*/}
+                                            {/*</div>*/}
+                                            <div style={{
+                                                height: '100%',
+                                                width: '100%',
+                                                display: 'flex',
+                                                alignItems: 'center',
+                                                flexDirection: 'column',
+                                                justifyContent: 'center',
+                                                marginTop: 22,
+                                            }}>
+                                                <img
+                                                    src={this.props.global && this.props.global.dark ? nonDivImg : noListLight}
+                                                    height={200} alt="暂无数据"/>
+                                                <div style={{
+                                                    fontSize: 18,
+                                                    color: this.props.global && this.props.global.dark ? '#fff' : '#999',
+                                                }}>暂无数据
+                                                </div>
+                                            </div>
+                                        </div>
+                                    }
+                                </div>
+                            </Col>
+                        </Row>
+                        <Row gutter={rowLayout} className={styles.listPageRow}>
+                            <Col {...colLayout1} style={{marginBottom: 32}}>
+                                <div className={styles.cardBoxTitle}>| 卷宗趋势</div>
+                                <div id="jzqs" className={styles.cardBox}></div>
+                                {
+                                    jzqsNoData ? (
+                                        <div style={{
+                                            width: '100%',
+                                            height: '100%',
+                                            position: 'absolute',
+                                            top: 0,
+                                            left: 0,
+                                            padding: 16,
+                                            backgroundColor: '#ffffff',
+                                        }}>
+                                            <div style={{fontSize: 16, padding: '8px 0 0 8px'}}>卷宗趋势</div>
+                                            <div style={{
+                                                display: 'flex',
+                                                alignItems: 'center',
+                                                flexDirection: 'column',
+                                                justifyContent: 'center',
+                                            }}>
+                                                <img
+                                                    src={this.props.global && this.props.global.dark ? nonDivImg : noListLight}
+                                                    alt="暂无数据" height={200}/>
+                                                <div style={{
+                                                    fontSize: 18,
+                                                    color: this.props.global && this.props.global.dark ? '#fff' : '#999'
+                                                }}>暂无数据
+                                                </div>
+                                            </div>
+                                        </div>
+                                    ) : null
+                                }
+                            </Col>
+                            <Col {...colLayout2} style={{marginBottom: 32}}>
+                                <div className={styles.cardBoxTitle}>| 电子化情况展示</div>
+                                <div id="dzhqkzs" className={styles.cardBox}></div>
+                            </Col>
+                        </Row>
+                    </div>
+                </div>
+            </Card>
+        );
     }
 }

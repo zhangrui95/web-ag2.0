@@ -4,7 +4,7 @@
 * 20190116
 * */
 
-import React, { PureComponent } from 'react';
+import React, {PureComponent} from 'react';
 import styles from './bigScreenDisplay.less';
 
 export default class HandingCaseAreaUseInfo extends PureComponent {
@@ -16,7 +16,7 @@ export default class HandingCaseAreaUseInfo extends PureComponent {
     };
 
     componentDidMount() {
-        const { selectDate, org, orgCode, orglist } = this.props;
+        const {selectDate, org, orgCode, orglist} = this.props;
         this.getHandingCaseAreaUseInfo(selectDate[0], selectDate[1], org, orgCode, orglist);
     }
 
@@ -67,9 +67,9 @@ export default class HandingCaseAreaUseInfo extends PureComponent {
     };
 
     render() {
-        const { lqyyzqzcsrl, rsaqjcl, fzxyrcjl, sswpczl } = this.state;
+        const {lqyyzqzcsrl, rsaqjcl, fzxyrcjl, sswpczl} = this.state;
         return (
-            <div id="HandingCaseAreaUseInfo" style={{ height: '100%', width: '100%' }}>
+            <div id="HandingCaseAreaUseInfo" style={{height: '100%', width: '100%'}}>
                 <h4 className={styles.cardTitle}>办案区使用情况</h4>
                 <div className={styles.cardContent}>
                     <div className={styles.pinkFull}>

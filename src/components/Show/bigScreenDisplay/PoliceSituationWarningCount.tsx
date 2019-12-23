@@ -4,7 +4,7 @@
 * 20181120
 * */
 
-import React, { PureComponent } from 'react';
+import React, {PureComponent} from 'react';
 import styles from './bigScreenDisplay.less';
 import img1 from '../../../assets/show/policeWarningCount_1.png';
 import img2 from '../../../assets/show/policeWarningCount_2.png';
@@ -18,7 +18,7 @@ export default class PoliceSituationWarningCount extends PureComponent {
     };
 
     componentDidMount() {
-        const { selectDate, org, orgCode, orglist } = this.props;
+        const {selectDate, org, orgCode, orglist} = this.props;
         this.getPoliceSituationWarningCount(selectDate[0], selectDate[1], org, orgCode, orglist);
     }
 
@@ -61,9 +61,9 @@ export default class PoliceSituationWarningCount extends PureComponent {
     };
 
     render() {
-        const { notHandleNum, noResultNum } = this.state;
+        const {notHandleNum, noResultNum} = this.state;
         return (
-            <div id="PoliceSituationWarningCount" style={{ height: '100%', width: '100%' }}>
+            <div id="PoliceSituationWarningCount" style={{height: '100%', width: '100%'}}>
                 <h4 className={styles.cardTitle}>警情告警统计</h4>
                 <div className={styles.cardContent}>
                     <div className={styles.animateArea}>

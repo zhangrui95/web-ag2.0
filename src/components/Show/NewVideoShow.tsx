@@ -3,9 +3,9 @@
 * author：jhm
 * 20181212
 * */
-import React, { PureComponent } from 'react';
-import { connect } from 'dva';
-import { Row, Col, List, Avatar } from 'antd';
+import React, {PureComponent} from 'react';
+import {connect} from 'dva';
+import {Row, Col, List, Avatar} from 'antd';
 import styles from './ComponentStyles.less';
 import videoImg from '../../assets/show/videoImg.png';
 
@@ -55,10 +55,10 @@ export default class NewVideoShow extends PureComponent {
     };
 
     render() {
-        const { show: { videoList } } = this.props;
+        const {show: {videoList}} = this.props;
         return (
             <div className={styles.componentBlock}>
-                <div className={styles.videoShow} style={{ overflowX: 'hidden', backgroundColor: 'transparent' }}>
+                <div className={styles.videoShow} style={{overflowX: 'hidden', backgroundColor: 'transparent'}}>
                     {/*<Row className={styles.fullHeight}>*/}
                     {/*<Col span={24} className={styles.fullHeight}>*/}
                     {/*<div style={{height:'100%',width: '100%'}}>*/}
@@ -88,7 +88,7 @@ export default class NewVideoShow extends PureComponent {
                             {
                                 videoList.list && videoList.list.length > 0 ? videoList.list.map(item => (
 
-                                    <li style={{ width: '33.33%', float: 'left', padding: '0 5px' }}>
+                                    <li style={{width: '33.33%', float: 'left', padding: '0 5px'}}>
                                         <img src={videoImg} alt='暂无图片'/>
                                         <div className={styles.videoName}>{item.name}</div>
                                     </li>
