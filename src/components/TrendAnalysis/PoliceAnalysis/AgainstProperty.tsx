@@ -28,7 +28,7 @@ export default class AgainstProperty extends PureComponent {
 
     componentWillReceiveProps(nextProps) {
         if (nextProps) {
-            if ((nextProps.selectedDate !== null) && (this.props.selectedDate !== nextProps.selectedDate)) {
+            if (((nextProps.selectedDate !== null) && (this.props.selectedDate !== nextProps.selectedDate))|| this.props.global.dark !== nextProps.global.dark) {
                 this.getAgainstProperty(nextProps);
             }
         }
@@ -342,7 +342,7 @@ export default class AgainstProperty extends PureComponent {
                     <AnalysisTitleArea analysisTitle="侵财类警情" {...this.props} />
                     <Row className={styles.fraudArea}>
                         <Col lg={12} md={24}>
-                            <div id="againstPropertyChart" style={{ height: 300 }}/>
+                            <div id="againstPropertyChart" style={{ height: 300 }} className={ this.props.global&&this.props.global.dark ? '' : styles.lightChartBox}/>
                         </Col>
                         <Col lg={12} md={24}>
                             <Table columns={columns} dataSource={tableData} bordered className={styles.tableArea}  locale={{ emptyText: <Empty image={this.props.global&&this.props.global.dark ? noList : noListLight} description={'暂无数据'} /> }}
@@ -352,7 +352,7 @@ export default class AgainstProperty extends PureComponent {
                     <h2 className={styles.title}>伤害类警情</h2>
                     <Row className={styles.fraudArea}>
                         <Col lg={12} md={24}>
-                            <div id="hurtBar" style={{ height: 300 }}/>
+                            <div id="hurtBar" style={{ height: 300 }} className={ this.props.global&&this.props.global.dark ? '' : styles.lightChartBox}/>
                         </Col>
                         <Col lg={12} md={24}>
                             <Table columns={columns} dataSource={shanghaiTableData} className={styles.tableArea}  locale={{ emptyText: <Empty image={this.props.global&&this.props.global.dark ? noList : noListLight} description={'暂无数据'} /> }}

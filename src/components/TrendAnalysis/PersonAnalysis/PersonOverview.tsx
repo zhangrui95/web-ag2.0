@@ -36,9 +36,9 @@ export default class PersonOverview extends PureComponent {
   componentWillReceiveProps(nextProps) {
     if (nextProps) {
       if (
-        nextProps.selectedDate !== null &&
+          (nextProps.selectedDate !== null &&
         (this.props.selectedDate !== nextProps.selectedDate ||
-          this.props.userOrgCode !== nextProps.userOrgCode)
+          this.props.userOrgCode !== nextProps.userOrgCode))|| this.props.global.dark !== nextProps.global.dark
       ) {
         this.getPersonOverview(nextProps);
       }
@@ -662,7 +662,7 @@ export default class PersonOverview extends PureComponent {
           <AnalysisTitleArea analysisTitle="人员综述" {...this.props} />
           <Row className={styles.fraudArea}>
             <Col lg={12} md={24}>
-              <div id="suspectCountBar" style={{ height: 350 }} />
+              <div id="suspectCountBar" style={{ height: 420 }} className={ this.props.global&&this.props.global.dark ? '' : styles.lightChartBox}/>
             </Col>
             <Col lg={12} md={24}>
               <Table
@@ -670,13 +670,14 @@ export default class PersonOverview extends PureComponent {
                 dataSource={suspectCountTableData}
                 bordered
                 className={styles.tableArea}
+                style={{paddingTop:0}}
                 pagination={false}
                 locale={{ emptyText: <Empty image={this.props.global&&this.props.global.dark ? noList : noListLight} description={'暂无数据'} /> }}
               />
             </Col>
           </Row>
           <h2 className={styles.areaTitle}></h2>
-          <div id="dealSuspectTypeBar" style={{ height: 300 }} />
+          <div id="dealSuspectTypeBar" style={{ height: 300 }} className={ this.props.global&&this.props.global.dark ? '' : styles.lightChartBox}/>
           <Table
             columns={columns}
             dataSource={dealSuspectTypeTableData}

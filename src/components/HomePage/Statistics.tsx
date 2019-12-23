@@ -26,8 +26,8 @@ const zhtjImage = require('../../assets/common/tj.png');
 const mainlineMenu = window.configUrl.mainlineMenu;
 const { TabPane } = Tabs;
 let levelNum = 0;
-@connect(({ home }) => ({
-  home,
+@connect(({ home,global }) => ({
+  home,global
 }))
 export default class Statistics extends PureComponent {
   state = {

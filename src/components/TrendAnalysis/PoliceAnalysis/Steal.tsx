@@ -23,15 +23,12 @@ export default class Steal extends PureComponent {
     };
 
     componentDidMount() {
-        this.showEchart();
-        this.showRadar();
         this.getStealData(this.props);
-        window.addEventListener('resize', myChart.resize);
     }
 
     componentWillReceiveProps(nextProps) {
         if (nextProps) {
-            if ((nextProps.selectedDate !== null) && (this.props.selectedDate !== nextProps.selectedDate)) {
+            if (((nextProps.selectedDate !== null) && (this.props.selectedDate !== nextProps.selectedDate))|| this.props.global.dark !== nextProps.global.dark) {
                 this.getStealData(nextProps);
             }
         }
@@ -262,22 +259,15 @@ export default class Steal extends PureComponent {
                       ]
                       // message.info('盗窃类警情暂无数据')
                     }
-                    myChart.setOption({
-                        yAxis: {
-                            data: [monthOnMonthDateStr, yearOnYearDateStr, selectedDateStr],
-                        },
-                        series: [{
-                            data: barData,
-                        }],
-                    });
-                    radarChart.setOption({
-                        radar: {
-                            indicator: radarvalue,
-                        },
-                        series: [{
-                            data: radarData,
-                        }],
-                    });
+                    let yAxis = [monthOnMonthDateStr, yearOnYearDateStr, selectedDateStr];
+                    if(document.getElementsByClassName('stealBar')[1]){
+                        this.showEchart(yAxis ,barData);
+                        window.addEventListener('resize', myChart.resize);
+                    }
+                    if(document.getElementsByClassName('stealAllType')[1]){
+                        this.showRadar(radarvalue,radarData)
+                        window.addEventListener('resize', radarChart.resize);
+                    }
                     this.props.goToCarousel(3);
                 }
                 this.setState({ loadingData: false });
@@ -286,7 +276,7 @@ export default class Steal extends PureComponent {
         });
     };
 
-    showEchart = () => {
+    showEchart = (yAxis ,barData) => {
         const stealBar = document.getElementsByClassName('stealBar')[1];
         myChart = echarts.init(stealBar);
         const option = {
@@ -295,6 +285,9 @@ export default class Steal extends PureComponent {
                 axisPointer: {            // 坐标轴指示器，坐标轴触发有效
                     type: 'shadow',        // 默认为直线，可选为：'line' | 'shadow'
                 },
+            },
+            grid:{
+              left:100,
             },
             xAxis: {
                 type: 'value',
@@ -318,7 +311,7 @@ export default class Steal extends PureComponent {
             },
             yAxis: {
                 type: 'category',
-                data: [],
+                data: yAxis,
                 axisLabel: {   // y轴线 标签修改
                     textStyle: {
                         color: this.props.global && this.props.global.dark ? '#fff' : '#4d4d4d', //坐标值得具体的颜色
@@ -331,23 +324,20 @@ export default class Steal extends PureComponent {
                     }
                 },
             },
-            series: [
-                {
-                    name: '盗窃',
-                    type: 'bar',
-                    cursor: 'default',
-                    data: [],
-                },
-            ],
+            series:{
+                name: '盗窃',
+                type: 'bar',
+                cursor: 'default',
+                data: barData,
+            },
         };
         myChart.setOption(option);
     };
     // 盗窃种类雷达图
-    showRadar = () => {
+    showRadar = (radarvalue,radarData) => {
         const stealAllType = document.getElementsByClassName('stealAllType')[1];
         radarChart = echarts.init(stealAllType);
         const option = {
-
             tooltip: {
                 confine: true,
             },
@@ -358,14 +348,14 @@ export default class Steal extends PureComponent {
                         color: this.props.global && this.props.global.dark ? '#fff' : '#4d4d4d'
                     },
                 },
-                indicator: [],
+                indicator: radarvalue,
             },
             series: [{
                 name: '预算 vs 开销（Budget vs spending）',
                 type: 'radar',
                 // areaStyle: {normal: {}},
                 cursor: 'default',
-                data: [],
+                data: radarData,
             }],
         };
         radarChart.setOption(option);
@@ -514,10 +504,10 @@ export default class Steal extends PureComponent {
                     <AnalysisTitleArea analysisTitle="盗窃类警情" {...this.props} />
                     <Row>
                         <Col lg={12} md={24}>
-                            <div className="stealBar" style={{ height: 300 }}/>
+                            <div className={"stealBar"+ ' ' + (this.props.global&&this.props.global.dark ? '' :styles.lightChartBox)} style={{ height: 300 }}/>
                         </Col>
                         <Col lg={12} md={24}>
-                            <div className="stealAllType" style={{ height: 300 }}/>
+                            <div className={"stealAllType"+' ' + (this.props.global&&this.props.global.dark ? '' :styles.lightChartBox)} style={{ height: 300 }}/>
                         </Col>
                     </Row>
                     <Table columns={columns} dataSource={tableData} bordered className={styles.tableArea}  locale={{ emptyText: <Empty image={this.props.global&&this.props.global.dark ? noList : noListLight} description={'暂无数据'} /> }}

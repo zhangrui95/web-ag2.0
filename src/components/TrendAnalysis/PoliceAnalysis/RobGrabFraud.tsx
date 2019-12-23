@@ -28,7 +28,7 @@ export default class RobGrabFraud extends PureComponent {
 
     componentWillReceiveProps(nextProps) {
         if (nextProps) {
-            if ((nextProps.selectedDate !== null) && (this.props.selectedDate !== nextProps.selectedDate)) {
+            if ((nextProps.selectedDate !== null) && (this.props.selectedDate !== nextProps.selectedDate)|| this.props.global.dark !== nextProps.global.dark) {
                 this.getRobGrabFraud(nextProps);
             }
         }
@@ -429,7 +429,7 @@ export default class RobGrabFraud extends PureComponent {
                     <h2 className={styles.areaTitle}>诈骗案件</h2>
                     <Row className={styles.fraudArea}>
                         <Col lg={12} md={24}>
-                            <div id="fraudBar" style={{ height: 300 }}/>
+                            <div id="fraudBar" style={{ height: 420,marginTop:25 }} className={ this.props.global&&this.props.global.dark ? '' : styles.lightChartBox}/>
                         </Col>
                         <Col lg={12} md={24}>
                             <Table columns={fraudColumns} dataSource={zhapianTableData} className={styles.fraudTable}  locale={{ emptyText: <Empty image={this.props.global&&this.props.global.dark ? noList : noListLight} description={'暂无数据'} /> }}

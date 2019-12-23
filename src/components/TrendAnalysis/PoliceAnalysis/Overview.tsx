@@ -26,7 +26,7 @@ export default class Overview extends PureComponent {
 
     componentWillReceiveProps(nextProps) {
         if (nextProps) {
-            if ((nextProps.selectedDate !== null) && (this.props.selectedDate !== nextProps.selectedDate)) {
+            if (((nextProps.selectedDate !== null) && (this.props.selectedDate !== nextProps.selectedDate)) || this.props.global.dark !== nextProps.global.dark) {
                 this.getOverviewData(nextProps);
             }
         }
@@ -261,7 +261,7 @@ export default class Overview extends PureComponent {
             <Spin spinning={loadingData} size="large" tip="数据加载中...">
                 <div className={styles.analysis}>
                     <AnalysisTitleArea analysisTitle="综述" {...this.props} />
-                    <div id="overviewCharts" style={{ height: 300 }}/>
+                    <div id="overviewCharts" style={{ height: 300 }} className={ this.props.global&&this.props.global.dark ? '' : styles.lightChartBox}/>
                     <Table columns={columns} dataSource={tableData} bordered className={styles.tableArea}
                            pagination={false}  locale={{ emptyText: <Empty image={this.props.global&&this.props.global.dark ? noList : noListLight} description={'暂无数据'} /> }}/>
                 </div>

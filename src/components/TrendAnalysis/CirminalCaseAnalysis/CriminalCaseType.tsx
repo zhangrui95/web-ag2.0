@@ -35,7 +35,7 @@ export default class CriminalCaseType extends PureComponent {
 
     componentWillReceiveProps(nextProps) {
         if (nextProps) {
-            if ((nextProps.selectedDate !== null) && (this.props.selectedDate !== nextProps.selectedDate)) {
+            if ((nextProps.selectedDate !== null) && (this.props.selectedDate !== nextProps.selectedDate)|| this.props.global.dark !== nextProps.global.dark) {
                 this.getCriminalCaseType(nextProps);
             }
         }
@@ -265,7 +265,7 @@ export default class CriminalCaseType extends PureComponent {
             <Spin spinning={loadingData} size="large" tip="数据加载中...">
                 <div className={styles.analysis}>
                     <AnalysisTitleArea analysisTitle="类型分析" {...this.props} />
-                    <div id="criminalCaseType" style={{ height: 300 }}/>
+                    <div id="criminalCaseType" style={{ height: 300,paddingRight:70}} className={ this.props.global&&this.props.global.dark ? '' : styles.lightChartBox}/>
                     <div className={styles.buttonOnChartArea}>
                         <Button type={caseType === 'blaj' ? 'primary' : 'dashed'} size="large"
                                 onClick={() => this.changeCaseType('blaj')}>八类案件</Button>

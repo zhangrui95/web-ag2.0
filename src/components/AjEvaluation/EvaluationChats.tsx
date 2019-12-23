@@ -304,7 +304,7 @@ export default class EvaluationChats extends PureComponent {
         let that = this;
         let option = {
             title: {
-                text: '|  机构排名',//正标题
+                text: '',//正标题
                 textStyle: {
                     fontSize: 16,
                     fontWeight: '700',
@@ -702,7 +702,7 @@ export default class EvaluationChats extends PureComponent {
         let echart = echarts.init(chart);
         let option = {
             title: {
-                text: '|  人员考核排名',//正标题
+                text: '',//正标题
                 textStyle: {
                     fontSize: 16,
                     fontWeight: '700',
@@ -819,6 +819,7 @@ export default class EvaluationChats extends PureComponent {
             <Card className={className} id={'form'}>
                 <Row gutter={rowLayout} className={styles.listPageRow}>
                     <Col {...colLayout} className={styles.viewBox}>
+                        <div className={styles.titleTop}>|  机构排名</div>
                         <Icon type="left" className={this.state.currentPage1 === 1 ? styles.none : styles.leftGo}
                               onClick={() => this.props.tjnrRedio === '0' ? this.initDataAj(-1, this.props, this.state.sortCharts1) : this.props.tjnrRedio === '1' ? this.initDataGj(-1, this.props, this.state.sortCharts1)  : this.initData(-1, this.props, this.state.sortCharts1,this.props.tjnrCode)}/>
                         <div className={styles.sortIcon} style={{ left: '120px' }} onClick={() => this.getSort('1')}>
@@ -846,6 +847,7 @@ export default class EvaluationChats extends PureComponent {
                         </div>
                     </Col>
                     <Col {...colLayout} className={styles.viewBox}>
+                        <div className={styles.titleTop}>|  人员考核排名</div>
                         <Icon type="left" className={styles.leftGo}
                               className={this.state.currentPage3 === 1 ? styles.none : styles.leftGo}
                               onClick={() => this.props.tjnrRedio === '0' ?  this.initRyDataAj(-1, this.props, this.state.sortCharts3, this.props.tjnrCode) : this.props.tjnrRedio === '1' ?  this.initRyDataGj(-1, this.props, this.state.sortCharts3, this.props.tjnrCode): this.initRyData(-1, this.props, this.state.sortCharts3, this.props.tjnrCode)}/>

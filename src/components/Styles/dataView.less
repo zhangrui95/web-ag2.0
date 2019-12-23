@@ -9,7 +9,12 @@
     }
   }
 }
-
+.titleTop{
+  font-size: 16px;
+  font-weight: 700;
+  color:#fff;
+  margin-left: 20px;
+}
 .viewCount {
   height: 124px;
   margin-top: 16px;
@@ -158,29 +163,37 @@
     color: #ccc;
     cursor: pointer;
     z-index: 999;
-    top: 155px;
+    top: 200px;
   }
 
   .leftGo {
-    left: 24px;
+    left: 40px;
   }
 
   .rightGo {
-    right: 230px;
+    right: 250px;
   }
 
   .rightCharts {
-    width: ~'calc(100% - 200px)';
+    width: ~'calc(100% - 240px)';
     float: left;
     height: 315px;
-    padding-left: 16px;
     position: relative;
+    margin: 20px;
+    padding: 10px 20px 0;
     //z-index: 99;
   }
 
   @media screen and (max-width: @screen-xxl) {
     .rightCharts {
-      width: ~'calc(100% - 230px)';
+      width: ~'calc(100% - 270px)';
+    }
+    .leftGo {
+      left: 2px;
+    }
+
+    .rightGo {
+      right: 230px;
     }
   }
 
@@ -324,7 +337,7 @@
   position: absolute;
   color: #fff;
   left: 150px;
-  top: 15px;
+  top: 17px;
   cursor: pointer;
   z-index: 999;
   border-radius: 4px;
@@ -358,7 +371,7 @@
   position: absolute !important;
   left: 180px;
   z-index: 9999;
-  top: 14px;
+  top: 16px;
 }
 .viewBox {
   padding: 20px;
@@ -505,5 +518,18 @@
       background-color: #fff !important;
       border-radius: 10px !important;
     }
+  }
+  .titleTop{
+    color: #4662D5;
+  }
+  .rightCharts {
+    border: 1px solid #e6e6e6;
+    box-shadow: 0 0 8px #eee;
+    border-radius: 6px;
+    padding: 10px 20px 0;
+  }
+  .leftGo,
+  .rightGo {
+    top:210px;
   }
 }
