@@ -557,69 +557,93 @@ export default class caseDetail extends PureComponent {
       message.warning('暂无涉案人员在区情况');
     }
   };
-  seePolice = (flag, list) => {
-    if (list.length === 1) {
-      this.jqDetail(list[0]);
+  seePolice = (flag, caseDetails) => {
+    if (caseDetails.jqxx.length === 1) {
+      this.jqDetail(caseDetails.jqxx[0]);
     } else {
-      this.setState({
-        policevisible: !!flag,
-      });
+      this.props.dispatch(
+        routerRedux.push({
+          pathname: '/ModuleAll/RelevancePolice',
+          query: { record: caseDetails.jqxx,id: caseDetails && caseDetails.id ? caseDetails.id : '1', },
+        }),
+      )
+      // this.setState({
+      //   policevisible: !!flag,
+      // });
     }
   };
 
-  policeCancel = e => {
-    this.setState({
-      policevisible: false,
-    });
-  };
+  // policeCancel = e => {
+  //   this.setState({
+  //     policevisible: false,
+  //   });
+  // };
 
-  seeRes = (flag, list) => {
-    if (list.length === 1) {
-      this.openItemsDetail(list[0]);
+  seeRes = (flag, caseDetails) => {
+    if (caseDetails.sawpList.length === 1) {
+      this.openItemsDetail(caseDetails.sawpList[0]);
     } else {
-      this.setState({
-        resvisible: !!flag,
-      });
+      this.props.dispatch(
+        routerRedux.push({
+          pathname: '/ModuleAll/RelevanceRes',
+          query: { record: caseDetails.sawpList,id: caseDetails && caseDetails.id ? caseDetails.id : '1', },
+        }),
+      )
+      // this.setState({
+      //   resvisible: !!flag,
+      // });
     }
   };
 
-  ResCancel = e => {
-    this.setState({
-      resvisible: false,
-    });
-  };
+  // ResCancel = e => {
+  //   this.setState({
+  //     resvisible: false,
+  //   });
+  // };
 
-  seeArea = (flag, list) => {
-    if (list.length === 1) {
-      this.IntoArea(list[0]);
+  seeArea = (flag, caseDetails) => {
+    if (caseDetails.rqxyrList.length === 1) {
+      this.IntoArea(caseDetails.rqxyrList[0]);
     } else {
-      this.setState({
-        areavisible: !!flag,
-      });
+      this.props.dispatch(
+        routerRedux.push({
+          pathname: '/ModuleAll/RelevancePerson',
+          query: { record: caseDetails.rqxyrList,id: caseDetails && caseDetails.id ? caseDetails.id : '1', },
+        }),
+      )
+      // this.setState({
+      //   areavisible: !!flag,
+      // });
     }
   };
 
-  AreaCancel = e => {
-    this.setState({
-      areavisible: false,
-    });
-  };
+  // AreaCancel = e => {
+  //   this.setState({
+  //     areavisible: false,
+  //   });
+  // };
 
-  seeDossier = (flag, list) => {
-    if (list.length === 1) {
-      this.IntoDossierDetail(list[0]);
+  seeDossier = (flag, caseDetails) => {
+    if (caseDetails.jzList.length === 1) {
+      this.IntoDossierDetail(caseDetails.jzList[0]);
     } else {
-      this.setState({
-        Dossiervisible: !!flag,
-      });
+      this.props.dispatch(
+        routerRedux.push({
+          pathname: '/ModuleAll/RelevanceDossier',
+          query: { record: caseDetails.jzList,id: caseDetails && caseDetails.id ? caseDetails.id : '1', },
+        }),
+      )
+      // this.setState({
+      //   Dossiervisible: !!flag,
+      // });
     }
   };
 
-  DossierCancel = e => {
-    this.setState({
-      Dossiervisible: false,
-    });
-  };
+  // DossierCancel = e => {
+  //   this.setState({
+  //     Dossiervisible: false,
+  //   });
+  // };
 
   renderDetail() {
     const {
@@ -700,7 +724,7 @@ export default class caseDetail extends PureComponent {
           {caseDetails && caseDetails.jqxxList && caseDetails.jqxxList.length > 0 ? (
             <Button
               // type="primary"
-              onClick={() => this.seePolice(true, caseDetails.jqxxList)}
+              onClick={() => this.seePolice(true, caseDetails)}
               style={{ marginRight: 70, background: dark ? 'linear-gradient(to right, #0084FA, #03A3FF)' : 'linear-gradient(to right, #3D63D1, #333FE4)' }}
             >
               查看关联警情
@@ -1186,116 +1210,116 @@ export default class caseDetail extends PureComponent {
         {/*) : null*/}
         {/*}*/}
 
-        <Modal
-        visible={policevisible}
-        title="警情信息"
-        centered
-        className={styles.policeModal}
-        width={1000}
-        maskClosable={false}
-        onCancel={this.policeCancel}
-        footer={null}
-        getContainer={() => document.getElementById(this.ResultId())}
-        >
-        <Table
-        size={'middle'}
-        style={{ backgroundColor: '#fff' }}
-        pagination={{
-        pageSize: 3,
-        showTotal: (total, range) => <div
-        style={{ position: 'absolute', left: '12px' }}>共 {total} 条记录
-        第 {this.state.jqcurrent} / {(Math.ceil(total / 3))} 页</div>,
-        onChange: (page) => {
-        this.setState({ jqcurrent: page });
-        },
-        }}
-        dataSource={caseDetails ? caseDetails.jqxxList : []}
-        columns={JqColumns}
-        />
-        </Modal>
-        <Modal
-        visible={resvisible}
-        title="涉案物品信息"
-        centered
-        className={styles.policeModal}
-        width={1000}
-        maskClosable={false}
-        onCancel={this.ResCancel}
-        footer={null}
-        getContainer={() => document.getElementById(this.ResultId())}
-        >
-        <Table
-        size={'middle'}
-        style={{ backgroundColor: '#fff' }}
-        pagination={{
-        pageSize: 3,
-        showTotal: (total, range) => <div
-        style={{ position: 'absolute', left: '12px' }}>共 {total} 条记录
-        第 {this.state.wpcurrent} / {(Math.ceil(total / 3))} 页</div>,
-        onChange: (page) => {
-        this.setState({ wpcurrent: page });
-        },
-        }}
-        dataSource={caseDetails ? caseDetails.sawpList : []}
-        columns={WpColumns}
+        {/*<Modal*/}
+        {/*visible={policevisible}*/}
+        {/*title="警情信息"*/}
+        {/*centered*/}
+        {/*className={styles.policeModal}*/}
+        {/*width={1000}*/}
+        {/*maskClosable={false}*/}
+        {/*onCancel={this.policeCancel}*/}
+        {/*footer={null}*/}
+        {/*getContainer={() => document.getElementById(this.ResultId())}*/}
+        {/*>*/}
+        {/*<Table*/}
+        {/*size={'middle'}*/}
+        {/*style={{ backgroundColor: '#fff' }}*/}
+        {/*pagination={{*/}
+        {/*pageSize: 3,*/}
+        {/*showTotal: (total, range) => <div*/}
+        {/*style={{ position: 'absolute', left: '12px' }}>共 {total} 条记录*/}
+        {/*第 {this.state.jqcurrent} / {(Math.ceil(total / 3))} 页</div>,*/}
+        {/*onChange: (page) => {*/}
+        {/*this.setState({ jqcurrent: page });*/}
+        {/*},*/}
+        {/*}}*/}
+        {/*dataSource={caseDetails ? caseDetails.jqxxList : []}*/}
+        {/*columns={JqColumns}*/}
+        {/*/>*/}
+        {/*</Modal>*/}
+        {/*<Modal*/}
+        {/*visible={resvisible}*/}
+        {/*title="涉案物品信息"*/}
+        {/*centered*/}
+        {/*className={styles.policeModal}*/}
+        {/*width={1000}*/}
+        {/*maskClosable={false}*/}
+        {/*onCancel={this.ResCancel}*/}
+        {/*footer={null}*/}
+        {/*getContainer={() => document.getElementById(this.ResultId())}*/}
+        {/*>*/}
+        {/*<Table*/}
+        {/*size={'middle'}*/}
+        {/*style={{ backgroundColor: '#fff' }}*/}
+        {/*pagination={{*/}
+        {/*pageSize: 3,*/}
+        {/*showTotal: (total, range) => <div*/}
+        {/*style={{ position: 'absolute', left: '12px' }}>共 {total} 条记录*/}
+        {/*第 {this.state.wpcurrent} / {(Math.ceil(total / 3))} 页</div>,*/}
+        {/*onChange: (page) => {*/}
+        {/*this.setState({ wpcurrent: page });*/}
+        {/*},*/}
+        {/*}}*/}
+        {/*dataSource={caseDetails ? caseDetails.sawpList : []}*/}
+        {/*columns={WpColumns}*/}
 
-        />
-        </Modal>
-        <Modal
-        visible={areavisible}
-        title="选择查看人员在区情况"
-        centered
-        className={styles.policeModal}
-        width={1000}
-        maskClosable={false}
-        onCancel={this.AreaCancel}
-        footer={null}
-        getContainer={() => document.getElementById(this.ResultId())}
-        >
-        <Table
-        size={'middle'}
-        style={{ backgroundColor: '#fff' }}
-        pagination={{
-        pageSize: 3,
-        showTotal: (total, range) => <div
-        style={{ position: 'absolute', left: '12px' }}>共 {total} 条记录
-        第 {this.state.areacurrent} / {(Math.ceil(total / 3))} 页</div>,
-        onChange: (page) => {
-        this.setState({ areacurrent: page });
-        },
-        }}
-        dataSource={caseDetails ? caseDetails.rqxyrList : []}
-        columns={AreaColumns}
+        {/*/>*/}
+        {/*</Modal>*/}
+        {/*<Modal*/}
+        {/*visible={areavisible}*/}
+        {/*title="选择查看人员在区情况"*/}
+        {/*centered*/}
+        {/*className={styles.policeModal}*/}
+        {/*width={1000}*/}
+        {/*maskClosable={false}*/}
+        {/*onCancel={this.AreaCancel}*/}
+        {/*footer={null}*/}
+        {/*getContainer={() => document.getElementById(this.ResultId())}*/}
+        {/*>*/}
+        {/*<Table*/}
+        {/*size={'middle'}*/}
+        {/*style={{ backgroundColor: '#fff' }}*/}
+        {/*pagination={{*/}
+        {/*pageSize: 3,*/}
+        {/*showTotal: (total, range) => <div*/}
+        {/*style={{ position: 'absolute', left: '12px' }}>共 {total} 条记录*/}
+        {/*第 {this.state.areacurrent} / {(Math.ceil(total / 3))} 页</div>,*/}
+        {/*onChange: (page) => {*/}
+        {/*this.setState({ areacurrent: page });*/}
+        {/*},*/}
+        {/*}}*/}
+        {/*dataSource={caseDetails ? caseDetails.rqxyrList : []}*/}
+        {/*columns={AreaColumns}*/}
 
-        />
-        </Modal>
-        <Modal
-        visible={Dossiervisible}
-        title="选择查看卷宗"
-        centered
-        className={styles.policeModal}
-        width={1000}
-        maskClosable={false}
-        onCancel={this.DossierCancel}
-        footer={null}
-        getContainer={() => document.getElementById(this.ResultId())}
-        >
-        <Table
-        size={'middle'}
-        style={{ backgroundColor: '#fff' }}
-        pagination={{
-        pageSize: 3,
-        showTotal: (total, range) => <div
-        style={{ position: 'absolute', left: '12px' }}>共 {total} 条记录
-        第 {this.state.dossiercurrent} / {(Math.ceil(total / 3))} 页</div>,
-        onChange: (page) => {
-        this.setState({ dossiercurrent: page });
-        },
-        }}
-        dataSource={caseDetails ? caseDetails.jzList : []}
-        columns={DossierColumns}
-        />
-        </Modal>
+        {/*/>*/}
+        {/*</Modal>*/}
+        {/*<Modal*/}
+        {/*visible={Dossiervisible}*/}
+        {/*title="选择查看卷宗"*/}
+        {/*centered*/}
+        {/*className={styles.policeModal}*/}
+        {/*width={1000}*/}
+        {/*maskClosable={false}*/}
+        {/*onCancel={this.DossierCancel}*/}
+        {/*footer={null}*/}
+        {/*getContainer={() => document.getElementById(this.ResultId())}*/}
+        {/*>*/}
+        {/*<Table*/}
+        {/*size={'middle'}*/}
+        {/*style={{ backgroundColor: '#fff' }}*/}
+        {/*pagination={{*/}
+        {/*pageSize: 3,*/}
+        {/*showTotal: (total, range) => <div*/}
+        {/*style={{ position: 'absolute', left: '12px' }}>共 {total} 条记录*/}
+        {/*第 {this.state.dossiercurrent} / {(Math.ceil(total / 3))} 页</div>,*/}
+        {/*onChange: (page) => {*/}
+        {/*this.setState({ dossiercurrent: page });*/}
+        {/*},*/}
+        {/*}}*/}
+        {/*dataSource={caseDetails ? caseDetails.jzList : []}*/}
+        {/*columns={DossierColumns}*/}
+        {/*/>*/}
+        {/*</Modal>*/}
         {/*{*/}
           {/*makeTableModalVisible ? (*/}
             {/*<MakeTableModal*/}
