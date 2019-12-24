@@ -95,7 +95,7 @@ export default class DossierMarkingModal extends PureComponent {
             },
             callback: (data) => {
                 if (data) {
-                    console.log('data---', data);
+                    // console.log('data---', data);
                     this.setState({
                         CatalogList: data.list,
                     });
@@ -118,7 +118,7 @@ export default class DossierMarkingModal extends PureComponent {
             },
             callback: (data) => {
                 if (data) {
-                    console.log('data***', data);
+                    // console.log('data***', data);
                     this.setState({
                         electronicVolumeData: data.list,
                     });

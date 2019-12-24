@@ -437,7 +437,7 @@ export default class Index extends PureComponent {
             showDataView: false,
         });
         if (seriesName === '受理') {
-            console.log('name', name);
+            // console.log('name', name);
             this.props.form.setFieldsValue({
                 slrq: [moment(dateArry[0], 'YYYY-MM-DD'), moment(dateArry[1], 'YYYY-MM-DD')],
                 sldw: this.state.selectedDeptVal || null,

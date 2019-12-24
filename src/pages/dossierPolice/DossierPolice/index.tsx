@@ -119,7 +119,7 @@ export default class Index extends PureComponent {
     this.getDossierSaveTypeDict();
   }
   componentWillReceiveProps(nextProps) {
-    console.log('nextProps', nextProps);
+    // console.log('nextProps', nextProps);
     if (
       nextProps.history.location.query.isReset &&
       nextProps.history.location.pathname === '/dossierPolice/DossierPolice'
