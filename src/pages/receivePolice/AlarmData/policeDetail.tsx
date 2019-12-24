@@ -9,9 +9,9 @@ import { connect } from 'dva';
 import { Button, Card, Col, Form, message, Row, Tooltip } from 'antd';
 import html2canvas from 'html2canvas';
 // import CaseDetail from '../CaseRealData/caseDetail';
-import SuperviseModal from '../../../components/UnCaseRealData/SuperviseModal';
+// import SuperviseModal from '../../../components/UnCaseRealData/SuperviseModal';
 // import XzCaseDetail from '../XzCaseRealData/caseDetail';
-import ShareModal from '../../../components/ShareModal/ShareModal';
+// import ShareModal from '../../../components/ShareModal/ShareModal';
 import collect from '../../../assets/common/collect.png';
 import nocollect from '../../../assets/common/nocollect.png';
 import collect1 from '../../../assets/common/collect1.png';
@@ -23,7 +23,7 @@ import styles from './policeDetail.less';
 import liststyles from '../../common/listDetail.less';
 import { autoheight, userResourceCodeDb } from '../../../utils/utils';
 import { authorityIsTrue } from '../../../utils/authority';
-import DispatchModal from '../../../components/DispatchModal/DispatchModal';
+// import DispatchModal from '../../../components/DispatchModal/DispatchModal';
 import { routerRedux } from 'dva/router';
 
 let imgBase = [];
@@ -62,6 +62,7 @@ export default class policeDetail extends PureComponent {
       // keyWord:['打','杀','伤','刀','剑','棍','棒','偷','盗','抢','骗','死','赌','毒','卖淫','嫖娼','侮辱'],
       policeDispatchVisible: false, // 调度模态框
       policeDispatchItem: null, // 调度信息
+      record:res, // 表格信息
     };
     if (props.isDd) {
       this.getPoliceKeyword();
@@ -93,24 +94,7 @@ export default class policeDetail extends PureComponent {
   };
 
   componentDidMount() {
-    if (
-      this.props.location &&
-      this.props.location.query &&
-      this.props.location.query.id &&
-      this.props.location.query.movefrom &&
-      this.props.location.query.movefrom === '警情常规'
-    ) {
       this.getDetail(this.props.location.query.id);
-    } else if (
-      this.props.location &&
-      this.props.location.query &&
-      this.props.location.query.record &&
-      this.props.location.query.record.system_id &&
-      this.props.location.query.movefrom &&
-      this.props.location.query.movefrom === '警情预警'
-    ) {
-      this.getDetail(this.props.location.query.record.system_id);
-    }
   }
 
   componentWillReceiveProps(nextProps) {
@@ -239,7 +223,7 @@ export default class policeDetail extends PureComponent {
     this.setState({
       superviseVisibleModal: !!flag,
     });
-    this.getDetail(this.props.id);
+    this.getDetail(this.props.location.query.id);
   };
   // 分享和关注（2为分享，1为关注）
   saveShare = (policeDetails, res, type, ajGzLx) => {
@@ -311,12 +295,13 @@ export default class policeDetail extends PureComponent {
             if (!res.error) {
               // alert(1)
               message.success('关注成功');
-              if (this.props.getPolice) {
-                this.props.getPolice({
-                  currentPage: this.props.current,
-                  pd: this.props.formValues,
-                });
-              }
+              // if (this.props.getPolice) {
+              //   this.props.getPolice({
+              //     currentPage: this.props.current,
+              //     pd: this.props.formValues,
+              //   });
+              // }
+              this.onEdit(true);
               this.setState(
                 {
                   sfgz: 1,
@@ -396,7 +381,7 @@ export default class policeDetail extends PureComponent {
   // 详情导出word功能
   ExportStatistics = () => {
     imgBase = [];
-    const exportId = `#jqDetail${this.props.id}`;
+    const exportId = `#jqDetail${this.props.location.query.id}`;
     html2canvas(document.querySelector(exportId)).then(canvas => {
       imgBase.push(canvas.toDataURL().split('base64,')[1]);
       this.exprotService(imgBase);
@@ -425,11 +410,41 @@ export default class policeDetail extends PureComponent {
     });
   };
 
+  onEdit = (isReset) => {
+    const {query: {record, detail, tab, fromPath, id}} = this.props.location;
+    // console.log('fromPath',fromPath);
+    // console.log('isReset',isReset);
+    let key = '/ModuleAll/Supervise' + this.props.location.query.id;
+    // 鍒犻櫎褰撳墠tab骞朵笖灏嗚矾鐢辫烦杞嚦鍓嶄竴涓猼ab鐨刾ath
+    const {dispatch} = this.props;
+    if (dispatch) {
+      dispatch(routerRedux.push({pathname: fromPath ? fromPath : '',
+        query: isReset ? {
+          isReset,
+          id: tab === '表格' ? '' : id,
+          record: tab === '表格' ? '' : record
+        } : {id: tab === '表格' ? '' : id, record: tab === '表格' ? '' : record}
+      }));
+      dispatch({
+        type: 'global/changeSessonNavigation',
+        payload: {
+          key,
+          isShow: false,
+        },
+      });
+      dispatch({
+        type: 'global/changeNavigation',
+        payload: {
+          key,
+          isShow: false,
+        },
+      });
+    }
+  };
+
   Topdetail() {
-    const { policeDetails, sfgz, isDb } = this.state;
-    const {
-      query: { record },
-    } = this.props.location;
+    const { policeDetails, sfgz, isDb,record } = this.state;
+    // const {query: { record }} = this.props.location;
     let dark = this.props.global && this.props.global.dark;
     return (
       <div
@@ -455,11 +470,11 @@ export default class policeDetail extends PureComponent {
               ''
             )}
             {this.state.isDd &&
-            this.props.location.query.record &&
-            this.props.location.query.record.is_sqdd === '0' ? (
+            record &&
+            record.is_sqdd === '0' ? (
               <Button
                 className={styles.TopMenu}
-                onClick={() => this.saveDispatch(this.props.record)}
+                onClick={() => this.saveDispatch(record)}
               >
                 调度
               </Button>
@@ -520,13 +535,13 @@ export default class policeDetail extends PureComponent {
     );
   }
   renderDetail() {
-    const { policeDetails } = this.state;
+    const { policeDetails,record } = this.state;
     const rowLayout = { md: 8, xl: 16, xxl: 24 };
     let dark = this.props.global && this.props.global.dark;
     return (
       <div
         style={{ background: dark ? '#252c3c' : '#fff', height: autoheight() - 280 + 'px' }}
-        id={`jqDetail${this.props.id}`}
+        id={`jqDetail${this.props.location.query.id}`}
         className={styles.detailBoxScroll}
       >
         {policeDetails && policeDetails.ajbh && policeDetails.is_sa === 1 ? (
@@ -633,7 +648,7 @@ export default class policeDetail extends PureComponent {
               <div className={liststyles.Indextail} style={{ paddingLeft: 58 }}>
                 <div
                   className={liststyles.special1}
-                  style={{ color: this.props.isDd ? '#f00' : 'rgba(255, 255, 255)' }}
+                  style={{ color: record.isDd ? '#f00' : 'rgba(255, 255, 255)' }}
                 >
                   {policeDetails && policeDetails.czjg_mc ? policeDetails.czjg_mc : ''}
                 </div>
