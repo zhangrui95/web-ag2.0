@@ -1,16 +1,16 @@
-import React, { PureComponent } from 'react';
+import React, {PureComponent} from 'react';
 import {Table, Divider, Tooltip, Row, Col, Empty} from 'antd';
-import { connect } from 'dva';
+import {connect} from 'dva';
 import styles from './common.less';
 import SLAXSDetail from '../../routes/UnCaseRealData/uncaseDetail';
 import DispatchModal from '../DispatchModal/DispatchModal';
 import DispatchingRecordModal from '../DispatchModal/DispatchingRecordModal';
 import Ellipsis from '../Ellipsis';
-import { authorityIsTrue } from '../../utils/authority';
+import {authorityIsTrue} from '../../utils/authority';
 import noList from "@/assets/viewData/noList.png";
 import noListLight from "@/assets/viewData/noListLight.png";
 
-@connect(({ Dispatch }) => ({
+@connect(({Dispatch}) => ({
     Dispatch,
 }))
 class RenderTableXs extends PureComponent {
@@ -24,7 +24,7 @@ class RenderTableXs extends PureComponent {
         ResOpin: '', // 反馈的原因和结果(案件暂无)
         sx: '',
         current: '',
-        ddBtn:authorityIsTrue('zhag_dd_btn'),
+        ddBtn: authorityIsTrue('zhag_dd_btn'),
     };
     handleTableChange = (pagination, filters, sorter) => {
         this.props.onChange(pagination, filters, sorter);
@@ -54,14 +54,14 @@ class RenderTableXs extends PureComponent {
                 />
             </div>
         );
-        const AddNewDetail = { title: '刑事案件详情', content: divs, key: record.id };
+        const AddNewDetail = {title: '刑事案件详情', content: divs, key: record.id};
         this.props.newDetail(AddNewDetail);
     };
     closehandleCancel = () => {
-      this.setState({
-        shareVisible: false,
-        AnnouncementVisible: false,
-      });
+        this.setState({
+            shareVisible: false,
+            AnnouncementVisible: false,
+        });
     };
     handleCancel = (e) => {
         this.setState({
@@ -70,11 +70,11 @@ class RenderTableXs extends PureComponent {
         });
     };
     DispatchinghandleCancel = () => {
-      this.setState({
-        AnnouncementVisible: false,
-        RzList:[],
-        ResOpin:'',
-      });
+        this.setState({
+            AnnouncementVisible: false,
+            RzList: [],
+            ResOpin: '',
+        });
     };
     saveDispatch = (res) => {
         this.setState({
@@ -101,7 +101,7 @@ class RenderTableXs extends PureComponent {
     };
 
     render() {
-        const { data, UnCaseData: { loading }, isDb } = this.props;
+        const {data, UnCaseData: {loading}, isDb} = this.props;
         let columns;
         if (this.props.ddqk) {
             columns = [
@@ -240,7 +240,8 @@ class RenderTableXs extends PureComponent {
                                 <Divider type="vertical"/>
                                 {
                                     this.props.showDataView ?
-                                        this.state.ddBtn ? <a href="javascript:;" onClick={() => this.saveDispatch(record)}>调度</a> : ''
+                                        this.state.ddBtn ?
+                                            <a href="javascript:;" onClick={() => this.saveDispatch(record)}>调度</a> : ''
                                         : <a href="javascript:;" onClick={() => this.getTg(record)}>调度记录</a>
                                 }
                             </div>
@@ -259,18 +260,18 @@ class RenderTableXs extends PureComponent {
                 <span
                     className={styles.pagination}>{`共 ${data.page ? data.page.totalResult : 0} 条记录 第 ${data.page ? data.page.currentPage : 1} / ${data.page ? data.page.totalPage : 1} 页`}</span>,
         };
-        let detail = (
-            <Row style={{ width: '90%', margin: '0 38px 10px', lineHeight: '36px', color: 'rgba(0, 0, 0, 0.85)' }}>
-                <Col span={12}>案件名称：<Tooltip
-                    title={this.state.shareItem && this.state.shareItem.ajmc && this.state.shareItem.ajmc.length > 20 ? this.state.shareItem.ajmc : null}>{this.state.shareItem && this.state.shareItem.ajmc ? this.state.shareItem.ajmc.length > 20 ? this.state.shareItem.ajmc.substring(0, 20) + '...' : this.state.shareItem.ajmc : ''}</Tooltip></Col>
-                <Col span={12}>办案单位：<Tooltip
-                    title={this.state.shareItem && this.state.shareItem.bardwmc && this.state.shareItem.bardwmc.length > 20 ? this.state.shareItem.bardwmc : null}>{this.state.shareItem && this.state.shareItem.bardwmc ? this.state.shareItem.bardwmc.length > 20 ? this.state.shareItem.bardwmc.substring(0, 20) + '...' : this.state.shareItem.bardwmc : ''}</Tooltip></Col>
-                <Col
-                    span={12}>案件状态：{this.state.shareItem && this.state.shareItem.schj ? this.state.shareItem.schj : ''}</Col>
-                <Col
-                    span={12}>办案民警：{this.state.shareItem && this.state.shareItem.barxm ? this.state.shareItem.barxm : ''}</Col>
-            </Row>
-        );
+        // let detail = (
+        //     <Row style={{ width: '90%', margin: '0 38px 10px', lineHeight: '36px', color: 'rgba(0, 0, 0, 0.85)' }}>
+        //         <Col span={12}>案件名称：<Tooltip
+        //             title={this.state.shareItem && this.state.shareItem.ajmc && this.state.shareItem.ajmc.length > 20 ? this.state.shareItem.ajmc : null}>{this.state.shareItem && this.state.shareItem.ajmc ? this.state.shareItem.ajmc.length > 20 ? this.state.shareItem.ajmc.substring(0, 20) + '...' : this.state.shareItem.ajmc : ''}</Tooltip></Col>
+        //         <Col span={12}>办案单位：<Tooltip
+        //             title={this.state.shareItem && this.state.shareItem.bardwmc && this.state.shareItem.bardwmc.length > 20 ? this.state.shareItem.bardwmc : null}>{this.state.shareItem && this.state.shareItem.bardwmc ? this.state.shareItem.bardwmc.length > 20 ? this.state.shareItem.bardwmc.substring(0, 20) + '...' : this.state.shareItem.bardwmc : ''}</Tooltip></Col>
+        //         <Col
+        //             span={12}>案件状态：{this.state.shareItem && this.state.shareItem.schj ? this.state.shareItem.schj : ''}</Col>
+        //         <Col
+        //             span={12}>办案民警：{this.state.shareItem && this.state.shareItem.barxm ? this.state.shareItem.barxm : ''}</Col>
+        //     </Row>
+        // );
         return (
             <div className={styles.standardTable}>
                 <Table
@@ -281,31 +282,34 @@ class RenderTableXs extends PureComponent {
                     columns={columns}
                     pagination={paginationProps}
                     onChange={this.handleTableChange}
-                    locale={{ emptyText: <Empty image={this.props.global&&this.props.global.dark ? noList : noListLight} description={'暂无数据'} /> }}
+                    locale={{
+                        emptyText: <Empty image={this.props.global && this.props.global.dark ? noList : noListLight}
+                                          description={'暂无数据'}/>
+                    }}
                 />
-              {
-                this.state.shareVisible?
-                  <DispatchModal
-                      handleSearch={this.props.handleSearch}
-                      title="刑事案件调度"
-                      detail={detail}
-                      shareVisible={this.state.shareVisible}
-                      handleCancel={this.handleCancel}
-                      closehandleCancel={this.closehandleCancel}
-                      shareItem={this.state.shareItem}
-                      personList={this.state.personList}
-                      lx={this.state.lx}
-                      tzlx={this.state.tzlx}
-                      sx={this.state.sx}
-                  />
-                  : null
-              }
-              {
-                this.state.AnnouncementVisible?
-                <DispatchingRecordModal visible={this.state.AnnouncementVisible} DispatchinghandleCancel={this.DispatchinghandleCancel}  ResOpin={this.state.ResOpin} NowRecord={this.state.NowRecord} saveDispatch={this.saveDispatch} RzList={this.state.RzList} from='三清刑事案件告警'/>
-                  :
-                  null
-              }
+                {/*{*/}
+                {/*  this.state.shareVisible?*/}
+                {/*    <DispatchModal*/}
+                {/*        handleSearch={this.props.handleSearch}*/}
+                {/*        title="刑事案件调度"*/}
+                {/*        detail={detail}*/}
+                {/*        shareVisible={this.state.shareVisible}*/}
+                {/*        handleCancel={this.handleCancel}*/}
+                {/*        closehandleCancel={this.closehandleCancel}*/}
+                {/*        shareItem={this.state.shareItem}*/}
+                {/*        personList={this.state.personList}*/}
+                {/*        lx={this.state.lx}*/}
+                {/*        tzlx={this.state.tzlx}*/}
+                {/*        sx={this.state.sx}*/}
+                {/*    />*/}
+                {/*    : null*/}
+                {/*}*/}
+                {/*{*/}
+                {/*  this.state.AnnouncementVisible?*/}
+                {/*  <DispatchingRecordModal visible={this.state.AnnouncementVisible} DispatchinghandleCancel={this.DispatchinghandleCancel}  ResOpin={this.state.ResOpin} NowRecord={this.state.NowRecord} saveDispatch={this.saveDispatch} RzList={this.state.RzList} from='三清刑事案件告警'/>*/}
+                {/*    :*/}
+                {/*    null*/}
+                {/*}*/}
             </div>
         );
     }

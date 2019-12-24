@@ -3,25 +3,25 @@
 * author：lyp
 * 20181225
 * */
-import React, { PureComponent } from 'react';
-import { connect } from 'dva';
+import React, {PureComponent} from 'react';
+import {connect} from 'dva';
 import {Row, Col, Form, Select, TreeSelect, Input, Button, DatePicker, Tabs, message, Cascader, Card, Icon} from 'antd';
 import moment from 'moment/moment';
 import styles from './index.less';
 import PersonalDocTable from '../../../components/AllDocuments/PersonalDocTable';
-import { exportListDataMaxDays, getQueryString, tableList } from '../../../utils/utils';
+import {exportListDataMaxDays, getQueryString, tableList} from '../../../utils/utils';
 import SyncTime from '../../../components/Common/SyncTime';
 import stylescommon1 from "@/pages/common/common.less";
 import stylescommon2 from "@/pages/common/commonLight.less";
 
 const FormItem = Form.Item;
-const { Option } = Select;
-const { RangePicker } = DatePicker;
+const {Option} = Select;
+const {RangePicker} = DatePicker;
 const TabPane = Tabs.TabPane;
 const TreeNode = TreeSelect.TreeNode;
 
-@connect(({ personDocData, loading, common,global }) => ({
-    personDocData, common,global,
+@connect(({personDocData, loading, common, global}) => ({
+    personDocData, common, global,
     loading: loading.models.personDocData,
 }))
 @Form.create()
@@ -34,7 +34,7 @@ export default class PersonalDoc extends PureComponent {
         treeDefaultExpandedKeys: [], // 办案单位树默认展开keys
         caseTypeTreeXZ: [], // 案件类别树
         caseTypeTreeXS: [], // 案件类别树
-        ajlbqf:'', // 查询案件类别时的区分是行政还是刑事
+        ajlbqf: '', // 查询案件类别时的区分是行政还是刑事
     };
 
     componentDidMount() {
@@ -52,7 +52,7 @@ export default class PersonalDoc extends PureComponent {
                 is_tz: '1',
                 tbdw: this.props.location.state.code,
                 cjsj: [moment(this.props.location.state.kssj), moment(this.props.location.state.jssj)],
-                salx:this.props.location.state.params.name,
+                salx: this.props.location.state.params.name,
             });
             const params = {
                 currentPage: 1,
@@ -62,22 +62,21 @@ export default class PersonalDoc extends PureComponent {
                 },
             };
             this.getPersonData(params);
-        }
-        else if(this.props.location&&this.props.location.queryChange){
-            const{searchTime,qzcsName,departmentId,from}=this.props.location.queryChange;
-            const qzcsfxqssj = searchTime?moment(searchTime).startOf('month').format('YYYY-MM-DD HH:mm:ss'):'';
-            const qzcsfxzzsj = searchTime?moment(searchTime).endOf('month').format('YYYY-MM-DD HH:mm:ss'):'';
-            if(from==='rylx'){
+        } else if (this.props.location && this.props.location.queryChange) {
+            const {searchTime, qzcsName, departmentId, from} = this.props.location.queryChange;
+            const qzcsfxqssj = searchTime ? moment(searchTime).startOf('month').format('YYYY-MM-DD HH:mm:ss') : '';
+            const qzcsfxzzsj = searchTime ? moment(searchTime).endOf('month').format('YYYY-MM-DD HH:mm:ss') : '';
+            if (from === 'rylx') {
                 this.props.form.setFieldsValue({
                     salx: qzcsName,
                     slsj: [moment(moment(searchTime).startOf('month').format('YYYY-MM-DD HH:mm:ss')), moment(moment(searchTime).endOf('month').format('YYYY-MM-DD HH:mm:ss'))],
                 });
                 const formValues = {
-                    slqssj:qzcsfxqssj,
-                    slzzsj:qzcsfxzzsj,
+                    slqssj: qzcsfxqssj,
+                    slzzsj: qzcsfxzzsj,
                     tbdw: departmentId,
                     is_tz: '1',
-                    salx:qzcsName,
+                    salx: qzcsName,
                 };
                 this.setState({
                     formValues,
@@ -92,18 +91,17 @@ export default class PersonalDoc extends PureComponent {
                     },
                 };
                 this.getPersonData(params);
-            }
-            else{
+            } else {
                 this.props.form.setFieldsValue({
                     qzcslx: qzcsName,
                     qzcsfxsj: [moment(moment(searchTime).startOf('month').format('YYYY-MM-DD HH:mm:ss')), moment(moment(searchTime).endOf('month').format('YYYY-MM-DD HH:mm:ss'))],
                 });
                 const formValues = {
-                    qzcsfxqssj:qzcsfxqssj,
-                    qzcsfxzzsj:qzcsfxzzsj,
+                    qzcsfxqssj: qzcsfxqssj,
+                    qzcsfxzzsj: qzcsfxzzsj,
                     tbdw: departmentId,
                     is_tz: '1',
-                    qzcsdm:qzcsName,
+                    qzcsdm: qzcsName,
                 };
                 this.setState({
                     formValues,
@@ -120,8 +118,7 @@ export default class PersonalDoc extends PureComponent {
                 this.getPersonData(params);
             }
 
-        }
-        else {
+        } else {
             this.handleFormReset();
             this.getInvolvedType();
             this.getPersonData();
@@ -132,10 +129,10 @@ export default class PersonalDoc extends PureComponent {
     // 获取案件类别树
     getCaseTypeTree = (area) => {
         this.props.dispatch({
-            type: area==='2'?'common/getPlCaseTypeTree':'common/getCaseTypeTree',
+            type: area === '2' ? 'common/getPlCaseTypeTree' : 'common/getCaseTypeTree',
             payload: {
                 ajlb: 'xs', // 案件类别xs,xz
-                is_area:'0',
+                is_area: '0',
             },
             callback: (data) => {
                 if (data.list) {
@@ -149,10 +146,10 @@ export default class PersonalDoc extends PureComponent {
             },
         });
         this.props.dispatch({
-            type: area==='2'?'common/getPlCaseTypeTree':'common/getCaseTypeTree',
+            type: area === '2' ? 'common/getPlCaseTypeTree' : 'common/getCaseTypeTree',
             payload: {
                 ajlb: 'xz', // 案件类别xs,xz
-                is_area:'0',
+                is_area: '0',
             },
             callback: (data) => {
                 if (data.list) {
@@ -206,7 +203,7 @@ export default class PersonalDoc extends PureComponent {
     getPersonData(param) {
         this.props.dispatch({
             type: 'personDocData/getPersonData',
-            payload: param ? param : { pd: {} },
+            payload: param ? param : {pd: {}},
         });
     }
 
@@ -265,7 +262,7 @@ export default class PersonalDoc extends PureComponent {
 
     // 表格分页
     handleTableChange = (pagination, filtersArg, sorter) => {
-        const { formValues } = this.state;
+        const {formValues} = this.state;
         const params = {
             pd: {
                 ...formValues,
@@ -278,7 +275,7 @@ export default class PersonalDoc extends PureComponent {
     // 查询
     handleSearch = (e) => {
         if (e) e.preventDefault();
-        const{ ajlbqf } = this.state;
+        const {ajlbqf} = this.state;
         const values = this.props.form.getFieldsValue();
         const time = values.cjsj;
         const fxtime = values.qzcsfxsj;
@@ -292,16 +289,16 @@ export default class PersonalDoc extends PureComponent {
             sfzh: values.sfzh || '',
             qzcsdm: values.qzcslx || '',
             ajlb: values.ajlb ? values.ajlb[values.ajlb.length - 1] : '',
-            ajlb_dl:values.ajlb ? values.ajlb[0] : '',
-            ajlbqf:ajlbqf?ajlbqf:'',
+            ajlb_dl: values.ajlb ? values.ajlb[0] : '',
+            ajlbqf: ajlbqf ? ajlbqf : '',
             cjrq_ks: time && time.length > 0 ? time[0].format('YYYY-MM-DD') : '',
             cjrq_js: time && time.length > 0 ? time[1].format('YYYY-MM-DD') : '',
             tbdw: values.tbdw || '',
             is_tz: this.state.is_tz,
-            qzcsfxqssj:fxtime && fxtime.length > 0 ? fxtime[0].format('YYYY-MM-DD HH:mm:ss') : '',
-            qzcsfxzzsj:fxtime && fxtime.length > 0 ? fxtime[1].format('YYYY-MM-DD HH:mm:ss') : '',
-            slqssj:sltime && sltime.length > 0 ? sltime[0].format('YYYY-MM-DD HH:mm:ss') : '',
-            slzzsj:sltime && sltime.length > 0 ? sltime[1].format('YYYY-MM-DD HH:mm:ss') : '',
+            qzcsfxqssj: fxtime && fxtime.length > 0 ? fxtime[0].format('YYYY-MM-DD HH:mm:ss') : '',
+            qzcsfxzzsj: fxtime && fxtime.length > 0 ? fxtime[1].format('YYYY-MM-DD HH:mm:ss') : '',
+            slqssj: sltime && sltime.length > 0 ? sltime[0].format('YYYY-MM-DD HH:mm:ss') : '',
+            slzzsj: sltime && sltime.length > 0 ? sltime[1].format('YYYY-MM-DD HH:mm:ss') : '',
         };
         this.setState({
             formValues,
@@ -330,14 +327,14 @@ export default class PersonalDoc extends PureComponent {
             sfzh: values.sfzh || '',
             qzcsdm: values.qzcslx || '',
             ajlb: values.ajlb ? values.ajlb[values.ajlb.length - 1] : '',
-            ajlb_dl:values.ajlb ? values.ajlb[0] : '',
+            ajlb_dl: values.ajlb ? values.ajlb[0] : '',
             cjrq_ks: time && time.length > 0 ? time[0].format('YYYY-MM-DD') : '',
             cjrq_js: time && time.length > 0 ? time[1].format('YYYY-MM-DD') : '',
             tbdw: values.tbdw || '',
-            qzcsfxqssj:fxtime && fxtime.length > 0 ? fxtime[0].format('YYYY-MM-DD HH:mm:ss') : '',
-            qzcsfxzzsj:fxtime && fxtime.length > 0 ? fxtime[1].format('YYYY-MM-DD HH:mm:ss') : '',
-            slqssj:sltime && sltime.length > 0 ? sltime[0].format('YYYY-MM-DD HH:mm:ss') : '',
-            slzzsj:sltime && sltime.length > 0 ? sltime[1].format('YYYY-MM-DD HH:mm:ss') : '',
+            qzcsfxqssj: fxtime && fxtime.length > 0 ? fxtime[0].format('YYYY-MM-DD HH:mm:ss') : '',
+            qzcsfxzzsj: fxtime && fxtime.length > 0 ? fxtime[1].format('YYYY-MM-DD HH:mm:ss') : '',
+            slqssj: sltime && sltime.length > 0 ? sltime[0].format('YYYY-MM-DD HH:mm:ss') : '',
+            slzzsj: sltime && sltime.length > 0 ? sltime[1].format('YYYY-MM-DD HH:mm:ss') : '',
         };
         if (time && time.length > 0) {
             const isAfterDate = moment(formValues.cjrq_js).isAfter(moment(formValues.cjrq_ks).add(exportListDataMaxDays, 'days'));
@@ -375,9 +372,9 @@ export default class PersonalDoc extends PureComponent {
         this.getPersonData();
     };
     CascaderOnChange = (value, selectedOptions) => {
-        if(selectedOptions&&selectedOptions.length>0)
+        if (selectedOptions && selectedOptions.length > 0)
             this.setState({
-                ajlbqf:selectedOptions[0].lb,
+                ajlbqf: selectedOptions[0].lb,
             })
     }
     // 无法选择的日期
@@ -387,13 +384,14 @@ export default class PersonalDoc extends PureComponent {
     };
     getSearchHeight = () => {
         this.setState({
-            searchHeight:!this.state.searchHeight
+            searchHeight: !this.state.searchHeight
         });
     }
+
     renderForm() {
-        let stylescommon = this.props.global&&this.props.global.dark ? stylescommon1 : stylescommon2;
-        const { form: { getFieldDecorator }, common: { depTree, involvedType, enforcementTypeDict } } = this.props;
-        const {caseTypeTreeXZ,caseTypeTreeXS} = this.state;
+        let stylescommon = this.props.global && this.props.global.dark ? stylescommon1 : stylescommon2;
+        const {form: {getFieldDecorator}, common: {depTree, involvedType, enforcementTypeDict}} = this.props;
+        const {caseTypeTreeXZ, caseTypeTreeXS} = this.state;
         let involvedTypeOptions = [];
         if (involvedType.length > 0) {
             for (let i = 0; i < involvedType.length; i++) {
@@ -420,193 +418,195 @@ export default class PersonalDoc extends PureComponent {
             caseTypeTree.push(item)
         ));
         const formItemLayout = {
-            labelCol: { xs: { span: 24 }, md: { span: 8 }, xl: { span: 6 }, xxl: { span: 6 } },
-            wrapperCol: { xs: { span: 24 }, md: { span: 16 }, xl: { span: 18 }, xxl: { span: 18 } },
+            labelCol: {xs: {span: 24}, md: {span: 8}, xl: {span: 6}, xxl: {span: 6}},
+            wrapperCol: {xs: {span: 24}, md: {span: 16}, xl: {span: 18}, xxl: {span: 18}},
         };
-        const rowLayout = { md: 8, xl: 16, xxl: 24 };
-        const colLayout = { sm: 24, md: 12, xl: 8 };
+        const rowLayout = {md: 8, xl: 16, xxl: 24};
+        const colLayout = {sm: 24, md: 12, xl: 8};
         return (
             <Card className={stylescommon.listPageWrap} id={'formPersonFile'}>
-            <Form onSubmit={this.handleSearch} style={{height:this.state.searchHeight ?  'auto' : '50px'}}>
-                <Row gutter={rowLayout} className={stylescommon.searchForm}>
-                    <Col {...colLayout}>
-                        <FormItem label="涉案人员" {...formItemLayout}>
-                            {getFieldDecorator('name', {
-                                // initialValue: this.state.caseType,
-                                rules: [{ max: 32, message: '最多输入32个字！' }],
-                            })(
-                                <Input placeholder="请输入涉案人员"/>,
-                            )}
-                        </FormItem>
-                    </Col>
-                    <Col {...colLayout}>
-                        <FormItem label="人员性别" {...formItemLayout}>
-                            {getFieldDecorator('sex', {})(
-                                <Select placeholder="请选择人员性别" style={{ width: '100%' }} getPopupContainer={() => document.getElementById('formPersonFile')}>
-                                    <Option value="">全部</Option>
-                                    <Option value="男">男</Option>
-                                    <Option value="女">女</Option>
-                                    <Option value="未知的性别">未知的性别</Option>
-                                    <Option value="未说明的性别">未说明的性别</Option>
-                                </Select>,
-                            )}
-                        </FormItem>
-                    </Col>
-                    <Col {...colLayout}>
-                        <FormItem label="人员类型" {...formItemLayout}>
-                            {getFieldDecorator('salx', {
-                                initialValue: this.state.salx,
-                            })(
-                                <Select placeholder="请选择人员类型" style={{ width: '100%' }} getPopupContainer={() => document.getElementById('formPersonFile')}>
-                                    <Option value="">全部</Option>
-                                    {/*{involvedTypeOptions}*/}
-                                    <Option key='01' value="01">犯罪嫌疑人</Option>
-                                    <Option key='02' value="02">违法行为人</Option>
-                                </Select>,
-                            )}
-                        </FormItem>
-                    </Col>
-                    <Col {...colLayout}>
-                        <FormItem label="涉案人证件号" {...formItemLayout}>
-                            {getFieldDecorator('sfzh', {
-                                // initialValue: this.state.caseType,
-                                rules: [{ max: 128, message: '最多输入128个字！' }],
-                            })(
-                                <Input placeholder="请输入涉案人证件号"/>,
-                            )}
-                        </FormItem>
-                    </Col>
-                    <Col {...colLayout}>
-                        <FormItem label="案件名称" {...formItemLayout}>
-                            {getFieldDecorator('ajmc', {
-                                // initialValue: this.state.caseType,
-                                rules: [{ max: 128, message: '最多输入128个字！' }],
-                            })(
-                                <Input placeholder="请输入案件名称"/>,
-                            )}
-                        </FormItem>
-                    </Col>
-                    <Col {...colLayout}>
-                        <FormItem label="案件编号" {...formItemLayout}>
-                            {getFieldDecorator('ajbh', {
-                                // initialValue: this.state.caseType,
-                                rules: [{ pattern: /^[A-Za-z0-9]+$/, message: '请输入正确的案件编号！' },
-                                    { max: 32, message: '最多输入32个字！' }],
-                            })(
-                                <Input placeholder="请输入案件编号"/>,
-                            )}
-                        </FormItem>
-                    </Col>
-                    <Col {...colLayout}>
-                        <FormItem label="办案单位" {...formItemLayout}>
-                            {getFieldDecorator('tbdw', {
-                                initialValue: this.state.tbdw ? this.state.tbdw : undefined,
-                            })(
-                                <TreeSelect
-                                    showSearch
-                                    style={{ width: '100%' }}
-                                    dropdownStyle={{ maxHeight: 400, overflow: 'auto' }}
-                                    placeholder="请输入办案单位"
-                                    allowClear
-                                    key='cjdwSelect'
-                                    treeDefaultExpandedKeys={this.state.treeDefaultExpandedKeys}
-                                    treeNodeFilterProp="title"
-                                    getPopupContainer={() => document.getElementById('formPersonFile')}
-                                >
-                                    {depTree && depTree.length > 0 ? this.renderloop(depTree) : null}
-                                </TreeSelect>,
-                            )}
-                        </FormItem>
-                    </Col>
-                    <Col {...colLayout}>
-                        <FormItem label="登记日期" {...formItemLayout}>
-                            {getFieldDecorator('cjsj', {
-                                initialValue: this.state.cjsj ? this.state.cjsj : undefined,
-                            })(
-                                <RangePicker
-                                    disabledDate={this.disabledDate}
-                                    style={{ width: '100%' }}
-                                    getCalendarContainer={() => document.getElementById('formPersonFile')}
-                                />,
-                            )}
-                        </FormItem>
-                    </Col>
-                    <Col {...colLayout}>
-                        <FormItem label="强制措施" {...formItemLayout}>
-                            {getFieldDecorator('qzcslx', {})(
-                                <Select placeholder="请选择强制措施" style={{ width: '100%' }} getPopupContainer={() => document.getElementById('formPersonFile')}>
-                                    <Option value="">全部</Option>
-                                    {enforcementTypeDictGroup}
-                                </Select>,
-                            )}
-                        </FormItem>
-                    </Col>
-                    <Col {...colLayout}>
-                        <FormItem label="案件类别" {...formItemLayout}>
-                            {getFieldDecorator('ajlb', {})(
-                                <Cascader
-                                    options={caseTypeTree.length>0?caseTypeTree:[]}
-                                    placeholder="请选择案件类别"
-                                    changeOnSelect='true'
-                                    onChange={this.CascaderOnChange}
-                                    getPopupContainer={() => document.getElementById('formPersonFile')}
-                                    showSearch={
-                                        {
-                                            filter: (inputValue, path) => {
-                                                return (path.some(items => (items.searchValue).indexOf(inputValue) > -1));
-                                            },
-                                            limit: 5,
+                <Form onSubmit={this.handleSearch} style={{height: this.state.searchHeight ? 'auto' : '50px'}}>
+                    <Row gutter={rowLayout} className={stylescommon.searchForm}>
+                        <Col {...colLayout}>
+                            <FormItem label="涉案人员" {...formItemLayout}>
+                                {getFieldDecorator('name', {
+                                    // initialValue: this.state.caseType,
+                                    rules: [{max: 32, message: '最多输入32个字！'}],
+                                })(
+                                    <Input placeholder="请输入涉案人员"/>,
+                                )}
+                            </FormItem>
+                        </Col>
+                        <Col {...colLayout}>
+                            <FormItem label="人员性别" {...formItemLayout}>
+                                {getFieldDecorator('sex', {})(
+                                    <Select placeholder="请选择人员性别" style={{width: '100%'}}
+                                            getPopupContainer={() => document.getElementById('formPersonFile')}>
+                                        <Option value="">全部</Option>
+                                        <Option value="男">男</Option>
+                                        <Option value="女">女</Option>
+                                        <Option value="未知的性别">未知的性别</Option>
+                                        <Option value="未说明的性别">未说明的性别</Option>
+                                    </Select>,
+                                )}
+                            </FormItem>
+                        </Col>
+                        <Col {...colLayout}>
+                            <FormItem label="人员类型" {...formItemLayout}>
+                                {getFieldDecorator('salx', {
+                                    initialValue: this.state.salx,
+                                })(
+                                    <Select placeholder="请选择人员类型" style={{width: '100%'}}
+                                            getPopupContainer={() => document.getElementById('formPersonFile')}>
+                                        <Option value="">全部</Option>
+                                        {/*{involvedTypeOptions}*/}
+                                        <Option key='01' value="01">犯罪嫌疑人</Option>
+                                        <Option key='02' value="02">违法行为人</Option>
+                                    </Select>,
+                                )}
+                            </FormItem>
+                        </Col>
+                        <Col {...colLayout}>
+                            <FormItem label="涉案人证件号" {...formItemLayout}>
+                                {getFieldDecorator('sfzh', {
+                                    // initialValue: this.state.caseType,
+                                    rules: [{max: 128, message: '最多输入128个字！'}],
+                                })(
+                                    <Input placeholder="请输入涉案人证件号"/>,
+                                )}
+                            </FormItem>
+                        </Col>
+                        <Col {...colLayout}>
+                            <FormItem label="案件名称" {...formItemLayout}>
+                                {getFieldDecorator('ajmc', {
+                                    // initialValue: this.state.caseType,
+                                    rules: [{max: 128, message: '最多输入128个字！'}],
+                                })(
+                                    <Input placeholder="请输入案件名称"/>,
+                                )}
+                            </FormItem>
+                        </Col>
+                        <Col {...colLayout}>
+                            <FormItem label="案件编号" {...formItemLayout}>
+                                {getFieldDecorator('ajbh', {
+                                    // initialValue: this.state.caseType,
+                                    rules: [{pattern: /^[A-Za-z0-9]+$/, message: '请输入正确的案件编号！'},
+                                        {max: 32, message: '最多输入32个字！'}],
+                                })(
+                                    <Input placeholder="请输入案件编号"/>,
+                                )}
+                            </FormItem>
+                        </Col>
+                        <Col {...colLayout}>
+                            <FormItem label="办案单位" {...formItemLayout}>
+                                {getFieldDecorator('tbdw', {
+                                    initialValue: this.state.tbdw ? this.state.tbdw : undefined,
+                                })(
+                                    <TreeSelect
+                                        showSearch
+                                        style={{width: '100%'}}
+                                        dropdownStyle={{maxHeight: 400, overflow: 'auto'}}
+                                        placeholder="请输入办案单位"
+                                        allowClear
+                                        key='cjdwSelect'
+                                        treeDefaultExpandedKeys={this.state.treeDefaultExpandedKeys}
+                                        treeNodeFilterProp="title"
+                                        getPopupContainer={() => document.getElementById('formPersonFile')}
+                                    >
+                                        {depTree && depTree.length > 0 ? this.renderloop(depTree) : null}
+                                    </TreeSelect>,
+                                )}
+                            </FormItem>
+                        </Col>
+                        <Col {...colLayout}>
+                            <FormItem label="登记日期" {...formItemLayout}>
+                                {getFieldDecorator('cjsj', {
+                                    initialValue: this.state.cjsj ? this.state.cjsj : undefined,
+                                })(
+                                    <RangePicker
+                                        disabledDate={this.disabledDate}
+                                        style={{width: '100%'}}
+                                        getCalendarContainer={() => document.getElementById('formPersonFile')}
+                                    />,
+                                )}
+                            </FormItem>
+                        </Col>
+                        <Col {...colLayout}>
+                            <FormItem label="强制措施" {...formItemLayout}>
+                                {getFieldDecorator('qzcslx', {})(
+                                    <Select placeholder="请选择强制措施" style={{width: '100%'}}
+                                            getPopupContainer={() => document.getElementById('formPersonFile')}>
+                                        <Option value="">全部</Option>
+                                        {enforcementTypeDictGroup}
+                                    </Select>,
+                                )}
+                            </FormItem>
+                        </Col>
+                        <Col {...colLayout}>
+                            <FormItem label="案件类别" {...formItemLayout}>
+                                {getFieldDecorator('ajlb', {})(
+                                    <Cascader
+                                        options={caseTypeTree.length > 0 ? caseTypeTree : []}
+                                        placeholder="请选择案件类别"
+                                        changeOnSelect='true'
+                                        onChange={this.CascaderOnChange}
+                                        getPopupContainer={() => document.getElementById('formPersonFile')}
+                                        showSearch={
+                                            {
+                                                filter: (inputValue, path) => {
+                                                    return (path.some(items => (items.searchValue).indexOf(inputValue) > -1));
+                                                },
+                                                limit: 5,
+                                            }
                                         }
-                                    }
-                                />,
-                            )}
-                        </FormItem>
-                    </Col>
-                    <Col {...colLayout}>
-                        <FormItem label="强制措施时间" {...formItemLayout}>
-                            {getFieldDecorator('qzcsfxsj', {
-                            })(
-                                <RangePicker
-                                    disabledDate={this.disabledDate}
-                                    style={{ width: '100%' }}
-                                    getCalendarContainer={() => document.getElementById('formPersonFile')}
-                                />,
-                            )}
-                        </FormItem>
-                    </Col>
-                    <Col {...colLayout}>
-                        <FormItem label="受理时间" {...formItemLayout}>
-                            {getFieldDecorator('slsj', {
-                            })(
-                                <RangePicker
-                                    disabledDate={this.disabledDate}
-                                    style={{ width: '100%' }}
-                                    getCalendarContainer={() => document.getElementById('formPersonFile')}
-                                />,
-                            )}
-                        </FormItem>
-                    </Col>
-                </Row>
-                <Row className={stylescommon.search}>
-                        <span style={{ float: 'right', marginBottom: 24 }}>
-                          <Button style={{ marginLeft: 8 }} type="primary" onClick={this.handleSearch}>
+                                    />,
+                                )}
+                            </FormItem>
+                        </Col>
+                        <Col {...colLayout}>
+                            <FormItem label="强制措施时间" {...formItemLayout}>
+                                {getFieldDecorator('qzcsfxsj', {})(
+                                    <RangePicker
+                                        disabledDate={this.disabledDate}
+                                        style={{width: '100%'}}
+                                        getCalendarContainer={() => document.getElementById('formPersonFile')}
+                                    />,
+                                )}
+                            </FormItem>
+                        </Col>
+                        <Col {...colLayout}>
+                            <FormItem label="受理时间" {...formItemLayout}>
+                                {getFieldDecorator('slsj', {})(
+                                    <RangePicker
+                                        disabledDate={this.disabledDate}
+                                        style={{width: '100%'}}
+                                        getCalendarContainer={() => document.getElementById('formPersonFile')}
+                                    />,
+                                )}
+                            </FormItem>
+                        </Col>
+                    </Row>
+                    <Row className={stylescommon.search}>
+                        <span style={{float: 'right', marginBottom: 24}}>
+                          <Button style={{marginLeft: 8}} type="primary" onClick={this.handleSearch}>
                             查询
                           </Button>
-                          <Button style={{ marginLeft: 8 }} onClick={this.handleFormReset} className={stylescommon.empty}>
+                          <Button style={{marginLeft: 8}} onClick={this.handleFormReset} className={stylescommon.empty}>
                             重置
                           </Button>
-                          <Button style={{ marginLeft: 8 }} onClick={this.getSearchHeight} className={stylescommon.empty}>
-                              {this.state.searchHeight ? '收起筛选' : '展开筛选'} <Icon type={this.state.searchHeight ? "up" :"down"}/>
+                          <Button style={{marginLeft: 8}} onClick={this.getSearchHeight} className={stylescommon.empty}>
+                              {this.state.searchHeight ? '收起筛选' : '展开筛选'} <Icon
+                              type={this.state.searchHeight ? "up" : "down"}/>
                           </Button>
                         </span>
-                </Row>
-            </Form>
+                    </Row>
+                </Form>
             </Card>
         );
     }
 
     renderTable() {
-        const { personDocData: { personData }, loading } = this.props;
+        const {personDocData: {personData}, loading} = this.props;
         return (
             <div>
                 <PersonalDocTable
@@ -652,9 +652,9 @@ export default class PersonalDoc extends PureComponent {
     });
 
     render() {
-        const { personDocData: { personData }, loading } = this.props;
+        const {personDocData: {personData}, loading} = this.props;
         const newAddDetail = this.state.arrayDetail;
-        let stylescommon = this.props.global&&this.props.global.dark ? stylescommon1 : stylescommon2;
+        let stylescommon = this.props.global && this.props.global.dark ? stylescommon1 : stylescommon2;
         return (
             <div>
                 {this.renderForm()}

@@ -4,7 +4,7 @@
 * 20181120
 * */
 
-import React, { PureComponent } from 'react';
+import React, {PureComponent} from 'react';
 import styles from './bigScreenDisplay.less';
 import img1 from '../../../assets/show/policeWarningCount_1.png';
 import img2 from '../../../assets/show/policeWarningCount_2.png';
@@ -16,7 +16,7 @@ export default class CloseAndDetectionRate extends PureComponent {
     };
 
     componentDidMount() {
-        const { selectDate, org, orgCode, orglist } = this.props;
+        const {selectDate, org, orgCode, orglist} = this.props;
         this.getCloseAndDetectionRate(selectDate[0], selectDate[1], org, orgCode, orglist);
     }
 
@@ -62,9 +62,9 @@ export default class CloseAndDetectionRate extends PureComponent {
     };
 
     render() {
-        const { detectionRate, closeRate } = this.state;
+        const {detectionRate, closeRate} = this.state;
         return (
-            <div id="PoliceSituationWarningCount" style={{ height: '100%', width: '100%' }}>
+            <div id="PoliceSituationWarningCount" style={{height: '100%', width: '100%'}}>
                 <h4 className={styles.cardTitle}>结案、破案率展示</h4>
                 <div className={styles.cardContent}>
                     <div className={styles.animateArea}>

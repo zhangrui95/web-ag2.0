@@ -67,30 +67,25 @@ class RenderTable extends PureComponent {
             shareRecord: res,
         });
         if (type === 2) {
-          let detail = (
-            <Row style={{ lineHeight: '50px',paddingLeft:66 }}>
-              <Col
-                span={8}>接警人：{res && res.jjr ? res.jjr : ''}</Col>
-              <Col span={8}>管辖单位：<Tooltip
-                title={res && res.jjdw_mc && res.jjdw_mc.length > 12 ? res.jjdw_mc : null}>{res && res.jjdw_mc ? res.jjdw_mc.length > 12 ? res.jjdw_mc.substring(0, 12) + '...' : res.jjdw_mc : ''}</Tooltip></Col>
-              <Col span={8}>接警信息：<Tooltip
-                title={res && res.jjnr && res.jjnr.length > 12 ? res.jjnr : null}>{res && res.jjnr ? res.jjnr.length > 12 ? res.jjnr.substring(0, 12) + '...' : res.jjnr : ''}</Tooltip></Col>
-              <Col
-                span={8}>处警人：{res && res.cjr ? res.cjr : ''}</Col>
-              <Col span={8}>处警单位：<Tooltip
-                title={res && res.cjdw_mc && res.cjdw_mc.length > 12 ? res.cjdw_mc : null}>{res && res.cjdw_mc ? res.cjdw_mc.length > 12 ? res.cjdw_mc.substring(0, 12) + '...' : res.cjdw_mc : ''}</Tooltip></Col>
-              <Col span={8}>处警信息：<Tooltip
-                title={res && res.cjqk && res.cjqk.length > 12 ? res.cjqk : null}>{res && res.cjqk ? res.cjqk.length > 12 ? res.cjqk.substring(0, 12) + '...' : res.cjqk : ''}</Tooltip></Col>
-              <Col span={24}>处置结果：<Tooltip
-                title={res && res.czjg_mc && res.czjg_mc.length > 12 ? res.czjg_mc : null}>{res && res.czjg_mc ? res.czjg_mc.length > 12 ? res.czjg_mc.substring(0, 12) + '...' : res.czjg_mc : ''}</Tooltip></Col>
-            </Row>
-          )
-          this.props.dispatch(
-            routerRedux.push({
-              pathname: '/ModuleAll/Share',
-              query: { record: res,id: res && res.id ? res.id : '1',from:'警情信息',tzlx:'jqxx',fromPath:'/receivePolice/AlarmPolice',detail,tab:'表格',sx: (res.jqmc ? res.jqmc + '、' : '') + (res.wtlx ? res.wtlx + '、' : '') + (res.gjsj ? res.gjsj : ''), },
-            }),
-          )
+            let detail = [`接警人：${res && res.jjr ? res.jjr : ''}`, `管辖单位：${res && res.jjdw_mc ? res.jjdw_mc : ''}`,
+                `接警信息：${res && res.jjnr ? res.jjnr : ''}`, `处警人：${res && res.cjr ? res.cjr : ''}`,
+                `处警单位：${res && res.cjdw_mc ? res.cjdw_mc : ''}`, `处警信息：${res && res.cjqk ? res.cjqk : ''}`,
+            ];
+            res.detail = detail;
+            this.props.dispatch(
+                routerRedux.push({
+                    pathname: '/ModuleAll/Share',
+                    query: {
+                        record: res,
+                        id: res && res.id ? res.id : '1',
+                        from: '警情信息',
+                        tzlx: 'jqxx',
+                        fromPath: '/receivePolice/AlarmPolice',
+                        tab: '表格',
+                        sx: (res.jqmc ? res.jqmc + '、' : '') + (res.wtlx ? res.wtlx + '、' : '') + (res.gjsj ? res.gjsj : ''),
+                    },
+                }),
+            )
             // this.setState({
             //     shareVisible: true,
             //     shareItem: res,

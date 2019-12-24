@@ -20,7 +20,7 @@ export default {
     },
 
     effects: {
-        * caseFetch({ payload }, { call, put }) {
+        * caseFetch({payload}, {call, put}) {
             yield put({
                 type: 'changeLoading',
                 payload: true,
@@ -36,53 +36,53 @@ export default {
             });
         },
         // 按ID查询案件详情
-        * getXzAjxxXqById({ payload, callback }, { call, put }) {
+        * getXzAjxxXqById({payload, callback}, {call, put}) {
             const response = yield call(getXzAjxxXqById, payload);
             yield put({
                 type: 'caseDetail',
                 payload: response && response.error === null ? response.data : [],
             });
-            if (callback && response && !response.error&& response.data) {
+            if (callback && response && !response.error && response.data) {
                 callback(response.data);
             }
         },
         // 案件情况展示
-        * getAllXzCaseProgress({ payload, callback }, { call, put }) {
+        * getAllXzCaseProgress({payload, callback}, {call, put}) {
             const response = yield call(getAllXzCaseProgress, payload);
             yield put({
                 type: 'setAllXzCaseProgress',
                 payload: response && response.error === null ? response.data : [],
             });
-            if (callback && response && !response.error&& response.data) {
+            if (callback && response && !response.error && response.data) {
                 callback(response.data);
             }
         },
         // 受结情况展示
-        * getAllXzTypeCase({ payload, callback }, { call, put }) {
+        * getAllXzTypeCase({payload, callback}, {call, put}) {
             const response = yield call(getAllXzTypeCase, payload);
             yield put({
                 type: 'setAllXzTypeCase',
                 payload: response && response.error === null ? response.data : [],
             });
-            if (callback && response && !response.error&& response.data) {
+            if (callback && response && !response.error && response.data) {
                 callback(response.data);
             }
         },
         // 人员行政处罚情况
-        * getAdministrativePenalty({ payload, callback }, { call, put }) {
+        * getAdministrativePenalty({payload, callback}, {call, put}) {
             const response = yield call(getAdministrativePenalty, payload);
             yield put({
                 type: 'setAdministrativePenalty',
                 payload: response && response.error === null ? response.data : [],
             });
-            if (callback && response && !response.error&& response.data) {
+            if (callback && response && !response.error && response.data) {
                 callback(response.data);
             }
         },
         // 案件类型统计
-        * getCaseTypeStatistics({ payload, callback }, { call, put }) {
+        * getCaseTypeStatistics({payload, callback}, {call, put}) {
             const response = yield call(getCaseTypeStatistics, payload);
-            if (callback && response && !response.error&& response.data) {
+            if (callback && response && !response.error && response.data) {
                 callback(response.data);
             }
         },

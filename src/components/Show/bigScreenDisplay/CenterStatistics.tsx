@@ -3,7 +3,7 @@
 * author：lyp
 * 20181120
 * */
-import React, { PureComponent } from 'react';
+import React, {PureComponent} from 'react';
 import styles from './bigScreenDisplay.less';
 
 export default class CenterStatistics extends PureComponent {
@@ -55,10 +55,10 @@ export default class CenterStatistics extends PureComponent {
     };
 
     render() {
-        const { caseCountNum, warningCountNum, criminalNum, illegalPersonNum, qzcsNum } = this.state;
+        const {caseCountNum, warningCountNum, criminalNum, illegalPersonNum, qzcsNum} = this.state;
         return (
             <div className={styles.centerStatistics}>
-                <div style={{ paddingTop: 250 }}>
+                <div style={{paddingTop: 250}}>
                     <div className={styles.caseNum}>{caseCountNum}</div>
                     <div className={styles.caseNumText}>当前案件总数</div>
                 </div>

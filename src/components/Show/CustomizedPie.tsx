@@ -3,9 +3,9 @@
 * author：lyp
 * 20180611
 * */
-import React, { PureComponent } from 'react';
-import { connect } from 'dva';
-import { Row, Col } from 'antd';
+import React, {PureComponent} from 'react';
+import {connect} from 'dva';
+import {Row, Col} from 'antd';
 import echarts from 'echarts/lib/echarts';
 import pie from 'echarts/lib/chart/pie';
 import styles from './ComponentStyles.less';
@@ -14,7 +14,7 @@ import legend from 'echarts/lib/component/legend';
 import img1 from '../../assets/show/anjian.png';
 import img2 from '../../assets/show/shean.png';
 import img3 from '../../assets/show/gongan.png';
-import { getTimeDistance } from '../../utils/utils';
+import {getTimeDistance} from '../../utils/utils';
 import moment from 'moment/moment';
 
 let customizedPie;
@@ -83,8 +83,8 @@ export default class CustomizedPie extends PureComponent {
                                 color: new echarts.graphic.LinearGradient(
                                     0, 0, 0, 1,
                                     [
-                                        { offset: 0, color: colors[i][0] },
-                                        { offset: 1, color: colors[i][1] },
+                                        {offset: 0, color: colors[i][0]},
+                                        {offset: 1, color: colors[i][1]},
                                     ],
                                 ),
                             },
@@ -153,7 +153,7 @@ export default class CustomizedPie extends PureComponent {
                         }
                     }
                     this.setState({
-                        zqData: { ...obj },
+                        zqData: {...obj},
                     });
                 }
             },
@@ -234,7 +234,7 @@ export default class CustomizedPie extends PureComponent {
 
                     animationType: 'scale',
                     animationEasing: 'elasticOut',
-                    animationDelay: function(idx) {
+                    animationDelay: function (idx) {
                         return Math.random() * 200;
                     },
                 },
@@ -244,23 +244,23 @@ export default class CustomizedPie extends PureComponent {
     };
 
     render() {
-        const { warningList, warningCount, zqData, nowTab } = this.state;
+        const {warningList, warningCount, zqData, nowTab} = this.state;
         return (
             <div className={styles.fullPartBlock}>
                 <div className={styles.echartBlock}>
                     <div className={styles.componentBlockHeader}>
-                        <span className={nowTab === 'all' ? styles.tabHeader : null} style={{ width: '20%' }}
+                        <span className={nowTab === 'all' ? styles.tabHeader : null} style={{width: '20%'}}
                               onClick={() => this.clickTab('all')}>全部</span>
-                        <span className={nowTab === 'today' ? styles.tabHeader : null} style={{ width: '20%' }}
+                        <span className={nowTab === 'today' ? styles.tabHeader : null} style={{width: '20%'}}
                               onClick={() => this.clickTab('today')}>本日</span>
-                        <span className={nowTab === 'week' ? styles.tabHeader : null} style={{ width: '20%' }}
+                        <span className={nowTab === 'week' ? styles.tabHeader : null} style={{width: '20%'}}
                               onClick={() => this.clickTab('week')}>本周</span>
-                        <span className={nowTab === 'month' ? styles.tabHeader : null} style={{ width: '20%' }}
+                        <span className={nowTab === 'month' ? styles.tabHeader : null} style={{width: '20%'}}
                               onClick={() => this.clickTab('month')}>本月</span>
-                        <span className={nowTab === 'year' ? styles.tabHeader : null} style={{ width: '20%' }}
+                        <span className={nowTab === 'year' ? styles.tabHeader : null} style={{width: '20%'}}
                               onClick={() => this.clickTab('year')}>本年</span>
                     </div>
-                    <p id="customizedPie" style={{ width: '100%', height: '90%' }}></p>
+                    <p id="customizedPie" style={{width: '100%', height: '90%'}}></p>
                 </div>
                 <div className={styles.zqdata}>
                     <Row className={styles.itemCount} gutter={24}>

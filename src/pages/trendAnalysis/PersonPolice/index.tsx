@@ -4,9 +4,9 @@
 * 20181227
 * */
 
-import React, { PureComponent } from 'react';
-import { connect } from 'dva';
-import { Row, Col, DatePicker, Icon, Card, Table, Carousel, TreeSelect, Spin, Button } from 'antd';
+import React, {PureComponent} from 'react';
+import {connect} from 'dva';
+import {Row, Col, DatePicker, Icon, Card, Table, Carousel, TreeSelect, Spin, Button} from 'antd';
 import moment from 'moment';
 import html2canvas from 'html2canvas';
 import Ellipsis from 'ant-design-pro/lib/Ellipsis';
@@ -14,13 +14,13 @@ import PersonOverview from '../../../components/TrendAnalysis/PersonAnalysis/Per
 import PersonIllegalPunish from '../../../components/TrendAnalysis/PersonAnalysis/PersonIllegalPunish';
 import PersonSuspectPunish from '../../../components/TrendAnalysis/PersonAnalysis/PersonSuspectPunish';
 import styles from '../../trendAnalysis/PoliceAnalysis/index.less';
-import { getUserInfos } from '../../../utils/utils';
+import {getUserInfos} from '../../../utils/utils';
 
-const { MonthPicker } = DatePicker;
+const {MonthPicker} = DatePicker;
 const TreeNode = TreeSelect.TreeNode;
 let imgBase = [];
 
-@connect(({ common, trendAnalysis, loading,global }) => ({
+@connect(({common, trendAnalysis, loading, global}) => ({
     common,
     trendAnalysis,
     loading: loading.models.trendAnalysis,
@@ -52,7 +52,7 @@ export default class PeopleTrendAnalysis extends PureComponent {
     };
 
     componentWillMount() {
-        const { userOrgCode } = this.state;
+        const {userOrgCode} = this.state;
         if (userOrgCode !== '') {
             this.getDepTree(this.state.userOrgCode);
         }
@@ -94,9 +94,9 @@ export default class PeopleTrendAnalysis extends PureComponent {
     };
     // 跳转到对应页面
     goToCarousel = (number) => {
-        const { hadLoadedData } = this.state;
+        const {hadLoadedData} = this.state;
         if (!hadLoadedData) {
-            this.setState({ hadLoadedData: true });
+            this.setState({hadLoadedData: true});
             if (this.slider) {
                 this.slider.goTo(number);
             }
@@ -203,37 +203,37 @@ export default class PeopleTrendAnalysis extends PureComponent {
     };
 
     render() {
-        const { common: { depTree } } = this.props;
-        const { userOrgName, userOrgCode, personIllegalPunishLoadingStatus, personOverviewLoadingStatus, personSuspectPunishLoadingStatus,selectedDate,yearOnYearDate,monthOnMonthDate,selectedDateStr,yearOnYearDateStr,monthOnMonthDateStr } = this.state;
+        const {common: {depTree}} = this.props;
+        const {userOrgName, userOrgCode, personIllegalPunishLoadingStatus, personOverviewLoadingStatus, personSuspectPunishLoadingStatus, selectedDate, yearOnYearDate, monthOnMonthDate, selectedDateStr, yearOnYearDateStr, monthOnMonthDateStr} = this.state;
         const exportButtonStatus = personIllegalPunishLoadingStatus || personOverviewLoadingStatus || personSuspectPunishLoadingStatus;
         const obj = {
             id: userOrgCode,
             label: userOrgName,
         };
-        const dateArr={
-            selectedDate:selectedDate,
-            yearOnYearDate:yearOnYearDate,
-            monthOnMonthDate:monthOnMonthDate,
-            selectedDateStr:selectedDateStr,
-            yearOnYearDateStr:yearOnYearDateStr,
-            monthOnMonthDateStr:monthOnMonthDateStr,
+        const dateArr = {
+            selectedDate: selectedDate,
+            yearOnYearDate: yearOnYearDate,
+            monthOnMonthDate: monthOnMonthDate,
+            selectedDateStr: selectedDateStr,
+            yearOnYearDateStr: yearOnYearDateStr,
+            monthOnMonthDateStr: monthOnMonthDateStr,
         }
         const objStr = JSON.stringify(obj);
-        let className = this.props.global&&this.props.global.dark ? styles.trendAnalysis : styles.trendAnalysis + ' '+ styles.lightBox
+        let className = this.props.global && this.props.global.dark ? styles.trendAnalysis : styles.trendAnalysis + ' ' + styles.lightBox
         return (
             <div className={className}>
                 <div className={styles.titleArea}>
-                    <Card style={{padding:'10px'}} id={'formPersonPolice'}>
+                    <Card style={{padding: '10px'}} id={'formPersonPolice'}>
                         <Row>
                             <Col span={12}>
                                 {
                                     depTree && depTree.length > 0 ? (
                                         <TreeSelect
                                             showSearch
-                                            style={{ width: 260, marginRight: 10 }}
+                                            style={{width: 260, marginRight: 10}}
                                             // value={this.state.value}
                                             defaultValue={objStr}
-                                            dropdownStyle={{ maxHeight: 400, overflow: 'auto' }}
+                                            dropdownStyle={{maxHeight: 400, overflow: 'auto'}}
                                             placeholder="请选择要查询的机构"
                                             allowClear
                                             treeDefaultExpandedKeys={this.state.treeDefaultExpandedKeys}
@@ -247,12 +247,13 @@ export default class PeopleTrendAnalysis extends PureComponent {
                                 }
 
 
-                                <MonthPicker size='default' placeholder="请选择月份" disabledDate={this.disabledDate} getCalendarContainer={() => document.getElementById('formPersonPolice')}
+                                <MonthPicker size='default' placeholder="请选择月份" disabledDate={this.disabledDate}
+                                             getCalendarContainer={() => document.getElementById('formPersonPolice')}
                                              onChange={this.dateChange} defaultValue={moment(this.state.selectedDate)}/>
                             </Col>
                             <Col span={12}>
                                 <div className={styles.selectDateArea}>
-                                    <Button type='primary' style={{ marginLeft: 16 }}
+                                    <Button type='primary' style={{marginLeft: 16}}
                                             onClick={() => this.ExportStatistics()}
                                             disabled={exportButtonStatus}>导出</Button>
                                 </div>
@@ -271,17 +272,17 @@ export default class PeopleTrendAnalysis extends PureComponent {
                         <div id='capture1'>
                             <PersonOverview {...this.state} {...this.props} goToCarousel={this.goToCarousel}
                                             changeLoadingStatus={this.changeLoadingStatus}
-                                            departorgan={obj} dateArr={dateArr} />
+                                            departorgan={obj} dateArr={dateArr}/>
                         </div>
                         <div id='capture2'>
                             <PersonIllegalPunish {...this.state} {...this.props} goToCarousel={this.goToCarousel}
                                                  changeLoadingStatus={this.changeLoadingStatus}
-                                                 departorgan={obj} dateArr={dateArr} />
+                                                 departorgan={obj} dateArr={dateArr}/>
                         </div>
                         <div id='capture3' className='capture3'>
                             <PersonSuspectPunish {...this.state} {...this.props} goToCarousel={this.goToCarousel}
                                                  changeLoadingStatus={this.changeLoadingStatus}
-                                                 departorgan={obj} dateArr={dateArr} />
+                                                 departorgan={obj} dateArr={dateArr}/>
                         </div>
                     </Carousel>
                 </Card>

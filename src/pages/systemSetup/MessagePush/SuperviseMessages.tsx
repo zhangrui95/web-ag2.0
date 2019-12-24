@@ -5,17 +5,17 @@
 * */
 
 import React, {Component, PureComponent} from 'react';
-import { Tabs, Form, Input, Button, Modal, Card } from 'antd';
+import {Tabs, Form, Input, Button, Modal, Card} from 'antd';
 import MessageInput from './MessageInput';
 import style from './systemSetup.less';
 import {connect} from "dva";
 
-const { TabPane } = Tabs;
+const {TabPane} = Tabs;
 const confirm = Modal.confirm;
 
 @Form.create()
 
-class  SuperviseMessages extends Component {
+class SuperviseMessages extends Component {
     // 保存确认框
     showConfirm = (e) => {
         e.preventDefault();
@@ -24,8 +24,8 @@ class  SuperviseMessages extends Component {
             title: '确定要保存督办推送消息吗？',
             okText: '确定',
             cancelText: '取消',
-            centered:true,
-            getContainer:document.getElementById('boxSend3'),
+            centered: true,
+            getContainer: document.getElementById('boxSend3'),
             onOk() {
                 that.saveSuperviseMessages();
             },
@@ -50,7 +50,7 @@ class  SuperviseMessages extends Component {
     };
 
     render() {
-        const { formItemLayout, form: { getFieldDecorator }, systemSetup: { systemSetup: { messageList }}, splitMessage } = this.props;
+        const {formItemLayout, form: {getFieldDecorator}, systemSetup: {systemSetup: {messageList}}, splitMessage} = this.props;
         return (
             <div id={'boxSend3'}>
                 <Card className={style.cardBox}>
@@ -110,6 +110,7 @@ class  SuperviseMessages extends Component {
         );
     }
 }
+
 export default Form.create()(
-    connect((systemSetup, common) => ({ systemSetup, common }))(SuperviseMessages),
+    connect((systemSetup, common) => ({systemSetup, common}))(SuperviseMessages),
 );

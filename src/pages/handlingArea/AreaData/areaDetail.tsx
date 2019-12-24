@@ -4,9 +4,9 @@
  * 20180605
  * */
 
-import React, { PureComponent } from 'react';
+import React, {PureComponent} from 'react';
 import numeral from 'numeral';
-import { connect } from 'dva';
+import {connect} from 'dva';
 import {
     Row,
     Col,
@@ -46,24 +46,24 @@ import share1 from '../../../assets/common/share1.png';
 
 import styles from './areaDetail.less';
 import liststyles from '../../common/listDetail.less';
-import { autoheight, getUserInfos, userResourceCodeDb } from '../../../utils/utils';
-import { authorityIsTrue } from '../../../utils/authority';
+import {autoheight, getUserInfos, userResourceCodeDb} from '../../../utils/utils';
+import {authorityIsTrue} from '../../../utils/authority';
 import noList from "@/assets/viewData/noList.png";
 import {routerRedux} from "dva/router";
 import noListLight from "@/assets/viewData/noListLight.png";
 
 const FormItem = Form.Item;
-const { Step } = Steps;
-const { Option } = Select;
-@connect(({ areaData, loading, common, MySuperviseData, CaseData, AllDetail,global }) => ({
-  areaData,
-  loading,
-  common,
-  MySuperviseData,
-  CaseData,
-  AllDetail,
-  global
-  // loading: loading.models.alarmManagement,
+const {Step} = Steps;
+const {Option} = Select;
+@connect(({areaData, loading, common, MySuperviseData, CaseData, AllDetail, global}) => ({
+    areaData,
+    loading,
+    common,
+    MySuperviseData,
+    CaseData,
+    AllDetail,
+    global
+    // loading: loading.models.alarmManagement,
 }))
 @Form.create()
 export default class areaDetail extends PureComponent {
@@ -256,171 +256,127 @@ export default class areaDetail extends PureComponent {
   //
   // };
 
-  // 问题判定完成后页面刷新
-  Refresh = flag => {
-    this.setState({
-      superviseVisibleModal: !!flag,
-    });
-    this.getDetail(this.props.id);
-  };
-  // 分享和关注（2为分享，1为关注）
-  saveShare = (areaDetails, res, type, ajGzLx) => {
-    // console.log('aaa',(res.jjdw?res.jjdw+'、':'') + (res.jjly_mc?res.jjly_mc:''));
-    this.setState({
-      sx:
-        (res.ajmc ? res.ajmc + '、' : '') +
-        (res.salx_mc ? res.salx_mc + '、' : '') +
-        (res.name ? res.name : ''),
-    });
-    if (type === 2) {
-      let detail=(
-        <Row style={{lineHeight:'50px',paddingLeft:66}}>
-          <Col span={6}>人员姓名：{areaDetails && areaDetails.name ? areaDetails.name : ''}</Col>
-          <Col span={6}>性别：{areaDetails && areaDetails.sex ? areaDetails.sex : ''}</Col>
-          <Col span={6}>
-            人员类型：{areaDetails && areaDetails.salx_mc ? areaDetails.salx_mc : ''}
-          </Col>
-          <Col span={6}>
-            强制措施：
-            <Tooltip
-              title={
-                areaDetails && areaDetails.qzcs && areaDetails.qzcs.length > 7
-                  ? areaDetails.qzcs
-                  : null
-              }
-            >
-              {areaDetails && areaDetails.qzcs
-                ? areaDetails.qzcs.length > 7
-                  ? areaDetails.qzcs.substring(0, 7) + '...'
-                  : areaDetails.qzcs
-                : ''}
-            </Tooltip>
-          </Col>
-          <Col span={6}>
-            案件名称：
-            <Tooltip
-              title={
-                areaDetails && areaDetails.ajmc && areaDetails.ajmc.length > 7
-                  ? areaDetails.ajmc
-                  : null
-              }
-            >
-              {areaDetails && areaDetails.ajmc
-                ? areaDetails.ajmc.length > 7
-                  ? areaDetails.ajmc.substring(0, 7) + '...'
-                  : areaDetails.ajmc
-                : ''}
-            </Tooltip>
-          </Col>
-          <Col span={6}>
-            办案单位：
-            <Tooltip
-              title={
-                areaDetails && areaDetails.badw && areaDetails.badw.length > 7
-                  ? areaDetails.badw
-                  : null
-              }
-            >
-              {areaDetails && areaDetails.badw
-                ? areaDetails.badw.length > 7
-                  ? areaDetails.badw.substring(0, 7) + '...'
-                  : areaDetails.badw
-                : ''}
-            </Tooltip>
-          </Col>
-          <Col span={12}>办案民警：{areaDetails && areaDetails.bar ? areaDetails.bar : ''}</Col>
-        </Row>
-      )
-      this.props.dispatch(
-        routerRedux.push({
-          pathname: '/ModuleAll/Share',
-          query: { record: res,id: res && res.id ? res.id : '1',from:'人员信息',tzlx:'baqxx',fromPath:'/handlingArea/AreaData/areaDetail',detail,tab:'详情',sx:
-            (res.ajmc ? res.ajmc + '、' : '') +
-            (res.salx_mc ? res.salx_mc + '、' : '') +
-            (res.name ? res.name : ''), },
-        }),
-      )
-      // this.setState({
-      //   shareVisible: true,
-      //   shareItem: res,
-      // });
-    } else {
-      if (this.state.IsSure) {
-        this.props.dispatch({
-          type: 'share/getMyFollow',
-          payload: {
-            agid: this.props.yjType === 'yj' ? this.props.yjid : areaDetails.id,
-            lx: this.state.lx,
-            sx:
-              (res.ajmc ? res.ajmc + '、' : '') +
-              (res.salx_mc ? res.salx_mc + '、' : '') +
-              (res.name ? res.name : ''),
-            type: type,
-            tzlx: this.props.yjType === 'yj' ? 'baqyj' : this.state.tzlx,
-            wtid: res.wtid,
-            ajbh: res.ajbh,
-            system_id: areaDetails.system_id,
-            ajGzLx: ajGzLx,
-          },
-          callback: res => {
-            if (!res.error) {
-              // alert(1)
-              message.success('关注成功');
-              if (this.props.getArea) {
-                this.props.getArea({ currentPage: this.props.current, pd: this.props.formValues });
-              }
-              this.setState(
-                {
-                  sfgz: 1,
-                },
-                () => {
-                  this.getDetail(areaDetails.ryxx.system_id);
-                },
-              );
-            }
-          },
+    // 问题判定完成后页面刷新
+    Refresh = flag => {
+        this.setState({
+            superviseVisibleModal: !!flag,
         });
-      } else {
-        message.info('您的操作太频繁，请稍后再试');
-      }
-    }
-  };
-  // 取消关注
-  noFollow = areaDetails => {
-    if (this.state.IsSure) {
-      this.props.dispatch({
-        type: 'share/getNoFollow',
-        payload: {
-          id: areaDetails.gzid,
-          tzlx: areaDetails.tzlx,
-          ajbh: areaDetails.ajbh,
-        },
-        callback: res => {
-          if (!res.error) {
-            message.success('取消关注成功');
-            if (this.props.getArea) {
-              this.props.getArea({ currentPage: this.props.current, pd: this.props.formValues });
+        this.getDetail(this.props.id);
+    };
+    // 分享和关注（2为分享，1为关注）
+    saveShare = (areaDetails, res, type, ajGzLx) => {
+        // console.log('aaa',(res.jjdw?res.jjdw+'、':'') + (res.jjly_mc?res.jjly_mc:''));
+        this.setState({
+            sx:
+                (res.ajmc ? res.ajmc + '、' : '') +
+                (res.salx_mc ? res.salx_mc + '、' : '') +
+                (res.name ? res.name : ''),
+        });
+        if (type === 2) {
+            let detail = [`人员姓名：${areaDetails && areaDetails.name ? areaDetails.name : ''}`, `性别：${areaDetails && areaDetails.sex ? areaDetails.sex : ''}`,
+                `人员类型：${areaDetails && areaDetails.salx_mc ? areaDetails.salx_mc : ''}`, `强制措施：${areaDetails && areaDetails.qzcs ? areaDetails.qzcs : ''}`,
+                `案件名称：${areaDetails && areaDetails.ajmc ? areaDetails.ajmc : ''}`, `办案单位：${areaDetails && areaDetails.badw ? areaDetails.badw : ''}`,
+                `办案民警：${areaDetails && areaDetails.bar ? areaDetails.bar : ''}`
+            ];
+            res.detail = detail;
+            this.props.dispatch(
+                routerRedux.push({
+                    pathname: '/ModuleAll/Share',
+                    query: {
+                        record: res,
+                        id: res && res.id ? res.id : '1',
+                        from: '人员信息',
+                        tzlx: 'baqxx',
+                        fromPath: '/handlingArea/AreaData/areaDetail',
+                        tab: '详情',
+                        sx:
+                            (res.ajmc ? res.ajmc + '、' : '') +
+                            (res.salx_mc ? res.salx_mc + '、' : '') +
+                            (res.name ? res.name : ''),
+                    },
+                }),
+            )
+            // this.setState({
+            //   shareVisible: true,
+            //   shareItem: res,
+            // });
+        } else {
+            if (this.state.IsSure) {
+                this.props.dispatch({
+                    type: 'share/getMyFollow',
+                    payload: {
+                        agid: this.props.yjType === 'yj' ? this.props.yjid : areaDetails.id,
+                        lx: this.state.lx,
+                        sx:
+                            (res.ajmc ? res.ajmc + '、' : '') +
+                            (res.salx_mc ? res.salx_mc + '、' : '') +
+                            (res.name ? res.name : ''),
+                        type: type,
+                        tzlx: this.props.yjType === 'yj' ? 'baqyj' : this.state.tzlx,
+                        wtid: res.wtid,
+                        ajbh: res.ajbh,
+                        system_id: areaDetails.system_id,
+                        ajGzLx: ajGzLx,
+                    },
+                    callback: res => {
+                        if (!res.error) {
+                            // alert(1)
+                            message.success('关注成功');
+                            if (this.props.getArea) {
+                                this.props.getArea({currentPage: this.props.current, pd: this.props.formValues});
+                            }
+                            this.setState(
+                                {
+                                    sfgz: 1,
+                                },
+                                () => {
+                                    this.getDetail(areaDetails.ryxx.system_id);
+                                },
+                            );
+                        }
+                    },
+                });
+            } else {
+                message.info('您的操作太频繁，请稍后再试');
             }
-            this.setState(
-              {
-                sfgz: 0,
-              },
-              () => {
-                this.getDetail(areaDetails.ryxx.system_id);
-              },
-            );
-          }
-        },
-      });
-    } else {
-      message.warning('您的操作太频繁，请稍后再试');
-    }
-  };
-  handleCancel = e => {
-    this.setState({
-      shareVisible: false,
-    });
-  };
+        }
+    };
+    // 取消关注
+    noFollow = areaDetails => {
+        if (this.state.IsSure) {
+            this.props.dispatch({
+                type: 'share/getNoFollow',
+                payload: {
+                    id: areaDetails.gzid,
+                    tzlx: areaDetails.tzlx,
+                    ajbh: areaDetails.ajbh,
+                },
+                callback: res => {
+                    if (!res.error) {
+                        message.success('取消关注成功');
+                        if (this.props.getArea) {
+                            this.props.getArea({currentPage: this.props.current, pd: this.props.formValues});
+                        }
+                        this.setState(
+                            {
+                                sfgz: 0,
+                            },
+                            () => {
+                                this.getDetail(areaDetails.ryxx.system_id);
+                            },
+                        );
+                    }
+                },
+            });
+        } else {
+            message.warning('您的操作太频繁，请稍后再试');
+        }
+    };
+    handleCancel = e => {
+        this.setState({
+            shareVisible: false,
+        });
+    };
 
   Topdetail() {
     const { areaDetails, sfgz, isDb, record } = this.state;

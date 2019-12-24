@@ -4,7 +4,7 @@ import {
     getUnXzCaseAllTypeWarnings,
     UnXzcaseDetailDatas,
 } from '../services/UnXzCaseData';
-import { UncaseDetailDatas } from '../services/UnCaseData';
+import {UncaseDetailDatas} from '../services/UnCaseData';
 
 export default {
     namespace: 'UnXzCaseData',
@@ -18,7 +18,7 @@ export default {
     },
 
     effects: {
-        * caseFetch({ payload, callback }, { call, put }) {
+        * caseFetch({payload, callback}, {call, put}) {
             yield put({
                 type: 'changeLoading',
                 payload: true,
@@ -32,22 +32,22 @@ export default {
                 type: 'changeLoading',
                 payload: false,
             });
-            if (callback && response && !response.error&& response.data) {
+            if (callback && response && !response.error && response.data) {
                 callback(response.data);
             }
         },
         // 按ID查询案件详情
-        * getXzAjxxXqById({ payload, callback }, { call, put }) {
+        * getXzAjxxXqById({payload, callback}, {call, put}) {
             const response = yield call(getUnXzAjxxXqById, payload);
             yield put({
                 type: 'caseDetail',
                 payload: response && response.error === null ? response.data : {},
             });
-            if (callback && response && !response.error&& response.data) {
+            if (callback && response && !response.error && response.data) {
                 callback(response.data);
             }
         },
-        * UnXzCaseDetailFetch({ payload, callback }, { call, put }) {
+        * UnXzCaseDetailFetch({payload, callback}, {call, put}) {
             yield put({
                 type: 'changeLoading',
                 payload: true,
@@ -61,25 +61,25 @@ export default {
                 type: 'changeLoading',
                 payload: false,
             });
-            if (callback && response && !response.error&& response.data) {
+            if (callback && response && !response.error && response.data) {
                 callback(response.data);
             }
         },
         // 根据问题ID查询问题数据
-        * getUnXzCaseByProblemId({ payload, callback }, { call, put }) {
+        * getUnXzCaseByProblemId({payload, callback}, {call, put}) {
             const response = yield call(UnXzCaseDatas, payload);
-            if (callback && response && !response.error&& response.data) {
+            if (callback && response && !response.error && response.data) {
                 callback(response.data);
             }
         },
         // 行政案件问题告警图表统计
-        * getUnXzCaseAllTypeWarnings({ payload, callback }, { call, put }) {
+        * getUnXzCaseAllTypeWarnings({payload, callback}, {call, put}) {
             const response = yield call(getUnXzCaseAllTypeWarnings, payload);
             yield put({
                 type: 'setUnXzCaseAllTypeWarnings',
                 payload: response && response.error === null ? response.data : {},
             });
-            if (callback && response && !response.error&& response.data) {
+            if (callback && response && !response.error && response.data) {
                 callback(response.data);
             }
         },

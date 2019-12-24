@@ -4,7 +4,7 @@
 * 20181120
 * */
 
-import React, { PureComponent } from 'react';
+import React, {PureComponent} from 'react';
 import echarts from 'echarts/lib/echarts';
 import funnel from 'echarts/lib/chart/funnel';
 import title from 'echarts/lib/component/title';
@@ -15,7 +15,7 @@ let myChart;
 export default class HandingCaseCount extends PureComponent {
 
     componentDidMount() {
-        const { selectDate, org, orgCode, orglist } = this.props;
+        const {selectDate, org, orgCode, orglist} = this.props;
         this.getHandingCaseCount(selectDate[0], selectDate[1], org, orgCode, orglist);
         this.showEchart();
         window.addEventListener('resize', myChart.resize);
@@ -31,7 +31,7 @@ export default class HandingCaseCount extends PureComponent {
 
     // 获取在办案件统计
     getHandingCaseCount = (startTime, endTime, org, orgCode, orglist) => {
-        const { shadeColors } = this.props;
+        const {shadeColors} = this.props;
         this.props.dispatch({
             type: 'show/getHandingCaseCount',
             payload: {
@@ -43,7 +43,7 @@ export default class HandingCaseCount extends PureComponent {
             },
             callback: (data) => {
                 if (data) {
-                    console.log('data----------------------', data);
+                    // console.log('data----------------------', data);
                     const legendData = [];
                     const funnelData1 = [];
                     const funnelData2 = [];
@@ -185,7 +185,7 @@ export default class HandingCaseCount extends PureComponent {
                         normal: {
                             show: true,
                             position: 'inside',
-                            formatter: function(param) {
+                            formatter: function (param) {
                                 return param.value;
                             },
                         },
@@ -209,7 +209,7 @@ export default class HandingCaseCount extends PureComponent {
 
     render() {
         return (
-            <div id="HandingCaseCount" style={{ height: '100%', width: '100%' }}></div>
+            <div id="HandingCaseCount" style={{height: '100%', width: '100%'}}></div>
         );
     }
 }

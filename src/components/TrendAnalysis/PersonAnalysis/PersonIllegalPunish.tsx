@@ -4,7 +4,7 @@
 * 20181227
 * */
 
-import React, { PureComponent } from 'react';
+import React, {PureComponent} from 'react';
 import {Tooltip, Icon, Table, Spin, Empty} from 'antd';
 import echarts from 'echarts/lib/echarts';
 import bar from 'echarts/lib/chart/bar';
@@ -34,16 +34,16 @@ export default class PersonIllegalPunish extends PureComponent {
 
     componentWillReceiveProps(nextProps) {
         if (nextProps) {
-            if (((nextProps.selectedDate !== null) && ((this.props.selectedDate !== nextProps.selectedDate) || (this.props.userOrgCode !== nextProps.userOrgCode)))|| this.props.global.dark !== nextProps.global.dark) {
+            if (((nextProps.selectedDate !== null) && ((this.props.selectedDate !== nextProps.selectedDate) || (this.props.userOrgCode !== nextProps.userOrgCode))) || this.props.global.dark !== nextProps.global.dark) {
                 this.getPunishTypeData(nextProps);
             }
         }
     }
 
     getPunishTypeData = (propsData) => {
-        this.props.changeLoadingStatus({ personIllegalPunishLoadingStatus: true });
-        this.setState({ loadingData: true });
-        const { dispatch, selectedDateStr, yearOnYearDateStr, monthOnMonthDateStr, selectedDate, yearOnYearDate, monthOnMonthDate, userOrgCode } = propsData;
+        this.props.changeLoadingStatus({personIllegalPunishLoadingStatus: true});
+        this.setState({loadingData: true});
+        const {dispatch, selectedDateStr, yearOnYearDateStr, monthOnMonthDateStr, selectedDate, yearOnYearDate, monthOnMonthDate, userOrgCode} = propsData;
         dispatch({
             type: 'trendAnalysis/getPunishTypeData',
             payload: {
@@ -54,7 +54,7 @@ export default class PersonIllegalPunish extends PureComponent {
             },
             callback: (data) => {
                 if (data) {
-                    const { bc, cfrs, fk, jg, jl, qt, wcfrs, wf } = data;
+                    const {bc, cfrs, fk, jg, jl, qt, wcfrs, wf} = data;
                     let barData = [];
                     let tableData = [];
                     let rateTableData = [];
@@ -74,11 +74,11 @@ export default class PersonIllegalPunish extends PureComponent {
                                 },
                             },
                             data: [
-                                { name: '罚款', value: fk.nowtime || 0, itemStyle: { color: '#3AA0FF' } },
-                                { name: '拘留', value: jl.nowtime || 0, itemStyle: { color: '#3AA0FF' } },
-                                { name: '并处', value: bc.nowtime || 0, itemStyle: { color: '#3AA0FF' } },
-                                { name: '警告', value: jg.nowtime || 0, itemStyle: { color: '#3AA0FF' } },
-                                { name: '其他', value: qt.nowtime || 0, itemStyle: { color: '#3AA0FF' } },
+                                {name: '罚款', value: fk.nowtime || 0, itemStyle: {color: '#3AA0FF'}},
+                                {name: '拘留', value: jl.nowtime || 0, itemStyle: {color: '#3AA0FF'}},
+                                {name: '并处', value: bc.nowtime || 0, itemStyle: {color: '#3AA0FF'}},
+                                {name: '警告', value: jg.nowtime || 0, itemStyle: {color: '#3AA0FF'}},
+                                {name: '其他', value: qt.nowtime || 0, itemStyle: {color: '#3AA0FF'}},
                             ],
                         }, {
                             name: yearOnYearDateStr,
@@ -91,11 +91,11 @@ export default class PersonIllegalPunish extends PureComponent {
                                 },
                             },
                             data: [
-                                { name: '罚款', value: fk.lastyear || 0, itemStyle: { color: '#DCCA23' } },
-                                { name: '拘留', value: jl.lastyear || 0, itemStyle: { color: '#DCCA23' } },
-                                { name: '并处', value: bc.lastyear || 0, itemStyle: { color: '#DCCA23' } },
-                                { name: '警告', value: jg.lastyear || 0, itemStyle: { color: '#DCCA23' } },
-                                { name: '其他', value: qt.lastyear || 0, itemStyle: { color: '#DCCA23' } },
+                                {name: '罚款', value: fk.lastyear || 0, itemStyle: {color: '#DCCA23'}},
+                                {name: '拘留', value: jl.lastyear || 0, itemStyle: {color: '#DCCA23'}},
+                                {name: '并处', value: bc.lastyear || 0, itemStyle: {color: '#DCCA23'}},
+                                {name: '警告', value: jg.lastyear || 0, itemStyle: {color: '#DCCA23'}},
+                                {name: '其他', value: qt.lastyear || 0, itemStyle: {color: '#DCCA23'}},
                             ],
                         }, {
                             name: monthOnMonthDateStr,
@@ -108,11 +108,11 @@ export default class PersonIllegalPunish extends PureComponent {
                                 },
                             },
                             data: [
-                                { name: '罚款', value: fk.lastmonth || 0, itemStyle: { color: '#31BD74' } },
-                                { name: '拘留', value: jl.lastmonth || 0, itemStyle: { color: '#31BD74' } },
-                                { name: '并处', value: bc.lastmonth || 0, itemStyle: { color: '#31BD74' } },
-                                { name: '警告', value: jg.lastmonth || 0, itemStyle: { color: '#31BD74' } },
-                                { name: '其他', value: qt.lastmonth || 0, itemStyle: { color: '#31BD74' } },
+                                {name: '罚款', value: fk.lastmonth || 0, itemStyle: {color: '#31BD74'}},
+                                {name: '拘留', value: jl.lastmonth || 0, itemStyle: {color: '#31BD74'}},
+                                {name: '并处', value: bc.lastmonth || 0, itemStyle: {color: '#31BD74'}},
+                                {name: '警告', value: jg.lastmonth || 0, itemStyle: {color: '#31BD74'}},
+                                {name: '其他', value: qt.lastmonth || 0, itemStyle: {color: '#31BD74'}},
                             ],
                         }];
                         tableData = [
@@ -166,16 +166,16 @@ export default class PersonIllegalPunish extends PureComponent {
                     }
                     if (cfrs && wcfrs && wf) {
                         pie1 = [
-                            { name: '处罚人数', value: cfrs.nowtime },
-                            { name: '未处罚人数', value: wcfrs.nowtime },
+                            {name: '处罚人数', value: cfrs.nowtime},
+                            {name: '未处罚人数', value: wcfrs.nowtime},
                         ];
                         pie2 = [
-                            { name: '处罚人数', value: cfrs.lastyear },
-                            { name: '未处罚人数', value: wcfrs.lastyear },
+                            {name: '处罚人数', value: cfrs.lastyear},
+                            {name: '未处罚人数', value: wcfrs.lastyear},
                         ];
                         pie3 = [
-                            { name: '处罚人数', value: cfrs.lastmonth },
-                            { name: '未处罚人数', value: wcfrs.lastmonth },
+                            {name: '处罚人数', value: cfrs.lastmonth},
+                            {name: '未处罚人数', value: wcfrs.lastmonth},
                         ];
                         rateTableData = [
                             {
@@ -215,7 +215,7 @@ export default class PersonIllegalPunish extends PureComponent {
                                 textStyle: {
                                     fontSize: 16,
                                     fontWeight: 'normal',
-                                    color:this.props.global && this.props.global.dark ? '#fff' : '#4d4d4d'
+                                    color: this.props.global && this.props.global.dark ? '#fff' : '#4d4d4d'
                                 },
                                 x: '50%',
                                 y: '45%',
@@ -227,7 +227,7 @@ export default class PersonIllegalPunish extends PureComponent {
                                 textStyle: {
                                     fontSize: 16,
                                     fontWeight: 'normal',
-                                    color:this.props.global && this.props.global.dark ? '#fff' : '#4d4d4d'
+                                    color: this.props.global && this.props.global.dark ? '#fff' : '#4d4d4d'
                                 },
                                 x: '20%',
                                 y: '45%',
@@ -239,7 +239,7 @@ export default class PersonIllegalPunish extends PureComponent {
                                 textStyle: {
                                     fontSize: 16,
                                     fontWeight: 'normal',
-                                    color:this.props.global && this.props.global.dark ? '#fff' : '#4d4d4d'
+                                    color: this.props.global && this.props.global.dark ? '#fff' : '#4d4d4d'
                                 },
                                 x: '80%',
                                 y: '45%',
@@ -247,12 +247,12 @@ export default class PersonIllegalPunish extends PureComponent {
                                 padding: [7, 0],
                             },
                         ];
-                        let series =[{
+                        let series = [{
                             data: pie1,
                             itemStyle: {
                                 normal: {
                                     color: function (params) {
-                                        let colorList = ['#dcca23','#3aa0ff', '#31bd74'];
+                                        let colorList = ['#dcca23', '#3aa0ff', '#31bd74'];
                                         return colorList[params.dataIndex]
                                     }
                                 }
@@ -262,7 +262,7 @@ export default class PersonIllegalPunish extends PureComponent {
                             itemStyle: {
                                 normal: {
                                     color: function (params) {
-                                        let colorList = ['#dcca23','#3aa0ff', '#31bd74'];
+                                        let colorList = ['#dcca23', '#3aa0ff', '#31bd74'];
                                         return colorList[params.dataIndex]
                                     }
                                 }
@@ -272,14 +272,14 @@ export default class PersonIllegalPunish extends PureComponent {
                             itemStyle: {
                                 normal: {
                                     color: function (params) {
-                                        let colorList = ['#dcca23','#3aa0ff', '#31bd74'];
+                                        let colorList = ['#dcca23', '#3aa0ff', '#31bd74'];
                                         return colorList[params.dataIndex]
                                     }
                                 }
                             }
                         }];
-                        if(document.getElementById('illegalPunishRate')){
-                            this.showRatePieEchart(title,series);
+                        if (document.getElementById('illegalPunishRate')) {
+                            this.showRatePieEchart(title, series);
                             window.addEventListener('resize', ratePie.resize);
                         }
                     }
@@ -289,19 +289,19 @@ export default class PersonIllegalPunish extends PureComponent {
                         tableData,
                         rateTableData,
                     });
-                    if(document.getElementById('illegalPunishType')){
-                        this.showEchart(xData,barData);
+                    if (document.getElementById('illegalPunishType')) {
+                        this.showEchart(xData, barData);
                         window.addEventListener('resize', myChart.resize);
                     }
                     this.props.goToCarousel(1);
                 }
-                this.setState({ loadingData: false });
-                this.props.changeLoadingStatus({ personIllegalPunishLoadingStatus: false });
+                this.setState({loadingData: false});
+                this.props.changeLoadingStatus({personIllegalPunishLoadingStatus: false});
             },
         });
     };
 
-    showEchart = (xData,barData) => {
+    showEchart = (xData, barData) => {
         const that = this;
         myChart = echarts.init(document.getElementById('illegalPunishType'));
         const option = {
@@ -360,7 +360,7 @@ export default class PersonIllegalPunish extends PureComponent {
         //   })
         // }
     };
-    showRatePieEchart = (title,series) => {
+    showRatePieEchart = (title, series) => {
         ratePie = echarts.init(document.getElementById('illegalPunishRate'));
         const option = {
             title,
@@ -410,8 +410,8 @@ export default class PersonIllegalPunish extends PureComponent {
     };
 
     render() {
-        const { selectedDateStr, yearOnYearDateStr, monthOnMonthDateStr } = this.props;
-        const { tableData, rateTableData, loadingData } = this.state;
+        const {selectedDateStr, yearOnYearDateStr, monthOnMonthDateStr} = this.props;
+        const {tableData, rateTableData, loadingData} = this.state;
         const columns = [{
             title: '类别',
             dataIndex: 'categories',
@@ -480,18 +480,25 @@ export default class PersonIllegalPunish extends PureComponent {
             key: 'hbzf_l1',
             dataIndex: 'hbzf_l',
         }];
-        let className = this.props.global && this.props.global.dark ? styles.analysis : styles.analysis+' '+styles.lightBox
+        let className = this.props.global && this.props.global.dark ? styles.analysis : styles.analysis + ' ' + styles.lightBox
         return (
             <Spin spinning={loadingData} size="large" tip="数据加载中...">
                 <div className={className}>
                     <AnalysisTitleArea analysisTitle="违法行为人处罚措施分析" {...this.props} />
-                    <div id="illegalPunishType" style={{ height: 300 }} className={ this.props.global&&this.props.global.dark ? '' : styles.lightChartBox}/>
+                    <div id="illegalPunishType" style={{height: 300}}
+                         className={this.props.global && this.props.global.dark ? '' : styles.lightChartBox}/>
                     <Table columns={columns} dataSource={tableData} bordered className={styles.tableArea}
-                           pagination={false} locale={{ emptyText: <Empty image={this.props.global&&this.props.global.dark ? noList : noListLight} description={'暂无数据'} /> }}/>
+                           pagination={false} locale={{
+                        emptyText: <Empty image={this.props.global && this.props.global.dark ? noList : noListLight}
+                                          description={'暂无数据'}/>
+                    }}/>
                     <h2 className={styles.areaTitle}>违法行为人处罚占比分析</h2>
-                    <div id="illegalPunishRate" style={{ height: 400 }}/>
+                    <div id="illegalPunishRate" style={{height: 400}}/>
                     <Table columns={rateTableColumns} dataSource={rateTableData} bordered className={styles.tableArea}
-                           pagination={false} locale={{ emptyText: <Empty image={this.props.global&&this.props.global.dark ? noList : noListLight} description={'暂无数据'} /> }}/>
+                           pagination={false} locale={{
+                        emptyText: <Empty image={this.props.global && this.props.global.dark ? noList : noListLight}
+                                          description={'暂无数据'}/>
+                    }}/>
                 </div>
             </Spin>
         );

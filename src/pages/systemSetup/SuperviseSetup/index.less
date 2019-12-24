@@ -30,6 +30,7 @@
     }
   }
 }
+
 .boxColor {
   width: 28px;
   height: 28px;
@@ -47,90 +48,109 @@
   margin: 8px 0px 8px 80px;
   color: @white;
 }
-.detailBox{
+
+.detailBox {
   height: 600px;
   margin-bottom: 10px;
 }
-.formBoxBorder{
+
+.formBoxBorder {
   padding: 40px;
   border-bottom: 1px solid @body-background;
-  :global{
-    .ant-form-item{
-      margin: 10px 0!important;
+
+  :global {
+    .ant-form-item {
+      margin: 10px 0 !important;
     }
+
     .ant-select-disabled {
       .ant-select-selection {
         background-color: @transparent;
         opacity: 1;
       }
+
       .anticon {
         display: none;
       }
     }
   }
 }
-.formBox{
+
+.formBox {
   padding: 40px;
-  :global{
-    .ant-form-item{
-      margin: 10px 0!important;
+
+  :global {
+    .ant-form-item {
+      margin: 10px 0 !important;
     }
   }
 }
-.btns{
+
+.btns {
   padding: 12px 20px;
   float: right;
-  :global{
-    .ant-btn{
-      width:100px;
+
+  :global {
+    .ant-btn {
+      width: 100px;
       height: 36px;
       line-height: 36px;
       font-size: 16px;
     }
   }
 }
-.qxBtn{
-  background: @body-background!important;
+
+.qxBtn {
+  background: @body-background !important;
 }
-.delBtn{
-  background: #FF9191!important;
+
+.delBtn {
+  background: #FF9191 !important;
 }
-.okBtn{
-  background: linear-gradient(#4662D5,#0083FA, #03A3FF)!important;
+
+.okBtn {
+  background: linear-gradient(#4662D5, #0083FA, #03A3FF) !important;
 }
-.lxsm{
+
+.lxsm {
   margin-left: 8px;
   color: #aaa;
 }
+
 .title {
   font-size: @font-size-lg;
   font-weight: 600;
   color: @white;
   border-left: 2px solid @white;
   padding-left: 10px;
-  margin:0 0 20px 20px;
+  margin: 0 0 20px 20px;
 }
-.darkBox,.lightBox{
-  :global{
-    textarea.ant-input{
-      height: auto!important;
+
+.darkBox, .lightBox {
+  :global {
+    textarea.ant-input {
+      height: auto !important;
     }
   }
 }
-.lightBox{
-  .qxBtn{
-    background: #B3B3B3!important;
+
+.lightBox {
+  .qxBtn {
+    background: #B3B3B3 !important;
   }
-  .okBtn{
-    background: linear-gradient(#3D63D1, #333FE4)!important;
+
+  .okBtn {
+    background: linear-gradient(#3D63D1, #333FE4) !important;
   }
-  :global{
-    .ant-input,.ant-select-selection,.ant-calendar-picker-input{
+
+  :global {
+    .ant-input, .ant-select-selection, .ant-calendar-picker-input {
       background: #FAFAFA;
       border: 1px solid #DEDEDE;
     }
-    .ant-select-selection__choice{
-      background-color:#E6E6E6;
+
+    .ant-select-selection__choice {
+      background-color: #E6E6E6;
     }
   }
 }

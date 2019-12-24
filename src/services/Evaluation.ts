@@ -39,6 +39,7 @@ export async function getRyKhPmTjPgListPages(params) {
         },
     });
 }
+
 //人员考核排名
 export async function getRyKhOfAjslPgListPages(params) {
     return request(`${configUrl.serverUrl}/getRyKhOfAjslPgListPage`, {
@@ -48,6 +49,7 @@ export async function getRyKhOfAjslPgListPages(params) {
         },
     });
 }
+
 //人员考核排名
 export async function getRyKhOGjPgListPages(params) {
     return request(`${configUrl.serverUrl}/getRyKhOGjPgListPage`, {
@@ -67,8 +69,9 @@ export async function getJgKfQkTjPgListPages(params) {
         },
     });
 }
+
 //机构扣分情况统计
-export async function  getJgKhOGjPgListPages(params) {
+export async function getJgKhOGjPgListPages(params) {
     return request(`${configUrl.serverUrl}/getJgKhOGjPgListPage`, {
         method: 'POST',
         data: {
@@ -106,6 +109,7 @@ export async function getDictPgListPages(params) {
         },
     });
 }
+
 //考评配置列表
 export async function getLists(params) {
     return request(`${configUrl.serverUrl}/getAssessmentPzPgListPage`, {
@@ -115,6 +119,7 @@ export async function getLists(params) {
         },
     });
 }
+
 //添加配置列表
 export async function getSave(params) {
     return request(`${configUrl.serverUrl}/saveAssessmentPzXx`, {
@@ -124,6 +129,7 @@ export async function getSave(params) {
         },
     });
 }
+
 //删除配置列表
 export async function getDel(params) {
     return request(`${configUrl.serverUrl}/delAssessmentPzXx`, {
@@ -133,6 +139,7 @@ export async function getDel(params) {
         },
     });
 }
+
 //获取案件考评详情
 export async function getDetail(params) {
     return request(`${configUrl.serverUrl}/getAjkpXqByAjbh`, {
@@ -142,6 +149,7 @@ export async function getDetail(params) {
         },
     });
 }
+
 //保存考评
 export async function getSaveKp(params) {
     return request(`${configUrl.serverUrl}/saveAjkpXx`, {

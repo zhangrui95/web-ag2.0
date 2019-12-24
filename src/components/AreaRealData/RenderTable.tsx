@@ -42,169 +42,108 @@ class RenderTable extends PureComponent {
             query: { record: record, id: record && record.id ? record.id : '1' },
           }),
         );
-    // const divs = (
-    //     <div>
-    //         <Detail
-    //             {...this.props}
-    //             record={record}
-    //             id={record.system_id}
-    //             sfgz={record.sfgz}
-    //             gzid={record.gzid}
-    //             tzlx={record.tzlx}
-    //             ajbh={record.ajbh}
-    //             current={this.state.current}
-    //         />
-    //     </div>
-    // );
-    // const AddNewDetail = { title: '人员在区详情', content: divs, key: record.system_id };
-    // this.props.newDetail(AddNewDetail);
-  };
-  saveShare = (res, type, ajGzLx) => {
-    this.setState({
-      sx:
-        (res.ajmc ? res.ajmc + '、' : '') +
-        (res.salx_mc ? res.salx_mc + '、' : '') +
-        (res.name ? res.name : ''),
-      shareRecord: res,
-    });
-    if (type === 2) {
-      let detail=(
-        <Row style={{lineHeight:'50px',paddingLeft:66}}>
-          <Col span={6}>
-            人员姓名：
-            {res && res.name ? res.name : ''}
-          </Col>
-          <Col span={6}>
-            性别：
-            {res && res.xb ? res.xb : ''}
-          </Col>
-          <Col span={6}>
-            人员类型：
-            {res && res.salx_mc
-              ? res.salx_mc
-              : ''}
-          </Col>
-          <Col span={6}>
-            强制措施：
-            <Tooltip
-              title={
-                res &&
-                res.qzcs &&
-                res.qzcs.length > 7
-                  ? res.qzcs
-                  : null
-              }
-            >
-              {res && res.qzcs
-                ? res.qzcs.length > 7
-                  ? res.qzcs.substring(0, 7) + '...'
-                  : res.qzcs
-                : ''}
-            </Tooltip>
-          </Col>
-          <Col span={6}>
-            案件名称：
-            <Tooltip
-              title={
-                res &&
-                res.ajmc &&
-                res.ajmc.length > 7
-                  ? res.ajmc
-                  : null
-              }
-            >
-              {res && res.ajmc
-                ? res.ajmc.length > 7
-                  ? res.ajmc.substring(0, 7) + '...'
-                  : res.ajmc
-                : ''}
-            </Tooltip>
-          </Col>
-          <Col span={6}>
-            办案单位：
-            <Tooltip
-              title={
-                res &&
-                res.badw &&
-                res.badw.length > 7
-                  ? res.badw
-                  : null
-              }
-            >
-              {res && res.badw
-                ? res.badw.length > 7
-                  ? res.badw.substring(0, 7) + '...'
-                  : res.badw
-                : ''}
-            </Tooltip>
-          </Col>
-          <Col span={12}>
-            办案民警：
-            {res && res.bar ? res.bar : ''}
-          </Col>
-        </Row>
-      )
-      this.props.dispatch(
-        routerRedux.push({
-          pathname: '/ModuleAll/Share',
-          query: { record: res,id: res && res.id ? res.id : '1',from:this.state.lx,tzlx:this.state.tzlx,fromPath:'/handlingArea/AreaData',detail,tab:'表格',sx:
-            (res.ajmc ? res.ajmc + '、' : '') +
-            (res.salx_mc ? res.salx_mc + '、' : '') +
-            (res.name ? res.name : '') },
-        }),
-      )
-      // this.setState({
-      //   shareVisible: true,
-      //   shareItem: res,
-      // });
-    } else {
-      this.props.dispatch({
-        type: 'share/getMyFollow',
-        payload: {
-          agid: res.id,
-          lx: this.state.lx,
-          sx:
-            (res.ajmc ? res.ajmc + '、' : '') +
-            (res.salx_mc ? res.salx_mc + '、' : '') +
-            (res.name ? res.name : ''),
-          type: type,
-          tzlx: this.state.tzlx,
-          wtid: res.wtid,
-          ajbh: res.ajbh,
-          system_id: res.system_id,
-          ajGzLx: ajGzLx,
-        },
-        callback: data => {
-          if (!data.error) {
-            message.success('关注成功');
-            this.props.getArea({ currentPage: this.state.current, pd: this.props.formValues });
-          }
-        },
-      });
-    }
-  };
-  handleCancel = e => {
-    this.setState({
-      shareVisible: false,
-    });
-  };
-  noFollow = record => {
-    this.props.dispatch({
-      type: 'share/getNoFollow',
-      payload: {
-        id: record.gzid,
-        tzlx: record.tzlx,
-        ajbh: record.ajbh,
-        ajGzlx: record.ajgzlx,
-      },
-      callback: res => {
-        if (!res.error) {
-          message.success('取消关注成功');
-          this.props.getArea({ currentPage: this.state.current, pd: this.props.formValues });
+        // const divs = (
+        //     <div>
+        //         <Detail
+        //             {...this.props}
+        //             record={record}
+        //             id={record.system_id}
+        //             sfgz={record.sfgz}
+        //             gzid={record.gzid}
+        //             tzlx={record.tzlx}
+        //             ajbh={record.ajbh}
+        //             current={this.state.current}
+        //         />
+        //     </div>
+        // );
+        // const AddNewDetail = { title: '人员在区详情', content: divs, key: record.system_id };
+        // this.props.newDetail(AddNewDetail);
+    };
+    saveShare = (res, type, ajGzLx) => {
+        this.setState({
+            sx:
+                (res.ajmc ? res.ajmc + '、' : '') +
+                (res.salx_mc ? res.salx_mc + '、' : '') +
+                (res.name ? res.name : ''),
+            shareRecord: res,
+        });
+        if (type === 2) {
+            let areaDetails = res;
+            let detail = [`人员姓名：${areaDetails && areaDetails.name ? areaDetails.name : ''}`, `性别：${areaDetails && areaDetails.xb ? areaDetails.xb : ''}`,
+                `人员类型：${areaDetails && areaDetails.salx_mc ? areaDetails.salx_mc : ''}`, `强制措施：${areaDetails && areaDetails.qzcs ? areaDetails.qzcs : ''}`,
+                `案件名称：${areaDetails && areaDetails.ajmc ? areaDetails.ajmc : ''}`, `办案单位：${areaDetails && areaDetails.badw ? areaDetails.badw : ''}`,
+                `办案民警：${areaDetails && areaDetails.bar ? areaDetails.bar : ''}`
+            ];
+            res.detail = detail;
+            this.props.dispatch(
+                routerRedux.push({
+                    pathname: '/ModuleAll/Share',
+                    query: {
+                        record: res,
+                        id: res && res.id ? res.id : '1',
+                        from: '人员信息',
+                        tzlx: 'baqxx',
+                        fromPath: '/handlingArea/AreaData',
+                        tab: '表格',
+                        sx:
+                            (res.ajmc ? res.ajmc + '、' : '') +
+                            (res.salx_mc ? res.salx_mc + '、' : '') +
+                            (res.name ? res.name : '')
+                    },
+                }),
+            )
+            // this.setState({
+            //   shareVisible: true,
+            //   shareItem: res,
+            // });
+        } else {
+            this.props.dispatch({
+                type: 'share/getMyFollow',
+                payload: {
+                    agid: res.id,
+                    lx: this.state.lx,
+                    sx:
+                        (res.ajmc ? res.ajmc + '、' : '') +
+                        (res.salx_mc ? res.salx_mc + '、' : '') +
+                        (res.name ? res.name : ''),
+                    type: type,
+                    tzlx: this.state.tzlx,
+                    wtid: res.wtid,
+                    ajbh: res.ajbh,
+                    system_id: res.system_id,
+                    ajGzLx: ajGzLx,
+                },
+                callback: data => {
+                    if (!data.error) {
+                        message.success('关注成功');
+                        this.props.getArea({currentPage: this.state.current, pd: this.props.formValues});
+                    }
+                },
+            });
         }
-      },
-    });
-  };
+    };
+    handleCancel = e => {
+        this.setState({
+            shareVisible: false,
+        });
+    };
+    noFollow = record => {
+        this.props.dispatch({
+            type: 'share/getNoFollow',
+            payload: {
+                id: record.gzid,
+                tzlx: record.tzlx,
+                ajbh: record.ajbh,
+                ajGzlx: record.ajgzlx,
+            },
+            callback: res => {
+                if (!res.error) {
+                    message.success('取消关注成功');
+                    this.props.getArea({currentPage: this.state.current, pd: this.props.formValues});
+                }
+            },
+        });
+    };
 
   render() {
     const { data, loading } = this.props;

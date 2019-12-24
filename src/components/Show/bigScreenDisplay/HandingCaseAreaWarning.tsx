@@ -4,7 +4,7 @@
 * 20181207
 * */
 
-import React, { PureComponent } from 'react';
+import React, {PureComponent} from 'react';
 import echarts from 'echarts/lib/echarts';
 import pie from 'echarts/lib/chart/pie';
 import title from 'echarts/lib/component/title';
@@ -15,7 +15,7 @@ let myChart;
 export default class HandingCaseAreaWarning extends PureComponent {
 
     componentDidMount() {
-        const { selectDate, org, orgCode, orglist } = this.props;
+        const {selectDate, org, orgCode, orglist} = this.props;
         this.getHandingCaseAreaWarning(selectDate[0], selectDate[1], org, orgCode, orglist);
         this.showEchart();
         window.addEventListener('resize', myChart.resize);
@@ -31,7 +31,7 @@ export default class HandingCaseAreaWarning extends PureComponent {
 
     // 行政案件告警统计
     getHandingCaseAreaWarning = (startTime, endTime, org, orgCode, orglist) => {
-        const { shadeColors } = this.props;
+        const {shadeColors} = this.props;
         this.props.dispatch({
             type: 'UnareaData/getUnAreaAllTypeWarnings',
             payload: {
@@ -76,7 +76,7 @@ export default class HandingCaseAreaWarning extends PureComponent {
                     myChart.setOption({
                         legend: {
                             data: legendData,
-                            formatter: function(name) {
+                            formatter: function (name) {
                                 let formatStr = '';
                                 for (let i = 0; i < pieData.length; i++) {
                                     if (name === pieData[i].name) {
@@ -156,7 +156,7 @@ export default class HandingCaseAreaWarning extends PureComponent {
 
     render() {
         return (
-            <div id="HandingCaseAreaWarning" style={{ height: '100%', width: '100%' }}></div>
+            <div id="HandingCaseAreaWarning" style={{height: '100%', width: '100%'}}></div>
         );
     }
 }

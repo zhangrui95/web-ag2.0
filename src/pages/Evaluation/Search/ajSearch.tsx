@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react';
+import React, {PureComponent} from 'react';
 import {
     Modal,
     Form,
@@ -15,7 +15,7 @@ import {
     Card,
     DatePicker, Table, Tooltip, Empty, Icon,
 } from 'antd';
-import { connect } from 'dva';
+import {connect} from 'dva';
 import styles from './ajSearch.less';
 import stylescommon1 from "@/pages/common/common.less";
 import stylescommon2 from "@/pages/common/commonLight.less";
@@ -24,14 +24,14 @@ import {NavigationItem} from "@/components/Navigation/navigation";
 import {routerRedux} from "dva/router";
 import noListLight from "@/assets/viewData/noListLight.png";
 
-const { RangePicker } = DatePicker;
+const {RangePicker} = DatePicker;
 const FormItem = Form.Item;
 const TreeNode = TreeSelect.TreeNode;
-const { Option } = Select;
+const {Option} = Select;
 let timeout;
 let currentValue;
 
-@connect(({ common, AllCaseData }) => ({
+@connect(({common, AllCaseData}) => ({
     common, AllCaseData,
 }))
 class AjSearch extends PureComponent {
@@ -45,7 +45,7 @@ class AjSearch extends PureComponent {
             selectedRows: [],
             treeDefaultExpandedKeys: [], // 办案单位树默认展开keys
             formValues: {
-              is_area:window.configUrl.is_area,
+                is_area: window.configUrl.is_area,
             },
         };
     }
@@ -59,7 +59,7 @@ class AjSearch extends PureComponent {
         this.getDepTree(newjigouArea.department);
         this.setState({
             first: true,
-            ajType:this.props.location.query.record.ajType,
+            ajType: this.props.location.query.record.ajType,
             ajlx: this.props.location.query.record.ajType,
         });
     }
@@ -115,7 +115,7 @@ class AjSearch extends PureComponent {
             type: 'common/getCaseTypeTree',
             payload: {
                 ajlb: 'xs', // 案件类别xs,xz
-                is_area:areaNum,
+                is_area: areaNum,
             },
             callback: (data) => {
                 if (data.list) {
@@ -155,7 +155,7 @@ class AjSearch extends PureComponent {
             timeout = null;
         }
         currentValue = name;
-        timeout = setTimeout(function() {
+        timeout = setTimeout(function () {
 
             that.props.dispatch({
                 type: 'common/getAllPolice',
@@ -175,7 +175,7 @@ class AjSearch extends PureComponent {
     };
     // 表格分页
     handleTableChange = (pagination, filtersArg, sorter) => {
-        const { formValues } = this.state;
+        const {formValues} = this.state;
         const params = {
             pd: {
                 ...formValues,
@@ -199,7 +199,7 @@ class AjSearch extends PureComponent {
             bar: values.bar || '',
             ajzt_dm: values.ajzt || '',
             zxlb: values.zxlb || '',
-            is_area:window.configUrl.is_area,
+            is_area: window.configUrl.is_area,
             ajlb_dm: values.ajlb ? values.ajlb[values.ajlb.length - 1] : '',
             larq_ks: larqTime && larqTime.length > 0 ? larqTime[0].format('YYYY-MM-DD') : '',
             larq_js: larqTime && larqTime.length > 0 ? larqTime[1].format('YYYY-MM-DD') : '',
@@ -228,7 +228,7 @@ class AjSearch extends PureComponent {
         this.props.form.resetFields();
         this.setState({
             formValues: {
-              is_area:window.configUrl.is_area,
+                is_area: window.configUrl.is_area,
             },
             selectedRowsId: [],
             first: true,
@@ -305,7 +305,7 @@ class AjSearch extends PureComponent {
     getOk = () => {
         // this.props.handleCancel();
         // this.props.getChangeTables(this.state.selectedRowsId, 0);
-        this.onEdit(true,this.state.selectedRowsId);
+        this.onEdit(true, this.state.selectedRowsId);
     };
     changeAjType = (e) => {
         this.setState({
@@ -318,10 +318,10 @@ class AjSearch extends PureComponent {
             searchHeight: !this.state.searchHeight,
         });
     };
-    onEdit = (isReset,selectedRowsId) => {
-        let key = '/Evaluation/File/Search/ajSearch'+this.props.location.query.id;
+    onEdit = (isReset, selectedRowsId) => {
+        let key = '/Evaluation/File/Search/ajSearch' + this.props.location.query.id;
         // 删除当前tab并且将路由跳转至前一个tab的path
-        const { dispatch } = this.props;
+        const {dispatch} = this.props;
         if (dispatch) {
             dispatch({
                 type: 'global/changeSessonNavigation',
@@ -337,22 +337,26 @@ class AjSearch extends PureComponent {
                     isShow: false,
                 },
                 callback: (data: NavigationItem[]) => {
-                   dispatch( routerRedux.push({pathname: this.props.location.query.record.url,query: isReset ? {isReset,selectedRowsId:selectedRowsId} : {}}));
+                    dispatch(routerRedux.push({
+                        pathname: this.props.location.query.record.url,
+                        query: isReset ? {isReset, selectedRowsId: selectedRowsId} : {}
+                    }));
                 },
             });
         }
     };
+
     renderForm() {
-        const { form: { getFieldDecorator }, common: { depTree, specialCaseType, CaseStatusType, XzCaseStatusType } } = this.props;
+        const {form: {getFieldDecorator}, common: {depTree, specialCaseType, CaseStatusType, XzCaseStatusType}} = this.props;
         const allPoliceOptions = this.state.allPolice.map(d => <Option key={`${d.idcard},${d.pcard}`}
                                                                        value={`${d.idcard},${d.pcard}$$`}
                                                                        title={d.name}>{`${d.name} ${d.pcard}`}</Option>);
         const formItemLayout = {
-            labelCol: { xs: { span: 24 }, md: { span: 8 }, xl: { span: 7 }, xxl: { span: 5 } },
-            wrapperCol: { xs: { span: 24 }, md: { span: 16 }, xl: { span: 17 }, xxl: { span: 19 } },
+            labelCol: {xs: {span: 24}, md: {span: 8}, xl: {span: 7}, xxl: {span: 5}},
+            wrapperCol: {xs: {span: 24}, md: {span: 16}, xl: {span: 17}, xxl: {span: 19}},
         };
-        const rowLayout = { md: 8, xl: 16, xxl: 24 };
-        const colLayout = { sm: 24, md: 12, xl: 8 };
+        const rowLayout = {md: 8, xl: 16, xxl: 24};
+        const colLayout = {sm: 24, md: 12, xl: 8};
         let specialCaseTypeOptions = [];
         if (specialCaseType.length > 0) {
             for (let i = 0; i < specialCaseType.length; i++) {
@@ -382,249 +386,251 @@ class AjSearch extends PureComponent {
                 );
             }
         }
-        let stylescommon = this.props.global&&this.props.global.dark ? stylescommon1 : stylescommon2;
+        let stylescommon = this.props.global && this.props.global.dark ? stylescommon1 : stylescommon2;
         return (
-            <Card style={{padding:'10px 0'}}>
-                <Form onSubmit={(e) => this.handleSearch(e, this.state.ajType)} style={{ height: this.state.searchHeight ? 'auto' : '50px' }}>
-                <Row gutter={rowLayout} className={stylescommon.searchForm}>
-                    {this.state.ajlx ? '' : <Col {...colLayout}>
-                        <FormItem label="案件类型" {...formItemLayout}>
-                            {getFieldDecorator('ajlx', {
-                                initialValue: this.state.ajType,
-                            })(
-                                <Select placeholder="请选择" style={{ width: '100%' }} onChange={this.changeAjType}
-                                        getPopupContainer={()=>document.getElementById('ajSearchBox')}>
-                                    <Option value="">全部</Option>
-                                    <Option value="xs">刑事案件</Option>
-                                    <Option value="xz">行政案件</Option>
-                                </Select>,
-                            )}
-                        </FormItem>
-                    </Col>}
-                    <Col {...colLayout}>
-                        <FormItem label="案件编号" {...formItemLayout}>
-                            {getFieldDecorator('ajbh', {
-                                // initialValue: this.state.caseType,
-                                rules: [
-                                    { pattern: /^[A-Za-z0-9]+$/, message: '请输入正确的案件编号！' },
-                                    { max: 32, message: '最多输入32个字！' },
-                                ],
-                            })(
-                                <Input placeholder="请输入案件编号"/>,
-                            )}
-                        </FormItem>
-                    </Col>
-                    <Col md={8} sm={24}>
-                        <FormItem label="案件名称" {...formItemLayout}>
-                            {getFieldDecorator('ajmc', {
-                                // initialValue: this.state.caseType,
-                                rules: [{ max: 128, message: '最多输入128个字！' }],
-                            })(
-                                <Input placeholder="请输入案件名称"/>,
-                            )}
-                        </FormItem>
-                    </Col>
-                    {this.state.ajType === 'xs' ? <Col {...colLayout}>
-                        <FormItem label="办案单位" {...formItemLayout}>
-                            {getFieldDecorator('bardw', {
-                                // initialValue: this.state.bardw,
-                            })(
-                                <TreeSelect
-                                    showSearch
-                                    style={{ width: '100%' }}
-                                    dropdownStyle={{ maxHeight: 400, overflow: 'auto' }}
-                                    placeholder="请输入办案单位"
-                                    allowClear
-                                    key='badwSelect'
-                                    getPopupContainer={()=>document.getElementById('ajSearchBox')}
-                                    treeDefaultExpandedKeys={this.state.treeDefaultExpandedKeys}
-                                    treeNodeFilterProp="title"
-                                >
-                                    {depTree && depTree.length > 0 ? this.renderloop(depTree) : null}
-                                </TreeSelect>,
-                            )}
-                        </FormItem>
-                    </Col> : ''}
-                    {this.state.ajType === 'xz' ? <Col {...colLayout}>
-                        <FormItem label="受理日期" {...formItemLayout}>
-                            {getFieldDecorator('slrq', {
-                                initialValue: this.state.slrq ? this.state.slrq : undefined,
-                            })(
-                                <RangePicker
-                                    disabledDate={this.disabledDate}
-                                    style={{ width: '100%' }}
-                                    getCalendarContainer={()=>document.getElementById('ajSearchBox')}
-                                />,
-                            )}
-                        </FormItem>
-                    </Col> : ''}
-                    {this.state.ajType === 'xs' ? <Col {...colLayout}>
-                        <FormItem label="立案日期" {...formItemLayout}>
-                            {getFieldDecorator('larq', {
-                                // initialValue: this.state.ssbaq,
-                            })(
-                                <RangePicker
-                                    disabledDate={this.disabledDate}
-                                    style={{ width: '100%' }}
-                                    getCalendarContainer={()=>document.getElementById('ajSearchBox')}
-                                />,
-                            )}
-                        </FormItem>
-                    </Col> : ''}
-                    {this.state.ajType === 'xs' ? <Col {...colLayout}>
-                        <FormItem label="案件状态" {...formItemLayout}>
-                            {getFieldDecorator('ajzt', {
-                                initialValue: this.state.ajzt,
-                            })(
-                                <Select placeholder="请选择" style={{ width: '100%' }}
-                                        getPopupContainer={()=>document.getElementById('ajSearchBox')}>
-                                    <Option value="">全部</Option>
-                                    {CaseStatusOption}
-                                </Select>,
-                            )}
-                        </FormItem>
-                    </Col> : ''}
-                    {this.state.ajType === 'xs' ? <Col {...colLayout}>
-                        <FormItem label="&nbsp;&nbsp;&nbsp; 办案人" {...formItemLayout}>
-                            {getFieldDecorator('bar', {
-                                // initialValue: this.state.gzry,
-                                rules: [{ max: 32, message: '最多输入32个字！' }],
-                            })(
-                                <Select
-                                    mode="combobox"
-                                    defaultActiveFirstOption={false}
-                                    optionLabelProp='title'
-                                    showArrow={false}
-                                    filterOption={false}
-                                    placeholder="请输入办案人"
-                                    onSearch={this.handleAllPoliceOptionChange}
-                                    onFocus={this.handleAllPoliceOptionChange}
-                                    getPopupContainer={()=>document.getElementById('ajSearchBox')}
-                                >
-                                    {allPoliceOptions}
-                                </Select>,
-                            )}
-                        </FormItem>
-                    </Col> : ''}
-                    {this.state.ajType === 'xz' ? <Col {...colLayout}>
-                        <FormItem label="受理单位" {...formItemLayout}>
-                            {getFieldDecorator('sldw', {
-                                initialValue: this.state.sldw ? this.state.sldw : undefined,
-                            })(
-                                <TreeSelect
-                                    showSearch
-                                    style={{ width: '100%' }}
-                                    dropdownStyle={{ maxHeight: 400, overflow: 'auto' }}
-                                    placeholder="请输入受理单位"
-                                    allowClear
-                                    key='cjdwSelect'
-                                    treeDefaultExpandedKeys={this.state.treeDefaultExpandedKeys}
-                                    getPopupContainer={()=>document.getElementById('ajSearchBox')}
-                                    treeNodeFilterProp="title"
-                                >
-                                    {depTree && depTree.length > 0 ? this.renderloop(depTree) : null}
-                                </TreeSelect>,
-                            )}
-                        </FormItem>
-                    </Col> : ''}
-                    {this.state.ajType === 'xz' ? <Col {...colLayout}>
-                        <FormItem label="案件状态" {...formItemLayout}>
-                            {getFieldDecorator('ajzt', {
-                                initialValue: this.state.ajzt,
-                            })(
-                                <Select placeholder="请选择" style={{ width: '100%' }}
-                                        getPopupContainer={()=>document.getElementById('ajSearchBox')}>
-                                    <Option value="">全部</Option>
-                                    {XzCaseStatusOption}
-                                </Select>,
-                            )}
-                        </FormItem>
-                    </Col> : ''}
-                    {this.state.ajType === 'xz' ? <Col {...colLayout}>
-                        <FormItem label="&nbsp;&nbsp;&nbsp; 办案人" {...formItemLayout}>
-                            {getFieldDecorator('bar', {
-                                // initialValue: this.state.gzry,
-                                rules: [{ max: 32, message: '最多输入32个字！' }],
-                            })(
-                                /*<Input placeholder="请输入办案人" />*/
-                                <Select
-                                    mode="combobox"
-                                    defaultActiveFirstOption={false}
-                                    optionLabelProp='title'
-                                    showArrow={false}
-                                    filterOption={false}
-                                    placeholder="请输入办案人"
-                                    onSearch={this.handleAllPoliceOptionChange}
-                                    onFocus={this.handleAllPoliceOptionChange}
-                                    getPopupContainer={()=>document.getElementById('ajSearchBox')}
-                                >
-                                    {allPoliceOptions}
-                                </Select>,
-                            )}
-                        </FormItem>
-                    </Col> : ''}
-                    {this.state.ajType === 'xs' ? <Col {...colLayout}>
-                        <FormItem label="专项类别" {...formItemLayout}>
-                            {getFieldDecorator('zxlb', {
-                                initialValue: this.state.zxlb,
-                            })(
-                                <Select placeholder="请选择" style={{ width: '100%' }} onChange={this.specialCaseOnChange}
-                                        getPopupContainer={()=>document.getElementById('ajSearchBox')}>
-                                    <Option value="">全部</Option>
-                                    {specialCaseTypeOptions}
-                                </Select>,
-                            )}
-                        </FormItem>
-                    </Col> : <Col {...colLayout}></Col>}
-                    {this.state.ajType === 'xs' ? <Col {...colLayout}>
-                        <FormItem label="案件类别" {...formItemLayout}>
-                            {getFieldDecorator('ajlb', {
-                                // initialValue: this.state.caseAllType,
-                            })(
-                                <Cascader
-                                    options={this.state.caseTypeTree}
-                                    placeholder="请选择案件类别"
-                                    changeOnSelect={true}
-                                    getPopupContainer={()=>document.getElementById('ajSearchBox')}
-                                    showSearch={
-                                        {
-                                            filter: (inputValue, path) => {
-                                                return (path.some(items => (items.searchValue).indexOf(inputValue) > -1));
-                                            },
-                                            limit: 5,
+            <Card style={{padding: '10px 0'}}>
+                <Form onSubmit={(e) => this.handleSearch(e, this.state.ajType)}
+                      style={{height: this.state.searchHeight ? 'auto' : '50px'}}>
+                    <Row gutter={rowLayout} className={stylescommon.searchForm}>
+                        {this.state.ajlx ? '' : <Col {...colLayout}>
+                            <FormItem label="案件类型" {...formItemLayout}>
+                                {getFieldDecorator('ajlx', {
+                                    initialValue: this.state.ajType,
+                                })(
+                                    <Select placeholder="请选择" style={{width: '100%'}} onChange={this.changeAjType}
+                                            getPopupContainer={() => document.getElementById('ajSearchBox')}>
+                                        <Option value="">全部</Option>
+                                        <Option value="xs">刑事案件</Option>
+                                        <Option value="xz">行政案件</Option>
+                                    </Select>,
+                                )}
+                            </FormItem>
+                        </Col>}
+                        <Col {...colLayout}>
+                            <FormItem label="案件编号" {...formItemLayout}>
+                                {getFieldDecorator('ajbh', {
+                                    // initialValue: this.state.caseType,
+                                    rules: [
+                                        {pattern: /^[A-Za-z0-9]+$/, message: '请输入正确的案件编号！'},
+                                        {max: 32, message: '最多输入32个字！'},
+                                    ],
+                                })(
+                                    <Input placeholder="请输入案件编号"/>,
+                                )}
+                            </FormItem>
+                        </Col>
+                        <Col md={8} sm={24}>
+                            <FormItem label="案件名称" {...formItemLayout}>
+                                {getFieldDecorator('ajmc', {
+                                    // initialValue: this.state.caseType,
+                                    rules: [{max: 128, message: '最多输入128个字！'}],
+                                })(
+                                    <Input placeholder="请输入案件名称"/>,
+                                )}
+                            </FormItem>
+                        </Col>
+                        {this.state.ajType === 'xs' ? <Col {...colLayout}>
+                            <FormItem label="办案单位" {...formItemLayout}>
+                                {getFieldDecorator('bardw', {
+                                    // initialValue: this.state.bardw,
+                                })(
+                                    <TreeSelect
+                                        showSearch
+                                        style={{width: '100%'}}
+                                        dropdownStyle={{maxHeight: 400, overflow: 'auto'}}
+                                        placeholder="请输入办案单位"
+                                        allowClear
+                                        key='badwSelect'
+                                        getPopupContainer={() => document.getElementById('ajSearchBox')}
+                                        treeDefaultExpandedKeys={this.state.treeDefaultExpandedKeys}
+                                        treeNodeFilterProp="title"
+                                    >
+                                        {depTree && depTree.length > 0 ? this.renderloop(depTree) : null}
+                                    </TreeSelect>,
+                                )}
+                            </FormItem>
+                        </Col> : ''}
+                        {this.state.ajType === 'xz' ? <Col {...colLayout}>
+                            <FormItem label="受理日期" {...formItemLayout}>
+                                {getFieldDecorator('slrq', {
+                                    initialValue: this.state.slrq ? this.state.slrq : undefined,
+                                })(
+                                    <RangePicker
+                                        disabledDate={this.disabledDate}
+                                        style={{width: '100%'}}
+                                        getCalendarContainer={() => document.getElementById('ajSearchBox')}
+                                    />,
+                                )}
+                            </FormItem>
+                        </Col> : ''}
+                        {this.state.ajType === 'xs' ? <Col {...colLayout}>
+                            <FormItem label="立案日期" {...formItemLayout}>
+                                {getFieldDecorator('larq', {
+                                    // initialValue: this.state.ssbaq,
+                                })(
+                                    <RangePicker
+                                        disabledDate={this.disabledDate}
+                                        style={{width: '100%'}}
+                                        getCalendarContainer={() => document.getElementById('ajSearchBox')}
+                                    />,
+                                )}
+                            </FormItem>
+                        </Col> : ''}
+                        {this.state.ajType === 'xs' ? <Col {...colLayout}>
+                            <FormItem label="案件状态" {...formItemLayout}>
+                                {getFieldDecorator('ajzt', {
+                                    initialValue: this.state.ajzt,
+                                })(
+                                    <Select placeholder="请选择" style={{width: '100%'}}
+                                            getPopupContainer={() => document.getElementById('ajSearchBox')}>
+                                        <Option value="">全部</Option>
+                                        {CaseStatusOption}
+                                    </Select>,
+                                )}
+                            </FormItem>
+                        </Col> : ''}
+                        {this.state.ajType === 'xs' ? <Col {...colLayout}>
+                            <FormItem label="&nbsp;&nbsp;&nbsp; 办案人" {...formItemLayout}>
+                                {getFieldDecorator('bar', {
+                                    // initialValue: this.state.gzry,
+                                    rules: [{max: 32, message: '最多输入32个字！'}],
+                                })(
+                                    <Select
+                                        mode="combobox"
+                                        defaultActiveFirstOption={false}
+                                        optionLabelProp='title'
+                                        showArrow={false}
+                                        filterOption={false}
+                                        placeholder="请输入办案人"
+                                        onSearch={this.handleAllPoliceOptionChange}
+                                        onFocus={this.handleAllPoliceOptionChange}
+                                        getPopupContainer={() => document.getElementById('ajSearchBox')}
+                                    >
+                                        {allPoliceOptions}
+                                    </Select>,
+                                )}
+                            </FormItem>
+                        </Col> : ''}
+                        {this.state.ajType === 'xz' ? <Col {...colLayout}>
+                            <FormItem label="受理单位" {...formItemLayout}>
+                                {getFieldDecorator('sldw', {
+                                    initialValue: this.state.sldw ? this.state.sldw : undefined,
+                                })(
+                                    <TreeSelect
+                                        showSearch
+                                        style={{width: '100%'}}
+                                        dropdownStyle={{maxHeight: 400, overflow: 'auto'}}
+                                        placeholder="请输入受理单位"
+                                        allowClear
+                                        key='cjdwSelect'
+                                        treeDefaultExpandedKeys={this.state.treeDefaultExpandedKeys}
+                                        getPopupContainer={() => document.getElementById('ajSearchBox')}
+                                        treeNodeFilterProp="title"
+                                    >
+                                        {depTree && depTree.length > 0 ? this.renderloop(depTree) : null}
+                                    </TreeSelect>,
+                                )}
+                            </FormItem>
+                        </Col> : ''}
+                        {this.state.ajType === 'xz' ? <Col {...colLayout}>
+                            <FormItem label="案件状态" {...formItemLayout}>
+                                {getFieldDecorator('ajzt', {
+                                    initialValue: this.state.ajzt,
+                                })(
+                                    <Select placeholder="请选择" style={{width: '100%'}}
+                                            getPopupContainer={() => document.getElementById('ajSearchBox')}>
+                                        <Option value="">全部</Option>
+                                        {XzCaseStatusOption}
+                                    </Select>,
+                                )}
+                            </FormItem>
+                        </Col> : ''}
+                        {this.state.ajType === 'xz' ? <Col {...colLayout}>
+                            <FormItem label="&nbsp;&nbsp;&nbsp; 办案人" {...formItemLayout}>
+                                {getFieldDecorator('bar', {
+                                    // initialValue: this.state.gzry,
+                                    rules: [{max: 32, message: '最多输入32个字！'}],
+                                })(
+                                    /*<Input placeholder="请输入办案人" />*/
+                                    <Select
+                                        mode="combobox"
+                                        defaultActiveFirstOption={false}
+                                        optionLabelProp='title'
+                                        showArrow={false}
+                                        filterOption={false}
+                                        placeholder="请输入办案人"
+                                        onSearch={this.handleAllPoliceOptionChange}
+                                        onFocus={this.handleAllPoliceOptionChange}
+                                        getPopupContainer={() => document.getElementById('ajSearchBox')}
+                                    >
+                                        {allPoliceOptions}
+                                    </Select>,
+                                )}
+                            </FormItem>
+                        </Col> : ''}
+                        {this.state.ajType === 'xs' ? <Col {...colLayout}>
+                            <FormItem label="专项类别" {...formItemLayout}>
+                                {getFieldDecorator('zxlb', {
+                                    initialValue: this.state.zxlb,
+                                })(
+                                    <Select placeholder="请选择" style={{width: '100%'}}
+                                            onChange={this.specialCaseOnChange}
+                                            getPopupContainer={() => document.getElementById('ajSearchBox')}>
+                                        <Option value="">全部</Option>
+                                        {specialCaseTypeOptions}
+                                    </Select>,
+                                )}
+                            </FormItem>
+                        </Col> : <Col {...colLayout}></Col>}
+                        {this.state.ajType === 'xs' ? <Col {...colLayout}>
+                            <FormItem label="案件类别" {...formItemLayout}>
+                                {getFieldDecorator('ajlb', {
+                                    // initialValue: this.state.caseAllType,
+                                })(
+                                    <Cascader
+                                        options={this.state.caseTypeTree}
+                                        placeholder="请选择案件类别"
+                                        changeOnSelect={true}
+                                        getPopupContainer={() => document.getElementById('ajSearchBox')}
+                                        showSearch={
+                                            {
+                                                filter: (inputValue, path) => {
+                                                    return (path.some(items => (items.searchValue).indexOf(inputValue) > -1));
+                                                },
+                                                limit: 5,
+                                            }
                                         }
-                                    }
-                                />,
-                            )}
-                        </FormItem>
-                    </Col> : <Col {...colLayout}></Col>}
-                </Row>
-                <Row className={stylescommon.search}>
-                    <Col span={24}>
-                        <span style={{ float: 'right'}}>
+                                    />,
+                                )}
+                            </FormItem>
+                        </Col> : <Col {...colLayout}></Col>}
+                    </Row>
+                    <Row className={stylescommon.search}>
+                        <Col span={24}>
+                        <span style={{float: 'right'}}>
                             <Button style={this.state.selectedRowsId && this.state.selectedRowsId.length > 0 ? {
                                 marginLeft: 0,
                                 color: '#2095FF',
                                 color: 'rgb(32, 149, 255)',
                                 border: '1px solid #2095FF',
                                 background: 'transparent'
-                            } : { marginLeft: 0 }}
+                            } : {marginLeft: 0}}
                                     type={this.state.selectedRowsId && this.state.selectedRowsId.length > 0 ? '' : 'primary'}
                                     htmlType="submit">查询</Button>
-                            <Button style={{ marginLeft: 8 }}
+                            <Button style={{marginLeft: 8}}
                                     onClick={() => this.handleFormReset(this.state.ajType)}>重置</Button>
-                            {this.state.ajType ?  <Button
-                                style={{ marginLeft: 8 }}
+                            {this.state.ajType ? <Button
+                                style={{marginLeft: 8}}
                                 onClick={this.getSearchHeight}
                                 className={stylescommon.empty}
                             >
                                 {this.state.searchHeight ? '收起筛选' : '展开筛选'}{' '}
-                                <Icon type={this.state.searchHeight ? 'up' : 'down'} />
+                                <Icon type={this.state.searchHeight ? 'up' : 'down'}/>
                             </Button> : ''}
                         </span>
-                    </Col>
-                </Row>
-            </Form>
+                        </Col>
+                    </Row>
+                </Form>
             </Card>
         );
     }
@@ -637,10 +643,10 @@ class AjSearch extends PureComponent {
     };
 
     renderTable() {
-        const { AllCaseData: { returnData, loading } } = this.props;
+        const {AllCaseData: {returnData, loading}} = this.props;
         let data = this.state.first ? [] : returnData;
         let columns;
-        let stylescommon = this.props.global&&this.props.global.dark ? stylescommon1 : stylescommon2;
+        let stylescommon = this.props.global && this.props.global.dark ? stylescommon1 : stylescommon2;
         columns = [
             {
                 title: '案件编号',
@@ -746,7 +752,7 @@ class AjSearch extends PureComponent {
             total: data && data.page ? data.page.totalResult : '',
             pageSize: data && data.page ? data.page.showCount : '',
             showTotal: (total, range) => (
-                <span  className={
+                <span className={
                     data &&
                     data.page &&
                     data.page.totalResult &&
@@ -781,7 +787,10 @@ class AjSearch extends PureComponent {
                         columns={columns}
                         pagination={paginationProps}
                         onChange={this.handleTableChanges}
-                        locale={{ emptyText: <Empty image={this.props.global&&this.props.global.dark ? noList : noListLight} description={'暂无数据'} /> }}
+                        locale={{
+                            emptyText: <Empty image={this.props.global && this.props.global.dark ? noList : noListLight}
+                                              description={'暂无数据'}/>
+                        }}
                     />
                 </div>
             </div>
@@ -789,7 +798,7 @@ class AjSearch extends PureComponent {
     }
 
     render() {
-        let className = this.props.global&&this.props.global.dark ? '' : styles.lightBox;
+        let className = this.props.global && this.props.global.dark ? '' : styles.lightBox;
         return (
             <div className={className}>
                 <div className={styles.tableListForm}>
@@ -800,12 +809,15 @@ class AjSearch extends PureComponent {
                 </div>
                 <Card>
                     <div className={styles.btns}>
-                        <Button type="primary" style={{ marginLeft: 8 }} className={styles.qxBtn} onClick={()=>this.onEdit(false)}>
+                        <Button type="primary" style={{marginLeft: 8}} className={styles.qxBtn}
+                                onClick={() => this.onEdit(false)}>
                             取消
                         </Button>
-                        <Button type="primary" style={{ marginLeft: 8 }} className={this.state.selectedRowsId && this.state.selectedRowsId.length > 0 ? styles.okBtn :''} disabled={this.state.selectedRowsId && this.state.selectedRowsId.length > 0 ? false : true}
+                        <Button type="primary" style={{marginLeft: 8}}
+                                className={this.state.selectedRowsId && this.state.selectedRowsId.length > 0 ? styles.okBtn : ''}
+                                disabled={this.state.selectedRowsId && this.state.selectedRowsId.length > 0 ? false : true}
                                 onClick={this.getOk}>
-                           确认
+                            确认
                         </Button>
                     </div>
                 </Card>

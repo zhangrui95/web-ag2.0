@@ -3,9 +3,9 @@
 * author：lyp
 * 20180123
 * */
-import React, { PureComponent } from 'react';
-import { connect } from 'dva';
-import { Row, Col, Form, Card, Steps, message, Tabs, Button, Spin } from 'antd';
+import React, {PureComponent} from 'react';
+import {connect} from 'dva';
+import {Row, Col, Form, Card, Steps, message, Tabs, Button, Spin} from 'antd';
 import html2canvas from 'html2canvas';
 import echarts from 'echarts';
 import tree from 'echarts/lib/chart/tree';
@@ -15,7 +15,7 @@ import tooltip from 'echarts/lib/component/tooltip';
 import PersonDetailTab from '../../../components/AllDocuments/PersonDetailTab';
 import styles from '../docDetail.less';
 import listStyles from '../docListStyle.less';
-import { autoheight } from '../../../utils/utils';
+import {autoheight} from '../../../utils/utils';
 import user from '../../../assets/common/userPerson.png'
 import tar from '../../../assets/common/tar.png'
 import aj from '../../../assets/common/aj.png'
@@ -26,42 +26,43 @@ import jzxx from '../../../assets/common/jzxx.png'
 import {routerRedux} from "dva/router";
 
 const FormItem = Form.Item;
-const { Step } = Steps;
+const {Step} = Steps;
 const TabPane = Tabs.TabPane;
 let echartTree;
 let imgBase = [];
-@connect(({ UnPoliceData,common,global }) => ({
-    UnPoliceData,common,global
+@connect(({UnPoliceData, common, global}) => ({
+    UnPoliceData, common, global
 }))
 export default class PersonalDocDetail extends PureComponent {
-    constructor(props){
+    constructor(props) {
         super(props);
         let res = props.location.query.record;
-        if(typeof res == 'string'){
+        if (typeof res == 'string') {
             res = JSON.parse(sessionStorage.getItem('query')).query.record;
         }
         this.state = {
             personData: '',
             loading: false, // 默认详情页是否为加载状态
-            res:res,
+            res: res,
         };
     }
+
     componentDidMount() {
         const idcard = this.state.res.xyr_sfzh;
-        const {query:{id}} = this.props.location;
-        console.log('id',id)
-        if(id){
-          this.getPersonDetail(id);
-        }
-        else{
-          this.getPersonDetail(idcard);
+        const {query: {id}} = this.props.location;
+        // console.log('id',id)
+        if (id) {
+            this.getPersonDetail(id);
+        } else {
+            this.getPersonDetail(idcard);
         }
 
     }
+
     componentWillReceiveProps(nextProps) {
-        if(this.props.global.dark !== nextProps.global.dark){
-            if(this.state.personData){
-                this.showEchart(this.state.personData,nextProps.global.dark);
+        if (this.props.global.dark !== nextProps.global.dark) {
+            if (this.state.personData) {
+                this.showEchart(this.state.personData, nextProps.global.dark);
             }
         }
     }
@@ -77,7 +78,7 @@ export default class PersonalDocDetail extends PureComponent {
                     this.setState({
                         personData: data,
                     }, () => {
-                        this.showEchart(data,this.props.global.dark);
+                        this.showEchart(data, this.props.global.dark);
                         // window.addEventListener("resize", echartTree.resize);
                     });
                 } else {
@@ -93,35 +94,35 @@ export default class PersonalDocDetail extends PureComponent {
             this.props.dispatch(
                 routerRedux.push({
                     pathname: '/newcaseFiling/caseData/CriminalData/caseDetail',
-                    query: { record:item,id: item.system_id },
+                    query: {record: item, id: item.system_id},
                 }),
             )
         } else if (caseType === '22002') { // 行政案件
             this.props.dispatch(
                 routerRedux.push({
                     pathname: '/newcaseFiling/caseData/AdministrationData/caseDetail',
-                    query: { record:item,id: item.system_id,system_id:item.system_id },
+                    query: {record: item, id: item.system_id, system_id: item.system_id},
                 }),
             )
         }
     };
     // 入区信息详情
-    IntoArea = (item) =>{
+    IntoArea = (item) => {
         this.props.dispatch(
             routerRedux.push({
                 pathname: '/handlingArea/AreaData/areaDetail',
-                query: { record:item,id: item.system_id},
+                query: {record: item, id: item.system_id},
             }),
         );
     };
     // 人员档案详情
     openPersonDetail = (record) => {
-        const { xyr_sfzh: idcard } = record;
+        const {xyr_sfzh: idcard} = record;
         if (idcard) {
             this.props.dispatch(
                 routerRedux.push({
                     pathname: '/lawEnforcement/PersonFile/Detail',
-                    query: { id: idcard, record: record},
+                    query: {id: idcard, record: record},
                 }),
             );
         } else {
@@ -133,7 +134,7 @@ export default class PersonalDocDetail extends PureComponent {
         this.props.dispatch(
             routerRedux.push({
                 pathname: '/dossierPolice/DossierData/DossierDetail',
-                query: { record:record,id: record.dossier_id},
+                query: {record: record, id: record.dossier_id},
             }),
         );
     };
@@ -142,12 +143,12 @@ export default class PersonalDocDetail extends PureComponent {
         this.props.dispatch(
             routerRedux.push({
                 pathname: '/articlesInvolved/ArticlesData/itemDetail',
-                query: { record:record,id: record.system_id},
+                query: {record: record, id: record.system_id},
             }),
         )
     };
     // 换行
-    formatter = (val,len) => {
+    formatter = (val, len) => {
         if (val) {
             let strs = val.split(''); // 字符串数组
             let str = '';
@@ -159,21 +160,21 @@ export default class PersonalDocDetail extends PureComponent {
         }
         return '';
     };
-    getX = (x,d,idx,r) =>{
-        return x + Math.sin(d*idx) * r;
+    getX = (x, d, idx, r) => {
+        return x + Math.sin(d * idx) * r;
     }
-    getY = (y,d,idx,r) =>{
-        return y - Math.cos(d*idx) * r;
+    getY = (y, d, idx, r) => {
+        return y - Math.cos(d * idx) * r;
     }
     // 脑图
-    showEchart = (data,dark) => {
+    showEchart = (data, dark) => {
         echartTree = echarts.init(document.getElementById('ryRegulateTree' + this.state.res.xyr_sfzh));
-        const { ajxx, ryxx } = data;
+        const {ajxx, ryxx} = data;
         let link = [];
-        let datas = [ {
+        let datas = [{
             name: this.formatter(ryxx.name),
-            attributes:{
-                modularity_class:0,
+            attributes: {
+                modularity_class: 0,
             },
             symbolSize: 50,
             x: -1500,
@@ -182,53 +183,53 @@ export default class PersonalDocDetail extends PureComponent {
         if (ajxx && ajxx.length > 0) {
             for (let i = 0; i < ajxx.length; i++) {
                 const caseData = ajxx[i];
-                let deg = 270/ajxx.length;
-                let x = this.getX(-1500,deg,i,ajxx.length >  3 ? ajxx.length%2 ==0 ? 5000 : 3000 : 3000);
-                let y = this.getY(350,deg,i,3000);
-                let lxX =  this.getX(x,20,1,1300);
-                let lxY = this.getY(y,20,1,1300);
-                let tarX = this.getX(x,20,2,2000);
-                let tarY = this.getY(y,20,2,2000);
-                let qzX = this.getX(x,20,3,1200);
-                let qzY = this.getY(y,20,3,1200);
-                let xzX = this.getX(x,20,4,2200);
-                let xzY = this.getY(y,20,4,2200);
-                let ssX = this.getX(x,20,5,1200);
-                let ssY = this.getY(y,20,5,1200);
-                let saX = this.getX(x,20,6,1800);
-                let saY = this.getY(y,20,6,1800);
-                let jzX = this.getX(x,20,7,1200);
-                let jzY = this.getY(y,20,7,1200);
+                let deg = 270 / ajxx.length;
+                let x = this.getX(-1500, deg, i, ajxx.length > 3 ? ajxx.length % 2 == 0 ? 5000 : 3000 : 3000);
+                let y = this.getY(350, deg, i, 3000);
+                let lxX = this.getX(x, 20, 1, 1300);
+                let lxY = this.getY(y, 20, 1, 1300);
+                let tarX = this.getX(x, 20, 2, 2000);
+                let tarY = this.getY(y, 20, 2, 2000);
+                let qzX = this.getX(x, 20, 3, 1200);
+                let qzY = this.getY(y, 20, 3, 1200);
+                let xzX = this.getX(x, 20, 4, 2200);
+                let xzY = this.getY(y, 20, 4, 2200);
+                let ssX = this.getX(x, 20, 5, 1200);
+                let ssY = this.getY(y, 20, 5, 1200);
+                let saX = this.getX(x, 20, 6, 1800);
+                let saY = this.getY(y, 20, 6, 1800);
+                let jzX = this.getX(x, 20, 7, 1200);
+                let jzY = this.getY(y, 20, 7, 1200);
                 link.push({
                     source: this.formatter(ryxx.name),
-                    target: this.formatter(ajxx[i].ajmc)+i,
+                    target: this.formatter(ajxx[i].ajmc) + i,
                 }, {
-                    source: this.formatter(ajxx[i].ajmc)+i,
-                    target: '历史入区信息'+i
+                    source: this.formatter(ajxx[i].ajmc) + i,
+                    target: '历史入区信息' + i
                 }, {
-                    source: this.formatter(ajxx[i].ajmc)+i,
-                    target: '同案人'+i
+                    source: this.formatter(ajxx[i].ajmc) + i,
+                    target: '同案人' + i
                 }, {
-                    source: this.formatter(ajxx[i].ajmc)+i,
-                    target: '行政处罚记录'+i
+                    source: this.formatter(ajxx[i].ajmc) + i,
+                    target: '行政处罚记录' + i
                 }, {
-                    source: this.formatter(ajxx[i].ajmc)+i,
-                    target: '强制措施记录'+i
+                    source: this.formatter(ajxx[i].ajmc) + i,
+                    target: '强制措施记录' + i
                 }, {
-                    source: this.formatter(ajxx[i].ajmc)+i,
-                    target: '随身物品'+i
+                    source: this.formatter(ajxx[i].ajmc) + i,
+                    target: '随身物品' + i
                 }, {
-                    source: this.formatter(ajxx[i].ajmc)+i,
-                    target: '涉案物品'+i
+                    source: this.formatter(ajxx[i].ajmc) + i,
+                    target: '涉案物品' + i
                 }, {
-                    source: this.formatter(ajxx[i].ajmc)+i,
-                    target: '相关卷宗'+i
+                    source: this.formatter(ajxx[i].ajmc) + i,
+                    target: '相关卷宗' + i
                 })
                 datas.push({
                         name: this.formatter(ajxx[i].ajmc),
-                        id:this.formatter(ajxx[i].ajmc) +i,
-                        attributes:{
-                            modularity_class:1,
+                        id: this.formatter(ajxx[i].ajmc) + i,
+                        attributes: {
+                            modularity_class: 1,
                         },
                         symbolSize: 40,
                         x: x,
@@ -236,63 +237,63 @@ export default class PersonalDocDetail extends PureComponent {
                     },
                     {
                         name: '历史入区信息',
-                        id: '历史入区信息'+i,
-                        attributes:{
-                            modularity_class:2,
+                        id: '历史入区信息' + i,
+                        attributes: {
+                            modularity_class: 2,
                         },
                         symbolSize: 30,
                         x: lxX,
                         y: lxY
                     }, {
                         name: '同案人',
-                        id:'同案人' +i,
-                        attributes:{
-                            modularity_class:3,
+                        id: '同案人' + i,
+                        attributes: {
+                            modularity_class: 3,
                         },
                         symbolSize: 30,
                         x: tarX,
                         y: tarY,
                     }, {
                         name: '行政处罚记录',
-                        id: '行政处罚记录'+i,
-                        attributes:{
-                            modularity_class:4,
+                        id: '行政处罚记录' + i,
+                        attributes: {
+                            modularity_class: 4,
                         },
                         symbolSize: 30,
                         x: xzX,
                         y: xzY
                     }, {
                         name: '强制措施记录',
-                        id: '强制措施记录'+i,
-                        attributes:{
-                            modularity_class:5,
+                        id: '强制措施记录' + i,
+                        attributes: {
+                            modularity_class: 5,
                         },
                         symbolSize: 30,
                         x: qzX,
                         y: qzY
                     }, {
                         name: '随身物品',
-                        id: '随身物品'+i,
-                        attributes:{
-                            modularity_class:6,
+                        id: '随身物品' + i,
+                        attributes: {
+                            modularity_class: 6,
                         },
                         symbolSize: 30,
                         x: ssX,
                         y: ssY
                     }, {
                         name: '涉案物品',
-                        id: '涉案物品'+i,
-                        attributes:{
-                            modularity_class:7,
+                        id: '涉案物品' + i,
+                        attributes: {
+                            modularity_class: 7,
                         },
                         symbolSize: 30,
                         x: saX,
                         y: saY
                     }, {
                         name: '相关卷宗',
-                        id: '相关卷宗'+i,
-                        attributes:{
-                            modularity_class:8,
+                        id: '相关卷宗' + i,
+                        attributes: {
+                            modularity_class: 8,
                         },
                         symbolSize: 30,
                         x: jzX,
@@ -301,72 +302,72 @@ export default class PersonalDocDetail extends PureComponent {
                 if (caseData.rqList && caseData.rqList.length > 0) {
                     caseData.rqList.forEach((item, index) => {
                         link.push({
-                            source: '历史入区信息'+i,
-                            target: `${item.rqsj} ${item.haName}`+index + i,
+                            source: '历史入区信息' + i,
+                            target: `${item.rqsj} ${item.haName}` + index + i,
                         });
                         datas.push({
                             name: `${item.rqsj} ${item.haName}`,
-                            id: `${item.rqsj} ${item.haName}`+index + i,
-                            attributes:{
-                                modularity_class:2,
+                            id: `${item.rqsj} ${item.haName}` + index + i,
+                            attributes: {
+                                modularity_class: 2,
                             },
                             symbolSize: 20,
-                            x: this.getX(lxX,30,index,80),
-                            y: this.getY(lxY,30,index,80),
+                            x: this.getX(lxX, 30, index, 80),
+                            y: this.getY(lxY, 30, index, 80),
                         });
                     });
                 }
                 if (caseData.tarList && caseData.tarList.length > 0) {
                     caseData.tarList.forEach((item, index) => {
                         link.push({
-                            source: '同案人'+i,
-                            target: this.formatter(`${item.name} (${item.xszk_name ? item.xszk_name : '未知'})`)+index + i,
+                            source: '同案人' + i,
+                            target: this.formatter(`${item.name} (${item.xszk_name ? item.xszk_name : '未知'})`) + index + i,
                         });
                         datas.push({
                             name: this.formatter(`${item.name} (${item.xszk_name ? item.xszk_name : '未知'})`),
-                            id: this.formatter(`${item.name} (${item.xszk_name ? item.xszk_name : '未知'})`)+index + i,
-                            attributes:{
-                                modularity_class:3,
+                            id: this.formatter(`${item.name} (${item.xszk_name ? item.xszk_name : '未知'})`) + index + i,
+                            attributes: {
+                                modularity_class: 3,
                             },
                             symbolSize: 20,
-                            x: index > 10 ? this.getX(tarX,30,index,1200) : this.getX(tarX,20,index,800),
-                            y: index > 10 ? this.getY(tarY,30,index,1200) : this.getY(tarY,20,index,800),
+                            x: index > 10 ? this.getX(tarX, 30, index, 1200) : this.getX(tarX, 20, index, 800),
+                            y: index > 10 ? this.getY(tarY, 30, index, 1200) : this.getY(tarY, 20, index, 800),
                         });
                     });
                 }
                 if (caseData.xzcfList && caseData.xzcfList.length > 0) {
                     caseData.xzcfList.forEach((item, index) => {
                         link.push({
-                            source: '行政处罚记录'+i,
-                            target: this.formatter(item.qzcsName)+index + i,
+                            source: '行政处罚记录' + i,
+                            target: this.formatter(item.qzcsName) + index + i,
                         });
                         datas.push({
                             name: this.formatter(item.qzcsName),
-                            id:this.formatter(item.qzcsName)+index + i,
-                            attributes:{
-                                modularity_class:4,
+                            id: this.formatter(item.qzcsName) + index + i,
+                            attributes: {
+                                modularity_class: 4,
                             },
                             symbolSize: 20,
-                            x: this.getX(xzX,20,index,1000),
-                            y: this.getY(xzY,20,index,1000),
+                            x: this.getX(xzX, 20, index, 1000),
+                            y: this.getY(xzY, 20, index, 1000),
                         });
                     });
                 }
-                if ( caseData.qzcsList &&  caseData.qzcsList.length > 0) {
+                if (caseData.qzcsList && caseData.qzcsList.length > 0) {
                     caseData.qzcsList.forEach((item, index) => {
                         link.push({
-                            source: '强制措施记录'+i,
-                            target: this.formatter(item.qzcsName)+index + i,
+                            source: '强制措施记录' + i,
+                            target: this.formatter(item.qzcsName) + index + i,
                         });
                         datas.push({
                             name: this.formatter(item.qzcsName),
-                            id:this.formatter(item.qzcsName)+index + i,
-                            attributes:{
-                                modularity_class:5,
+                            id: this.formatter(item.qzcsName) + index + i,
+                            attributes: {
+                                modularity_class: 5,
                             },
                             symbolSize: 20,
-                            x: this.getX(qzX,20,index,500),
-                            y: this.getY(qzY,20,index,500),
+                            x: this.getX(qzX, 20, index, 500),
+                            y: this.getY(qzY, 20, index, 500),
                         });
                     });
                 }
@@ -387,40 +388,41 @@ export default class PersonalDocDetail extends PureComponent {
                             y: this.getY(ssY, 30, index, 900),
                         });
                     });
-                };
+                }
+                ;
                 if (caseData.sawpList && caseData.sawpList.length > 0) {
                     caseData.sawpList.forEach((item, index) => {
                         link.push({
-                            source: '涉案物品'+i,
-                            target: this.formatter(item.wpmc)+index + i,
+                            source: '涉案物品' + i,
+                            target: this.formatter(item.wpmc) + index + i,
                         });
                         datas.push({
                             name: this.formatter(item.wpmc),
-                            id: this.formatter(item.wpmc)+index + i,
-                            attributes:{
-                                modularity_class:7,
+                            id: this.formatter(item.wpmc) + index + i,
+                            attributes: {
+                                modularity_class: 7,
                             },
                             symbolSize: 20,
-                            x: this.getX(saX,20,index,600),
-                            y: this.getY(saY,20,index,600),
+                            x: this.getX(saX, 20, index, 600),
+                            y: this.getY(saY, 20, index, 600),
                         });
                     });
                 }
                 if (caseData.jzList && caseData.jzList.length > 0) {
                     caseData.jzList.forEach((item, index) => {
                         link.push({
-                            source: '相关卷宗'+i,
-                            target: this.formatter(item.jzmc)+index + i,
+                            source: '相关卷宗' + i,
+                            target: this.formatter(item.jzmc) + index + i,
                         });
                         datas.push({
                             name: this.formatter(item.jzmc),
-                            id: this.formatter(item.jzmc)+index + i,
-                            attributes:{
-                                modularity_class:8,
+                            id: this.formatter(item.jzmc) + index + i,
+                            attributes: {
+                                modularity_class: 8,
                             },
                             symbolSize: 20,
-                            x: this.getX(jzX,20,index,800),
-                            y: this.getY(jzY,20,index,800),
+                            x: this.getX(jzX, 20, index, 800),
+                            y: this.getY(jzY, 20, index, 800),
                         });
                     });
                 }
@@ -432,7 +434,7 @@ export default class PersonalDocDetail extends PureComponent {
                 name: i
             };
         }
-        const categories2 =[                //节点分类的类目，可选。
+        const categories2 = [                //节点分类的类目，可选。
             {
                 name: '人员姓名',    //类目名称
             },
@@ -446,16 +448,16 @@ export default class PersonalDocDetail extends PureComponent {
                 name: '同案人',    //类目名称
             },
             {
-                name:  '行政处罚记录',    //类目名称
+                name: '行政处罚记录',    //类目名称
             },
             {
                 name: "强制措施记录",    //类目名称
             },
             {
                 name: '随身物品',    //类目名称
-            },{
+            }, {
                 name: '涉案物品',    //类目名称
-            },{
+            }, {
                 name: '相关卷宗',    //类目名称
             },
         ];
@@ -467,20 +469,20 @@ export default class PersonalDocDetail extends PureComponent {
                     show: true,
                     formatter: '{b}',
                     textStyle: {
-                        color:  dark ? '#eee' : '#4D4D4D',
-                        fontSize: node.attributes.modularity_class===0 ? 18 :
-                            node.attributes.modularity_class===1 ? 14 : 12
+                        color: dark ? '#eee' : '#4D4D4D',
+                        fontSize: node.attributes.modularity_class === 0 ? 18 :
+                            node.attributes.modularity_class === 1 ? 14 : 12
                     }
                 },
             };
-            node.symbol= node.attributes.modularity_class===0 ? `image://${user}` :
-                node.attributes.modularity_class===1 ? `image://${aj}` :
-                node.name === '同案人' ? `image://${tar}` :
-                node.name === "随身物品" || node.name === "涉案物品" ? `image://${wp}` :
-                node.name === "行政处罚记录" || node.name === "强制措施记录" ? `image://${jl}` :
-                node.name === "历史入区信息" ? `image://${rqjl}` :
-                node.name === "相关卷宗" ? `image://${jzxx}` :
-                "circle";
+            node.symbol = node.attributes.modularity_class === 0 ? `image://${user}` :
+                node.attributes.modularity_class === 1 ? `image://${aj}` :
+                    node.name === '同案人' ? `image://${tar}` :
+                        node.name === "随身物品" || node.name === "涉案物品" ? `image://${wp}` :
+                            node.name === "行政处罚记录" || node.name === "强制措施记录" ? `image://${jl}` :
+                                node.name === "历史入区信息" ? `image://${rqjl}` :
+                                    node.name === "相关卷宗" ? `image://${jzxx}` :
+                                        "circle";
             node.category = node.attributes.modularity_class;
         });
         let option = {
@@ -490,17 +492,17 @@ export default class PersonalDocDetail extends PureComponent {
                 data: categories2.map(function (a) {
                     return a.name;
                 }),
-                textStyle: { color: dark ?"#fff":'#4D4D4D' },
+                textStyle: {color: dark ? "#fff" : '#4D4D4D'},
             }],
             animationDuration: 1500,
             animationEasingUpdate: 'quinticInOut',
-            color:['#497b86','#689289','#a2796f','#a2796f','#a2796f','#a2796f','#a2796f','#a2796f','#a2796f','#a2796f'],
-            tooltip : {
+            color: ['#497b86', '#689289', '#a2796f', '#a2796f', '#a2796f', '#a2796f', '#a2796f', '#a2796f', '#a2796f', '#a2796f'],
+            tooltip: {
                 trigger: 'item',
-                show:false,
+                show: false,
                 formatter: "{a}"
             },
-            series : [
+            series: [
                 {
                     type: 'graph',
                     layout: 'none',
@@ -521,11 +523,11 @@ export default class PersonalDocDetail extends PureComponent {
                         position: 'bottom',
                         formatter: '{b}',
                         textStyle: {
-                            color: dark ?'#eee':'#4D4D4D',
+                            color: dark ? '#eee' : '#4D4D4D',
                         }
                     },
                     lineStyle: {
-                        width : '2',
+                        width: '2',
                         color: 'source',
                         curveness: 0.2
                     },
@@ -584,7 +586,7 @@ export default class PersonalDocDetail extends PureComponent {
     };
     // 图表统计导出功能参数集合
     addBase = (add) => {
-        const { personData } = this.state;
+        const {personData} = this.state;
         imgBase.push(add);
         const ajxxLength = personData.ajxx ? personData.ajxx.length : 0;
         if (imgBase.length === 3 + ajxxLength) {
@@ -593,7 +595,7 @@ export default class PersonalDocDetail extends PureComponent {
     };
     // 图表统计导出功能
     ExportStatistics = () => {
-        const { personData } = this.state;
+        const {personData} = this.state;
         this.setState({
             loading: true,
         });
@@ -634,43 +636,43 @@ export default class PersonalDocDetail extends PureComponent {
     };
 
     render() {
-        const { personData, loading } = this.state;
-        let className  = this.props.global.dark ? styles.detailBoxScroll : styles.detailBoxScroll+' ' + styles.detailBoxLight;
+        const {personData, loading} = this.state;
+        let className = this.props.global.dark ? styles.detailBoxScroll : styles.detailBoxScroll + ' ' + styles.detailBoxLight;
         return (
             <div>
                 <Spin spinning={loading}>
                     <Card>
-                        <Row gutter={{ md: 8, lg: 24, xl: 48 }}>
+                        <Row gutter={{md: 8, lg: 24, xl: 48}}>
                             <Col md={8} sm={24}>
-                                <span style={{ margin: '16px', display: 'block' }}>人员档案</span>
+                                <span style={{margin: '16px', display: 'block'}}>人员档案</span>
                             </Col>
                             <Col md={8}/>
 
                             <Col md={8} sm={24}>
-                                <Button type='primary' style={{ margin: '10px', float: 'right' }}
+                                <Button type='primary' style={{margin: '10px', float: 'right'}}
                                         onClick={() => this.ExportStatistics()}>导出</Button>
                             </Col>
 
                         </Row>
                     </Card>
-                    <Card style={{ height: autoheight() - 210 + 'px',marginTop:'12px' }} ref={'scroll'}
+                    <Card style={{height: autoheight() - 210 + 'px', marginTop: '12px'}} ref={'scroll'}
                           className={className}>
                         <div>
                             <div id={`Nameryxx${this.props.location.query.id}`} className={styles.borderBottom}>
                                 <Card title="|  人员信息" className={listStyles.cardCharts} bordered={false} id='capture1'>
-                                    <div style={{ padding: 16 }}>
+                                    <div style={{padding: 16}}>
                                         <Row>
-                                            <Col md={2} sm={24} style={{textAlign:'right'}}>
+                                            <Col md={2} sm={24} style={{textAlign: 'right'}}>
                                                 <div>
                                                     <img
-                                                        src={personData && personData.ryxx && personData.ryxx.photo ? personData.ryxx.photo : this.props.global&&this.props.global.dark ? nophoto : nophotoLight}
+                                                        src={personData && personData.ryxx && personData.ryxx.photo ? personData.ryxx.photo : this.props.global && this.props.global.dark ? nophoto : nophotoLight}
                                                         alt='暂无图片显示'
                                                         width='100'
                                                     />
                                                 </div>
                                             </Col>
-                                            <Col md={22} sm={24} style={{ paddingLeft: '24px' }}>
-                                                <Row gutter={{ md: 8, lg: 24, xl: 48 }} style={{ marginBottom: 24 }}>
+                                            <Col md={22} sm={24} style={{paddingLeft: '24px'}}>
+                                                <Row gutter={{md: 8, lg: 24, xl: 48}} style={{marginBottom: 24}}>
                                                     <Col md={4} sm={24}>
                                                         <div
                                                             className={styles.break}>姓名：{personData && personData.ryxx ? personData.ryxx.name : ''}</div>
@@ -692,8 +694,8 @@ export default class PersonalDocDetail extends PureComponent {
                                                             className={styles.break}>现阶段强制措施：{personData && personData.ryxx ? personData.ryxx.qzcsName : ''}</div>
                                                     </Col>
                                                 </Row>
-                                                <Row gutter={{ md: 8, lg: 24, xl: 48 }}
-                                                     style={{ marginBottom: '24px' }}>
+                                                <Row gutter={{md: 8, lg: 24, xl: 48}}
+                                                     style={{marginBottom: '24px'}}>
                                                     <Col md={12} sm={24}>
                                                         <div
                                                             className={styles.break}>现住址：{personData && personData.ryxx.jtzz ? personData.ryxx.jtzz : ''}</div>
@@ -738,7 +740,8 @@ export default class PersonalDocDetail extends PureComponent {
                                     />
                                 </Card>
                             </div>
-                            <Card title="|  涉案信息" className={listStyles.cardCharts + ' ' + styles.saxx} id={`cardCharts${this.props.location.query.id}`}
+                            <Card title="|  涉案信息" className={listStyles.cardCharts + ' ' + styles.saxx}
+                                  id={`cardCharts${this.props.location.query.id}`}
                                   bordered={false}>
                                 {
                                     personData.ajxx ? (

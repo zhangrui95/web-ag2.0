@@ -3,9 +3,9 @@
 * author：jhm
 * 20181212
 * */
-import React, { PureComponent } from 'react';
-import { connect } from 'dva';
-import { Row, Col, List, Avatar } from 'antd';
+import React, {PureComponent} from 'react';
+import {connect} from 'dva';
+import {Row, Col, List, Avatar} from 'antd';
 import styles from '../ComponentStyles.less';
 import videoImg from '../../../assets/show/videoImg.png';
 import videoplay from '../../../assets/show/videoplay.png';
@@ -57,10 +57,10 @@ export default class HandingVideoAreaPlaying extends PureComponent {
     };
 
     render() {
-        const { show: { videoList } } = this.props;
+        const {show: {videoList}} = this.props;
         return (
             <div className={styles.componentBlock}>
-                <div className={styles.videoShow} style={{ overflowX: 'hidden', backgroundColor: 'transparent' }}>
+                <div className={styles.videoShow} style={{overflowX: 'hidden', backgroundColor: 'transparent'}}>
                     <div>
                         <div className={styles.smallBlock}>
                             <div className={styles.blockHeader}>
@@ -71,8 +71,8 @@ export default class HandingVideoAreaPlaying extends PureComponent {
                             {
                                 videoList.list && videoList.list.length > 0 ? videoList.list.map(item => (
 
-                                    <li style={{ width: '33.33%', float: 'left', padding: '0 5px' }}>
-                                        <div style={{ position: 'relative' }} className={styles.ImgHover}>
+                                    <li style={{width: '33.33%', float: 'left', padding: '0 5px'}}>
+                                        <div style={{position: 'relative'}} className={styles.ImgHover}>
                         <span className={styles.videoplayImgout}>
                           <img src={videoplay} alt='暂无图片' className={styles.videoplayImg}
                                onClick={() => this.videoPlay(item.person_id, item.handlearea_num)}/>

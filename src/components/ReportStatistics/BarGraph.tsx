@@ -1,15 +1,15 @@
 /**
  * 受立案统计情况--柱状图
  */
-import React, { PureComponent } from 'react';
-import { connect } from 'dva';
-import { Row, Col, Card, Button, Icon, Spin } from 'antd';
+import React, {PureComponent} from 'react';
+import {connect} from 'dva';
+import {Row, Col, Card, Button, Icon, Spin} from 'antd';
 import echarts from 'echarts/lib/echarts';
 import dataZoom from 'echarts/lib/component/dataZoom';
 import bar from 'echarts/lib/chart/bar';
 import styles from './BarGraph.less';
-import { tableList } from '../../utils/utils';
-import { message } from 'antd/lib/index';
+import {tableList} from '../../utils/utils';
+import {message} from 'antd/lib/index';
 
 let echartBar;
 let app = {};
@@ -58,10 +58,10 @@ export default class BarGraph extends PureComponent {
     }
 
     componentWillReceiveProps(nextProps) {
-        console.log('Bar', nextProps);
+        // console.log('Bar', nextProps);
         if (nextProps) {
             if ((nextProps.condition !== null) && (this.props.condition !== nextProps.condition)) {
-                const { comparedRq1_ks, comparedRq1_js, comparedRq2_ks, comparedRq2_js, xzrq_ks, xzrq_js, parentId, orgId, levelState, depth } = nextProps.condition;
+                const {comparedRq1_ks, comparedRq1_js, comparedRq2_ks, comparedRq2_js, xzrq_ks, xzrq_js, parentId, orgId, levelState, depth} = nextProps.condition;
                 if (levelState != '' && levelState != null) {
                     //判断此次操作是查询下一级还是上一级
                     if (levelState == 2) {
@@ -131,7 +131,7 @@ export default class BarGraph extends PureComponent {
 
     // 获取案件实时数据
     getAcceptAndRegisterData = (param) => {
-        const { parentId, orgId, levelState, comparedRq1_ks, comparedRq1_js, comparedRq2_ks, comparedRq2_js, isTimeCompared, depth, xzrq_ks, xzrq_js } = this.state;
+        const {parentId, orgId, levelState, comparedRq1_ks, comparedRq1_js, comparedRq2_ks, comparedRq2_js, isTimeCompared, depth, xzrq_ks, xzrq_js} = this.state;
         const formValues = {
             parentId: parentId,
             orgId: orgId,
@@ -221,7 +221,7 @@ export default class BarGraph extends PureComponent {
                                 },
                             },
                             position: {
-                                options: echarts.util.reduce(posList, function(map, pos) {
+                                options: echarts.util.reduce(posList, function (map, pos) {
                                     map[pos] = pos;
                                     return map;
                                 }, {}),
@@ -237,7 +237,7 @@ export default class BarGraph extends PureComponent {
                             verticalAlign: 'middle',
                             position: 'top',
                             distance: 15,
-                            onChange: function() {
+                            onChange: function () {
                                 var labelOption = {
                                     normal: {
                                         rotate: app.config.rotate,
@@ -326,11 +326,11 @@ export default class BarGraph extends PureComponent {
                                 left: 'right',
                                 top: 'center',
                                 feature: {
-                                    mark: { show: true },
-                                    dataView: { show: true, readOnly: false },
-                                    magicType: { show: true, type: ['line', 'bar', 'stack', 'tiled'] },
-                                    restore: { show: true },
-                                    saveAsImage: { show: true },
+                                    mark: {show: true},
+                                    dataView: {show: true, readOnly: false},
+                                    magicType: {show: true, type: ['line', 'bar', 'stack', 'tiled']},
+                                    restore: {show: true},
+                                    saveAsImage: {show: true},
                                 },
                             },
                             calculable: true,
@@ -354,11 +354,11 @@ export default class BarGraph extends PureComponent {
                             xAxis: [
                                 {
                                     type: 'category',
-                                    axisTick: { show: false },
+                                    axisTick: {show: false},
                                     axisLabel: {
                                         interval: 0,//横轴信息全部显示
                                         // rotate:-30,//-30度角倾斜显示
-                                        formatter: function(value) {
+                                        formatter: function (value) {
                                             // debugger
                                             var ret = '';//拼接加\n返回的类目项
                                             var maxLength = 7;//每项显示文字个数
@@ -540,7 +540,7 @@ export default class BarGraph extends PureComponent {
                                 },
                             },
                             position: {
-                                options: echarts.util.reduce(posList, function(map, pos) {
+                                options: echarts.util.reduce(posList, function (map, pos) {
                                     map[pos] = pos;
                                     return map;
                                 }, {}),
@@ -556,7 +556,7 @@ export default class BarGraph extends PureComponent {
                             verticalAlign: 'middle',
                             position: 'top',
                             distance: 15,
-                            onChange: function() {
+                            onChange: function () {
                                 var labelOption = {
                                     normal: {
                                         rotate: app.config.rotate,
@@ -625,11 +625,11 @@ export default class BarGraph extends PureComponent {
                                 left: 'right',
                                 top: 'center',
                                 feature: {
-                                    mark: { show: true },
-                                    dataView: { show: true, readOnly: false },
-                                    magicType: { show: true, type: ['line', 'bar', 'stack', 'tiled'] },
-                                    restore: { show: true },
-                                    saveAsImage: { show: true },
+                                    mark: {show: true},
+                                    dataView: {show: true, readOnly: false},
+                                    magicType: {show: true, type: ['line', 'bar', 'stack', 'tiled']},
+                                    restore: {show: true},
+                                    saveAsImage: {show: true},
                                 },
                             },
                             calculable: true,
@@ -653,11 +653,11 @@ export default class BarGraph extends PureComponent {
                             xAxis: [
                                 {
                                     type: 'category',
-                                    axisTick: { show: false },
+                                    axisTick: {show: false},
                                     axisLabel: {
                                         interval: 0,//横轴信息全部显示
                                         // rotate:-30,//-30度角倾斜显示
-                                        formatter: function(value) {
+                                        formatter: function (value) {
                                             // debugger
                                             var ret = '';//拼接加\n返回的类目项
                                             var maxLength = 7;//每项显示文字个数
@@ -749,7 +749,7 @@ export default class BarGraph extends PureComponent {
         echartBar = echarts.init(document.getElementById('BarGraph'));
         //点击某单位的柱状图，直接钻取到子单位
         const myself = this;
-        echartBar.on('click', function(params) {
+        echartBar.on('click', function (params) {
 
             const index = params.dataIndex;
             //首先判断是否还有下一级单位
@@ -799,11 +799,11 @@ export default class BarGraph extends PureComponent {
     };
 
     render() {
-        const { upperLevelButtonState } = this.state;
+        const {upperLevelButtonState} = this.state;
         return (
             <Spin spinning={this.state.loading1}>
-                <Card bodyStyle={{ height: 650 }}>
-                    <div style={{ position: 'relative' }}>
+                <Card bodyStyle={{height: 650}}>
+                    <div style={{position: 'relative'}}>
 
                         {upperLevelButtonState ?
                             <Button type="primary" className={styles.forBarMenu}
@@ -815,7 +815,7 @@ export default class BarGraph extends PureComponent {
 
                     </div>
                     {/*<div style={{overflowX: 'auto'}}>*/}
-                    <div id="BarGraph" style={{ height: 600, width: '100%' }}></div>
+                    <div id="BarGraph" style={{height: 600, width: '100%'}}></div>
                     {/*</div>*/}
                 </Card>
             </Spin>

@@ -1,15 +1,15 @@
 /**
  * 受立案统计情况--柱状图
  */
-import React, { PureComponent } from 'react';
-import { connect } from 'dva';
-import { Row, Col, Card, Button, Icon, Modal, Spin } from 'antd';
+import React, {PureComponent} from 'react';
+import {connect} from 'dva';
+import {Row, Col, Card, Button, Icon, Modal, Spin} from 'antd';
 import echarts from 'echarts/lib/echarts';
 import dataZoom from 'echarts/lib/component/dataZoom';
 import bar from 'echarts/lib/chart/bar';
 import styles from './BarGraph.less';
-import { tableList } from '../../utils/utils';
-import { message } from 'antd/lib/index';
+import {tableList} from '../../utils/utils';
+import {message} from 'antd/lib/index';
 
 let echartBar;
 let app = {};
@@ -54,7 +54,7 @@ export default class BarGraphFullScreenModal extends PureComponent {
     componentDidMount() {
         // this.showEchart();
         // console.log('condition',this.props.condition)
-        const { comparedRq1_ks, comparedRq1_js, comparedRq2_ks, comparedRq2_js, xzrq_ks, xzrq_js, parentId, orgId, levelState, depth } = this.props.condition;
+        const {comparedRq1_ks, comparedRq1_js, comparedRq2_ks, comparedRq2_js, xzrq_ks, xzrq_js, parentId, orgId, levelState, depth} = this.props.condition;
         if (levelState != '' && levelState != null) {
             //判断此次操作是查询下一级还是上一级
             if (levelState == 2) {
@@ -154,7 +154,7 @@ export default class BarGraphFullScreenModal extends PureComponent {
 
     // 获取案件实时数据
     getAcceptAndRegisterData = (param) => {
-        const { parentId, orgId, levelState, comparedRq1_ks, comparedRq1_js, comparedRq2_ks, comparedRq2_js, isTimeCompared, depth, xzrq_ks, xzrq_js } = this.state;
+        const {parentId, orgId, levelState, comparedRq1_ks, comparedRq1_js, comparedRq2_ks, comparedRq2_js, isTimeCompared, depth, xzrq_ks, xzrq_js} = this.state;
         const formValues = {
             parentId: parentId,
             orgId: orgId,
@@ -242,7 +242,7 @@ export default class BarGraphFullScreenModal extends PureComponent {
                                 },
                             },
                             position: {
-                                options: echarts.util.reduce(posList, function(map, pos) {
+                                options: echarts.util.reduce(posList, function (map, pos) {
                                     map[pos] = pos;
                                     return map;
                                 }, {}),
@@ -258,7 +258,7 @@ export default class BarGraphFullScreenModal extends PureComponent {
                             verticalAlign: 'middle',
                             position: 'top',
                             distance: 15,
-                            onChange: function() {
+                            onChange: function () {
                                 var labelOption = {
                                     normal: {
                                         rotate: app.config.rotate,
@@ -360,11 +360,11 @@ export default class BarGraphFullScreenModal extends PureComponent {
                             xAxis: [
                                 {
                                     type: 'category',
-                                    axisTick: { show: false },
+                                    axisTick: {show: false},
                                     axisLabel: {
                                         interval: 0,//横轴信息全部显示
                                         // rotate:-30,//-30度角倾斜显示
-                                        formatter: function(value) {
+                                        formatter: function (value) {
                                             // debugger
                                             var ret = '';//拼接加\n返回的类目项
                                             var maxLength = 7;//每项显示文字个数
@@ -520,7 +520,7 @@ export default class BarGraphFullScreenModal extends PureComponent {
                                 },
                             },
                             position: {
-                                options: echarts.util.reduce(posList, function(map, pos) {
+                                options: echarts.util.reduce(posList, function (map, pos) {
                                     map[pos] = pos;
                                     return map;
                                 }, {}),
@@ -536,7 +536,7 @@ export default class BarGraphFullScreenModal extends PureComponent {
                             verticalAlign: 'middle',
                             position: 'top',
                             distance: 15,
-                            onChange: function() {
+                            onChange: function () {
                                 var labelOption = {
                                     normal: {
                                         rotate: app.config.rotate,
@@ -618,11 +618,11 @@ export default class BarGraphFullScreenModal extends PureComponent {
                             xAxis: [
                                 {
                                     type: 'category',
-                                    axisTick: { show: false },
+                                    axisTick: {show: false},
                                     axisLabel: {
                                         interval: 0,//横轴信息全部显示
                                         // rotate:-30,//-30度角倾斜显示
-                                        formatter: function(value) {
+                                        formatter: function (value) {
                                             debugger;
                                             var ret = '';//拼接加\n返回的类目项
                                             var maxLength = 7;//每项显示文字个数
@@ -699,18 +699,18 @@ export default class BarGraphFullScreenModal extends PureComponent {
                     left: 'right',
                     top: 'center',
                     feature: {
-                        mark: { show: true },
-                        dataView: { show: true, readOnly: false },
-                        magicType: { show: true, type: ['line', 'bar', 'stack', 'tiled'] },
-                        restore: { show: true },
-                        saveAsImage: { show: true },
+                        mark: {show: true},
+                        dataView: {show: true, readOnly: false},
+                        magicType: {show: true, type: ['line', 'bar', 'stack', 'tiled']},
+                        restore: {show: true},
+                        saveAsImage: {show: true},
                     },
                 },
                 calculable: true,
                 xAxis: [
                     {
                         type: 'category',
-                        axisTick: { show: false },
+                        axisTick: {show: false},
                         // data: ['2012', '2013', '2014', '2015', '2016']
                     },
                 ],
@@ -743,7 +743,7 @@ export default class BarGraphFullScreenModal extends PureComponent {
             echartBar.setOption(option);
             //点击某单位的柱状图，直接钻取到子单位
             const myself = this;
-            echartBar.on('click', function(params) {
+            echartBar.on('click', function (params) {
                 const index = params.dataIndex;
                 //首先判断是否还有下一级单位
                 myself.props.dispatch({
@@ -797,7 +797,7 @@ export default class BarGraphFullScreenModal extends PureComponent {
     };
 
     render() {
-        const { upperLevelButtonState, headCityName, isTimeCompared } = this.state;
+        const {upperLevelButtonState, headCityName, isTimeCompared} = this.state;
         return (
             <div>
                 <Modal
@@ -812,7 +812,7 @@ export default class BarGraphFullScreenModal extends PureComponent {
                     footer={null}
                 >
                     <Spin spinning={this.state.loading1}>
-                        <Card bodyStyle={{ height: 750 }}>
+                        <Card bodyStyle={{height: 750}}>
                             {/*{isTimeCompared ?*/}
                             {/*<span style={{float:'left'}} className={styles.headCityName}>{headCityName !== '' ? `${headCityName}各级公安机关受立案对比信息` : ''}</span>*/}
                             {/*:*/}
@@ -824,7 +824,7 @@ export default class BarGraphFullScreenModal extends PureComponent {
                                 : ''}
                             <Icon type="shrink" className={styles.forBig} onClick={() => this.onCancel()}/>
                             <div id="barGraphFullScreenModal"
-                                 style={{ height: '90%', width: '100%' }}>{this.showEchart()}</div>
+                                 style={{height: '90%', width: '100%'}}>{this.showEchart()}</div>
                         </Card>
                     </Spin>
                 </Modal>

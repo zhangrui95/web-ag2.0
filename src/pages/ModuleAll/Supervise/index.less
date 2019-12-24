@@ -1,21 +1,24 @@
 @import '~antd/es/style/themes/default.less';
 @import '../../../theme/darkTheme';
 
-.standardTable{
+.standardTable {
   background-color: @choose-more-back;
   margin: 12px 0;
   color: @white;
-  padding:40px 70px;
+  padding: 40px 70px;
   height: 600px;
-  :global{
-    .ant-select-dropdown-menu-item-group-title{
+
+  :global {
+    .ant-select-dropdown-menu-item-group-title {
       color: @text-color;
     }
   }
 }
-.standardForm{
+
+.standardForm {
   color: @white;
 }
+
 .outtext {
   display: block;
   padding-left: 70px;
@@ -76,86 +79,104 @@
   //margin-left: -500px;
   //margin-top: -101px;
   color: #fff;
-  :global{
-    .ant-modal-content{
+
+  :global {
+    .ant-modal-content {
       background: @component-background;
     }
-    .ant-modal-footer{
+
+    .ant-modal-footer {
       border-top: 0 solid #ccc;
     }
-    .ant-modal-close-x{
+
+    .ant-modal-close-x {
       display: none;
     }
   }
 }
 
 .none {
-  display: none!important;
+  display: none !important;
 }
 
-.btns{
+.btns {
   padding: 12px 20px;
   float: right;
-  :global{
-    .ant-btn{
-      width:100px;
+
+  :global {
+    .ant-btn {
+      width: 100px;
       height: 36px;
       line-height: 36px;
       font-size: 16px;
     }
   }
 }
-.qxBtn{
-  background: @body-background!important;
-  color:@white;
+
+.qxBtn {
+  background: @body-background !important;
+  color: @white;
   border: 0px;
 }
-.delBtn{
-  background: #FF9191!important;
+
+.delBtn {
+  background: #FF9191 !important;
 }
-.lxsm{
+
+.lxsm {
   margin-left: 8px;
 }
-.zrrStyle{
+
+.zrrStyle {
   color: #fff;
 }
-.dark{
-  :global{
-    .ant-message{
+
+.dark {
+  :global {
+    .ant-message {
       //color: @white;
     }
+
     .ant-message-notice-content {
-      background: @white!important;
+      background: @white !important;
     }
   }
 }
-.okBtn{
-  background: linear-gradient(#4662D5,#0083FA, #03A3FF)!important;
+
+.okBtn {
+  background: linear-gradient(#4662D5, #0083FA, #03A3FF) !important;
 }
-.lightBox{
-  .standardForm{
+
+.lightBox {
+  .standardForm {
     color: #4d4d4d;
   }
-  .qxBtn{
-    background: #B3B3B3!important;
+
+  .qxBtn {
+    background: #B3B3B3 !important;
   }
-  .okBtn{
-    background: linear-gradient(#3D63D1, #333FE4)!important;
+
+  .okBtn {
+    background: linear-gradient(#3D63D1, #333FE4) !important;
   }
-  :global{
-    .ant-input,.ant-select-selection,.ant-calendar-picker-input{
+
+  :global {
+    .ant-input, .ant-select-selection, .ant-calendar-picker-input {
       background: #FAFAFA;
       border: 1px solid #DEDEDE;
     }
-    .ant-select-selection__choice{
-      background-color:#E6E6E6;
+
+    .ant-select-selection__choice {
+      background-color: #E6E6E6;
     }
+
     .antd-pro-pages-module-all-share-index-successBtn {
-      background: #4662D5!important;
+      background: #4662D5 !important;
     }
+
     .ant-modal-content {
-      background-color: #fff!important;
-      color: #4d4d4d!important;
+      background-color: #fff !important;
+      color: #4d4d4d !important;
     }
   }
 }

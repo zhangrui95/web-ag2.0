@@ -3,11 +3,11 @@
 * author：jhm
 * 20180117
 * */
-import React, { PureComponent } from 'react';
-import { connect } from 'dva';
+import React, {PureComponent} from 'react';
+import {connect} from 'dva';
 import {Form, Input, Button, Row, Col, Radio, Modal, message, Select, Table, Tooltip, Empty} from 'antd';
 import styles from './Index.less';
-import { routerRedux } from 'dva/router';
+import {routerRedux} from 'dva/router';
 import noList from "@/assets/viewData/noList.png";
 import noListLight from "@/assets/viewData/noListLight.png";
 
@@ -133,7 +133,7 @@ export default class PreviewTable extends PureComponent {
     };
 
     render() {
-        let { selectId, numValue } = this.state;
+        let {selectId, numValue} = this.state;
         const columns = [
             {
                 title: '页码',
@@ -180,9 +180,9 @@ export default class PreviewTable extends PureComponent {
         }
         return (
             <Row className={styles.synWrap}>
-                <Row style={{ padding: 16 }}>
+                <Row style={{padding: 16}}>
                     <Select
-                        style={{ width: '100%' }}
+                        style={{width: '100%'}}
                         value={selectId}
                         placeholder='请选择'
                         onChange={this.selectChange}
@@ -198,7 +198,10 @@ export default class PreviewTable extends PureComponent {
                     pagination={false}
                     bordered
                     loading={this.props.loading}
-                    locale={{ emptyText: <Empty image={this.props.global&&this.props.global.dark ? noList : noListLight} description={'暂无数据'} /> }}
+                    locale={{
+                        emptyText: <Empty image={this.props.global && this.props.global.dark ? noList : noListLight}
+                                          description={'暂无数据'}/>
+                    }}
                     onRow={(record) => {
                         return {
                             onClick: () => {
@@ -225,8 +228,8 @@ export default class PreviewTable extends PureComponent {
                     }}
                     rowClassName={(record, index) => this.rowClassNameHandle(record, index)}
                 />
-                <Row style={{ padding: 16, textAlign: 'right' }}>
-                    跳至<Input value={numValue} onChange={this.numOnChange} style={{ width: '20%', margin: '0 8px' }}
+                <Row style={{padding: 16, textAlign: 'right'}}>
+                    跳至<Input value={numValue} onChange={this.numOnChange} style={{width: '20%', margin: '0 8px'}}
                              onPressEnter={this.PressEnter}/>页
                 </Row>
             </Row>

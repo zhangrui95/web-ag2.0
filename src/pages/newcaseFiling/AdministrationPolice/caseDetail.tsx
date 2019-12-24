@@ -120,7 +120,7 @@ export default class caseDetail extends PureComponent {
     }
     if (
       this.props.location &&
-      this.props.location.query.record &&
+      res &&
       this.props.location.query.id &&
       res.system_id
     ) {
@@ -897,21 +897,21 @@ export default class caseDetail extends PureComponent {
         {/*/>*/}
         {/*: ''*/}
         {/*}*/}
-        {reformModal ?
-        <Modal
-          maskClosable={false}
-          visible={reformModal}
-          title={<p>提示</p>}
-          width='1000px'
-          footer={this.foot1()}
-          onCancel={() => this.onReformCancel()}
-          // onOk={() => this.onOk(this.props.id)}
-          className={styles.indexdeepmodal}
-          centered={true}
-        >
-        <div className={styles.question}>问题是否已经整改完毕？</div>
-        </Modal> : ''
-        }
+        {/*{reformModal ?*/}
+        {/*<Modal*/}
+          {/*maskClosable={false}*/}
+          {/*visible={reformModal}*/}
+          {/*title={<p>提示</p>}*/}
+          {/*width='1000px'*/}
+          {/*footer={this.foot1()}*/}
+          {/*onCancel={() => this.onReformCancel()}*/}
+          {/*// onOk={() => this.onOk(this.props.id)}*/}
+          {/*className={styles.indexdeepmodal}*/}
+          {/*centered={true}*/}
+        {/*>*/}
+        {/*<div className={styles.question}>问题是否已经整改完毕？</div>*/}
+        {/*</Modal> : ''*/}
+        {/*}*/}
         {/*{*/}
         {/*feedbackVisibleModal ? (*/}
         {/*<FeedbackModal*/}

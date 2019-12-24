@@ -251,25 +251,25 @@ export default class itemDetail extends PureComponent {
             sx: (res.ajmc ? res.ajmc + '、' : '') + (res.wpmc ? res.wpmc + '、' : '') + (res.zt ? res.zt : ''),
         });
         if (type === 2) {
-          let detail=(
-            <Row style={{ lineHeight:'50px',paddingLeft:66 }}>
-              <Col span={6}>物品名称：{itemDetails && itemDetails.wpmc ? itemDetails.wpmc : ''}</Col>
-              <Col span={6}>物品种类：{itemDetails && itemDetails.wpzlName ? itemDetails.wpzlName : ''}</Col>
-              <Col span={6}>物品状态：{itemDetails && itemDetails.wpzt ? itemDetails.wpzt : ''}</Col>
-              <Col span={6}>库房信息：<Tooltip
-                title={itemDetails && itemDetails.szkf && itemDetails.szkf.length > 8 ? itemDetails.szkf : null}>{itemDetails && itemDetails.szkf ? itemDetails.szkf.length > 8 ? itemDetails.szkf.substring(0, 8) + '...' : itemDetails.szkf : ''}</Tooltip></Col>
-              <Col span={12}>关联案件名称：<Tooltip
-                title={itemDetails && itemDetails.ajmc && itemDetails.ajmc.length > 18 ? itemDetails.ajmc : null}>{itemDetails && itemDetails.ajmc ? itemDetails.ajmc.length > 18 ? itemDetails.ajmc.substring(0, 18) + '...' : itemDetails.ajmc : ''}</Tooltip></Col>
-              <Col span={12}>办案单位：<Tooltip
-                title={itemDetails && itemDetails.kfgly_dwmc && itemDetails.kfgly_dwmc.length > 18 ? itemDetails.kfgly_dwmc : null}>{itemDetails && itemDetails.kfgly_dwmc ? itemDetails.kfgly_dwmc.length > 18 ? itemDetails.kfgly_dwmc.substring(0, 18) + '...' : itemDetails.kfgly_dwmc : ''}</Tooltip></Col>
-            </Row>
-          )
-          this.props.dispatch(
-            routerRedux.push({
-              pathname: '/ModuleAll/Share',
-              query: { record: res,id: res && res.system_id ? res.system_id : '1',from:'物品信息',tzlx:'wpxx',fromPath:'/articlesInvolved/ArticlesData/itemDetail',detail,tab:'详情',sx: (res.ajmc ? res.ajmc + '、' : '') + (res.wpmc ? res.wpmc + '、' : '') + (res.zt ? res.zt : ''), },
-            }),
-          )
+            let detail = [`物品名称：${itemDetails && itemDetails.wpmc ? itemDetails.wpmc : ''}`, `物品种类：${itemDetails && itemDetails.wpzlName ? itemDetails.wpzlName : ''}`,
+                `物品状态：${itemDetails && itemDetails.wpzt ? itemDetails.wpzt : ''}`, `库房信息：${itemDetails && itemDetails.szkf ? itemDetails.szkf : ''}`,
+                `关联案件名称：${itemDetails && itemDetails.ajmc ? itemDetails.ajmc : ''}`, `办案单位：${itemDetails && itemDetails.kfgly_dwmc ? itemDetails.kfgly_dwmc : ''}`,
+            ];
+            res.detail = detail;
+            this.props.dispatch(
+                routerRedux.push({
+                    pathname: '/ModuleAll/Share',
+                    query: {
+                        record: res,
+                        id: res && res.system_id ? res.system_id : '1',
+                        from: '物品信息',
+                        tzlx: 'wpxx',
+                        fromPath: '/articlesInvolved/ArticlesData/itemDetail',
+                        tab: '详情',
+                        sx: (res.ajmc ? res.ajmc + '、' : '') + (res.wpmc ? res.wpmc + '、' : '') + (res.zt ? res.zt : ''),
+                    },
+                }),
+            )
             // this.setState({
             //     shareVisible: true,
             //     shareItem: res,

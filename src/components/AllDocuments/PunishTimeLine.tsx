@@ -3,7 +3,7 @@
 * author：lyp
 * 20180128
 * */
-import React, { PureComponent } from 'react';
+import React, {PureComponent} from 'react';
 import {Tabs, Row, Col, Table, List, Steps, Tooltip, Empty} from 'antd';
 import styles from './personDetailTab.less';
 import RenderEmpty from '../Common/RenderEmpty';
@@ -40,7 +40,7 @@ export default class PunishTimeLine extends PureComponent {
 
     changeStepButtonStatus = (oWidth) => {
 
-        const { punishData } = this.props;
+        const {punishData} = this.props;
         const punishDataLenght = punishData.length;
         let isShow = false;
         let moreStepNum = 0;
@@ -63,7 +63,7 @@ export default class PunishTimeLine extends PureComponent {
     };
     // 处罚步骤
     showSteps = (punishData) => {
-        const { leftPx } = this.state;
+        const {leftPx} = this.state;
         const stepData = punishData || [];
         const stepLenght = stepData.length;
         if (stepLenght > 0 && stepLenght < 4) {
@@ -73,7 +73,7 @@ export default class PunishTimeLine extends PureComponent {
             }
         }
         return stepData.length > 0 ? (
-            <div className={styles.stepDiv} style={leftPx !== 0 ? { left: leftPx * -1 } : { left: 0 }}>
+            <div className={styles.stepDiv} style={leftPx !== 0 ? {left: leftPx * -1} : {left: 0}}>
                 {
                     <Steps progressDot current={stepLenght - 1} size='small'>
                         {
@@ -95,7 +95,7 @@ export default class PunishTimeLine extends PureComponent {
         );
     };
     moveLeft = () => {
-        let { moveStep } = this.state;
+        let {moveStep} = this.state;
         moveStep = moveStep - 1 > 0 ? moveStep - 1 : 0;
         this.setState({
             leftPx: 140 * moveStep,
@@ -103,7 +103,7 @@ export default class PunishTimeLine extends PureComponent {
         });
     };
     moveRight = () => {
-        let { moreStepNum, moveStep } = this.state;
+        let {moreStepNum, moveStep} = this.state;
         moveStep = moveStep + 1 > moreStepNum ? moreStepNum : moveStep + 1;
         this.setState({
             leftPx: 140 * moveStep,
@@ -112,10 +112,11 @@ export default class PunishTimeLine extends PureComponent {
     };
 
     render() {
-        const { punishData } = this.props;
-        const { leftPx, moreStepNum, showStepButton } = this.state;
+        const {punishData} = this.props;
+        const {leftPx, moreStepNum, showStepButton} = this.state;
         return (
-            <div className={this.props.global&&this.props.global.dark ? styles.tabDiv : styles.tabDiv + ' ' + styles.lightBox}>
+            <div
+                className={this.props.global && this.props.global.dark ? styles.tabDiv : styles.tabDiv + ' ' + styles.lightBox}>
                 {this.showSteps(punishData)}
                 {
                     showStepButton ? (

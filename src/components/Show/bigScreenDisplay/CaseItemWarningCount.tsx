@@ -4,7 +4,7 @@
 * 20181122
 * */
 
-import React, { PureComponent } from 'react';
+import React, {PureComponent} from 'react';
 import echarts from 'echarts/lib/echarts';
 import pie from 'echarts/lib/chart/pie';
 import title from 'echarts/lib/component/title';
@@ -16,7 +16,7 @@ let myChart;
 export default class CaseItemWarningCount extends PureComponent {
 
     componentDidMount() {
-        const { selectDate, org, orgCode, orglist } = this.props;
+        const {selectDate, org, orgCode, orglist} = this.props;
         this.showEchart();
         this.getCaseItemWarningCount(selectDate[0], selectDate[1], org, orgCode, orglist);
         window.addEventListener('resize', myChart.resize);
@@ -32,7 +32,7 @@ export default class CaseItemWarningCount extends PureComponent {
 
     // 涉案物品告警数量
     getCaseItemWarningCount = (startTime, endTime, org, orgCode, orglist) => {
-        const { shadeColors } = this.props;
+        const {shadeColors} = this.props;
         this.props.dispatch({
             type: 'UnItemData/getUnItemAllTypeWarnings',
             payload: {
@@ -77,7 +77,7 @@ export default class CaseItemWarningCount extends PureComponent {
                     myChart.setOption({
                         legend: {
                             data: legendData,
-                            formatter: function(name) {
+                            formatter: function (name) {
                                 let formatStr = '';
                                 for (let i = 0; i < pieData.length; i++) {
                                     if (name === pieData[i].name) {
@@ -171,7 +171,7 @@ export default class CaseItemWarningCount extends PureComponent {
 
     render() {
         return (
-            <div id="CaseItemWarningCount" style={{ height: '100%', width: '100%' }}></div>
+            <div id="CaseItemWarningCount" style={{height: '100%', width: '100%'}}></div>
         );
     }
 }

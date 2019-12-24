@@ -4,7 +4,7 @@
 * 20181120
 * */
 
-import React, { PureComponent } from 'react';
+import React, {PureComponent} from 'react';
 import echarts from 'echarts/lib/echarts';
 import bar from 'echarts/lib/chart/bar';
 import title from 'echarts/lib/component/title';
@@ -31,7 +31,7 @@ let colors = [
 
 export default class CriminalCaseCount extends PureComponent {
     componentDidMount() {
-        const { selectDate, org, orgCode, orglist } = this.props;
+        const {selectDate, org, orgCode, orglist} = this.props;
         this.getCriminalCaseCount(selectDate[0], selectDate[1], org, orgCode, orglist);
         this.showEchart();
         window.addEventListener('resize', myChart.resize);
@@ -162,7 +162,7 @@ export default class CriminalCaseCount extends PureComponent {
 
     render() {
         return (
-            <div id="CriminalCaseCount" style={{ height: '100%', width: '100%' }}></div>
+            <div id="CriminalCaseCount" style={{height: '100%', width: '100%'}}></div>
         );
     }
 }

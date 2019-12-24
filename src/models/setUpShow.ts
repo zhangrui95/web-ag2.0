@@ -1,8 +1,8 @@
 /*
 * 首页
 * */
-import { save, query } from '../services/setUpShow';
-import { message } from 'antd';
+import {save, query} from '../services/setUpShow';
+import {message} from 'antd';
 
 export default {
     namespace: 'setUpShow',
@@ -13,7 +13,7 @@ export default {
 
     effects: {
         // 保存配置
-        * getSave({ payload, callback }, { call, put }) {
+        * getSave({payload, callback}, {call, put}) {
             const response = yield call(save, payload);
             if (response.error === null) {
                 message.success('提示：设置成功');
@@ -21,7 +21,7 @@ export default {
             }
         },
         // 获取配置值
-        * getQueryList({ payload, callback }, { call, put }) {
+        * getQueryList({payload, callback}, {call, put}) {
             const response = yield call(query, payload);
             yield put({
                 type: 'getQuery',

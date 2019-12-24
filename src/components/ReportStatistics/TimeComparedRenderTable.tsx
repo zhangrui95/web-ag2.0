@@ -1,7 +1,7 @@
-import React, { PureComponent } from 'react';
-import { Table, Alert, Badge, Divider, Tooltip, Button, Radio, Icon, message, Form, Switch } from 'antd';
+import React, {PureComponent} from 'react';
+import {Table, Alert, Badge, Divider, Tooltip, Button, Radio, Icon, message, Form, Switch} from 'antd';
 import styles from './AcceptAndRegisterRenderTable.less';
-import { routerRedux } from 'dva/router';
+import {routerRedux} from 'dva/router';
 
 const FormItem = Form.Item;
 const showSa = true;
@@ -22,33 +22,33 @@ class TimeComparedRenderTable extends PureComponent {
 
     onRowClick(record) {
         //选中当前行的机构id和父级id
-        console.log(this);
+        // console.log(this);
         this.props.timeComparedModalonRowClick(record.orgId, record.parentId, record.depth, 2);
     }
 
     //判断几种状态列的显示与否
     handleSaStateChange = (enable) => {
-        this.setState({ showSa: enable ? showSa : false });
+        this.setState({showSa: enable ? showSa : false});
     };
     handleLaStateChange = (enable) => {
-        this.setState({ showLa: enable ? showLa : false });
+        this.setState({showLa: enable ? showLa : false});
     };
     handleJaStateChange = (enable) => {
-        this.setState({ showJa: enable ? showJa : false });
+        this.setState({showJa: enable ? showJa : false});
     };
     handleXaStateChange = (enable) => {
-        this.setState({ showXa: enable ? showXa : false });
+        this.setState({showXa: enable ? showXa : false});
     };
 
     render() {
-        const { data, AcceptAndRegisterData: { loading } } = this.props;
+        const {data, AcceptAndRegisterData: {loading}} = this.props;
         const status = ['否', '是'];
         const statusMap = ['default', 'success'];
         const obj1 = document.getElementsByTagName('body');
         const objwidth = obj1[0].clientWidth;
         // console.log('objwidth',typeof(objwidth))
         let columns;
-        const { showAll, showSa, showLa, showJa, showXa } = this.state;
+        const {showAll, showSa, showLa, showJa, showXa} = this.state;
         let child = [
             {
                 title: '单位',

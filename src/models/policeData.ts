@@ -10,7 +10,7 @@ import {
     getComment,
     commentsItems
 } from '../services/policeData';
-import { message } from 'antd';
+import {message} from 'antd';
 
 export default {
     namespace: 'policeData',
@@ -28,7 +28,7 @@ export default {
     },
 
     effects: {
-        * policeFetch({ payload, callback }, { call, put }) {
+        * policeFetch({payload, callback}, {call, put}) {
             yield put({
                 type: 'changeLoading',
                 payload: true,
@@ -48,7 +48,7 @@ export default {
                 callback(response.data);
             }
         },
-        * policeDetailFetch({ payload, callback }, { call, put }) {
+        * policeDetailFetch({payload, callback}, {call, put}) {
             yield put({
                 type: 'changeLoading',
                 payload: true,
@@ -67,7 +67,7 @@ export default {
             }
         },
         // 问题判定
-        * PoliceSureSupervise({ payload, callback }, { call, put }) {
+        * PoliceSureSupervise({payload, callback}, {call, put}) {
             const response = yield call(PoliceSuperviseMessage, payload);
             yield put({
                 type: 'PoliceSuperviseMessage',
@@ -78,7 +78,7 @@ export default {
             }
         },
         // 警情数量
-        * getPoliceSituationCount({ payload, callback }, { call, put }) {
+        * getPoliceSituationCount({payload, callback}, {call, put}) {
             const response = yield call(getPoliceSituationCount, payload);
             yield put({
                 type: 'setPoliceSituationCount',
@@ -89,29 +89,29 @@ export default {
             }
         },
         // 处置结果
-        * getHandleResult({ payload, callback }, { call, put }) {
+        * getHandleResult({payload, callback}, {call, put}) {
             const response = yield call(getHandleResult, payload);
             yield put({
                 type: 'setHandleResult',
                 payload: response && response.error === null ? response.data : [],
             });
-            if (callback && response && !response.error&& response.data) {
+            if (callback && response && !response.error && response.data) {
                 callback(response.data);
             }
         },
         // 处警情况
-        * getHandlePoliceSituationHadResult({ payload, callback }, { call, put }) {
+        * getHandlePoliceSituationHadResult({payload, callback}, {call, put}) {
             const response = yield call(getHandlePoliceSituationHadResult, payload);
             yield put({
                 type: 'setHandlePoliceSituationHadResult',
                 payload: response && response.error === null ? response.data : [],
             });
-            if (callback && response && !response.error&& response.data) {
+            if (callback && response && !response.error && response.data) {
                 callback(response.data);
             }
         },
         // 受案情况
-        * getAcceptPoliceSituation({ payload, callback }, { call, put }) {
+        * getAcceptPoliceSituation({payload, callback}, {call, put}) {
             const response = yield call(getAcceptPoliceSituation, payload);
             yield put({
                 type: 'setAcceptPoliceSituation',
@@ -122,29 +122,29 @@ export default {
             }
         },
         // 警情状况
-        * getHandlePoliceSituation({ payload, callback }, { call, put }) {
+        * getHandlePoliceSituation({payload, callback}, {call, put}) {
             const response = yield call(getHandlePoliceSituation, payload);
             yield put({
                 type: 'setHandlePoliceSituation',
                 payload: response && response.error === null ? response.data : [],
             });
-            if (callback && response && !response.error&& response.data) {
+            if (callback && response && !response.error && response.data) {
                 callback(response.data);
             }
         },
         // 领导点评
-        * getComments({ payload, callback }, { call, put }) {
+        * getComments({payload, callback}, {call, put}) {
             const response = yield call(getComment, payload);
-            if (callback && response && !response.error&& response.data) {
+            if (callback && response && !response.error && response.data) {
                 callback(response.data);
-            }else{
+            } else {
                 message.warn('点评失败，请重新操作');
             }
         },
         // 获取领导点评
-        * commentsItem({ payload, callback }, { call, put }) {
+        * commentsItem({payload, callback}, {call, put}) {
             const response = yield call(commentsItems, payload);
-            if (callback && response && !response.error&& response.data) {
+            if (callback && response && !response.error && response.data) {
                 callback(response.data);
             }
         },

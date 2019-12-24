@@ -1,15 +1,15 @@
-import React, { PureComponent } from 'react';
-import { connect } from 'dva';
-import { Modal, Table, Divider, Button, Popconfirm, message, Icon, Tag, Tooltip, Row, Col, Form, Select } from 'antd';
-import { routerRedux } from 'dva/router';
-import { getSysAuthority } from '../../utils/authority';
+import React, {PureComponent} from 'react';
+import {connect} from 'dva';
+import {Modal, Table, Divider, Button, Popconfirm, message, Icon, Tag, Tooltip, Row, Col, Form, Select} from 'antd';
+import {routerRedux} from 'dva/router';
+import {getSysAuthority} from '../../utils/authority';
 import styles from './TimeComparedModal.less';
-import { DatePicker } from 'antd/lib/index';
+import {DatePicker} from 'antd/lib/index';
 
 const FormItem = Form.Item;
-const { RangePicker } = DatePicker;
+const {RangePicker} = DatePicker;
 
-@connect(({ common }) => ({
+@connect(({common}) => ({
     common,
     // loading: loading.models.alarmManagement,
 }))
@@ -53,15 +53,15 @@ export default class TimeComparedModal extends PureComponent {
     };
 
     render() {
-        const { form: { getFieldDecorator }, common: { WtlxBaqTypeData, superviseStatusDict, depTree, involvedType } } = this.props;
+        const {form: {getFieldDecorator}, common: {WtlxBaqTypeData, superviseStatusDict, depTree, involvedType}} = this.props;
         const formItemLayout = {
             labelCol: {
-                xs: { span: 24 },
-                sm: { span: 8 },
+                xs: {span: 24},
+                sm: {span: 8},
             },
             wrapperCol: {
-                xs: { span: 24 },
-                sm: { span: 16 },
+                xs: {span: 24},
+                sm: {span: 16},
             },
         };
         return (
@@ -77,7 +77,7 @@ export default class TimeComparedModal extends PureComponent {
                 >
                     <div>
                         {/*<Form  onSubmit={this.handleSearch}>*/}
-                        <Row gutter={{ md: 8, lg: 24, xl: 48 }} style={{ padding: '20px 0 0 160px' }}>
+                        <Row gutter={{md: 8, lg: 24, xl: 48}} style={{padding: '20px 0 0 160px'}}>
                             <Col md={10} sm={30}>
                                 <FormItem label="&nbsp;&nbsp;&nbsp;选择日期" {...formItemLayout}>
                                     {getFieldDecorator('comparedRq1', {
@@ -85,13 +85,13 @@ export default class TimeComparedModal extends PureComponent {
                                     })(
                                         <RangePicker
                                             disabledDate={this.disabledDate}
-                                            style={{ width: '200%' }}
+                                            style={{width: '200%'}}
                                         />,
                                     )}
                                 </FormItem>
                             </Col>
                         </Row>
-                        <Row sgutter={{ md: 8, lg: 24, xl: 48 }} style={{ margin: '30px 0 0 160px' }}>
+                        <Row sgutter={{md: 8, lg: 24, xl: 48}} style={{margin: '30px 0 0 160px'}}>
                             <Col md={9} sm={30}>
                                 <FormItem label="&nbsp;&nbsp;&nbsp;对比日期" {...formItemLayout}>
                                     {getFieldDecorator('comparedRq2', {
@@ -99,14 +99,14 @@ export default class TimeComparedModal extends PureComponent {
                                     })(
                                         <RangePicker
                                             disabledDate={this.disabledDate}
-                                            style={{ width: '200%' }}
+                                            style={{width: '200%'}}
                                         />,
                                     )}
                                 </FormItem>
                             </Col>
                         </Row>
                         <Row>
-                            <Button type="primary" style={{ margin: '40px 0 0 350px' }}
+                            <Button type="primary" style={{margin: '40px 0 0 350px'}}
                                     onClick={this.timeCompared}>确认</Button>
                         </Row>
                     </div>

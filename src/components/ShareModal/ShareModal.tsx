@@ -1,16 +1,16 @@
-import React, { PureComponent } from 'react';
-import { Modal, Form, Input, Select, message, button, Spin } from 'antd';
+import React, {PureComponent} from 'react';
+import {Modal, Form, Input, Select, message, button, Spin} from 'antd';
 import styles from './ShareModal.less';
 
-const { TextArea } = Input;
+const {TextArea} = Input;
 const Option = Select.Option;
-import { connect } from 'dva';
-import { getUserInfos } from '../../utils/utils';
+import {connect} from 'dva';
+import {getUserInfos} from '../../utils/utils';
 
 const FormItem = Form.Item;
 
-@connect(({ share,global }) => ({
-    share,global
+@connect(({share, global}) => ({
+    share, global
 }))
 class ShareModal extends PureComponent {
     constructor(props, context) {
@@ -128,12 +128,12 @@ class ShareModal extends PureComponent {
     render() {
         const formItemLayout = {
             labelCol: {
-                xs: { span: 3 },
-                sm: { span: 3 },
+                xs: {span: 3},
+                sm: {span: 3},
             },
             wrapperCol: {
-                xs: { span: 20 },
-                sm: { span: 20 },
+                xs: {span: 20},
+                sm: {span: 20},
             },
         };
         const children = [];
@@ -141,13 +141,13 @@ class ShareModal extends PureComponent {
             this.state.personList.map((event, idx) => {
                 if (event.idcard !== getUserInfos().idCard) {
                     children.push(<Option key={event.idcard} label={event.depname}><span>{event.name}</span><span
-                        style={{ color: '#ccc' }}>&nbsp;&nbsp;{event.depname}</span><span
-                        style={{ display: 'none' }}>{event.department}</span></Option>);
+                        style={{color: '#ccc'}}>&nbsp;&nbsp;{event.depname}</span><span
+                        style={{display: 'none'}}>{event.department}</span></Option>);
                 }
             });
         }
-        const { getFieldDecorator } = this.props.form;
-        let className = this.props.global&&this.props.global.dark ? styles.standardTable : styles.standardTable+' '+styles.lightBox
+        const {getFieldDecorator} = this.props.form;
+        let className = this.props.global && this.props.global.dark ? styles.standardTable : styles.standardTable + ' ' + styles.lightBox
         return (
             <div className={className}>
                 <Modal
@@ -160,7 +160,7 @@ class ShareModal extends PureComponent {
                     confirmLoading={this.state.btnLoading}
                     width={900}
                     maskClosable={false}
-                    style={{ top: '250px' }}
+                    style={{top: '250px'}}
                 >
                     {this.props.detail ? this.props.detail : ''}
                     <Form id={'area' + this.state.key}>
@@ -170,7 +170,7 @@ class ShareModal extends PureComponent {
                                     labelInValue
                                     mode="multiple"
                                     filterOption={false}
-                                    style={{ width: '100%' }}
+                                    style={{width: '100%'}}
                                     placeholder="请输入分享人"
                                     onSearch={this.handleSearch}
                                     onFocus={this.handleSearch}
@@ -192,7 +192,7 @@ class ShareModal extends PureComponent {
                     visible={this.state.shareSuccess}
                     className={styles.shareSuccess}
                     width={350}
-                    style={{ top: '250px' }}
+                    style={{top: '250px'}}
                     maskClosable={false}
                     cancelText={null}
                     onCancel={this.handleCancel}

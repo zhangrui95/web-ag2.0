@@ -4,7 +4,7 @@
 * 20181226
 * */
 
-import React, { PureComponent } from 'react';
+import React, {PureComponent} from 'react';
 import {Tooltip, Icon, Table, Button, Spin, Empty} from 'antd';
 import echarts from 'echarts/lib/echarts';
 import line from 'echarts/lib/chart/line';
@@ -35,16 +35,16 @@ export default class CriminalCaseType extends PureComponent {
 
     componentWillReceiveProps(nextProps) {
         if (nextProps) {
-            if ((nextProps.selectedDate !== null) && (this.props.selectedDate !== nextProps.selectedDate)|| this.props.global.dark !== nextProps.global.dark) {
+            if ((nextProps.selectedDate !== null) && (this.props.selectedDate !== nextProps.selectedDate) || this.props.global.dark !== nextProps.global.dark) {
                 this.getCriminalCaseType(nextProps);
             }
         }
     }
 
     getCriminalCaseType = (propsData) => {
-        this.props.changeLoadingStatus({ criminalCaseTypeLoadingStatus: true });
-        this.setState({ loadingData: true });
-        const { dispatch, selectedDateStr, yearOnYearDateStr, monthOnMonthDateStr, selectedDate, yearOnYearDate, monthOnMonthDate } = propsData;
+        this.props.changeLoadingStatus({criminalCaseTypeLoadingStatus: true});
+        this.setState({loadingData: true});
+        const {dispatch, selectedDateStr, yearOnYearDateStr, monthOnMonthDateStr, selectedDate, yearOnYearDate, monthOnMonthDate} = propsData;
         dispatch({
             type: 'trendAnalysis/getCriminalCaseType',
             payload: {
@@ -54,7 +54,7 @@ export default class CriminalCaseType extends PureComponent {
             },
             callback: (data) => {
                 if (data) {
-                    const { blaj, lq, qc, sh } = data;
+                    const {blaj, lq, qc, sh} = data;
                     if (blaj && lq && qc && sh) {
                         this.setState({
                             blaj, lq, qc, sh,
@@ -63,14 +63,14 @@ export default class CriminalCaseType extends PureComponent {
                         });
                     }
                 }
-                this.setState({ loadingData: false });
-                this.props.changeLoadingStatus({ criminalCaseTypeLoadingStatus: false });
+                this.setState({loadingData: false});
+                this.props.changeLoadingStatus({criminalCaseTypeLoadingStatus: false});
             },
         });
     };
     setChartsAndTableData = (caseType) => {
-        const { blaj, lq, qc, sh } = this.state;
-        const { selectedDateStr, yearOnYearDateStr, monthOnMonthDateStr } = this.props;
+        const {blaj, lq, qc, sh} = this.state;
+        const {selectedDateStr, yearOnYearDateStr, monthOnMonthDateStr} = this.props;
         let lineData = [];
         let tableData = [];
         let typeData = null;
@@ -163,16 +163,16 @@ export default class CriminalCaseType extends PureComponent {
         this.setState({
             tableData,
         });
-        if(document.getElementById('criminalCaseType')){
-            this.showEchart(xData,lineData);
+        if (document.getElementById('criminalCaseType')) {
+            this.showEchart(xData, lineData);
             window.addEventListener('resize', myChart.resize);
         }
         this.props.goToCarousel(1);
     };
 
-    showEchart = (xData,lineData) => {
+    showEchart = (xData, lineData) => {
         myChart = echarts.init(document.getElementById('criminalCaseType'));
-        const { selectedDateStr, yearOnYearDateStr, monthOnMonthDateStr } = this.props;
+        const {selectedDateStr, yearOnYearDateStr, monthOnMonthDateStr} = this.props;
         const option = {
             tooltip: {
                 trigger: 'axis',
@@ -224,8 +224,8 @@ export default class CriminalCaseType extends PureComponent {
     };
 
     render() {
-        const { selectedDateStr, yearOnYearDateStr, monthOnMonthDateStr } = this.props;
-        const { tableData, caseType, loadingData } = this.state;
+        const {selectedDateStr, yearOnYearDateStr, monthOnMonthDateStr} = this.props;
+        const {tableData, caseType, loadingData} = this.state;
         const columns = [{
             title: '类别',
             dataIndex: 'categories',
@@ -265,7 +265,8 @@ export default class CriminalCaseType extends PureComponent {
             <Spin spinning={loadingData} size="large" tip="数据加载中...">
                 <div className={styles.analysis}>
                     <AnalysisTitleArea analysisTitle="类型分析" {...this.props} />
-                    <div id="criminalCaseType" style={{ height: 300,paddingRight:70}} className={ this.props.global&&this.props.global.dark ? '' : styles.lightChartBox}/>
+                    <div id="criminalCaseType" style={{height: 300, paddingRight: 70}}
+                         className={this.props.global && this.props.global.dark ? '' : styles.lightChartBox}/>
                     <div className={styles.buttonOnChartArea}>
                         <Button type={caseType === 'blaj' ? 'primary' : 'dashed'} size="large"
                                 onClick={() => this.changeCaseType('blaj')}>八类案件</Button>
@@ -277,7 +278,10 @@ export default class CriminalCaseType extends PureComponent {
                                 onClick={() => this.changeCaseType('sh')}>伤害</Button>
                     </div>
                     <Table columns={columns} dataSource={tableData} bordered className={styles.tableArea}
-                           pagination={false} locale={{ emptyText: <Empty image={this.props.global&&this.props.global.dark ? noList : noListLight} description={'暂无数据'} /> }}/>
+                           pagination={false} locale={{
+                        emptyText: <Empty image={this.props.global && this.props.global.dark ? noList : noListLight}
+                                          description={'暂无数据'}/>
+                    }}/>
                 </div>
             </Spin>
         );

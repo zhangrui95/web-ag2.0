@@ -4,7 +4,7 @@
 * 20181120
 * */
 
-import React, { PureComponent } from 'react';
+import React, {PureComponent} from 'react';
 import echarts from 'echarts/lib/echarts';
 import bar from 'echarts/lib/chart/bar';
 import title from 'echarts/lib/component/title';
@@ -15,7 +15,7 @@ const colors = ['#05c1ca', '#15bbcb', '#33a7d0', '#5393d3', '#6d81d8', '#896ddc'
 export default class PoliceSituationFrom extends PureComponent {
 
     componentDidMount() {
-        const { selectDate, org, orgCode, orglist } = this.props;
+        const {selectDate, org, orgCode, orglist} = this.props;
         this.getPoliceSituationFrom(selectDate[0], selectDate[1], org, orgCode, orglist);
         this.showEchart();
         window.addEventListener('resize', myChart.resize);
@@ -147,7 +147,7 @@ export default class PoliceSituationFrom extends PureComponent {
 
     render() {
         return (
-            <div id="PoliceSituationFrom" style={{ height: '100%', width: '100%' }}></div>
+            <div id="PoliceSituationFrom" style={{height: '100%', width: '100%'}}></div>
         );
     }
 }

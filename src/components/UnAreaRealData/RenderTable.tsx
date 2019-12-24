@@ -53,222 +53,167 @@ class RenderTable extends PureComponent {
             query: { record: record, id: record && record.id ? record.id : '1' },
           }),
         );
-    //   },
-    // });
-    // const divs = (
-    //     <div>
-    //         <Detail
-    //             {...this.props}
-    //             id={id}
-    //             baqId={baqId}
-    //             dbzt={dbzt}
-    //             supervise={this.supervise}
-    //         />
-    //     </div>
-    // );
-    // const AddNewDetail = { title: '人员在区告警详情', content: divs, key: id };
-    // this.props.newDetail(AddNewDetail);
-  };
-  // 打开督办模态框
-  supervise = (flag, record) => {
-    const { id, baq_id } = record;
-    this.props.dispatch({
-      type: 'UnareaData/UnareaDetailFetch',
-      payload: {
-        id,
-        baq_id,
-      },
-      callback: data => {
-        if (data) {
-          this.setState({
-            searchDetail: data,
-          });
-          this.searchDetail(flag, record);
-        }
-      },
-    });
-  };
-  searchDetail = (flag, record) => {
-    const { id, people_id } = record;
-    this.props.dispatch({
-      type: 'UnareaData/getUnareaByProblemId',
-      payload: {
-        pd: {
-          wtid: id,
-          people_id,
-        },
-      },
-      callback: data => {
-        if (data.list[0].dbzt === '00') {
-          const {searchDetail} = this.state;
-          this.props.dispatch(
-            routerRedux.push({
-              pathname: '/ModuleAll/Supervise',
-              query: { record:searchDetail,searchDetail:record,id: searchDetail && searchDetail.id ? searchDetail.id : '1',from:'督办',tzlx:this.state.tzlx,fromPath:'/handlingArea/AreaPolice',tab:'表格'},
-            }),
-          )
-          // this.props.openModal(this.state.searchDetail, flag, record);
+        //   },
+        // });
+        // const divs = (
+        //     <div>
+        //         <Detail
+        //             {...this.props}
+        //             id={id}
+        //             baqId={baqId}
+        //             dbzt={dbzt}
+        //             supervise={this.supervise}
+        //         />
+        //     </div>
+        // );
+        // const AddNewDetail = { title: '人员在区告警详情', content: divs, key: id };
+        // this.props.newDetail(AddNewDetail);
+    };
+    // 打开督办模态框
+    supervise = (flag, record) => {
+        const {id, baq_id} = record;
+        this.props.dispatch({
+            type: 'UnareaData/UnareaDetailFetch',
+            payload: {
+                id,
+                baq_id,
+            },
+            callback: data => {
+                if (data) {
+                    this.setState({
+                        searchDetail: data,
+                    });
+                    this.searchDetail(flag, record);
+                }
+            },
+        });
+    };
+    searchDetail = (flag, record) => {
+        const {id, people_id} = record;
+        this.props.dispatch({
+            type: 'UnareaData/getUnareaByProblemId',
+            payload: {
+                pd: {
+                    wtid: id,
+                    people_id,
+                },
+            },
+            callback: data => {
+                if (data.list[0].dbzt === '00') {
+                    const {searchDetail} = this.state;
+                    this.props.dispatch(
+                        routerRedux.push({
+                            pathname: '/ModuleAll/Supervise',
+                            query: {
+                                record: searchDetail,
+                                searchDetail: record,
+                                id: searchDetail && searchDetail.id ? searchDetail.id : '1',
+                                from: '督办',
+                                tzlx: 'baqwt',
+                                fromPath: '/handlingArea/AreaPolice',
+                                tab: '表格'
+                            },
+                        }),
+                    )
+                    // this.props.openModal(this.state.searchDetail, flag, record);
+                } else {
+                    message.warning('该问题已督办，请点击详情查看');
+                    this.props.refreshTable();
+                }
+            },
+        });
+    };
+    saveShare = (res, type, ajGzLx) => {
+        this.setState({
+            sx:
+                (res.ajmc ? res.ajmc + '、' : '') +
+                (res.salxMc ? res.salxMc + '、' : '') +
+                (res.name ? res.name + '、' : '') +
+                (res.wtlxMc ? res.wtlxMc + '、' : '') +
+                (res.gjsj ? res.gjsj : ''),
+            shareRecord: res,
+        });
+        if (type === 2) {
+            let areaDetails = res;
+            let detail = [`人员姓名：${areaDetails && areaDetails.name ? areaDetails.name : ''}`, `性别：${areaDetails && areaDetails.xb ? areaDetails.xb : ''}`,
+                `人员类型：${areaDetails && areaDetails.salxMc ? areaDetails.salxMc : ''}`, `强制措施：${areaDetails && areaDetails.qzcs ? areaDetails.qzcs : ''}`,
+                `案件名称：${areaDetails && areaDetails.ajmc ? areaDetails.ajmc : ''}`, `办案单位：${areaDetails && areaDetails.badwMc ? areaDetails.badwMc : ''}`,
+                `办案民警：${areaDetails && areaDetails.barxm ? areaDetails.barxm : ''}`
+            ];
+            res.detail = detail;
+            this.props.dispatch(
+                routerRedux.push({
+                    pathname: '/ModuleAll/Share',
+                    query: {
+                        record: res,
+                        id: res && res.id ? res.id : '1',
+                        from: '人员信息',
+                        tzlx: 'baqxx',
+                        fromPath: '/handlingArea/AreaPolice',
+                        tab: '表格',
+                        sx:
+                            (res.ajmc ? res.ajmc + '、' : '') +
+                            (res.salxMc ? res.salxMc + '、' : '') +
+                            (res.name ? res.name + '、' : '') +
+                            (res.wtlxMc ? res.wtlxMc + '、' : '') +
+                            (res.gjsj ? res.gjsj : '')
+                    },
+                }),
+            )
+            this.setState({
+                shareVisible: true,
+                shareItem: res,
+            });
         } else {
-          message.warning('该问题已督办，请点击详情查看');
-          this.props.refreshTable();
+            this.props.dispatch({
+                type: 'share/getMyFollow',
+                payload: {
+                    agid: res.id,
+                    lx: this.state.lx,
+                    sx:
+                        (res.ajmc ? res.ajmc + '、' : '') +
+                        (res.salxMc ? res.salxMc + '、' : '') +
+                        (res.name ? res.name + '、' : '') +
+                        (res.wtlxMc ? res.wtlxMc + '、' : '') +
+                        (res.gjsj ? res.gjsj : ''),
+                    type: type,
+                    tzlx: this.state.tzlx,
+                    wtid: res.wtid,
+                    ajbh: res.ajbh,
+                    system_id: res.baq_id,
+                    ajGzLx: ajGzLx,
+                },
+                callback: data => {
+                    if (!data.error) {
+                        message.success('关注成功');
+                        this.props.getUnArea({currentPage: this.state.current, pd: this.props.formValues});
+                    }
+                },
+            });
         }
-      },
-    });
-  };
-  saveShare = (res, type, ajGzLx) => {
-    this.setState({
-      sx:
-        (res.ajmc ? res.ajmc + '、' : '') +
-        (res.salxMc ? res.salxMc + '、' : '') +
-        (res.name ? res.name + '、' : '') +
-        (res.wtlxMc ? res.wtlxMc + '、' : '') +
-        (res.gjsj ? res.gjsj : ''),
-      shareRecord: res,
-    });
-    if (type === 2) {
-      let detail = (
-        <Row style={{lineHeight:'50px',paddingLeft:66}}>
-          <Col span={6}>
-            人员姓名：
-            {res && res.name ? res.name : ''}
-          </Col>
-          <Col span={6}>
-            性别：
-            {res && res.xb ? res.xb : ''}
-          </Col>
-          <Col span={6}>
-            人员类型：
-            {res && res.salxMc
-              ? res.salxMc
-              : ''}
-          </Col>
-          <Col span={6}>
-            强制措施：
-            <Tooltip
-              title={
-                res &&
-                res.qzcs &&
-                res.qzcs.length > 7
-                  ? res.qzcs
-                  : null
-              }
-            >
-              {res && res.qzcs
-                ? res.qzcs.length > 7
-                  ? res.qzcs.substring(0, 7) + '...'
-                  : res.qzcs
-                : ''}
-            </Tooltip>
-          </Col>
-          <Col span={6}>
-            案件名称：
-            <Tooltip
-              title={
-                res &&
-                res.ajmc &&
-                res.ajmc.length > 7
-                  ? res.ajmc
-                  : null
-              }
-            >
-              {res && res.ajmc
-                ? res.ajmc.length > 7
-                  ? res.ajmc.substring(0, 7) + '...'
-                  : res.ajmc
-                : ''}
-            </Tooltip>
-          </Col>
-          <Col span={6}>
-            办案单位：
-            <Tooltip
-              title={
-                res &&
-                res.badwMc &&
-                res.badwMc.length > 7
-                  ? res.badwMc
-                  : null
-              }
-            >
-              {res && res.badwMc
-                ? res.badwMc.length > 7
-                  ? res.badwMc.substring(0, 7) + '...'
-                  : res.badwMc
-                : ''}
-            </Tooltip>
-          </Col>
-          <Col span={12}>
-            办案民警：
-            {res && res.barxm
-              ? res.barxm
-              : ''}
-          </Col>
-        </Row>
-      );
-      this.props.dispatch(
-        routerRedux.push({
-          pathname: '/ModuleAll/Share',
-          query: { record: res,id: res && res.id ? res.id : '1',from:this.state.lx,tzlx:this.state.tzlx,fromPath:'/handlingArea/AreaPolice',detail,tab:'表格',sx:
-            (res.ajmc ? res.ajmc + '、' : '') +
-            (res.salxMc ? res.salxMc + '、' : '') +
-            (res.name ? res.name + '、' : '') +
-            (res.wtlxMc ? res.wtlxMc + '、' : '') +
-            (res.gjsj ? res.gjsj : '') },
-        }),
-      )
-      this.setState({
-        shareVisible: true,
-        shareItem: res,
-      });
-    } else {
-      this.props.dispatch({
-        type: 'share/getMyFollow',
-        payload: {
-          agid: res.id,
-          lx: this.state.lx,
-          sx:
-            (res.ajmc ? res.ajmc + '、' : '') +
-            (res.salxMc ? res.salxMc + '、' : '') +
-            (res.name ? res.name + '、' : '') +
-            (res.wtlxMc ? res.wtlxMc + '、' : '') +
-            (res.gjsj ? res.gjsj : ''),
-          type: type,
-          tzlx: this.state.tzlx,
-          wtid: res.wtid,
-          ajbh: res.ajbh,
-          system_id: res.baq_id,
-          ajGzLx: ajGzLx,
-        },
-        callback: data => {
-          if (!data.error) {
-            message.success('关注成功');
-            this.props.getUnArea({ currentPage: this.state.current, pd: this.props.formValues });
-          }
-        },
-      });
-    }
-  };
-  handleCancel = e => {
-    this.setState({
-      shareVisible: false,
-    });
-  };
-  noFollow = record => {
-    this.props.dispatch({
-      type: 'share/getNoFollow',
-      payload: {
-        id: record.gzid,
-        tzlx: record.tzlx,
-        ajbh: record.ajbh,
-        ajGzlx: record.ajgzlx,
-      },
-      callback: res => {
-        if (!res.error) {
-          message.success('取消关注成功');
-          this.props.getUnArea({ currentPage: this.state.current, pd: this.props.formValues });
-        }
-      },
-    });
-  };
+    };
+    handleCancel = e => {
+        this.setState({
+            shareVisible: false,
+        });
+    };
+    noFollow = record => {
+        this.props.dispatch({
+            type: 'share/getNoFollow',
+            payload: {
+                id: record.gzid,
+                tzlx: record.tzlx,
+                ajbh: record.ajbh,
+                ajGzlx: record.ajgzlx,
+            },
+            callback: res => {
+                if (!res.error) {
+                    message.success('取消关注成功');
+                    this.props.getUnArea({currentPage: this.state.current, pd: this.props.formValues});
+                }
+            },
+        });
+    };
 
   render() {
     const {

@@ -203,169 +203,133 @@ export default class caseDetail extends PureComponent {
     });
   };
 
-  // 问题判定完成后页面刷新
-  Refresh = flag => {
-    this.setState({
-      superviseVisibleModal: !!flag,
-      loading1: false,
-    });
-    this.caseDetailDatas(this.props.systemId);
-  };
-  // 分享和关注（2为分享，1为关注）
-  saveShare = (caseDetails, res, type, ajGzLx) => {
-    this.setState({
-      sx:
-        (caseDetails.ajmc ? caseDetails.ajmc + '、' : '') +
-        (caseDetails.ajzt ? caseDetails.ajzt : ''),
-    });
-    if (type === 2) {
-      let detail = (
-        <Row
-          style={{
-            lineHeight:'55px',paddingLeft:66,
-          }}
-        >
-          <Col span={12}>
-            案件名称：
-            <Tooltip
-              title={
-                caseDetails && caseDetails.ajmc && caseDetails.ajmc.length > 20
-                  ? caseDetails.ajmc
-                  : null
-              }
-            >
-              {caseDetails && caseDetails.ajmc
-                ? caseDetails.ajmc.length > 20
-                  ? caseDetails.ajmc.substring(0, 20) + '...'
-                  : caseDetails.ajmc
-                : ''}
-            </Tooltip>
-          </Col>
-          <Col span={12}>
-            受理单位：
-            <Tooltip
-              title={
-                caseDetails && caseDetails.sldw_name && caseDetails.sldw_name.length > 20
-                  ? caseDetails.sldw_name
-                  : null
-              }
-            >
-              {caseDetails && caseDetails.sldw_name
-                ? caseDetails.sldw_name.length > 20
-                  ? caseDetails.sldw_name.substring(0, 20) + '...'
-                  : caseDetails.sldw_name
-                : ''}
-            </Tooltip>
-          </Col>
-          <Col span={12}>案件状态：{caseDetails && caseDetails.ajzt ? caseDetails.ajzt : ''}</Col>
-          <Col span={12}>
-            办案民警：{caseDetails && caseDetails.bar_name ? caseDetails.bar_name : ''}
-          </Col>
-        </Row>
-      );
-      this.props.dispatch(
-        routerRedux.push({
-          pathname: '/ModuleAll/Share',
-          query: { record: res,id: res && res.system_id ? res.system_id : '1',from:'案件信息',tzlx:'xzajxx2',fromPath:'/newcaseFiling/caseData/AdministrationData/caseDetail',detail,tab:'详情',sx:(caseDetails.ajmc ? caseDetails.ajmc + '、' : '') + (caseDetails.ajzt ? caseDetails.ajzt : '') },
-        }),
-      )
-      // this.setState({
-      //   shareVisible: true,
-      //   shareItem: res,
-      // });
-    } else {
-      if (this.state.IsSure) {
-        this.props.dispatch({
-          type: 'share/getMyFollow',
-          payload: {
-            agid: this.props.yjType === 'yj' ? this.props.yjid : caseDetails.id,
-            lx: this.state.lx,
-            sx:
-              (caseDetails.ajmc ? caseDetails.ajmc + '、' : '') +
-              (caseDetails.ajzt ? caseDetails.ajzt : ''),
-            type: type,
-            tzlx: this.props.locaton&&this.props.locaton.query&&this.props.locaton.query.tzlx?this.props.locaton.query.tzlx:'',
-            wtid: caseDetails.wtid,
-            ajbh: caseDetails.ajbh,
-            system_id: caseDetails.system_id,
-            ajGzLx: ajGzLx,
-          },
-          callback: res => {
-            if (!res.error) {
-              message.success('关注成功');
-              if (this.props.getCase) {
-                this.props.getCase({ currentPage: this.props.current, pd: this.props.formValues });
-              }
-              this.setState(
-                {
-                  sfgz: 1,
-                },
-                () => {
-                  this.caseDetailDatas(caseDetails.system_id);
-                },
-              );
-            }
-          },
+    // 问题判定完成后页面刷新
+    Refresh = flag => {
+        this.setState({
+            superviseVisibleModal: !!flag,
+            loading1: false,
         });
-      } else {
-        message.info('您的操作太频繁，请稍后再试');
-      }
-    }
-  };
-  // 取消关注
-  noFollow = caseDetails => {
-    if (this.state.IsSure) {
-      this.props.dispatch({
-        type: 'share/getNoFollow',
-        payload: {
-          id: caseDetails.gzid,
-          tzlx: caseDetails.tzlx,
-          ajbh: caseDetails.ajbh,
-        },
-        callback: res => {
-          if (!res.error) {
-            message.success('取消关注成功');
-            if (this.props.getCase) {
-              this.props.getCase({ currentPage: this.props.current, pd: this.props.formValues });
+        this.caseDetailDatas(this.props.systemId);
+    };
+    // 分享和关注（2为分享，1为关注）
+    saveShare = (caseDetails, res, type, ajGzLx) => {
+        this.setState({
+            sx:
+                (caseDetails.ajmc ? caseDetails.ajmc + '、' : '') +
+                (caseDetails.ajzt ? caseDetails.ajzt : ''),
+        });
+        if (type === 2) {
+            let detail = [`案件名称：${caseDetails && caseDetails.ajmc ? caseDetails.ajmc : ''}`, `受理单位：${caseDetails && caseDetails.sldw_name ? caseDetails.sldw_name : ''}`,
+                `案件状态：${caseDetails && caseDetails.ajzt ? caseDetails.ajzt : ''}`, `办案民警：${caseDetails && caseDetails.bar_name ? caseDetails.bar_name : ''}`,
+            ];
+            caseDetails.detail = detail;
+            this.props.dispatch(
+                routerRedux.push({
+                    pathname: '/ModuleAll/Share',
+                    query: {
+                        record: caseDetails,
+                        id: caseDetails && caseDetails.system_id ? caseDetails.system_id : '1',
+                        from: '案件信息',
+                        tzlx: 'xzajxx2',
+                        fromPath: '/newcaseFiling/caseData/AdministrationData/caseDetail',
+                        tab: '详情',
+                        sx: (caseDetails.ajmc ? caseDetails.ajmc + '、' : '') + (caseDetails.ajzt ? caseDetails.ajzt : '')
+                    },
+                }),
+            )
+        } else {
+            if (this.state.IsSure) {
+                this.props.dispatch({
+                    type: 'share/getMyFollow',
+                    payload: {
+                        agid: this.props.yjType === 'yj' ? this.props.yjid : caseDetails.id,
+                        lx: this.state.lx,
+                        sx:
+                            (caseDetails.ajmc ? caseDetails.ajmc + '、' : '') +
+                            (caseDetails.ajzt ? caseDetails.ajzt : ''),
+                        type: type,
+                        tzlx: this.props.locaton && this.props.locaton.query && this.props.locaton.query.tzlx ? this.props.locaton.query.tzlx : '',
+                        wtid: caseDetails.wtid,
+                        ajbh: caseDetails.ajbh,
+                        system_id: caseDetails.system_id,
+                        ajGzLx: ajGzLx,
+                    },
+                    callback: res => {
+                        if (!res.error) {
+                            message.success('关注成功');
+                            if (this.props.getCase) {
+                                this.props.getCase({currentPage: this.props.current, pd: this.props.formValues});
+                            }
+                            this.setState(
+                                {
+                                    sfgz: 1,
+                                },
+                                () => {
+                                    this.caseDetailDatas(caseDetails.system_id);
+                                },
+                            );
+                        }
+                    },
+                });
+            } else {
+                message.info('您的操作太频繁，请稍后再试');
             }
-            this.setState(
-              {
-                sfgz: 0,
-              },
-              () => {
-                this.caseDetailDatas(caseDetails.system_id);
-              },
-            );
-          }
-        },
-      });
-    } else {
-      message.info('您的操作太频繁，请稍后再试');
-    }
-  };
-  handleCancel = e => {
-    this.setState({
-      shareVisible: false,
-    });
-  };
-  // 制表
-  makeTable = (record, flag) => {
-    this.props.dispatch(
-      routerRedux.push({
-        pathname: '/Tabulation/Make',
-        query: { id: record && record.ajbh ? record.ajbh : '1', record: record },
-      }),
-    );
-    // this.setState({
-    //   makeTableModalVisible: !!flag,
-    // });
-  };
-  // 关闭制表modal
-  MakeTableCancel = () => {
-    this.setState({
-      makeTableModalVisible: false,
-    });
-  };
+        }
+    };
+    // 取消关注
+    noFollow = caseDetails => {
+        if (this.state.IsSure) {
+            this.props.dispatch({
+                type: 'share/getNoFollow',
+                payload: {
+                    id: caseDetails.gzid,
+                    tzlx: caseDetails.tzlx,
+                    ajbh: caseDetails.ajbh,
+                },
+                callback: res => {
+                    if (!res.error) {
+                        message.success('取消关注成功');
+                        if (this.props.getCase) {
+                            this.props.getCase({currentPage: this.props.current, pd: this.props.formValues});
+                        }
+                        this.setState(
+                            {
+                                sfgz: 0,
+                            },
+                            () => {
+                                this.caseDetailDatas(caseDetails.system_id);
+                            },
+                        );
+                    }
+                },
+            });
+        } else {
+            message.info('您的操作太频繁，请稍后再试');
+        }
+    };
+    handleCancel = e => {
+        this.setState({
+            shareVisible: false,
+        });
+    };
+    // 制表
+    makeTable = (record, flag) => {
+        this.props.dispatch(
+            routerRedux.push({
+                pathname: '/Tabulation/Make',
+                query: {id: record && record.ajbh ? record.ajbh : '1', record: record},
+            }),
+        );
+        // this.setState({
+        //   makeTableModalVisible: !!flag,
+        // });
+    };
+    // 关闭制表modal
+    MakeTableCancel = () => {
+        this.setState({
+            makeTableModalVisible: false,
+        });
+    };
 
   Topdetail() {
     const { caseDetails, sfgz, isDb, isZb } = this.state;

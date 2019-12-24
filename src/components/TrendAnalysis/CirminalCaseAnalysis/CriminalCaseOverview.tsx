@@ -4,7 +4,7 @@
 * 20181226
 * */
 
-import React, { PureComponent } from 'react';
+import React, {PureComponent} from 'react';
 import {Tooltip, Icon, Table, Spin, Empty} from 'antd';
 import echarts from 'echarts/lib/echarts';
 import bar from 'echarts/lib/chart/bar';
@@ -30,16 +30,16 @@ export default class CriminalCaseOverview extends PureComponent {
 
     componentWillReceiveProps(nextProps) {
         if (nextProps) {
-            if ((nextProps.selectedDate !== null) && (this.props.selectedDate !== nextProps.selectedDate)|| this.props.global.dark !== nextProps.global.dark) {
+            if ((nextProps.selectedDate !== null) && (this.props.selectedDate !== nextProps.selectedDate) || this.props.global.dark !== nextProps.global.dark) {
                 this.getOverviewData(nextProps);
             }
         }
     }
 
     getOverviewData = (propsData) => {
-        this.props.changeLoadingStatus({ criminalCaseOverviewLoadingStatus: true });
-        this.setState({ loadingData: true });
-        const { dispatch, selectedDateStr, yearOnYearDateStr, monthOnMonthDateStr, selectedDate, yearOnYearDate, monthOnMonthDate } = propsData;
+        this.props.changeLoadingStatus({criminalCaseOverviewLoadingStatus: true});
+        this.setState({loadingData: true});
+        const {dispatch, selectedDateStr, yearOnYearDateStr, monthOnMonthDateStr, selectedDate, yearOnYearDate, monthOnMonthDate} = propsData;
         dispatch({
             type: 'trendAnalysis/getCriminalCaseOverviewData',
             payload: {
@@ -49,7 +49,7 @@ export default class CriminalCaseOverview extends PureComponent {
             },
             callback: (data) => {
                 if (data) {
-                    const { ja, la, pa, zl, sa, pal } = data;
+                    const {ja, la, pa, zl, sa, pal} = data;
                     let barData = [];
                     let tableData = [];
                     const xData = ['案件总数', '受理', '立案', '破案', '结案'];
@@ -65,11 +65,11 @@ export default class CriminalCaseOverview extends PureComponent {
                                 },
                             },
                             data: [
-                                { name: '案件总数', value: zl.nowtime || 0, itemStyle: { color: '#3AA0FF' } },
-                                { name: '受理', value: sa.nowtime || 0, itemStyle: { color: '#3AA0FF' } },
-                                { name: '立案', value: la.nowtime || 0, itemStyle: { color: '#3AA0FF' } },
-                                { name: '破案', value: pa.nowtime || 0, itemStyle: { color: '#3AA0FF' } },
-                                { name: '结案', value: ja.nowtime || 0, itemStyle: { color: '#3AA0FF' } },
+                                {name: '案件总数', value: zl.nowtime || 0, itemStyle: {color: '#3AA0FF'}},
+                                {name: '受理', value: sa.nowtime || 0, itemStyle: {color: '#3AA0FF'}},
+                                {name: '立案', value: la.nowtime || 0, itemStyle: {color: '#3AA0FF'}},
+                                {name: '破案', value: pa.nowtime || 0, itemStyle: {color: '#3AA0FF'}},
+                                {name: '结案', value: ja.nowtime || 0, itemStyle: {color: '#3AA0FF'}},
                             ],
                         }, {
                             name: yearOnYearDateStr,
@@ -82,11 +82,11 @@ export default class CriminalCaseOverview extends PureComponent {
                                 },
                             },
                             data: [
-                                { name: '案件总数', value: zl.lastyear || 0, itemStyle: { color: '#DCCA23' } },
-                                { name: '受理', value: sa.lastyear || 0, itemStyle: { color: '#DCCA23' } },
-                                { name: '立案', value: la.lastyear || 0, itemStyle: { color: '#DCCA23' } },
-                                { name: '破案', value: pa.lastyear || 0, itemStyle: { color: '#DCCA23' } },
-                                { name: '结案', value: ja.lastyear || 0, itemStyle: { color: '#DCCA23' } },
+                                {name: '案件总数', value: zl.lastyear || 0, itemStyle: {color: '#DCCA23'}},
+                                {name: '受理', value: sa.lastyear || 0, itemStyle: {color: '#DCCA23'}},
+                                {name: '立案', value: la.lastyear || 0, itemStyle: {color: '#DCCA23'}},
+                                {name: '破案', value: pa.lastyear || 0, itemStyle: {color: '#DCCA23'}},
+                                {name: '结案', value: ja.lastyear || 0, itemStyle: {color: '#DCCA23'}},
                             ],
                         }, {
                             name: monthOnMonthDateStr,
@@ -99,11 +99,11 @@ export default class CriminalCaseOverview extends PureComponent {
                                 },
                             },
                             data: [
-                                { name: '案件总数', value: zl.lastmonth || 0, itemStyle: { color: '#31BD74' } },
-                                { name: '受理', value: sa.lastmonth || 0, itemStyle: { color: '#31BD74' } },
-                                { name: '立案', value: la.lastmonth || 0, itemStyle: { color: '#31BD74' } },
-                                { name: '破案', value: pa.lastmonth || 0, itemStyle: { color: '#31BD74' } },
-                                { name: '结案', value: ja.lastmonth || 0, itemStyle: { color: '#31BD74' } },
+                                {name: '案件总数', value: zl.lastmonth || 0, itemStyle: {color: '#31BD74'}},
+                                {name: '受理', value: sa.lastmonth || 0, itemStyle: {color: '#31BD74'}},
+                                {name: '立案', value: la.lastmonth || 0, itemStyle: {color: '#31BD74'}},
+                                {name: '破案', value: pa.lastmonth || 0, itemStyle: {color: '#31BD74'}},
+                                {name: '结案', value: ja.lastmonth || 0, itemStyle: {color: '#31BD74'}},
                             ],
                         }];
                     }
@@ -176,21 +176,21 @@ export default class CriminalCaseOverview extends PureComponent {
                     //     },
                     //     series: barData,
                     // });
-                    if(document.getElementById('criminalCaseOverview')){
-                        this.showEchart(xData,barData);
+                    if (document.getElementById('criminalCaseOverview')) {
+                        this.showEchart(xData, barData);
                         window.addEventListener('resize', myChart.resize);
                     }
                     this.props.goToCarousel(0);
                 }
-                this.setState({ loadingData: false });
-                this.props.changeLoadingStatus({ criminalCaseOverviewLoadingStatus: false });
+                this.setState({loadingData: false});
+                this.props.changeLoadingStatus({criminalCaseOverviewLoadingStatus: false});
             },
         });
     };
 
-    showEchart = (xData,barData) => {
+    showEchart = (xData, barData) => {
         myChart = echarts.init(document.getElementById('criminalCaseOverview'));
-        const { selectedDateStr, yearOnYearDateStr, monthOnMonthDateStr } = this.props;
+        const {selectedDateStr, yearOnYearDateStr, monthOnMonthDateStr} = this.props;
         const option = {
             tooltip: {
                 trigger: 'axis',
@@ -233,8 +233,8 @@ export default class CriminalCaseOverview extends PureComponent {
     };
 
     render() {
-        const { selectedDateStr, yearOnYearDateStr, monthOnMonthDateStr } = this.props;
-        const { tableData, loadingData } = this.state;
+        const {selectedDateStr, yearOnYearDateStr, monthOnMonthDateStr} = this.props;
+        const {tableData, loadingData} = this.state;
         const columns = [{
             title: '类别',
             dataIndex: 'categories',
@@ -273,9 +273,13 @@ export default class CriminalCaseOverview extends PureComponent {
             <Spin spinning={loadingData} size="large" tip="数据加载中...">
                 <div className={styles.analysis}>
                     <AnalysisTitleArea analysisTitle="综述" {...this.props} />
-                    <div id="criminalCaseOverview" style={{ height: 300 }} className={ this.props.global&&this.props.global.dark ? '' : styles.lightChartBox}/>
+                    <div id="criminalCaseOverview" style={{height: 300}}
+                         className={this.props.global && this.props.global.dark ? '' : styles.lightChartBox}/>
                     <Table columns={columns} dataSource={tableData} bordered className={styles.tableArea}
-                           pagination={false} locale={{ emptyText: <Empty image={this.props.global&&this.props.global.dark ? noList : noListLight} description={'暂无数据'} /> }}/>
+                           pagination={false} locale={{
+                        emptyText: <Empty image={this.props.global && this.props.global.dark ? noList : noListLight}
+                                          description={'暂无数据'}/>
+                    }}/>
                 </div>
             </Spin>
         );

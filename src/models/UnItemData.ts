@@ -19,7 +19,7 @@ export default {
     },
 
     effects: {
-        * UnitemFetch({ payload, callback }, { call, put }) {
+        * UnitemFetch({payload, callback}, {call, put}) {
             yield put({
                 type: 'changeLoading',
                 payload: true,
@@ -33,11 +33,11 @@ export default {
                 type: 'changeLoading',
                 payload: false,
             });
-            if (callback && response && !response.error&& response.data) {
+            if (callback && response && !response.error && response.data) {
                 callback(response.data);
             }
         },
-        * UnitemDetailFetch({ payload, callback }, { call, put }) {
+        * UnitemDetailFetch({payload, callback}, {call, put}) {
             yield put({
                 type: 'changeLoading',
                 payload: true,
@@ -51,46 +51,46 @@ export default {
                 type: 'changeLoading',
                 payload: false,
             });
-            if (callback && response && !response.error&& response.data) {
+            if (callback && response && !response.error && response.data) {
                 callback(response.data);
             }
         },
         // 保存督办
-        * SureSupervise({ payload, callback }, { call, put }) {
+        * SureSupervise({payload, callback}, {call, put}) {
             const response = yield call(SuperviseMessage, payload);
             yield put({
                 type: 'CaseSupervise',
                 payload: response && response.error === null ? response.data : {},
             });
-            if (callback && response && !response.error&& response.data) {
+            if (callback && response && !response.error && response.data) {
                 callback(response.data);
             }
         },
         // 确认整改完成
-        * sureRefomFetch({ payload, callback }, { call, put }) {
+        * sureRefomFetch({payload, callback}, {call, put}) {
             const response = yield call(SureRefomMessage, payload);
             yield put({
                 type: 'SureRefomSupervise',
                 payload: response && response.error === null ? response.data : {},
             });
-            if (callback && response && !response.error&& response.data) {
+            if (callback && response && !response.error && response.data) {
                 callback(response.data);
             }
         },
-        * getUnitemByProblemId({ payload, callback }, { call, put }) {
+        * getUnitemByProblemId({payload, callback}, {call, put}) {
             const response = yield call(UnitemDatas, payload);
-            if (callback && response && !response.error&& response.data) {
+            if (callback && response && !response.error && response.data) {
                 callback(response.data);
             }
         },
         // 涉案物品问题告警图表统计
-        * getUnItemAllTypeWarnings({ payload, callback }, { call, put }) {
+        * getUnItemAllTypeWarnings({payload, callback}, {call, put}) {
             const response = yield call(getUnItemAllTypeWarnings, payload);
             yield put({
                 type: 'setUnItemAllTypeWarnings',
                 payload: response && response.error === null ? response.data : {},
             });
-            if (callback && response && !response.error&& response.data) {
+            if (callback && response && !response.error && response.data) {
                 callback(response.data);
             }
         },

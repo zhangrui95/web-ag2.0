@@ -1,13 +1,13 @@
-import React, { PureComponent } from 'react';
-import { Modal, Form, Input, Select, message, button, Switch, Table, Checkbox, Row, Col } from 'antd';
-import { connect } from 'dva';
+import React, {PureComponent} from 'react';
+import {Modal, Form, Input, Select, message, button, Switch, Table, Checkbox, Row, Col} from 'antd';
+import {connect} from 'dva';
 import styles from './DispatchModal.less';
 
-const { TextArea } = Input;
+const {TextArea} = Input;
 const Option = Select.Option;
 const FormItem = Form.Item;
 
-@connect(({ Dispatch }) => ({
+@connect(({Dispatch}) => ({
     Dispatch,
 }))
 class DispatchModal extends PureComponent {
@@ -32,7 +32,7 @@ class DispatchModal extends PureComponent {
     }
 
     handleOk = () => {
-      const { shareItem } = this.props;
+        const {shareItem} = this.props;
         this.props.form.validateFields((err, values) => {
             if (!values.suggest) {
                 message.warn('请填写调度意见！');
@@ -43,17 +43,14 @@ class DispatchModal extends PureComponent {
                     btnLoading: true,
                 });
                 let ddxh = '';
-                if(shareItem.qtpdlx === ""){
-                  ddxh = '第一次调度'
-                }
-                else if(shareItem.qtpdlx === "第一次调度未处理"){
-                  ddxh = '第二次调度'
-                }
-                else if(shareItem.qtpdlx === "第二次调度未处理"){
-                  ddxh = '督办'
-                }
-                else if(!shareItem.qtpdlx){
-                  ddxh = '';
+                if (shareItem.qtpdlx === "") {
+                    ddxh = '第一次调度'
+                } else if (shareItem.qtpdlx === "第一次调度未处理") {
+                    ddxh = '第二次调度'
+                } else if (shareItem.qtpdlx === "第二次调度未处理") {
+                    ddxh = '督办'
+                } else if (!shareItem.qtpdlx) {
+                    ddxh = '';
                 }
                 this.props.dispatch({
                     type: 'Dispatch/getAddDd',
@@ -68,11 +65,10 @@ class DispatchModal extends PureComponent {
                     callback: (res) => {
                         if (!res.error) {
                             this.props.closehandleCancel();
-                            if(shareItem.qtpdlx === ''||shareItem.qtpdlx === null || shareItem.qtpdlx === undefined){
-                              this.props.handleSearch('','0')
-                            }
-                            else {
-                              this.props.handleSearch('','1')
+                            if (shareItem.qtpdlx === '' || shareItem.qtpdlx === null || shareItem.qtpdlx === undefined) {
+                                this.props.handleSearch('', '0')
+                            } else {
+                                this.props.handleSearch('', '1')
                             }
                             this.setState({
                                 shareSuccess: true,
@@ -100,30 +96,30 @@ class DispatchModal extends PureComponent {
     render() {
         const formItemLayout = {
             labelCol: {
-                xs: { span: 3 },
-                sm: { span: 3 },
+                xs: {span: 3},
+                sm: {span: 3},
             },
             wrapperCol: {
-                xs: { span: 20 },
-                sm: { span: 20 },
+                xs: {span: 20},
+                sm: {span: 20},
             },
         };
         const formItemLayouts = {
             labelCol: {
-                xs: { span: 6 },
-                sm: { span: 6 },
+                xs: {span: 6},
+                sm: {span: 6},
             },
             wrapperCol: {
-                xs: { span: 14 },
-                sm: { span: 14 },
+                xs: {span: 14},
+                sm: {span: 14},
             },
         };
-        const { getFieldDecorator } = this.props.form;
-        const { shareItem } = this.props;
+        const {getFieldDecorator} = this.props.form;
+        const {shareItem} = this.props;
         return (
             <div className={styles.standardTable}>
                 <Modal
-                    title={shareItem&&shareItem.qtpdlx === '第二次调度未处理'?'警情督办':this.props.title}
+                    title={shareItem && shareItem.qtpdlx === '第二次调度未处理' ? '警情督办' : this.props.title}
                     visible={this.props.shareVisible}
                     onOk={this.handleOk}
                     onCancel={this.props.handleCancel}
@@ -162,7 +158,8 @@ class DispatchModal extends PureComponent {
                                 </Row>
                             ) : null
                         }
-                        <FormItem {...formItemLayout} label={shareItem&&shareItem.qtpdlx === '第二次调度未处理'?'督办意见':"调度意见"}>
+                        <FormItem {...formItemLayout}
+                                  label={shareItem && shareItem.qtpdlx === '第二次调度未处理' ? '督办意见' : "调度意见"}>
                             {getFieldDecorator('suggest')(<TextArea rows={4} placeholder='请输入不超过500字'/>)}
                         </FormItem>
                     </Form>

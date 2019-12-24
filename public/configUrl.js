@@ -22,13 +22,13 @@ const developips = {
 const ips = developModa ? developips : onlineips; // ip地址
 // 通用配置项[需配置]
 const configItem = {
-  sysName: '鹤壁市公安局智慧法制案管系统',
-  headName: '鹤壁市公安局智慧法制案管系统', // 左侧导航顶部显示名称
+  sysName: '智慧法制案管系统',
+  headName: '智慧法制案管系统', // 左侧导航顶部显示名称
   footName: '哈尔滨海邻科信息技术有限公司',
   version: 'V 1.2.13.1', // 版本号
   sid: 'zhag', // 系统资源ID
-  showDataTitle: '鹤壁市', // 大屏展示标题
-  mapCityName: 'hebi', // 大屏展示地图名称（可配置项： mudanjiang/ hulunbeier/baishan/hebi/erduosi/guiLin）
+  showDataTitle: '', // 大屏展示标题
+  mapCityName: '', // 大屏展示地图名称（可配置项： mudanjiang/ hulunbeier/baishan/hebi/erduosi/guiLin）
   mapAreaChangeTime: 5, // 大屏地图轮换间隔时间（秒）
   refreshNoticeTime: 30, // 自动获取消息时间（秒）
   isShowBaqsstj: true, // 首页是否显示办案区实时统计数据（false则显示案件状态统计）
@@ -60,7 +60,7 @@ const developConfigUrl = {
   baqServerUrl: `${ips.maintainIp}:7500`, // 办案区服务
   maintainCenterUrl: `${ips.maintainIp}:7400`, // 运维中心
   generalQueryUrl: `http://192.168.3.36:9200/`, // 综合查询es服务地址,
-  srcUrl: `${ips.maintainIp}:7300/raqReport-service/reportJsp/`, //润乾报表地址
+  srcUrl: `http://192.168.3.202:7300/raqReport-service/reportJsp/`, //润乾报表地址
   tbtjExportUrl: `${ips.TbtjDcIp}:8750`, // 图表统计导出功能
   smartLinkWindow7: `${ips.downLoadIp}/download/SmartLinkey_win7_2.3.0.1.zip`, //samrtLinkeyWindows版下载地址
   smartLinkWindowXp: `${ips.downLoadIp}/download/SmartLinkey_winxp_2.3.0.1.zip`, //samrtLinkeyWindows版下载地址

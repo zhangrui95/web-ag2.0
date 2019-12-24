@@ -4,14 +4,14 @@
 * 20181214
 * */
 
-import React, { PureComponent } from 'react';
-import { Row, Col } from 'antd';
+import React, {PureComponent} from 'react';
+import {Row, Col} from 'antd';
 import styles from './analysisStyles.less';
 
 export default class AnalysisTitleArea extends PureComponent {
     render() {
-        const { analysisTitle } = this.props;
-        let className = this.props.global && this.props.global.dark ? styles.titleArea : styles.titleArea+' '+styles.lightBox
+        const {analysisTitle} = this.props;
+        let className = this.props.global && this.props.global.dark ? styles.titleArea : styles.titleArea + ' ' + styles.lightBox
         return (
             <div className={className}>
                 <h2 className={styles.title}>{analysisTitle}</h2>

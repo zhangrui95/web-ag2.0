@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react';
+import React, {PureComponent} from 'react';
 import {Table, Divider, Tooltip, message, Dropdown, Menu, Row, Col, Empty} from 'antd';
 import styles from './RenderTable.less';
 // import SLAXZDetail from '../../routes/UnXzCaseRealData/caseDetail';
@@ -8,7 +8,8 @@ import {routerRedux} from "dva/router";
 import noList from "@/assets/viewData/noList.png";
 import {connect} from "dva";
 import noListLight from "@/assets/viewData/noListLight.png";
-@connect(({ global }) => ({
+
+@connect(({global}) => ({
     global
 }))
 class RenderTable extends PureComponent {
@@ -18,7 +19,7 @@ class RenderTable extends PureComponent {
         shareItem: null,
         personList: [],
         lx: '案件信息',
-        tzlx: window.configUrl.is_area === '1'?'xzajwt' + 3:'xzajwt' + this.props.ssmk,
+        tzlx: window.configUrl.is_area === '1' ? 'xzajwt' + 3 : 'xzajwt' + this.props.ssmk,
         sx: '',
         current: '',
     };
@@ -60,18 +61,18 @@ class RenderTable extends PureComponent {
         //     query: { record, id: record && record.id ? record.id : '1' },
         //   },
         //   callback: () => {
-            this.props.dispatch(
-              routerRedux.push({
+        this.props.dispatch(
+            routerRedux.push({
                 pathname: '/newcaseFiling/casePolice/AdministrationPolice/uncaseDetail',
-                query: { record: record, id: record && record.wtid ? record.wtid : '1' },
-              }),
-            );
+                query: {record: record, id: record && record.wtid ? record.wtid : '1'},
+            }),
+        );
         //   },
         // });
     };
 // 打开督办模态框
     supervise = (flag, record) => {
-        const { id, system_id } = record;
+        const {id, system_id} = record;
         this.props.dispatch({
             type: 'UnXzCaseData/UnXzCaseDetailFetch',
             payload: {
@@ -92,7 +93,7 @@ class RenderTable extends PureComponent {
 
     searchDetail = (flag, record) => {
 
-        const { wtid } = record;
+        const {wtid} = record;
         this.props.dispatch({
             type: 'UnXzCaseData/getUnXzCaseByProblemId',
             payload: {
@@ -105,14 +106,22 @@ class RenderTable extends PureComponent {
             callback: (data) => {
                 if (data.list.length > 0) {
                     if (data.list[0].dbzt === '00') {
-                      const {searchDetail} = this.state;
-                      // this.props.openModal(this.state.searchDetail, flag, record);
-                      this.props.dispatch(
-                        routerRedux.push({
-                          pathname: '/ModuleAll/Supervise',
-                          query: { record:searchDetail,searchDetail:record,id: searchDetail && searchDetail.id ? searchDetail.id : '1',from:'督办',tzlx:this.state.tzlx,fromPath:'/newcaseFiling/casePolice/AdministrationPolice',tab:'表格'},
-                        }),
-                      )
+                        const {searchDetail} = this.state;
+                        // this.props.openModal(this.state.searchDetail, flag, record);
+                        this.props.dispatch(
+                            routerRedux.push({
+                                pathname: '/ModuleAll/Supervise',
+                                query: {
+                                    record: searchDetail,
+                                    searchDetail: record,
+                                    id: searchDetail && searchDetail.id ? searchDetail.id : '1',
+                                    from: '督办',
+                                    tzlx: this.state.tzlx,
+                                    fromPath: '/newcaseFiling/casePolice/AdministrationPolice',
+                                    tab: '表格'
+                                },
+                            }),
+                        )
                     } else {
                         message.warning('该问题已督办，请点击详情查看');
                         this.props.refreshTable();
@@ -129,24 +138,25 @@ class RenderTable extends PureComponent {
             shareRecord: res,
         });
         if (type === 2) {
-          let detail = (
-            <Row style={{ lineHeight:'55px',paddingLeft:66 }}>
-              <Col span={12}>案件名称：<Tooltip
-                title={res && res.ajmc && res.ajmc.length > 20 ? res.ajmc : null}>{res && res.ajmc ? res.ajmc.length > 20 ? res.ajmc.substring(0, 20) + '...' : res.ajmc : ''}</Tooltip></Col>
-              <Col span={12}>受理单位：<Tooltip
-                title={res && res.sldw_name && res.sldw_name.length > 20 ? res.sldw_name : null}>{res && res.sldw_name ? res.sldw_name.length > 20 ? res.sldw_name.substring(0, 20) + '...' : res.sldw_name : ''}</Tooltip></Col>
-              <Col
-                span={12}>案件状态：{res && res.ajzt ? res.ajzt : ''}</Col>
-              <Col
-                span={12}>办案民警：{res && res.bar_name ? res.bar_name : ''}</Col>
-            </Row>
-          );
-          this.props.dispatch(
-            routerRedux.push({
-              pathname: '/ModuleAll/Share',
-              query: { record: res,id: res && res.id ? res.id : '1',from:this.state.lx,tzlx:this.state.tzlx,fromPath:'/newcaseFiling/casePolice/AdministrationPolice',detail,tab:'表格',sx: (res.ajmc ? res.ajmc + '、' : '') + (res.ajzt ? res.ajzt + '、' : '') + (res.wtlx ? res.wtlx + '、' : '') + (res.gjsj ? res.gjsj : '')},
-            }),
-          )
+            let caseDetails = res;
+            let detail = [`案件名称：${caseDetails && caseDetails.ajmc ? caseDetails.ajmc : ''}`, `受理单位：${caseDetails && caseDetails.sldw_name ? caseDetails.sldw_name : ''}`,
+                `案件状态：${caseDetails && caseDetails.ajzt ? caseDetails.ajzt : ''}`, `办案民警：${caseDetails && caseDetails.bar_name ? caseDetails.bar_name : ''}`,
+            ];
+            res.detail = detail;
+            this.props.dispatch(
+                routerRedux.push({
+                    pathname: '/ModuleAll/Share',
+                    query: {
+                        record: res,
+                        id: res && res.id ? res.id : '1',
+                        from: this.state.lx,
+                        tzlx: this.state.tzlx,
+                        fromPath: '/newcaseFiling/casePolice/AdministrationPolice',
+                        tab: '表格',
+                        sx: (res.ajmc ? res.ajmc + '、' : '') + (res.ajzt ? res.ajzt + '、' : '') + (res.wtlx ? res.wtlx + '、' : '') + (res.gjsj ? res.gjsj : '')
+                    },
+                }),
+            )
             // this.setState({
             //     shareVisible: true,
             //     shareItem: res,
@@ -169,7 +179,7 @@ class RenderTable extends PureComponent {
                 callback: (res) => {
                     if (!res.error) {
                         message.success('关注成功');
-                        this.props.getCase({ currentPage: this.state.current, pd: this.props.formValues });
+                        this.props.getCase({currentPage: this.state.current, pd: this.props.formValues});
                     }
                 },
             });
@@ -192,14 +202,14 @@ class RenderTable extends PureComponent {
             callback: (res) => {
                 if (!res.error) {
                     message.success('取消关注成功');
-                    this.props.getCase({ currentPage: this.state.current, pd: this.props.formValues });
+                    this.props.getCase({currentPage: this.state.current, pd: this.props.formValues});
                 }
             },
         });
     };
 
     render() {
-        const { data, loading } = this.props;
+        const {data, loading} = this.props;
         let columns;
         columns = [
             {
@@ -259,12 +269,12 @@ class RenderTable extends PureComponent {
                     <div>
                         {
                             this.props.isDb ? (
-                                <span style={{ display: 'inlineBlock' }}>
+                                <span style={{display: 'inlineBlock'}}>
                                     {
                                         record.dbzt === '00' ? (
                                             <a onClick={() => this.supervise(true, record)}>督办</a>
                                         ) : (
-                                            <a style={{ color: '#C3C3C3' }}>督办</a>
+                                            <a style={{color: '#C3C3C3'}}>督办</a>
                                         )
                                     }
                                     <Divider type="vertical"/>
@@ -310,7 +320,8 @@ class RenderTable extends PureComponent {
             total: data.page ? data.page.totalResult : '',
             pageSize: data.page ? data.page.showCount : '',
             showTotal: (total, range) =>
-                <span className={styles.pagination}>{`共 ${data.page ? data.page.totalPage : 1} 页， ${data.page ? data.page.totalResult : 0} 条记录`}</span>,
+                <span
+                    className={styles.pagination}>{`共 ${data.page ? data.page.totalPage : 1} 页， ${data.page ? data.page.totalResult : 0} 条记录`}</span>,
         };
         return (
             <div className={styles.standardTable} id='xzajgjstandardTable'>
@@ -322,18 +333,21 @@ class RenderTable extends PureComponent {
                     columns={columns}
                     pagination={paginationProps}
                     onChange={this.handleTableChange}
-                    locale={{ emptyText: <Empty image={this.props.global&&this.props.global.dark ? noList : noListLight} description={'暂无数据'} /> }}
+                    locale={{
+                        emptyText: <Empty image={this.props.global && this.props.global.dark ? noList : noListLight}
+                                          description={'暂无数据'}/>
+                    }}
                 />
                 {/*<ShareModal*/}
-                    {/*title="案件信息分享"*/}
-                    {/*detail={detail}*/}
-                    {/*shareVisible={this.state.shareVisible}*/}
-                    {/*handleCancel={this.handleCancel}*/}
-                    {/*shareItem={this.state.shareItem}*/}
-                    {/*personList={this.state.personList}*/}
-                    {/*lx={this.state.lx}*/}
-                    {/*tzlx={this.state.tzlx}*/}
-                    {/*sx={this.state.sx}*/}
+                {/*title="案件信息分享"*/}
+                {/*detail={detail}*/}
+                {/*shareVisible={this.state.shareVisible}*/}
+                {/*handleCancel={this.handleCancel}*/}
+                {/*shareItem={this.state.shareItem}*/}
+                {/*personList={this.state.personList}*/}
+                {/*lx={this.state.lx}*/}
+                {/*tzlx={this.state.tzlx}*/}
+                {/*sx={this.state.sx}*/}
                 {/*/>*/}
             </div>
         );

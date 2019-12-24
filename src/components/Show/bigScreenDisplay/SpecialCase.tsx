@@ -4,7 +4,7 @@
 * 20190108
 * */
 
-import React, { PureComponent } from 'react';
+import React, {PureComponent} from 'react';
 import echarts from 'echarts/lib/echarts';
 import pie from 'echarts/lib/chart/pie';
 import title from 'echarts/lib/component/title';
@@ -14,7 +14,7 @@ let myChart;
 
 export default class SpecialCase extends PureComponent {
     componentDidMount() {
-        const { selectDate, org, orgCode, orglist } = this.props;
+        const {selectDate, org, orgCode, orglist} = this.props;
         this.getSpecialCase(selectDate[0], selectDate[1], org, orgCode, orglist);
         this.showEchart();
         window.addEventListener('resize', myChart.resize);
@@ -30,7 +30,7 @@ export default class SpecialCase extends PureComponent {
 
     // 专项类别案件
     getSpecialCase = (startTime, endTime, org, orgCode, orglist) => {
-        const { shadeColors } = this.props;
+        const {shadeColors} = this.props;
         this.props.dispatch({
             type: 'show/getSpecialCase',
             payload: {
@@ -75,7 +75,7 @@ export default class SpecialCase extends PureComponent {
                     myChart.setOption({
                         legend: {
                             data: legendData,
-                            formatter: function(name) {
+                            formatter: function (name) {
                                 let formatStr = '';
                                 for (let i = 0; i < pieData.length; i++) {
                                     if (name === pieData[i].name) {
@@ -155,7 +155,7 @@ export default class SpecialCase extends PureComponent {
 
     render() {
         return (
-            <div id="SpecialCase" style={{ height: '100%', width: '100%' }}></div>
+            <div id="SpecialCase" style={{height: '100%', width: '100%'}}></div>
         );
     }
 }

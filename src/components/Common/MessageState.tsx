@@ -8,8 +8,9 @@ import React, {Component} from 'react';
 import {Select, Icon, Table, Row, Col, Form} from 'antd';
 import {connect} from "dva";
 
-const { Option } = Select;
-class  MessageState extends Component {
+const {Option} = Select;
+
+class MessageState extends Component {
 
     state = {
         disableRectification: true, // 禁用整改完毕下拉框
@@ -32,7 +33,7 @@ class  MessageState extends Component {
     }
 
     handleRectificationStatusChange = (zgzt) => {
-        this.triggerChange({ zgzt });
+        this.triggerChange({zgzt});
     };
 
     handleSuperviseStatusChange = (dbzt) => {
@@ -43,7 +44,7 @@ class  MessageState extends Component {
         this.setState({
             disableRectification: disabledRect,
         });
-        this.triggerChange({ dbzt, zgzt: '' });
+        this.triggerChange({dbzt, zgzt: ''});
     };
 
     triggerChange = (changedValue) => {
@@ -56,8 +57,8 @@ class  MessageState extends Component {
 
 
     render() {
-        const {value: { dbzt, zgzt }, superviseStatusOptions, rectificationStatusOptions,newId } = this.props;
-        const { disableRectification } = this.state;
+        const {value: {dbzt, zgzt}, superviseStatusOptions, rectificationStatusOptions, newId} = this.props;
+        const {disableRectification} = this.state;
         const divStyle = {
             display: 'flex',
             justifyContent: 'space-between',
@@ -68,7 +69,7 @@ class  MessageState extends Component {
             <div style={divStyle}>
                 <Select
                     value={dbzt}
-                    style={{ width: '55%', textAlign: 'left' }}
+                    style={{width: '55%', textAlign: 'left'}}
                     onChange={this.handleSuperviseStatusChange}
                     getPopupContainer={() => document.getElementById(newId)}
                 >
@@ -77,7 +78,7 @@ class  MessageState extends Component {
                 </Select>
                 <Select
                     value={zgzt}
-                    style={{ width: '40%', textAlign: 'right' }}
+                    style={{width: '40%', textAlign: 'right'}}
                     disabled={disableRectification}
                     onChange={this.handleRectificationStatusChange}
                     getPopupContainer={() => document.getElementById(newId)}
@@ -89,6 +90,7 @@ class  MessageState extends Component {
         );
     }
 }
+
 export default Form.create()(
-    connect((MySuperviseData, loading, common) => ({ MySuperviseData, loading, common }))(MessageState),
+    connect((MySuperviseData, loading, common) => ({MySuperviseData, loading, common}))(MessageState),
 );

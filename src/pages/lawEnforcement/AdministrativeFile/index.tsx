@@ -1,10 +1,10 @@
-import React, { PureComponent } from 'react';
-import { connect } from 'dva';
+import React, {PureComponent} from 'react';
+import {connect} from 'dva';
 import {Row, Col, Form, Select, TreeSelect, Input, Button, DatePicker, Tabs, message, Cascader, Card, Icon} from 'antd';
 import moment from 'moment/moment';
 import styles from '../listPage.less';
 import RenderTable from '../../../components/XzCaseRealData/RenderTable';
-import { exportListDataMaxDays, getQueryString, tableList } from '../../../utils/utils';
+import {exportListDataMaxDays, getQueryString, tableList} from '../../../utils/utils';
 import SyncTime from '../../../components/Common/SyncTime';
 import stylescommon1 from "@/pages/common/common.less";
 import stylescommon2 from "@/pages/common/commonLight.less";
@@ -12,16 +12,16 @@ import noList from "@/assets/viewData/noList.png";
 import noListLight from "@/assets/viewData/noListLight.png";
 
 const FormItem = Form.Item;
-const { Option } = Select;
-const { RangePicker } = DatePicker;
+const {Option} = Select;
+const {RangePicker} = DatePicker;
 const TabPane = Tabs.TabPane;
 const TreeNode = TreeSelect.TreeNode;
 
 let timeout;
 let currentValue;
 
-@connect(({ XzCaseData, loading, common,global }) => ({
-    XzCaseData, loading, common,global
+@connect(({XzCaseData, loading, common, global}) => ({
+    XzCaseData, loading, common, global
     // loading: loading.models.alarmManagement,
 }))
 @Form.create()
@@ -68,15 +68,16 @@ export default class AdministrativeCaseDoc extends PureComponent {
         this.getCase(obj);
         this.getDepTree(newjigouArea.department);
         this.getCaseStatus();
-        this.getCaseTypeTree(window.configUrl.is_area==='1'?'1':'0');
+        this.getCaseTypeTree(window.configUrl.is_area === '1' ? '1' : '0');
     }
+
     // 获取案件类别树
     getCaseTypeTree = (areaNum) => {
         this.props.dispatch({
             type: 'common/getCaseTypeTree',
             payload: {
                 ajlb: 'xz', // 案件类别xs,xz
-                is_area:areaNum,
+                is_area: areaNum,
             },
             callback: (data) => {
                 if (data.list) {
@@ -95,7 +96,7 @@ export default class AdministrativeCaseDoc extends PureComponent {
             timeout = null;
         }
         currentValue = name;
-        timeout = setTimeout(function() {
+        timeout = setTimeout(function () {
 
             that.props.dispatch({
                 type: 'common/getAllPolice',
@@ -235,7 +236,7 @@ export default class AdministrativeCaseDoc extends PureComponent {
     };
     // 表格分页
     handleTableChange = (pagination, filtersArg, sorter) => {
-        const { formValues } = this.state;
+        const {formValues} = this.state;
         const params = {
             pd: {
                 ...formValues,
@@ -335,21 +336,22 @@ export default class AdministrativeCaseDoc extends PureComponent {
     };
     getSearchHeight = () => {
         this.setState({
-            searchHeight:!this.state.searchHeight
+            searchHeight: !this.state.searchHeight
         });
     }
+
     renderForm() {
-        let stylescommon = this.props.global&&this.props.global.dark ? stylescommon1 : stylescommon2;
-        const { form: { getFieldDecorator }, common: { depTree, XzCaseStatusType } } = this.props;
+        let stylescommon = this.props.global && this.props.global.dark ? stylescommon1 : stylescommon2;
+        const {form: {getFieldDecorator}, common: {depTree, XzCaseStatusType}} = this.props;
         const allPoliceOptions = this.state.allPolice.map(d => <Option key={`${d.idcard},${d.pcard}`}
                                                                        value={`${d.idcard},${d.pcard}$$`}
                                                                        title={d.name}>{`${d.name} ${d.pcard}`}</Option>);
         const formItemLayout = {
-            labelCol: { xs: { span: 24 }, md: { span: 8 }, xl: { span: 6 }, xxl: { span: 4 } },
-            wrapperCol: { xs: { span: 24 }, md: { span: 16 }, xl: { span: 18 }, xxl: { span: 20 } },
+            labelCol: {xs: {span: 24}, md: {span: 8}, xl: {span: 6}, xxl: {span: 4}},
+            wrapperCol: {xs: {span: 24}, md: {span: 16}, xl: {span: 18}, xxl: {span: 20}},
         };
-        const rowLayout = { md: 8, xl: 16, xxl: 24 };
-        const colLayout = { sm: 24, md: 12, xl: 12, xxl: 8 };
+        const rowLayout = {md: 8, xl: 16, xxl: 24};
+        const colLayout = {sm: 24, md: 12, xl: 12, xxl: 8};
         let XzCaseStatusOption = [];
         if (XzCaseStatusType.length > 0) {
             for (let i = 0; i < XzCaseStatusType.length; i++) {
@@ -361,14 +363,14 @@ export default class AdministrativeCaseDoc extends PureComponent {
         }
         return (
             <Card className={stylescommon.listPageWrap} id={'formAdministrativeFile'}>
-                <Form onSubmit={this.handleSearch} style={{height:this.state.searchHeight ?  'auto' : '50px'}}>
+                <Form onSubmit={this.handleSearch} style={{height: this.state.searchHeight ? 'auto' : '50px'}}>
                     <Row gutter={rowLayout} className={stylescommon.searchForm}>
                         <Col {...colLayout}>
                             <FormItem label="案件编号" {...formItemLayout}>
                                 {getFieldDecorator('ajbh', {
                                     // initialValue: this.state.caseType,
-                                    rules: [{ pattern: /^[A-Za-z0-9]+$/, message: '请输入正确的案件编号！' },
-                                        { max: 32, message: '最多输入32个字！' }],
+                                    rules: [{pattern: /^[A-Za-z0-9]+$/, message: '请输入正确的案件编号！'},
+                                        {max: 32, message: '最多输入32个字！'}],
                                 })(
                                     <Input placeholder="请输入案件编号"/>,
                                 )}
@@ -378,7 +380,7 @@ export default class AdministrativeCaseDoc extends PureComponent {
                             <FormItem label="案件名称" {...formItemLayout}>
                                 {getFieldDecorator('ajmc', {
                                     // initialValue: this.state.caseType,
-                                    rules: [{ max: 128, message: '最多输入128个字！' }],
+                                    rules: [{max: 128, message: '最多输入128个字！'}],
                                 })(
                                     <Input placeholder="请输入案件名称"/>,
                                 )}
@@ -391,7 +393,7 @@ export default class AdministrativeCaseDoc extends PureComponent {
                                 })(
                                     <RangePicker
                                         disabledDate={this.disabledDate}
-                                        style={{ width: '100%' }}
+                                        style={{width: '100%'}}
                                         getCalendarContainer={() => document.getElementById('formAdministrativeFile')}
                                     />,
                                 )}
@@ -399,11 +401,10 @@ export default class AdministrativeCaseDoc extends PureComponent {
                         </Col>
                         <Col {...colLayout}>
                             <FormItem label="结案日期" {...formItemLayout}>
-                                {getFieldDecorator('jarq', {
-                                })(
+                                {getFieldDecorator('jarq', {})(
                                     <RangePicker
                                         disabledDate={this.disabledDate}
-                                        style={{ width: '100%' }}
+                                        style={{width: '100%'}}
                                         getCalendarContainer={() => document.getElementById('formAdministrativeFile')}
                                     />,
                                 )}
@@ -416,8 +417,8 @@ export default class AdministrativeCaseDoc extends PureComponent {
                                 })(
                                     <TreeSelect
                                         showSearch
-                                        style={{ width: '100%' }}
-                                        dropdownStyle={{ maxHeight: 400, overflow: 'auto' }}
+                                        style={{width: '100%'}}
+                                        dropdownStyle={{maxHeight: 400, overflow: 'auto'}}
                                         placeholder="请输入受理单位"
                                         allowClear
                                         treeDefaultExpandedKeys={this.state.treeDefaultExpandedKeys}
@@ -435,7 +436,8 @@ export default class AdministrativeCaseDoc extends PureComponent {
                                 {getFieldDecorator('ajzt', {
                                     initialValue: this.state.ajzt,
                                 })(
-                                    <Select placeholder="请选择案件状态" style={{ width: '100%' }}   getPopupContainer={() => document.getElementById('formAdministrativeFile')}>
+                                    <Select placeholder="请选择案件状态" style={{width: '100%'}}
+                                            getPopupContainer={() => document.getElementById('formAdministrativeFile')}>
                                         <Option value="">全部</Option>
                                         {XzCaseStatusOption}
                                     </Select>,
@@ -445,7 +447,7 @@ export default class AdministrativeCaseDoc extends PureComponent {
                         <Col {...colLayout}>
                             <FormItem label="&nbsp;&nbsp;&nbsp; 办案人" {...formItemLayout}>
                                 {getFieldDecorator('bar', {
-                                    rules: [{ max: 32, message: '最多输入32个字！' }],
+                                    rules: [{max: 32, message: '最多输入32个字！'}],
                                 })(
                                     <Select
                                         mode="combobox"
@@ -487,15 +489,16 @@ export default class AdministrativeCaseDoc extends PureComponent {
                         </Col>
                     </Row>
                     <Row className={stylescommon.search}>
-                        <span style={{ float: 'right', marginBottom: 24 }}>
-                          <Button style={{ marginLeft: 8 }} type="primary" onClick={this.handleSearch}>
+                        <span style={{float: 'right', marginBottom: 24}}>
+                          <Button style={{marginLeft: 8}} type="primary" onClick={this.handleSearch}>
                             查询
                           </Button>
-                          <Button style={{ marginLeft: 8 }} onClick={this.handleFormReset} className={stylescommon.empty}>
+                          <Button style={{marginLeft: 8}} onClick={this.handleFormReset} className={stylescommon.empty}>
                             重置
                           </Button>
-                          <Button style={{ marginLeft: 8 }} onClick={this.getSearchHeight} className={stylescommon.empty}>
-                              {this.state.searchHeight ? '收起筛选' : '展开筛选'} <Icon type={this.state.searchHeight ? "up" :"down"}/>
+                          <Button style={{marginLeft: 8}} onClick={this.getSearchHeight} className={stylescommon.empty}>
+                              {this.state.searchHeight ? '收起筛选' : '展开筛选'} <Icon
+                              type={this.state.searchHeight ? "up" : "down"}/>
                           </Button>
                         </span>
                     </Row>
@@ -505,7 +508,7 @@ export default class AdministrativeCaseDoc extends PureComponent {
     }
 
     renderTable() {
-        const { XzCaseData: { returnData, loading } } = this.props;
+        const {XzCaseData: {returnData, loading}} = this.props;
         return (
             <div>
                 <RenderTable
@@ -525,18 +528,18 @@ export default class AdministrativeCaseDoc extends PureComponent {
     }
 
     render() {
-        const { XzCaseData: { returnData, loading } } = this.props;
+        const {XzCaseData: {returnData, loading}} = this.props;
         const newAddDetail = this.state.arrayDetail;
-        let stylescommon = this.props.global&&this.props.global.dark ? stylescommon1 : stylescommon2;
+        let stylescommon = this.props.global && this.props.global.dark ? stylescommon1 : stylescommon2;
         return (
             <div>
-                    {this.renderForm()}
-                    <div className={stylescommon.btnTableBox}>
-                        <Button onClick={this.exportData} icon="download">
-                            导出表格
-                        </Button>
-                    </div>
-                    {this.renderTable()}
+                {this.renderForm()}
+                <div className={stylescommon.btnTableBox}>
+                    <Button onClick={this.exportData} icon="download">
+                        导出表格
+                    </Button>
+                </div>
+                {this.renderTable()}
                 <SyncTime dataLatestTime={returnData.tbCount ? returnData.tbCount.tbsj : ''} {...this.props} />
             </div>
         );

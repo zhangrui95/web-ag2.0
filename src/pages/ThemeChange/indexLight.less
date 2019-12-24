@@ -1,7 +1,14 @@
-.box{
+.box {
   min-height: 700px;
+
+  :global {
+    .ant-card-bordered {
+      border: 0 !important;
+    }
+  }
 }
-.header{
+
+.header {
   font-size: 18px;
   height: 50px;
   line-height: 50px;
@@ -9,39 +16,46 @@
   color: #4D4D4D;
   border-bottom: 1px solid #E6E6E6;
 }
-.allBox{
+
+.allBox {
   width: 64%;
   margin: 0 18%;
 }
-.boxItem{
+
+.boxItem {
   width: 50%;
   float: left;
   margin: auto;
   position: relative;
   height: 500px;
-  :global{
-    .ant-checkbox-wrapper{
+
+  :global {
+    .ant-checkbox-wrapper {
       position: absolute;
       top: 430px;
       left: calc(~"50% - 15px");
     }
-    .ant-checkbox-inner{
+
+    .ant-checkbox-inner {
       border: 2px solid #A0A6BA;
       width: 30px;
       height: 30px;
       border-radius: 50px;
       background: transparent;
     }
-    .ant-checkbox-inner::after{
+
+    .ant-checkbox-inner::after {
       width: 9px;
       height: 15px;
     }
-    .ant-checkbox-checked::after{
-        border: 0;
+
+    .ant-checkbox-checked::after {
+      border: 0;
     }
   }
 }
-.bgCard{
+
+.bgCard {
   width: 300px;
   height: 300px;
   background: linear-gradient(#00C0FA, #015EEA) !important;
@@ -51,49 +65,55 @@
   top: 100px;
   margin-left: 50%;
   left: -150px;
-  border: 0!important;
+  border: 0 !important;
   box-shadow: 0 0 30px #828fc5;
-  font-weight:600;
+  font-weight: 600;
   cursor: pointer;
-  img{
+
+  img {
     position: absolute;
     right: 0px;
     bottom: 0;
     width: 150px;
   }
-  :global{
-    .ant-card-body{
-      color: #fff!important;
+
+  :global {
+    .ant-card-body {
+      color: #fff !important;
     }
   }
 }
-.bgCardDark{
+
+.bgCardDark {
   width: 300px;
   height: 300px;
-  background: linear-gradient(#4F7492, #0C2442)!important;
+  background: linear-gradient(#4F7492, #0C2442) !important;
   font-size: 40px;
   padding: 30px;
   position: absolute;
-  top:100px;
-  margin-left:50%;
-  left:-150px;
-  border: 0!important;
+  top: 100px;
+  margin-left: 50%;
+  left: -150px;
+  border: 0 !important;
   box-shadow: 0 0 30px #828fc5;
-  font-weight:600;
+  font-weight: 600;
   cursor: pointer;
-  img{
+
+  img {
     position: absolute;
     right: 0px;
     bottom: 0;
     width: 150px;
   }
-  :global{
-    .ant-card-body{
-      color: #fff!important;
+
+  :global {
+    .ant-card-body {
+      color: #fff !important;
     }
   }
 }
-.Icon{
+
+.Icon {
   color: #4662D5;
   margin-right: 8px;
 }

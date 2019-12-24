@@ -4,20 +4,20 @@
 * 20190311
 * */
 
-import React, { PureComponent } from 'react';
-import { connect } from 'dva';
-import { Modal, Button, message, Icon, Row, Col, Form, Select, Upload, TreeSelect, Checkbox, Input } from 'antd';
+import React, {PureComponent} from 'react';
+import {connect} from 'dva';
+import {Modal, Button, message, Icon, Row, Col, Form, Select, Upload, TreeSelect, Checkbox, Input} from 'antd';
 import styles from '../../pages/common/modalStyle.less';
 import Ellipsis from 'ant-design-pro/lib/Ellipsis';
-import { getUserInfos } from '../../utils/utils';
+import {getUserInfos} from '../../utils/utils';
 
 const TreeNode = TreeSelect.TreeNode;
-const { Option, OptGroup } = Select;
+const {Option, OptGroup} = Select;
 const FormItem = Form.Item;
-const { TextArea } = Input;
+const {TextArea} = Input;
 const userInfo = getUserInfos();
 
-@connect(({ common }) => ({
+@connect(({common}) => ({
     common,
     // loading: loading.models.alarmManagement,
 }))
@@ -74,8 +74,8 @@ export default class FeedbackModal extends PureComponent {
     // 反馈确认
     handleAlarmSure = () => {
         const values = this.props.form.getFieldsValue();
-        const { fileList } = this.state;
-        const { detailsData } = this.props;
+        const {fileList} = this.state;
+        const {detailsData} = this.props;
         let wjxx = [];
         for (let i in fileList) {
             const obj = {
@@ -204,7 +204,7 @@ export default class FeedbackModal extends PureComponent {
             }
             return true;
         });
-        this.setState({ fileList });
+        this.setState({fileList});
     };
     // 点击文件查看
     fileOnPreview = (file) => {
@@ -224,8 +224,8 @@ export default class FeedbackModal extends PureComponent {
 
 
     render() {
-        const { SureModalVisible, fkr_dwmc, fkr_name } = this.state;
-        const { detailsData, form: { getFieldDecorator }, common: { rectificationStatusDict } } = this.props;
+        const {SureModalVisible, fkr_dwmc, fkr_name} = this.state;
+        const {detailsData, form: {getFieldDecorator}, common: {rectificationStatusDict}} = this.props;
         let rectificationStatusOptions = [];
         if (rectificationStatusDict.length > 0) {
             for (let i = 0; i < rectificationStatusDict.length; i++) {
@@ -260,7 +260,7 @@ export default class FeedbackModal extends PureComponent {
                 <Modal
                     maskClosable={false}
                     visible={this.props.visible}
-                    title={<div style={{ color: '#fff' }}>反馈</div>}
+                    title={<div style={{color: '#fff'}}>反馈</div>}
                     onCancel={() => this.onCancelFeedbackModal()}
                     width={800}
                     footer={this.foot()}
@@ -268,7 +268,7 @@ export default class FeedbackModal extends PureComponent {
                 >
                     <div>
                         <Form>
-                            <Row gutter={{ md: 8, lg: 24, xl: 48 }} style={{ marginBottom: '16px' }}>
+                            <Row gutter={{md: 8, lg: 24, xl: 48}} style={{marginBottom: '16px'}}>
                                 <Col md={12} sm={24}>
                                     <span className={styles.title1}>问题类型：</span>
                                     <span className={styles.outtext}>
@@ -277,7 +277,7 @@ export default class FeedbackModal extends PureComponent {
                                 </Col>
 
                             </Row>
-                            <Row gutter={{ md: 8, lg: 24, xl: 48 }} style={{ marginBottom: '16px' }}>
+                            <Row gutter={{md: 8, lg: 24, xl: 48}} style={{marginBottom: '16px'}}>
                                 <Col md={12} sm={24}>
                                     <span className={styles.title1}>反馈单位：</span>
                                     <span className={styles.outtext}>
@@ -285,21 +285,21 @@ export default class FeedbackModal extends PureComponent {
                                     </span>
                                 </Col>
                                 <Col md={12} sm={24}>
-                                    <span className={styles.title} style={{ left: '24px', top: '3px' }}>责任人：</span>
-                                    <span className={styles.outtext} style={{ paddingLeft: '60px' }}>
+                                    <span className={styles.title} style={{left: '24px', top: '3px'}}>责任人：</span>
+                                    <span className={styles.outtext} style={{paddingLeft: '60px'}}>
                                         {
                                             detailsData.dbid === '' ? (
                                                 getFieldDecorator('zrr', {
                                                     initialValue: [],
                                                     rules: [
-                                                        { required: true, message: '请选择责任人' },
+                                                        {required: true, message: '请选择责任人'},
                                                     ],
                                                 })(
                                                     <Select
                                                         showSearch
                                                         mode="multiple"
-                                                        style={{ width: '100%' }}
-                                                        dropdownStyle={{ maxHeight: 400, overflow: 'auto' }}
+                                                        style={{width: '100%'}}
+                                                        dropdownStyle={{maxHeight: 400, overflow: 'auto'}}
                                                         placeholder="请选择责任人"
                                                         allowClear
                                                         getPopupContainer={triggerNode => triggerNode.parentNode}
@@ -315,18 +315,18 @@ export default class FeedbackModal extends PureComponent {
                                     </span>
                                 </Col>
                             </Row>
-                            <Row gutter={{ md: 8, lg: 24, xl: 48 }} style={{ marginBottom: '16px' }}>
+                            <Row gutter={{md: 8, lg: 24, xl: 48}} style={{marginBottom: '16px'}}>
                                 <Col md={12} sm={24}>
-                                    <span className={styles.title1} style={{ left: 36 }}>反馈人：</span>
+                                    <span className={styles.title1} style={{left: 36}}>反馈人：</span>
                                     <span className={styles.outtext}>
                                         <span className={styles.wtlxstyle}>{fkr_name}</span>
                                     </span>
                                 </Col>
                                 <Col md={12} sm={24}>
-                                    <span className={styles.title} style={{ left: '10px', top: '3px' }}>处理结果：</span>
-                                    <span className={styles.outtext} style={{ paddingLeft: '60px' }}>
+                                    <span className={styles.title} style={{left: '10px', top: '3px'}}>处理结果：</span>
+                                    <span className={styles.outtext} style={{paddingLeft: '60px'}}>
                                         {getFieldDecorator('cljg', {
-                                            initialValue: { key: '500741', label: '已处理' },
+                                            initialValue: {key: '500741', label: '已处理'},
                                         })(
                                             <Select placeholder="请选择处理结果" labelInValue>
                                                 {rectificationStatusOptions}
@@ -335,20 +335,20 @@ export default class FeedbackModal extends PureComponent {
                                     </span>
                                 </Col>
                             </Row>
-                            <Row style={{ marginBottom: '16px' }}>
+                            <Row style={{marginBottom: '16px'}}>
                                 <Col md={24} sm={24}>
                                     <span className={styles.title}>反馈结果：</span>
                                     <span className={styles.outtext}>
                                         {getFieldDecorator('fkjg', {
                                             initialValue: '',
                                             rules: [
-                                                { required: true, message: '请填写反馈结果', whitespace: true },
-                                                { max: 500, message: '最多输入500个字！' },
+                                                {required: true, message: '请填写反馈结果', whitespace: true},
+                                                {max: 500, message: '最多输入500个字！'},
                                             ],
                                         })(
                                             <TextArea placeholder="如实填写反馈结果，挂起原因，延期原因" rows={3}/>,
                                         )}
-                                        <span style={{ color: '#1890FF' }}>*请在此处简要描述处理结果，挂起原因，延期原因</span>
+                                        <span style={{color: '#1890FF'}}>*请在此处简要描述处理结果，挂起原因，延期原因</span>
                                     </span>
                                 </Col>
                             </Row>
@@ -368,9 +368,9 @@ export default class FeedbackModal extends PureComponent {
                                     </span>
                                 </Col>
                             </Row>
-                            <Row style={{ paddingTop: 20 }}>
+                            <Row style={{paddingTop: 20}}>
                                 <Col>
-                                    <span className={styles.outtext} style={{ color: 'rgba(0, 0, 0, 0.45)' }}>文件上传最多10个，支持扩展名：.rar .zip .doc .docx .pdf .jpg .png .bmp</span>
+                                    <span className={styles.outtext} style={{color: 'rgba(0, 0, 0, 0.45)'}}>文件上传最多10个，支持扩展名：.rar .zip .doc .docx .pdf .jpg .png .bmp</span>
                                 </Col>
                             </Row>
                         </Form>

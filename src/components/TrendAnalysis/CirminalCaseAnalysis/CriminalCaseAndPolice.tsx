@@ -4,7 +4,7 @@
 * 20181227
 * */
 
-import React, { PureComponent } from 'react';
+import React, {PureComponent} from 'react';
 import {Tooltip, Icon, Table, Row, Col, Spin, Empty} from 'antd';
 import echarts from 'echarts/lib/echarts';
 import bar from 'echarts/lib/chart/bar';
@@ -34,16 +34,16 @@ export default class CriminalCaseAndPolice extends PureComponent {
 
     componentWillReceiveProps(nextProps) {
         if (nextProps) {
-            if ((nextProps.selectedDate !== null) && (this.props.selectedDate !== nextProps.selectedDate)|| this.props.global.dark !== nextProps.global.dark) {
+            if ((nextProps.selectedDate !== null) && (this.props.selectedDate !== nextProps.selectedDate) || this.props.global.dark !== nextProps.global.dark) {
                 this.getCriminalCaseAndPolice(nextProps);
             }
         }
     }
 
     getCriminalCaseAndPolice = (propsData) => {
-        this.props.changeLoadingStatus({ criminalCaseAndPoliceLoadingStatus: true });
-        this.setState({ loadingData: true });
-        const { dispatch, selectedDateStr, yearOnYearDateStr, monthOnMonthDateStr, selectedDate, yearOnYearDate, monthOnMonthDate } = propsData;
+        this.props.changeLoadingStatus({criminalCaseAndPoliceLoadingStatus: true});
+        this.setState({loadingData: true});
+        const {dispatch, selectedDateStr, yearOnYearDateStr, monthOnMonthDateStr, selectedDate, yearOnYearDate, monthOnMonthDate} = propsData;
         dispatch({
             type: 'trendAnalysis/getCriminalCaseAndPolice',
             payload: {
@@ -53,7 +53,7 @@ export default class CriminalCaseAndPolice extends PureComponent {
             },
             callback: (data) => {
                 if (data) {
-                    const { ajla, ajsa, jqnosa, jqsa, jqzl, lal, sal } = data;
+                    const {ajla, ajsa, jqnosa, jqsa, jqzl, lal, sal} = data;
                     let pie1 = [];
                     let pie2 = [];
                     let pie3 = [];
@@ -63,16 +63,16 @@ export default class CriminalCaseAndPolice extends PureComponent {
                     let barData = [];
                     if (jqnosa && jqsa && jqzl && sal) {
                         pie1 = [
-                            { name: '未受案', value: jqnosa.nowtime, itemStyle: { color: '#3AA0FF' } },
-                            { name: '受理', value: jqsa.nowtime },
+                            {name: '未受案', value: jqnosa.nowtime, itemStyle: {color: '#3AA0FF'}},
+                            {name: '受理', value: jqsa.nowtime},
                         ];
                         pie2 = [
-                            { name: '未受案', value: jqnosa.lastyear, itemStyle: { color: '#DCCA23' } },
-                            { name: '受理', value: jqsa.lastyear },
+                            {name: '未受案', value: jqnosa.lastyear, itemStyle: {color: '#DCCA23'}},
+                            {name: '受理', value: jqsa.lastyear},
                         ];
                         pie3 = [
-                            { name: '未受案', value: jqnosa.lastmonth, itemStyle: { color: '#31BD74' } },
-                            { name: '受理', value: jqsa.lastmonth },
+                            {name: '未受案', value: jqnosa.lastmonth, itemStyle: {color: '#31BD74'}},
+                            {name: '受理', value: jqsa.lastmonth},
                         ];
                         caseAndPoliceTableData = [
                             {
@@ -122,7 +122,7 @@ export default class CriminalCaseAndPolice extends PureComponent {
                                 textStyle: {
                                     fontSize: 16,
                                     fontWeight: 'normal',
-                                    color:this.props.global && this.props.global.dark ? '#fff' : '#4d4d4d'
+                                    color: this.props.global && this.props.global.dark ? '#fff' : '#4d4d4d'
                                 },
                                 x: '50%',
                                 y: '45%',
@@ -134,7 +134,7 @@ export default class CriminalCaseAndPolice extends PureComponent {
                                 textStyle: {
                                     fontSize: 16,
                                     fontWeight: 'normal',
-                                    color:this.props.global && this.props.global.dark ? '#fff' : '#4d4d4d'
+                                    color: this.props.global && this.props.global.dark ? '#fff' : '#4d4d4d'
                                 },
                                 x: '20%',
                                 y: '45%',
@@ -146,7 +146,7 @@ export default class CriminalCaseAndPolice extends PureComponent {
                                 textStyle: {
                                     fontSize: 16,
                                     fontWeight: 'normal',
-                                    color:this.props.global && this.props.global.dark ? '#fff' : '#4d4d4d'
+                                    color: this.props.global && this.props.global.dark ? '#fff' : '#4d4d4d'
                                 },
                                 x: '80%',
                                 y: '45%',
@@ -154,8 +154,8 @@ export default class CriminalCaseAndPolice extends PureComponent {
                                 padding: [7, 0],
                             },
                         ];
-                        if(document.getElementsByClassName('criminalCaseAndPolice')[1]){
-                            this.showEchart(title,pie1,pie2,pie3);
+                        if (document.getElementsByClassName('criminalCaseAndPolice')[1]) {
+                            this.showEchart(title, pie1, pie2, pie3);
                             window.addEventListener('resize', treePie.resize);
                         }
                     }
@@ -218,9 +218,9 @@ export default class CriminalCaseAndPolice extends PureComponent {
                                 },
                             },
                             data: [
-                                { name: selectedDateStr, value: ajsa.nowtime || 0 },
-                                { name: yearOnYearDateStr, value: ajsa.lastyear || 0 },
-                                { name: monthOnMonthDateStr, value: ajsa.lastmonth || 0 },
+                                {name: selectedDateStr, value: ajsa.nowtime || 0},
+                                {name: yearOnYearDateStr, value: ajsa.lastyear || 0},
+                                {name: monthOnMonthDateStr, value: ajsa.lastmonth || 0},
                             ],
                             itemStyle: {
                                 normal: {
@@ -239,9 +239,9 @@ export default class CriminalCaseAndPolice extends PureComponent {
                                 },
                             },
                             data: [
-                                { name: selectedDateStr, value: ajla.nowtime || 0 },
-                                { name: yearOnYearDateStr, value: ajla.lastyear || 0 },
-                                { name: monthOnMonthDateStr, value: ajla.lastmonth || 0 },
+                                {name: selectedDateStr, value: ajla.nowtime || 0},
+                                {name: yearOnYearDateStr, value: ajla.lastyear || 0},
+                                {name: monthOnMonthDateStr, value: ajla.lastmonth || 0},
                             ], itemStyle: {
                                 normal: {
                                     //这里是重点
@@ -249,8 +249,8 @@ export default class CriminalCaseAndPolice extends PureComponent {
                                 }
                             }
                         }];
-                        if(document.getElementsByClassName('criminalCaseAccept')[1]){
-                            this.showAcceptCaseBar(xData,barData);
+                        if (document.getElementsByClassName('criminalCaseAccept')[1]) {
+                            this.showAcceptCaseBar(xData, barData);
                             window.addEventListener('resize', criminalCaseAcceptBar.resize);
                         }
                     }
@@ -260,13 +260,13 @@ export default class CriminalCaseAndPolice extends PureComponent {
                     });
                     this.props.goToCarousel(2);
                 }
-                this.setState({ loadingData: false });
-                this.props.changeLoadingStatus({ criminalCaseAndPoliceLoadingStatus: false });
+                this.setState({loadingData: false});
+                this.props.changeLoadingStatus({criminalCaseAndPoliceLoadingStatus: false});
             },
         });
     };
 
-    showEchart = (title,pie1,pie2,pie3) => {
+    showEchart = (title, pie1, pie2, pie3) => {
         treePie = echarts.init(document.getElementsByClassName('criminalCaseAndPolice')[1]);
         const option = {
             title,
@@ -334,9 +334,9 @@ export default class CriminalCaseAndPolice extends PureComponent {
         treePie.setOption(option);
     };
     // 受立案bar
-    showAcceptCaseBar = (xData,barData) => {
+    showAcceptCaseBar = (xData, barData) => {
         criminalCaseAcceptBar = echarts.init(document.getElementsByClassName('criminalCaseAccept')[1]);
-        const { selectedDateStr, yearOnYearDateStr, monthOnMonthDateStr } = this.props;
+        const {selectedDateStr, yearOnYearDateStr, monthOnMonthDateStr} = this.props;
         const option = {
             tooltip: {
                 trigger: 'axis',
@@ -346,12 +346,12 @@ export default class CriminalCaseAndPolice extends PureComponent {
             },
             legend: {
                 data: ['受理', '立案'],
-                textStyle: { color: this.props.global && this.props.global.dark ? '#fff' : '#4d4d4d' },
+                textStyle: {color: this.props.global && this.props.global.dark ? '#fff' : '#4d4d4d'},
                 bottom: 0,
             },
             xAxis: {
                 type: 'category',
-                axisLine: { show: false },
+                axisLine: {show: false},
                 data: xData,
                 axisTick: {
                     alignWithLabel: true,
@@ -396,8 +396,8 @@ export default class CriminalCaseAndPolice extends PureComponent {
     };
 
     render() {
-        const { selectedDateStr, yearOnYearDateStr, monthOnMonthDateStr } = this.props;
-        const { caseAndPoliceTableData, acceptCaseTableData, loadingData } = this.state;
+        const {selectedDateStr, yearOnYearDateStr, monthOnMonthDateStr} = this.props;
+        const {caseAndPoliceTableData, acceptCaseTableData, loadingData} = this.state;
         const columns = [{
             title: '类别',
             dataIndex: 'categories',
@@ -467,21 +467,27 @@ export default class CriminalCaseAndPolice extends PureComponent {
                 key: 'registerCaseRate',
             },
         ];
-        let className = this.props.global && this.props.global.dark ? styles.analysis : styles.analysis+' '+styles.lightBox
+        let className = this.props.global && this.props.global.dark ? styles.analysis : styles.analysis + ' ' + styles.lightBox
         return (
             <Spin spinning={loadingData} size="large" tip="数据加载中...">
                 <div className={className}>
                     <AnalysisTitleArea analysisTitle="警情、受案分析" {...this.props} />
-                    <div className="criminalCaseAndPolice" style={{ height: 310 }}/>
+                    <div className="criminalCaseAndPolice" style={{height: 310}}/>
                     <Table columns={columns} dataSource={caseAndPoliceTableData} bordered className={styles.tableArea}
                            pagination={false}/>
                     <h2 className={styles.areaTitle}>受、立案分析</h2>
                     <Row className={styles.fraudArea}>
                         <Col lg={12} md={24}>
-                            <div className={"criminalCaseAccept" + ' ' + (this.props.global&&this.props.global.dark ? '' :styles.lightChartBox)} style={{ height: 425,marginTop:25 }}/>
+                            <div
+                                className={"criminalCaseAccept" + ' ' + (this.props.global && this.props.global.dark ? '' : styles.lightChartBox)}
+                                style={{height: 425, marginTop: 25}}/>
                         </Col>
                         <Col lg={12} md={24}>
-                            <Table columns={acceptCaseColumns} dataSource={acceptCaseTableData} locale={{ emptyText: <Empty image={this.props.global&&this.props.global.dark ? noList : noListLight} description={'暂无数据'} /> }}
+                            <Table columns={acceptCaseColumns} dataSource={acceptCaseTableData} locale={{
+                                emptyText: <Empty
+                                    image={this.props.global && this.props.global.dark ? noList : noListLight}
+                                    description={'暂无数据'}/>
+                            }}
                                    className={styles.fraudTable} bordered pagination={false}/>
                         </Col>
                     </Row>

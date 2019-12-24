@@ -438,51 +438,51 @@ export default class Index extends PureComponent {
     return current && current.valueOf() > Date.now();
   };
 
-  // 渲染机构树
-  renderloop = data => data.map((item) => {
-    if (item.childrenList && item.childrenList.length) {
-      return <TreeNode value={item.code} key={item.code}
-                       title={item.name}>{this.renderloop(item.childrenList)}</TreeNode>;
-    }
-    return <TreeNode key={item.code} value={item.code} title={item.name}/>;
-  });
-  saveShare = (res, type, ajGzLx) => {
-    this.setState({
-      sx: (res.ajmc ? res.ajmc + '、' : '') + (res.jzlb_mc ? res.jzlb_mc : ''),
-      shareRecord: res,
+    // 渲染机构树
+    renderloop = data => data.map((item) => {
+        if (item.childrenList && item.childrenList.length) {
+            return <TreeNode value={item.code} key={item.code}
+                             title={item.name}>{this.renderloop(item.childrenList)}</TreeNode>;
+        }
+        return <TreeNode key={item.code} value={item.code} title={item.name}/>;
     });
-    if (type === 2) {
-      this.props.dispatch({
-        type: 'share/sharePerson',
-        payload: {
-          code: getUserInfos().department,
-        },
-        callback: (res) => {
-          this.setState({
-            personList: res.list,
-          });
-          let detail = (
-            <Row style={{ lineHeight:'55px',paddingLeft:66 }}>
-              <Col span={8}>卷宗名称：<Tooltip
-                title={res && res.jzmc && res.jzmc.length > 12 ? res.jzmc : null}>{res && res.jzmc ? res.jzmc.length > 12 ? res.jzmc.substring(0, 12) + '...' : res.jzmc : ''}</Tooltip></Col>
-              <Col
-                span={8}>卷宗类别：{res && res.jzlb_mc ? res.jzlb_mc : ''}</Col>
-              <Col span={8}>卷宗描述：<Tooltip
-                title={res && res.jzms && res.jzms.length > 12 ? res.jzms : null}>{res && res.jzms ? res.jzms.length > 12 ? res.jzms.substring(0, 12) + '...' : res.jzms : ''}</Tooltip></Col>
-              <Col span={8}>案件名称：<Tooltip
-                title={res && res.ajmc && res.ajmc.length > 12 ? res.ajmc : null}>{res && res.ajmc ? res.ajmc.length > 12 ? res.ajmc.substring(0, 12) + '...' : res.ajmc : ''}</Tooltip></Col>
-              <Col
-                span={8}>案件状态：{res && res.ajzt ? res.ajzt : ''}</Col>
-            </Row>
-          );
-          this.props.dispatch(
-            routerRedux.push({
-              pathname: '/ModuleAll/Share',
-              query: { record: res,id: res && res.id ? res.id : '1',from:'卷宗信息',tzlx:'jzxx',fromPath:'/dossierPolice/DossierData',detail,tab:'表格',sx: (res.ajmc ? res.ajmc + '、' : '') + (res.jzlb_mc ? res.jzlb_mc : ''), },
-            }),
-          )
-        },
-      });
+    saveShare = (res, type, ajGzLx) => {
+        this.setState({
+            sx: (res.ajmc ? res.ajmc + '、' : '') + (res.jzlb_mc ? res.jzlb_mc : ''),
+            shareRecord: res,
+        });
+        if (type === 2) {
+            this.props.dispatch({
+                type: 'share/sharePerson',
+                payload: {
+                    code: getUserInfos().department,
+                },
+                callback: (res) => {
+                    this.setState({
+                        personList: res.list,
+                    });
+                    let shareRecord = this.state.shareRecord;
+                    let detail = [`卷宗名称：${shareRecord && shareRecord.jzmc ? shareRecord.jzmc : ''}`, `卷宗类别：${shareRecord && shareRecord.jzlb_mc ? shareRecord.jzlb_mc : ''}`,
+                        `卷宗描述：${shareRecord && shareRecord.jzms ? shareRecord.jzms : ''}`, `案件名称：${shareRecord && shareRecord.ajmc ? shareRecord.ajmc : ''}`,
+                        `案件状态：${shareRecord && shareRecord.ajzt ? shareRecord.ajzt : ''}`
+                    ];
+                    res.detail = detail;
+                    this.props.dispatch(
+                        routerRedux.push({
+                            pathname: '/ModuleAll/Share',
+                            query: {
+                                record: res,
+                                id: res && res.id ? res.id : '1',
+                                from: '卷宗信息',
+                                tzlx: 'jzxx',
+                                fromPath: '/dossierPolice/DossierData',
+                                tab: '表格',
+                                sx: (res.ajmc ? res.ajmc + '、' : '') + (res.jzlb_mc ? res.jzlb_mc : ''),
+                            },
+                        }),
+                    )
+                },
+            });
 
       // this.setState({
       //   shareVisible: true,

@@ -3,15 +3,15 @@
 * author：zr
 * 20190404
 * */
-import React, { PureComponent } from 'react';
-import { connect } from 'dva';
+import React, {PureComponent} from 'react';
+import {connect} from 'dva';
 import styles from '../../pages/ShowData/SCMDataShow.less';
 import yqImg1 from '../../assets/show/yq1.png';
 import yqImg2 from '../../assets/show/yq2.png';
 import yhbjImg from '../../assets/show/yhbj.png';
 import yhdImg from '../../assets/show/yhd.png';
 import showJt from '../../assets/show/showJt.png';
-import { getTimeDistance, getUserInfos } from '../../utils/utils';
+import {getTimeDistance, getUserInfos} from '../../utils/utils';
 
 let theta = 0;
 let index = 0;
@@ -50,7 +50,7 @@ export default class ShowNumber extends PureComponent {
         return result;
     };
     getDepts = (dep, orgGxType) => {
-        console.log('dep---------->',dep)
+        // console.log('dep---------->',dep)
         this.props.dispatch({
             type: 'common/getQueryLowerDepts',
             payload: {
@@ -73,7 +73,7 @@ export default class ShowNumber extends PureComponent {
                             return item.code;
                         }).join();
                     }
-                    this.props.setOrgList(stu,dep);
+                    this.props.setOrgList(stu, dep);
                     this.setState({
                         orglist: stu,
                     });
@@ -213,7 +213,7 @@ export default class ShowNumber extends PureComponent {
                 <img src={yqImg1} className={styles.yqImg2}/>
                 <img src={yqImg2} className={styles.yqImg3}/>
                 <div className={this.state.numAnimate3 ? this.state.numAnimate3 : styles.yhBox}
-                     style={{ left: '55px', top: '210px' }} onMouseEnter={() => this.changeAnimate(true, 3)}
+                     style={{left: '55px', top: '210px'}} onMouseEnter={() => this.changeAnimate(true, 3)}
                      onMouseLeave={() => this.changeAnimate(false, 3)}>
                     <div className={styles.yhCenter}>
                         <div className={styles.num}>{this.props.num3 ? this.props.num3 : 0}</div>
@@ -221,31 +221,31 @@ export default class ShowNumber extends PureComponent {
                     </div>
                 </div>
                 <div className={this.state.numAnimate4 ? this.state.numAnimate4 : styles.yhBox}
-                     style={{ left: '250px', top: '350px', width: '116px', height: '116px' }}
+                     style={{left: '250px', top: '350px', width: '116px', height: '116px'}}
                      onMouseEnter={() => this.changeAnimate(true, 4)} onMouseLeave={() => this.changeAnimate(false, 4)}>
-                    <div className={styles.yhCenter} style={{ width: '100px', height: '100px' }}>
+                    <div className={styles.yhCenter} style={{width: '100px', height: '100px'}}>
                         <div className={styles.num}>{this.props.num4 ? this.props.num4 : 0}</div>
                         <div className={styles.name}>{this.props.name4 ? this.props.name4 : ''}</div>
                     </div>
                 </div>
                 <div className={this.state.numAnimate6 ? this.state.numAnimate6 : styles.yhBox}
-                     style={{ right: '70px', top: '260px', width: '116px', height: '116px' }}
+                     style={{right: '70px', top: '260px', width: '116px', height: '116px'}}
                      onMouseEnter={() => this.changeAnimate(true, 6)} onMouseLeave={() => this.changeAnimate(false, 6)}>
-                    <div className={styles.yhCenter} style={{ width: '100px', height: '100px' }}>
+                    <div className={styles.yhCenter} style={{width: '100px', height: '100px'}}>
                         <div className={styles.num}>{this.props.num6 ? this.props.num6 : 0}</div>
                         <div className={styles.name}>{this.props.name6 ? this.props.name6 : ''}</div>
                     </div>
                 </div>
                 <div className={this.state.numAnimate1 ? this.state.numAnimate1 : styles.yhBox}
-                     style={{ right: '310px', top: '-15px', width: '111px', height: '111px' }}
+                     style={{right: '310px', top: '-15px', width: '111px', height: '111px'}}
                      onMouseEnter={() => this.changeAnimate(true, 1)} onMouseLeave={() => this.changeAnimate(false, 1)}>
-                    <div className={styles.yhCenter} style={{ width: '95px', height: '95px' }}>
+                    <div className={styles.yhCenter} style={{width: '95px', height: '95px'}}>
                         <div className={styles.num}>{this.props.num1 ? this.props.num1 : 0}</div>
                         <div className={styles.name}>{this.props.name1 ? this.props.name1 : ''}</div>
                     </div>
                 </div>
                 <div className={this.state.numAnimate7 ? this.state.numAnimate7 : styles.yhBox}
-                     style={{ right: '170px', top: '95px' }} onMouseEnter={() => this.changeAnimate(true, 7)}
+                     style={{right: '170px', top: '95px'}} onMouseEnter={() => this.changeAnimate(true, 7)}
                      onMouseLeave={() => this.changeAnimate(false, 7)}>
                     <div className={styles.yhCenter}>
                         <div className={styles.num}>{this.props.num7 ? this.props.num7 : 0}</div>
@@ -253,7 +253,7 @@ export default class ShowNumber extends PureComponent {
                     </div>
                 </div>
                 <div className={this.state.numAnimate2 ? this.state.numAnimate2 : styles.yhBox}
-                     style={{ left: '195px', top: '50px', border: '1px solid #ff3366' }}
+                     style={{left: '195px', top: '50px', border: '1px solid #ff3366'}}
                      onMouseEnter={() => this.changeAnimate(true, 2)} onMouseLeave={() => this.changeAnimate(false, 2)}>
                     <div className={styles.yhCenters}>
                         <div className={styles.num}>{this.props.num2 ? this.props.num2 : 0}</div>
@@ -267,13 +267,13 @@ export default class ShowNumber extends PureComponent {
                     height: '116px',
                     border: '1px solid #ff3366',
                 }} onMouseEnter={() => this.changeAnimate(true, 5)} onMouseLeave={() => this.changeAnimate(false, 5)}>
-                    <div className={styles.yhCenters} style={{ width: '100px', height: '100px' }}>
+                    <div className={styles.yhCenters} style={{width: '100px', height: '100px'}}>
                         <div className={styles.num}>{this.props.num5 ? this.props.num5 : 0}</div>
                         <div className={styles.name}>{this.props.name5 ? this.props.name5 : ''}</div>
                     </div>
                 </div>
                 <div className={styles.allNumBox}
-                     style={{ left: '-' + 70 * this.state.ajzs.split('').length / 2 + 'px' }}>
+                     style={{left: '-' + 70 * this.state.ajzs.split('').length / 2 + 'px'}}>
                     {
                         this.state.ajzs.split('').map((item) => {
                             return <div className={styles.numBg}>{item}</div>;
@@ -284,7 +284,7 @@ export default class ShowNumber extends PureComponent {
                 <img src={yhdImg} className={styles.yhdImg}/>
                 <img src={showJt} className={styles.showJt}/>
                 <section className={styles.container}>
-                    <div className={styles.carousel} style={{ transform: this.state.transformProp }}>
+                    <div className={styles.carousel} style={{transform: this.state.transformProp}}>
                         {this.state.pcslist.length > 0 && this.state.pcslist.map((event, idx) => {
                             return <figure style={{
                                 opacity: this.state.id === event.code ? 1 : this.state.nextId === event.code || this.state.preId === event.code ? 0.5 : 0,

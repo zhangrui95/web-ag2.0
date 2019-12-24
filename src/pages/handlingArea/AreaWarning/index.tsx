@@ -294,287 +294,227 @@ export default class Index extends PureComponent {
             query: { record: record, id: record && record.id ? record.id : '1' },
           }),
         );
-    //   },
-    // });
-    // const divs = (
-    //   <div>
-    //     <Detail
-    //       {...this.props}
-    //       id={record.system_id}
-    //       systemId={record.ag_id}
-    //       record={record}
-    //       sfgz={record.sfgz}
-    //       gzid={record.gzid}
-    //       tzlx={record.tzlx}
-    //       ajbh={record.ajbh}
-    //       details={this.deatils}
-    //       current={this.state.current}
-    //       newDetail={this.newDetail}
-    //       yjType="yj"
-    //       getArea={() => this.getDossier({ pd: { yj_type: 'baq' } })}
-    //       yjid={record.id}
-    //     />
-    //   </div>
-    // );
-    // const AddNewDetail = { title: '办案区预警详情', content: divs, key: record.id };
-    // this.newDetail(AddNewDetail);
-  };
-  // 打开新的详情页面
-  newDetail = addDetail => {
-    let newDetail = [];
-    let isDetail = true;
-    newDetail = [...this.state.arrayDetail];
-    for (let a = 0; a < newDetail.length; a++) {
-      if (addDetail.key === newDetail[a].key) {
-        isDetail = false;
-      }
-    }
-    if (isDetail) {
-      newDetail.push(addDetail);
-      this.setState({
-        arrayDetail: newDetail,
-        activeKey: addDetail.key,
-      });
-    } else {
-      this.setState({
-        activeKey: addDetail.key,
-      });
-    }
-  };
-  // 无法选择的日期
-  disabledDate = current => {
-    // Can not select days before today and today
-    return current && current.valueOf() > Date.now();
-  };
-  thisNewDetails = (res,type) => {
-    this.props.dispatch({
-      type: 'areaData/areaDetailFetch',
-      payload: {
-        system_id: res.system_id,
-      },
-      callback: data => {
-        if (data) {
-          this.setState({
-            areaDetails: data,
-          });
-          let detail=(
-            <Row style={{lineHeight:'50px',paddingLeft:66}}>
-              <Col span={6}>
-                人员姓名：
-                {data && data.name ? data.name : ''}
-              </Col>
-              <Col span={6}>
-                性别：
-                {data && data.sex ? data.sex : ''}
-              </Col>
-              <Col span={6}>
-                人员类型：
-                {data && data.salx_mc
-                  ? data.salx_mc
-                  : ''}
-              </Col>
-              <Col span={6}>
-                强制措施：
-                <Tooltip
-                  title={
-                    data &&
-                    data.qzcs &&
-                    data.qzcs.length > 7
-                      ? data.qzcs
-                      : null
-                  }
-                >
-                  {data && data.qzcs
-                    ? data.qzcs.length > 7
-                      ? data.qzcs.substring(0, 7) + '...'
-                      : data.qzcs
-                    : ''}
-                </Tooltip>
-              </Col>
-              <Col span={6}>
-                案件名称：
-                <Tooltip
-                  title={
-                    data &&
-                    data.ajmc &&
-                    data.ajmc.length > 7
-                      ? data.ajmc
-                      : null
-                  }
-                >
-                  {data && data.ajmc
-                    ? data.ajmc.length > 7
-                      ? data.ajmc.substring(0, 7) + '...'
-                      : data.ajmc
-                    : ''}
-                </Tooltip>
-              </Col>
-              <Col span={6}>
-                办案单位：
-                <Tooltip
-                  title={
-                    data &&
-                    data.badw &&
-                    data.badw.length > 7
-                      ? data.badw
-                      : null
-                  }
-                >
-                  {data && data.badw
-                    ? data.badw.length > 7
-                      ? data.badw.substring(0, 7) + '...'
-                      : data.badw
-                    : ''}
-                </Tooltip>
-              </Col>
-              <Col span={12}>
-                办案民警：
-                {data && data.bar ? data.bar : ''}
-              </Col>
-            </Row>
-          )
-          if(type===2){
-            this.props.dispatch(
-              routerRedux.push({
-                pathname: '/ModuleAll/Share',
-                query: { record: res,id: res && res.system_id ? res.system_id : '1',from:this.state.lx,tzlx:this.state.tzlx,fromPath:'/handlingArea/AreaWarning',detail,tab:'表格',sx: (res.baqmc ? res.baqmc + '、' : '') + (res.ajmc ? res.ajmc + '、' : '') + (res.yjlxmc ? res.yjlxmc + '、' : '') + (res.yjsj ? res.yjsj : '') },
-              }),
-            )
-          }
-          else if(type===3){
-            this.props.dispatch(
-              routerRedux.push({
-                pathname: '/ModuleAll/Remind',
-                query: { record: res,itemDetails:data,id: res && res.system_id ? res.system_id : '1',from:this.state.lx,fromPath:'/handlingArea/AreaWarning',detail,tab:'表格' },
-              }),
-            )
-          }
-        }
-      },
-    });
-  };
-  // 渲染机构树
-  renderloop = data =>
-    data.map(item => {
-      const obj = {
-        id: item.code,
-        label: item.name,
-      };
-      const objStr = JSON.stringify(obj);
-      if (item.childrenList && item.childrenList.length) {
-        return (
-          <TreeNode value={objStr} key={objStr} title={item.name}>
-            {this.renderloop(item.childrenList)}
-          </TreeNode>
-        );
-      }
-      return <TreeNode key={objStr} value={objStr} title={item.name} />;
-    });
-  saveShare = (res, type, ajGzLx) => {
-    this.setState({
-      sx:
-        (res.baqmc ? res.baqmc + '、' : '') +
-        (res.ajmc ? res.ajmc + '、' : '') +
-        (res.yjlxmc ? res.yjlxmc + '、' : '') +
-        (res.yjsj ? res.yjsj : ''),
-      shareRecord: res,
-    });
-    if (type === 3) {
-      // this.setState({
-      //   txVisible: true,
-      //   txItem: res,
-      // });
-      this.thisNewDetails(res,type);
-    } else if (type === 2) {
-      // this.setState({
-      //   shareVisible: true,
-      //   shareItem: res,
-      // });
-      this.thisNewDetails(res,type);
-    } else {
-      this.props.dispatch({
-        type: 'share/getMyFollow',
-        payload: {
-          agid: res.id,
-          lx: this.state.lx,
-          sx:
-            (res.baqmc ? res.baqmc + '、' : '') +
-            (res.ajmc ? res.ajmc + '、' : '') +
-            (res.yjlxmc ? res.yjlxmc + '、' : '') +
-            (res.yjsj ? res.yjsj : ''),
-          type: type,
-          tzlx: this.state.tzlx,
-          wtid: res.wtid,
-          ajbh: res.ajbh,
-          system_id: res.system_id,
-          ajGzLx: ajGzLx,
-        },
-        callback: res => {
-          if (!res.error) {
-            message.success('关注成功');
-            this.getDossier({ currentPage: this.state.current, pd: this.state.formValues });
-          }
-        },
-      });
-    }
-  };
-  handleCancel = () => {
-    this.setState({
-      shareVisible: false,
-      txVisible: false,
-    });
-  };
-  handleCancels = () => {
-    this.setState({
-      AnnouncementVisible: false,
-    });
-  };
-  getTg = record => {
-    // this.setState({
-    //   AnnouncementVisible: true,
-    // });
-    this.props.dispatch({
-      type: 'share/getRz',
-      payload: {
-        ag_id: record.ag_id,
-        yj_id: record.id,
-      },
-      callback: res => {
-        this.props.dispatch(
-          routerRedux.push({
-            pathname: '/ModuleAll/DailyRecord',
-            query: { record: record,RzList:res.list,id: record && record.id ? record.id : '1',fromPath:'/handlingArea/AreaWarning',movefrom:'办案区预警',tab:'表格' },
-          }),
-        )
-        // this.setState({
-        //   RzList: res.list,
+        //   },
         // });
-      },
-    });
-  };
-  noFollow = record => {
-    this.props.dispatch({
-      type: 'share/getNoFollow',
-      payload: {
-        id: record.gzid,
-        tzlx: record.tzlx,
-        ajbh: record.ajbh,
-        ajGzlx: record.ajgzlx,
-      },
-      callback: res => {
-        if (!res.error) {
-          message.success('取消关注成功');
-          this.getDossier({ currentPage: this.state.current, pd: this.state.formValues });
+        // const divs = (
+        //   <div>
+        //     <Detail
+        //       {...this.props}
+        //       id={record.system_id}
+        //       systemId={record.ag_id}
+        //       record={record}
+        //       sfgz={record.sfgz}
+        //       gzid={record.gzid}
+        //       tzlx={record.tzlx}
+        //       ajbh={record.ajbh}
+        //       details={this.deatils}
+        //       current={this.state.current}
+        //       newDetail={this.newDetail}
+        //       yjType="yj"
+        //       getArea={() => this.getDossier({ pd: { yj_type: 'baq' } })}
+        //       yjid={record.id}
+        //     />
+        //   </div>
+        // );
+        // const AddNewDetail = { title: '办案区预警详情', content: divs, key: record.id };
+        // this.newDetail(AddNewDetail);
+    };
+    // 打开新的详情页面
+    newDetail = addDetail => {
+        let newDetail = [];
+        let isDetail = true;
+        newDetail = [...this.state.arrayDetail];
+        for (let a = 0; a < newDetail.length; a++) {
+            if (addDetail.key === newDetail[a].key) {
+                isDetail = false;
+            }
         }
-      },
-    });
-  };
-  // 展开筛选和关闭筛选
-  getSearchHeight = () => {
-    this.setState({
-      searchHeight: !this.state.searchHeight,
-    });
-  };
+        if (isDetail) {
+            newDetail.push(addDetail);
+            this.setState({
+                arrayDetail: newDetail,
+                activeKey: addDetail.key,
+            });
+        } else {
+            this.setState({
+                activeKey: addDetail.key,
+            });
+        }
+    };
+    // 无法选择的日期
+    disabledDate = current => {
+        // Can not select days before today and today
+        return current && current.valueOf() > Date.now();
+    };
+    thisNewDetails = res => {
+        this.props.dispatch({
+            type: 'areaData/areaDetailFetch',
+            payload: {
+                system_id: res.system_id,
+            },
+            callback: data => {
+                if (data) {
+                    this.setState({
+                        areaDetails: data,
+                    });
+                }
+            },
+        });
+    };
+    // 渲染机构树
+    renderloop = data =>
+        data.map(item => {
+            const obj = {
+                id: item.code,
+                label: item.name,
+            };
+            const objStr = JSON.stringify(obj);
+            if (item.childrenList && item.childrenList.length) {
+                return (
+                    <TreeNode value={objStr} key={objStr} title={item.name}>
+                        {this.renderloop(item.childrenList)}
+                    </TreeNode>
+                );
+            }
+            return <TreeNode key={objStr} value={objStr} title={item.name}/>;
+        });
+    saveShare = (res, type, ajGzLx) => {
+        this.setState({
+            sx:
+                (res.baqmc ? res.baqmc + '、' : '') +
+                (res.ajmc ? res.ajmc + '、' : '') +
+                (res.yjlxmc ? res.yjlxmc + '、' : '') +
+                (res.yjsj ? res.yjsj : ''),
+            shareRecord: res,
+        });
+        if (type === 3) {
+            this.setState({
+                txVisible: true,
+                txItem: res,
+            });
+            this.thisNewDetails(res);
+        } else if (type === 2) {
+            let res = this.state.areaDetails;
+            let detail = [`人员姓名：${res && res.name ? res.name : ''}`, `性别：${res && res.sex ? res.sex : ''}`,
+                `人员类型：${res && res.salx_mc ? res.salx_mc : ''}`, `强制措施：${res && res.qzcs ? res.qzcs : ''}`,
+                `案件名称：${res && res.ajmc ? res.ajmc : ''}`, `办案单位：${res && res.badw ? res.badw : ''}`,
+                `办案民警：${res && res.bar ? res.bar : ''}`
+            ];
+            res.detail = detail;
+            this.props.dispatch(
+                routerRedux.push({
+                    pathname: '/ModuleAll/Share',
+                    query: {
+                        record: res,
+                        id: res && res.id ? res.id : '1',
+                        from: '人员信息',
+                        tzlx: 'baqyj',
+                        fromPath: '/handlingArea/AreaWarning',
+                        tab: '表格',
+                        sx:
+                            (res.baqmc ? res.baqmc + '、' : '') +
+                            (res.ajmc ? res.ajmc + '、' : '') +
+                            (res.yjlxmc ? res.yjlxmc + '、' : '') +
+                            (res.yjsj ? res.yjsj : ''),
+                    },
+                }),
+            )
+            // this.setState({
+            //   shareVisible: true,
+            //   shareItem: res,
+            // });
+            // this.thisNewDetails(res);
+        } else {
+            this.props.dispatch({
+                type: 'share/getMyFollow',
+                payload: {
+                    agid: res.id,
+                    lx: this.state.lx,
+                    sx:
+                        (res.baqmc ? res.baqmc + '、' : '') +
+                        (res.ajmc ? res.ajmc + '、' : '') +
+                        (res.yjlxmc ? res.yjlxmc + '、' : '') +
+                        (res.yjsj ? res.yjsj : ''),
+                    type: type,
+                    tzlx: this.state.tzlx,
+                    wtid: res.wtid,
+                    ajbh: res.ajbh,
+                    system_id: res.system_id,
+                    ajGzLx: ajGzLx,
+                },
+                callback: res => {
+                    if (!res.error) {
+                        message.success('关注成功');
+                        this.getDossier({currentPage: this.state.current, pd: this.state.formValues});
+                    }
+                },
+            });
+        }
+    };
+    handleCancel = () => {
+        this.setState({
+            shareVisible: false,
+            txVisible: false,
+        });
+    };
+    handleCancels = () => {
+        this.setState({
+            AnnouncementVisible: false,
+        });
+    };
+    getTg = record => {
+        // this.setState({
+        //   AnnouncementVisible: true,
+        // });
+        this.props.dispatch({
+            type: 'share/getRz',
+            payload: {
+                ag_id: record.ag_id,
+                yj_id: record.id,
+            },
+            callback: res => {
+                this.props.dispatch(
+                    routerRedux.push({
+                        pathname: '/ModuleAll/DailyRecord',
+                        query: {
+                            record: record,
+                            RzList: res.list,
+                            id: record && record.id ? record.id : '1',
+                            fromPath: '/handlingArea/AreaWarning',
+                            movefrom: '办案区预警',
+                            tab: '表格'
+                        },
+                    }),
+                )
+                // this.setState({
+                //   RzList: res.list,
+                // });
+            },
+        });
+    };
+    noFollow = record => {
+        this.props.dispatch({
+            type: 'share/getNoFollow',
+            payload: {
+                id: record.gzid,
+                tzlx: record.tzlx,
+                ajbh: record.ajbh,
+                ajGzlx: record.ajgzlx,
+            },
+            callback: res => {
+                if (!res.error) {
+                    message.success('取消关注成功');
+                    this.getDossier({currentPage: this.state.current, pd: this.state.formValues});
+                }
+            },
+        });
+    };
+    // 展开筛选和关闭筛选
+    getSearchHeight = () => {
+        this.setState({
+            searchHeight: !this.state.searchHeight,
+        });
+    };
 
   render() {
     const {

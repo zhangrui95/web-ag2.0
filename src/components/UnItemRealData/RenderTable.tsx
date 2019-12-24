@@ -57,206 +57,151 @@ class RenderTable extends PureComponent {
     // this.props.newDetail(AddNewDetail);
   };
 
-  // 打开督办模态框
-  supervise = (flag, record) => {
-    const { id, system_id } = record;
-    this.props.dispatch({
-      type: 'UnItemData/UnitemDetailFetch',
-      payload: {
-        id,
-        system_id,
-      },
-      callback: data => {
-        if (data) {
-          this.setState({
-            searchDetail: data,
-          });
-          this.searchDetail(flag, record);
-        }
-      },
-    });
-  };
-  searchDetail = (flag, record) => {
-    const { id } = record;
-    this.props.dispatch({
-      type: 'UnItemData/getUnitemByProblemId',
-      payload: {
-        pd: {
-          wtid: id,
-        },
-        currentPage: 1,
-        showCount: 9999,
-      },
-      callback: data => {
-        if (data.list[0].dbzt === '00') {
-          const {searchDetail} = this.state;
-          this.props.dispatch(
-            routerRedux.push({
-              pathname: '/ModuleAll/Supervise',
-              query: { record:searchDetail,searchDetail:record,id: searchDetail && searchDetail.id ? searchDetail.id : '1',from:'督办',tzlx:this.state.tzlx,fromPath:'/articlesInvolved/ArticlesPolice',tab:'表格'},
-            }),
-          )
-          // this.props.openModal(this.state.searchDetail, flag, record);
+    // 打开督办模态框
+    supervise = (flag, record) => {
+        const {id, system_id} = record;
+        this.props.dispatch({
+            type: 'UnItemData/UnitemDetailFetch',
+            payload: {
+                id,
+                system_id,
+            },
+            callback: data => {
+                if (data) {
+                    this.setState({
+                        searchDetail: data,
+                    });
+                    this.searchDetail(flag, record);
+                }
+            },
+        });
+    };
+    searchDetail = (flag, record) => {
+        const {id} = record;
+        this.props.dispatch({
+            type: 'UnItemData/getUnitemByProblemId',
+            payload: {
+                pd: {
+                    wtid: id,
+                },
+                currentPage: 1,
+                showCount: 9999,
+            },
+            callback: data => {
+                if (data.list[0].dbzt === '00') {
+                    const {searchDetail} = this.state;
+                    this.props.dispatch(
+                        routerRedux.push({
+                            pathname: '/ModuleAll/Supervise',
+                            query: {
+                                record: searchDetail,
+                                searchDetail: record,
+                                id: searchDetail && searchDetail.id ? searchDetail.id : '1',
+                                from: '督办',
+                                tzlx: this.state.tzlx,
+                                fromPath: '/articlesInvolved/ArticlesPolice',
+                                tab: '表格'
+                            },
+                        }),
+                    )
+                    // this.props.openModal(this.state.searchDetail, flag, record);
+                } else {
+                    message.warning('该问题已督办，请点击详情查看');
+                    this.props.refreshTable();
+                }
+            },
+        });
+    };
+    saveShare = (res, type, ajGzLx) => {
+        this.setState({
+            sx:
+                (res.ajmc ? res.ajmc + '、' : '') +
+                (res.wpmc ? res.wpmc + '、' : '') +
+                (res.wpzt ? res.wpzt + '、' : '') +
+                (res.wtlxMc ? res.wtlxMc + '、' : '') +
+                (res.gjsj ? res.gjsj : ''),
+            shareRecord: res,
+        });
+        if (type === 2) {
+            let itemDetails = res;
+            let detail = [`物品名称：${itemDetails && itemDetails.wpmc ? itemDetails.wpmc : ''}`, `物品种类：${itemDetails && itemDetails.wpzlName ? itemDetails.wpzlName : ''}`,
+                `物品状态：${itemDetails && itemDetails.wpzt ? itemDetails.wpzt : ''}`, `库房信息：${itemDetails && itemDetails.szkf ? itemDetails.szkf : ''}`,
+                `关联案件名称：${itemDetails && itemDetails.ajmc ? itemDetails.ajmc : ''}`, `办案单位：${itemDetails && itemDetails.kfgly_dwmc ? itemDetails.kfgly_dwmc : ''}`,
+            ];
+            res.detail = detail;
+            this.props.dispatch(
+                routerRedux.push({
+                    pathname: '/ModuleAll/Share',
+                    query: {
+                        record: res,
+                        id: res && res.system_id ? res.system_id : '1',
+                        from: this.state.lx,
+                        tzlx: this.state.tzlx,
+                        fromPath: '/articlesInvolved/ArticlesPolice',
+                        tab: '表格',
+                        sx:
+                            (res.ajmc ? res.ajmc + '、' : '') +
+                            (res.wpmc ? res.wpmc + '、' : '') +
+                            (res.wpzt ? res.wpzt + '、' : '') +
+                            (res.wtlxMc ? res.wtlxMc + '、' : '') +
+                            (res.gjsj ? res.gjsj : ''),
+                    },
+                }),
+            )
+            // this.setState({
+            //   shareVisible: true,
+            //   shareItem: res,
+            // });
         } else {
-          message.warning('该问题已督办，请点击详情查看');
-          this.props.refreshTable();
+            this.props.dispatch({
+                type: 'share/getMyFollow',
+                payload: {
+                    agid: res.id,
+                    lx: this.state.lx,
+                    sx:
+                        (res.ajmc ? res.ajmc + '、' : '') +
+                        (res.wpmc ? res.wpmc + '、' : '') +
+                        (res.wpzt ? res.wpzt + '、' : '') +
+                        (res.wtlxMc ? res.wtlxMc + '、' : '') +
+                        (res.gjsj ? res.gjsj : ''),
+                    type: type,
+                    tzlx: this.state.tzlx,
+                    wtid: res.wtid,
+                    ajbh: res.ajbh,
+                    system_id: res.system_id,
+                    ajGzLx: ajGzLx,
+                },
+                callback: data => {
+                    if (!data.error) {
+                        message.success('关注成功');
+                        this.props.getItem({currentPage: this.state.current, pd: this.props.formValues});
+                    }
+                },
+            });
         }
-      },
-    });
-  };
-  saveShare = (res, type, ajGzLx) => {
-    this.setState({
-      sx:
-        (res.ajmc ? res.ajmc + '、' : '') +
-        (res.wpmc ? res.wpmc + '、' : '') +
-        (res.wpzt ? res.wpzt + '、' : '') +
-        (res.wtlxMc ? res.wtlxMc + '、' : '') +
-        (res.gjsj ? res.gjsj : ''),
-      shareRecord: res,
-    });
-    if (type === 2) {
-      let detail=(
-        <Row
-          style={{
-            lineHeight:'55px',
-            paddingLeft:66,
-          }}
-        >
-          <Col span={6}>
-            物品名称：
-            {res && res.wpmc ? res.wpmc : ''}
-          </Col>
-          <Col span={6}>
-            物品种类：
-            {res && res.wpzlMc
-              ? res.wpzlMc
-              : ''}
-          </Col>
-          <Col span={6}>
-            物品状态：
-            {res && res.wpzt ? res.wpzt : ''}
-          </Col>
-          <Col span={6}>
-            库房信息：
-            <Tooltip
-              title={
-                res &&
-                res.szkf &&
-                res.szkf.length > 8
-                  ? res.szkf
-                  : null
-              }
-            >
-              {res && res.szkf
-                ? res.szkf.length > 8
-                  ? res.szkf.substring(0, 8) + '...'
-                  : res.szkf
-                : ''}
-            </Tooltip>
-          </Col>
-          <Col span={12}>
-            关联案件名称：
-            <Tooltip
-              title={
-                res &&
-                res.ajmc &&
-                res.ajmc.length > 18
-                  ? res.ajmc
-                  : null
-              }
-            >
-              {res && res.ajmc
-                ? res.ajmc.length > 18
-                  ? res.ajmc.substring(0, 18) + '...'
-                  : res.ajmc
-                : ''}
-            </Tooltip>
-          </Col>
-          <Col span={12}>
-            办案单位：
-            <Tooltip
-              title={
-                res &&
-                res.kfgly_dwmc &&
-                res.kfgly_dwmc.length > 18
-                  ? res.kfgly_dwmc
-                  : null
-              }
-            >
-              {res && res.kfgly_dwmc
-                ? res.kfgly_dwmc.length > 18
-                  ? res.kfgly_dwmc.substring(0, 18) + '...'
-                  : res.kfgly_dwmc
-                : ''}
-            </Tooltip>
-          </Col>
-        </Row>
-      )
-      this.props.dispatch(
-        routerRedux.push({
-          pathname: '/ModuleAll/Share',
-          query: { record: res,id: res && res.system_id ? res.system_id : '1',from:this.state.lx,tzlx:this.state.tzlx,fromPath:'/articlesInvolved/ArticlesPolice',detail,tab:'表格',sx:
-            (res.ajmc ? res.ajmc + '、' : '') +
-            (res.wpmc ? res.wpmc + '、' : '') +
-            (res.wpzt ? res.wpzt + '、' : '') +
-            (res.wtlxMc ? res.wtlxMc + '、' : '') +
-            (res.gjsj ? res.gjsj : ''), },
-        }),
-      )
-      // this.setState({
-      //   shareVisible: true,
-      //   shareItem: res,
-      // });
-    } else {
-      this.props.dispatch({
-        type: 'share/getMyFollow',
-        payload: {
-          agid: res.id,
-          lx: this.state.lx,
-          sx:
-            (res.ajmc ? res.ajmc + '、' : '') +
-            (res.wpmc ? res.wpmc + '、' : '') +
-            (res.wpzt ? res.wpzt + '、' : '') +
-            (res.wtlxMc ? res.wtlxMc + '、' : '') +
-            (res.gjsj ? res.gjsj : ''),
-          type: type,
-          tzlx: this.state.tzlx,
-          wtid: res.wtid,
-          ajbh: res.ajbh,
-          system_id: res.system_id,
-          ajGzLx: ajGzLx,
-        },
-        callback: data => {
-          if (!data.error) {
-            message.success('关注成功');
-            this.props.getItem({ currentPage: this.state.current, pd: this.props.formValues });
-          }
-        },
-      });
-    }
-  };
-  handleCancel = e => {
-    this.setState({
-      shareVisible: false,
-    });
-  };
-  noFollow = record => {
-    this.props.dispatch({
-      type: 'share/getNoFollow',
-      payload: {
-        id: record.gzid,
-        tzlx: record.tzlx,
-        ajbh: record.ajbh,
-        ajGzlx: record.ajgzlx,
-      },
-      callback: res => {
-        if (!res.error) {
-          message.success('取消关注成功');
-          this.props.getItem({ currentPage: this.state.current, pd: this.props.formValues });
-        }
-      },
-    });
-  };
+    };
+    handleCancel = e => {
+        this.setState({
+            shareVisible: false,
+        });
+    };
+    noFollow = record => {
+        this.props.dispatch({
+            type: 'share/getNoFollow',
+            payload: {
+                id: record.gzid,
+                tzlx: record.tzlx,
+                ajbh: record.ajbh,
+                ajGzlx: record.ajgzlx,
+            },
+            callback: res => {
+                if (!res.error) {
+                    message.success('取消关注成功');
+                    this.props.getItem({currentPage: this.state.current, pd: this.props.formValues});
+                }
+            },
+        });
+    };
 
   render() {
     const {

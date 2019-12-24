@@ -33,6 +33,7 @@ import { exportListDataMaxDays, getUserInfos, tableList } from '../../../utils/u
 // import ShareModal from '../../components/ShareModal/ShareModal';
 import {routerRedux} from "dva/router";
 import noList from "@/assets/viewData/noList.png";
+import noListLight from "@/assets/viewData/noListLight.png";
 
 const { Option } = Select;
 const { RangePicker } = DatePicker;
@@ -328,176 +329,184 @@ export default class Index extends PureComponent {
       });
     }
 
-  };
-  // 无法选择的日期
-  disabledDate = (current) => {
-    // Can not select days before today and today
-    return current && current.valueOf() > Date.now();
-  };
-  // 请求当前数据的详情（提醒弹窗中的回显数据从此处获取）
-  thisNewDetails = (res,type) => {
-    this.props.dispatch({
-      type: 'XzCaseData/getXzAjxxXqById',
-      payload: {
-        system_id: res.system_id,
-      },
-      callback: (data) => {
-        if (data) {
-          this.setState({
-            xzcaseDetails: data,
-          });
-          let detail = (
-            <Row style={{ lineHeight:'55px',paddingLeft:66 }}>
-              <Col span={12}>案件名称：<Tooltip
-                title={data && data.ajmc && data.ajmc.length > 20 ? data.ajmc : null}>{data && data.ajmc ? data.ajmc.length > 20 ? data.ajmc.substring(0, 20) + '...' : data.ajmc : ''}</Tooltip></Col>
-              <Col span={12}>受理单位：<Tooltip
-                title={data && data.sldw_name && data.sldw_name.length > 20 ? data.sldw_name : null}>{data && data.sldw_name ? data.sldw_name.length > 20 ? data.sldw_name.substring(0, 20) + '...' : data.sldw_name : ''}</Tooltip></Col>
-              <Col
-                span={12}>案件状态：{data && data.ajzt ? data.ajzt : ''}</Col>
-              <Col
-                span={12}>办案民警：{data && data.bar_name ? data.bar_name : ''}</Col>
-            </Row>
-          );
-          if(type===3){
-            this.props.dispatch(
-              routerRedux.push({
-                pathname: '/ModuleAll/Remind',
-                query: { record: res,itemDetails:data,id: res && res.system_id ? res.system_id : '1',from:'案件预警',fromPath:'/newcaseFiling/caseWarning/AdministrationWarning',detail,tab:'表格' },
-              }),
-            )
-          }
-          else if(type===2){
-            this.props.dispatch(
-              routerRedux.push({
-                pathname: '/ModuleAll/Share',
-                query: { record: res,id: res && res.system_id ? res.system_id : '1',from:this.state.lx,tzlx:this.state.tzlx,fromPath:'/newcaseFiling/caseWarning/AdministrationWarning',detail,tab:'表格',sx: (res.ajmc ? res.ajmc + '、' : '') + (res.yjlxmc ? res.yjlxmc + '、' : '') + (res.yjsj ? res.yjsj : '')},
-              }),
-            )
-          }
-        }
-      },
-    });
-  };
-  // 渲染机构树
-  renderloop = data => data.map((item) => {
-    const obj = {
-      id: item.code,
-      label: item.name,
     };
-    const objStr = JSON.stringify(obj);
-    if (item.childrenList && item.childrenList.length) {
-      return <TreeNode value={objStr} key={objStr}
-                       title={item.name}>{this.renderloop(item.childrenList)}</TreeNode>;
-    }
-    return <TreeNode key={objStr} value={objStr} title={item.name}/>;
-  });
-  saveShare = (res, type, ajGzLx) => {
-    this.setState({
-      sx: (res.ajmc ? res.ajmc + '、' : '') + (res.yjlxmc ? res.yjlxmc + '、' : '') + (res.yjsj ? res.yjsj : ''),
-      shareRecord: res,
-    });
-    if (type === 3) {
-      // this.setState({
-      //   txVisible: true,
-      //   txItem: res,
-      // });
-      this.thisNewDetails(res,type);
-    } else if (type === 2) {
-      // this.setState({
-      //   shareVisible: true,
-      //   shareItem: res,
-      // });
-      this.thisNewDetails(res,type);
-    } else {
-      this.props.dispatch({
-        type: 'share/getMyFollow',
-        payload: {
-          agid: res.id,
-          lx: this.state.lx,
-          sx: (res.ajmc ? res.ajmc + '、' : '') + (res.yjlxmc ? res.yjlxmc + '、' : '') + (res.yjsj ? res.yjsj : ''),
-          type: type,
-          tzlx: this.state.tzlx,
-          wtid: res.wtid,
-          ajbh: res.ajbh,
-          system_id: res.system_id,
-          ajGzLx: ajGzLx,
-        },
-        callback: (res) => {
-          if (!res.error) {
-            message.success('关注成功');
-            this.getDossier({ currentPage: this.state.current, pd: this.state.formValues });
-          }
-        },
-      });
-    }
-  };
-  handleCancel = () => {
-    this.setState({
-      shareVisible: false,
-      txVisible: false,
-    });
-  };
-  handleCancels = () => {
-    this.setState({
-      AnnouncementVisible: false,
-    });
-  };
-  getTg = (record) => {
-    this.props.dispatch({
-      type: 'share/getRz',
-      payload: {
-        ag_id: record.ag_id,
-        yj_id: record.id,
-      },
-      callback: res => {
-        this.props.dispatch(
-          routerRedux.push({
-            pathname: '/ModuleAll/DailyRecord',
-            query: {
-              record: record,
-              RzList: res.list,
-              id: record && record.id ? record.id : '1',
-              fromPath: '/newcaseFiling/caseWarning/AdministrationWarning',
-              movefrom: '案件预警',
-              tab: '表格',
+    // 无法选择的日期
+    disabledDate = (current) => {
+        // Can not select days before today and today
+        return current && current.valueOf() > Date.now();
+    };
+    // 请求当前数据的详情（提醒弹窗中的回显数据从此处获取）
+    thisNewDetails = (res, type) => {
+        this.props.dispatch({
+            type: 'XzCaseData/getXzAjxxXqById',
+            payload: {
+                system_id: res.system_id,
             },
-          }),
-        )
-      }
-      })
-    // this.setState({
-    //   AnnouncementVisible: true,
-    // });
-    // this.props.dispatch({
-    //   type: 'share/getRz',
-    //   payload: {
-    //     ag_id: record.ag_id,
-    //     yj_id: record.id,
-    //   },
-    //   callback: (res) => {
-    //     this.setState({
-    //       RzList: res.list,
-    //     });
-    //   },
-    // });
-  };
-  noFollow = (record) => {
-    this.props.dispatch({
-      type: 'share/getNoFollow',
-      payload: {
-        id: record.gzid,
-        tzlx: record.tzlx,
-        ajbh: record.ajbh,
-        ajGzlx: record.ajgzlx,
-      },
-      callback: (res) => {
-        if (!res.error) {
-          message.success('取消关注成功');
-          this.getDossier({ currentPage: this.state.current, pd: this.state.formValues });
+            callback: (data) => {
+                if (data) {
+                    this.setState({
+                        xzcaseDetails: data,
+                    });
+                    let caseDetails = this.state.xzcaseDetails;
+                    let detail = [`案件名称：${caseDetails && caseDetails.ajmc ? caseDetails.ajmc : ''}`, `受理单位：${caseDetails && caseDetails.sldw_name ? caseDetails.sldw_name : ''}`,
+                        `案件状态：${caseDetails && caseDetails.ajzt ? caseDetails.ajzt : ''}`, `办案民警：${caseDetails && caseDetails.bar_name ? caseDetails.bar_name : ''}`,
+                    ];
+                    res.detail = detail;
+                    if (type === 3) {
+                        this.props.dispatch(
+                            routerRedux.push({
+                                pathname: '/ModuleAll/Remind',
+                                query: {
+                                    record: res,
+                                    itemDetails: data,
+                                    id: res && res.system_id ? res.system_id : '1',
+                                    from: '案件预警',
+                                    fromPath: '/newcaseFiling/caseWarning/AdministrationWarning',
+                                    tab: '表格'
+                                },
+                            }),
+                        )
+                    } else if (type === 2) {
+                        this.props.dispatch(
+                            routerRedux.push({
+                                pathname: '/ModuleAll/Share',
+                                query: {
+                                    record: res,
+                                    id: res && res.system_id ? res.system_id : '1',
+                                    from: '案件预警',
+                                    tzlx: this.state.tzlx,
+                                    fromPath: '/newcaseFiling/caseWarning/AdministrationWarning',
+                                    detail,
+                                    tab: '表格',
+                                    sx: (res.ajmc ? res.ajmc + '、' : '') + (res.yjlxmc ? res.yjlxmc + '、' : '') + (res.yjsj ? res.yjsj : '')
+                                },
+                            }),
+                        )
+                    }
+                }
+            },
+        });
+    };
+    // 渲染机构树
+    renderloop = data => data.map((item) => {
+        const obj = {
+            id: item.code,
+            label: item.name,
+        };
+        const objStr = JSON.stringify(obj);
+        if (item.childrenList && item.childrenList.length) {
+            return <TreeNode value={objStr} key={objStr}
+                             title={item.name}>{this.renderloop(item.childrenList)}</TreeNode>;
         }
-      },
+        return <TreeNode key={objStr} value={objStr} title={item.name}/>;
     });
-  };
+    saveShare = (res, type, ajGzLx) => {
+        this.setState({
+            sx: (res.ajmc ? res.ajmc + '、' : '') + (res.yjlxmc ? res.yjlxmc + '、' : '') + (res.yjsj ? res.yjsj : ''),
+            shareRecord: res,
+        });
+        if (type === 3) {
+            // this.setState({
+            //   txVisible: true,
+            //   txItem: res,
+            // });
+            this.thisNewDetails(res, type);
+        } else if (type === 2) {
+            // this.setState({
+            //   shareVisible: true,
+            //   shareItem: res,
+            // });
+            this.thisNewDetails(res, type);
+        } else {
+            this.props.dispatch({
+                type: 'share/getMyFollow',
+                payload: {
+                    agid: res.id,
+                    lx: this.state.lx,
+                    sx: (res.ajmc ? res.ajmc + '、' : '') + (res.yjlxmc ? res.yjlxmc + '、' : '') + (res.yjsj ? res.yjsj : ''),
+                    type: type,
+                    tzlx: this.state.tzlx,
+                    wtid: res.wtid,
+                    ajbh: res.ajbh,
+                    system_id: res.system_id,
+                    ajGzLx: ajGzLx,
+                },
+                callback: (res) => {
+                    if (!res.error) {
+                        message.success('关注成功');
+                        this.getDossier({currentPage: this.state.current, pd: this.state.formValues});
+                    }
+                },
+            });
+        }
+    };
+    handleCancel = () => {
+        this.setState({
+            shareVisible: false,
+            txVisible: false,
+        });
+    };
+    handleCancels = () => {
+        this.setState({
+            AnnouncementVisible: false,
+        });
+    };
+    getTg = (record) => {
+        this.props.dispatch({
+            type: 'share/getRz',
+            payload: {
+                ag_id: record.ag_id,
+                yj_id: record.id,
+            },
+            callback: res => {
+                this.props.dispatch(
+                    routerRedux.push({
+                        pathname: '/ModuleAll/DailyRecord',
+                        query: {
+                            record: record,
+                            RzList: res.list,
+                            id: record && record.id ? record.id : '1',
+                            fromPath: '/newcaseFiling/caseWarning/AdministrationWarning',
+                            movefrom: '案件预警',
+                            tab: '表格',
+                        },
+                    }),
+                )
+            }
+        })
+        // this.setState({
+        //   AnnouncementVisible: true,
+        // });
+        // this.props.dispatch({
+        //   type: 'share/getRz',
+        //   payload: {
+        //     ag_id: record.ag_id,
+        //     yj_id: record.id,
+        //   },
+        //   callback: (res) => {
+        //     this.setState({
+        //       RzList: res.list,
+        //     });
+        //   },
+        // });
+    };
+    noFollow = (record) => {
+        this.props.dispatch({
+            type: 'share/getNoFollow',
+            payload: {
+                id: record.gzid,
+                tzlx: record.tzlx,
+                ajbh: record.ajbh,
+                ajGzlx: record.ajgzlx,
+            },
+            callback: (res) => {
+                if (!res.error) {
+                    message.success('取消关注成功');
+                    this.getDossier({currentPage: this.state.current, pd: this.state.formValues});
+                }
+            },
+        });
+    };
 // 展开筛选和关闭筛选
   getSearchHeight = () => {
     this.setState({

@@ -1,15 +1,15 @@
-import React, { PureComponent } from 'react';
-import { Modal, Form, Input, Select, message, button } from 'antd';
+import React, {PureComponent} from 'react';
+import {Modal, Form, Input, Select, message, button} from 'antd';
 import styles from './RemindModal.less';
 
-const { TextArea } = Input;
-const { Option, OptGroup } = Select;
-import { connect } from 'dva';
-import { getUserInfos } from '../../utils/utils';
+const {TextArea} = Input;
+const {Option, OptGroup} = Select;
+import {connect} from 'dva';
+import {getUserInfos} from '../../utils/utils';
 
 const FormItem = Form.Item;
 
-@connect(({ share }) => ({
+@connect(({share}) => ({
     share,
 }))
 class RemindModal extends PureComponent {
@@ -46,7 +46,7 @@ class RemindModal extends PureComponent {
                 const newjsdw = jsdw.join(',');
                 const newjsr_sfzh = jsr_sfzh.join(',');
                 const newjsr_jh = jsr_jh.join(',');
-                console.log('this.props.txItem------>', this.props.txItem);
+                // console.log('this.props.txItem------>', this.props.txItem);
                 this.props.dispatch({
                     type: 'share/getTx',
                     payload: {
@@ -99,12 +99,12 @@ class RemindModal extends PureComponent {
     render() {
         const formItemLayout = {
             labelCol: {
-                xs: { span: 3 },
-                sm: { span: 3 },
+                xs: {span: 3},
+                sm: {span: 3},
             },
             wrapperCol: {
-                xs: { span: 20 },
-                sm: { span: 20 },
+                xs: {span: 20},
+                sm: {span: 20},
             },
         };
         let zrrTreeNodeTypeOptions = '';
@@ -113,7 +113,7 @@ class RemindModal extends PureComponent {
             let hash = {};
             let i = 0;
             let res = [];
-            jsrList.map(function(item) {
+            jsrList.map(function (item) {
                 let jsrdw_mc = item.zrr_dwmc;
                 hash[jsrdw_mc] ? res[hash[jsrdw_mc] - 1].zrrList.push(item) : hash[jsrdw_mc] = ++i && res.push({
                     zrrList: [item],
@@ -136,7 +136,7 @@ class RemindModal extends PureComponent {
         } else {
             zrrTreeNodeTypeOptions = '';
         }
-        const { getFieldDecorator } = this.props.form;
+        const {getFieldDecorator} = this.props.form;
         return (
             <div className={styles.standardTable}>
                 <Modal
@@ -148,7 +148,7 @@ class RemindModal extends PureComponent {
                     okText='提醒'
                     width={900}
                     maskClosable={false}
-                    style={{ top: '250px' }}
+                    style={{top: '250px'}}
                 >
                     {this.props.detail ? this.props.detail : ''}
                     <Form>
@@ -156,7 +156,7 @@ class RemindModal extends PureComponent {
                             {getFieldDecorator('sharePerson')(
                                 <Select
                                     mode="multiple"
-                                    style={{ width: '100%' }}
+                                    style={{width: '100%'}}
                                     placeholder="请选择接收人"
                                 >
                                     {zrrTreeNodeTypeOptions}
@@ -173,7 +173,7 @@ class RemindModal extends PureComponent {
                     visible={this.state.shareSuccess}
                     className={styles.shareSuccess}
                     width={350}
-                    style={{ top: '250px' }}
+                    style={{top: '250px'}}
                     maskClosable={false}
                     cancelText={null}
                     onCancel={this.handleCancel}

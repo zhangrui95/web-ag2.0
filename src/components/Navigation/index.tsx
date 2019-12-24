@@ -44,9 +44,9 @@ const Navigation = props => {
                 setActiveKey(selectTabKey);
             }
         } else {
-            if(currentUrl === '/'){
+            if (currentUrl === '/') {
                 dispatch(routerRedux.push('/ShowData/RegulatePanel'));
-            }else{
+            } else {
                 // 没有tab情况下，将当前页面的路由对比数据添加tab
                 const {
                     route: {routes},
@@ -171,7 +171,7 @@ const Navigation = props => {
     };
 
     const showTab = [...navigationData];
-    let styles =  props.dark ? styles1 : styles2;
+    let styles = props.dark ? styles1 : styles2;
     return (
         <div
             className={styles.card}

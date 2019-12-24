@@ -3,8 +3,8 @@
 * author：zr
 * 20190506
 * */
-import React, { PureComponent } from 'react';
-import { Row, Col, Icon, Select,Card } from 'antd';
+import React, {PureComponent} from 'react';
+import {Row, Col, Icon, Select, Card} from 'antd';
 import echarts from 'echarts/lib/echarts';
 import bar from 'echarts/lib/chart/bar';
 import title from 'echarts/lib/component/title';
@@ -12,8 +12,9 @@ import legend from 'echarts/lib/component/legend';
 import tooltip from 'echarts/lib/component/tooltip';
 import Ellipsis from 'ant-design-pro/lib/Ellipsis';
 import styles from '../Styles/dataView.less';
-import { getUserInfos } from '../../utils/utils';
-const { Option } = Select;
+import {getUserInfos} from '../../utils/utils';
+
+const {Option} = Select;
 
 export default class EvaluationChats extends PureComponent {
     state = {
@@ -25,46 +26,47 @@ export default class EvaluationChats extends PureComponent {
     };
 
     componentDidMount() {
-        this.initData(0, this.props,false,'0');
-        this.initRyData(0, this.props,false,'0');
+        this.initData(0, this.props, false, '0');
+        this.initRyData(0, this.props, false, '0');
     }
 
     componentWillReceiveProps(nextProps, nextContext) {
         if (this.props.isSearch !== nextProps.isSearch || this.props.reset !== nextProps.reset || this.props.global.dark !== nextProps.global.dark) {
             this.setState({
-                ryValue:undefined,
+                ryValue: undefined,
             })
-            if(nextProps.tjnrRedio === '0'){
-                this.initDataAj(0, nextProps, this.state.sortCharts1,nextProps.tjnrCode);
-                this.initRyDataAj(0, nextProps, this.state.sortCharts3,nextProps.tjnrCode);
-            }else if(nextProps.tjnrRedio === '1'){
-                this.initDataGj(0, nextProps, this.state.sortCharts1,nextProps.tjnrCode);
-                this.initRyDataGj(0, nextProps, this.state.sortCharts3,nextProps.tjnrCode);
-            }else{
-                this.initData(0, nextProps, this.state.sortCharts1,nextProps.tjnrCode);
-                this.initRyData(0, nextProps, this.state.sortCharts3,nextProps.tjnrCode);
+            if (nextProps.tjnrRedio === '0') {
+                this.initDataAj(0, nextProps, this.state.sortCharts1, nextProps.tjnrCode);
+                this.initRyDataAj(0, nextProps, this.state.sortCharts3, nextProps.tjnrCode);
+            } else if (nextProps.tjnrRedio === '1') {
+                this.initDataGj(0, nextProps, this.state.sortCharts1, nextProps.tjnrCode);
+                this.initRyDataGj(0, nextProps, this.state.sortCharts3, nextProps.tjnrCode);
+            } else {
+                this.initData(0, nextProps, this.state.sortCharts1, nextProps.tjnrCode);
+                this.initRyData(0, nextProps, this.state.sortCharts3, nextProps.tjnrCode);
             }
         }
     }
+
     getSort = (idx) => {
         this.setState({
             ['sortCharts' + idx]: !this.state['sortCharts' + idx],
         });
         if (idx === '1') {
-            if(this.props.tjnrRedio === '0'){
-                this.initDataAj(0, this.props, !this.state['sortCharts' + idx],'0');
-            }else if(this.props.tjnrRedio === '1'){
-                this.initDataGj(0, this.props, !this.state['sortCharts' + idx],'0');
-            }else{
-                this.initData(0, this.props, !this.state['sortCharts' + idx],'0');
+            if (this.props.tjnrRedio === '0') {
+                this.initDataAj(0, this.props, !this.state['sortCharts' + idx], '0');
+            } else if (this.props.tjnrRedio === '1') {
+                this.initDataGj(0, this.props, !this.state['sortCharts' + idx], '0');
+            } else {
+                this.initData(0, this.props, !this.state['sortCharts' + idx], '0');
             }
         } else {
-            if(this.props.tjnrRedio === '0'){
-                this.initRyDataAj(0, this.props, !this.state['sortCharts' + idx],'0');
-            }else if(this.props.tjnrRedio === '1'){
-                this.initRyDataGj(0, this.props, !this.state['sortCharts' + idx],'0');
-            }else{
-                this.initRyData(0, this.props, !this.state['sortCharts' + idx],'0');
+            if (this.props.tjnrRedio === '0') {
+                this.initRyDataAj(0, this.props, !this.state['sortCharts' + idx], '0');
+            } else if (this.props.tjnrRedio === '1') {
+                this.initRyDataGj(0, this.props, !this.state['sortCharts' + idx], '0');
+            } else {
+                this.initRyData(0, this.props, !this.state['sortCharts' + idx], '0');
             }
         }
     };
@@ -115,13 +117,17 @@ export default class EvaluationChats extends PureComponent {
                 this.setState({
                     jgkf: data.list,
                 });
-                legendData.map((e,i)=>{
-                    arrDatal['arr'+i] = [];
+                legendData.map((e, i) => {
+                    arrDatal['arr' + i] = [];
                 })
                 data.list.map((event) => {
                     let num = 0;
-                    legendData.map((e,i)=>{
-                        arrDatal['arr'+i].push({ value: event.kflx_kfz.split(',')[i] ? event.kflx_kfz.split(',')[i] : '0', code: event.bkpdw_dm, name: event.bkpdw_mc })
+                    legendData.map((e, i) => {
+                        arrDatal['arr' + i].push({
+                            value: event.kflx_kfz.split(',')[i] ? event.kflx_kfz.split(',')[i] : '0',
+                            code: event.bkpdw_dm,
+                            name: event.bkpdw_mc
+                        })
                         num += parseInt(event.kflx_kfz.split(',')[i] ? event.kflx_kfz.split(',')[i] : '0');
                     });
                     axisLabel.push(`${this.formatter(event.bkpdw_mc)}(${num})`);
@@ -148,7 +154,7 @@ export default class EvaluationChats extends PureComponent {
                     };
                     seriesValue.push(seriesDataVal);
                 }
-                this.buildChart(legendData, axisLabel, seriesValue,'kfqk');
+                this.buildChart(legendData, axisLabel, seriesValue, 'kfqk');
             },
         });
     };
@@ -188,13 +194,17 @@ export default class EvaluationChats extends PureComponent {
                 this.setState({
                     jgkf: data.list,
                 });
-                legendData.map((e,i)=>{
-                    arrDatal['arr'+i] = [];
+                legendData.map((e, i) => {
+                    arrDatal['arr' + i] = [];
                 })
                 data.list.map((event) => {
                     let num = 0;
-                    legendData.map((e,i)=>{
-                        arrDatal['arr'+i].push({ value: event.kflx_kfz.split(',')[i] ? event.kflx_kfz.split(',')[i] : '0', code: event.bkpdw_dm, name: event.bkpdw_mc })
+                    legendData.map((e, i) => {
+                        arrDatal['arr' + i].push({
+                            value: event.kflx_kfz.split(',')[i] ? event.kflx_kfz.split(',')[i] : '0',
+                            code: event.bkpdw_dm,
+                            name: event.bkpdw_mc
+                        })
                         num += parseInt(event.kflx_kfz.split(',')[i] ? event.kflx_kfz.split(',')[i] : '0');
                     });
                     axisLabel.push(`${this.formatter(event.bkpdw_mc)}(${num})`);
@@ -221,12 +231,12 @@ export default class EvaluationChats extends PureComponent {
                     };
                     seriesValue.push(seriesDataVal);
                 }
-                this.buildChart(legendData, axisLabel, seriesValue,'kfqkAj');
+                this.buildChart(legendData, axisLabel, seriesValue, 'kfqkAj');
             },
         });
     };
     initDataGj = (next, nextProps, sort, type) => {
-        let legendData = ['行政案件', '刑事案件','涉案物品','办案区','卷宗'];
+        let legendData = ['行政案件', '刑事案件', '涉案物品', '办案区', '卷宗'];
         let bgColorList = ['#3aa1ff', '#4ecb73'];
         let axisLabel = [];
         let arrDatal = {};
@@ -261,13 +271,18 @@ export default class EvaluationChats extends PureComponent {
                 this.setState({
                     jgkf: data.list,
                 });
-                legendData.map((e,i)=>{
-                    arrDatal['arr'+i] = [];
+                legendData.map((e, i) => {
+                    arrDatal['arr' + i] = [];
                 })
                 data.list.map((event) => {
                     let num = 0;
-                    legendData.map((e,i)=>{
-                        arrDatal['arr'+i].push({ value: event.gjlx_count.split(',')[i] ? event.gjlx_count.split(',')[i] : '0', code: event.bkpr_dwdm, name: event.bkpr_dwmc,typeGj:i.toString() })
+                    legendData.map((e, i) => {
+                        arrDatal['arr' + i].push({
+                            value: event.gjlx_count.split(',')[i] ? event.gjlx_count.split(',')[i] : '0',
+                            code: event.bkpr_dwdm,
+                            name: event.bkpr_dwmc,
+                            typeGj: i.toString()
+                        })
                         num += parseInt(event.gjlx_count.split(',')[i] ? event.gjlx_count.split(',')[i] : '0');
                     });
                     axisLabel.push(`${this.formatter(event.bkpr_dwmc)}(${num})`);
@@ -294,11 +309,11 @@ export default class EvaluationChats extends PureComponent {
                     };
                     seriesValue.push(seriesDataVal);
                 }
-                this.buildChart(legendData, axisLabel, seriesValue,'kfqkGj');
+                this.buildChart(legendData, axisLabel, seriesValue, 'kfqkGj');
             },
         });
     };
-    buildChart = (legendData, axisLabel, seriesValue,id) => {
+    buildChart = (legendData, axisLabel, seriesValue, id) => {
         let chart = document.getElementById(id);
         let echart = echarts.init(chart);
         let that = this;
@@ -308,7 +323,7 @@ export default class EvaluationChats extends PureComponent {
                 textStyle: {
                     fontSize: 16,
                     fontWeight: '700',
-                    color:this.props.global&&this.props.global.dark ? '#fff' : '#4662D5',
+                    color: this.props.global && this.props.global.dark ? '#fff' : '#4662D5',
                 },
             },
             tooltip: {
@@ -316,24 +331,24 @@ export default class EvaluationChats extends PureComponent {
                 axisPointer: {
                     type: 'shadow',//阴影，若需要为直线，则值为'line'
                 },
-                formatter: function(params) {
+                formatter: function (params) {
                     let res = params[0].name.replace(/\n/g, '');
-                    legendData.map((item,idx)=>{
+                    legendData.map((item, idx) => {
                         res += '<div>' + params[idx].seriesName + '：' + params[idx].value + '</div>';
                     })
                     return res;
                 },
             },
             // toolbox: {
-                // show: true,
-                // feature: {
-                //     saveAsImage: { show: true },
-                // },
+            // show: true,
+            // feature: {
+            //     saveAsImage: { show: true },
+            // },
             // },
             legend: {
                 data: legendData,
-                textStyle: { color: this.props.global&&this.props.global.dark ? "#fff" : '#4D4D4D' },
-                x:'88%',
+                textStyle: {color: this.props.global && this.props.global.dark ? "#fff" : '#4D4D4D'},
+                x: '88%',
                 y: 'top',//图例说明文字设置
                 itemWidth: 10,  // 设置宽度
                 itemHeight: 10, // 设置高度
@@ -351,23 +366,23 @@ export default class EvaluationChats extends PureComponent {
                 data: axisLabel,
                 axisLabel: {   // X轴线 标签修改
                     textStyle: {
-                        color: this.props.global&&this.props.global.dark ? "#fff" : '#4D4D4D', //坐标值得具体的颜色
+                        color: this.props.global && this.props.global.dark ? "#fff" : '#4D4D4D', //坐标值得具体的颜色
                     }
                 },
                 axisLine: {
                     show: true, // X轴 网格线 颜色类型的修改
                     lineStyle: {
-                        color: this.props.global&&this.props.global.dark ? "#fff" : '#E6E6E6',
+                        color: this.props.global && this.props.global.dark ? "#fff" : '#E6E6E6',
                     }
                 },
             }],
             yAxis: [{
                 min: 0,
                 type: 'value',
-                splitArea: { show: false },
+                splitArea: {show: false},
                 axisLabel: {   // X轴线 标签修改
                     textStyle: {
-                        color: this.props.global&&this.props.global.dark ? "#fff" : '#4D4D4D', //坐标值得具体的颜色
+                        color: this.props.global && this.props.global.dark ? "#fff" : '#4D4D4D', //坐标值得具体的颜色
                     }
                 },
                 axisLine: {
@@ -386,17 +401,17 @@ export default class EvaluationChats extends PureComponent {
             series: seriesValue,
         };
         echart.setOption(option);
-        if(id === 'kfqkGj'){
-            echart.on('click', function(params) {
+        if (id === 'kfqkGj') {
+            echart.on('click', function (params) {
                 that.props.changeToListPage(params.data, '0');
             });
-        }else{
-            echart.getZr().on('click',function(params){
-                let point=[params.offsetX,params.offsetY];
-                if(echart.containPixel('grid',point)){
-                    let xIndex=parseInt(echart.convertFromPixel({seriesIndex:0}, point)[0]);
-                    let op=echart.getOption();
-                    let data=op.series[0].data[xIndex];
+        } else {
+            echart.getZr().on('click', function (params) {
+                let point = [params.offsetX, params.offsetY];
+                if (echart.containPixel('grid', point)) {
+                    let xIndex = parseInt(echart.convertFromPixel({seriesIndex: 0}, point)[0]);
+                    let op = echart.getOption();
+                    let data = op.series[0].data[xIndex];
                     that.props.changeToListPage(data, '0');
                 }
             });
@@ -413,7 +428,7 @@ export default class EvaluationChats extends PureComponent {
         }, []);
         return result;
     };
-    initRyData = (next, nextProps, sort, type, bkpr_sfzh,noSearchPerson) => {
+    initRyData = (next, nextProps, sort, type, bkpr_sfzh, noSearchPerson) => {
         let currentPage3 = this.state.currentPage3 + next * 1;
         this.setState({
             currentPage3: next === 0 ? 1 : currentPage3,
@@ -434,7 +449,7 @@ export default class EvaluationChats extends PureComponent {
                     sort: sort ? '0' : '1',
                     tjfw: nextProps.tjfw ? nextProps.tjfw : '',
                     xm_type: type,
-                    bkpr_sfzh: bkpr_sfzh ?  bkpr_sfzh : '',
+                    bkpr_sfzh: bkpr_sfzh ? bkpr_sfzh : '',
                 },
                 showCount: 8,
             },
@@ -453,7 +468,12 @@ export default class EvaluationChats extends PureComponent {
                 });
                 data.list.map((event) => {
                     axisLabel.push(this.formatter(event.bkpr_name));
-                    arrData.push({ value: event.kfz ? event.kfz : '0', code: event.bkpr_jh, bkpr_name: event.bkpr_name, bkpr_dwdm: event.bkpr_dwdm });
+                    arrData.push({
+                        value: event.kfz ? event.kfz : '0',
+                        code: event.bkpr_jh,
+                        bkpr_name: event.bkpr_name,
+                        bkpr_dwdm: event.bkpr_dwdm
+                    });
                 });
                 for (let i = 0; i < legendData.length; i++) {
                     let seriesDataVal = null;
@@ -477,10 +497,10 @@ export default class EvaluationChats extends PureComponent {
                     };
                     seriesValue.push(seriesDataVal);
                 }
-                this.buildRyChart(legendData, axisLabel, seriesValue,'rykh');
+                this.buildRyChart(legendData, axisLabel, seriesValue, 'rykh');
             },
         });
-        if(!noSearchPerson){
+        if (!noSearchPerson) {
             this.props.dispatch({
                 type: 'Evaluation/getRyKhPmTjPgListPage',
                 payload: {
@@ -492,19 +512,19 @@ export default class EvaluationChats extends PureComponent {
                         sort: sort ? '0' : '1',
                         tjfw: nextProps.tjfw ? nextProps.tjfw : '',
                         xm_type: type,
-                        bkpr_sfzh: bkpr_sfzh ?  bkpr_sfzh : '',
+                        bkpr_sfzh: bkpr_sfzh ? bkpr_sfzh : '',
                     },
                     showCount: 9999,
                 },
                 callback: (data) => {
                     this.setState({
-                        ryList:this.uniqueByKey(data.list, 'bkpr_jh'),
+                        ryList: this.uniqueByKey(data.list, 'bkpr_jh'),
                     });
                 },
             });
         }
     };
-    initRyDataAj = (next, nextProps, sort, type, bkpr_sfzh,noSearchPerson) => {
+    initRyDataAj = (next, nextProps, sort, type, bkpr_sfzh, noSearchPerson) => {
         let currentPage3 = this.state.currentPage3 + next * 1;
         this.setState({
             currentPage3: currentPage3,
@@ -524,7 +544,7 @@ export default class EvaluationChats extends PureComponent {
                     kprq_js: nextProps.kprqTb && nextProps.kprqTb[1] ? nextProps.kprqTb[1].format('YYYY-MM-DD') : '',
                     sort: sort ? '0' : '1',
                     tjfw: nextProps.tjfw ? nextProps.tjfw : '',
-                    bkpr_sfzh:  bkpr_sfzh ?  bkpr_sfzh : '',
+                    bkpr_sfzh: bkpr_sfzh ? bkpr_sfzh : '',
                 },
                 showCount: 8,
             },
@@ -541,14 +561,19 @@ export default class EvaluationChats extends PureComponent {
                 this.setState({
                     rykh: data.list,
                 });
-                legendData.map((e,i)=>{
-                    arrData['arr'+i] = [];
+                legendData.map((e, i) => {
+                    arrData['arr' + i] = [];
                 })
                 data.list.map((event) => {
                     let num = 0;
-                    legendData.map((e,i)=>{
-                        arrData['arr'+i].push({ value: event.kflx_kfz.split(',')[i] ? event.kflx_kfz.split(',')[i] : '0', code: event.bkpr_jh, bkpr_name: event.bkpr_name, bkpr_dwdm: event.bkpr_dwdm })
-                        num += parseInt(event.kflx_kfz.split(',')[i] ? event.kflx_kfz.split(',')[i] : '0') ;
+                    legendData.map((e, i) => {
+                        arrData['arr' + i].push({
+                            value: event.kflx_kfz.split(',')[i] ? event.kflx_kfz.split(',')[i] : '0',
+                            code: event.bkpr_jh,
+                            bkpr_name: event.bkpr_name,
+                            bkpr_dwdm: event.bkpr_dwdm
+                        })
+                        num += parseInt(event.kflx_kfz.split(',')[i] ? event.kflx_kfz.split(',')[i] : '0');
                     });
                     axisLabel.push(`${this.formatter(event.bkpr_name)}(${num})`);
                 });
@@ -574,10 +599,10 @@ export default class EvaluationChats extends PureComponent {
                     };
                     seriesValue.push(seriesDataVal);
                 }
-                this.buildRyChart(legendData, axisLabel, seriesValue,'rykhAj');
+                this.buildRyChart(legendData, axisLabel, seriesValue, 'rykhAj');
             },
         });
-        if(!noSearchPerson){
+        if (!noSearchPerson) {
             this.props.dispatch({
                 type: 'Evaluation/getRyKhOfAjslPgListPage',
                 payload: {
@@ -588,24 +613,24 @@ export default class EvaluationChats extends PureComponent {
                         kprq_js: nextProps.kprqTb && nextProps.kprqTb[1] ? nextProps.kprqTb[1].format('YYYY-MM-DD') : '',
                         sort: sort ? '0' : '1',
                         tjfw: nextProps.tjfw ? nextProps.tjfw : '',
-                        bkpr_sfzh:  bkpr_sfzh ?  bkpr_sfzh : '',
+                        bkpr_sfzh: bkpr_sfzh ? bkpr_sfzh : '',
                     },
                     showCount: 9999,
                 },
                 callback: (data) => {
                     this.setState({
-                        ryList:this.uniqueByKey(data.list, 'bkpr_jh'),
+                        ryList: this.uniqueByKey(data.list, 'bkpr_jh'),
                     });
                 },
             });
         }
     };
-    initRyDataGj = (next, nextProps, sort, type, bkpr_sfzh,noSearchPerson) => {
+    initRyDataGj = (next, nextProps, sort, type, bkpr_sfzh, noSearchPerson) => {
         let currentPage3 = this.state.currentPage3 + next * 1;
         this.setState({
             currentPage3: next === 0 ? 1 : currentPage3,
         });
-        let legendData = ['行政案件', '刑事案件','涉案物品','办案区','卷宗'];
+        let legendData = ['行政案件', '刑事案件', '涉案物品', '办案区', '卷宗'];
         let bgColorList = ['#3aa1ff', '#4ecb73'];
         let axisLabel = [];
         let arrData = [];
@@ -620,7 +645,7 @@ export default class EvaluationChats extends PureComponent {
                     kprq_js: nextProps.kprqTb && nextProps.kprqTb[1] ? nextProps.kprqTb[1].format('YYYY-MM-DD') : '',
                     sort: sort ? '0' : '1',
                     tjfw: nextProps.tjfw ? nextProps.tjfw : '',
-                    bkpr_sfzh: bkpr_sfzh ?  bkpr_sfzh : ''
+                    bkpr_sfzh: bkpr_sfzh ? bkpr_sfzh : ''
                 },
                 showCount: 8,
             },
@@ -637,14 +662,20 @@ export default class EvaluationChats extends PureComponent {
                 this.setState({
                     rykh: data.list,
                 });
-                legendData.map((e,i)=>{
-                    arrData['arr'+i] = [];
+                legendData.map((e, i) => {
+                    arrData['arr' + i] = [];
                 })
                 data.list.map((event) => {
                     let num = 0;
-                    legendData.map((e,i)=>{
-                        arrData['arr'+i].push({ value: event.gjlx_count.split(',')[i] ? event.gjlx_count.split(',')[i] : '0', code: event.bkpr_jh, bkpr_name: event.bkpr_name,typeGj:i.toString(), bkpr_dwdm: event.bkpr_dwdm})
-                        num += parseInt(event.gjlx_count.split(',')[i]? event.gjlx_count.split(',')[i] : '0');
+                    legendData.map((e, i) => {
+                        arrData['arr' + i].push({
+                            value: event.gjlx_count.split(',')[i] ? event.gjlx_count.split(',')[i] : '0',
+                            code: event.bkpr_jh,
+                            bkpr_name: event.bkpr_name,
+                            typeGj: i.toString(),
+                            bkpr_dwdm: event.bkpr_dwdm
+                        })
+                        num += parseInt(event.gjlx_count.split(',')[i] ? event.gjlx_count.split(',')[i] : '0');
                     });
                     axisLabel.push(`${this.formatter(event.bkpr_name)}(${num})`);
                 });
@@ -670,10 +701,10 @@ export default class EvaluationChats extends PureComponent {
                     };
                     seriesValue.push(seriesDataVal);
                 }
-                this.buildRyChart(legendData, axisLabel, seriesValue,'rykhGj');
+                this.buildRyChart(legendData, axisLabel, seriesValue, 'rykhGj');
             },
         });
-        if(!noSearchPerson){
+        if (!noSearchPerson) {
             this.props.dispatch({
                 type: 'Evaluation/getRyKhOGjPgListPage',
                 payload: {
@@ -684,19 +715,19 @@ export default class EvaluationChats extends PureComponent {
                         kprq_js: nextProps.kprqTb && nextProps.kprqTb[1] ? nextProps.kprqTb[1].format('YYYY-MM-DD') : '',
                         sort: sort ? '0' : '1',
                         tjfw: nextProps.tjfw ? nextProps.tjfw : '',
-                        bkpr_sfzh: bkpr_sfzh ?  bkpr_sfzh : ''
+                        bkpr_sfzh: bkpr_sfzh ? bkpr_sfzh : ''
                     },
                     showCount: 9999,
                 },
                 callback: (data) => {
                     this.setState({
-                        ryList:this.uniqueByKey(data.list, 'bkpr_jh'),
+                        ryList: this.uniqueByKey(data.list, 'bkpr_jh'),
                     });
                 },
             });
         }
     };
-    buildRyChart = (legendData, axisLabel, seriesValue,id) => {
+    buildRyChart = (legendData, axisLabel, seriesValue, id) => {
         let chart = document.getElementById(id);
         let that = this;
         let echart = echarts.init(chart);
@@ -706,7 +737,7 @@ export default class EvaluationChats extends PureComponent {
                 textStyle: {
                     fontSize: 16,
                     fontWeight: '700',
-                    color:this.props.global&&this.props.global.dark ? "#fff" : '#4662D5'
+                    color: this.props.global && this.props.global.dark ? "#fff" : '#4662D5'
                 },
             },
             tooltip: {
@@ -714,9 +745,9 @@ export default class EvaluationChats extends PureComponent {
                 axisPointer: {
                     type: 'shadow',//阴影，若需要为直线，则值为'line'
                 },
-                formatter: function(params) {
+                formatter: function (params) {
                     let res = params[0].name.replace(/\n/g, '');
-                    legendData.map((e,idx)=>{
+                    legendData.map((e, idx) => {
                         res += '<div>' + params[idx].seriesName + '：' + params[idx].value + '</div>';
                     })
                     return res;
@@ -741,23 +772,23 @@ export default class EvaluationChats extends PureComponent {
                 data: axisLabel,
                 axisLabel: {   // X轴线 标签修改
                     textStyle: {
-                        color: this.props.global&&this.props.global.dark ? "#fff" : '#4D4D4D', //坐标值得具体的颜色
+                        color: this.props.global && this.props.global.dark ? "#fff" : '#4D4D4D', //坐标值得具体的颜色
                     }
                 },
                 axisLine: {
                     show: true, // X轴 网格线 颜色类型的修改
                     lineStyle: {
-                        color: this.props.global&&this.props.global.dark ? "#fff" : '#E6E6E6'
+                        color: this.props.global && this.props.global.dark ? "#fff" : '#E6E6E6'
                     }
                 },
             }],
             yAxis: [{
                 min: 0,
                 type: 'value',
-                splitArea: { show: false },
+                splitArea: {show: false},
                 axisLabel: {   // X轴线 标签修改
                     textStyle: {
-                        color: this.props.global&&this.props.global.dark ? "#fff" : '#4D4D4D', //坐标值得具体的颜色
+                        color: this.props.global && this.props.global.dark ? "#fff" : '#4D4D4D', //坐标值得具体的颜色
                     }
                 },
                 axisLine: {
@@ -776,61 +807,67 @@ export default class EvaluationChats extends PureComponent {
             series: seriesValue,
         };
         echart.setOption(option);
-        if(id === 'rykhGj'){
-            echart.on('click', function(params) {
+        if (id === 'rykhGj') {
+            echart.on('click', function (params) {
                 that.props.changeToListPage(params.data, '2');
             });
-        }else{
-            echart.getZr().on('click',function(params){
-                let point=[params.offsetX,params.offsetY];
-                if(echart.containPixel('grid',point)){
-                    let xIndex=parseInt(echart.convertFromPixel({seriesIndex:0}, point)[0]);
-                    let op=echart.getOption();
-                    let data=op.series[0].data[xIndex];
+        } else {
+            echart.getZr().on('click', function (params) {
+                let point = [params.offsetX, params.offsetY];
+                if (echart.containPixel('grid', point)) {
+                    let xIndex = parseInt(echart.convertFromPixel({seriesIndex: 0}, point)[0]);
+                    let op = echart.getOption();
+                    let data = op.series[0].data[xIndex];
                     that.props.changeToListPage(data, '2');
                 }
             });
         }
     };
-    getRy = (value) =>{
+    getRy = (value) => {
         this.setState({
-            ryValue:value,
+            ryValue: value,
         })
-        if(this.props.tjnrRedio === '0'){
-            this.initRyDataAj(0, this.props, this.state['sortCharts3'],'0',value.toString(),true);
-        }else if(this.props.tjnrRedio === '1'){
-            this.initRyDataGj(0, this.props, this.state['sortCharts3'],'0',value.toString(),true);
-        }else{
-            this.initRyData(0, this.props, this.state['sortCharts3'],'0',value.toString(),true);
+        if (this.props.tjnrRedio === '0') {
+            this.initRyDataAj(0, this.props, this.state['sortCharts3'], '0', value.toString(), true);
+        } else if (this.props.tjnrRedio === '1') {
+            this.initRyDataGj(0, this.props, this.state['sortCharts3'], '0', value.toString(), true);
+        } else {
+            this.initRyData(0, this.props, this.state['sortCharts3'], '0', value.toString(), true);
         }
     }
-    getKeyDown = (value)=>{
-        this.props.handleAllPoliceOptionChange(value, false,getUserInfos().department)
+    getKeyDown = (value) => {
+        this.props.handleAllPoliceOptionChange(value, false, getUserInfos().department)
     }
+
     render() {
-        const rowLayout = { xxl: 24 };
-        const colLayout = { sm: 24, lg: 24 };
-        const { lastData, nowData } = this.state;
-        const allPoliceOptions = this.props.allPolice&&this.props.allPolice.map(d => <Option key={`${d.idcard}`}
-                                                                       value={`${d.idcard}`}
-                                                                       title={d.name}>{`${d.name} ${d.pcard}`}</Option>);
-        let className = this.props.global&&this.props.global.dark ? styles.evalDataView : styles.evalDataView + ' '+ styles.lightBox  + ' '+ styles.lightBoxEval;
+        const rowLayout = {xxl: 24};
+        const colLayout = {sm: 24, lg: 24};
+        const {lastData, nowData} = this.state;
+        const allPoliceOptions = this.props.allPolice && this.props.allPolice.map(d => <Option key={`${d.idcard}`}
+                                                                                               value={`${d.idcard}`}
+                                                                                               title={d.name}>{`${d.name} ${d.pcard}`}</Option>);
+        let className = this.props.global && this.props.global.dark ? styles.evalDataView : styles.evalDataView + ' ' + styles.lightBox + ' ' + styles.lightBoxEval;
         return (
             <Card className={className} id={'form'}>
                 <Row gutter={rowLayout} className={styles.listPageRow}>
                     <Col {...colLayout} className={styles.viewBox}>
-                        <div className={styles.titleTop}>|  机构排名</div>
+                        <div className={styles.titleTop}>| 机构排名</div>
                         <Icon type="left" className={this.state.currentPage1 === 1 ? styles.none : styles.leftGo}
-                              onClick={() => this.props.tjnrRedio === '0' ? this.initDataAj(-1, this.props, this.state.sortCharts1) : this.props.tjnrRedio === '1' ? this.initDataGj(-1, this.props, this.state.sortCharts1)  : this.initData(-1, this.props, this.state.sortCharts1,this.props.tjnrCode)}/>
-                        <div className={styles.sortIcon} style={{ left: '120px' }} onClick={() => this.getSort('1')}>
-                            <Icon type="caret-up" style={this.state.sortCharts1 ? {} : { color: this.props.global&&this.props.global.dark ? '#1890ff' : '#4662D5' }}/>
-                            <Icon type="caret-down" style={this.state.sortCharts1 ? { color: this.props.global&&this.props.global.dark ? '#1890ff' : '#4662D5' } : {}}/>
+                              onClick={() => this.props.tjnrRedio === '0' ? this.initDataAj(-1, this.props, this.state.sortCharts1) : this.props.tjnrRedio === '1' ? this.initDataGj(-1, this.props, this.state.sortCharts1) : this.initData(-1, this.props, this.state.sortCharts1, this.props.tjnrCode)}/>
+                        <div className={styles.sortIcon} style={{left: '120px'}} onClick={() => this.getSort('1')}>
+                            <Icon type="caret-up"
+                                  style={this.state.sortCharts1 ? {} : {color: this.props.global && this.props.global.dark ? '#1890ff' : '#4662D5'}}/>
+                            <Icon type="caret-down"
+                                  style={this.state.sortCharts1 ? {color: this.props.global && this.props.global.dark ? '#1890ff' : '#4662D5'} : {}}/>
                         </div>
-                        <div id="kfqkAj" className={this.props.tjnrRedio === '0' ? styles.rightCharts : styles.none}></div>
-                        <div id="kfqkGj" className={this.props.tjnrRedio === '1' ? styles.rightCharts : styles.none}></div>
-                        <div id="kfqk" className={this.props.tjnrRedio === '3' ? styles.rightCharts : styles.none}></div>
+                        <div id="kfqkAj"
+                             className={this.props.tjnrRedio === '0' ? styles.rightCharts : styles.none}></div>
+                        <div id="kfqkGj"
+                             className={this.props.tjnrRedio === '1' ? styles.rightCharts : styles.none}></div>
+                        <div id="kfqk"
+                             className={this.props.tjnrRedio === '3' ? styles.rightCharts : styles.none}></div>
                         <Icon type="right" className={this.state.noneRight1 ? styles.none : styles.rightGo}
-                              onClick={() => this.props.tjnrRedio === '0' ? this.initDataAj(1, this.props, this.state.sortCharts1) : this.props.tjnrRedio === '1' ? this.initDataGj(1, this.props, this.state.sortCharts1)  : this.initData(1, this.props, this.state.sortCharts1,this.props.tjnrCode)}/>
+                              onClick={() => this.props.tjnrRedio === '0' ? this.initDataAj(1, this.props, this.state.sortCharts1) : this.props.tjnrRedio === '1' ? this.initDataGj(1, this.props, this.state.sortCharts1) : this.initData(1, this.props, this.state.sortCharts1, this.props.tjnrCode)}/>
                         <div className={styles.leftNunList}>
                             {
                                 this.state.jgkf && this.state.jgkf.map((event) => {
@@ -839,7 +876,8 @@ export default class EvaluationChats extends PureComponent {
                                         className={styles.rightList}>
                                         <Col span={14} className={styles.nameRight}><Ellipsis length={7}
                                                                                               tooltip>{this.props.tjnrRedio === '1' ? event.bkpr_dwmc : event.bkpdw_mc}</Ellipsis></Col>
-                                        <Col span={8}>：{this.props.tjnrRedio === '0' ? event.aj_count :this.props.tjnrRedio === '1' ? event.gj_count : event.kfz == '0' ? event.kfz : event.kfz}</Col>
+                                        <Col
+                                            span={8}>：{this.props.tjnrRedio === '0' ? event.aj_count : this.props.tjnrRedio === '1' ? event.gj_count : event.kfz == '0' ? event.kfz : event.kfz}</Col>
                                     </Row>;
 
                                 })
@@ -847,13 +885,15 @@ export default class EvaluationChats extends PureComponent {
                         </div>
                     </Col>
                     <Col {...colLayout} className={styles.viewBox}>
-                        <div className={styles.titleTop}>|  人员考核排名</div>
+                        <div className={styles.titleTop}>| 人员考核排名</div>
                         <Icon type="left" className={styles.leftGo}
                               className={this.state.currentPage3 === 1 ? styles.none : styles.leftGo}
-                              onClick={() => this.props.tjnrRedio === '0' ?  this.initRyDataAj(-1, this.props, this.state.sortCharts3, this.props.tjnrCode) : this.props.tjnrRedio === '1' ?  this.initRyDataGj(-1, this.props, this.state.sortCharts3, this.props.tjnrCode): this.initRyData(-1, this.props, this.state.sortCharts3, this.props.tjnrCode)}/>
+                              onClick={() => this.props.tjnrRedio === '0' ? this.initRyDataAj(-1, this.props, this.state.sortCharts3, this.props.tjnrCode) : this.props.tjnrRedio === '1' ? this.initRyDataGj(-1, this.props, this.state.sortCharts3, this.props.tjnrCode) : this.initRyData(-1, this.props, this.state.sortCharts3, this.props.tjnrCode)}/>
                         <div className={styles.sortIcon} onClick={() => this.getSort('3')}>
-                            <Icon type="caret-up" style={this.state.sortCharts3 ? {} : { color: this.props.global&&this.props.global.dark ? '#1890ff' : '#4662D5' }}/>
-                            <Icon type="caret-down" style={this.state.sortCharts3 ? { color:this.props.global&&this.props.global.dark ? '#1890ff' : '#4662D5' } : {}}/>
+                            <Icon type="caret-up"
+                                  style={this.state.sortCharts3 ? {} : {color: this.props.global && this.props.global.dark ? '#1890ff' : '#4662D5'}}/>
+                            <Icon type="caret-down"
+                                  style={this.state.sortCharts3 ? {color: this.props.global && this.props.global.dark ? '#1890ff' : '#4662D5'} : {}}/>
                         </div>
                         <Select
                             showSearch
@@ -869,15 +909,19 @@ export default class EvaluationChats extends PureComponent {
                             }
                             getPopupContainer={() => document.getElementById('form')}
                         >
-                            {this.state.ryList&&this.state.ryList.map((d)=>{
-                               return <Option key={`${d.bkpr_jh}`} value={`${d.bkpr_jh}`} title={d.bkpr_name}>{`${d.bkpr_name} ${d.bkpr_jh}`}</Option>
+                            {this.state.ryList && this.state.ryList.map((d) => {
+                                return <Option key={`${d.bkpr_jh}`} value={`${d.bkpr_jh}`}
+                                               title={d.bkpr_name}>{`${d.bkpr_name} ${d.bkpr_jh}`}</Option>
                             })}
                         </Select>
-                        <div id="rykhAj" className={this.props.tjnrRedio === '0' ? styles.rightCharts : styles.none}></div>
-                        <div id="rykhGj" className={this.props.tjnrRedio === '1' ? styles.rightCharts : styles.none}></div>
-                        <div id="rykh" className={this.props.tjnrRedio === '3' ? styles.rightCharts : styles.none}></div>
+                        <div id="rykhAj"
+                             className={this.props.tjnrRedio === '0' ? styles.rightCharts : styles.none}></div>
+                        <div id="rykhGj"
+                             className={this.props.tjnrRedio === '1' ? styles.rightCharts : styles.none}></div>
+                        <div id="rykh"
+                             className={this.props.tjnrRedio === '3' ? styles.rightCharts : styles.none}></div>
                         <Icon type="right" className={this.state.noneRight3 ? styles.none : styles.rightGo}
-                              onClick={() => this.props.tjnrRedio === '0' ?  this.initRyDataAj(1, this.props, this.state.sortCharts3, this.props.tjnrCode) : this.props.tjnrRedio === '1' ?  this.initRyDataGj(1, this.props, this.state.sortCharts3, this.props.tjnrCode): this.initRyData(1, this.props, this.state.sortCharts3, this.props.tjnrCode)}/>
+                              onClick={() => this.props.tjnrRedio === '0' ? this.initRyDataAj(1, this.props, this.state.sortCharts3, this.props.tjnrCode) : this.props.tjnrRedio === '1' ? this.initRyDataGj(1, this.props, this.state.sortCharts3, this.props.tjnrCode) : this.initRyData(1, this.props, this.state.sortCharts3, this.props.tjnrCode)}/>
                         <div className={styles.leftNunListRy}>
                             {
                                 this.state.rykh && this.state.rykh.map((event) => {
@@ -893,7 +937,10 @@ export default class EvaluationChats extends PureComponent {
                                             </div>
                                         </Col>
                                         <Col span={7}
-                                             style={{ lineHeight: '40px',textAlign:'left' }}>：{this.props.tjnrRedio === '0' ? event.aj_count :this.props.tjnrRedio === '1' ? event.gj_count : event.kfz == '0' ? event.kfz : event.kfz}</Col>
+                                             style={{
+                                                 lineHeight: '40px',
+                                                 textAlign: 'left'
+                                             }}>：{this.props.tjnrRedio === '0' ? event.aj_count : this.props.tjnrRedio === '1' ? event.gj_count : event.kfz == '0' ? event.kfz : event.kfz}</Col>
                                     </Row>;
 
                                 })

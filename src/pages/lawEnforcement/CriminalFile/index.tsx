@@ -3,29 +3,29 @@
 * author：lyp
 * 20181224
 * */
-import React, { PureComponent } from 'react';
-import { connect } from 'dva';
+import React, {PureComponent} from 'react';
+import {connect} from 'dva';
 import {Row, Col, Form, Select, TreeSelect, Input, Button, DatePicker, Tabs, message, Cascader, Card, Icon} from 'antd';
 import moment from 'moment/moment';
 import styles from './index.less';
 import RenderTable from '../../../components/CaseRealData/RenderTable';
 // import SeniorSearchModal from '../../../components/CaseRealData/SeniorSearchModal';
-import { exportListDataMaxDays, getQueryString, tableList } from '../../../utils/utils';
+import {exportListDataMaxDays, getQueryString, tableList} from '../../../utils/utils';
 import SyncTime from '../../../components/Common/SyncTime';
 import stylescommon1 from "@/pages/common/common.less";
 import stylescommon2 from "@/pages/common/commonLight.less";
 
 const FormItem = Form.Item;
-const { Option } = Select;
-const { RangePicker } = DatePicker;
+const {Option} = Select;
+const {RangePicker} = DatePicker;
 const TabPane = Tabs.TabPane;
 const TreeNode = TreeSelect.TreeNode;
 
 let timeout;
 let currentValue;
 
-@connect(({ common, CaseData, loading,global }) => ({
-    CaseData, loading, common,global
+@connect(({common, CaseData, loading, global}) => ({
+    CaseData, loading, common, global
     // loading: loading.models.alarmManagement,
 }))
 @Form.create()
@@ -35,7 +35,7 @@ export default class CriminalFile extends PureComponent {
         ajzt: '',
         bardw: '',
         formValues: {
-            is_area:window.configUrl.is_area,
+            is_area: window.configUrl.is_area,
         },
         activeKey: '0',
         arrayDetail: [],
@@ -45,10 +45,10 @@ export default class CriminalFile extends PureComponent {
         caseTypeTree: [], // 案件类别树
         typeButtons: 'week', // 图表展示类别（week,month）
         treeDefaultExpandedKeys: [], // 办案单位树默认展开keys
-        seniorSearchModalVisible:false, // 高级查询框
-        isY:'0', // 判断是高级查询还是普通查询，0是普通查询，1是高级查询
-        statusDate:'102', // 初始状态下，查询项默认为立案日期（code = 102），
-        path:this.props.location.pathname,
+        seniorSearchModalVisible: false, // 高级查询框
+        isY: '0', // 判断是高级查询还是普通查询，0是普通查询，1是高级查询
+        statusDate: '102', // 初始状态下，查询项默认为立案日期（code = 102），
+        path: this.props.location.pathname,
         isReset: false,
     };
 
@@ -76,21 +76,23 @@ export default class CriminalFile extends PureComponent {
         this.getCase(obj);
         this.getSpecialCaseType();
         // this.getCaseAllType();
-        this.getCaseTypeTree(window.configUrl.is_area==='1'?'1':'0');
+        this.getCaseTypeTree(window.configUrl.is_area === '1' ? '1' : '0');
         this.getDepTree(newjigouArea.department);
         this.getCaseStatus();
         this.getEnforcementDictType();
     }
+
     componentWillReceiveProps(nextProps) {
-        if(nextProps.history.location.query.isReset){
-            if(nextProps.history.location.pathname === this.state.path){
+        if (nextProps.history.location.query.isReset) {
+            if (nextProps.history.location.pathname === this.state.path) {
                 this.setState({
-                    isReset:!this.state.isReset,
+                    isReset: !this.state.isReset,
                 });
                 this.props.history.replace(this.state.path);
             }
         }
     }
+
     onChange = (activeKey) => {
         this.setState({
             activeKey,
@@ -107,6 +109,7 @@ export default class CriminalFile extends PureComponent {
             payload: param ? param : '',
         });
     }
+
     // 获取人员强制措施字典
     getEnforcementDictType = () => {
         this.props.dispatch({
@@ -186,7 +189,7 @@ export default class CriminalFile extends PureComponent {
             type: 'common/getCaseTypeTree',
             payload: {
                 ajlb: 'xs', // 案件类别xs,xz
-                is_area:areaNum,
+                is_area: areaNum,
             },
             callback: (data) => {
                 if (data.list) {
@@ -226,7 +229,7 @@ export default class CriminalFile extends PureComponent {
             timeout = null;
         }
         currentValue = name;
-        timeout = setTimeout(function() {
+        timeout = setTimeout(function () {
 
             that.props.dispatch({
                 type: 'common/getAllPolice',
@@ -305,7 +308,7 @@ export default class CriminalFile extends PureComponent {
     };
     // 表格分页
     handleTableChange = (pagination, filtersArg, sorter) => {
-        const { formValues } = this.state;
+        const {formValues} = this.state;
         const params = {
             pd: {
                 ...formValues,
@@ -323,7 +326,7 @@ export default class CriminalFile extends PureComponent {
         const tbsjTime = values.tbsj;
         const ysqsTime = values.ysqssj;
         const qzcslx = [];
-        values.qzcslx&&values.qzcslx.map((item)=>{
+        values.qzcslx && values.qzcslx.map((item) => {
             qzcslx.push("'" + item + "'");
         });
         const formValues = {
@@ -334,22 +337,22 @@ export default class CriminalFile extends PureComponent {
             ajzt: values.ajzt || '',
             zxlb: values.zxlb || '',
             ajlb: values.ajlb ? values.ajlb[values.ajlb.length - 1] : '',
-            ajlb_dl:values.ajlb ? values.ajlb[0] : '',
+            ajlb_dl: values.ajlb ? values.ajlb[0] : '',
             csfs: values.csfs || '',
             is_tz: this.state.is_tz,
             qzcslx: qzcslx.toString() || '',
-            is_area:window.configUrl.is_area,
-            isY:'0', // 判断是高级查询还是普通查询，0是普通查询，1是高级查询
-            sarq_ks:values.slrq && values.slrq.length > 0 ? values.slrq[0].format('YYYY-MM-DD') : '',
-            sarq_js:values.slrq && values.slrq.length > 0 ? values.slrq[1].format('YYYY-MM-DD') : '',
-            larq_ks:values.larq && values.larq.length > 0 ? values.larq[0].format('YYYY-MM-DD') : '',
-            larq_js:values.larq && values.larq.length > 0 ? values.larq[1].format('YYYY-MM-DD') : '',
-            parq_ks:values.parq && values.parq.length > 0 ? values.parq[0].format('YYYY-MM-DD') : '',
-            parq_js:values.parq && values.parq.length > 0 ? values.parq[1].format('YYYY-MM-DD') : '',
-            xarq_ks:values.xarq && values.xarq.length > 0 ? values.xarq[0].format('YYYY-MM-DD') : '',
-            xarq_js:values.xarq && values.xarq.length > 0 ? values.xarq[1].format('YYYY-MM-DD') : '',
-            jarq_ks:values.jarq && values.jarq.length > 0 ? values.jarq[0].format('YYYY-MM-DD') : '',
-            jarq_js:values.jarq && values.jarq.length > 0 ? values.jarq[1].format('YYYY-MM-DD') : '',
+            is_area: window.configUrl.is_area,
+            isY: '0', // 判断是高级查询还是普通查询，0是普通查询，1是高级查询
+            sarq_ks: values.slrq && values.slrq.length > 0 ? values.slrq[0].format('YYYY-MM-DD') : '',
+            sarq_js: values.slrq && values.slrq.length > 0 ? values.slrq[1].format('YYYY-MM-DD') : '',
+            larq_ks: values.larq && values.larq.length > 0 ? values.larq[0].format('YYYY-MM-DD') : '',
+            larq_js: values.larq && values.larq.length > 0 ? values.larq[1].format('YYYY-MM-DD') : '',
+            parq_ks: values.parq && values.parq.length > 0 ? values.parq[0].format('YYYY-MM-DD') : '',
+            parq_js: values.parq && values.parq.length > 0 ? values.parq[1].format('YYYY-MM-DD') : '',
+            xarq_ks: values.xarq && values.xarq.length > 0 ? values.xarq[0].format('YYYY-MM-DD') : '',
+            xarq_js: values.xarq && values.xarq.length > 0 ? values.xarq[1].format('YYYY-MM-DD') : '',
+            jarq_ks: values.jarq && values.jarq.length > 0 ? values.jarq[0].format('YYYY-MM-DD') : '',
+            jarq_js: values.jarq && values.jarq.length > 0 ? values.jarq[1].format('YYYY-MM-DD') : '',
             tbsj_ks: tbsjTime && tbsjTime.length > 0 ? tbsjTime[0].format('YYYY-MM-DD') : '',
             tbsj_js: tbsjTime && tbsjTime.length > 0 ? tbsjTime[1].format('YYYY-MM-DD') : '',
             qsrq_ks: ysqsTime && ysqsTime.length > 0 ? ysqsTime[0].format('YYYY-MM-DD') : '',
@@ -357,7 +360,7 @@ export default class CriminalFile extends PureComponent {
         };
         this.setState({
             formValues,
-            isY:'0',
+            isY: '0',
         });
         const params = {
             currentPage: 1,
@@ -373,10 +376,10 @@ export default class CriminalFile extends PureComponent {
         this.props.form.resetFields();
         this.setState({
             formValues: {
-                is_area:window.configUrl.is_area,
-                isY:'0',
+                is_area: window.configUrl.is_area,
+                isY: '0',
             },
-            statusDate:'102',
+            statusDate: '102',
         });
         this.getCase();
     };
@@ -392,7 +395,7 @@ export default class CriminalFile extends PureComponent {
         const tbsjTime = formValues.tbsj;
         const ysqsTime = formValues.ysqssj;
         const qzcslx = [];
-        formValues.qzcslx&&formValues.qzcslx.map((item)=>{
+        formValues.qzcslx && formValues.qzcslx.map((item) => {
             qzcslx.push("'" + item + "'");
         });
         // const ajztd = [];
@@ -407,36 +410,36 @@ export default class CriminalFile extends PureComponent {
             ajzt: formValues.ajzt || '',
             zxlb: formValues.zxlb || '',
             ajlb: formValues.ajlb ? formValues.ajlb[formValues.ajlb.length - 1] : '',
-            ajlb_dl:formValues.ajlb ? formValues.ajlb[0] : '',
+            ajlb_dl: formValues.ajlb ? formValues.ajlb[0] : '',
             csfs: formValues.csfs || '',
             qzcslx: qzcslx.toString() || '',
             is_tz: this.state.is_tz,
-            is_area:window.configUrl.is_area,
-            isY:this.state.isY, // 判断是高级查询还是普通查询，0是普通查询，1是高级查询
-            sarq_ks:formValues.sarq_ks,
-            sarq_js:formValues.sarq_js,
-            larq_ks:formValues.larq_ks,
-            larq_js:formValues.larq_js,
-            parq_ks:formValues.parq_ks,
-            parq_js:formValues.parq_js,
-            xarq_ks:formValues.xarq_ks,
-            xarq_js:formValues.xarq_js,
-            jarq_ks:formValues.jarq_ks,
-            jarq_js:formValues.jarq_js,
+            is_area: window.configUrl.is_area,
+            isY: this.state.isY, // 判断是高级查询还是普通查询，0是普通查询，1是高级查询
+            sarq_ks: formValues.sarq_ks,
+            sarq_js: formValues.sarq_js,
+            larq_ks: formValues.larq_ks,
+            larq_js: formValues.larq_js,
+            parq_ks: formValues.parq_ks,
+            parq_js: formValues.parq_js,
+            xarq_ks: formValues.xarq_ks,
+            xarq_js: formValues.xarq_js,
+            jarq_ks: formValues.jarq_ks,
+            jarq_js: formValues.jarq_js,
 
             tbsj_ks: tbsjTime && tbsjTime.length > 0 ? tbsjTime[0].format('YYYY-MM-DD') : '',
             tbsj_js: tbsjTime && tbsjTime.length > 0 ? tbsjTime[1].format('YYYY-MM-DD') : '',
             qsrq_ks: ysqsTime && ysqsTime.length > 0 ? ysqsTime[0].format('YYYY-MM-DD') : '',
             qsrq_js: ysqsTime && ysqsTime.length > 0 ? ysqsTime[1].format('YYYY-MM-DD') : '',
         };
-        if ((newformValues.jarq_ks && newformValues.jarq_js)||(newformValues.xarq_ks && newformValues.xarq_js)||(newformValues.parq_ks && newformValues.parq_js)||(newformValues.sarq_ks && newformValues.sarq_js)||(newformValues.larq_ks && newformValues.larq_js) || (ysqsTime && ysqsTime.length > 0)) {
+        if ((newformValues.jarq_ks && newformValues.jarq_js) || (newformValues.xarq_ks && newformValues.xarq_js) || (newformValues.parq_ks && newformValues.parq_js) || (newformValues.sarq_ks && newformValues.sarq_js) || (newformValues.larq_ks && newformValues.larq_js) || (ysqsTime && ysqsTime.length > 0)) {
             const saisAfterDate = newformValues.sarq_js && newformValues.sarq_ks ? moment(newformValues.sarq_js).isAfter(moment(newformValues.sarq_ks).add(exportListDataMaxDays, 'days')) : true;
             const laisAfterDate = newformValues.larq_js && newformValues.larq_ks ? moment(newformValues.larq_js).isAfter(moment(newformValues.larq_ks).add(exportListDataMaxDays, 'days')) : true;
             const paisAfterDate = newformValues.parq_js && newformValues.parq_ks ? moment(newformValues.parq_js).isAfter(moment(newformValues.parq_ks).add(exportListDataMaxDays, 'days')) : true;
             const xaisAfterDate = newformValues.xarq_js && newformValues.xarq_ks ? moment(newformValues.xarq_js).isAfter(moment(newformValues.xarq_ks).add(exportListDataMaxDays, 'days')) : true;
             const jaisAfterDate = newformValues.jarq_js && newformValues.jarq_ks ? moment(newformValues.jarq_js).isAfter(moment(newformValues.jarq_ks).add(exportListDataMaxDays, 'days')) : true;
             const isAfterDate2 = ysqsTime && ysqsTime.length > 0 ? moment(newformValues.qsrq_js).isAfter(moment(newformValues.qsrq_ks).add(exportListDataMaxDays, 'days')) : true;
-            if (saisAfterDate&&laisAfterDate&&paisAfterDate&&xaisAfterDate&&jaisAfterDate && isAfterDate2) { // 选择时间间隔应小于exportListDataMaxDays
+            if (saisAfterDate && laisAfterDate && paisAfterDate && xaisAfterDate && jaisAfterDate && isAfterDate2) { // 选择时间间隔应小于exportListDataMaxDays
                 message.warning(`日期间隔需小于${exportListDataMaxDays}天`);
             } else {
                 this.props.dispatch({
@@ -521,46 +524,46 @@ export default class CriminalFile extends PureComponent {
     // 修改案件状态改变查询的日期名称
     chooseStatus = (item) => {
         this.setState({
-            statusDate:item,
+            statusDate: item,
         })
     }
     // 高级查询
     seniorSearch = () => {
         this.setState({
-            seniorSearchModalVisible:true,
+            seniorSearchModalVisible: true,
         })
     }
     SeniorSearchCancel = () => {
         this.setState({
-            seniorSearchModalVisible:false,
+            seniorSearchModalVisible: false,
         })
     }
     SearchSuccess = (value) => {
         this.props.form.resetFields();
         const ajzt = [];
-        value.ajzt&&value.ajzt.map((item)=>{
+        value.ajzt && value.ajzt.map((item) => {
             ajzt.push("'" + item + "'");
         });
         const formValues = {
-            is_area:window.configUrl.is_area,
+            is_area: window.configUrl.is_area,
             is_tz: this.state.is_tz,
-            isY:'1',// 判断是高级查询还是普通查询，0是普通查询，1是高级查询
-            ajzt:ajzt.toString() || '',
-            ladw:value.ladw||'',
-            sadw:value.sadw||'',
-            padw:value.padw||'',
-            xadw:value.xadw||'',
-            jadw_dm:value.jadw||'',
-            sarq_ks:value.slrq && value.slrq.length > 0 ? value.slrq[0].format('YYYY-MM-DD') : '',
-            sarq_js:value.slrq && value.slrq.length > 0 ? value.slrq[1].format('YYYY-MM-DD') : '',
-            larq_ks:value.larq && value.larq.length > 0 ? value.larq[0].format('YYYY-MM-DD') : '',
-            larq_js:value.larq && value.larq.length > 0 ? value.larq[1].format('YYYY-MM-DD') : '',
-            parq_ks:value.parq && value.parq.length > 0 ? value.parq[0].format('YYYY-MM-DD') : '',
-            parq_js:value.parq && value.parq.length > 0 ? value.parq[1].format('YYYY-MM-DD') : '',
-            xarq_ks:value.xarq && value.xarq.length > 0 ? value.xarq[0].format('YYYY-MM-DD') : '',
-            xarq_js:value.xarq && value.xarq.length > 0 ? value.xarq[1].format('YYYY-MM-DD') : '',
-            jarq_ks:value.jarq && value.jarq.length > 0 ? value.jarq[0].format('YYYY-MM-DD') : '',
-            jarq_js:value.jarq && value.jarq.length > 0 ? value.jarq[1].format('YYYY-MM-DD') : '',
+            isY: '1',// 判断是高级查询还是普通查询，0是普通查询，1是高级查询
+            ajzt: ajzt.toString() || '',
+            ladw: value.ladw || '',
+            sadw: value.sadw || '',
+            padw: value.padw || '',
+            xadw: value.xadw || '',
+            jadw_dm: value.jadw || '',
+            sarq_ks: value.slrq && value.slrq.length > 0 ? value.slrq[0].format('YYYY-MM-DD') : '',
+            sarq_js: value.slrq && value.slrq.length > 0 ? value.slrq[1].format('YYYY-MM-DD') : '',
+            larq_ks: value.larq && value.larq.length > 0 ? value.larq[0].format('YYYY-MM-DD') : '',
+            larq_js: value.larq && value.larq.length > 0 ? value.larq[1].format('YYYY-MM-DD') : '',
+            parq_ks: value.parq && value.parq.length > 0 ? value.parq[0].format('YYYY-MM-DD') : '',
+            parq_js: value.parq && value.parq.length > 0 ? value.parq[1].format('YYYY-MM-DD') : '',
+            xarq_ks: value.xarq && value.xarq.length > 0 ? value.xarq[0].format('YYYY-MM-DD') : '',
+            xarq_js: value.xarq && value.xarq.length > 0 ? value.xarq[1].format('YYYY-MM-DD') : '',
+            jarq_ks: value.jarq && value.jarq.length > 0 ? value.jarq[0].format('YYYY-MM-DD') : '',
+            jarq_js: value.jarq && value.jarq.length > 0 ? value.jarq[1].format('YYYY-MM-DD') : '',
         };
         const params = {
             currentPage: 1,
@@ -571,29 +574,30 @@ export default class CriminalFile extends PureComponent {
         };
         this.setState({
             formValues,
-            seniorSearchModalVisible:false,
-            isY:'1',
+            seniorSearchModalVisible: false,
+            isY: '1',
         });
         this.getCase(params);
     }
     getSearchHeight = () => {
         this.setState({
-            searchHeight:!this.state.searchHeight
+            searchHeight: !this.state.searchHeight
         });
     }
+
     renderForm() {
-        let stylescommon = this.props.global&&this.props.global.dark ? stylescommon1 : stylescommon2;
-        const { form: { getFieldDecorator }, common: { depTree, specialCaseType, CaseStatusType,enforcementTypeDict } } = this.props;
+        let stylescommon = this.props.global && this.props.global.dark ? stylescommon1 : stylescommon2;
+        const {form: {getFieldDecorator}, common: {depTree, specialCaseType, CaseStatusType, enforcementTypeDict}} = this.props;
         const allPoliceOptions = this.state.allPolice.map(d => <Option key={`${d.idcard},${d.pcard}`}
                                                                        value={`${d.idcard},${d.pcard}$$`}
                                                                        title={d.name}>{`${d.name} ${d.pcard}`}</Option>);
         const formItemLayout = {
-            labelCol: { xs: { span: 24 }, md: { span: 8 }, xl: { span: 6 }, xxl: { span: 6 } },
-            wrapperCol: { xs: { span: 24 }, md: { span: 16 }, xl: { span: 18 }, xxl: { span: 18 } },
+            labelCol: {xs: {span: 24}, md: {span: 8}, xl: {span: 6}, xxl: {span: 6}},
+            wrapperCol: {xs: {span: 24}, md: {span: 16}, xl: {span: 18}, xxl: {span: 18}},
         };
-        const rowLayout = { md: 8, xl: 16, xxl: 24 };
-        const colLayout = { sm: 24, md: 12, xl: 12, xxl: 8 };
-        const { statusDate } = this.state;
+        const rowLayout = {md: 8, xl: 16, xxl: 24};
+        const colLayout = {sm: 24, md: 12, xl: 12, xxl: 8};
+        const {statusDate} = this.state;
         let CaseStatusOption = [];
         if (CaseStatusType.length > 0) {
             for (let i = 0; i < CaseStatusType.length; i++) {
@@ -623,15 +627,15 @@ export default class CriminalFile extends PureComponent {
         }
         return (
             <Card className={stylescommon.listPageWrap} id={'formCriminalFile'}>
-                <Form onSubmit={this.handleSearch} style={{height:this.state.searchHeight ?  'auto' : '50px'}}>
+                <Form onSubmit={this.handleSearch} style={{height: this.state.searchHeight ? 'auto' : '50px'}}>
                     <Row gutter={rowLayout} className={stylescommon.searchForm}>
                         <Col {...colLayout}>
                             <FormItem label="案件编号" {...formItemLayout}>
                                 {getFieldDecorator('ajbh', {
                                     // initialValue: this.state.caseType,
                                     rules: [
-                                        { pattern: /^[A-Za-z0-9]+$/, message: '请输入正确的案件编号！' },
-                                        { max: 32, message: '最多输入32个字！' },
+                                        {pattern: /^[A-Za-z0-9]+$/, message: '请输入正确的案件编号！'},
+                                        {max: 32, message: '最多输入32个字！'},
                                     ],
                                 })(
                                     <Input placeholder="请输入案件编号"/>,
@@ -642,21 +646,21 @@ export default class CriminalFile extends PureComponent {
                             <FormItem label="案件名称" {...formItemLayout}>
                                 {getFieldDecorator('ajmc', {
                                     // initialValue: this.state.caseType,
-                                    rules: [{ max: 128, message: '最多输入128个字！' }],
+                                    rules: [{max: 128, message: '最多输入128个字！'}],
                                 })(
                                     <Input placeholder="请输入案件名称"/>,
                                 )}
                             </FormItem>
                         </Col>
                         {
-                            (statusDate === '102'||statusDate==='') ? <Col {...colLayout}>
+                            (statusDate === '102' || statusDate === '') ? <Col {...colLayout}>
                                 <FormItem label={'立案日期'} {...formItemLayout}>
                                     {getFieldDecorator('larq', {
                                         initialValue: this.state.larq ? this.state.larq : undefined,
                                     })(
                                         <RangePicker
                                             disabledDate={this.disabledDate}
-                                            style={{ width: '100%' }}
+                                            style={{width: '100%'}}
                                             getCalendarContainer={() => document.getElementById('formCriminalFile')}
                                         />,
                                     )}
@@ -664,17 +668,18 @@ export default class CriminalFile extends PureComponent {
                             </Col> : ''
                         }
                         {
-                            (statusDate === '101'||statusDate === '103'||statusDate === '106') ? <Col {...colLayout}>
-                                <FormItem label={'受理日期'} {...formItemLayout}>
-                                    {getFieldDecorator('slrq')(
-                                        <RangePicker
-                                            disabledDate={this.disabledDate}
-                                            style={{ width: '100%' }}
-                                            getCalendarContainer={() => document.getElementById('formCriminalFile')}
-                                        />,
-                                    )}
-                                </FormItem>
-                            </Col> : ''
+                            (statusDate === '101' || statusDate === '103' || statusDate === '106') ?
+                                <Col {...colLayout}>
+                                    <FormItem label={'受理日期'} {...formItemLayout}>
+                                        {getFieldDecorator('slrq')(
+                                            <RangePicker
+                                                disabledDate={this.disabledDate}
+                                                style={{width: '100%'}}
+                                                getCalendarContainer={() => document.getElementById('formCriminalFile')}
+                                            />,
+                                        )}
+                                    </FormItem>
+                                </Col> : ''
                         }
                         {
                             (statusDate === '104') ?
@@ -683,7 +688,7 @@ export default class CriminalFile extends PureComponent {
                                         {getFieldDecorator('parq')(
                                             <RangePicker
                                                 disabledDate={this.disabledDate}
-                                                style={{ width: '100%' }}
+                                                style={{width: '100%'}}
                                                 getCalendarContainer={() => document.getElementById('formCriminalFile')}
                                             />,
                                         )}
@@ -697,7 +702,7 @@ export default class CriminalFile extends PureComponent {
                                         {getFieldDecorator('xarq')(
                                             <RangePicker
                                                 disabledDate={this.disabledDate}
-                                                style={{ width: '100%' }}
+                                                style={{width: '100%'}}
                                                 getCalendarContainer={() => document.getElementById('formCriminalFile')}
                                             />,
                                         )}
@@ -705,13 +710,13 @@ export default class CriminalFile extends PureComponent {
                                 </Col> : ''
                         }
                         {
-                            (statusDate === '107'||statusDate === '108'||statusDate === '109') ?
+                            (statusDate === '107' || statusDate === '108' || statusDate === '109') ?
                                 <Col {...colLayout}>
                                     <FormItem label={'结案日期'} {...formItemLayout}>
                                         {getFieldDecorator('jarq')(
                                             <RangePicker
                                                 disabledDate={this.disabledDate}
-                                                style={{ width: '100%' }}
+                                                style={{width: '100%'}}
                                                 getCalendarContainer={() => document.getElementById('formCriminalFile')}
                                             />,
                                         )}
@@ -725,8 +730,8 @@ export default class CriminalFile extends PureComponent {
                                 })(
                                     <TreeSelect
                                         showSearch
-                                        style={{ width: '100%' }}
-                                        dropdownStyle={{ maxHeight: 400, overflow: 'auto' }}
+                                        style={{width: '100%'}}
+                                        dropdownStyle={{maxHeight: 400, overflow: 'auto'}}
                                         placeholder="请输入办案单位"
                                         allowClear
                                         key='badwSelect'
@@ -744,7 +749,8 @@ export default class CriminalFile extends PureComponent {
                                 {getFieldDecorator('ajzt', {
                                     initialValue: this.state.ajzt,
                                 })(
-                                    <Select placeholder="请选择案件状态" style={{ width: '100%' }} onChange={this.chooseStatus} getPopupContainer={() => document.getElementById('formCriminalFile')}>
+                                    <Select placeholder="请选择案件状态" style={{width: '100%'}} onChange={this.chooseStatus}
+                                            getPopupContainer={() => document.getElementById('formCriminalFile')}>
                                         <Option value="">全部</Option>
                                         {CaseStatusOption}
                                     </Select>,
@@ -755,7 +761,7 @@ export default class CriminalFile extends PureComponent {
                             <FormItem label="&nbsp;&nbsp;&nbsp; 办案人" {...formItemLayout}>
                                 {getFieldDecorator('bar', {
                                     // initialValue: this.state.gzry,
-                                    rules: [{ max: 32, message: '最多输入32个字！' }],
+                                    rules: [{max: 32, message: '最多输入32个字！'}],
                                 })(
                                     <Select
                                         mode="combobox"
@@ -800,7 +806,7 @@ export default class CriminalFile extends PureComponent {
                                 {getFieldDecorator('zxlb', {
                                     initialValue: this.state.zxlb,
                                 })(
-                                    <Select placeholder="请选择专项类别" style={{ width: '100%' }}
+                                    <Select placeholder="请选择专项类别" style={{width: '100%'}}
                                             getPopupContainer={() => document.getElementById('formCriminalFile')}
                                             onChange={this.specialCaseOnChange}>
                                         <Option value="">全部</Option>
@@ -816,7 +822,7 @@ export default class CriminalFile extends PureComponent {
                                 })(
                                     <RangePicker
                                         disabledDate={this.disabledDate}
-                                        style={{ width: '100%' }}
+                                        style={{width: '100%'}}
                                         getCalendarContainer={() => document.getElementById('formCriminalFile')}
                                     />,
                                 )}
@@ -826,7 +832,8 @@ export default class CriminalFile extends PureComponent {
                             <Col {...colLayout}>
                                 <FormItem label="强制措施" {...formItemLayout}>
                                     {getFieldDecorator('qzcslx', {})(
-                                        <Select placeholder="请选择强制措施" style={{width: '100%'}} mode={'multiple'} getPopupContainer={() => document.getElementById('formCriminalFile')}>
+                                        <Select placeholder="请选择强制措施" style={{width: '100%'}} mode={'multiple'}
+                                                getPopupContainer={() => document.getElementById('formCriminalFile')}>
                                             <Option value="">全部</Option>
                                             {enforcementTypeDictGroup}
                                         </Select>,
@@ -838,15 +845,16 @@ export default class CriminalFile extends PureComponent {
                         }
                     </Row>
                     <Row className={stylescommon.search}>
-                        <span style={{ float: 'right', marginBottom: 24 }}>
-                          <Button style={{ marginLeft: 8 }} type="primary" onClick={this.handleSearch}>
+                        <span style={{float: 'right', marginBottom: 24}}>
+                          <Button style={{marginLeft: 8}} type="primary" onClick={this.handleSearch}>
                             查询
                           </Button>
-                          <Button style={{ marginLeft: 8 }} onClick={this.handleFormReset} className={stylescommon.empty}>
+                          <Button style={{marginLeft: 8}} onClick={this.handleFormReset} className={stylescommon.empty}>
                             重置
                           </Button>
-                          <Button style={{ marginLeft: 8 }} onClick={this.getSearchHeight} className={stylescommon.empty}>
-                              {this.state.searchHeight ? '收起筛选' : '展开筛选'} <Icon type={this.state.searchHeight ? "up" :"down"}/>
+                          <Button style={{marginLeft: 8}} onClick={this.getSearchHeight} className={stylescommon.empty}>
+                              {this.state.searchHeight ? '收起筛选' : '展开筛选'} <Icon
+                              type={this.state.searchHeight ? "up" : "down"}/>
                           </Button>
                         </span>
                     </Row>
@@ -856,7 +864,7 @@ export default class CriminalFile extends PureComponent {
     }
 
     renderTable() {
-        const { CaseData: { returnData, loading } } = this.props;
+        const {CaseData: {returnData, loading}} = this.props;
         return (
             <div>
                 <RenderTable
@@ -878,9 +886,9 @@ export default class CriminalFile extends PureComponent {
 
     render() {
         const newAddDetail = this.state.arrayDetail;
-        const { CaseData: { returnData, loading },common: { depTree,CaseStatusType} } = this.props;
-        const { showDataView, typeButtons, seniorSearchModalVisible } = this.state;
-        let stylescommon = this.props.global&&this.props.global.dark ? stylescommon1 : stylescommon2;
+        const {CaseData: {returnData, loading}, common: {depTree, CaseStatusType}} = this.props;
+        const {showDataView, typeButtons, seniorSearchModalVisible} = this.state;
+        let stylescommon = this.props.global && this.props.global.dark ? stylescommon1 : stylescommon2;
         return (
             <div>
                 {this.renderForm()}

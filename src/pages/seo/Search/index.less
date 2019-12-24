@@ -6,12 +6,14 @@
   width: 100%;
   background: @component-background;
 }
+
 .searchArea {
   background: @body-background;
   padding: 10px 0;
+
   :global {
     .ant-input {
-      background: @component-background!important;
+      background: @component-background !important;
       height: 40px !important;
       line-height: 40px !important;
     }
@@ -39,9 +41,10 @@
     a.showSearchDetail {
       font-size: 14px;
       color: @highlight-color;
+
       :global {
         .anticon svg {
-          color: @highlight-color!important;
+          color: @highlight-color !important;
         }
       }
     }
@@ -50,8 +53,9 @@
       color: #000;
       border-bottom: 1px solid rgba(37, 155, 243, 1);
     }
-    :global{
-      .ant-divider{
+
+    :global {
+      .ant-divider {
         background: @body-background;
         font-size: 20px;
       }
@@ -61,6 +65,7 @@
   .searchDetails {
     position: relative;
     border-bottom: 1px solid @body-background;
+
     .singleConditionArea {
       padding: 10px 24px;
 
@@ -82,6 +87,7 @@
             background: none;
           }
         }
+
         .ant-radio-button-wrapper-checked:not(.ant-radio-button-wrapper-disabled) {
           text-decoration: underline;
         }
@@ -176,8 +182,8 @@
     line-height: 50px;
     text-align: center;
     border-radius: 0 0 2px 2px;
-    background-color:@menu-item-active-bg;
-    color:@white;
+    background-color: @menu-item-active-bg;
+    color: @white;
     cursor: pointer;
     font-size: 16px;
   }
@@ -188,24 +194,28 @@
     right: 0;
   }
 }
-.lightBox{
+
+.lightBox {
   .searchArea {
     background: #ebebeb;
     padding: 10px 0;
+
     :global {
       .ant-input {
-        background: #fff!important;
+        background: #fff !important;
         height: 40px !important;
         line-height: 40px !important;
       }
     }
   }
+
   .searchConditionArea {
     .searchType {
       padding: 12px 24px;
       border-left: none;
       border-right: none;
       border-bottom: 1px solid #E6E6E6;
+
       a {
         color: #4662d5;
         padding: 12px 10px;
@@ -217,34 +227,41 @@
         }
       }
     }
+
     a.showSearchDetail {
       font-size: 14px;
-      color: #19368A!important;
+      color: #19368A !important;
+
       :global {
         .anticon svg {
           color: #19368A !important;
         }
       }
     }
-    :global{
-      .ant-divider{
+
+    :global {
+      .ant-divider {
         background: #e6e6e6;
         font-size: 20px;
       }
     }
   }
+
   .searchTitle {
     color: #999;
   }
+
   .cardBody {
     .cardBodyContent {
       color: #4d4d4d;
     }
   }
-  .searchDetails{
+
+  .searchDetails {
     border-bottom: 1px solid #e6e6e6;
-    :global{
-      .ant-radio-button-wrapper-checked:not(.ant-radio-button-wrapper-disabled){
+
+    :global {
+      .ant-radio-button-wrapper-checked:not(.ant-radio-button-wrapper-disabled) {
         color: #3344DA;
       }
     }

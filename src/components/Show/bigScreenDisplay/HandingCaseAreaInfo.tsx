@@ -4,7 +4,7 @@
 * 20181122
 * */
 
-import React, { PureComponent } from 'react';
+import React, {PureComponent} from 'react';
 import styles from './bigScreenDisplay.less';
 
 export default class HandingCaseAreaInfo extends PureComponent {
@@ -16,7 +16,7 @@ export default class HandingCaseAreaInfo extends PureComponent {
     };
 
     componentDidMount() {
-        const { selectDate, org, orgCode, orglist } = this.props;
+        const {selectDate, org, orgCode, orglist} = this.props;
         this.getHandingCaseAreaInfo(selectDate[0], selectDate[1], org, orgCode, orglist);
     }
 
@@ -65,9 +65,9 @@ export default class HandingCaseAreaInfo extends PureComponent {
     };
 
     render() {
-        const { baqUse, baqCase, baqPolice, baqCriminal } = this.state;
+        const {baqUse, baqCase, baqPolice, baqCriminal} = this.state;
         return (
-            <div id="HandingCaseAreaInfo" style={{ height: '100%', width: '100%' }}>
+            <div id="HandingCaseAreaInfo" style={{height: '100%', width: '100%'}}>
                 <h4 className={styles.cardTitle}>办案区信息巡检</h4>
                 <div className={styles.cardContent}>
                     <div className={styles.baqUse}>

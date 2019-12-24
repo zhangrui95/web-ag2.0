@@ -1,4 +1,4 @@
-import { stringify } from 'qs';
+import {stringify} from 'qs';
 import request from '../utils/request';
 
 //保存设置

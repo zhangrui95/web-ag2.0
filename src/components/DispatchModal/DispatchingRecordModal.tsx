@@ -1,17 +1,17 @@
-import React, { PureComponent } from 'react';
-import { Modal, Form, Input, Select, message, Button, Timeline, Row, Col, Tooltip, Tag } from 'antd';
+import React, {PureComponent} from 'react';
+import {Modal, Form, Input, Select, message, Button, Timeline, Row, Col, Tooltip, Tag} from 'antd';
 import styles from './DispatchModal.less';
 
-const { TextArea } = Input;
+const {TextArea} = Input;
 const Option = Select.Option;
-import { connect } from 'dva';
-import { getUserInfos } from '../../utils/utils';
+import {connect} from 'dva';
+import {getUserInfos} from '../../utils/utils';
 import Ellipsis from '../../../src/components/Ellipsis';
 import SuperviseModal from '../../components/UnCaseRealData/SuperviseModal';
 
 const FormItem = Form.Item;
 
-@connect(({ share }) => ({
+@connect(({share}) => ({
     share,
 }))
 class DispatchingRecordModal extends PureComponent {
@@ -19,8 +19,8 @@ class DispatchingRecordModal extends PureComponent {
         super(props);
         this.state = {
             shareSuccess: false,
-            superviseVisibleModal:false, // 督办模态框
-            caseDetails:null, // 督办的警情详情
+            superviseVisibleModal: false, // 督办模态框
+            caseDetails: null, // 督办的警情详情
         };
     }
 
@@ -29,41 +29,40 @@ class DispatchingRecordModal extends PureComponent {
             this.props.form.resetFields();
         }
     }
+
     journal = (NowRecord) => {
-      if(NowRecord&&NowRecord.qtpdlx==='第二次调度未处理'){
-        return(
-          <div>
-            <Button onClick={this.props.DispatchinghandleCancel}>关闭</Button>
-            <Button type='primary' onClick={()=>this.props.saveDispatch(NowRecord)}>督办</Button>
-          </div>
-        )
-      }
-      else if(NowRecord&&(NowRecord.qtpdlx==='已处理'||NowRecord.qtpdlx==='已督办未处理')){
-        return(
-          <div>
-            <Button onClick={this.props.DispatchinghandleCancel}>关闭</Button>
-          </div>
-        )
-      }
-      else{
-        return(
-          <div>
-            <Button onClick={this.props.DispatchinghandleCancel}>关闭</Button>
-            <Button type='primary' onClick={()=>this.props.saveDispatch(this.props.NowRecord)}>调度</Button>
-          </div>
-        )
-      }
+        if (NowRecord && NowRecord.qtpdlx === '第二次调度未处理') {
+            return (
+                <div>
+                    <Button onClick={this.props.DispatchinghandleCancel}>关闭</Button>
+                    <Button type='primary' onClick={() => this.props.saveDispatch(NowRecord)}>督办</Button>
+                </div>
+            )
+        } else if (NowRecord && (NowRecord.qtpdlx === '已处理' || NowRecord.qtpdlx === '已督办未处理')) {
+            return (
+                <div>
+                    <Button onClick={this.props.DispatchinghandleCancel}>关闭</Button>
+                </div>
+            )
+        } else {
+            return (
+                <div>
+                    <Button onClick={this.props.DispatchinghandleCancel}>关闭</Button>
+                    <Button type='primary' onClick={() => this.props.saveDispatch(this.props.NowRecord)}>调度</Button>
+                </div>
+            )
+        }
     }
 
     render() {
         const formItemLayout = {
             labelCol: {
-                xs: { span: 4 },
-                sm: { span: 4 },
+                xs: {span: 4},
+                sm: {span: 4},
             },
             wrapperCol: {
-                xs: { span: 18 },
-                sm: { span: 18 },
+                xs: {span: 18},
+                sm: {span: 18},
             },
         };
         const children = [];
@@ -74,8 +73,8 @@ class DispatchingRecordModal extends PureComponent {
                 }
             });
         }
-        const { getFieldDecorator } = this.props.form;
-        const { ResOpin,NowRecord } = this.props;
+        const {getFieldDecorator} = this.props.form;
+        const {ResOpin, NowRecord} = this.props;
         const {superviseVisibleModal} = this.state;
         let list = [];
         if (this.props.RzList) {
@@ -92,41 +91,41 @@ class DispatchingRecordModal extends PureComponent {
                                     textAlign: 'center',
                                     marginBottom: 7,
                                 }}>
-                                    <p style={{ paddingTop: 7, color: '#fff' }}>{this.props.RzList.length - idx}</p>
+                                    <p style={{paddingTop: 7, color: '#fff'}}>{this.props.RzList.length - idx}</p>
                                 </div>
                             </div>
                         }
                         color='#00CC33'
                     >
-                        <Row style={{ paddingLeft: 30, paddingBottom: 8 }}>
+                        <Row style={{paddingLeft: 30, paddingBottom: 8}}>
                             <Col md={8} span={24}>
-                              {this.props.RzList.length === 3&&idx === 0?
-                                '督办人：':'调度人：'
-                              }
-                              {item.ddr_name ? item.ddr_name : ''}
+                                {this.props.RzList.length === 3 && idx === 0 ?
+                                    '督办人：' : '调度人：'
+                                }
+                                {item.ddr_name ? item.ddr_name : ''}
                             </Col>
                             <Col md={8} span={24}>
-                              {this.props.RzList.length === 3&&idx === 0?
-                                '督办人单位名称：':'调度人单位名称：'
-                              }
-                              {item.ddr_dwmc ? item.ddr_dwmc : ''}
+                                {this.props.RzList.length === 3 && idx === 0 ?
+                                    '督办人单位名称：' : '调度人单位名称：'
+                                }
+                                {item.ddr_dwmc ? item.ddr_dwmc : ''}
                             </Col>
                         </Row>
-                        <Row style={{ paddingLeft: 30, paddingBottom: 8 }}>
+                        <Row style={{paddingLeft: 30, paddingBottom: 8}}>
                             <Col md={16} span={24}>
-                              {this.props.RzList.length === 3&&idx === 0?
-                                '督办时间：':'调度时间：'
-                              }
-                              {item.ddsj ? item.ddsj : ''}
-                              </Col>
+                                {this.props.RzList.length === 3 && idx === 0 ?
+                                    '督办时间：' : '调度时间：'
+                                }
+                                {item.ddsj ? item.ddsj : ''}
+                            </Col>
                         </Row>
-                        <Row style={{ paddingLeft: 30, paddingBottom: 8 }}>
+                        <Row style={{paddingLeft: 30, paddingBottom: 8}}>
                             <Col md={22} span={24}>
-                              {this.props.RzList.length === 3&&idx === 0?
-                                '督办意见：':'调度意见：'
-                              }
-                              {item.ddyj ? item.ddyj : ''}
-                              </Col>
+                                {this.props.RzList.length === 3 && idx === 0 ?
+                                    '督办意见：' : '调度意见：'
+                                }
+                                {item.ddyj ? item.ddyj : ''}
+                            </Col>
                         </Row>
                     </Timeline.Item>,
                 );
@@ -139,23 +138,23 @@ class DispatchingRecordModal extends PureComponent {
                     visible={this.props.visible}
                     onCancel={this.props.DispatchinghandleCancel}
                     className={styles.shareHeader}
-                    footer={this.props.from==='三清刑事案件告警'||this.props.from==='三清行政案件告警'?null:this.journal(NowRecord)}
+                    footer={this.props.from === '三清刑事案件告警' || this.props.from === '三清行政案件告警' ? null : this.journal(NowRecord)}
                     width={900}
                     maskClosable={false}
-                    style={{ top: '200px' }}
+                    style={{top: '200px'}}
                 >
-                    <Timeline style={{ marginTop: 20, marginLeft: 20 }}>
+                    <Timeline style={{marginTop: 20, marginLeft: 20}}>
                         {list}
                     </Timeline>
-                  {
-                    ResOpin?
-                      <div>
-                        <p>反馈结果：{ResOpin.fkjg}</p>
-                        <p>反馈意见：{ResOpin.fkyj}</p>
-                      </div>
-                      :
-                      null
-                  }
+                    {
+                        ResOpin ?
+                            <div>
+                                <p>反馈结果：{ResOpin.fkjg}</p>
+                                <p>反馈意见：{ResOpin.fkyj}</p>
+                            </div>
+                            :
+                            null
+                    }
                 </Modal>
             </div>
 

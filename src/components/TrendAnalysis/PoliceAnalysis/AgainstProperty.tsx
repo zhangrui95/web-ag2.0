@@ -4,7 +4,7 @@
 * 20181218
 * */
 
-import React, { PureComponent } from 'react';
+import React, {PureComponent} from 'react';
 import {Tooltip, Icon, Table, Spin, Row, Col, Empty} from 'antd';
 import echarts from 'echarts'
 import AnalysisTitleArea from '../AnalysisTitleArea';
@@ -28,16 +28,16 @@ export default class AgainstProperty extends PureComponent {
 
     componentWillReceiveProps(nextProps) {
         if (nextProps) {
-            if (((nextProps.selectedDate !== null) && (this.props.selectedDate !== nextProps.selectedDate))|| this.props.global.dark !== nextProps.global.dark) {
+            if (((nextProps.selectedDate !== null) && (this.props.selectedDate !== nextProps.selectedDate)) || this.props.global.dark !== nextProps.global.dark) {
                 this.getAgainstProperty(nextProps);
             }
         }
     }
 
     getAgainstProperty = (propsData) => {
-        this.props.changeLoadingStatus({ againstPropertyLoadingStatus: true });
-        this.setState({ loadingData: true });
-        const { dispatch, selectedDateStr, yearOnYearDateStr, monthOnMonthDateStr, selectedDate, yearOnYearDate, monthOnMonthDate } = propsData;
+        this.props.changeLoadingStatus({againstPropertyLoadingStatus: true});
+        this.setState({loadingData: true});
+        const {dispatch, selectedDateStr, yearOnYearDateStr, monthOnMonthDateStr, selectedDate, yearOnYearDate, monthOnMonthDate} = propsData;
         dispatch({
             type: 'trendAnalysis/getAgainstProperty',
             payload: {
@@ -47,7 +47,7 @@ export default class AgainstProperty extends PureComponent {
             },
             callback: (data) => {
                 if (data) {
-                    const { qincaileijq, xingshiqc, zhianqc, sh } = data;
+                    const {qincaileijq, xingshiqc, zhianqc, sh} = data;
                     let barData = [];
                     let tableData = [];
                     let shanghaiTableData = [];
@@ -66,9 +66,9 @@ export default class AgainstProperty extends PureComponent {
                                     },
                                 },
                                 data: [
-                                    { name: '侵财类警情', value: qincaileijq.nowtime || 0, itemStyle: { color: '#3AA0FF' } },
-                                    { name: '刑事侵财', value: xingshiqc.nowtime || 0, itemStyle: { color: '#3AA0FF' } },
-                                    { name: '治安侵财', value: zhianqc.nowtime || 0, itemStyle: { color: '#3AA0FF' } },
+                                    {name: '侵财类警情', value: qincaileijq.nowtime || 0, itemStyle: {color: '#3AA0FF'}},
+                                    {name: '刑事侵财', value: xingshiqc.nowtime || 0, itemStyle: {color: '#3AA0FF'}},
+                                    {name: '治安侵财', value: zhianqc.nowtime || 0, itemStyle: {color: '#3AA0FF'}},
                                 ],
                             },
                             {
@@ -85,10 +85,10 @@ export default class AgainstProperty extends PureComponent {
                                     {
                                         name: '侵财类警情',
                                         value: qincaileijq.lastyear || 0,
-                                        itemStyle: { color: '#DCCA23' },
+                                        itemStyle: {color: '#DCCA23'},
                                     },
-                                    { name: '刑事侵财', value: xingshiqc.lastyear || 0, itemStyle: { color: '#DCCA23' } },
-                                    { name: '治安侵财', value: zhianqc.lastyear || 0, itemStyle: { color: '#DCCA23' } },
+                                    {name: '刑事侵财', value: xingshiqc.lastyear || 0, itemStyle: {color: '#DCCA23'}},
+                                    {name: '治安侵财', value: zhianqc.lastyear || 0, itemStyle: {color: '#DCCA23'}},
                                 ],
                             },
                             {
@@ -105,10 +105,10 @@ export default class AgainstProperty extends PureComponent {
                                     {
                                         name: '侵财类警情',
                                         value: qincaileijq.lastmonth || 0,
-                                        itemStyle: { color: '#31BD74' },
+                                        itemStyle: {color: '#31BD74'},
                                     },
-                                    { name: '刑事侵财', value: xingshiqc.lastmonth || 0, itemStyle: { color: '#31BD74' } },
-                                    { name: '治安侵财', value: zhianqc.lastmonth || 0, itemStyle: { color: '#31BD74' } },
+                                    {name: '刑事侵财', value: xingshiqc.lastmonth || 0, itemStyle: {color: '#31BD74'}},
+                                    {name: '治安侵财', value: zhianqc.lastmonth || 0, itemStyle: {color: '#31BD74'}},
                                 ],
                             },
                         ];
@@ -161,21 +161,21 @@ export default class AgainstProperty extends PureComponent {
                             {
                                 name: selectedDateStr,
                                 value: sh.nowtime,
-                                itemStyle: { color: '#3AA0FF' },
+                                itemStyle: {color: '#3AA0FF'},
                             },
                             {
                                 name: yearOnYearDateStr,
                                 value: sh.lastyear,
-                                itemStyle: { color: '#DCCA23' },
+                                itemStyle: {color: '#DCCA23'},
                             },
                             {
                                 name: monthOnMonthDateStr,
                                 value: sh.lastmonth,
-                                itemStyle: { color: '#31BD74' },
+                                itemStyle: {color: '#31BD74'},
                             },
                         ];
-                        if(document.getElementById('hurtBar')){
-                            this.showHurtBar(shanghaiBarData,xData);
+                        if (document.getElementById('hurtBar')) {
+                            this.showHurtBar(shanghaiBarData, xData);
                             window.addEventListener('resize', hurtBar.resize);
                         }
                     }
@@ -184,20 +184,20 @@ export default class AgainstProperty extends PureComponent {
                         shanghaiTableData,
                     });
                     this.props.goToCarousel(1);
-                    if(document.getElementById('againstPropertyChart')){
+                    if (document.getElementById('againstPropertyChart')) {
                         this.showEchart(barData);
                         window.addEventListener('resize', myChart.resize);
                     }
                 }
-                this.setState({ loadingData: false });
-                this.props.changeLoadingStatus({ againstPropertyLoadingStatus: false });
+                this.setState({loadingData: false});
+                this.props.changeLoadingStatus({againstPropertyLoadingStatus: false});
             },
         });
     };
 
     showEchart = (barData) => {
         myChart = echarts.init(document.getElementById('againstPropertyChart'));
-        const { selectedDateStr, yearOnYearDateStr, monthOnMonthDateStr } = this.props;
+        const {selectedDateStr, yearOnYearDateStr, monthOnMonthDateStr} = this.props;
         const option = {
             tooltip: {
                 trigger: 'axis',
@@ -212,7 +212,7 @@ export default class AgainstProperty extends PureComponent {
                         color: this.props.global && this.props.global.dark ? '#fff' : '#4d4d4d', //坐标值得具体的颜色
                     }
                 },
-                splitLine:{
+                splitLine: {
                     show: true, // X轴线 颜色类型的修改
                     lineStyle: {
                         color: this.props.global && this.props.global.dark ? '#fff' : '#e6e6e6'
@@ -246,7 +246,7 @@ export default class AgainstProperty extends PureComponent {
         myChart.setOption(option);
     };
     // 伤害类警情柱状图
-    showHurtBar = (shanghaiBarData,xData) => {
+    showHurtBar = (shanghaiBarData, xData) => {
         hurtBar = echarts.init(document.getElementById('hurtBar'));
         const option = {
             color: ['#3AA0FF', '#DCCA23', '#31BD74'],
@@ -298,8 +298,8 @@ export default class AgainstProperty extends PureComponent {
     };
 
     render() {
-        const { selectedDateStr, yearOnYearDateStr, monthOnMonthDateStr } = this.props;
-        const { tableData, loadingData, shanghaiTableData } = this.state;
+        const {selectedDateStr, yearOnYearDateStr, monthOnMonthDateStr} = this.props;
+        const {tableData, loadingData, shanghaiTableData} = this.state;
         // console.log('shanghaiTableData----->', shanghaiTableData);
         const columns = [{
             title: '类别',
@@ -342,20 +342,32 @@ export default class AgainstProperty extends PureComponent {
                     <AnalysisTitleArea analysisTitle="侵财类警情" {...this.props} />
                     <Row className={styles.fraudArea}>
                         <Col lg={12} md={24}>
-                            <div id="againstPropertyChart" style={{ height: 300 }} className={ this.props.global&&this.props.global.dark ? '' : styles.lightChartBox}/>
+                            <div id="againstPropertyChart" style={{height: 300}}
+                                 className={this.props.global && this.props.global.dark ? '' : styles.lightChartBox}/>
                         </Col>
                         <Col lg={12} md={24}>
-                            <Table columns={columns} dataSource={tableData} bordered className={styles.tableArea}  locale={{ emptyText: <Empty image={this.props.global&&this.props.global.dark ? noList : noListLight} description={'暂无数据'} /> }}
+                            <Table columns={columns} dataSource={tableData} bordered className={styles.tableArea}
+                                   locale={{
+                                       emptyText: <Empty
+                                           image={this.props.global && this.props.global.dark ? noList : noListLight}
+                                           description={'暂无数据'}/>
+                                   }}
                                    pagination={false}/>
                         </Col>
                     </Row>
                     <h2 className={styles.title}>伤害类警情</h2>
                     <Row className={styles.fraudArea}>
                         <Col lg={12} md={24}>
-                            <div id="hurtBar" style={{ height: 300 }} className={ this.props.global&&this.props.global.dark ? '' : styles.lightChartBox}/>
+                            <div id="hurtBar" style={{height: 300}}
+                                 className={this.props.global && this.props.global.dark ? '' : styles.lightChartBox}/>
                         </Col>
                         <Col lg={12} md={24}>
-                            <Table columns={columns} dataSource={shanghaiTableData} className={styles.tableArea}  locale={{ emptyText: <Empty image={this.props.global&&this.props.global.dark ? noList : noListLight} description={'暂无数据'} /> }}
+                            <Table columns={columns} dataSource={shanghaiTableData} className={styles.tableArea}
+                                   locale={{
+                                       emptyText: <Empty
+                                           image={this.props.global && this.props.global.dark ? noList : noListLight}
+                                           description={'暂无数据'}/>
+                                   }}
                                    bordered pagination={false}/>
                         </Col>
                     </Row>

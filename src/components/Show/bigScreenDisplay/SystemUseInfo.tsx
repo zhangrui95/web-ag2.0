@@ -4,7 +4,7 @@
 * 20190116
 * */
 
-import React, { PureComponent } from 'react';
+import React, {PureComponent} from 'react';
 import styles from './bigScreenDisplay.less';
 
 export default class SystemUseInfo extends PureComponent {
@@ -16,7 +16,7 @@ export default class SystemUseInfo extends PureComponent {
     };
 
     componentDidMount() {
-        const { selectDate, org, orgCode, orglist } = this.props;
+        const {selectDate, org, orgCode, orglist} = this.props;
         this.getSystemUseInfo(selectDate[0], selectDate[1], org, orgCode, orglist);
     }
 
@@ -40,7 +40,7 @@ export default class SystemUseInfo extends PureComponent {
                 orglist: orglist,
             },
             callback: (data) => {
-                console.log('data-------', data);
+                // console.log('data-------', data);
                 if (data && data.list && data.list.length > 0) {
                     const dataList = data.list;
                     let loginCount = 0;
@@ -48,7 +48,7 @@ export default class SystemUseInfo extends PureComponent {
                     let modelUseCount = 0;
                     let shareCount = 0;
                     let num = 0;
-                    console.log('dataList', dataList);
+                    // console.log('dataList', dataList);
                     for (let i = 0; i < dataList.length; i++) {
                         if (dataList[i].name === '登录次数') loginCount = dataList[i].count;
                         if (dataList[i].name === '督办次数') dbCount = dataList[i].count;
@@ -69,9 +69,9 @@ export default class SystemUseInfo extends PureComponent {
     };
 
     render() {
-        const { loginCount, dbCount, modelUseCount, shareCount } = this.state;
+        const {loginCount, dbCount, modelUseCount, shareCount} = this.state;
         return (
-            <div id="HandingCaseAreaUseInfo" style={{ height: '100%', width: '100%' }}>
+            <div id="HandingCaseAreaUseInfo" style={{height: '100%', width: '100%'}}>
                 <h4 className={styles.cardTitle}>系统使用情况</h4>
                 <div className={styles.cardContent}>
                     <div className={styles.pinkFull}>

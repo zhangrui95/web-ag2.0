@@ -4,9 +4,9 @@
 * 20181226
 * */
 
-import React, { PureComponent } from 'react';
-import { connect } from 'dva';
-import { Row, Col, DatePicker, Icon, Card, Table, Carousel, Spin, Button } from 'antd';
+import React, {PureComponent} from 'react';
+import {connect} from 'dva';
+import {Row, Col, DatePicker, Icon, Card, Table, Carousel, Spin, Button} from 'antd';
 import moment from 'moment';
 import html2canvas from 'html2canvas';
 import CriminalCaseOverview from '../../../components/TrendAnalysis/CirminalCaseAnalysis/CriminalCaseOverview';
@@ -14,10 +14,10 @@ import CriminalCaseType from '../../../components/TrendAnalysis/CirminalCaseAnal
 import CriminalCaseAndPolice from '../../../components/TrendAnalysis/CirminalCaseAnalysis/CriminalCaseAndPolice';
 import styles from '../../trendAnalysis/PoliceAnalysis/index.less';
 
-const { MonthPicker } = DatePicker;
+const {MonthPicker} = DatePicker;
 let imgBase = [];
 
-@connect(({ common, trendAnalysis, loading,global }) => ({
+@connect(({common, trendAnalysis, loading, global}) => ({
     common,
     trendAnalysis,
     loading: loading.models.trendAnalysis,
@@ -59,9 +59,9 @@ export default class CriminalCaseTrendAnalysis extends PureComponent {
     };
     // 跳转到对应页面
     goToCarousel = (number) => {
-        const { hadLoadedData } = this.state;
+        const {hadLoadedData} = this.state;
         if (!hadLoadedData) {
-            this.setState({ hadLoadedData: true });
+            this.setState({hadLoadedData: true});
             if (this.slider) {
                 this.slider.goTo(number);
             }
@@ -143,21 +143,22 @@ export default class CriminalCaseTrendAnalysis extends PureComponent {
     };
 
     render() {
-        const { criminalCaseOverviewLoadingStatus, criminalCaseTypeLoadingStatus, criminalCaseAndPoliceLoadingStatus } = this.state;
+        const {criminalCaseOverviewLoadingStatus, criminalCaseTypeLoadingStatus, criminalCaseAndPoliceLoadingStatus} = this.state;
         const exportButtonStatus = criminalCaseOverviewLoadingStatus || criminalCaseTypeLoadingStatus || criminalCaseAndPoliceLoadingStatus; // 导出按钮禁用状态
-        let className = this.props.global&&this.props.global.dark ? styles.trendAnalysis : styles.trendAnalysis + ' '+ styles.lightBox
+        let className = this.props.global && this.props.global.dark ? styles.trendAnalysis : styles.trendAnalysis + ' ' + styles.lightBox
         return (
             <div className={className}>
                 <div className={styles.titleArea}>
-                    <Card style={{padding:'10px'}} id={'formCriminaAnalysis'}>
+                    <Card style={{padding: '10px'}} id={'formCriminaAnalysis'}>
                         <Row>
                             <Col span={12}>
-                                <MonthPicker size='default' placeholder="请选择月份" disabledDate={this.disabledDate}   getCalendarContainer={() => document.getElementById('formCriminaAnalysis')}
+                                <MonthPicker size='default' placeholder="请选择月份" disabledDate={this.disabledDate}
+                                             getCalendarContainer={() => document.getElementById('formCriminaAnalysis')}
                                              onChange={this.dateChange} defaultValue={moment(this.state.selectedDate)}/>
                             </Col>
                             <Col span={12}>
                                 <div className={styles.selectDateArea}>
-                                    <Button type='primary' style={{ marginLeft: 16 }}
+                                    <Button type='primary' style={{marginLeft: 16}}
                                             onClick={() => this.ExportStatistics()}
                                             disabled={exportButtonStatus}>导出</Button>
                                 </div>

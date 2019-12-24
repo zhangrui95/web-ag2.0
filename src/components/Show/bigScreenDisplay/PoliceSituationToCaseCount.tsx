@@ -4,7 +4,7 @@
 * 20181120
 * */
 
-import React, { PureComponent } from 'react';
+import React, {PureComponent} from 'react';
 import echarts from 'echarts/lib/echarts';
 import line from 'echarts/lib/chart/line';
 import title from 'echarts/lib/component/title';
@@ -14,7 +14,7 @@ let myChart;
 export default class PoliceSituationToCaseCount extends PureComponent {
 
     componentDidMount() {
-        const { selectDate, orgCode, org, orglist } = this.props;
+        const {selectDate, orgCode, org, orglist} = this.props;
         this.getPoliceSituationToCaseCount(selectDate[0], selectDate[1], org, orgCode, orglist);
         this.showEchart();
 
@@ -31,7 +31,7 @@ export default class PoliceSituationToCaseCount extends PureComponent {
 
     // 获取行政处罚数量
     getPoliceSituationToCaseCount = (startTime, endTime, org, orgCode, orglist) => {
-        console.log(startTime, endTime);
+        // console.log(startTime, endTime);
         this.props.dispatch({
             type: 'show/getPoliceSituationToCaseCount',
             payload: {
@@ -187,7 +187,7 @@ export default class PoliceSituationToCaseCount extends PureComponent {
 
     render() {
         return (
-            <div id="PoliceSituationToCaseCount" style={{ height: '100%', width: '100%' }}></div>
+            <div id="PoliceSituationToCaseCount" style={{height: '100%', width: '100%'}}></div>
         );
     }
 }

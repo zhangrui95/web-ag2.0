@@ -4,9 +4,9 @@
 * 20181228
 * */
 
-import React, { PureComponent } from 'react';
+import React, {PureComponent} from 'react';
 import {Tooltip, Icon, Table, Spin, Empty} from 'antd';
-import { routerRedux } from 'dva/router';
+import {routerRedux} from 'dva/router';
 import echarts from 'echarts/lib/echarts';
 import bar from 'echarts/lib/chart/bar';
 import tooltip from 'echarts/lib/component/tooltip';
@@ -35,16 +35,16 @@ export default class PersonSuspectPunish extends PureComponent {
 
     componentWillReceiveProps(nextProps) {
         if (nextProps) {
-            if (((nextProps.selectedDate !== null) && ((this.props.selectedDate !== nextProps.selectedDate) || (this.props.userOrgCode !== nextProps.userOrgCode)))|| this.props.global.dark !== nextProps.global.dark) {
+            if (((nextProps.selectedDate !== null) && ((this.props.selectedDate !== nextProps.selectedDate) || (this.props.userOrgCode !== nextProps.userOrgCode))) || this.props.global.dark !== nextProps.global.dark) {
                 this.getSuspectPunishTypeData(nextProps);
             }
         }
     }
 
     getSuspectPunishTypeData = (propsData) => {
-        this.props.changeLoadingStatus({ personSuspectPunishLoadingStatus: true });
-        this.setState({ loadingData: true });
-        const { dispatch, selectedDateStr, yearOnYearDateStr, monthOnMonthDateStr, selectedDate, yearOnYearDate, monthOnMonthDate, userOrgCode } = propsData;
+        this.props.changeLoadingStatus({personSuspectPunishLoadingStatus: true});
+        this.setState({loadingData: true});
+        const {dispatch, selectedDateStr, yearOnYearDateStr, monthOnMonthDateStr, selectedDate, yearOnYearDate, monthOnMonthDate, userOrgCode} = propsData;
         dispatch({
             type: 'trendAnalysis/getSuspectPunishTypeData',
             payload: {
@@ -55,7 +55,7 @@ export default class PersonSuspectPunish extends PureComponent {
             },
             callback: (data) => {
                 if (data) {
-                    const { db, fzxyrs, jc, jsjz, jl, noqzcsrs, qbhs, qzcsl, qzcsrs } = data;
+                    const {db, fzxyrs, jc, jsjz, jl, noqzcsrs, qbhs, qzcsl, qzcsrs} = data;
                     let barData = [];
                     let tableData = [];
                     let rateTableData = [];
@@ -75,11 +75,11 @@ export default class PersonSuspectPunish extends PureComponent {
                                 },
                             },
                             data: [
-                                { name: '逮捕', value: db.nowtime || 0, itemStyle: { color: '#3AA0FF' },code:'22' },
-                                { name: '拘传', value: jc.nowtime || 0, itemStyle: { color: '#3AA0FF' },code:'7' },
-                                { name: '拘留', value: jl.nowtime || 0, itemStyle: { color: '#3AA0FF' },code:'1' },
-                                { name: '监视居住', value: jsjz.nowtime || 0, itemStyle: { color: '#3AA0FF' },code:'4' },
-                                { name: '取保候审', value: qbhs.nowtime || 0, itemStyle: { color: '#3AA0FF' },code:'3' },
+                                {name: '逮捕', value: db.nowtime || 0, itemStyle: {color: '#3AA0FF'}, code: '22'},
+                                {name: '拘传', value: jc.nowtime || 0, itemStyle: {color: '#3AA0FF'}, code: '7'},
+                                {name: '拘留', value: jl.nowtime || 0, itemStyle: {color: '#3AA0FF'}, code: '1'},
+                                {name: '监视居住', value: jsjz.nowtime || 0, itemStyle: {color: '#3AA0FF'}, code: '4'},
+                                {name: '取保候审', value: qbhs.nowtime || 0, itemStyle: {color: '#3AA0FF'}, code: '3'},
                             ],
                         }, {
                             name: yearOnYearDateStr,
@@ -92,11 +92,11 @@ export default class PersonSuspectPunish extends PureComponent {
                                 },
                             },
                             data: [
-                                { name: '逮捕', value: db.lastyear || 0, itemStyle: { color: '#DCCA23' },code:'22' },
-                                { name: '拘传', value: jc.lastyear || 0, itemStyle: { color: '#DCCA23' },code:'7' },
-                                { name: '拘留', value: jl.lastyear || 0, itemStyle: { color: '#DCCA23' },code:'1' },
-                                { name: '监视居住', value: jsjz.lastyear || 0, itemStyle: { color: '#DCCA23' },code:'4' },
-                                { name: '取保候审', value: qbhs.lastyear || 0, itemStyle: { color: '#DCCA23' },code:'3' },
+                                {name: '逮捕', value: db.lastyear || 0, itemStyle: {color: '#DCCA23'}, code: '22'},
+                                {name: '拘传', value: jc.lastyear || 0, itemStyle: {color: '#DCCA23'}, code: '7'},
+                                {name: '拘留', value: jl.lastyear || 0, itemStyle: {color: '#DCCA23'}, code: '1'},
+                                {name: '监视居住', value: jsjz.lastyear || 0, itemStyle: {color: '#DCCA23'}, code: '4'},
+                                {name: '取保候审', value: qbhs.lastyear || 0, itemStyle: {color: '#DCCA23'}, code: '3'},
                             ],
                         }, {
                             name: monthOnMonthDateStr,
@@ -109,11 +109,11 @@ export default class PersonSuspectPunish extends PureComponent {
                                 },
                             },
                             data: [
-                                { name: '逮捕', value: db.lastmonth || 0, itemStyle: { color: '#31BD74' },code:'22' },
-                                { name: '拘传', value: jc.lastmonth || 0, itemStyle: { color: '#31BD74' },code:'7' },
-                                { name: '拘留', value: jl.lastmonth || 0, itemStyle: { color: '#31BD74' },code:'1' },
-                                { name: '监视居住', value: jsjz.lastmonth || 0, itemStyle: { color: '#31BD74' },code:'4' },
-                                { name: '取保候审', value: qbhs.lastmonth || 0, itemStyle: { color: '#31BD74' },code:'3' },
+                                {name: '逮捕', value: db.lastmonth || 0, itemStyle: {color: '#31BD74'}, code: '22'},
+                                {name: '拘传', value: jc.lastmonth || 0, itemStyle: {color: '#31BD74'}, code: '7'},
+                                {name: '拘留', value: jl.lastmonth || 0, itemStyle: {color: '#31BD74'}, code: '1'},
+                                {name: '监视居住', value: jsjz.lastmonth || 0, itemStyle: {color: '#31BD74'}, code: '4'},
+                                {name: '取保候审', value: qbhs.lastmonth || 0, itemStyle: {color: '#31BD74'}, code: '3'},
                             ],
                         }];
                         tableData = [
@@ -167,16 +167,16 @@ export default class PersonSuspectPunish extends PureComponent {
                     }
                     if (fzxyrs && noqzcsrs && qzcsl && qzcsrs) {
                         pie1 = [
-                            { name: '强制措施人数', value: qzcsrs.nowtime },
-                            { name: '未强制措施人数', value: noqzcsrs.nowtime },
+                            {name: '强制措施人数', value: qzcsrs.nowtime},
+                            {name: '未强制措施人数', value: noqzcsrs.nowtime},
                         ];
                         pie2 = [
-                            { name: '强制措施人数', value: qzcsrs.lastyear },
-                            { name: '未强制措施人数', value: noqzcsrs.lastyear },
+                            {name: '强制措施人数', value: qzcsrs.lastyear},
+                            {name: '未强制措施人数', value: noqzcsrs.lastyear},
                         ];
                         pie3 = [
-                            { name: '强制措施人数', value: qzcsrs.lastmonth },
-                            { name: '未强制措施人数', value: noqzcsrs.lastmonth },
+                            {name: '强制措施人数', value: qzcsrs.lastmonth},
+                            {name: '未强制措施人数', value: noqzcsrs.lastmonth},
                         ];
                         rateTableData = [
                             {
@@ -223,74 +223,74 @@ export default class PersonSuspectPunish extends PureComponent {
                         let title = [
                             {
                                 text: `${selectedDateStr}\n\n犯罪嫌疑人${fzxyrs.nowtime}人`,
-                            textStyle: {
-                            fontSize: 16,
-                            fontWeight: 'normal',
-                            color:this.props.global && this.props.global.dark ? '#fff' : '#4d4d4d'
-                            },
-                            x: '50%',
-                            y: '45%',
-                            padding: 7,
-                            textAlign: 'center',
-                            },
-                            {
-                            text: `${yearOnYearDateStr}\n\n犯罪嫌疑人${fzxyrs.lastyear}人`,
-                            textStyle: {
-                            fontSize: 16,
-                            fontWeight: 'normal',
-                            color:this.props.global && this.props.global.dark ? '#fff' : '#4d4d4d'
-                            },
-                            x: '20%',
-                            y: '45%',
-                            padding: [7, 0],
-                            textAlign: 'center',
+                                textStyle: {
+                                    fontSize: 16,
+                                    fontWeight: 'normal',
+                                    color: this.props.global && this.props.global.dark ? '#fff' : '#4d4d4d'
+                                },
+                                x: '50%',
+                                y: '45%',
+                                padding: 7,
+                                textAlign: 'center',
                             },
                             {
-                            text: `${monthOnMonthDateStr}\n\n犯罪嫌疑人${fzxyrs.lastmonth}人`,
-                        textStyle: {
-                        fontSize: 16,
-                        fontWeight: 'normal',
-                        color:this.props.global && this.props.global.dark ? '#fff' : '#4d4d4d'
-                        },
-                        x: '80%',
-                        y: '45%',
-                        textAlign: 'center',
-                        padding: [7, 0],
-                        },
+                                text: `${yearOnYearDateStr}\n\n犯罪嫌疑人${fzxyrs.lastyear}人`,
+                                textStyle: {
+                                    fontSize: 16,
+                                    fontWeight: 'normal',
+                                    color: this.props.global && this.props.global.dark ? '#fff' : '#4d4d4d'
+                                },
+                                x: '20%',
+                                y: '45%',
+                                padding: [7, 0],
+                                textAlign: 'center',
+                            },
+                            {
+                                text: `${monthOnMonthDateStr}\n\n犯罪嫌疑人${fzxyrs.lastmonth}人`,
+                                textStyle: {
+                                    fontSize: 16,
+                                    fontWeight: 'normal',
+                                    color: this.props.global && this.props.global.dark ? '#fff' : '#4d4d4d'
+                                },
+                                x: '80%',
+                                y: '45%',
+                                textAlign: 'center',
+                                padding: [7, 0],
+                            },
                         ]
-                        let series= [{
-                                data: pie1,
-                                itemStyle: {
-                                    normal: {
-                                        color: function (params) {
-                                            let colorList = ['#dcca23','#3aa0ff', '#31bd74'];
-                                            return colorList[params.dataIndex]
-                                        }
+                        let series = [{
+                            data: pie1,
+                            itemStyle: {
+                                normal: {
+                                    color: function (params) {
+                                        let colorList = ['#dcca23', '#3aa0ff', '#31bd74'];
+                                        return colorList[params.dataIndex]
                                     }
                                 }
-                            }, {
-                                data: pie2,
-                                itemStyle: {
-                                    normal: {
-                                        color: function (params) {
-                                            let colorList = ['#dcca23','#3aa0ff', '#31bd74'];
-                                            return colorList[params.dataIndex]
-                                        }
+                            }
+                        }, {
+                            data: pie2,
+                            itemStyle: {
+                                normal: {
+                                    color: function (params) {
+                                        let colorList = ['#dcca23', '#3aa0ff', '#31bd74'];
+                                        return colorList[params.dataIndex]
                                     }
                                 }
-                            }, {
-                                data: pie3,
-                                itemStyle: {
-                                    normal: {
-                                        color: function (params) {
-                                            let colorList = ['#dcca23','#3aa0ff', '#31bd74'];
-                                            return colorList[params.dataIndex]
-                                        }
+                            }
+                        }, {
+                            data: pie3,
+                            itemStyle: {
+                                normal: {
+                                    color: function (params) {
+                                        let colorList = ['#dcca23', '#3aa0ff', '#31bd74'];
+                                        return colorList[params.dataIndex]
                                     }
                                 }
-                            }]
-                        if(document.getElementsByClassName('suspectPunishRate')[1]){
-                            this.showRatePieEchart(title,series);
+                            }
+                        }]
+                        if (document.getElementsByClassName('suspectPunishRate')[1]) {
+                            this.showRatePieEchart(title, series);
                             window.addEventListener('resize', ratePie.resize);
                         }
                     }
@@ -299,19 +299,19 @@ export default class PersonSuspectPunish extends PureComponent {
                         tableData,
                         rateTableData,
                     });
-                    if(document.getElementsByClassName('suspectPunishType')[1]){
-                        this.showEchart(xData,barData);
+                    if (document.getElementsByClassName('suspectPunishType')[1]) {
+                        this.showEchart(xData, barData);
                         window.addEventListener('resize', myChart.resize);
                     }
                     this.props.goToCarousel(2);
                 }
-                this.setState({ loadingData: false });
-                this.props.changeLoadingStatus({ personSuspectPunishLoadingStatus: false });
+                this.setState({loadingData: false});
+                this.props.changeLoadingStatus({personSuspectPunishLoadingStatus: false});
             },
         });
     };
 
-    showEchart = (xData,barData) => {
+    showEchart = (xData, barData) => {
         const that = this;
         myChart = echarts.init(document.getElementsByClassName('suspectPunishType')[1]);
         const option = {
@@ -353,23 +353,23 @@ export default class PersonSuspectPunish extends PureComponent {
             series: barData,
         };
         myChart.setOption(option);
-        if(window.configUrl.is_area==='2'){
-          myChart.on('click',function(param){
-            const { departorgan } = that.props;
-            const { selectedDateStr,selectedDate, yearOnYearDateStr,yearOnYearDate, monthOnMonthDateStr,monthOnMonthDate } = that.props.dateArr;
-            that.props.dispatch(routerRedux.push({
-              pathname: '/allDocuments/personalDocTransfer/personalDoc',
-              queryChange: {
-                departmentId: departorgan&&departorgan.id?departorgan.id:'',
-                qzcsName:param.data.code,
-                searchTime:param.seriesName===selectedDateStr?selectedDate:param.seriesName===yearOnYearDateStr?yearOnYearDate:monthOnMonthDate,
-              },
-            }));
+        if (window.configUrl.is_area === '2') {
+            myChart.on('click', function (param) {
+                const {departorgan} = that.props;
+                const {selectedDateStr, selectedDate, yearOnYearDateStr, yearOnYearDate, monthOnMonthDateStr, monthOnMonthDate} = that.props.dateArr;
+                that.props.dispatch(routerRedux.push({
+                    pathname: '/allDocuments/personalDocTransfer/personalDoc',
+                    queryChange: {
+                        departmentId: departorgan && departorgan.id ? departorgan.id : '',
+                        qzcsName: param.data.code,
+                        searchTime: param.seriesName === selectedDateStr ? selectedDate : param.seriesName === yearOnYearDateStr ? yearOnYearDate : monthOnMonthDate,
+                    },
+                }));
 
-          })
+            })
         }
     };
-    showRatePieEchart = (title,series) => {
+    showRatePieEchart = (title, series) => {
         ratePie = echarts.init(document.getElementsByClassName('suspectPunishRate')[1]);
         const option = {
             title,
@@ -419,89 +419,103 @@ export default class PersonSuspectPunish extends PureComponent {
     };
 
     render() {
-        const { selectedDateStr, yearOnYearDateStr, monthOnMonthDateStr } = this.props;
-        const { tableData, rateTableData, loadingData } = this.state;
+        const {selectedDateStr, yearOnYearDateStr, monthOnMonthDateStr} = this.props;
+        const {tableData, rateTableData, loadingData} = this.state;
         const columns = [
-          {
-            title: '类别',
-            dataIndex: 'categories',
-            key: 'categories',
+            {
+                title: '类别',
+                dataIndex: 'categories',
+                key: 'categories',
 
-        }, {
-            title: selectedDateStr,
-            dataIndex: 'selectedDateStr',
-            key: 'selectedDateStr',
-        }, {
-            title: yearOnYearDateStr,
-            dataIndex: 'yearOnYearDateStr',
-            key: 'yearOnYearDateStr',
-        }, {
-            title: <span>同比增幅（起）<Tooltip title="同比增幅=本期数-同期数"><Icon type="info-circle-o"/></Tooltip></span>,
-            key: 'tbzf_q',
-            dataIndex: 'tbzf_q',
-        }, {
-            title: <span>同比增幅（%）<Tooltip title="同比增涨率=（本期数-同期数）/同期数×100%"><Icon type="info-circle-o"/></Tooltip></span>,
-            key: 'tbzf_l',
-            dataIndex: 'tbzf_l',
-        }, {
-            title: monthOnMonthDateStr,
-            dataIndex: 'monthOnMonthDateStr',
-            key: 'monthOnMonthDateStr',
-        }, {
-            title: <span>环比增幅（起）<Tooltip title="环比增幅=本期数-上期数"><Icon type="info-circle-o"/></Tooltip></span>,
-            key: 'hbzf_q',
-            dataIndex: 'hbzf_q',
-        }, {
-            title: <span>环比增幅（%）<Tooltip title="环比增涨率=（本期数-上期数）/上期数×100%"><Icon type="info-circle-o"/></Tooltip></span>,
-            key: 'hbzf_l',
-            dataIndex: 'hbzf_l',
-        }];
+            }, {
+                title: selectedDateStr,
+                dataIndex: 'selectedDateStr',
+                key: 'selectedDateStr',
+            }, {
+                title: yearOnYearDateStr,
+                dataIndex: 'yearOnYearDateStr',
+                key: 'yearOnYearDateStr',
+            }, {
+                title: <span>同比增幅（起）<Tooltip title="同比增幅=本期数-同期数"><Icon type="info-circle-o"/></Tooltip></span>,
+                key: 'tbzf_q',
+                dataIndex: 'tbzf_q',
+            }, {
+                title: <span>同比增幅（%）<Tooltip title="同比增涨率=（本期数-同期数）/同期数×100%"><Icon
+                    type="info-circle-o"/></Tooltip></span>,
+                key: 'tbzf_l',
+                dataIndex: 'tbzf_l',
+            }, {
+                title: monthOnMonthDateStr,
+                dataIndex: 'monthOnMonthDateStr',
+                key: 'monthOnMonthDateStr',
+            }, {
+                title: <span>环比增幅（起）<Tooltip title="环比增幅=本期数-上期数"><Icon type="info-circle-o"/></Tooltip></span>,
+                key: 'hbzf_q',
+                dataIndex: 'hbzf_q',
+            }, {
+                title: <span>环比增幅（%）<Tooltip title="环比增涨率=（本期数-上期数）/上期数×100%"><Icon
+                    type="info-circle-o"/></Tooltip></span>,
+                key: 'hbzf_l',
+                dataIndex: 'hbzf_l',
+            }];
         const rateTableColumns = [
-          {
-            title: '类别',
-            dataIndex: 'categories',
-            key: 'categories1',
+            {
+                title: '类别',
+                dataIndex: 'categories',
+                key: 'categories1',
 
-        }, {
-            title: selectedDateStr,
-            dataIndex: 'selectedDateStr',
-            key: 'selectedDateStr1',
-        }, {
-            title: yearOnYearDateStr,
-            dataIndex: 'yearOnYearDateStr',
-            key: 'yearOnYearDateStr1',
-        }, {
-            title: <span>同比增幅（起）<Tooltip title="同比增幅=本期数-同期数"><Icon type="info-circle-o"/></Tooltip></span>,
-            key: 'tbzf_q1',
-            dataIndex: 'tbzf_q',
-        }, {
-            title: <span>同比增幅（%）<Tooltip title="同比增涨率=（本期数-同期数）/同期数×100%"><Icon type="info-circle-o"/></Tooltip></span>,
-            key: 'tbzf_l1',
-            dataIndex: 'tbzf_l',
-        }, {
-            title: monthOnMonthDateStr,
-            dataIndex: 'monthOnMonthDateStr',
-            key: 'monthOnMonthDateStr1',
-        }, {
-            title: <span>环比增幅（起）<Tooltip title="环比增幅=本期数-上期数"><Icon type="info-circle-o"/></Tooltip></span>,
-            key: 'hbzf_q1',
-            dataIndex: 'hbzf_q',
-        }, {
-            title: <span>环比增幅（%）<Tooltip title="环比增涨率=（本期数-上期数）/上期数×100%"><Icon type="info-circle-o"/></Tooltip></span>,
-            key: 'hbzf_l1',
-            dataIndex: 'hbzf_l',
-        }];
-        let className = this.props.global && this.props.global.dark ? styles.analysis : styles.analysis+' '+styles.lightBox
+            }, {
+                title: selectedDateStr,
+                dataIndex: 'selectedDateStr',
+                key: 'selectedDateStr1',
+            }, {
+                title: yearOnYearDateStr,
+                dataIndex: 'yearOnYearDateStr',
+                key: 'yearOnYearDateStr1',
+            }, {
+                title: <span>同比增幅（起）<Tooltip title="同比增幅=本期数-同期数"><Icon type="info-circle-o"/></Tooltip></span>,
+                key: 'tbzf_q1',
+                dataIndex: 'tbzf_q',
+            }, {
+                title: <span>同比增幅（%）<Tooltip title="同比增涨率=（本期数-同期数）/同期数×100%"><Icon
+                    type="info-circle-o"/></Tooltip></span>,
+                key: 'tbzf_l1',
+                dataIndex: 'tbzf_l',
+            }, {
+                title: monthOnMonthDateStr,
+                dataIndex: 'monthOnMonthDateStr',
+                key: 'monthOnMonthDateStr1',
+            }, {
+                title: <span>环比增幅（起）<Tooltip title="环比增幅=本期数-上期数"><Icon type="info-circle-o"/></Tooltip></span>,
+                key: 'hbzf_q1',
+                dataIndex: 'hbzf_q',
+            }, {
+                title: <span>环比增幅（%）<Tooltip title="环比增涨率=（本期数-上期数）/上期数×100%"><Icon
+                    type="info-circle-o"/></Tooltip></span>,
+                key: 'hbzf_l1',
+                dataIndex: 'hbzf_l',
+            }];
+        let className = this.props.global && this.props.global.dark ? styles.analysis : styles.analysis + ' ' + styles.lightBox
         return (
             <Spin spinning={loadingData} size="large" tip="数据加载中...">
                 <div className={className}>
                     <AnalysisTitleArea analysisTitle="犯罪嫌疑人强制措施分析" {...this.props} />
-                    <div className={"suspectPunishType"+ ' ' + (this.props.global&&this.props.global.dark ? '' :styles.lightChartBox)} style={{ height: 300 }}/>
-                    <Table columns={columns} dataSource={tableData} bordered className={styles.tableArea} locale={{ emptyText: <Empty image={this.props.global&&this.props.global.dark ? noList : noListLight} description={'暂无数据'} /> }}
+                    <div
+                        className={"suspectPunishType" + ' ' + (this.props.global && this.props.global.dark ? '' : styles.lightChartBox)}
+                        style={{height: 300}}/>
+                    <Table columns={columns} dataSource={tableData} bordered className={styles.tableArea} locale={{
+                        emptyText: <Empty image={this.props.global && this.props.global.dark ? noList : noListLight}
+                                          description={'暂无数据'}/>
+                    }}
                            pagination={false}/>
                     <h2 className={styles.areaTitle}>犯罪嫌疑人强制措施占比分析</h2>
-                    <div className={"suspectPunishRate"} style={{ height: 400 }}/>
-                    <Table columns={rateTableColumns} dataSource={rateTableData} bordered className={styles.tableArea} locale={{ emptyText: <Empty image={this.props.global&&this.props.global.dark ? noList : noListLight} description={'暂无数据'} /> }}
+                    <div className={"suspectPunishRate"} style={{height: 400}}/>
+                    <Table columns={rateTableColumns} dataSource={rateTableData} bordered className={styles.tableArea}
+                           locale={{
+                               emptyText: <Empty
+                                   image={this.props.global && this.props.global.dark ? noList : noListLight}
+                                   description={'暂无数据'}/>
+                           }}
                            pagination={false}/>
                 </div>
             </Spin>

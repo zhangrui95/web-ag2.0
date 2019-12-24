@@ -4,8 +4,8 @@
 * 20190715
 * */
 
-import React, { PureComponent } from 'react';
-import { DATASYNCTIMEID } from '../../utils/utils';
+import React, {PureComponent} from 'react';
+import {DATASYNCTIMEID} from '../../utils/utils';
 // import styles from '../../pages/common/common.less';
 import styles from '../../pages/lawEnforcement/CriminalFile/index.less';
 
@@ -25,11 +25,11 @@ export default class SyncTime extends PureComponent {
     };
 
     render() {
-        const { common: { syncTime: { zxxgsj } }, dataLatestTime } = this.props;
+        const {common: {syncTime: {zxxgsj}}, dataLatestTime} = this.props;
         return (
-            <div className={this.props.global&&this.props.global.dark ? styles.statistic : styles.statisticLight}>
+            <div className={this.props.global && this.props.global.dark ? styles.statistic : styles.statisticLight}>
                 <span>数据最新时间：{dataLatestTime}</span>
-                <span style={{ marginLeft: 40 }}>数据同步时间：{zxxgsj}</span>
+                <span style={{marginLeft: 40}}>数据同步时间：{zxxgsj}</span>
             </div>
         );
     }

@@ -6,10 +6,10 @@
 import request from '../utils/request';
 
 export async function getMessagePushLogList(params) {
-  return request(`${configUrl.serverUrl}/getXxtsLogPgListPage`, {
-    method: 'POST',
-    data: {
-      ...params,
-    },
-  });
+    return request(`${configUrl.serverUrl}/getXxtsLogPgListPage`, {
+        method: 'POST',
+        data: {
+            ...params,
+        },
+    });
 }

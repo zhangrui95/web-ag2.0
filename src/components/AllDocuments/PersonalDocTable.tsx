@@ -3,7 +3,7 @@
 * author：lyp
 * 20181225
 * */
-import React, { PureComponent } from 'react';
+import React, {PureComponent} from 'react';
 import {Table, message, Card, Empty} from 'antd';
 import Ellipsis from 'ant-design-pro/lib/Ellipsis';
 import styles from './docTable.less';
@@ -26,12 +26,12 @@ export default class PersonalDocTable extends PureComponent {
         });
     };
     openPersonDetail = (record) => {
-        const { xyr_sfzh: idcard, system_id } = record;
+        const {xyr_sfzh: idcard, system_id} = record;
         if (idcard) {
             this.props.dispatch(
                 routerRedux.push({
                     pathname: '/lawEnforcement/PersonFile/Detail',
-                    query: { id: idcard, record: record},
+                    query: {id: idcard, record: record},
                 }),
             );
         } else {
@@ -47,7 +47,7 @@ export default class PersonalDocTable extends PureComponent {
     };
 
     render() {
-        const { data, loading } = this.props;
+        const {data, loading} = this.props;
         const columns = [
             {
                 title: '涉案人员',
@@ -78,20 +78,20 @@ export default class PersonalDocTable extends PureComponent {
                 dataIndex: 'ajbh',
             },
             {
-              title: '强制措施时间',
-              dataIndex: 'qssj',
+                title: '强制措施时间',
+                dataIndex: 'qssj',
             },
             {
-              title: '受理时间',
-              dataIndex: 'slsj',
+                title: '受理时间',
+                dataIndex: 'slsj',
             },
             {
                 title: '强制措施',
                 dataIndex: 'qzcsmc',
             },
             {
-              title: '案件类别',
-              dataIndex: 'ajlbmc',
+                title: '案件类别',
+                dataIndex: 'ajlbmc',
             },
             {
                 title: '操作',
@@ -130,7 +130,10 @@ export default class PersonalDocTable extends PureComponent {
                     columns={columns}
                     pagination={paginationProps}
                     onChange={this.handleTableChange}
-                    locale={{ emptyText: <Empty image={this.props.global&&this.props.global.dark ? noList : noListLight} description={'暂无数据'} /> }}
+                    locale={{
+                        emptyText: <Empty image={this.props.global && this.props.global.dark ? noList : noListLight}
+                                          description={'暂无数据'}/>
+                    }}
                 />
             </Card>
         );

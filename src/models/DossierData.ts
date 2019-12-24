@@ -4,7 +4,7 @@
 *  20181031
 * */
 import * as dossierService from '../services/dossier';
-import { ItemCRKDatasView, ItemDatasView, ItemWpqsDatasView, ItemZKNumDatasView } from '../services/itemData';
+import {ItemCRKDatasView, ItemDatasView, ItemWpqsDatasView, ItemZKNumDatasView} from '../services/itemData';
 
 export default {
     namespace: 'DossierData',
@@ -27,98 +27,98 @@ export default {
     },
 
     effects: {
-        * getDossierData({ payload, callback }, { call, put }) {
+        * getDossierData({payload, callback}, {call, put}) {
             const response = yield call(dossierService.getDossierData, payload);
             yield put({
                 type: 'setDossierData',
                 payload: response && response.error === null ? response.data : [],
             });
-            if (callback && response && response.error === null&& response.data) {
+            if (callback && response && response.error === null && response.data) {
                 callback(response.data);
             }
         },
-        * getDossierDetail({ payload, callback }, { call, put }) {
+        * getDossierDetail({payload, callback}, {call, put}) {
             const response = yield call(dossierService.getDossierDetail, payload);
             yield put({
                 type: 'setDossierDetail',
                 payload: response && response.error === null ? response.data : [],
             });
-            if (callback && response && response.error === null&& response.data) {
+            if (callback && response && response.error === null && response.data) {
                 callback(response.data);
             }
         },
-        * DossierJZSLDataView({ payload, callback }, { call, put }) {
+        * DossierJZSLDataView({payload, callback}, {call, put}) {
             const response = yield call(dossierService.getjzDossierDataView, payload);
             yield put({
                 type: 'setDossierDataView',
                 payload: response && response.error === null ? response.data : {},
             });
-            if (callback && response && !response.error&& response.data) {
+            if (callback && response && !response.error && response.data) {
                 callback(response.data);
             }
         },
-        * DossierCRKDataView({ payload, callback }, { call, put }) {
+        * DossierCRKDataView({payload, callback}, {call, put}) {
             const response = yield call(dossierService.DossierCRKDatasView, payload);
             yield put({
                 type: 'setDossierCRKDataView',
                 payload: response && response.error === null ? response.data : {},
             });
-            if (callback && response && !response.error&& response.data) {
+            if (callback && response && !response.error && response.data) {
                 callback(response.data);
             }
         },
         // 在库卷宗数量展示
-        * DossierZKNumDataView({ payload, callback }, { call, put }) {
+        * DossierZKNumDataView({payload, callback}, {call, put}) {
             const response = yield call(dossierService.DossierZKNumDatasView, payload);
             yield put({
                 type: 'setDossierZKNumDataView',
                 payload: response && response.error === null ? response.data : {},
             });
-            if (callback && response && !response.error&& response.data) {
+            if (callback && response && !response.error && response.data) {
                 callback(response.data);
             }
         },
         // 卷宗趋势
-        * DossierJzqsDataView({ payload, callback }, { call, put }) {
+        * DossierJzqsDataView({payload, callback}, {call, put}) {
             const response = yield call(dossierService.DossierJzqsDatasView, payload);
             yield put({
                 type: 'setDossierJzqsDataView',
                 payload: response && response.error === null ? response.data : {},
             });
-            if (callback && response && !response.error&& response.data) {
+            if (callback && response && !response.error && response.data) {
                 callback(response.data);
             }
         },
         // 电子化情况展示
-        * DossierDZHQKDataView({ payload, callback }, { call, put }) {
+        * DossierDZHQKDataView({payload, callback}, {call, put}) {
             const response = yield call(dossierService.DossierDZHQKZSDatasView, payload);
             yield put({
                 type: 'setDossierDZHQKZSDataView',
                 payload: response && response.error === null ? response.data : {},
             });
-            if (callback && response && !response.error&& response.data) {
+            if (callback && response && !response.error && response.data) {
                 callback(response.data);
             }
         },
         // 卷宗列表获取
-        * fetchSynchronizationList({ payload, callback }, { call, put }) {
+        * fetchSynchronizationList({payload, callback}, {call, put}) {
             const response = yield call(dossierService.DossierSynchronizationDatasView, payload);
             yield put({
                 type: 'setDossierSynchronizationDataView',
                 payload: response && response.reason === null ? response.data : {},
             });
-            if (callback && response && !response.reason&& response.data) {
+            if (callback && response && !response.reason && response.data) {
                 callback(response.result);
             }
         },
         // 卷宗文书获取
-        * fetchElectronicPageList({ payload, callback }, { call, put }) {
+        * fetchElectronicPageList({payload, callback}, {call, put}) {
             const response = yield call(dossierService.DossierElectronicPageListDatasView, payload);
             yield put({
                 type: 'setDossierElectronicPageListDataView',
                 payload: response && response.reason === null ? response.data : {},
             });
-            if (callback && response && !response.reason&& response.data) {
+            if (callback && response && !response.reason && response.data) {
                 callback(response.result);
             }
         },

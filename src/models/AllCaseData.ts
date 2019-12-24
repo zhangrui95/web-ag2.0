@@ -1,4 +1,4 @@
-import { caseDatas } from '../services/AllCaseData';
+import {caseDatas} from '../services/AllCaseData';
 
 export default {
     namespace: 'AllCaseData',
@@ -15,7 +15,7 @@ export default {
 
     effects: {
         // 获取案件列表
-        * caseFetch({ payload, callback }, { call, put }) {
+        * caseFetch({payload, callback}, {call, put}) {
             yield put({
                 type: 'changeLoading',
                 payload: true,

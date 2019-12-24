@@ -1,19 +1,19 @@
 /*
 * 智慧案管设置监管看板
 * */
-import React, { PureComponent } from 'react';
+import React, {PureComponent} from 'react';
 import moment from 'moment/moment';
-import { connect } from 'dva';
+import {connect} from 'dva';
 import styles from './index.less';
-import { getTimeDistance, autoheight } from '../../../utils/utils';
-import { Button, Select, Row, Col, Icon, message, Modal } from 'antd';
+import {getTimeDistance, autoheight} from '../../../utils/utils';
+import {Button, Select, Row, Col, Icon, message, Modal} from 'antd';
 import headerLeftImg from '../../../assets/show/header_left.png';
 import headerTitleImg from '../../../assets/show/showTitle.png';
 import headerRightImg from '../../../assets/show/header_right.png';
 
 const confirm = Modal.confirm;
 const Option = Select.Option;
-@connect(({ setUpShow }) => ({
+@connect(({setUpShow}) => ({
     setUpShow,
 }))
 export default class SetUpShow extends PureComponent {
@@ -22,17 +22,17 @@ export default class SetUpShow extends PureComponent {
         this.state = {
             menu: JSON.parse(sessionStorage.getItem('authoMenuList')),
             posList: [
-                { position1: [] },
-                { position2: [] },
-                { position3: [] },
-                { position4: [] },
-                { position5: [] },
-                { position6: [] },
-                { position7: [] },
-                { position8: [] },
-                { position9: [] },
-                { position10: [] },
-                { position11: [] },
+                {position1: []},
+                {position2: []},
+                {position3: []},
+                {position4: []},
+                {position5: []},
+                {position6: []},
+                {position7: []},
+                {position8: []},
+                {position9: []},
+                {position10: []},
+                {position11: []},
             ],
             list: [],
             saveList: [],
@@ -44,7 +44,7 @@ export default class SetUpShow extends PureComponent {
     }
 
     componentDidMount() {
-            let save = [];
+        let save = [];
         this.state.posList.map((event, i) => {
             this.props.dispatch({
                 type: 'setUpShow/getQueryList',
@@ -122,7 +122,7 @@ export default class SetUpShow extends PureComponent {
     };
     getSave = () => {
         let saveList = [...this.state.saveList];
-        if(this.state.mapLoopTime){
+        if (this.state.mapLoopTime) {
             saveList.push({
                 name: '地图区域轮转频率',
                 resource_code: this.state.mapLoopTime,
@@ -175,7 +175,7 @@ export default class SetUpShow extends PureComponent {
                         content: '',
                         okText: '确定',
                         cancelText: '取消',
-                        style: { top: 200 },
+                        style: {top: 200},
                         onOk() {
                             let num = parseInt(item.wz.substring(8)) - 1;//获取原有重复模块位置
                             that.state.saveList.splice(i, 1, {
@@ -254,7 +254,7 @@ export default class SetUpShow extends PureComponent {
             color: '#fff',
         };
         return (
-            <div className={styles.SCMDataShow} style={{ height: autoheight() }}>
+            <div className={styles.SCMDataShow} style={{height: autoheight()}}>
                 <div className={styles.header}>
                     <img src={headerLeftImg} alt=""/>
                     <img className={styles.showTitle} src={headerTitleImg} alt="智慧案件管理系统"/>
@@ -357,10 +357,10 @@ export default class SetUpShow extends PureComponent {
                                     })}
                                 </Select>
                             </div>
-                            <Row style={{ clear: 'both' }}>
+                            <Row style={{clear: 'both'}}>
                                 <Col span={24} className={styles.mapLoopTimeSelect}>
-                                    <span style={{ color: '#fff', fontSize: 18 }}>地图区域轮转频率：</span>
-                                    <Select style={{ width: 120 }} defaultActiveFirstOption={false} showSearch={true}
+                                    <span style={{color: '#fff', fontSize: 18}}>地图区域轮转频率：</span>
+                                    <Select style={{width: 120}} defaultActiveFirstOption={false} showSearch={true}
                                             allowClear={true} filterOption={(input, option) =>
                                         option.props.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
                                     } value={this.state.mapLoopTime} onChange={this.handleChangeMapLoopTime}

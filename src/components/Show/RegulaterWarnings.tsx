@@ -4,14 +4,14 @@
 * 20180623
 * */
 
-import React, { PureComponent } from 'react';
-import { Row, Col, List, Button, Card } from 'antd';
+import React, {PureComponent} from 'react';
+import {Row, Col, List, Button, Card} from 'antd';
 import echarts from 'echarts/lib/echarts';
 import pie from 'echarts/lib/chart/pie';
 import tooltip from 'echarts/lib/component/tooltip';
 import legend from 'echarts/lib/component/legend';
 import styles from './Regulate.less';
-import { routerRedux } from 'dva/router';
+import {routerRedux} from 'dva/router';
 
 let myChart;
 const colors = ['#f3637c', '#975fe6', '#3399ff', '#87d2e9', '#35cbca', '#4fcb73', '#fbd437'];
@@ -35,7 +35,7 @@ export default class RegulaterWarnings extends PureComponent {
     componentWillReceiveProps(nextProps) {
         if (nextProps) {
             if ((nextProps.condition !== null) && (this.props.condition !== nextProps.condition)) {
-                const { startTime, endTime, areaCode } = nextProps.condition;
+                const {startTime, endTime, areaCode} = nextProps.condition;
                 this.getCaseHandArea(startTime, endTime, areaCode);
                 this.getBaqZxGjPgListPage(startTime, endTime, areaCode);
                 this.getBaqZqTj(startTime, endTime, areaCode);
@@ -73,7 +73,7 @@ export default class RegulaterWarnings extends PureComponent {
                     myChart.setOption({
                         legend: {
                             data: arry,
-                            formatter: function(name) {
+                            formatter: function (name) {
                                 for (let i = 0; i < arry.length; i++) {
                                     if (arry[i].name === name) {
                                         return '{title|' + name + ' ' + arry[i].value + '}';
@@ -176,7 +176,7 @@ export default class RegulaterWarnings extends PureComponent {
                         normal: {
                             show: false,
                             position: 'inside',
-                            formatter: function(data) {
+                            formatter: function (data) {
                                 return data.data.value;
                             },
                         },
@@ -198,7 +198,7 @@ export default class RegulaterWarnings extends PureComponent {
         };
         myChart.setOption(option);
         if (config.isShowBaqsstj) {
-            myChart.on('click', function(params) {
+            myChart.on('click', function (params) {
                 that.enterListPage(params);
             });
         }
@@ -206,17 +206,17 @@ export default class RegulaterWarnings extends PureComponent {
     };
     // 进入列表页
     enterListPage = (params) => {
-        console.log('params', params);
+        // console.log('params', params);
         const code = params.data.code;
-        const { startTime, endTime, areaCode } = this.props.condition;
+        const {startTime, endTime, areaCode} = this.props.condition;
         this.props.dispatch(routerRedux.push(`/problem/unarea/Transfer/Index?org=${areaCode}&endTime=${endTime}&startTime=${startTime}&code=${code}`));
     };
 
     render() {
-        const { warningCount, warningList, zqData } = this.state;
+        const {warningCount, warningList, zqData} = this.state;
         const configUrl = window.configUrl;
         return (
-            <Card bodyStyle={{ height: 565, padding: '10px 24px' }}>
+            <Card bodyStyle={{height: 565, padding: '10px 24px'}}>
                 <Row>
                     <Col span={12}>
                         <div className={styles.blockTitle}>{configUrl.isShowBaqsstj ? '办案区数据' : '案件状态统计'}</div>
@@ -237,8 +237,8 @@ export default class RegulaterWarnings extends PureComponent {
                             </Row>
                         ) : null}
                         <div className={styles.warningEcharArea}
-                             style={window.configUrl.isShowBaqsstj ? null : { height: 470 }}>
-                            <div id="warningEchar" style={{ height: '100%', width: '85%' }}></div>
+                             style={window.configUrl.isShowBaqsstj ? null : {height: 470}}>
+                            <div id="warningEchar" style={{height: '100%', width: '85%'}}></div>
                         </div>
                     </Col>
                     <Col span={12} className={styles.leftBorderCol}>
@@ -252,12 +252,12 @@ export default class RegulaterWarnings extends PureComponent {
                                             configUrl.isShowBaqsstj ? (
                                                 <div className={styles.warningListTitle}>
                                                     <span className={styles.title}>●<span className={styles.date}
-                                                                                          style={{ padding: '0 10px' }}>{item.gjsj}</span>{item.name}</span>
+                                                                                          style={{padding: '0 10px'}}>{item.gjsj}</span>{item.name}</span>
                                                 </div>
                                             ) : (
                                                 <div className={styles.warningListTitle}>
                                                     <span className={styles.title}>●<span className={styles.date}
-                                                                                          style={{ padding: '0 10px' }}>{item.sasj}</span>{item.ajmc}</span>
+                                                                                          style={{padding: '0 10px'}}>{item.sasj}</span>{item.ajmc}</span>
                                                 </div>
                                             )
 

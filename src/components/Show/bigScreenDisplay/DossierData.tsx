@@ -4,7 +4,7 @@
 * 20181222
 * */
 
-import React, { PureComponent } from 'react';
+import React, {PureComponent} from 'react';
 import echarts from 'echarts/lib/echarts';
 import bar from 'echarts/lib/chart/bar';
 import title from 'echarts/lib/component/title';
@@ -20,7 +20,7 @@ export default class DossierData extends PureComponent {
     };
 
     componentDidMount() {
-        const { selectDate, org, orgCode, orglist } = this.props;
+        const {selectDate, org, orgCode, orglist} = this.props;
         this.getDossierData(selectDate[0], selectDate[1], org, orgCode, orglist);
     }
 
@@ -45,7 +45,7 @@ export default class DossierData extends PureComponent {
             },
             callback: (data) => {
                 if (data && data.list) {
-                    console.log('data-------------------', data);
+                    // console.log('data-------------------', data);
                     let num = parseInt(data.list.kfsl) + parseInt(data.list.zkjzsl) + parseInt(data.list.cjl) + parseInt(data.list.dzzhl);
                     this.props.getAllNum(this.props.idx, num, '卷宗数据统计');
                     this.setState({
@@ -61,9 +61,9 @@ export default class DossierData extends PureComponent {
 
 
     render() {
-        const { storeHouseCount, inHouseDossiers, toDossierRate, toPcDossierRate } = this.state;
+        const {storeHouseCount, inHouseDossiers, toDossierRate, toPcDossierRate} = this.state;
         return (
-            <div id="" style={{ height: '100%', width: '100%' }}>
+            <div id="" style={{height: '100%', width: '100%'}}>
                 <h4 className={styles.cardTitle}>卷宗数据统计</h4>
                 <div className={styles.cardContent}>
                     <div className={styles.baqUse}>

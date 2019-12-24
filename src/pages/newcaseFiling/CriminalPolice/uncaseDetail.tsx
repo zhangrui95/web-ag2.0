@@ -968,27 +968,27 @@ export default class uncaseDetail extends PureComponent {
         <div>{this.Topdetail()}</div>
         <div>{this.renderDetail(unCaseDetailData)}</div>
 
-        {superviseVisibleModal ? (
-          <SuperviseModal
-            visible={superviseVisibleModal}
-            closeModal={this.closeModal}
-            // saveModal={this.saveModal}
-            caseDetails={this.state.unCaseDetailData}
-            getRefresh={this.Refresh}
-            // 点击列表的督办显示的四个基本信息
-            wtlx={this.state.superviseWtlx}
-            wtid={this.state.id}
-            // zrdw={this.state.superviseZrdw}
-            // zrdwId={this.state.superviseZrdwId}
-            // zrr={this.state.sabar}
-            id={this.state.id}
-            // zjhm={this.state.sfzh}
-            btnType={this.state.btnType}
-            from="督办"
-          />
-        ) : (
-          ''
-        )}
+        {/*{superviseVisibleModal ? (*/}
+          {/*<SuperviseModal*/}
+            {/*visible={superviseVisibleModal}*/}
+            {/*closeModal={this.closeModal}*/}
+            {/*// saveModal={this.saveModal}*/}
+            {/*caseDetails={this.state.unCaseDetailData}*/}
+            {/*getRefresh={this.Refresh}*/}
+            {/*// 点击列表的督办显示的四个基本信息*/}
+            {/*wtlx={this.state.superviseWtlx}*/}
+            {/*wtid={this.state.id}*/}
+            {/*// zrdw={this.state.superviseZrdw}*/}
+            {/*// zrdwId={this.state.superviseZrdwId}*/}
+            {/*// zrr={this.state.sabar}*/}
+            {/*id={this.state.id}*/}
+            {/*// zjhm={this.state.sfzh}*/}
+            {/*btnType={this.state.btnType}*/}
+            {/*from="督办"*/}
+          {/*/>*/}
+        {/*) : (*/}
+          {/*''*/}
+        {/*)}*/}
         {/*{feedbackVisibleModal ? (*/}
           {/*<FeedbackModal*/}
             {/*closeModal={this.closeFeedbackModal}*/}

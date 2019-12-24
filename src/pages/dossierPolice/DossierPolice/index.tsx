@@ -500,228 +500,198 @@ export default class Index extends PureComponent {
     return current && current.valueOf() > Date.now();
   };
 
-  // 渲染机构树
-  renderloop = data =>
-    data.map(item => {
-      if (item.childrenList && item.childrenList.length) {
-        return (
-          <TreeNode value={item.code} key={item.code} title={item.name}>
-            {this.renderloop(item.childrenList)}
-          </TreeNode>
-        );
-      }
-      return <TreeNode key={item.code} value={item.code} title={item.name} />;
-    });
-  saveShare = (res, type, ajGzLx) => {
-    this.setState({
-      sx:
-        (res.ajmc ? res.ajmc + '、' : '') +
-        (res.jzlb_mc ? res.jzlb_mc + '、' : '') +
-        (res.wtlxMc ? res.wtlxMc + '、' : '') +
-        (res.gjsj ? res.gjsj : ''),
-      shareRecord: res,
-    });
-    if (type === 2) {
-      let detail = (
-        <Row style={{ lineHeight: '55px', paddingLeft: 66 }}>
-          <Col span={8}>
-            卷宗名称：
-            <Tooltip title={res && res.jzmc && res.jzmc.length > 12 ? res.jzmc : null}>
-              {res && res.jzmc
-                ? res.jzmc.length > 12
-                  ? res.jzmc.substring(0, 12) + '...'
-                  : res.jzmc
-                : ''}
-            </Tooltip>
-          </Col>
-          <Col span={8}>卷宗类别：{res && res.jzlb_mc ? res.jzlb_mc : ''}</Col>
-          <Col span={8}>
-            卷宗描述：
-            <Tooltip title={res && res.jzms && res.jzms.length > 12 ? res.jzms : null}>
-              {res && res.jzms
-                ? res.jzms.length > 12
-                  ? res.jzms.substring(0, 12) + '...'
-                  : res.jzms
-                : ''}
-            </Tooltip>
-          </Col>
-          <Col span={8}>
-            案件名称：
-            <Tooltip title={res && res.ajmc && res.ajmc.length > 12 ? res.ajmc : null}>
-              {res && res.ajmc
-                ? res.ajmc.length > 12
-                  ? res.ajmc.substring(0, 12) + '...'
-                  : res.ajmc
-                : ''}
-            </Tooltip>
-          </Col>
-          <Col span={8}>案件状态：{res && res.ajzt ? res.ajzt : ''}</Col>
-        </Row>
-      );
-      this.props.dispatch(
-        routerRedux.push({
-          pathname: '/ModuleAll/Share',
-          query: {
-            record: res,
-            id: res && res.id ? res.id : '1',
-            from: this.state.lx,
-            tzlx: this.state.tzlx,
-            fromPath: '/dossierPolice/DossierPolice',
-            detail,
-            tab: '表格',
+    // 渲染机构树
+    renderloop = data =>
+        data.map(item => {
+            if (item.childrenList && item.childrenList.length) {
+                return (
+                    <TreeNode value={item.code} key={item.code} title={item.name}>
+                        {this.renderloop(item.childrenList)}
+                    </TreeNode>
+                );
+            }
+            return <TreeNode key={item.code} value={item.code} title={item.name}/>;
+        });
+    saveShare = (res, type, ajGzLx) => {
+        this.setState({
             sx:
-              (res.ajmc ? res.ajmc + '、' : '') +
-              (res.jzlb_mc ? res.jzlb_mc + '、' : '') +
-              (res.wtlxMc ? res.wtlxMc + '、' : '') +
-              (res.gjsj ? res.gjsj : ''),
-          },
-        }),
-      );
-      // this.setState({
-      //   shareVisible: true,
-      //   shareItem: res,
-      // });
-    } else {
-      this.props.dispatch({
-        type: 'share/getMyFollow',
-        payload: {
-          agid: res.wtid,
-          lx: this.state.lx,
-          sx:
-            (res.ajmc ? res.ajmc + '、' : '') +
-            (res.jzlb_mc ? res.jzlb_mc + '、' : '') +
-            (res.wtlxMc ? res.wtlxMc + '、' : '') +
-            (res.gjsj ? res.gjsj : ''),
-          type: type,
-          tzlx: this.state.tzlx,
-          wtid: res.wtid,
-          ajbh: res.ajbh,
-          system_id: res.dossier_id,
-          ajGzLx: ajGzLx,
-        },
-        callback: res => {
-          if (!res.error) {
-            message.success('关注成功');
-            this.getDossier({ currentPage: this.state.current, pd: this.state.formValues });
-          }
-        },
-      });
-    }
-  };
-  handleCancel = e => {
-    this.setState({
-      shareVisible: false,
-    });
-  };
-  noFollow = record => {
-    this.props.dispatch({
-      type: 'share/getNoFollow',
-      payload: {
-        id: record.gzid,
-        tzlx: record.tzlx,
-        ajbh: record.ajbh,
-        ajGzlx: record.ajgzlx,
-      },
-      callback: res => {
-        if (!res.error) {
-          message.success('取消关注成功');
-          this.getDossier({ currentPage: this.state.current, pd: this.state.formValues });
-        }
-      },
-    });
-  };
-  // 打开督办模态框
-  supervise = (flag, record) => {
-    const { id, wtid, dossier_id } = record;
-    this.props.dispatch({
-      type: 'UnDossierData/getDossierDetail',
-      payload: {
-        id,
-        wtid,
-        dossier_id,
-      },
-      callback: data => {
-        if (data) {
-          this.setState({
-            NewDossierDetail: data,
-          });
-          this.searchDetail(flag, record);
-        }
-      },
-    });
-  };
-  searchDetail = (flag, record) => {
-    const { wtid } = record;
-    this.props.dispatch({
-      type: 'UnDossierData/NewgetDossierData',
-      payload: {
-        pd: {
-          wtid,
-        },
-        currentPage: 1,
-        showCount: 9999,
-      },
-      callback: data => {
-        if (data.list.length > 0) {
-          if (data.list[0].dbzt === '00') {
-            const { NewDossierDetail } = this.state;
+                (res.ajmc ? res.ajmc + '、' : '') +
+                (res.jzlb_mc ? res.jzlb_mc + '、' : '') +
+                (res.wtlxMc ? res.wtlxMc + '、' : '') +
+                (res.gjsj ? res.gjsj : ''),
+            shareRecord: res,
+        });
+        if (type === 2) {
+            let shareRecord = res;
+            let detail = [`卷宗名称：${shareRecord && shareRecord.jzmc ? shareRecord.jzmc : ''}`, `卷宗类别：${shareRecord && shareRecord.jzlb_mc ? shareRecord.jzlb_mc : ''}`,
+                `卷宗描述：${shareRecord && shareRecord.jzms ? shareRecord.jzms : ''}`, `案件名称：${shareRecord && shareRecord.ajmc ? shareRecord.ajmc : ''}`,
+                `案件状态：${shareRecord && shareRecord.ajzt ? shareRecord.ajzt : ''}`
+            ];
+            res.detail = detail;
             this.props.dispatch(
-              routerRedux.push({
-                pathname: '/ModuleAll/Supervise',
-                query: {
-                  record: NewDossierDetail,
-                  searchDetail: record,
-                  id: NewDossierDetail && NewDossierDetail.id ? NewDossierDetail.id : '1',
-                  from: '督办',
-                  tzlx: this.state.tzlx,
-                  fromPath: '/dossierPolice/DossierPolice',
-                  tab: '表格',
-                },
-              }),
+                routerRedux.push({
+                    pathname: '/ModuleAll/Share',
+                    query: {
+                        record: res,
+                        id: res && res.id ? res.id : '1',
+                        from: '卷宗信息',
+                        tzlx: 'jzwt',
+                        fromPath: '/dossierPolice/DossierPolice',
+                        detail,
+                        tab: '表格',
+                        sx:
+                            (res.ajmc ? res.ajmc + '、' : '') +
+                            (res.jzlb_mc ? res.jzlb_mc + '、' : '') +
+                            (res.wtlxMc ? res.wtlxMc + '、' : '') +
+                            (res.gjsj ? res.gjsj : ''),
+                    },
+                }),
             );
-            // this.openModal(this.state.NewDossierDetail, flag, record);
-          } else {
-            message.warning('该问题已督办，请点击详情查看');
-            this.refreshTable();
-          }
+            // this.setState({
+            //   shareVisible: true,
+            //   shareItem: res,
+            // });
         } else {
-          message.info('该数据无法督办');
+            this.props.dispatch({
+                type: 'share/getMyFollow',
+                payload: {
+                    agid: res.wtid,
+                    lx: this.state.lx,
+                    sx:
+                        (res.ajmc ? res.ajmc + '、' : '') +
+                        (res.jzlb_mc ? res.jzlb_mc + '、' : '') +
+                        (res.wtlxMc ? res.wtlxMc + '、' : '') +
+                        (res.gjsj ? res.gjsj : ''),
+                    type: type,
+                    tzlx: this.state.tzlx,
+                    wtid: res.wtid,
+                    ajbh: res.ajbh,
+                    system_id: res.dossier_id,
+                    ajGzLx: ajGzLx,
+                },
+                callback: res => {
+                    if (!res.error) {
+                        message.success('关注成功');
+                        this.getDossier({currentPage: this.state.current, pd: this.state.formValues});
+                    }
+                },
+            });
         }
-      },
-    });
-  };
-  // 刷新列表
-  refreshTable = () => {
-    const { NowDataPage, NowShowCount, formValues } = this.state;
-    const saveparam = {
-      currentPage: NowDataPage !== '' ? NowDataPage : 1,
-      showCount: NowShowCount !== '' ? NowShowCount : 10,
-      pd: {
-        ...formValues,
-      },
     };
-    this.getDossier(saveparam);
-  };
-  // 关闭督办模态框
-  closeModal = (flag, param) => {
-    this.setState({
-      superviseVisibleModal: !!flag,
-    });
-  };
-  // 打开督办模态框
-  openModal = (opendata, flag, record) => {
-    this.setState({
-      superviseVisibleModal: !!flag,
-      opendata: opendata,
-      superviseWtlx: record.wtlxMc,
-      superviseZrdw: record.bardwmc,
-      superviseZrdwId: record.bardw,
-      superviseZrr: record.barxm,
-      id: record.id,
-      sfzh: record.barzjhm,
-      wtid: record.wtid,
-    });
-  };
+    handleCancel = e => {
+        this.setState({
+            shareVisible: false,
+        });
+    };
+    noFollow = record => {
+        this.props.dispatch({
+            type: 'share/getNoFollow',
+            payload: {
+                id: record.gzid,
+                tzlx: record.tzlx,
+                ajbh: record.ajbh,
+                ajGzlx: record.ajgzlx,
+            },
+            callback: res => {
+                if (!res.error) {
+                    message.success('取消关注成功');
+                    this.getDossier({currentPage: this.state.current, pd: this.state.formValues});
+                }
+            },
+        });
+    };
+    // 打开督办模态框
+    supervise = (flag, record) => {
+        const {id, wtid, dossier_id} = record;
+        this.props.dispatch({
+            type: 'UnDossierData/getDossierDetail',
+            payload: {
+                id,
+                wtid,
+                dossier_id,
+            },
+            callback: data => {
+                if (data) {
+                    this.setState({
+                        NewDossierDetail: data,
+                    });
+                    this.searchDetail(flag, record);
+                }
+            },
+        });
+    };
+    searchDetail = (flag, record) => {
+        const {wtid} = record;
+        this.props.dispatch({
+            type: 'UnDossierData/NewgetDossierData',
+            payload: {
+                pd: {
+                    wtid,
+                },
+                currentPage: 1,
+                showCount: 9999,
+            },
+            callback: data => {
+                if (data.list.length > 0) {
+                    if (data.list[0].dbzt === '00') {
+                        const {NewDossierDetail} = this.state;
+                        this.props.dispatch(
+                            routerRedux.push({
+                                pathname: '/ModuleAll/Supervise',
+                                query: {
+                                    record: NewDossierDetail,
+                                    searchDetail: record,
+                                    id: NewDossierDetail && NewDossierDetail.id ? NewDossierDetail.id : '1',
+                                    from: '督办',
+                                    tzlx: 'jzwt',
+                                    fromPath: '/dossierPolice/DossierPolice',
+                                    tab: '表格',
+                                },
+                            }),
+                        );
+                        // this.openModal(this.state.NewDossierDetail, flag, record);
+                    } else {
+                        message.warning('该问题已督办，请点击详情查看');
+                        this.refreshTable();
+                    }
+                } else {
+                    message.info('该数据无法督办');
+                }
+            },
+        });
+    };
+    // 刷新列表
+    refreshTable = () => {
+        const {NowDataPage, NowShowCount, formValues} = this.state;
+        const saveparam = {
+            currentPage: NowDataPage !== '' ? NowDataPage : 1,
+            showCount: NowShowCount !== '' ? NowShowCount : 10,
+            pd: {
+                ...formValues,
+            },
+        };
+        this.getDossier(saveparam);
+    };
+    // 关闭督办模态框
+    closeModal = (flag, param) => {
+        this.setState({
+            superviseVisibleModal: !!flag,
+        });
+    };
+    // 打开督办模态框
+    openModal = (opendata, flag, record) => {
+        this.setState({
+            superviseVisibleModal: !!flag,
+            opendata: opendata,
+            superviseWtlx: record.wtlxMc,
+            superviseZrdw: record.bardwmc,
+            superviseZrdwId: record.bardw,
+            superviseZrr: record.barxm,
+            id: record.id,
+            sfzh: record.barzjhm,
+            wtid: record.wtid,
+        });
+    };
 
   // 督办成功后刷新列表
   Refresh = flag => {

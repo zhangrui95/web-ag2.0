@@ -22,18 +22,19 @@ declare module 'webpack-theme-color-replacer/client';
 
 // google analytics interface
 interface GAFieldsObject {
-  eventCategory: string;
-  eventAction: string;
-  eventLabel?: string;
-  eventValue?: number;
-  nonInteraction?: boolean;
+    eventCategory: string;
+    eventAction: string;
+    eventLabel?: string;
+    eventValue?: number;
+    nonInteraction?: boolean;
 }
+
 interface Window {
-  ga: (
-    command: 'send',
-    hitType: 'event' | 'pageview',
-    fieldsObject: GAFieldsObject | string,
-  ) => void;
+    ga: (
+        command: 'send',
+        hitType: 'event' | 'pageview',
+        fieldsObject: GAFieldsObject | string,
+    ) => void;
 }
 
 declare let ga: Function;
