@@ -5,17 +5,19 @@ export function routes() {
             component: '../layouts/UserLayout',
             routes: [
                 {
-                    name: 'login',
+                    name: '登录',
                     path: '/user/login',
                     component: './user/login',
                 },
             ],
         },
         {
+            name: '投屏设置',
             path: '/setupShow',
             component: '../layouts/setupShow',
         },
         {
+            name: '监管看板',
             path: '/Show',
             component: '../layouts/bigShow',
         },
@@ -812,9 +814,9 @@ export function routes() {
                         },
                         {
                             name: '监管看板',
-                            target: '_blank',
+                            // target: '_blank',
                             icon: 'fullscreen',
-                            path: '/Show',
+                            path: '/BigShow',
                             authority: ['zhag_jgkb'],
                         },
                         {

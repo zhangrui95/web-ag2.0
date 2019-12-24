@@ -644,7 +644,7 @@ export default class PersonalDocDetail extends PureComponent {
                     <Card>
                         <Row gutter={{md: 8, lg: 24, xl: 48}}>
                             <Col md={8} sm={24}>
-                                <span style={{margin: '16px', display: 'block'}}>人员档案</span>
+                                {/*<span style={{margin: '16px', display: 'block'}}>人员档案</span>*/}
                             </Col>
                             <Col md={8}/>
 

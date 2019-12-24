@@ -18,9 +18,14 @@ const FormItem = Form.Item;
 class RetrieveModal extends PureComponent {
     constructor(props, context) {
         super(props);
+        let RetrieveRecord = props.location.query.record;
+        if (typeof RetrieveRecord == 'string') {
+            RetrieveRecord = JSON.parse(sessionStorage.getItem('query')).query.record;
+        }
         this.state = {
             key: 0,
             btnLoading: false,
+            RetrieveRecord:RetrieveRecord,
         };
     }
 
@@ -37,14 +42,10 @@ class RetrieveModal extends PureComponent {
     handleOk = () => {
         this.props.form.validateFields((err, values) => {
             if (!err) {
-                let RetrieveRecord = this.props.location.query.record;
-                if (typeof RetrieveRecord == 'string') {
-                    RetrieveRecord = JSON.parse(sessionStorage.getItem('query')).query.record;
-                }
                 this.props.dispatch({
                     type: 'share/getTb',
                     payload: {
-                        ajbh: RetrieveRecord.ajbh,
+                        ajbh: this.state.RetrieveRecord.ajbh,
                         tbrq: values.sharePerson.format('YYYY-MM-DD'),
                         tbyy: values.retrieveSuggest,
                     },
@@ -63,19 +64,12 @@ class RetrieveModal extends PureComponent {
     // 无法选择的日期
     disabledDate = (current) => {
         // Can not select days before today and today
-        let RetrieveRecord = this.props.location.query.record;
-        if (typeof RetrieveRecord == 'string') {
-            RetrieveRecord = JSON.parse(sessionStorage.getItem('query')).query.record;
-        }
-        if (RetrieveRecord.tbrq1) return current && (current > moment().endOf('day') || current < moment(RetrieveRecord.tbrq1));
-        return current && (current > moment().endOf('day') || current < moment(RetrieveRecord.qsrq)); // 退补日期必须小于移送起诉日期
+        if (this.state.RetrieveRecord.tbrq1) return current && (current > moment().endOf('day') || current < moment(this.state.RetrieveRecord.tbrq1));
+        return current && (current > moment().endOf('day') || current < moment(this.state.RetrieveRecord.qsrq)); // 退补日期必须小于移送起诉日期
     };
 
     onEdit = async (isReset) => {
-        let RetrieveRecord = this.props.location.query.record;
-        if (typeof RetrieveRecord == 'string') {
-            RetrieveRecord = JSON.parse(sessionStorage.getItem('query')).query.record;
-        }
+        let RetrieveRecord = this.state.RetrieveRecord;
         let key = '/Retrieve' + this.props.location.query.id;
         // 删除当前tab并且将路由跳转至前一个tab的path
         const {dispatch} = this.props;
@@ -126,14 +120,12 @@ class RetrieveModal extends PureComponent {
             });
         }
         const {form: {getFieldDecorator}, RetrieveVisible, handleCancel, tbDetail} = this.props;
-        let RetrieveRecord = this.props.location.query.record;
-        if (typeof RetrieveRecord == 'string') {
-            RetrieveRecord = JSON.parse(sessionStorage.getItem('query')).query.record;
-        }
+        let RetrieveRecord = this.state.RetrieveRecord;
         return (
             <div id={'RetrieveForm' + RetrieveRecord.ajbh}
                  className={this.props.global && this.props.global.dark ? '' : styles.lightBox}>
                 <Card className={styles.standardTable}>
+                    <div className={styles.title}>退补侦查设置</div>
                     <Row style={{
                         width: '82%',
                         margin: '0 9% 10px',
@@ -189,10 +181,10 @@ class RetrieveModal extends PureComponent {
                 </Card>
                 <Card>
                     <div className={styles.btns}>
-                        <Button type="primary" style={{marginLeft: 8}} className={styles.qxBtn}
-                                onClick={() => this.onEdit(false)}>
-                            取消
-                        </Button>
+                        {/*<Button type="primary" style={{marginLeft: 8}} className={styles.qxBtn}*/}
+                        {/*        onClick={() => this.onEdit(false)}>*/}
+                        {/*    取消*/}
+                        {/*</Button>*/}
                         <Button type="primary" style={{marginLeft: 8}} className={styles.okBtn} onClick={this.handleOk}>
                             确定
                         </Button>

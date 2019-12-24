@@ -349,10 +349,10 @@ export default class SuperviseCopy extends PureComponent {
                 </Card>
                 <Card>
                     <div className={styles.btns}>
-                        <Button type="primary" style={{marginLeft: 8}} className={styles.qxBtn}
-                                onClick={() => this.onEdit(false)}>
-                            取消
-                        </Button>
+                        {/*<Button type="primary" style={{marginLeft: 8}} className={styles.qxBtn}*/}
+                        {/*        onClick={() => this.onEdit(false)}>*/}
+                        {/*    取消*/}
+                        {/*</Button>*/}
                         <Button type="primary" style={{marginLeft: 8}} className={styles.okBtn}
                                 onClick={this.handleOks}>
                             确定

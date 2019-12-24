@@ -200,14 +200,14 @@ export default class DbHistory extends PureComponent {
                         }
                     </div>
                 </Card>
-                <Card>
-                    <div className={styles.btns}>
-                        <Button type="primary" style={{marginLeft: 8}} className={styles.qxBtn}
-                                onClick={() => this.onEdit(false)}>
-                            取消
-                        </Button>
-                    </div>
-                </Card>
+                {/*<Card>*/}
+                {/*    <div className={styles.btns}>*/}
+                {/*        <Button type="primary" style={{marginLeft: 8}} className={styles.qxBtn}*/}
+                {/*                onClick={() => this.onEdit(false)}>*/}
+                {/*            取消*/}
+                {/*        </Button>*/}
+                {/*    </div>*/}
+                {/*</Card>*/}
                 {/*</Modal>*/}
             </div>
         );

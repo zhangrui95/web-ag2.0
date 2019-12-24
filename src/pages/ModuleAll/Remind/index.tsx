@@ -215,10 +215,10 @@ class Index extends PureComponent {
                 </Card>
                 <Card>
                     <div className={styles.btns}>
-                        <Button type="primary" style={{marginLeft: 8}} className={styles.qxBtn}
-                                onClick={() => this.onEdit(false)}>
-                            取消
-                        </Button>
+                        {/*<Button type="primary" style={{marginLeft: 8}} className={styles.qxBtn}*/}
+                        {/*        onClick={() => this.onEdit(false)}>*/}
+                        {/*    取消*/}
+                        {/*</Button>*/}
                         <Button type="primary" style={{marginLeft: 8}} onClick={this.handleOk} className={styles.okBtn}>
                             确定
                         </Button>

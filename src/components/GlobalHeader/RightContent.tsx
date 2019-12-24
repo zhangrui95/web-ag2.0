@@ -8,6 +8,8 @@ import SelectLang from '../SelectLang';
 import styles1 from './index.less';
 import styles2 from './indexLight.less';
 import iconFont from '../../utils/iconfont'
+import {authorityIsTrue} from "@/utils/authority";
+import {userAuthorityCode} from "@/utils/utils";
 
 const IconFont = Icon.createFromIconfontCN({
     scriptUrl: iconFont
@@ -28,15 +30,19 @@ const GlobalHeaderRight: React.SFC<GlobalHeaderRightProps> = props => {
                 <Button type="primary" shape="round">
                     <IconFont type='icon-jiankongmianban-mianxing'/> 监管问题
                 </Button>
-                <Button shape="round">
-                    <IconFont type='icon-gongzuojingli'/> 办案区管理
-                </Button>
-                <Button shape="round">
+                {
+                    authorityIsTrue('zhag_baq') ?  <Button shape="round">
+                        <IconFont type='icon-gongzuojingli'/> 办案区管理
+                    </Button> : ''
+                }
+                {
+                    authorityIsTrue('zhag_sawp') ?  <Button shape="round">
                     <IconFont type='icon-caiwu'/> 涉案物品管理
-                </Button>
-                <Button shape="round">
+                </Button> : ''}
+                {
+                    authorityIsTrue('zhag_jz') ?  <Button shape="round">
                     <IconFont type='icon-dangan1'/> 卷宗管理
-                </Button>
+                </Button> : ''}
             </div>
             <Avatar/>
         </div>

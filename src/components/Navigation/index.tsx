@@ -11,6 +11,7 @@ import styles2 from './indexLight.less';
 const {TabPane} = Tabs;
 const Navigation = props => {
     const {navigationData, dispatch, location, children, history} = props; // //如果导航是空数组，则将当前路由
+    console.log('location',location);
     // 获取到当前路由
     const currentUrl = location.pathname;///ShowData/RegulatePanel
     let queryLoc = location.query;
@@ -44,7 +45,10 @@ const Navigation = props => {
                 setActiveKey(selectTabKey);
             }
         } else {
-            if (currentUrl === '/') {
+            if(currentUrl === '/BigShow'){
+                window.open('/#/Show');
+                history.go(-1);
+            }else if (currentUrl === '/') {
                 dispatch(routerRedux.push('/ShowData/RegulatePanel'));
             } else {
                 // 没有tab情况下，将当前页面的路由对比数据添加tab
@@ -107,7 +111,8 @@ const Navigation = props => {
         return navigationData[index];
     };
 
-    const onEdit = key => {
+    const onEdit = (key,obj) => {
+        console.log('key,obj=========>',key,obj)
         // 删除当前tab并且将路由跳转至前一个tab的path
         if (dispatch) {
             dispatch({

@@ -800,14 +800,20 @@ body {
     }
 
     .ant-calendar-year-panel-year, .ant-calendar-decade-panel-decade {
-      color: @text-word-color !important;
-
+      color: @text-word-color;
       &:hover {
         background: @highlight-color;
-        color: white;
+        color: white!important;
       }
     }
-
+    .ant-calendar-year-panel-selected-cell .ant-calendar-year-panel-year{
+      background: @highlight-color;
+      color: white!important;
+      &:hover {
+        background: @highlight-color;
+        color: white!important;
+      }
+    }
     .ant-calendar-range .ant-calendar-year-panel-body, .ant-calendar-range .ant-calendar-month-panel-body, .ant-calendar-range .ant-calendar-decade-panel-body {
       border: @zero;
     }

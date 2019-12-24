@@ -10,9 +10,10 @@ const developips = {
   // ip: 'http://192.168.3.155', // 李卓奇
   // ip: 'http://192.168.3.224', // zyz
   // ip: 'http://192.168.38.179', // 孙金龙
-  ip: 'http://192.168.3.36', // 36
-  maintainIp: 'http://192.168.3.36', // 运维中心地址
-  aqzxIp: 'http://192.168.3.36', // 安全中心地址
+  // ip: 'http://192.168.3.36', // 36
+  ip: 'http://192.168.3.92', // 92
+  maintainIp: 'http://192.168.3.92', // 运维中心地址
+  aqzxIp: 'http://192.168.3.92', // 安全中心地址
   // aqzxIp: 'http://192.168.3.155',// 李卓奇安全中心地址
   // aqzxIp:'http://192.168.41.249',// 安全中心地址
   TbtjDcIp: 'http://192.168.3.245', // 图表统计导出功能地址
@@ -25,7 +26,7 @@ const configItem = {
   sysName: '智慧法制案管系统',
   headName: '智慧法制案管系统', // 左侧导航顶部显示名称
   footName: '哈尔滨海邻科信息技术有限公司',
-  version: 'V 1.2.13.1', // 版本号
+  version: 'r2.0.0.20191224', // 版本号
   sid: 'zhag', // 系统资源ID
   showDataTitle: '', // 大屏展示标题
   mapCityName: '', // 大屏展示地图名称（可配置项： mudanjiang/ hulunbeier/baishan/hebi/erduosi/guiLin）
@@ -79,12 +80,12 @@ const onlineConfigUrl = {
   generalQueryUrl: `${ips.ip}:9200/`, // 综合查询es服务地址
   srcUrl: `${ips.ip}:7300/raqReport-service/reportJsp/`, //润乾报表地址
   tbtjExportUrl: `${ips.ip}:8750`, // 图表统计导出功能
-  smartLinkWindow7: `${ips.ip}/download/SmartLinkey_win7_2.3.0.1.zip`, //samrtLinkeyWindows版下载地址
-  smartLinkWindowXp: `${ips.ip}/download/SmartLinkey_winxp_2.3.0.1.zip`, //samrtLinkeyWindows版下载地址
-  google32: `${ips.ip}/download/chrome49_32.zip`, //谷歌32位版下载地址
-  google64: `${ips.ip}/download/chrome49_64.zip`, //谷歌64位版下载地址
-  userManual: '', //用户手册版下载地址
-  ieUnit: `${ips.ip}/download/OpenWithIE_REG.zip`, //IE插件下载地址
+  // smartLinkWindow7: `${ips.ip}/download/SmartLinkey_win7_2.3.0.1.zip`, //samrtLinkeyWindows版下载地址
+  // smartLinkWindowXp: `${ips.ip}/download/SmartLinkey_winxp_2.3.0.1.zip`, //samrtLinkeyWindows版下载地址
+  // google32: `${ips.ip}/download/chrome49_32.zip`, //谷歌32位版下载地址
+  // google64: `${ips.ip}/download/chrome49_64.zip`, //谷歌64位版下载地址
+  // userManual: '', //用户手册版下载地址
+  // ieUnit: `${ips.ip}/download/OpenWithIE_REG.zip`, //IE插件下载地址
 };
 window.configUrl = Object.assign(
   configItem,

@@ -1452,10 +1452,10 @@ class Detail extends Component {
                 </Card>
                 <Card>
                     <div className={styles.btns}>
-                        <Button type="primary" style={{marginLeft: 8}} className={styles.qxBtn}
-                                onClick={() => this.onEdit(false)}>
-                            取消
-                        </Button>
+                        {/*<Button type="primary" style={{marginLeft: 8}} className={styles.qxBtn}*/}
+                        {/*        onClick={() => this.onEdit(false)}>*/}
+                        {/*    取消*/}
+                        {/*</Button>*/}
                         {this.state.modleType == 1 ?
                             <Button type="primary" style={{marginLeft: 8}} className={styles.delBtn}
                                     onClick={() => this.del(this.props.location.query.id)}>

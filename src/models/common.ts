@@ -76,7 +76,7 @@ export default {
         pushTypeDict: [], // 推送类型
         pushWayDict: [], // 推送方式
         returnExportEffectData: null, // 图表统计导出功能
-        syncTime: '', // 同步时间
+        syncTime: {}, // 同步时间
         enforcementTypeDict: [], // 人员强制措施
         handleStatusDict: [], // 警情处理状态
         jqType: [], //警情状态

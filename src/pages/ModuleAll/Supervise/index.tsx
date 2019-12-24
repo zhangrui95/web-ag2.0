@@ -734,10 +734,10 @@ export default class SuperviseModal extends PureComponent {
                 </Card>
                 <Card>
                     <div className={styles.btns}>
-                        <Button type="primary" style={{marginLeft: 8}} className={styles.qxBtn}
-                                onClick={() => this.onEdit(false)}>
-                            取消
-                        </Button>
+                        {/*<Button type="primary" style={{marginLeft: 8}} className={styles.qxBtn}*/}
+                        {/*        onClick={() => this.onEdit(false)}>*/}
+                        {/*    取消*/}
+                        {/*</Button>*/}
                         <Button type="primary" style={{marginLeft: 8}} onClick={this.handleAlarm}
                                 className={styles.okBtn}>
                             确定
