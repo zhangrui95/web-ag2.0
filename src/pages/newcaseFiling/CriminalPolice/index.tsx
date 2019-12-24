@@ -69,7 +69,7 @@ export default class Index extends PureComponent {
     };
 
     componentDidMount() {
-        console.log('this.props', this.props);
+        // console.log('this.props', this.props);
         const jigouArea = sessionStorage.getItem('user');
         const newjigouArea = JSON.parse(jigouArea);
         this.getDepTree(newjigouArea.department);

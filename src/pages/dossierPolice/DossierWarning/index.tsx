@@ -459,7 +459,7 @@ export default class Index extends PureComponent {
         yj_id: record.id,
       },
       callback: res => {
-        console.log('res', res);
+        // console.log('res', res);
         // this.setState({
         //   RzList: res.list,
         // });

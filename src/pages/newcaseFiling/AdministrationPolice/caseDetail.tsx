@@ -363,7 +363,7 @@ export default class caseDetail extends PureComponent {
   };
   // 反馈
   saveFeedbackModal = params => {
-    console.log('params----------->', params);
+    // console.log('params----------->', params);
     this.setState({
       feedbackVisibleModal: false,
       feedbackButtonLoading: true,

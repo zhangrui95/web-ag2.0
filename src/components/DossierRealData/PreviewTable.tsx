@@ -33,7 +33,7 @@ export default class PreviewTable extends PureComponent {
     }
 
     componentWillReceiveProps(nextProps) {
-        console.log('nextprops', nextProps);
+        // console.log('nextprops', nextProps);
         if (nextProps !== this.props) {
             this.setState({
                 electronicVolumeData: nextProps.electronicVolumeData,
@@ -49,7 +49,7 @@ export default class PreviewTable extends PureComponent {
     };
 
     rowClassNameHandle = (record, index) => {
-        console.log('this.state.clickKey***', this.state.clickKey);
+        // console.log('this.state.clickKey***', this.state.clickKey);
         if (this.state.clickKey) {
             if (record.electronic_catalogues_id === this.state.clickKey) {
                 this.props.getCatalogClickData(record);
@@ -103,7 +103,7 @@ export default class PreviewTable extends PureComponent {
                         clickKey: item.electronic_catalogues_id,
                     });
                     let id = '';
-                    console.log('this.state.electronicVolumeData', this.state.electronicVolumeData);
+                    // console.log('this.state.electronicVolumeData', this.state.electronicVolumeData);
                     if (this.state.electronicVolumeData && this.state.electronicVolumeData.length > 2) {
                         for (let i = 0; i < this.state.electronicVolumeData.length; i++) {
                             if (this.state.electronicVolumeData[i].electronic_catalogues_id === item.electronic_catalogues_id) {

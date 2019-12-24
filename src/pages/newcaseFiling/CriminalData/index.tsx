@@ -323,7 +323,7 @@ export default class Index extends PureComponent {
         values.qzcslx && values.qzcslx.map((item) => {
             qzcslx.push("'" + item + "'");
         });
-        console.log('values', values);
+        // console.log('values', values);
         const formValues = {
             ajbh: values.ajbh || '',
             ajmc: values.ajmc || '',

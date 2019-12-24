@@ -833,7 +833,7 @@ export default class unareaDetail extends PureComponent {
   };
   // 根据案件编号打开案件窗口
   openCaseDetail = areaDetails => {
-    console.log('areaDetails', areaDetails);
+    // console.log('areaDetails', areaDetails);
     if (areaDetails.ajxx.ajlx === '22001') {
       // 刑事案件
       this.props.dispatch(
