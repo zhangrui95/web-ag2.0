@@ -11,7 +11,6 @@ import styles2 from './indexLight.less';
 const {TabPane} = Tabs;
 const Navigation = props => {
     const {navigationData, dispatch, location, children, history} = props; // //如果导航是空数组，则将当前路由
-    console.log('location',location);
     // 获取到当前路由
     const currentUrl = location.pathname;///ShowData/RegulatePanel
     let queryLoc = location.query;
@@ -111,49 +110,70 @@ const Navigation = props => {
         return navigationData[index];
     };
 
-    const onEdit = (key,obj) => {
-        console.log('key,obj=========>',key,obj)
-        // 删除当前tab并且将路由跳转至前一个tab的path
+    const onEdit = (key) => {
+        let index = navigationData.findIndex((item: NavigationItem) => {
+            return (
+                item.key === key
+            );
+        });
         if (dispatch) {
-            dispatch({
-                type: 'global/changeSessonNavigation',
-                payload: {
-                    key,
-                    isShow: false,
-                },
-            });
-            dispatch({
-                type: 'global/changeNavigation',
-                payload: {
-                    key,
-                    isShow: false,
-                },
-                callback: (data: NavigationItem[]) => {
-                    // 当前删除为选中项
-                    //   // 将路由跳转至前一个tab
-                    const selectTabKey = data[data.length - 1].key;
-                    setActiveKey(selectTabKey);
-                    let query = data[data.length - 1].query ? data[data.length - 1].query : null;
-                    let tabItem = data[data.length - 1];
-                    let payload = {
-                        key: tabItem.key,
-                        name: tabItem.name,
-                        path: tabItem.path,
-                        isShow: true,
-                        query: tabItem.query,
-                    };
-                    sessionStorage.setItem('query', JSON.stringify(payload));
-                    if (query) {
-                        let pathUrl = data[data.length - 1].path;
-                        dispatch(routerRedux.push({
-                            pathname: pathUrl,
-                            query: query,
-                        }));
-                    } else {
-                        dispatch(routerRedux.push(data[data.length - 1].path));
+            if(key===activeKey){
+                // 删除当前tab并且将路由跳转至前一个tab的path
+                dispatch({
+                    type: 'global/changeSessonNavigation',
+                    payload: {
+                        key,
+                        isShow: false,
+                    },
+                });
+                dispatch({
+                    type: 'global/changeNavigation',
+                    payload: {
+                        key,
+                        isShow: false,
+                    },
+                    callback: (data: NavigationItem[]) => {
+                        // 当前删除为选中项
+                        //   // 将路由跳转至前一个tab
+                        const selectTabKey = data[index - 1].key;
+                        setActiveKey(selectTabKey);
+                        let query = data[index - 1].query ? data[index - 1].query : null;
+                        let tabItem = data[index - 1];
+                        let payload = {
+                            key: tabItem.key,
+                            name: tabItem.name,
+                            path: tabItem.path,
+                            isShow: true,
+                            query: tabItem.query,
+                        };
+                        sessionStorage.setItem('query', JSON.stringify(payload));
+                        if (query) {
+                            let pathUrl = data[index - 1].path;
+                            dispatch(routerRedux.push({
+                                pathname: pathUrl,
+                                query: query,
+                            }));
+                        } else {
+                            dispatch(routerRedux.push(data[index - 1].path));
+                        }
+                    },
+                });
+            }else{
+                dispatch({
+                    type: 'global/changeSessonNavigation',
+                    payload: {
+                        key,
+                        isShow: false,
+                    },
+                });
+                dispatch({
+                    type: 'global/changeNavigation',
+                    payload: {
+                        key,
+                        isShow: false,
                     }
-                },
-            });
+                });
+            }
         }
     };
 
