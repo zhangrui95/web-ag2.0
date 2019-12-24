@@ -371,7 +371,7 @@ export default class Index extends PureComponent {
             this.props.dispatch(
               routerRedux.push({
                 pathname: '/ModuleAll/Remind',
-                query: { record: res,itemDetails:data,id: res && res.system_id ? res.system_id : '1',from:'案件预警',fromPath:'/newcaseFiling/caseWarning/CriminalWarning',detail,tab:'表格' },
+                query: { record: res,itemDetails:data,id: res && res.system_id ? res.system_id : '1',from:this.state.lx,fromPath:'/newcaseFiling/caseWarning/CriminalWarning',detail,tab:'表格' },
               }),
             )
           }
@@ -379,7 +379,7 @@ export default class Index extends PureComponent {
             this.props.dispatch(
               routerRedux.push({
                 pathname: '/ModuleAll/Share',
-                query: { record: res,id: res && res.system_id ? res.system_id : '1',from:'案件预警',tzlx:this.state.tzlx,fromPath:'/newcaseFiling/caseWarning/CriminalWarning',detail,tab:'表格',sx: (res.wpmc ? res.wpmc + '、' : '') + (res.wplx_mc ? res.wplx_mc + '、' : '') + (res.yjlxmc ? res.yjlxmc + '、' : '') + (res.yjsj ? res.yjsj : ''), },
+                query: { record: res,id: res && res.system_id ? res.system_id : '1',from:this.state.lx,tzlx:this.state.tzlx,fromPath:'/newcaseFiling/caseWarning/CriminalWarning',detail,tab:'表格',sx: (res.wpmc ? res.wpmc + '、' : '') + (res.wplx_mc ? res.wplx_mc + '、' : '') + (res.yjlxmc ? res.yjlxmc + '、' : '') + (res.yjsj ? res.yjsj : ''), },
               }),
             )
           }

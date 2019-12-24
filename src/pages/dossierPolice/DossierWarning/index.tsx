@@ -332,7 +332,7 @@ export default class Index extends PureComponent {
     return current && current.valueOf() > Date.now();
   };
 // 请求当前数据的详情（提醒弹窗中的回显数据从此处获取）
-  thisNewDetails = (res) => {
+  thisNewDetails = (res,type) => {
     this.props.dispatch({
       type: 'DossierData/getDossierDetail',
       payload: {
@@ -343,6 +343,36 @@ export default class Index extends PureComponent {
           this.setState({
             itemDetails: data,
           });
+          let detail = (
+            <Row style={{ lineHeight:'55px',paddingLeft:66 }}>
+              <Col span={8}>卷宗名称：<Tooltip
+                title={data && data.jzmc && data.jzmc.length > 12 ? data.jzmc : null}>{data && data.jzmc ? data.jzmc.length > 12 ? data.jzmc.substring(0, 12) + '...' : data.jzmc : ''}</Tooltip></Col>
+              <Col
+                span={8}>卷宗类别：{data && data.jzlb_mc ? data.jzlb_mc : ''}</Col>
+              <Col span={8}>卷宗描述：<Tooltip
+                title={data && data.jzms && data.jzms.length > 12 ? data.jzms : null}>{data && data.jzms ? data.jzms.length > 12 ? data.jzms.substring(0, 12) + '...' : data.jzms : ''}</Tooltip></Col>
+              <Col span={8}>案件名称：<Tooltip
+                title={data && data.ajmc && data.ajmc.length > 12 ? data.ajmc : null}>{data && data.ajmc ? data.ajmc.length > 12 ? data.ajmc.substring(0, 12) + '...' : data.ajmc : ''}</Tooltip></Col>
+              <Col
+                span={8}>案件状态：<Tooltip>{data && data.ajzt ? data.ajzt : ''}</Tooltip></Col>
+            </Row>
+          );
+          if(type===2){
+            this.props.dispatch(
+              routerRedux.push({
+                pathname: '/ModuleAll/Share',
+                query: { record: res,id: res && res.id ? res.id : '1',from:'卷宗信息',tzlx:'jzyj',fromPath:'/dossierPolice/DossierWarning',detail,tab:'表格',sx: (res.jzmc ? res.jzmc + '、' : '') + (res.yjlxmc ? res.yjlxmc + '、' : '') + (res.yjsj ? res.yjsj : ''),},
+              }),
+            )
+          }
+          else if(type===3){
+            this.props.dispatch(
+              routerRedux.push({
+                pathname: '/ModuleAll/Remind',
+                query: { record: res,itemDetails:data,id: res && res.system_id ? res.system_id : '1',from:'涉案物品预警',fromPath:'/dossierPolice/DossierWarning',detail,tab:'表格' },
+              }),
+            )
+          }
         }
       },
     });
@@ -365,37 +395,17 @@ export default class Index extends PureComponent {
       sx: (res.jzmc ? res.jzmc + '、' : '') + (res.yjlxmc ? res.yjlxmc + '、' : '') + (res.yjsj ? res.yjsj : ''),
     });
     if (type === 3) {
-      this.setState({
-        txVisible: true,
-        txItem: res,
-      });
-      this.thisNewDetails(res);
+      // this.setState({
+      //   txVisible: true,
+      //   txItem: res,
+      // });
+      this.thisNewDetails(res,type);
     } else if (type === 2) {
-      let detail = (
-        <Row style={{ lineHeight:'55px',paddingLeft:66 }}>
-          <Col span={8}>卷宗名称：<Tooltip
-            title={res && res.jzmc && res.jzmc.length > 12 ? res.jzmc : null}>{res && res.jzmc ? res.jzmc.length > 12 ? res.jzmc.substring(0, 12) + '...' : res.jzmc : ''}</Tooltip></Col>
-          <Col
-            span={8}>卷宗类别：{res && res.jzlb_mc ? res.jzlb_mc : ''}</Col>
-          <Col span={8}>卷宗描述：<Tooltip
-            title={res && res.jzms && res.jzms.length > 12 ? res.jzms : null}>{res && res.jzms ? res.jzms.length > 12 ? res.jzms.substring(0, 12) + '...' : res.jzms : ''}</Tooltip></Col>
-          <Col span={8}>案件名称：<Tooltip
-            title={res && res.ajmc && res.ajmc.length > 12 ? res.ajmc : null}>{res && res.ajmc ? res.ajmc.length > 12 ? res.ajmc.substring(0, 12) + '...' : res.ajmc : ''}</Tooltip></Col>
-          <Col
-            span={8}>案件状态：<Tooltip>{res && res.ajzt ? res.ajzt : ''}</Tooltip></Col>
-        </Row>
-      );
-      this.props.dispatch(
-        routerRedux.push({
-          pathname: '/ModuleAll/Share',
-          query: { record: res,id: res && res.id ? res.id : '1',from:'卷宗信息',tzlx:'jzyj',fromPath:'/dossierPolice/DossierWarning',detail,tab:'表格',sx: (res.jzmc ? res.jzmc + '、' : '') + (res.yjlxmc ? res.yjlxmc + '、' : '') + (res.yjsj ? res.yjsj : ''),},
-        }),
-      )
       // this.setState({
       //   shareVisible: true,
       //   shareItem: res,
       // });
-      // this.thisNewDetails(res);
+      this.thisNewDetails(res,type);
     } else {
       this.props.dispatch({
         type: 'share/getMyFollow',
@@ -441,7 +451,7 @@ export default class Index extends PureComponent {
         yj_id: record.id,
       },
       callback: (res) => {
-        console.log('res',res);
+        // console.log('res',res);
         // this.setState({
         //   RzList: res.list,
         // });

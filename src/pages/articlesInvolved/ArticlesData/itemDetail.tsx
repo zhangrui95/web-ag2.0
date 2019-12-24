@@ -55,6 +55,10 @@ const FormItem = Form.Item;
 export default class itemDetail extends PureComponent {
     constructor(props) {
         super(props);
+      let res = props.location.query.record;
+      if(typeof res == 'string'){
+        res = JSON.parse(sessionStorage.getItem('query')).query.record;
+      }
         this.state = {
             itemDetails: [],
 
@@ -78,17 +82,14 @@ export default class itemDetail extends PureComponent {
             lx: '物品信息',
             tzlx: 'wpxx',
             sx: '',
-            sfgz: props.location&&props.location.query&&props.location.query.record&&props.location.query.record.sfgz===0?props.location.query.record.sfgz:'',
+            sfgz: res&&res.sfgz===0?res.sfgz:'',
             IsSure: false, // 确认详情是否加载成功
             isDb: authorityIsTrue(userResourceCodeDb.item), // 督办权限
+            record:res,
         };
     }
 
     componentDidMount() {
-      let res = this.props.location.query.record;
-      if(typeof res == 'string'){
-        res = JSON.parse(sessionStorage.getItem('query')).query.record;
-      }
       const { location } = this.props;
       // conosle.log('location',location);
       if (location && location.query && location.query.record && location.query.id) {
@@ -344,8 +345,7 @@ export default class itemDetail extends PureComponent {
     };
 
     Topdetail() {
-        const { itemDetails, sfgz, isDb } = this.state;
-        const { query:{record} } = this.props.location;
+        const { itemDetails, sfgz, isDb,record } = this.state;
         let dark = this.props.global&&this.props.global.dark;
         return (
             <div style={{ backgroundColor:  dark ? '#252C3C' : '#fff', margin: '16px 0' }}>

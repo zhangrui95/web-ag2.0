@@ -79,6 +79,7 @@ export default class DossierDetail extends PureComponent {
     feedbackVisibleModal: false, // 反馈状态模态框
     feedbackButtonLoading: false, // 反馈按钮加载状态
     isDb: authorityIsTrue(userResourceCodeDb.dossier), // 督办权限
+    record:''// 表格信息
   };
 
   componentDidMount() {
@@ -89,15 +90,19 @@ export default class DossierDetail extends PureComponent {
     // const {location} = this.props;
     if (res.id && res.wtid && res.dossier_id) {
       this.getDossierDetail(res.id, res.wtid, res.dossier_id);
+      this.setState({
+        record:res
+      })
     }
   }
 
   // 再次督办
   onceSupervise = (flag, UnitemDetail) => {
     const { wtlx, kfgly_dwmc, kfgly_dwdm, kfgly, wtid, kfgly_zjhm } = UnitemDetail;
-    const {
-      query: { record, id },
-    } = this.props.location;
+    // const {
+    //   query: { record, id },
+    // } = this.props.location;
+    const {record} = this.state
     this.props.dispatch({
       type: 'UnDossierData/getUnDossierByProblemId',
       payload: {
@@ -176,17 +181,18 @@ export default class DossierDetail extends PureComponent {
           message.warning('该问题已反馈');
           this.getDossierDetail(
             this.props.location.query.id,
-            this.props.location.query.record.system_id,
+            this.state.record.system_id,
+            this.state.record.dossier_id,
           );
         }
       },
     });
   };
-  onReformCancel = () => {
-    this.setState({
-      reformModal: false,
-    });
-  };
+  // onReformCancel = () => {
+  //   this.setState({
+  //     reformModal: false,
+  //   });
+  // };
 
   getDossierDetail(id, wtid, dossierId) {
     this.props.dispatch({
@@ -291,11 +297,12 @@ export default class DossierDetail extends PureComponent {
 
   // 督办成功后刷新列表
   Refresh = flag => {
+    const {record} = this.state;
     this.setState({
       superviseVisibleModal: !!flag,
       loading1: false,
     });
-    this.getDossierDetail(this.props.id, this.props.wtid, this.props.dossierId);
+    this.getDossierDetail(record.id, record.wtid, record.dossier_id);
     if (this.props.refreshTable) {
       this.props.refreshTable();
     }
@@ -315,7 +322,8 @@ export default class DossierDetail extends PureComponent {
         });
         if (data) {
           message.success('反馈保存完成');
-          this.getDossierDetail(this.props.id, this.props.wtid, this.props.dossierId);
+          const {record} = this.state;
+          this.getDossierDetail(record.id, record.wtid, record.dossier_id);
           if (this.props.refreshTable) {
             this.props.refreshTable();
           }
@@ -329,8 +337,23 @@ export default class DossierDetail extends PureComponent {
   // 确认整改完成
   sureReform = (dbid, flag) => {
     this.setState({
-      reformModal: !!flag,
+      // reformModal: !!flag,
       dbid: dbid,
+    },()=>{
+      let that = this;
+      confirm({
+        title: '确认整改完成?',
+        centered:true,
+        okText: '确认',
+        cancelText: '取消',
+        getContainer:document.getElementById('messageBox'),
+        onOk() {
+          ()=>that.handleReformSure()
+        },
+        onCancel() {
+          console.log('Cancel');
+        },
+      });
     });
   };
 
@@ -395,7 +418,8 @@ export default class DossierDetail extends PureComponent {
       },
       callback: () => {
         message.info('督办整改完成');
-        this.getDossierDetail(this.props.id, this.props.wtid, this.props.dossierId);
+        const {record} = this.state;
+        this.getDossierDetail(record.id, record.wtid, record.dossier_id);
         this.setState({
           sureChange: false,
         });
@@ -405,16 +429,16 @@ export default class DossierDetail extends PureComponent {
       },
     });
   };
-  foot1 = () => {
-    return (
-      <div>
-        <Button onClick={this.onReformCancel}>取消</Button>
-        <Button type="primary" onClick={this.handleReformSure}>
-          整改完毕
-        </Button>
-      </div>
-    );
-  };
+  // foot1 = () => {
+  //   return (
+  //     <div>
+  //       <Button onClick={this.onReformCancel}>取消</Button>
+  //       <Button type="primary" onClick={this.handleReformSure}>
+  //         整改完毕
+  //       </Button>
+  //     </div>
+  //   );
+  // };
 
   renderDetail() {
     const rowLayout = { md: 8, xl: 16, xxl: 24 };
@@ -573,7 +597,7 @@ export default class DossierDetail extends PureComponent {
           onceSupervise={this.onceSupervise}
           sureReform={this.sureReform}
           rowLayout={rowLayout}
-          fromPath="/dossierPolice/DossierPolice/UnDossierDetail"
+          frompath="/dossierPolice/DossierPolice/UnDossierDetail"
         />
 
         <Card
@@ -775,23 +799,23 @@ export default class DossierDetail extends PureComponent {
         {/*/>*/}
         {/*) : null*/}
         {/*}*/}
-        {reformModal ? (
-          <Modal
-            maskClosable={false}
-            visible={reformModal}
-            title={<p>提示</p>}
-            width="1000px"
-            footer={this.foot1()}
-            onCancel={() => this.onReformCancel()}
-            // onOk={() => this.onOk(this.props.id)}
-            centered={true}
-            className={styles.indexdeepmodal}
-          >
-            <div className={styles.question}>问题是否已经整改完毕？</div>
-          </Modal>
-        ) : (
-          ''
-        )}
+        {/*{reformModal ? (*/}
+          {/*<Modal*/}
+            {/*maskClosable={false}*/}
+            {/*visible={reformModal}*/}
+            {/*title={<p>提示</p>}*/}
+            {/*width="1000px"*/}
+            {/*footer={this.foot1()}*/}
+            {/*onCancel={() => this.onReformCancel()}*/}
+            {/*// onOk={() => this.onOk(this.props.id)}*/}
+            {/*centered={true}*/}
+            {/*className={styles.indexdeepmodal}*/}
+          {/*>*/}
+            {/*<div className={styles.question}>问题是否已经整改完毕？</div>*/}
+          {/*</Modal>*/}
+        {/*) : (*/}
+          {/*''*/}
+        {/*)}*/}
       </div>
     );
   }

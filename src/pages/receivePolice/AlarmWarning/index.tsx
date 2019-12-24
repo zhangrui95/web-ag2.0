@@ -337,7 +337,7 @@ export default class Index extends PureComponent {
     return current && current.valueOf() > Date.now();
   };
   // 请求当前数据的详情（提醒弹窗中的回显数据从此处获取）
-  thisNewDetails = res => {
+  thisNewDetails = (res,type) => {
     this.props.dispatch({
       type: 'policeData/policeDetailFetch',
       payload: {
@@ -348,6 +348,110 @@ export default class Index extends PureComponent {
           this.setState({
             policeDetails: data,
           });
+          let detail=(<Row style={{ lineHeight: '50px',paddingLeft:66 }}>
+            <Col span={8}>接警人：{data && data.jjr ? data.jjr : ''}</Col>
+            <Col span={8}>管辖单位：
+              <Tooltip
+                title={
+                  data &&
+                  data.jjdw_mc &&
+                  data.jjdw_mc.length > 12
+                    ? data.jjdw_mc
+                    : null
+                }
+              >
+                {data && data.jjdw_mc
+                  ? data.jjdw_mc.length > 12
+                    ? data.jjdw_mc.substring(0, 12) + '...'
+                    : data.jjdw_mc
+                  : ''}
+              </Tooltip></Col>
+            <Col span={8}>接警信息：
+              <Tooltip
+                title={
+                  data &&
+                  data.jjnr &&
+                  data.jjnr.length > 12
+                    ? data.jjnr
+                    : null
+                }
+              >
+                {data && data.jjnr
+                  ? data.jjnr.length > 12
+                    ? data.jjnr.substring(0, 12) + '...'
+                    : data.jjnr
+                  : ''}
+              </Tooltip></Col>
+            <Col
+              span={8}>处警人：
+              {data && data.cjr
+                ? data.cjr
+                : ''}</Col>
+            <Col span={8}>处警单位：
+              <Tooltip
+                title={
+                  data &&
+                  data.cjdw &&
+                  data.cjdw.length > 12
+                    ? data.cjdw
+                    : null
+                }
+              >
+                {data && data.cjdw
+                  ? data.cjdw.length > 12
+                    ? data.cjdw.substring(0, 12) + '...'
+                    : data.cjdw
+                  : ''}
+              </Tooltip></Col>
+            <Col span={8}>处警信息：
+              <Tooltip
+                title={
+                  data &&
+                  data.cjqk &&
+                  data.cjqk.length > 12
+                    ? data.cjqk
+                    : null
+                }
+              >
+                {data && data.cjqk
+                  ? data.cjqk.length > 12
+                    ? data.cjqk.substring(0, 12) + '...'
+                    : data.cjqk
+                  : ''}
+              </Tooltip></Col>
+            <Col span={24}>处置结果：
+              <Tooltip
+                title={
+                  data &&
+                  data.czjg_mc &&
+                  data.czjg_mc.length > 12
+                    ? data.czjg_mc
+                    : null
+                }
+              >
+                {data && data.czjg_mc
+                  ? data.czjg_mc.length > 12
+                    ? data.czjg_mc.substring(0, 12) + '...'
+                    : data.czjg_mc
+                  : ''}
+              </Tooltip></Col>
+          </Row>)
+          if(type===3){
+            this.props.dispatch(
+              routerRedux.push({
+                pathname: '/ModuleAll/Remind',
+                query: { record: data,itemDetails:data,id: data && data.system_id ? data.system_id : '1',from:'警情预警',fromPath:'/receivePolice/AlarmWarning',detail,tab:'表格' },
+              }),
+            )
+          }
+          else if(type===2){
+            this.props.dispatch(
+              routerRedux.push({
+                pathname: '/ModuleAll/Share',
+                query: { record: data,id: data && data.id ? data.id : '1',from:'警情信息',tzlx:this.state.tzlx,fromPath:'/receivePolice/AlarmWarning',detail,tab:'表格',sx: (data.jjdw_mc ? data.jjdw_mc + '、' : '') + (data.yjlxmc ? data.yjlxmc + '、' : '') + (data.cjddsj ? data.cjddsj : '')},
+              }),
+            )
+          }
         }
       },
     });
@@ -378,99 +482,18 @@ export default class Index extends PureComponent {
       shareRecord: res,
     });
     if (type === 3) {
-      this.setState({
-        txVisible: true,
-        txItem: res,
-      });
-      this.thisNewDetails(res);
+      // this.setState({
+      //   txVisible: true,
+      //   txItem: res,
+      // });
+      this.thisNewDetails(res,type);
     }
     else if (type === 2) {
-      let detail=(<Row style={{ lineHeight: '50px',paddingLeft:66 }}>
-        <Col span={8}>接警人：{res && res.jjr ? res.jjr : ''}</Col>
-        <Col span={8}>管辖单位：
-          <Tooltip
-            title={
-              res &&
-              res.jjdw_mc &&
-              res.jjdw_mc.length > 12
-                ? res.jjdw_mc
-                : null
-            }
-          >
-            {res && res.jjdw_mc
-              ? res.jjdw_mc.length > 12
-                ? res.jjdw_mc.substring(0, 12) + '...'
-                : res.jjdw_mc
-              : ''}
-          </Tooltip></Col>
-        <Col span={8}>接警信息：
-          <Tooltip
-            title={
-              res &&
-              res.jjnr &&
-              res.jjnr.length > 12
-                ? res.jjnr
-                : null
-            }
-          >
-            {res && res.jjnr
-              ? res.jjnr.length > 12
-                ? res.jjnr.substring(0, 12) + '...'
-                : res.jjnr
-              : ''}
-          </Tooltip></Col>
-        <Col
-          span={8}>处警人：
-          {res && res.cjr
-            ? res.cjr
-            : ''}</Col>
-        <Col span={8}>处警单位：
-          <Tooltip
-            title={
-              res &&
-              res.cjdw &&
-              res.cjdw.length > 12
-                ? res.cjdw
-                : null
-            }
-          >
-            {res && res.cjdw
-              ? res.cjdw.length > 12
-                ? res.cjdw.substring(0, 12) + '...'
-                : res.cjdw
-              : ''}
-          </Tooltip></Col>
-        <Col span={8}>处警信息：
-          <Tooltip
-            title={
-              res &&
-              res.cjqk &&
-              res.cjqk.length > 12
-                ? res.cjqk
-                : null
-            }
-          >
-            {res && res.cjqk
-              ? res.cjqk.length > 12
-                ? res.cjqk.substring(0, 12) + '...'
-                : res.cjqk
-              : ''}
-          </Tooltip></Col>
-      </Row>)
-      this.props.dispatch(
-        routerRedux.push({
-          pathname: '/ModuleAll/Share',
-          query: { record: res,id: res && res.id ? res.id : '1',from:'警情信息',tzlx:'jqxx',fromPath:'/receivePolice/AlarmWarning',detail,tab:'表格',sx:
-            (res.jjdw_mc ? res.jjdw_mc + '、' : '') +
-            (res.yjlxmc ? res.yjlxmc + '、' : '') +
-            (res.cjddsj ? res.cjddsj : '')},
-        }),
-      )
       // this.setState({
       //   shareVisible: true,
       //   shareItem: res,
       // });
-      // this.thisNewDetails(res);
+      this.thisNewDetails(res,type);
     }
     else {
       this.props.dispatch({

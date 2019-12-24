@@ -80,6 +80,7 @@ export default class unitemDetail extends PureComponent {
         feedbackVisibleModal: false, // 反馈状态模态框
         feedbackButtonLoading: false, // 反馈按钮加载状态
         isDb: authorityIsTrue(userResourceCodeDb.item), // 督办权限
+        record:'', // 表格信息
     };
 
     componentDidMount() {
@@ -88,8 +89,11 @@ export default class unitemDetail extends PureComponent {
         res = JSON.parse(sessionStorage.getItem('query')).query.record;
       }
       const { location } = this.props;
-      if(location&&location.query&&location.query.record&&location.query.record.id&&location.query.record.system_id){
-        this.itemDetailDatas(location.query.record.id, location.query.record.system_id);
+      if(res&&res.id&&res.system_id){
+        this.itemDetailDatas(res.id, res.system_id);
+        this.setState({
+          record:res,
+        })
       }
     }
 
@@ -153,7 +157,7 @@ export default class unitemDetail extends PureComponent {
                   )
                 } else {
                     message.warning('该问题已反馈');
-                    this.itemDetailDatas(this.props.location.query.record.id, this.props.location.query.record.system_id);
+                    this.itemDetailDatas(this.state.record.id, this.state.record.system_id);
                 }
             },
         });
@@ -227,26 +231,41 @@ export default class unitemDetail extends PureComponent {
             },
         });
     };
-    foot1 = () => {
-        return (
-            <div>
-                <Button onClick={this.onReformCancel}>取消</Button>
-                <Button type="primary" onClick={this.handleReformSure}>整改完毕</Button>
-            </div>
-        );
-    };
-    onReformCancel = () => {
-        this.setState({
-            reformModal: false,
-        });
-    };
+    // foot1 = () => {
+    //     return (
+    //         <div>
+    //             <Button onClick={this.onReformCancel}>取消</Button>
+    //             <Button type="primary" onClick={this.handleReformSure}>整改完毕</Button>
+    //         </div>
+    //     );
+    // };
+    // onReformCancel = () => {
+    //     this.setState({
+    //         reformModal: false,
+    //     });
+    // };
 
     // 确认整改完成
     sureReform = (dbid, flag) => {
-        this.setState({
-            reformModal: !!flag,
-            dbid: dbid,
+      this.setState({
+        // reformModal: !!flag,
+        dbid: dbid,
+      },()=>{
+        let that = this;
+        confirm({
+          title: '确认整改完成?',
+          centered:true,
+          okText: '确认',
+          cancelText: '取消',
+          getContainer:document.getElementById('messageBox'),
+          onOk() {
+            ()=>that.handleReformSure()
+          },
+          onCancel() {
+            console.log('Cancel');
+          },
         });
+      });
     };
     handleReformSure = () => {
         this.setState({
@@ -259,7 +278,7 @@ export default class unitemDetail extends PureComponent {
                 id: this.state.dbid,
             },
             callback: () => {
-                const {query:{record}} = this.props.location;
+                const {record} = this.state;
                 message.success('督办整改完成');
                 this.caseDetailDatas(record.id, record.systemId);
                 if (this.props.refreshTable) {
@@ -719,21 +738,21 @@ export default class unitemDetail extends PureComponent {
                             {/*detailsData={this.state.UnitemDetail}*/}
                         {/*/>*/}
                     {/*) : null*/}
-                {reformModal ?
-                    <Modal
-                        maskClosable={false}
-                        visible={reformModal}
-                        title={<p>提示</p>}
-                        width='1000px'
-                        footer={this.foot1()}
-                        onCancel={() => this.onReformCancel()}
-                        // onOk={() => this.onOk(this.props.id)}
-                        className={styles.indexdeepmodal}
-                        centered={true}
-                    >
-                        <div className={styles.question}>问题是否已经整改完毕？</div>
-                    </Modal> : ''
-                }
+                {/*{reformModal ?*/}
+                    {/*<Modal*/}
+                        {/*maskClosable={false}*/}
+                        {/*visible={reformModal}*/}
+                        {/*title={<p>提示</p>}*/}
+                        {/*width='1000px'*/}
+                        {/*footer={this.foot1()}*/}
+                        {/*onCancel={() => this.onReformCancel()}*/}
+                        {/*// onOk={() => this.onOk(this.props.id)}*/}
+                        {/*className={styles.indexdeepmodal}*/}
+                        {/*centered={true}*/}
+                    {/*>*/}
+                        {/*<div className={styles.question}>问题是否已经整改完毕？</div>*/}
+                    {/*</Modal> : ''*/}
+                {/*}*/}
             </div>
         );
     }

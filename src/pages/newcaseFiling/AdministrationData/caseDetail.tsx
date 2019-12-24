@@ -48,6 +48,10 @@ import {routerRedux} from "dva/router";
 export default class caseDetail extends PureComponent {
   constructor(props) {
     super(props);
+    let res = props.location.query.record;
+    if(typeof res == 'string'){
+      res = JSON.parse(sessionStorage.getItem('query')).query.record;
+    }
     this.state = {
       current: 1, // 涉案物品默认在第一页
       jqcurrent: 1, // 警情信息默认在第一页
@@ -78,7 +82,7 @@ export default class caseDetail extends PureComponent {
       personList: [],
       lx: '案件信息',
       sx: '',
-      sfgz: props.location&&props.location.query&&props.location.query.record&&props.location.query.record.sfgz===0?props.location.query.record.sfgz:'',
+      sfgz: res&&res.sfgz===0?res.sfgz:'',
 
       policevisible: false,
       resvisible: false,
@@ -94,10 +98,6 @@ export default class caseDetail extends PureComponent {
   }
 
   componentDidMount() {
-    let res = this.props.location.query.record;
-    if(typeof res == 'string'){
-      res = JSON.parse(sessionStorage.getItem('query')).query.record;
-    }
     if (
       (this.props.location &&
         this.props.location.query &&
@@ -529,13 +529,21 @@ export default class caseDetail extends PureComponent {
       message.warning('暂无涉案人员在区情况');
     }
   };
-  seePolice = (flag, list) => {
-    if (list.length === 1) {
-      this.jqDetail(list[0]);
-    } else {
-      this.setState({
-        policevisible: !!flag,
-      });
+  seePolice = (flag, caseDetails) => {
+    if(caseDetails&&caseDetails.jqxxList){
+      if (caseDetails.jqxxList.length === 1) {
+        this.jqDetail(caseDetails.jqxxList[0]);
+      } else {
+        this.props.dispatch(
+          routerRedux.push({
+            pathname: '/ModuleAll/RelevancePolice',
+            query: { record: caseDetails.jqxx,id: caseDetails && caseDetails.id ? caseDetails.id : '1', },
+          }),
+        )
+        // this.setState({
+        //   policevisible: !!flag,
+        // });
+      }
     }
   };
 
@@ -545,52 +553,65 @@ export default class caseDetail extends PureComponent {
     });
   };
 
-  seeRes = (flag, list) => {
-    if (list.length === 1) {
-      this.openItemsDetail(list[0]);
+  seeRes = (flag, caseDetails) => {
+    if (caseDetails&&caseDetails.sawpList.length === 1) {
+      this.openItemsDetail(caseDetails.sawpList[0]);
     } else {
-      this.setState({
-        resvisible: !!flag,
-      });
+      this.props.dispatch(
+        routerRedux.push({
+          pathname: '/ModuleAll/RelevanceRes',
+          query: { record: caseDetails.sawpList,id: caseDetails && caseDetails.id ? caseDetails.id : '1', },
+        }),
+      )
     }
   };
 
-  ResCancel = e => {
-    this.setState({
-      resvisible: false,
-    });
-  };
 
-  seeArea = (flag, list) => {
-    if (list.length === 1) {
-      this.IntoArea(list[0]);
+  // ResCancel = e => {
+  //   this.setState({
+  //     resvisible: false,
+  //   });
+  // };
+
+  seeArea = (flag, caseDetails) => {
+    if (caseDetails&&caseDetails.rqxyrList.length === 1) {
+      this.IntoArea(caseDetails.rqxyrList[0]);
     } else {
-      this.setState({
-        areavisible: !!flag,
-      });
+      this.props.dispatch(
+        routerRedux.push({
+          pathname: '/ModuleAll/RelevancePerson',
+          query: {record: caseDetails.rqxyrList, id: caseDetails && caseDetails.id ? caseDetails.id : '1',},
+        }),
+      )
     }
   };
 
-  AreaCancel = e => {
-    this.setState({
-      areavisible: false,
-    });
-  };
-  seeDossier = (flag, list) => {
-    if (list.length === 1) {
-      this.IntoDossierDetail(list[0]);
+  // AreaCancel = e => {
+  //   this.setState({
+  //     areavisible: false,
+  //   });
+  // };
+  seeDossier = (flag, caseDetails) => {
+    if (caseDetails&&caseDetails.jzList.length === 1) {
+      this.IntoDossierDetail(caseDetails.jzList[0]);
     } else {
-      this.setState({
-        Dossiervisible: !!flag,
-      });
+      this.props.dispatch(
+        routerRedux.push({
+          pathname: '/ModuleAll/RelevanceDossier',
+          query: { record: caseDetails.jzList,id: caseDetails && caseDetails.id ? caseDetails.id : '1', },
+        }),
+      )
+      // this.setState({
+      //   Dossiervisible: !!flag,
+      // });
     }
   };
 
-  DossierCancel = e => {
-    this.setState({
-      Dossiervisible: false,
-    });
-  };
+  // DossierCancel = e => {
+  //   this.setState({
+  //     Dossiervisible: false,
+  //   });
+  // };
   IntoDossierDetail = record => {
     this.props.dispatch(
       routerRedux.push({
@@ -623,7 +644,7 @@ export default class caseDetail extends PureComponent {
           {caseDetails && caseDetails.jqxxList && caseDetails.jqxxList.length > 0 ? (
             <Button
               type="primary"
-              onClick={() => this.seePolice(true, caseDetails.jqxxList)}
+              onClick={() => this.seePolice(true, caseDetails)}
               style={{ marginRight: 70, background: dark ? 'linear-gradient(to right, #0084FA, #03A3FF)' : 'linear-gradient(to right, #3D63D1, #333FE4)' }}
             >
               查看关联警情
@@ -634,7 +655,7 @@ export default class caseDetail extends PureComponent {
           {caseDetails && caseDetails.rqxyrList && caseDetails.rqxyrList.length > 0 ? (
             <Button
               type="primary"
-              onClick={() => this.seeArea(true, caseDetails.rqxyrList)}
+              onClick={() => this.seeArea(true, caseDetails)}
               style={{ marginRight: 16, background: dark ? 'linear-gradient(to right, #0084FA, #03A3FF)' : 'linear-gradient(to right, #3D63D1, #333FE4)' }}
             >
               查看涉案人员在区情况
@@ -645,7 +666,7 @@ export default class caseDetail extends PureComponent {
           {caseDetails && caseDetails.sawpList && caseDetails.sawpList.length > 0 ? (
             <Button
               type="primary"
-              onClick={() => this.seeRes(true, caseDetails.sawpList)}
+              onClick={() => this.seeRes(true, caseDetails)}
               style={{ marginRight: 16 }}
             >
               查看涉案物品
@@ -656,7 +677,7 @@ export default class caseDetail extends PureComponent {
           {caseDetails && caseDetails.jzList && caseDetails.jzList.length > 0 ? (
             <Button
               type="primary"
-              onClick={() => this.seeDossier(true, caseDetails.jzList)}
+              onClick={() => this.seeDossier(true, caseDetails)}
               style={{ marginRight: 16 }}
             >
               查看卷宗信息
@@ -1114,137 +1135,137 @@ export default class caseDetail extends PureComponent {
         {/*/>*/}
         {/*: ''*/}
         {/*}*/}
-        <ShareModal
-          detail={detail}
-          shareVisible={this.state.shareVisible}
-          handleCancel={this.handleCancel}
-          shareItem={this.state.shareItem}
-          personList={this.state.personList}
-          lx={this.state.lx}
-          tzlx={this.props.tzlx}
-          sx={this.state.sx}
-        />
+        {/*<ShareModal*/}
+          {/*detail={detail}*/}
+          {/*shareVisible={this.state.shareVisible}*/}
+          {/*handleCancel={this.handleCancel}*/}
+          {/*shareItem={this.state.shareItem}*/}
+          {/*personList={this.state.personList}*/}
+          {/*lx={this.state.lx}*/}
+          {/*tzlx={this.props.tzlx}*/}
+          {/*sx={this.state.sx}*/}
+        {/*/>*/}
 
-        <Modal
-          visible={policevisible}
-          title="警情信息"
-          centered
-          className={styles.policeModal}
-          width={1000}
-          maskClosable={false}
-          onCancel={this.policeCancel}
-          footer={null}
-          getContainer={() => document.getElementById('caseDetail')}
-        >
-          <Table
-            size={'middle'}
-            style={{ backgroundColor: '#fff' }}
-            pagination={{
-              pageSize: 3,
-              showTotal: (total, range) => (
-                <div style={{ position: 'absolute', left: '12px' }}>
-                  共 {total} 条记录 第 {this.state.jqcurrent} / {Math.ceil(total / 3)} 页
-                </div>
-              ),
-              onChange: page => {
-                this.setState({ jqcurrent: page });
-              },
-            }}
-            dataSource={caseDetails ? caseDetails.jqxxList : []}
-            columns={JqColumns}
-            locale={{ emptyText: <Empty image={noList} description={'暂无数据'} /> }}
-          />
-        </Modal>
-        <Modal
-          visible={resvisible}
-          title="涉案物品信息"
-          centered
-          className={styles.policeModal}
-          width={1000}
-          maskClosable={false}
-          onCancel={this.ResCancel}
-          footer={null}
-          getContainer={() => document.getElementById('caseDetail')}
-        >
-          <Table
-            size={'middle'}
-            style={{ backgroundColor: '#fff' }}
-            pagination={{
-              pageSize: 3,
-              showTotal: (total, range) => (
-                <div style={{ position: 'absolute', left: '12px' }}>
-                  共 {total} 条记录 第 {this.state.wpcurrent} / {Math.ceil(total / 3)} 页
-                </div>
-              ),
-              onChange: page => {
-                this.setState({ wpcurrent: page });
-              },
-            }}
-            dataSource={caseDetails ? caseDetails.sawpList : []}
-            columns={WpColumns}
-            locale={{ emptyText: <Empty image={noList} description={'暂无数据'} /> }}
-          />
-        </Modal>
-        <Modal
-          visible={areavisible}
-          title="选择查看人员在区情况"
-          centered
-          className={styles.policeModal}
-          width={1000}
-          maskClosable={false}
-          onCancel={this.AreaCancel}
-          footer={null}
-          getContainer={() => document.getElementById('caseDetail')}
-        >
-          <Table
-            size={'middle'}
-            style={{ backgroundColor: '#fff' }}
-            pagination={{
-              pageSize: 3,
-              showTotal: (total, range) => (
-                <div style={{ position: 'absolute', left: '12px' }}>
-                  共 {total} 条记录 第 {this.state.areacurrent} / {Math.ceil(total / 3)} 页
-                </div>
-              ),
-              onChange: page => {
-                this.setState({ areacurrent: page });
-              },
-            }}
-            dataSource={caseDetails ? caseDetails.rqxyrList : []}
-            columns={AreaColumns}
-            locale={{ emptyText: <Empty image={noList} description={'暂无数据'} /> }}
-          />
-        </Modal>
-        <Modal
-          visible={Dossiervisible}
-          title="选择查看卷宗"
-          centered
-          className={styles.policeModal}
-          width={1000}
-          maskClosable={false}
-          onCancel={this.DossierCancel}
-          footer={null}
-          getContainer={() => document.getElementById('caseDetail')}
-        >
-          <Table
-            size={'middle'}
-            style={{ backgroundColor: '#fff' }}
-            pagination={{
-              pageSize: 3,
-              showTotal: (total, range) => (
-                <div style={{ position: 'absolute', left: '12px' }}>
-                  共 {total} 条记录 第 {this.state.dossiercurrent} / {Math.ceil(total / 3)} 页
-                </div>
-              ),
-              onChange: page => {
-                this.setState({ dossiercurrent: page });
-              },
-            }}
-            dataSource={caseDetails ? caseDetails.jzList : []}
-            columns={DossierColumns}
-            locale={{ emptyText: <Empty image={noList} description={'暂无数据'} /> }}
-          />
-        </Modal>
+        {/*<Modal*/}
+          {/*visible={policevisible}*/}
+          {/*title="警情信息"*/}
+          {/*centered*/}
+          {/*className={styles.policeModal}*/}
+          {/*width={1000}*/}
+          {/*maskClosable={false}*/}
+          {/*onCancel={this.policeCancel}*/}
+          {/*footer={null}*/}
+          {/*getContainer={() => document.getElementById('caseDetail')}*/}
+        {/*>*/}
+          {/*<Table*/}
+            {/*size={'middle'}*/}
+            {/*style={{ backgroundColor: '#fff' }}*/}
+            {/*pagination={{*/}
+              {/*pageSize: 3,*/}
+              {/*showTotal: (total, range) => (*/}
+                {/*<div style={{ position: 'absolute', left: '12px' }}>*/}
+                  {/*共 {total} 条记录 第 {this.state.jqcurrent} / {Math.ceil(total / 3)} 页*/}
+                {/*</div>*/}
+              {/*),*/}
+              {/*onChange: page => {*/}
+                {/*this.setState({ jqcurrent: page });*/}
+              {/*},*/}
+            {/*}}*/}
+            {/*dataSource={caseDetails ? caseDetails.jqxxList : []}*/}
+            {/*columns={JqColumns}*/}
+            {/*locale={{ emptyText: <Empty image={noList} description={'暂无数据'} /> }}*/}
+          {/*/>*/}
+        {/*</Modal>*/}
+        {/*<Modal*/}
+          {/*visible={resvisible}*/}
+          {/*title="涉案物品信息"*/}
+          {/*centered*/}
+          {/*className={styles.policeModal}*/}
+          {/*width={1000}*/}
+          {/*maskClosable={false}*/}
+          {/*onCancel={this.ResCancel}*/}
+          {/*footer={null}*/}
+          {/*getContainer={() => document.getElementById('caseDetail')}*/}
+        {/*>*/}
+          {/*<Table*/}
+            {/*size={'middle'}*/}
+            {/*style={{ backgroundColor: '#fff' }}*/}
+            {/*pagination={{*/}
+              {/*pageSize: 3,*/}
+              {/*showTotal: (total, range) => (*/}
+                {/*<div style={{ position: 'absolute', left: '12px' }}>*/}
+                  {/*共 {total} 条记录 第 {this.state.wpcurrent} / {Math.ceil(total / 3)} 页*/}
+                {/*</div>*/}
+              {/*),*/}
+              {/*onChange: page => {*/}
+                {/*this.setState({ wpcurrent: page });*/}
+              {/*},*/}
+            {/*}}*/}
+            {/*dataSource={caseDetails ? caseDetails.sawpList : []}*/}
+            {/*columns={WpColumns}*/}
+            {/*locale={{ emptyText: <Empty image={noList} description={'暂无数据'} /> }}*/}
+          {/*/>*/}
+        {/*</Modal>*/}
+        {/*<Modal*/}
+          {/*visible={areavisible}*/}
+          {/*title="选择查看人员在区情况"*/}
+          {/*centered*/}
+          {/*className={styles.policeModal}*/}
+          {/*width={1000}*/}
+          {/*maskClosable={false}*/}
+          {/*onCancel={this.AreaCancel}*/}
+          {/*footer={null}*/}
+          {/*getContainer={() => document.getElementById('caseDetail')}*/}
+        {/*>*/}
+          {/*<Table*/}
+            {/*size={'middle'}*/}
+            {/*style={{ backgroundColor: '#fff' }}*/}
+            {/*pagination={{*/}
+              {/*pageSize: 3,*/}
+              {/*showTotal: (total, range) => (*/}
+                {/*<div style={{ position: 'absolute', left: '12px' }}>*/}
+                  {/*共 {total} 条记录 第 {this.state.areacurrent} / {Math.ceil(total / 3)} 页*/}
+                {/*</div>*/}
+              {/*),*/}
+              {/*onChange: page => {*/}
+                {/*this.setState({ areacurrent: page });*/}
+              {/*},*/}
+            {/*}}*/}
+            {/*dataSource={caseDetails ? caseDetails.rqxyrList : []}*/}
+            {/*columns={AreaColumns}*/}
+            {/*locale={{ emptyText: <Empty image={noList} description={'暂无数据'} /> }}*/}
+          {/*/>*/}
+        {/*</Modal>*/}
+        {/*<Modal*/}
+          {/*visible={Dossiervisible}*/}
+          {/*title="选择查看卷宗"*/}
+          {/*centered*/}
+          {/*className={styles.policeModal}*/}
+          {/*width={1000}*/}
+          {/*maskClosable={false}*/}
+          {/*onCancel={this.DossierCancel}*/}
+          {/*footer={null}*/}
+          {/*getContainer={() => document.getElementById('caseDetail')}*/}
+        {/*>*/}
+          {/*<Table*/}
+            {/*size={'middle'}*/}
+            {/*style={{ backgroundColor: '#fff' }}*/}
+            {/*pagination={{*/}
+              {/*pageSize: 3,*/}
+              {/*showTotal: (total, range) => (*/}
+                {/*<div style={{ position: 'absolute', left: '12px' }}>*/}
+                  {/*共 {total} 条记录 第 {this.state.dossiercurrent} / {Math.ceil(total / 3)} 页*/}
+                {/*</div>*/}
+              {/*),*/}
+              {/*onChange: page => {*/}
+                {/*this.setState({ dossiercurrent: page });*/}
+              {/*},*/}
+            {/*}}*/}
+            {/*dataSource={caseDetails ? caseDetails.jzList : []}*/}
+            {/*columns={DossierColumns}*/}
+            {/*locale={{ emptyText: <Empty image={noList} description={'暂无数据'} /> }}*/}
+          {/*/>*/}
+        {/*</Modal>*/}
         {/*{*/}
         {/*makeTableModalVisible ? (*/}
         {/*<MakeTableModal*/}

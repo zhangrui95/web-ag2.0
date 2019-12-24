@@ -93,7 +93,7 @@ class RenderTable extends PureComponent {
           this.props.dispatch(
             routerRedux.push({
               pathname: '/ModuleAll/Supervise',
-              query: { record:searchDetail,searchDetail:record,id: searchDetail && searchDetail.id ? searchDetail.id : '1',from:'督办',tzlx:'baqwt',fromPath:'/articlesInvolved/ArticlesPolice',tab:'表格'},
+              query: { record:searchDetail,searchDetail:record,id: searchDetail && searchDetail.id ? searchDetail.id : '1',from:'督办',tzlx:this.state.tzlx,fromPath:'/articlesInvolved/ArticlesPolice',tab:'表格'},
             }),
           )
           // this.props.openModal(this.state.searchDetail, flag, record);
@@ -195,7 +195,7 @@ class RenderTable extends PureComponent {
       this.props.dispatch(
         routerRedux.push({
           pathname: '/ModuleAll/Share',
-          query: { record: res,id: res && res.system_id ? res.system_id : '1',from:'物品信息',tzlx:'wpxx',fromPath:'/articlesInvolved/ArticlesPolice',detail,tab:'表格',sx:
+          query: { record: res,id: res && res.system_id ? res.system_id : '1',from:this.state.lx,tzlx:this.state.tzlx,fromPath:'/articlesInvolved/ArticlesPolice',detail,tab:'表格',sx:
             (res.ajmc ? res.ajmc + '、' : '') +
             (res.wpmc ? res.wpmc + '、' : '') +
             (res.wpzt ? res.wpzt + '、' : '') +

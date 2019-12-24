@@ -90,7 +90,8 @@ export default class uncaseDetail extends PureComponent {
     btnType: '',
     feedbackVisibleModal: false, // 反馈状态模态框
     feedbackButtonLoading: false, // 反馈按钮加载状态
-    isDb: authorityIsTrue(userResourceCodeDb.zfba_xs), //
+    isDb: authorityIsTrue(userResourceCodeDb.zfba_xs), // 督办权限判断
+    record:'', // 表格信息
   };
 
   componentDidMount() {
@@ -101,14 +102,17 @@ export default class uncaseDetail extends PureComponent {
     if (
       this.props.location &&
       this.props.location.query &&
-      this.props.location.query.record &&
+      res &&
       this.props.location.query.id &&
-      this.props.location.query.record.system_id
+      res.system_id
     ) {
       this.caseDetailDatas(
         this.props.location.query.id,
-        this.props.location.query.record.system_id,
+        res.system_id,
       );
+      this.setState({
+        record:res,
+      })
     }
   }
 
@@ -140,7 +144,7 @@ export default class uncaseDetail extends PureComponent {
             dbzt: data.list[0].dbzt,
           });
           message.warning('该问题已督办或暂无反馈信息');
-          this.caseDetailDatas( this.props.location.query.id, this.props.location.query.record.system_id);
+          this.caseDetailDatas( this.props.location.query.id, this.state.record.system_id);
         }
       },
     });
@@ -171,7 +175,7 @@ export default class uncaseDetail extends PureComponent {
           // });
         } else {
           message.warning('该问题已反馈');
-          this.caseDetailDatas(this.props.location.query.id, this.props.location.query.record.system_id);
+          this.caseDetailDatas(this.props.location.query.id, this.state.record.system_id);
         }
       },
     });
@@ -245,7 +249,7 @@ export default class uncaseDetail extends PureComponent {
       loading1: false,
       loading2: false,
     });
-    this.caseDetailDatas(this.props.location.query.id, this.props.location.query.record.system_id);
+    this.caseDetailDatas(this.props.location.query.id, this.state.record.system_id);
     if (this.props.refreshTable) {
       this.props.refreshTable();
     }
@@ -265,7 +269,7 @@ export default class uncaseDetail extends PureComponent {
         });
         if (data) {
           message.success('反馈保存完成');
-          this.caseDetailDatas(this.props.location.query.id, this.props.location.query.record.system_id);
+          this.caseDetailDatas(this.props.location.query.id, this.state.record.system_id);
           if (this.props.refreshTable) {
             this.props.refreshTable();
           }
@@ -275,27 +279,42 @@ export default class uncaseDetail extends PureComponent {
       },
     });
   };
-  foot1 = () => {
-    return (
-      <div>
-        <Button onClick={this.onReformCancel}>取消</Button>
-        <Button type="primary" onClick={this.handleReformSure}>
-          整改完毕
-        </Button>
-      </div>
-    );
-  };
-  onReformCancel = () => {
-    this.setState({
-      reformModal: false,
-    });
-  };
+  // foot1 = () => {
+  //   return (
+  //     <div>
+  //       <Button onClick={this.onReformCancel}>取消</Button>
+  //       <Button type="primary" onClick={this.handleReformSure}>
+  //         整改完毕
+  //       </Button>
+  //     </div>
+  //   );
+  // };
+  // onReformCancel = () => {
+  //   this.setState({
+  //     reformModal: false,
+  //   });
+  // };
 
   // 确认整改完成
   sureReform = (dbid, flag) => {
     this.setState({
-      reformModal: !!flag,
+      // reformModal: !!flag,
       dbid: dbid,
+    },()=>{
+      let that = this;
+      confirm({
+        title: '确认整改完成?',
+        centered:true,
+        okText: '确认',
+        cancelText: '取消',
+        getContainer:document.getElementById('messageBox'),
+        onOk() {
+          ()=>that.handleReformSure()
+        },
+        onCancel() {
+          console.log('Cancel');
+        },
+      });
     });
   };
   handleReformSure = () => {
@@ -310,8 +329,8 @@ export default class uncaseDetail extends PureComponent {
       },
       callback: () => {
         message.info('督办整改完成');
-        if (this.props.location && this.props.location.query && this.props.location.query.record) {
-          this.caseDetailDatas(this.props.location.query.id, this.props.location.query.record.system_id);
+        if (this.props.location && this.props.location.query && this.state.record) {
+          this.caseDetailDatas(this.props.location.query.id, this.state.record.system_id);
         }
 
         // if (this.props.refreshTable) {
@@ -978,23 +997,23 @@ export default class uncaseDetail extends PureComponent {
             {/*detailsData={this.state.unCaseDetailData}*/}
           {/*/>*/}
         {/*) : null}*/}
-        {reformModal ? (
-          <Modal
-            maskClosable={false}
-            visible={reformModal}
-            title={<p>提示</p>}
-            width="1000px"
-            footer={this.foot1()}
-            onCancel={() => this.onReformCancel()}
-            // onOk={() => this.onOk(this.props.id)}
-            centered={true}
-            className={styles.indexdeepmodal}
-          >
-            <div className={styles.question}>问题是否已经整改完毕？</div>
-          </Modal>
-        ) : (
-          ''
-        )}
+        {/*{reformModal ? (*/}
+          {/*<Modal*/}
+            {/*maskClosable={false}*/}
+            {/*visible={reformModal}*/}
+            {/*title={<p>提示</p>}*/}
+            {/*width="1000px"*/}
+            {/*footer={this.foot1()}*/}
+            {/*onCancel={() => this.onReformCancel()}*/}
+            {/*// onOk={() => this.onOk(this.props.id)}*/}
+            {/*centered={true}*/}
+            {/*className={styles.indexdeepmodal}*/}
+          {/*>*/}
+            {/*<div className={styles.question}>问题是否已经整改完毕？</div>*/}
+          {/*</Modal>*/}
+        {/*) : (*/}
+          {/*''*/}
+        {/*)}*/}
       </div>
     );
   }

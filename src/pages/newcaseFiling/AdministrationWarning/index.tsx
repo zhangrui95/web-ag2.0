@@ -349,13 +349,13 @@ export default class Index extends PureComponent {
           let detail = (
             <Row style={{ lineHeight:'55px',paddingLeft:66 }}>
               <Col span={12}>案件名称：<Tooltip
-                title={this.state.xzcaseDetails && this.state.xzcaseDetails.ajmc && this.state.xzcaseDetails.ajmc.length > 20 ? this.state.xzcaseDetails.ajmc : null}>{this.state.xzcaseDetails && this.state.xzcaseDetails.ajmc ? this.state.xzcaseDetails.ajmc.length > 20 ? this.state.xzcaseDetails.ajmc.substring(0, 20) + '...' : this.state.xzcaseDetails.ajmc : ''}</Tooltip></Col>
+                title={data && data.ajmc && data.ajmc.length > 20 ? data.ajmc : null}>{data && data.ajmc ? data.ajmc.length > 20 ? data.ajmc.substring(0, 20) + '...' : data.ajmc : ''}</Tooltip></Col>
               <Col span={12}>受理单位：<Tooltip
-                title={this.state.xzcaseDetails && this.state.xzcaseDetails.sldw_name && this.state.xzcaseDetails.sldw_name.length > 20 ? this.state.xzcaseDetails.sldw_name : null}>{this.state.xzcaseDetails && this.state.xzcaseDetails.sldw_name ? this.state.xzcaseDetails.sldw_name.length > 20 ? this.state.xzcaseDetails.sldw_name.substring(0, 20) + '...' : this.state.xzcaseDetails.sldw_name : ''}</Tooltip></Col>
+                title={data && data.sldw_name && data.sldw_name.length > 20 ? data.sldw_name : null}>{data && data.sldw_name ? data.sldw_name.length > 20 ? data.sldw_name.substring(0, 20) + '...' : data.sldw_name : ''}</Tooltip></Col>
               <Col
-                span={12}>案件状态：{this.state.xzcaseDetails && this.state.xzcaseDetails.ajzt ? this.state.xzcaseDetails.ajzt : ''}</Col>
+                span={12}>案件状态：{data && data.ajzt ? data.ajzt : ''}</Col>
               <Col
-                span={12}>办案民警：{this.state.xzcaseDetails && this.state.xzcaseDetails.bar_name ? this.state.xzcaseDetails.bar_name : ''}</Col>
+                span={12}>办案民警：{data && data.bar_name ? data.bar_name : ''}</Col>
             </Row>
           );
           if(type===3){
@@ -370,7 +370,7 @@ export default class Index extends PureComponent {
             this.props.dispatch(
               routerRedux.push({
                 pathname: '/ModuleAll/Share',
-                query: { record: res,id: res && res.system_id ? res.system_id : '1',from:'案件预警',tzlx:this.state.tzlx,fromPath:'/newcaseFiling/caseWarning/AdministrationWarning',detail,tab:'表格',sx: (res.ajmc ? res.ajmc + '、' : '') + (res.yjlxmc ? res.yjlxmc + '、' : '') + (res.yjsj ? res.yjsj : '')},
+                query: { record: res,id: res && res.system_id ? res.system_id : '1',from:this.state.lx,tzlx:this.state.tzlx,fromPath:'/newcaseFiling/caseWarning/AdministrationWarning',detail,tab:'表格',sx: (res.ajmc ? res.ajmc + '、' : '') + (res.yjlxmc ? res.yjlxmc + '、' : '') + (res.yjsj ? res.yjsj : '')},
               }),
             )
           }

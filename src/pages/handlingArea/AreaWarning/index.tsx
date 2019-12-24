@@ -346,7 +346,7 @@ export default class Index extends PureComponent {
     // Can not select days before today and today
     return current && current.valueOf() > Date.now();
   };
-  thisNewDetails = res => {
+  thisNewDetails = (res,type) => {
     this.props.dispatch({
       type: 'areaData/areaDetailFetch',
       payload: {
@@ -357,6 +357,98 @@ export default class Index extends PureComponent {
           this.setState({
             areaDetails: data,
           });
+          let detail=(
+            <Row style={{lineHeight:'50px',paddingLeft:66}}>
+              <Col span={6}>
+                人员姓名：
+                {data && data.name ? data.name : ''}
+              </Col>
+              <Col span={6}>
+                性别：
+                {data && data.sex ? data.sex : ''}
+              </Col>
+              <Col span={6}>
+                人员类型：
+                {data && data.salx_mc
+                  ? data.salx_mc
+                  : ''}
+              </Col>
+              <Col span={6}>
+                强制措施：
+                <Tooltip
+                  title={
+                    data &&
+                    data.qzcs &&
+                    data.qzcs.length > 7
+                      ? data.qzcs
+                      : null
+                  }
+                >
+                  {data && data.qzcs
+                    ? data.qzcs.length > 7
+                      ? data.qzcs.substring(0, 7) + '...'
+                      : data.qzcs
+                    : ''}
+                </Tooltip>
+              </Col>
+              <Col span={6}>
+                案件名称：
+                <Tooltip
+                  title={
+                    data &&
+                    data.ajmc &&
+                    data.ajmc.length > 7
+                      ? data.ajmc
+                      : null
+                  }
+                >
+                  {data && data.ajmc
+                    ? data.ajmc.length > 7
+                      ? data.ajmc.substring(0, 7) + '...'
+                      : data.ajmc
+                    : ''}
+                </Tooltip>
+              </Col>
+              <Col span={6}>
+                办案单位：
+                <Tooltip
+                  title={
+                    data &&
+                    data.badw &&
+                    data.badw.length > 7
+                      ? data.badw
+                      : null
+                  }
+                >
+                  {data && data.badw
+                    ? data.badw.length > 7
+                      ? data.badw.substring(0, 7) + '...'
+                      : data.badw
+                    : ''}
+                </Tooltip>
+              </Col>
+              <Col span={12}>
+                办案民警：
+                {data && data.bar ? data.bar : ''}
+              </Col>
+            </Row>
+          )
+          if(type===2){
+            this.props.dispatch(
+              routerRedux.push({
+                pathname: '/ModuleAll/Share',
+                query: { record: res,id: res && res.system_id ? res.system_id : '1',from:this.state.lx,tzlx:this.state.tzlx,fromPath:'/handlingArea/AreaWarning',detail,tab:'表格',sx: (res.baqmc ? res.baqmc + '、' : '') + (res.ajmc ? res.ajmc + '、' : '') + (res.yjlxmc ? res.yjlxmc + '、' : '') + (res.yjsj ? res.yjsj : '') },
+              }),
+            )
+          }
+          else if(type===3){
+            this.props.dispatch(
+              routerRedux.push({
+                pathname: '/ModuleAll/Remind',
+                query: { record: res,itemDetails:data,id: res && res.system_id ? res.system_id : '1',from:this.state.lx,fromPath:'/handlingArea/AreaWarning',detail,tab:'表格' },
+              }),
+            )
+          }
         }
       },
     });
@@ -388,103 +480,17 @@ export default class Index extends PureComponent {
       shareRecord: res,
     });
     if (type === 3) {
-      this.setState({
-        txVisible: true,
-        txItem: res,
-      });
-      this.thisNewDetails(res);
+      // this.setState({
+      //   txVisible: true,
+      //   txItem: res,
+      // });
+      this.thisNewDetails(res,type);
     } else if (type === 2) {
-      let detail=(
-        <Row style={{lineHeight:'50px',paddingLeft:66}}>
-          <Col span={6}>
-            人员姓名：
-            {this.state.areaDetails && this.state.areaDetails.name ? this.state.areaDetails.name : ''}
-          </Col>
-          <Col span={6}>
-            性别：
-            {this.state.areaDetails && this.state.areaDetails.sex ? this.state.areaDetails.sex : ''}
-          </Col>
-          <Col span={6}>
-            人员类型：
-            {this.state.areaDetails && this.state.areaDetails.salx_mc
-              ? this.state.areaDetails.salx_mc
-              : ''}
-          </Col>
-          <Col span={6}>
-            强制措施：
-            <Tooltip
-              title={
-                this.state.areaDetails &&
-                this.state.areaDetails.qzcs &&
-                this.state.areaDetails.qzcs.length > 7
-                  ? this.state.areaDetails.qzcs
-                  : null
-              }
-            >
-              {this.state.areaDetails && this.state.areaDetails.qzcs
-                ? this.state.areaDetails.qzcs.length > 7
-                  ? this.state.areaDetails.qzcs.substring(0, 7) + '...'
-                  : this.state.areaDetails.qzcs
-                : ''}
-            </Tooltip>
-          </Col>
-          <Col span={6}>
-            案件名称：
-            <Tooltip
-              title={
-                this.state.areaDetails &&
-                this.state.areaDetails.ajmc &&
-                this.state.areaDetails.ajmc.length > 7
-                  ? this.state.areaDetails.ajmc
-                  : null
-              }
-            >
-              {this.state.areaDetails && this.state.areaDetails.ajmc
-                ? this.state.areaDetails.ajmc.length > 7
-                  ? this.state.areaDetails.ajmc.substring(0, 7) + '...'
-                  : this.state.areaDetails.ajmc
-                : ''}
-            </Tooltip>
-          </Col>
-          <Col span={6}>
-            办案单位：
-            <Tooltip
-              title={
-                this.state.areaDetails &&
-                this.state.areaDetails.badw &&
-                this.state.areaDetails.badw.length > 7
-                  ? this.state.areaDetails.badw
-                  : null
-              }
-            >
-              {this.state.areaDetails && this.state.areaDetails.badw
-                ? this.state.areaDetails.badw.length > 7
-                  ? this.state.areaDetails.badw.substring(0, 7) + '...'
-                  : this.state.areaDetails.badw
-                : ''}
-            </Tooltip>
-          </Col>
-          <Col span={12}>
-            办案民警：
-            {this.state.areaDetails && this.state.areaDetails.bar ? this.state.areaDetails.bar : ''}
-          </Col>
-        </Row>
-      )
-      this.props.dispatch(
-        routerRedux.push({
-          pathname: '/ModuleAll/Share',
-          query: { record: res,id: res && res.id ? res.id : '1',from:'人员信息',tzlx:'baqyj',fromPath:'/handlingArea/AreaWarning',detail,tab:'表格',sx:
-            (res.baqmc ? res.baqmc + '、' : '') +
-            (res.ajmc ? res.ajmc + '、' : '') +
-            (res.yjlxmc ? res.yjlxmc + '、' : '') +
-            (res.yjsj ? res.yjsj : ''),},
-        }),
-      )
       // this.setState({
       //   shareVisible: true,
       //   shareItem: res,
       // });
-      // this.thisNewDetails(res);
+      this.thisNewDetails(res,type);
     } else {
       this.props.dispatch({
         type: 'share/getMyFollow',

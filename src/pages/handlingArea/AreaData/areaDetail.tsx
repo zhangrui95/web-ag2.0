@@ -69,6 +69,10 @@ const { Option } = Select;
 export default class areaDetail extends PureComponent {
   constructor(props) {
     super(props);
+    let res = props.location.query.record;
+    if(typeof res == 'string'){
+      res = JSON.parse(sessionStorage.getItem('query')).query.record;
+    }
     this.state = {
       ajWoodCurrent: 1, // 涉案物品信息默认在第一页
       ssWoodCurrent: 1, // 随身信息默认在第一页
@@ -102,41 +106,31 @@ export default class areaDetail extends PureComponent {
       lx: '人员信息',
       tzlx: 'baqxx',
       sx: '',
-      sfgz: props.location&&props.location.query&&props.location.query.record&&props.location.query.record.sfgz===0?props.location.query.record.sfgz:'',
+      sfgz: res&&res.sfgz===0?res.sfgz:'',
 
       IsSure: false, // 确认详情是否加载成功
-      isDb: authorityIsTrue(userResourceCodeDb.baq), // 督办权限
+      isDb: authorityIsTrue(userResourceCodeDb.baq), // 督办权限\
+      record:res, // 表格信息
     };
   }
 
   componentDidMount() {
-    let res = this.props.location.query.record;
-    if(typeof res == 'string'){
-      res = JSON.parse(sessionStorage.getItem('query')).query.record;
-    }
     if (
         (this.props.location &&
       this.props.location.query &&
-      this.props.location.query.record &&
-      this.props.location.query.record.system_id) || this.props.location.query.id
+      this.state.record &&
+      this.state.record.system_id) || this.props.location.query.id
     ) {
-      this.getDetail(this.props.location.query.record.system_id ? this.props.location.query.record.system_id : this.props.location.query.id);
+      this.getDetail(this.state.record.system_id ? this.state.record.system_id : this.props.location.query.id);
     }
     this.getDictype();
   }
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps) {
-      if (nextProps.location.query&&nextProps.location.query.record&&nextProps.location.query.record.sfgz !== null && nextProps.location.query.record.sfgz !== this.props.location.query.record.sfgz) {
-        this.setState({
-          sfgz: nextProps.location.query.record.sfgz,
-        });
-      }
-      else if(nextProps.history.location.query.isReset&&nextProps.history.location.pathname==='/receivePolice/AlarmData/policeDetail'){
+      if(nextProps&&nextProps.history.location.query.isReset&&nextProps.history.location.pathname==='/receivePolice/AlarmData/policeDetail'){
         this.getDetail(this.props.location.query.id);
         this.props.history.replace(nextProps.history.location.pathname+'?id='+nextProps.location.query.id+'&record='+nextProps.location.query.record);
       }
-    }
   }
 
 
@@ -429,8 +423,7 @@ export default class areaDetail extends PureComponent {
   };
 
   Topdetail() {
-    const { areaDetails, sfgz, isDb } = this.state;
-    const { query:{record} } = this.props.location;
+    const { areaDetails, sfgz, isDb, record } = this.state;
       let dark = this.props.global&&this.props.global.dark;
     return (
       <div style={{ backgroundColor:  dark ? '#252C3C' : '#fff', margin: '16px 0' }}>

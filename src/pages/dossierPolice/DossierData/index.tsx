@@ -464,15 +464,15 @@ export default class Index extends PureComponent {
           let detail = (
             <Row style={{ lineHeight:'55px',paddingLeft:66 }}>
               <Col span={8}>卷宗名称：<Tooltip
-                title={this.state.shareRecord && this.state.shareRecord.jzmc && this.state.shareRecord.jzmc.length > 12 ? this.state.shareRecord.jzmc : null}>{this.state.shareRecord && this.state.shareRecord.jzmc ? this.state.shareRecord.jzmc.length > 12 ? this.state.shareRecord.jzmc.substring(0, 12) + '...' : this.state.shareRecord.jzmc : ''}</Tooltip></Col>
+                title={res && res.jzmc && res.jzmc.length > 12 ? res.jzmc : null}>{res && res.jzmc ? res.jzmc.length > 12 ? res.jzmc.substring(0, 12) + '...' : res.jzmc : ''}</Tooltip></Col>
               <Col
-                span={8}>卷宗类别：{this.state.shareRecord && this.state.shareRecord.jzlb_mc ? this.state.shareRecord.jzlb_mc : ''}</Col>
+                span={8}>卷宗类别：{res && res.jzlb_mc ? res.jzlb_mc : ''}</Col>
               <Col span={8}>卷宗描述：<Tooltip
-                title={this.state.shareRecord && this.state.shareRecord.jzms && this.state.shareRecord.jzms.length > 12 ? this.state.shareRecord.jzms : null}>{this.state.shareRecord && this.state.shareRecord.jzms ? this.state.shareRecord.jzms.length > 12 ? this.state.shareRecord.jzms.substring(0, 12) + '...' : this.state.shareRecord.jzms : ''}</Tooltip></Col>
+                title={res && res.jzms && res.jzms.length > 12 ? res.jzms : null}>{res && res.jzms ? res.jzms.length > 12 ? res.jzms.substring(0, 12) + '...' : res.jzms : ''}</Tooltip></Col>
               <Col span={8}>案件名称：<Tooltip
-                title={this.state.shareRecord && this.state.shareRecord.ajmc && this.state.shareRecord.ajmc.length > 12 ? this.state.shareRecord.ajmc : null}>{this.state.shareRecord && this.state.shareRecord.ajmc ? this.state.shareRecord.ajmc.length > 12 ? this.state.shareRecord.ajmc.substring(0, 12) + '...' : this.state.shareRecord.ajmc : ''}</Tooltip></Col>
+                title={res && res.ajmc && res.ajmc.length > 12 ? res.ajmc : null}>{res && res.ajmc ? res.ajmc.length > 12 ? res.ajmc.substring(0, 12) + '...' : res.ajmc : ''}</Tooltip></Col>
               <Col
-                span={8}>案件状态：{this.state.shareRecord && this.state.shareRecord.ajzt ? this.state.shareRecord.ajzt : ''}</Col>
+                span={8}>案件状态：{res && res.ajzt ? res.ajzt : ''}</Col>
             </Row>
           );
           this.props.dispatch(

@@ -43,6 +43,10 @@ import {routerRedux} from "dva/router";
 export default class DossierDetail extends PureComponent {
     constructor(props) {
         super(props);
+      let res = props.location.query.record;
+      if(typeof res == 'string'){
+        res = JSON.parse(sessionStorage.getItem('query')).query.record;
+      }
         this.state = {
             DossierDetailData: '',
 
@@ -70,17 +74,14 @@ export default class DossierDetail extends PureComponent {
             casevisible: false,
             IsSure: false, // 确认详情是否加载成功
             isDb: authorityIsTrue(userResourceCodeDb.dossier), // 督办权限
+            record:res,
         };
     }
 
     componentDidMount() {
-      let res = this.props.location.query.record;
-      if(typeof res == 'string'){
-        res = JSON.parse(sessionStorage.getItem('query')).query.record;
-      }
       const {location} = this.props;
-      if(location && location.query && location.query.record && (location.query.record.dossier_id||location.query.record.system_id||location.query.id)){
-        this.getDossierDetail(location.query.record.dossier_id||location.query.record.system_id||location.query.id);
+      if(location && location.query && location.query && location.query.id){
+        this.getDossierDetail(location.query.id);
       }
     }
 
@@ -93,16 +94,9 @@ export default class DossierDetail extends PureComponent {
         //         this.getDossierDetail(this.props.id);
         //     }
         // }
-        if (nextProps) {
-          if (nextProps.location.query&&nextProps.location.query.record&&nextProps.location.query.record.sfgz !== null && nextProps.location.query.record.sfgz !== this.props.location.query.record.sfgz) {
-            this.setState({
-              sfgz: nextProps.location.query.record.sfgz,
-            });
-          }
-          else if(nextProps.history.location.query.isReset&&nextProps.history.location.pathname==='/receivePolice/AlarmData/policeDetail'){
+        if(nextProps&&nextProps.history.location.query.isReset&&nextProps.history.location.pathname==='/receivePolice/AlarmData/policeDetail'){
             this.getDossierDetail(this.props.location.query.id);
             this.props.history.replace(nextProps.history.location.pathname+'?id='+nextProps.location.query.id+'&record='+nextProps.location.query.record);
-          }
         }
     }
 

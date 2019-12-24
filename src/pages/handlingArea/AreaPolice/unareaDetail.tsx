@@ -99,6 +99,7 @@ export default class unareaDetail extends PureComponent {
     feedbackVisibleModal: false, // 反馈状态模态框
     feedbackButtonLoading: false, // 反馈按钮加载状态
     isDb: authorityIsTrue(userResourceCodeDb.baq), // 督办权限
+    record:'', // 表格信息
   };
 
   componentDidMount() {
@@ -110,17 +111,19 @@ export default class unareaDetail extends PureComponent {
     if (
       location &&
       location.query &&
-      location.query.record &&
-      location.query.record.id &&
-      location.query.record.baq_id
+      res &&
+      res.id &&
+      res.baq_id
     ) {
-      this.getDetail(location.query.record.id, location.query.record.baq_id);
+      this.getDetail(res.id, res.baq_id);
+      this.setState({
+        record:res,
+      })
     }
   }
 
   // 再次督办
   onceSupervise = (flag, UnareaDetail) => {
-    console.log('UnareaDetail',UnareaDetail);
     // this.props.supervise(flag,wtlx,zrdw,zrdwId,zrr,wtid,zjhm)
     const {
       wtlx,
@@ -144,7 +147,7 @@ export default class unareaDetail extends PureComponent {
           this.props.dispatch(
             routerRedux.push({
               pathname: '/ModuleAll/Supervise',
-              query: { record: UnareaDetail,id: UnareaDetail && UnareaDetail.wtid ? UnareaDetail.wtid : '1',from:'办案区详情问题判定',tzlx:'baqxx',fromPath:'/handlingArea/AreaPolice/UnareaDetail',wtflId:'230204',wtflMc:'办案区详情' },
+              query: { record: UnareaDetail,id: UnareaDetail && UnareaDetail.wtid ? UnareaDetail.wtid : '1',from:'办案区详情问题判定',tzlx:'baqwt',fromPath:'/handlingArea/AreaPolice/UnareaDetail',wtflId:'230204',wtflMc:'办案区详情' },
             }),
           )
           // this.setState({
@@ -158,7 +161,7 @@ export default class unareaDetail extends PureComponent {
           // });
         } else {
           message.warning('该问题已督办或暂无反馈信息');
-          this.getDetail(this.props.location.query.record.id, this.props.location.query.record.baq_id);
+          this.getDetail(this.state.record.id, this.state.record.baq_id);
         }
       },
     });
@@ -180,7 +183,7 @@ export default class unareaDetail extends PureComponent {
           this.props.dispatch(
             routerRedux.push({
               pathname: '/ModuleAll/FeedBack',
-              query: { record:unCaseDetailData,id: unCaseDetailData && unCaseDetailData.wtid ? unCaseDetailData.wtid : '1',from:'反馈',tzlx:'jqxx',fromPath:'/handlingArea/AreaPolice/UnareaDetail',tab:'详情'},
+              query: { record:unCaseDetailData,id: unCaseDetailData && unCaseDetailData.wtid ? unCaseDetailData.wtid : '1',tzlx:'baqwt',fromPath:'/handlingArea/AreaPolice/UnareaDetail',tab:'详情'},
             }),
           )
           // this.setState({
@@ -188,7 +191,7 @@ export default class unareaDetail extends PureComponent {
           // });
         } else {
           message.warning('该问题已反馈');
-          this.getDetail(this.props.location.query.record.id, this.props.location.query.record.system_id);
+          this.getDetail(this.state.record.id, this.state.record.system_id);
         }
       },
     });
@@ -385,7 +388,7 @@ export default class unareaDetail extends PureComponent {
         id: this.state.dbid,
       },
       callback: () => {
-        const {query:{record}} = this.props.location;
+        const {record} = this.state;
         message.success('督办整改完成');
         this.getDetail(record.id, record.baqId);
         if (this.props.refreshTable) {

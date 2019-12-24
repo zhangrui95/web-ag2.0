@@ -81,6 +81,8 @@ class RenderTable extends PureComponent {
                 title={res && res.cjdw_mc && res.cjdw_mc.length > 12 ? res.cjdw_mc : null}>{res && res.cjdw_mc ? res.cjdw_mc.length > 12 ? res.cjdw_mc.substring(0, 12) + '...' : res.cjdw_mc : ''}</Tooltip></Col>
               <Col span={8}>处警信息：<Tooltip
                 title={res && res.cjqk && res.cjqk.length > 12 ? res.cjqk : null}>{res && res.cjqk ? res.cjqk.length > 12 ? res.cjqk.substring(0, 12) + '...' : res.cjqk : ''}</Tooltip></Col>
+              <Col span={24}>处置结果：<Tooltip
+                title={res && res.czjg_mc && res.czjg_mc.length > 12 ? res.czjg_mc : null}>{res && res.czjg_mc ? res.czjg_mc.length > 12 ? res.czjg_mc.substring(0, 12) + '...' : res.czjg_mc : ''}</Tooltip></Col>
             </Row>
           )
           this.props.dispatch(

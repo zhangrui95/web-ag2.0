@@ -72,6 +72,10 @@ import {routerRedux} from "dva/router";
 export default class caseDetail extends PureComponent {
   constructor(props) {
     super(props);
+    let res = props.location.query.record;
+    if(typeof res == 'string'){
+      res = JSON.parse(sessionStorage.getItem('query')).query.record;
+    }
     this.state = {
       current: 1, // 涉案物品默认在第一页
       jqcurrent: 1, // 警情信息默认在第一页
@@ -101,9 +105,10 @@ export default class caseDetail extends PureComponent {
       shareVisible: false,
       shareItem: null,
       personList: [],
+      tzlx: window.configUrl.is_area === '1' ? 'xsajxx' + 3 : 'xsajxx' + this.props.ssmk,
       lx: '案件信息',
       sx: '',
-      sfgz: props.location&&props.location.query&&props.location.query.record&&props.location.query.record.sfgz===0?props.location.query.record.sfgz:'',
+      sfgz: res&&res.sfgz===0?res.sfgz:'',
       policevisible: false,
       resvisible: false,
       areavisible: false,
@@ -114,14 +119,11 @@ export default class caseDetail extends PureComponent {
       makeTableModalVisible: false, // 制表model
       isZb: authorityIsTrue(userAuthorityCode.ZHIBIAO), // 制表权限
       isTb: authorityIsTrue(userAuthorityCode.TUIBU), // 退补权限
+      record:res, // 表格信息record,
     };
   }
 
   componentDidMount() {
-    let res = this.props.location.query.record;
-    if(typeof res == 'string'){
-      res = JSON.parse(sessionStorage.getItem('query')).query.record;
-    }
     // this.caseDetailDatas(this.props.id);
     if (
       this.props.location &&
@@ -129,7 +131,7 @@ export default class caseDetail extends PureComponent {
       this.props.location.query.record &&
         (this.props.location.query.record.system_id || this.props.location.query.id)
     ) {
-      this.caseDetailDatas(this.props.location.query.record.system_id || this.props.location.query.id);
+      this.caseDetailDatas(this.props.location.query.id);
     }
   }
 
@@ -141,18 +143,14 @@ export default class caseDetail extends PureComponent {
     //     });
     //   }
     // }
-    if (nextProps) {
-      if (nextProps.location.query&&nextProps.location.query.record&&nextProps.location.query.record.sfgz&&nextProps.location.query.record.sfgz !== null && nextProps.location.query.record.sfgz !== this.props.location.query.record.sfgz) {
-        this.setState({
-          sfgz: nextProps.location.query.record.sfgz,
-        });
-      }
-      else if(nextProps.history.location.query.isReset&&nextProps.history.location.pathname==='/newcaseFiling/caseData/CriminalData'){
+
+      if(nextProps&&nextProps.history.location.query.isReset&&nextProps.history.location.pathname==='/newcaseFiling/caseData/CriminalData'){
         this.caseDetailDatas(this.props.location.query.id);
         this.props.history.replace(nextProps.history.location.pathname+'?id='+nextProps.location.query.id+'&record='+nextProps.location.query.record);
       }
+
     }
-  }
+
 
   // 修改改变模态框状态 通过id 获取数据
   caseDetailDatas = id => {
@@ -240,7 +238,7 @@ export default class caseDetail extends PureComponent {
       this.props.dispatch(
         routerRedux.push({
           pathname: '/ModuleAll/Share',
-          query: { record: res,id: res && res.system_id ? res.system_id : '1',from:'案件信息',tzlx:'xsajxx2',fromPath:'/newcaseFiling/caseData/CriminalData/caseDetail',detail,tab:'详情',sx:(res.ajmc ? res.ajmc + '、' : '') + (res.schj ? res.schj : '') },
+          query: { record: res,id: res && res.system_id ? res.system_id : '1',from:this.state.lx,tzlx:this.state.tzlx,fromPath:'/newcaseFiling/caseData/CriminalData/caseDetail',detail,tab:'详情',sx:(res.ajmc ? res.ajmc + '、' : '') + (res.schj ? res.schj : '') },
         }),
       )
       // this.setState({
@@ -381,14 +379,8 @@ export default class caseDetail extends PureComponent {
   };
 
   Topdetail() {
-    const { caseDetails, sfgz, isDb, isZb, isTb } = this.state;
-    const { query:{record} } = this.props.location;
-    if(typeof record == 'string'){
-        record = JSON.parse(sessionStorage.getItem('query')).query.record;
-    }
+    const { caseDetails, sfgz, isDb, isZb, isTb, record } = this.state;
     let dark = this.props.global&&this.props.global.dark;
-
-
     return (
       <div style={{ backgroundColor: dark ? '#252C3C' : '#fff', margin: '16px 0' }}>
         <Row gutter={{ md: 8, lg: 24, xl: 48 }}>
@@ -558,18 +550,20 @@ export default class caseDetail extends PureComponent {
     }
   };
   seePolice = (flag, caseDetails) => {
-    if (caseDetails.jqxx.length === 1) {
-      this.jqDetail(caseDetails.jqxx[0]);
-    } else {
-      this.props.dispatch(
-        routerRedux.push({
-          pathname: '/ModuleAll/RelevancePolice',
-          query: { record: caseDetails.jqxx,id: caseDetails && caseDetails.id ? caseDetails.id : '1', },
-        }),
-      )
-      // this.setState({
-      //   policevisible: !!flag,
-      // });
+    if(caseDetails&&caseDetails.jqxxList){
+      if (caseDetails.jqxxList.length === 1) {
+        this.jqDetail(caseDetails.jqxxList[0]);
+      } else {
+        this.props.dispatch(
+          routerRedux.push({
+            pathname: '/ModuleAll/RelevancePolice',
+            query: { record: caseDetails.jqxx,id: caseDetails && caseDetails.id ? caseDetails.id : '1', },
+          }),
+        )
+        // this.setState({
+        //   policevisible: !!flag,
+        // });
+      }
     }
   };
 
@@ -580,18 +574,20 @@ export default class caseDetail extends PureComponent {
   // };
 
   seeRes = (flag, caseDetails) => {
-    if (caseDetails.sawpList.length === 1) {
-      this.openItemsDetail(caseDetails.sawpList[0]);
-    } else {
-      this.props.dispatch(
-        routerRedux.push({
-          pathname: '/ModuleAll/RelevanceRes',
-          query: { record: caseDetails.sawpList,id: caseDetails && caseDetails.id ? caseDetails.id : '1', },
-        }),
-      )
-      // this.setState({
-      //   resvisible: !!flag,
-      // });
+    if(caseDetails&&caseDetails.sawpList) {
+      if (caseDetails && caseDetails.sawpList.length === 1) {
+        this.openItemsDetail(caseDetails.sawpList[0]);
+      } else {
+        this.props.dispatch(
+          routerRedux.push({
+            pathname: '/ModuleAll/RelevanceRes',
+            query: {record: caseDetails.sawpList, id: caseDetails && caseDetails.id ? caseDetails.id : '1',},
+          }),
+        )
+        // this.setState({
+        //   resvisible: !!flag,
+        // });
+      }
     }
   };
 
@@ -602,18 +598,20 @@ export default class caseDetail extends PureComponent {
   // };
 
   seeArea = (flag, caseDetails) => {
-    if (caseDetails.rqxyrList.length === 1) {
-      this.IntoArea(caseDetails.rqxyrList[0]);
-    } else {
-      this.props.dispatch(
-        routerRedux.push({
-          pathname: '/ModuleAll/RelevancePerson',
-          query: { record: caseDetails.rqxyrList,id: caseDetails && caseDetails.id ? caseDetails.id : '1', },
-        }),
-      )
-      // this.setState({
-      //   areavisible: !!flag,
-      // });
+    if(caseDetails&&caseDetails.rqxyrList) {
+      if (caseDetails && caseDetails.rqxyrList.length === 1) {
+        this.IntoArea(caseDetails.rqxyrList[0]);
+      } else {
+        this.props.dispatch(
+          routerRedux.push({
+            pathname: '/ModuleAll/RelevancePerson',
+            query: {record: caseDetails.rqxyrList, id: caseDetails && caseDetails.id ? caseDetails.id : '1',},
+          }),
+        )
+        // this.setState({
+        //   areavisible: !!flag,
+        // });
+      }
     }
   };
 
@@ -624,18 +622,20 @@ export default class caseDetail extends PureComponent {
   // };
 
   seeDossier = (flag, caseDetails) => {
-    if (caseDetails.jzList.length === 1) {
-      this.IntoDossierDetail(caseDetails.jzList[0]);
-    } else {
-      this.props.dispatch(
-        routerRedux.push({
-          pathname: '/ModuleAll/RelevanceDossier',
-          query: { record: caseDetails.jzList,id: caseDetails && caseDetails.id ? caseDetails.id : '1', },
-        }),
-      )
-      // this.setState({
-      //   Dossiervisible: !!flag,
-      // });
+    if(caseDetails&&caseDetails.jzList) {
+      if (caseDetails && caseDetails.jzList.length === 1) {
+        this.IntoDossierDetail(caseDetails.jzList[0]);
+      } else {
+        this.props.dispatch(
+          routerRedux.push({
+            pathname: '/ModuleAll/RelevanceDossier',
+            query: {record: caseDetails.jzList, id: caseDetails && caseDetails.id ? caseDetails.id : '1',},
+          }),
+        )
+        // this.setState({
+        //   Dossiervisible: !!flag,
+        // });
+      }
     }
   };
 
@@ -735,7 +735,7 @@ export default class caseDetail extends PureComponent {
           {caseDetails && caseDetails.rqxyrList && caseDetails.rqxyrList.length > 0 ? (
             <Button
               // type="primary"
-              onClick={() => this.seeArea(true, caseDetails.rqxyrList)}
+              onClick={() => this.seeArea(true, caseDetails)}
               style={{ marginRight: 16, background: dark ? 'linear-gradient(to right, #0084FA, #03A3FF)' : 'linear-gradient(to right, #3D63D1, #333FE4)' }}
             >
               查看涉案人员在区情况
@@ -746,7 +746,7 @@ export default class caseDetail extends PureComponent {
           {caseDetails && caseDetails.sawpList && caseDetails.sawpList.length > 0 ? (
             <Button
               // type="primary"
-              onClick={() => this.seeRes(true, caseDetails.sawpList)}
+              onClick={() => this.seeRes(true, caseDetails)}
               style={{ marginRight: 16, background: 'linear-gradient(to right, #0084FA, #03A3FF)' }}
             >
               查看涉案物品
@@ -757,7 +757,7 @@ export default class caseDetail extends PureComponent {
           {caseDetails && caseDetails.jzList && caseDetails.jzList.length > 0 ? (
             <Button
               // type="primary"
-              onClick={() => this.seeDossier(true, caseDetails.jzList)}
+              onClick={() => this.seeDossier(true, caseDetails)}
               style={{ marginRight: 16, background: 'linear-gradient(to right, #0084FA, #03A3FF)' }}
             >
               查看卷宗信息

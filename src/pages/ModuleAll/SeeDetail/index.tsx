@@ -162,7 +162,7 @@ export default class DbHistory extends PureComponent {
                 </div>
               </Col>
             </Row>
-            {Isdetail === '发起督办' ? record.fileList.length > 0 ?
+            {Isdetail === '发起督办' ? record&&record.fileList&&record.fileList.length > 0 ?
               <Row gutter={{ md: 8, lg: 24, xl: 48 }}>
                 <Col md={24} sm={24}>
                   <div className={styles.dbrzfj}>
@@ -174,7 +174,7 @@ export default class DbHistory extends PureComponent {
                 </Col>
               </Row> : ''
               :
-              record.fileListOfFk.length > 0 ?
+              record&&record.fileListOfFk&&record.fileListOfFk.length > 0 ?
                 <Row gutter={{ md: 8, lg: 24, xl: 48 }}>
                   <Col md={24} sm={24}>
                     <div className={styles.dbrzfj}>

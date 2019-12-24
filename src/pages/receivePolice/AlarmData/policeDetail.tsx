@@ -205,8 +205,6 @@ export default class policeDetail extends PureComponent {
   };
   // 分享和关注（2为分享，1为关注）
   saveShare = (policeDetails, res, type, ajGzLx) => {
-    console.log('res',res);
-    console.log('policeDetails',policeDetails)
     this.setState({
       sx:
         (policeDetails.jjdw ? policeDetails.jjdw + '、' : '') +

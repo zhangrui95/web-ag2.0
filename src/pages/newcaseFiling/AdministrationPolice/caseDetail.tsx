@@ -110,6 +110,7 @@ export default class caseDetail extends PureComponent {
     feedbackVisibleModal: false, // 反馈状态模态框
     feedbackButtonLoading: false, // 反馈按钮加载状态
     isDb: authorityIsTrue(userResourceCodeDb.zfba_xz), // 督办权限
+    record:'', // 表格信息
   };
 
   componentDidMount() {
@@ -121,12 +122,15 @@ export default class caseDetail extends PureComponent {
       this.props.location &&
       this.props.location.query.record &&
       this.props.location.query.id &&
-      this.props.location.query.record.system_id
+      res.system_id
     ) {
       this.caseDetailDatas(
         this.props.location.query.id,
-        this.props.location.query.record.system_id,
+        res.system_id,
       );
+      this.setState({
+        record:res,
+      })
     }
   }
 
@@ -207,7 +211,7 @@ export default class caseDetail extends PureComponent {
           } else {
             message.warning('该问题已督办或暂无反馈信息');
             // this.caseDetailDatas(this.props.id, this.props.systemId);
-            this.caseDetailDatas(this.props.location.query.id, this.props.location.query.record.system_id);
+            this.caseDetailDatas(this.props.location.query.id, this.state.record.system_id);
           }
         } else {
           message.info('该数据无法督办');
@@ -240,7 +244,7 @@ export default class caseDetail extends PureComponent {
           // });
         } else {
           message.warning('该问题已反馈');
-          this.caseDetailDatas(this.props.location.query.id, this.props.location.query.record.system_id);
+          this.caseDetailDatas(this.props.location.query.id, this.state.record.system_id);
         }
       },
     });
@@ -548,8 +552,23 @@ export default class caseDetail extends PureComponent {
   // 确认整改完成
   sureReform = (dbid, flag) => {
     this.setState({
-      reformModal: !!flag,
+      // reformModal: !!flag,
       dbid: dbid,
+    },()=>{
+      let that = this;
+      confirm({
+        title: '确认整改完成?',
+        centered:true,
+        okText: '确认',
+        cancelText: '取消',
+        getContainer:document.getElementById('messageBox'),
+        onOk() {
+          ()=>that.handleReformSure()
+        },
+        onCancel() {
+          console.log('Cancel');
+        },
+      });
     });
   };
   handleReformSure = () => {
@@ -564,8 +583,8 @@ export default class caseDetail extends PureComponent {
       },
       callback: () => {
         message.info('督办整改完成');
-        if (this.props.location && this.props.location.query && this.props.location.query.record) {
-          this.caseDetailDatas(this.props.location.query.id, this.props.location.query.record.system_id);
+        if (this.props.location && this.props.location.query && this.state.record) {
+          this.caseDetailDatas(this.props.location.query.id, this.state.record.system_id);
         }
         // this.caseDetailDatas(this.props.id, this.props.systemId);
         // if (this.props.refreshTable) {
