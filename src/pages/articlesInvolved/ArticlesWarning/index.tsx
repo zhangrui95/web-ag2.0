@@ -69,7 +69,7 @@ export default class Index extends PureComponent {
         lx: '物品信息',
         tzlx: 'wpyj',
         sx: '',
-        current: '',
+        current: 1,
         AnnouncementVisible: false,
         RzList: [],
         itemDetails: '',
@@ -279,7 +279,7 @@ export default class Index extends PureComponent {
         this.props.dispatch(
             routerRedux.push({
                 pathname: '/articlesInvolved/ArticlesData/itemDetail',
-                query: {record: record, id: record && record.system_id ? record.system_id : '1'},
+                query: {record: record, id: record && record.system_id ? record.system_id : '1',movefrom:'物品预警',current:this.state.current},
             }),
         )
         // const divs = (

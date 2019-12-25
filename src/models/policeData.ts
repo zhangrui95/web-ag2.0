@@ -25,6 +25,7 @@ export default {
         handlePoliceSituationHadResult: [],
         acceptPoliceSituation: [],
         handlePoliceSituation: [],
+        handlePoliceSfgz:null,
     },
 
     effects: {
@@ -57,6 +58,10 @@ export default {
             yield put({
                 type: 'policeDetailSearch',
                 payload: response && response.error === null ? response.data : {},
+            });
+            yield put({
+              type: 'policeSfgz',
+              payload: response && response.error === null ? response.data.sfgz : {},
             });
             yield put({
                 type: 'changeLoading',
@@ -206,6 +211,12 @@ export default {
                 ...state,
                 handlePoliceSituation: action.payload,
             };
+        },
+        policeSfgz(state, action) {
+          return {
+            ...state,
+            handlePoliceSfgz: action.payload,
+          };
         },
     },
 };

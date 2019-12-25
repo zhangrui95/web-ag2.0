@@ -17,6 +17,7 @@ export default {
         allXzCaseProgressData: [],
         allXzTypeCaseData: [],
         administrativePenalty: [],
+        handleXzCaseSfgz:null,
     },
 
     effects: {
@@ -41,6 +42,10 @@ export default {
             yield put({
                 type: 'caseDetail',
                 payload: response && response.error === null ? response.data : [],
+            });
+            yield put({
+              type: 'xzCaseSfgz',
+              payload: response && response.error === null ? response.data.sfgz : {},
             });
             if (callback && response && !response.error && response.data) {
                 callback(response.data);
@@ -125,6 +130,12 @@ export default {
                 ...state,
                 administrativePenalty: action.payload,
             };
+        },
+        xzCaseSfgz(state, action) {
+          return {
+            ...state,
+            handleXzCaseSfgz: action.payload,
+          };
         },
     },
 };

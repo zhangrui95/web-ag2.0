@@ -14,7 +14,7 @@ export default {
             list: [],
             page: {},
         },
-        detailData: {
+        DossierDetailData: {
             list: [],
             page: {},
         },
@@ -24,6 +24,7 @@ export default {
         returnJzqsdetailData: [],
         returnSynchronizationData: [],
         returnElectronicPageListData: [],
+        handleDossierSfgz:null,
     },
 
     effects: {
@@ -42,6 +43,10 @@ export default {
             yield put({
                 type: 'setDossierDetail',
                 payload: response && response.error === null ? response.data : [],
+            });
+            yield put({
+              type: 'dossierSfgz',
+              payload: response && response.error === null ? response.data.sfgz : {},
             });
             if (callback && response && response.error === null && response.data) {
                 callback(response.data);
@@ -134,7 +139,7 @@ export default {
         setDossierDetail(state, action) {
             return {
                 ...state,
-                detailData: action.payload,
+                DossierDetailData: action.payload,
             };
         },
         setDossierDataView(state, action) {
@@ -172,6 +177,12 @@ export default {
                 ...state,
                 returnElectronicPageListData: action.payload,
             };
+        },
+        dossierSfgz(state, action) {
+          return {
+            ...state,
+            handleDossierSfgz: action.payload,
+          };
         },
     },
 };

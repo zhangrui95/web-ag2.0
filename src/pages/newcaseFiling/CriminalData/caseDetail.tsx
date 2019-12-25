@@ -60,6 +60,7 @@ import CaseModalStep from '../../../components/Common/CaseModalStep';
 import { authorityIsTrue } from '../../../utils/authority';
 import { routerRedux } from 'dva/router';
 // import MakeTableModal from '../../../components/CaseRealData/MakeTableModal';
+import {tableList} from "@/utils/utils";
 
 @connect(({ CaseData, loading, MySuperviseData, AllDetail, global }) => ({
   CaseData,
@@ -124,15 +125,15 @@ export default class caseDetail extends PureComponent {
   }
 
   componentDidMount() {
-    // this.caseDetailDatas(this.props.id);
-    if (
-      this.props.location &&
-      this.props.location.query &&
-      this.props.location.query.record &&
-      (this.props.location.query.record.system_id || this.props.location.query.id)
-    ) {
-      this.caseDetailDatas(this.props.location.query.id);
-    }
+    this.caseDetailDatas(this.props.location.query.id);
+    // if (
+    //   this.props.location &&
+    //   this.props.location.query &&
+    //   this.props.location.query.record &&
+    //   (this.props.location.query.record.system_id || this.props.location.query.id)
+    // ) {
+    //   this.caseDetailDatas(this.props.location.query.id);
+    // }
   }
 
   componentWillReceiveProps(nextProps) {
@@ -147,7 +148,7 @@ export default class caseDetail extends PureComponent {
     if (
       nextProps &&
       nextProps.history.location.query.isReset &&
-      nextProps.history.location.pathname === '/newcaseFiling/caseData/CriminalData'
+      nextProps.history.location.pathname === '/newcaseFiling/caseData/CriminalData/caseDetail'
     ) {
       this.caseDetailDatas(this.props.location.query.id);
       this.props.history.replace(
@@ -232,6 +233,26 @@ export default class caseDetail extends PureComponent {
     });
     this.caseDetailDatas(this.props.id);
   };
+  refreshTable = (param) => {
+    if(param.movefrom === '刑事案件常规'){
+      this.props.dispatch({
+        type: 'CaseData/caseFetch',
+        payload: {
+          currentPage: param.current,
+          showCount: tableList,
+          pd: {},
+        },
+      });
+    }
+    else if(param.movefrom === '刑事案件预警'){
+      this.props.dispatch({
+        type: 'EarlyWarning/getList',
+        payload: {
+          pd: { yj_type: 'xsaj' }
+        },
+      });
+    }
+  }
   // 分享和关注（2为分享，1为关注）
   saveShare = (caseDetails, res, type, ajGzLx) => {
     this.setState({
@@ -282,17 +303,18 @@ export default class caseDetail extends PureComponent {
           callback: res => {
             if (!res.error) {
               message.success('关注成功');
-              if (this.props.getCase) {
-                this.props.getCase({ currentPage: this.props.current, pd: this.props.formValues });
-              }
-              this.setState(
-                {
-                  sfgz: 1,
-                },
-                () => {
+              this.refreshTable(this.props.location.query);
+              // if (this.props.getCase) {
+              //   this.props.getCase({ currentPage: this.props.current, pd: this.props.formValues });
+              // }
+              // this.setState(
+              //   {
+              //     sfgz: 1,
+              //   },
+              //   () => {
                   this.caseDetailDatas(caseDetails.system_id);
-                },
-              );
+              //   },
+              // );
             }
           },
         });
@@ -314,17 +336,18 @@ export default class caseDetail extends PureComponent {
         callback: res => {
           if (!res.error) {
             message.success('取消关注成功');
-            if (this.props.getCase) {
-              this.props.getCase({ currentPage: this.props.current, pd: this.props.formValues });
-            }
-            this.setState(
-              {
-                sfgz: 0,
-              },
-              () => {
+            this.refreshTable(this.props.location.query);
+            // if (this.props.getCase) {
+            //   this.props.getCase({ currentPage: this.props.current, pd: this.props.formValues });
+            // }
+            // this.setState(
+            //   {
+            //     sfgz: 0,
+            //   },
+            //   () => {
                 this.caseDetailDatas(caseDetails.system_id);
-              },
-            );
+            //   },
+            // );
           }
         },
       });
@@ -398,7 +421,8 @@ export default class caseDetail extends PureComponent {
   };
 
   Topdetail() {
-    const { caseDetails, sfgz, isDb, isZb, isTb, record } = this.state;
+    const { sfgz, isDb, isZb, isTb, record } = this.state;
+    const { CaseData:{handleXsCaseSfgz,caseDetails} } = this.props;
     let dark = this.props.global && this.props.global.dark;
     return (
       <div style={{ backgroundColor: dark ? '#252C3C' : '#fff', margin: '16px 0' }}>
@@ -446,7 +470,7 @@ export default class caseDetail extends PureComponent {
               {caseDetails ? (
                 <span>
                   <span className={liststyles.collect}>
-                    {sfgz === 0 ? (
+                    {handleXsCaseSfgz === 0 ? (
                       <Tooltip title="关注">
                         <img
                           src={dark ? nocollect : nocollect1}
@@ -682,10 +706,9 @@ export default class caseDetail extends PureComponent {
 
   renderDetail() {
     const {
-      CaseData: { loading },
+      CaseData: { loading,caseDetails },
     } = this.props;
     const {
-      caseDetails,
       trailLeft,
       TrackPaddingBottom1,
       TrackPaddingTop,
@@ -1258,33 +1281,33 @@ export default class caseDetail extends PureComponent {
         {/*) : null*/}
         {/*}*/}
 
-        {/*<Modal*/}
-        {/*visible={policevisible}*/}
-        {/*title="警情信息"*/}
-        {/*centered*/}
-        {/*className={styles.policeModal}*/}
-        {/*width={1000}*/}
-        {/*maskClosable={false}*/}
-        {/*onCancel={this.policeCancel}*/}
-        {/*footer={null}*/}
-        {/*getContainer={() => document.getElementById(this.ResultId())}*/}
-        {/*>*/}
-        {/*<Table*/}
-        {/*size={'middle'}*/}
-        {/*style={{ backgroundColor: '#fff' }}*/}
-        {/*pagination={{*/}
-        {/*pageSize: 3,*/}
-        {/*showTotal: (total, range) => <div*/}
-        {/*style={{ position: 'absolute', left: '12px' }}>共 {total} 条记录*/}
-        {/*第 {this.state.jqcurrent} / {(Math.ceil(total / 3))} 页</div>,*/}
-        {/*onChange: (page) => {*/}
-        {/*this.setState({ jqcurrent: page });*/}
-        {/*},*/}
-        {/*}}*/}
-        {/*dataSource={caseDetails ? caseDetails.jqxxList : []}*/}
-        {/*columns={JqColumns}*/}
-        {/*/>*/}
-        {/*</Modal>*/}
+        <Modal
+        visible={policevisible}
+        title="警情信息"
+        centered
+        className={styles.policeModal}
+        width={1000}
+        maskClosable={false}
+        onCancel={this.policeCancel}
+        footer={null}
+        getContainer={() => document.getElementById(this.ResultId())}
+        >
+        <Table
+        size={'middle'}
+        style={{ backgroundColor: '#fff' }}
+        pagination={{
+        pageSize: 3,
+        showTotal: (total, range) => <div
+        style={{ position: 'absolute', left: '12px' }}>共 {total} 条记录
+        第 {this.state.jqcurrent} / {(Math.ceil(total / 3))} 页</div>,
+        onChange: (page) => {
+        this.setState({ jqcurrent: page });
+        },
+        }}
+        dataSource={caseDetails ? caseDetails.jqxxList : []}
+        columns={JqColumns}
+        />
+        </Modal>
         {/*<Modal*/}
         {/*visible={resvisible}*/}
         {/*title="涉案物品信息"*/}

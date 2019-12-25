@@ -52,6 +52,7 @@ import { authorityIsTrue } from '../../../utils/authority';
 import noList from '@/assets/viewData/noList.png';
 import { routerRedux } from 'dva/router';
 import noListLight from '@/assets/viewData/noListLight.png';
+import {tableList} from "@/utils/utils";
 
 const FormItem = Form.Item;
 const { Step } = Steps;
@@ -284,6 +285,26 @@ export default class areaDetail extends PureComponent {
     });
     this.getDetail(this.props.id);
   };
+  refreshTable = (param) => {
+    if(param.movefrom === '办案区常规'){
+      this.props.dispatch({
+        type: 'areaData/areaFetch',
+        payload: {
+          // currentPage: param.current,
+          // showCount: tableList,
+          pd: {},
+        },
+      });
+    }
+    else if(param.movefrom === '办案区预警'){
+      this.props.dispatch({
+        type: 'EarlyWarning/getList',
+        payload: {
+          pd: { yj_type: 'baq' }
+        },
+      });
+    }
+  }
   // 分享和关注（2为分享，1为关注）
   saveShare = (areaDetails, res, type, ajGzLx) => {
     // console.log('aaa',(res.jjdw?res.jjdw+'、':'') + (res.jjly_mc?res.jjly_mc:''));
@@ -347,17 +368,18 @@ export default class areaDetail extends PureComponent {
             if (!res.error) {
               // alert(1)
               message.success('关注成功');
-              if (this.props.getArea) {
-                this.props.getArea({ currentPage: this.props.current, pd: this.props.formValues });
-              }
-              this.setState(
-                {
-                  sfgz: 1,
-                },
-                () => {
+              this.refreshTable(this.props.location.query)
+              // if (this.props.getArea) {
+              //   this.props.getArea({ currentPage: this.props.current, pd: this.props.formValues });
+              // }
+              // this.setState(
+              //   {
+              //     sfgz: 1,
+              //   },
+              //   () => {
                   this.getDetail(areaDetails.ryxx.system_id);
-                },
-              );
+              //   },
+              // );
             }
           },
         });
@@ -379,17 +401,18 @@ export default class areaDetail extends PureComponent {
         callback: res => {
           if (!res.error) {
             message.success('取消关注成功');
-            if (this.props.getArea) {
-              this.props.getArea({ currentPage: this.props.current, pd: this.props.formValues });
-            }
-            this.setState(
-              {
-                sfgz: 0,
-              },
-              () => {
+            this.refreshTable(this.props.location.query)
+            // if (this.props.getArea) {
+            //   this.props.getArea({ currentPage: this.props.current, pd: this.props.formValues });
+            // }
+            // this.setState(
+            //   {
+            //     sfgz: 0,
+            //   },
+            //   () => {
                 this.getDetail(areaDetails.ryxx.system_id);
-              },
-            );
+            //   },
+            // );
           }
         },
       });
@@ -404,7 +427,8 @@ export default class areaDetail extends PureComponent {
   };
 
   Topdetail() {
-    const { areaDetails, sfgz, isDb, record } = this.state;
+    const { sfgz, isDb, record } = this.state;
+    const { areaData:{areaDetails,handleAreaSfgz} } = this.props;
     let dark = this.props.global && this.props.global.dark;
     return (
       <div style={{ backgroundColor: dark ? '#252C3C' : '#fff', margin: '16px 0' }}>
@@ -417,7 +441,7 @@ export default class areaDetail extends PureComponent {
               {areaDetails ? (
                 <span>
                   <span className={liststyles.collect}>
-                    {sfgz === 0 ? (
+                    {handleAreaSfgz === 0 ? (
                       <Tooltip title="关注">
                         <div onClick={() => this.saveShare(areaDetails, record, 1, 0)}>
                           <img
@@ -988,7 +1012,8 @@ export default class areaDetail extends PureComponent {
 
   renderDetail() {
     const { getFieldDecorator } = this.props.form;
-    const { areaDetails, isDb } = this.state;
+    const { isDb } = this.state;
+    const { areaData:{areaDetails} } = this.props;
     const colLayoutInName = { sm: 24, md: 5, xl: 5 };
     const colLayoutInData = { sm: 24, md: 19, xl: 19 };
     let dark = this.props.global && this.props.global.dark;

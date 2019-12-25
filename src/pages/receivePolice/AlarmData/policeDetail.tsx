@@ -25,6 +25,7 @@ import { autoheight, userResourceCodeDb } from '../../../utils/utils';
 import { authorityIsTrue } from '../../../utils/authority';
 // import DispatchModal from '../../../components/DispatchModal/DispatchModal';
 import { routerRedux } from 'dva/router';
+import {tableList} from "@/utils/utils";
 
 let imgBase = [];
 let res = {};
@@ -225,6 +226,32 @@ export default class policeDetail extends PureComponent {
     });
     this.getDetail(this.props.location.query.id);
   };
+  refreshTable = (param) => {
+    if(param.movefrom === '警情常规'){
+      this.props.dispatch({
+        type: 'policeData/policeFetch',
+        payload: {
+          currentPage: param.current,
+          showCount: tableList,
+          pd: {
+            is_sa: '0',
+          },
+        },
+      });
+    }
+    else if(param.movefrom === '警情预警'){
+      this.props.dispatch({
+        type: 'EarlyWarning/getList',
+        payload: {
+          // currentPage: param.current,
+          // showCount: tableList,
+          pd: {
+            yj_type: 'jq',
+          },
+        },
+      });
+    }
+  }
   // 分享和关注（2为分享，1为关注）
   saveShare = (policeDetails, res, type, ajGzLx) => {
     // console.log('res',res);
@@ -301,15 +328,21 @@ export default class policeDetail extends PureComponent {
               //     pd: this.props.formValues,
               //   });
               // }
-              this.onEdit(true);
-              this.setState(
-                {
-                  sfgz: 1,
-                },
-                () => {
+              this.refreshTable(this.props.location.query);
+              // this.props.dispatch({
+              //   type:'policeData/policeNewSfgz',
+              //   payload:{
+              //     sfgz:1,
+              //   },
+              // })
+              // this.setState(
+              //   {
+              //     sfgz: 1,
+              //   },
+              //   () => {
                   this.getDetail(this.state.policeDetails.id);
-                },
-              );
+              //   },
+              // );
             }
           },
         });
@@ -320,6 +353,7 @@ export default class policeDetail extends PureComponent {
   };
   // 取消关注
   noFollow = policeDetails => {
+    console.log('policeDetails',policeDetails)
     if (this.state.IsSure) {
       this.props.dispatch({
         type: 'share/getNoFollow',
@@ -331,17 +365,24 @@ export default class policeDetail extends PureComponent {
         callback: res => {
           if (!res.error) {
             message.success('取消关注成功');
-            if (this.props.getPolice) {
-              this.props.getPolice({ currentPage: this.props.current, pd: this.props.formValues });
-            }
-            this.setState(
-              {
-                sfgz: 0,
-              },
-              () => {
+            // if (this.props.getPolice) {
+            //   this.props.getPolice({ currentPage: this.props.current, pd: this.props.formValues });
+            // }
+            this.refreshTable(this.props.location.query);
+            // this.props.dispatch({
+            //   type:'policeData/policeNewSfgz',
+            //   payload:{
+            //     sfgz:0,
+            //   },
+            // })
+            // this.setState(
+            //   {
+            //     sfgz: 0,
+            //   },
+            //   () => {
                 this.getDetail(this.state.policeDetails.id);
-              },
-            );
+            //   },
+            // );
           }
         },
       });
@@ -410,40 +451,11 @@ export default class policeDetail extends PureComponent {
     });
   };
 
-  onEdit = (isReset) => {
-    const {query: {record, detail, tab, fromPath, id}} = this.props.location;
-    // console.log('fromPath',fromPath);
-    // console.log('isReset',isReset);
-    let key = '/ModuleAll/Supervise' + this.props.location.query.id;
-    // 鍒犻櫎褰撳墠tab骞朵笖灏嗚矾鐢辫烦杞嚦鍓嶄竴涓猼ab鐨刾ath
-    const {dispatch} = this.props;
-    if (dispatch) {
-      dispatch(routerRedux.push({pathname: fromPath ? fromPath : '',
-        query: isReset ? {
-          isReset,
-          id: tab === '表格' ? '' : id,
-          record: tab === '表格' ? '' : record
-        } : {id: tab === '表格' ? '' : id, record: tab === '表格' ? '' : record}
-      }));
-      dispatch({
-        type: 'global/changeSessonNavigation',
-        payload: {
-          key,
-          isShow: false,
-        },
-      });
-      dispatch({
-        type: 'global/changeNavigation',
-        payload: {
-          key,
-          isShow: false,
-        },
-      });
-    }
-  };
 
   Topdetail() {
-    const { policeDetails, sfgz, isDb,record } = this.state;
+    const { sfgz, isDb,record } = this.state;
+    const { policeData:{handlePoliceSfgz,policeDetails} } = this.props
+    console.log('handlePoliceSfgz',handlePoliceSfgz);
     // const {query: { record }} = this.props.location;
     let dark = this.props.global && this.props.global.dark;
     return (
@@ -487,7 +499,7 @@ export default class policeDetail extends PureComponent {
               {policeDetails ? (
                 <span>
                   <span className={liststyles.collect}>
-                    {sfgz === 0 ? (
+                    {handlePoliceSfgz === 0 ? (
                       <Tooltip title="关注">
                         <div onClick={() => this.saveShare(policeDetails, record, 1, 0)}>
                           <img
@@ -535,7 +547,8 @@ export default class policeDetail extends PureComponent {
     );
   }
   renderDetail() {
-    const { policeDetails,record } = this.state;
+    const { record } = this.state;
+    const { policeData:{policeDetails} } = this.props
     const rowLayout = { md: 8, xl: 16, xxl: 24 };
     let dark = this.props.global && this.props.global.dark;
     return (

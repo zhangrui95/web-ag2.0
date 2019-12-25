@@ -292,7 +292,7 @@ export default class Index extends PureComponent {
     this.props.dispatch(
       routerRedux.push({
         pathname: '/handlingArea/AreaData/areaDetail',
-        query: { record: record, id: record && record.id ? record.id : '1' },
+        query: { record: record, id: record && record.id ? record.id : '1',movefrom:'办案区预警',current:this.state.current },
       }),
     );
     //   },

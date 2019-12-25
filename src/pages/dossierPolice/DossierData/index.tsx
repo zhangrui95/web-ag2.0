@@ -70,7 +70,7 @@ export default class Index extends PureComponent {
     lx: '卷宗信息',
     tzlx: 'jzxx',
     sx: '',
-    current: '',
+    current: 1,
     showCount: '', // 当前列表显示条数
     is_tz: '0',
     typeButtons: 'week', // 图表展示类别（week,month）
@@ -400,7 +400,7 @@ export default class Index extends PureComponent {
     this.props.dispatch(
       routerRedux.push({
         pathname: '/dossierPolice/DossierData/DossierDetail',
-        query: { record: record, id: record && record.dossier_id ? record.dossier_id : '1' },
+        query: { record: record, id: record && record.dossier_id ? record.dossier_id : '1',movefrom:'卷宗常规',current:this.state.current },
       }),
     );
     // const divs = (
@@ -462,6 +462,24 @@ export default class Index extends PureComponent {
       }
       return <TreeNode key={item.code} value={item.code} title={item.name} />;
     });
+  // 是否关注详情刷新
+  refreshDetail = (res) => {
+    console.log('res',res);
+    this.props.dispatch({
+      type: 'DossierData/getDossierDetail',
+      payload: {
+        dossier_id: res.dossier_id,
+      },
+      callback: data => {
+        // if (data) {
+        //   this.setState({
+        //     policeDetails: data,
+        //     IsSure: true,
+        //   });
+        // }
+      },
+    });
+  };
   saveShare = (res, type, ajGzLx) => {
     this.setState({
       sx: (res.ajmc ? res.ajmc + '、' : '') + (res.jzlb_mc ? res.jzlb_mc : ''),
@@ -521,10 +539,11 @@ export default class Index extends PureComponent {
           system_id: res.dossier_id,
           ajGzLx: ajGzLx,
         },
-        callback: res => {
-          if (!res.error) {
+        callback: data => {
+          if (!data.error) {
             message.success('关注成功');
             this.getDossier({ currentPage: this.state.current, pd: this.state.formValues });
+            this.refreshDetail(res)
           }
         },
       });
@@ -548,6 +567,7 @@ export default class Index extends PureComponent {
         if (!res.error) {
           message.success('取消关注成功');
           this.getDossier({ currentPage: this.state.current, pd: this.state.formValues });
+          this.refreshDetail(record)
         }
       },
     });

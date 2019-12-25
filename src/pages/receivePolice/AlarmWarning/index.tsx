@@ -232,7 +232,23 @@ export default class Index extends PureComponent {
       message.warning(`请选择需要导出的数据日期，日期间隔需小于${exportListDataMaxDays}天`);
     }
   };
-
+    refreshDetail = (res) => {
+      console.log('res',res);
+      this.props.dispatch({
+        type: 'policeData/policeDetailFetch',
+        payload: {
+          id: res.system_id,
+        },
+        callback: data => {
+          // if (data) {
+          //   this.setState({
+          //     policeDetails: data,
+          //     IsSure: true,
+          //   });
+          // }
+        },
+      });
+    };
   // 查询
   handleSearch = e => {
     e.preventDefault();
@@ -302,11 +318,10 @@ export default class Index extends PureComponent {
     // );
     // const AddNewDetail = { title: '警情预警详情', content: divs, key: record.id };
     // this.newDetail(AddNewDetail);
-
     this.props.dispatch(
       routerRedux.push({
         pathname: '/receivePolice/AlarmData/policeDetail',
-        query: { record: record, id: record && record.id ? record.id : '1', movefrom: '警情预警' },
+        query: { record: record, id: record && record.system_id ? record.system_id : '1', movefrom: '警情预警',current:this.state.current },
       }),
     );
   };
@@ -401,8 +416,8 @@ export default class Index extends PureComponent {
           query: {
             record: res,
             id: res && res.id ? res.id : '1',
-            from: '警情信息',
-            tzlx: 'jqxx',
+            from: this.state.lx,
+            tzlx: this.state.tzlx,
             fromPath: '/receivePolice/AlarmWarning',
             tab: '表格',
             sx:
@@ -429,10 +444,11 @@ export default class Index extends PureComponent {
           system_id: res.system_id,
           ajGzLx: ajGzLx,
         },
-        callback: res => {
-          if (!res.error) {
+        callback: data => {
+          if (!data.error) {
             message.success('关注成功');
             this.getDossier({ currentPage: this.state.current, pd: this.state.formValues });
+            this.refreshDetail(res);
           }
         },
       });
@@ -492,6 +508,7 @@ export default class Index extends PureComponent {
         if (!res.error) {
           message.success('取消关注成功');
           this.getDossier({ currentPage: this.state.current, pd: this.state.formValues });
+          this.refreshDetail(record);
         }
       },
     });

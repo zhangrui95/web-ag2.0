@@ -21,6 +21,7 @@ export default {
         intoAreaData: null,
         allCaseProgress: [],
         enforcementMeasure: [],
+        handleXsCaseSfgz:null,
     },
 
     effects: {
@@ -56,6 +57,10 @@ export default {
             yield put({
                 type: 'caseDetail',
                 payload: response && response.error === null ? response.data : {},
+            });
+            yield put({
+              type: 'xsCaseSfgz',
+              payload: response && response.error === null ? response.data.sfgz : {},
             });
             if (callback && response && !response.error && response.data) {
                 callback(response.data);
@@ -168,6 +173,12 @@ export default {
                 ...state,
                 enforcementMeasure: action.payload,
             };
+        },
+        xsCaseSfgz(state, action) {
+          return {
+            ...state,
+            handleXsCaseSfgz: action.payload,
+          };
         },
     },
 };
