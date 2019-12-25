@@ -488,8 +488,8 @@ export default class Index extends PureComponent {
             });
         }
         const formItemLayout = {
-            labelCol: {xs: {span: 24}, md: {span: 8}, xl: {span: 6}, xxl: {span: 4}},
-            wrapperCol: {xs: {span: 24}, md: {span: 16}, xl: {span: 18}, xxl: {span: 20}},
+            labelCol: {xs: {span: 24}, md: {span: 8}, xl: {span: 6}, xxl: {span: 5}},
+            wrapperCol: {xs: {span: 24}, md: {span: 16}, xl: {span: 18}, xxl: {span: 19}},
         };
         const rowLayout = {md: 8, xl: 16, xxl: 24};
         const colLayout = {sm: 24, md: 12, xl: 8};

@@ -12,7 +12,7 @@ const developips = {
   // ip: 'http://192.168.38.179', // 孙金龙
   ip: 'http://192.168.3.92', // 36
   // ip: 'http://192.168.3.92', // 92
-  maintainIp: 'http://192.168.3.92', // 运维中心地址
+  maintainIp: 'http://192.168.3.202', // 运维中心地址
   aqzxIp: 'http://192.168.3.92', // 安全中心地址
   // aqzxIp: 'http://192.168.3.155',// 李卓奇安全中心地址
   // aqzxIp:'http://192.168.41.249',// 安全中心地址
@@ -60,7 +60,7 @@ const developConfigUrl = {
   // securityCenterUrl: `${ips.aqzxIp}:8100/security-service`, // 安全中心
   securityCenterUrl: `${ips.aqzxIp}:8100`, // 安全中心
   baqServerUrl: `${ips.maintainIp}:7500`, // 办案区服务
-  maintainCenterUrl: `${ips.maintainIp}:7400`, // 运维中心
+  maintainCenterUrl: `${ips.maintainIp}:7402`, // 运维中心
   generalQueryUrl: `http://192.168.3.36:9200/`, // 综合查询es服务地址,
   srcUrl: `http://192.168.3.202:7300/raqReport-service/reportJsp/`, //润乾报表地址
   tbtjExportUrl: `${ips.TbtjDcIp}:8750`, // 图表统计导出功能
