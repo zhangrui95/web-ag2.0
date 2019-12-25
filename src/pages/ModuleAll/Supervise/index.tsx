@@ -578,7 +578,7 @@ export default class SuperviseModal extends PureComponent {
             <Select
                 showSearch
                 mode="multiple"
-                style={{width: '100%'}}
+                style={{width: '100%',marginTop:1}}
                 value={this.state.chooseValue}
                 dropdownStyle={{maxHeight: 400, overflow: 'auto'}}
                 placeholder="请选择责任人"

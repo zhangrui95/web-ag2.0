@@ -32,6 +32,7 @@ import styles from './unpoliceDetail.less';
 import {authorityIsTrue} from '../../../utils/authority';
 import {autoheight, userResourceCodeDb} from '../../../utils/utils';
 import {routerRedux} from 'dva/router';
+import DetailShow from "@/components/Common/detailShow";
 
 const FormItem = Form.Item;
 const {Step} = Steps;
@@ -639,9 +640,7 @@ export default class unpoliceDetail extends PureComponent {
                             <Row gutter={rowLayout}>
                                 <Col md={24} sm={24}>
                                     <div className={liststyles.Indexfrom}>简要案情：</div>
-                                    <div className={liststyles.Indextail}>
-                                        {policeDetails && policeDetails.jyaq ? policeDetails.jyaq : ''}
-                                    </div>
+                                    <DetailShow paddingLeft={70} word={policeDetails && policeDetails.jyaq ? policeDetails.jyaq : ''} {...this.props}/>
                                 </Col>
                             </Row>
                             {policeDetails.ajgjList && policeDetails.ajgjList.length > 0 ? (

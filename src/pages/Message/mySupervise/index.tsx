@@ -1,4 +1,5 @@
 import React, {Component, PureComponent} from 'react';
+import React, {Component, PureComponent} from 'react';
 import moment from 'moment/moment';
 import {connect} from 'dva';
 import {Row, Col, Form, Select, Input, Button, Radio, DatePicker, Tabs, Card, Icon} from 'antd';
@@ -15,13 +16,7 @@ const {Option} = Select;
 const {RangePicker} = DatePicker;
 const TabPane = Tabs.TabPane;
 const RadioGroup = Radio.Group;
-//
-// @connect(({ MySuperviseData, loading, common }) => ({
-//     MySuperviseData, loading, common,
-//     // loading: loading.models.alarmManagement,
-// }))
-// @Form.create()
-// export default class Index extends mySupervise {
+
 class mySupervise extends Component {
     state = {
         NowDataPage: '', // 督办完成时当前督办的数据在第几页

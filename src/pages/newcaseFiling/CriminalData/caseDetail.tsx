@@ -59,6 +59,7 @@ import CaseModalStep from '../../../components/Common/CaseModalStep';
 // import RetrieveModal from '../../components/ShareModal/RetrieveModal';
 import { authorityIsTrue } from '../../../utils/authority';
 import { routerRedux } from 'dva/router';
+import DetailShow from "@/components/Common/detailShow";
 // import MakeTableModal from '../../../components/CaseRealData/MakeTableModal';
 
 @connect(({ CaseData, loading, MySuperviseData, AllDetail, global }) => ({
@@ -863,18 +864,14 @@ export default class caseDetail extends PureComponent {
           >
             <Col md={24} sm={24} className={styles.xqcol}>
               <div className={liststyles.Indexfrom}>简要案情：</div>
-              <div className={liststyles.Indextail} style={{ paddingLeft: 60 }}>
-                {caseDetails && caseDetails.jyaq ? caseDetails.jyaq : ''}
-              </div>
+                <DetailShow paddingLeft={60} word={caseDetails && caseDetails.jyaq ? caseDetails.jyaq : ''} {...this.props}/>
             </Col>
           </Row>
           {caseDetails && caseDetails.pajk ? (
             <Row className={styles.xqrow}>
               <Col md={24} sm={24} className={styles.xqcol}>
                 <div className={liststyles.Indexfrom}>破案简况：</div>
-                <div className={liststyles.Indextail} style={{ paddingLeft: 60 }}>
-                  {caseDetails && caseDetails.pajk ? caseDetails.pajk : ''}
-                </div>
+                  <DetailShow paddingLeft={60} word={caseDetails && caseDetails.pajk ? caseDetails.pajk : ''} {...this.props}/>
               </Col>
             </Row>
           ) : (

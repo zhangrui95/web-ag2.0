@@ -223,6 +223,7 @@ export default class PoliceClear extends PureComponent {
         const columns = [
             {
                 title: '分值',
+                width:150,
                 dataIndex: 'fz',
                 render: (text) => {
                     return <span>{this.state.tab === '0' ? '-' + text : '+' + text}</span>

@@ -157,9 +157,9 @@ class RenderTable extends PureComponent {
             },
         ];
         const paginationProps = {
-            current: this.state.data && this.state.data.page ? this.state.data.page.currentPage : '',
-            total: this.state.data && this.state.data.page ? this.state.data.page.totalResult : '',
-            pageSize: this.state.data && this.state.data.page ? this.state.data.page.showCount : '',
+            current: data && data.page ? data.page.currentPage : '',
+            total: data && data.page ? data.page.totalResult : '',
+            pageSize: data && data.page ? data.page.showCount : '',
             showTotal: (total, range) => (
                 <span className={stylescommon.pagination}>{`共 ${
                     data && data.page ? data.page.totalPage : 1

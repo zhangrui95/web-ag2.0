@@ -101,8 +101,8 @@ export default class UnDossierDataView extends PureComponent {
                 }
             }
             if (this.props.global.dark !== nextProps.global.dark) {
-                this.showUnPoliceEchartBar(nextProps);
-                this.showUnPoliceEchartRingPie(nextProps);
+                this.showUnItemEchartBar(nextProps);
+                this.showUnItemEchartRingPie(nextProps);
                 this.changeCountButtonCurrent(this.state.type);
             }
         }
@@ -208,7 +208,7 @@ export default class UnDossierDataView extends PureComponent {
     // 新增告警柱状图
     showUnItemEchartBar = nextProps => {
         const that = this;
-        unItemEchartBar = echarts.init(document.getElementById('unItemXzgj'));
+        unItemEchartBar = echarts.init(document.getElementById('unJzgj'));
         const option = {
             color: ['#00B8CC'],
             title: {
@@ -385,7 +385,7 @@ export default class UnDossierDataView extends PureComponent {
     // 告警情况环形饼状图
     showUnItemEchartRingPie = nextProps => {
         const that = this;
-        unItemEchartRingPie = echarts.init(document.getElementById('unItemGjqk'));
+        unItemEchartRingPie = echarts.init(document.getElementById('unJzGjqk'));
         const option = {
             title: {
                 // text: '告警情况',
@@ -530,7 +530,7 @@ export default class UnDossierDataView extends PureComponent {
                                             ? '告警'
                                             : '昨日告警'}
                                 </div>
-                                <div id="unItemXzgj" className={styles.cardBox}></div>
+                                <div id="unJzgj" className={styles.cardBox}></div>
                             </Col>
                             <Col {...colLayout} style={{marginBottom: 32}}>
                                 <div className={styles.cardBoxTitle}>
@@ -541,7 +541,7 @@ export default class UnDossierDataView extends PureComponent {
                                             ? '告警情况'
                                             : '昨日告警情况'}
                                 </div>
-                                <div id="unItemGjqk" className={styles.cardBox}></div>
+                                <div id="unJzGjqk" className={styles.cardBox}></div>
                             </Col>
                         </Row>
                     </div>
