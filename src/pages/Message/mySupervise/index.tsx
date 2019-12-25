@@ -84,11 +84,8 @@ class mySupervise extends Component {
         this.props.dispatch({
             type: 'common/getDictType',
             payload: {
-                currentPage: 1,
-                pd: {
-                    pid: '5007725',
-                },
-                showCount: 999,
+                appCode: window.configUrl.appCode,
+                code: '5007725',
             },
         });
     };
@@ -96,11 +93,8 @@ class mySupervise extends Component {
         this.props.dispatch({
             type: 'common/getDictType',
             payload: {
-                currentPage: 1,
-                pd: {
-                    pid: '2032',
-                },
-                showCount: 999,
+                appCode: window.configUrl.appCode,
+                code: '2032',
             },
         });
     };
@@ -109,11 +103,8 @@ class mySupervise extends Component {
         this.props.dispatch({
             type: 'common/getDictType',
             payload: {
-                currentPage: 1,
-                pd: {
-                    pid: '500740',
-                },
-                showCount: 999,
+                appCode: window.configUrl.appCode,
+                code: '500740',
             },
         });
     };
@@ -122,11 +113,8 @@ class mySupervise extends Component {
         this.props.dispatch({
             type: 'common/getDictType',
             payload: {
-                currentPage: 1,
-                pd: {
-                    pid: '2016',
-                },
-                showCount: 999,
+                appCode: window.configUrl.appCode,
+                code: '2016',
             },
         });
     };
@@ -134,11 +122,8 @@ class mySupervise extends Component {
         this.props.dispatch({
             type: 'common/getDictType',
             payload: {
-                currentPage: 1,
-                pd: {
-                    pid: '3',
-                },
-                showCount: 999,
+                appCode: window.configUrl.appCode,
+                code: '3',
             },
         });
     };
@@ -146,11 +131,8 @@ class mySupervise extends Component {
         this.props.dispatch({
             type: 'common/getDictType',
             payload: {
-                currentPage: 1,
-                pd: {
-                    pid: '2017',
-                },
-                showCount: 999,
+                appCode: window.configUrl.appCode,
+                code: '2017',
             },
         });
     };
@@ -158,11 +140,8 @@ class mySupervise extends Component {
         this.props.dispatch({
             type: 'common/getDictType',
             payload: {
-                currentPage: 1,
-                pd: {
-                    pid: '2068',
-                },
-                showCount: 999,
+                appCode: window.configUrl.appCode,
+                code: '2068',
             },
         });
 
@@ -172,11 +151,8 @@ class mySupervise extends Component {
         this.props.dispatch({
             type: 'common/getDictType',
             payload: {
-                currentPage: 1,
-                pd: {
-                    pid: '6001',
-                },
-                showCount: 999,
+                appCode: window.configUrl.appCode,
+                code: '6001',
             },
         });
     };
@@ -185,11 +161,8 @@ class mySupervise extends Component {
         this.props.dispatch({
             type: 'common/getDictType',
             payload: {
-                currentPage: 1,
-                pd: {
-                    pid: '2039',
-                },
-                showCount: 999,
+                appCode: window.configUrl.appCode,
+                code: '2039',
             },
         });
     };

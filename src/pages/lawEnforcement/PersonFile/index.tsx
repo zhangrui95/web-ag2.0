@@ -168,11 +168,8 @@ export default class PersonalDoc extends PureComponent {
         this.props.dispatch({
             type: 'common/getDictType',
             payload: {
-                currentPage: 1,
-                pd: {
-                    pid: '24',
-                },
-                showCount: 999,
+                appCode: window.configUrl.appCode,
+                code: '24',
             },
         });
     };
@@ -181,11 +178,8 @@ export default class PersonalDoc extends PureComponent {
         this.props.dispatch({
             type: 'common/getDictType',
             payload: {
-                currentPage: 1,
-                pd: {
-                    pid: '501028',
-                },
-                showCount: 999,
+                appCode: window.configUrl.appCode,
+                code: '501028',
             },
         });
     };

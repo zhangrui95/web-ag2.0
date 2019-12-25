@@ -10,10 +10,10 @@ const developips = {
   // ip: 'http://192.168.3.155', // 李卓奇
   // ip: 'http://192.168.3.224', // zyz
   // ip: 'http://192.168.38.179', // 孙金龙
-  ip: 'http://192.168.3.36', // 36
+  ip: 'http://192.168.3.92', // 36
   // ip: 'http://192.168.3.92', // 92
-  maintainIp: 'http://192.168.3.36', // 运维中心地址
-  aqzxIp: 'http://192.168.3.36', // 安全中心地址
+  maintainIp: 'http://192.168.3.92', // 运维中心地址
+  aqzxIp: 'http://192.168.3.92', // 安全中心地址
   // aqzxIp: 'http://192.168.3.155',// 李卓奇安全中心地址
   // aqzxIp:'http://192.168.41.249',// 安全中心地址
   TbtjDcIp: 'http://192.168.3.245', // 图表统计导出功能地址
@@ -23,6 +23,7 @@ const developips = {
 const ips = developModa ? developips : onlineips; // ip地址
 // 通用配置项[需配置]
 const configItem = {
+  appCode:'106307',//运维中心案管系统编码code
   sysName: '智慧法制案管系统',
   headName: '智慧法制案管系统', // 左侧导航顶部显示名称
   footName: '哈尔滨海邻科信息技术有限公司',

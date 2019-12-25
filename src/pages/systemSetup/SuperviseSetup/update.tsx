@@ -205,7 +205,8 @@ class Detail extends Component {
             payload: {
                 currentPage: 1,
                 pd: {
-                    pid: pid,
+                    appCode: window.configUrl.appCode,
+                    code: pid,
                 },
                 showCount: 999,
             },
@@ -218,7 +219,8 @@ class Detail extends Component {
                 payload: {
                     currentPage: 1,
                     pd: {
-                        pid: pid,
+                        appCode: window.configUrl.appCode,
+                        code: pid,
                     },
                     showCount: 999,
                 },

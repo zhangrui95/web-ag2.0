@@ -221,7 +221,7 @@ export default class ShowNumber extends PureComponent {
                     </div>
                 </div>
                 <div className={this.state.numAnimate4 ? this.state.numAnimate4 : styles.yhBox}
-                     style={{left: '250px', top: '350px', width: '116px', height: '116px'}}
+                     style={{left: '250px', top: '350px', width: '112px', height: '112px'}}
                      onMouseEnter={() => this.changeAnimate(true, 4)} onMouseLeave={() => this.changeAnimate(false, 4)}>
                     <div className={styles.yhCenter} style={{width: '100px', height: '100px'}}>
                         <div className={styles.num}>{this.props.num4 ? this.props.num4 : 0}</div>
@@ -229,7 +229,7 @@ export default class ShowNumber extends PureComponent {
                     </div>
                 </div>
                 <div className={this.state.numAnimate6 ? this.state.numAnimate6 : styles.yhBox}
-                     style={{right: '70px', top: '260px', width: '116px', height: '116px'}}
+                     style={{right: '70px', top: '260px', width: '112px', height: '112px'}}
                      onMouseEnter={() => this.changeAnimate(true, 6)} onMouseLeave={() => this.changeAnimate(false, 6)}>
                     <div className={styles.yhCenter} style={{width: '100px', height: '100px'}}>
                         <div className={styles.num}>{this.props.num6 ? this.props.num6 : 0}</div>
@@ -237,7 +237,7 @@ export default class ShowNumber extends PureComponent {
                     </div>
                 </div>
                 <div className={this.state.numAnimate1 ? this.state.numAnimate1 : styles.yhBox}
-                     style={{right: '310px', top: '-15px', width: '111px', height: '111px'}}
+                     style={{right: '310px', top: '-15px', width: '107px', height: '107px'}}
                      onMouseEnter={() => this.changeAnimate(true, 1)} onMouseLeave={() => this.changeAnimate(false, 1)}>
                     <div className={styles.yhCenter} style={{width: '95px', height: '95px'}}>
                         <div className={styles.num}>{this.props.num1 ? this.props.num1 : 0}</div>
@@ -263,8 +263,8 @@ export default class ShowNumber extends PureComponent {
                 <div className={this.state.numAnimate5 ? this.state.numAnimate5 : styles.yhBox} style={{
                     right: '190px',
                     top: '380px',
-                    width: '116px',
-                    height: '116px',
+                    width: '112px',
+                    height: '112px',
                     border: '1px solid #ff3366',
                 }} onMouseEnter={() => this.changeAnimate(true, 5)} onMouseLeave={() => this.changeAnimate(false, 5)}>
                     <div className={styles.yhCenters} style={{width: '100px', height: '100px'}}>

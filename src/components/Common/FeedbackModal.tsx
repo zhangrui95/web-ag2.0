@@ -51,11 +51,8 @@ export default class FeedbackModal extends PureComponent {
         this.props.dispatch({
             type: 'common/getDictType',
             payload: {
-                currentPage: 1,
-                pd: {
-                    pid: '500740',
-                },
-                showCount: 999,
+                appCode: window.configUrl.appCode,
+                code: '500740',
             },
         });
     };

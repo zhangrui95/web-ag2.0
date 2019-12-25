@@ -146,11 +146,8 @@ export default class GeneralQuery extends PureComponent {
         this.props.dispatch({
             type: 'common/getDictType',
             payload: {
-                currentPage: 1,
-                pd: {
-                    pid: '5300',
-                },
-                showCount: 999,
+                appCode: window.configUrl.appCode,
+                code: '5300',
             },
         });
     };
@@ -159,11 +156,8 @@ export default class GeneralQuery extends PureComponent {
         this.props.dispatch({
             type: 'common/getDictType',
             payload: {
-                currentPage: 1,
-                pd: {
-                    pid: '5303',
-                },
-                showCount: 999,
+                appCode: window.configUrl.appCode,
+                code: '5303',
             },
         });
     };
@@ -172,11 +166,8 @@ export default class GeneralQuery extends PureComponent {
         this.props.dispatch({
             type: 'common/getDictType',
             payload: {
-                currentPage: 1,
-                pd: {
-                    pid: '5308',
-                },
-                showCount: 999,
+                appCode: window.configUrl.appCode,
+                code: '5308',
             },
         });
     };
@@ -185,11 +176,8 @@ export default class GeneralQuery extends PureComponent {
         this.props.dispatch({
             type: 'common/getDictType',
             payload: {
-                currentPage: 1,
-                pd: {
-                    pid: '5315',
-                },
-                showCount: 999,
+                appCode: window.configUrl.appCode,
+                code:'5315',
             },
         });
     };
@@ -198,11 +186,8 @@ export default class GeneralQuery extends PureComponent {
         this.props.dispatch({
             type: 'common/getDictType',
             payload: {
-                currentPage: 1,
-                pd: {
-                    pid: '5321',
-                },
-                showCount: 999,
+                appCode: window.configUrl.appCode,
+                code: '5321',
             },
         });
     };
@@ -211,11 +196,8 @@ export default class GeneralQuery extends PureComponent {
         this.props.dispatch({
             type: 'common/getDictType',
             payload: {
-                currentPage: 1,
-                pd: {
-                    pid: '5324',
-                },
-                showCount: 999,
+                appCode: window.configUrl.appCode,
+                code:'5324',
             },
         });
     };
@@ -224,11 +206,8 @@ export default class GeneralQuery extends PureComponent {
         this.props.dispatch({
             type: 'common/getDictType',
             payload: {
-                currentPage: 1,
-                pd: {
-                    pid: '1215',
-                },
-                showCount: 999,
+                appCode: window.configUrl.appCode,
+                code: '1215',
             },
         });
     };
@@ -237,11 +216,8 @@ export default class GeneralQuery extends PureComponent {
         this.props.dispatch({
             type: 'common/getDictType',
             payload: {
-                currentPage: 1,
-                pd: {
-                    pid: '500837',
-                },
-                showCount: 999,
+                appCode: window.configUrl.appCode,
+                code: '500837',
             },
         });
     };
@@ -250,11 +226,8 @@ export default class GeneralQuery extends PureComponent {
         this.props.dispatch({
             type: 'common/getDictType',
             payload: {
-                currentPage: 1,
-                pd: {
-                    pid: '500842',
-                },
-                showCount: 999,
+                appCode: window.configUrl.appCode,
+                code: '500842',
             },
         });
     };

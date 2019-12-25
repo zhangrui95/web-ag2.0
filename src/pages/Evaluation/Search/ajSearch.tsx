@@ -88,11 +88,8 @@ class AjSearch extends PureComponent {
         this.props.dispatch({
             type: 'common/getDictType',
             payload: {
-                currentPage: 1,
-                pd: {
-                    pid: '11580',
-                },
-                showCount: 999,
+                appCode: window.configUrl.appCode,
+                code: '11580',
             },
         });
     };
@@ -101,11 +98,8 @@ class AjSearch extends PureComponent {
         this.props.dispatch({
             type: 'common/getDictType',
             payload: {
-                currentPage: 1,
-                pd: {
-                    pid: ajType === 'xs' ? '500719' : '500729',
-                },
-                showCount: 999,
+                appCode: window.configUrl.appCode,
+                code: ajType === 'xs' ? '500719' : '500729',
             },
         });
     };
@@ -268,12 +262,8 @@ class AjSearch extends PureComponent {
         this.props.dispatch({
             type: 'common/getDictType',
             payload: {
-                currentPage: 1,
-                pd: {
-                    pid: (targetOption.id).toString(),
-                    isCaseAll: true,
-                },
-                showCount: 999,
+                appCode: window.configUrl.appCode,
+                code: (targetOption.id).toString(),
             },
             callback: (data) => {
                 targetOption.loading = false;
