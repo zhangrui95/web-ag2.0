@@ -23,7 +23,8 @@ import {autoheight, getQueryString, tableList, userAuthorityCode} from '../../..
 import Ellipsis from 'ant-design-pro/lib/Ellipsis';
 import CaseModalTrail from '../../../components/Common/CaseModalTrail';
 import CaseModalStep from '../../../components/Common/CaseModalStep';
-import RetrieveModal from '../../../components/ShareModal/RetrieveModal';
+import CaseModalStep from '../../../components/Common/CaseModalStep';
+import DetailShow from '../../../components/Common/detailShow';
 import {authorityIsTrue} from '../../../utils/authority';
 import noList from "@/assets/viewData/noList.png";
 import user from "@/assets/common/userPerson.png";
@@ -34,6 +35,7 @@ import jzxx from "@/assets/common/jzxx.png";
 import jqImg from "@/assets/common/jq.png";
 import {routerRedux} from "dva/router";
 import noListLight from "@/assets/viewData/noListLight.png";
+
 
 const FormItem = Form.Item;
 const {Link} = Anchor;
@@ -96,6 +98,7 @@ export default class CriminalCaseDocDetail extends PureComponent {
             path: this.props.location.pathname,
             res: res,
             link: '',
+            show:false,
         };
     }
 
@@ -122,7 +125,12 @@ export default class CriminalCaseDocDetail extends PureComponent {
             }
         }
     }
-
+    //多行详情展开，收起
+    getShow = () =>{
+        this.setState({
+            show:!this.state.show
+        })
+    }
     scrollHandler = () => {
         if (this.state.first) {
             let scroll = document.getElementById("scroll");
@@ -971,7 +979,7 @@ export default class CriminalCaseDocDetail extends PureComponent {
                 title: '是否受案',
                 dataIndex: 'is_sa',
                 render(text) {
-                    return <Badge status={statusMap[text]} text={status[text]}/>;
+                    return <span style={{color:statusMap[text] === 'success' ? '#27D427':'#c41a1a'}}>{status[text]}</span>;
                 },
             },
             {
@@ -1107,14 +1115,13 @@ export default class CriminalCaseDocDetail extends PureComponent {
                                 <Row gutter={rowLayout}>
                                     <Col md={24} sm={24}>
                                         <div className={liststyles.Indexfrom}>简要案情：</div>
-                                        <div
-                                            className={liststyles.Indextail}>{caseDetails && caseDetails.jyaq ? caseDetails.jyaq : ''}</div>
+                                        <DetailShow word={caseDetails && caseDetails.jyaq ? caseDetails.jyaq : ''} {...this.props}/>
                                     </Col>
                                 </Row>
 
                                 {caseDetails && caseDetails.ajzt ?
                                     <div className={styles.ajlxBg}>
-                                        <Card title={'案件流程'} style={{width: '100%'}}>
+                                        <Card title={'案件流程'} style={{width: '100%',marginTop:20}}>
                                             {/*{this.ajlc(caseDetails, superveWidth)}*/}
                                             <CaseModalStep
                                                 caseDetails={caseDetails}

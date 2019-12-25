@@ -5,7 +5,7 @@
 * */
 import React, {PureComponent, Fragment} from 'react';
 import {connect} from 'dva';
-import {Row, Col, Card, Button, Badge, Table, List, Tooltip, message, Anchor, Spin, Empty} from 'antd';
+import {Row, Col, Card, Button, Badge, Table, List, Tooltip, message, Anchor, Spin, Empty, Icon} from 'antd';
 import html2canvas from 'html2canvas';
 import styles from '../docDetail.less';
 import liststyles from '../docListStyle.less';
@@ -24,6 +24,7 @@ import jzxx from "@/assets/common/jzxx.png";
 import jqImg from "@/assets/common/jq.png";
 import {routerRedux} from "dva/router";
 import noListLight from "@/assets/viewData/noListLight.png";
+import DetailShow from "@/components/Common/detailShow";
 
 const {Link} = Anchor;
 let echartTree;
@@ -845,7 +846,7 @@ export default class AdministrativeCaseDocDetail extends PureComponent {
                 title: '是否受案',
                 dataIndex: 'is_sa',
                 render(text) {
-                    return <Badge status={statusMap[text]} text={status[text]}/>;
+                    return <span style={{color:statusMap[text] === 'success' ? '#27D427':'#c41a1a'}}>{status[text]}</span>;
                 },
             },
             {
@@ -987,15 +988,13 @@ export default class AdministrativeCaseDocDetail extends PureComponent {
                                 <Row gutter={{md: 8, lg: 24, xl: 48}}>
                                     <Col md={24} sm={24}>
                                         <div className={liststyles.Indexfrom}>简要案情：</div>
-                                        <div className={liststyles.Indextail} style={{paddingLeft: 70}}>
-                                            {caseDetails && caseDetails.ajjj ? caseDetails.ajjj : ''}
-                                        </div>
+                                        <DetailShow paddingLeft={70} word={caseDetails && caseDetails.ajjj ? caseDetails.ajjj : ''} {...this.props}/>
                                     </Col>
                                 </Row>
 
                                 {caseDetails && caseDetails.ajzt ?
                                     <div className={styles.ajlxBg}>
-                                        <Card title={'| 案件流程'} style={{width: '100%'}}>
+                                        <Card title={'| 案件流程'} style={{width: '100%',marginTop:20}}>
                                             {/*{this.ajlc(caseDetails,superveWidth)}*/}
                                             <CaseModalStep
                                                 caseDetails={caseDetails}

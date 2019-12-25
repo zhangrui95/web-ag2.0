@@ -119,7 +119,7 @@ export default class CaseItemCount extends PureComponent {
                 textStyle: {
                     color: '#fff',
                     fontSize: 16,
-                    lineHeight: 24,
+                    lineHeight: 16,
                 },
                 data: [],
             },

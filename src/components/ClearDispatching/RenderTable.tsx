@@ -46,12 +46,8 @@ class RenderTable extends PureComponent {
         this.props.dispatch({
             type: 'common/getDictType',
             payload: {
-                currentPage: 1,
-                pd: {
-                    pid: '500948',//'500502'
-                    isCaseAll: true,
-                },
-                showCount: 999,
+                appCode: window.configUrl.appCode,
+                code: '500948',//'500502'
             },
             callback: (data) => {
                 this.setState({

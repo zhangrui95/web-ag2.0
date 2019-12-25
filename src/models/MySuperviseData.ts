@@ -11,7 +11,7 @@ export default {
     namespace: 'MySuperviseData',
 
     state: {
-        returnData: [],
+        returnData: null,
         loading: true,
         superviseCount: 0,
         allTypeWarningCount: [],

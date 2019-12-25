@@ -176,11 +176,8 @@ export default class areaDetail extends PureComponent {
     this.props.dispatch({
       type: 'common/getDictType',
       payload: {
-        currentPage: 1,
-        pd: {
-          pid: '2018',
-        },
-        showCount: 9999,
+          appCode: window.configUrl.appCode,
+          code: '2018',
       },
     });
   }

@@ -123,11 +123,8 @@ class SuperviseSetup extends Component {
         this.props.dispatch({
             type: 'common/getDictType',
             payload: {
-                currentPage: 1,
-                pd: {
-                    pid: pid,
-                },
-                showCount: 999,
+                appCode: window.configUrl.appCode,
+                code: pid,
             },
         });
     };
@@ -136,11 +133,8 @@ class SuperviseSetup extends Component {
             this.props.dispatch({
                 type: 'SuperviseSetup/getDictType',
                 payload: {
-                    currentPage: 1,
-                    pd: {
-                        pid: pid,
-                    },
-                    showCount: 999,
+                    appCode: window.configUrl.appCode,
+                    code: pid,
                 },
             });
         }

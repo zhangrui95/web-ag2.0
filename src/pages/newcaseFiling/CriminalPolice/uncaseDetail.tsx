@@ -39,6 +39,7 @@ import Ellipsis from 'ant-design-pro/lib/Ellipsis';
 import noList from '@/assets/viewData/noList.png';
 import { routerRedux } from 'dva/router';
 import noListLight from '@/assets/viewData/noListLight.png';
+import DetailShow from "@/components/Common/detailShow";
 
 const FormItem = Form.Item;
 // const { Description } = DescriptionList;
@@ -942,9 +943,7 @@ export default class uncaseDetail extends PureComponent {
           <Row style={{ marginRight: 0 }} className={styles.xqrow}>
             <Col md={24} sm={24} className={styles.xqcol}>
               <div className={liststyles.Indexfrom}>简要案情：</div>
-              <div className={liststyles.Indextail}>
-                {unCaseDetailData && unCaseDetailData.jyaq ? unCaseDetailData.jyaq : ''}
-              </div>
+                <DetailShow paddingLeft={60} word= {unCaseDetailData && unCaseDetailData.jyaq ? unCaseDetailData.jyaq : ''} {...this.props}/>
             </Col>
           </Row>
           {unCaseDetailData && unCaseDetailData.ajzt ? (

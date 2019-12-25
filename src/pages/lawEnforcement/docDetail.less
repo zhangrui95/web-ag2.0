@@ -140,7 +140,7 @@ body {
 }
 
 .spanTitle {
-  display: inline-block;
+  display: block;
   height: 21px;
 }
 
@@ -1173,14 +1173,19 @@ body {
     }
   }
 }
-
+.linesBtn{
+  color: @highlight-color;
+  cursor: pointer;
+}
 .detailBoxLight {
   :global {
     .ant-card-head-title {
       color: #3D63D1 !important;
     }
   }
-
+  .linesBtn{
+    color: #3D63D1;
+  }
   .gjxxName {
     color: #4D4D4D;
   }

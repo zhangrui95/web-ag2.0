@@ -90,11 +90,8 @@ export default class SuperviseModal extends PureComponent {
         this.props.dispatch({
             type: 'common/getDictType',
             payload: {
-                currentPage: 1,
-                pd: {
-                    pid: '2016',
-                },
-                showCount: 9999,
+                appCode: window.configUrl.appCode,
+                code: '2016',
             },
             callback: (data) => {
                 this.setState({
@@ -109,11 +106,8 @@ export default class SuperviseModal extends PureComponent {
         this.props.dispatch({
             type: 'common/getDictType',
             payload: {
-                currentPage: 1,
-                pd: {
-                    pid: '2068',
-                },
-                showCount: 9999,
+                appCode: window.configUrl.appCode,
+                code: '2068',
             },
             callback: (data) => {
                 this.setState({
@@ -129,11 +123,8 @@ export default class SuperviseModal extends PureComponent {
         this.props.dispatch({
             type: 'common/getDictType',
             payload: {
-                currentPage: 1,
-                pd: {
-                    pid: '6001',
-                },
-                showCount: 9999,
+                appCode: window.configUrl.appCode,
+                code: '6001',
             },
             callback: (data) => {
                 this.setState({
@@ -148,11 +139,8 @@ export default class SuperviseModal extends PureComponent {
         this.props.dispatch({
             type: 'common/getDictType',
             payload: {
-                currentPage: 1,
-                pd: {
-                    pid: '3',
-                },
-                showCount: 999,
+                appCode: window.configUrl.appCode,
+                code: '3',
             },
             callback: (data) => {
                 this.setState({
@@ -167,11 +155,8 @@ export default class SuperviseModal extends PureComponent {
         this.props.dispatch({
             type: 'common/getDictType',
             payload: {
-                currentPage: 1,
-                pd: {
-                    pid: '2017',
-                },
-                showCount: 999,
+                appCode: window.configUrl.appCode,
+                code: '2017',
             },
             callback: (data) => {
                 this.setState({
@@ -186,11 +171,8 @@ export default class SuperviseModal extends PureComponent {
         this.props.dispatch({
             type: 'common/getDictType',
             payload: {
-                currentPage: 1,
-                pd: {
-                    pid: '5007725',
-                },
-                showCount: 999,
+                appCode: window.configUrl.appCode,
+                code: '5007725',
             },
             callback: (data) => {
                 this.setState({
@@ -578,7 +560,7 @@ export default class SuperviseModal extends PureComponent {
             <Select
                 showSearch
                 mode="multiple"
-                style={{width: '100%'}}
+                style={{width: '100%',marginTop:1}}
                 value={this.state.chooseValue}
                 dropdownStyle={{maxHeight: 400, overflow: 'auto'}}
                 placeholder="请选择责任人"

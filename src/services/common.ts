@@ -1,7 +1,15 @@
 import request from '../utils/request';
 
+// export async function getDictType(params) {
+//     return request(`${configUrl.maintainCenterUrl}/dictionary`, {
+//         method: 'POST',
+//         data: {
+//             ...params,
+//         },
+//     });
+// }
 export async function getDictType(params) {
-    return request(`${configUrl.maintainCenterUrl}/dictionary`, {
+    return request(`${configUrl.maintainCenterUrl}/dict/findDictChildAllByCode`, {
         method: 'POST',
         data: {
             ...params,

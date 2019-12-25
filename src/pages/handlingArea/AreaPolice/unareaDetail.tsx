@@ -45,6 +45,7 @@ import noList from '@/assets/viewData/noList.png';
 import { routerRedux } from 'dva/router';
 import noListLight from '@/assets/viewData/noListLight.png';
 import nophotoLight from '@/assets/common/nophotoLight.png';
+import DetailShow from "@/components/Common/detailShow";
 
 const FormItem = Form.Item;
 const { Step } = Steps;
@@ -1566,9 +1567,7 @@ export default class unareaDetail extends PureComponent {
                     <Row gutter={{ md: 8, lg: 16, xl: 24 }}>
                       <Col md={24} sm={24}>
                         <div className={styles.Indexfrom}>简要案情：</div>
-                        <div className={styles.Indextail}>
-                          {UnareaDetail && UnareaDetail.jyaq ? UnareaDetail.jyaq : ''}
-                        </div>
+                          <DetailShow paddingLeft={70} word={UnareaDetail && UnareaDetail.jyaq ? UnareaDetail.jyaq : ''} {...this.props}/>
                       </Col>
                     </Row>
                   </Card>

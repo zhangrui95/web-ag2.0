@@ -139,11 +139,8 @@ export default class Index extends PureComponent {
         this.props.dispatch({
             type: 'common/getDictType',
             payload: {
-                currentPage: 1,
-                pd: {
-                    pid: '501028',
-                },
-                showCount: 999,
+                appCode: window.configUrl.appCode,
+                code: '501028',
             },
         });
     };
@@ -169,11 +166,8 @@ export default class Index extends PureComponent {
         this.props.dispatch({
             type: 'common/getDictType',
             payload: {
-                currentPage: 1,
-                pd: {
-                    pid: '11580',
-                },
-                showCount: 999,
+                appCode: window.configUrl.appCode,
+                code: '11580',
             },
         });
     };
@@ -182,11 +176,8 @@ export default class Index extends PureComponent {
         this.props.dispatch({
             type: 'common/getDictType',
             payload: {
-                currentPage: 1,
-                pd: {
-                    pid: '500719',
-                },
-                showCount: 999,
+                appCode: window.configUrl.appCode,
+                code: '500719',
             },
         });
     };
@@ -195,12 +186,8 @@ export default class Index extends PureComponent {
         this.props.dispatch({
             type: 'common/getDictType',
             payload: {
-                currentPage: 1,
-                pd: {
-                    pid: '1234',
-                    isCaseAll: true,
-                },
-                showCount: 999,
+                appCode: window.configUrl.appCode,
+                code: '1234',
             },
             callback: data => {
                 if (data) {
@@ -544,12 +531,8 @@ export default class Index extends PureComponent {
         this.props.dispatch({
             type: 'common/getDictType',
             payload: {
-                currentPage: 1,
-                pd: {
-                    pid: targetOption.id.toString(),
-                    isCaseAll: true,
-                },
-                showCount: 999,
+                appCode: window.configUrl.appCode,
+                code: targetOption.id.toString(),
             },
             callback: data => {
                 targetOption.loading = false;

@@ -88,361 +88,356 @@ export default {
         * getDictType({payload, callback}, {call, put}) {
             const response = yield call(getDictType, payload);
 
-            if (payload.pd.pid === '3') {
+            if (payload.code === '3') {
                 // 告警类型
                 yield put({
                     type: 'returnWtlxBaqType',
-                    payload: response && response.error === null ? response.data.list : [],
+                    payload: response && response.error === null ? response.data : [],
                 });
                 if (callback && response) {
                     callback(response);
                 }
             }
-            if (payload.pd.pid === '24') {
+            if (payload.code === '24') {
                 //人员类型
                 yield put({
                     type: 'involvedType',
-                    payload: response && response.error === null ? response.data.list : [],
+                    payload: response && response.error === null ? response.data : [],
                 });
             }
-            if (payload.pd.pid === '21') {
+            if (payload.code === '21') {
                 //入区原因
                 yield put({
                     type: 'rqyyType',
-                    payload: response && response.error === null ? response.data.list : [],
+                    payload: response && response.error === null ? response.data : [],
                 });
             }
-            if (payload.pd.pid === '1215') {
+            if (payload.code === '1215') {
                 // 卷宗类型字典
                 yield put({
                     type: 'setDossierType',
-                    payload: response && response.error === null ? response.data.list : [],
+                    payload: response && response.error === null ? response.data : [],
                 });
             }
-            if (payload.pd.pid === '2000') {
+            if (payload.code === '2000') {
                 // 接警来源字典
                 yield put({
                     type: 'setSourceOfAlarmDict',
-                    payload: response && response.error === null ? response.data.list : [],
+                    payload: response && response.error === null ? response.data : [],
                 });
             }
-            if (payload.pd.pid === '2008') {
+            if (payload.code === '2008') {
                 // 获取物品种类
                 yield put({
                     type: 'itemsTypes',
-                    payload: response && response.error === null ? response.data.list : [],
+                    payload: response && response.error === null ? response.data : [],
                 });
             }
-            if (payload.pd.pid === '501133') {
+            if (payload.code === '501133') {
                 // 获取物品种类新版
                 yield put({
                     type: 'itemsTypesNew',
-                    payload: response && response.error === null ? response.data.list : [],
+                    payload: response && response.error === null ? response.data : [],
                 });
             }
-            if (payload.pd.pid === '2016') {
+            if (payload.code === '2016') {
                 //获取问题类型
                 yield put({
                     type: 'setProblemTypeDict',
-                    payload: response && response.error === null ? response.data.list : [],
+                    payload: response && response.error === null ? response.data : [],
                 });
                 if (callback && response) {
                     callback(response);
                 }
             }
-            if (payload.pd.pid === '2068') {
+            if (payload.code === '2068') {
                 //获取警情问题类型
                 yield put({
                     type: 'setjqProblemTypeDict',
-                    payload: response && response.error === null ? response.data.list : [],
+                    payload: response && response.error === null ? response.data : [],
                 });
                 if (callback && response) {
                     callback(response);
                 }
             }
-            if (payload.pd.pid === '2017') {
+            if (payload.code === '2017') {
                 //获取涉案物品的问题类型
                 yield put({
                     type: 'returnSawpTypeDict',
-                    payload: response && response.error === null ? response.data.list : [],
+                    payload: response && response.error === null ? response.data : [],
                 });
                 if (callback && response) {
                     callback(response);
                 }
             }
-            if (payload.pd.pid === '2039') {
+            if (payload.code === '2039') {
                 //获取督办状态
                 yield put({
                     type: 'setSuperviseStatusDict',
-                    payload: response && response.error === null ? response.data.list : [],
+                    payload: response && response.error === null ? response.data : [],
                 });
             }
 
-            if (payload.pd.pid === '2049') {
+            if (payload.code === '2049') {
                 //获取库位类型
                 yield put({
                     type: 'setLibraryPositionType',
-                    payload: response && response.error === null ? response.data.list : [],
+                    payload: response && response.error === null ? response.data : [],
                 });
             }
-            if (payload.pd.pid === '2057') {
+            if (payload.code === '2057') {
                 //获取物品状态
                 yield put({
                     type: 'setItemStatus',
-                    payload: response && response.error === null ? response.data.list : [],
+                    payload: response && response.error === null ? response.data : [],
                 });
             }
-            if (payload.pd.pid === '501126') {
+            if (payload.code === '501126') {
                 //获取物品状态新版
                 yield put({
                     type: 'setItemStatusS',
-                    payload: response && response.error === null ? response.data.list : [],
+                    payload: response && response.error === null ? response.data : [],
                 });
             }
-            if (payload.pd.pid === '5300') {
+            if (payload.code === '5300') {
                 // 案件类型
                 yield put({
                     type: 'setSearchAjlx',
-                    payload: response && response.error === null ? response.data.list : [],
+                    payload: response && response.error === null ? response.data : [],
                 });
             }
-            if (payload.pd.pid === '5303') {
+            if (payload.code === '5303') {
                 // 案件状态
                 yield put({
                     type: 'setSearchAjzt',
-                    payload: response && response.error === null ? response.data.list : [],
+                    payload: response && response.error === null ? response.data : [],
                 });
             }
-            if (payload.pd.pid === '5308') {
+            if (payload.code === '5308') {
                 // 物品种类
                 yield put({
                     type: 'setSearchWpzl',
-                    payload: response && response.error === null ? response.data.list : [],
+                    payload: response && response.error === null ? response.data : [],
                 });
             }
-            if (payload.pd.pid === '5315') {
+            if (payload.code === '5315') {
                 // 物品状态
                 yield put({
                     type: 'setSearchWpzt',
-                    payload: response && response.error === null ? response.data.list : [],
+                    payload: response && response.error === null ? response.data : [],
                 });
             }
-            if (payload.pd.pid === '5321') {
+            if (payload.code === '5321') {
                 // 人员类型
                 yield put({
                     type: 'setSearchRylx',
-                    payload: response && response.error === null ? response.data.list : [],
+                    payload: response && response.error === null ? response.data : [],
                 });
             }
-            if (payload.pd.pid === '5324') {
+            if (payload.code === '5324') {
                 // 人员性别
                 yield put({
                     type: 'setSearchRyxb',
-                    payload: response && response.error === null ? response.data.list : [],
+                    payload: response && response.error === null ? response.data : [],
                 });
             }
-            if (payload.pd.pid === '6001') {
+            if (payload.code === '6001') {
                 // 告警类型
                 yield put({
                     type: 'returnXzWtlxAjType',
-                    payload: response && response.error === null ? response.data.list : [],
+                    payload: response && response.error === null ? response.data : [],
                 });
                 if (callback && response) {
                     callback(response);
                 }
             }
-            if (payload.pd.pid === '500286') {
+            if (payload.code === '500286') {
                 // 获取卷宗问题类型
                 yield put({
                     type: 'returnJzWtlxAjType',
-                    payload: response && response.error === null ? response.data.list : [],
+                    payload: response && response.error === null ? response.data : [],
                 });
                 if (callback && response) {
                     callback(response);
                 }
             }
-            if (payload.pd.pid === '11580') {
+            if (payload.code === '11580') {
                 // 专项类别
                 yield put({
                     type: 'setSpecialCaseType',
-                    payload: response && response.error === null ? response.data.list : [],
+                    payload: response && response.error === null ? response.data : [],
                 });
             }
-            if (payload.pd.pid === '500719') {
+            if (payload.code === '500719') {
                 // 刑事案件状态
                 yield put({
                     type: 'setCaseStatus',
-                    payload: response && response.error === null ? response.data.list : [],
+                    payload: response && response.error === null ? response.data : [],
                 });
             }
-            if (payload.pd.pid === '500729') {
+            if (payload.code === '500729') {
                 // 行政案件状态
                 yield put({
                     type: 'setXzCaseStatus',
-                    payload: response && response.error === null ? response.data.list : [],
+                    payload: response && response.error === null ? response.data : [],
                 });
             }
-            if (payload.pd.pid === '500847') {
+            if (payload.code === '500847') {
                 // 行政案件状态
                 yield put({
                     type: 'setYjCaseStatus',
-                    payload: response && response.error === null ? response.data.list : [],
+                    payload: response && response.error === null ? response.data : [],
                 });
             }
-            if (payload.pd.pid === '500740') {
+            if (payload.code === '500740') {
                 // 整改完毕状态
                 yield put({
                     type: 'setRectificationStatusDict',
-                    payload: response && response.error === null ? response.data.list : [],
+                    payload: response && response.error === null ? response.data : [],
                 });
             }
-            if (payload.pd.pid === '500772' || payload.pd.pid === '500830') {
+            if (payload.code === '500772' || payload.code === '500830') {
                 //监管事项
                 yield put({
                     type: 'setJgsx',
-                    payload: response && response.error === null ? response.data.list : [],
+                    payload: response && response.error === null ? response.data : [],
                 });
                 if (response && callback) {
                     callback(response.data);
                 }
             }
-            if (payload.pd.pid === '500800') {
+            if (payload.code === '500800') {
                 //监管点状态
                 yield put({
                     type: 'setJgdzt',
-                    payload: response && response.error === null ? response.data.list : [],
+                    payload: response && response.error === null ? response.data : [],
                 });
             }
-            if (payload.pd.pid === '500804') {
+            if (payload.code === '500804') {
                 //时间间隔
                 yield put({
                     type: 'setSjjg',
-                    payload: response && response.error === null ? response.data.list : [],
+                    payload: response && response.error === null ? response.data : [],
                 });
             }
-            if (payload.pd.pid === '500820') {
+            if (payload.code === '500820') {
                 //提前时间
                 yield put({
                     type: 'setTqsj',
-                    payload: response && response.error === null ? response.data.list : [],
+                    payload: response && response.error === null ? response.data : [],
                 });
             }
-            if (payload.pd.pid === '500852') {
+            if (payload.code === '500852') {
                 //提前人员
                 yield put({
                     type: 'setTxry',
-                    payload: response && response.error === null ? response.data.list : [],
+                    payload: response && response.error === null ? response.data : [],
                 });
             }
-            if (payload.pd.pid === '500808') {
+            if (payload.code === '500808') {
                 //一级颜色
                 yield put({
                     type: 'setColor1',
-                    payload: response && response.error === null ? response.data.list : [],
+                    payload: response && response.error === null ? response.data : [],
                 });
             }
-            if (payload.pd.pid === '5007725') {
+            if (payload.code === '5007725') {
                 // 卷宗告警问题类型
                 yield put({
                     type: 'setJzCaseStatus',
-                    payload: response && response.error === null ? response.data.list : [],
+                    payload: response && response.error === null ? response.data : [],
                 });
                 if (callback && response && !response.error) {
-                    callback(response.data.list);
+                    callback(response.data);
                 }
             }
-            if (payload.pd.isCaseAll) {
-                if (callback && response && !response.error) {
-                    callback(response.data.list);
-                }
-            }
-            if (payload.pd.pid === '500812') {
+            if (payload.code === '500812') {
                 //二级颜色
                 yield put({
                     type: 'setColor2',
-                    payload: response && response.error === null ? response.data.list : [],
+                    payload: response && response.error === null ? response.data : [],
                 });
             }
-            if (payload.pd.pid === '500816') {
+            if (payload.code === '500816') {
                 //三级颜色
                 yield put({
                     type: 'setColor3',
-                    payload: response && response.error === null ? response.data.list : [],
+                    payload: response && response.error === null ? response.data : [],
                 });
             }
-            if (payload.pd.pid === '5007726') {
+            if (payload.code === '5007726') {
                 //刑事案件预警
                 yield put({
                     type: 'setXsyj',
-                    payload: response && response.error === null ? response.data.list : [],
+                    payload: response && response.error === null ? response.data : [],
                 });
             }
-            if (payload.pd.pid === '500837') {
+            if (payload.code === '500837') {
                 // 办案环节
                 yield put({
                     type: 'setCaseProcessDict',
-                    payload: response && response.error === null ? response.data.list : [],
+                    payload: response && response.error === null ? response.data : [],
                 });
             }
-            if (payload.pd.pid === '500842') {
+            if (payload.code === '500842') {
                 // 卷宗存储状态
                 yield put({
                     type: 'setDossierSaveTypeDict',
-                    payload: response && response.error === null ? response.data.list : [],
+                    payload: response && response.error === null ? response.data : [],
                 });
             }
-            if (payload.pd.pid === '2032') {
+            if (payload.code === '2032') {
                 // 推送事项
                 yield put({
                     type: 'setPushMattersDict',
-                    payload: response && response.error === null ? response.data.list : [],
+                    payload: response && response.error === null ? response.data : [],
                 });
             }
-            if (payload.pd.pid === '500967') {
+            if (payload.code === '500967') {
                 // 推送类型
                 yield put({
                     type: 'setPushTypeDict',
-                    payload: response && response.error === null ? response.data.list : [],
+                    payload: response && response.error === null ? response.data : [],
                 });
             }
-            if (payload.pd.pid === '500971') {
+            if (payload.code === '500971') {
                 // 推送方式
                 yield put({
                     type: 'setPushWayDict',
-                    payload: response && response.error === null ? response.data.list : [],
+                    payload: response && response.error === null ? response.data : [],
                 });
             }
-            if (payload.pd.pid === '2032') {
+            if (payload.code === '2032') {
                 // 我的督办中的要素类型
                 yield put({
                     type: 'setMySuperviseTypeDict',
-                    payload: response && response.error === null ? response.data.list : [],
+                    payload: response && response.error === null ? response.data : [],
                 });
             }
-            if (payload.pd.pid === '501028') {
+            if (payload.code === '501028') {
                 // 人员强制措施
                 yield put({
                     type: 'setEnforcementDictType',
-                    payload: response && response.error === null ? response.data.list : [],
+                    payload: response && response.error === null ? response.data : [],
                 });
             }
-            if (payload.pd.pid === '501046') {
+            if (payload.code === '501046') {
                 // 警情状态
                 yield put({
                     type: 'setJqType',
-                    payload: response && response.error === null ? response.data.list : [],
+                    payload: response && response.error === null ? response.data : [],
                 });
             }
-            if (payload.pd.pid === '501051') {
+            if (payload.code === '501051') {
                 // 项目类型
                 yield put({
                     type: 'setXmType',
-                    payload: response && response.error === null ? response.data.list : [],
+                    payload: response && response.error === null ? response.data : [],
                 });
             }
-            if (payload.pd.isCaseAll) {
+            if (payload.isCaseAll) {
                 if (callback && response && !response.error) {
-                    callback(response.data.list);
+                    callback(response.data);
                 }
             }
         },
@@ -453,7 +448,7 @@ export default {
                 // 警情处理状态
                 yield put({
                     type: 'setHandleStatusDict',
-                    payload: response && response.error === null ? response.data.list : [],
+                    payload: response && response.error === null ? response.data : [],
                 });
             }
         },
@@ -519,7 +514,7 @@ export default {
             const response = yield call(getBaqTree, payload);
             yield put({
                 type: 'setBaqTree',
-                payload: response && response.error === null ? response.data.list : [],
+                payload: response && response.error === null ? response.data : [],
             });
             if (callback && !response.error) callback();
         },
@@ -538,7 +533,7 @@ export default {
             const response = yield call(getNextLevelDeps, payload);
             // yield put({
             //     type: 'setNextLevelDeps',
-            //     payload: response && response.error === null ? response.data.list : [],
+            //     payload: response && response.error === null ? response.data : [],
             // });
             if (callback && !response.error && response.data) callback(response.data);
         },

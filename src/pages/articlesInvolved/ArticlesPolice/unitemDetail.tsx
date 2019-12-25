@@ -40,6 +40,7 @@ import SupervisionLog from '../../../components/Common/SupervisionLog';
 import nophoto from '../../../assets/common/nophoto.png';
 import { routerRedux } from 'dva/router';
 import nophotoLight from '@/assets/common/nophotoLight.png';
+import DetailShow from "@/components/Common/detailShow";
 
 const FormItem = Form.Item;
 const { Step } = Steps;
@@ -768,9 +769,7 @@ export default class unitemDetail extends PureComponent {
           <Row style={{ paddingRight: 24 }}>
             <Col md={24} sm={24}>
               <div className={styles.Indexfrom}>简要案情：</div>
-              <div className={styles.Indextail} style={{ paddingLeft: 96 }}>
-                {UnitemDetail ? UnitemDetail.jyaq : ''}
-              </div>
+                <DetailShow paddingLeft={96} word={UnitemDetail ? UnitemDetail.jyaq : ''} {...this.props}/>
             </Col>
           </Row>
         </Card>

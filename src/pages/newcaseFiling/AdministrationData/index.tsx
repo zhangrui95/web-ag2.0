@@ -114,11 +114,8 @@ export default class Index extends PureComponent {
         this.props.dispatch({
             type: 'common/getDictType',
             payload: {
-                currentPage: 1,
-                pd: {
-                    pid: '501028',
-                },
-                showCount: 999,
+                    appCode: window.configUrl.appCode,
+                    code: '501028',
             },
         });
     };
@@ -144,11 +141,8 @@ export default class Index extends PureComponent {
         this.props.dispatch({
             type: 'common/getDictType',
             payload: {
-                currentPage: 1,
-                pd: {
-                    pid: '500729',
-                },
-                showCount: 999,
+                    appCode: window.configUrl.appCode,
+                    code: '500729',
             },
         });
     };

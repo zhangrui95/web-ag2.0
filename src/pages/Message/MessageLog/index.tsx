@@ -76,11 +76,8 @@ class MessageLog extends Component {
         this.props.dispatch({
             type: 'common/getDictType',
             payload: {
-                currentPage: 1,
-                pd: {
-                    pid: '2032',
-                },
-                showCount: 999,
+                appCode: window.configUrl.appCode,
+                code: '2032',
             },
         });
     };
@@ -89,11 +86,8 @@ class MessageLog extends Component {
         this.props.dispatch({
             type: 'common/getDictType',
             payload: {
-                currentPage: 1,
-                pd: {
-                    pid: '500967',
-                },
-                showCount: 999,
+                appCode: window.configUrl.appCode,
+                code: '500967',
             },
         });
     };
@@ -102,11 +96,8 @@ class MessageLog extends Component {
         this.props.dispatch({
             type: 'common/getDictType',
             payload: {
-                currentPage: 1,
-                pd: {
-                    pid: '500971',
-                },
-                showCount: 999,
+                appCode: window.configUrl.appCode,
+                code: '500971',
             },
         });
     };

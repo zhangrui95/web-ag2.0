@@ -69,7 +69,10 @@ body {
         background-color: @body-background !important;
       }
     }
-
+    .ant-input:focus {
+      border: none;
+      box-shadow: 0 0 0 1px @highlight-color;
+    }
     .ant-radio-inner::after {
       background-color: @btn-choose;
     }
@@ -621,7 +624,7 @@ body {
     }
 
     .ant-select-open .ant-select-selection {
-      box-shadow: 0 0 0 1px @highlight-color;
+      box-shadow: 0 0 0 1px @highlight-color!important;
     }
 
     .ant-select-selection__clear {

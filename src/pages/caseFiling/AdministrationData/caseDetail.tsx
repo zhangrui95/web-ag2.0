@@ -31,6 +31,7 @@ import CaseModalStep from '../../../components/Common/CaseModalStep';
 import {authorityIsTrue} from '../../../utils/authority';
 import noList from "@/assets/viewData/noList.png";
 import noListLight from "@/assets/viewData/noListLight.png";
+import DetailShow from "@/components/Common/detailShow";
 // import MakeTableModal from '../../../components/CaseRealData/MakeTableModal';
 
 @connect(({XzCaseData, loading, CaseData, AllDetail}) => ({
@@ -621,9 +622,7 @@ export default class caseDetail extends PureComponent {
                     <Row className={caseDetails && caseDetails.pajk && caseDetails.xayy ? styles.xqrow : ''}>
                         <Col md={24} sm={24} className={styles.xqcol}>
                             <div className={liststyles.Indexfrom}>简要案情：</div>
-                            <div className={liststyles.Indextail}>
-                                {caseDetails && caseDetails.ajjj ? caseDetails.ajjj : ''}
-                            </div>
+                            <DetailShow paddingLeft={59} word={caseDetails && caseDetails.ajjj ? caseDetails.ajjj : ''} {...this.props}/>
                         </Col>
                     </Row>
                     {caseDetails && caseDetails.pajk ? (

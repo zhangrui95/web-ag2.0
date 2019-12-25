@@ -36,6 +36,7 @@ import noList from '@/assets/viewData/noList.png';
 import noListLight from '@/assets/viewData/noListLight.png';
 import { routerRedux } from 'dva/router';
 import {tableList} from "@/utils/utils";
+import DetailShow from "@/components/Common/detailShow";
 // import MakeTableModal from '../../../components/CaseRealData/MakeTableModal';
 
 @connect(({ XzCaseData, loading, CaseData, AllDetail, global }) => ({
@@ -99,15 +100,15 @@ export default class caseDetail extends PureComponent {
   }
 
   componentDidMount() {
-    // if (
-    //   (this.props.location &&
-    //     this.props.location.query &&
-    //     this.props.location.query.record &&
-    //     this.props.location.query.record.ajbh) ||
-    //   this.props.location.query.id
-    // ) {
+    if (
+      (this.props.location &&
+        this.props.location.query &&
+        this.props.location.query.record &&
+        this.props.location.query.record.ajbh) ||
+      this.props.location.query.id
+    ) {
       this.caseDetailDatas(this.props.location.query.id);
-    // }
+    }
   }
 
   componentWillReceiveProps(nextProps) {
@@ -785,9 +786,7 @@ export default class caseDetail extends PureComponent {
           <Row className={caseDetails && caseDetails.pajk && caseDetails.xayy ? styles.xqrow : ''}>
             <Col md={24} sm={24} className={styles.xqcol}>
               <div className={liststyles.Indexfrom}>简要案情：</div>
-              <div className={liststyles.Indextail}>
-                {caseDetails && caseDetails.ajjj ? caseDetails.ajjj : ''}
-              </div>
+                <DetailShow paddingLeft={60} word={caseDetails && caseDetails.ajjj ? caseDetails.ajjj : ''} {...this.props}/>
             </Col>
           </Row>
           {caseDetails && caseDetails.pajk ? (
