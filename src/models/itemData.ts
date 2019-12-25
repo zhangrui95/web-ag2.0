@@ -18,6 +18,7 @@ export default {
         returnCRKDataView: [],
         returnZKNumDataView: [],
         returnWpqsDataView: [],
+        handleWpSfgz:null,
     },
 
     effects: {
@@ -45,6 +46,10 @@ export default {
             yield put({
                 type: 'itemDetail',
                 payload: response && response.error === null ? response.data : {},
+            });
+            yield put({
+              type: 'wpSfgz',
+              payload: response && response.error === null ? response.data.sfgz : {},
             });
             if (callback && response && !response.error && response.data) {
                 callback(response.data);
@@ -138,6 +143,12 @@ export default {
                 ...state,
                 loading: action.payload,
             };
+        },
+        wpSfgz(state, action) {
+          return {
+            ...state,
+            handleWpSfgz: action.payload,
+          };
         },
     },
 };

@@ -35,6 +35,7 @@ import { authorityIsTrue } from '../../../utils/authority';
 import noList from '@/assets/viewData/noList.png';
 import noListLight from '@/assets/viewData/noListLight.png';
 import { routerRedux } from 'dva/router';
+import {tableList} from "@/utils/utils";
 import DetailShow from "@/components/Common/detailShow";
 // import MakeTableModal from '../../../components/CaseRealData/MakeTableModal';
 
@@ -111,12 +112,26 @@ export default class caseDetail extends PureComponent {
   }
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps) {
-      if (nextProps.sfgz !== null && nextProps.sfgz !== this.props.sfgz) {
-        this.setState({
-          sfgz: nextProps.sfgz,
-        });
-      }
+    // if (nextProps) {
+    //   if (nextProps.sfgz !== null && nextProps.sfgz !== this.props.sfgz) {
+    //     this.setState({
+    //       sfgz: nextProps.sfgz,
+    //     });
+    //   }
+    // }
+    if (
+      nextProps &&
+      nextProps.history.location.query.isReset &&
+      nextProps.history.location.pathname === '/newcaseFiling/caseData/AdministrationData/caseDetail'
+    ) {
+      this.caseDetailDatas(this.props.location.query.id);
+      this.props.history.replace(
+        nextProps.history.location.pathname +
+        '?id=' +
+        nextProps.location.query.id +
+        '&record=' +
+        nextProps.location.query.record,
+      );
     }
   }
 
@@ -219,6 +234,26 @@ export default class caseDetail extends PureComponent {
     });
     this.caseDetailDatas(this.props.systemId);
   };
+  refreshTable = (param) => {
+    if(param.movefrom === '行政案件常规'){
+      this.props.dispatch({
+        type: 'XzCaseData/caseFetch',
+        payload: {
+          currentPage: param.current,
+          showCount: tableList,
+          pd: {},
+        },
+      });
+    }
+    else if(param.movefrom === '行政案件预警'){
+      this.props.dispatch({
+        type: 'EarlyWarning/getList',
+        payload: {
+          pd: { yj_type: 'xzaj' }
+        },
+      });
+    }
+  }
   // 分享和关注（2为分享，1为关注）
   saveShare = (caseDetails, res, type, ajGzLx) => {
     this.setState({
@@ -273,17 +308,18 @@ export default class caseDetail extends PureComponent {
           callback: res => {
             if (!res.error) {
               message.success('关注成功');
-              if (this.props.getCase) {
-                this.props.getCase({ currentPage: this.props.current, pd: this.props.formValues });
-              }
-              this.setState(
-                {
-                  sfgz: 1,
-                },
-                () => {
+              this.refreshTable(this.props.location.query);
+              // if (this.props.getCase) {
+              //   this.props.getCase({ currentPage: this.props.current, pd: this.props.formValues });
+              // }
+              // this.setState(
+              //   {
+              //     sfgz: 1,
+              //   },
+              //   () => {
                   this.caseDetailDatas(caseDetails.system_id);
-                },
-              );
+              //   },
+              // );
             }
           },
         });
@@ -305,17 +341,18 @@ export default class caseDetail extends PureComponent {
         callback: res => {
           if (!res.error) {
             message.success('取消关注成功');
-            if (this.props.getCase) {
-              this.props.getCase({ currentPage: this.props.current, pd: this.props.formValues });
-            }
-            this.setState(
-              {
-                sfgz: 0,
-              },
-              () => {
+            this.refreshTable(this.props.location.query);
+            // if (this.props.getCase) {
+            //   this.props.getCase({ currentPage: this.props.current, pd: this.props.formValues });
+            // }
+            // this.setState(
+            //   {
+            //     sfgz: 0,
+            //   },
+            //   () => {
                 this.caseDetailDatas(caseDetails.system_id);
-              },
-            );
+            //   },
+            // );
           }
         },
       });
@@ -348,8 +385,9 @@ export default class caseDetail extends PureComponent {
   };
 
   Topdetail() {
-    const { caseDetails, sfgz, isDb, isZb } = this.state;
-    const { record } = this.props;
+    const { sfgz, isDb, isZb } = this.state;
+    const { record,XzCaseData:{caseDetails,handleXzCaseSfgz} } = this.props;
+    console.log('handleXzCaseSfgz',handleXzCaseSfgz);
     let dark = this.props.global && this.props.global.dark;
     return (
       <div style={{ backgroundColor: dark ? '#252C3C' : '#fff', margin: '16px 0' }}>
@@ -390,7 +428,7 @@ export default class caseDetail extends PureComponent {
               {caseDetails ? (
                 <span>
                   <span className={liststyles.collect}>
-                    {sfgz === 0 ? (
+                    {handleXzCaseSfgz === 0 ? (
                       <Tooltip title="关注">
                         <img
                           src={dark ? nocollect : nocollect1}
@@ -627,7 +665,7 @@ export default class caseDetail extends PureComponent {
   };
 
   renderDetail() {
-    const { caseDetails } = this.state;
+    const {XzCaseData:{caseDetails}} = this.props;
     const rowLayout = { md: 8, xl: 16, xxl: 24 };
     let dark = this.props.global && this.props.global.dark;
     return (

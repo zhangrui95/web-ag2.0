@@ -14,6 +14,7 @@ import {routerRedux} from "dva/router";
 import noList from "@/assets/viewData/noList.png";
 import noListLight from "@/assets/viewData/noListLight.png";
 import {connect} from "dva";
+import {tableList} from "@/utils/utils";
 
 @connect(({global}) => ({
     global
@@ -29,7 +30,7 @@ class RenderTable extends PureComponent {
             lx: '警情信息',
             tzlx: 'jqxx',
             sx: '',
-            current: '',
+            current: 1,
         };
     }
 
@@ -48,10 +49,11 @@ class RenderTable extends PureComponent {
     }
 
     deatils = (record) => {
+      console.log('current',this.state.current);
         this.props.dispatch(
             routerRedux.push({
                 pathname: '/receivePolice/AlarmData/policeDetail',
-                query: {record: record, id: record && record.id ? record.id : '1', movefrom: '警情常规'},
+                query: {record: record, id: record && record.id ? record.id : '1', movefrom: '警情常规',current:this.state.current},
             }),
         )
 
@@ -72,6 +74,23 @@ class RenderTable extends PureComponent {
         // );
         // const AddNewDetail = { title: '警情详情', content: divs, key: id };
         // this.props.newDetail(AddNewDetail);
+    };
+    refreshDetail = (res) => {
+      console.log('res',res);
+      this.props.dispatch({
+        type: 'policeData/policeDetailFetch',
+        payload: {
+          id: res.id,
+        },
+        callback: data => {
+          // if (data) {
+          //   this.setState({
+          //     policeDetails: data,
+          //     IsSure: true,
+          //   });
+          // }
+        },
+      });
     };
     saveShare = (res, type, ajGzLx) => {
         this.setState({
@@ -117,10 +136,11 @@ class RenderTable extends PureComponent {
                     system_id: res.id,
                     ajGzLx: ajGzLx,
                 },
-                callback: (res) => {
-                    if (!res.error) {
+                callback: (data) => {
+                    if (!data.error) {
                         message.success('关注成功');
                         this.props.getPolice({currentPage: this.state.current, pd: this.props.formValues});
+                        this.refreshDetail(res);
                     }
                 },
             });
@@ -144,6 +164,7 @@ class RenderTable extends PureComponent {
                 if (!res.error) {
                     message.success('取消关注成功');
                     this.props.getPolice({currentPage: this.state.current, pd: this.props.formValues});
+                    this.refreshDetail(record);
                 }
             },
         });

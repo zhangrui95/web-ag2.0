@@ -49,6 +49,7 @@ import { autoheight, getUserInfos, userResourceCodeDb } from '../../../utils/uti
 import Ellipsis from 'ant-design-pro/lib/Ellipsis';
 import { authorityIsTrue } from '../../../utils/authority';
 import { routerRedux } from 'dva/router';
+import {tableList} from "@/utils/utils";
 
 @connect(({ DossierData, common, MySuperviseData, AllDetail, global }) => ({
   DossierData,
@@ -188,7 +189,27 @@ export default class DossierDetail extends PureComponent {
       },
     );
   }
-
+  // 是否关注刷新列表
+  refreshTable = (param) => {
+    if(param.movefrom === '卷宗常规'){
+      this.props.dispatch({
+        type: 'DossierData/getDossierData',
+        payload: {
+          currentPage: param.current,
+          showCount: tableList,
+          pd: {},
+        },
+      });
+    }
+    else if(param.movefrom === '卷宗预警'){
+      this.props.dispatch({
+        type: 'EarlyWarning/getList',
+        payload: {
+          pd: { yj_type: 'jz' }
+        },
+      });
+    }
+  }
   // 分享和关注（2为分享，1为关注）
   saveShare = (DossierDetailData, type, ajGzLx) => {
     this.setState({
@@ -301,12 +322,13 @@ export default class DossierDetail extends PureComponent {
             if (!res.error) {
               // alert(1)
               message.success('关注成功');
-              if (this.props.getDossier) {
-                this.props.getDossier({
-                  currentPage: this.props.current,
-                  pd: this.props.formValues,
-                });
-              }
+              this.refreshTable(this.props.location.query);
+              // if (this.props.getDossier) {
+              //   this.props.getDossier({
+              //     currentPage: this.props.current,
+              //     pd: this.props.formValues,
+              //   });
+              // }
               // this.setState({
               //     sfgz: 1,
               // }, () => {
@@ -334,9 +356,10 @@ export default class DossierDetail extends PureComponent {
         callback: res => {
           if (!res.error) {
             message.success('取消关注成功');
-            if (this.props.getDossier) {
-              this.props.getDossier({ currentPage: this.props.current, pd: this.props.formValues });
-            }
+            this.refreshTable(this.props.location.query);
+            // if (this.props.getDossier) {
+            //   this.props.getDossier({ currentPage: this.props.current, pd: this.props.formValues });
+            // }
             // this.setState({
             //     sfgz: 0,
             // }, () => {
@@ -478,7 +501,26 @@ export default class DossierDetail extends PureComponent {
       // this.props.newDetail(AddNewDetail);
     }
   };
-  seeCase = (flag, list) => {
+  seeCase = (flag, caseDetails) => {
+    if (caseDetails && caseDetails.ajxxList) {
+      if (caseDetails.ajxxList.length === 1) {
+        this.IntoCase(caseDetails.ajxxList[0]);
+      } else {
+        this.props.dispatch(
+          routerRedux.push({
+            pathname: '/ModuleAll/RelateCase',
+            query: {
+              record: caseDetails.ajxxList,
+              id: caseDetails && caseDetails.id ? caseDetails.id : '1',
+            },
+          }),
+        );
+        // this.setState({
+        //   policevisible: !!flag,
+        // });
+      }
+    }
+
     if (list.length === 1) {
       this.IntoCase(list[0]);
     } else {
@@ -488,15 +530,16 @@ export default class DossierDetail extends PureComponent {
     }
   };
 
-  CaseCancel = e => {
-    this.setState({
-      casevisible: false,
-    });
-  };
+  // CaseCancel = e => {
+  //   this.setState({
+  //     casevisible: false,
+  //   });
+  // };
 
   Topdetail() {
-    const { DossierDetailData, isDb } = this.state;
+    const { isDb } = this.state;
     // const {record} = this.props;
+    const {DossierData:{DossierDetailData,handleDossierSfgz}} = this.props;
     const rowLayout = { md: 8, lg: 24, xl: 48 };
     const colLayout = { sm: 24, md: 12, xl: 8 };
     let dark = this.props.global && this.props.global.dark;
@@ -536,7 +579,7 @@ export default class DossierDetail extends PureComponent {
               {DossierDetailData ? (
                 <span>
                   <span className={liststyles.collect}>
-                    {DossierDetailData.sfgz === 0 ? (
+                    {handleDossierSfgz === 0 ? (
                       <Tooltip title="关注">
                         <img
                           src={dark ? nocollect : nocollect1}
@@ -586,7 +629,7 @@ export default class DossierDetail extends PureComponent {
     const colLayoutInName = { sm: 24, md: 4, xl: 4 };
     const colLayoutInData = { sm: 24, md: 20, xl: 20 };
     const specialcolLayout = { sm: 24, md: 24, xl: 24 };
-    const { DossierDetailData } = this.state;
+    const {DossierData:{DossierDetailData}} = this.props;
     let dark = this.props.global && this.props.global.dark;
     let stap1 = [];
     let stap2 = [];
@@ -734,7 +777,7 @@ export default class DossierDetail extends PureComponent {
           DossierDetailData.ajxxList.length > 0 ? (
             <Button
               type="primary"
-              onClick={() => this.seeCase(true, DossierDetailData.ajxxList)}
+              onClick={() => this.seeCase(true, DossierDetailData)}
               style={{ marginRight: 16 }}
             >
               查看关联案件
@@ -748,7 +791,7 @@ export default class DossierDetail extends PureComponent {
             <Col {...colLayout} className={styles.xqcol}>
               <div className={liststyles.Indexfrom}>案件名称：</div>
               <div className={liststyles.Indextail}>
-                {DossierDetailData &&
+                {DossierDetailData && DossierDetailData.ajxxList &&
                 DossierDetailData.ajxxList.length > 0 &&
                 DossierDetailData.ajxxList[0].ajmc
                   ? DossierDetailData.ajxxList[0].ajmc
@@ -760,7 +803,7 @@ export default class DossierDetail extends PureComponent {
             <Col {...colLayout} className={styles.xqcol}>
               <div className={liststyles.Indexfrom}>案件编号：</div>
               <div className={liststyles.Indextail}>
-                {DossierDetailData &&
+                {DossierDetailData && DossierDetailData.ajxxList &&
                 DossierDetailData.ajxxList.length > 0 &&
                 DossierDetailData.ajxxList[0].ajbh
                   ? DossierDetailData.ajxxList[0].ajbh
@@ -772,7 +815,7 @@ export default class DossierDetail extends PureComponent {
             <Col {...colLayout} className={styles.xqcol}>
               <div className={liststyles.Indexfrom}>案件类型：</div>
               <div className={liststyles.Indextail}>
-                {DossierDetailData &&
+                {DossierDetailData && DossierDetailData.ajxxList &&
                 DossierDetailData.ajxxList.length > 0 &&
                 DossierDetailData.ajxxList[0].ajlx_mc
                   ? DossierDetailData.ajxxList[0].ajlx_mc
@@ -786,7 +829,7 @@ export default class DossierDetail extends PureComponent {
             <Col {...colLayout} className={styles.xqcol}>
               <div className={liststyles.Indexfrom}>案件状态：</div>
               <div className={liststyles.Indextail}>
-                {DossierDetailData &&
+                {DossierDetailData && DossierDetailData.ajxxList &&
                 DossierDetailData.ajxxList.length > 0 &&
                 DossierDetailData.ajxxList[0].ajzt
                   ? DossierDetailData.ajxxList[0].ajzt
@@ -798,7 +841,7 @@ export default class DossierDetail extends PureComponent {
             <Col {...colLayout} className={styles.xqcol}>
               <div className={liststyles.Indexfrom}>办案单位：</div>
               <div className={liststyles.Indextail}>
-                {DossierDetailData &&
+                {DossierDetailData && DossierDetailData.ajxxList &&
                 DossierDetailData.ajxxList.length > 0 &&
                 DossierDetailData.ajxxList[0].bardwmc
                   ? DossierDetailData.ajxxList[0].bardwmc
@@ -810,7 +853,7 @@ export default class DossierDetail extends PureComponent {
             <Col {...colLayout} className={styles.xqcol}>
               <div className={liststyles.Indexfrom}>办案人：</div>
               <div className={liststyles.Indextail} style={{ paddingLeft: 46 }}>
-                {DossierDetailData &&
+                {DossierDetailData && DossierDetailData.ajxxList &&
                 DossierDetailData.ajxxList.length > 0 &&
                 DossierDetailData.ajxxList[0].barxm
                   ? DossierDetailData.ajxxList[0].barxm

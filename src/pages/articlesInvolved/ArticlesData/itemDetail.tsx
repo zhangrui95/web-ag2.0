@@ -43,6 +43,7 @@ import { autoheight, getUserInfos, userResourceCodeDb } from '../../../utils/uti
 import { authorityIsTrue } from '../../../utils/authority';
 import { routerRedux } from 'dva/router';
 import nophotoLight from '@/assets/common/nophotoLight.png';
+import {tableList} from "@/utils/utils";
 
 const FormItem = Form.Item;
 
@@ -262,6 +263,27 @@ export default class itemDetail extends PureComponent {
     });
     this.itemDetailDatas(this.props.id);
   };
+  // 是否关注列表刷新
+  refreshTable = (param) => {
+    if(param.movefrom === '物品常规'){
+      this.props.dispatch({
+        type: 'itemData/itemFetch',
+        payload: {
+          currentPage: param.current,
+          showCount: tableList,
+          pd: {},
+        },
+      });
+    }
+    else if(param.movefrom === '物品预警'){
+      this.props.dispatch({
+        type: 'EarlyWarning/getList',
+        payload: {
+          pd: {yj_type: 'sawp'}
+        },
+      });
+    }
+  }
   // 分享和关注（2为分享，1为关注）
   saveShare = (itemDetails, res, type, ajGzLx) => {
     // console.log('res',res);
@@ -325,17 +347,18 @@ export default class itemDetail extends PureComponent {
             if (!res.error) {
               // alert(1)
               message.success('关注成功');
-              if (this.props.getItem) {
-                this.props.getItem({ currentPage: this.props.current, pd: this.props.formValues });
-              }
-              this.setState(
-                {
-                  sfgz: 1,
-                },
-                () => {
+              this.refreshTable(this.props.location.query);
+              // if (this.props.getItem) {
+              //   this.props.getItem({ currentPage: this.props.current, pd: this.props.formValues });
+              // }
+              // this.setState(
+              //   {
+              //     sfgz: 1,
+              //   },
+              //   () => {
                   this.itemDetailDatas(itemDetails.system_id);
-                },
-              );
+              //   },
+              // );
             }
           },
         });
@@ -357,17 +380,18 @@ export default class itemDetail extends PureComponent {
         callback: res => {
           if (!res.error) {
             message.success('取消关注成功');
-            if (this.props.getItem) {
-              this.props.getItem({ currentPage: this.props.current, pd: this.props.formValues });
-            }
-            this.setState(
-              {
-                sfgz: 0,
-              },
-              () => {
+            this.refreshTable(this.props.location.query);
+            // if (this.props.getItem) {
+            //   this.props.getItem({ currentPage: this.props.current, pd: this.props.formValues });
+            // }
+            // this.setState(
+            //   {
+            //     sfgz: 0,
+            //   },
+            //   () => {
                 this.itemDetailDatas(itemDetails.system_id);
-              },
-            );
+            //   },
+            // );
           }
         },
       });
@@ -382,7 +406,8 @@ export default class itemDetail extends PureComponent {
   };
 
   Topdetail() {
-    const { itemDetails, sfgz, isDb, record } = this.state;
+    const { sfgz, isDb, record } = this.state;
+    const { itemData:{handleWpSfgz,itemDetails} } = this.props;
     let dark = this.props.global && this.props.global.dark;
     return (
       <div style={{ backgroundColor: dark ? '#252C3C' : '#fff', margin: '16px 0' }}>
@@ -406,7 +431,7 @@ export default class itemDetail extends PureComponent {
               {itemDetails ? (
                 <span>
                   <span className={liststyles.collect}>
-                    {sfgz === 0 ? (
+                    {handleWpSfgz === 0 ? (
                       <Tooltip title="关注">
                         <img
                           src={dark ? nocollect : nocollect1}
@@ -456,7 +481,8 @@ export default class itemDetail extends PureComponent {
   }
 
   renderDetail() {
-    const { itemDetails, isDb } = this.state;
+    const { isDb } = this.state;
+    const { itemData:{handleWpSfgz,itemDetails} } = this.props;
     const rowLayout = { md: 8, xl: 16, xxl: 24 };
     let dark = this.props.global && this.props.global.dark;
     return (

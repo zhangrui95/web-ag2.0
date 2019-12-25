@@ -31,6 +31,7 @@ export default {
         returnRQYYarea: '',
         returnRQRCQSarea: '',
         returnSARYRQRCarea: '',
+        handleAreaSfgz:null,
     },
 
     effects: {
@@ -54,6 +55,10 @@ export default {
             yield put({
                 type: 'areaDetail',
                 payload: response && response.error === null ? response.data : {},
+            });
+            yield put({
+              type: 'areaSfgz',
+              payload: response && response.error === null ? response.data.sfgz : {},
             });
             if (callback && response && !response.error && response.data) {
                 callback(response.data);
@@ -286,6 +291,12 @@ export default {
                 ...state,
                 returnRQRCQSarea: action.payload,
             };
+        },
+        areaSfgz(state, action) {
+          return {
+            ...state,
+            handleAreaSfgz: action.payload,
+          };
         },
     },
 };

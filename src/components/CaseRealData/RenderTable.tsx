@@ -32,7 +32,7 @@ class RenderTable extends PureComponent {
         lx: '案件信息',
         tzlx: window.configUrl.is_area === '1' ? 'xsajxx' + 3 : 'xsajxx' + this.props.ssmk,
         sx: '',
-        current: '',
+        current: 1,
         shareRecord: null,
         RetrieveRecord: null,
         makeTableModalVisible: false, // 制表
@@ -64,9 +64,26 @@ class RenderTable extends PureComponent {
         this.props.dispatch(
             routerRedux.push({
                 pathname: '/newcaseFiling/caseData/CriminalData/caseDetail',
-                query: {id: record.system_id, record: record},
+                query: {id: record.system_id, record: record,movefrom: '刑事案件常规',current:this.state.current},
             }),
         );
+    };
+    refreshDetail = (res) => {
+      console.log('res',res);
+      this.props.dispatch({
+        type: 'CaseData/getAjxxXqById',
+        payload: {
+          system_id: res.system_id,
+        },
+        callback: data => {
+          // if (data) {
+          //   this.setState({
+          //     policeDetails: data,
+          //     IsSure: true,
+          //   });
+          // }
+        },
+      });
     };
     // 刑事案件档案
     caseDocdeatils = record => {
@@ -120,10 +137,11 @@ class RenderTable extends PureComponent {
                     ajGzLx: ajGzLx,
                     ssmk: this.props.ssmk,
                 },
-                callback: res => {
-                    if (!res.error) {
+                callback: data => {
+                    if (!data.error) {
                         message.success('关注成功');
                         this.props.getCase({currentPage: this.state.current, pd: this.props.formValues});
+                        this.refreshDetail(res)
                     }
                 },
             });
@@ -147,6 +165,7 @@ class RenderTable extends PureComponent {
                 if (!res.error) {
                     message.success('取消关注成功');
                     this.props.getCase({currentPage: this.state.current, pd: this.props.formValues});
+                    this.refreshDetail(record)
                 }
             },
         });

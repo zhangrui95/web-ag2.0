@@ -69,7 +69,7 @@ export default class Index extends PureComponent {
     lx: '卷宗信息',
     tzlx: 'jzyj',
     sx: '',
-    current: '',
+    current: 1,
     AnnouncementVisible: false,
     RzList: [],
     searchHeight: false, // 查询条件展开筛选
@@ -274,7 +274,7 @@ export default class Index extends PureComponent {
     this.props.dispatch(
       routerRedux.push({
         pathname: '/dossierPolice/DossierData/DossierDetail',
-        query: { record: record, id: record && record.dossier_id ? record.dossier_id : '1' },
+        query: { record: record, id: record && record.dossier_id ? record.dossier_id : '1',movefrom:'卷宗预警',current:this.state.current },
       }),
     );
     // const divs = (

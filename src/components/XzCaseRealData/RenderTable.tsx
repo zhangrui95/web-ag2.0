@@ -31,7 +31,7 @@ class RenderTable extends PureComponent {
         lx: '案件信息',
         tzlx: window.configUrl.is_area === '1' ? 'xzajxx' + 3 : 'xzajxx' + this.props.ssmk,
         sx: '',
-        current: '',
+        current: 1,
         makeTableModalVisible: false, // 制表
         isZb: authorityIsTrue(userAuthorityCode.ZHIBIAO), // 制表权限
         caseRecord: null,
@@ -82,7 +82,7 @@ class RenderTable extends PureComponent {
         this.props.dispatch(
             routerRedux.push({
                 pathname: '/newcaseFiling/caseData/AdministrationData/caseDetail',
-                query: {id: record && record.system_id ? record.system_id : '1', record: record},
+                query: {id: record && record.system_id ? record.system_id : '1', record: record,movefrom:'行政案件常规',current:this.state.current},
             }),
         );
         //   },
@@ -96,6 +96,23 @@ class RenderTable extends PureComponent {
                 query: {id: record && record.system_id ? record.system_id : '1', record: record},
             }),
         );
+    };
+    refreshDetail = (res) => {
+      console.log('res',res);
+      this.props.dispatch({
+        type: 'XzCaseData/getXzAjxxXqById',
+        payload: {
+          system_id: res.system_id,
+        },
+        callback: data => {
+          // if (data) {
+          //   this.setState({
+          //     policeDetails: data,
+          //     IsSure: true,
+          //   });
+          // }
+        },
+      });
     };
     saveShare = (res, type, ajGzLx) => {
         this.setState({
@@ -141,10 +158,11 @@ class RenderTable extends PureComponent {
                     ajGzLx: ajGzLx,
                     ssmk: this.props.ssmk,
                 },
-                callback: res => {
-                    if (!res.error) {
+                callback: data => {
+                    if (!data.error) {
                         message.success('关注成功');
                         this.props.getCase({currentPage: this.state.current, pd: this.props.formValues});
+                        this.refreshDetail(res)
                     }
                 },
             });
@@ -168,6 +186,7 @@ class RenderTable extends PureComponent {
                 if (!res.error) {
                     message.success('取消关注成功');
                     this.props.getCase({currentPage: this.state.current, pd: this.props.formValues});
+                    this.refreshDetail(record)
                 }
             },
         });

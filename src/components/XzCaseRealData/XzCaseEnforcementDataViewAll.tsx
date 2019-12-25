@@ -511,7 +511,7 @@ export default class XzCaseEnforcementDataView extends PureComponent {
                             formatter: '{c}',
                             textStyle: {
                                 fontSize: 16,
-                                color: '#000',
+                                color: '#fff',
                             },
                         },
                     },
@@ -741,7 +741,7 @@ export default class XzCaseEnforcementDataView extends PureComponent {
                             formatter: '{c}',
                             textStyle: {
                                 fontSize: 16,
-                                color: '#000',
+                                color: '#fff',
                             },
                         },
                     },

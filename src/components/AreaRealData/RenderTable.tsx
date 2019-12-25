@@ -19,7 +19,7 @@ class RenderTable extends PureComponent {
     lx: '人员信息',
     tzlx: 'baqxx',
     sx: '',
-    current: '',
+    current: 1,
   };
   handleTableChange = (pagination, filters, sorter) => {
     this.props.onChange(pagination, filters, sorter);
@@ -39,7 +39,7 @@ class RenderTable extends PureComponent {
     this.props.dispatch(
       routerRedux.push({
         pathname: '/handlingArea/AreaData/areaDetail',
-        query: { record: record, id: record && record.id ? record.id : '1' },
+        query: { record: record, id: record && record.id ? record.id : '1',movefrom: '办案区常规',current:this.state.current },
       }),
     );
     // const divs = (
@@ -58,6 +58,23 @@ class RenderTable extends PureComponent {
     // );
     // const AddNewDetail = { title: '人员在区详情', content: divs, key: record.system_id };
     // this.props.newDetail(AddNewDetail);
+  };
+  refreshDetail = (res) => {
+    console.log('res',res);
+    this.props.dispatch({
+      type: 'areaData/areaDetailFetch',
+      payload: {
+        system_id: res.system_id,
+      },
+      callback: data => {
+        // if (data) {
+        //   this.setState({
+        //     policeDetails: data,
+        //     IsSure: true,
+        //   });
+        // }
+      },
+    });
   };
   saveShare = (res, type, ajGzLx) => {
     this.setState({
@@ -121,6 +138,7 @@ class RenderTable extends PureComponent {
           if (!data.error) {
             message.success('关注成功');
             this.props.getArea({ currentPage: this.state.current, pd: this.props.formValues });
+            this.refreshDetail(res)
           }
         },
       });
@@ -144,6 +162,7 @@ class RenderTable extends PureComponent {
         if (!res.error) {
           message.success('取消关注成功');
           this.props.getArea({ currentPage: this.state.current, pd: this.props.formValues });
+          this.refreshDetail(record)
         }
       },
     });
