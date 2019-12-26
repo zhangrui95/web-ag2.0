@@ -203,12 +203,8 @@ class Detail extends Component {
         this.props.dispatch({
             type: 'common/getDictType',
             payload: {
-                currentPage: 1,
-                pd: {
                     appCode: window.configUrl.appCode,
                     code: pid,
-                },
-                showCount: 999,
             },
         });
     };
@@ -217,12 +213,8 @@ class Detail extends Component {
             this.props.dispatch({
                 type: 'SuperviseSetup/getDictType',
                 payload: {
-                    currentPage: 1,
-                    pd: {
                         appCode: window.configUrl.appCode,
                         code: pid,
-                    },
-                    showCount: 999,
                 },
             });
         }

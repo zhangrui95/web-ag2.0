@@ -66,7 +66,7 @@ class SendConfig extends Component {
                 let time = [];
                 let times = [];
                 this.state.startTime.map((item, idx) => {
-                    if (item) {
+                    if (item || this.state.endTime[idx]) {
                         if (item > this.state.endTime[idx]) {
                             times.push(item + '~23:59:59,00:00:00~' + this.state.endTime[idx]);
                         } else {

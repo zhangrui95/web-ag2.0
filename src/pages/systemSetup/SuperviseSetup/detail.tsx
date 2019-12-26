@@ -953,6 +953,7 @@ class Detail extends Component {
                 SuperviseSetup: {JgdType},
             },
         } = this.props;
+        console.log('JgdType============>',this.props.SuperviseSetup)
         const rowLayout = {md: 8, xl: 16, xxl: 24};
         const modleLayouts = {
             labelCol: {span: 8},
