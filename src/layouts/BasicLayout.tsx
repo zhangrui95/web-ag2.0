@@ -20,6 +20,7 @@ import Navigation from '@/components/Navigation';
 import styles from '@/theme/darkTheme.less';
 import stylesLight from '@/theme/lightTheme.less';
 import {message} from "antd";
+import { watermark } from '../utils/function';
 
 
 export interface BasicLayoutProps extends ProLayoutProps {
@@ -113,6 +114,7 @@ const BasicLayout: React.FC<BasicLayoutProps> = props => {
                 type: 'settings/getSetting',
             });
         }
+        watermark('messageBox');
     }, []);
     /**
      * init variables
