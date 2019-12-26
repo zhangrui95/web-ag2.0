@@ -31,8 +31,8 @@ const {Option} = Select;
 let timeout;
 let currentValue;
 
-@connect(({common, AllCaseData}) => ({
-    common, AllCaseData,
+@connect(({common, AllCaseData,global}) => ({
+    common, AllCaseData,global
 }))
 class AjSearch extends PureComponent {
     constructor(props, context) {
@@ -799,10 +799,10 @@ class AjSearch extends PureComponent {
                 </div>
                 <Card>
                     <div className={styles.btns}>
-                        <Button type="primary" style={{marginLeft: 8}} className={styles.qxBtn}
-                                onClick={() => this.onEdit(false)}>
-                            取消
-                        </Button>
+                        {/*<Button type="primary" style={{marginLeft: 8}} className={styles.qxBtn}*/}
+                        {/*        onClick={() => this.onEdit(false)}>*/}
+                        {/*    取消*/}
+                        {/*</Button>*/}
                         <Button type="primary" style={{marginLeft: 8}}
                                 className={this.state.selectedRowsId && this.state.selectedRowsId.length > 0 ? styles.okBtn : ''}
                                 disabled={this.state.selectedRowsId && this.state.selectedRowsId.length > 0 ? false : true}

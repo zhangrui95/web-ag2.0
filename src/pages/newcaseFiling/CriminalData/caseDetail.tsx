@@ -788,7 +788,7 @@ export default class caseDetail extends PureComponent {
               // type="primary"
               onClick={() => this.seePolice(true, caseDetails)}
               style={{
-                marginRight: 70,
+                marginRight: 16,
                 background: dark
                   ? 'linear-gradient(to right, #0084FA, #03A3FF)'
                   : 'linear-gradient(to right, #3D63D1, #333FE4)',
@@ -819,7 +819,9 @@ export default class caseDetail extends PureComponent {
             <Button
               // type="primary"
               onClick={() => this.seeRes(true, caseDetails)}
-              style={{ marginRight: 16, background: 'linear-gradient(to right, #0084FA, #03A3FF)' }}
+              style={{ marginRight: 16, background:  dark
+                      ? 'linear-gradient(to right, #0084FA, #03A3FF)'
+                      : 'linear-gradient(to right, #3D63D1, #333FE4)', }}
             >
               查看涉案物品
             </Button>
@@ -830,7 +832,9 @@ export default class caseDetail extends PureComponent {
             <Button
               // type="primary"
               onClick={() => this.seeDossier(true, caseDetails)}
-              style={{ marginRight: 16, background: 'linear-gradient(to right, #0084FA, #03A3FF)' }}
+              style={{ marginRight: 16, background:  dark
+                      ? 'linear-gradient(to right, #0084FA, #03A3FF)'
+                      : 'linear-gradient(to right, #3D63D1, #333FE4)', }}
             >
               查看卷宗信息
             </Button>

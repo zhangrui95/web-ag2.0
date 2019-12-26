@@ -84,7 +84,7 @@ export default {
             const response = yield call(getDictType, payload);
             yield put({
                 type: 'setJgd',
-                payload: response && response.error === null ? response.data.list : [],
+                payload: response && response.error === null ? response.data : [],
             });
         },
         // 监管配置启用禁用功能

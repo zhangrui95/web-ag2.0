@@ -956,6 +956,7 @@ export default class GeneralQuery extends PureComponent {
                 message.warning('暂无相关信息！');
             }
         } else if (item._index === baqQueryIndex) {
+            console.log(item._source)
             if (item._source.ryzjhm && item._source.ajbh && item._source.ryzjhm !== '暂无' && item._source.ajbh !== '暂无') {//涉案人员在区情况
                 item.sfzh = item._source.ryzjhm;
                 item.ajbh = item._source.ajbh;

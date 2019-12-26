@@ -139,6 +139,8 @@ class Detail extends Component {
                                     ? '5007725'
                                     : res.jgsx_dm,
             );
+            const resExplain = {jglx: res.jglx, jgd_mc: res.jgd_mc};
+            this.getExplain(resExplain);
             this.setState({
                 madalTitle: type == 2 ? '监管点修改' : '监管点详情',
                 res: res,
@@ -203,12 +205,8 @@ class Detail extends Component {
         this.props.dispatch({
             type: 'common/getDictType',
             payload: {
-                currentPage: 1,
-                pd: {
                     appCode: window.configUrl.appCode,
                     code: pid,
-                },
-                showCount: 999,
             },
         });
     };
@@ -217,12 +215,8 @@ class Detail extends Component {
             this.props.dispatch({
                 type: 'SuperviseSetup/getDictType',
                 payload: {
-                    currentPage: 1,
-                    pd: {
                         appCode: window.configUrl.appCode,
                         code: pid,
-                    },
-                    showCount: 999,
                 },
             });
         }
