@@ -12,7 +12,7 @@ const developips = {
   // ip: 'http://192.168.38.179', // 孙金龙
   ip: 'http://192.168.3.92', // 36
   // ip: 'http://192.168.3.92', // 92
-  maintainIp: 'http://192.168.3.202', // 运维中心地址
+  maintainIp: 'http://192.168.3.92', // 运维中心地址
   aqzxIp: 'http://192.168.3.92', // 安全中心地址
   // aqzxIp: 'http://192.168.3.155',// 李卓奇安全中心地址
   // aqzxIp:'http://192.168.41.249',// 安全中心地址
@@ -27,8 +27,8 @@ const configItem = {
   sysName: '智慧法制案管系统',
   headName: '智慧法制案管系统', // 左侧导航顶部显示名称
   footName: '哈尔滨海邻科信息技术有限公司',
-  version: 'r2.0.0.20191224', // 版本号
-  sid: 'zhag', // 系统资源ID
+  version: 'r2.0.0.20191226', // 版本号
+  sid: '591b1586-681e-4fce-a9b9-2c9c36717224', // 系统资源ID
   showDataTitle: '', // 大屏展示标题
   mapCityName: '', // 大屏展示地图名称（可配置项： mudanjiang/ hulunbeier/baishan/hebi/erduosi/guiLin）
   mapAreaChangeTime: 5, // 大屏地图轮换间隔时间（秒）
@@ -59,9 +59,9 @@ const developConfigUrl = {
   // securityCenterUrl: `${ips.aqzxIp}:8080`,// 李卓奇安全中心
   // securityCenterUrl: `${ips.aqzxIp}:8100/security-service`, // 安全中心
   securityCenterUrl: `${ips.aqzxIp}:8100`, // 安全中心
-  baqServerUrl: `${ips.maintainIp}:7500`, // 办案区服务
-  maintainCenterUrl: `${ips.maintainIp}:7402`, // 运维中心
-  generalQueryUrl: `http://192.168.3.36:9200/`, // 综合查询es服务地址,
+  baqServerUrl: `http://192.168.3.92:7500`, // 办案区服务
+  maintainCenterUrl: `${ips.maintainIp}:7400`, // 运维中心
+  generalQueryUrl: `http://192.168.3.92:9200/`, // 综合查询es服务地址,
   srcUrl: `http://192.168.3.202:7300/raqReport-service/reportJsp/`, //润乾报表地址
   tbtjExportUrl: `${ips.TbtjDcIp}:8750`, // 图表统计导出功能
   smartLinkWindow7: `${ips.downLoadIp}/download/SmartLinkey_win7_2.3.0.1.zip`, //samrtLinkeyWindows版下载地址

@@ -471,7 +471,7 @@ export default class SuperviseModal extends PureComponent {
                 }
             }
         } else if (from === '办案区详情问题判定') {
-            if (returnbaqProblemType.length > 0) {
+            if (returnbaqProblemType&&returnbaqProblemType.length > 0) {
                 for (let i = 0; i < returnbaqProblemType.length; i++) {
                     const item = returnbaqProblemType[i];
                     problemTypeOptions.push(

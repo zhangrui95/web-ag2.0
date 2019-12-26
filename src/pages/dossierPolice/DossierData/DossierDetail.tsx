@@ -521,7 +521,7 @@ export default class DossierDetail extends PureComponent {
       }
     }
 
-    if (list.length === 1) {
+    if (list&&list.length === 1) {
       this.IntoCase(list[0]);
     } else {
       this.setState({
@@ -778,7 +778,9 @@ export default class DossierDetail extends PureComponent {
             <Button
               type="primary"
               onClick={() => this.seeCase(true, DossierDetailData)}
-              style={{ marginRight: 16 }}
+              style={{ margin: 16,backgroundColor: dark
+                      ? 'linear-gradient(to right, #0084FA, #03A3FF)'
+                      : 'linear-gradient(to right, #3D63D1, #333FE4)', }}
             >
               查看关联案件
             </Button>

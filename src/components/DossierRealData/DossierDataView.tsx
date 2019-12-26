@@ -449,7 +449,7 @@ export default class DossierDataView extends PureComponent {
     };
     // 物品出入库情况柱状图
     showCaseEchartBar = (nextProps) => {
-        itemEchartpictorialBar = echarts.init(document.getElementById('wpcrkqk'));
+        itemEchartpictorialBar = echarts.init(document.getElementById('jzcrkqk'));
         const option = {
             title: {
                 // text: '卷宗在库情况',
@@ -846,7 +846,7 @@ export default class DossierDataView extends PureComponent {
                                     </div>
                                 </div>
                                 <div className={styles.cardBoxTitle}>| 卷宗在库情况</div>
-                                <div id="wpcrkqk" className={styles.cardBox}></div>
+                                <div id="jzcrkqk" className={styles.cardBox}></div>
                             </Col>
                             <Col {...colLayout}>
                                 <div className={styles.cardBoxTitle}>| 在库卷宗数量展示</div>

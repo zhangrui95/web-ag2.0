@@ -141,6 +141,8 @@ class Detail extends Component {
                                     ? '5007725'
                                     : res.jgsx_dm,
             );
+            const resExplain = {jglx: res.jglx, jgd_mc: res.jgd_mc};
+            this.getExplain(resExplain);
             this.setState({
                 madalTitle: type == 2 ? '监管点修改' : '监管点详情',
                 res: res,
@@ -953,7 +955,6 @@ class Detail extends Component {
                 SuperviseSetup: {JgdType},
             },
         } = this.props;
-        console.log('JgdType============>',this.props.SuperviseSetup)
         const rowLayout = {md: 8, xl: 16, xxl: 24};
         const modleLayouts = {
             labelCol: {span: 8},
