@@ -3,8 +3,10 @@ export function watermark (id) {
   let user = sessionStorage.getItem('user') ? sessionStorage.getItem('user') : "";
   //debugger;
   //默认设置
+  const newUser = JSON.parse(user)
   var defaultSettings = {
-    watermark_txt: user && user === 'ViewingRoles' ? '张晓明' + ' ' + '230103198901011314' : '章明鑫' + ' ' + '230103198901011213',
+    // watermark_txt: user && user === 'ViewingRoles' ? '张晓明' + ' ' + '230103198901011314' : '章明鑫' + ' ' + '230103198901011213',
+    watermark_txt: newUser&&newUser.name&&newUser.idCard?(newUser.name+' '+newUser.idCard):'暂无数据',
     watermark_x: 35, //水印起始位置x轴坐标
     watermark_y: 48, //水印起始位置Y轴坐标
     watermark_rows: 20, //水印行数
