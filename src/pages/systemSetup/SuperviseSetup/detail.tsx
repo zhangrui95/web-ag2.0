@@ -1008,6 +1008,7 @@ class Detail extends Component {
                 })}
             </Menu>
         );
+        let disable = this.state.res&&this.state.res.scbj === '1';
         return (
             <div id={'boxSeperDetail'} className={this.props.SuperviseSetup.global.dark ? '' : styles.lightBox}>
                 <Card className={stylescommon.statistics + ' ' + styles.detailBox}
@@ -1068,7 +1069,7 @@ class Detail extends Component {
                                     {getFieldDecorator('addjglx', {
                                         initialValue: this.state.addjglx,
                                     })(
-                                        <RadioGroup onChange={this.changeJglx}>
+                                        <RadioGroup onChange={this.changeJglx} disabled={!disable}>
                                             <Radio value={'0'}>告警</Radio>
                                             <Radio value={'1'}>预警</Radio>
                                         </RadioGroup>,
@@ -1087,6 +1088,7 @@ class Detail extends Component {
                                                 : undefined,
                                     })(
                                         <Select
+                                            disabled={!disable}
                                             labelInValue={true}
                                             placeholder="请选择"
                                             style={{width: '100%'}}
@@ -1102,7 +1104,7 @@ class Detail extends Component {
                                 </FormItem>
                             </Col>
                             <Col span={8}>
-                                <FormItem label='监管点' {...modleLayoutjg}>
+                                <FormItem label='监管点' {...modleLayoutjg} disabled={!disable}>
                                     {getFieldDecorator('addjgd', {
                                         initialValue: this.state.jgdDm
                                             ? {
@@ -1115,6 +1117,7 @@ class Detail extends Component {
                                             labelInValue
                                             placeholder="请选择"
                                             style={{width: 'calc(100% - 40px)'}}
+                                            disabled={!disable}
                                             onChange={e => this.changeJgd(e)}
                                             getPopupContainer={() => document.getElementById('formSeperDetail' + this.props.location.query.id)}
                                         >
@@ -1137,6 +1140,7 @@ class Detail extends Component {
                                                 : undefined,
                                     })(
                                         <RangePicker
+                                            disabled={!disable}
                                             style={{width: '100%'}}
                                             getCalendarContainer={() => document.getElementById('formSeperDetail' + this.props.location.query.id)}
                                             disabledDate={this.disabledEndDate}
@@ -1158,6 +1162,7 @@ class Detail extends Component {
                                                 : undefined,
                                     })(
                                         <Select
+                                            disabled={!disable}
                                             labelInValue
                                             placeholder="请选择"
                                             style={{width: '100%'}}
@@ -1177,6 +1182,7 @@ class Detail extends Component {
                                         initialValue: this.state.dyctxry1,
                                     })(
                                         <Select
+                                            disabled={!disable}
                                             mode="multiple"
                                             labelInValue
                                             placeholder="请选择"
@@ -1200,6 +1206,7 @@ class Detail extends Component {
                                         <Select
                                             mode="multiple"
                                             labelInValue
+                                            disabled={!disable}
                                             placeholder="请选择"
                                             style={{width: '100%'}}
                                             getPopupContainer={() => document.getElementById('formSeperDetail' + this.props.location.query.id)}
@@ -1221,6 +1228,7 @@ class Detail extends Component {
                                         <Select
                                             mode="multiple"
                                             labelInValue
+                                            disabled={!disable}
                                             placeholder="请选择"
                                             style={{width: '100%'}}
                                             getPopupContainer={() => document.getElementById('formSeperDetail' + this.props.location.query.id)}
@@ -1251,6 +1259,7 @@ class Detail extends Component {
                                                 labelInValue
                                                 placeholder="请选择"
                                                 style={{width: '100%'}}
+                                                disabled={!disable}
                                                 getPopupContainer={() => document.getElementById('formSeperDetail' + this.props.location.query.id)}
                                             >
                                                 {TxryType &&
@@ -1265,6 +1274,7 @@ class Detail extends Component {
                                 <Col span={8}>
                                     <FormItem label="显示颜色" {...modleLayoutColor}>
                                         <Dropdown overlay={menu3} trigger={['click']}
+                                                  disabled={!disable}
                                                   getPopupContainer={() => document.getElementById('formSeperDetail' + this.props.location.query.id)}>
                                             <div className={styles.boxColor}
                                                  style={{background: this.state.xsys3}}></div>
@@ -1279,6 +1289,7 @@ class Detail extends Component {
                                             <Select
                                                 placeholder="请选择"
                                                 style={{width: '100%'}}
+                                                disabled={!disable}
                                                 onChange={e => this.getTqsj(e, 'tqsj3')}
                                                 getPopupContainer={() => document.getElementById('formSeperDetail' + this.props.location.query.id)}
                                             >
@@ -1319,6 +1330,7 @@ class Detail extends Component {
                                                 labelInValue
                                                 placeholder="请选择"
                                                 style={{width: '100%'}}
+                                                disabled={!disable}
                                                 getPopupContainer={() => document.getElementById('formSeperDetail' + this.props.location.query.id)}
                                             >
                                                 {TxryType &&
@@ -1332,7 +1344,7 @@ class Detail extends Component {
                                 </Col>
                                 <Col span={8}>
                                     <FormItem label="显示颜色" {...modleLayoutColor}>
-                                        <Dropdown overlay={menu2} trigger={['click']}
+                                        <Dropdown overlay={menu2} trigger={['click']} disabled={!disable}
                                                   getPopupContainer={() => document.getElementById('formSeperDetail' + this.props.location.query.id)}>
                                             <div className={styles.boxColor}
                                                  style={{background: this.state.xsys2}}></div>
@@ -1347,6 +1359,7 @@ class Detail extends Component {
                                             <Select
                                                 placeholder="请选择"
                                                 style={{width: '100%'}}
+                                                disabled={!disable}
                                                 onChange={e => this.getTqsj(e, 'tqsj2')}
                                                 getPopupContainer={() => document.getElementById('formSeperDetail' + this.props.location.query.id)}
                                             >
@@ -1383,6 +1396,7 @@ class Detail extends Component {
                                         })(
                                             <Select
                                                 mode="multiple"
+                                                disabled={!disable}
                                                 labelInValue
                                                 placeholder="请选择"
                                                 style={{width: '100%'}}
@@ -1399,7 +1413,7 @@ class Detail extends Component {
                                 </Col>
                                 <Col span={8}>
                                     <FormItem label="显示颜色" {...modleLayoutColor}>
-                                        <Dropdown overlay={menu} trigger={['click']}
+                                        <Dropdown overlay={menu} trigger={['click']} disabled={!disable}
                                                   getPopupContainer={() => document.getElementById('formSeperDetail' + this.props.location.query.id)}>
                                             <div className={styles.boxColor}
                                                  style={{background: this.state.xsys1}}></div>
@@ -1413,6 +1427,7 @@ class Detail extends Component {
                                         })(
                                             <Select
                                                 placeholder="请选择"
+                                                disabled={!disable}
                                                 style={{width: '100%'}}
                                                 onChange={e => this.getTqsj(e, 'tqsj1')}
                                                 getPopupContainer={() => document.getElementById('formSeperDetail' + this.props.location.query.id)}
@@ -1446,7 +1461,7 @@ class Detail extends Component {
                         </Row>
                     </Form>
                 </Card>
-                <Card>
+                <Card className={this.state.res&&this.state.res.scbj === '1' ? '' : styles.none}>
                     <div className={styles.btns}>
                         {/*<Button type="primary" style={{marginLeft: 8}} className={styles.qxBtn}*/}
                         {/*        onClick={() => this.onEdit(false)}>*/}

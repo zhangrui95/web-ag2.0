@@ -193,7 +193,7 @@ class ShareModal extends PureComponent {
         return (
             <div className={className}>
                 <Card className={styles.standardTable} id='shareModule'>
-                    <Row style={{lineHeight: '50px', paddingLeft: 66}}>
+                    <Row style={{lineHeight: '50px', paddingLeft: 55}}>
                         {
                             record && record.detail && record.detail.length > 0 && record.detail.map((item) => {
                                 return <Col span={item.length > 40 ? 24 : 12}>{item}</Col>

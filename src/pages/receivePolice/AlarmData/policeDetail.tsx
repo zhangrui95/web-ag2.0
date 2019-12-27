@@ -262,11 +262,11 @@ export default class policeDetail extends PureComponent {
     if (type === 2) {
       let res = policeDetails;
       let detail = [
-        `接警人：${res && res.jjr ? res.jjr : ''}`,
         `管辖单位：${res && res.jjdw ? res.jjdw : ''}`,
+          `接警人：${res && res.jjr ? res.jjr : ''}`,
         `接警信息：${res && res.jjnr ? res.jjnr : ''}`,
-        `处警人：${res && res.cjr ? res.cjr : ''}`,
         `处警单位：${res && res.cjdw ? res.cjdw : ''}`,
+          `处警人：${res && res.cjr ? res.cjr : ''}`,
         `处警信息：${res && res.cjqk ? res.cjqk : ''}`,
         `处置结果：${res && res.czjg_mc ? res.czjg_mc : ''}`,
       ];

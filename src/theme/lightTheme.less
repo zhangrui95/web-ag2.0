@@ -69,9 +69,9 @@ body {
         background-color: @body-background !important;
       }
     }
-    .ant-input:focus {
+    .ant-input:focus,.ant-calendar-picker-input:hover {
       border: none;
-      box-shadow: 0 0 0 1px @highlight-color;
+      box-shadow: 0 0 0 1px @highlight-color!important;
     }
     .ant-radio-inner::after {
       background-color: @btn-choose;
@@ -954,45 +954,6 @@ body {
       background: @body-background !important;
     }
 
-    .ant-message-success {
-      background: @alert-success-bg-color;
-      padding: 8px 16px;
-      border-radius: 4px;
-      border: 1px solid @alert-success-border-color;
-
-      .action {
-        color: @green !important;
-      }
-    }
-
-    .ant-message-notice-content {
-      background: transparent;
-      -webkit-box-shadow: @no-box-shadow !important;
-      box-shadow: @no-box-shadow !important;
-    }
-
-    .ant-message-error {
-      background: @alert-error-bg-color;
-      padding: 8px 16px;
-      border-radius: 4px;
-      border: 1px solid @alert-error-border-color;
-
-      .action {
-        color: @red !important;
-      }
-    }
-
-    .ant-message-warning {
-      background: @alert-warning-bg-color;
-      padding: 8px 16px;
-      border-radius: 4px;
-      border: 1px solid @alert-warning-border-color;
-
-      .action {
-        color: @orange !important;
-      }
-    }
-
     .antd-pro-components-trend-analysis-analysis-styles-analysis,
     .antd-pro-components-trend-analysis-analysis-styles-analysis
     .antd-pro-components-trend-analysis-analysis-styles-titleArea
@@ -1169,6 +1130,46 @@ body {
     .ant-select-tree-checkbox-checked .ant-select-tree-checkbox-inner {
       background-color: @highlight-color !important;
       border-color: @highlight-color !important;
+    }
+  }
+}
+:global{
+  .ant-message-success {
+    background: @alert-success-bg-color;
+    padding: 8px 16px;
+    border-radius: 4px;
+    border: 1px solid @alert-success-border-color;
+
+    .action {
+      color: @green !important;
+    }
+  }
+
+  .ant-message-notice-content {
+    background: transparent;
+    -webkit-box-shadow: @no-box-shadow !important;
+    box-shadow: @no-box-shadow !important;
+  }
+
+  .ant-message-error {
+    background: @alert-error-bg-color;
+    padding: 8px 16px;
+    border-radius: 4px;
+    border: 1px solid @alert-error-border-color;
+
+    .action {
+      color: @red !important;
+    }
+  }
+
+  .ant-message-warning {
+    background: @alert-warning-bg-color;
+    padding: 8px 16px;
+    border-radius: 4px;
+    border: 1px solid @alert-warning-border-color;
+
+    .action {
+      color: @orange !important;
     }
   }
 }
