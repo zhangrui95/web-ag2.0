@@ -581,9 +581,7 @@ export default class policeDetail extends PureComponent {
         <Card
           title={
             <div
-              style={{ borderLeft: dark ? '3px solid #fff' : '3px solid #3D63D1', paddingLeft: 16, background: dark
-                      ? 'linear-gradient(to right, #0084FA, #03A3FF)'
-                      : 'linear-gradient(to right, #3D63D1, #333FE4)', }}
+              style={{ borderLeft: dark ? '3px solid #fff' : '3px solid #3D63D1', paddingLeft: 16 }}
             >
               接警信息
             </div>

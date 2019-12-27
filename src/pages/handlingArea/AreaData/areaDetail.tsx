@@ -46,8 +46,10 @@ import nocollect1 from '../../../assets/common/nocollect1.png';
 import share1 from '../../../assets/common/share1.png';
 import left from '../../../assets/common/left.png';
 import left1 from '../../../assets/common/left1.png';
+import left2 from '../../../assets/common/left2.png';
 import right from '../../../assets/common/right.png';
 import right1 from '../../../assets/common/right1.png';
+import right2 from '../../../assets/common/right2.png';
 
 import styles from './areaDetail.less';
 import liststyles from '../../common/listDetail.less';
@@ -461,9 +463,20 @@ export default class areaDetail extends PureComponent {
     return (
       <div style={{ backgroundColor: dark ? '#252C3C' : '#fff', margin: '16px 0' }}>
         <Row gutter={{ md: 8, lg: 24, xl: 48 }}>
-          {/*<Col md={8} sm={24}>*/}
-          {/*<span style={{ margin: '16px', display: 'block' }}>人员在区详情</span>*/}
-          {/*</Col>*/}
+          <Col md={8} sm={24}>
+              {isDb && areaDetails && areaDetails.zrdwList && areaDetails.zrdwList.length > 0 ? (
+                  <div style={{ textAlign: 'left', padding: '6px 0' }}>
+                      <Button
+                          className={styles.TopMenu}
+                          onClick={() => this.onceSupervise(areaDetails, true, '办案区详情问题判定')}
+                      >
+                          问题判定
+                      </Button>
+                  </div>
+              ) : (
+                  ''
+              )}
+          </Col>
           <Col>
             <span>
               {areaDetails ? (
@@ -744,13 +757,14 @@ export default class areaDetail extends PureComponent {
   // };
   AllButton = (newObjWidth, length) => {
     // console.log('newObjWidth',newObjWidth);
+   let dark = this.props.global && this.props.global.dark;
     if (newObjWidth === 1280) {
       if (length > 4) {
         return (
           <div className={styles.IconStyle} style={{ width: '210px' }}>
             {this.state.colortrailleft === 'blue' ? (
               <img
-                src={left}
+                src={dark ? left : left2}
                 width="45"
                 height="45"
                 onClick={() => this.dailyLeftClick(newObjWidth, length)}
@@ -766,7 +780,7 @@ export default class areaDetail extends PureComponent {
             )}
             {this.state.colortrailright === 'blue' ? (
               <img
-                src={right}
+                src={dark ? right : right2}
                 width="45"
                 height="45"
                 onClick={() => this.dailyRightClick(newObjWidth, length)}
@@ -797,7 +811,7 @@ export default class areaDetail extends PureComponent {
           <div className={styles.IconStyle} style={{ width: '210px', bottom: '200px' }}>
             {this.state.colortrailleft === 'blue' ? (
               <img
-                src={left}
+                src={dark ? left : left2}
                 width="45"
                 height="45"
                 onClick={() => this.dailyLeftClick(newObjWidth, length)}
@@ -813,7 +827,7 @@ export default class areaDetail extends PureComponent {
             )}
             {this.state.colortrailright === 'blue' ? (
               <img
-                src={right}
+                  src={dark ? right : right2}
                 width="45"
                 height="45"
                 onClick={() => this.dailyRightClick(newObjWidth, length)}
@@ -844,7 +858,7 @@ export default class areaDetail extends PureComponent {
           <div className={styles.IconStyle} style={{ width: '210px', bottom: '200px' }}>
             {this.state.colortrailleft === 'blue' ? (
               <img
-                src={left}
+                  src={dark ? left : left2}
                 width="45"
                 height="45"
                 onClick={() => this.dailyLeftClick(newObjWidth, length)}
@@ -860,7 +874,7 @@ export default class areaDetail extends PureComponent {
             )}
             {this.state.colortrailright === 'blue' ? (
               <img
-                src={right}
+                  src={dark ? right : right2}
                 width="45"
                 height="45"
                 onClick={() => this.dailyRightClick(newObjWidth, length)}
@@ -891,7 +905,7 @@ export default class areaDetail extends PureComponent {
           <div className={styles.IconStyle} style={{ width: '210px', bottom: '200px' }}>
             {this.state.colortrailleft === 'blue' ? (
               <img
-                src={left}
+                  src={dark ? left : left2}
                 width="45"
                 height="45"
                 onClick={() => this.dailyLeftClick(newObjWidth, length)}
@@ -907,7 +921,7 @@ export default class areaDetail extends PureComponent {
             )}
             {this.state.colortrailright === 'blue' ? (
               <img
-                src={right}
+                  src={dark ? right : right2}
                 width="45"
                 height="45"
                 onClick={() => this.dailyRightClick(newObjWidth, length)}
@@ -1366,7 +1380,9 @@ export default class areaDetail extends PureComponent {
             <Button
               // type="primary"
               onClick={() => this.openCaseDetail(areaDetails)}
-              style={{ marginRight: 70, background: 'linear-gradient(to right, #0084FA, #03A3FF)' }}
+              style={{ background: dark
+                      ? 'linear-gradient(to right, #0084FA, #03A3FF)'
+                      : 'linear-gradient(to right, #3D63D1, #333FE4)'}}
             >
               查看当前涉案信息
             </Button>
