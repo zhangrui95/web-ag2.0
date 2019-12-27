@@ -43,10 +43,19 @@
 .trajectory {
   position: relative;
   //top: 10px;
-  border: 1px solid #1890ff;
+  //border: 1px solid #1890ff;
+  border-radius: 10px;
+  background: #252C3C;
   font-size: 13px;
-  padding: 7px;
+  padding: 7px 10px;
   cursor: pointer;
+}
+.superve{
+  :global{
+    .ant-steps-dot .ant-steps-item-tail::after{
+      height: 1px!important;
+    }
+  }
 }
 
 .clsj_time {
@@ -286,7 +295,7 @@
       padding: 12px 24px;
     }
     .ant-card-head {
-      border-bottom: 1px solid #1D212F;
+      border-bottom: 1px solid #252c3c;
     }
   }
 }
@@ -307,12 +316,22 @@
       top: -2px;
     }
   }
+  .rqgjCard,.dqsaxxCard {
+    background-color: #fafafa!important;
+    :global {
+      .ant-card-head {
+        border-bottom: 1px solid #e6e6e6;
+      }
+    }
+  }
   .traillink{
     color: #3D63D1 !important;
   }
   .trajectory{
-    border: 1px solid #3D63D1;
+    //border: 1px solid #3D63D1;
+    background: #e6e6e6;
   }
+
   .title {
     background: #fff !important;
     color: #3D63D1 !important;
