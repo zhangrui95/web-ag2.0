@@ -186,19 +186,19 @@ export default class PersonalDocDetail extends PureComponent {
                 let deg = 270 / ajxx.length;
                 let x = this.getX(-1500, deg, i, ajxx.length > 3 ? ajxx.length % 2 == 0 ? 5000 : 3000 : 3000);
                 let y = this.getY(350, deg, i, 3000);
-                let lxX = this.getX(x, 20, 1, 1300);
-                let lxY = this.getY(y, 20, 1, 1300);
+                let lxX = this.getX(x, 20, 1, 3000);
+                let lxY = this.getY(y, 20, 1, 3500);
                 let tarX = this.getX(x, 20, 2, 2000);
                 let tarY = this.getY(y, 20, 2, 2000);
-                let qzX = this.getX(x, 20, 3, 1200);
+                let qzX = this.getX(x, 20, 3, 3000);
                 let qzY = this.getY(y, 20, 3, 1200);
                 let xzX = this.getX(x, 20, 4, 2200);
                 let xzY = this.getY(y, 20, 4, 2200);
                 let ssX = this.getX(x, 20, 5, 1200);
                 let ssY = this.getY(y, 20, 5, 1200);
-                let saX = this.getX(x, 20, 6, 1800);
-                let saY = this.getY(y, 20, 6, 1800);
-                let jzX = this.getX(x, 20, 7, 1200);
+                let saX = this.getX(x, 20, 6, 2000);
+                let saY = this.getY(y, 20, 6, 2000);
+                let jzX = this.getX(x, 20, 7, 2200);
                 let jzY = this.getY(y, 20, 7, 1200);
                 link.push({
                     source: this.formatter(ryxx.name),
@@ -312,8 +312,8 @@ export default class PersonalDocDetail extends PureComponent {
                                 modularity_class: 2,
                             },
                             symbolSize: 20,
-                            x: this.getX(lxX, 30, index, 80),
-                            y: this.getY(lxY, 30, index, 80),
+                            x: this.getX(lxX, 30, index, 580),
+                            y: this.getY(lxY, 30, index, 580),
                         });
                     });
                 }
