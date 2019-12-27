@@ -214,7 +214,7 @@ export default class itemDetail extends PureComponent {
         routerRedux.push({
           pathname: '/newcaseFiling/caseData/CriminalData/caseDetail',
           query: {
-            id: itemDetails && itemDetails.system_id ? itemDetails.system_id : '1',
+            id: itemDetails && itemDetails.ajbh ? itemDetails.ajbh : '1',
             record: itemDetails,
           },
         }),

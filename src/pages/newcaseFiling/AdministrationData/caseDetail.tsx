@@ -410,8 +410,7 @@ export default class caseDetail extends PureComponent {
             caseDetails.zrdwList.length > 0 &&
             caseDetails.ssmk === '2' ? (
               <Button
-                type="primary"
-                style={{ marginLeft: 8 }}
+                className={styles.TopMenu}
                 loading={this.state.loading1}
                 onClick={() => this.onceSupervise(caseDetails, true, '行政案件详情问题判定')}
               >

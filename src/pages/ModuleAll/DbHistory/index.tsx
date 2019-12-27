@@ -134,7 +134,6 @@ export default class DbHistory extends PureComponent {
     onEdit = (isReset) => {
         const {query: {record, detail, tab}} = this.props.location;
         let key = '/ModuleAll/DbHistory' + this.props.location.query.id;
-        // 鍒犻櫎褰撳墠tab骞朵笖灏嗚矾鐢辫烦杞嚦鍓嶄竴涓猼ab鐨刾ath
         const {dispatch} = this.props;
         if (dispatch) {
             dispatch(routerRedux.push({
@@ -167,18 +166,27 @@ export default class DbHistory extends PureComponent {
 
     render() {
         // const { dblist, DetailData } = this.props;
-        const {query: {record, detail}} = this.props.location;
+        // const {query: {record}} = this.props.location;
+        // console.log('record',record)
+        let record = this.props.location.query.record;
+        if (typeof record == 'string') {
+          record = JSON.parse(sessionStorage.getItem('query')).query.record;
+        }
         const newDblist = [];
-        for (let a = 0; a < record.length; a++) {
-            for (let b = 0; b < record[a].dbgj.length; b++) {
+        if(record&&record.length>0) {
+          for (let a = 0; a < record.length; a++) {
+            if (record.length > 0 && record[a].dbgj) {
+              for (let b = 0; b < record[a].dbgj.length; b++) {
                 newDblist.push(record[a].dbgj[b]);
+              }
             }
+          }
         }
         return (
             <div
                 className={this.props.global && this.props.global.dark ? styles.ModalTitle : styles.ModalTitle + ' ' + styles.lightBox}>
                 <Card className={styles.standardTable} id='DbhistoryModule'>
-                    <div style={{borderBottom: '1px solid #ccc'}}>
+                    <div>
                         <div className={styles.title}>
                             <Steps direction="vertical" current={newDblist.length > 0 ? (newDblist.length - 1) : ''}>
                                 {newDblist ?

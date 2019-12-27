@@ -95,7 +95,7 @@ export default class SuperviseModal extends PureComponent {
             },
             callback: (data) => {
                 this.setState({
-                    returnxsProblemType: data.data.list,
+                    returnxsProblemType: data.data,
                 });
             },
         });
@@ -111,7 +111,7 @@ export default class SuperviseModal extends PureComponent {
             },
             callback: (data) => {
                 this.setState({
-                        returnjqProblemType: data.data.list,
+                        returnjqProblemType: data.data,
                     },
                 );
             },
@@ -128,7 +128,7 @@ export default class SuperviseModal extends PureComponent {
             },
             callback: (data) => {
                 this.setState({
-                    returnxzProblemType: data.data.list,
+                    returnxzProblemType: data.data,
                 });
             },
         });
@@ -144,7 +144,7 @@ export default class SuperviseModal extends PureComponent {
             },
             callback: (data) => {
                 this.setState({
-                    returnbaqProblemType: data.data.list,
+                    returnbaqProblemType: data.data,
                 });
             },
         });
@@ -160,7 +160,7 @@ export default class SuperviseModal extends PureComponent {
             },
             callback: (data) => {
                 this.setState({
-                    returnsacwProblemType: data.data.list,
+                    returnsacwProblemType: data.data,
                 });
             },
         });

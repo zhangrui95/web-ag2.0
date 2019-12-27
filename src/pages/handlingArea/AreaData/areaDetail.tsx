@@ -463,20 +463,20 @@ export default class areaDetail extends PureComponent {
     return (
       <div style={{ backgroundColor: dark ? '#252C3C' : '#fff', margin: '16px 0' }}>
         <Row gutter={{ md: 8, lg: 24, xl: 48 }}>
-          <Col md={8} sm={24}>
-              {isDb && areaDetails && areaDetails.zrdwList && areaDetails.zrdwList.length > 0 ? (
-                  <div style={{ textAlign: 'left', padding: '6px 0' }}>
-                      <Button
-                          className={styles.TopMenu}
-                          onClick={() => this.onceSupervise(areaDetails, true, '办案区详情问题判定')}
-                      >
-                          问题判定
-                      </Button>
-                  </div>
-              ) : (
-                  ''
-              )}
-          </Col>
+          {/*<Col md={8} sm={24}>*/}
+              {/*{isDb && areaDetails && areaDetails.zrdwList && areaDetails.zrdwList.length > 0 ? (*/}
+                  {/*<div style={{ textAlign: 'left', padding: '6px 0' }}>*/}
+                      {/*<Button*/}
+                          {/*className={styles.TopMenu}*/}
+                          {/*onClick={() => this.onceSupervise(areaDetails, true, '办案区详情问题判定')}*/}
+                      {/*>*/}
+                          {/*问题判定*/}
+                      {/*</Button>*/}
+                  {/*</div>*/}
+              {/*) : (*/}
+                  {/*''*/}
+              {/*)}*/}
+          {/*</Col>*/}
           <Col>
             <span>
               {areaDetails ? (

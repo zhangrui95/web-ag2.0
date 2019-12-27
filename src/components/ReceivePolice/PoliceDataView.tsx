@@ -823,6 +823,7 @@ export default class PoliceDataView extends PureComponent {
                 },
                 axisLabel: {
                     interval: 0,
+                    rotate: 50,
                     formatter: value => this.insertFlg(value, '\n', 6),
                     textStyle: {
                         color: nextProps.global && nextProps.global.dark ? '#fff' : '#4d4d4d',
@@ -1091,7 +1092,7 @@ export default class PoliceDataView extends PureComponent {
                             position: 'center',
                             textStyle: {
                                 fontSize: '22',
-                                color: '#66ccff',
+                                color: '#fff',
                             },
                         },
                         emphasis: {
