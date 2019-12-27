@@ -924,6 +924,13 @@ export function routes() {
                           component: './ModuleAll/RelevanceDossier',
                           hideInMenu: true,
                         },
+                      {
+                        path: '/ModuleAll/PersonLedger',
+                        name: '人员台账',
+                        icon: 'smile',
+                        component: './ModuleAll/PersonLedger',
+                        hideInMenu: true,
+                      },
                         {
                             component: './404',
                         },

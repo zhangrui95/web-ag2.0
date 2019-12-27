@@ -102,8 +102,8 @@ class RenderTable extends PureComponent {
           query: {
             record: res,
             id: res && res.id ? res.id : '1',
-            from: '人员信息',
-            tzlx: 'baqxx',
+            from: this.state.lx,
+            tzlx: this.state.tzlx,
             fromPath: '/handlingArea/AreaData',
             tab: '表格',
             sx:
@@ -167,9 +167,21 @@ class RenderTable extends PureComponent {
       },
     });
   };
-  Ledger = (record) => {
-
-  }
+  Ledger = (res) => {
+    this.props.dispatch(
+      routerRedux.push({
+        pathname: '/ModuleAll/PersonLedger',
+        query: {
+          record: res,
+          id: res && res.system_id ? res.system_id : '1',
+          // from: this.state.lx,
+          // tzlx: this.state.tzlx,
+          // fromPath: '/handlingArea/AreaData',
+          // tab: '表格',
+        },
+      }),
+    );
+  };
   render() {
     const { data, loading } = this.props;
     let columns;

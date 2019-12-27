@@ -426,6 +426,22 @@ export default class areaDetail extends PureComponent {
       shareVisible: false,
     });
   };
+  // 台账
+  Ledger = (res) =>{
+    this.props.dispatch(
+      routerRedux.push({
+        pathname: '/ModuleAll/PersonLedger',
+        query: {
+          record: res,
+          id: res && res.system_id ? res.system_id : '1',
+          // from: this.state.lx,
+          // tzlx: this.state.tzlx,
+          // fromPath: '/handlingArea/AreaData',
+          // tab: '表格',
+        },
+      }),
+    );
+  }
 
   Topdetail() {
     const { sfgz, isDb, record } = this.state;
@@ -449,46 +465,68 @@ export default class areaDetail extends PureComponent {
           {/*<span style={{ margin: '16px', display: 'block' }}>人员在区详情</span>*/}
           {/*</Col>*/}
           <Col>
-            <span style={{ float: 'right', margin: '12px 16px 12px 0' }}>
+            <span>
               {areaDetails ? (
                 <span>
-                  <span className={liststyles.collect}>
-                    {handleAreaSfgz === 0 ? (
-                      <Tooltip title="关注">
-                        <div onClick={() => this.saveShare(areaDetails, record, 1, 0)}>
-                          <img
-                            src={dark ? nocollect : nocollect1}
-                            width={25}
-                            height={25}
-                            style={{ marginLeft: 12 }}
-                          />
-                          <div style={{ fontSize: 12, textAlign: 'center', width: 48 }}>关注</div>
-                        </div>
-                      </Tooltip>
-                    ) : (
-                      <Tooltip title="取消关注">
-                        <div onClick={() => this.noFollow(areaDetails)}>
-                          <img
-                            src={dark ? collect : collect1}
-                            width={25}
-                            height={25}
-                            style={{ marginLeft: 12 }}
-                          />
-                          <div style={{ fontSize: 12, textAlign: 'center', width: 48 }}>
-                            取消关注
+                  <div className={styles.objMenu}>
+                    <Button
+                      className={styles.TopMenu}
+                      onClick={() => this.Ledger(areaDetails)}
+                    >
+                      台账
+                    </Button>
+                  </div>
+                  {isDb && areaDetails && areaDetails.zrdwList && areaDetails.zrdwList.length > 0 ? (
+                    <div className={styles.objMenu}>
+                      <Button
+                        className={styles.TopMenu}
+                        onClick={() => this.onceSupervise(areaDetails, true, '办案区详情问题判定')}
+                      >
+                        问题判定
+                      </Button>
+                    </div>
+                  ) : (
+                    ''
+                  )}
+                  <span style={{ float: 'right', margin: '12px 16px 12px 0' }}>
+                    <span className={liststyles.collect}>
+                      {handleAreaSfgz === 0 ? (
+                        <Tooltip title="关注">
+                          <div onClick={() => this.saveShare(areaDetails, record, 1, 0)}>
+                            <img
+                              src={dark ? nocollect : nocollect1}
+                              width={25}
+                              height={25}
+                              style={{ marginLeft: 12 }}
+                            />
+                            <div style={{ fontSize: 12, textAlign: 'center', width: 48 }}>关注</div>
                           </div>
-                        </div>
+                        </Tooltip>
+                      ) : (
+                        <Tooltip title="取消关注">
+                          <div onClick={() => this.noFollow(areaDetails)}>
+                            <img
+                              src={dark ? collect : collect1}
+                              width={25}
+                              height={25}
+                              style={{ marginLeft: 12 }}
+                            />
+                            <div style={{ fontSize: 12, textAlign: 'center', width: 48 }}>
+                              取消关注
+                            </div>
+                          </div>
+                        </Tooltip>
+                      )}
+                    </span>
+                    <span
+                      className={liststyles.collect}
+                      onClick={() => this.saveShare(areaDetails, record, 2)}
+                    >
+                      <Tooltip title="分享">
+                        <img src={dark ? share : share1} width={25} height={25} />
+                        <div style={{ fontSize: 12 }}>分享</div>
                       </Tooltip>
-                    )}
-                  </span>
-                  <span
-                    className={liststyles.collect}
-                    onClick={() => this.saveShare(areaDetails, record, 2)}
-                  >
-                    <Tooltip title="分享">
-                      <img src={dark ? share : share1} width={25} height={25} />
-                      <div style={{ fontSize: 12 }}>分享</div>
-                    </Tooltip>
+                    </span>
                   </span>
                 </span>
               ) : (
@@ -1331,18 +1369,6 @@ export default class areaDetail extends PureComponent {
               style={{ marginRight: 70, background: 'linear-gradient(to right, #0084FA, #03A3FF)' }}
             >
               查看当前涉案信息
-            </Button>
-          </div>
-        ) : (
-          ''
-        )}
-        {isDb && areaDetails && areaDetails.zrdwList && areaDetails.zrdwList.length > 0 ? (
-          <div style={{ textAlign: 'right', padding: '16px 32px' }}>
-            <Button
-              className={styles.TopMenu}
-              onClick={() => this.onceSupervise(areaDetails, true, '办案区详情问题判定')}
-            >
-              问题判定
             </Button>
           </div>
         ) : (

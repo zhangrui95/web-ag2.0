@@ -218,7 +218,21 @@ class RenderTable extends PureComponent {
       },
     });
   };
-
+  Ledger = (res) => {
+    this.props.dispatch(
+      routerRedux.push({
+        pathname: '/ModuleAll/PersonLedger',
+        query: {
+          record: res,
+          id: res && res.system_id ? res.system_id : '1',
+          // from: this.state.lx,
+          // tzlx: this.state.tzlx,
+          // fromPath: '/handlingArea/AreaData',
+          // tab: '表格',
+        },
+      }),
+    );
+  };
   render() {
     const {
       data,
@@ -360,6 +374,10 @@ class RenderTable extends PureComponent {
               <Divider type="vertical" />
               <a href="javascript:;" onClick={() => this.saveShare(record, 2)}>
                 分享
+              </a>
+              <Divider type="vertical" />
+              <a href="javascript:;" onClick={() => this.Ledger(record)}>
+                台账
               </a>
             </div>
           );
