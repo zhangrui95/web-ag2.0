@@ -842,7 +842,7 @@ export default class PoliceDataView extends PureComponent {
                 },
                 axisLabel: {
                     textStyle: {
-                        color: '#FFF',
+                        color: nextProps.global && nextProps.global.dark ? '#fff' : '#4d4d4d',
                     },
                 },
             },

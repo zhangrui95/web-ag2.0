@@ -407,8 +407,19 @@ export default class itemDetail extends PureComponent {
 
   Topdetail() {
     const { sfgz, isDb, record } = this.state;
-    const { itemData:{handleWpSfgz,itemDetails} } = this.props;
+    // const { itemData:{handleWpSfgz,itemDetails} } = this.props;
     let dark = this.props.global && this.props.global.dark;
+      let handleWpSfgz,itemDetails;
+      if(this.state.itemDetails&&this.props.itemData&&this.props.itemData.itemDetails&&this.state.itemDetails.id === this.props.itemData.itemDetails.id){
+          handleWpSfgz = this.props.itemData.handleWpSfgz;
+          itemDetails = this.props.itemData.itemDetails;
+          this.setState({
+              itemDetails,
+          })
+      }else{
+          handleWpSfgz = this.state.itemDetails ? this.state.itemDetails.sfgz : '';
+          itemDetails = this.state.itemDetails;
+      }
     return (
       <div style={{ backgroundColor: dark ? '#252C3C' : '#fff', margin: '16px 0' }}>
         <Row gutter={{ md: 8, lg: 24, xl: 48 }}>
@@ -481,18 +492,19 @@ export default class itemDetail extends PureComponent {
   }
 
   renderDetail() {
-    const { isDb } = this.state;
-    const { itemData:{handleWpSfgz,itemDetails} } = this.props;
+   const { itemDetails,isDb } = this.state;
     const rowLayout = { md: 8, xl: 16, xxl: 24 };
     let dark = this.props.global && this.props.global.dark;
     return (
       <div
-        style={{ background: dark ? '#202839' : '#fff' /*height: autoheight() - 180 + 'px'*/ }}
+        style={{ background: dark ? '#252c3c' : '#fff' /*height: autoheight() - 180 + 'px'*/ }}
         className={styles.detailBoxScroll}
       >
         {itemDetails && itemDetails.system_id && itemDetails.ajlx ? (
-          <div style={{ textAlign: 'center' }}>
-            <Button type="primary" onClick={() => this.openCaseDetail(itemDetails)}>
+          <div style={{ textAlign: 'right',margin:'16px' }}>
+            <Button type="primary" onClick={() => this.openCaseDetail(itemDetails)} style={{background: dark
+                ? 'linear-gradient(to right, #0084FA, #03A3FF)'
+                : 'linear-gradient(to right, #3D63D1, #333FE4)'}}>
               查看关联案件
             </Button>
           </div>

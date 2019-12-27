@@ -386,9 +386,19 @@ export default class caseDetail extends PureComponent {
 
   Topdetail() {
     const { sfgz, isDb, isZb } = this.state;
-    const { record,XzCaseData:{caseDetails,handleXzCaseSfgz} } = this.props;
-    console.log('handleXzCaseSfgz',handleXzCaseSfgz);
+    const { record } = this.props;
     let dark = this.props.global && this.props.global.dark;
+      let handleXzCaseSfgz,caseDetails;
+      if(this.state.caseDetails&&this.props.XzCaseData&&this.props.XzCaseData.caseDetails&&this.state.caseDetails.id === this.props.XzCaseData.caseDetails.id){
+          handleXzCaseSfgz = this.props.XzCaseData.handleXzCaseSfgz;
+          caseDetails = this.props.XzCaseData.caseDetails;
+          this.setState({
+              caseDetails,
+          });
+      }else{
+          handleXzCaseSfgz = this.state.caseDetails ? this.state.caseDetails.sfgz : '';
+          caseDetails = this.state.caseDetails;
+      }
     return (
       <div style={{ backgroundColor: dark ? '#252C3C' : '#fff', margin: '16px 0' }}>
         <Row gutter={{ md: 8, lg: 24, xl: 48 }}>
@@ -665,7 +675,7 @@ export default class caseDetail extends PureComponent {
   };
 
   renderDetail() {
-    const {XzCaseData:{caseDetails}} = this.props;
+    const {caseDetails} = this.state;
     const rowLayout = { md: 8, xl: 16, xxl: 24 };
     let dark = this.props.global && this.props.global.dark;
     return (

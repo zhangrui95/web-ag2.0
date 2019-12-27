@@ -429,8 +429,19 @@ export default class areaDetail extends PureComponent {
 
   Topdetail() {
     const { sfgz, isDb, record } = this.state;
-    const { areaData:{areaDetails,handleAreaSfgz} } = this.props;
+    // const { areaData:{areaDetails,handleAreaSfgz} } = this.props;
     let dark = this.props.global && this.props.global.dark;
+      let handleAreaSfgz,areaDetails;
+      if(this.state.areaDetails&&this.props.areaData&&this.props.areaData.areaDetails&&this.state.areaDetails.id === this.props.areaData.areaDetails.id){
+          handleAreaSfgz = this.props.areaData.handleAreaSfgz;
+          areaDetails = this.props.areaData.areaDetails;
+          this.setState({
+              areaDetails,
+          })
+      }else{
+          handleAreaSfgz = this.state.areaDetails ? this.state.areaDetails.sfgz : '';
+          areaDetails = this.state.areaDetails;
+      }
     return (
       <div style={{ backgroundColor: dark ? '#252C3C' : '#fff', margin: '16px 0' }}>
         <Row gutter={{ md: 8, lg: 24, xl: 48 }}>
@@ -1014,8 +1025,7 @@ export default class areaDetail extends PureComponent {
 
   renderDetail() {
     const { getFieldDecorator } = this.props.form;
-    const { isDb } = this.state;
-    const { areaData:{areaDetails} } = this.props;
+    const { areaDetails, isDb } = this.state;
     const colLayoutInName = { sm: 24, md: 5, xl: 5 };
     const colLayoutInData = { sm: 24, md: 19, xl: 19 };
     let dark = this.props.global && this.props.global.dark;
