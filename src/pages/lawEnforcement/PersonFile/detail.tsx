@@ -655,7 +655,7 @@ export default class PersonalDocDetail extends PureComponent {
 
                         </Row>
                     </Card>
-                    <Card style={{height: autoheight() - 210 + 'px', marginTop: '12px'}} ref={'scroll'}
+                    <Card style={{/*height: autoheight() - 210 + 'px',*/ marginTop: '12px'}} ref={'scroll'}
                           className={className}>
                         <div>
                             <div id={`Nameryxx${this.props.location.query.id}`} className={styles.borderBottom}>
@@ -740,27 +740,26 @@ export default class PersonalDocDetail extends PureComponent {
                                     />
                                 </Card>
                             </div>
-                            <Card title="|  涉案信息" className={listStyles.cardCharts + ' ' + styles.saxx}
+                          {personData.ajxx ?
+                            (<Card title="|  涉案信息" className={listStyles.cardCharts + ' ' + styles.saxx}
                                   id={`cardCharts${this.props.location.query.id}`}
                                   bordered={false}>
                                 {
-                                    personData.ajxx ? (
-                                        personData.ajxx.map(item => (
-                                            <PersonDetailTab
-                                                SaWpdeatils={this.SaWpdeatils}
-                                                IntoArea={this.IntoArea}
-                                                openCaseDetail={this.openCaseDetail}
-                                                openPersonDetail={this.openPersonDetail}
-                                                JzDetail={this.JzDetail}
-                                                {...this.props}
-                                                caseData={item}
-                                                key={item.ajbh}
-                                                {...this.props}
-                                            />
-                                        ))
-                                    ) : null
+                                    personData.ajxx.map(item => (
+                                        <PersonDetailTab
+                                            SaWpdeatils={this.SaWpdeatils}
+                                            IntoArea={this.IntoArea}
+                                            openCaseDetail={this.openCaseDetail}
+                                            openPersonDetail={this.openPersonDetail}
+                                            JzDetail={this.JzDetail}
+                                            {...this.props}
+                                            caseData={item}
+                                            key={item.ajbh}
+                                            {...this.props}
+                                        />
+                                    ))
                                 }
-                            </Card>
+                            </Card>):null}
                         </div>
                     </Card>
                 </Spin>

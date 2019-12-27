@@ -4,7 +4,7 @@ import request from '../utils/request';
 export async function AllDetailPersonDatas(params) {
     return request(`${configUrl.serverUrl}/getRyda`, {
         method: 'POST',
-        body: {
+        data: {
             ...params,
         },
     });
