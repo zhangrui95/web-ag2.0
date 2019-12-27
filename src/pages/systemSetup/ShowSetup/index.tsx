@@ -120,7 +120,7 @@ export default class SetUpShow extends PureComponent {
     goBack = () => {
         history.go(-1);
     };
-    getSave = () => {
+    getSaveList = () =>{
         let saveList = [...this.state.saveList];
         if (this.state.mapLoopTime) {
             saveList.push({
@@ -130,6 +130,9 @@ export default class SetUpShow extends PureComponent {
                 pzfl: '2',
             });
         }
+        return saveList
+    }
+    getSaveTest = (saveList) =>{
         if (saveList.length === 12) {
             this.props.dispatch({
                 type: 'setUpShow/getSave',
@@ -141,8 +144,18 @@ export default class SetUpShow extends PureComponent {
                 },
             });
         } else {
-            message.warning('选择项不可为空');
+            message.config({
+                top: 100,
+                duration: 2,
+                maxCount: 3,
+            });
+            message.warn('选择项不可为空')
+            // alert('选择项不可为空');
         }
+    }
+    getSave = async () => {
+        let saveList = await this.getSaveList();
+        await this.getSaveTest (saveList);
     };
     changeSelect = (e, res, idx) => {
         if (e) {

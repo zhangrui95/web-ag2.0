@@ -35,11 +35,13 @@ import nophotoLight from "@/assets/common/nophotoLight.png";
 const FormItem = Form.Item;
 const {Step} = Steps;
 const TabPane = Tabs.TabPane;
+@connect(({global}) => ({
+     global
+}))
 export default class SsWoodMessage extends PureComponent {
     state = {
         // current:'1',
     };
-
     content = (pane) => {
         const picture = pane.photo;
         return (
@@ -51,7 +53,7 @@ export default class SsWoodMessage extends PureComponent {
                                 {/*<li>*/}
                                 {/*<img width={250} src={pane.photo_url} alt='暂无图片' />*/}
                                 {/*</li>*/}
-                                {picture.map(pic => <li><img width={250} src={pic ? pic : dark ? nophoto : nophotoLight}
+                                {picture.map(pic => <li><img width={250} ref={'imgBox'} src={pic ? pic : this.props.global && this.props.global.dark ? nophoto : nophotoLight}
                                                              alt='暂无图片'/></li>)}
                             </ul>
                         </div>
