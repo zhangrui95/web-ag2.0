@@ -362,7 +362,7 @@ export default class Index extends PureComponent {
                   record: res,
                   itemDetails: data,
                   id: res && res.system_id ? res.system_id : '1',
-                  from: '案件预警',
+                  from: this.state.lx,
                   fromPath: '/newcaseFiling/caseWarning/CriminalWarning',
                   detail,
                   tab: '表格',
@@ -376,7 +376,7 @@ export default class Index extends PureComponent {
                 query: {
                   record: res,
                   id: res && res.system_id ? res.system_id : '1',
-                  from: '案件预警',
+                  from: this.state.lx,
                   tzlx: this.state.tzlx,
                   fromPath: '/newcaseFiling/caseWarning/CriminalWarning',
                   tab: '表格',

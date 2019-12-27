@@ -110,8 +110,8 @@ class RenderTable extends PureComponent {
                     query: {
                         record: res,
                         id: res && res.system_id ? res.system_id : '1',
-                        from: '案件信息',
-                        tzlx: 'xsajxx2',
+                        from: this.state.lx,
+                        tzlx: this.state.tzlx,
                         fromPath: '/newcaseFiling/caseData/CriminalData',
                         tab: '表格',
                         sx: (res.ajmc ? res.ajmc + '、' : '') + (res.schj ? res.schj : '')
