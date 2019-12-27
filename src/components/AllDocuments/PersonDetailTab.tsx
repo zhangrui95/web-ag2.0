@@ -10,9 +10,12 @@ import styles from './personDetailTab.less';
 import PunishTimeLine from './PunishTimeLine';
 import noList from "@/assets/viewData/noList.png";
 import noListLight from "@/assets/viewData/noListLight.png";
+import {connect} from "dva";
 
 const TabPane = Tabs.TabPane;
-
+@connect(({ global }) => ({
+    global,
+}))
 export default class PersonDetailTab extends PureComponent {
 
     state = {
@@ -96,14 +99,13 @@ export default class PersonDetailTab extends PureComponent {
         return (
             <List
                 itemLayout="vertical"
-                size="small"
                 pagination={sawpList.length > 0 ? {
                     size: 'small',
                     pageSize: 8,
                     showTotal: (total, range) => <div style={{
                         position: 'absolute',
                         left: '12px',
-                        color: this.props.global && this.props.global.dark ? '#fff' : '#e6e6e6'
+                        color: this.props.global && this.props.global.dark ? '#fff' : '#999'
                     }}>共 {total} 条记录
                         第 {this.state.sawpCurrent} / {(Math.ceil(total / 8))} 页</div>,
                     onChange: (page) => {
