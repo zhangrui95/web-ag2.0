@@ -420,7 +420,22 @@ export default class unareaDetail extends PureComponent {
   //     </div>
   //   );
   // };
-
+  // 台账
+  Ledger = (res) =>{
+    this.props.dispatch(
+      routerRedux.push({
+        pathname: '/ModuleAll/PersonLedger',
+        query: {
+          record: res,
+          id: res && res.system_id ? res.system_id : '1',
+          // from: this.state.lx,
+          // tzlx: this.state.tzlx,
+          // fromPath: '/handlingArea/AreaData',
+          // tab: '表格',
+        },
+      }),
+    );
+  };
   Topdetail() {
     const { UnareaDetail, isDb } = this.state;
     let dark = this.props.global && this.props.global.dark;
@@ -432,6 +447,18 @@ export default class unareaDetail extends PureComponent {
           {/*</Col>*/}
           <Col>
             <span style={{ float: 'right', margin: '0 16px 12px 0' }}>
+              {UnareaDetail?
+                <Button
+                  type="primary"
+                  style={{ marginLeft: 8 }}
+                  className={styles.TopMenu}
+                  onClick={() => this.Ledger(UnareaDetail)}
+                >
+                  台账
+                </Button>
+                :
+                ''
+              }
               {UnareaDetail && UnareaDetail.zt === '待督办' && isDb ? (
                 <Button
                   type="primary"
