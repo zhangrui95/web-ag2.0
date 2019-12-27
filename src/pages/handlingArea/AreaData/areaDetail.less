@@ -69,7 +69,7 @@
 
       .ant-steps-item:nth-child(2n + 2) .ant-steps-item-content {
         position: relative;
-        top: -100px;
+        //top: -100px;
       }
 
       .ant-steps-item-description {
@@ -96,7 +96,7 @@
 
       .ant-steps-item:nth-child(2n + 2) .ant-steps-item-content {
         position: relative;
-        top: -100px;
+        //top: -100px;
       }
 
       .ant-steps-item-description {
@@ -123,7 +123,7 @@
 
       .ant-steps-item:nth-child(2n + 2) .ant-steps-item-content {
         position: relative;
-        top: -100px;
+        //top: -100px;
       }
 
       .ant-steps-item-description {
@@ -150,7 +150,7 @@
 
       .ant-steps-item:nth-child(2n + 2) .ant-steps-item-content {
         position: relative;
-        top: -100px;
+        //top: -100px;
       }
 
       .ant-steps-item-description {
@@ -177,7 +177,7 @@
 
       .ant-steps-item:nth-child(2n + 2) .ant-steps-item-content {
         position: relative;
-        top: -100px;
+        //top: -100px;
       }
 
       .ant-steps-item-description {
@@ -226,8 +226,13 @@
 
 .dqsaxxCard {
   border-radius: 0 !important;
+  border: 0!important;
+  background-color:@body-background!important;
 
   :global {
+    .ant-card-head {
+      border-bottom: 0;
+    }
     .ant-card-body {
       padding: 12px;
     }
@@ -275,10 +280,13 @@
 
 .rqgjCard {
   border-radius: 0 !important;
-
+  background-color: @body-background!important;
   :global {
     .ant-card-body {
       padding: 12px 24px;
+    }
+    .ant-card-head {
+      border-bottom: 1px solid #1D212F;
     }
   }
 }

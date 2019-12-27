@@ -44,6 +44,10 @@ import share from '../../../assets/common/share.png';
 import collect1 from '../../../assets/common/collect1.png';
 import nocollect1 from '../../../assets/common/nocollect1.png';
 import share1 from '../../../assets/common/share1.png';
+import left from '../../../assets/common/left.png';
+import left1 from '../../../assets/common/left1.png';
+import right from '../../../assets/common/right.png';
+import right1 from '../../../assets/common/right1.png';
 
 import styles from './areaDetail.less';
 import liststyles from '../../common/listDetail.less';
@@ -708,33 +712,33 @@ export default class areaDetail extends PureComponent {
           <div className={styles.IconStyle} style={{ width: '210px' }}>
             {this.state.colortrailleft === 'blue' ? (
               <img
-                src="/images/left.png"
-                width="60"
-                height="60"
+                src={left}
+                width="45"
+                height="45"
                 onClick={() => this.dailyLeftClick(newObjWidth, length)}
                 style={{ cursor: 'pointer' }}
               />
             ) : (
               <img
-                src="/images/left1.png"
-                width="60"
-                height="60"
+                src={left1}
+                width="45"
+                height="45"
                 onClick={() => this.dailyLeftClick(newObjWidth, length)}
               />
             )}
             {this.state.colortrailright === 'blue' ? (
               <img
-                src="/images/right.png"
-                width="60"
-                height="60"
+                src={right}
+                width="45"
+                height="45"
                 onClick={() => this.dailyRightClick(newObjWidth, length)}
                 style={{ marginLeft: '30px', cursor: 'pointer' }}
               />
             ) : (
               <img
-                src="/images/right1.png"
-                width="60"
-                height="60"
+                src={right1}
+                width="45"
+                height="45"
                 onClick={() => this.dailyRightClick(newObjWidth, length)}
                 style={{ marginLeft: '30px' }}
               />
@@ -744,8 +748,8 @@ export default class areaDetail extends PureComponent {
       } else if (length <= 4) {
         return (
           <div className={styles.IconStyle} style={{ width: '210px', bottom: '200px' }}>
-            <img src="/images/left1.png" width="60" height="60" />
-            <img src="/images/right1.png" width="60" height="60" style={{ marginLeft: '30px' }} />
+            <img src={left1} width="45" height="45" />
+            <img src={right1} width="45" height="45" style={{ marginLeft: '30px' }} />
           </div>
         );
       }
@@ -755,33 +759,33 @@ export default class areaDetail extends PureComponent {
           <div className={styles.IconStyle} style={{ width: '210px', bottom: '200px' }}>
             {this.state.colortrailleft === 'blue' ? (
               <img
-                src="/images/left.png"
-                width="60"
-                height="60"
+                src={left}
+                width="45"
+                height="45"
                 onClick={() => this.dailyLeftClick(newObjWidth, length)}
                 style={{ cursor: 'pointer' }}
               />
             ) : (
               <img
-                src="/images/left1.png"
-                width="60"
-                height="60"
+                src={left1}
+                width="45"
+                height="45"
                 onClick={() => this.dailyLeftClick(newObjWidth, length)}
               />
             )}
             {this.state.colortrailright === 'blue' ? (
               <img
-                src="/images/right.png"
-                width="60"
-                height="60"
+                src={right}
+                width="45"
+                height="45"
                 onClick={() => this.dailyRightClick(newObjWidth, length)}
                 style={{ marginLeft: '30px', cursor: 'pointer' }}
               />
             ) : (
               <img
-                src="/images/right1.png"
-                width="60"
-                height="60"
+                src={right1}
+                width="45"
+                height="45"
                 onClick={() => this.dailyRightClick(newObjWidth, length)}
                 style={{ marginLeft: '30px' }}
               />
@@ -791,8 +795,8 @@ export default class areaDetail extends PureComponent {
       } else if (length <= 4) {
         return (
           <div className={styles.IconStyle} style={{ width: '210px', bottom: '200px' }}>
-            <img src="/images/left1.png" width="60" height="60" />
-            <img src="/images/right1.png" width="60" height="60" style={{ marginLeft: '30px' }} />
+            <img src={left1} width="45" height="45" />
+            <img src={right1} width="45" height="45" style={{ marginLeft: '30px' }} />
           </div>
         );
       }
@@ -802,33 +806,33 @@ export default class areaDetail extends PureComponent {
           <div className={styles.IconStyle} style={{ width: '210px', bottom: '200px' }}>
             {this.state.colortrailleft === 'blue' ? (
               <img
-                src="/images/left.png"
-                width="60"
-                height="60"
+                src={left}
+                width="45"
+                height="45"
                 onClick={() => this.dailyLeftClick(newObjWidth, length)}
                 style={{ cursor: 'pointer' }}
               />
             ) : (
               <img
-                src="/images/left1.png"
-                width="60"
-                height="60"
+                src={left1}
+                width="45"
+                height="45"
                 onClick={() => this.dailyLeftClick(newObjWidth, length)}
               />
             )}
             {this.state.colortrailright === 'blue' ? (
               <img
-                src="/images/right.png"
-                width="60"
-                height="60"
+                src={right}
+                width="45"
+                height="45"
                 onClick={() => this.dailyRightClick(newObjWidth, length)}
                 style={{ marginLeft: '30px', cursor: 'pointer' }}
               />
             ) : (
               <img
-                src="/images/right1.png"
-                width="60"
-                height="60"
+                src={right1}
+                width="45"
+                height="45"
                 onClick={() => this.dailyRightClick(newObjWidth, length)}
                 style={{ marginLeft: '30px' }}
               />
@@ -838,8 +842,8 @@ export default class areaDetail extends PureComponent {
       } else if (length <= 4) {
         return (
           <div className={styles.IconStyle} style={{ width: '210px', bottom: '200px' }}>
-            <img src="/images/left1.png" width="60" height="60" />
-            <img src="/images/right1.png" width="60" height="60" style={{ marginLeft: '30px' }} />
+            <img src={left1} width="45" height="45" />
+            <img src={right1} width="45" height="45" style={{ marginLeft: '30px' }} />
           </div>
         );
       }
@@ -849,33 +853,33 @@ export default class areaDetail extends PureComponent {
           <div className={styles.IconStyle} style={{ width: '210px', bottom: '200px' }}>
             {this.state.colortrailleft === 'blue' ? (
               <img
-                src="/images/left.png"
-                width="60"
-                height="60"
+                src={left}
+                width="45"
+                height="45"
                 onClick={() => this.dailyLeftClick(newObjWidth, length)}
                 style={{ cursor: 'pointer' }}
               />
             ) : (
               <img
-                src="/images/left1.png"
-                width="60"
-                height="60"
+                src={left1}
+                width="45"
+                height="45"
                 onClick={() => this.dailyLeftClick(newObjWidth, length)}
               />
             )}
             {this.state.colortrailright === 'blue' ? (
               <img
-                src="/images/right.png"
-                width="60"
-                height="60"
+                src={right}
+                width="45"
+                height="45"
                 onClick={() => this.dailyRightClick(newObjWidth, length)}
                 style={{ marginLeft: '30px', cursor: 'pointer' }}
               />
             ) : (
               <img
-                src="/images/right1.png"
-                width="60"
-                height="60"
+                src={right1}
+                width="45"
+                height="45"
                 onClick={() => this.dailyRightClick(newObjWidth, length)}
                 style={{ marginLeft: '30px' }}
               />
@@ -885,8 +889,8 @@ export default class areaDetail extends PureComponent {
       } else if (length <= 4) {
         return (
           <div className={styles.IconStyle} style={{ width: '210px', bottom: '200px' }}>
-            <img src="/images/left1.png" width="60" height="60" />
-            <img src="/images/right1.png" width="60" height="60" style={{ marginLeft: '30px' }} />
+            <img src={left1} width="45" height="45" />
+            <img src={right1} width="45" height="45" style={{ marginLeft: '30px' }} />
           </div>
         );
       }
@@ -1665,7 +1669,7 @@ export default class areaDetail extends PureComponent {
             // size={'middle'}
             // style={{ backgroundColor: '#252C3C' }}
             className={styles.sswpxxTable}
-            bordered
+            // bordered
             pagination={{
               pageSize: 3,
               showTotal: (total, range) => (
@@ -1695,7 +1699,7 @@ export default class areaDetail extends PureComponent {
             // size={'middle'}
             // style={{ backgroundColor: '#252C3C' }}
             className={styles.sswpxxTable}
-            bordered
+            // bordered
             pagination={{
               pageSize: 3,
               showTotal: (total, range) => (
