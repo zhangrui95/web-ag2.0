@@ -162,12 +162,14 @@ class RenderTable extends PureComponent {
         if (!res.error) {
           message.success('取消关注成功');
           this.props.getArea({ currentPage: this.state.current, pd: this.props.formValues });
-          this.refreshDetail(record)
+          this.refreshDetail(record);
         }
       },
     });
   };
+  Ledger = (record) => {
 
+  }
   render() {
     const { data, loading } = this.props;
     let columns;
@@ -291,6 +293,10 @@ class RenderTable extends PureComponent {
             <Divider type="vertical" />
             <a href="javascript:;" onClick={() => this.saveShare(record, 2)}>
               分享
+            </a>
+            <Divider type="vertical" />
+            <a href="javascript:;" onClick={() => this.Ledger(record)}>
+              台账
             </a>
           </div>
         ),

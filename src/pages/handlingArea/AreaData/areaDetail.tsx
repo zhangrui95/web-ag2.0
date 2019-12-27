@@ -959,20 +959,21 @@ export default class areaDetail extends PureComponent {
     );
   }
 
-  openPersonDetail = (idcard, name) => {
-    if (idcard && name) {
+  openPersonDetail = (areaDetails) => {
+    if (areaDetails&&areaDetails.ryxx&&areaDetails.ryxx.xyr_sfzh&& areaDetails.ryxx.name) {
       this.props.dispatch({
         type: 'AllDetail/AllDetailPersonFetch',
         payload: {
-          name: name,
-          sfzh: idcard,
+          name: areaDetails.ryxx.name,
+          sfzh: areaDetails.ryxx.xyr_sfzh,
         },
         callback: data => {
+          console.log('data',data);
           if (data && data.ryxx) {
             this.props.dispatch(
               routerRedux.push({
                 pathname: '/lawEnforcement/PersonFile/Detail',
-                query: { id: idcard, record: data },
+                query: { id: areaDetails.ryxx.xyr_sfzh, record: data },
               }),
             );
             // const divs = (
@@ -1401,7 +1402,7 @@ export default class areaDetail extends PureComponent {
                     <a
                       style={{ textDecoration: 'underline' }}
                       onClick={() =>
-                        this.openPersonDetail(areaDetails.ryxx.xyr_sfzh, areaDetails.ryxx.name)
+                        this.openPersonDetail(areaDetails)
                       }
                     >
                       {areaDetails && areaDetails.ryxx && areaDetails.ryxx.name
