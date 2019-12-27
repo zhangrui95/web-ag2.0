@@ -539,10 +539,21 @@ export default class DossierDetail extends PureComponent {
   Topdetail() {
     const { isDb } = this.state;
     // const {record} = this.props;
-    const {DossierData:{DossierDetailData,handleDossierSfgz}} = this.props;
+    // const {DossierDetailData:{DossierDetailData,handleDossierSfgz}} = this.props;
     const rowLayout = { md: 8, lg: 24, xl: 48 };
     const colLayout = { sm: 24, md: 12, xl: 8 };
     let dark = this.props.global && this.props.global.dark;
+      let handleDossierSfgz,DossierDetailData;
+      if(this.state.DossierDetailData&&this.props.DossierData&&this.props.DossierData.DossierDetailData&&this.state.DossierDetailData.id === this.props.DossierData.DossierDetailData.id){
+          handleDossierSfgz = this.props.DossierData.handleDossierSfgz;
+          DossierDetailData = this.props.DossierData.DossierDetailData;
+          this.setState({
+              DossierDetailData,
+          })
+      }else{
+          handleDossierSfgz = this.state.DossierDetailData ? this.state.DossierDetailData.sfgz : '';
+          DossierDetailData = this.state.DossierDetailData;
+      }
     return (
       <div style={{ backgroundColor: dark ? '#252C3C' : '#fff', margin: '16px 0' }}>
         <Row gutter={rowLayout}>
@@ -629,7 +640,7 @@ export default class DossierDetail extends PureComponent {
     const colLayoutInName = { sm: 24, md: 4, xl: 4 };
     const colLayoutInData = { sm: 24, md: 20, xl: 20 };
     const specialcolLayout = { sm: 24, md: 24, xl: 24 };
-    const {DossierData:{DossierDetailData}} = this.props;
+        const { DossierDetailData } = this.state;
     let dark = this.props.global && this.props.global.dark;
     let stap1 = [];
     let stap2 = [];

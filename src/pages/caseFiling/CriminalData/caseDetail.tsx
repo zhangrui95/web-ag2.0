@@ -58,11 +58,12 @@ import {authorityIsTrue} from '../../../utils/authority';
 import DetailShow from "@/components/Common/detailShow";
 // import MakeTableModal from '../../components/CaseRealData/MakeTableModal';
 
-@connect(({CaseData, loading, MySuperviseData, AllDetail}) => ({
+@connect(({CaseData, loading, MySuperviseData, AllDetail,global}) => ({
     CaseData,
     loading,
     MySuperviseData,
     AllDetail,
+    global
     // loading: loading.models.alarmManagement,
 }))
 export default class caseDetail extends PureComponent {
@@ -606,6 +607,7 @@ export default class caseDetail extends PureComponent {
                 superveWidth = 1545;
             }
         }
+        let dark = this.props.global && this.props.global.dark;
         return (
             <div
                 style={{padding: '24px 0', background: '#252C3C' /*height: autoheight() - 280 + 'px'*/}}
@@ -616,7 +618,9 @@ export default class caseDetail extends PureComponent {
                         <Button
                             // type="primary"
                             onClick={() => this.seePolice(true, caseDetails.jqxxList)}
-                            style={{marginRight: 70, background: 'linear-gradient(to right, #0084FA, #03A3FF)'}}
+                            style={{marginRight: 70, background: dark
+                                ? 'linear-gradient(to right, #0084FA, #03A3FF)'
+                                : 'linear-gradient(to right, #3D63D1, #333FE4)'}}
                         >
                             查看关联警情
                         </Button>
@@ -627,7 +631,9 @@ export default class caseDetail extends PureComponent {
                         <Button
                             // type="primary"
                             onClick={() => this.seeArea(true, caseDetails.rqxyrList)}
-                            style={{marginRight: 16, background: 'linear-gradient(to right, #0084FA, #03A3FF)'}}
+                            style={{marginRight: 16, background: dark
+                                    ? 'linear-gradient(to right, #0084FA, #03A3FF)'
+                                    : 'linear-gradient(to right, #3D63D1, #333FE4)'}}
                         >
                             查看涉案人员在区情况
                         </Button>
@@ -638,7 +644,9 @@ export default class caseDetail extends PureComponent {
                         <Button
                             // type="primary"
                             onClick={() => this.seeRes(true, caseDetails.sawpList)}
-                            style={{marginRight: 16, background: 'linear-gradient(to right, #0084FA, #03A3FF)'}}
+                            style={{marginRight: 16, background: dark
+                                    ? 'linear-gradient(to right, #0084FA, #03A3FF)'
+                                    : 'linear-gradient(to right, #3D63D1, #333FE4)'}}
                         >
                             查看涉案物品
                         </Button>
@@ -649,7 +657,9 @@ export default class caseDetail extends PureComponent {
                         <Button
                             // type="primary"
                             onClick={() => this.seeDossier(true, caseDetails.jzList)}
-                            style={{marginRight: 16, background: 'linear-gradient(to right, #0084FA, #03A3FF)'}}
+                            style={{marginRight: 16, background: dark
+                                    ? 'linear-gradient(to right, #0084FA, #03A3FF)'
+                                    : 'linear-gradient(to right, #3D63D1, #333FE4)'}}
                         >
                             查看卷宗信息
                         </Button>

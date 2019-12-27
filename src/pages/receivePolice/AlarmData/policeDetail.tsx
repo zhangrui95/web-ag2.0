@@ -450,8 +450,18 @@ export default class policeDetail extends PureComponent {
 
   Topdetail() {
     const { sfgz, isDb,record } = this.state;
-    const { policeData:{handlePoliceSfgz,policeDetails} } = this.props
-    console.log('handlePoliceSfgz',handlePoliceSfgz);
+    // const { policeData:{handlePoliceSfgz,policeDetails} } = this.props
+      let handlePoliceSfgz,policeDetails;
+      if(this.state.policeDetails&&this.props.policeData&&this.props.policeData.policeDetails&&this.state.policeDetails.id === this.props.policeData.policeDetails.id){
+          handlePoliceSfgz = this.props.policeData.handlePoliceSfgz;
+          policeDetails = this.props.policeData.policeDetails;
+          this.setState({
+              policeDetails,
+          })
+      }else{
+          handlePoliceSfgz = this.state.policeDetails ? this.state.policeDetails.sfgz : '';
+          policeDetails = this.state.policeDetails;
+      }
     // const {query: { record }} = this.props.location;
     let dark = this.props.global && this.props.global.dark;
     return (
@@ -543,8 +553,8 @@ export default class policeDetail extends PureComponent {
     );
   }
   renderDetail() {
-    const { record } = this.state;
-    const { policeData:{policeDetails} } = this.props
+    const { record,policeDetails } = this.state;
+    // const { policeData:{policeDetails} } = this.props
     const rowLayout = { md: 8, xl: 16, xxl: 24 };
     let dark = this.props.global && this.props.global.dark;
     return (
@@ -554,9 +564,12 @@ export default class policeDetail extends PureComponent {
         className={styles.detailBoxScroll}
       >
         {policeDetails && policeDetails.ajbh && policeDetails.is_sa === 1 ? (
-          <div style={{ textAlign: 'right', padding: '16px 32px' }}>
+          <div style={{ textAlign: 'right', padding: '16px' }}>
             <Button
               className={styles.connectBtn}
+              style={{background: dark
+                      ? 'linear-gradient(to right, #0084FA, #03A3FF)'
+                      : 'linear-gradient(to right, #3D63D1, #333FE4)'}}
               onClick={() => this.openCaseDetail(policeDetails)}
             >
               查看关联案件
@@ -568,7 +581,9 @@ export default class policeDetail extends PureComponent {
         <Card
           title={
             <div
-              style={{ borderLeft: dark ? '3px solid #fff' : '3px solid #3D63D1', paddingLeft: 16 }}
+              style={{ borderLeft: dark ? '3px solid #fff' : '3px solid #3D63D1', paddingLeft: 16, background: dark
+                      ? 'linear-gradient(to right, #0084FA, #03A3FF)'
+                      : 'linear-gradient(to right, #3D63D1, #333FE4)', }}
             >
               接警信息
             </div>

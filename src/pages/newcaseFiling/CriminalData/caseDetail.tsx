@@ -423,8 +423,19 @@ export default class caseDetail extends PureComponent {
 
   Topdetail() {
     const { sfgz, isDb, isZb, isTb, record } = this.state;
-    const { CaseData:{handleXsCaseSfgz,caseDetails} } = this.props;
+    // const { CaseData:{handleXsCaseSfgz,caseDetails} } = this.props;
     let dark = this.props.global && this.props.global.dark;
+      let handleXsCaseSfgz,caseDetails;
+      if(this.state.caseDetails&&this.props.CaseData&&this.props.CaseData.caseDetails&&this.state.caseDetails.id === this.props.CaseData.caseDetails.id){
+          handleXsCaseSfgz = this.props.CaseData.handleXsCaseSfgz;
+          caseDetails = this.props.CaseData.caseDetails;
+          this.setState({
+              caseDetails,
+          });
+      }else{
+          handleXsCaseSfgz = this.state.caseDetails ? this.state.caseDetails.sfgz : '';
+          caseDetails = this.state.caseDetails;
+      }
     return (
       <div style={{ backgroundColor: dark ? '#252C3C' : '#fff', margin: '16px 0' }}>
         <Row gutter={{ md: 8, lg: 24, xl: 48 }}>
@@ -707,9 +718,10 @@ export default class caseDetail extends PureComponent {
 
   renderDetail() {
     const {
-      CaseData: { loading,caseDetails },
+      CaseData: { loading },
     } = this.props;
     const {
+      caseDetails,
       trailLeft,
       TrackPaddingBottom1,
       TrackPaddingTop,

@@ -154,7 +154,7 @@ export default class EvaluationChats extends PureComponent {
                     };
                     seriesValue.push(seriesDataVal);
                 }
-                this.buildChart(legendData, axisLabel, seriesValue, 'kfqk');
+                this.buildChart(legendData, axisLabel, seriesValue, 'kfqk',nextProps);
             },
         });
     };
@@ -231,7 +231,7 @@ export default class EvaluationChats extends PureComponent {
                     };
                     seriesValue.push(seriesDataVal);
                 }
-                this.buildChart(legendData, axisLabel, seriesValue, 'kfqkAj');
+                this.buildChart(legendData, axisLabel, seriesValue, 'kfqkAj',nextProps);
             },
         });
     };
@@ -309,11 +309,11 @@ export default class EvaluationChats extends PureComponent {
                     };
                     seriesValue.push(seriesDataVal);
                 }
-                this.buildChart(legendData, axisLabel, seriesValue, 'kfqkGj');
+                this.buildChart(legendData, axisLabel, seriesValue, 'kfqkGj',nextProps);
             },
         });
     };
-    buildChart = (legendData, axisLabel, seriesValue, id) => {
+    buildChart = (legendData, axisLabel, seriesValue, id,nextProps) => {
         let chart = document.getElementById(id);
         let echart = echarts.init(chart);
         let that = this;
@@ -347,8 +347,8 @@ export default class EvaluationChats extends PureComponent {
             // },
             legend: {
                 data: legendData,
-                textStyle: {color: this.props.global && this.props.global.dark ? "#fff" : '#4D4D4D'},
-                x: '88%',
+                textStyle: {color: nextProps.global && nextProps.global.dark ? "#fff" : '#4D4D4D'},
+                right: '5%',
                 y: 'top',//图例说明文字设置
                 itemWidth: 10,  // 设置宽度
                 itemHeight: 10, // 设置高度
@@ -366,23 +366,26 @@ export default class EvaluationChats extends PureComponent {
                 data: axisLabel,
                 axisLabel: {   // X轴线 标签修改
                     textStyle: {
-                        color: this.props.global && this.props.global.dark ? "#fff" : '#4D4D4D', //坐标值得具体的颜色
+                        color: nextProps.global && nextProps.global.dark ? "#fff" : '#4D4D4D', //坐标值得具体的颜色
                     }
                 },
                 axisLine: {
                     show: true, // X轴 网格线 颜色类型的修改
                     lineStyle: {
-                        color: this.props.global && this.props.global.dark ? "#fff" : '#E6E6E6',
+                        color: nextProps.global && nextProps.global.dark ? "#fff" : '#E6E6E6',
                     }
                 },
             }],
             yAxis: [{
                 min: 0,
+                max: function(value) {
+                    return value.max&&value.max > 0 ? value.max : 5;
+                },
                 type: 'value',
                 splitArea: {show: false},
                 axisLabel: {   // X轴线 标签修改
                     textStyle: {
-                        color: this.props.global && this.props.global.dark ? "#fff" : '#4D4D4D', //坐标值得具体的颜色
+                        color: nextProps.global && nextProps.global.dark ? "#fff" : '#4D4D4D', //坐标值得具体的颜色
                     }
                 },
                 axisLine: {
@@ -391,6 +394,12 @@ export default class EvaluationChats extends PureComponent {
                         color: 'transparent'
                     }
                 },
+                splitLine: {//分割线配置
+                    show:true,
+                    lineStyle: {
+                        color: nextProps.global && nextProps.global.dark ? "#fff" : '#E6E6E6',
+                    }
+                }
             }],
             label: {
                 normal: { //显示bar数据
@@ -497,7 +506,7 @@ export default class EvaluationChats extends PureComponent {
                     };
                     seriesValue.push(seriesDataVal);
                 }
-                this.buildRyChart(legendData, axisLabel, seriesValue, 'rykh');
+                this.buildRyChart(legendData, axisLabel, seriesValue, 'rykh',nextProps);
             },
         });
         if (!noSearchPerson) {
@@ -599,7 +608,7 @@ export default class EvaluationChats extends PureComponent {
                     };
                     seriesValue.push(seriesDataVal);
                 }
-                this.buildRyChart(legendData, axisLabel, seriesValue, 'rykhAj');
+                this.buildRyChart(legendData, axisLabel, seriesValue, 'rykhAj',nextProps);
             },
         });
         if (!noSearchPerson) {
@@ -701,7 +710,7 @@ export default class EvaluationChats extends PureComponent {
                     };
                     seriesValue.push(seriesDataVal);
                 }
-                this.buildRyChart(legendData, axisLabel, seriesValue, 'rykhGj');
+                this.buildRyChart(legendData, axisLabel, seriesValue, 'rykhGj',nextProps);
             },
         });
         if (!noSearchPerson) {
@@ -727,7 +736,7 @@ export default class EvaluationChats extends PureComponent {
             });
         }
     };
-    buildRyChart = (legendData, axisLabel, seriesValue, id) => {
+    buildRyChart = (legendData, axisLabel, seriesValue, id,nextProps) => {
         let chart = document.getElementById(id);
         let that = this;
         let echart = echarts.init(chart);
@@ -737,7 +746,7 @@ export default class EvaluationChats extends PureComponent {
                 textStyle: {
                     fontSize: 16,
                     fontWeight: '700',
-                    color: this.props.global && this.props.global.dark ? "#fff" : '#4662D5'
+                    color: nextProps && nextProps.global.dark ? "#fff" : '#4662D5'
                 },
             },
             tooltip: {
@@ -772,23 +781,26 @@ export default class EvaluationChats extends PureComponent {
                 data: axisLabel,
                 axisLabel: {   // X轴线 标签修改
                     textStyle: {
-                        color: this.props.global && this.props.global.dark ? "#fff" : '#4D4D4D', //坐标值得具体的颜色
+                        color: nextProps.global && nextProps.global.dark ? "#fff" : '#4D4D4D', //坐标值得具体的颜色
                     }
                 },
                 axisLine: {
                     show: true, // X轴 网格线 颜色类型的修改
                     lineStyle: {
-                        color: this.props.global && this.props.global.dark ? "#fff" : '#E6E6E6'
+                        color: nextProps.global && nextProps.global.dark ? "#fff" : '#E6E6E6'
                     }
                 },
             }],
             yAxis: [{
                 min: 0,
+                max: function(value) {
+                    return value.max&&value.max > 0 ? value.max : 5;
+                },
                 type: 'value',
                 splitArea: {show: false},
                 axisLabel: {   // X轴线 标签修改
                     textStyle: {
-                        color: this.props.global && this.props.global.dark ? "#fff" : '#4D4D4D', //坐标值得具体的颜色
+                        color: nextProps.global && nextProps.global.dark ? "#fff" : '#4D4D4D', //坐标值得具体的颜色
                     }
                 },
                 axisLine: {
@@ -797,6 +809,12 @@ export default class EvaluationChats extends PureComponent {
                         color: 'transparent'
                     }
                 },
+                splitLine: {//分割线配置
+                    show:true,
+                    lineStyle: {
+                        color: nextProps.global && nextProps.global.dark ? "#fff" : '#E6E6E6',
+                    }
+                }
             }],
             label: {
                 normal: { //显示bar数据
