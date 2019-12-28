@@ -187,7 +187,7 @@ class Index extends PureComponent {
         return (
             <div className={this.props.global && this.props.global.dark ? '' : styles.lightBox}>
                 <Card className={styles.standardTable} id='RemindModule'>
-                    <Row style={{lineHeight: '50px', paddingLeft: 66}}>
+                    <Row style={{lineHeight: '50px', paddingLeft: 72}}>
                         {
                             record && record.detail && record.detail.length > 0 && record.detail.map((item) => {
                                 return <Col span={item.length > 40 ? 24 : 12}>{item}</Col>
@@ -227,7 +227,7 @@ class Index extends PureComponent {
                 <Modal
                     title=" "
                     visible={this.state.shareSuccess}
-                    className={styles.shareSuccess}
+                    className={this.props.global && this.props.global.dark ? styles.shareSuccess : styles.shareSuccessLight}
                     width={350}
                     style={{top: '250px'}}
                     maskClosable={false}

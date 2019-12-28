@@ -193,14 +193,14 @@ class ShareModal extends PureComponent {
         return (
             <div className={className}>
                 <Card className={styles.standardTable} id='shareModule'>
-                    <Row style={{lineHeight: '50px', paddingLeft: 55}}>
+                    <Row style={{lineHeight: '50px', paddingLeft: 57}}>
                         {
                             record && record.detail && record.detail.length > 0 && record.detail.map((item) => {
                                 return <Col span={item.length > 40 ? 24 : 12}>{item}</Col>
                             })
                         }
                     </Row>
-                    <Form style={{padding: 0}}>
+                    <Form style={{padding: 1}}>
                         <FormItem {...formItemLayout} label="分享人">
                             {getFieldDecorator('sharePerson')(
                                 <Select
@@ -239,7 +239,7 @@ class ShareModal extends PureComponent {
                 <Modal
                     title=" "
                     visible={this.state.shareSuccess}
-                    className={styles.shareSuccess}
+                    className={this.props.global && this.props.global.dark ? styles.shareSuccess : styles.shareSuccessLight}
                     width={350}
                     style={{top: '250px'}}
                     maskClosable={false}

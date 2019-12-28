@@ -5,7 +5,7 @@
 * */
 
 import React, {Component, PureComponent} from 'react';
-import {Tabs, Form, Input, Button, Switch, Modal, TimePicker, Icon, Card} from 'antd';
+import {Tabs, Form, Input, Button, Switch, Modal, TimePicker, Icon, Card,message} from 'antd';
 import style from './systemSetup.less';
 import moment from 'moment';
 import {connect} from "dva";
@@ -48,16 +48,26 @@ class SendConfig extends Component {
     // 保存确认框
     showConfirm = () => {
         const that = this;
-        confirm({
-            title: '确定要保存配置信息吗？',
-            okText: '确定',
-            cancelText: '取消',
-            centered: true,
-            getContainer: document.getElementById('boxSend'),
-            onOk() {
-                that.saveSendConfig();
-            },
-        });
+        let isTrue = true;
+        this.state.startTime.map((item, idx) => {
+            if((!item && this.state.endTime[idx]) || (item && !this.state.endTime[idx])){
+                isTrue = false;
+            }
+        })
+        if(isTrue) {
+            confirm({
+                title: '确定要保存配置信息吗？',
+                okText: '确定',
+                cancelText: '取消',
+                centered: true,
+                getContainer: document.getElementById('boxSend'),
+                onOk() {
+                    that.saveSendConfig();
+                },
+            });
+        }else{
+            message.warning('免打扰不能存在未闭合区间');
+        }
     };
     // 保存配置信息
     saveSendConfig = () => {
@@ -66,15 +76,14 @@ class SendConfig extends Component {
                 let time = [];
                 let times = [];
                 this.state.startTime.map((item, idx) => {
-                    if (item || this.state.endTime[idx]) {
+                    console.log(item && this.state.endTime[idx],item,this.state.endTime[idx])
+                    if (item && this.state.endTime[idx]) {
                         if (item > this.state.endTime[idx]) {
                             times.push(item + '~23:59:59,00:00:00~' + this.state.endTime[idx]);
                         } else {
                             times.push(item + '~' + this.state.endTime[idx]);
                         }
                         time.push(item + '~' + this.state.endTime[idx]);
-                    } else {
-                        time.push('');
                     }
                 })
                 values.mdrsd = time.toString();
