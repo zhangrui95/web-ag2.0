@@ -43,7 +43,7 @@ import { autoheight, getUserInfos, userResourceCodeDb } from '../../../utils/uti
 import { authorityIsTrue } from '../../../utils/authority';
 import { routerRedux } from 'dva/router';
 import nophotoLight from '@/assets/common/nophotoLight.png';
-import {tableList} from "@/utils/utils";
+import { tableList } from '@/utils/utils';
 
 const FormItem = Form.Item;
 
@@ -214,7 +214,7 @@ export default class itemDetail extends PureComponent {
         routerRedux.push({
           pathname: '/newcaseFiling/caseData/CriminalData/caseDetail',
           query: {
-            id: itemDetails && itemDetails.system_id ? itemDetails.system_id : '1',
+            id: itemDetails && itemDetails.ajbh ? itemDetails.ajbh : '1',
             record: itemDetails,
           },
         }),
@@ -264,8 +264,8 @@ export default class itemDetail extends PureComponent {
     this.itemDetailDatas(this.props.id);
   };
   // 是否关注列表刷新
-  refreshTable = (param) => {
-    if(param.movefrom === '物品常规'){
+  refreshTable = param => {
+    if (param.movefrom === '物品常规') {
       this.props.dispatch({
         type: 'itemData/itemFetch',
         payload: {
@@ -274,16 +274,15 @@ export default class itemDetail extends PureComponent {
           pd: {},
         },
       });
-    }
-    else if(param.movefrom === '物品预警'){
+    } else if (param.movefrom === '物品预警') {
       this.props.dispatch({
         type: 'EarlyWarning/getList',
         payload: {
-          pd: {yj_type: 'sawp'}
+          pd: { yj_type: 'sawp' },
         },
       });
     }
-  }
+  };
   // 分享和关注（2为分享，1为关注）
   saveShare = (itemDetails, res, type, ajGzLx) => {
     // console.log('res',res);
@@ -356,7 +355,7 @@ export default class itemDetail extends PureComponent {
               //     sfgz: 1,
               //   },
               //   () => {
-                  this.itemDetailDatas(itemDetails.system_id);
+              this.itemDetailDatas(itemDetails.system_id);
               //   },
               // );
             }
@@ -389,7 +388,7 @@ export default class itemDetail extends PureComponent {
             //     sfgz: 0,
             //   },
             //   () => {
-                this.itemDetailDatas(itemDetails.system_id);
+            this.itemDetailDatas(itemDetails.system_id);
             //   },
             // );
           }
@@ -409,17 +408,22 @@ export default class itemDetail extends PureComponent {
     const { sfgz, isDb, record } = this.state;
     // const { itemData:{handleWpSfgz,itemDetails} } = this.props;
     let dark = this.props.global && this.props.global.dark;
-      let handleWpSfgz,itemDetails;
-      if(this.state.itemDetails&&this.props.itemData&&this.props.itemData.itemDetails&&this.state.itemDetails.id === this.props.itemData.itemDetails.id){
-          handleWpSfgz = this.props.itemData.handleWpSfgz;
-          itemDetails = this.props.itemData.itemDetails;
-          this.setState({
-              itemDetails,
-          })
-      }else{
-          handleWpSfgz = this.state.itemDetails ? this.state.itemDetails.sfgz : '';
-          itemDetails = this.state.itemDetails;
-      }
+    let handleWpSfgz, itemDetails;
+    if (
+      this.state.itemDetails &&
+      this.props.itemData &&
+      this.props.itemData.itemDetails &&
+      this.state.itemDetails.id === this.props.itemData.itemDetails.id
+    ) {
+      handleWpSfgz = this.props.itemData.handleWpSfgz;
+      itemDetails = this.props.itemData.itemDetails;
+      this.setState({
+        itemDetails,
+      });
+    } else {
+      handleWpSfgz = this.state.itemDetails ? this.state.itemDetails.sfgz : '';
+      itemDetails = this.state.itemDetails;
+    }
     return (
       <div style={{ backgroundColor: dark ? '#252C3C' : '#fff', margin: '16px 0' }}>
         <Row gutter={{ md: 8, lg: 24, xl: 48 }}>
@@ -492,7 +496,7 @@ export default class itemDetail extends PureComponent {
   }
 
   renderDetail() {
-   const { itemDetails,isDb } = this.state;
+    const { itemDetails, isDb } = this.state;
     const rowLayout = { md: 8, xl: 16, xxl: 24 };
     let dark = this.props.global && this.props.global.dark;
     return (
@@ -501,10 +505,16 @@ export default class itemDetail extends PureComponent {
         className={styles.detailBoxScroll}
       >
         {itemDetails && itemDetails.system_id && itemDetails.ajlx ? (
-          <div style={{ textAlign: 'right',margin:'16px' }}>
-            <Button type="primary" onClick={() => this.openCaseDetail(itemDetails)} style={{background: dark
-                ? 'linear-gradient(to right, #0084FA, #03A3FF)'
-                : 'linear-gradient(to right, #3D63D1, #333FE4)'}}>
+          <div style={{ textAlign: 'right', margin: '16px' }}>
+            <Button
+              type="primary"
+              onClick={() => this.openCaseDetail(itemDetails)}
+              style={{
+                background: dark
+                  ? 'linear-gradient(to right, #0084FA, #03A3FF)'
+                  : 'linear-gradient(to right, #3D63D1, #333FE4)',
+              }}
+            >
               查看关联案件
             </Button>
           </div>

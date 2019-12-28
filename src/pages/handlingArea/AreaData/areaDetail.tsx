@@ -58,7 +58,7 @@ import { authorityIsTrue } from '../../../utils/authority';
 import noList from '@/assets/viewData/noList.png';
 import { routerRedux } from 'dva/router';
 import noListLight from '@/assets/viewData/noListLight.png';
-import {tableList} from "@/utils/utils";
+import { tableList } from '@/utils/utils';
 
 const FormItem = Form.Item;
 const { Step } = Steps;
@@ -182,8 +182,8 @@ export default class areaDetail extends PureComponent {
     this.props.dispatch({
       type: 'common/getDictType',
       payload: {
-          appCode: window.configUrl.appCode,
-          code: '2018',
+        appCode: window.configUrl.appCode,
+        code: '2018',
       },
     });
   }
@@ -288,8 +288,8 @@ export default class areaDetail extends PureComponent {
     });
     this.getDetail(this.props.id);
   };
-  refreshTable = (param) => {
-    if(param.movefrom === '办案区常规'){
+  refreshTable = param => {
+    if (param.movefrom === '办案区常规') {
       this.props.dispatch({
         type: 'areaData/areaFetch',
         payload: {
@@ -298,16 +298,15 @@ export default class areaDetail extends PureComponent {
           pd: {},
         },
       });
-    }
-    else if(param.movefrom === '办案区预警'){
+    } else if (param.movefrom === '办案区预警') {
       this.props.dispatch({
         type: 'EarlyWarning/getList',
         payload: {
-          pd: { yj_type: 'baq' }
+          pd: { yj_type: 'baq' },
         },
       });
     }
-  }
+  };
   // 分享和关注（2为分享，1为关注）
   saveShare = (areaDetails, res, type, ajGzLx) => {
     // console.log('aaa',(res.jjdw?res.jjdw+'、':'') + (res.jjly_mc?res.jjly_mc:''));
@@ -371,7 +370,7 @@ export default class areaDetail extends PureComponent {
             if (!res.error) {
               // alert(1)
               message.success('关注成功');
-              this.refreshTable(this.props.location.query)
+              this.refreshTable(this.props.location.query);
               // if (this.props.getArea) {
               //   this.props.getArea({ currentPage: this.props.current, pd: this.props.formValues });
               // }
@@ -380,7 +379,7 @@ export default class areaDetail extends PureComponent {
               //     sfgz: 1,
               //   },
               //   () => {
-                  this.getDetail(areaDetails.ryxx.system_id);
+              this.getDetail(areaDetails.ryxx.system_id);
               //   },
               // );
             }
@@ -404,7 +403,7 @@ export default class areaDetail extends PureComponent {
         callback: res => {
           if (!res.error) {
             message.success('取消关注成功');
-            this.refreshTable(this.props.location.query)
+            this.refreshTable(this.props.location.query);
             // if (this.props.getArea) {
             //   this.props.getArea({ currentPage: this.props.current, pd: this.props.formValues });
             // }
@@ -413,7 +412,7 @@ export default class areaDetail extends PureComponent {
             //     sfgz: 0,
             //   },
             //   () => {
-                this.getDetail(areaDetails.ryxx.system_id);
+            this.getDetail(areaDetails.ryxx.system_id);
             //   },
             // );
           }
@@ -429,7 +428,7 @@ export default class areaDetail extends PureComponent {
     });
   };
   // 台账
-  Ledger = (res) =>{
+  Ledger = res => {
     this.props.dispatch(
       routerRedux.push({
         pathname: '/ModuleAll/PersonLedger',
@@ -443,39 +442,58 @@ export default class areaDetail extends PureComponent {
         },
       }),
     );
-  }
+  };
 
   Topdetail() {
     const { sfgz, isDb, record } = this.state;
     // const { areaData:{areaDetails,handleAreaSfgz} } = this.props;
     let dark = this.props.global && this.props.global.dark;
-      let handleAreaSfgz,areaDetails;
-      if(this.state.areaDetails&&this.props.areaData&&this.props.areaData.areaDetails&&this.state.areaDetails.id === this.props.areaData.areaDetails.id){
-          handleAreaSfgz = this.props.areaData.handleAreaSfgz;
-          areaDetails = this.props.areaData.areaDetails;
-          this.setState({
-              areaDetails,
-          })
-      }else{
-          handleAreaSfgz = this.state.areaDetails ? this.state.areaDetails.sfgz : '';
-          areaDetails = this.state.areaDetails;
-      }
+    let handleAreaSfgz, areaDetails;
+    if (
+      this.state.areaDetails &&
+      this.props.areaData &&
+      this.props.areaData.areaDetails &&
+      this.state.areaDetails.id === this.props.areaData.areaDetails.id
+    ) {
+      handleAreaSfgz = this.props.areaData.handleAreaSfgz;
+      areaDetails = this.props.areaData.areaDetails;
+      this.setState({
+        areaDetails,
+      });
+    } else {
+      handleAreaSfgz = this.state.areaDetails ? this.state.areaDetails.sfgz : '';
+      areaDetails = this.state.areaDetails;
+    }
     return (
       <div style={{ backgroundColor: dark ? '#252C3C' : '#fff', margin: '16px 0' }}>
         <Row gutter={{ md: 8, lg: 24, xl: 48 }}>
+          {/*<Col md={8} sm={24}>*/}
+          {/*{isDb && areaDetails && areaDetails.zrdwList && areaDetails.zrdwList.length > 0 ? (*/}
+          {/*<div style={{ textAlign: 'left', padding: '6px 0' }}>*/}
+          {/*<Button*/}
+          {/*className={styles.TopMenu}*/}
+          {/*onClick={() => this.onceSupervise(areaDetails, true, '办案区详情问题判定')}*/}
+          {/*>*/}
+          {/*问题判定*/}
+          {/*</Button>*/}
+          {/*</div>*/}
+          {/*) : (*/}
+          {/*''*/}
+          {/*)}*/}
+          {/*</Col>*/}
           <Col>
             <span>
               {areaDetails ? (
                 <span>
                   <div className={styles.objMenu}>
-                    <Button
-                      className={styles.TopMenu}
-                      onClick={() => this.Ledger(areaDetails)}
-                    >
+                    <Button className={styles.TopMenu} onClick={() => this.Ledger(areaDetails)}>
                       台账
                     </Button>
                   </div>
-                  {isDb && areaDetails && areaDetails.zrdwList && areaDetails.zrdwList.length > 0 ? (
+                  {isDb &&
+                  areaDetails &&
+                  areaDetails.zrdwList &&
+                  areaDetails.zrdwList.length > 0 ? (
                     <div className={styles.objMenu}>
                       <Button
                         className={styles.TopMenu}
@@ -743,7 +761,7 @@ export default class areaDetail extends PureComponent {
   // };
   AllButton = (newObjWidth, length) => {
     // console.log('newObjWidth',newObjWidth);
-   let dark = this.props.global && this.props.global.dark;
+    let dark = this.props.global && this.props.global.dark;
     if (newObjWidth === 1280) {
       if (length > 4) {
         return (
@@ -813,7 +831,7 @@ export default class areaDetail extends PureComponent {
             )}
             {this.state.colortrailright === 'blue' ? (
               <img
-                  src={dark ? right : right2}
+                src={dark ? right : right2}
                 width="45"
                 height="45"
                 onClick={() => this.dailyRightClick(newObjWidth, length)}
@@ -844,7 +862,7 @@ export default class areaDetail extends PureComponent {
           <div className={styles.IconStyle} style={{ width: '210px', bottom: '200px' }}>
             {this.state.colortrailleft === 'blue' ? (
               <img
-                  src={dark ? left : left2}
+                src={dark ? left : left2}
                 width="45"
                 height="45"
                 onClick={() => this.dailyLeftClick(newObjWidth, length)}
@@ -860,7 +878,7 @@ export default class areaDetail extends PureComponent {
             )}
             {this.state.colortrailright === 'blue' ? (
               <img
-                  src={dark ? right : right2}
+                src={dark ? right : right2}
                 width="45"
                 height="45"
                 onClick={() => this.dailyRightClick(newObjWidth, length)}
@@ -891,7 +909,7 @@ export default class areaDetail extends PureComponent {
           <div className={styles.IconStyle} style={{ width: '210px', bottom: '200px' }}>
             {this.state.colortrailleft === 'blue' ? (
               <img
-                  src={dark ? left : left2}
+                src={dark ? left : left2}
                 width="45"
                 height="45"
                 onClick={() => this.dailyLeftClick(newObjWidth, length)}
@@ -907,7 +925,7 @@ export default class areaDetail extends PureComponent {
             )}
             {this.state.colortrailright === 'blue' ? (
               <img
-                  src={dark ? right : right2}
+                src={dark ? right : right2}
                 width="45"
                 height="45"
                 onClick={() => this.dailyRightClick(newObjWidth, length)}
@@ -983,8 +1001,8 @@ export default class areaDetail extends PureComponent {
     );
   }
 
-  openPersonDetail = (areaDetails) => {
-    if (areaDetails&&areaDetails.ryxx&&areaDetails.ryxx.xyr_sfzh&& areaDetails.ryxx.name) {
+  openPersonDetail = areaDetails => {
+    if (areaDetails && areaDetails.ryxx && areaDetails.ryxx.xyr_sfzh && areaDetails.ryxx.name) {
       this.props.dispatch({
         type: 'AllDetail/AllDetailPersonFetch',
         payload: {
@@ -992,7 +1010,7 @@ export default class areaDetail extends PureComponent {
           sfzh: areaDetails.ryxx.xyr_sfzh,
         },
         callback: data => {
-          console.log('data',data);
+          console.log('data', data);
           if (data && data.ryxx) {
             this.props.dispatch(
               routerRedux.push({
@@ -1366,9 +1384,11 @@ export default class areaDetail extends PureComponent {
             <Button
               // type="primary"
               onClick={() => this.openCaseDetail(areaDetails)}
-              style={{ background: dark
-                      ? 'linear-gradient(to right, #0084FA, #03A3FF)'
-                      : 'linear-gradient(to right, #3D63D1, #333FE4)'}}
+              style={{
+                background: dark
+                  ? 'linear-gradient(to right, #0084FA, #03A3FF)'
+                  : 'linear-gradient(to right, #3D63D1, #333FE4)',
+              }}
             >
               查看当前涉案信息
             </Button>
@@ -1425,9 +1445,7 @@ export default class areaDetail extends PureComponent {
                   <div className={liststyles.Indextail} style={{ paddingLeft: 42 }}>
                     <a
                       style={{ textDecoration: 'underline' }}
-                      onClick={() =>
-                        this.openPersonDetail(areaDetails)
-                      }
+                      onClick={() => this.openPersonDetail(areaDetails)}
                     >
                       {areaDetails && areaDetails.ryxx && areaDetails.ryxx.name
                         ? areaDetails.ryxx.name

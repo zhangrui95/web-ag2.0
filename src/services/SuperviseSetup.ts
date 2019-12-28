@@ -55,7 +55,6 @@ export async function fyJg(params) {
 export async function fyJgsx(params) {
     return request(`${configUrl.serverUrl}/getJgPzOfSxBySsJg`, {
         method: 'POST',
-        headers: headers,
         data: {
             ...params,
         },
