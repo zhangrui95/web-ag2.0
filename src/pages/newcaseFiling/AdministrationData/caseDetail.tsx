@@ -35,8 +35,8 @@ import { authorityIsTrue } from '../../../utils/authority';
 import noList from '@/assets/viewData/noList.png';
 import noListLight from '@/assets/viewData/noListLight.png';
 import { routerRedux } from 'dva/router';
-import {tableList} from "@/utils/utils";
-import DetailShow from "@/components/Common/detailShow";
+import { tableList } from '@/utils/utils';
+import DetailShow from '@/components/Common/detailShow';
 // import MakeTableModal from '../../../components/CaseRealData/MakeTableModal';
 
 @connect(({ XzCaseData, loading, CaseData, AllDetail, global }) => ({
@@ -122,15 +122,16 @@ export default class caseDetail extends PureComponent {
     if (
       nextProps &&
       nextProps.history.location.query.isReset &&
-      nextProps.history.location.pathname === '/newcaseFiling/caseData/AdministrationData/caseDetail'
+      nextProps.history.location.pathname ===
+        '/newcaseFiling/caseData/AdministrationData/caseDetail'
     ) {
       this.caseDetailDatas(this.props.location.query.id);
       this.props.history.replace(
         nextProps.history.location.pathname +
-        '?id=' +
-        nextProps.location.query.id +
-        '&record=' +
-        nextProps.location.query.record,
+          '?id=' +
+          nextProps.location.query.id +
+          '&record=' +
+          nextProps.location.query.record,
       );
     }
   }
@@ -234,8 +235,8 @@ export default class caseDetail extends PureComponent {
     });
     this.caseDetailDatas(this.props.systemId);
   };
-  refreshTable = (param) => {
-    if(param.movefrom === '行政案件常规'){
+  refreshTable = param => {
+    if (param.movefrom === '行政案件常规') {
       this.props.dispatch({
         type: 'XzCaseData/caseFetch',
         payload: {
@@ -244,16 +245,15 @@ export default class caseDetail extends PureComponent {
           pd: {},
         },
       });
-    }
-    else if(param.movefrom === '行政案件预警'){
+    } else if (param.movefrom === '行政案件预警') {
       this.props.dispatch({
         type: 'EarlyWarning/getList',
         payload: {
-          pd: { yj_type: 'xzaj' }
+          pd: { yj_type: 'xzaj' },
         },
       });
     }
-  }
+  };
   // 分享和关注（2为分享，1为关注）
   saveShare = (caseDetails, res, type, ajGzLx) => {
     this.setState({
@@ -317,7 +317,7 @@ export default class caseDetail extends PureComponent {
               //     sfgz: 1,
               //   },
               //   () => {
-                  this.caseDetailDatas(caseDetails.system_id);
+              this.caseDetailDatas(caseDetails.system_id);
               //   },
               // );
             }
@@ -350,7 +350,7 @@ export default class caseDetail extends PureComponent {
             //     sfgz: 0,
             //   },
             //   () => {
-                this.caseDetailDatas(caseDetails.system_id);
+            this.caseDetailDatas(caseDetails.system_id);
             //   },
             // );
           }
@@ -388,17 +388,22 @@ export default class caseDetail extends PureComponent {
     const { sfgz, isDb, isZb } = this.state;
     const { record } = this.props;
     let dark = this.props.global && this.props.global.dark;
-      let handleXzCaseSfgz,caseDetails;
-      if(this.state.caseDetails&&this.props.XzCaseData&&this.props.XzCaseData.caseDetails&&this.state.caseDetails.id === this.props.XzCaseData.caseDetails.id){
-          handleXzCaseSfgz = this.props.XzCaseData.handleXzCaseSfgz;
-          caseDetails = this.props.XzCaseData.caseDetails;
-          this.setState({
-              caseDetails,
-          });
-      }else{
-          handleXzCaseSfgz = this.state.caseDetails ? this.state.caseDetails.sfgz : '';
-          caseDetails = this.state.caseDetails;
-      }
+    let handleXzCaseSfgz, caseDetails;
+    if (
+      this.state.caseDetails &&
+      this.props.XzCaseData &&
+      this.props.XzCaseData.caseDetails &&
+      this.state.caseDetails.id === this.props.XzCaseData.caseDetails.id
+    ) {
+      handleXzCaseSfgz = this.props.XzCaseData.handleXzCaseSfgz;
+      caseDetails = this.props.XzCaseData.caseDetails;
+      this.setState({
+        caseDetails,
+      });
+    } else {
+      handleXzCaseSfgz = this.state.caseDetails ? this.state.caseDetails.sfgz : '';
+      caseDetails = this.state.caseDetails;
+    }
     return (
       <div style={{ backgroundColor: dark ? '#252C3C' : '#fff', margin: '16px 0' }}>
         <Row gutter={{ md: 8, lg: 24, xl: 48 }}>
@@ -674,7 +679,7 @@ export default class caseDetail extends PureComponent {
   };
 
   renderDetail() {
-    const {caseDetails} = this.state;
+    const { caseDetails } = this.state;
     const rowLayout = { md: 8, xl: 16, xxl: 24 };
     let dark = this.props.global && this.props.global.dark;
     return (
@@ -795,7 +800,11 @@ export default class caseDetail extends PureComponent {
           <Row className={caseDetails && caseDetails.pajk && caseDetails.xayy ? styles.xqrow : ''}>
             <Col md={24} sm={24} className={styles.xqcol}>
               <div className={liststyles.Indexfrom}>简要案情：</div>
-                <DetailShow paddingLeft={60} word={caseDetails && caseDetails.ajjj ? caseDetails.ajjj : ''} {...this.props}/>
+              <DetailShow
+                paddingLeft={60}
+                word={caseDetails && caseDetails.ajjj ? caseDetails.ajjj : ''}
+                {...this.props}
+              />
             </Col>
           </Row>
           {caseDetails && caseDetails.pajk ? (

@@ -25,7 +25,7 @@ import noList from "@/assets/viewData/noList.png";
 import {NavigationItem} from "@/components/Navigation/navigation";
 import {routerRedux} from "dva/router";
 import noListLight from "@/assets/viewData/noListLight.png";
-
+const { Option, OptGroup } = Select;
 const FormItem = Form.Item;
 @Form.create()
 @connect(({SuperviseSetup, common, share, global}) => ({

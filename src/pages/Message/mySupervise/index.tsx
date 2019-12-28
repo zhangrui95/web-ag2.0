@@ -336,7 +336,7 @@ class mySupervise extends Component {
                 dateArry2 = [...fksjTime];
             }
             const isAfterDate = dateArry.length > 0 ? moment(dateArry[1].format('YYYY-MM-DD')).isAfter(moment(dateArry[0].format('YYYY-MM-DD')).add(exportListDataMaxDays, 'days')) : true;
-            const isAfterDate2 = dateArry2.length > 0 ? moment(dateArry2[1].format('YYYY-MM-DD')).isAfter(moment(dateArry2[1].format('YYYY-MM-DD')).add(exportListDataMaxDays, 'days')) : true;
+            const isAfterDate2 = dateArry2.length > 0 ? moment(dateArry2[1].format('YYYY-MM-DD')).isAfter(moment(dateArry2[0].format('YYYY-MM-DD')).add(exportListDataMaxDays, 'days')) : true;
             if (isAfterDate && isAfterDate2) { // 选择时间间隔应小于exportListDataMaxDays
                 message.warning(`日期间隔需小于${exportListDataMaxDays}天`);
             } else {
