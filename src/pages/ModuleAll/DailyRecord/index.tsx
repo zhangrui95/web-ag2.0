@@ -21,6 +21,17 @@ const FormItem = Form.Item;
     share, global
 }))
 class DailyRecord extends PureComponent {
+    constructor(props){
+      super(props);
+      let res = props.location.query.RzList;
+      console.log('props',props);
+      if(res&&typeof res === 'object'){
+        res = JSON.parse(sessionStorage.getItem('query')).query.RzList;
+      }
+      this.state = {
+        RzList:res,
+      }
+    }
 
     onEdit = (isReset) => {
         const {query: {record, tab}} = this.props.location;
@@ -57,8 +68,8 @@ class DailyRecord extends PureComponent {
     };
 
     render() {
-        const {query: {record, RzList}} = this.props.location;
-        // console.log('this.props',this.props);
+        // const {query: {RzList}} = this.props.location;
+        const {RzList} = this.state;
         let list = [];
         if (RzList) {
             RzList.map((item, idx) => {
