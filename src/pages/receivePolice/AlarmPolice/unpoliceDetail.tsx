@@ -33,7 +33,7 @@ import {authorityIsTrue} from '../../../utils/authority';
 import {autoheight, userResourceCodeDb} from '../../../utils/utils';
 import {routerRedux} from 'dva/router';
 import DetailShow from "@/components/Common/detailShow";
-
+const { confirm } = Modal;
 const FormItem = Form.Item;
 const {Step} = Steps;
 @connect(({UnPoliceData, loading, MySuperviseData, global}) => ({
@@ -388,7 +388,7 @@ export default class unpoliceDetail extends PureComponent {
             getContainer: document.getElementById('messageBox'),
             onOk() {
                 // that.onClick();
-                () => that.handleReformSure();
+                that.handleReformSure();
             },
             onCancel() {
                 // console.log('Cancel');

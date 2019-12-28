@@ -17,20 +17,27 @@ const {Option, OptGroup} = Select;
 const FormItem = Form.Item;
 const {TextArea} = Input;
 const userInfo = getUserInfos();
-
+const { confirm } = Modal;
 @connect(({common, global}) => ({
     common, global
     // loading: loading.models.alarmManagement,
 }))
 @Form.create()
 export default class FeedBack extends PureComponent {
-
-    state = {
+    constructor(props){
+      super(props);
+      let res = props.location.query.record;
+      if(res && typeof res === 'string'){
+        res = JSON.parse(sessionStorage.getItem('query')).query.record;
+      }
+      this.state={
         SureModalVisible: false,
         fkr_dwmc: userInfo ? userInfo.group.name : '', // 反馈人单位名称(当前登录人)
         fkr_name: userInfo ? userInfo.name : '', // 反馈人名称(当前登录人)
         fileList: [],
-    };
+        record:res,
+      }
+    }
 
     componentDidMount() {
         this.getRectificationStatusDict();
@@ -71,7 +78,7 @@ export default class FeedBack extends PureComponent {
                     cancelText: '取消',
                     getContainer: document.getElementById('messageBox'),
                     onOk() {
-                        () => that.handleAlarmSure();
+                        that.handleAlarmSure();
                     },
                     onCancel() {
                         // console.log('Cancel');
@@ -83,8 +90,7 @@ export default class FeedBack extends PureComponent {
     // 反馈确认
     handleAlarmSure = () => {
         const values = this.props.form.getFieldsValue();
-        const {fileList} = this.state;
-        const {query: {record}} = this.props.location;
+        const {fileList,record} = this.state;
         let wjxx = [];
         for (let i in fileList) {
             const obj = {
@@ -275,9 +281,8 @@ export default class FeedBack extends PureComponent {
     };
 
     render() {
-        const {SureModalVisible, fkr_dwmc, fkr_name} = this.state;
+        const {SureModalVisible, fkr_dwmc, fkr_name,record} = this.state;
         const {form: {getFieldDecorator}, common: {rectificationStatusDict}} = this.props;
-        const {query: {record}} = this.props.location;
         let rectificationStatusOptions = [];
         if (rectificationStatusDict.length > 0) {
             for (let i = 0; i < rectificationStatusDict.length; i++) {
@@ -308,9 +313,7 @@ export default class FeedBack extends PureComponent {
             </Button>
         );
         return (
-            <div className={styles.ModalTitle}
-                 className={this.props.global && this.props.global.dark ? '' : styles.lightBox}>
-
+            <div className={this.props.global && this.props.global.dark ? '' : styles.lightBox}>
                 <Card className={styles.standardTable} id='FeedBackModule'>
                     <Form className={styles.standardForm}>
                         <Row gutter={{md: 8, lg: 24, xl: 48}} style={{marginBottom: '16px'}}>

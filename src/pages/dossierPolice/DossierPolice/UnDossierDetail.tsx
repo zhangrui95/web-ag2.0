@@ -43,7 +43,7 @@ import RenderEmpty from '../../../components/Common/RenderEmpty';
 import { routerRedux } from 'dva/router';
 
 const { Step } = Steps;
-
+const { confirm } = Modal;
 @connect(({ UnDossierData, common, MySuperviseData, AllDetail, global }) => ({
   UnDossierData,
   common,
@@ -350,7 +350,7 @@ export default class DossierDetail extends PureComponent {
           cancelText: '取消',
           getContainer: document.getElementById('messageBox'),
           onOk() {
-            () => that.handleReformSure();
+            that.handleReformSure();
           },
           onCancel() {
             console.log('Cancel');

@@ -21,16 +21,24 @@ import {routerRedux} from "dva/router";
 }))
 
 export default class IntoArea extends PureComponent {
-    state = {
+    constructor(props){
+      super(props);
+      let record = props.location.query.record;
+      if(record && typeof record === 'string'){
+        record = JSON.parse(sessionStorage.getItem('query')).query.record;
+      }
+      this.state={
         intoAreaData: null,
-    };
-
+        record,
+      }
+    }
     componentWillMount() {
         this.getIntoAreaData();
     }
 
     getIntoAreaData = () => {
-        const {query: {record}} = this.props.location;
+        // const {query: {record}} = this.props.location;
+        const {record} = this.state;
         this.props.dispatch({
             type: 'CaseData/getIntoAreaData',
             payload: {
@@ -67,7 +75,7 @@ export default class IntoArea extends PureComponent {
     };
     // 根据案件编号打开案件窗口
     openCaseDetail = (intoAreaData) => {
-        intoAreaData.ajxx.system_id, intoAreaData.ajxx.ajlx, intoAreaData.ajxx.ajbh
+        // intoAreaData.ajxx.system_id, intoAreaData.ajxx.ajlx, intoAreaData.ajxx.ajbh
         if (intoAreaData.ajxx.ajlx === '22001') { // 刑事案件
             this.props.dispatch(
                 routerRedux.push({

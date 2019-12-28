@@ -34,9 +34,21 @@ const FormItem = Form.Item;
 const {Step} = Steps;
 const TabPane = Tabs.TabPane;
 export default class SaWoodMessage extends PureComponent {
-    state = {
-        // current:'1',
-    };
+    constructor(props){
+      super(props);
+      let record = props.location.query.record;
+      let res = props.location.query.res;
+      if(record&& typeof record === 'string'||typeof record === 'object'){
+        record = JSON.parse(sessionStorage.getItem('query')).query.record;
+      }
+      if(res&& typeof res === 'string'||typeof res === 'object'){
+        res = JSON.parse(sessionStorage.getItem('query')).query.res;
+      }
+      this.state={
+        record,
+        res,
+      }
+    }
 
     content = (pane) => {
         const picture = pane.photo;
@@ -105,10 +117,9 @@ export default class SaWoodMessage extends PureComponent {
     };
 
     render() {
-        // console.log('this.props.data',this.props.data);
-        const {query: {record, res}} = this.props.location;
+        // const {query: {record, res}} = this.props.location;
+        const {record,res} = this.state;
         // const { data, wpId } = this.props;
-        // console.log('wpId', wpId);
         return (
             <Tabs
                 defaultActiveKey={res.wp_id.toString()}

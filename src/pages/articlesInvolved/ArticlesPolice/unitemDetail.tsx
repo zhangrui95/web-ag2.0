@@ -44,7 +44,7 @@ import DetailShow from "@/components/Common/detailShow";
 
 const FormItem = Form.Item;
 const { Step } = Steps;
-
+const { confirm } = Modal;
 @connect(({ UnItemData, loading, MySuperviseData, global }) => ({
   UnItemData,
   loading,
@@ -279,7 +279,7 @@ export default class unitemDetail extends PureComponent {
           cancelText: '取消',
           getContainer: document.getElementById('messageBox'),
           onOk() {
-            () => that.handleReformSure();
+            that.handleReformSure();
           },
           onCancel() {
             console.log('Cancel');

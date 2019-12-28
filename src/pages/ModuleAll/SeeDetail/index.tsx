@@ -38,7 +38,22 @@ const { Step } = Steps;
 }))
 @Form.create()
 export default class DbHistory extends PureComponent {
-  state = {};
+  constructor(props){
+    super(props);
+    let record = props.location.query.record;
+    let Isdetail = props.location.query.Isdetail;
+    if(record && typeof record === 'string'){
+      record = JSON.parse(sessionStorage.getItem('query')).query.record;
+    }
+    if(Isdetail && typeof Isdetail === 'string'){
+      Isdetail = JSON.parse(sessionStorage.getItem('query')).query.Isdetail;
+    }
+    this.state = {
+      record,
+      Isdetail,
+    };
+  }
+
 
   componentDidMount() {}
 
@@ -116,9 +131,7 @@ export default class DbHistory extends PureComponent {
   };
   render() {
     // const { Isdetail, NowDbrz } = this.props;
-    const {
-      query: { record, detail, Isdetail },
-    } = this.props.location;
+    const { record, Isdetail } = this.state;
     return (
       <div
         className={

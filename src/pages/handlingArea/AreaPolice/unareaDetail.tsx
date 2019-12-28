@@ -49,7 +49,7 @@ import DetailShow from "@/components/Common/detailShow";
 
 const FormItem = Form.Item;
 const { Step } = Steps;
-
+const { confirm } = Modal;
 @connect(({ UnareaData, loading, MySuperviseData, areaData, AllDetail, global }) => ({
   UnareaData,
   loading,
@@ -381,7 +381,7 @@ export default class unareaDetail extends PureComponent {
           cancelText: '取消',
           getContainer: document.getElementById('messageBox'),
           onOk() {
-            () => that.handleReformSure();
+            that.handleReformSure();
           },
           onCancel() {
             console.log('Cancel');

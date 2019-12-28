@@ -59,7 +59,7 @@ const FormItem = Form.Item;
 // const { Description } = DescriptionList;
 const { Step } = Steps;
 const Panel = Collapse.Panel;
-
+const { confirm } = Modal;
 function callback(key) {
   console.log(key);
 }
@@ -580,7 +580,7 @@ export default class caseDetail extends PureComponent {
           cancelText: '取消',
           getContainer: document.getElementById('messageBox'),
           onOk() {
-            () => that.handleReformSure();
+             that.handleReformSure();
           },
           onCancel() {
             console.log('Cancel');

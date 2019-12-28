@@ -39,6 +39,21 @@ const TabPane = Tabs.TabPane;
      global
 }))
 export default class SsWoodMessage extends PureComponent {
+    constructor(props){
+      super(props);
+      let record = props.location.query.record;
+      let res = props.location.query.res;
+      if(record && typeof record === 'object' || typeof record === 'string'){
+        record = JSON.parse(sessionStorage.getItem('query')).query.record;
+      }
+      if(res && typeof res === 'object' || typeof res === 'string'){
+        res = JSON.parse(sessionStorage.getItem('query')).query.res;
+      }
+      this.state={
+        record,
+        res,
+      }
+    }
     state = {
         // current:'1',
     };
@@ -110,11 +125,8 @@ export default class SsWoodMessage extends PureComponent {
     };
 
     render() {
-        // console.log('this.props.data',this.props.data);
-        const {query: {record, res}} = this.props.location;
         // const { data, wpId } = this.props;
-        // console.log('res', res);
-        // console.log('record',record)
+        const { record,res } = this.state;
         return (
             <Tabs
                 defaultActiveKey={res.wp_id.toString()}

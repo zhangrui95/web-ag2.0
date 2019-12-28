@@ -44,29 +44,45 @@ const { confirm } = Modal;
 }))
 @Form.create()
 export default class SuperviseModal extends PureComponent {
-  state = {
-    wtlx: '',
-    SureModalVisible: false,
-    zgjg: '',
-    formValues: {},
-    // 刑事类型返回的数据
-    returnxsProblemType: '',
-    // 警情类型返回的数据
-    returnjqProblemType: '',
-    // 行政类型返回的数据
-    returnxzProblemType: '',
-    // 办案区类型返回的数据
-    returnbaqProblemType: '',
-    // 涉案财物类型返回的数据
-    returnsacwProblemType: '',
-    // 卷宗类型返回的数据
-    returnjzProblemType: '',
-    fileList: [],
-    zrrValue: [],
-    chooseValue: [],
-    gqType: false,
-    dbLoading: false,
-  };
+  constructor(props){
+    super(props);
+    const {query: {from,wtflId, wtflMc,tab, fromPath, id },} = props.location;
+    let record = props.location.query;
+    if(record && typeof record === 'string'||typeof record === 'object'){
+      record = JSON.parse(sessionStorage.getItem('query')).query.record;
+    }
+
+    this.state={
+      wtlx: '',
+      SureModalVisible: false,
+      zgjg: '',
+      formValues: {},
+      // 刑事类型返回的数据
+      returnxsProblemType: '',
+      // 警情类型返回的数据
+      returnjqProblemType: '',
+      // 行政类型返回的数据
+      returnxzProblemType: '',
+      // 办案区类型返回的数据
+      returnbaqProblemType: '',
+      // 涉案财物类型返回的数据
+      returnsacwProblemType: '',
+      // 卷宗类型返回的数据
+      returnjzProblemType: '',
+      fileList: [],
+      zrrValue: [],
+      chooseValue: [],
+      gqType: false,
+      dbLoading: false,
+      record,
+      from,
+      wtflId,
+      wtflMc,
+      tab,
+      fromPath,
+      id,
+    }
+  }
 
   componentDidMount() {
     this.dicType();
@@ -185,9 +201,7 @@ export default class SuperviseModal extends PureComponent {
   }
 
   handleAlarm = () => {
-    const {
-      query: { record, from },
-    } = this.props.location;
+    const {from } = this.state;
     this.props.form.validateFields((err, fieldsValue) => {
       const { zrrValue } = this.state;
       if (
@@ -226,13 +240,13 @@ export default class SuperviseModal extends PureComponent {
         } else {
           let that = this;
           confirm({
-            title: '是否退出督办?',
+            title: '是否督办?',
             centered: true,
             okText: '确认',
             cancelText: '取消',
             getContainer: document.getElementById('messageBox'),
             onOk() {
-              () => that.handleAlarmSure();
+              that.handleAlarmSure();
             },
             onCancel() {
               // console.log('Cancel');
@@ -265,13 +279,13 @@ export default class SuperviseModal extends PureComponent {
         } else {
           let that = this;
           confirm({
-            title: '是否退出督办?',
+            title: '是否督办?',
             centered: true,
             okText: '确认',
             cancelText: '取消',
             getContainer: document.getElementById('messageBox'),
             onOk() {
-              () => that.handleAlarmSure();
+              that.handleAlarmSure();
             },
             onCancel() {
               // console.log('Cancel');
@@ -289,10 +303,7 @@ export default class SuperviseModal extends PureComponent {
       dbLoading: true,
     });
     const values = this.props.form.getFieldsValue();
-    const { fileList, zrrValue } = this.state;
-    const {
-      query: { record, from, wtflId, wtflMc },
-    } = this.props.location;
+    const { fileList, zrrValue, record, from, wtflId, wtflMc } = this.state;
     let wjxx = [];
     for (let i in fileList) {
       const obj = {
@@ -338,7 +349,7 @@ export default class SuperviseModal extends PureComponent {
           cljg_yy: values.gqyy ? values.gqyy : '',
         },
         callback: data => {
-          message.info('督办保存成功');
+          message.success('督办保存成功');
           this.setState({
             SureModalVisible: false,
             dbLoading: false,
@@ -472,9 +483,7 @@ export default class SuperviseModal extends PureComponent {
   };
   selectJudge = () => {
     const { getFieldDecorator } = this.props.form;
-    const {
-      query: { record, from },
-    } = this.props.location;
+    const { from} = this.state;
     const {
       returnxsProblemType,
       returnjqProblemType,
@@ -664,9 +673,7 @@ export default class SuperviseModal extends PureComponent {
   };
 
   onEdit = isReset => {
-    const {
-      query: { record, detail, tab, fromPath, id },
-    } = this.props.location;
+    const {record, tab, fromPath, id} = this.state;
     // console.log('fromPath',fromPath);
     // console.log('isReset',isReset);
     let key = '/ModuleAll/Supervise' + this.props.location.query.id;
@@ -703,11 +710,8 @@ export default class SuperviseModal extends PureComponent {
   };
 
   render() {
-    const { SureModalVisible } = this.state;
+    const { SureModalVisible,record, from } = this.state;
     const { getFieldDecorator } = this.props.form;
-    const {
-      query: { record, from },
-    } = this.props.location;
     const uploadButton = (
       <Button>
         <Icon type="upload" icon={'upload'} />
