@@ -95,18 +95,18 @@ class AvatarDropdown extends React.Component<GlobalHeaderRightProps> {
             //   </span>
             // </HeaderDropdown>
             <div style={{paddingRight: '48px'}} className={styles.goOut}>
-        <span className={`${styles.action} ${styles.account}`}>
-          <Avatar size="small" className={styles.avatar} src={require('@/assets/user.png')} alt="avatar"/>
-          <span className={styles.name}>{JSON.parse(sessionStorage.getItem('user')).name}</span>
-        </span>
-                <Tooltip title={'主题切换'}>
-               <span className={styles.logout} onClick={this.getChangeBg}>
-                    <IconFont className={styles.logoutIcon} type='icon-zhuti'/>
+                <span className={`${styles.action} ${styles.account}`}>
+                  <Avatar size="small" className={styles.avatar} src={require('@/assets/user.png')} alt="avatar"/>
+                  <span className={styles.name}>{JSON.parse(sessionStorage.getItem('user')).name}</span>
                 </span>
-                </Tooltip>
-                <span className={styles.logout} onClick={this.onClickBack}>
-          <Icon className={styles.logoutIcon} type="poweroff"/>
-        </span>
+                        <Tooltip title={'主题切换'}>
+                       <span className={styles.logout} onClick={this.getChangeBg}>
+                            <IconFont className={styles.logoutIcon} type='icon-zhuti'/>
+                        </span>
+                        </Tooltip>
+                        <span className={styles.logout} onClick={this.onClickBack}>
+                  <Icon className={styles.logoutIcon} type="poweroff"/>
+                </span>
             </div>
         )
         // : (

@@ -59,19 +59,19 @@ export default class SuperviseCopy extends PureComponent {
         this.getfyJg();
     }
 
-    componentWillReceiveProps(next) {
-        if (this.state.query.yyjgdList !== next.yyjgdList) {
-            this.setState({
-                fyjgsxList: [],
-                selectedKeys: [],
-                list: [],
-                listKey: [],
-            });
-            this.props.form.resetFields();
-            this.getJgd(next);
-            this.getfyJg();
-        }
-    }
+    // componentWillReceiveProps(next) {
+    //     if (this.state.query.yyjgdList !== next.yyjgdList) {
+    //         this.setState({
+    //             fyjgsxList: [],
+    //             selectedKeys: [],
+    //             list: [],
+    //             listKey: [],
+    //         });
+    //         this.props.form.resetFields();
+    //         this.getJgd(next);
+    //         this.getfyJg();
+    //     }
+    // }
 
     getfyJg = () => {
         this.props.dispatch({
@@ -337,6 +337,7 @@ export default class SuperviseCopy extends PureComponent {
                                     onChange={this.handleChange}
                                     selectedKeys={this.state.selectedKeys}
                                     onSelectChange={this.handleSelectChange}
+                                    render={item => item.title}
                                     locale={{
                                         notFoundContent: <Empty
                                             image={this.props.global && this.props.global.dark ? noList : noListLight}
