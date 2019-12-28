@@ -36,7 +36,16 @@ const {Step} = Steps;
 }))
 @Form.create()
 export default class DbHistory extends PureComponent {
-    state = {};
+    constructor(props){
+      super(props);
+      let record = props.location.query.record;
+      if (typeof record == 'string') {
+        record = JSON.parse(sessionStorage.getItem('query')).query.record;
+      }
+      this.state={
+        record,
+      }
+    }
 
     componentDidMount() {
 
@@ -165,13 +174,7 @@ export default class DbHistory extends PureComponent {
     };
 
     render() {
-        // const { dblist, DetailData } = this.props;
-        // const {query: {record}} = this.props.location;
-        // console.log('record',record)
-        let record = this.props.location.query.record;
-        if (typeof record == 'string') {
-          record = JSON.parse(sessionStorage.getItem('query')).query.record;
-        }
+        const {record} = this.state;
         const newDblist = [];
         if(record&&record.length>0) {
           for (let a = 0; a < record.length; a++) {

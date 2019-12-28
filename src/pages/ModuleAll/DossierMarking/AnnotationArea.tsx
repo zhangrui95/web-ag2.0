@@ -12,7 +12,6 @@ import {Card, Row, Button, Upload, Icon, Modal, Col, Menu, Dropdown, Switch, Pop
 export default class AnnotationArea extends React.Component {
     constructor(props) {
         super(props);
-        console.log('props', props);
         this.state = {
             currentImg: '',
             currentIndex: this.props.index ? this.props.index : 0,
@@ -25,7 +24,6 @@ export default class AnnotationArea extends React.Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        console.log('nextProps', nextProps);
         if (nextProps !== this.props) {
             this.setState({
                 electronicVolumeData: nextProps.electronicVolumeData,

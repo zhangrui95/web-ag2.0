@@ -14,7 +14,7 @@ export function watermark (id) {
     watermark_x_space: 10, //水印x轴间隔
     watermark_y_space: 20, //水印y轴间隔
     watermark_color: '#bbb', //水印字体颜色
-    watermark_alpha: 0.2, //水印透明度
+    watermark_alpha: 0.1, //水印透明度
     watermark_fontsize: '15px', //水印字体大小
     watermark_font: '微软雅黑', //水印字体
     watermark_width: 210, //水印宽度
@@ -30,23 +30,23 @@ export function watermark (id) {
     }
   }
   var oTemp = document.createDocumentFragment();
-  console.info('element', document.getElementById(id));
+  // console.info('element', document.getElementById(id));
   //获取页面最大宽度
   var page_width = Math.max(
     document.getElementById(id).scrollWidth,
     document.getElementById(id).clientWidth
   );
 
-  console.info('width', page_width);
+  // console.info('width', page_width);
 
   //var page_width = Math.max(document.body.scrollWidth,document.body.clientWidth);
   var cutWidth = page_width * 0.015;
   var page_width = page_width - cutWidth;
   //获取页面最大高度
-  console.info('scrollHeight', document.getElementById(id).scrollHeight);
-  console.info('clientHeight', document.getElementById(id).clientHeight);
+  // console.info('scrollHeight', document.getElementById(id).scrollHeight);
+  // console.info('clientHeight', document.getElementById(id).clientHeight);
   var page_height = Math.max(document.getElementById(id).clientHeight);
-  console.info('height', page_height);
+  // console.info('height', page_height);
   //var page_height = Math.max(document.body.scrollHeight,document.body.clientHeight)+450;
   // var page_height = document.body.scrollHeight+document.body.scrollTop;
   //如果将水印列数设置为0，或水印列数设置过大，超过页面最大宽度，则重新计算水印列数和水印x轴间隔
