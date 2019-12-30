@@ -424,7 +424,6 @@ export default class caseDetail extends PureComponent {
             ) : null}
             {isZb ? (
               <Button
-                type="primary"
                 className={styles.TopMenu}
                 onClick={() => this.makeTable(caseDetails, true)}
               >
