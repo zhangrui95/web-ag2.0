@@ -525,6 +525,7 @@ export default class Index extends PureComponent {
             allPolice: [],
             cjrPolice: [],
             showDataView: false,
+            searchHeight:true,
         }, () => {
             this.props.form.setFieldsValue({
                 jjsj: [moment(`${dateArry[0]} 00:00:00`, 'YYYY-MM-DD hh:mm:ss '), moment(`${dateArry[1]} 23:59:59`, 'YYYY-MM-DD hh:mm:ss')],
@@ -533,7 +534,6 @@ export default class Index extends PureComponent {
                 jjdw: this.state.jjdw || null,
                 ...name,
             });
-
             this.handleSearch();
         });
     };

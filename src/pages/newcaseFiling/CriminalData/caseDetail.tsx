@@ -198,7 +198,7 @@ export default class caseDetail extends PureComponent {
             id: caseDetails && caseDetails.id ? caseDetails.id : '1',
             from: '刑事案件详情问题判定',
             fromPath: '/newcaseFiling/caseData/CriminalData/caseDetail',
-            wtflId: '230202',
+            wtflId: '203202',
             wtflMc: '案件',
           },
         }),

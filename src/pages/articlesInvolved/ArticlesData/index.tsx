@@ -634,6 +634,7 @@ export default class Index extends PureComponent {
         this.setState({
             showDataView: false,
             timeName: name && name.timeName ? name.timeName : null,
+            searchHeight:true,
         });
         this.props.form.setFieldsValue({
             [name && name.timeName ? name.timeName : 'rksj']: [

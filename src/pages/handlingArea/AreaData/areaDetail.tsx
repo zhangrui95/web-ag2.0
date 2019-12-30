@@ -199,7 +199,7 @@ export default class areaDetail extends PureComponent {
             from: '办案区详情问题判定',
             tzlx: 'baqxx',
             fromPath: '/handlingArea/AreaData/areaDetail',
-            wtflId: '230203',
+            wtflId: '203203',
             wtflMc: '办案区详情',
           },
         }),
