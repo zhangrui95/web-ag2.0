@@ -89,12 +89,12 @@ export default class AdministrativeCaseDocDetail extends PureComponent {
     }
 
     componentWillReceiveProps(nextProps) {
-        if (this.props.location.pathname !== nextProps.pathname && this.state.link) {
-            this.props.history.replace(`${this.props.location.pathname}?id=${this.state.res.ajbh}&record=${this.state.res}/${this.state.link}`);
-            this.setState({
-                link: ''
-            });
-        }
+        // if (this.props.location.pathname !== nextProps.pathname && this.state.link) {
+        //     this.props.history.replace(`${this.props.location.pathname}?id=${this.state.res.ajbh}&record=${this.state.res}/${this.state.link}`);
+        //     this.setState({
+        //         link: ''
+        //     });
+        // }
         if (this.props.global.dark !== nextProps.global.dark) {
             if (this.state.caseDetails) {
                 this.showEchart(this.state.caseDetails, nextProps.global.dark);

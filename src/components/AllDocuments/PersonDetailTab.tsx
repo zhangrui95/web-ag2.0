@@ -11,6 +11,8 @@ import PunishTimeLine from './PunishTimeLine';
 import noList from "@/assets/viewData/noList.png";
 import noListLight from "@/assets/viewData/noListLight.png";
 import {connect} from "dva";
+import DetailShow from "@/components/Common/detailShow";
+import liststyles from "@/pages/lawEnforcement/docListStyle.less";
 
 const TabPane = Tabs.TabPane;
 @connect(({ global }) => ({
@@ -274,7 +276,7 @@ export default class PersonDetailTab extends PureComponent {
         let personTabLight = this.props.global && this.props.global.dark ? styles.personTab : styles.personTab + ' ' + styles.lightBox;
         return (
             <div style={{padding: 16}} className={personTabLight} ref="stepRef">
-                <div className={styles.NameShow}>
+                <div className={styles.NameShow+' '+'NameShow'}>
                     <Tabs type="card" tabBarGutter={0} className='tabName'>
                         <TabPane tab={caseData.ajmc} key="1" forceRender className='Namesaxx1'>
                             <div className={styles.tabDiv}>
@@ -335,7 +337,7 @@ export default class PersonDetailTab extends PureComponent {
                                 </Row>
                                 <Row className={styles.contentRow}>
                                     <Col md={24} sm={24}>
-                                        <div>简要案情：{caseData.jyaq}</div>
+                                        <div><div className={liststyles.Indexfrom}>简要案情：</div><DetailShow  paddingLeft={60} word={caseData.jyaq} {...this.props}/></div>
                                     </Col>
                                 </Row>
                             </div>
@@ -523,7 +525,7 @@ export default class PersonDetailTab extends PureComponent {
                             </Row>
                             <Row className={styles.contentRow}>
                                 <Col md={24} sm={24}>
-                                    <div>简要案情：{caseData.jyaq}</div>
+                                    <div><div className={liststyles.Indexfrom}>简要案情：</div><DetailShow  paddingLeft={60} word={caseData.jyaq} {...this.props}/></div>
                                 </Col>
                             </Row>
                         </div>
