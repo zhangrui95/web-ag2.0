@@ -354,7 +354,7 @@ export default class FeedbackModal extends PureComponent {
                                     <span className={styles.title}>上传附件：</span>
                                     <span className={styles.outtext}>
                                         <Upload
-                                            action={`${configUrl.serverUrl}/uploadFile`}
+                                            action={`${window.configUrl.weedUrl}/submit`}
                                             beforeUpload={this.beforeUploadFun}
                                             fileList={this.state.fileList}
                                             onChange={this.handleChange}

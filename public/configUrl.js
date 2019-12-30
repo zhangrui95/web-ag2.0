@@ -56,6 +56,7 @@ const configItem = {
 const developConfigUrl = {
   jzUrl: `${ips.jz}:7200`, // 卷宗子系统
   serverUrl: `${ips.ip}:7700`, // 本地开发案管服务
+  weedUrl: `${ips.ip}:9222`, // 上传存储服务
   // securityCenterUrl: `${ips.aqzxIp}:8080`,// 李卓奇安全中心
   // securityCenterUrl: `${ips.aqzxIp}:8100/security-service`, // 安全中心
   securityCenterUrl: `${ips.aqzxIp}:8100`, // 安全中心

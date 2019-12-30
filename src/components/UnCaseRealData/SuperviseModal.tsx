@@ -623,7 +623,7 @@ export default class SuperviseModal extends PureComponent {
                                     </span>
                                     <span className={styles.outtext}>
                                       <Upload
-                                          action={`${configUrl.serverUrl}/uploadFile`}
+                                          action={`${window.configUrl.weedUrl}/submit`}
                                           beforeUpload={this.beforeUploadFun}
                                           fileList={this.state.fileList}
                                           // multiple={true}
