@@ -173,7 +173,7 @@ export default class CriminalCaseWarningCount extends PureComponent {
         myChart.on('click', function (params) {
             // console.log('that.props.dep',that.props.dep)
             that.props.dispatch(routerRedux.push({
-                pathname: '/newregister/newalarm/newalarmCriminal', state: {
+                pathname: '/newcaseFiling/casePolice/CriminalPolice', state: {
                     code: that.props.dep ? that.props.dep : '',
                     kssj: that.props.selectDate[0] ? that.props.selectDate[0] : '',
                     jssj: that.props.selectDate[1] ? that.props.selectDate[1] : '',

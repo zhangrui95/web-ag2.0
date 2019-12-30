@@ -472,7 +472,7 @@ export default class PersonalDocDetail extends PureComponent {
                         color: dark ? '#eee' : '#4D4D4D',
                         fontSize: node.attributes.modularity_class === 0 ? 18 :
                             node.attributes.modularity_class === 1 ? 14 : 12
-                    }
+                    },
                 },
             };
             node.symbol = node.attributes.modularity_class === 0 ? `image://${user}` :
@@ -496,7 +496,7 @@ export default class PersonalDocDetail extends PureComponent {
             }],
             animationDuration: 1500,
             animationEasingUpdate: 'quinticInOut',
-            color: ['#497b86', '#689289', '#a2796f', '#a2796f', '#a2796f', '#a2796f', '#a2796f', '#a2796f', '#a2796f', '#a2796f'],
+            color: ['#495A85', '#497B85', '#A57971', '#A57971', '#A57971', '#A57971', '#A57971', '#A57971', '#A57971', '#A57971'],
             tooltip: {
                 trigger: 'item',
                 show: false,
@@ -527,9 +527,9 @@ export default class PersonalDocDetail extends PureComponent {
                         }
                     },
                     lineStyle: {
-                        width: '2',
+                        width: 2,
                         color: 'source',
-                        curveness: 0.2
+                        curveness: -0.3
                     },
                     emphasis: {
                         lineStyle: {

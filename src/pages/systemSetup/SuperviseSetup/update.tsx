@@ -38,7 +38,6 @@ const TreeNode = TreeSelect.TreeNode;
 const Option = Select.Option;
 const confirm = Modal.confirm;
 const {RangePicker} = DatePicker;
-
 class Detail extends Component {
     constructor(props) {
         super(props);
@@ -78,9 +77,23 @@ class Detail extends Component {
         this.getCommon('500816'); //三级颜色
         this.getCommon('500852'); //提醒人员
         this.getDepTree(JSON.parse(sessionStorage.getItem('user')).department);
+        this.getDetail();
+    }
+
+    componentWillReceiveProps(nextProps){
+        if(nextProps.SuperviseSetup.SuperviseSetup.isReset !== this.props.SuperviseSetup.SuperviseSetup.isReset){
+            if(nextProps.SuperviseSetup.SuperviseSetup.resetDetail.id === this.props.location.query.id){
+                this.getDetail(nextProps.SuperviseSetup.SuperviseSetup.resetDetail);
+            }
+        }
+    }
+
+    getDetail = (detail) =>{
         let type = 2;
         let res = this.props.location.query.record;
-        if (typeof res == 'string') {
+        if(detail){
+            res = detail;
+        }else if (typeof res == 'string') {
             res = JSON.parse(sessionStorage.getItem('query')).query.record;
         }
         this.props.form.resetFields([
@@ -101,84 +114,55 @@ class Detail extends Component {
             'tqsj3',
         ]);
         this.props.SuperviseSetup.SuperviseSetup.JgdType = [];
-        if (type == 0) {
+        if (res.jglx === '0') {
             this.getCommon('500830'); //告警监管事项
-            this.getClear();
-            this.setState({
-                qjjg: false,
-                addjglx: '0',
-                madalTitle: '监管点添加',
-                jgdDm: null,
-                jgdMc: null,
-                ssjgMc: null,
-                ssjgDm: null,
-                id: null,
-                tqsj1: null,
-                tqsj2: null,
-                tqsj3: null,
-                NoticeNote: null,
-            });
-        } else if (type == 1 || type == 2) {
-            if (res.jglx === '0') {
-                this.getCommon('500830'); //告警监管事项
-            } else {
-                this.getCommon('500772'); //预警监管事项
-            }
-            this.getSupervise(
-                res.jgsx_dm === '5008301'
-                    ? '2068'
-                    : res.jgsx_dm === '5008302'
-                    ? '2016'
-                    : res.jgsx_dm === '5008303'
-                        ? '3'
-                        : res.jgsx_dm === '5008304'
-                            ? '2017'
-                            : res.jgsx_dm === '5008305'
-                                ? '6001'
-                                : res.jgsx_dm === '5008306'
-                                    ? '5007725'
-                                    : res.jgsx_dm,
-            );
-            const resExplain = {jglx: res.jglx, jgd_mc: res.jgd_mc};
-            this.getExplain(resExplain);
-            this.setState({
-                madalTitle: type == 2 ? '监管点修改' : '监管点详情',
-                res: res,
-                qjjg: res.sf_qjjg === '1' ? true : false,
-                jgdDm: res.jgd_dm,
-                jgdMc: res.jgd_mc,
-                ssjgMc: res.ssjg_mc,
-                ssjgDm: res.ssjg_dm,
-                addjglx: res.jglx,
-                id: res.id,
-                xsys1: res.yjyjtx_ysdm,
-                xsys2: res.ejyjtx_ysdm,
-                xsys3: res.sjyjtx_ysdm,
-                dyjtxry1: this.getChoisePerson(res.yjyjtxr_sfzh, res.yjyjtxr_xm),
-                dyjtxry2: this.getChoisePerson(res.ejyjtxr_sfzh, res.ejyjtxr_xm),
-                dyjtxry3: this.getChoisePerson(res.sjyjtxr_sfzh, res.sjyjtxr_xm),
-                dyctxry1: this.getChoisePerson(res.yjyjtxr_sfzh, res.yjyjtxr_xm),
-                dyctxry2: this.getChoisePerson(res.ejyjtxr_sfzh, res.ejyjtxr_xm),
-                dyctxry3: this.getChoisePerson(res.sjyjtxr_sfzh, res.sjyjtxr_xm),
-                tqsj1: res.yjyjtx_sj,
-                tqsj2: res.ejyjtx_sj,
-                tqsj3: res.sjyjtx_sj,
-                sf_qy: res.sf_qy,
-            });
+        } else {
+            this.getCommon('500772'); //预警监管事项
         }
+        this.getSupervise(
+            res.jgsx_dm === '5008301'
+                ? '2068'
+                : res.jgsx_dm === '5008302'
+                ? '2016'
+                : res.jgsx_dm === '5008303'
+                    ? '3'
+                    : res.jgsx_dm === '5008304'
+                        ? '2017'
+                        : res.jgsx_dm === '5008305'
+                            ? '6001'
+                            : res.jgsx_dm === '5008306'
+                                ? '5007725'
+                                : res.jgsx_dm,
+        );
+        const resExplain = {jglx: res.jglx, jgd_mc: res.jgd_mc};
+        this.getExplain(resExplain);
+        this.setState({
+            madalTitle: type == 2 ? '监管点修改' : '监管点详情',
+            res: res,
+            qjjg: res.sf_qjjg === '1' ? true : false,
+            jgdDm: res.jgd_dm,
+            jgdMc: res.jgd_mc,
+            ssjgMc: res.ssjg_mc,
+            ssjgDm: res.ssjg_dm,
+            addjglx: res.jglx,
+            id: res.id,
+            xsys1: res.yjyjtx_ysdm,
+            xsys2: res.ejyjtx_ysdm,
+            xsys3: res.sjyjtx_ysdm,
+            dyjtxry1: this.getChoisePerson(res.yjyjtxr_sfzh, res.yjyjtxr_xm),
+            dyjtxry2: this.getChoisePerson(res.ejyjtxr_sfzh, res.ejyjtxr_xm),
+            dyjtxry3: this.getChoisePerson(res.sjyjtxr_sfzh, res.sjyjtxr_xm),
+            dyctxry1: this.getChoisePerson(res.yjyjtxr_sfzh, res.yjyjtxr_xm),
+            dyctxry2: this.getChoisePerson(res.ejyjtxr_sfzh, res.ejyjtxr_xm),
+            dyctxry3: this.getChoisePerson(res.sjyjtxr_sfzh, res.sjyjtxr_xm),
+            tqsj1: res.yjyjtx_sj,
+            tqsj2: res.ejyjtx_sj,
+            tqsj3: res.sjyjtx_sj,
+            sf_qy: res.sf_qy,
+        });
         this.setState({
             modleType: type,
         });
-        // this.getJgdList();
-        // // this.getCommon('500830');//监管事项
-        // this.getCommon('500800'); //监管点
-        // this.getCommon('500804'); //时间间隔
-        // this.getCommon('500820'); //提前时间
-        // this.getCommon('500808'); //一级颜色
-        // this.getCommon('500812'); //二级颜色
-        // this.getCommon('500816'); //三级颜色
-        // this.getCommon('500852'); //提醒人员
-        // this.getDepTree(JSON.parse(sessionStorage.getItem('user')).department);
     }
 
     //监管点列表展示
@@ -703,44 +687,47 @@ class Detail extends Component {
                     name3.push(event.label);
                     idcard3.push(event.key);
                 });
+                let payload =  {
+                    id: this.state.id,
+                    sf_qjjg: this.state.qjjg ? '1' : '0',
+                    ejyjtx_sj: values.tqsj2,
+                    ejyjtx_ysdm: values.addjglx === '1' ? this.state.xsys2 : '',
+                    ejyjtx_ysmc: values.addjglx === '1' ? this.state.xsys2 : '',
+                    ejyjtxr_sfzh: idcard2.join(','),
+                    ejyjtxr_xm: name2.join(','),
+                    jgd_dm: values.addjgd.key,
+                    jgd_mc: values.addjgd.label,
+                    jglx: values.addjglx,
+                    jgqx_js: moment(values.addjgqx[1]).format('YYYY-MM-DD'),
+                    jgqx_ks: moment(values.addjgqx[0]).format('YYYY-MM-DD'),
+                    jgsx_dm: values.addjgsx.key,
+                    jgsx_mc: values.addjgsx.label,
+                    sjyjtx_sj: values.tqsj3,
+                    sjyjtx_ysdm: values.addjglx === '1' ? this.state.xsys3 : '',
+                    sjyjtx_ysmc: values.addjglx === '1' ? this.state.xsys3 : '',
+                    sjyjtxr_sfzh: idcard3.join(','),
+                    sjyjtxr_xm: name3.join(','),
+                    ssjg_dm: this.state.ssjgDm ? this.state.ssjgDm : '',
+                    ssjg_mc: this.state.ssjgMc ? this.state.ssjgMc : '',
+                    txjg_dm: values.addjglx === '0' && values.addtxjg ? values.addtxjg.key : '',
+                    txjg_mc: values.addjglx === '0' && values.addtxjg ? values.addtxjg.label : '',
+                    yjyjtx_sj: values.tqsj1,
+                    yjyjtx_ysdm: values.addjglx === '1' ? this.state.xsys1 : '',
+                    yjyjtx_ysmc: values.addjglx === '1' ? this.state.xsys1 : '',
+                    yjyjtxr_sfzh: idcard1.join(','),
+                    yjyjtxr_xm: name1.join(','),
+                    sf_qy: this.state.sf_qy ? this.state.sf_qy : '',
+                }
                 this.props.dispatch({
                     type: 'SuperviseSetup/getupdateJgd',
-                    payload: {
-                        id: this.state.id,
-                        sf_qjjg: this.state.qjjg ? '1' : '0',
-                        ejyjtx_sj: values.tqsj2,
-                        ejyjtx_ysdm: values.addjglx === '1' ? this.state.xsys2 : '',
-                        ejyjtx_ysmc: values.addjglx === '1' ? this.state.xsys2 : '',
-                        ejyjtxr_sfzh: idcard2.join(','),
-                        ejyjtxr_xm: name2.join(','),
-                        jgd_dm: values.addjgd.key,
-                        jgd_mc: values.addjgd.label,
-                        jglx: values.addjglx,
-                        jgqx_js: moment(values.addjgqx[1]).format('YYYY-MM-DD'),
-                        jgqx_ks: moment(values.addjgqx[0]).format('YYYY-MM-DD'),
-                        jgsx_dm: values.addjgsx.key,
-                        jgsx_mc: values.addjgsx.label,
-                        sjyjtx_sj: values.tqsj3,
-                        sjyjtx_ysdm: values.addjglx === '1' ? this.state.xsys3 : '',
-                        sjyjtx_ysmc: values.addjglx === '1' ? this.state.xsys3 : '',
-                        sjyjtxr_sfzh: idcard3.join(','),
-                        sjyjtxr_xm: name3.join(','),
-                        ssjg_dm: this.state.ssjgDm ? this.state.ssjgDm : '',
-                        ssjg_mc: this.state.ssjgMc ? this.state.ssjgMc : '',
-                        txjg_dm: values.addjglx === '0' && values.addtxjg ? values.addtxjg.key : '',
-                        txjg_mc: values.addjglx === '0' && values.addtxjg ? values.addtxjg.label : '',
-                        yjyjtx_sj: values.tqsj1,
-                        yjyjtx_ysdm: values.addjglx === '1' ? this.state.xsys1 : '',
-                        yjyjtx_ysmc: values.addjglx === '1' ? this.state.xsys1 : '',
-                        yjyjtxr_sfzh: idcard1.join(','),
-                        yjyjtxr_xm: name1.join(','),
-                        sf_qy: this.state.sf_qy ? this.state.sf_qy : '',
-                    },
+                    payload:payload,
                     callback: res => {
                         if (!res.error) {
                             this.handleCancel();
                             message.success('修改成功');
                             this.onEdit(true);
+                            payload.scbj = this.state.res.scbj;
+                            this.getChangeDetail(payload);
                             this.getJgdList(this.state.pd, this.state.current);
                         } else {
                             message.warn('操作失败，请重试');
@@ -750,6 +737,15 @@ class Detail extends Component {
             }
         });
     };
+    getChangeDetail = (payload) =>{
+        this.props.dispatch({
+            type: 'SuperviseSetup/getResetId',
+            payload: {
+                isReset: !this.props.SuperviseSetup.SuperviseSetup.isReset,
+                detail: payload,
+            },
+        });
+    }
     handleOk = () => {
         if (this.state.modleType == 0) {
             this.props.form.validateFields((err, values) => {

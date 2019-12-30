@@ -196,7 +196,7 @@ export default class AdministrativeCaseWarning extends PureComponent {
         myChart.setOption(option);
         myChart.on('click', function (params) {
             that.props.dispatch(routerRedux.push({
-                pathname: '/newregister/newalarm/newalarmAdministration', state: {
+                pathname: '/newcaseFiling/casePolice/AdministrationPolice', state: {
                     code: that.props.dep ? that.props.dep : '',
                     kssj: that.props.selectDate[0] ? that.props.selectDate[0] : '',
                     jssj: that.props.selectDate[1] ? that.props.selectDate[1] : '',
