@@ -611,6 +611,7 @@ export default class PersonalDocDetail extends PureComponent {
                     html2canvas(document.querySelector(CardCharts).getElementsByClassName('ant-card-head')[0]).then(canvashead => {
                         this.addBase(canvashead.toDataURL().split('base64,')[1]);
                         for (let a = 0; a < personData.ajxx.length; a++) {
+                            console.log('document.querySelector(CardCharts)',document.querySelector(CardCharts))
                             document.querySelector(CardCharts).getElementsByClassName('NameShow')[a].style.display = 'none';
                             document.querySelector(CardCharts).getElementsByClassName('NameHide')[a].style.display = 'block';
                             html2canvas(document.querySelector(CardCharts).getElementsByClassName('NameHide')[a]).then(canvascontent => {
@@ -655,7 +656,7 @@ export default class PersonalDocDetail extends PureComponent {
 
                         </Row>
                     </Card>
-                    <Card style={{/*height: autoheight() - 210 + 'px',*/ marginTop: '12px'}} ref={'scroll'}
+                    <Card style={{height: autoheight() - 210 + 'px', marginTop: '12px'}} ref={'scroll'}
                           className={className}>
                         <div>
                             <div id={`Nameryxx${this.props.location.query.id}`} className={styles.borderBottom}>
