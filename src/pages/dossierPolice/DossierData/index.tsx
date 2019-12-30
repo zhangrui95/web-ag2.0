@@ -455,7 +455,7 @@ export default class Index extends PureComponent {
     });
   // 是否关注详情刷新
   refreshDetail = (res) => {
-    console.log('res',res);
+    // console.log('res',res);
     this.props.dispatch({
       type: 'DossierData/getDossierDetail',
       payload: {

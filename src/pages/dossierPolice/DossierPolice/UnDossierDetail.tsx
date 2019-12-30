@@ -353,7 +353,7 @@ export default class DossierDetail extends PureComponent {
             that.handleReformSure();
           },
           onCancel() {
-            console.log('Cancel');
+            // console.log('Cancel');
           },
         });
       },

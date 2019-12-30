@@ -1010,7 +1010,7 @@ export default class areaDetail extends PureComponent {
           sfzh: areaDetails.ryxx.xyr_sfzh,
         },
         callback: data => {
-          console.log('data', data);
+          // console.log('data', data);
           if (data && data.ryxx) {
             this.props.dispatch(
               routerRedux.push({
