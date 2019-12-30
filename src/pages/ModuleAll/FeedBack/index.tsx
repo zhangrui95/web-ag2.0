@@ -406,16 +406,16 @@ export default class FeedBack extends PureComponent {
                             <Col>
                                 <span className={styles.title}>上传附件：</span>
                                 <span className={styles.outtext}>
-                      <Upload
-                          action={`${configUrl.serverUrl}/uploadFile`}
-                          beforeUpload={this.beforeUploadFun}
-                          fileList={this.state.fileList}
-                          onChange={this.handleChange}
-                          onPreview={this.fileOnPreview}
-                      >
-                          {this.state.fileList.length >= 10 ? '' : uploadButton}
-                      </Upload>
-                  </span>
+                                  <Upload
+                                      action={`${window.configUrl.weedUrl}/submit`}
+                                      beforeUpload={this.beforeUploadFun}
+                                      fileList={this.state.fileList}
+                                      onChange={this.handleChange}
+                                      onPreview={this.fileOnPreview}
+                                  >
+                                      {this.state.fileList.length >= 10 ? '' : uploadButton}
+                                  </Upload>
+                                </span>
                             </Col>
                         </Row>
                         <Row style={{paddingTop: 20}}>

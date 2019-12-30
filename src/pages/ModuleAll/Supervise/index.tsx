@@ -307,8 +307,8 @@ export default class SuperviseModal extends PureComponent {
     let wjxx = [];
     for (let i in fileList) {
       const obj = {
-        wj_name: fileList[i].name,
-        wj_url: fileList[i].url,
+        wj_name: fileList[i].fileName,
+        wj_url: fileList[i].fileUrl,
       };
       wjxx.push(obj);
     }
@@ -453,12 +453,12 @@ export default class SuperviseModal extends PureComponent {
       return file;
     });
     // 3. Filter successfully uploaded files according to response from server
-    fileList = fileList.filter(file => {
-      if (file.response) {
-        return file.response.error === null;
-      }
-      return true;
-    });
+    // fileList = fileList.filter(file => {
+    //   if (file.response) {
+    //     return file.response.error === null;
+    //   }
+    //   return true;
+    // });
     this.setState({ fileList });
   };
   // 点击文件查看
@@ -772,7 +772,7 @@ export default class SuperviseModal extends PureComponent {
                 <span className={styles.title}>上传附件：</span>
                 <span className={styles.outtext}>
                   <Upload
-                    action={`${configUrl.serverUrl}/uploadFile`}
+                    action={`${window.configUrl.weedUrl}/submit`}
                     beforeUpload={this.beforeUploadFun}
                     fileList={this.state.fileList}
                     // multiple={true}
