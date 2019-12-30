@@ -49,7 +49,7 @@ class RenderTable extends PureComponent {
     }
 
     deatils = (record) => {
-      console.log('current',this.state.current);
+      // console.log('current',this.state.current);
         this.props.dispatch(
             routerRedux.push({
                 pathname: '/receivePolice/AlarmData/policeDetail',
@@ -76,7 +76,7 @@ class RenderTable extends PureComponent {
         // this.props.newDetail(AddNewDetail);
     };
     refreshDetail = (res) => {
-      console.log('res',res);
+      // console.log('res',res);
       this.props.dispatch({
         type: 'policeData/policeDetailFetch',
         payload: {

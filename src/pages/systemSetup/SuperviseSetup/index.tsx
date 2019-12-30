@@ -326,6 +326,27 @@ class SuperviseSetup extends Component {
                     callback: res => {
                         if (!res.error) {
                             message.success('删除成功');
+                            let keyList = ['/systemSetup/SuperviseSetup/Detail','/systemSetup/SuperviseSetup/Update'];
+                            keyList.map((url)=>{
+                                let key = url + id;
+                                const { dispatch } = that.props;
+                                if (dispatch) {
+                                    dispatch({
+                                        type: 'global/changeSessonNavigation',
+                                        payload: {
+                                            key,
+                                            isShow: false,
+                                        },
+                                    });
+                                    dispatch({
+                                        type: 'global/changeNavigation',
+                                        payload: {
+                                            key,
+                                            isShow: false,
+                                        },
+                                    });
+                                }
+                            })
                             that.getJgdList(that.state.pd, that.state.current);
                         } else {
                             message.warn('操作失败，请重试');
@@ -484,6 +505,7 @@ class SuperviseSetup extends Component {
     };
     // 启用禁用功能切换
     accessUse = (record, obj) => {
+        let that = this;
         this.props.dispatch({
             type: 'SuperviseSetup/changeJgPzXx',
             payload: {
@@ -494,6 +516,28 @@ class SuperviseSetup extends Component {
                 if (!res.error) {
                     // this.handleCancel();
                     message.success('修改成功');
+                    if(obj === '0'){
+                        let key = '/systemSetup/SuperviseSetup/Update' + record.id;
+                        const { dispatch } = that.props;
+                        if (dispatch) {
+                            dispatch({
+                                type: 'global/changeSessonNavigation',
+                                payload: {
+                                    key,
+                                    isShow: false,
+                                },
+                            });
+                            dispatch({
+                                type: 'global/changeNavigation',
+                                payload: {
+                                    key,
+                                    isShow: false,
+                                },
+                            });
+                        }
+                        record.scbj = obj;
+                        this.getChangeDetail(record);
+                    }
                     this.getJgdList(this.state.pd, this.state.current);
                 } else {
                     message.warn('操作失败，请重试');
@@ -501,6 +545,15 @@ class SuperviseSetup extends Component {
             },
         });
     };
+    getChangeDetail = (payload) =>{
+        this.props.dispatch({
+            type: 'SuperviseSetup/getResetId',
+            payload: {
+                isReset: !this.props.SuperviseSetup.SuperviseSetup.isReset,
+                detail: payload,
+            },
+        });
+    }
     getSearchHeight = () => {
         this.setState({
             searchHeight: !this.state.searchHeight,

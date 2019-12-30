@@ -349,7 +349,7 @@ export default class policeDetail extends PureComponent {
   };
   // 取消关注
   noFollow = policeDetails => {
-    console.log('policeDetails',policeDetails)
+    // console.log('policeDetails',policeDetails)
     if (this.state.IsSure) {
       this.props.dispatch({
         type: 'share/getNoFollow',

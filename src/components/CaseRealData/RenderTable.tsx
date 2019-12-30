@@ -69,7 +69,7 @@ class RenderTable extends PureComponent {
         );
     };
     refreshDetail = (res) => {
-      console.log('res',res);
+      // console.log('res',res);
       this.props.dispatch({
         type: 'CaseData/getAjxxXqById',
         payload: {

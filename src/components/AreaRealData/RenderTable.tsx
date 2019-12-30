@@ -60,7 +60,7 @@ class RenderTable extends PureComponent {
     // this.props.newDetail(AddNewDetail);
   };
   refreshDetail = (res) => {
-    console.log('res',res);
+    // console.log('res',res);
     this.props.dispatch({
       type: 'areaData/areaDetailFetch',
       payload: {

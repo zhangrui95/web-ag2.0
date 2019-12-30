@@ -150,7 +150,7 @@ export default class PoliceClear extends PureComponent {
                     that.getDelList(that.state.selectedRowKeys.toString());
                 },
                 onCancel() {
-                    console.log('Cancel');
+                    // console.log('Cancel');
                 },
             });
         } else {
@@ -171,7 +171,7 @@ export default class PoliceClear extends PureComponent {
                     that.getDelList('');
                 },
                 onCancel() {
-                    console.log('Cancel');
+                    // console.log('Cancel');
                 },
             });
         } else {

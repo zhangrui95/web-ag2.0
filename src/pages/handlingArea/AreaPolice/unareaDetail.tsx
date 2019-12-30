@@ -384,7 +384,7 @@ export default class unareaDetail extends PureComponent {
             that.handleReformSure();
           },
           onCancel() {
-            console.log('Cancel');
+            // console.log('Cancel');
           },
         });
       },

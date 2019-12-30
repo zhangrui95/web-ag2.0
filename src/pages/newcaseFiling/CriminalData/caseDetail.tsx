@@ -636,7 +636,7 @@ export default class caseDetail extends PureComponent {
   // };
 
   seeRes = (flag, caseDetails) => {
-    console.log('caseDetails',caseDetails)
+    // console.log('caseDetails',caseDetails)
     if (caseDetails && caseDetails.sawpList) {
       if (caseDetails && caseDetails.sawpList.length === 1) {
         this.openItemsDetail(caseDetails.sawpList[0]);

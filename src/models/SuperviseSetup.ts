@@ -20,6 +20,8 @@ export default {
 
     state: {
         JgdType: [], //监管点
+        resetDetail:{},
+        isReset:false,
     },
 
     effects: {
@@ -101,6 +103,13 @@ export default {
                 callback(response);
             }
         },
+        // 获取需刷新页面id
+        * getResetId({payload, callback}, {call, put}) {
+            yield put({
+                type: 'setResetId',
+                payload: payload,
+            });
+        },
     },
 
     reducers: {
@@ -108,6 +117,13 @@ export default {
             return {
                 ...state,
                 JgdType: action.payload,
+            };
+        },
+        setResetId(state, action) {
+            return {
+                ...state,
+                resetDetail: action.payload.detail,
+                isReset: action.payload.isReset,
             };
         },
     },
