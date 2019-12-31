@@ -508,6 +508,7 @@ export default class PersonSuspectPunish extends PureComponent {
                                           description={'暂无数据'}/>
                     }}
                            pagination={false}/>
+                    <div className={this.props.global && this.props.global.dark ? styles.borderTop : styles.borderTops}></div>
                     <h2 className={styles.areaTitle}>犯罪嫌疑人强制措施占比分析</h2>
                     <div className={"suspectPunishRate"} style={{height: 400}}/>
                     <Table columns={rateTableColumns} dataSource={rateTableData} bordered className={styles.tableArea}

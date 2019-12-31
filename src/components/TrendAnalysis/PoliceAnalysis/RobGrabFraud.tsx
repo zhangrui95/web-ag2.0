@@ -320,6 +320,11 @@ export default class RobGrabFraud extends PureComponent {
                 axisTick: {
                     alignWithLabel: true,
                 },
+                axisLabel: {   // x轴线 标签修改
+                    textStyle: {
+                        color: this.props.global && this.props.global.dark ? '#fff' : '#4d4d4d', //坐标值得具体的颜色
+                    }
+                },
             },
             yAxis: {
                 axisLabel: {   // y轴线 标签修改
@@ -431,6 +436,7 @@ export default class RobGrabFraud extends PureComponent {
                                    description={'暂无数据'}/>
                            }}
                            pagination={false}/>
+                    <div className={this.props.global && this.props.global.dark ? styles.borderTop : styles.borderTops}></div>
                     <h2 className={styles.areaTitle}>诈骗案件</h2>
                     <Row className={styles.fraudArea}>
                         <Col lg={12} md={24}>

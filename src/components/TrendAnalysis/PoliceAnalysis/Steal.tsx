@@ -54,8 +54,8 @@ export default class Steal extends PureComponent {
                     let radarMaxNum = 0;
                     let tableData = [];
                     let radarvalue = [];
+                    console.log('daoqie',daoqie)
                     if (daoqie && list && list.length > 0) {
-
                         barData = [
                             {
                                 name: monthOnMonthDateStr,

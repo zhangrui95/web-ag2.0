@@ -63,7 +63,7 @@ const developConfigUrl = {
   baqServerUrl: `http://192.168.3.92:7500`, // 办案区服务
   maintainCenterUrl: `${ips.maintainIp}:7400`, // 运维中心
   generalQueryUrl: `http://192.168.3.92:9200/`, // 综合查询es服务地址,
-  srcUrl: `http://192.168.3.202:7300/raqReport-service/reportJsp/`, //润乾报表地址
+  srcUrl: `http://192.168.3.92:7300/raqReport-service/reportJsp/`, //润乾报表地址
   tbtjExportUrl: `${ips.TbtjDcIp}:8750`, // 图表统计导出功能
   smartLinkWindow7: `${ips.downLoadIp}/download/SmartLinkey_win7_2.3.0.1.zip`, //samrtLinkeyWindows版下载地址
   smartLinkWindowXp: `${ips.downLoadIp}/download/SmartLinkey_winxp_2.3.0.1.zip`, //samrtLinkeyWindows版下载地址

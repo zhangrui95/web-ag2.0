@@ -157,7 +157,7 @@ export default class PersonDetailTab extends PureComponent {
         const {oWidth} = this.state;
         // 同案人表头
         const rqColumns = [
-{
+            {
                 title: '办案区名称',
                 dataIndex: 'haName',
                 render: (text) => {
@@ -251,7 +251,7 @@ export default class PersonDetailTab extends PureComponent {
             {
                 title: '单位',
                 dataIndex: 'unit',
-  },
+            },
             {
                 title: '特征',
                 dataIndex: 'tz',
@@ -337,7 +337,7 @@ export default class PersonDetailTab extends PureComponent {
                                 </Row>
                                 <Row className={styles.contentRow}>
                                     <Col md={24} sm={24}>
-                                        <div><div className={liststyles.Indexfrom}>简要案情：</div><DetailShow  paddingLeft={60} word={caseData.jyaq} {...this.props}/></div>
+                                        <div><div className={liststyles.Indexfrom}>简要案情：</div><DetailShow  paddingLeft={70} word={caseData.jyaq} {...this.props}/></div>
                                     </Col>
                                 </Row>
                             </div>
@@ -525,7 +525,7 @@ export default class PersonDetailTab extends PureComponent {
                             </Row>
                             <Row className={styles.contentRow}>
                                 <Col md={24} sm={24}>
-                                    <div><div className={liststyles.Indexfrom}>简要案情：</div><DetailShow  paddingLeft={60} word={caseData.jyaq} {...this.props}/></div>
+                                    <div><div className={liststyles.Indexfrom}>简要案情：</div><DetailShow  paddingLeft={70} word={caseData.jyaq} {...this.props}/></div>
                                 </Col>
                             </Row>
                         </div>
@@ -550,7 +550,7 @@ export default class PersonDetailTab extends PureComponent {
                                                 第 {this.state.rqCurrent} / {(Math.ceil(total / 3))} 页</div>,
                                             onChange: (page) => {
                                                 this.setState({rqCurrent: page});
-  },
+                                            },
                                         }}
                                         locale={{
                                             emptyText: <Empty
@@ -613,7 +613,7 @@ export default class PersonDetailTab extends PureComponent {
                                         第 {this.state.sswpCurrent} / {(Math.ceil(total / 3))} 页</div>,
                                     onChange: (page) => {
                                         this.setState({sswpCurrent: page});
-  },
+                                    },
                                 }}
                                 locale={{
                                     emptyText: <Empty
@@ -650,7 +650,7 @@ export default class PersonDetailTab extends PureComponent {
                                         第 {this.state.jzCurrent} / {(Math.ceil(total / 3))} 页</div>,
                                     onChange: (page) => {
                                         this.setState({jzCurrent: page});
-  },
+                                    },
                                 }}
                                 locale={{
                                     emptyText: <Empty
@@ -666,5 +666,5 @@ export default class PersonDetailTab extends PureComponent {
             </div>
 
         );
-  }
+    }
 }

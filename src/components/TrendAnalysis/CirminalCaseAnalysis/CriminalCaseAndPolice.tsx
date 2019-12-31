@@ -475,6 +475,7 @@ export default class CriminalCaseAndPolice extends PureComponent {
                     <div className="criminalCaseAndPolice" style={{height: 310}}/>
                     <Table columns={columns} dataSource={caseAndPoliceTableData} bordered className={styles.tableArea}
                            pagination={false}/>
+                    <div className={this.props.global && this.props.global.dark ? styles.borderTop : styles.borderTops}></div>
                     <h2 className={styles.areaTitle}>受、立案分析</h2>
                     <Row className={styles.fraudArea}>
                         <Col lg={12} md={24}>

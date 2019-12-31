@@ -492,6 +492,7 @@ export default class PersonIllegalPunish extends PureComponent {
                         emptyText: <Empty image={this.props.global && this.props.global.dark ? noList : noListLight}
                                           description={'暂无数据'}/>
                     }}/>
+                    <div className={this.props.global && this.props.global.dark ? styles.borderTop : styles.borderTops}></div>
                     <h2 className={styles.areaTitle}>违法行为人处罚占比分析</h2>
                     <div id="illegalPunishRate" style={{height: 400}}/>
                     <Table columns={rateTableColumns} dataSource={rateTableData} bordered className={styles.tableArea}
