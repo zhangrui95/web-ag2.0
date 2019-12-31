@@ -112,7 +112,7 @@ export default class CriminalCaseType extends PureComponent {
                     typeData.now.count20 || 0,
                     typeData.now.count25 || 0,
                     typeData.now.count30 || 0,
-                ],
+  ],
                 itemStyle: {
                     color: '#3AA0FF',
                 },
@@ -157,7 +157,7 @@ export default class CriminalCaseType extends PureComponent {
                     monthOnMonthDateStr: typeData.list.lastmonth,
                     hbzf_q: typeData.list.hbzf || 0,
                     hbzf_l: typeData.list.hbzf100 || '0%',
-                },
+  },
             ];
         }
         this.setState({
@@ -202,13 +202,13 @@ export default class CriminalCaseType extends PureComponent {
                     textStyle: {
                         color: this.props.global && this.props.global.dark ? '#fff' : '#4d4d4d', //坐标值得具体的颜色
                     }
-                },
+  },
                 axisLine: {
                     show: true, // y轴 网格线 颜色类型的修改
                     lineStyle: {
                         color: this.props.global && this.props.global.dark ? '#fff' : '#e6e6e6'
                     }
-                },
+  },
             },
             series: lineData,
         };
@@ -230,7 +230,7 @@ export default class CriminalCaseType extends PureComponent {
             title: '类别',
             dataIndex: 'categories',
             key: 'categories',
-
+            width:120,
         }, {
             title: selectedDateStr,
             dataIndex: 'selectedDateStr',
@@ -285,5 +285,5 @@ export default class CriminalCaseType extends PureComponent {
                 </div>
             </Spin>
         );
-    }
+  }
 }

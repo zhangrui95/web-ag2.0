@@ -20,7 +20,8 @@ import user from '../../../assets/common/userPerson.png'
 import tar from '../../../assets/common/tar.png'
 import aj from '../../../assets/common/aj.png'
 import wp from '../../../assets/common/wp.png'
-import jl from '../../../assets/common/jl.png'
+import qzcsjl from '../../../assets/common/qzcsjl.png'
+import xzcfjl from '../../../assets/common/xzcfjl.png'
 import rqjl from '../../../assets/common/rqjl.png'
 import jzxx from '../../../assets/common/jzxx.png'
 import {routerRedux} from "dva/router";
@@ -176,7 +177,7 @@ export default class PersonalDocDetail extends PureComponent {
             attributes: {
                 modularity_class: 0,
             },
-            symbolSize: 50,
+            symbolSize: 60,
             x: -1500,
             y: 350,
         }];
@@ -231,7 +232,7 @@ export default class PersonalDocDetail extends PureComponent {
                         attributes: {
                             modularity_class: 1,
                         },
-                        symbolSize: 40,
+                        symbolSize: 50,
                         x: x,
                         y: y,
                     },
@@ -241,7 +242,7 @@ export default class PersonalDocDetail extends PureComponent {
                         attributes: {
                             modularity_class: 2,
                         },
-                        symbolSize: 30,
+                        symbolSize: 35,
                         x: lxX,
                         y: lxY
                     }, {
@@ -250,7 +251,7 @@ export default class PersonalDocDetail extends PureComponent {
                         attributes: {
                             modularity_class: 3,
                         },
-                        symbolSize: 30,
+                        symbolSize: 35,
                         x: tarX,
                         y: tarY,
                     }, {
@@ -259,7 +260,7 @@ export default class PersonalDocDetail extends PureComponent {
                         attributes: {
                             modularity_class: 4,
                         },
-                        symbolSize: 30,
+                        symbolSize: 35,
                         x: xzX,
                         y: xzY
                     }, {
@@ -268,7 +269,7 @@ export default class PersonalDocDetail extends PureComponent {
                         attributes: {
                             modularity_class: 5,
                         },
-                        symbolSize: 30,
+                        symbolSize: 35,
                         x: qzX,
                         y: qzY
                     }, {
@@ -277,7 +278,7 @@ export default class PersonalDocDetail extends PureComponent {
                         attributes: {
                             modularity_class: 6,
                         },
-                        symbolSize: 30,
+                        symbolSize: 35,
                         x: ssX,
                         y: ssY
                     }, {
@@ -286,7 +287,7 @@ export default class PersonalDocDetail extends PureComponent {
                         attributes: {
                             modularity_class: 7,
                         },
-                        symbolSize: 30,
+                        symbolSize: 35,
                         x: saX,
                         y: saY
                     }, {
@@ -295,7 +296,7 @@ export default class PersonalDocDetail extends PureComponent {
                         attributes: {
                             modularity_class: 8,
                         },
-                        symbolSize: 30,
+                        symbolSize: 35,
                         x: jzX,
                         y: jzY
                     })
@@ -479,10 +480,11 @@ export default class PersonalDocDetail extends PureComponent {
                 node.attributes.modularity_class === 1 ? `image://${aj}` :
                     node.name === '同案人' ? `image://${tar}` :
                         node.name === "随身物品" || node.name === "涉案物品" ? `image://${wp}` :
-                            node.name === "行政处罚记录" || node.name === "强制措施记录" ? `image://${jl}` :
-                                node.name === "历史入区信息" ? `image://${rqjl}` :
-                                    node.name === "相关卷宗" ? `image://${jzxx}` :
-                                        "circle";
+                            node.name === "强制措施记录" ? `image://${qzcsjl}` :
+                                node.name === "行政处罚记录" ? `image://${xzcfjl}` :
+                                     node.name === "历史入区信息" ? `image://${rqjl}` :
+                                        node.name === "相关卷宗" ? `image://${jzxx}` :
+                                            "circle";
             node.category = node.attributes.modularity_class;
         });
         let option = {
@@ -544,7 +546,7 @@ export default class PersonalDocDetail extends PureComponent {
     };
     // 获取关系图谱的实际高度
     getChartTreeHeight = (ajxx) => {
-        let heightCount = ajxx && ajxx.length > 2 ? 700 : 600;
+        let heightCount = ajxx && ajxx.length > 1 ? 800 : 600;
         // if (ajxx && ajxx.length > 0) {
         //     for (let i = 0; i < ajxx.length; i++) {
         //         const rq = ajxx[i].rqList ? ajxx[i].rqList.length : 0;
@@ -644,19 +646,14 @@ export default class PersonalDocDetail extends PureComponent {
                 <Spin spinning={loading}>
                     <Card>
                         <Row gutter={{md: 8, lg: 24, xl: 48}}>
-                            <Col md={8} sm={24}>
-                                {/*<span style={{margin: '16px', display: 'block'}}>人员档案</span>*/}
-                            </Col>
-                            <Col md={8}/>
-
-                            <Col md={8} sm={24}>
-                                <Button type='primary' style={{margin: '10px', float: 'right'}}
+                            <Col>
+                                <Button type='primary' style={{margin: '10px', float: 'left'}}
                                         onClick={() => this.ExportStatistics()}>导出</Button>
                             </Col>
 
                         </Row>
                     </Card>
-                    <Card style={{height: autoheight() - 210 + 'px', marginTop: '12px'}} ref={'scroll'}
+                    <Card style={{height: autoheight() - 220 + 'px', marginTop: '12px'}} ref={'scroll'}
                           className={className}>
                         <div>
                             <div id={`Nameryxx${this.props.location.query.id}`} className={styles.borderBottom}>
