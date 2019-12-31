@@ -42,7 +42,7 @@ import {
 } from '../../../utils/utils';
 // import ItemDetail from '../ItemRealData/itemDetail';
 // import PersonDetail from '../AllDocuments/PersonalDocDetail';
-// import SuperviseModal from '../../components/UnCaseRealData/SuperviseModal';
+// import SuperviseModal from '../../components/NewUnCaseRealData/SuperviseModal';
 // import JqDetail from '../../routes/PoliceRealData/policeDetail';
 // import PersonIntoArea from '../../routes/CaseRealData/IntoArea';
 // import DossierDetail from '../../routes/DossierData/DossierDetail';
@@ -107,7 +107,7 @@ export default class caseDetail extends PureComponent {
       shareVisible: false,
       shareItem: null,
       personList: [],
-      tzlx: window.configUrl.is_area === '1' ? 'xsajxx' + 3 : 'xsajxx' + this.props.ssmk,
+      tzlx:'xsajxx3',
       lx: '案件信息',
       sx: '',
       sfgz: res && res.sfgz === 0 ? res.sfgz : '',

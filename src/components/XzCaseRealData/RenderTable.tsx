@@ -9,7 +9,7 @@ import {Table, Divider, Tooltip, message, Dropdown, Menu, Row, Col, Card, Empty}
 import {connect} from 'dva';
 import styles from './RenderTable.less';
 // import ShareModal from './../ShareModal/ShareModal';
-// import Detail from '../../routes/XzCaseRealData/caseDetail';
+// import Detail from '../../routes/NewXzCaseRealData/caseDetail';
 // import MakeTableModal from '../CaseRealData/MakeTableModal';
 // import AdministrativeCaseDocDetail from '../../routes/AllDocuments/AdministrativeCaseDocDetail';
 import {userAuthorityCode} from '../../utils/utils';

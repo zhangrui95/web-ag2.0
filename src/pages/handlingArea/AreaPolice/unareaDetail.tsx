@@ -28,7 +28,7 @@ import {
   Empty,
 } from 'antd';
 // import Result from '../../components/Result';
-// import SuperviseModal from '../../../components/UnCaseRealData/SuperviseModal';
+// import SuperviseModal from '../../../components/NewUnCaseRealData/SuperviseModal';
 // import SsWoodMessage from '../../components/personnelFiles/SsWoodMessage';
 // import PersonDetail from '../AllDocuments/PersonalDocDetail';
 import Ellipsis from 'ant-design-pro/lib/Ellipsis';

@@ -25,7 +25,7 @@ import {
 import styles from './uncaseDetail.less';
 import liststyles from '../../common/listDetail.less';
 import { autoheight, getQueryString, userResourceCodeDb } from '../../../utils/utils';
-import SuperviseModal from '../../../components/UnCaseRealData/SuperviseModal';
+import SuperviseModal from '../../../components/NewUnCaseRealData/SuperviseModal';
 // import ItemsDetail from '../../ItemRealData/itemDetail';
 // import PersonDetail from '../AllDocuments/PersonalDocDetail';
 // import JqDetail from '../../routes/PoliceRealData/policeDetail';
@@ -139,7 +139,7 @@ export default class uncaseDetail extends PureComponent {
                 record: unCaseDetailData,
                 id: unCaseDetailData && unCaseDetailData.wtid ? unCaseDetailData.wtid : '1',
                 from: '督办',
-                tzlx: 'xsajwt',
+                tzlx: 'xsajwt3',
                 fromPath: '/newcaseFiling/casePolice/CriminalPolice/uncaseDetail',
                 tab: '详情',
               },
@@ -177,7 +177,7 @@ export default class uncaseDetail extends PureComponent {
                 record: unCaseDetailData,
                 id: unCaseDetailData && unCaseDetailData.wtid ? unCaseDetailData.wtid : '1',
                 from: '案件信息',
-                tzlx: 'xsajwt',
+                tzlx: 'xsajwt3',
                 fromPath: '/newcaseFiling/casePolice/CriminalPolice/uncaseDetail',
                 tab: '详情',
               },

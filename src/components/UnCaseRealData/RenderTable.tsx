@@ -7,7 +7,7 @@ import {routerRedux} from 'dva/router';
 import noList from "@/assets/viewData/noList.png";
 import noListLight from "@/assets/viewData/noListLight.png";
 // import ShareModal from './../ShareModal/ShareModal';
-// import SLAXSDetail from '../../../routes/UnCaseRealData/uncaseDetail';
+// import SLAXSDetail from '../../../routes/NewUnCaseRealData/uncaseDetail';
 // import Ellipsis from '../Ellipsis';
 
 @connect(({share, global}) => ({

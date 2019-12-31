@@ -7,7 +7,7 @@ const Option = Select.Option;
 import {connect} from 'dva';
 import {getUserInfos} from '../../utils/utils';
 import Ellipsis from '../../../src/components/Ellipsis';
-import SuperviseModal from '../../components/UnCaseRealData/SuperviseModal';
+import SuperviseModal from '../NewUnCaseRealData/SuperviseModal';
 
 const FormItem = Form.Item;
 

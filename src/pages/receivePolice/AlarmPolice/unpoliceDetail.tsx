@@ -22,7 +22,7 @@ import {
 } from 'antd';
 // import CaseDetail from '../CaseRealData/caseDetail';
 // import XzajDetail from '../XzCaseRealData/caseDetail';
-// import SuperviseModal from '../../components/UnCaseRealData/SuperviseModal';
+// import SuperviseModal from '../../components/NewUnCaseRealData/SuperviseModal';
 import liststyles from '../../common/listDetail.less';
 import CaseModalStep from '../../../components/Common/CaseModalStep';
 // import FeedbackModal from '../../components/Common/FeedbackModal';

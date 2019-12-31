@@ -11,7 +11,7 @@ import moment from 'moment/moment';
 import styles from '../../common/listPage.less';
 import RenderTable from '../../../components/UnItemRealData/RenderTable';
 import {exportListDataMaxDays, getQueryString, getUserInfos, tableList, userResourceCodeDb} from '../../../utils/utils';
-// import SuperviseModal from '../../components/UnCaseRealData/SuperviseModal';
+// import SuperviseModal from '../../components/NewUnCaseRealData/SuperviseModal';
 import UnItemDataView from '../../../components/UnItemRealData/UnItemDataView';
 import DataViewButtonArea from '../../../components/Common/DataViewButtonArea';
 import MessageState from '../../../components/Common/MessageState';

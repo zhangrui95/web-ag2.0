@@ -21,7 +21,7 @@ import styles from './index.less';
 import EvaluationTable from '../../../components/AjEvaluation/EvaluationTable';
 import EvaluationChats from '../../../components/AjEvaluation/EvaluationChats';
 import {exportListDataMaxDays, getUserInfos} from '../../../utils/utils';
-// import SuperviseModal from '../../components/UnCaseRealData/SuperviseModal';
+// import SuperviseModal from '../../components/NewUnCaseRealData/SuperviseModal';
 import {routerRedux} from 'dva/router';
 import stylescommon1 from "@/pages/common/common.less";
 import stylescommon2 from "@/pages/common/commonLight.less";

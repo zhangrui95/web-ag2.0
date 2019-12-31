@@ -16,7 +16,7 @@ import {
   userResourceCodeDb,
 } from '../../../utils/utils';
 // import ItemDetail from '../ItemRealData/itemDetail';
-// import SuperviseModal from '../../components/UnCaseRealData/SuperviseModal';
+// import SuperviseModal from '../../components/NewUnCaseRealData/SuperviseModal';
 // import JqDetail from '../../routes/PoliceRealData/policeDetail';
 // import PersonDetail from '../AllDocuments/PersonalDocDetail';
 // import PersonIntoArea from '../../routes/CaseRealData/IntoArea';
@@ -276,7 +276,7 @@ export default class caseDetail extends PureComponent {
             record: caseDetails,
             id: caseDetails && caseDetails.system_id ? caseDetails.system_id : '1',
             from: '案件信息',
-            tzlx: 'xzajxx2',
+            tzlx: 'xzajxx3',
             fromPath: '/newcaseFiling/caseData/AdministrationData/caseDetail',
             tab: '详情',
             sx:

@@ -35,7 +35,7 @@ import {
 } from '../../../utils/utils';
 // import UnDossierDetail from './UnDossierDetail';
 // import ShareModal from '../../../src/components/ShareModal/ShareModal';
-// import SuperviseModal from '../../components/UnCaseRealData/SuperviseModal';
+// import SuperviseModal from '../../components/NewUnCaseRealData/SuperviseModal';
 import UnDossierDataView from '../../../components/UnDossierRealData/UnDossierDataView';
 import DataViewButtonArea from '../../../components/Common/DataViewButtonArea';
 import MessageState from '../../../components/Common/MessageState';

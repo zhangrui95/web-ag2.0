@@ -25,12 +25,12 @@ import {
   Carousel,
 } from 'antd';
 // import CaseDetail from '../CaseRealData/caseDetail';
-// import XzCaseDetail from '../XzCaseRealData/caseDetail';
+// import XzCaseDetail from '../NewXzCaseRealData/caseDetail';
 
 import styles from './itemDetail.less';
 import liststyles from '../../common/listDetail.less';
 // import PersonDetail from '../AllDocuments/PersonalDocDetail';
-// import SuperviseModal from '../../components/UnCaseRealData/SuperviseModal';
+// import SuperviseModal from '../../components/NewUnCaseRealData/SuperviseModal';
 // import ShareModal from '../../components/ShareModal/ShareModal';
 import collect from '../../../assets/common/collect.png';
 import nocollect from '../../../assets/common/nocollect.png';
@@ -124,7 +124,7 @@ export default class itemDetail extends PureComponent {
             from: from,
             tzlx: 'wpwt',
             fromPath: '/articlesInvolved/ArticlesData/itemDetail',
-            wtflId: '230204',
+            wtflId: '203204',
             wtflMc: '涉案财物',
           },
         }),

@@ -24,15 +24,15 @@ import {
 import moment from 'moment/moment';
 import stylescommon from '../../common/common.less';
 import styles from '../../common/listPage.less';
-import RenderTable from '../../../components/UnCaseRealData/RenderTable';
+import RenderTable from '../../../components/NewUnCaseRealData/RenderTable';
 import {
     exportListDataMaxDays,
     getQueryString,
     tableList,
     userResourceCodeDb,
 } from '../../../utils/utils';
-import SuperviseModal from '../../../components/UnCaseRealData/SuperviseModal';
-import UnCaseDataView from '../../../components/UnCaseRealData/UnCaseEnforcementDataView';
+import SuperviseModal from '../../../components/NewUnCaseRealData/SuperviseModal';
+import UnCaseDataView from '../../../components/NewUnCaseRealData/UnCaseEnforcementDataView';
 import DataViewButtonArea from '../../../components/Common/DataViewButtonArea';
 import MessageState from '../../../components/Common/MessageState';
 import {authorityIsTrue} from '../../../utils/authority';
