@@ -124,7 +124,7 @@ export default class itemDetail extends PureComponent {
             from: from,
             tzlx: 'wpwt',
             fromPath: '/articlesInvolved/ArticlesData/itemDetail',
-            wtflId: '230204',
+            wtflId: '203204',
             wtflMc: '涉案财物',
           },
         }),

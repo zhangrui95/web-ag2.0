@@ -122,10 +122,10 @@ export default class unitemDetail extends PureComponent {
               query: {
                 record: UnitemDetail,
                 id: UnitemDetail && UnitemDetail.wtid ? UnitemDetail.wtid : '1',
-                from: '涉案财物详情问题判定',
+                from: '督办',
                 tzlx: 'wpwt',
                 fromPath: '/articlesInvolved/ArticlesPolice/unitemDetail',
-                wtflId: '230205',
+                wtflId: '203205',
                 wtflMc: '涉案财物详情',
               },
             }),

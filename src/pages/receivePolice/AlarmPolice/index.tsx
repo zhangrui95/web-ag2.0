@@ -506,6 +506,7 @@ export default class Index extends PureComponent {
                 allPolice: [],
                 cjrPolice: [],
                 showDataView: false,
+                searchHeight:true,
             },
             () => {
                 this.props.form.setFieldsValue({

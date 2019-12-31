@@ -144,7 +144,7 @@ export default class DossierDetail extends PureComponent {
             from: '卷宗详情问题判定',
             tzlx: 'jzxx',
             fromPath: '/dossierPolice/DossierData/DossierDetail',
-            wtflId: '230205',
+            wtflId: '203205',
             wtflMc: '卷宗详情',
           },
         }),

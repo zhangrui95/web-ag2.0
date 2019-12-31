@@ -551,6 +551,7 @@ export default class Index extends PureComponent {
         this.props.form.resetFields();
         this.setState({
             showDataView: false,
+            searchHeight:true,
         }, () => {
             this.props.form.setFieldsValue({
                 gjsj: [moment(dateArry[0], 'YYYY-MM-DD'), moment(dateArry[1], 'YYYY-MM-DD')],

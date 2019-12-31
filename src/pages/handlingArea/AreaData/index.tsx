@@ -434,6 +434,7 @@ export default class Index extends PureComponent {
         this.setState(
             {
                 showDataView: false,
+                searchHeight:true,
             },
             () => {
                 this.props.form.setFieldsValue({

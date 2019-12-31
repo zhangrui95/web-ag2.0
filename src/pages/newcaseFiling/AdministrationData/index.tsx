@@ -429,6 +429,7 @@ export default class Index extends PureComponent {
         this.props.form.resetFields();
         this.setState({
             showDataView: false,
+            searchHeight:true,
         });
         if (seriesName === '受理') {
             // console.log('name', name);

@@ -138,7 +138,7 @@ export default class uncaseDetail extends PureComponent {
               query: {
                 record: unCaseDetailData,
                 id: unCaseDetailData && unCaseDetailData.wtid ? unCaseDetailData.wtid : '1',
-                from: '案件信息',
+                from: '督办',
                 tzlx: 'xsajwt',
                 fromPath: '/newcaseFiling/casePolice/CriminalPolice/uncaseDetail',
                 tab: '详情',
@@ -267,31 +267,31 @@ export default class uncaseDetail extends PureComponent {
       this.props.refreshTable();
     }
   };
-  // 反馈
-  saveFeedbackModal = params => {
-    this.setState({
-      feedbackVisibleModal: false,
-      feedbackButtonLoading: true,
-    });
-    this.props.dispatch({
-      type: 'MySuperviseData/saveFeedback',
-      payload: params,
-      callback: data => {
-        this.setState({
-          feedbackButtonLoading: false,
-        });
-        if (data) {
-          message.success('反馈保存完成');
-          this.caseDetailDatas(this.props.location.query.id, this.state.record.system_id);
-          if (this.props.refreshTable) {
-            this.props.refreshTable();
-          }
-        } else {
-          message.error('反馈保存失败');
-        }
-      },
-    });
-  };
+  // // 反馈
+  // saveFeedbackModal = params => {
+  //   this.setState({
+  //     feedbackVisibleModal: false,
+  //     feedbackButtonLoading: true,
+  //   });
+  //   this.props.dispatch({
+  //     type: 'MySuperviseData/saveFeedback',
+  //     payload: params,
+  //     callback: data => {
+  //       this.setState({
+  //         feedbackButtonLoading: false,
+  //       });
+  //       if (data) {
+  //         message.success('反馈保存完成');
+  //         this.caseDetailDatas(this.props.location.query.id, this.state.record.system_id);
+  //         if (this.props.refreshTable) {
+  //           this.props.refreshTable();
+  //         }
+  //       } else {
+  //         message.error('反馈保存失败');
+  //       }
+  //     },
+  //   });
+  // };
   // foot1 = () => {
   //   return (
   //     <div>
@@ -952,7 +952,7 @@ export default class uncaseDetail extends PureComponent {
               style={{ backgroundColor: '#171A26', marginTop: 12, borderRadius: 0 }}
               className={styles.ajlcCard}
             >
-              <CaseModalStep caseDetails={unCaseDetailData} />
+              <CaseModalStep dark={dark} caseDetails={unCaseDetailData} />
             </Card>
           ) : (
             ''

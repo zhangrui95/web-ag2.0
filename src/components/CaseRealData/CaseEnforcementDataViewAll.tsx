@@ -622,7 +622,7 @@ export default class CaseEnforcementDataView extends PureComponent {
         } = this.state;
         let className = this.props.global && this.props.global.dark ? styles.policeDataCard : styles.policeDataCard + ' ' + styles.lightBox;
         return (
-            <Card style={{position: 'relative'}} className={className}>
+            <Card style={{position: 'relative',border:0}} className={className}>
                 <div
                     className={styles.caseDataView}
                     style={showDataView ? {} : {position: 'absolute', zIndex: -1}}

@@ -549,6 +549,7 @@ export default class Index extends PureComponent {
             showDataView: false,
             linkToAjzt: name && name.ajzt ? name.ajzt : null,
             statusDate: '102',
+            searchHeight:true,
         });
         let dataShow = {};
         if (name.ajzt && name.ajzt === '101') {

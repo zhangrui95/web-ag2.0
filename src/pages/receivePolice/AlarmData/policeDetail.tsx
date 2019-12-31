@@ -194,7 +194,7 @@ export default class policeDetail extends PureComponent {
             from: from,
             tzlx: this.state.tzlx,
             fromPath: '/receivePolice/AlarmData/policeDetail',
-            wtflId: '230201',
+            wtflId: '203201',
             wtflMc: '警情',
           },
         }),
