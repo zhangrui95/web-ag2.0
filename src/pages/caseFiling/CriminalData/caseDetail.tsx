@@ -44,7 +44,7 @@ import {
 // import PersonDetail from '../AllDocuments/PersonalDocDetail';
 // import SuperviseModal from '../../components/UnCaseRealData/SuperviseModal';
 // import JqDetail from '../../routes/PoliceRealData/policeDetail';
-// import PersonIntoArea from '../../routes/CaseRealData/IntoArea';
+// import PersonIntoArea from '../../routes/NewCaseRealData/IntoArea';
 // import DossierDetail from '../../routes/DossierData/DossierDetail';
 import Ellipsis from 'ant-design-pro/lib/Ellipsis';
 // import ShareModal from '../../components/ShareModal/ShareModal';
@@ -56,7 +56,7 @@ import CaseModalStep from '../../../components/Common/CaseModalStep';
 // import RetrieveModal from '../../components/ShareModal/RetrieveModal';
 import {authorityIsTrue} from '../../../utils/authority';
 import DetailShow from "@/components/Common/detailShow";
-// import MakeTableModal from '../../components/CaseRealData/MakeTableModal';
+// import MakeTableModal from '../../components/NewCaseRealData/MakeTableModal';
 
 @connect(({CaseData, loading, MySuperviseData, AllDetail,global}) => ({
     CaseData,

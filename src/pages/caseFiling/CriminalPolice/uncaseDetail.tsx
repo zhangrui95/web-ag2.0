@@ -28,7 +28,7 @@ import SuperviseModal from '../../../components/UnCaseRealData/SuperviseModal';
 // import ItemsDetail from '../../ItemRealData/itemDetail';
 // import PersonDetail from '../AllDocuments/PersonalDocDetail';
 // import JqDetail from '../../routes/PoliceRealData/policeDetail';
-// import PersonIntoArea from '../../routes/CaseRealData/IntoArea';
+// import PersonIntoArea from '../../routes/NewCaseRealData/IntoArea';
 import CaseModalTrail from '../../../components/Common/CaseModalTrail';
 import CaseModalStep from '../../../components/Common/CaseModalStep';
 import FeedbackModal from '../../../components/Common/FeedbackModal';
