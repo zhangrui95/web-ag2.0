@@ -1048,13 +1048,13 @@ export default class ItemDataView extends PureComponent {
                                     </div>
                                 </div>
                                 <div className={styles.cardBoxTitle}>| 物品出入库情况</div>
-                                <div id="wpcrkqk" className={styles.cardBox}></div>
+                                <div id="wpcrkqk" className={styles.cardBox} style={{width:'98%',marginLeft:'1%'}}></div>
                             </Col>
                         </Row>
                         <Row gutter={rowLayout} className={styles.listPageRow}>
                             <Col {...colLayout1} style={{marginBottom: 32}}>
                                 <div className={styles.cardBoxTitle}>| 物品趋势</div>
-                                <div id="wpqs" className={wpqsNoData ? styles.none : styles.cardBox}></div>
+                                <div id="wpqs" className={wpqsNoData ? styles.none : styles.cardBox}  style={{width:'98%',marginLeft:'1%'}}></div>
                                 <div
                                     style={{
                                         width: '100%',

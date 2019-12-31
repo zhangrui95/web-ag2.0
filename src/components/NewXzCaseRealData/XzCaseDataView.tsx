@@ -764,7 +764,7 @@ export default class XzCaseDataView extends PureComponent {
                         <Row gutter={rowLayout} className={styles.listPageRow}>
                             <Col span={24}>
                                 <div className={styles.cardBoxTitle}>| 案件类型统计</div>
-                                <div id="ajlxtj" className={styles.cardBox}></div>
+                                <div id="ajlxtj" className={styles.cardBox} style={{width:'98%',marginLeft:'1%'}}></div>
                             </Col>
                         </Row>
                     </div>
