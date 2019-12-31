@@ -55,7 +55,7 @@ export default class AgainstProperty extends PureComponent {
                     let xData = [];
                     if (qincaileijq && xingshiqc && zhianqc) {
                         barData = [
-                            {
+{
                                 name: selectedDateStr,
                                 type: 'bar',
                                 cursor: 'default',
@@ -64,12 +64,12 @@ export default class AgainstProperty extends PureComponent {
                                         show: true,
                                         position: 'right',
                                     },
-                                },
+  },
                                 data: [
                                     {name: '侵财类警情', value: qincaileijq.nowtime || 0, itemStyle: {color: '#3AA0FF'}},
                                     {name: '刑事侵财', value: xingshiqc.nowtime || 0, itemStyle: {color: '#3AA0FF'}},
                                     {name: '治安侵财', value: zhianqc.nowtime || 0, itemStyle: {color: '#3AA0FF'}},
-                                ],
+  ],
                             },
                             {
                                 name: yearOnYearDateStr,
@@ -89,7 +89,7 @@ export default class AgainstProperty extends PureComponent {
                                     },
                                     {name: '刑事侵财', value: xingshiqc.lastyear || 0, itemStyle: {color: '#DCCA23'}},
                                     {name: '治安侵财', value: zhianqc.lastyear || 0, itemStyle: {color: '#DCCA23'}},
-                                ],
+  ],
                             },
                             {
                                 name: monthOnMonthDateStr,
@@ -99,7 +99,7 @@ export default class AgainstProperty extends PureComponent {
                                     normal: {
                                         show: true,
                                         position: 'right',
-                                    },
+  },
                                 },
                                 data: [
                                     {
@@ -109,7 +109,7 @@ export default class AgainstProperty extends PureComponent {
                                     },
                                     {name: '刑事侵财', value: xingshiqc.lastmonth || 0, itemStyle: {color: '#31BD74'}},
                                     {name: '治安侵财', value: zhianqc.lastmonth || 0, itemStyle: {color: '#31BD74'}},
-                                ],
+  ],
                             },
                         ];
                         tableData = [
@@ -262,7 +262,7 @@ export default class AgainstProperty extends PureComponent {
                     lineStyle: {
                         color: this.props.global && this.props.global.dark ? '#fff' : '#e6e6e6'
                     }
-                },
+  },
             },
             yAxis: {
                 axisLabel: {   // y轴线 标签修改
@@ -289,8 +289,8 @@ export default class AgainstProperty extends PureComponent {
                             fontSize: 16,
                             color: this.props.global && this.props.global.dark ? '#fff' : '#4d4d4d',
                         },
-                    },
-                },
+  },
+  },
                 data: shanghaiBarData,
             },
         };
@@ -355,7 +355,7 @@ export default class AgainstProperty extends PureComponent {
                                    pagination={false}/>
                         </Col>
                     </Row>
-                    <h2 className={styles.title}>伤害类警情</h2>
+                    <h2 className={this.props.global && this.props.global.dark ? styles.title : styles.titles}>伤害类警情</h2>
                     <Row className={styles.fraudArea}>
                         <Col lg={12} md={24}>
                             <div id="hurtBar" style={{height: 300}}
@@ -374,5 +374,5 @@ export default class AgainstProperty extends PureComponent {
                 </div>
             </Spin>
         );
-    }
+  }
 }
