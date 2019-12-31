@@ -1,6 +1,6 @@
 import React, {PureComponent} from 'react';
 import {Tooltip, Select, Steps} from 'antd';
-import {getSysAuthority} from '../../utils/authority';
+// import {getSysAuthority} from '../../utils/authority';
 import styles from './CaseModalTrail.less';
 
 const {Step} = Steps;
@@ -87,7 +87,7 @@ export default class CaseModalTrail extends PureComponent {
                         <Step
                             title={<span style={{
                                 fontSize: 14,
-                                color: this.props.dark ? '#fff' : '#4D4D4D'
+                                color: this.props.global && this.props.global.dark ? '#fff' : '#4D4D4D'
                             }}>{item.ajzt}</span>}
                             description={this.extraDescription(item, idx, policeDetails.ajgjList)}
                         />

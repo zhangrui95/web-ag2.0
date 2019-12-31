@@ -621,11 +621,8 @@ export default class CriminalCaseDocDetail extends PureComponent {
         return (
             <Card>
                 <Row gutter={{md: 8, lg: 24, xl: 48}}>
-                    <Col md={8} sm={24}>
-                        {/*<span style={{margin: '16px', display: 'block'}}>刑事案件档案详情</span>*/}
-                    </Col>
                     <Col>
-                      <span style={{float: 'right', margin: '12px 16px 12px 0'}}>
+                      <span style={{float: 'left', margin: '10px'}}>
                           {
                               caseDetails ? (
                                   <span>

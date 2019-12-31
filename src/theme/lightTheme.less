@@ -954,16 +954,19 @@ body {
     }
 
     .ant-table-bordered.ant-table-empty .ant-table-placeholder {
-      border-right: 1px solid @body-background !important;
-      border-left: 1px solid @body-background !important;
+      border:0!important;
+      border-top: 1px solid @body-background !important;
     }
-
+    .ant-table-bordered{
+      border: 1px solid #e6e6e6;
+      border-radius: 10px;
+  }
     .ant-table-bordered .ant-table-tbody > tr > td, .ant-table-bordered .ant-table-thead > tr > th {
       border-right: 1px solid @body-background !important;
     }
 
     .ant-table-bordered .ant-table-body > table {
-      border: 1px solid @body-background !important;
+      border: 0;
     }
 
     .ant-table-bordered {
@@ -1102,7 +1105,7 @@ body {
 
     .ant-anchor-link-active > .ant-anchor-link-title {
       color: @highlight-color;
-    }
+}
 
     .ant-anchor-ink-ball {
       border: 1px solid @highlight-color !important;

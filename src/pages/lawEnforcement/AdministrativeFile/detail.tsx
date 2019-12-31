@@ -533,11 +533,8 @@ export default class AdministrativeCaseDocDetail extends PureComponent {
         return (
             <Card>
                 <Row gutter={{md: 8, lg: 24, xl: 48}}>
-                    <Col md={8} sm={24}>
-                        {/*<span style={{margin: '16px', display: 'block'}}>行政案件档案详情</span>*/}
-                    </Col>
                     <Col>
-                        <span style={{float: 'right', margin: '12px 16px 12px 0'}}>
+                        <span style={{float: 'left', margin: '10px'}}>
                             {
                                 isZb ? <Button type="primary" style={{marginLeft: 8}}
                                                onClick={() => this.makeTable(caseDetails)}>制表</Button> : null
@@ -794,7 +791,7 @@ export default class AdministrativeCaseDocDetail extends PureComponent {
                     );
                 },
             },
-            {
+{
                 title: '接警人',
                 dataIndex: 'jjr',
                 render: (record) => {
@@ -857,7 +854,7 @@ export default class AdministrativeCaseDocDetail extends PureComponent {
                         <a onClick={() => this.jqDetail(record, record.id)}>详情</a>
                     </div>
                 ),
-            },
+  },
         ];
         const JzColumns = [
             {
@@ -868,23 +865,23 @@ export default class AdministrativeCaseDocDetail extends PureComponent {
                         text ? <Ellipsis length={20} tooltip>{text}</Ellipsis> : ''
                     );
                 },
-            },
+  },
             {
                 title: '卷宗类别',
                 dataIndex: 'jzlb_mc',
-            },
+  },
             {
                 title: '存储状态',
                 dataIndex: 'cczt_mc',
-            },
+  },
             {
                 title: '卷宗页数',
                 dataIndex: 'jzys',
-            },
+  },
             {
                 title: '电子化',
                 dataIndex: 'is_gldzj',
-            },
+  },
             {
                 title: '操作',
                 width: 50,
@@ -893,7 +890,7 @@ export default class AdministrativeCaseDocDetail extends PureComponent {
                         <a onClick={() => this.JzDetail(record)}>查看</a>
                     </div>
                 ),
-            },
+  },
         ];
         let className = this.props.global && this.props.global.dark ? styles.detailBoxScroll : styles.detailBoxScroll + ' ' + styles.detailBoxLight;
         return (
@@ -935,7 +932,7 @@ export default class AdministrativeCaseDocDetail extends PureComponent {
                                             第 {this.state.jqcurrent} / {(Math.ceil(total / 3))} 页</div>,
                                         onChange: (page) => {
                                             this.setState({jqcurrent: page});
-                                        },
+  },
                                     }}
                                     locale={{
                                         emptyText: <Empty

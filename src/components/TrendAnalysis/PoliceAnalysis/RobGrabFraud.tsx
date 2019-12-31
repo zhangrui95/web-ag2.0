@@ -117,7 +117,7 @@ export default class RobGrabFraud extends PureComponent {
                             },
                         ];
                         liangqiangTableData = [
-                            {
+{
                                 categories: '两抢案件（起）',
                                 selectedDateStr: liangqiang.nowtime || 0,
                                 yearOnYearDateStr: liangqiang.lastyear || 0,
@@ -274,10 +274,10 @@ export default class RobGrabFraud extends PureComponent {
                     labelLine: {
                         normal: {
                             show: false,
-                        },
-                    },
+  },
+  },
                     ...serise[0]
-                },
+  },
                 {
                     type: 'pie',
                     center: ['20%', '55%'],
@@ -303,8 +303,8 @@ export default class RobGrabFraud extends PureComponent {
                         },
                     },
                     ...serise[2]
-                },
-            ],
+  },
+  ],
         };
         treePie.setOption(option);
     };
@@ -333,7 +333,7 @@ export default class RobGrabFraud extends PureComponent {
                         color: this.props.global && this.props.global.dark ? '#fff' : '#e6e6e6'
                     }
                 },
-            },
+  },
             series: {
                 type: 'bar',
                 cursor: 'default',
@@ -349,7 +349,7 @@ export default class RobGrabFraud extends PureComponent {
                     },
                 },
                 data: barData,
-            },
+  },
         };
         fraudBar.setOption(option);
     };
@@ -411,12 +411,12 @@ export default class RobGrabFraud extends PureComponent {
                     } else {
                         return text;
                     }
-                },
+  },
             }, {
                 title: '诈骗案（起）',
                 dataIndex: 'fraud',
                 key: 'fraud',
-            },
+  },
         ];
         let className = this.props.global && this.props.global.dark ? styles.analysis : styles.analysis + ' ' + styles.lightBox
         return (
@@ -450,5 +450,5 @@ export default class RobGrabFraud extends PureComponent {
                 </div>
             </Spin>
         );
-    }
+  }
 }

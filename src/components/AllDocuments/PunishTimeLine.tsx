@@ -8,6 +8,7 @@ import {Tabs, Row, Col, Table, List, Steps, Tooltip, Empty} from 'antd';
 import styles from './personDetailTab.less';
 import RenderEmpty from '../Common/RenderEmpty';
 import noList from "@/assets/viewData/noList.png";
+import {connect} from "dva";
 
 const Step = Steps.Step;
 const imgLeft = require('../../assets/common/leftButton.png');
@@ -16,7 +17,9 @@ const imgLeftDisabled = require('../../assets/common/leftButtonDisabled.png');
 const imgRightDisabled = require('../../assets/common/rightButtonDisabled.png');
 
 // let moveStep = 0;
-
+@connect(({ global }) => ({
+    global,
+}))
 export default class PunishTimeLine extends PureComponent {
 
     state = {
@@ -118,7 +121,7 @@ export default class PunishTimeLine extends PureComponent {
             <div
                 className={this.props.global && this.props.global.dark ? styles.tabDiv : styles.tabDiv + ' ' + styles.lightBox}>
                 {this.showSteps(punishData)}
-                {
+{
                     showStepButton ? (
                         <div className={styles.stepButtons}>
                             <img
@@ -133,8 +136,8 @@ export default class PunishTimeLine extends PureComponent {
                             />
                         </div>
                     ) : null
-                }
+  }
             </div>
         );
-    }
+}
 }
