@@ -952,7 +952,7 @@ export default class uncaseDetail extends PureComponent {
               style={{ backgroundColor: '#171A26', marginTop: 12, borderRadius: 0 }}
               className={styles.ajlcCard}
             >
-              <CaseModalStep caseDetails={unCaseDetailData} />
+              <CaseModalStep dark={dark} caseDetails={unCaseDetailData} />
             </Card>
           ) : (
             ''
