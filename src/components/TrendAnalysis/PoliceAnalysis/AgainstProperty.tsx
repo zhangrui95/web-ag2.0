@@ -355,6 +355,7 @@ export default class AgainstProperty extends PureComponent {
                                    pagination={false}/>
                         </Col>
                     </Row>
+                    <div className={this.props.global && this.props.global.dark ? styles.borderTop : styles.borderTops}></div>
                     <h2 className={this.props.global && this.props.global.dark ? styles.title : styles.titles}>伤害类警情</h2>
                     <Row className={styles.fraudArea}>
                         <Col lg={12} md={24}>
