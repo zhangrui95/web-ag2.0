@@ -41,6 +41,10 @@ const {RangePicker} = DatePicker;
 class Detail extends Component {
     constructor(props) {
         super(props);
+        let res = props.location.query.record;
+        if (typeof res == 'string') {
+            res = JSON.parse(sessionStorage.getItem('query')).query.record;
+        }
         this.state = {
             loading: false,
             current: 1,
@@ -65,6 +69,7 @@ class Detail extends Component {
             searchHeight: false,
             addHave: true,
             NoticeNote: '', // 监管点具体算法说明
+            scbj: res.scbj,
         };
     }
 
@@ -726,7 +731,7 @@ class Detail extends Component {
                             this.handleCancel();
                             message.success('修改成功');
                             this.onEdit(true);
-                            payload.scbj = this.state.res.scbj;
+                            payload.scbj = this.state.scbj;
                             this.getChangeDetail(payload);
                             this.getJgdList(this.state.pd, this.state.current);
                         } else {
