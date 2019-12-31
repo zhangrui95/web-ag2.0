@@ -122,10 +122,10 @@ export default class unitemDetail extends PureComponent {
               query: {
                 record: UnitemDetail,
                 id: UnitemDetail && UnitemDetail.wtid ? UnitemDetail.wtid : '1',
-                from: '督办',
+                from: '涉案财物详情问题判定',
                 tzlx: 'wpwt',
                 fromPath: '/articlesInvolved/ArticlesPolice/unitemDetail',
-                wtflId: '203205',
+                wtflId: '230205',
                 wtflMc: '涉案财物详情',
               },
             }),
@@ -266,7 +266,7 @@ export default class unitemDetail extends PureComponent {
   // 确认整改完成
   sureReform = (dbid, flag) => {
     this.setState(
-      {
+{
         // reformModal: !!flag,
         dbid: dbid,
       },
@@ -315,7 +315,7 @@ export default class unitemDetail extends PureComponent {
       payload: {
         id: id,
         system_id: systemId,
-      },
+  },
       callback: data => {
         if (data) {
           this.setState({
@@ -330,7 +330,7 @@ export default class unitemDetail extends PureComponent {
             }
           }
         }
-      },
+  },
     });
   };
   // 更新未读数据状态
@@ -339,13 +339,13 @@ export default class unitemDetail extends PureComponent {
       type: 'MySuperviseData/changeReadStatus',
       payload: {
         dbid: id,
-      },
+  },
       callback: data => {
         if (data && this.props.refreshTable && this.props.refreshNotice) {
           this.props.refreshTable();
           this.props.refreshNotice();
         }
-      },
+  },
     });
   };
 
@@ -401,7 +401,7 @@ export default class unitemDetail extends PureComponent {
       payload: {
         ajbh: UnitemDetail.ajbh,
         sfzh: UnitemDetail.syrSfzh,
-      },
+  },
       callback: data => {
         if (data && data.ryxx) {
           this.props.dispatch(
@@ -411,7 +411,7 @@ export default class unitemDetail extends PureComponent {
                 record: UnitemDetail,
                 id: UnitemDetail && UnitemDetail.syrSfzh ? UnitemDetail.syrSfzh : '1',
                 fromPath: '/articlesInvolved/ArticlesPolice/unitemDetail',
-              },
+  },
             }),
           );
           // const divs = (
@@ -429,7 +429,7 @@ export default class unitemDetail extends PureComponent {
         } else {
           message.error('该人员暂无档案信息！');
         }
-      },
+  },
     });
   };
 
@@ -840,5 +840,5 @@ export default class unitemDetail extends PureComponent {
         {/*}*/}
       </div>
     );
-  }
+}
 }

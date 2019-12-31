@@ -124,7 +124,7 @@ export default class itemDetail extends PureComponent {
             from: from,
             tzlx: 'wpwt',
             fromPath: '/articlesInvolved/ArticlesData/itemDetail',
-            wtflId: '203204',
+            wtflId: '230204',
             wtflMc: '涉案财物',
           },
         }),
@@ -147,7 +147,7 @@ export default class itemDetail extends PureComponent {
   // 修改改变模态框状态 通过id 获取数据
   itemDetailDatas = id => {
     this.setState(
-      {
+{
         IsSure: false,
       },
       () => {
@@ -392,7 +392,7 @@ export default class itemDetail extends PureComponent {
             //   },
             // );
           }
-        },
+  },
       });
     } else {
       message.info('您的操作太频繁，请稍后再试');
@@ -840,5 +840,5 @@ export default class itemDetail extends PureComponent {
         {/*tzlx={this.state.tzlx} sx={this.state.sx}/>*/}
       </div>
     );
-  }
+}
 }
