@@ -1,7 +1,7 @@
 import React, {PureComponent} from 'react';
 import {Card, Empty, Form, Table, Tooltip} from 'antd';
 import styles from './RenderTable.less';
-// import UncaseDetail from '../../routes/UnCaseRealData/uncaseDetail';
+// import UncaseDetail from '../../routes/NewUnCaseRealData/uncaseDetail';
 // import UnareaDetail from '../../routes/UnAreaRealData/unareaDetail';
 // import UnitemDetail from '../../routes/UnItemRealData/unitemDetail';
 // import UnXzCaseDetail from '../../routes/UnXzCaseRealData/caseDetail';

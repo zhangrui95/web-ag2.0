@@ -3,7 +3,7 @@ import {connect} from 'dva';
 import {Row, Col, Form, Select, TreeSelect, Input, Button, DatePicker, Tabs, message, Cascader, Card, Icon} from 'antd';
 import moment from 'moment/moment';
 import styles from '../listPage.less';
-import RenderTable from '../../../components/XzCaseRealData/RenderTable';
+import RenderTable from '../../../components/NewXzCaseRealData/RenderTable';
 import {exportListDataMaxDays, getQueryString, tableList} from '../../../utils/utils';
 import SyncTime from '../../../components/Common/SyncTime';
 import stylescommon1 from "@/pages/common/common.less";

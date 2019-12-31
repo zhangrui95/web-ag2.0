@@ -24,7 +24,7 @@ import moment from 'moment/moment';
 import stylescommon from '../../common/common.less';
 import styles from '../../common/listPage.less';
 import RenderTable from '../../../components/UnXzCaseRealData/RenderTable';
-// import SuperviseModal from '../../../components/UnCaseRealData/SuperviseModal';
+// import SuperviseModal from '../../../components/NewUnCaseRealData/SuperviseModal';
 import {
     exportListDataMaxDays,
     getQueryString,

@@ -42,7 +42,7 @@ import {
 } from '../../../utils/utils';
 // import ItemDetail from '../ItemRealData/itemDetail';
 // import PersonDetail from '../AllDocuments/PersonalDocDetail';
-// import SuperviseModal from '../../components/UnCaseRealData/SuperviseModal';
+// import SuperviseModal from '../../components/NewUnCaseRealData/SuperviseModal';
 // import JqDetail from '../../routes/PoliceRealData/policeDetail';
 // import PersonIntoArea from '../../routes/NewCaseRealData/IntoArea';
 // import DossierDetail from '../../routes/DossierData/DossierDetail';

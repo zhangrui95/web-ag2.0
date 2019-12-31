@@ -34,7 +34,7 @@ import {
 
 import liststyles from '../../common/listDetail.less';
 import styles from './UnDossierDetail.less';
-// import SuperviseModal from '../../components/UnCaseRealData/SuperviseModal';
+// import SuperviseModal from '../../components/NewUnCaseRealData/SuperviseModal';
 // import FeedbackModal from '../../components/Common/FeedbackModal';
 import { authorityIsTrue } from '../../../utils/authority';
 import { autoheight, userResourceCodeDb } from '../../../utils/utils';

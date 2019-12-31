@@ -2,7 +2,7 @@ import React, {PureComponent} from 'react';
 import {Table, Divider, Tooltip, Row, Col, Empty} from 'antd';
 import {connect} from 'dva';
 import styles from './common.less';
-import SLAXSDetail from '../../routes/UnCaseRealData/uncaseDetail';
+import SLAXSDetail from '../../routes/NewUnCaseRealData/uncaseDetail';
 import DispatchModal from '../DispatchModal/DispatchModal';
 import DispatchingRecordModal from '../DispatchModal/DispatchingRecordModal';
 import Ellipsis from '../Ellipsis';

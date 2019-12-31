@@ -41,7 +41,7 @@ import liststyles from '../../common/listDetail.less';
 import { autoheight, getQueryString, userResourceCodeDb } from '../../../utils/utils';
 import classNames from 'classnames';
 // import ItemDetail from '../ItemRealData/itemDetail';
-// import SuperviseModal from '../../components/UnCaseRealData/SuperviseModal';
+// import SuperviseModal from '../../components/NewUnCaseRealData/SuperviseModal';
 // import JqDetail from '../../routes/PoliceRealData/policeDetail';
 // import PersonDetail from '../AllDocuments/PersonalDocDetail';
 // import PersonIntoArea from '../../routes/CaseRealData/IntoArea';
@@ -194,7 +194,7 @@ export default class caseDetail extends PureComponent {
                   record: caseDetails,
                   id: caseDetails && caseDetails.wtid ? caseDetails.wtid : '1',
                   from: '案件信息',
-                  tzlx: 'xzajwt',
+                  tzlx: 'xzajwt3',
                   fromPath: '/newcaseFiling/casePolice/AdministrationPolice/uncaseDetail',
                   tab: '详情',
                 },
@@ -241,7 +241,7 @@ export default class caseDetail extends PureComponent {
                 record: unCaseDetailData,
                 id: unCaseDetailData && unCaseDetailData.wtid ? unCaseDetailData.wtid : '1',
                 from: '案件信息',
-                tzlx: 'xzajwt',
+                tzlx: 'xzajwt3',
                 fromPath: '/newcaseFiling/casePolice/AdministrationPolice/uncaseDetail',
                 tab: '详情',
               },

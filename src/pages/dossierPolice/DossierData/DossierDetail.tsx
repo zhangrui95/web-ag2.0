@@ -35,9 +35,9 @@ import {
 import liststyles from '../../common/listDetail.less';
 import styles from './DossierDetail.less';
 // import ShareModal from '../../components/ShareModal/ShareModal';
-// import SuperviseModal from '../../components/UnCaseRealData/SuperviseModal';
+// import SuperviseModal from '../../components/NewUnCaseRealData/SuperviseModal';
 // import Detail from '../../routes/CaseRealData/caseDetail';
-// import XZDetail from '../../routes/XzCaseRealData/caseDetail';
+// import XZDetail from '../../routes/NewXzCaseRealData/caseDetail';
 import collect from '../../../assets/common/collect.png';
 import nocollect from '../../../assets/common/nocollect.png';
 import share from '../../../assets/common/share.png';

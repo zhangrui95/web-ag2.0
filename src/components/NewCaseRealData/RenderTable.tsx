@@ -30,7 +30,7 @@ class RenderTable extends PureComponent {
         shareItem: null,
         personList: [],
         lx: '案件信息',
-        tzlx: window.configUrl.is_area === '1' ? 'xsajxx' + 3 : 'xsajxx' + this.props.ssmk,
+        tzlx: 'xsajxx3',
         sx: '',
         current: 1,
         shareRecord: null,

@@ -24,7 +24,7 @@ import {
 import styles from './uncaseDetail.less';
 import liststyles from '../../common/listDetail.less';
 import {autoheight, getQueryString, userResourceCodeDb} from '../../../utils/utils';
-import SuperviseModal from '../../../components/UnCaseRealData/SuperviseModal';
+import SuperviseModal from '../../../components/NewUnCaseRealData/SuperviseModal';
 // import ItemsDetail from '../../ItemRealData/itemDetail';
 // import PersonDetail from '../AllDocuments/PersonalDocDetail';
 // import JqDetail from '../../routes/PoliceRealData/policeDetail';

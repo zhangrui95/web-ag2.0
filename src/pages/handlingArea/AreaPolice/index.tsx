@@ -29,7 +29,7 @@ import {
     tableList,
     userResourceCodeDb,
 } from '../../../utils/utils';
-// import SuperviseModal from '../../components/UnCaseRealData/SuperviseModal';
+// import SuperviseModal from '../../components/NewUnCaseRealData/SuperviseModal';
 import UnAreaDataView from '../../../components/UnAreaRealData/UnAreaDataView';
 import DataViewButtonArea from '../../../components/Common/DataViewButtonArea';
 import MessageState from '../../../components/Common/MessageState';

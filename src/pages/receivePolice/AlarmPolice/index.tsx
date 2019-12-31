@@ -30,7 +30,7 @@ import {
     tableList,
     userResourceCodeDb,
 } from '../../../utils/utils';
-import SuperviseModal from '../../../components/UnCaseRealData/SuperviseModal';
+import SuperviseModal from '../../../components/NewUnCaseRealData/SuperviseModal';
 import MessageState from '../../../components/Common/MessageState';
 import DataViewButtonArea from '../../../components/Common/DataViewButtonArea';
 import {authorityIsTrue} from '../../../utils/authority';

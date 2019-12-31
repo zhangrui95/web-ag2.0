@@ -28,13 +28,13 @@ import {
   Empty,
 } from 'antd';
 // import Result from '../../components/Result';
-// import SuperviseModal from '../../components/UnCaseRealData/SuperviseModal';
+// import SuperviseModal from '../../components/NewUnCaseRealData/SuperviseModal';
 // import SsWoodMessage from '../../components/personnelFiles/SsWoodMessage';
 // import ItemDetail from '../ItemRealData/itemDetail';
 import Ellipsis from 'ant-design-pro/lib/Ellipsis';
 // import PersonDetail from '../AllDocuments/PersonalDocDetail';
 // import CaseDetail from '../CaseRealData/caseDetail';
-// import XzCaseDetail from '../XzCaseRealData/caseDetail';
+// import XzCaseDetail from '../NewXzCaseRealData/caseDetail';
 // import ShareModal from '../../components/ShareModal/ShareModal';
 import collect from '../../../assets/common/collect.png';
 import nocollect from '../../../assets/common/nocollect.png';

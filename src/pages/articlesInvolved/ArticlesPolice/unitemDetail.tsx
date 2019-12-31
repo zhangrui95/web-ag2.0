@@ -30,7 +30,7 @@ import {
 import styles from './unitemDetail.less';
 import liststyles from '../../common/listDetail.less';
 import { autoheight, getQueryString, userResourceCodeDb } from '../../../utils/utils';
-// import SuperviseModal from '../../../components/UnCaseRealData/SuperviseModal';
+// import SuperviseModal from '../../../components/NewUnCaseRealData/SuperviseModal';
 // import PersonDetail from '../AllDocuments/PersonalDocDetail';
 // import CaseDetail from '../CaseRealData/caseDetail';
 // import XzCaseDetail from '../XzCaseRealData/caseDetail';
@@ -125,7 +125,7 @@ export default class unitemDetail extends PureComponent {
                 from: '涉案财物详情问题判定',
                 tzlx: 'wpwt',
                 fromPath: '/articlesInvolved/ArticlesPolice/unitemDetail',
-                wtflId: '230205',
+                wtflId: '203205',
                 wtflMc: '涉案财物详情',
               },
             }),

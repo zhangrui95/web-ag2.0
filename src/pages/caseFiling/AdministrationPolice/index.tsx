@@ -10,7 +10,7 @@ import {Row, Col, Form, Select, TreeSelect, Input, Button, DatePicker, Tabs, mes
 import moment from 'moment/moment';
 import styles from '../../common/listPage.less';
 import RenderTable from '../../../components/UnXzCaseRealData/RenderTable';
-import SuperviseModal from '../../../components/UnCaseRealData/SuperviseModal';
+import SuperviseModal from '../../../components/NewUnCaseRealData/SuperviseModal';
 import {exportListDataMaxDays, getQueryString, tableList, userResourceCodeDb} from '../../../utils/utils';
 import UnXzCaseDataView from '../../../components/UnXzCaseRealData/UnXzCaseDataView';
 import DataViewButtonArea from '../../../components/Common/DataViewButtonArea';

@@ -40,7 +40,7 @@ import liststyles from '../../common/listDetail.less';
 import {autoheight, getQueryString, userResourceCodeDb} from '../../../utils/utils';
 import classNames from 'classnames';
 // import ItemDetail from '../ItemRealData/itemDetail';
-// import SuperviseModal from '../../components/UnCaseRealData/SuperviseModal';
+// import SuperviseModal from '../../components/NewUnCaseRealData/SuperviseModal';
 // import JqDetail from '../../routes/PoliceRealData/policeDetail';
 // import PersonDetail from '../AllDocuments/PersonalDocDetail';
 // import PersonIntoArea from '../../routes/CaseRealData/IntoArea';

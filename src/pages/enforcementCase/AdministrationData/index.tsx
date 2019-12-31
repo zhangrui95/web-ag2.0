@@ -22,8 +22,8 @@ import {
 } from 'antd';
 import moment from 'moment/moment';
 import styles from '../../common/listPage.less';
-import RenderTable from '../../../components/XzCaseRealData/RenderTable';
-import XzCaseDataView from '../../../components/XzCaseRealData/XzCaseEnforcementDataView';
+import RenderTable from '../../../components/NewXzCaseRealData/RenderTable';
+import XzCaseDataView from '../../../components/NewXzCaseRealData/XzCaseEnforcementDataView';
 import DataViewButtonArea from '../../../components/Common/DataViewButtonArea';
 import {exportListDataMaxDays, getQueryString, tableList} from '../../../utils/utils';
 import SyncTime from '../../../components/Common/SyncTime';
