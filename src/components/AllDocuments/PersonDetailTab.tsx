@@ -157,7 +157,7 @@ export default class PersonDetailTab extends PureComponent {
         const {oWidth} = this.state;
         // 同案人表头
         const rqColumns = [
-            {
+{
                 title: '办案区名称',
                 dataIndex: 'haName',
                 render: (text) => {
@@ -251,7 +251,7 @@ export default class PersonDetailTab extends PureComponent {
             {
                 title: '单位',
                 dataIndex: 'unit',
-            },
+  },
             {
                 title: '特征',
                 dataIndex: 'tz',
@@ -276,7 +276,7 @@ export default class PersonDetailTab extends PureComponent {
         let personTabLight = this.props.global && this.props.global.dark ? styles.personTab : styles.personTab + ' ' + styles.lightBox;
         return (
             <div style={{padding: 16}} className={personTabLight} ref="stepRef">
-                <div className={styles.NameShow+' '+'NameShow'}>
+                <div className={styles.NameShows+' '+'NameShow'}>
                     <Tabs type="card" tabBarGutter={0} className='tabName'>
                         <TabPane tab={caseData.ajmc} key="1" forceRender className='Namesaxx1'>
                             <div className={styles.tabDiv}>
@@ -466,7 +466,7 @@ export default class PersonDetailTab extends PureComponent {
                 </div>
                 <div className='NameHide' style={{display: 'none'}}>
                     <div className='tabDiv1'>
-                        <div style={{border: '1px solid #ccc', lineHeight: '32px'}}>{caseData.ajmc}</div>
+                        <div className={styles.titleHide}>{caseData.ajmc}</div>
                         <div className={styles.tabDiv}>
                             <Row className={styles.contentRow}>
                                 <Col md={6} sm={24}>
@@ -532,7 +532,7 @@ export default class PersonDetailTab extends PureComponent {
                     </div>
 
                     <div className='tabDiv2'>
-                        <div style={{border: '1px solid #ccc', lineHeight: '32px'}}>历史入区信息</div>
+                        <div className={styles.titleHide}>历史入区信息</div>
                         <div className={styles.tabDiv}>
                             <Row className={styles.contentRow}>
                                 <Col md={24} sm={24}>
@@ -550,7 +550,7 @@ export default class PersonDetailTab extends PureComponent {
                                                 第 {this.state.rqCurrent} / {(Math.ceil(total / 3))} 页</div>,
                                             onChange: (page) => {
                                                 this.setState({rqCurrent: page});
-                                            },
+  },
                                         }}
                                         locale={{
                                             emptyText: <Empty
@@ -566,14 +566,14 @@ export default class PersonDetailTab extends PureComponent {
                     </div>
 
                     <div className='tabDiv3'>
-                        <div style={{border: '1px solid #ccc', lineHeight: '32px'}}>同案人</div>
+                        <div className={styles.titleHide}>同案人</div>
                         <div className={styles.tabDiv}>
                             {this.showTarList(caseData.tarList || [])}
                         </div>
                     </div>
 
                     <div className='tabDiv4'>
-                        <div style={{border: '1px solid #ccc', lineHeight: '32px'}}>行政处罚记录</div>
+                        <div className={styles.titleHide}>行政处罚记录</div>
                         {
                             oWidth ? (
                                 <PunishTimeLine
@@ -585,7 +585,7 @@ export default class PersonDetailTab extends PureComponent {
                     </div>
 
                     <div className='tabDiv5'>
-                        <div style={{border: '1px solid #ccc', lineHeight: '32px'}}>强制措施记录</div>
+                        <div className={styles.titleHide}>强制措施记录</div>
                         {
                             oWidth ? (
                                 <PunishTimeLine
@@ -597,7 +597,7 @@ export default class PersonDetailTab extends PureComponent {
                     </div>
 
                     <div className='tabDiv6'>
-                        <div style={{border: '1px solid #ccc', lineHeight: '32px'}}>随身物品</div>
+                        <div className={styles.titleHide}>随身物品</div>
                         <div className={styles.tabDiv}>
                             <Table
                                 bordered
@@ -613,7 +613,7 @@ export default class PersonDetailTab extends PureComponent {
                                         第 {this.state.sswpCurrent} / {(Math.ceil(total / 3))} 页</div>,
                                     onChange: (page) => {
                                         this.setState({sswpCurrent: page});
-                                    },
+  },
                                 }}
                                 locale={{
                                     emptyText: <Empty
@@ -627,14 +627,14 @@ export default class PersonDetailTab extends PureComponent {
                     </div>
 
                     <div className='tabDiv7'>
-                        <div style={{border: '1px solid #ccc', lineHeight: '32px'}}>涉案物品</div>
+                        <div className={styles.titleHide}>涉案物品</div>
                         <div className={styles.tabDiv}>
                             {this.showSawpList(caseData.sawpList || [])}
                         </div>
                     </div>
 
                     <div className='tabDiv8'>
-                        <div style={{border: '1px solid #ccc', lineHeight: '32px'}}>相关卷宗</div>
+                        <div className={styles.titleHide}>相关卷宗</div>
                         <div className={styles.tabDiv}>
                             <Table
                                 bordered
@@ -650,7 +650,7 @@ export default class PersonDetailTab extends PureComponent {
                                         第 {this.state.jzCurrent} / {(Math.ceil(total / 3))} 页</div>,
                                     onChange: (page) => {
                                         this.setState({jzCurrent: page});
-                                    },
+  },
                                 }}
                                 locale={{
                                     emptyText: <Empty
@@ -666,5 +666,5 @@ export default class PersonDetailTab extends PureComponent {
             </div>
 
         );
-    }
+  }
 }
