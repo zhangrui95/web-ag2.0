@@ -1,18 +1,111 @@
 @import "~antd/lib/style/themes/default.less";
+@import "../../theme/darkTheme";
 
 .shareHeader {
   :global {
-    .ant-modal-header {
-      background-color: #1890FF;
+    .ant-btn{
+      background: #171926;
+      border: 0;
       color: #fff;
     }
-
+    .ant-btn-primary{
+      background: #4684ff;
+    }
+    .ant-modal-header {
+      background-color: #252C3C;
+      color: #fff;
+      border-bottom: 1px solid #0F1218;
+    }
+    .ant-modal-content{
+      background-color: #252C3C;
+      border-radius: 10px;
+      overflow: hidden;
+    }
+    .ant-form-item-label > label{
+      color: #fff;
+    }
     .ant-modal-title {
       color: #fff;
     }
-
-    .ant-modal-close {
+    .ant-modal-footer{
+      border-top: 1px solid #0F1218;
+      padding: 20px;
+    }
+    .ant-select-selection,.ant-input{
+      background: #171925;
+      border: 0;
       color: #fff;
     }
+    .ant-modal-close {
+      color: #92969e;
+      .ant-modal-close-x{
+        font-size: 20px;
+      }
+    }
+  }
+  .emptyBtn{
+    background: transparent!important;
+    border: 1px solid #4684ff!important;
+  }
+}
+.leftBox{
+  border-right: 1px solid #0F1218!important;
+  height: 320px;
+}
+.lightBox{
+  :global {
+    .ant-btn{
+      background: #FAFAFA;
+      border: 1px solid #DEDEDE;
+      color: #4d4d4d;
+    }
+    .ant-btn-primary{
+      background: #3285FF;
+      color: #fff;
+      border: 1px solid #3285FF;
+    }
+    .ant-modal-header {
+      background-color: #3D63D1;
+      color: #fff;
+      border-bottom: 1px solid #3D63D1;
+    }
+    .ant-modal-content{
+      background-color: #fff;
+      border-radius: 10px;
+      overflow: hidden;
+    }
+    .ant-form-item-label > label{
+      color: #4d4d4d;
+    }
+    .ant-modal-title {
+      color: #fff;
+    }
+    .ant-modal-footer{
+      border-top: 1px solid #e6e6e6;
+      padding: 20px;
+    }
+    .ant-select-selection,.ant-input{
+      background: #FAFAFA;
+      border: 1px solid #DEDEDE;
+      color: #fff;
+    }
+    .ant-modal-close {
+      color: #a1b1eb;
+      .ant-modal-close-x{
+        font-size: 20px;
+      }
+    }
+   .ant-calendar-picker-input:hover {
+      border: 1px solid #DEDEDE!important;
+      box-shadow: none!important;
+    }
+  }
+  .emptyBtn{
+    background: #ebf3ff!important;
+    border: 1px solid #3285FF!important;
+    color: #3285FF!important;
+  }
+  .leftBox{
+    border-right: 1px solid #e6e6e6!important;
   }
 }
