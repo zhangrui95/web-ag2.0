@@ -551,6 +551,7 @@ export default class Home1 extends PureComponent {
                         content: item.fkr_fkyj,
                         tags: item.dqztMc,
                         dbid: item.dbid,
+                        sslx:item.sslx,
                         zrrName: item.zrrName,
                         zrrDwmc: item.zrrDwmc,
                         wtlxMc: item.wtlxMc,

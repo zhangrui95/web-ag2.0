@@ -521,13 +521,13 @@ export default class DossierDetail extends PureComponent {
       }
     }
 
-    if (list&&list.length === 1) {
-      this.IntoCase(list[0]);
-    } else {
-      this.setState({
-        casevisible: !!flag,
-      });
-    }
+    // if (list&&list.length === 1) {
+    //   this.IntoCase(list[0]);
+    // } else {
+    //   this.setState({
+    //     casevisible: !!flag,
+    //   });
+    // }
   };
 
   // CaseCancel = e => {

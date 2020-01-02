@@ -738,6 +738,7 @@ export default class caseDetail extends PureComponent {
     const allheight = obj1[0].scrollHeight;
     const objwidth = obj1[0].clientWidth;
     let dark = this.props.global && this.props.global.dark;
+    console.log('dark',this.props);
     let newObjWidth = '',
       superveWidth = '';
     if (objheight >= allheight) {
@@ -937,7 +938,7 @@ export default class caseDetail extends PureComponent {
                 style={{ marginTop: '12px', borderRadius: 0, backgroundColor: '#171a26' }}
                 className={styles.ajlcCard}
               >
-                <CaseModalStep caseDetails={caseDetails} />
+                <CaseModalStep {...this.props} caseDetails={caseDetails} />
               </Card>
             </div>
           ) : (

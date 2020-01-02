@@ -25,7 +25,7 @@ export async function getnoFollow(params) {
 
 //分享人
 export async function getPerson(params) {
-    return request(`${configUrl.securityCenterUrl}/user/findAllUser`, {
+    return request(`${configUrl.securityCenterUrl}/user/findAllUserLevelBlistPage`, {
         method: 'POST',
         data: {
             ...params,

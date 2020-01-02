@@ -645,7 +645,7 @@ export default class unpoliceDetail extends PureComponent {
                             </Row>
                             {policeDetails.ajgjList && policeDetails.ajgjList.length > 0 ? (
                                 <Card title={'案件流程'} style={{margin: '0 12px'}}>
-                                    <CaseModalStep caseDetails={policeDetails}/>
+                                    <CaseModalStep {...this.props} caseDetails={policeDetails}/>
                                 </Card>
                             ) : null}
                         </div>
