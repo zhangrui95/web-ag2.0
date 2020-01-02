@@ -666,7 +666,7 @@ export default class unitemDetail extends PureComponent {
             </div>
           ) : (
             <div>
-              <Card title="| 物品轨迹" className={liststyles.card} bordered={false}>
+              <Card title="| 物品轨迹" className={dark ? liststyles.card : liststyles.lightcard} bordered={false}>
                 {UnitemDetail.wpgjList.map(wpgj => (
                   <Row gutter={8} style={{ marginBottom: '24px' }}>
                     <Col md={4} sm={24} style={{ paddingLeft: 36 }}>

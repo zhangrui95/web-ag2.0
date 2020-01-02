@@ -19,6 +19,9 @@
       background: @component-background !important;
       height: 40px !important;
       line-height: 40px !important;
+      &:hover{
+        background: @component-background !important;
+      }
     }
   }
 }
@@ -129,9 +132,16 @@
     }
   }
 }
-
+.listBox{
+  :global{
+    .ant-card-bordered{
+      border: 0!important;
+    }
+  }
+}
 .searchResaultArea {
   background: #171925;
+  overflow: hidden;
   .ajCardTitle,
   .sawpCardTitle,
   .saryCardTitle,
@@ -177,19 +187,21 @@
 
     .cardBodyContent {
       height: 60px;
-      color: @text-color;
+      color: @white;
     }
   }
 
   .searchResultCheckOut {
-    height: 40px;
-    line-height: 40px;
+    height: 34px;
+    line-height: 34px;
     text-align: center;
-    border-radius: 0 0 2px 2px;
+    border-radius: 0 0 2px 0;
     background-color: @menu-item-active-bg;
     color: @white;
     cursor: pointer;
-    font-size: 16px;
+    font-size: 14px;
+    width: 76px;
+    float: right;
   }
 
   .searchResultImage {
@@ -200,6 +212,9 @@
 }
 
 .lightBox {
+  .searchResaultArea {
+    background: #F2F2F2;
+  }
   .searchArea {
     background: #ebebeb;
     padding: 10px 0;
@@ -212,7 +227,9 @@
       }
     }
   }
-
+  .searchResultCheckOut{
+    background-color: #3D63D1;
+  }
   .searchConditionArea {
     .searchType {
       padding: 12px 24px;
@@ -254,9 +271,8 @@
   .searchTitle {
     color: #999;
   }
-
   .cardBody {
-    .cardBodyContent {
+    .cardBodyName,.cardBodyContent {
       color: #4d4d4d;
     }
   }

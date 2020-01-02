@@ -9,7 +9,7 @@ import {Row, Col, Form, Select, TreeSelect, Input, Button, DatePicker, Tabs, mes
 import moment from 'moment/moment';
 import styles from './index.less';
 import RenderTable from '../../../components/NewCaseRealData/RenderTable';
-// import SeniorSearchModal from '../../../components/NewCaseRealData/SeniorSearchModal';
+import SeniorSearchModal from '../../../components/NewCaseRealData/SeniorSearchModal';
 import {exportListDataMaxDays, getQueryString, tableList} from '../../../utils/utils';
 import SyncTime from '../../../components/Common/SyncTime';
 import stylescommon1 from "@/pages/common/common.less";
@@ -874,14 +874,30 @@ export default class CriminalFile extends PureComponent {
         let stylescommon = this.props.global && this.props.global.dark ? stylescommon1 : stylescommon2;
         return (
             <div>
-                {this.renderForm()}
-                <div className={stylescommon.btnTableBox}>
+                <Card className={stylescommon.titleArea}>
                     <Button onClick={this.exportData} icon="download">
                         导出表格
                     </Button>
-                </div>
+                    <div className={styles.btnHeightSearch}>
+                        {window.configUrl.is_area==='1'?
+                            <Button onClick={this.seniorSearch}>高级查询</Button>
+                            :
+                            ''
+                        }
+                    </div>
+                </Card>
+                {this.renderForm()}
                 {this.renderTable()}
                 <SyncTime dataLatestTime={returnData.tbCount ? returnData.tbCount.tbsj : ''} {...this.props} />
+                <SeniorSearchModal
+                    visible={seniorSearchModalVisible}
+                    SeniorSearchCancel={this.SeniorSearchCancel}
+                    treeDefaultExpandedKeys={this.state.treeDefaultExpandedKeys}
+                    depTree={depTree}
+                    SearchSuccess={this.SearchSuccess}
+                    CaseStatusType={CaseStatusType}
+                    id='xsajda'
+                />
             </div>
         );
     }

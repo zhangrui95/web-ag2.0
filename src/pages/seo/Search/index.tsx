@@ -1054,7 +1054,7 @@ export default class GeneralQuery extends PureComponent {
                             className={styles.searchResultCheckOut}
                             onClick={() => this.searchResultCheckOut(item)}
                         >
-                            查看 >>
+                            查看 <Icon type="double-right" />
                         </div>
                         {item._source && item._source.ajlxmc === '刑事' ? (
                             <img className={styles.searchResultImage} src={xsajImg}/>
@@ -1081,7 +1081,7 @@ export default class GeneralQuery extends PureComponent {
                             className={styles.searchResultCheckOut}
                             onClick={() => this.searchResultCheckOut(item)}
                         >
-                            查看 >>
+                            查看 <Icon type="double-right" />
                         </div>
                     </div>
                 </Card>
@@ -1104,7 +1104,7 @@ export default class GeneralQuery extends PureComponent {
                             className={styles.searchResultCheckOut}
                             onClick={() => this.searchResultCheckOut(item)}
                         >
-                            查看 >>
+                            查看 <Icon type="double-right" />
                         </div>
                     </div>
                 </Card>
@@ -1128,7 +1128,7 @@ export default class GeneralQuery extends PureComponent {
                             className={styles.searchResultCheckOut}
                             onClick={() => this.searchResultCheckOut(item)}
                         >
-                            查看 >>
+                            查看 <Icon type="double-right" />
                         </div>
                     </div>
                 </Card>
@@ -1150,7 +1150,7 @@ export default class GeneralQuery extends PureComponent {
                             className={styles.searchResultCheckOut}
                             onClick={() => this.searchResultCheckOut(item)}
                         >
-                            查看 >>
+                            查看 <Icon type="double-right" />
                         </div>
                         {item._source ? this.showDossierImage(item._source) : null}
                     </div>
@@ -1557,7 +1557,7 @@ export default class GeneralQuery extends PureComponent {
                             </div>
                         ) : null}
                     </div>
-                    <div style={{padding: '24px'}}>
+                    <div style={{padding: '24px'}} className={styles.listBox}>
                         <List
                             grid={{gutter: 16, xs: 1, sm: 2, md: 4, lg: 4, xl: 4, xxl: 4}}
                             dataSource={searchResults}
