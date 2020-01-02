@@ -16,7 +16,16 @@
     margin-bottom: 24px;
   }
 }
-
+.btnHeightSearch {
+  float: right;
+  :global{
+    .ant-btn{
+      background: transparent;
+      color: @highlight-color;
+      border: 1px solid @highlight-color;
+    }
+  }
+}
 .tableListFormTb {
   //height: 130px;
   overflow: hidden;
