@@ -80,6 +80,7 @@ export default class CaseModalTrail extends PureComponent {
     };
 
     ajlc(policeDetails, superveWidth) {
+      console.log('this.props.global',this.props.global);
         return (
             <div style={{width: superveWidth}} className={styles.superve}>
                 <Steps current={this.currentNum(policeDetails)}>

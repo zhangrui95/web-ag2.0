@@ -857,7 +857,7 @@ export default class caseDetail extends PureComponent {
               style={{ marginTop: '12px', borderRadius: 0, backgroundColor: '#171a26' }}
               className={styles.ajlczCard}
             >
-              <CaseModalStep caseDetails={caseDetails} />
+              <CaseModalStep {...this.props} caseDetails={caseDetails} />
             </Card>
           ) : (
             ''

@@ -87,12 +87,14 @@ export default class DossierDetail extends PureComponent {
     if (typeof res == 'string') {
       res = JSON.parse(sessionStorage.getItem('query')).query.record;
     }
-    // const {location} = this.props;
+    this.setState({
+      record: res,
+    });
     if (res.id && res.wtid && res.dossier_id) {
       this.getDossierDetail(res.id, res.wtid, res.dossier_id);
-      this.setState({
-        record: res,
-      });
+    }
+    else if(res.agid && res.wtid && res.system_id){
+      this.getDossierDetail(res.agid , res.wtid , res.system_id);
     }
   }
 
