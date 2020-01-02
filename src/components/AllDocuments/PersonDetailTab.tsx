@@ -54,7 +54,7 @@ export default class PersonDetailTab extends PureComponent {
                     showTotal: (total, range) => <div style={{
                         position: 'absolute',
                         left: '12px',
-                        color: this.props.global && this.props.global.dark ? '#fff' : '#e6e6e6'
+                        color: this.props.global && this.props.global.dark ? '#fff' : '#999'
                     }}>共 {total} 条记录
                         第 {this.state.gjCurrent} / {(Math.ceil(total / 8))} 页</div>,
                     onChange: (page) => {
@@ -355,7 +355,7 @@ export default class PersonDetailTab extends PureComponent {
                                                     style={{
                                                         position: 'absolute',
                                                         left: '-150px',
-                                                        color: this.props.global && this.props.global.dark ? '#fff' : '#e6e6e6'
+                                                        color: this.props.global && this.props.global.dark ? '#fff' : '#999'
                                                     }}>共 {total} 条记录
                                                     第 {this.state.rqCurrent} / {(Math.ceil(total / 3))} 页</div>,
                                                 onChange: (page) => {
@@ -412,7 +412,7 @@ export default class PersonDetailTab extends PureComponent {
                                             style={{
                                                 position: 'absolute',
                                                 left: '-150px',
-                                                color: this.props.global && this.props.global.dark ? '#fff' : '#e6e6e6'
+                                                color: this.props.global && this.props.global.dark ? '#fff' : '#999'
                                             }}>共 {total} 条记录
                                             第 {this.state.sswpCurrent} / {(Math.ceil(total / 3))} 页</div>,
                                         onChange: (page) => {
@@ -445,7 +445,7 @@ export default class PersonDetailTab extends PureComponent {
                                             style={{
                                                 position: 'absolute',
                                                 left: '-150px',
-                                                color: this.props.global && this.props.global.dark ? '#fff' : '#e6e6e6'
+                                                color: this.props.global && this.props.global.dark ? '#fff' : '#999'
                                             }}>共 {total} 条记录
                                             第 {this.state.jzCurrent} / {(Math.ceil(total / 3))} 页</div>,
                                         onChange: (page) => {
@@ -545,7 +545,7 @@ export default class PersonDetailTab extends PureComponent {
                                                 style={{
                                                     position: 'absolute',
                                                     left: '-150px',
-                                                    color: this.props.global && this.props.global.dark ? '#fff' : '#e6e6e6'
+                                                    color: this.props.global && this.props.global.dark ? '#fff' : '#999'
                                                 }}>共 {total} 条记录
                                                 第 {this.state.rqCurrent} / {(Math.ceil(total / 3))} 页</div>,
                                             onChange: (page) => {
@@ -608,7 +608,7 @@ export default class PersonDetailTab extends PureComponent {
                                         style={{
                                             position: 'absolute',
                                             left: '-150px',
-                                            color: this.props.global && this.props.global.dark ? '#fff' : '#e6e6e6'
+                                            color: this.props.global && this.props.global.dark ? '#fff' : '#999'
                                         }}>共 {total} 条记录
                                         第 {this.state.sswpCurrent} / {(Math.ceil(total / 3))} 页</div>,
                                     onChange: (page) => {
@@ -645,7 +645,7 @@ export default class PersonDetailTab extends PureComponent {
                                         style={{
                                             position: 'absolute',
                                             left: '-150px',
-                                            color: this.props.global && this.props.global.dark ? '#fff' : '#e6e6e6'
+                                            color: this.props.global && this.props.global.dark ? '#fff' : '#999'
                                         }}>共 {total} 条记录
                                         第 {this.state.jzCurrent} / {(Math.ceil(total / 3))} 页</div>,
                                     onChange: (page) => {

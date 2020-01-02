@@ -44,6 +44,7 @@ class RenderTable extends PureComponent {
     const { wt_id: wtId, system_id: systemId, wtflId, dqzt, id, dbid, fkzt } = record;
     record.wtid = wtId;
     this.changeReadStatus(dbid);
+    console.log('wtflId==========>',wtflId);
     if (wtflId === '203203') {
       // 办案区
       this.props.dispatch(

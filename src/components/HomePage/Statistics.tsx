@@ -804,112 +804,112 @@ export default class Statistics extends PureComponent {
         return (
             <div className={styles.tableBox}>
                 <div className={styles.tabsBox}>
-                    {window.configUrl.clearHome ? (
-                        <Card
-                            className={styles.tableBox}
-                            title={
-                                <div className={styles.iconPerson}>
-                                    <IconFont type={'icon-biaoge'} className={styles.iconLefts}/>
-                                    <span>综合统计</span>
-                                    <Tooltip placement="top" title="返回">
-                                        <img
-                                            src={back}
-                                            className={styles.rollBack}
-                                            onClick={() => this.getPop('2')}
-                                            style={{display: this.state.firstList ? 'none' : 'block'}}
-                                        />
-                                    </Tooltip>
-                                    <Radio.Group
-                                        defaultValue="3"
-                                        buttonStyle="solid"
-                                        className={styles.redioGroup}
-                                        style={{right: this.state.firstList ? '20px' : '45px'}}
-                                        onChange={this.getRadioChange}
-                                        disabled={this.state.loading ? true : false}
-                                    >
-                                        <Radio.Button value="3">
-                                            <Tooltip placement="top" title="昨日">
-                                                日
-                                            </Tooltip>
-                                        </Radio.Button>
-                                        <Radio.Button value="6">
-                                            <Tooltip placement="top" title={m_data_ks + '~' + m_data_js}>
-                                                月
-                                            </Tooltip>
-                                        </Radio.Button>
-                                        <Radio.Button value="9">
-                                            <Tooltip
-                                                placement="top"
-                                                title={
-                                                    (p_data_ks > '2019-06-01' ? p_data_ks : '2019-06-01') + '~' + P_data_js
-                                                }
-                                            >
-                                                季
-                                            </Tooltip>
-                                        </Radio.Button>
-                                    </Radio.Group>
-                                </div>
-                            }
-                        >
-                            <Table
-                                loading={this.state.loading}
-                                size="middle"
-                                columns={tjColumns2}
-                                dataSource={
-                                    this.state.newData && this.state.newData.list ? this.state.newData.list : []
-                                }
-                                className={styles.homeTable}
-                                pagination={paginationPage}
-                                onChange={this.handleTableChange}
-                                locale={{
-                                    emptyText: <Empty
-                                        image={this.props.global && this.props.global.dark ? noList : noListLight}
-                                        description={'暂无数据'}/>
-                                }}
-                            />
-                        </Card>
-                    ) : (
+                    {/*{window.configUrl.clearHome ? (*/}
+                    {/*    <Card*/}
+                    {/*        className={styles.tableBox}*/}
+                    {/*        title={*/}
+                    {/*            <div className={styles.iconPerson}>*/}
+                    {/*                <IconFont type={'icon-biaoge'} className={styles.iconLefts}/>*/}
+                    {/*                <span>综合统计</span>*/}
+                    {/*                <Tooltip placement="top" title="返回">*/}
+                    {/*                    <img*/}
+                    {/*                        src={back}*/}
+                    {/*                        className={styles.rollBack}*/}
+                    {/*                        onClick={() => this.getPop('2')}*/}
+                    {/*                        style={{display: this.state.firstList ? 'none' : 'block'}}*/}
+                    {/*                    />*/}
+                    {/*                </Tooltip>*/}
+                    {/*                <Radio.Group*/}
+                    {/*                    defaultValue="3"*/}
+                    {/*                    buttonStyle="solid"*/}
+                    {/*                    className={styles.redioGroup}*/}
+                    {/*                    style={{right: this.state.firstList ? '20px' : '45px'}}*/}
+                    {/*                    onChange={this.getRadioChange}*/}
+                    {/*                    disabled={this.state.loading ? true : false}*/}
+                    {/*                >*/}
+                    {/*                    <Radio.Button value="3">*/}
+                    {/*                        <Tooltip placement="top" title="昨日">*/}
+                    {/*                            日*/}
+                    {/*                        </Tooltip>*/}
+                    {/*                    </Radio.Button>*/}
+                    {/*                    <Radio.Button value="6">*/}
+                    {/*                        <Tooltip placement="top" title={m_data_ks + '~' + m_data_js}>*/}
+                    {/*                            月*/}
+                    {/*                        </Tooltip>*/}
+                    {/*                    </Radio.Button>*/}
+                    {/*                    <Radio.Button value="9">*/}
+                    {/*                        <Tooltip*/}
+                    {/*                            placement="top"*/}
+                    {/*                            title={*/}
+                    {/*                                (p_data_ks > '2019-06-01' ? p_data_ks : '2019-06-01') + '~' + P_data_js*/}
+                    {/*                            }*/}
+                    {/*                        >*/}
+                    {/*                            季*/}
+                    {/*                        </Tooltip>*/}
+                    {/*                    </Radio.Button>*/}
+                    {/*                </Radio.Group>*/}
+                    {/*            </div>*/}
+                    {/*        }*/}
+                    {/*    >*/}
+                    {/*        <Table*/}
+                    {/*            loading={this.state.loading}*/}
+                    {/*            size="middle"*/}
+                    {/*            columns={tjColumns2}*/}
+                    {/*            dataSource={*/}
+                    {/*                this.state.newData && this.state.newData.list ? this.state.newData.list : []*/}
+                    {/*            }*/}
+                    {/*            className={styles.homeTable}*/}
+                    {/*            pagination={paginationPage}*/}
+                    {/*            onChange={this.handleTableChange}*/}
+                    {/*            locale={{*/}
+                    {/*                emptyText: <Empty*/}
+                    {/*                    image={this.props.global && this.props.global.dark ? noList : noListLight}*/}
+                    {/*                    description={'暂无数据'}/>*/}
+                    {/*            }}*/}
+                    {/*        />*/}
+                    {/*    </Card>*/}
+                    {/*) : (*/}
                         <Tabs defaultActiveKey="tab1" type="card" onChange={this.changeTabs}>
-                            {authorityIsTrue(userAuthorityCode.RIQING) ? (
-                                <TabPane
-                                    tab={
-                                        <div className={styles.iconPerson}>
-                                            <IconFont type={'icon-biaoge'} className={styles.iconLefts}/>
-                                            <span>疑似警情</span>
-                                        </div>
-                                    }
-                                    key="tab1"
-                                >
-                                    <div>
-                                        <Tooltip placement="top" title="返回">
-                                            <img
-                                                src={back}
-                                                className={styles.rollBack}
-                                                onClick={() => this.getPop('0')}
-                                                style={{display: this.state.firstList ? 'none' : 'block'}}
-                                            />
-                                        </Tooltip>
-                                    </div>
-                                    <Card title={null}>
-                                        <Table
-                                            loading={this.state.loading}
-                                            size="middle"
-                                            columns={colums}
-                                            dataSource={
-                                                this.state.newData && this.state.newData.list ? this.state.newData.list : []
-                                            }
-                                            className={styles.homeTable}
-                                            pagination={paginationPage}
-                                            onChange={this.handleTableChange}
-                                            locale={{
-                                                emptyText: <Empty
-                                                    image={this.props.global && this.props.global.dark ? noList : noListLight}
-                                                    description={'暂无数据'}/>
-                                            }}
-                                        />
-                                    </Card>
-                                </TabPane>
-                            ) : null}
+                            {/*{authorityIsTrue(userAuthorityCode.RIQING) ? (*/}
+                            {/*    <TabPane*/}
+                            {/*        tab={*/}
+                            {/*            <div className={styles.iconPerson}>*/}
+                            {/*                <IconFont type={'icon-biaoge'} className={styles.iconLefts}/>*/}
+                            {/*                <span>疑似警情</span>*/}
+                            {/*            </div>*/}
+                            {/*        }*/}
+                            {/*        key="tab1"*/}
+                            {/*    >*/}
+                            {/*        <div>*/}
+                            {/*            <Tooltip placement="top" title="返回">*/}
+                            {/*                <img*/}
+                            {/*                    src={back}*/}
+                            {/*                    className={styles.rollBack}*/}
+                            {/*                    onClick={() => this.getPop('0')}*/}
+                            {/*                    style={{display: this.state.firstList ? 'none' : 'block'}}*/}
+                            {/*                />*/}
+                            {/*            </Tooltip>*/}
+                            {/*        </div>*/}
+                            {/*        <Card title={null}>*/}
+                            {/*            <Table*/}
+                            {/*                loading={this.state.loading}*/}
+                            {/*                size="middle"*/}
+                            {/*                columns={colums}*/}
+                            {/*                dataSource={*/}
+                            {/*                    this.state.newData && this.state.newData.list ? this.state.newData.list : []*/}
+                            {/*                }*/}
+                            {/*                className={styles.homeTable}*/}
+                            {/*                pagination={paginationPage}*/}
+                            {/*                onChange={this.handleTableChange}*/}
+                            {/*                locale={{*/}
+                            {/*                    emptyText: <Empty*/}
+                            {/*                        image={this.props.global && this.props.global.dark ? noList : noListLight}*/}
+                            {/*                        description={'暂无数据'}/>*/}
+                            {/*                }}*/}
+                            {/*            />*/}
+                            {/*        </Card>*/}
+                            {/*    </TabPane>*/}
+                            {/*) : null}*/}
                             <TabPane
                                 tab={
                                     <div className={styles.iconPerson}>
@@ -974,7 +974,7 @@ export default class Statistics extends PureComponent {
                                 </Card>
                             </TabPane>
                         </Tabs>
-                    )}
+                    {/*)}*/}
                 </div>
             </div>
         );

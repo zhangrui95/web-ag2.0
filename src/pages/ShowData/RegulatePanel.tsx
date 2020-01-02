@@ -34,9 +34,10 @@ export default class RegulatePanel extends PureComponent {
     render() {
         return (
             <div>
-                {
-                    window.configUrl.clearHome ? <Home2/> : <Home1/>
-                }
+                {/*{*/}
+                {/*    window.configUrl.clearHome ? <Home2/> : <Home1/>*/}
+                {/*}*/}
+                <Home1/>
             </div>
         );
     }
