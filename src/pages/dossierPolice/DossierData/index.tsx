@@ -846,7 +846,7 @@ export default class Index extends PureComponent {
           <DossierDataView
             showDataView={showDataView}
             searchType={typeButtons}
-            orgcode={orgcodeVal}
+            orgcode={selectedDeptVal}
             selectedDateVal={selectedDateVal}
             changeToListPage={this.changeToListPage}
             {...this.props}
