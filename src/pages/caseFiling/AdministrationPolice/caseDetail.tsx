@@ -658,7 +658,7 @@ export default class caseDetail extends PureComponent {
                 title: '是否受案',
                 dataIndex: 'is_sa',
                 render(text) {
-                    return <Badge status={statusMap[text]} text={status[text]}/>;
+                    return <span style={{color:statusMap[text] === 'success' ? '#27D427':'#c41a1a'}}>{status[text]}</span>;
                 },
             },
             {
