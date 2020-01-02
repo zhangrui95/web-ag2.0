@@ -1480,7 +1480,7 @@ export default class PoliceDataView extends PureComponent {
             <Row gutter={rowLayout} className={styles.listPageRow}>
               <Col span={24} style={{ marginBottom: 32 }}>
                 <div className={styles.cardBoxTitle}>| 警情状况</div>
-                <div id="jqzk" className={styles.cardBox}></div>
+                <div id="jqzk" className={styles.cardBox}  style={{width:'98%',marginLeft:'1%'}}></div>
                 {jqzkNoData ? (
                   <div
                     style={{

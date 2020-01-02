@@ -637,7 +637,7 @@ class SuperviseSetup extends Component {
             {
                 title: '监管状态',
                 render: (record) => (<Tag
-                    color={record.jgdzt_dm === '5008002' ? record.sf_qy && record.sf_qy === '1' ? '#00cc00' : '#EE5655' : '#ccc'}>{record.jgdzt_mc}</Tag>),
+                    color={record.jgdzt_dm === '5008002'&&record.scbj==='1' ? record.sf_qy && record.sf_qy === '1' ? '#00cc00' : '#EE5655' : '#ccc'}>{record.jgdzt_mc}</Tag>),
             },
             {
                 title: '操作',

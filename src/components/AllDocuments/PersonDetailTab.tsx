@@ -337,7 +337,7 @@ export default class PersonDetailTab extends PureComponent {
                                 </Row>
                                 <Row className={styles.contentRow}>
                                     <Col md={24} sm={24}>
-                                        <div><div className={liststyles.Indexfrom}>简要案情：</div><DetailShow  paddingLeft={70} word={caseData.jyaq} {...this.props}/></div>
+                                        <div><div className={liststyles.Indexfrom} style={{left:0}}>简要案情：</div><DetailShow  paddingLeft={70} word={caseData.jyaq} {...this.props}/></div>
                                     </Col>
                                 </Row>
                             </div>
@@ -525,7 +525,7 @@ export default class PersonDetailTab extends PureComponent {
                             </Row>
                             <Row className={styles.contentRow}>
                                 <Col md={24} sm={24}>
-                                    <div><div className={liststyles.Indexfrom}>简要案情：</div><DetailShow  paddingLeft={70} word={caseData.jyaq} {...this.props}/></div>
+                                    <div><div className={liststyles.Indexfrom} style={{left:0}}>简要案情：</div><DetailShow  paddingLeft={70} word={caseData.jyaq} {...this.props}/></div>
                                 </Col>
                             </Row>
                         </div>

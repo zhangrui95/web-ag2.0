@@ -138,6 +138,7 @@ export default class EvaluationChats extends PureComponent {
                         barWidth: 10,//柱状条宽度
                         name: legendData[i],
                         type: 'bar',
+                        barGap:1,
                         itemStyle: {
                             normal: {
                                 show: true,//鼠标悬停时显示label数据
@@ -215,6 +216,7 @@ export default class EvaluationChats extends PureComponent {
                         barWidth: 10,//柱状条宽度
                         name: legendData[i],
                         type: 'bar',
+                        barGap:1,
                         itemStyle: {
                             normal: {
                                 show: true,//鼠标悬停时显示label数据
@@ -293,6 +295,7 @@ export default class EvaluationChats extends PureComponent {
                         barWidth: 10,//柱状条宽度
                         name: legendData[i],
                         type: 'bar',
+                        barGap:1,
                         itemStyle: {
                             normal: {
                                 show: true,//鼠标悬停时显示label数据
@@ -489,6 +492,7 @@ export default class EvaluationChats extends PureComponent {
                     seriesDataVal = {
                         barWidth: 10,//柱状条宽度
                         name: legendData[i],
+                        barGap:1,
                         type: 'bar',
                         itemStyle: {
                             normal: {
@@ -591,6 +595,7 @@ export default class EvaluationChats extends PureComponent {
                     seriesDataVal = {
                         barWidth: 10,//柱状条宽度
                         name: legendData[i],
+                        barGap:1,
                         type: 'bar',
                         itemStyle: {
                             normal: {
@@ -693,6 +698,7 @@ export default class EvaluationChats extends PureComponent {
                     seriesDataVal = {
                         barWidth: 10,//柱状条宽度
                         name: legendData[i],
+                        barGap:1,
                         type: 'bar',
                         itemStyle: {
                             normal: {

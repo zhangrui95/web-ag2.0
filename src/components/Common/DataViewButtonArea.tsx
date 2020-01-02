@@ -90,7 +90,7 @@ export default class DataViewButtonArea extends PureComponent {
                     showSearch
                     style={{width: screeWidth > 1690 ? 365 : 220}}
                     // value={this.state.value}
-                    dropdownStyle={{maxHeight: 400, overflow: 'auto'}}
+                    dropdownStyle={{maxHeight: 400, overflow: 'auto', padding:'8px 0'}}
                     placeholder="请选择机构"
                     allowClear
                     key="jjSelect"
@@ -110,7 +110,7 @@ export default class DataViewButtonArea extends PureComponent {
                     showSearch
                     style={{width: screeWidth > 1690 ? 365 : 220}}
                     // value={this.state.value}
-                    dropdownStyle={{maxHeight: 400, overflow: 'auto'}}
+                    dropdownStyle={{maxHeight: 400, overflow: 'auto', padding:'8px 0'}}
                     placeholder="请选择机构"
                     allowClear
                     key="cjSelect"
@@ -131,7 +131,7 @@ export default class DataViewButtonArea extends PureComponent {
               <TreeSelect
                   showSearch
                   style={{width: 365}}
-                  dropdownStyle={{maxHeight: 400, overflow: 'auto'}}
+                  dropdownStyle={{maxHeight: 400, overflow: 'auto', padding:'8px 0'}}
                   placeholder="请选择机构"
                   allowClear
                   key="jgSelect"

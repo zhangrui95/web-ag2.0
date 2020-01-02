@@ -587,11 +587,13 @@ export default class PersonalDocDetail extends PureComponent {
         });
     };
     // 图表统计导出功能参数集合
-    addBase = (add) => {
+    addBase = (add,type) => {
         const {personData} = this.state;
-        imgBase.push(add);
+        if(add){
+            imgBase.push(add);
+        }
         const ajxxLength = personData.ajxx ? personData.ajxx.length : 0;
-        if (imgBase.length === 3 + ajxxLength) {
+        if ((imgBase.length === 3 + ajxxLength) || type) {
             this.exprotService(imgBase, personData);
         }
     };
@@ -613,7 +615,6 @@ export default class PersonalDocDetail extends PureComponent {
                     html2canvas(document.querySelector(CardCharts).getElementsByClassName('ant-card-head')[0]).then(canvashead => {
                         this.addBase(canvashead.toDataURL().split('base64,')[1]);
                         for (let a = 0; a < personData.ajxx.length; a++) {
-                            console.log('document.querySelector(CardCharts)',document.querySelector(CardCharts))
                             document.querySelector(CardCharts).getElementsByClassName('NameShow')[a].style.display = 'none';
                             document.querySelector(CardCharts).getElementsByClassName('NameHide')[a].style.display = 'block';
                             html2canvas(document.querySelector(CardCharts).getElementsByClassName('NameHide')[a]).then(canvascontent => {
@@ -627,12 +628,19 @@ export default class PersonalDocDetail extends PureComponent {
                         }
                     });
                 } else {
-                    html2canvas(document.querySelector(CardCharts).getElementsByClassName('ant-card-head')[0]).then(canvashead => {
-                        this.addBase(canvashead.toDataURL().split('base64,')[1]);
+                    if(document.querySelector(CardCharts)){
+                        html2canvas(document.querySelector(CardCharts).getElementsByClassName('ant-card-head')[0]).then(canvashead => {
+                            this.addBase(canvashead.toDataURL().split('base64,')[1]);
+                            this.setState({
+                                loading: false,
+                            });
+                        });
+                    }else {
+                        this.addBase('',true);
                         this.setState({
                             loading: false,
                         });
-                    });
+                    }
                 }
             });
         });

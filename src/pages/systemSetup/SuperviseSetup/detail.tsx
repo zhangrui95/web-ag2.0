@@ -44,6 +44,10 @@ const { RangePicker } = DatePicker;
 class Detail extends Component {
   constructor(props) {
     super(props);
+      let res = props.location.query.record;
+      if (typeof res == 'string') {
+          res = JSON.parse(sessionStorage.getItem('query')).query.record;
+      }
     this.state = {
       loading: false,
       current: 1,
@@ -69,6 +73,7 @@ class Detail extends Component {
       id: props.location.query.id,
       addHave: true,
       NoticeNote: '', // 监管点具体算法说明
+      scbj: res.scbj,
     };
   }
 
@@ -162,7 +167,6 @@ class Detail extends Component {
             tqsj2: res.ejyjtx_sj,
             tqsj3: res.sjyjtx_sj,
             sf_qy: res.sf_qy,
-            scbj: res.scbj,
         });
         this.setState({
             modleType: type,
@@ -1023,7 +1027,7 @@ class Detail extends Component {
           })}
       </Menu>
     );
-    let disable = this.state.scbj && this.state.scbj === '1';
+    let disable = this.state.scbj === '1';
     return (
       <div
         id={'boxSeperDetail'}
@@ -1542,7 +1546,7 @@ class Detail extends Component {
             </Row>
           </Form>
         </Card>
-        <Card className={this.state.res && this.state.res.scbj === '1' ? '' : styles.none}>
+        <Card className={this.state.scbj === '1' ? '' : styles.none}>
           <div className={styles.btns}>
             {/*<Button type="primary" style={{marginLeft: 8}} className={styles.qxBtn}*/}
             {/*        onClick={() => this.onEdit(false)}>*/}

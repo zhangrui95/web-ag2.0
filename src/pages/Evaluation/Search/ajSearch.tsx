@@ -37,6 +37,10 @@ let currentValue;
 class AjSearch extends PureComponent {
     constructor(props, context) {
         super(props);
+        let res = props.location.query.record;
+        if (typeof res == 'string') {
+            res = JSON.parse(sessionStorage.getItem('query')).query.record;
+        }
         this.state = {
             allPolice: [],
             personList: [],
@@ -47,6 +51,7 @@ class AjSearch extends PureComponent {
             formValues: {
                 is_area: window.configUrl.is_area,
             },
+            record:res,
         };
     }
 
@@ -59,8 +64,8 @@ class AjSearch extends PureComponent {
         this.getDepTree(newjigouArea.department);
         this.setState({
             first: true,
-            ajType: this.props.location.query.record.ajType,
-            ajlx: this.props.location.query.record.ajType,
+            ajType: this.state.record.ajType,
+            ajlx: this.state.record.ajType,
         });
     }
 
@@ -328,7 +333,7 @@ class AjSearch extends PureComponent {
                 },
                 callback: (data: NavigationItem[]) => {
                     dispatch(routerRedux.push({
-                        pathname: this.props.location.query.record.url,
+                        pathname: this.state.record.url,
                         query: isReset ? {isReset, selectedRowsId: selectedRowsId} : {}
                     }));
                 },
@@ -600,9 +605,8 @@ class AjSearch extends PureComponent {
                         <span style={{float: 'right'}}>
                             <Button style={this.state.selectedRowsId && this.state.selectedRowsId.length > 0 ? {
                                 marginLeft: 0,
-                                color: '#2095FF',
-                                color: 'rgb(32, 149, 255)',
-                                border: '1px solid #2095FF',
+                                color: this.props.global && this.props.global.dark ? '#2095FF' : '#4662d5',
+                                border: this.props.global && this.props.global.dark ? '1px solid #2095FF' : '1px solid #4662d5',
                                 background: 'transparent'
                             } : {marginLeft: 0}}
                                     type={this.state.selectedRowsId && this.state.selectedRowsId.length > 0 ? '' : 'primary'}
