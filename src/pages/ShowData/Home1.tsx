@@ -908,6 +908,7 @@ export default class Home1 extends PureComponent {
                                             </Menu>
                                         }
                                         trigger={['click']}
+                                        getPopupContainer={() => document.getElementById('symyfollow')}
                                     >
                                         <a href="javascript:;">关注</a>
                                     </Dropdown>
@@ -1315,6 +1316,7 @@ export default class Home1 extends PureComponent {
                         lg={{span: 24}}
                         className={styles.tableBox}
                         style={{marginTop: '16px'}}
+                        id='symyfollow'
                     >
                         {this.state.idx === 0 || this.state.idx === 1 ? (
                             <Card

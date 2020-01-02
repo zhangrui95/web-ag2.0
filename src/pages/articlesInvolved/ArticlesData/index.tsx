@@ -720,7 +720,7 @@ export default class Index extends PureComponent {
                     <ItemDataView
                         searchType={typeButtons}
                         showDataView={showDataView}
-                        orgcode={orgcodeVal}
+                        orgcode={selectedDeptVal}
                         selectedDateVal={selectedDateVal}
                         changeToListPage={this.changeToListPage}
                         {...this.props}
