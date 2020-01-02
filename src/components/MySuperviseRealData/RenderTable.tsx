@@ -25,7 +25,15 @@ class RenderTable extends PureComponent {
             this.deatils(this.props.location.query.record);
         }
     }
-
+    // 更新未读数据状态
+    changeReadStatus = (id) => {
+        this.props.dispatch({
+            type: 'MySuperviseData/changeReadStatus',
+            payload: {
+                dbid: id,
+            },
+        });
+    };
     // 根据案件编号打开案件窗口
     deatils = record => {
         let index = this.props.data.list.indexOf(record);
@@ -34,6 +42,8 @@ class RenderTable extends PureComponent {
         }
         const {wt_id: wtId, system_id: systemId, wtflId, dqzt, id, dbid, fkzt} = record;
         record.wtid = wtId;
+        console.log('record=======>', record)
+        this.changeReadStatus(dbid);
         if (wtflId === '203203') { // 办案区
             this.props.dispatch(
                 routerRedux.push({
