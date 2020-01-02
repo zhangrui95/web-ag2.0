@@ -95,8 +95,8 @@ export default class itemDetail extends PureComponent {
   componentDidMount() {
     const { location } = this.props;
     // conosle.log('location',location);
-    if (location && location.query && location.query.record && location.query.id) {
-      this.itemDetailDatas(location.query.id);
+    if (location && location.query && location.query.record && (location.query.system_id||location.query.id)) {
+      this.itemDetailDatas(location.query.system_id||location.query.id);
     }
   }
 

@@ -546,7 +546,7 @@ export default class Index extends PureComponent {
       this.props.dispatch({
         type: 'share/getMyFollow',
         payload: {
-          agid: res.wtid,
+          agid: res.id,
           lx: this.state.lx,
           sx:
             (res.ajmc ? res.ajmc + '、' : '') +

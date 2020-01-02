@@ -228,6 +228,7 @@ export default class Home1 extends PureComponent {
                     type: 'Home/getChangeRead',
                     payload: {
                         dbid: record.dbid,
+                        sslx: record.sslx,
                     },
                     callback: res => {
                         if (res.error === null) {
@@ -320,7 +321,7 @@ export default class Home1 extends PureComponent {
                                                             : record.tzlx === 'jzwt'
                                                                 ? '/dossierPolice/DossierPolice/UnDossierDetail'
                                                                 : record.tzlx === 'wpxx'
-                                                                    ? '/articlesInvolved/ArticlesPolice/unitemDetail'
+                                                                    ? '/articlesInvolved/ArticlesData/itemDetail'
                                                                     : record.tzlx === 'xzajxx1'
                                                                         ? '/newcaseFiling/caseData/AdministrationData/caseDetail'
                                                                         : record.tzlx === 'xzajxx2'
@@ -361,7 +362,7 @@ export default class Home1 extends PureComponent {
                                                                                                                                                 ? '/dossierPolice/DossierData/DossierDetail'
                                                                                                                                                 : '',
                         query: {
-                            id: record.tzlx === 'jqwt' ? record.id : record.agid,
+                            id: record.tzlx === 'jqwt' ? record.id : record.tzlx === 'jqyj' ?record.id:record.agid,
                             system_id: record.system_id,
                             wtid: record.wtid,
                             record: record,

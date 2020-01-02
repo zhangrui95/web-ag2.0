@@ -109,12 +109,16 @@ export default class unareaDetail extends PureComponent {
     if (typeof res == 'string') {
       res = JSON.parse(sessionStorage.getItem('query')).query.record;
     }
+    this.setState({
+      record: res,
+    });
     const { location } = this.props;
     if (location && location.query && res && res.id && res.baq_id) {
       this.getDetail(res.id, res.baq_id);
-      this.setState({
-        record: res,
-      });
+    }
+    else if(location && location.query && res && res.agid && res.system_id){
+      this.getDetail(res.agid, res.system_id);
+
     }
   }
 

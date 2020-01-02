@@ -76,12 +76,12 @@ export default class unpoliceDetail extends PureComponent {
 
     componentDidMount() {
         let res = this.props.location.query.record;
+        let resquery = this.props.location.query;
         if (typeof res == 'string') {
             res = JSON.parse(sessionStorage.getItem('query')).query.record;
         }
-        console.log('dfdf', JSON.parse(sessionStorage.getItem('query')));
-        if (this.props.location && this.props.location.query && this.props.location.query.record) {
-            this.getDetail(res);
+        if (res&&resquery) {
+            this.getDetail(resquery,res);
         }
     }
 
@@ -101,11 +101,11 @@ export default class unpoliceDetail extends PureComponent {
         }
     }
 
-    getDetail(record) {
+    getDetail(resquery,record) {
         this.props.dispatch({
             type: 'UnPoliceData/UnPoliceDetailFetch',
             payload: {
-                id: this.props.location.query.id,
+                id: resquery.system_id,
                 wtid: record.wtid || record.wt_id,
             },
             callback: data => {
