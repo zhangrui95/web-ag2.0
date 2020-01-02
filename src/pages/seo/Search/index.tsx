@@ -1054,7 +1054,7 @@ export default class GeneralQuery extends PureComponent {
                             className={styles.searchResultCheckOut}
                             onClick={() => this.searchResultCheckOut(item)}
                         >
-                            查看
+                            查看 >>
                         </div>
                         {item._source && item._source.ajlxmc === '刑事' ? (
                             <img className={styles.searchResultImage} src={xsajImg}/>
@@ -1081,7 +1081,7 @@ export default class GeneralQuery extends PureComponent {
                             className={styles.searchResultCheckOut}
                             onClick={() => this.searchResultCheckOut(item)}
                         >
-                            查看
+                            查看 >>
                         </div>
                     </div>
                 </Card>
@@ -1104,7 +1104,7 @@ export default class GeneralQuery extends PureComponent {
                             className={styles.searchResultCheckOut}
                             onClick={() => this.searchResultCheckOut(item)}
                         >
-                            查看
+                            查看 >>
                         </div>
                     </div>
                 </Card>
@@ -1128,7 +1128,7 @@ export default class GeneralQuery extends PureComponent {
                             className={styles.searchResultCheckOut}
                             onClick={() => this.searchResultCheckOut(item)}
                         >
-                            查看
+                            查看 >>
                         </div>
                     </div>
                 </Card>
@@ -1150,7 +1150,7 @@ export default class GeneralQuery extends PureComponent {
                             className={styles.searchResultCheckOut}
                             onClick={() => this.searchResultCheckOut(item)}
                         >
-                            查看
+                            查看 >>
                         </div>
                         {item._source ? this.showDossierImage(item._source) : null}
                     </div>
@@ -1559,17 +1559,17 @@ export default class GeneralQuery extends PureComponent {
                     </div>
                     <div style={{padding: '24px'}}>
                         <List
-                            grid={{gutter: 16, xs: 1, sm: 2, md: 3, lg: 3, xl: 3, xxl: 3}}
+                            grid={{gutter: 16, xs: 1, sm: 2, md: 4, lg: 4, xl: 4, xxl: 4}}
                             dataSource={searchResults}
                             loading={loading}
                             pagination={
                                 searchResults.length > 0
                                     ? {
-                                        pageSize: 9,
+                                        pageSize: 8,
                                         current,
                                         showTotal: (total, range) => (
                                             <div style={{position: 'absolute', left: '5px', color: '#b7b7b7'}}>
-                                                共 {Math.ceil(total / 9)} 页，{total}条数据
+                                                共 {Math.ceil(total / 8)} 页，{total}条数据
                                             </div>
                                         ),
                                         onChange: page => {

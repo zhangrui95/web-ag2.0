@@ -74,6 +74,8 @@ class Detail extends Component {
       addHave: true,
       NoticeNote: '', // 监管点具体算法说明
       scbj: res.scbj,
+      jgsx_dm:null,
+      jgsx_mc:null,
     };
   }
 
@@ -167,6 +169,8 @@ class Detail extends Component {
             tqsj2: res.ejyjtx_sj,
             tqsj3: res.sjyjtx_sj,
             sf_qy: res.sf_qy,
+            jgsx_dm:res.jgsx_dm,
+            jgsx_mc:res.jgsx_mc,
         });
         this.setState({
             modleType: type,
@@ -341,6 +345,9 @@ class Detail extends Component {
       tqsj2: null,
       tqsj3: null,
       NoticeNote: null,
+      res: null,
+        jgsx_dm:null,
+        jgsx_mc:null,
     });
     if (e.target.value === '0') {
       this.getCommon('500830'); //告警监管事项
@@ -488,6 +495,7 @@ class Detail extends Component {
     this.props.SuperviseSetup.SuperviseSetup.JgdType = [];
     this.getClear();
     this.setState({
+      res: null,
       id: null,
       ssjgMc: e ? JSON.parse(e).label : null,
       ssjgDm: e ? JSON.parse(e).id : null,
@@ -837,7 +845,7 @@ class Detail extends Component {
           type: 'SuperviseSetup/getfyJgd',
           payload: {
             jgsx_dm: values.addjgsx.key,
-            ssjg_dm: JSON.parse(values.addjgxz).id,
+            ssjg_dm: this.state.ssjgDm,
             jglx: values.addjglx,
             jgd_dm: e.key ? e.key : '',
           },
@@ -878,7 +886,7 @@ class Detail extends Component {
   //清空事项
   getClear = () => {
     this.setState({
-      res: null,
+      res:null,
       xsys1: this.props.SuperviseSetup.common.ColorType1[0]
         ? this.props.SuperviseSetup.common.ColorType1[0].name
         : '',
@@ -1105,11 +1113,10 @@ class Detail extends Component {
               <Col span={8}>
                 <FormItem label="监管事项" {...modleLayouts}>
                   {getFieldDecorator('addjgsx', {
-                    initialValue:
-                      this.state.res && this.state.res.jgsx_dm
+                    initialValue: this.state.jgsx_dm
                         ? {
-                            key: this.state.res.jgsx_dm,
-                            label: this.state.res.jgsx_mc,
+                            key: this.state.jgsx_dm,
+                            label: this.state.jgsx_mc,
                           }
                         : undefined,
                   })(
