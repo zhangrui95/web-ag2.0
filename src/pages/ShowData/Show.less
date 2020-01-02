@@ -7,6 +7,21 @@
     .ant-card-head {
       padding: 0 16px;
     }
+    .ant-table-thead > tr > th {
+      background: #171925 !important;
+    }
+
+    .ant-table {
+      border-radius: 0 !important;
+    }
+
+    .ant-table-tbody > tr {
+      background: #252C3C;
+
+      &:nth-child(2n) {
+        background:#171925 !important;
+      }
+    }
   }
 }
 
@@ -550,7 +565,12 @@
 }
 
 .tabsBox {
+  border-radius: 10px;
+  overflow: hidden;
   :global {
+    .ant-card {
+      border-radius: 0 0 10px 10px;
+    }
     .ant-tabs.ant-tabs-card {
       .ant-tabs-bar .ant-tabs-tab {
         border: 0 !important;
@@ -590,7 +610,7 @@
 }
 
 .redNum {
-  color: #fff !important;
+  color: #FF8080 !important;
   font-weight: 600;
   cursor: pointer;
   text-decoration: underline !important;

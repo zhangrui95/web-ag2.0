@@ -84,7 +84,7 @@ export default class CriminalFile extends PureComponent {
     }
 
     componentWillReceiveProps(nextProps) {
-        if (nextProps.history.location.query.isReset) {
+        if (nextProps.history.location.query.isReset && nextProps.history.location.pathname === '/lawEnforcement/File/CriminalFile') {
             if (nextProps.history.location.pathname === this.state.path) {
                 this.setState({
                     isReset: !this.state.isReset,

@@ -90,8 +90,12 @@ export default class DossierDetail extends PureComponent {
     this.setState({
       record: res,
     });
+    console.log('res=====>',res);
     if (res.id && res.wtid && res.dossier_id) {
       this.getDossierDetail(res.id, res.wtid, res.dossier_id);
+    }
+    else if(res.id && res.wtid && res.system_id){
+        this.getDossierDetail(res.id , res.wtid , res.system_id);
     }
     else if(res.agid && res.wtid && res.system_id){
       this.getDossierDetail(res.agid , res.wtid , res.system_id);
