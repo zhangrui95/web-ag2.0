@@ -50,6 +50,7 @@ export default class CriminalFile extends PureComponent {
         statusDate: '102', // 初始状态下，查询项默认为立案日期（code = 102），
         path: this.props.location.pathname,
         isReset: false,
+        isEmpty: false,
     };
 
     componentDidMount() {
@@ -367,6 +368,7 @@ export default class CriminalFile extends PureComponent {
                 isY: '0',
             },
             statusDate: '102',
+            isEmpty:!this.state.isEmpty,
         });
         this.getCase();
     };
@@ -872,8 +874,9 @@ export default class CriminalFile extends PureComponent {
         const {CaseData: {returnData, loading}, common: {depTree, CaseStatusType}} = this.props;
         const {showDataView, typeButtons, seniorSearchModalVisible} = this.state;
         let stylescommon = this.props.global && this.props.global.dark ? stylescommon1 : stylescommon2;
+        let dark = this.props.global && this.props.global.dark;
         return (
-            <div>
+            <div className={dark ? '' : styles.ligthBox}>
                 <Card className={stylescommon.titleArea}>
                     <Button onClick={this.exportData} icon="download">
                         导出表格
@@ -897,6 +900,8 @@ export default class CriminalFile extends PureComponent {
                     SearchSuccess={this.SearchSuccess}
                     CaseStatusType={CaseStatusType}
                     id='xsajda'
+                    isEmpty={this.state.isEmpty}
+                    handleFormReset={this.handleFormReset}
                 />
             </div>
         );

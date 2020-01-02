@@ -68,7 +68,7 @@
   bottom: 0;
   right: 0;
   padding-right: 24px;
-  z-index: 1005;
+  z-index: 999;
   //width: ~'calc(100% - 256px)';
   left: 260px;
 }
@@ -184,4 +184,16 @@
 .unclick {
   color: #bcbcbc !important;
   cursor: not-allowed;
+}
+.ligthBox{
+  .btnHeightSearch {
+    float: right;
+    :global{
+      .ant-btn{
+        background: transparent;
+        color: #3D63D1;
+        border: 1px solid #3D63D1;
+      }
+    }
+  }
 }

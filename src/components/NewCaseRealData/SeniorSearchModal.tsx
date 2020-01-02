@@ -4,8 +4,9 @@
  * 20181108
  * */
 import React, {PureComponent} from 'react';
-import {Row, Col, Radio, Modal, Form, DatePicker, TreeSelect, Select, Button} from 'antd';
+import {Row, Col, Radio, Modal, Form, DatePicker, TreeSelect, Select, Button,Icon} from 'antd';
 import styles from './SeniorSearchModal.less';
+import {connect} from "dva";
 
 const FormItem = Form.Item;
 const {RangePicker} = DatePicker;
@@ -13,6 +14,9 @@ const TreeNode = TreeSelect.TreeNode;
 const {Option} = Select;
 
 @Form.create()
+@connect(({global}) => ({
+    global
+}))
 export default class SeniorSearchModal extends PureComponent {
     state = {};
 
@@ -20,6 +24,9 @@ export default class SeniorSearchModal extends PureComponent {
     }
 
     componentWillReceiveProps(nextProps) {
+        if(nextProps.isEmpty !== this.props.isEmpty){
+            this.props.form.resetFields();
+        }
     }
 
     // 无法选择的日期
@@ -49,11 +56,12 @@ export default class SeniorSearchModal extends PureComponent {
         });
     resetSearch = () => {
         this.props.form.resetFields();
+        this.props.handleFormReset();
     };
     foot = () => {
         return (
             <div>
-                <Button style={{color: '#2095FF', borderColor: '#2095FF'}} onClick={this.resetSearch}>
+                <Button className={styles.emptyBtn} onClick={this.resetSearch}>
                     重置
                 </Button>
                 <Button type="primary" onClick={this.handleSearch}>
@@ -86,10 +94,11 @@ export default class SeniorSearchModal extends PureComponent {
                 );
             }
         }
+        let dark = this.props.global && this.props.global.dark;
         return (
             <Modal
                 visible={this.props.visible}
-                className={styles.shareHeader}
+                className={dark ? styles.shareHeader : styles.shareHeader + ' ' +styles.lightBox}
                 title="高级查询"
                 centered
                 width={1200}
@@ -98,10 +107,12 @@ export default class SeniorSearchModal extends PureComponent {
                 onOk={this.handleSearch}
                 okText={'查询'}
                 footer={this.foot()}
+                closeIcon={<Icon type="close-circle" theme="filled" />}
+                getContainer={() => document.getElementById('formCriminalFile')}
             >
                 <Form>
                     <Row gutter={{md: 8, lg: 24, xl: 48}} style={{marginBottom: '16px'}}>
-                        <Col md={8} sm={24}>
+                        <Col md={8} sm={24} className={styles.leftBox}>
                             <Row>
                                 <Col md={24} sm={24}>
                                     <FormItem label="案件状态" labelCol={{span: 8}} wrapperCol={{span: 16}}>
@@ -128,7 +139,7 @@ export default class SeniorSearchModal extends PureComponent {
                                         {getFieldDecorator(
                                             'slrq',
                                             {},
-                                        )(<RangePicker disabledDate={this.disabledDate} style={{width: '100%'}}/>)}
+                                        )(<RangePicker disabledDate={this.disabledDate} style={{width: '100%'}} getCalendarContainer={triggerNode => triggerNode.parentNode}/>)}
                                     </FormItem>
                                 </Col>
                             </Row>
@@ -138,7 +149,7 @@ export default class SeniorSearchModal extends PureComponent {
                                         {getFieldDecorator(
                                             'larq',
                                             {},
-                                        )(<RangePicker disabledDate={this.disabledDate} style={{width: '100%'}}/>)}
+                                        )(<RangePicker disabledDate={this.disabledDate} style={{width: '100%'}} getCalendarContainer={triggerNode => triggerNode.parentNode}/>)}
                                     </FormItem>
                                 </Col>
                             </Row>
@@ -148,7 +159,7 @@ export default class SeniorSearchModal extends PureComponent {
                                         {getFieldDecorator(
                                             'parq',
                                             {},
-                                        )(<RangePicker disabledDate={this.disabledDate} style={{width: '100%'}}/>)}
+                                        )(<RangePicker disabledDate={this.disabledDate} style={{width: '100%'}} getCalendarContainer={triggerNode => triggerNode.parentNode}/>)}
                                     </FormItem>
                                 </Col>
                             </Row>
@@ -158,7 +169,7 @@ export default class SeniorSearchModal extends PureComponent {
                                         {getFieldDecorator(
                                             'xarq',
                                             {},
-                                        )(<RangePicker disabledDate={this.disabledDate} style={{width: '100%'}}/>)}
+                                        )(<RangePicker disabledDate={this.disabledDate} style={{width: '100%'}} getCalendarContainer={triggerNode => triggerNode.parentNode}/>)}
                                     </FormItem>
                                 </Col>
                             </Row>
@@ -168,7 +179,7 @@ export default class SeniorSearchModal extends PureComponent {
                                         {getFieldDecorator(
                                             'jarq',
                                             {},
-                                        )(<RangePicker disabledDate={this.disabledDate} style={{width: '100%'}}/>)}
+                                        )(<RangePicker disabledDate={this.disabledDate} style={{width: '100%'}} getCalendarContainer={triggerNode => triggerNode.parentNode}/>)}
                                     </FormItem>
                                 </Col>
                             </Row>
@@ -190,6 +201,7 @@ export default class SeniorSearchModal extends PureComponent {
                                                 key="sadwSelect"
                                                 treeDefaultExpandedKeys={treeDefaultExpandedKeys}
                                                 treeNodeFilterProp="title"
+                                                getPopupContainer={triggerNode => triggerNode.parentNode}
                                             >
                                                 {depTree && depTree.length > 0 ? this.renderloop(depTree) : null}
                                             </TreeSelect>,
@@ -213,6 +225,7 @@ export default class SeniorSearchModal extends PureComponent {
                                                 key="ladwSelect"
                                                 treeDefaultExpandedKeys={treeDefaultExpandedKeys}
                                                 treeNodeFilterProp="title"
+                                                getPopupContainer={triggerNode => triggerNode.parentNode}
                                             >
                                                 {depTree && depTree.length > 0 ? this.renderloop(depTree) : null}
                                             </TreeSelect>,
@@ -236,6 +249,7 @@ export default class SeniorSearchModal extends PureComponent {
                                                 key="padwSelect"
                                                 treeDefaultExpandedKeys={treeDefaultExpandedKeys}
                                                 treeNodeFilterProp="title"
+                                                getPopupContainer={triggerNode => triggerNode.parentNode}
                                             >
                                                 {depTree && depTree.length > 0 ? this.renderloop(depTree) : null}
                                             </TreeSelect>,
@@ -259,6 +273,7 @@ export default class SeniorSearchModal extends PureComponent {
                                                 key="cadwSelect"
                                                 treeDefaultExpandedKeys={treeDefaultExpandedKeys}
                                                 treeNodeFilterProp="title"
+                                                getPopupContainer={triggerNode => triggerNode.parentNode}
                                             >
                                                 {depTree && depTree.length > 0 ? this.renderloop(depTree) : null}
                                             </TreeSelect>,
@@ -282,6 +297,7 @@ export default class SeniorSearchModal extends PureComponent {
                                                 key="jadwSelect"
                                                 treeDefaultExpandedKeys={treeDefaultExpandedKeys}
                                                 treeNodeFilterProp="title"
+                                                getPopupContainer={triggerNode => triggerNode.parentNode}
                                             >
                                                 {depTree && depTree.length > 0 ? this.renderloop(depTree) : null}
                                             </TreeSelect>,
