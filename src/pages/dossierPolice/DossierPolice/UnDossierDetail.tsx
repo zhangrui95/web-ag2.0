@@ -98,6 +98,14 @@ export default class DossierDetail extends PureComponent {
     }
   }
 
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.history.location.query.isReset && nextProps.history.location.pathname === '/dossierPolice/DossierPolice/UnDossierDetail') {
+      this.getDossierDetail(nextProps.location.query.record.id, nextProps.location.query.record.wtid,nextProps.location.query.record.dossier_id);
+      this.props.history.replace(nextProps.history.location.pathname+ '?id=' + nextProps.location.query.id + '&record=' + nextProps.location.query.record);
+      // this.props.history.replace(nextProps.history.location.pathname + '?id=' + nextProps.location.query.id + '&record=' + nextProps.location.query.record,);
+    }
+  }
+
   // 再次督办
   onceSupervise = (flag, UnitemDetail) => {
     const { wtlx, kfgly_dwmc, kfgly_dwdm, kfgly, wtid, kfgly_zjhm } = UnitemDetail;

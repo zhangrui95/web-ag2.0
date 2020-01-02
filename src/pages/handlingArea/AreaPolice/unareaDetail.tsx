@@ -122,6 +122,14 @@ export default class unareaDetail extends PureComponent {
     }
   }
 
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.history.location.query.isReset && nextProps.history.location.pathname === '/handlingArea/AreaPolice/UnareaDetail') {
+      this.getDetail(nextProps.location.query.record.id, nextProps.location.query.record.baq_id);
+      this.props.history.replace(nextProps.history.location.pathname+ '?id=' + nextProps.location.query.id + '&record=' + nextProps.location.query.record);
+      // this.props.history.replace(nextProps.history.location.pathname + '?id=' + nextProps.location.query.id + '&record=' + nextProps.location.query.record,);
+    }
+  }
+
   // 再次督办
   onceSupervise = (flag, UnareaDetail) => {
     // this.props.supervise(flag,wtlx,zrdw,zrdwId,zrr,wtid,zjhm)

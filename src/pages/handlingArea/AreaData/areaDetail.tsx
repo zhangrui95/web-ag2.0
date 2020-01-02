@@ -658,9 +658,9 @@ export default class areaDetail extends PureComponent {
       }
     } else if (newObjWidth === 1920) {
       if (num > 4) {
-        if (this.state.left - 306 * 4 <= -(306 * (num - 4))) {
+        if (this.state.left - 241 * 4 <= -(241 * (num - 4))) {
           this.setState({
-            left: -(306 * (num - 4)),
+            left: -(241 * (num - 4)),
             colortrailright: 'gray',
             colortrailleft: 'blue',
           });
@@ -669,7 +669,7 @@ export default class areaDetail extends PureComponent {
           this.setState({
             colortrailright: 'blue',
             colortrailleft: 'blue',
-            left: this.state.left - 306 * 4,
+            left: this.state.left - 241 * 4,
           });
         }
       } else {
@@ -729,7 +729,7 @@ export default class areaDetail extends PureComponent {
         });
       }
     } else if (newObjWidth === 1920) {
-      if (this.state.left + 306 * 4 >= 0) {
+      if (this.state.left + 241 * 4 >= 0) {
         this.setState({
           left: 0,
           colortrailleft: 'gray',
@@ -740,7 +740,7 @@ export default class areaDetail extends PureComponent {
         this.setState({
           colortrailleft: 'blue',
           colortrailright: 'blue',
-          left: this.state.left + 306 * 4,
+          left: this.state.left + 241 * 4,
         });
       }
     }
@@ -1321,7 +1321,7 @@ export default class areaDetail extends PureComponent {
         // superveWidth = 1545;
       } else if (objwidth >= 1920) {
         newObjWidth = 1920;
-        superveWidth = 1224;
+        superveWidth = 964;
       }
     } else if (objheight < allheight) {
       if (objwidth < 1263 || objwidth === 1263) {
@@ -1344,7 +1344,7 @@ export default class areaDetail extends PureComponent {
         // superveWidth = 1545;
       } else if (objwidth >= 1903) {
         newObjWidth = 1920;
-        superveWidth = 1224;
+        superveWidth = 964;
       }
     }
     const extra = (
