@@ -305,7 +305,7 @@ export default class GeneralQuery extends PureComponent {
             return <TreeNode key={item.code} value={item.code} title={item.name}/>;
         });
     // 渲染办案区树
-    renderBaqloop = data =>
+    renderBaqloop = data =>{
         data.map(item => {
             // let obj = {
             //     id: item.code,
@@ -333,6 +333,7 @@ export default class GeneralQuery extends PureComponent {
                 />
             );
         });
+    }
     // 办案单位
     onBadwChange = (val, label) => {
         this.setState({
@@ -1318,6 +1319,7 @@ export default class GeneralQuery extends PureComponent {
                 : null;
         let dataSource = this.state.res.map(e => <Option key={e.ssnr}>{e.ssnr}</Option>);
         let className = this.props.global && this.props.global.dark ? stylescommon.statistics : stylescommon.statistics + ' ' + styles.lightBox;
+        console.log('baqTree======>',baqTree);
         return (
             <div className={className} id={'formSearch'}>
                 <Affix offsetTop={0}>
