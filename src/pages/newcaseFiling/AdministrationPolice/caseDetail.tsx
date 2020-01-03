@@ -754,7 +754,7 @@ export default class caseDetail extends PureComponent {
     let dark = this.props.global && this.props.global.dark;
     return (
       <div
-        style={{ background: dark ? '#252c3c' : '#fff' /*height: autoheight() - 290 + 'px'*/ }}
+        style={{ background: dark ? '#252c3c' : '#fff', height: autoheight() - 250 + 'px',padding:'16px 0' }}
         className={styles.detailBoxScroll}
       >
         <SupervisionLog

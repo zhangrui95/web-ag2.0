@@ -490,7 +490,7 @@ export default class unitemDetail extends PureComponent {
     let dark = this.props.global && this.props.global.dark;
     return (
       <div
-        style={{ background: dark ? '#252c3c' : '#fff' /*height: autoheight() - 180 + 'px'*/ }}
+        style={{ background: dark ? '#252c3c' : '#fff', height: autoheight() - 250 + 'px' }}
         className={styles.detailBoxScroll}
       >
         <SupervisionLog

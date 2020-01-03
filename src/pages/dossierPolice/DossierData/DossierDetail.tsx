@@ -556,44 +556,44 @@ export default class DossierDetail extends PureComponent {
       }
     return (
       <div style={{ backgroundColor: dark ? '#252C3C' : '#fff', margin: '16px 0' }}>
-        <Row gutter={rowLayout}>
-          <Col {...colLayout} style={{minHeight:0}}>
-            {/*<span style={{ margin: '16px', display: 'block' }}>卷宗详情</span>*/}
-            {isDb &&
-            DossierDetailData &&
-            DossierDetailData.zrdwList &&
-            DossierDetailData.zrdwList.length > 0 ? (
-              <Button
-                type="primary"
-                style={{margin:'12px 0 12px 16px'}}
-                className={styles.TopMenu}
-                onClick={() => this.onceSupervise(DossierDetailData, true, '卷宗详情问题判定')}
-              >
-                问题判定
-              </Button>
-            ) : (
-              ''
-            )}
-            {DossierDetailData &&
-            DossierDetailData.is_gldzj &&
-            DossierDetailData.is_gldzjdm === '1' ? (
-              <Button
-                type="primary"
-                style={{margin:'12px 0 12px 16px'}}
-                className={styles.TopMenu}
-                onClick={() => this.Marking(DossierDetailData, true)}
-              >
-                阅卷
-              </Button>
-            ) : (
-              ''
-            )}
-          </Col>
-          <Col style={{minHeight:0}}>
-            <span style={{ float: 'right' }}>
-              {DossierDetailData ? (
+        {DossierDetailData?
+          <Row gutter={rowLayout}>
+            <Col {...colLayout} style={{minHeight:0}}>
+              {/*<span style={{ margin: '16px', display: 'block' }}>卷宗详情</span>*/}
+              {isDb &&
+              DossierDetailData &&
+              DossierDetailData.zrdwList &&
+              DossierDetailData.zrdwList.length > 0 ? (
+                <Button
+                  type="primary"
+                  style={{margin:'12px 0 12px 16px'}}
+                  className={styles.TopMenu}
+                  onClick={() => this.onceSupervise(DossierDetailData, true, '卷宗详情问题判定')}
+                >
+                  问题判定
+                </Button>
+              ) : (
+                ''
+              )}
+              {DossierDetailData &&
+              DossierDetailData.is_gldzj &&
+              DossierDetailData.is_gldzjdm === '1' ? (
+                <Button
+                  type="primary"
+                  style={{margin:'12px 0 12px 16px'}}
+                  className={styles.TopMenu}
+                  onClick={() => this.Marking(DossierDetailData, true)}
+                >
+                  阅卷
+                </Button>
+              ) : (
+                ''
+              )}
+            </Col>
+            <Col style={{minHeight:0}}>
+            <span style={{ float: 'right',margin:'6px 16px 6px 0' }}>
                 <span>
-                  <span className={liststyles.collect} style={{margin:'6px 16px 6px 0'}}>
+                  <span className={liststyles.collect}>
                     {handleDossierSfgz === 0 ? (
                       <Tooltip title="关注">
                         <img
@@ -621,7 +621,6 @@ export default class DossierDetail extends PureComponent {
                   <span
                     className={liststyles.collect}
                     onClick={() => this.saveShare(DossierDetailData, 2)}
-                    style={{margin:'6px 16px 6px 0'}}
                   >
                     <Tooltip title="分享">
                       <img src={dark ? share : share1} width={25} height={25} />
@@ -629,12 +628,12 @@ export default class DossierDetail extends PureComponent {
                     </Tooltip>
                   </span>
                 </span>
-              ) : (
-                ''
-              )}
             </span>
-          </Col>
-        </Row>
+            </Col>
+          </Row>
+          :
+          ''
+        }
       </div>
     );
   }
@@ -784,7 +783,7 @@ export default class DossierDetail extends PureComponent {
     }
     return (
       <div
-        style={{ background: dark ? '#252c3c' : '#fff' /*height: autoheight() - 180 + 'px'*/ }}
+        style={{ background: dark ? '#252c3c' : '#fff', height: autoheight() - 250 + 'px' }}
         className={styles.detailBoxScroll}
       >
         <div style={{ textAlign: 'right' }}>

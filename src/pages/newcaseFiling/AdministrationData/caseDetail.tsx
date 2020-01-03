@@ -406,43 +406,43 @@ export default class caseDetail extends PureComponent {
     }
     return (
       <div style={{ backgroundColor: dark ? '#252C3C' : '#fff', margin: '16px 0' }}>
-        <Row gutter={{ md: 8, lg: 24, xl: 48 }}>
-          <Col md={8} sm={24} style={{minHeight:0}}>
-            {/*<span style={{ margin: '16px', display: 'block' }}>行政案件详情</span>*/}
-            {isDb &&
-            caseDetails &&
-            caseDetails.zrdwList &&
-            caseDetails.zrdwList.length > 0 &&
-            caseDetails.ssmk === '2' ? (
-              <Button
-                className={styles.TopMenu}
-                style={{margin:'12px 0 12px 16px'}}
-                loading={this.state.loading1}
-                onClick={() => this.onceSupervise(caseDetails, true, '行政案件详情问题判定')}
-              >
-                问题判定
-              </Button>
-            ) : null}
-            {isZb ? (
-              <Button
-                className={styles.TopMenu}
-                style={{margin:'12px 0 12px 16px'}}
-                onClick={() => this.makeTable(caseDetails, true)}
-              >
-                制表
-              </Button>
-            ) : null}
-            {/*{ // 案件状态为移送才能退补*/}
-            {/*caseDetails.ajzt&&caseDetails.ajzt === '结案' || !isTb || caseDetails.qsrq === '' || (caseDetails.tbrq2 && caseDetails.tbyy2) ? null : (*/}
-            {/*<Button type="primary" className={styles.TopMenu} onClick={() => this.saveRetrieve(caseDetails, true)}>退补</Button>*/}
-            {/*)*/}
-            {/*}*/}
-          </Col>
-          <Col style={{minHeight:0}}>
-            <span style={{ float: 'right'}}>
-              {caseDetails ? (
+        {caseDetails?
+          <Row gutter={{ md: 8, lg: 24, xl: 48 }}>
+            <Col md={8} sm={24} style={{minHeight:0}}>
+              {/*<span style={{ margin: '16px', display: 'block' }}>行政案件详情</span>*/}
+              {isDb &&
+              caseDetails &&
+              caseDetails.zrdwList &&
+              caseDetails.zrdwList.length > 0 &&
+              caseDetails.ssmk === '2' ? (
+                <Button
+                  className={styles.TopMenu}
+                  style={{margin:'12px 0 12px 16px'}}
+                  loading={this.state.loading1}
+                  onClick={() => this.onceSupervise(caseDetails, true, '行政案件详情问题判定')}
+                >
+                  问题判定
+                </Button>
+              ) : null}
+              {isZb ? (
+                <Button
+                  className={styles.TopMenu}
+                  style={{margin:'12px 0 12px 16px'}}
+                  onClick={() => this.makeTable(caseDetails, true)}
+                >
+                  制表
+                </Button>
+              ) : null}
+              {/*{ // 案件状态为移送才能退补*/}
+              {/*caseDetails.ajzt&&caseDetails.ajzt === '结案' || !isTb || caseDetails.qsrq === '' || (caseDetails.tbrq2 && caseDetails.tbyy2) ? null : (*/}
+              {/*<Button type="primary" className={styles.TopMenu} onClick={() => this.saveRetrieve(caseDetails, true)}>退补</Button>*/}
+              {/*)*/}
+              {/*}*/}
+            </Col>
+            <Col style={{minHeight:0}}>
+            <span style={{ float: 'right',margin: '6px 16px 6px 0'}}>
                 <span>
-                  <span className={liststyles.collect} style={{ margin: '6px 16px 6px 0' }}>
+                  <span className={liststyles.collect}>
                     {handleXzCaseSfgz === 0 ? (
                       <Tooltip title="关注">
                         <img
@@ -470,7 +470,6 @@ export default class caseDetail extends PureComponent {
                   <span
                     className={liststyles.collect}
                     onClick={() => this.saveShare(caseDetails, record, 2)}
-                    style={{ margin: '6px 16px 6px 0' }}
                   >
                     <Tooltip title="分享">
                       <img src={dark ? share : share1} width={25} height={25} />
@@ -482,7 +481,6 @@ export default class caseDetail extends PureComponent {
                   {/*onClick={() => this.makeTable(caseDetails, true)}>制表</Button> : null*/}
                   {/*}*/}
                 </span>
-              ) : null}
               {/*{*/}
               {/*isDb && caseDetails && caseDetails.zrdwList && caseDetails.zrdwList.length > 0 && caseDetails.ssmk === '2' ? (*/}
               {/*<Button*/}
@@ -495,8 +493,12 @@ export default class caseDetail extends PureComponent {
               {/*) : null*/}
               {/*}*/}
             </span>
-          </Col>
-        </Row>
+            </Col>
+          </Row>
+          :
+          ''
+        }
+
       </div>
     );
   }
@@ -686,7 +688,7 @@ export default class caseDetail extends PureComponent {
     let dark = this.props.global && this.props.global.dark;
     return (
       <div
-        style={{ background: dark ? '#252c3c' : '#fff' /*height: autoheight() - 180 + 'px'*/ }}
+        style={{ background: dark ? '#252c3c' : '#fff', height: autoheight() - 250 + 'px' }}
         className={styles.detailBoxScroll}
       >
         <div style={{ textAlign: 'right', marginTop: 30 }}>

@@ -603,7 +603,7 @@ export default class DossierDetail extends PureComponent {
 
     return (
       <div
-        style={{ background: dark ? '#252c3c' : '#fff' /*height: autoheight() - 290 + 'px'*/ }}
+        style={{ background: dark ? '#252c3c' : '#fff', height: autoheight() - 250 + 'px' }}
         className={styles.detailBoxScroll}
       >
         <SupervisionLog

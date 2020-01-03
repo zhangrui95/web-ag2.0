@@ -1376,7 +1376,7 @@ export default class areaDetail extends PureComponent {
     );
     return (
       <div
-        style={{ background: dark ? '#252c3c' : '#fff' /*height: autoheight() - 280 + 'px'*/ }}
+        style={{ background: dark ? '#252c3c' : '#fff', height: autoheight() - 250 + 'px' }}
         className={styles.detailBoxScroll}
       >
         {areaDetails && areaDetails.ajxx ? (
