@@ -30,7 +30,7 @@ export default class MessagePushLogModal extends PureComponent {
                     this.props.dispatch(
                         routerRedux.push({
                             pathname: '/receivePolice/AlarmPolice/unpoliceDetail',
-                            query: {record: item, id: item.ag_id, wtid: item.wtid},
+                            query: {record: item, id: item.ag_id, wtid: item.wtid, system_id: item.system_id},
                         }),
                     )
                 }

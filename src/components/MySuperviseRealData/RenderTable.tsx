@@ -44,7 +44,6 @@ class RenderTable extends PureComponent {
     const { wt_id: wtId, system_id: systemId, wtflId, dqzt, id, dbid, fkzt } = record;
     record.wtid = wtId;
     this.changeReadStatus(dbid);
-    console.log('wtflId==========>',wtflId);
     if (wtflId === '203203') {
       // 办案区
       this.props.dispatch(
@@ -90,7 +89,7 @@ class RenderTable extends PureComponent {
       this.props.dispatch(
         routerRedux.push({
           pathname: '/receivePolice/AlarmPolice/unpoliceDetail',
-          query: { record: record, id: id, wtid: wtId },
+          query: { record: record, id: id, wtid: wtId, system_id: id },
         }),
       );
     }

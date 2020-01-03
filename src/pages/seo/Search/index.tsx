@@ -958,6 +958,7 @@ export default class GeneralQuery extends PureComponent {
         } else if (item._index === baqQueryIndex) {
             // console.log(item._source)
             if (item._source.ryzjhm && item._source.ajbh && item._source.ryzjhm !== '暂无' && item._source.ajbh !== '暂无') {//涉案人员在区情况
+                console.log('item._source',item._source)
                 item.sfzh = item._source.ryzjhm;
                 item.ajbh = item._source.ajbh;
                 this.props.dispatch(
