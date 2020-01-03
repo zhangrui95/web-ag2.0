@@ -22,6 +22,7 @@ import {routerRedux} from "dva/router";
 import noListLight from "@/assets/viewData/noListLight.png";
 import {inspect} from "util";
 import styles = module
+import stylescommon from "@/pages/common/common.less";
 
 const FormItem = Form.Item;
 const TabPane = Tabs.TabPane;
@@ -207,14 +208,7 @@ export default class PoliceClear extends PureComponent {
             pageSize: data && data.page ? data.page.showCount : '',
             showTotal: (total, range) => (
                 <span
-                    className={
-                        data &&
-                        data.page &&
-                        data.page.totalResult &&
-                        data.page.totalResult.toString().length < 5
-                            ? stylescommon.pagination
-                            : stylescommon.paginations
-                    }
+                    className={stylescommon.pagination}
                 >{`共 ${data && data.page ? data.page.totalPage : 1} 页，${
                     data && data.page ? data.page.totalResult : 0
                     } 条数据 `}</span>

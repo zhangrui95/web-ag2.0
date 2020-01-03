@@ -32,6 +32,7 @@ import styles from './index.less';
 import {exportListDataMaxDays, tableList} from '../../../utils/utils';
 import {routerRedux} from "dva/router";
 import noListLight from "@/assets/viewData/noListLight.png";
+import stylescommon from "@/pages/common/common.less";
 
 const FormItem = Form.Item;
 const {Option} = Select;
@@ -585,14 +586,7 @@ class MessageLog extends Component {
             total: data && data.page ? data.page.totalResult : '',
             pageSize: data && data.page ? data.page.showCount : '',
             showTotal: (total, range) => (
-                <span className={
-                    data &&
-                    data.page &&
-                    data.page.totalResult &&
-                    data.page.totalResult.toString().length < 5
-                        ? stylescommon.pagination
-                        : stylescommon.paginations
-                }>{`共 ${
+                <span className={stylescommon.pagination}>{`共 ${
                     data && data.page ? data.page.totalPage : 1
                     } 页，${data && data.page ? data.page.totalResult : 0} 条数据 `}</span>
             ),

@@ -312,16 +312,12 @@ class RenderTable extends PureComponent {
                 ),
             },
         ];
-
         const paginationProps = {
-            // showSizeChanger: true,
-            // showQuickJumper: true,
             current: data.page ? data.page.currentPage : '',
             total: data.page ? data.page.totalResult : '',
             pageSize: data.page ? data.page.showCount : '',
             showTotal: (total, range) =>
-                <span
-                    className={styles.pagination}>{`共 ${data.page ? data.page.totalPage : 1} 页， ${data.page ? data.page.totalResult : 0} 条记录`}</span>,
+                <span className={styles.pagination}>{`共 ${data.page ? data.page.totalPage : 1} 页， ${data.page ? data.page.totalResult : 0} 条记录`}</span>,
         };
         return (
             <div className={styles.standardTable}>

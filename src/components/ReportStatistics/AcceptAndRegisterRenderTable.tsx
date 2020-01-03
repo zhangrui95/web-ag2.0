@@ -157,7 +157,6 @@ class AcceptAndRegisterRenderTable extends PureComponent {
         //     children: child
         //   }
         // ]
-
         const paginationProps = {
             showSizeChanger: true,
             showQuickJumper: true,

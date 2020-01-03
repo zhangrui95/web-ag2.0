@@ -514,7 +514,7 @@ export default {
             const response = yield call(getBaqTree, payload);
             yield put({
                 type: 'setBaqTree',
-                payload: response && response.error === null ? response.data : [],
+                payload: response && response.error === null&&response.data&&response.data.list ? response.data.list : [],
             });
             if (callback && !response.error) callback();
         },

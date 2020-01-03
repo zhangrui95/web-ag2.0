@@ -1720,7 +1720,7 @@ export default class areaDetail extends PureComponent {
             pagination={{
               pageSize: 3,
               showTotal: (total, range) => (
-                <div style={{ position: 'absolute', left: '-190px', color: '#fff' }}>
+                <div style={{color: '#b7b7b7'}}>
                   共 {Math.ceil(total / 3)} 页，{total} 条记录
                 </div>
               ),
@@ -1750,7 +1750,7 @@ export default class areaDetail extends PureComponent {
             pagination={{
               pageSize: 3,
               showTotal: (total, range) => (
-                <div style={{ position: 'absolute', left: '-190px', color: '#fff' }}>
+                <div style={{color: '#b7b7b7'}}>
                   共 {Math.ceil(total / 3)} 页， {total} 条记录
                 </div>
               ),

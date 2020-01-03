@@ -31,6 +31,7 @@ import {exportListDataMaxDays, getUserInfos, tableList} from '../../../utils/uti
 import {routerRedux} from 'dva/router';
 import noList from "@/assets/viewData/noList.png";
 import noListLight from "@/assets/viewData/noListLight.png";
+import stylescommon from "@/pages/common/common.less";
 // import Detail from '../../../routes/XzCaseRealData/caseDetail';
 // import RemindModal from '../../../src/components/RemindModal/RemindModal';
 // import AnnouncementModal from '../../../src/components/AnnouncementModal/AnnouncementModal';
@@ -684,9 +685,8 @@ export default class Index extends PureComponent {
         //     </Col>
         //   </Row>
         // );
+        let totalPage = (page ? page.currentPage : 1) / (page ? page.totalPage : 1);
         const paginationProps = {
-            // showSizeChanger: true,
-            // showQuickJumper: true,
             current: page ? page.currentPage : '',
             total: page ? page.totalResult : '',
             pageSize: page ? page.showCount : '',
@@ -696,6 +696,18 @@ export default class Index extends PureComponent {
                     } 页， ${page ? page.totalResult : 0} 条记录 `}</span>
             ),
         };
+        // const paginationProps = {
+        //     current: data && data.page ? data.page.currentPage : '',
+        //     total: data && data.page ? data.page.totalResult : '',
+        //     pageSize: data && data.page ? data.page.showCount : '',
+        //     showTotal: (total, range) => (
+        //         <span
+        //             className={stylescommon.pagination}
+        //         >{`共 ${data && data.page ? data.page.totalPage : 1} 页，${
+        //             data && data.page ? data.page.totalResult : 0
+        //             } 条数据 `}</span>
+        //     ),
+        // };
         return (
             <div>
                 <div className={styles.tableListForm} id="zfbaxzajyjtableListForm">

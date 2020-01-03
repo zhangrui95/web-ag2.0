@@ -1127,20 +1127,20 @@ export default class Home1 extends PureComponent {
                 }
             });
         }
+        let pageSize =  this.state.idx === 2
+            ? this.state.pageSizeShare
+            : this.state.idx === 3
+                ? this.state.pageSizeFollow
+                : this.state.pageSize;
         const paginationPage = {
             current: this.state.pageNew,
             total: this.state.pageTotal,
-            pageSize:
-                this.state.idx === 2
-                    ? this.state.pageSizeShare
-                    : this.state.idx === 3
-                    ? this.state.pageSizeFollow
-                    : this.state.pageSize,
+            pageSize:pageSize,
             size: 'middle',
             // showQuickJumper: true,
             showTotal: () => (
                 <span className={styles.pagination}>{`共 ${Math.ceil(
-                    parseInt(this.state.pageTotal) / parseInt(this.state.pageSize),
+                    parseInt(this.state.pageTotal) / parseInt(pageSize),
                 )} 页， ${this.state.pageTotal} 条记录`}</span>
             ),
             onChange: e => {

@@ -646,8 +646,7 @@ export default class Index extends PureComponent {
             total: page ? page.totalResult : '',
             pageSize: page ? page.showCount : '',
             showTotal: (total, range) => (
-                <span
-                    className={styles.listPagination}>{`共 ${page ? page.totalPage : 1} 页，${page ? page.totalResult : 0} 条记录`}</span>
+                <span className={styles.listPagination}>{`共 ${page ? page.totalPage : 1} 页，${page ? page.totalResult : 0} 条记录`}</span>
             ),
         };
         return (

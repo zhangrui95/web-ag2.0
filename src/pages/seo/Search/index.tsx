@@ -305,7 +305,7 @@ export default class GeneralQuery extends PureComponent {
             return <TreeNode key={item.code} value={item.code} title={item.name}/>;
         });
     // 渲染办案区树
-    renderBaqloop = data =>
+    renderBaqloop = data =>{
         data.map(item => {
             // let obj = {
             //     id: item.code,
@@ -333,6 +333,7 @@ export default class GeneralQuery extends PureComponent {
                 />
             );
         });
+    }
     // 办案单位
     onBadwChange = (val, label) => {
         this.setState({
@@ -958,6 +959,7 @@ export default class GeneralQuery extends PureComponent {
         } else if (item._index === baqQueryIndex) {
             // console.log(item._source)
             if (item._source.ryzjhm && item._source.ajbh && item._source.ryzjhm !== '暂无' && item._source.ajbh !== '暂无') {//涉案人员在区情况
+                console.log('item._source',item._source)
                 item.sfzh = item._source.ryzjhm;
                 item.ajbh = item._source.ajbh;
                 this.props.dispatch(
@@ -1317,6 +1319,7 @@ export default class GeneralQuery extends PureComponent {
                 : null;
         let dataSource = this.state.res.map(e => <Option key={e.ssnr}>{e.ssnr}</Option>);
         let className = this.props.global && this.props.global.dark ? stylescommon.statistics : stylescommon.statistics + ' ' + styles.lightBox;
+        console.log('baqTree======>',baqTree);
         return (
             <div className={className} id={'formSearch'}>
                 <Affix offsetTop={0}>
@@ -1568,7 +1571,7 @@ export default class GeneralQuery extends PureComponent {
                                         pageSize: 8,
                                         current,
                                         showTotal: (total, range) => (
-                                            <div style={{position: 'absolute', left: '5px', color: '#b7b7b7'}}>
+                                            <div style={{color: '#b7b7b7'}}>
                                                 共 {Math.ceil(total / 8)} 页，{total}条数据
                                             </div>
                                         ),

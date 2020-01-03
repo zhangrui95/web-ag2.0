@@ -391,8 +391,7 @@ export default class IntoArea extends PureComponent {
                                             rowKey={record => record.record_id}
                                             pagination={{
                                                 pageSize: 3,
-                                                showTotal: (total, range) => <div
-                                                    style={{position: 'absolute', left: '12px'}}>共 {total} 条记录
+                                                showTotal: (total, range) => <div style={{color: '#b7b7b7'}}>共 {total} 条记录
                                                     第 {(Math.ceil(range[1] / 3))} / {(Math.ceil(total / 3))} 页</div>,
                                                 // onChange: (page)=>{this.setState({current:page})},
                                             }}

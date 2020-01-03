@@ -614,7 +614,7 @@ export default class uncaseDetail extends PureComponent {
                             size: 'small',
                             pageSize: 8,
                             showTotal: (total, range) => (
-                                <div style={{position: 'absolute', left: '12px'}}>
+                                <div style={{color: '#b7b7b7'}}>
                                     共 {total} 条记录 第 {this.state.current} / {Math.ceil(total / 8)} 页
                                 </div>
                             ),
@@ -800,7 +800,7 @@ export default class uncaseDetail extends PureComponent {
                         pagination={{
                             pageSize: 3,
                             showTotal: (total, range) => (
-                                <div style={{color: '#fff'}}>
+                                <div style={{color: '#b7b7b7'}}>
                                     共 {Math.ceil(total / 3)} 页， {total} 条记录
                                 </div>
                             ),

@@ -159,6 +159,7 @@ class SuperviseSetup extends Component {
             };
             this.setState({
                 pd: pd,
+                current: 1,
             });
             this.getJgdList(pd, 1);
         });
@@ -533,9 +534,9 @@ class SuperviseSetup extends Component {
                                 },
                             });
                         }
-                        record.scbj = obj;
-                        this.getChangeDetail(record);
                     }
+                    record.scbj = obj;
+                    this.getChangeDetail(record);
                     this.getJgdList(this.state.pd, this.state.current);
                 } else {
                     message.warn('操作失败，请重试');
@@ -577,7 +578,7 @@ class SuperviseSetup extends Component {
                 SuperviseSetup: {JgdType},
             },
         } = this.props;
-        const {isTJJGD, isSCJGD} = this.state;
+        const {isTJJGD, isSCJGD,data} = this.state;
         const paginationProps = {
             current: this.state.data && this.state.data.page ? this.state.data.page.currentPage : '',
             total: this.state.data && this.state.data.page ? this.state.data.page.totalResult : '',

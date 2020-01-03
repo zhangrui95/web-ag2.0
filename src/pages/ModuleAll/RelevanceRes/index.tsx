@@ -105,7 +105,7 @@ export default class IntoArea extends PureComponent {
                     style={{ borderRadius: 0, padding: 24 }}
                     pagination={{
                         pageSize: 3,
-                        showTotal: (total, range) => <div style={{position: 'absolute', left: '-170px', color:'#fff'}}>共 {(Math.ceil(total / 3))} 页， {total} 条记录</div>,
+                        showTotal: (total, range) => <div style={{color: '#b7b7b7'}}>共 {(Math.ceil(total / 3))} 页， {total} 条记录</div>,
                         onChange: (page) => {
                             this.setState({jqcurrent: page});
                         },

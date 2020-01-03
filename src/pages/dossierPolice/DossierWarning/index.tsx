@@ -652,7 +652,6 @@ export default class Index extends PureComponent {
         );
       }
     }
-
     const paginationProps = {
       // showSizeChanger: true,
       // showQuickJumper: true,
