@@ -133,8 +133,6 @@ export default class IntoArea extends PureComponent {
         return (
             <div>
                 <Table
-                    size={'middle'}
-                    style={{backgroundColor: '#fff'}}
                     pagination={{
                         pageSize: 3,
                         showTotal: (total, range) => <div

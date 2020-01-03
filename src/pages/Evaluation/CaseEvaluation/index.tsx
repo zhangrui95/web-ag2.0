@@ -386,7 +386,7 @@ export default class Index extends PureComponent {
                             params.typeGj === '1' ? '/newcaseFiling/casePolice/CriminalPolice' :
                                 params.typeGj === '2' ? '/articlesInvolved/ArticlesPolice' :
                                     params.typeGj === '3' ? '/handlingArea/AreaPolice' :
-                                        paramstypeGj === '4' ? '/dossierPolice/DossierPolice' : ''
+                                        params.typeGj === '4' ? '/dossierPolice/DossierPolice' : ''
                     , state: {
                         code: idx === '0' ? params.code : (params.bkpr_dwdm ? params.bkpr_dwdm : ''),
                         kssj: kprq_ks,
