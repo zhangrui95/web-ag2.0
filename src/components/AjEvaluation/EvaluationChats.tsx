@@ -317,6 +317,7 @@ export default class EvaluationChats extends PureComponent {
         });
     };
     buildChart = (legendData, axisLabel, seriesValue, id,nextProps) => {
+        // console.log(seriesValue)
         let chart = document.getElementById(id);
         let echart = echarts.init(chart);
         let that = this;

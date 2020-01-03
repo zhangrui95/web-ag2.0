@@ -891,7 +891,7 @@ class SuperviseSetup extends Component {
                         </Row>
                     </Form>
                 </Card>
-                <Card className={stylescommon.cardArea} id={'box'}>
+                <Card className={stylescommon.cardArea} id={'box'} style={{minHeight:600}}>
                     <Table
                         loading={this.state.loading}
                         rowKey={record => record.id}
