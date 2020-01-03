@@ -387,12 +387,12 @@ export default class DossierDetail extends PureComponent {
           {/*<Col {...colLayout}>*/}
           {/*<span style={{ margin: '16px', display: 'block' }}>卷宗详情</span>*/}
           {/*</Col>*/}
-          <Col>
-            <span style={{ float: 'right', margin: '12px 16px 12px 0', height: 32 }}>
+          <Col style={{minHeight:0}}>
+            <span>
               {DossierDetailData && DossierDetailData.zt === '待督办' && isDb ? (
                 <Button
-                  type="primary"
-                  style={{ marginLeft: 8 }}
+                  className={styles.TopMenu}
+                  style={{margin:'12px 0 12px 16px'}}
                   loading={this.state.loading1}
                   onClick={() => this.onceSupervise(true, DossierDetailData)}
                 >
@@ -408,8 +408,8 @@ export default class DossierDetail extends PureComponent {
                   DossierDetailData.dbList[DossierDetailData.dbList.length - 1].fkzt !== '1')) &&
               isDb ? (
                 <Button
-                  type="primary"
-                  style={{ marginLeft: 8 }}
+                  className={styles.TopMenu}
+                  style={{margin:'12px 0 12px 16px'}}
                   loading={this.state.feedbackButtonLoading}
                   onClick={() => this.feedback(true, DossierDetailData)}
                 >
@@ -603,7 +603,7 @@ export default class DossierDetail extends PureComponent {
 
     return (
       <div
-        style={{ background: dark ? '#252c3c' : '#fff' /*height: autoheight() - 290 + 'px'*/ }}
+        style={{ background: dark ? '#252c3c' : '#fff', height: autoheight() - 250 + 'px' }}
         className={styles.detailBoxScroll}
       >
         <SupervisionLog

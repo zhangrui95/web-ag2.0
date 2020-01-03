@@ -426,71 +426,72 @@ export default class itemDetail extends PureComponent {
     }
     return (
       <div style={{ backgroundColor: dark ? '#252C3C' : '#fff', margin: '16px 0' }}>
-        <Row gutter={{ md: 8, lg: 24, xl: 48 }}>
-          <Col md={8} sm={24}>
-            {/*<span style={{ margin: '16px', display: 'block' }}>涉案物品详情</span>*/}
-            {isDb && itemDetails && itemDetails.zrdwList && itemDetails.zrdwList.length > 0 ? (
-              <Button
-                type="primary"
-                className={styles.TopMenu}
-                onClick={() => this.onceSupervise(itemDetails, true, '涉案物品详情问题判定')}
-              >
-                问题判定
-              </Button>
-            ) : (
-              ''
-            )}
-          </Col>
-          <Col>
-            <span style={{ float: 'right', margin: '6px 16px 6px 0' }}>
-              {itemDetails ? (
-                <span>
-                  <span className={liststyles.collect}>
-                    {handleWpSfgz === 0 ? (
-                      <Tooltip title="关注">
-                        <img
-                          src={dark ? nocollect : nocollect1}
-                          width={25}
-                          height={25}
-                          style={{ marginLeft: 12 }}
-                          onClick={() => this.saveShare(itemDetails, record, 1, 0)}
-                        />
-                        <div style={{ fontSize: 12, textAlign: 'center', width: 48 }}>关注</div>
-                      </Tooltip>
-                    ) : (
-                      <Tooltip title="取消关注">
-                        <img
-                          src={dark ? collect : collect1}
-                          width={25}
-                          height={25}
-                          style={{ marginLeft: 12 }}
-                          onClick={() => this.noFollow(itemDetails)}
-                        />
-                        <div style={{ fontSize: 12, textAlign: 'center', width: 48 }}>取消关注</div>
-                      </Tooltip>
-                    )}
-                  </span>
-                  <span
-                    className={liststyles.collect}
-                    onClick={() => this.saveShare(itemDetails, record, 2)}
-                  >
-                    <Tooltip title="分享">
-                      <img
-                        src={dark ? share : share1}
-                        style={{ marginLeft: 12 }}
-                        width={25}
-                        height={25}
-                      />
-                    </Tooltip>
-                    <div style={{ fontSize: 12, textAlign: 'center', width: 48 }}>分享</div>
-                  </span>
-                </span>
+        {itemDetails?
+          <Row gutter={{ md: 8, lg: 24, xl: 48 }}>
+            <Col md={8} sm={24} style={{minHeight:0}}>
+              {/*<span style={{ margin: '16px', display: 'block' }}>涉案物品详情</span>*/}
+              {isDb && itemDetails && itemDetails.zrdwList && itemDetails.zrdwList.length > 0 ? (
+                <Button
+                  type="primary"
+                  style={{margin:'12px 0 12px 16px'}}
+                  className={styles.TopMenu}
+                  onClick={() => this.onceSupervise(itemDetails, true, '涉案物品详情问题判定')}
+                >
+                  问题判定
+                </Button>
               ) : (
                 ''
               )}
+            </Col>
+            <Col style={{minHeight:0}}>
+            <span style={{ float: 'right',margin: '6px 16px 6px 0' }}>
+              <span>
+                <span className={liststyles.collect}>
+                  {handleWpSfgz === 0 ? (
+                    <Tooltip title="关注">
+                      <img
+                        src={dark ? nocollect : nocollect1}
+                        width={25}
+                        height={25}
+                        style={{ marginLeft: 12 }}
+                        onClick={() => this.saveShare(itemDetails, record, 1, 0)}
+                      />
+                      <div style={{ fontSize: 12, textAlign: 'center', width: 48 }}>关注</div>
+                    </Tooltip>
+                  ) : (
+                    <Tooltip title="取消关注">
+                      <img
+                        src={dark ? collect : collect1}
+                        width={25}
+                        height={25}
+                        style={{ marginLeft: 12 }}
+                        onClick={() => this.noFollow(itemDetails)}
+                      />
+                      <div style={{ fontSize: 12, textAlign: 'center', width: 48 }}>取消关注</div>
+                    </Tooltip>
+                  )}
+                </span>
+                <span
+                  className={liststyles.collect}
+                  onClick={() => this.saveShare(itemDetails, record, 2)}
+                >
+                  <Tooltip title="分享">
+                    <img
+                      src={dark ? share : share1}
+                      style={{ marginLeft: 12 }}
+                      width={25}
+                      height={25}
+                    />
+                  </Tooltip>
+                  <div style={{ fontSize: 12, textAlign: 'center', width: 48 }}>分享</div>
+                </span>
+              </span>
             </span>
-          </Col>
-        </Row>
+            </Col>
+          </Row>
+          :''
+        }
+
       </div>
     );
   }
@@ -501,7 +502,7 @@ export default class itemDetail extends PureComponent {
     let dark = this.props.global && this.props.global.dark;
     return (
       <div
-        style={{ background: dark ? '#252c3c' : '#fff' /*height: autoheight() - 180 + 'px'*/ }}
+        style={{ background: dark ? '#252c3c' : '#fff', height: autoheight() - 250 + 'px' }}
         className={styles.detailBoxScroll}
       >
         {itemDetails && itemDetails.system_id && itemDetails.ajlx ? (

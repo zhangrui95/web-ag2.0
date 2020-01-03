@@ -339,37 +339,39 @@ export default class unpoliceDetail extends PureComponent {
                 style={{backgroundColor: dark ? '#252C3C' : '#fff', margin: '16px 0', borderRadius: 10}}
             >
                 <Row gutter={{md: 8, lg: 24, xl: 48}}>
-                    <Col md={8} sm={24}>
+                    {/*<Col md={8} sm={24}>*/}
                         {/*<span style={{ margin: '16px', display: 'block' }}>警情详情</span>*/}
-                    </Col>
+                    {/*</Col>*/}
                     {isDb ? (
-                        <Col>
-              <span style={{float: 'right', margin: '12px 16px 12px 0'}}>
-                {policeDetails && policeDetails.zt === '待督办' ? (
-                    <Button
-                        className={styles.TopMenu}
-                        loading={this.state.loading1}
-                        onClick={() => this.onceSupervise(true, policeDetails)}
-                    >
-                        督办
-                    </Button>
-                ) : (
-                    ''
-                )}
-                  {policeDetails &&
-                  (policeDetails.dbid === '' ||
-                      (policeDetails.dbList &&
-                          policeDetails.dbList.length > 0 &&
-                          policeDetails.dbList[policeDetails.dbList.length - 1].fkzt !== '1')) ? (
-                      <Button
-                          className={styles.TopMenu}
-                          loading={this.state.feedbackButtonLoading}
-                          onClick={() => this.feedback(true, policeDetails)}
-                      >
-                          反馈
-                      </Button>
-                  ) : null}
-              </span>
+                        <Col style={{minHeight:0}}>
+                          <div>
+                            {policeDetails && policeDetails.zt === '待督办' ? (
+                                <Button
+                                    className={styles.TopMenu}
+                                    loading={this.state.loading1}
+                                    onClick={() => this.onceSupervise(true, policeDetails)}
+                                    style={{margin:'12px 0 12px 16px'}}
+                                >
+                                    督办
+                                </Button>
+                            ) : (
+                                ''
+                            )}
+                              {policeDetails &&
+                              (policeDetails.dbid === '' ||
+                                  (policeDetails.dbList &&
+                                      policeDetails.dbList.length > 0 &&
+                                      policeDetails.dbList[policeDetails.dbList.length - 1].fkzt !== '1')) ? (
+                                  <Button
+                                      className={styles.TopMenu}
+                                      loading={this.state.feedbackButtonLoading}
+                                      onClick={() => this.feedback(true, policeDetails)}
+                                      style={{margin:'12px 0 12px 16px'}}
+                                  >
+                                      反馈
+                                  </Button>
+                              ) : null}
+                          </div>
                         </Col>
                     ) : null}
                 </Row>
@@ -447,7 +449,7 @@ export default class unpoliceDetail extends PureComponent {
         let dark = this.props.global && this.props.global.dark;
         return (
             <div
-                style={{background: dark ? '#252c3c' : '#fff', height: autoheight() - 290 + 'px'}}
+                style={{background: dark ? '#252c3c' : '#fff', height: autoheight() - 290 + 'px',padding:'16px 0'}}
                 className={styles.detailBoxScroll}
             >
                 <SupervisionLog

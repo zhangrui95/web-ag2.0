@@ -466,12 +466,12 @@ export default class policeDetail extends PureComponent {
     let dark = this.props.global && this.props.global.dark;
     return (
       <div
-        style={{ backgroundColor: dark ? '#252C3C' : '#fff', margin: '16px 0', borderRadius: 10 }}
+        style={{ backgroundColor: dark ? '#252C3C' : '#fff', marginTop: 16, borderRadius: 10 }}
       >
         <Row gutter={{ md: 8, lg: 24, xl: 48 }}>
           <Col md={8} sm={24}>
             {/*<span style={{ margin: '16px', display: 'block' }}>警情详情</span>*/}
-            <Button className={styles.TopMenu} onClick={() => this.ExportStatistics()}>
+            <Button type='primary' className={styles.TopMenu} onClick={() => this.ExportStatistics()}>
               导出
             </Button>
             {isDb &&
@@ -479,6 +479,7 @@ export default class policeDetail extends PureComponent {
             policeDetails.zrdwList &&
             policeDetails.zrdwList.length > 0 ? (
               <Button
+                type='primary'
                 className={styles.TopMenu}
                 onClick={() => this.onceSupervise(policeDetails, true, '警情详情问题判定')}
               >
@@ -491,6 +492,7 @@ export default class policeDetail extends PureComponent {
             record &&
             record.is_sqdd === '0' ? (
               <Button
+                type='primary'
                 className={styles.TopMenu}
                 onClick={() => this.saveDispatch(record)}
               >
@@ -559,7 +561,7 @@ export default class policeDetail extends PureComponent {
     let dark = this.props.global && this.props.global.dark;
     return (
       <div
-        style={{ background: dark ? '#252c3c' : '#fff', height: autoheight() - 280 + 'px' }}
+        style={{ background: dark ? '#252c3c' : '#fff', height: autoheight() - 280 + 'px',marginTop:16, borderRadius: 10,padding:'16px 0' }}
         id={`jqDetail${this.props.location.query.id}`}
         className={styles.detailBoxScroll}
       >
