@@ -486,7 +486,7 @@ export default class areaDetail extends PureComponent {
               {areaDetails ? (
                 <span>
                   <div className={styles.objMenu}>
-                    <Button className={styles.TopMenu} onClick={() => this.Ledger(areaDetails)}>
+                    <Button type='primary' className={styles.TopMenu} onClick={() => this.Ledger(areaDetails)}>
                       台账
                     </Button>
                   </div>
@@ -496,6 +496,7 @@ export default class areaDetail extends PureComponent {
                   areaDetails.zrdwList.length > 0 ? (
                     <div className={styles.objMenu}>
                       <Button
+                        type='primary'
                         className={styles.TopMenu}
                         onClick={() => this.onceSupervise(areaDetails, true, '办案区详情问题判定')}
                       >

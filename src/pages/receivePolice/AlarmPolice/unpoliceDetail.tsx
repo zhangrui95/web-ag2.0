@@ -347,6 +347,7 @@ export default class unpoliceDetail extends PureComponent {
                           <div>
                             {policeDetails && policeDetails.zt === '待督办' ? (
                                 <Button
+                                    type='primary'
                                     className={styles.TopMenu}
                                     loading={this.state.loading1}
                                     onClick={() => this.onceSupervise(true, policeDetails)}
@@ -363,6 +364,7 @@ export default class unpoliceDetail extends PureComponent {
                                       policeDetails.dbList.length > 0 &&
                                       policeDetails.dbList[policeDetails.dbList.length - 1].fkzt !== '1')) ? (
                                   <Button
+                                      type='primary'
                                       className={styles.TopMenu}
                                       loading={this.state.feedbackButtonLoading}
                                       onClick={() => this.feedback(true, policeDetails)}
