@@ -114,6 +114,13 @@ export default class uncaseDetail extends PureComponent {
       });
     }
   }
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.history.location.query.isReset && nextProps.history.location.pathname === '/newcaseFiling/casePolice/CriminalPolice/uncaseDetail') {
+      this.caseDetailDatas(nextProps.location.query.record.id, nextProps.location.query.record.system_id);
+      this.props.history.replace(nextProps.history.location.pathname+ '?id=' + nextProps.location.query.id + '&record=' + nextProps.location.query.record);
+      // this.props.history.replace(nextProps.history.location.pathname + '?id=' + nextProps.location.query.id + '&record=' + nextProps.location.query.record,);
+    }
+  }
 
   // 再次督办
   onceSupervise = (flag, unCaseDetailData) => {
@@ -827,7 +834,7 @@ export default class uncaseDetail extends PureComponent {
         title: '是否受案',
         dataIndex: 'is_sa',
         render(text) {
-          return <Badge status={statusMap[text]} text={status[text]} />;
+          return <span style={{color:statusMap[text] === 'success' ? '#27D427':'#c41a1a'}}>{status[text]}</span>;
         },
       },
       {

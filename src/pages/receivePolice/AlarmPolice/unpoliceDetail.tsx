@@ -90,7 +90,7 @@ export default class unpoliceDetail extends PureComponent {
             nextProps.history.location.query.isReset &&
             nextProps.history.location.pathname === '/receivePolice/AlarmPolice/unpoliceDetail'
         ) {
-            this.getDetail(this.props.location.query.record);
+            this.getDetail(nextProps.location.query,nextProps.location.query.record);
             this.props.history.replace(
                 nextProps.history.location.pathname +
                 '?id=' +

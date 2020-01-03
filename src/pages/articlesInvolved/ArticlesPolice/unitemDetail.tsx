@@ -99,6 +99,14 @@ export default class unitemDetail extends PureComponent {
     }
   }
 
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.history.location.query.isReset && nextProps.history.location.pathname === '/articlesInvolved/ArticlesPolice/unitemDetail') {
+      this.itemDetailDatas(nextProps.location.query.record.id, nextProps.location.query.record.system_id);
+      this.props.history.replace(nextProps.history.location.pathname+ '?id=' + nextProps.location.query.id + '&record=' + nextProps.location.query.record);
+      // this.props.history.replace(nextProps.history.location.pathname + '?id=' + nextProps.location.query.id + '&record=' + nextProps.location.query.record,);
+    }
+  }
+
   // 再次督办
   onceSupervise = (flag, UnitemDetail) => {
     const { wtlx, kfgly_dwmc, kfgly_dwdm, kfgly, wtid, kfgly_zjhm } = UnitemDetail;

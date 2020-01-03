@@ -150,7 +150,7 @@ export default class UnItemDataView extends PureComponent {
             payload: {
                 kssj: startTime,
                 jssj: endTime,
-                orgcode,
+                ccdw: orgcode,
             },
             callback: data => {
                 if (data) {

@@ -61,7 +61,7 @@ export default class IntoArea extends PureComponent {
 
     render() {
         const {record} = this.state;
-        console.log('record',record);
+        // console.log('record',record);
         const WpColumns = [
             {
                 title: '物品名称',

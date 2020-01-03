@@ -128,6 +128,13 @@ export default class caseDetail extends PureComponent {
     }
   }
 
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.history.location.query.isReset && nextProps.history.location.pathname === '/newcaseFiling/casePolice/AdministrationPolice/uncaseDetail') {
+      this.caseDetailDatas(nextProps.location.query.record.id, nextProps.location.query.record.system_id);
+      this.props.history.replace(nextProps.history.location.pathname+ '?id=' + nextProps.location.query.id + '&record=' + nextProps.location.query.record);
+      // this.props.history.replace(nextProps.history.location.pathname + '?id=' + nextProps.location.query.id + '&record=' + nextProps.location.query.record,);
+    }
+  }
   //修改改变模态框状态 通过id 获取数据
   caseDetailDatas = (id, systemId) => {
     this.props.dispatch({
@@ -193,7 +200,7 @@ export default class caseDetail extends PureComponent {
                 query: {
                   record: caseDetails,
                   id: caseDetails && caseDetails.wtid ? caseDetails.wtid : '1',
-                  from: '案件信息',
+                  from: '督办',
                   tzlx: 'xzajwt3',
                   fromPath: '/newcaseFiling/casePolice/AdministrationPolice/uncaseDetail',
                   tab: '详情',
@@ -729,7 +736,7 @@ export default class caseDetail extends PureComponent {
         title: '是否受案',
         dataIndex: 'is_sa',
         render(text) {
-          return <Badge status={statusMap[text]} text={status[text]} />;
+          return <span style={{color:statusMap[text] === 'success' ? '#27D427':'#c41a1a'}}>{status[text]}</span>;
         },
       },
       {
