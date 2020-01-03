@@ -572,8 +572,6 @@ export default class AdministrativeCaseDocDetail extends PureComponent {
                     size: 'small',
                     pageSize: 8,
                     showTotal: (total, range) => <div style={{
-                        position: 'absolute',
-                        left: '12px',
                         color: this.props.global && this.props.global.dark ? '#fff' : '#999'
                     }}>共 {total} 条记录
                         第 {this.state.current} / {(Math.ceil(total / 8))} 页</div>,
@@ -648,8 +646,6 @@ export default class AdministrativeCaseDocDetail extends PureComponent {
                     size: 'small',
                     pageSize: 8,
                     showTotal: (total, range) => <div style={{
-                        position: 'absolute',
-                        left: '12px',
                         color: this.props.global && this.props.global.dark ? '#fff' : '#999'
                     }}>共 {total} 条记录
                         第 {this.state.gjcurrent} / {(Math.ceil(total / 8))} 页</div>,
@@ -925,8 +921,6 @@ export default class AdministrativeCaseDocDetail extends PureComponent {
                                         pageSize: 3,
                                         showTotal: (total, range) => <div
                                             style={{
-                                                position: 'absolute',
-                                                left: '-150px',
                                                 color: this.props.global && this.props.global.dark ? '#fff' : '#999'
                                             }}>共 {total} 条记录
                                             第 {this.state.jqcurrent} / {(Math.ceil(total / 3))} 页</div>,
@@ -1035,8 +1029,6 @@ export default class AdministrativeCaseDocDetail extends PureComponent {
                                         pageSize: 3,
                                         showTotal: (total, range) => <div
                                             style={{
-                                                position: 'absolute',
-                                                left: '-150px',
                                                 color: this.props.global && this.props.global.dark ? '#fff' : '#999'
                                             }}>共 {total} 条记录
                                             第 {this.state.jzcurrent} / {(Math.ceil(total / 3))} 页</div>,

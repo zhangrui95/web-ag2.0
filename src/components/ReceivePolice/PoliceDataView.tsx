@@ -1092,7 +1092,7 @@ export default class PoliceDataView extends PureComponent {
               position: 'center',
               textStyle: {
                 fontSize: '22',
-                color: '#fff',
+                color: nextProps.global && nextProps.global.dark ? '#fff' : '#4d4d4d',
               },
             },
             emphasis: {

@@ -100,6 +100,9 @@ class Detail extends Component {
         let res = this.props.location.query.record;
         if(detail){
             res = detail;
+            this.setState({
+                scbj: detail.scbj,
+            });
         }else if (typeof res == 'string') {
             res = JSON.parse(sessionStorage.getItem('query')).query.record;
         }

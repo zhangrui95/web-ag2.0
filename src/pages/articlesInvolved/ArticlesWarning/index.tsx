@@ -29,6 +29,7 @@ import {exportListDataMaxDays, getUserInfos, tableList} from '../../../utils/uti
 import {routerRedux} from "dva/router";
 import noList from "@/assets/viewData/noList.png";
 import noListLight from "@/assets/viewData/noListLight.png";
+import stylescommon from "@/pages/common/common.less";
 // import Detail from '../../routes/ItemRealData/itemDetail';
 // import RemindModal from '../../../src/components/RemindModal/RemindModal';
 // import AnnouncementModal from '../../../src/components/AnnouncementModal/AnnouncementModal';

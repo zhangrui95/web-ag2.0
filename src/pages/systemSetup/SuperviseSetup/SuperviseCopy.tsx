@@ -57,10 +57,23 @@ export default class SuperviseCopy extends PureComponent {
 
     componentDidMount() {
         this.getfyJg();
+        this.props.dispatch({
+            type: 'SuperviseSetup/getfyJgd',
+            payload: {
+                jgsx_dm: '',
+                ssjg_dm: this.state.query.fyxzjg.id,
+            },
+            callback: res => {
+                this.setState({
+                    yyjgdList:res.data,
+                });
+                this.getJgd(res.data);
+            }
+        });
+        
     }
-
     // componentWillReceiveProps(next) {
-    //     if (this.state.query.yyjgdList !== next.yyjgdList) {
+    //     if (this.state.yyjgdList !== next.yyjgdList) {
     //         this.setState({
     //             fyjgsxList: [],
     //             selectedKeys: [],
@@ -86,10 +99,10 @@ export default class SuperviseCopy extends PureComponent {
             },
         });
     };
-    getJgd = next => {
+    getJgd = (yyjgdList) => {
         let list = [];
-        next.yyjgdList &&
-        next.yyjgdList.map(event => {
+        yyjgdList &&
+        yyjgdList.map(event => {
             list.push({
                 key: event.id,
                 title: `${event.jgd_mc}(${
@@ -105,7 +118,6 @@ export default class SuperviseCopy extends PureComponent {
         });
     };
     choiceJg = e => {
-        this.getJgd(this.props);
         this.props.form.resetFields(['fyjgsx']);
         this.setState({
             ssjg_dm: e.key,
@@ -126,8 +138,8 @@ export default class SuperviseCopy extends PureComponent {
     choiceJgsx = e => {
         let yyjgd = [];
         let list1 = [];
-        this.state.query.yyjgdList &&
-        this.state.query.yyjgdList.map(event => {
+        this.state.yyjgdList &&
+        this.state.yyjgdList.map(event => {
             yyjgd.push({
                 key: event.id,
                 title: `${event.jgd_mc}(${
@@ -149,10 +161,10 @@ export default class SuperviseCopy extends PureComponent {
                 ssjg_dm: this.state.ssjg_dm,
             },
             callback: res => {
-                let torf = true;
                 res.data.map(event => {
-                    if (this.state.query.yyjgdList.length > 0) {
-                        this.state.query.yyjgdList.map(e => {
+                    let torf = true;
+                    if (this.state.yyjgdList.length > 0) {
+                        this.state.yyjgdList.map(e => {
                             if (e.id === event.id || e.jgd_mc === event.jgd_mc) {
                                 torf = false;
                             }

@@ -76,6 +76,7 @@ const developConfigUrl = {
 const onlineConfigUrl = {
   jzUrl: `${ips.ip}:7200`, // 卷宗子系统
   serverUrl: `${ips.ip}:7700`, // 案管服务
+  weedUrl: `${ips.ip}:9222`, // 上传存储服务
   baqServerUrl: `${ips.ip}:7500`, // 办案区服务地址
   maintainCenterUrl: `${ips.ip}:7400`, // 运维中心地址
   securityCenterUrl: `${ips.ip}:8100`, // 安全中心地址

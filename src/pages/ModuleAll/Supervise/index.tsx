@@ -581,7 +581,7 @@ export default class SuperviseModal extends PureComponent {
             placeholder="请选择问题类型"
             style={{ width: '100%' }}
             onChange={this.chooseWtlx}
-            getPopupContainer={() => document.getElementById('superviseModule')}
+            getPopupContainer={() => document.getElementById('superviseModule'+this.state.record.id)}
           >
             {/*<Option value="">全部</Option>*/}
             {/*<Option value="1">全部1</Option>*/}
@@ -649,7 +649,7 @@ export default class SuperviseModal extends PureComponent {
         allowClear
         onChange={this.handleonChange}
         // getPopupContainer={triggerNode => triggerNode.parentNode}
-        getPopupContainer={() => document.getElementById('superviseModule')}
+        getPopupContainer={() => document.getElementById('superviseModule'+this.state.record.id)}
         className={styles.zrrStyle}
       >
         {zrrTreeNodeTypeOptions}
@@ -720,7 +720,7 @@ export default class SuperviseModal extends PureComponent {
     );
     return (
       <div className={this.props.global && this.props.global.dark ? '' : styles.lightBox}>
-        <Card className={styles.standardTable} id="superviseModule">
+        <Card className={styles.standardTable} id={"superviseModule"+this.state.record.id}>
           <Form className={styles.standardForm}>
             <Row gutter={{ md: 8, lg: 24, xl: 48 }} style={{ marginBottom: '16px' }}>
               {/*<Col md={12} sm={24}>问题类型：{this.props.from && this.props.from === '案件详情问题判定' ? this.selectJudge():this.props.wtlx}</Col>*/}

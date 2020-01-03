@@ -1568,7 +1568,7 @@ export default class GeneralQuery extends PureComponent {
                                         pageSize: 8,
                                         current,
                                         showTotal: (total, range) => (
-                                            <div style={{position: 'absolute', left: '5px', color: '#b7b7b7'}}>
+                                            <div style={{color: '#b7b7b7'}}>
                                                 共 {Math.ceil(total / 8)} 页，{total}条数据
                                             </div>
                                         ),

@@ -384,7 +384,6 @@ class RenderTable extends PureComponent {
         },
       },
     ];
-
     const paginationProps = {
       // showSizeChanger: true,
       // showQuickJumper: true,
