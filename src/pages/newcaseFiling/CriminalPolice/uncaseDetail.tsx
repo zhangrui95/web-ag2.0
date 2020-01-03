@@ -595,14 +595,15 @@ export default class uncaseDetail extends PureComponent {
     return (
       <div style={{ backgroundColor: dark ? '#252C3C' : '#fff', margin: '16px 0' }}>
         <Row gutter={{ md: 8, lg: 24, xl: 48 }}>
-          <Col md={8} sm={24}>
+          {/*<Col md={8} sm={24}>*/}
             {/*<span style={{ margin: '16px', display: 'block' }}>刑事案件详情</span>*/}
-          </Col>
-          <Col>
-            <span style={{ float: 'right', margin: '12px 16px 12px 0' }}>
+          {/*</Col>*/}
+          <Col style={{minHeight:0}}>
+            <span>
               {unCaseDetailData.zt === '待督办' && isDb ? (
                 <Button
                   className={styles.TopMenu}
+                  style={{margin:'12px 0 12px 16px'}}
                   loading={this.state.loading1}
                   onClick={() => this.onceSupervise(true, unCaseDetailData)}
                 >
@@ -617,6 +618,7 @@ export default class uncaseDetail extends PureComponent {
               isDb ? (
                 <Button
                   className={styles.TopMenu}
+                  style={{margin:'12px 0 12px 16px'}}
                   loading={this.state.feedbackButtonLoading}
                   onClick={() => this.feedback(true, unCaseDetailData)}
                 >
@@ -626,7 +628,7 @@ export default class uncaseDetail extends PureComponent {
               {this.props.isDd && this.props.record && this.props.record.is_sqdd === '0' ? (
                 <Button
                   type="primary"
-                  style={{ marginLeft: 8 }}
+                  style={{margin:'12px 0 12px 16px'}}
                   onClick={() => this.props.saveDispatch(this.props.record)}
                 >
                   调度

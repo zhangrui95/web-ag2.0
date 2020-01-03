@@ -405,11 +405,12 @@ export default class caseDetail extends PureComponent {
           {/*<Col md={8} sm={24}>*/}
           {/*  <span style={{ margin: '16px', display: 'block' }}>行政案件详情</span>*/}
           {/*</Col>*/}
-          <Col>
-            <span style={{ float: 'right', margin: '12px 16px 12px 0' }}>
+          <Col style={{minHeight:0}}>
+            <span>
               {caseDetails && caseDetails.zt === '待督办' && isDb ? (
                 <Button
                   className={styles.TopMenu}
+                  style={{margin:'12px 0 12px 16px'}}
                   loading={this.state.loading1}
                   onClick={() => this.onceSupervise(true, caseDetails)}
                 >
@@ -426,6 +427,7 @@ export default class caseDetail extends PureComponent {
               isDb ? (
                 <Button
                   className={styles.TopMenu}
+                  style={{margin:'12px 0 12px 16px'}}
                   loading={this.state.feedbackButtonLoading}
                   onClick={() => this.feedback(true, caseDetails)}
                 >
@@ -435,7 +437,7 @@ export default class caseDetail extends PureComponent {
               {this.props.isDd && this.props.record && this.props.record.is_sqdd === '0' ? (
                 <Button
                   type="primary"
-                  style={{ marginLeft: 8 }}
+                  style={{margin:'12px 0 12px 16px'}}
                   onClick={() => this.props.saveDispatch(this.props.record)}
                 >
                   调度

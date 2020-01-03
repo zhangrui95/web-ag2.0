@@ -481,7 +481,7 @@ export default class areaDetail extends PureComponent {
           {/*''*/}
           {/*)}*/}
           {/*</Col>*/}
-          <Col>
+          <Col style={{minHeight:0}}>
             <span>
               {areaDetails ? (
                 <span>
@@ -505,7 +505,7 @@ export default class areaDetail extends PureComponent {
                   ) : (
                     ''
                   )}
-                  <span style={{ float: 'right', margin: '12px 16px 12px 0' }}>
+                  <span style={{ float: 'right', margin: '6px 16px 6px 0' }}>
                     <span className={liststyles.collect}>
                       {handleAreaSfgz === 0 ? (
                         <Tooltip title="关注">

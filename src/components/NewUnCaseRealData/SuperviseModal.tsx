@@ -22,6 +22,7 @@ import {
 import {routerRedux} from 'dva/router';
 import {getSysAuthority} from '../../utils/authority';
 import styles from './SuperviseModal.less';
+import Ellipsis from 'ant-design-pro/lib/Ellipsis';
 // import Ellipsis from '../../components/Ellipsis';
 
 const TreeNode = TreeSelect.TreeNode;
@@ -224,8 +225,8 @@ export default class SuperviseModal extends PureComponent {
         let wjxx = [];
         for (let i in fileList) {
             const obj = {
-                wj_name: fileList[i].name,
-                wj_url: fileList[i].url,
+                wj_name: fileList[i].fileName,
+                wj_url: fileList[i].fileUrl,
             };
             wjxx.push(obj);
         }
@@ -368,12 +369,12 @@ export default class SuperviseModal extends PureComponent {
             return file;
         });
         // 3. Filter successfully uploaded files according to response from server
-        fileList = fileList.filter((file) => {
-            if (file.response) {
-                return file.response.error === null;
-            }
-            return true;
-        });
+        // fileList = fileList.filter((file) => {
+        //     if (file.response) {
+        //         return file.response.error === null;
+        //     }
+        //     return true;
+        // });
         this.setState({fileList});
     };
 // 点击文件查看

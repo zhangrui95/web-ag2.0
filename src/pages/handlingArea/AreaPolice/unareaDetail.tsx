@@ -457,12 +457,12 @@ export default class unareaDetail extends PureComponent {
           {/*<Col md={8} sm={24}>*/}
           {/*<span style={{ margin: '16px', display: 'block' }}>人员在区详情</span>*/}
           {/*</Col>*/}
-          <Col>
-            <span style={{ float: 'right', margin: '0 16px 12px 0' }}>
+          <Col style={{minHeight:0}}>
+            <div>
               {UnareaDetail?
                 <Button
                   type="primary"
-                  style={{ marginLeft: 8 }}
+                  style={{margin:'12px 0 12px 16px'}}
                   className={styles.TopMenu}
                   onClick={() => this.Ledger(UnareaDetail)}
                 >
@@ -474,7 +474,7 @@ export default class unareaDetail extends PureComponent {
               {UnareaDetail && UnareaDetail.zt === '待督办' && isDb ? (
                 <Button
                   type="primary"
-                  style={{ marginLeft: 8 }}
+                  style={{margin:'12px 0 12px 16px'}}
                   className={styles.TopMenu}
                   loading={this.state.loading1}
                   onClick={() => this.onceSupervise(true, UnareaDetail)}
@@ -492,7 +492,7 @@ export default class unareaDetail extends PureComponent {
               isDb ? (
                 <Button
                   type="primary"
-                  style={{ marginLeft: 8 }}
+                  style={{margin:'12px 0 12px 16px'}}
                   className={styles.TopMenu}
                   loading={this.state.feedbackButtonLoading}
                   onClick={() => this.feedback(true, UnareaDetail)}
@@ -500,7 +500,7 @@ export default class unareaDetail extends PureComponent {
                   反馈
                 </Button>
               ) : null}
-            </span>
+            </div>
           </Col>
         </Row>
       </div>

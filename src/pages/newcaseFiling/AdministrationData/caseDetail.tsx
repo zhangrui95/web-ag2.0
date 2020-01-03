@@ -407,7 +407,7 @@ export default class caseDetail extends PureComponent {
     return (
       <div style={{ backgroundColor: dark ? '#252C3C' : '#fff', margin: '16px 0' }}>
         <Row gutter={{ md: 8, lg: 24, xl: 48 }}>
-          <Col md={8} sm={24}>
+          <Col md={8} sm={24} style={{minHeight:0}}>
             {/*<span style={{ margin: '16px', display: 'block' }}>行政案件详情</span>*/}
             {isDb &&
             caseDetails &&
@@ -416,6 +416,7 @@ export default class caseDetail extends PureComponent {
             caseDetails.ssmk === '2' ? (
               <Button
                 className={styles.TopMenu}
+                style={{margin:'12px 0 12px 16px'}}
                 loading={this.state.loading1}
                 onClick={() => this.onceSupervise(caseDetails, true, '行政案件详情问题判定')}
               >
@@ -425,6 +426,7 @@ export default class caseDetail extends PureComponent {
             {isZb ? (
               <Button
                 className={styles.TopMenu}
+                style={{margin:'12px 0 12px 16px'}}
                 onClick={() => this.makeTable(caseDetails, true)}
               >
                 制表
@@ -436,11 +438,11 @@ export default class caseDetail extends PureComponent {
             {/*)*/}
             {/*}*/}
           </Col>
-          <Col>
-            <span style={{ float: 'right', margin: '6px 16px 6px 0' }}>
+          <Col style={{minHeight:0}}>
+            <span style={{ float: 'right'}}>
               {caseDetails ? (
                 <span>
-                  <span className={liststyles.collect}>
+                  <span className={liststyles.collect} style={{ margin: '6px 16px 6px 0' }}>
                     {handleXzCaseSfgz === 0 ? (
                       <Tooltip title="关注">
                         <img
@@ -468,6 +470,7 @@ export default class caseDetail extends PureComponent {
                   <span
                     className={liststyles.collect}
                     onClick={() => this.saveShare(caseDetails, record, 2)}
+                    style={{ margin: '6px 16px 6px 0' }}
                   >
                     <Tooltip title="分享">
                       <img src={dark ? share : share1} width={25} height={25} />

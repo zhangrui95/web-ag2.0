@@ -366,12 +366,13 @@ export default class unitemDetail extends PureComponent {
           {/*<Col md={8} sm={24}>*/}
           {/*<span style={{ margin: '16px', display: 'block' }}>涉案物品详情</span>*/}
           {/*</Col>*/}
-          <Col>
-            <span style={{ float: 'right', margin: '12px 16px 12px 0' }}>
+          <Col style={{minHeight:0}}>
+            <span>
               {UnitemDetail && UnitemDetail.zt === '待督办' && isDb ? (
                 <Button
                   type="primary"
-                  style={{ marginLeft: 8 }}
+                  style={{margin:'12px 0 12px 16px'}}
+                  className={styles.TopMenu}
                   loading={this.state.loading1}
                   onClick={() => this.onceSupervise(true, UnitemDetail)}
                 >
@@ -388,7 +389,8 @@ export default class unitemDetail extends PureComponent {
               isDb ? (
                 <Button
                   type="primary"
-                  style={{ marginLeft: 8 }}
+                  style={{margin:'12px 0 12px 16px'}}
+                  className={styles.TopMenu}
                   loading={this.state.feedbackButtonLoading}
                   onClick={() => this.feedback(true, UnitemDetail)}
                 >
