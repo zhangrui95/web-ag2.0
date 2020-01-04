@@ -924,13 +924,13 @@ export default class AdministrativeCaseDocDetail extends PureComponent {
                                 <Row gutter={{md: 8, lg: 24, xl: 48}}>
                                     <Col md={8} sm={24}>
                                         <div className={liststyles.Indexfrom}>案件编号：</div>
-                                        <div className={liststyles.Indextail} style={{paddingLeft: 70}}>
+                                        <div className={liststyles.Indextail}>
                                             {caseDetails && caseDetails.ajbh ? caseDetails.ajbh : ''}
                                         </div>
                                     </Col>
                                     <Col md={8} sm={24}>
                                         <div className={liststyles.Indexfrom}>案件名称：</div>
-                                        <div className={liststyles.Indextail} style={{paddingLeft: 70}}>
+                                        <div className={liststyles.Indextail}>
                                             {caseDetails && caseDetails.ajmc ? caseDetails.ajmc : ''}
                                         </div>
                                     </Col>
@@ -944,13 +944,13 @@ export default class AdministrativeCaseDocDetail extends PureComponent {
                                 <Row gutter={{md: 8, lg: 24, xl: 48}}>
                                     <Col md={8} sm={24}>
                                         <div className={liststyles.Indexfrom}>案发时段：</div>
-                                        <div className={liststyles.Indextail} style={{paddingLeft: 70}}>
+                                        <div className={liststyles.Indextail}>
                                             {caseDetails && caseDetails.fasj_sx && caseDetails.fasj_xx ? caseDetails.fasj_sx + '~' + caseDetails.fasj_xx : ''}
                                         </div>
                                     </Col>
                                     <Col md={8} sm={24}>
                                         <div className={liststyles.Indexfrom}>案发地点：</div>
-                                        <div className={liststyles.Indextail} style={{paddingLeft: 70}}>
+                                        <div className={liststyles.Indextail}>
                                             {caseDetails && caseDetails.fadxz ? caseDetails.fadxz : ''}
                                         </div>
                                     </Col>
@@ -959,7 +959,7 @@ export default class AdministrativeCaseDocDetail extends PureComponent {
                                 <Row gutter={{md: 8, lg: 24, xl: 48}}>
                                     <Col md={24} sm={24}>
                                         <div className={liststyles.Indexfrom}>简要案情：</div>
-                                        <DetailShow paddingLeft={70} word={caseDetails && caseDetails.ajjj ? caseDetails.ajjj : ''} {...this.props}/>
+                                        <DetailShow word={caseDetails && caseDetails.ajjj ? caseDetails.ajjj : ''} {...this.props}/>
                                     </Col>
                                 </Row>
 

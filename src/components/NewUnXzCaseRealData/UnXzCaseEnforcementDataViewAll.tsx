@@ -228,7 +228,7 @@ export default class UnXzCaseDataView extends PureComponent {
                 },
                 itemStyle: {
                     normal: {
-                        borderColor: '#fff',
+                        borderColor: this.props.global && this.props.global.dark ? '#fff' : '#00B8CC',
                         borderWidth: 1,
                     },
                 },
