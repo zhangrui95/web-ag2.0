@@ -131,9 +131,8 @@ export default class Index extends PureComponent {
     }
 
     componentWillReceiveProps(nextProps) {
-        if (nextProps && nextProps.history.location.query.isReset && nextProps.history.location.pathname === '/receivePolice/AlarmData') {
+        if (this.props.global.isResetList.isReset !== nextProps.global.isResetList.isReset && nextProps.global.isResetList.url ===  '/receivePolice/AlarmData') {
             this.handleFormReset();
-            this.props.history.replace(nextProps.history.location.pathname);
         }
     }
 

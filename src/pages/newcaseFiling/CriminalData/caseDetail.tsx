@@ -146,19 +146,8 @@ export default class caseDetail extends PureComponent {
     //   }
     // }
 
-    if (
-      nextProps &&
-      nextProps.history.location.query.isReset &&
-      nextProps.history.location.pathname === '/newcaseFiling/caseData/CriminalData/caseDetail'
-    ) {
+    if (this.props.global.isResetList.isReset !== nextProps.global.isResetList.isReset && nextProps.global.isResetList.url === '/newcaseFiling/caseData/CriminalData/caseDetail') {
       this.caseDetailDatas(this.props.location.query.id);
-      this.props.history.replace(
-        nextProps.history.location.pathname +
-          '?id=' +
-          nextProps.location.query.id +
-          '&record=' +
-          nextProps.location.query.record,
-      );
     }
   }
 

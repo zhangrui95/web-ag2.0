@@ -123,10 +123,8 @@ export default class unareaDetail extends PureComponent {
   }
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.history.location.query.isReset && nextProps.history.location.pathname === '/handlingArea/AreaPolice/UnareaDetail') {
+      if (this.props.global.isResetList.isReset !== nextProps.global.isResetList.isReset && nextProps.global.isResetList.url ===  '/handlingArea/AreaPolice/UnareaDetail') {
       this.getDetail(nextProps.location.query.record.id, nextProps.location.query.record.baq_id);
-      this.props.history.replace(nextProps.history.location.pathname+ '?id=' + nextProps.location.query.id + '&record=' + nextProps.location.query.record);
-      // this.props.history.replace(nextProps.history.location.pathname + '?id=' + nextProps.location.query.id + '&record=' + nextProps.location.query.record,);
     }
   }
 
