@@ -103,7 +103,7 @@ export default class DossierDataView extends PureComponent {
                         this.getDossierCRKCount(selectedDateVal[0], selectedDateVal[1], '3', nextProps.orgcode);
                         this.showCaseZKNumpie(selectedDateVal[0], selectedDateVal[1], nextProps.orgcode);
                         this.getDossierDZHQKShow(selectedDateVal[0], selectedDateVal[1], nextProps.orgcode);
-                        this.showCaseJzqspie('selectedDate', selectedDateVal[0], selectedDateVal[1], nextProps.orgcode);
+                        this.showCaseJzqspie('selectedDate', nextProps.orgcode, selectedDateVal[0], selectedDateVal[1]);
                     });
                 }
 
