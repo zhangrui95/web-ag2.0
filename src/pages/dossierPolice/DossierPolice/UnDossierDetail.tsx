@@ -391,6 +391,7 @@ export default class DossierDetail extends PureComponent {
             <span>
               {DossierDetailData && DossierDetailData.zt === '待督办' && isDb ? (
                 <Button
+                  type='primary'
                   className={styles.TopMenu}
                   style={{margin:'12px 0 12px 16px'}}
                   loading={this.state.loading1}
@@ -408,6 +409,7 @@ export default class DossierDetail extends PureComponent {
                   DossierDetailData.dbList[DossierDetailData.dbList.length - 1].fkzt !== '1')) &&
               isDb ? (
                 <Button
+                  type='primary'
                   className={styles.TopMenu}
                   style={{margin:'12px 0 12px 16px'}}
                   loading={this.state.feedbackButtonLoading}

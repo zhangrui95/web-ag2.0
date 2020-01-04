@@ -416,6 +416,7 @@ export default class caseDetail extends PureComponent {
               caseDetails.zrdwList.length > 0 &&
               caseDetails.ssmk === '2' ? (
                 <Button
+                  type='primary'
                   className={styles.TopMenu}
                   style={{margin:'12px 0 12px 16px'}}
                   loading={this.state.loading1}
@@ -426,6 +427,7 @@ export default class caseDetail extends PureComponent {
               ) : null}
               {isZb ? (
                 <Button
+                  type='primary'
                   className={styles.TopMenu}
                   style={{margin:'12px 0 12px 16px'}}
                   onClick={() => this.makeTable(caseDetails, true)}

@@ -602,6 +602,7 @@ export default class uncaseDetail extends PureComponent {
             <span>
               {unCaseDetailData.zt === '待督办' && isDb ? (
                 <Button
+                  type='primary'
                   className={styles.TopMenu}
                   style={{margin:'12px 0 12px 16px'}}
                   loading={this.state.loading1}
@@ -617,6 +618,7 @@ export default class uncaseDetail extends PureComponent {
                   unCaseDetailData.dbList[unCaseDetailData.dbList.length - 1].fkzt !== '1')) &&
               isDb ? (
                 <Button
+                  type='primary'
                   className={styles.TopMenu}
                   style={{margin:'12px 0 12px 16px'}}
                   loading={this.state.feedbackButtonLoading}
@@ -628,6 +630,7 @@ export default class uncaseDetail extends PureComponent {
               {this.props.isDd && this.props.record && this.props.record.is_sqdd === '0' ? (
                 <Button
                   type="primary"
+                  className={styles.TopMenu}
                   style={{margin:'12px 0 12px 16px'}}
                   onClick={() => this.props.saveDispatch(this.props.record)}
                 >
