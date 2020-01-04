@@ -117,6 +117,20 @@ export default class Index extends PureComponent {
         this.getDepTree(getUserInfos().department);
     }
 
+    componentWillReceiveProps(nextProps) {
+      if (nextProps && nextProps.history.location.query.isReset && nextProps.history.location.pathname === '/articlesInvolved/ArticlesData') {
+        const params = {
+          currentPage: 1,
+          showCount: tableList,
+          pd: {
+            ...this.state.formValues,
+          },
+        };
+        this.getItem(params);
+        this.props.history.replace(nextProps.history.location.pathname);
+      }
+    }
+
     onChange = activeKey => {
         this.setState({
             activeKey,

@@ -114,7 +114,15 @@ export default class Index extends PureComponent {
 
     componentWillReceiveProps(nextProps) {
         if (nextProps && nextProps.history.location.query.isReset && nextProps.history.location.pathname === '/handlingArea/AreaData') {
-            this.handleFormReset();
+            // this.handleFormReset();
+            const params = {
+              currentPage: 1,
+              showCount: tableList,
+              pd: {
+                ...this.state.formValues,
+              },
+            };
+            this.getArea(params);
             this.props.history.replace(nextProps.history.location.pathname);
         }
     }
@@ -657,7 +665,7 @@ export default class Index extends PureComponent {
             <Button
                 style={{marginLeft: 8}}
                 type="primary"
-                onClick={() => this.props.handleSearch(0)}
+                htmlType="submit"
             >
               查询
             </Button>

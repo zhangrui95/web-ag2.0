@@ -124,7 +124,15 @@ export default class Index extends PureComponent {
       nextProps.history.location.query.isReset &&
       nextProps.history.location.pathname === '/dossierPolice/DossierPolice'
     ) {
-      this.getAllList(nextProps);
+      const params = {
+        currentPage: 1,
+        showCount: tableList,
+        pd: {
+          ...this.state.formValues,
+        },
+      };
+      this.getDossier(params);
+      // this.getAllList(nextProps);
       this.props.history.replace(nextProps.history.location.pathname);
     }
   }

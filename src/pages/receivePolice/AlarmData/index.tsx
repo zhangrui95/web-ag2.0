@@ -132,7 +132,14 @@ export default class Index extends PureComponent {
 
     componentWillReceiveProps(nextProps) {
         if (nextProps && nextProps.history.location.query.isReset && nextProps.history.location.pathname === '/receivePolice/AlarmData') {
-            this.handleFormReset();
+            const params = {
+              currentPage: 1,
+              showCount: tableList,
+              pd: {
+                ...this.state.formValues,
+              },
+            };
+            this.getPolice(params);
             this.props.history.replace(nextProps.history.location.pathname);
         }
     }
