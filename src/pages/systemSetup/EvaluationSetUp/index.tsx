@@ -48,12 +48,11 @@ export default class PoliceClear extends PureComponent {
     }
 
     componentWillReceiveProps(nextProps) {
-        if (nextProps.history.location.query.isReset && nextProps.history.location.pathname === '/systemSetup/EvaluationSetup') {
+        if (this.props.global.isResetList.isReset !== nextProps.global.isResetList.isReset && nextProps.global.isResetList.url === '/systemSetup/EvaluationSetup') {
             this.setState({
                 loading: true,
             });
             this.getList(this.state.tab);
-            this.props.history.replace(nextProps.history.location.pathname);
         }
     }
 

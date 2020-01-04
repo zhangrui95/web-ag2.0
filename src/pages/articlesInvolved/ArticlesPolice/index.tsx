@@ -133,9 +133,11 @@ export default class Index extends PureComponent {
     }
 
     componentWillReceiveProps(nextProps) {
-        if (nextProps.history.location.query.isReset && nextProps.history.location.pathname === '/articlesInvolved/ArticlesPolice') {
+        if (this.props.global.isResetList.isReset !== nextProps.global.isResetList.isReset && nextProps.global.isResetList.url === '/articlesInvolved/ArticlesPolice') {
             this.getAllList(nextProps.history);
-            this.props.history.replace(nextProps.history.location.pathname);
+            this.setState({
+                searchHeight:true,
+            });
         }
     }
 

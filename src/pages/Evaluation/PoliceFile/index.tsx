@@ -24,9 +24,10 @@ let srcName9 = ['mjZfJcQkDjb', '民警执法奖惩情况登记表'];
 let srcName10 = ['btsZfxwDjb', '被投诉执法行为登记表（包括行政复议、诉讼、国家赔偿案件、信访案件）'];
 let srcName11 = ['zfJcQkJlMj', '执法检查情况记录'];
 let srcName12 = ['ygBmJdWs', '有关部门下发的执法监督文书登记表'];
-@connect(({common, TzList}) => ({
+@connect(({common, TzList,global}) => ({
     common,
     TzList,
+    global
 }))
 @Form.create()
 export default class PoliceArchives extends PureComponent {
@@ -47,13 +48,10 @@ export default class PoliceArchives extends PureComponent {
     }
 
     componentWillReceiveProps(nextProps) {
-        if (nextProps.history && nextProps.history.location && nextProps.history.location.query && nextProps.history.location.query.isReset) {
-            if (nextProps.history.location.pathname === '/Evaluation/File/PoliceFile') {
-                this.setState({
-                    selectedRowsId: nextProps.history.location.query.selectedRowsId,
-                });
-                this.props.history.replace(nextProps.history.location.pathname);
-            }
+        if (this.props.global.isResetList.isReset !== nextProps.global.isResetList.isReset && nextProps.global.isResetList.url === this.state.url) {
+            this.setState({
+                selectedRowsId: nextProps.history.location.query.selectedRowsId,
+            });
         }
     }
 

@@ -24,9 +24,10 @@ let srcName9 = ['xzFySsGjPcAjTjb', '行政复议、诉讼、国家赔偿案件�
 let srcName10 = ['xfTsAjDjb', '信访投诉案件登记表'];
 let srcName11 = ['zfJcQkJl', '单位执法检查情况记录'];
 let srcName12 = ['ygBmJdWs', '有关部门下发的执法监督文书登记表'];
-@connect(({common, TzList}) => ({
+@connect(({common, TzList,global}) => ({
     common,
     TzList,
+    global
 }))
 @Form.create()
 export default class UnitArchives extends PureComponent {
@@ -48,13 +49,10 @@ export default class UnitArchives extends PureComponent {
     }
 
     componentWillReceiveProps(nextProps) {
-        if (nextProps.history && nextProps.history.location && nextProps.history.location.query && nextProps.history.location.query.isReset) {
-            if (nextProps.history.location.pathname === '/Evaluation/File/CompanyFile') {
-                this.setState({
-                    selectedRowsId: nextProps.history.location.query.selectedRowsId,
-                });
-                this.props.history.replace(nextProps.history.location.pathname);
-            }
+        if (this.props.global.isResetList.isReset !== nextProps.global.isResetList.isReset && nextProps.global.isResetList.url === '/Evaluation/File/CompanyFile') {
+            this.setState({
+                selectedRowsId: nextProps.history.location.query.selectedRowsId,
+            });
         }
     }
 

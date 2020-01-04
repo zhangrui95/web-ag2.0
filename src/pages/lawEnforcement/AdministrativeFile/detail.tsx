@@ -985,7 +985,7 @@ export default class AdministrativeCaseDocDetail extends PureComponent {
 
                                 {caseDetails && caseDetails.ajzt ?
                                     <div className={styles.ajlxBg}>
-                                        <Card title={'| 案件流程'} style={{width: '100%',marginTop:20}}>
+                                        <Card title={'案件流程'} style={{width: '100%',marginTop:20}}>
                                             {/*{this.ajlc(caseDetails,superveWidth)}*/}
                                             <CaseModalStep
                                                 caseDetails={caseDetails}

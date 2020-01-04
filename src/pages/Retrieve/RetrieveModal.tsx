@@ -74,11 +74,17 @@ class RetrieveModal extends PureComponent {
         // 删除当前tab并且将路由跳转至前一个tab的path
         const {dispatch} = this.props;
         if (dispatch) {
-            let query = isReset ? (this.props.location.query.isDetail ? {
-                isReset,
-                id: this.props.location.query.id
-            } : {isReset}) : (this.props.location.query.isDetail ? {id: this.props.location.query.id} : {});
+            let query = this.props.location.query.isDetail ? {id: this.props.location.query.id} : {};
             dispatch(routerRedux.push({pathname: RetrieveRecord.url, query: query}));
+            if(isReset){
+                dispatch({
+                    type: 'global/changeResetList',
+                    payload: {
+                        isReset: !this.props.global.isResetList.isReset,
+                        url:RetrieveRecord.url
+                    },
+                });
+            }
             dispatch({
                 type: 'global/changeSessonNavigation',
                 payload: {

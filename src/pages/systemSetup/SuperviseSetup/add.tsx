@@ -785,8 +785,17 @@ class Detail extends Component {
         if (dispatch) {
             dispatch(routerRedux.push({
                 pathname: '/systemSetup/SuperviseSetup',
-                query: isReset ? {isReset, type: '0'} : {}
+                query: isReset ? {type: '0'} : {}
             }));
+            if(isReset){
+                dispatch({
+                    type: 'global/changeResetList',
+                    payload: {
+                        isReset: !this.props.SuperviseSetup.global.isResetList.isReset,
+                        url:'/systemSetup/SuperviseSetup'
+                    },
+                });
+            }
             dispatch({
                 type: 'global/changeSessonNavigation',
                 payload: {

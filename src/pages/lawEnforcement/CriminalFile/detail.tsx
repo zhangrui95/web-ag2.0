@@ -107,11 +107,8 @@ export default class CriminalCaseDocDetail extends PureComponent {
     }
 
     componentWillReceiveProps(nextProps) {
-        if (nextProps.history.location.query.isReset && nextProps.history.location.pathname === '/lawEnforcement/File/CriminalFile/Detail') {
-            if (nextProps.history.location.pathname === this.state.path) {
+        if (this.props.global.isResetList.isReset !== nextProps.global.isResetList.isReset && nextProps.global.isResetList.url ===  '/lawEnforcement/File/CriminalFile/Detail') {
                 this.refreshCaseDetail();
-                this.props.history.replace(`${nextProps.history.location.pathname}?id=${nextProps.history.location.query.id}&record=${nextProps.history.location.query.record}`);
-            }
         }
         // if (this.props.location.pathname !== nextProps.pathname && this.state.link) {
         //     this.props.history.replace(`${this.props.location.pathname}?id=${this.state.res.ajbh}&record=${this.state.res}/${this.state.link}`);
