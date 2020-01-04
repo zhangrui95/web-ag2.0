@@ -146,17 +146,16 @@ export default class Index extends PureComponent {
     }
 
     componentWillReceiveProps(nextProps) {
-        if (nextProps && nextProps.history.location.query.isReset && nextProps.history.location.pathname === '/receivePolice/AlarmPolice') {
+        if (this.props.global.isResetList.isReset !== nextProps.global.isResetList.isReset && nextProps.global.isResetList.url === '/receivePolice/AlarmPolice') {
             // this.handleFormReset();
-            const params = {
-              currentPage: 1,
-              showCount: tableList,
-              pd: {
-                ...this.state.formValues,
-              },
-            };
-            this.getPolice(params);
-            this.props.history.replace(nextProps.history.location.pathname);
+          const params = {
+            currentPage: 1,
+            showCount: tableList,
+            pd: {
+              ...this.state.formValues,
+            },
+          };
+          this.getPolice(params);
         }
     }
 
@@ -387,16 +386,15 @@ export default class Index extends PureComponent {
     };
     // 重置
     handleFormReset = () => {
+        this.props.form.resetFields();
         this.setState({
             formValues: {
                 dbzt: '00',
             },
             sfsa: '',
-            dbzt: '00',
             allPolice: [],
             cjrPolice: [],
         });
-        this.props.form.resetFields();
         this.getPolice();
     };
     // 导出

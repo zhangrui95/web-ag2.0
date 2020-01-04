@@ -172,7 +172,7 @@ export default class Index extends PureComponent {
     }
 
     componentWillReceiveProps(nextProps) {
-        if (nextProps.history.location.query.isReset && nextProps.history.location.pathname === '/handlingArea/AreaPolice') {
+        if (this.props.global.isResetList.isReset !== nextProps.global.isResetList.isReset && nextProps.global.isResetList.url === '/handlingArea/AreaPolice') {
             // this.getAllList(nextProps.history);
             const params = {
               currentPage: 1,
@@ -182,7 +182,9 @@ export default class Index extends PureComponent {
               },
             };
             this.getUnArea(params);
-            this.props.history.replace(nextProps.history.location.pathname);
+            this.setState({
+                searchHeight:true,
+            });
         }
     }
 

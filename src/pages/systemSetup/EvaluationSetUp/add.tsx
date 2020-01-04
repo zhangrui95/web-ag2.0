@@ -62,7 +62,16 @@ export default class Add extends PureComponent {
         // 删除当前tab并且将路由跳转至前一个tab的path
         const {dispatch} = this.props;
         if (dispatch) {
-            dispatch(routerRedux.push({pathname: '/systemSetup/EvaluationSetup', query: isReset ? {isReset} : {}}));
+            dispatch(routerRedux.push({pathname: '/systemSetup/EvaluationSetup'}));
+            if(isReset){
+                dispatch({
+                    type: 'global/changeResetList',
+                    payload: {
+                        isReset: !this.props.global.isResetList.isReset,
+                        url:'/systemSetup/EvaluationSetup'
+                    },
+                });
+            }
             dispatch({
                 type: 'global/changeSessonNavigation',
                 payload: {

@@ -129,10 +129,8 @@ export default class caseDetail extends PureComponent {
   }
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.history.location.query.isReset && nextProps.history.location.pathname === '/newcaseFiling/casePolice/AdministrationPolice/uncaseDetail') {
+      if (this.props.global.isResetList.isReset !== nextProps.global.isResetList.isReset && nextProps.global.isResetList.url ===  '/newcaseFiling/casePolice/AdministrationPolice/uncaseDetail') {
       this.caseDetailDatas(nextProps.location.query.record.id, nextProps.location.query.record.system_id);
-      this.props.history.replace(nextProps.history.location.pathname+ '?id=' + nextProps.location.query.id + '&record=' + nextProps.location.query.record);
-      // this.props.history.replace(nextProps.history.location.pathname + '?id=' + nextProps.location.query.id + '&record=' + nextProps.location.query.record,);
     }
   }
   //修改改变模态框状态 通过id 获取数据

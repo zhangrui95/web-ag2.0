@@ -112,7 +112,7 @@ export default class Index extends PureComponent {
     }
 
     componentWillReceiveProps(nextProps) {
-        if (nextProps.history.location.query.isReset && nextProps.history.location.pathname === '/Evaluation/CaseEvaluation') {
+        if (this.props.global.isResetList.isReset !== nextProps.global.isResetList.isReset && nextProps.global.isResetList.url === '/Evaluation/CaseEvaluation') {
             const params = {
                 pd: {
                     tbtz: '0',
@@ -121,7 +121,6 @@ export default class Index extends PureComponent {
                 showCount: 10,
             };
             this.getList(params);
-            this.props.history.replace(nextProps.history.location.pathname);
         }
     }
 
@@ -380,22 +379,30 @@ export default class Index extends PureComponent {
         let kprq_js = this.state.kprqTb && this.state.kprqTb.length > 0 ? this.state.kprqTb[1].format('YYYY-MM-DD') : '';
         if (params) {
             if (params.typeGj) {
+                let pathname =  params.typeGj === '0' ? '/newcaseFiling/casePolice/AdministrationPolice' :
+                    params.typeGj === '1' ? '/newcaseFiling/casePolice/CriminalPolice' :
+                        params.typeGj === '2' ? '/articlesInvolved/ArticlesPolice' :
+                            params.typeGj === '3' ? '/handlingArea/AreaPolice' :
+                                params.typeGj === '4' ? '/dossierPolice/DossierPolice' : ''
                 this.props.dispatch(routerRedux.push({
-                    pathname:
-                        params.typeGj === '0' ? '/newcaseFiling/casePolice/AdministrationPolice' :
-                            params.typeGj === '1' ? '/newcaseFiling/casePolice/CriminalPolice' :
-                                params.typeGj === '2' ? '/articlesInvolved/ArticlesPolice' :
-                                    params.typeGj === '3' ? '/handlingArea/AreaPolice' :
-                                        params.typeGj === '4' ? '/dossierPolice/DossierPolice' : ''
-                    , state: {
+                    pathname:pathname,
+                    state: {
                         code: idx === '0' ? params.code : (params.bkpr_dwdm ? params.bkpr_dwdm : ''),
                         kssj: kprq_ks,
                         jssj: kprq_js,
                         dbzt: '',
                         bar_name: idx === '2' ? params.bkpr_name : '',
                         is_tz: '2',
-                    }, query: {isReset: true}
+                    },
+                    // query: {isReset: true}
                 }));
+                this.props.dispatch({
+                    type: 'global/changeResetList',
+                    payload: {
+                        isReset: !this.props.global.isResetList.isReset,
+                        url:pathname
+                    },
+                });
             } else {
                 this.setState({
                     showDataView: false,

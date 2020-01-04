@@ -115,10 +115,8 @@ export default class uncaseDetail extends PureComponent {
     }
   }
   componentWillReceiveProps(nextProps) {
-    if (nextProps.history.location.query.isReset && nextProps.history.location.pathname === '/newcaseFiling/casePolice/CriminalPolice/uncaseDetail') {
+     if (this.props.global.isResetList.isReset !== nextProps.global.isResetList.isReset && nextProps.global.isResetList.url === '/newcaseFiling/casePolice/CriminalPolice/uncaseDetail') {
       this.caseDetailDatas(nextProps.location.query.record.id, nextProps.location.query.record.system_id);
-      this.props.history.replace(nextProps.history.location.pathname+ '?id=' + nextProps.location.query.id + '&record=' + nextProps.location.query.record);
-      // this.props.history.replace(nextProps.history.location.pathname + '?id=' + nextProps.location.query.id + '&record=' + nextProps.location.query.record,);
     }
   }
 

@@ -91,9 +91,8 @@ class SuperviseSetup extends Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        if (nextProps.history.location.query.isReset && nextProps.history.location.pathname === '/systemSetup/SuperviseSetup') {
+        if (this.props.SuperviseSetup.global.isResetList.isReset !== nextProps.SuperviseSetup.global.isResetList.isReset && nextProps.SuperviseSetup.global.isResetList.url ===  '/systemSetup/SuperviseSetup') {
             this.getJgdList(this.state.pd, nextProps.history.location.query.type === '0' ? 1 : this.state.current);
-            this.props.history.replace(nextProps.history.location.pathname);
         }
     }
 

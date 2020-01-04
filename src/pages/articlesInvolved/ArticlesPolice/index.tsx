@@ -133,8 +133,7 @@ export default class Index extends PureComponent {
     }
 
     componentWillReceiveProps(nextProps) {
-        if (nextProps.history.location.query.isReset && nextProps.history.location.pathname === '/articlesInvolved/ArticlesPolice') {
-            // this.getAllList(nextProps.history);
+        if (this.props.global.isResetList.isReset !== nextProps.global.isResetList.isReset && nextProps.global.isResetList.url === '/articlesInvolved/ArticlesPolice') {
             const params = {
               currentPage: 1,
               showCount: tableList,
@@ -143,7 +142,10 @@ export default class Index extends PureComponent {
               },
             };
             this.getItem(params);
-            this.props.history.replace(nextProps.history.location.pathname);
+            // this.getAllList(nextProps.history);
+            this.setState({
+                searchHeight:true,
+            });
         }
     }
 

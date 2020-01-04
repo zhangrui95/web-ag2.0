@@ -318,6 +318,19 @@ class AjSearch extends PureComponent {
         // 删除当前tab并且将路由跳转至前一个tab的path
         const {dispatch} = this.props;
         if (dispatch) {
+            dispatch(routerRedux.push({
+                pathname: this.state.record.url,
+                query: isReset ? {selectedRowsId: selectedRowsId} : {}
+            }));
+            if(isReset){
+                dispatch({
+                    type: 'global/changeResetList',
+                    payload: {
+                        isReset: !this.props.global.isResetList.isReset,
+                        url:this.state.record.url
+                    },
+                });
+            }
             dispatch({
                 type: 'global/changeSessonNavigation',
                 payload: {
@@ -330,12 +343,6 @@ class AjSearch extends PureComponent {
                 payload: {
                     key,
                     isShow: false,
-                },
-                callback: (data: NavigationItem[]) => {
-                    dispatch(routerRedux.push({
-                        pathname: this.state.record.url,
-                        query: isReset ? {isReset, selectedRowsId: selectedRowsId} : {}
-                    }));
                 },
             });
         }

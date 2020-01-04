@@ -19,6 +19,7 @@ export interface GlobalModelState {
     navigation: NavigationItem[];
     navigationSession: NavigationItem[];
     dark?: boolean;
+    isResetList?: object;
 }
 
 export interface GlobalModelType {
@@ -49,6 +50,7 @@ const GlobalModel: GlobalModelType = {
         notices: [],
         navigation: sessionStorage.getItem('navigationNews') ? JSON.parse(sessionStorage.getItem('navigationNews')) : [welcomeItem],
         navigationSession: sessionStorage.getItem('navigationNews') ? JSON.parse(sessionStorage.getItem('navigationNews')) : [welcomeItem],
+        isResetList: {isReset:false},
     },
     effects: {
         * fetchNotices(_, {call, put, select}) {
@@ -175,6 +177,12 @@ const GlobalModel: GlobalModelType = {
                 payload: dark,
             });
         },
+        * changeResetList({payload, callback}, {put, select}) {
+            yield put({
+                type: 'saveResetList',
+                payload: payload,
+            });
+        },
     },
 
     reducers: {
@@ -210,6 +218,12 @@ const GlobalModel: GlobalModelType = {
             return {
                 ...state,
                 dark: payload,
+            };
+        },
+        saveResetList(state, {payload}): GlobalModelState {
+            return {
+                ...state,
+                isResetList: payload,
             };
         },
         saveSessonNavigation(state, {payload}): GlobalModelState {

@@ -683,15 +683,18 @@ export default class SuperviseModal extends PureComponent {
       dispatch(
         routerRedux.push({
           pathname: fromPath ? fromPath : '',
-          query: isReset
-            ? {
-                isReset,
-                id: tab === '表格' ? '' : id,
-                record: tab === '表格' ? '' : record,
-              }
-            : { id: tab === '表格' ? '' : id, record: tab === '表格' ? '' : record },
+          query: { id: tab === '表格' ? '' : id, record: tab === '表格' ? '' : record },
         }),
       );
+        if(isReset){
+            dispatch({
+                type: 'global/changeResetList',
+                payload: {
+                    isReset: !this.props.global.isResetList.isReset,
+                    url:fromPath ? fromPath : ''
+                },
+            });
+        }
       dispatch({
         type: 'global/changeSessonNavigation',
         payload: {

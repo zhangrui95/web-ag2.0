@@ -82,7 +82,7 @@ export default class EvaluationChats extends PureComponent {
     };
     initData = (next, nextProps, sort, type) => {
         let legendData = ['刑事', '行政'];
-        let bgColorList = ['#3aa1ff', '#4ecb73'];
+        let bgColorList = ['#3AA1FF','#4ECB73','#c23531','#2f4554','#61a0a8'];
         let axisLabel = [];
         let arrDatal = {};
         let seriesValue = [];
@@ -161,7 +161,7 @@ export default class EvaluationChats extends PureComponent {
     };
     initDataAj = (next, nextProps, sort, type) => {
         let legendData = ['刑事', '行政'];
-        let bgColorList = ['#3aa1ff', '#4ecb73'];
+        let bgColorList = ['#3AA1FF','#4ECB73','#c23531','#2f4554','#61a0a8'];
         let axisLabel = [];
         let arrDatal = {};
         let seriesValue = [];
@@ -239,7 +239,7 @@ export default class EvaluationChats extends PureComponent {
     };
     initDataGj = (next, nextProps, sort, type) => {
         let legendData = ['行政案件', '刑事案件', '涉案物品', '办案区', '卷宗'];
-        let bgColorList = ['#3aa1ff', '#4ecb73'];
+        let bgColorList = ['#3AA1FF','#4ECB73','#c23531','#c2923d','#61a0a8'];
         let axisLabel = [];
         let arrDatal = {};
         let seriesValue = [];
@@ -317,7 +317,37 @@ export default class EvaluationChats extends PureComponent {
         });
     };
     buildChart = (legendData, axisLabel, seriesValue, id,nextProps) => {
-        // console.log(seriesValue)
+        let yAxis = [{
+            min: 0,
+            type: 'value',
+            splitArea: {show: false},
+            axisLabel: {   // X轴线 标签修改
+                textStyle: {
+                    color: nextProps.global && nextProps.global.dark ? "#fff" : '#4D4D4D', //坐标值得具体的颜色
+                }
+            },
+            axisLine: {
+                show: true, // X轴 网格线 颜色类型的修改
+                lineStyle: {
+                    color: 'transparent'
+                }
+            },
+            splitLine: {//分割线配置
+                show:true,
+                lineStyle: {
+                    color: nextProps.global && nextProps.global.dark ? "#fff" : '#E6E6E6',
+                }
+            }
+        }];
+        let maxTrue = true;
+        seriesValue.map((item)=>{
+            if(item.data&&item.data.length > 0){
+                maxTrue = false;
+            }
+        })
+        if(maxTrue){
+            yAxis[0].max = 5;
+        }
         let chart = document.getElementById(id);
         let echart = echarts.init(chart);
         let that = this;
@@ -380,31 +410,7 @@ export default class EvaluationChats extends PureComponent {
                     }
                 },
             }],
-            yAxis: [{
-                min: 0,
-                max: function(value) {
-                    return value.max&&value.max > 0 ? value.max : 5;
-                },
-                type: 'value',
-                splitArea: {show: false},
-                axisLabel: {   // X轴线 标签修改
-                    textStyle: {
-                        color: nextProps.global && nextProps.global.dark ? "#fff" : '#4D4D4D', //坐标值得具体的颜色
-                    }
-                },
-                axisLine: {
-                    show: true, // X轴 网格线 颜色类型的修改
-                    lineStyle: {
-                        color: 'transparent'
-                    }
-                },
-                splitLine: {//分割线配置
-                    show:true,
-                    lineStyle: {
-                        color: nextProps.global && nextProps.global.dark ? "#fff" : '#E6E6E6',
-                    }
-                }
-            }],
+            yAxis: yAxis,
             label: {
                 normal: { //显示bar数据
                     show: true,
@@ -447,7 +453,7 @@ export default class EvaluationChats extends PureComponent {
             currentPage3: next === 0 ? 1 : currentPage3,
         });
         let legendData = ['分值'];
-        let bgColorList = ['#3aa1ff'];
+        let bgColorList = ['#3AA1FF','#4ECB73','#c23531','#2f4554','#61a0a8'];
         let axisLabel = [];
         let arrData = [];
         let seriesValue = [];
@@ -544,7 +550,7 @@ export default class EvaluationChats extends PureComponent {
             currentPage3: currentPage3,
         });
         let legendData = ['刑事', '行政'];
-        let bgColorList = ['#3aa1ff', '#4ecb73'];
+        let bgColorList =['#3AA1FF','#4ECB73','#c23531','#2f4554','#61a0a8'];
         let axisLabel = [];
         let arrData = [];
         let seriesValue = [];
@@ -646,7 +652,7 @@ export default class EvaluationChats extends PureComponent {
             currentPage3: next === 0 ? 1 : currentPage3,
         });
         let legendData = ['行政案件', '刑事案件', '涉案物品', '办案区', '卷宗'];
-        let bgColorList = ['#3aa1ff', '#4ecb73'];
+        let bgColorList = ['#3AA1FF','#4ECB73','#c23531','#c2923d','#61a0a8'];
         let axisLabel = [];
         let arrData = [];
         let seriesValue = [];
@@ -744,6 +750,37 @@ export default class EvaluationChats extends PureComponent {
         }
     };
     buildRyChart = (legendData, axisLabel, seriesValue, id,nextProps) => {
+        let yAxis = [{
+            min: 0,
+            type: 'value',
+            splitArea: {show: false},
+            axisLabel: {   // X轴线 标签修改
+                textStyle: {
+                    color: nextProps.global && nextProps.global.dark ? "#fff" : '#4D4D4D', //坐标值得具体的颜色
+                }
+            },
+            axisLine: {
+                show: true, // X轴 网格线 颜色类型的修改
+                lineStyle: {
+                    color: 'transparent'
+                }
+            },
+            splitLine: {//分割线配置
+                show:true,
+                lineStyle: {
+                    color: nextProps.global && nextProps.global.dark ? "#fff" : '#E6E6E6',
+                }
+            }
+        }];
+        let maxTrue = true;
+        seriesValue.map((item)=>{
+            if(item.data&&item.data.length > 0){
+                maxTrue = false;
+            }
+        })
+        if(maxTrue){
+            yAxis[0].max = 5;
+        }
         let chart = document.getElementById(id);
         let that = this;
         let echart = echarts.init(chart);
@@ -775,6 +812,14 @@ export default class EvaluationChats extends PureComponent {
             //         saveAsImage: { show: true },
             //     },
             // },
+            legend: legendData.length > 1 ? {
+                data: legendData,
+                textStyle: {color: nextProps.global && nextProps.global.dark ? "#fff" : '#4D4D4D'},
+                right: '5%',
+                y: 'top',//图例说明文字设置
+                itemWidth: 10,  // 设置宽度
+                itemHeight: 10, // 设置高度
+            } : {},
             grid: {
                 left: '2%',
                 right: '3%',
@@ -798,31 +843,7 @@ export default class EvaluationChats extends PureComponent {
                     }
                 },
             }],
-            yAxis: [{
-                min: 0,
-                max: function(value) {
-                    return value.max&&value.max > 0 ? value.max : 5;
-                },
-                type: 'value',
-                splitArea: {show: false},
-                axisLabel: {   // X轴线 标签修改
-                    textStyle: {
-                        color: nextProps.global && nextProps.global.dark ? "#fff" : '#4D4D4D', //坐标值得具体的颜色
-                    }
-                },
-                axisLine: {
-                    show: true, // X轴 网格线 颜色类型的修改
-                    lineStyle: {
-                        color: 'transparent'
-                    }
-                },
-                splitLine: {//分割线配置
-                    show:true,
-                    lineStyle: {
-                        color: nextProps.global && nextProps.global.dark ? "#fff" : '#E6E6E6',
-                    }
-                }
-            }],
+            yAxis: yAxis,
             label: {
                 normal: { //显示bar数据
                     show: true,

@@ -139,15 +139,20 @@ class ShareModal extends PureComponent {
         if (dispatch) {
             dispatch(routerRedux.push({
                 pathname: this.state.location.query.fromPath,
-                query: isReset ? {
-                    isReset,
-                    id: tab === '表格' ? '' : this.state.location.query.id,
-                    record: tab === '表格' ? '' : this.state.location.query.record
-                } : {
+                query:  {
                     id: tab === '表格' ? '' : this.state.location.query.id,
                     record: tab === '表格' ? '' : this.state.location.query.record
                 }
             }));
+            if(isReset){
+                dispatch({
+                    type: 'global/changeResetList',
+                    payload: {
+                        isReset: !this.props.global.isResetList.isReset,
+                        url: this.state.location.query.fromPath,
+                    },
+                });
+            }
             dispatch({
                 type: 'global/changeSessonNavigation',
                 payload: {

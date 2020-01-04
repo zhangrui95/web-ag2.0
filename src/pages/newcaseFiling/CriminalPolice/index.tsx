@@ -182,7 +182,7 @@ export default class Index extends PureComponent {
     }
 
     componentWillReceiveProps(nextProps) {
-        if (nextProps.history.location.query.isReset && nextProps.history.location.pathname === '/newcaseFiling/casePolice/CriminalPolice') {
+        if (this.props.global.isResetList.isReset !== nextProps.global.isResetList.isReset && nextProps.global.isResetList.url === '/newcaseFiling/casePolice/CriminalPolice') {
             // this.getAllList(nextProps.history);
             const params = {
               currentPage: 1,
@@ -192,7 +192,9 @@ export default class Index extends PureComponent {
               },
             };
             this.getUnCase(params);
-            this.props.history.replace(nextProps.history.location.pathname);
+            this.setState({
+                searchHeight:true,
+            });
         }
     }
 

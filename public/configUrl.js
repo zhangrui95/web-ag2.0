@@ -48,7 +48,7 @@ const configItem = {
   smartlinKeyUrl: 'http://127.0.0.1:1234', // smartlinkey登录地址(无需修改)
   clearHome: false, //是否显示三清调度首页（鹤壁定制）
   is_zsj: '0', //首页综合统计显示本级还是下级'1'本级，'0'下级
-  is_area: '1', // 刑事案件案件类别根据不同地区调用不同的接口；1表示牡丹江,2表示平乐,0表示主线，5表示达拉特旗
+  is_area: '2', // 刑事案件案件类别根据不同地区调用不同的接口；1表示牡丹江,2表示平乐,0表示主线，5表示达拉特旗
   is_ssds: 'dltq', // 接处警报警类别的所属地市dltq
   startTheme:true,//初始化主题深色版本true,浅色版本false,
 };

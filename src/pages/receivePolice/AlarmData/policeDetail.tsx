@@ -95,19 +95,9 @@ export default class policeDetail extends PureComponent {
   }
 
   componentWillReceiveProps(nextProps) {
-    if (
-      nextProps &&
-      nextProps.history.location.query.isReset &&
-      nextProps.history.location.pathname === '/receivePolice/AlarmData/policeDetail'
+      if (this.props.global.isResetList.isReset !== nextProps.global.isResetList.isReset && nextProps.global.isResetList.url ===  '/receivePolice/AlarmData/policeDetail'
     ) {
       this.getDetail(this.props.location.query.id);
-      this.props.history.replace(
-        nextProps.history.location.pathname +
-          '?id=' +
-          nextProps.location.query.id +
-          '&record=' +
-          nextProps.location.query.record,
-      );
     }
   }
 

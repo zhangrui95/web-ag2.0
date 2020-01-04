@@ -146,7 +146,16 @@ export default class Detail extends PureComponent {
         let key = '/Evaluation/CaseEvaluation/Detail' + this.props.location.query.id;
         const {dispatch} = this.props;
         if (dispatch) {
-            dispatch(routerRedux.push({pathname: '/Evaluation/CaseEvaluation', query: isReset ? {isReset} : {}}));
+            dispatch(routerRedux.push({pathname: '/Evaluation/CaseEvaluation'}));
+            if(isReset){
+                dispatch({
+                    type: 'global/changeResetList',
+                    payload: {
+                        isReset: !this.props.global.isResetList.isReset,
+                        url:'/Evaluation/CaseEvaluation'
+                    },
+                });
+            }
             dispatch({
                 type: 'global/changeSessonNavigation',
                 payload: {
