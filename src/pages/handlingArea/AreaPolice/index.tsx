@@ -173,7 +173,15 @@ export default class Index extends PureComponent {
 
     componentWillReceiveProps(nextProps) {
         if (this.props.global.isResetList.isReset !== nextProps.global.isResetList.isReset && nextProps.global.isResetList.url === '/handlingArea/AreaPolice') {
-            this.getAllList(nextProps.history);
+            // this.getAllList(nextProps.history);
+            const params = {
+              currentPage: 1,
+              showCount: tableList,
+              pd: {
+                ...this.state.formValues,
+              },
+            };
+            this.getUnArea(params);
             this.setState({
                 searchHeight:true,
             });

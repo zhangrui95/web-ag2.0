@@ -120,7 +120,7 @@ class RenderTable extends PureComponent {
             shareRecord: res,
         });
         if (type === 2) {
-            let caseDetails = this.state.shareRecord;
+            let caseDetails = res;
             let detail = [`案件名称：${caseDetails && caseDetails.ajmc ? caseDetails.ajmc : ''}`, `受理单位：${caseDetails && caseDetails.sldwName ? caseDetails.sldwName : ''}`,
                 `案件状态：${caseDetails && caseDetails.ajzt ? caseDetails.ajzt : ''}`, `办案民警：${caseDetails && caseDetails.barxm ? caseDetails.barxm : ''}`,
             ];

@@ -119,6 +119,20 @@ export default class Index extends PureComponent {
         this.getEnforcementDictType();
     }
 
+    componentWillReceiveProps(nextProps) {
+      if (nextProps && nextProps.history.location.query.isReset && nextProps.history.location.pathname === '/newcaseFiling/caseData/CriminalData') {
+        const params = {
+          currentPage: 1,
+          showCount: tableList,
+          pd: {
+            ...this.state.formValues,
+          },
+        };
+        this.getCase(params);
+        this.props.history.replace(nextProps.history.location.pathname);
+      }
+    }
+
     onChange = (activeKey) => {
         this.setState({
             activeKey,

@@ -109,6 +109,20 @@ export default class Index extends PureComponent {
         this.getCaseTypeTree(window.configUrl.is_area);
     }
 
+    componentWillReceiveProps(nextProps) {
+      if (nextProps && nextProps.history.location.query.isReset && nextProps.history.location.pathname === '/newcaseFiling/caseData/AdministrationData') {
+        const params = {
+          currentPage: 1,
+          showCount: tableList,
+          pd: {
+            ...this.state.formValues,
+          },
+        };
+        this.getCase(params);
+        this.props.history.replace(nextProps.history.location.pathname);
+      }
+    }
+
     // 获取人员强制措施字典
     getEnforcementDictType = () => {
         this.props.dispatch({

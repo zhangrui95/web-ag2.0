@@ -13,7 +13,7 @@ export function watermark (id) {
     watermark_cols: 8, //水印列数
     watermark_x_space: 10, //水印x轴间隔
     watermark_y_space: 20, //水印y轴间隔
-    watermark_color: '#bbb', //水印字体颜色
+    watermark_color: '#afafaf', //水印字体颜色
     watermark_alpha: 0.1, //水印透明度
     watermark_fontsize: '15px', //水印字体大小
     watermark_font: '微软雅黑', //水印字体

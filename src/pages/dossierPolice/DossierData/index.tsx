@@ -129,6 +129,20 @@ export default class Index extends PureComponent {
     }
   }
 
+  componentWillReceiveProps(nextProps) {
+    if (nextProps && nextProps.history.location.query.isReset && nextProps.history.location.pathname === '/dossierPolice/DossierData') {
+      const params = {
+        currentPage: 1,
+        showCount: tableList,
+        pd: {
+          ...this.state.formValues,
+        },
+      };
+      this.getDossier(params);
+      this.props.history.replace(nextProps.history.location.pathname);
+    }
+  }
+
   // 切换tab
   onTabChange = activeKey => {
     this.setState({

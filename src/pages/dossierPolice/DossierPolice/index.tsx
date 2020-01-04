@@ -121,7 +121,15 @@ export default class Index extends PureComponent {
   componentWillReceiveProps(nextProps) {
     // console.log('nextProps', nextProps);
       if (this.props.global.isResetList.isReset !== nextProps.global.isResetList.isReset && nextProps.global.isResetList.url === '/dossierPolice/DossierPolice') {
-        this.getAllList(nextProps);
+        // this.getAllList(nextProps);
+        const params = {
+          currentPage: 1,
+          showCount: tableList,
+          pd: {
+            ...this.state.formValues,
+          },
+        };
+        this.getDossier(params);
           this.setState({
               searchHeight:true,
           });

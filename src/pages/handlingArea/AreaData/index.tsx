@@ -114,7 +114,15 @@ export default class Index extends PureComponent {
 
     componentWillReceiveProps(nextProps) {
         if (this.props.global.isResetList.isReset !== nextProps.global.isResetList.isReset && nextProps.global.isResetList.url === '/handlingArea/AreaData') {
-            this.handleFormReset();
+            // this.handleFormReset();
+          const params = {
+            currentPage: 1,
+            showCount: tableList,
+            pd: {
+              ...this.state.formValues,
+            },
+          };
+          this.getArea(params);
         }
     }
 
