@@ -754,84 +754,64 @@ export default class AdministrativeCaseDocDetail extends PureComponent {
             {
                 title: '接警来源',
                 dataIndex: 'jjly_mc',
-                render: (record) => {
+                width:280,
+                render: (text) => {
                     return (
-                        record && record.length <= 10 ? record :
-                            <Tooltip title={record}>
-                                <span>{record && record.substring(0, 10) + '...'}</span>
-                            </Tooltip>
+                        text ? <Ellipsis lines={2} tooltip>{text}</Ellipsis> : ''
                     );
                 },
             },
             {
                 title: '接警时间',
                 dataIndex: 'jjsj',
-                render: (record) => {
+                render: (text) => {
                     return (
-                        record && record.length <= 20 ? record :
-                            <Tooltip title={record}>
-                                <span>{record && record.substring(0, 20) + '...'}</span>
-                            </Tooltip>
+                        text ? <Ellipsis length={20} tooltip>{text}</Ellipsis> : ''
                     );
                 },
             },
             {
                 title: '管辖单位',
                 dataIndex: 'jjdw',
-                render: (record) => {
+                render: (text) => {
                     return (
-                        record && record.length <= 20 ? record :
-                            <Tooltip title={record}>
-                                <span>{record && record.substring(0, 20) + '...'}</span>
-                            </Tooltip>
+                        text ? <Ellipsis lines={2} tooltip>{text}</Ellipsis> : ''
                     );
                 },
             },
 {
                 title: '接警人',
                 dataIndex: 'jjr',
-                render: (record) => {
+                render: (text) => {
                     return (
-                        record && record.length <= 20 ? record :
-                            <Tooltip title={record}>
-                                <span>{record && record.substring(0, 20) + '...'}</span>
-                            </Tooltip>
+                        text ? <Ellipsis lines={2} tooltip>{text}</Ellipsis> : ''
                     );
                 },
             },
             {
                 title: '处警单位',
                 dataIndex: 'cjdw',
-                render: (record) => {
+                render: (text) => {
                     return (
-                        record && record.length <= 20 ? record :
-                            <Tooltip title={record}>
-                                <span>{record && record.substring(0, 20) + '...'}</span>
-                            </Tooltip>
+                        text ? <Ellipsis lines={2} tooltip>{text}</Ellipsis> : ''
                     );
                 },
             },
             {
                 title: '处警人',
                 dataIndex: 'cjr',
-                render: (record) => {
+                render: (text) => {
                     return (
-                        record && record.length <= 20 ? record :
-                            <Tooltip title={record}>
-                                <span>{record && record.substring(0, 20) + '...'}</span>
-                            </Tooltip>
+                        text ? <Ellipsis lines={2} tooltip>{text}</Ellipsis> : ''
                     );
                 },
             },
             {
                 title: '报案人',
                 dataIndex: 'bar',
-                render: (record) => {
+                render: (text) => {
                     return (
-                        record && record.length <= 20 ? record :
-                            <Tooltip title={record}>
-                                <span>{record && record.substring(0, 20) + '...'}</span>
-                            </Tooltip>
+                        text ? <Ellipsis lines={2} tooltip>{text}</Ellipsis> : ''
                     );
                 },
             },

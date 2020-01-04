@@ -869,9 +869,10 @@ export default class CriminalCaseDocDetail extends PureComponent {
             {
                 title: '接警来源',
                 dataIndex: 'jjly_mc',
+                width:280,
                 render: (text) => {
                     return (
-                        text ? <Ellipsis length={10} tooltip>{text}</Ellipsis> : ''
+                        text ? <Ellipsis lines={2} tooltip>{text}</Ellipsis> : ''
                     );
                 },
             },
@@ -894,7 +895,7 @@ export default class CriminalCaseDocDetail extends PureComponent {
                         if (strArry.length > 0) {
                             str = strArry[strArry.length - 1];
                             return (
-                                <Ellipsis length={20} tooltip>{str}</Ellipsis>
+                                <Ellipsis lines={2} tooltip>{str}</Ellipsis>
                             );
                         }
                         return str;
@@ -912,7 +913,7 @@ export default class CriminalCaseDocDetail extends PureComponent {
                         if (strArry.length > 0) {
                             str = strArry[strArry.length - 1];
                             return (
-                                <Ellipsis length={20} tooltip>{str}</Ellipsis>
+                                <Ellipsis lines={2} tooltip>{str}</Ellipsis>
                             );
                         }
                         return str;
@@ -930,7 +931,7 @@ export default class CriminalCaseDocDetail extends PureComponent {
                         if (strArry.length > 0) {
                             str = strArry[strArry.length - 1];
                             return (
-                                <Ellipsis length={20} tooltip>{str}</Ellipsis>
+                                <Ellipsis lines={2} tooltip>{str}</Ellipsis>
                             );
                         }
                         return str;
@@ -948,7 +949,7 @@ export default class CriminalCaseDocDetail extends PureComponent {
                         if (strArry.length > 0) {
                             str = strArry[strArry.length - 1];
                             return (
-                                <Ellipsis length={20} tooltip>{str}</Ellipsis>
+                                <Ellipsis lines={2} tooltip>{str}</Ellipsis>
                             );
                         }
                         return str;
@@ -961,7 +962,7 @@ export default class CriminalCaseDocDetail extends PureComponent {
                 dataIndex: 'bar',
                 render: (text) => {
                     return (
-                        text ? <Ellipsis length={20} tooltip>{text}</Ellipsis> : ''
+                        text ? <Ellipsis lines={2} tooltip>{text}</Ellipsis> : ''
                     );
                 },
             },
@@ -988,7 +989,7 @@ export default class CriminalCaseDocDetail extends PureComponent {
                 dataIndex: 'jzmc',
                 render: (text) => {
                     return (
-                        text ? <Ellipsis length={20} tooltip>{text}</Ellipsis> : ''
+                        text ? <Ellipsis lines={2} tooltip>{text}</Ellipsis> : ''
                     );
                 },
             },
