@@ -120,7 +120,7 @@ export default class Index extends PureComponent {
     }
 
     componentWillReceiveProps(nextProps) {
-      if (nextProps && nextProps.history.location.query.isReset && nextProps.history.location.pathname === '/newcaseFiling/caseData/CriminalData') {
+      if (this.props.global.isResetList.isReset !== nextProps.global.isResetList.isReset && nextProps.global.isResetList.url === '/newcaseFiling/caseData/CriminalData') {
         const params = {
           currentPage: 1,
           showCount: tableList,
@@ -129,7 +129,6 @@ export default class Index extends PureComponent {
           },
         };
         this.getCase(params);
-        this.props.history.replace(nextProps.history.location.pathname);
       }
     }
 
