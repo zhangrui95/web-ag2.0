@@ -62,11 +62,17 @@ export default class UnPoliceDataView extends PureComponent {
     }
 
     componentWillReceiveProps(nextProps) {
+        if (this.props.global.dark !== nextProps.global.dark) {
+            this.showUnPoliceEchartBar(nextProps);
+            this.showUnPoliceEchartRingPie(nextProps);
+            // this.changeCountButtonCurrent(this.state.type);
+        }
         if (nextProps) {
             if (
                 this.props.searchType !== nextProps.searchType ||
                 this.props.orgcode !== nextProps.orgcode ||
-                this.props.selectedDateVal !== nextProps.selectedDateVal
+                this.props.selectedDateVal !== nextProps.selectedDateVal ||
+                this.props.global.dark !== nextProps.global.dark
             ) {
                 if (nextProps.searchType === 'day') {
                     this.setState({
@@ -98,11 +104,6 @@ export default class UnPoliceDataView extends PureComponent {
                         },
                     );
                 }
-            }
-            if (this.props.global.dark !== nextProps.global.dark) {
-                this.showUnPoliceEchartBar(nextProps);
-                this.showUnPoliceEchartRingPie(nextProps);
-                this.changeCountButtonCurrent(this.state.type);
             }
         }
     }

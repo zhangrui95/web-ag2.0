@@ -63,7 +63,14 @@ export default class DossierDataView extends PureComponent {
 
     componentWillReceiveProps(nextProps) {
         if (nextProps) {
-            if (this.props.searchType !== nextProps.searchType || this.props.orgcode !== nextProps.orgcode || this.props.selectedDateVal !== nextProps.selectedDateVal) {
+            if (this.props.global.dark !== nextProps.global.dark) {
+                this.showCaseEchartBar(nextProps);
+                this.showCaseEchartRingPie(nextProps);
+                this.showCaseEchartwpqsBar(nextProps);
+                this.showCaseEchartdzhqkzsBar(nextProps);
+                // this.changeCountButtonCurrent(this.state.type);
+            }
+            if (this.props.searchType !== nextProps.searchType || this.props.orgcode !== nextProps.orgcode || this.props.selectedDateVal !== nextProps.selectedDateVal||this.props.global.dark !== nextProps.global.dark) {
                 if (nextProps.searchType === 'week') {
                     this.setState({
                         currentType: 'week',
@@ -100,13 +107,6 @@ export default class DossierDataView extends PureComponent {
                     });
                 }
 
-            }
-            if (this.props.global.dark !== nextProps.global.dark) {
-                this.showCaseEchartBar(nextProps);
-                this.showCaseEchartRingPie(nextProps);
-                this.showCaseEchartwpqsBar(nextProps);
-                this.showCaseEchartdzhqkzsBar(nextProps);
-                this.changeCountButtonCurrent(this.state.type);
             }
         }
     }
