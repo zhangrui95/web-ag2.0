@@ -957,15 +957,14 @@ export default class GeneralQuery extends PureComponent {
                 message.warning('暂无相关信息！');
             }
         } else if (item._index === baqQueryIndex) {
-            // console.log(item._source)
-            if (item._source.ryzjhm && item._source.ajbh && item._source.ryzjhm !== '暂无' && item._source.ajbh !== '暂无') {//涉案人员在区情况
+            if (item._source.ryzjhm && item._source.system_id && item._source.ryzjhm !== '暂无' && item._source.system_id !== '暂无') {//涉案人员在区情况
                 console.log('item._source',item._source)
                 item.sfzh = item._source.ryzjhm;
-                item.ajbh = item._source.ajbh;
+                item.system_id = item._source.system_id;
                 this.props.dispatch(
                     routerRedux.push({
                         pathname: '/handlingArea/AreaData/areaDetail',
-                        query: {record: item, id: item._source.ajbh},
+                        query: {record: item, id: item._source.system_id},
                     }),
                 );
             } else {
