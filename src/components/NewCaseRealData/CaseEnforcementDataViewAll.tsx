@@ -60,10 +60,17 @@ export default class CaseEnforcementDataView extends PureComponent {
 
     componentWillReceiveProps(nextProps) {
         if (nextProps) {
+            if (this.props.global.dark !== nextProps.global.dark) {
+                this.showCaseEchartBar(nextProps);
+                this.showCaseEchartRingPie(nextProps);
+                this.showCaseTypeStatisticsBar(nextProps);
+                // this.changeCountButtonCurrent(this.state.type);
+            }
             if (
                 this.props.searchType !== nextProps.searchType ||
                 this.props.orgcode !== nextProps.orgcode ||
-                this.props.selectedDateVal !== nextProps.selectedDateVal
+                this.props.selectedDateVal !== nextProps.selectedDateVal ||
+                this.props.global.dark !== nextProps.global.dark
             ) {
                 if (nextProps.searchType === 'week') {
                     this.setState({
@@ -96,12 +103,6 @@ export default class CaseEnforcementDataView extends PureComponent {
                         },
                     );
                 }
-            }
-            if (this.props.global.dark !== nextProps.global.dark) {
-                this.showCaseEchartBar(nextProps);
-                this.showCaseEchartRingPie(nextProps);
-                this.showCaseTypeStatisticsBar(nextProps);
-                this.changeCountButtonCurrent(this.state.type);
             }
         }
     }

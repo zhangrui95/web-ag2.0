@@ -75,10 +75,17 @@ export default class XzCaseEnforcementDataView extends PureComponent {
 
     componentWillReceiveProps(nextProps) {
         if (nextProps) {
+            if (this.props.global.dark !== nextProps.global.dark) {
+                this.showXzCaseEchartRingPie(nextProps);
+                this.showXzCaseEchartLine(nextProps);
+                this.showCaseTypeStatisticsBar(nextProps);
+                // this.changeCountButtonCurrent(this.state.type);
+            }
             if (
                 this.props.searchType !== nextProps.searchType ||
                 this.props.orgcode !== nextProps.orgcode ||
-                this.props.selectedDateVal !== nextProps.selectedDateVal
+                this.props.selectedDateVal !== nextProps.selectedDateVal ||
+                this.props.global.dark !== nextProps.global.dark
             ) {
                 if (nextProps.searchType === 'week') {
                     this.setState({
@@ -123,12 +130,6 @@ export default class XzCaseEnforcementDataView extends PureComponent {
                         },
                     );
                 }
-            }
-            if (this.props.global.dark !== nextProps.global.dark) {
-                this.showXzCaseEchartRingPie(nextProps);
-                this.showXzCaseEchartLine(nextProps);
-                this.showCaseTypeStatisticsBar(nextProps);
-                this.changeCountButtonCurrent(this.state.type);
             }
         }
     }

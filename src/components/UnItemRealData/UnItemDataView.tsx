@@ -63,10 +63,16 @@ export default class UnItemDataView extends PureComponent {
 
     componentWillReceiveProps(nextProps) {
         if (nextProps) {
+            if (this.props.global.dark !== nextProps.global.dark) {
+                this.showUnItemEchartBar(nextProps);
+                this.showUnItemEchartRingPie(nextProps);
+                // this.changeCountButtonCurrent(this.state.type);
+            }
             if (
                 this.props.searchType !== nextProps.searchType ||
                 this.props.orgcode !== nextProps.orgcode ||
-                this.props.selectedDateVal !== nextProps.selectedDateVal
+                this.props.selectedDateVal !== nextProps.selectedDateVal ||
+                this.props.global.dark !== nextProps.global.dark
             ) {
                 if (nextProps.searchType === 'day') {
                     this.setState({
@@ -98,11 +104,6 @@ export default class UnItemDataView extends PureComponent {
                         },
                     );
                 }
-            }
-            if (this.props.global.dark !== nextProps.global.dark) {
-                this.showUnItemEchartBar(nextProps);
-                this.showUnItemEchartRingPie(nextProps);
-                this.changeCountButtonCurrent(this.state.type);
             }
         }
     }

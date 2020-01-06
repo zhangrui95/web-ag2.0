@@ -113,7 +113,7 @@ export default class TabsTable extends PureComponent {
                     <Button
                         style={{marginLeft: 8}}
                         type="primary"
-                        onClick={() => this.props.handleSearch(0)}
+                        onClick={() => this.props.handleSearch(1)}
                     >
                       查询
                     </Button>
@@ -200,7 +200,7 @@ export default class TabsTable extends PureComponent {
                     <Button
                         style={{marginLeft: 8}}
                         type="primary"
-                        onClick={() => this.props.handleSearch(0)}
+                        onClick={() => this.props.handleSearch(1)}
                     >
                       查询
                     </Button>

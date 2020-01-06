@@ -118,7 +118,7 @@ export default class Index extends PureComponent {
     }
 
     componentWillReceiveProps(nextProps) {
-      if (nextProps && nextProps.history.location.query.isReset && nextProps.history.location.pathname === '/articlesInvolved/ArticlesData') {
+      if (this.props.global.isResetList.isReset !== nextProps.global.isResetList.isReset && nextProps.global.isResetList.url === '/articlesInvolved/ArticlesData') {
         const params = {
           currentPage: 1,
           showCount: tableList,
@@ -127,7 +127,6 @@ export default class Index extends PureComponent {
           },
         };
         this.getItem(params);
-        this.props.history.replace(nextProps.history.location.pathname);
       }
     }
 

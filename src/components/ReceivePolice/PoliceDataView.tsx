@@ -94,11 +94,20 @@ export default class PoliceDataView extends PureComponent {
 
   componentWillReceiveProps(nextProps) {
     if (nextProps) {
+        if (this.props.global.dark !== nextProps.global.dark) {
+            this.showPoliceEchartBar(nextProps);
+            this.showPoliceEchartRingPie(nextProps);
+            this.showPoliceEchartLine(nextProps);
+            this.showPoliceThreePie1(nextProps);
+            this.showPoliceThreePie2(nextProps);
+            // this.changeCountButtonCurrent(this.state.type);
+        }
       if (
         this.props.searchType !== nextProps.searchType ||
         this.props.jjdw !== nextProps.jjdw ||
         this.props.cjdw !== nextProps.cjdw ||
-        this.props.selectedDateVal !== nextProps.selectedDateVal
+        this.props.selectedDateVal !== nextProps.selectedDateVal||
+        this.props.global.dark !== nextProps.global.dark
       ) {
         if (nextProps.searchType === 'day') {
           this.setState({
@@ -220,14 +229,6 @@ export default class PoliceDataView extends PureComponent {
           );
         }
       }
-    }
-    if (this.props.global.dark !== nextProps.global.dark) {
-      this.showPoliceEchartBar(nextProps);
-      this.showPoliceEchartRingPie(nextProps);
-      this.showPoliceEchartLine(nextProps);
-      this.showPoliceThreePie1(nextProps);
-      this.showPoliceThreePie2(nextProps);
-      this.changeCountButtonCurrent(this.state.type);
     }
   }
 

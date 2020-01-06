@@ -120,10 +120,18 @@ export default class ItemDataView extends PureComponent {
 
     componentWillReceiveProps(nextProps) {
         if (nextProps) {
+            if (this.props.global.dark !== nextProps.global.dark) {
+                this.showCaseEchartRYCFBar(nextProps);
+                this.showCaseEchartSALXBar(nextProps);
+                this.showCaseEchartRQYYBar(nextProps);
+                this.showCaseEchartRQRCQSZSPie(nextProps);
+                // this.changeCountButtonCurrent(this.state.type);
+            }
             if (
                 this.props.searchType !== nextProps.searchType ||
                 this.props.orgcode !== nextProps.orgcode ||
-                this.props.selectedDateVal !== nextProps.selectedDateVal
+                this.props.selectedDateVal !== nextProps.selectedDateVal ||
+                this.props.global.dark !== nextProps.global.dark
             ) {
                 if (nextProps.searchType === 'week') {
                     this.setState({
@@ -186,13 +194,6 @@ export default class ItemDataView extends PureComponent {
                         },
                     );
                 }
-            }
-            if (this.props.global.dark !== nextProps.global.dark) {
-                this.showCaseEchartRYCFBar(nextProps);
-                this.showCaseEchartSALXBar(nextProps);
-                this.showCaseEchartRQYYBar(nextProps);
-                this.showCaseEchartRQRCQSZSPie(nextProps);
-                this.changeCountButtonCurrent(this.state.type);
             }
         }
     }
@@ -839,7 +840,7 @@ export default class ItemDataView extends PureComponent {
     // 人员类型echart
     showCaseEchartSALXBar = (nextProps) => {
         const that = this;
-        itemEchartSALXBar = echarts.init(document.getElementById('salx'));
+        itemEchartSALXBar = echarts.init(document.getElementById('salxBaq'));
         const dataAxis = ['点', '击', '柱', '子', '或', '者', '两', '指', '在'];
         const data = [220, 182, 191, 234, 290, 330, 310, 123, 442];
         const yMax = Math.max(...data);
@@ -1347,7 +1348,7 @@ export default class ItemDataView extends PureComponent {
                             </Col>
                             <Col {...colLayout}>
                                 <div className={styles.cardBoxTitle}>| 人员类型</div>
-                                <div id="salx" className={styles.cardBox}></div>
+                                <div id="salxBaq" className={styles.cardBox}></div>
                             </Col>
                             <Col {...colLayout}>
                                 <div className={styles.cardBoxTitle}>| 入区原因</div>

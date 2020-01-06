@@ -66,7 +66,11 @@ export default class UnXzCaseDataView extends PureComponent {
 
     componentWillReceiveProps(nextProps) {
         if (nextProps) {
-            if ((this.props.searchType !== nextProps.searchType) || this.props.orgcode !== nextProps.orgcode || this.props.selectedDateVal !== nextProps.selectedDateVal) {
+            if (this.props.global.dark !== nextProps.global.dark) {
+                this.showUnXzCaseEchartRingPie(nextProps);
+                // this.changeCountButtonCurrent(this.state.type);
+            }
+            if ((this.props.searchType !== nextProps.searchType) || this.props.orgcode !== nextProps.orgcode || this.props.selectedDateVal !== nextProps.selectedDateVal||this.props.global.dark !== nextProps.global.dark) {
                 if (nextProps.searchType === 'day') {
                     this.setState({
                         currentType: 'today',
@@ -84,10 +88,6 @@ export default class UnXzCaseDataView extends PureComponent {
                         this.getAllTypeWarningCount(selectedDateVal[0], selectedDateVal[1], 'selectedDate', nextProps.orgcode);
                     });
                 }
-            }
-            if (this.props.global.dark !== nextProps.global.dark) {
-                this.showUnXzCaseEchartRingPie(nextProps);
-                this.changeCountButtonCurrent(this.state.type);
             }
         }
     }
@@ -228,7 +228,7 @@ export default class UnXzCaseDataView extends PureComponent {
                 },
                 itemStyle: {
                     normal: {
-                        borderColor: '#fff',
+                        borderColor: this.props.global && this.props.global.dark ? '#fff' : '#00B8CC',
                         borderWidth: 1,
                     },
                 },

@@ -1328,6 +1328,7 @@ export default class GeneralQuery extends PureComponent {
                             dataSource={this.state.autoCom ? [] : dataSource}
                             style={{width: '40%'}}
                             onSearch={this.handleValue}
+                            getPopupContainer={() => document.getElementById('formSearch')}
                         >
                             <Search
                                 placeholder="默认搜索一个月内同步来的最新数据"
