@@ -184,7 +184,7 @@ export default class caseDetail extends PureComponent {
           pathname: '/ModuleAll/Supervise',
           query: {
             record: caseDetails,
-            id: caseDetails && caseDetails.id ? caseDetails.id : '1',
+            id: caseDetails && caseDetails.ajbh ? caseDetails.ajbh : '1',
             from: '刑事案件详情问题判定',
             fromPath: '/newcaseFiling/caseData/CriminalData/caseDetail',
             wtflId: '203202',
