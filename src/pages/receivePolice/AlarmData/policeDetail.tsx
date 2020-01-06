@@ -56,7 +56,7 @@ export default class policeDetail extends PureComponent {
       lx: '警情信息',
       tzlx: 'jqxx',
       sx: '',
-      sfgz: res && res.sfgz === 0 ? res.sfgz : '',
+      sfgz: res && res.sfgz && res.sfgz === 0 ? res.sfgz : '',
       IsSure: false, // 确认详情是否加载成功
       isDb: authorityIsTrue(userResourceCodeDb.police), // 督办权限
       isDd: res && res.isDd ? res.isDd : false,

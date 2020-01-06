@@ -82,7 +82,7 @@ class RenderTable extends PureComponent {
         this.props.dispatch(
             routerRedux.push({
                 pathname: '/newcaseFiling/caseData/AdministrationData/caseDetail',
-                query: {id: record && record.system_id ? record.system_id : '1', record: record,movefrom:'行政案件常规',current:this.state.current},
+                query: {id: record && record.system_id ? record.system_id : '1', record: record,movefrom:'行政案件常规',current:this.state.current,tzlx:this.state.tzlx},
             }),
         );
         //   },
@@ -132,7 +132,7 @@ class RenderTable extends PureComponent {
                         record: res,
                         id: res && res.system_id ? res.system_id : '1',
                         from: '案件信息',
-                        tzlx: 'xzajxx2',
+                        tzlx: this.state.tzlx,
                         fromPath: '/newcaseFiling/caseData/AdministrationData',
                         tab: '表格',
                         sx: (res.ajmc ? res.ajmc + '、' : '') + (res.ajzt ? res.ajzt : ''),
