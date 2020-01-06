@@ -121,8 +121,8 @@ export default class Index extends PureComponent {
   componentWillReceiveProps(nextProps) {
     // console.log('nextProps', nextProps);
       if (this.props.global.isResetList.isReset !== nextProps.global.isResetList.isReset && nextProps.global.isResetList.url === '/dossierPolice/DossierPolice') {
-          if (nextProps.location.state && nextProps.location.state.code) {
-              this.getAllList(nextProps.history);
+          if (nextProps.global.isResetList.state){
+              this.getAllList(nextProps.global.isResetList.state);
           }else{
               const params = {
                   currentPage: 1,
