@@ -885,11 +885,11 @@ export default class DossierDataView extends PureComponent {
                                                 alignItems: 'center',
                                                 flexDirection: 'column',
                                                 justifyContent: 'center',
-                                                marginTop: 22,
+                                                marginTop: this.props.global && this.props.global.dark ? 60 : 22,
                                             }}>
                                                 <img
                                                     src={this.props.global && this.props.global.dark ? nonDivImg : noListLight}
-                                                    height={200} alt="暂无数据"/>
+                                                    height={this.props.global && this.props.global.dark ? 100 : 200} alt="暂无数据"/>
                                                 <div style={{
                                                     fontSize: 18,
                                                     color: this.props.global && this.props.global.dark ? '#fff' : '#999',
