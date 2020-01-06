@@ -573,10 +573,10 @@ export default class unpoliceDetail extends PureComponent {
                     policeDetails.ajxz_mc ||
                     policeDetails.jyaq) ? (
                     <div>
-                        <div className={styles.title}>案件信息</div>
+                        <div className={styles.title}>| 案件信息</div>
                         <div className={styles.message}>
-                            <Row gutter={rowLayout}>
-                                <Col md={6} sm={24}>
+                            <Row gutter={rowLayout} className={styles.xqrow}>
+                                <Col md={6} sm={24} className={styles.xqcol}>
                                     <div className={liststyles.Indexfrom}>案件编号：</div>
                                     <div className={liststyles.Indextail}>
                                         {policeDetails && policeDetails.ajbh ? (
@@ -591,19 +591,19 @@ export default class unpoliceDetail extends PureComponent {
                                         )}
                                     </div>
                                 </Col>
-                                <Col md={6} sm={24}>
+                                <Col md={6} sm={24} className={styles.xqcol}>
                                     <div className={liststyles.Indexfrom}>案件名称：</div>
                                     <div className={liststyles.Indextail}>
                                         {policeDetails && policeDetails.ajmc ? policeDetails.ajmc : ''}
                                     </div>
                                 </Col>
-                                <Col md={6} sm={24}>
+                                <Col md={6} sm={24} className={styles.xqcol}>
                                     <div className={liststyles.Indexfrom}>案件状态：</div>
                                     <div className={liststyles.Indextail}>
                                         {policeDetails && policeDetails.ajzt ? policeDetails.ajzt : ''}
                                     </div>
                                 </Col>
-                                <Col md={6} sm={24}>
+                                <Col md={6} sm={24} className={styles.xqcol}>
                                     <div className={liststyles.Indexfrom}>案发时段：</div>
                                     <div className={liststyles.Indextail}>
                                         {policeDetails && policeDetails.fasjsx && policeDetails.fasjxx
@@ -612,34 +612,34 @@ export default class unpoliceDetail extends PureComponent {
                                     </div>
                                 </Col>
                             </Row>
-                            <Row gutter={rowLayout}>
-                                <Col md={6} sm={24}>
+                            <Row gutter={rowLayout}  className={styles.xqrow}>
+                                <Col md={6} sm={24} className={styles.xqcol}>
                                     <div className={liststyles.Indexfrom}>办案单位：</div>
                                     <div className={liststyles.Indextail}>
                                         {policeDetails && policeDetails.badw_mc ? policeDetails.badw_mc : ''}
                                     </div>
                                 </Col>
-                                <Col md={6} sm={24}>
+                                <Col md={6} sm={24} className={styles.xqcol}>
                                     <div className={liststyles.Indexfrom}>办案人：</div>
                                     <div className={liststyles.Indextail} style={{paddingLeft: '70px'}}>
                                         {policeDetails && policeDetails.barxm ? policeDetails.barxm : ''}
                                     </div>
                                 </Col>
-                                <Col md={6} sm={24}>
+                                <Col md={6} sm={24} className={styles.xqcol}>
                                     <div className={liststyles.Indexfrom}>案发地点：</div>
                                     <div className={liststyles.Indextail}>
                                         {policeDetails && policeDetails.afdd ? policeDetails.afdd : ''}
                                     </div>
                                 </Col>
                             </Row>
-                            <Row gutter={rowLayout}>
-                                <Col md={24} sm={24}>
+                            <Row gutter={rowLayout}  className={styles.xqrow}>
+                                <Col md={24} sm={24} className={styles.xqcol}>
                                     <div className={liststyles.Indexfrom}>简要案情：</div>
                                     <DetailShow paddingLeft={70} word={policeDetails && policeDetails.jyaq ? policeDetails.jyaq : ''} {...this.props}/>
                                 </Col>
                             </Row>
                             {policeDetails.ajgjList && policeDetails.ajgjList.length > 0 ? (
-                                <Card title={'案件流程'} style={{margin: '0 12px'}}>
+                                <Card title={'案件流程'} style={{marginTop: '12px'}} className={styles.ajlcCard}>
                                     <CaseModalStep {...this.props} caseDetails={policeDetails}/>
                                 </Card>
                             ) : null}
