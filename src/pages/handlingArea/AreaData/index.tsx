@@ -664,7 +664,7 @@ export default class Index extends PureComponent {
             <Button
                 style={{marginLeft: 8}}
                 type="primary"
-                onClick={() => this.props.handleSearch(0)}
+                onClick={this.handleSearch}
             >
               查询
             </Button>
