@@ -62,7 +62,7 @@ export default class Home1 extends PureComponent {
             // visible: false,
             myLog: [],
             pageSize: 10,
-            pageSizeShare: 6,
+            pageSizeShare: 7,
             pageSizeFollow: 8,
             datail: {
                 time: '',
@@ -1044,7 +1044,7 @@ export default class Home1 extends PureComponent {
             let pd = {
                 fxsj_ks: values.fxsj && values.fxsj.length > 0 ? values.fxsj[0].format('YYYY-MM-DD') : '',
                 fxsj_js: values.fxsj && values.fxsj.length > 0 ? values.fxsj[1].format('YYYY-MM-DD') : '',
-                fxdw: values.fxdw ? JSON.parse(values.fxdw).id : '',
+                fxdw: values.fxdw ? values.fxdw : '',
                 fxr: values.fxr ? values.fxr : '',
                 fxlx: values.fxlx ? values.fxlx : '',
             };
@@ -1331,7 +1331,7 @@ export default class Home1 extends PureComponent {
                             >
                                 <Table
                                     loading={this.state.loading}
-                                    pagination={paginationPage}
+                                    pagination={this.state.loading ? false : paginationPage}
                                     columns={this.state.columns}
                                     dataSource={this.state.data}
                                     className={styles.homeTable}
@@ -1352,7 +1352,7 @@ export default class Home1 extends PureComponent {
                                     handleSearchPerson={this.handleSearchPerson}
                                     getBlur={this.getBlur}
                                     children={children}
-                                    paginationPage={paginationPage}
+                                    paginationPage={this.state.loading ? false : paginationPage}
                                     handleSearch={this.handleSearch}
                                     handleFormReset={this.handleFormReset}
                                 />
@@ -1363,7 +1363,7 @@ export default class Home1 extends PureComponent {
                                     {...this.state}
                                     {...this.props}
                                     callBackTabs={this.callBackTabs}
-                                    paginationPage={paginationPage}
+                                    paginationPage={this.state.loading ? false : paginationPage}
                                     handleSearch={this.handleSearch}
                                     handleFormReset={this.handleFormReset}
                                 />

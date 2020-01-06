@@ -108,10 +108,7 @@ export default class TabsTable extends PureComponent {
                                     </Col>
                                     <Col {...colLayout}>
                                         <FormItem label="分享单位" {...formItemLayout}>
-                                            {getFieldDecorator(
-                                                'fxdw',
-                                                {},
-                                            )(
+                                            {getFieldDecorator('fxdw')(
                                                 <TreeSelect
                                                     showSearch
                                                     style={{width: '100%'}}
@@ -178,7 +175,7 @@ export default class TabsTable extends PureComponent {
                     </Button>
                     <Button
                         style={{marginLeft: 8}}
-                        onClick={this.handleFormReset}
+                        onClick={this.props.handleFormReset}
                         className={stylescommon.empty}
                     >
                       重置
@@ -240,10 +237,7 @@ export default class TabsTable extends PureComponent {
                                     </Col>
                                     <Col {...colLayout}>
                                         <FormItem label="分享单位" {...formItemLayout}>
-                                            {getFieldDecorator(
-                                                'fxdw',
-                                                {},
-                                            )(
+                                            {getFieldDecorator('fxdw')(
                                                 <TreeSelect
                                                     showSearch
                                                     style={{width: '100%'}}
