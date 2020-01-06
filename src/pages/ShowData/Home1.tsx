@@ -366,6 +366,7 @@ export default class Home1 extends PureComponent {
                             system_id: record.system_id,
                             wtid: record.wtid,
                             record: record,
+                            from:'首页'
                         },
                     }),
                 );

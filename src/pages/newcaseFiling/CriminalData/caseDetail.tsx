@@ -110,7 +110,7 @@ export default class caseDetail extends PureComponent {
       tzlx:'xsajxx3',
       lx: '案件信息',
       sx: '',
-      sfgz: res && res.sfgz === 0 ? res.sfgz : '',
+      sfgz: res && res.sfgz && res.sfgz === 0 ? res.sfgz : '',
       policevisible: false,
       resvisible: false,
       areavisible: false,
@@ -126,15 +126,21 @@ export default class caseDetail extends PureComponent {
   }
 
   componentDidMount() {
-    this.caseDetailDatas(this.props.location.query.id);
-    // if (
-    //   this.props.location &&
-    //   this.props.location.query &&
-    //   this.props.location.query.record &&
-    //   (this.props.location.query.record.system_id || this.props.location.query.id)
-    // ) {
-    //   this.caseDetailDatas(this.props.location.query.id);
-    // }
+    // this.caseDetailDatas(this.props.location.query.id);
+    if (
+      this.props.location &&
+      this.props.location.query &&
+      this.props.location.query.record && this.props.location.query.from !== '首页'&&
+      (this.props.location.query.record.system_id || this.props.location.query.id)
+    ) {
+      this.caseDetailDatas(this.props.location.query.id);
+    }
+    else if( this.props.location &&
+      this.props.location.query &&
+      this.props.location.query.record && this.props.location.query.from === '首页'&&
+      (this.props.location.query.record.system_id || this.props.location.query.id)){
+      this.caseDetailDatas(this.props.location.query.system_id);
+    }
   }
 
   componentWillReceiveProps(nextProps) {
@@ -284,7 +290,9 @@ export default class caseDetail extends PureComponent {
             lx: this.state.lx,
             sx: (res && res.ajmc ? res.ajmc + '、' : '') + (res && res.schj ? res.schj : ''),
             type: type,
-            tzlx: this.props.location.query.tzlx,
+            tzlx: this.props.location && this.props.location.query && this.props.location.query.tzlx
+              ? this.props.location.query.tzlx
+              : '',
             wtid: res.wtid,
             ajbh: res.ajbh,
             system_id: caseDetails.system_id,

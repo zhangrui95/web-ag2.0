@@ -69,6 +69,10 @@ import DetailShow from "@/components/Common/detailShow";
 export default class caseDetail extends PureComponent {
     constructor(props) {
         super(props);
+        let res = props.location.query.record;
+        if (typeof res == 'string') {
+          res = JSON.parse(sessionStorage.getItem('query')).query.record;
+        }
         this.state = {
             current: 1, // 涉案物品默认在第一页
             jqcurrent: 1, // 警情信息默认在第一页
@@ -100,7 +104,7 @@ export default class caseDetail extends PureComponent {
             personList: [],
             lx: '案件信息',
             sx: '',
-            sfgz: props.location && props.location.query && props.location.query.record && props.location.query.record.sfgz === 0 ? props.location.query.record.sfgz : '',
+            sfgz: res && res.sfgz&&res.sfgz === 0 ? res.sfgz : '',
             policevisible: false,
             resvisible: false,
             areavisible: false,

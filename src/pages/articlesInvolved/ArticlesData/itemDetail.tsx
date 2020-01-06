@@ -85,7 +85,7 @@ export default class itemDetail extends PureComponent {
       lx: '物品信息',
       tzlx: 'wpxx',
       sx: '',
-      sfgz: res && res.sfgz === 0 ? res.sfgz : '',
+      sfgz: res && res.sfgz && res.sfgz === 0 ? res.sfgz : '',
       IsSure: false, // 确认详情是否加载成功
       isDb: authorityIsTrue(userResourceCodeDb.item), // 督办权限
       record: res,

@@ -84,7 +84,7 @@ export default class caseDetail extends PureComponent {
       personList: [],
       lx: '案件信息',
       sx: '',
-      sfgz: res && res.sfgz === 0 ? res.sfgz : '',
+      sfgz: res && res.sfgz&&res.sfgz === 0 ? res.sfgz : '',
 
       policevisible: false,
       resvisible: false,
@@ -101,13 +101,18 @@ export default class caseDetail extends PureComponent {
 
   componentDidMount() {
     if (
-      (this.props.location &&
+      this.props.location.query.from!=='首页'&&((this.props.location &&
         this.props.location.query &&
         this.props.location.query.record &&
         this.props.location.query.record.ajbh) ||
-      this.props.location.query.id
+        this.props.location.query.id)
     ) {
       this.caseDetailDatas(this.props.location.query.id);
+    }
+    else if(this.props.location.query.from==='首页'&&this.props.location &&
+      this.props.location.query &&
+      this.props.location.query.system_id ){
+      this.caseDetailDatas(this.props.location.query.system_id);
     }
   }
 
@@ -285,8 +290,8 @@ export default class caseDetail extends PureComponent {
               (caseDetails.ajzt ? caseDetails.ajzt : ''),
             type: type,
             tzlx:
-              this.props.locaton && this.props.locaton.query && this.props.locaton.query.tzlx
-                ? this.props.locaton.query.tzlx
+              this.props.location && this.props.location.query && this.props.location.query.tzlx
+                ? this.props.location.query.tzlx
                 : '',
             wtid: caseDetails.wtid,
             ajbh: caseDetails.ajbh,
