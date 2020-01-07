@@ -307,8 +307,10 @@ export default class SuperviseModal extends PureComponent {
     let wjxx = [];
     for (let i in fileList) {
       const obj = {
-        wj_name: fileList[i].fileName,
-        wj_url: fileList[i].fileUrl,
+        // wj_name: fileList[i].fileName,
+        // wj_url: fileList[i].fileUrl,
+        wj_name: fileList[i]&&fileList[i].response&&fileList[i].response.fileName||'',
+        wj_url: fileList[i]&&fileList[i].response&&fileList[i].response.fileUrl||'',
       };
       wjxx.push(obj);
     }

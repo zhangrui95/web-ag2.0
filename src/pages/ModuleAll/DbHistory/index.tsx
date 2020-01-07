@@ -39,7 +39,7 @@ export default class DbHistory extends PureComponent {
     constructor(props){
       super(props);
       let record = props.location.query.record;
-      if (typeof record == 'string') {
+      if (typeof record == 'string'||typeof record == 'object') {
         record = JSON.parse(sessionStorage.getItem('query')).query.record;
       }
       this.state={
@@ -122,8 +122,8 @@ export default class DbHistory extends PureComponent {
                             <div className={styles.dbrzfj}>
                                 <span className={styles.dbrzName1}>附件信息： </span>
                                 <span className={styles.dbrzName2}>
-                  <Upload fileList={pane.fileList}/>
-                </span>
+                                  <Upload fileList={pane.fileList}/>
+                                </span>
                             </div>
                         </Col>
                     </Row>
