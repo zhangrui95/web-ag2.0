@@ -194,7 +194,7 @@ export default class caseDetail extends PureComponent {
             from: '行政案件详情问题判定',
             fromPath: '/newcaseFiling/caseData/AdministrationData/caseDetail',
             wtflId: '203202',
-            wtflMc: '案件',
+            wtflMc: '行政案件',
           },
         }),
       );
@@ -467,7 +467,7 @@ export default class caseDetail extends PureComponent {
                     onClick={() => this.saveShare(caseDetails, record, 2)}
                   >
                     <Tooltip title="分享">
-                      <img src={dark ? share : share1} width={25} height={25} />
+                      <img src={dark ? share : share1} width={20} height={20} />
                       <div style={{ fontSize: 12 }}>分享</div>
                     </Tooltip>
                   </span>

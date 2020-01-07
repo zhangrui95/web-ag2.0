@@ -165,6 +165,7 @@ export default class Index extends PureComponent {
                     wtlx_id: code,
                     wtid,
                     old_id,
+                    dbzt: '00',
                 },
             };
             this.getUnArea(obj);
@@ -295,7 +296,6 @@ export default class Index extends PureComponent {
         }, 300);
     };
     handleAllPoliceOptionChange = value => {
-        // console.log('value',value)
         this.getAllPolice(value);
     };
 
@@ -516,7 +516,7 @@ export default class Index extends PureComponent {
                         value={item.name}
                         key={item.id}
                         title={item.name}
-                        selectable={item.code === 'null'}
+                        // selectable={item.code === 'null'}
                     >
                         {this.renderBaqloop(item.children)}
                     </TreeNode>
@@ -527,7 +527,7 @@ export default class Index extends PureComponent {
                     key={item.id}
                     value={item.name}
                     title={item.name}
-                    selectable={item.code === 'null'}
+                    // selectable={item.code === 'null'}
                 />
             );
         });
@@ -930,7 +930,6 @@ export default class Index extends PureComponent {
         const {
             common: {depTree},
         } = this.props;
-        const orgcodeVal = selectedDeptVal !== '' ? JSON.parse(selectedDeptVal).id : '';
         return (
             <div
                 className={

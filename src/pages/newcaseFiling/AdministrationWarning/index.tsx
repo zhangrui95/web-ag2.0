@@ -675,33 +675,35 @@ export default class Index extends PureComponent {
             <a href="javascript:;" onClick={() => this.getTg(record)}>
               日志
             </a>
-            <Divider type="vertical" />
-            {record.sfgz === 0 ? (
-              <Dropdown
-                overlay={
-                  <Menu>
-                    <Menu.Item key="0">
-                      <a onClick={() => this.saveShare(record, 1, 0)}>本案件关注</a>
-                    </Menu.Item>
-                    <Menu.Item key="1">
-                      <a onClick={() => this.saveShare(record, 1, 1)}>全要素关注</a>
-                    </Menu.Item>
-                  </Menu>
-                }
-                trigger={['click']}
-                getPopupContainer={() => document.getElementById('xzajyjtableListOperator')}
-              >
-                <a href="javascript:;">关注</a>
-              </Dropdown>
-            ) : (
-              <a href="javascript:;" onClick={() => this.noFollow(record)}>
-                取消{record.ajgzlx && record.ajgzlx === '0' ? '本案件' : '全要素'}关注
-              </a>
-            )}
-            <Divider type="vertical" />
+              {record.yjjbdm === '5008474' ? '' : <span>
+                   <Divider type="vertical" />
+                  {record.sfgz === 0 ? (
+                      <Dropdown
+                          overlay={
+                              <Menu>
+                                  <Menu.Item key="0">
+                                      <a onClick={() => this.saveShare(record, 1, 0)}>本案件关注</a>
+                                  </Menu.Item>
+                                  <Menu.Item key="1">
+                                      <a onClick={() => this.saveShare(record, 1, 1)}>全要素关注</a>
+                                  </Menu.Item>
+                              </Menu>
+                          }
+                          trigger={['click']}
+                          getPopupContainer={() => document.getElementById('xzajyjtableListOperator')}
+                      >
+                          <a href="javascript:;">关注</a>
+                      </Dropdown>
+                  ) : (
+                      <a href="javascript:;" onClick={() => this.noFollow(record)}>
+                          取消{record.ajgzlx && record.ajgzlx === '0' ? '本案件' : '全要素'}关注
+                      </a>
+                  )}
+                  <Divider type="vertical" />
             <a href="javascript:;" onClick={() => this.saveShare(record, 2)}>
               分享
             </a>
+              </span>}
           </div>
         ),
       },

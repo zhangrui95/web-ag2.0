@@ -727,7 +727,6 @@ export default class Index extends PureComponent {
         const newAddDetail = this.state.arrayDetail;
         const {superviseVisibleModal, showDataView, typeButtons, selectedDeptVal, selectedDateVal, treeDefaultExpandedKeys} = this.state;
         const {common: {depTree}} = this.props;
-        const orgcodeVal = selectedDeptVal !== '' ? JSON.parse(selectedDeptVal).id : '';
         return (
             <div className={this.props.location.query && this.props.location.query.id ? styles.onlyDetail : ''}
                  id='slaxzajgjtableListForm'>

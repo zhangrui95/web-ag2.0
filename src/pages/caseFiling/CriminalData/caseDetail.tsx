@@ -614,7 +614,7 @@ export default class caseDetail extends PureComponent {
         let dark = this.props.global && this.props.global.dark;
         return (
             <div
-                style={{padding: '24px 0', background: '#252C3C' /*height: autoheight() - 280 + 'px'*/}}
+                style={{padding: '24px 0 0', background: '#252C3C' /*height: autoheight() - 280 + 'px'*/}}
                 className={styles.detailBoxScroll}
             >
                 <div style={{textAlign: 'right'}}>

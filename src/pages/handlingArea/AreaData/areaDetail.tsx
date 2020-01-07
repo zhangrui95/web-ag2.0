@@ -189,7 +189,7 @@ export default class areaDetail extends PureComponent {
             tzlx: 'baqxx',
             fromPath: '/handlingArea/AreaData/areaDetail',
             wtflId: '203203',
-            wtflMc: '办案区详情',
+            wtflMc: '办案区',
           },
         }),
       );
@@ -530,7 +530,7 @@ export default class areaDetail extends PureComponent {
                       onClick={() => this.saveShare(areaDetails, record, 2)}
                     >
                       <Tooltip title="分享">
-                        <img src={dark ? share : share1} width={25} height={25} />
+                        <img src={dark ? share : share1} width={20} height={20} />
                         <div style={{ fontSize: 12 }}>分享</div>
                       </Tooltip>
                     </span>

@@ -962,7 +962,6 @@ export default class Index extends PureComponent {
             selectedDateVal,
             treeDefaultExpandedKeys,
         } = this.state;
-        const orgcodeVal = selectedDeptVal !== '' ? JSON.parse(selectedDeptVal).id : '';
         return (
             <div
                 className={

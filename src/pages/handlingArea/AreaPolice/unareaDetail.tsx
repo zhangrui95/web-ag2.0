@@ -160,7 +160,7 @@ export default class unareaDetail extends PureComponent {
                 tzlx: 'baqwt',
                 fromPath: '/handlingArea/AreaPolice/UnareaDetail',
                 wtflId: '203203',
-                wtflMc: '办案区详情',
+                wtflMc: '办案区',
               },
             }),
           );

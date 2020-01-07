@@ -51,24 +51,28 @@ export default class EvaluationChats extends PureComponent {
     getSort = (idx) => {
         this.setState({
             ['sortCharts' + idx]: !this.state['sortCharts' + idx],
+            currentPage1: 1,
+            currentPage2: 1,
+            currentPage3: 1,
+        },()=>{
+            if (idx === '1') {
+                if (this.props.tjnrRedio === '0') {
+                    this.initDataAj(0, this.props, this.state['sortCharts' + idx], '0');
+                } else if (this.props.tjnrRedio === '1') {
+                    this.initDataGj(0, this.props, this.state['sortCharts' + idx], '0');
+                } else {
+                    this.initData(0, this.props, this.state['sortCharts' + idx], '0');
+                }
+            } else {
+                if (this.props.tjnrRedio === '0') {
+                    this.initRyDataAj(0, this.props, this.state['sortCharts' + idx], '0');
+                } else if (this.props.tjnrRedio === '1') {
+                    this.initRyDataGj(0, this.props, this.state['sortCharts' + idx], '0');
+                } else {
+                    this.initRyData(0, this.props, this.state['sortCharts' + idx], '0');
+                }
+            }
         });
-        if (idx === '1') {
-            if (this.props.tjnrRedio === '0') {
-                this.initDataAj(0, this.props, !this.state['sortCharts' + idx], '0');
-            } else if (this.props.tjnrRedio === '1') {
-                this.initDataGj(0, this.props, !this.state['sortCharts' + idx], '0');
-            } else {
-                this.initData(0, this.props, !this.state['sortCharts' + idx], '0');
-            }
-        } else {
-            if (this.props.tjnrRedio === '0') {
-                this.initRyDataAj(0, this.props, !this.state['sortCharts' + idx], '0');
-            } else if (this.props.tjnrRedio === '1') {
-                this.initRyDataGj(0, this.props, !this.state['sortCharts' + idx], '0');
-            } else {
-                this.initRyData(0, this.props, !this.state['sortCharts' + idx], '0');
-            }
-        }
     };
     //换行
     formatter = (val) => {
@@ -244,6 +248,7 @@ export default class EvaluationChats extends PureComponent {
         let arrDatal = {};
         let seriesValue = [];
         let currentPage1 = this.state.currentPage1 + next * 1;
+        console.log('currentPage1',currentPage1)
         this.setState({
             currentPage1: next === 0 ? 1 : currentPage1,
         });

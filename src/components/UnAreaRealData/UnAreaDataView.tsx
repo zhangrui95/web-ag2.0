@@ -392,7 +392,7 @@ export default class UnAreaDataView extends PureComponent {
             legend: {
                 orient: 'vertical',
                 right: '8%',
-                top: 40,
+                top: 25,
                 show: true,
                 itemWidth: 10,
                 itemHeight: 10,
@@ -401,7 +401,7 @@ export default class UnAreaDataView extends PureComponent {
                 textStyle: {
                     color: nextProps.global && nextProps.global.dark ? '#fff' : '#4d4d4d',
                     fontSize: 16,
-                    lineHeight: 20,
+                    lineHeight: 18,
                 },
                 data: [],
             },

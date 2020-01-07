@@ -132,7 +132,7 @@ export default class unitemDetail extends PureComponent {
                 tzlx: 'wpwt',
                 fromPath: '/articlesInvolved/ArticlesPolice/unitemDetail',
                 wtflId: '203204',
-                wtflMc: '涉案财物详情',
+                wtflMc: '涉案财物',
               },
             }),
           );
