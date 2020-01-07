@@ -286,8 +286,8 @@ export default class policeDetail extends PureComponent {
           type: 'share/getMyFollow',
           payload: {
             agid:
-              this.props.location.query.tzlx === 'jqyj'
-                ? this.props.location.query.yjid
+              this.state.record.tzlx === 'jqyj'
+                ? this.state.record.yjid
                 : policeDetails.id,
             lx: this.state.lx,
             sx:

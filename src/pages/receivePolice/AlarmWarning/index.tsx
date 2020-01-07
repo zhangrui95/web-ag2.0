@@ -440,9 +440,36 @@ export default class Index extends PureComponent {
         },
         callback: data => {
           if (!data.error) {
-            message.success('关注成功');
-            this.getDossier({ currentPage: this.state.current, pd: this.state.formValues });
-            this.refreshDetail(res);
+            // message.success('关注成功');
+            // console.log('res',res);
+            this.props.dispatch({
+              type: 'share/getMyFollow',
+              payload: {
+                agid: res.ag_id,
+                lx: this.state.lx,
+                sx:
+                (res.jjdw_mc ? res.jjdw_mc + '、' : '') +
+                (res.yjlxmc ? res.yjlxmc + '、' : '') +
+                (res.yjsj ? res.yjsj : ''),
+                type: type,
+                tzlx: 'jqxx',
+                wtid: res.wtid,
+                ajbh: res.ajbh,
+                system_id: res.system_id,
+                ajGzLx: ajGzLx,
+              },
+              callback: data => {
+                if (!data.error) {
+                  message.success('关注成功');
+
+                  this.getDossier({ currentPage: this.state.current, pd: this.state.formValues });
+                  this.refreshDetail(res);
+                }
+              },
+            });
+
+            // this.getDossier({ currentPage: this.state.current, pd: this.state.formValues });
+            // this.refreshDetail(res);
           }
         },
       });
