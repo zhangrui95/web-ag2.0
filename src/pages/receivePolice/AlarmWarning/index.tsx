@@ -458,8 +458,8 @@ export default class Index extends PureComponent {
                 system_id: res.system_id,
                 ajGzLx: ajGzLx,
               },
-              callback: data => {
-                if (!data.error) {
+              callback: data1 => {
+                if (!data1.error) {
                   message.success('关注成功');
 
                   this.getDossier({ currentPage: this.state.current, pd: this.state.formValues });

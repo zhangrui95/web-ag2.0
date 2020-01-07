@@ -286,7 +286,7 @@ export default class caseDetail extends PureComponent {
         this.props.dispatch({
           type: 'share/getMyFollow',
           payload: {
-            agid: this.props.yjType === 'yj' ? this.props.yjid : caseDetails.id,
+            agid: caseDetails.id,
             lx: this.state.lx,
             sx: (res && res.ajmc ? res.ajmc + '、' : '') + (res && res.schj ? res.schj : ''),
             type: type,

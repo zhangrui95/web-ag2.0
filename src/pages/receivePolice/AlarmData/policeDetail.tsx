@@ -282,13 +282,11 @@ export default class policeDetail extends PureComponent {
     }
     else {
       if (this.state.IsSure) {
+        console.log('this.state.record',this.state.record);
         this.props.dispatch({
           type: 'share/getMyFollow',
           payload: {
-            agid:
-              this.state.record.tzlx === 'jqyj'
-                ? this.state.record.yjid
-                : policeDetails.id,
+            agid: policeDetails.id,
             lx: this.state.lx,
             sx:
               (policeDetails.jjdw ? policeDetails.jjdw + '、' : '') +

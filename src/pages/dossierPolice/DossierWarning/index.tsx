@@ -423,14 +423,52 @@ export default class Index extends PureComponent {
           system_id: res.system_id,
           ajGzLx: ajGzLx,
         },
-        callback: res => {
-          if (!res.error) {
-            message.success('关注成功');
-            this.getDossier({ currentPage: this.state.current, pd: this.state.formValues });
+        callback: data => {
+          if (!data.error) {
+            this.props.dispatch({
+              type: 'share/getMyFollow',
+              payload: {
+                agid: res.ag_id,
+                lx: this.state.lx,
+                sx:
+                (res.jzmc ? res.jzmc + '、' : '') +
+                (res.yjlxmc ? res.yjlxmc + '、' : '') +
+                (res.yjsj ? res.yjsj : ''),
+                type: type,
+                tzlx: this.state.tzlx,
+                wtid: res.wtid,
+                ajbh: res.ajbh,
+                system_id: res.system_id,
+                ajGzLx: ajGzLx,
+              },
+              callback: data1 => {
+                if (!data1.error) {
+                  message.success('关注成功');
+                  this.getDossier({ currentPage: this.state.current, pd: this.state.formValues });
+                  this.refreshDetail(res);
+                }
+              },
+            });
           }
         },
       });
     }
+  };
+  refreshDetail = (res) => {
+    this.props.dispatch({
+      type: 'DossierData/getDossierDetail',
+      payload: {
+        dossier_id: res.dossier_id,
+      },
+      callback: data => {
+        // if (data) {
+        //   this.setState({
+        //     DossierDetailData: data,
+        //     IsSure: true,
+        //   });
+        // }
+      },
+    });
   };
   handleCancel = () => {
     this.setState({
