@@ -196,7 +196,7 @@ export default class UnXzCaseDataView extends PureComponent {
         const that = this;
         unXzCaseEchartFunnel = echarts.init(document.getElementById('unXzCaseXzgj'));
         const option = {
-            color: [this.props.global && this.props.global.dark ? '#fff' : '#00B8CC'],
+            color: ['#00B8CC'],
             title: {
                 // text: '新增告警',
                 // textStyle: {
@@ -228,7 +228,7 @@ export default class UnXzCaseDataView extends PureComponent {
                 },
                 itemStyle: {
                     normal: {
-                        borderColor: this.props.global && this.props.global.dark ? '#fff' : '#00B8CC',
+                        borderColor: '#00B8CC',
                         borderWidth: 1,
                     },
                 },

@@ -71,7 +71,15 @@ body {
         background-color: @body-background !important;
       }
     }
-
+    .ant-input:focus,
+    .ant-calendar-picker:focus .ant-calendar-picker-input:not(.ant-input-disabled),
+    .ant-select-selection:focus,.ant-select-focused .ant-select-selection, .ant-select-selection:focus,
+    .ant-select-selection:active,.ant-cascader-picker:active,.ant-cascader-picker-focused,
+    .ant-cascader-picker:focus .ant-cascader-input
+    {
+      border: none;
+      box-shadow: 0 0 0 1px @highlight-color!important;
+    }
     .ant-radio-inner::after {
       background-color: @btn-choose;
     }
@@ -885,6 +893,9 @@ body {
     .ant-time-picker-clear {
       background: @body-background;
       color: @text-word-color;
+      &:hover{
+        color: @text-word-color;
+      }
     }
 
     .ant-time-picker-panel-inner {

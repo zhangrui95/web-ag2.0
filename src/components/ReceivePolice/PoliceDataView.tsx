@@ -650,10 +650,14 @@ export default class PoliceDataView extends PureComponent {
             jjData = [0, 0, 0, 0, 0, 0, 0];
             xData = dayArry;
           }
+          // let yMax = Math.max(...cjData,...jjData);
           policeEchartLine.setOption({
             xAxis: {
               data: xData,
             },
+              // yAxis:{
+              //     max:yMax&&yMax > 0 ? yMax : 5
+              // },
             series: [
               {
                 data: cjData,

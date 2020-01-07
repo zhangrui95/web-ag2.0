@@ -255,11 +255,11 @@ export default class ItemDataView extends PureComponent {
                                 lastData: countAll,
                             });
                         }
-                        // if (type === weekType[2] || type === monthType[2]) {
-                        //     this.setState({
-                        //         beforeLastData: countAll,
-                        //     })
-                        // }
+                        if (type === weekType[2] || type === monthType[2]) {
+                            this.setState({
+                                beforeLastData: countAll,
+                            })
+                        }
                     } else {
                         if (itemEchartRYCFPie) {
                             // const data1=data.list;
@@ -528,7 +528,8 @@ export default class ItemDataView extends PureComponent {
                             currentType === 'selectedDate'
                                 ? that.props.selectedDateVal
                                 : that.getTime(currentType);
-                        that.props.changeListPageHeader({salx: salxData}, dataTime);
+                        console.log('salxData=========>',salxData,that.state.chooseBaqName)
+                        that.props.changeListPageHeader({salx: salxData,ssbaq:that.state.chooseBaqName}, dataTime);
                     });
                 }
             },
@@ -650,12 +651,16 @@ export default class ItemDataView extends PureComponent {
                             data: newData1,
                         },
                     ];
+                    // let yMax = Math.max(...newData1);
                     itemEchartRQRCQSZSPie.setOption({
                         xAxis: {
                             type: 'category',
                             boundaryGap: false,
                             data: newData,
                         },
+                        // yAxis:{
+                        //     max:yMax&&yMax > 0 ? yMax : 5
+                        // },
                         series: seriesDataAll,
                     });
                 }
@@ -985,7 +990,7 @@ export default class ItemDataView extends PureComponent {
             },
             legend: {
                 orient: 'vertical',
-                right: '5%',
+                right: '2%',
                 top: 20,
                 show: true,
                 itemWidth: 10,
@@ -1123,23 +1128,26 @@ export default class ItemDataView extends PureComponent {
         });
     };
     // 点击涉案人员入区人次展示切换办案区
-    chooseBaq = orgid => {
+    chooseBaq = item => {
         const {TypeTime, currentType, rqtype} = this.state;
+        console.log('item',item)
         this.setState({
-            chooseBaq: orgid,
+            chooseBaq: item.orgid,
+            chooseBaqName:item.name,
         });
-        this.getAreaRYCFCount(TypeTime[0], TypeTime[1], this.props.orgcode, orgid);
-        this.getAreaSpecialRYCFCount(TypeTime[0], TypeTime[1], this.props.orgcode, orgid);
-        this.getAreaNLHFCount(TypeTime[0], TypeTime[1], this.props.orgcode, orgid);
-        this.getAreaSALXCount(TypeTime[0], TypeTime[1], this.props.orgcode, orgid);
-        this.getAreaRQYYCount(TypeTime[0], TypeTime[1], this.props.orgcode, orgid);
+        this.getAreaRYCFCount(TypeTime[0], TypeTime[1], this.props.orgcode,item.orgid);
+        this.getAreaSpecialRYCFCount(TypeTime[0], TypeTime[1], this.props.orgcode, item.orgid);
+        this.getAreaNLHFCount(TypeTime[0], TypeTime[1], this.props.orgcode, item.orgid);
+        this.getAreaSALXCount(TypeTime[0], TypeTime[1], this.props.orgcode, item.orgid);
+        this.getAreaRQYYCount(TypeTime[0], TypeTime[1], this.props.orgcode, item.orgid);
         // this.getAreaSARYRQRCCount(TypeTime[0],TypeTime[1]);
-        this.getAreaRQRCQSCount(rqtype, this.props.orgcode, '', '', orgid);
+        this.getAreaRQRCQSCount(rqtype, this.props.orgcode, '', '', item.orgid);
     };
     resetBaq = () => {
         const {TypeTime, currentType, rqtype} = this.state;
         this.setState({
             chooseBaq: '',
+            chooseBaqName: '',
         });
         this.getAreaRYCFCount(TypeTime[0], TypeTime[1]);
         this.getAreaSpecialRYCFCount(TypeTime[0], TypeTime[1]);
@@ -1179,7 +1187,7 @@ export default class ItemDataView extends PureComponent {
                                             }
                                             strokeWidth={16}
                                             className={AreaDataViewStyles.Progress}
-                                            onClick={() => this.chooseBaq(item.orgid)}
+                                            onClick={() => this.chooseBaq(item)}
                                         />
                                     </Tooltip>
                                 </div>
