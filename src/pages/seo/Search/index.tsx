@@ -461,7 +461,7 @@ export default class GeneralQuery extends PureComponent {
                 });
             }
             should = {
-                should: [...should.should, ...badwSearchValue],
+                should: [...badwSearchValue],
             };
         }
         if (ajztValue !== null) {
@@ -958,7 +958,6 @@ export default class GeneralQuery extends PureComponent {
             }
         } else if (item._index === baqQueryIndex) {
             if (item._source.ryzjhm && item._source.system_id && item._source.ryzjhm !== '暂无' && item._source.system_id !== '暂无') {//涉案人员在区情况
-                console.log('item._source',item._source)
                 item.sfzh = item._source.ryzjhm;
                 item.system_id = item._source.system_id;
                 this.props.dispatch(

@@ -190,7 +190,7 @@ export default class caseDetail extends PureComponent {
           pathname: '/ModuleAll/Supervise',
           query: {
             record: caseDetails,
-            id: caseDetails && caseDetails.id ? caseDetails.id : '1',
+            id: caseDetails && caseDetails.ajbh ? caseDetails.ajbh : '1',
             from: '刑事案件详情问题判定',
             fromPath: '/newcaseFiling/caseData/CriminalData/caseDetail',
             wtflId: '203202',
@@ -1026,9 +1026,10 @@ export default class caseDetail extends PureComponent {
       {
         title: '接警来源',
         dataIndex: 'jjly_mc',
+        width:280,
         render: text => {
           return text ? (
-            <Ellipsis length={10} tooltip>
+            <Ellipsis lines={2} tooltip>
               {text}
             </Ellipsis>
           ) : (

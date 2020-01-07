@@ -184,9 +184,9 @@ const Navigation = props => {
             payload: {},
             callback: () => {
                 //跳转回首页
-                if (location.pathname !== '/ShowData/RegulatePanel') {
+                // if (location.pathname !== '/ShowData/RegulatePanel') {
                     dispatch(routerRedux.push('/ShowData/RegulatePanel'));
-                }
+                // }
             }
         });
         dispatch({

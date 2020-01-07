@@ -985,11 +985,12 @@ export default class ItemDataView extends PureComponent {
                                                     alignItems: 'center',
                                                     flexDirection: 'column',
                                                     justifyContent: 'center',
+                                                    marginTop: this.props.global && this.props.global.dark ? 60 : 16,
                                                 }}
                                             >
                                                 <img
                                                     src={this.props.global && this.props.global.dark ? nonDivImg : noListLight}
-                                                    height={200} alt="暂无数据"/>
+                                                    height={this.props.global && this.props.global.dark ? 100 : 200} alt="暂无数据"/>
                                                 <div style={{
                                                     fontSize: 18,
                                                     color: this.props.global && this.props.global.dark ? '#fff' : '#999',
@@ -1075,10 +1076,11 @@ export default class ItemDataView extends PureComponent {
                                             alignItems: 'center',
                                             flexDirection: 'column',
                                             justifyContent: 'center',
+                                            marginTop: this.props.global && this.props.global.dark ? 60 : 16,
                                         }}
                                     >
                                         <img src={this.props.global && this.props.global.dark ? nonDivImg : noListLight}
-                                             alt="暂无数据" height={200}/>
+                                             alt="暂无数据" height={this.props.global && this.props.global.dark ? 100 : 200}/>
                                         <div style={{
                                             fontSize: 18,
                                             color: this.props.global && this.props.global.dark ? '#fff' : '#999'

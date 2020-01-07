@@ -377,6 +377,14 @@ export default class Index extends PureComponent {
         this.props.form.resetFields();
         let kprq_ks = this.state.kprqTb && this.state.kprqTb.length > 0 ? this.state.kprqTb[0].format('YYYY-MM-DD') : '';
         let kprq_js = this.state.kprqTb && this.state.kprqTb.length > 0 ? this.state.kprqTb[1].format('YYYY-MM-DD') : '';
+        let location = {location:{state:{
+                    code: idx === '0' ? params.code : (params.bkpr_dwdm ? params.bkpr_dwdm : ''),
+                    kssj: kprq_ks,
+                    jssj: kprq_js,
+                    dbzt: '',
+                    bar_name: idx === '2' ? params.bkpr_name : '',
+                    is_tz: '2',
+                }}}
         if (params) {
             if (params.typeGj) {
                 let pathname =  params.typeGj === '0' ? '/newcaseFiling/casePolice/AdministrationPolice' :
@@ -384,6 +392,14 @@ export default class Index extends PureComponent {
                         params.typeGj === '2' ? '/articlesInvolved/ArticlesPolice' :
                             params.typeGj === '3' ? '/handlingArea/AreaPolice' :
                                 params.typeGj === '4' ? '/dossierPolice/DossierPolice' : ''
+                this.props.dispatch({
+                    type: 'global/changeResetList',
+                    payload: {
+                        isReset: !this.props.global.isResetList.isReset,
+                        url:pathname,
+                        state:location,
+                    },
+                });
                 this.props.dispatch(routerRedux.push({
                     pathname:pathname,
                     state: {
@@ -396,13 +412,6 @@ export default class Index extends PureComponent {
                     },
                     // query: {isReset: true}
                 }));
-                this.props.dispatch({
-                    type: 'global/changeResetList',
-                    payload: {
-                        isReset: !this.props.global.isResetList.isReset,
-                        url:pathname
-                    },
-                });
             } else {
                 this.setState({
                     showDataView: false,

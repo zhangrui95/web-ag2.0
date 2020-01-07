@@ -183,15 +183,18 @@ export default class Index extends PureComponent {
 
     componentWillReceiveProps(nextProps) {
         if (this.props.global.isResetList.isReset !== nextProps.global.isResetList.isReset && nextProps.global.isResetList.url === '/newcaseFiling/casePolice/CriminalPolice') {
-            // this.getAllList(nextProps.history);
-            const params = {
-              currentPage: 1,
-              showCount: tableList,
-              pd: {
-                ...this.state.formValues,
-              },
-            };
-            this.getUnCase(params);
+            if (nextProps.global.isResetList.state){
+                this.getAllList(nextProps.global.isResetList.state);
+            }else{
+                const params = {
+                    currentPage: 1,
+                    showCount: tableList,
+                    pd: {
+                        ...this.state.formValues,
+                    },
+                };
+                this.getUnCase(params);
+            }
             this.setState({
                 searchHeight:true,
             });

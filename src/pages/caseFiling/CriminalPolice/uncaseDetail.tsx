@@ -684,9 +684,10 @@ export default class uncaseDetail extends PureComponent {
             {
                 title: '接警来源',
                 dataIndex: 'jjly_mc',
+                width:280,
                 render: text => {
                     return (
-                        <Ellipsis length={10} tooltip>
+                        <Ellipsis lines={2} tooltip>
                             {text}
                         </Ellipsis>
                     );

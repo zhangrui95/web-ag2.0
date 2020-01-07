@@ -134,15 +134,18 @@ export default class Index extends PureComponent {
 
     componentWillReceiveProps(nextProps) {
         if (this.props.global.isResetList.isReset !== nextProps.global.isResetList.isReset && nextProps.global.isResetList.url === '/articlesInvolved/ArticlesPolice') {
-            const params = {
-              currentPage: 1,
-              showCount: tableList,
-              pd: {
-                ...this.state.formValues,
-              },
-            };
-            this.getItem(params);
-            // this.getAllList(nextProps.history);
+            if (nextProps.global.isResetList.state){
+                this.getAllList(nextProps.global.isResetList.state);
+            }else{
+                const params = {
+                    currentPage: 1,
+                    showCount: tableList,
+                    pd: {
+                        ...this.state.formValues,
+                    },
+                };
+                this.getItem(params);
+            }
             this.setState({
                 searchHeight:true,
             });

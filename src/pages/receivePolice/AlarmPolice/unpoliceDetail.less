@@ -114,7 +114,35 @@
 .xqcol {
   padding: 12px;
 }
+.ajlcCard {
+  margin-top: -2px;
+  background-color: #171a26 !important;
+  color: @white;
 
+  :global {
+    .antd-pro-theme-dark-theme-dark .ant-card {
+      border-radius: 0px !important;
+    }
+
+    .ant-card-head {
+      color: @white;
+      border-bottom: 1px solid #1d212f;
+    }
+
+    .ant-card-body {
+      padding: 32px;
+    }
+
+    .ant-steps-item-finish .ant-steps-item-icon {
+      border: 1px solid #2f86ff;
+      background-color: #0f1220;
+    }
+
+    .ant-steps-item-process .ant-steps-item-icon {
+      border: 1px solid #fff;
+    }
+  }
+}
 .lightBox {
   :global {
     .ant-card-body {
@@ -143,6 +171,33 @@
   }
 
   .ajlczCard {
+    background-color: #fafafa !important;
+    color: #475568;
+
+    :global {
+      .ant-steps-item-finish .ant-steps-item-icon {
+        background-color: transparent !important;
+        border: 2px solid #4662d5 !important;
+      }
+
+      .ant-card-bordered {
+        background: #fafafa;
+      }
+
+      .ant-card-head {
+        border-bottom: 1px solid #eeeeee;
+      }
+
+      .ant-card-head-title {
+        color: #475568 !important;
+      }
+
+      .ant-card-body {
+        padding: 24px;
+      }
+    }
+  }
+  .ajlcCard {
     background-color: #fafafa !important;
     color: #475568;
 

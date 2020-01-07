@@ -52,6 +52,7 @@ import SupervisionLog from '../../../components/Common/SupervisionLog';
 import noList from "@/assets/viewData/noList.png";
 import noListLight from "@/assets/viewData/noListLight.png";
 import DetailShow from "@/components/Common/detailShow";
+import Ellipsis from "ant-design-pro/lib/Ellipsis";
 
 const FormItem = Form.Item;
 // const { Description } = DescriptionList;
@@ -566,14 +567,11 @@ export default class caseDetail extends PureComponent {
             {
                 title: '接警来源',
                 dataIndex: 'jjly_mc',
-                render: record => {
-                    return record && record.length <= 10 ? (
-                        record
-                    ) : (
-                        <Tooltip title={record}>
-                            <span>{record && record.substring(0, 10) + '...'}</span>
-                        </Tooltip>
-                    );
+                width:280,
+                render: text => {
+                    return   <Ellipsis lines={2} tooltip>
+                        {text}
+                    </Ellipsis>
                 },
             },
             {
