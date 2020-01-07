@@ -154,7 +154,7 @@ export default class policeDetail extends PureComponent {
         routerRedux.push({
           pathname: '/newcaseFiling/caseData/AdministrationData/caseDetail',
           query: {
-            id: policeDetails && policeDetails.system_id ? policeDetails.system_id : '1',
+            id: policeDetails && policeDetails.ajbh ? policeDetails.ajbh : '1',
             record: policeDetails,
           },
         }),
@@ -551,7 +551,7 @@ export default class policeDetail extends PureComponent {
     let dark = this.props.global && this.props.global.dark;
     return (
       <div
-        style={{ background: dark ? '#252c3c' : '#fff', height: autoheight() - 280 + 'px',marginTop:16, borderRadius: 10,padding:'16px 0' }}
+        style={{ background: dark ? '#252c3c' : '#fff', height: autoheight() - 280 + 'px',marginTop:16, borderRadius: 10,padding:'16px 0 0' }}
         id={`jqDetail${this.props.location.query.id}`}
         className={styles.detailBoxScroll}
       >

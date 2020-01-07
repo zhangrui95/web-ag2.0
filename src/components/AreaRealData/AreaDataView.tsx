@@ -373,7 +373,6 @@ export default class ItemDataView extends PureComponent {
                 if (data) {
                     let SARYRQRC = 0;
                     const data1 = data.list;
-
                     if (data.list.length > 1) {
                         for (let a = 0; a < data.list.length; a++) {
                             SARYRQRC += data.list[a].count1;
@@ -783,7 +782,7 @@ export default class ItemDataView extends PureComponent {
             legend: {
                 orient: 'vertical',
                 right: '7%',
-                top: 140,
+                top: 90,
                 show: true,
                 itemWidth: 10,
                 itemHeight: 10,
@@ -987,7 +986,7 @@ export default class ItemDataView extends PureComponent {
             legend: {
                 orient: 'vertical',
                 right: '5%',
-                top: '10%',
+                top: 20,
                 show: true,
                 itemWidth: 10,
                 itemHeight: 10,
@@ -1160,13 +1159,13 @@ export default class ItemDataView extends PureComponent {
         } else if (SARYRQRCdataLength > 1) {
             return (
                 <div>
-                    <div className={AreaDataViewStyles.IntoTitle}>
+                    <div className={AreaDataViewStyles.IntoTitle+' '+styles.cardBoxTitle}>
                         | 办案区入区人次展示
-                        <a style={{float: 'right'}} onClick={() => this.resetBaq()}>
+                        <a style={{float: 'right',color:this.props.global && this.props.global.dark ? '#3285ff' : '#4662d5'}} onClick={() => this.resetBaq()}>
                             全部
                         </a>
                     </div>
-                    <div className={AreaDataViewStyles.IntoAreaName}>
+                    <div className={AreaDataViewStyles.IntoAreaName + ' ' + styles.cardBox}>
                         {SARYRQRCdata &&
                         SARYRQRCdata.map(item => (
                             <div className={AreaDataViewStyles.IntoPerson}>
@@ -1319,7 +1318,7 @@ export default class ItemDataView extends PureComponent {
                                                         placement="bottomLeft"
                                                     >
                                                         <Progress
-                                                            percent={(item.count / NLFBTotal) * 100}
+                                                            percent={Math.round((item.count / NLFBTotal) * 100)}
                                                             strokeWidth={12}
                                                         />
                                                     </Tooltip>

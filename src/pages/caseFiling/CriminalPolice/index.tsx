@@ -807,7 +807,6 @@ export default class Index extends PureComponent {
         const {
             common: {depTree},
         } = this.props;
-        const orgcodeVal = selectedDeptVal !== '' ? JSON.parse(selectedDeptVal).id : '';
         return (
             <div
                 className={

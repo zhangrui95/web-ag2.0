@@ -72,6 +72,7 @@ export default class CaseEnforcementDataView extends PureComponent {
                 this.props.selectedDateVal !== nextProps.selectedDateVal ||
                 this.props.global.dark !== nextProps.global.dark
             ) {
+                console.log('nextProps.orgcode',nextProps.orgcode)
                 if (nextProps.searchType === 'week') {
                     this.setState({
                         currentType: 'week',

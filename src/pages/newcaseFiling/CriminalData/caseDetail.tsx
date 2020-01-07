@@ -194,7 +194,7 @@ export default class caseDetail extends PureComponent {
             from: '刑事案件详情问题判定',
             fromPath: '/newcaseFiling/caseData/CriminalData/caseDetail',
             wtflId: '203202',
-            wtflMc: '案件',
+            wtflMc: '刑事案件',
           },
         }),
       );
@@ -511,7 +511,7 @@ export default class caseDetail extends PureComponent {
                     onClick={() => this.saveShare(caseDetails, record, 2)}
                   >
                     <Tooltip title="分享">
-                      <img src={dark ? share : share1} width={25} height={25} />
+                      <img src={dark ? share : share1} width={20} height={20} />
                       <div style={{ fontSize: 12 }}>分享</div>
                     </Tooltip>
                   </span>
@@ -793,7 +793,7 @@ export default class caseDetail extends PureComponent {
     return (
       <div
         style={{
-          padding: '24px 0',
+          padding: '24px 0 0',
           background: dark ? '#252c3c' : '#fff', height: autoheight() - 260 + 'px',
         }}
         className={styles.detailBoxScroll}

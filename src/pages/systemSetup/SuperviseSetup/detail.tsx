@@ -608,7 +608,7 @@ class Detail extends Component {
         message.warn('请选择监管事项');
       } else if (!values.addjgd) {
         message.warn('请选择监管点');
-      } else if (!values.addjgqx) {
+      } else if (!values.addjgqx || values.addjgqx.length===0) {
         message.warn('请选择监管期限');
       } else {
         let name1 = [],

@@ -752,7 +752,7 @@ export default class caseDetail extends PureComponent {
     let dark = this.props.global && this.props.global.dark;
     return (
       <div
-        style={{ background: dark ? '#252c3c' : '#fff', height: autoheight() - 250 + 'px',padding:'16px 0' }}
+        style={{ background: dark ? '#252c3c' : '#fff', height: autoheight() - 250 + 'px',padding:'16px 0 0' }}
         className={styles.detailBoxScroll}
       >
         <SupervisionLog
@@ -873,7 +873,7 @@ export default class caseDetail extends PureComponent {
 
         {caseDetails && caseDetails.ajzt ? (
           <div style={{ borderBottom: dark ? '1px solid #171925' : '1px solid #e6e6e6' }}>
-            <div className={styles.title}>案件轨迹</div>
+            <div className={styles.title}>| 案件轨迹</div>
             <CaseModalTrail {...this.props} caseDetails={caseDetails} from="行政" />
           </div>
         ) : (

@@ -135,7 +135,7 @@ export default class DossierDetail extends PureComponent {
             tzlx: 'jzxx',
             fromPath: '/dossierPolice/DossierData/DossierDetail',
             wtflId: '203206',
-            wtflMc: '卷宗详情',
+            wtflMc: '卷宗',
           },
         }),
       );
@@ -613,7 +613,7 @@ export default class DossierDetail extends PureComponent {
                     onClick={() => this.saveShare(DossierDetailData, 2)}
                   >
                     <Tooltip title="分享">
-                      <img src={dark ? share : share1} width={25} height={25} />
+                      <img src={dark ? share : share1} width={20} height={20} />
                       <div style={{ fontSize: 12 }}>分享</div>
                     </Tooltip>
                   </span>
