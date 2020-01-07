@@ -342,7 +342,7 @@ export default class areaDetail extends PureComponent {
         this.props.dispatch({
           type: 'share/getMyFollow',
           payload: {
-            agid: this.props.yjType === 'yj' ? this.props.yjid : areaDetails.id,
+            agid: areaDetails.id,
             lx: this.state.lx,
             sx:
               (res.ajmc ? res.ajmc + '、' : '') +

@@ -296,13 +296,13 @@ export default class DossierDetail extends PureComponent {
         this.props.dispatch({
           type: 'share/getMyFollow',
           payload: {
-            agid: this.props.yjType === 'yj' ? this.props.yjid : DossierDetailData.id,
+            agid: DossierDetailData.id,
             lx: this.state.lx,
             sx:
               (DossierDetailData.ajmc ? DossierDetailData.ajmc + '、' : '') +
               (DossierDetailData.jzlb_mc ? DossierDetailData.jzlb_mc : ''),
             type: type,
-            tzlx: this.props.yjType === 'yj' ? 'jzyj' : this.state.tzlx,
+            tzlx: this.state.tzlx,
             wtid: DossierDetailData.wtid,
             ajbh: DossierDetailData.ajbh,
             system_id: DossierDetailData.system_id,

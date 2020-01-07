@@ -329,14 +329,14 @@ export default class itemDetail extends PureComponent {
         this.props.dispatch({
           type: 'share/getMyFollow',
           payload: {
-            agid: this.props.yjType === 'yj' ? this.props.yjid : itemDetails.id,
+            agid: itemDetails.id,
             lx: this.state.lx,
             sx:
               (res.ajmc ? res.ajmc + '、' : '') +
               (res.wpmc ? res.wpmc + '、' : '') +
               (res.zt ? res.zt : ''),
             type: type,
-            tzlx: this.props.yjType === 'yj' ? 'wpyj' : this.state.tzlx,
+            tzlx: this.state.tzlx,
             wtid: res.wtid,
             ajbh: res.ajbh,
             system_id: itemDetails.system_id,

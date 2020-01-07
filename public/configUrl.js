@@ -51,6 +51,7 @@ const configItem = {
   is_area: '2', // 刑事案件案件类别根据不同地区调用不同的接口；1表示牡丹江,2表示平乐,0表示主线，5表示达拉特旗
   is_ssds: 'dltq', // 接处警报警类别的所属地市dltq
   startTheme:true,//初始化主题深色版本true,浅色版本false,
+  is_sawpbb:'1', // 涉案物品后台数据版本;1为1.0版本,2为2.0版本;
 };
 // 开发模式地址
 const developConfigUrl = {

@@ -24,7 +24,7 @@ class DailyRecord extends PureComponent {
     constructor(props){
       super(props);
       let res = props.location.query.RzList;
-      console.log('props',props);
+      // console.log('props',props);
       if(res&&typeof res === 'object'){
         res = JSON.parse(sessionStorage.getItem('query')).query.RzList;
       }
