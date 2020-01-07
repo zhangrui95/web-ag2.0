@@ -279,7 +279,8 @@ export default class policeDetail extends PureComponent {
           },
         }),
       );
-    } else {
+    }
+    else {
       if (this.state.IsSure) {
         this.props.dispatch({
           type: 'share/getMyFollow',
@@ -295,7 +296,8 @@ export default class policeDetail extends PureComponent {
               (policeDetails.jqlb ? policeDetails.jqlb + '、' : '') +
               (policeDetails.jjsj ? policeDetails.jjsj : ''),
             type: type,
-            tzlx: this.props.location.query.tzlx,
+            // tzlx: this.props.location.query.tzlx,
+            tzlx: this.state.record&&this.state.record.tzlx?this.state.record.tzlx:'jqxx',
             wtid: policeDetails.wtid,
             ajbh: policeDetails.ajbh,
             system_id:
@@ -315,12 +317,6 @@ export default class policeDetail extends PureComponent {
               //   });
               // }
               this.refreshTable(this.props.location.query);
-              // this.props.dispatch({
-              //   type:'policeData/policeNewSfgz',
-              //   payload:{
-              //     sfgz:1,
-              //   },
-              // })
               // this.setState(
               //   {
               //     sfgz: 1,
