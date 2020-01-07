@@ -212,16 +212,19 @@ export function routes() {
                         name: '受立案',
                         icon: 'icon-lianxinxi',
                         path: '/newcaseFiling',
+                        authority: ['zhag_new_sla'],
                         routes: [
                           {
                             name: '案件数据',
                             icon: 'icon-weibiaoti--',
                             path: '/newcaseFiling/caseData',
+                            authority: ['zhag_new_sla_sj'],
                             routes: [
                               {
                                 name: '刑事案件数据',
                                 path: '/newcaseFiling/caseData/CriminalData',
                                 component: './newcaseFiling/CriminalData',
+                                  authority: ['zhag_new_sla_sj_xs'],
                               },
                               {
                                 path: '/newcaseFiling/caseData/CriminalData/caseDetail',
@@ -233,6 +236,7 @@ export function routes() {
                                 name: '行政案件数据',
                                 path: '/newcaseFiling/caseData/AdministrationData',
                                 component: './newcaseFiling/AdministrationData',
+                                  authority: ['zhag_new_sla_sj_xz'],
                               },
                               {
                                 path: '/newcaseFiling/caseData/AdministrationData/caseDetail',
@@ -246,16 +250,19 @@ export function routes() {
                             name: '案件预警',
                             icon: 'icon-yujing',
                             path: '/newcaseFiling/caseWarning',
+                            authority: ['zhag_new_sla_yj'],
                             routes: [
                               {
                                 name: '刑事案件预警',
                                 path: '/newcaseFiling/caseWarning/CriminalWarning',
                                 component: './newcaseFiling/CriminalWarning',
+                                  authority: ['zhag_new_sla_yj_xs'],
                               },
                               {
                                 name: '行政案件预警',
                                 path: '/newcaseFiling/caseWarning/AdministrationWarning',
                                 component: './newcaseFiling/AdministrationWarning',
+                                  authority: ['zhag_new_sla_yj_xz'],
                               },
                             ],
                           },
@@ -263,11 +270,13 @@ export function routes() {
                             name: '案件告警',
                             icon: 'icon-gaojing',
                             path: '/newcaseFiling/casePolice',
+                              authority: ['zhag_new_jcj_gj'],
                             routes: [
                               {
                                 name: '刑事案件告警',
                                 path: '/newcaseFiling/casePolice/CriminalPolice',
                                 component: './newcaseFiling/CriminalPolice',
+                                  authority: ['zhag_new_jcj_gj_xs'],
                               },
                               {
                                 name: '刑事案件告警详情',
@@ -279,6 +288,7 @@ export function routes() {
                                 name: '行政案件告警',
                                 path: '/newcaseFiling/casePolice/AdministrationPolice',
                                 component: './newcaseFiling/AdministrationPolice',
+                                  authority: ['zhag_new_jcj_gj_xz'],
                               },
                               {
                                 name: '行政案件告警详情',
