@@ -735,6 +735,7 @@ export default class Index extends PureComponent {
                         orgcode={selectedDeptVal}
                         selectedDateVal={selectedDateVal}
                         changeToListPage={this.changeToListPage}
+                        selectedDeptVal={selectedDeptVal}
                         {...this.props}
                     />
                     <div style={showDataView ? {display: 'none'} : {display: 'block'}}>

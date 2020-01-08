@@ -320,13 +320,13 @@ export default class ItemDataView extends PureComponent {
             oDate2 = new Date(aDate[1] + '-' + aDate[2] + '-' + aDate[0]);
             iDays = parseInt(Math.abs(oDate1 - oDate2) / 1000 / 60 / 60 / 24) + 1; // 把相差的毫秒数转换为天数
             if (iDays >= 1 && iDays <= 14) {
-                typeLabel = '天';
+                typeLabel = 'day';
             } else if (iDays > 14 && iDays <= 98) {
-                typeLabel = '周';
+                typeLabel = 'week';
             } else if (iDays > 98 && iDays <= 420) {
-                typeLabel = '月';
+                typeLabel = 'month';
             } else if (iDays > 420 && iDays <= 5110) {
-                typeLabel = '年';
+                typeLabel = 'year';
             } else {
                 this.setState({
                     wpqsNoData: true,
@@ -350,14 +350,14 @@ export default class ItemDataView extends PureComponent {
                 rqType: qsTime,
                 sjbb: window.configUrl.is_sawpbb,
                 orgcode,
-                typeLabel: '周',
+                typeLabel: 'week',
             };
         } else if (qsTime === '3' || qsTime === '4' || qsTime === '5') {
             payload = {
                 rqType: qsTime,
                 sjbb: window.configUrl.is_sawpbb,
                 orgcode,
-                typeLabel: '天',
+                typeLabel: 'day',
             };
         } else {
             payload = {
@@ -386,8 +386,8 @@ export default class ItemDataView extends PureComponent {
                                 qsTime === 'selectedDate'
                                     ? typeLabel
                                     : qsTime === '6' || qsTime === '7' || qsTime === '8'
-                                    ? '周'
-                                    : '天',
+                                    ? 'week'
+                                    : 'day',
                             qsTime: qsTime,
                         });
 
@@ -753,11 +753,11 @@ export default class ItemDataView extends PureComponent {
         itemEchartwpqsBar.on('click', function (params) {
             const {typeLabel, qsTime} = that.state;
             let dataTime = [];
-            if (qsTime === 'selectedDate' && typeLabel === '天' && params.name) {
+            if (qsTime === 'selectedDate' && typeLabel === 'day' && params.name) {
                 dataTime = [params.name, params.name];
-            } else if (qsTime === 'selectedDate' && typeLabel === '周' && params.name) {
+            } else if (qsTime === 'selectedDate' && typeLabel === 'week' && params.name) {
                 dataTime = [params.name.split('~')[0], params.name.split('~')[1]];
-            } else if (qsTime === 'selectedDate' && typeLabel === '月' && params.name) {
+            } else if (qsTime === 'selectedDate' && typeLabel === 'month' && params.name) {
                 const newDate = params.name.replace(new RegExp('-', 'g'), '/');
                 const endDate = new Date(newDate); //date 是需要传递的时间如：2018-08
                 const month = endDate.getMonth();
@@ -767,7 +767,7 @@ export default class ItemDataView extends PureComponent {
                 const dateString = new Date(nextMonthFirstDay - oneDay);
                 const dateTimeEnd = dateString.toLocaleDateString().replace(new RegExp('/', 'g'), '-');
                 dataTime = [params.name + '-01', dateTimeEnd];
-            } else if (qsTime === 'selectedDate' && typeLabel === '年' && params.name) {
+            } else if (qsTime === 'selectedDate' && typeLabel === 'year' && params.name) {
                 dataTime = [params.name + '-01-01', params.name + '-12-31'];
             } else if (qsTime !== 'selectedDate') {
                 dataTime = [params.name, params.name];
