@@ -899,7 +899,7 @@ export default class EvaluationChats extends PureComponent {
                                                                                                title={d.name}>{`${d.name} ${d.pcard}`}</Option>);
         let className = this.props.global && this.props.global.dark ? styles.evalDataView : styles.evalDataView + ' ' + styles.lightBox + ' ' + styles.lightBoxEval;
         return (
-            <Card className={className} id={'form'}>
+            <Card className={className} id={'formRyChart'}>
                 <Row gutter={rowLayout} className={styles.listPageRow}>
                     <Col {...colLayout} className={styles.viewBox}>
                         <div className={styles.titleTop}>| 机构排名</div>
@@ -951,6 +951,7 @@ export default class EvaluationChats extends PureComponent {
                             value={this.state.ryValue}
                             onChange={this.getRy}
                             className={styles.choiceRy}
+                            maxTagCount={5}
                             placeholder="请选择人员"
                             mode="multiple"
                             optionLabelProp='title'
@@ -958,7 +959,7 @@ export default class EvaluationChats extends PureComponent {
                             filterOption={(input, option) =>
                                 option.props.children.indexOf(input) >= 0
                             }
-                            getPopupContainer={() => document.getElementById('form')}
+                            getPopupContainer={() => document.getElementById('formRyChart')}
                         >
                             {this.state.ryList && this.state.ryList.map((d) => {
                                 return <Option key={`${d.bkpr_jh}`} value={`${d.bkpr_jh}`}

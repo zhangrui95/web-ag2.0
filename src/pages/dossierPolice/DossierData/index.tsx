@@ -495,9 +495,9 @@ export default class Index extends PureComponent {
         payload: {
           code: getUserInfos().department,
         },
-        callback: res => {
+        callback: record => {
           this.setState({
-            personList: res.list,
+            personList: record.list,
           });
           let shareRecord = this.state.shareRecord;
           let detail = [
@@ -518,7 +518,6 @@ export default class Index extends PureComponent {
                 tzlx: 'jzxx',
                 fromPath: '/dossierPolice/DossierData',
                 tab: '表格',
-                sx: (res.ajmc ? res.ajmc + '、' : '') + (res.jzlb_mc ? res.jzlb_mc : ''),
               },
             }),
           );
