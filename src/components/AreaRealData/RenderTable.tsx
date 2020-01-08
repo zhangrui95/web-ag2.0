@@ -321,7 +321,9 @@ class RenderTable extends PureComponent {
       total: data.page ? data.page.totalResult : '',
       pageSize: data.page ? data.page.showCount : '',
       showTotal: (total, range) => (
-        <span className={styles.pagination}>{`共 ${data.page ? data.page.totalPage : 1} 页， ${
+        <span className={styles.pagination}  style={{
+            color: this.props.global && this.props.global.dark ? '#fff' : '#999'
+        }}>{`共 ${data.page ? data.page.totalPage : 1} 页， ${
           data.page ? data.page.totalResult : 0
         } 条记录 `}</span>
       ),

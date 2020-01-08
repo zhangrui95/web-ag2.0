@@ -577,7 +577,7 @@ export default class Home1 extends PureComponent {
         this.props.dispatch({
             type: 'share/getMyFollow',
             payload: {
-                agid: res.id,
+                agid:  res.tzlx === 'jzxx' ? res.agid :res.id,
                 lx: res.lx,
                 sx: res.sx,
                 type: type,

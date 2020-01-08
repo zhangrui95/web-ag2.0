@@ -817,14 +817,14 @@ export default class EvaluationChats extends PureComponent {
             //         saveAsImage: { show: true },
             //     },
             // },
-            legend: legendData.length > 1 ? {
+            legend: {
                 data: legendData,
                 textStyle: {color: nextProps.global && nextProps.global.dark ? "#fff" : '#4D4D4D'},
                 right: '5%',
                 y: 'top',//图例说明文字设置
                 itemWidth: 10,  // 设置宽度
                 itemHeight: 10, // 设置高度
-            } : {},
+            },
             grid: {
                 left: '2%',
                 right: '3%',

@@ -964,7 +964,8 @@ export default class ItemDataView extends PureComponent {
                                                             <Progress
                                                                 percent={Math.round((item.count / ZkwpTotal) * 100)}
                                                                 status="active"
-                                                                strokeColor="#000"
+                                                                format={percent => `${percent}%`}
+                                                                strokeColor={'#2092fb'}
                                                                 strokeWidth={16}
                                                             />
                                                         </Tooltip>

@@ -38,7 +38,7 @@ export default class PersonLedger extends PureComponent {
     render() {
         const {query:{id}}  = this.props.location
         return (
-            <div>
+            <Card className={styles.boxTable}>
               <iframe
                 title="集体通案记载表"
                 className={styles.box}
@@ -46,7 +46,7 @@ export default class PersonLedger extends PureComponent {
                 width="1300px"
                 height="1700px"
               />
-            </div>
+            </Card>
         );
     }
 

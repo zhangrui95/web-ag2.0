@@ -91,6 +91,7 @@ export default class ItemDataView extends PureComponent {
             lastMonth: '7',
             beforeLastMonth: '8',
         },
+        chooseBaqName: null,
     };
 
     componentDidMount() {
@@ -133,6 +134,9 @@ export default class ItemDataView extends PureComponent {
                 this.props.selectedDateVal !== nextProps.selectedDateVal ||
                 this.props.global.dark !== nextProps.global.dark
             ) {
+                this.setState({
+                    chooseBaqName: null,
+                });
                 if (nextProps.searchType === 'week') {
                     this.setState({
                         currentType: 'week',
@@ -255,11 +259,11 @@ export default class ItemDataView extends PureComponent {
                                 lastData: countAll,
                             });
                         }
-                        // if (type === weekType[2] || type === monthType[2]) {
-                        //     this.setState({
-                        //         beforeLastData: countAll,
-                        //     })
-                        // }
+                        if (type === weekType[2] || type === monthType[2]) {
+                            this.setState({
+                                beforeLastData: countAll,
+                            })
+                        }
                     } else {
                         if (itemEchartRYCFPie) {
                             // const data1=data.list;
@@ -528,7 +532,7 @@ export default class ItemDataView extends PureComponent {
                             currentType === 'selectedDate'
                                 ? that.props.selectedDateVal
                                 : that.getTime(currentType);
-                        that.props.changeListPageHeader({salx: salxData}, dataTime);
+                        that.props.changeListPageHeader({salx: salxData,ssbaq:that.state.chooseBaqName}, dataTime);
                     });
                 }
             },
@@ -650,12 +654,16 @@ export default class ItemDataView extends PureComponent {
                             data: newData1,
                         },
                     ];
+                    // let yMax = Math.max(...newData1);
                     itemEchartRQRCQSZSPie.setOption({
                         xAxis: {
                             type: 'category',
                             boundaryGap: false,
                             data: newData,
                         },
+                        // yAxis:{
+                        //     max:yMax&&yMax > 0 ? yMax : 5
+                        // },
                         series: seriesDataAll,
                     });
                 }
@@ -833,7 +841,7 @@ export default class ItemDataView extends PureComponent {
             const {currentType} = that.state;
             const dataTime =
                 currentType === 'selectedDate' ? that.props.selectedDateVal : that.getTime(currentType);
-            that.props.changeListPageHeader({zqzt: params.data.name}, dataTime);
+            that.props.changeListPageHeader({zqzt: params.data.name,ssbaq:that.state.chooseBaqName}, dataTime);
         });
     };
     // 人员类型echart
@@ -985,7 +993,7 @@ export default class ItemDataView extends PureComponent {
             },
             legend: {
                 orient: 'vertical',
-                right: '5%',
+                right: '2%',
                 top: 20,
                 show: true,
                 itemWidth: 10,
@@ -1044,7 +1052,7 @@ export default class ItemDataView extends PureComponent {
             const {currentType} = that.state;
             const dataTime =
                 currentType === 'selectedDate' ? that.props.selectedDateVal : that.getTime(currentType);
-            that.props.changeListPageHeader({rqyy: params.data.code}, dataTime);
+            that.props.changeListPageHeader({rqyy: params.data.code,ssbaq:that.state.chooseBaqName}, dataTime);
         });
     };
     // 入区人次趋势展示
@@ -1064,6 +1072,8 @@ export default class ItemDataView extends PureComponent {
             legend: {
                 // data:['邮件营销','联盟广告'],
                 // data:[],
+                right:'5%',
+                top:10,
                 textStyle: {
                     color: nextProps.global && nextProps.global.dark ? '#fff' : '#4d4d4d',
                 },
@@ -1119,27 +1129,29 @@ export default class ItemDataView extends PureComponent {
         let that = this;
         itemEchartRQRCQSZSPie.on('click', function (params) {
             const dataTime = params.name ? [params.name, params.name] : [];
-            that.props.changeListPageHeader(null, dataTime);
+            that.props.changeListPageHeader({ssbaq:that.state.chooseBaqName}, dataTime);
         });
     };
     // 点击涉案人员入区人次展示切换办案区
-    chooseBaq = orgid => {
+    chooseBaq = item => {
         const {TypeTime, currentType, rqtype} = this.state;
         this.setState({
-            chooseBaq: orgid,
+            chooseBaq: item.orgid,
+            chooseBaqName:item.name,
         });
-        this.getAreaRYCFCount(TypeTime[0], TypeTime[1], this.props.orgcode, orgid);
-        this.getAreaSpecialRYCFCount(TypeTime[0], TypeTime[1], this.props.orgcode, orgid);
-        this.getAreaNLHFCount(TypeTime[0], TypeTime[1], this.props.orgcode, orgid);
-        this.getAreaSALXCount(TypeTime[0], TypeTime[1], this.props.orgcode, orgid);
-        this.getAreaRQYYCount(TypeTime[0], TypeTime[1], this.props.orgcode, orgid);
+        this.getAreaRYCFCount(TypeTime[0], TypeTime[1], this.props.orgcode,item.orgid);
+        this.getAreaSpecialRYCFCount(TypeTime[0], TypeTime[1], this.props.orgcode, item.orgid);
+        this.getAreaNLHFCount(TypeTime[0], TypeTime[1], this.props.orgcode, item.orgid);
+        this.getAreaSALXCount(TypeTime[0], TypeTime[1], this.props.orgcode, item.orgid);
+        this.getAreaRQYYCount(TypeTime[0], TypeTime[1], this.props.orgcode, item.orgid);
         // this.getAreaSARYRQRCCount(TypeTime[0],TypeTime[1]);
-        this.getAreaRQRCQSCount(rqtype, this.props.orgcode, '', '', orgid);
+        this.getAreaRQRCQSCount(rqtype, this.props.orgcode, '', '', item.orgid);
     };
     resetBaq = () => {
         const {TypeTime, currentType, rqtype} = this.state;
         this.setState({
             chooseBaq: '',
+            chooseBaqName: null,
         });
         this.getAreaRYCFCount(TypeTime[0], TypeTime[1]);
         this.getAreaSpecialRYCFCount(TypeTime[0], TypeTime[1]);
@@ -1151,20 +1163,10 @@ export default class ItemDataView extends PureComponent {
     returnSaryrqrczs = (SARYRQRCdataLength, SARYRQRCdata, SARYRQRCTotal, chooseBaq) => {
         if (SARYRQRCdataLength === 1) {
             return (
-                <div>
-                    <div className={styles.cardBoxTitle}>| 办案区入区人次展示</div>
-                    <div id="saryrqrczs" className={styles.cardBox}></div>
-                </div>
+                <div id="saryrqrczs" className={styles.cardBox}></div>
             );
         } else if (SARYRQRCdataLength > 1) {
             return (
-                <div>
-                    <div className={AreaDataViewStyles.IntoTitle+' '+styles.cardBoxTitle}>
-                        | 办案区入区人次展示
-                        <a style={{float: 'right',color:this.props.global && this.props.global.dark ? '#3285ff' : '#4662d5'}} onClick={() => this.resetBaq()}>
-                            全部
-                        </a>
-                    </div>
                     <div className={AreaDataViewStyles.IntoAreaName + ' ' + styles.cardBox}>
                         {SARYRQRCdata &&
                         SARYRQRCdata.map(item => (
@@ -1179,14 +1181,13 @@ export default class ItemDataView extends PureComponent {
                                             }
                                             strokeWidth={16}
                                             className={AreaDataViewStyles.Progress}
-                                            onClick={() => this.chooseBaq(item.orgid)}
+                                            onClick={() => this.chooseBaq(item)}
                                         />
                                     </Tooltip>
                                 </div>
                             </div>
                         ))}
                     </div>
-                </div>
             );
         }
     };
@@ -1320,6 +1321,8 @@ export default class ItemDataView extends PureComponent {
                                                         <Progress
                                                             percent={Math.round((item.count / NLFBTotal) * 100)}
                                                             strokeWidth={12}
+                                                            format={percent => `${percent}%`}
+                                                            strokeColor={'#2092fb'}
                                                         />
                                                     </Tooltip>
                                                 </Col>
@@ -1332,18 +1335,24 @@ export default class ItemDataView extends PureComponent {
                         </Row>
                         <Row gutter={rowLayout} className={styles.listPageRow}>
                             <Col {...colLayout}>
-                                {/*<div*/}
-                                {/*  className={styles.cardBox}*/}
-                                {/*  style={{ padding: SARYRQRCdataLength > 1 ? 21 : 0 }}*/}
-                                {/*>*/}
-                                {/*<div className={styles.cardBoxTitle}>|  办案区入区人次展示</div>*/}
-                                {this.returnSaryrqrczs(
-                                    SARYRQRCdataLength,
-                                    SARYRQRCdata,
-                                    SARYRQRCTotal,
-                                    chooseBaq,
-                                )}
-                                {/*</div>*/}
+                                <div>
+                                    <div className={AreaDataViewStyles.IntoTitle+' '+styles.cardBoxTitle}>
+                                        | 办案区入区人次展示
+                                        {
+                                            SARYRQRCdataLength > 1 ?   <a style={{float: 'right',color:this.props.global && this.props.global.dark ? '#3285ff' : '#4662d5'}} onClick={() => this.resetBaq()}>
+                                                全部
+                                            </a> : ''
+                                        }
+                                    </div>
+                                    <div className={styles.cardBox}>
+                                        {this.returnSaryrqrczs(
+                                            SARYRQRCdataLength,
+                                            SARYRQRCdata,
+                                            SARYRQRCTotal,
+                                            chooseBaq,
+                                        )}
+                                    </div>
+                                </div>
                             </Col>
                             <Col {...colLayout}>
                                 <div className={styles.cardBoxTitle}>| 人员类型</div>
