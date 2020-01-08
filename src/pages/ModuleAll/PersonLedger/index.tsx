@@ -40,9 +40,9 @@ export default class PersonLedger extends PureComponent {
         return (
             <Card className={styles.boxTable}>
               <iframe
-                title="集体通案记载表"
+                title="台账"
                 className={styles.box}
-                src={`http://192.168.40.1:7300/raqReport-service/reportJsp/showReport3.jsp?rpx=TZ-HLJ.rpx&personId=${id}`}
+                src={`${window.configUrl.baqRaqUrl}showReport3.jsp?rpx=TZ-HLJ.rpx&personId=${id}`}
                 width="1300px"
                 height="1700px"
               />
