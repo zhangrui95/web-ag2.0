@@ -1016,94 +1016,98 @@ class Detail extends Component {
                             </Col>
                         </Row>
                         <Row gutter={rowLayout} className={this.state.addjglx === '0' ? styles.formBox : styles.none}>
-                            <Col span={8}>
-                                <FormItem label="提醒间隔" {...modleLayouts}>
-                                    {getFieldDecorator('addtxjg', {
-                                        initialValue:
-                                            this.state.res && this.state.res.txjg_dm
-                                                ? {
-                                                    key: this.state.res.txjg_dm,
-                                                    label: this.state.res.txjg_mc,
-                                                }
-                                                : undefined,
-                                    })(
-                                        <Select
-                                            labelInValue
-                                            placeholder="请选择"
-                                            style={{width: '100%'}}
-                                            getPopupContainer={() => document.getElementById('formSeperAdd' + this.props.location.query.id)}
-                                        >
-                                            {SjjgType &&
-                                            SjjgType.map(event => {
-                                                return <Option value={event.code}>{event.name}</Option>;
-                                            })}
-                                        </Select>,
-                                    )}
-                                </FormItem>
-                            </Col>
-                            <Col span={8}>
-                                <FormItem label="第一次提醒人员" {...modleLayouts}>
-                                    {getFieldDecorator('dyctxry1', {
-                                        initialValue: this.state.dyctxry1,
-                                    })(
-                                        <Select
-                                            mode="multiple"
-                                            labelInValue
-                                            placeholder="请选择"
-                                            style={{width: '100%'}}
-                                            getPopupContainer={() => document.getElementById('formSeperAdd' + this.props.location.query.id)}
-                                        >
-                                            {TxryType &&
-                                            TxryType.length > 0 &&
-                                            TxryType.map(event => {
-                                                return <Option value={event.code}>{event.name}</Option>;
-                                            })}
-                                        </Select>,
-                                    )}
-                                </FormItem>
-                            </Col>
-                            <Col span={8}>
-                                <FormItem label="第二次提醒人员" {...modleLayouts}>
-                                    {getFieldDecorator('dyctxry2', {
-                                        initialValue: this.state.dyctxry2,
-                                    })(
-                                        <Select
-                                            mode="multiple"
-                                            labelInValue
-                                            placeholder="请选择"
-                                            style={{width: '100%'}}
-                                            getPopupContainer={() => document.getElementById('formSeperAdd' + this.props.location.query.id)}
-                                        >
-                                            {TxryType &&
-                                            TxryType.length > 0 &&
-                                            TxryType.map(event => {
-                                                return <Option value={event.code}>{event.name}</Option>;
-                                            })}
-                                        </Select>,
-                                    )}
-                                </FormItem>
-                            </Col>
-                            <Col span={8}>
-                                <FormItem label="第三次提醒人员" {...modleLayouts}>
-                                    {getFieldDecorator('dyctxry3', {
-                                        initialValue: this.state.dyctxry3,
-                                    })(
-                                        <Select
-                                            mode="multiple"
-                                            labelInValue
-                                            placeholder="请选择"
-                                            style={{width: '100%'}}
-                                            getPopupContainer={() => document.getElementById('formSeperAdd' + this.props.location.query.id)}
-                                        >
-                                            {TxryType &&
-                                            TxryType.length > 0 &&
-                                            TxryType.map(event => {
-                                                return <Option value={event.code}>{event.name}</Option>;
-                                            })}
-                                        </Select>,
-                                    )}
-                                </FormItem>
-                            </Col>
+                            <Row>
+                                <Col span={8}>
+                                    <FormItem label="提醒间隔" {...modleLayouts}>
+                                        {getFieldDecorator('addtxjg', {
+                                            initialValue:
+                                                this.state.res && this.state.res.txjg_dm
+                                                    ? {
+                                                        key: this.state.res.txjg_dm,
+                                                        label: this.state.res.txjg_mc,
+                                                    }
+                                                    : undefined,
+                                        })(
+                                            <Select
+                                                labelInValue
+                                                placeholder="请选择"
+                                                style={{width: '100%'}}
+                                                getPopupContainer={() => document.getElementById('formSeperAdd' + this.props.location.query.id)}
+                                            >
+                                                {SjjgType &&
+                                                SjjgType.map(event => {
+                                                    return <Option value={event.code}>{event.name}</Option>;
+                                                })}
+                                            </Select>,
+                                        )}
+                                    </FormItem>
+                                </Col>
+                                <Col span={8}>
+                                    <FormItem label="第一次提醒人员" {...modleLayouts}>
+                                        {getFieldDecorator('dyctxry1', {
+                                            initialValue: this.state.dyctxry1,
+                                        })(
+                                            <Select
+                                                mode="multiple"
+                                                labelInValue
+                                                placeholder="请选择"
+                                                style={{width: '100%'}}
+                                                getPopupContainer={() => document.getElementById('formSeperAdd' + this.props.location.query.id)}
+                                            >
+                                                {TxryType &&
+                                                TxryType.length > 0 &&
+                                                TxryType.map(event => {
+                                                    return <Option value={event.code}>{event.name}</Option>;
+                                                })}
+                                            </Select>,
+                                        )}
+                                    </FormItem>
+                                </Col>
+                                <Col span={8}>
+                                    <FormItem label="第二次提醒人员" {...modleLayouts}>
+                                        {getFieldDecorator('dyctxry2', {
+                                            initialValue: this.state.dyctxry2,
+                                        })(
+                                            <Select
+                                                mode="multiple"
+                                                labelInValue
+                                                placeholder="请选择"
+                                                style={{width: '100%'}}
+                                                getPopupContainer={() => document.getElementById('formSeperAdd' + this.props.location.query.id)}
+                                            >
+                                                {TxryType &&
+                                                TxryType.length > 0 &&
+                                                TxryType.map(event => {
+                                                    return <Option value={event.code}>{event.name}</Option>;
+                                                })}
+                                            </Select>,
+                                        )}
+                                    </FormItem>
+                                </Col>
+                            </Row>
+                            <Row>
+                                <Col span={8}>
+                                    <FormItem label="第三次提醒人员" {...modleLayouts}>
+                                        {getFieldDecorator('dyctxry3', {
+                                            initialValue: this.state.dyctxry3,
+                                        })(
+                                            <Select
+                                                mode="multiple"
+                                                labelInValue
+                                                placeholder="请选择"
+                                                style={{width: '100%'}}
+                                                getPopupContainer={() => document.getElementById('formSeperAdd' + this.props.location.query.id)}
+                                            >
+                                                {TxryType &&
+                                                TxryType.length > 0 &&
+                                                TxryType.map(event => {
+                                                    return <Option value={event.code}>{event.name}</Option>;
+                                                })}
+                                            </Select>,
+                                        )}
+                                    </FormItem>
+                                </Col>
+                            </Row>
                         </Row>
                         <Row gutter={rowLayout} className={this.state.addjglx === '1' ? styles.formBox : styles.none}>
                             <Row>
