@@ -53,6 +53,12 @@ class SendConfig extends Component {
     this.setState({
       startTime: startTime,
       endTime: endTime,
+      startTime0:'',
+      startTime1:'',
+      startTime2:'',
+      endTime0:'',
+      endTime1:'',
+      endTime2:'',
     });
   };
   // 保存确认框

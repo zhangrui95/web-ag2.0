@@ -91,6 +91,7 @@ export default class ItemDataView extends PureComponent {
             lastMonth: '7',
             beforeLastMonth: '8',
         },
+        chooseBaqName: null,
     };
 
     componentDidMount() {
@@ -133,6 +134,9 @@ export default class ItemDataView extends PureComponent {
                 this.props.selectedDateVal !== nextProps.selectedDateVal ||
                 this.props.global.dark !== nextProps.global.dark
             ) {
+                this.setState({
+                    chooseBaqName: null,
+                });
                 if (nextProps.searchType === 'week') {
                     this.setState({
                         currentType: 'week',
@@ -528,7 +532,6 @@ export default class ItemDataView extends PureComponent {
                             currentType === 'selectedDate'
                                 ? that.props.selectedDateVal
                                 : that.getTime(currentType);
-                        console.log('salxData=========>',salxData,that.state.chooseBaqName)
                         that.props.changeListPageHeader({salx: salxData,ssbaq:that.state.chooseBaqName}, dataTime);
                     });
                 }
@@ -838,7 +841,7 @@ export default class ItemDataView extends PureComponent {
             const {currentType} = that.state;
             const dataTime =
                 currentType === 'selectedDate' ? that.props.selectedDateVal : that.getTime(currentType);
-            that.props.changeListPageHeader({zqzt: params.data.name}, dataTime);
+            that.props.changeListPageHeader({zqzt: params.data.name,ssbaq:that.state.chooseBaqName}, dataTime);
         });
     };
     // 人员类型echart
@@ -1049,7 +1052,7 @@ export default class ItemDataView extends PureComponent {
             const {currentType} = that.state;
             const dataTime =
                 currentType === 'selectedDate' ? that.props.selectedDateVal : that.getTime(currentType);
-            that.props.changeListPageHeader({rqyy: params.data.code}, dataTime);
+            that.props.changeListPageHeader({rqyy: params.data.code,ssbaq:that.state.chooseBaqName}, dataTime);
         });
     };
     // 入区人次趋势展示
@@ -1124,7 +1127,7 @@ export default class ItemDataView extends PureComponent {
         let that = this;
         itemEchartRQRCQSZSPie.on('click', function (params) {
             const dataTime = params.name ? [params.name, params.name] : [];
-            that.props.changeListPageHeader(null, dataTime);
+            that.props.changeListPageHeader({ssbaq:that.state.chooseBaqName}, dataTime);
         });
     };
     // 点击涉案人员入区人次展示切换办案区
@@ -1147,7 +1150,7 @@ export default class ItemDataView extends PureComponent {
         const {TypeTime, currentType, rqtype} = this.state;
         this.setState({
             chooseBaq: '',
-            chooseBaqName: '',
+            chooseBaqName: null,
         });
         this.getAreaRYCFCount(TypeTime[0], TypeTime[1]);
         this.getAreaSpecialRYCFCount(TypeTime[0], TypeTime[1]);
@@ -1328,6 +1331,8 @@ export default class ItemDataView extends PureComponent {
                                                         <Progress
                                                             percent={Math.round((item.count / NLFBTotal) * 100)}
                                                             strokeWidth={12}
+                                                            format={percent => `${percent}%`}
+                                                            strokeColor={'#2092fb'}
                                                         />
                                                     </Tooltip>
                                                 </Col>

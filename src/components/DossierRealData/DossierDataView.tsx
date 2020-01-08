@@ -868,7 +868,8 @@ export default class DossierDataView extends PureComponent {
                                                         <Tooltip title={item.name + ':' + item.count}>
                                                             <Progress
                                                                 percent={Math.round((item.count / ZkjzTotal) * 100)}
-                                                                status="active" strokeColor='#000' strokeWidth={16}/>
+                                                                status="active" format={percent => `${percent}%`}
+                                                                strokeColor={'#2092fb'} strokeWidth={16}/>
                                                         </Tooltip>
                                                     </div>
                                                 </div>,
