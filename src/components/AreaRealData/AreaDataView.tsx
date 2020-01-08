@@ -1072,6 +1072,8 @@ export default class ItemDataView extends PureComponent {
             legend: {
                 // data:['邮件营销','联盟广告'],
                 // data:[],
+                right:'5%',
+                top:10,
                 textStyle: {
                     color: nextProps.global && nextProps.global.dark ? '#fff' : '#4d4d4d',
                 },
@@ -1133,7 +1135,6 @@ export default class ItemDataView extends PureComponent {
     // 点击涉案人员入区人次展示切换办案区
     chooseBaq = item => {
         const {TypeTime, currentType, rqtype} = this.state;
-        console.log('item',item)
         this.setState({
             chooseBaq: item.orgid,
             chooseBaqName:item.name,
@@ -1162,20 +1163,10 @@ export default class ItemDataView extends PureComponent {
     returnSaryrqrczs = (SARYRQRCdataLength, SARYRQRCdata, SARYRQRCTotal, chooseBaq) => {
         if (SARYRQRCdataLength === 1) {
             return (
-                <div>
-                    <div className={styles.cardBoxTitle}>| 办案区入区人次展示</div>
-                    <div id="saryrqrczs" className={styles.cardBox}></div>
-                </div>
+                <div id="saryrqrczs" className={styles.cardBox}></div>
             );
         } else if (SARYRQRCdataLength > 1) {
             return (
-                <div>
-                    <div className={AreaDataViewStyles.IntoTitle+' '+styles.cardBoxTitle}>
-                        | 办案区入区人次展示
-                        <a style={{float: 'right',color:this.props.global && this.props.global.dark ? '#3285ff' : '#4662d5'}} onClick={() => this.resetBaq()}>
-                            全部
-                        </a>
-                    </div>
                     <div className={AreaDataViewStyles.IntoAreaName + ' ' + styles.cardBox}>
                         {SARYRQRCdata &&
                         SARYRQRCdata.map(item => (
@@ -1197,7 +1188,6 @@ export default class ItemDataView extends PureComponent {
                             </div>
                         ))}
                     </div>
-                </div>
             );
         }
     };
@@ -1345,18 +1335,24 @@ export default class ItemDataView extends PureComponent {
                         </Row>
                         <Row gutter={rowLayout} className={styles.listPageRow}>
                             <Col {...colLayout}>
-                                {/*<div*/}
-                                {/*  className={styles.cardBox}*/}
-                                {/*  style={{ padding: SARYRQRCdataLength > 1 ? 21 : 0 }}*/}
-                                {/*>*/}
-                                {/*<div className={styles.cardBoxTitle}>|  办案区入区人次展示</div>*/}
-                                {this.returnSaryrqrczs(
-                                    SARYRQRCdataLength,
-                                    SARYRQRCdata,
-                                    SARYRQRCTotal,
-                                    chooseBaq,
-                                )}
-                                {/*</div>*/}
+                                <div>
+                                    <div className={AreaDataViewStyles.IntoTitle+' '+styles.cardBoxTitle}>
+                                        | 办案区入区人次展示
+                                        {
+                                            SARYRQRCdataLength > 1 ?   <a style={{float: 'right',color:this.props.global && this.props.global.dark ? '#3285ff' : '#4662d5'}} onClick={() => this.resetBaq()}>
+                                                全部
+                                            </a> : ''
+                                        }
+                                    </div>
+                                    <div className={styles.cardBox}>
+                                        {this.returnSaryrqrczs(
+                                            SARYRQRCdataLength,
+                                            SARYRQRCdata,
+                                            SARYRQRCTotal,
+                                            chooseBaq,
+                                        )}
+                                    </div>
+                                </div>
                             </Col>
                             <Col {...colLayout}>
                                 <div className={styles.cardBoxTitle}>| 人员类型</div>
