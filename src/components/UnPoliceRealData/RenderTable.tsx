@@ -117,6 +117,7 @@ class RenderTable extends PureComponent {
           ajbh: res.ajbh,
           system_id: res.id,
           ajGzLx: ajGzLx,
+            is_fxgz:'0',
         },
         callback: res => {
           if (!res.error) {

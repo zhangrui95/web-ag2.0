@@ -569,6 +569,7 @@ export default class Index extends PureComponent {
           ajbh: res.ajbh,
           system_id: res.dossier_id,
           ajGzLx: ajGzLx,
+            is_fxgz:'0',
         },
         callback: res => {
           if (!res.error) {

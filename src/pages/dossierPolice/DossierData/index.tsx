@@ -130,7 +130,10 @@ export default class Index extends PureComponent {
   }
 
   componentWillReceiveProps(nextProps) {
-    if (this.props.global.isResetList.isReset !== nextProps.global.isResetList.isReset && nextProps.global.isResetList.url ===  '/dossierPolice/DossierData') {
+    if (
+      this.props.global.isResetList.isReset !== nextProps.global.isResetList.isReset &&
+      nextProps.global.isResetList.url === '/dossierPolice/DossierData'
+    ) {
       const params = {
         currentPage: 1,
         showCount: tableList,
@@ -210,8 +213,8 @@ export default class Index extends PureComponent {
     this.props.dispatch({
       type: 'common/getDictType',
       payload: {
-          appCode: window.configUrl.appCode,
-          code: '1215',
+        appCode: window.configUrl.appCode,
+        code: '1215',
       },
     });
   };
@@ -220,8 +223,8 @@ export default class Index extends PureComponent {
     this.props.dispatch({
       type: 'common/getDictType',
       payload: {
-          appCode: window.configUrl.appCode,
-          code: '500837',
+        appCode: window.configUrl.appCode,
+        code: '500837',
       },
     });
   };
@@ -230,8 +233,8 @@ export default class Index extends PureComponent {
     this.props.dispatch({
       type: 'common/getDictType',
       payload: {
-          appCode: window.configUrl.appCode,
-          code: '500842',
+        appCode: window.configUrl.appCode,
+        code: '500842',
       },
     });
   };
@@ -404,7 +407,12 @@ export default class Index extends PureComponent {
     this.props.dispatch(
       routerRedux.push({
         pathname: '/dossierPolice/DossierData/DossierDetail',
-        query: { record: record, id: record && record.dossier_id ? record.dossier_id : '1',movefrom:'卷宗常规',current:this.state.current },
+        query: {
+          record: record,
+          id: record && record.dossier_id ? record.dossier_id : '1',
+          movefrom: '卷宗常规',
+          current: this.state.current,
+        },
       }),
     );
     // const divs = (
@@ -467,7 +475,7 @@ export default class Index extends PureComponent {
       return <TreeNode key={item.code} value={item.code} title={item.name} />;
     });
   // 是否关注详情刷新
-  refreshDetail = (res) => {
+  refreshDetail = res => {
     // console.log('res',res);
     this.props.dispatch({
       type: 'DossierData/getDossierDetail',
@@ -518,6 +526,7 @@ export default class Index extends PureComponent {
                 tzlx: 'jzxx',
                 fromPath: '/dossierPolice/DossierData',
                 tab: '表格',
+                sx: (res.ajmc ? res.ajmc + '、' : '') + (res.jzlb_mc ? res.jzlb_mc : ''),
               },
             }),
           );
@@ -541,12 +550,13 @@ export default class Index extends PureComponent {
           ajbh: res.ajbh,
           system_id: res.dossier_id,
           ajGzLx: ajGzLx,
+            is_fxgz:'0',
         },
         callback: data => {
           if (!data.error) {
             message.success('关注成功');
             this.getDossier({ currentPage: this.state.current, pd: this.state.formValues });
-            this.refreshDetail(res)
+            this.refreshDetail(res);
           }
         },
       });
@@ -570,7 +580,7 @@ export default class Index extends PureComponent {
         if (!res.error) {
           message.success('取消关注成功');
           this.getDossier({ currentPage: this.state.current, pd: this.state.formValues });
-          this.refreshDetail(record)
+          this.refreshDetail(record);
         }
       },
     });
@@ -610,7 +620,7 @@ export default class Index extends PureComponent {
     this.setState({
       showDataView: false,
       timeName: search && search.timeName,
-      searchHeight:true,
+      searchHeight: true,
     });
     this.props.form.setFieldsValue({
       [search && search.timeName ? search.timeName : 'rksj']: [

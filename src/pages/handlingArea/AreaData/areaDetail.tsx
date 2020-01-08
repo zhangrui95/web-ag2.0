@@ -354,6 +354,7 @@ export default class areaDetail extends PureComponent {
             ajbh: res.ajbh,
             system_id: areaDetails.system_id,
             ajGzLx: ajGzLx,
+              is_fxgz:'0',
           },
           callback: res => {
             if (!res.error) {

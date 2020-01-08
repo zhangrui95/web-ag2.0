@@ -451,6 +451,7 @@ export default class Index extends PureComponent {
           ajbh: res.ajbh,
           system_id: res.system_id,
           ajGzLx: ajGzLx,
+            is_fxgz:'0',
         },
         callback: data => {
           if (!data.error) {
@@ -469,6 +470,7 @@ export default class Index extends PureComponent {
                 ajbh: res.ajbh,
                 system_id: res.system_id,
                 ajGzLx: ajGzLx,
+                  is_fxgz:'0',
               },
               callback: data1 => {
                 if (!data1.error) {
