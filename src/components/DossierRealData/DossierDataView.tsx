@@ -42,6 +42,8 @@ export default class DossierDataView extends PureComponent {
         TypeTime: [moment(getTimeDistance('week')[0]).format('YYYY-MM-DD'), (getTimeDistance('week')[1]).format('YYYY-MM-DD')],// 请求数据的时间
         jzqsNoData: false, // 卷宗趋势无数据
         selectedDateData: 0, // 头部统计警情总数——手动选择日期
+        typeLabel:'', // 通过时间判断趋势是什么类型；'天','周','月','年'
+        qsTime:'', // 确认点击的是本周、前一周、前两周还是本月、前一月、前两月
     };
 
     componentDidMount() {
@@ -268,17 +270,63 @@ export default class DossierDataView extends PureComponent {
 
     // 卷宗趋势
     showCaseJzqspie(qsTime, orgcode = this.props.orgcode, sTime, eTime) {
-        let payload = {
-            rqType: qsTime,
-            orgcode,
-        };
-        if (qsTime === 'selectedDate') {
-            payload = {
-                kssj: sTime,
-                jssj: eTime,
-                orgcode,
-            };
+      let aDate, oDate1, oDate2, iDays,typeLabel;
+      if(sTime&&eTime){
+        aDate = sTime.split("-");
+        oDate1 = new Date(aDate[1] + '-' + aDate[2] + '-' + aDate[0]) // 转换为9-25-2017格式
+        aDate = eTime.split("-");
+        oDate2 = new Date(aDate[1] + '-' + aDate[2] + '-' + aDate[0])
+        iDays = parseInt(Math.abs(oDate1 - oDate2) / 1000 / 60 / 60 / 24)+1 // 把相差的毫秒数转换为天数
+        if(iDays>=1&&iDays<=14){
+          typeLabel = 'day'
         }
+        else if(iDays>14&&iDays<=98){
+          typeLabel = 'week'
+        }
+        else if(iDays>98&&iDays<=420){
+          typeLabel = 'month'
+        }
+        else if(iDays>420&&iDays<=5110){
+          typeLabel = 'year'
+        }
+        else {
+          this.setState({
+            wpqsNoData:true,
+          })
+          // message.info('时间过于久远，趋势数据无法查询')
+          return false;
+        }
+      }
+
+      let payload = {};
+      if (qsTime === 'selectedDate') {
+        payload = {
+          kssj: sTime,
+          jssj: eTime,
+          orgcode,
+          typeLabel:typeLabel,
+        };
+      }
+      else if(qsTime === '6'||qsTime === '7'||qsTime === '8'){
+        payload = {
+          rqType: qsTime,
+          orgcode,
+          typeLabel:'week',
+        };
+      }
+      else if(qsTime === '3'||qsTime === '4'||qsTime === '5'){
+        payload = {
+          rqType: qsTime,
+          orgcode,
+          typeLabel:'day',
+        };
+      }
+      else{
+        payload = {
+          rqType: qsTime,
+          orgcode,
+        }
+      }
         this.props.dispatch({
             type: 'DossierData/DossierJzqsDataView',
             payload,
@@ -290,6 +338,8 @@ export default class DossierDataView extends PureComponent {
                     if (data.list && data.list.length > 0) {
                         this.setState({
                             jzqsNoData: false,
+                            typeLabel:qsTime === 'selectedDate'?typeLabel:qsTime === '6'||qsTime === '7'||qsTime === '8'?'week':'day',
+                            qsTime:qsTime,
                         });
                         const data1 = data.list;
                         for (let a = 0; a < data1.length; a++) {
@@ -609,7 +659,31 @@ export default class DossierDataView extends PureComponent {
         itemEchartwpqsBar.setOption(option, true);
         let that = this;
         itemEchartwpqsBar.on('click', function (params) {
-            const dataTime = [params.name, params.name];
+          const {typeLabel,qsTime} = that.state;
+          let dataTime = [];
+          if(qsTime==='selectedDate'&&typeLabel === 'day'&&params.name){
+            dataTime=[params.name,params.name]
+          }
+          else if(qsTime==='selectedDate'&&typeLabel === 'week'&&params.name){
+            dataTime=[params.name.split('~')[0],params.name.split('~')[1]]
+          }
+          else if(qsTime==='selectedDate'&&typeLabel === 'month'&&params.name){
+            const newDate = params.name.replace(new RegExp('-','g'),"/")
+            const endDate = new Date(newDate); //date 是需要传递的时间如：2018-08
+            const month=endDate.getMonth();
+            const nextMonth=month+1;
+            const nextMonthFirstDay=new Date(endDate.getFullYear(),nextMonth,1);
+            const oneDay=1000*60*60*24;
+            const dateString=new Date(nextMonthFirstDay-oneDay);
+            const dateTimeEnd=dateString.toLocaleDateString().replace(new RegExp('/','g'),"-");
+            dataTime=[params.name+'-01',dateTimeEnd]
+          }
+          else if(qsTime==='selectedDate'&&typeLabel === 'year'&&params.name){
+            dataTime=[params.name+'-01-01',params.name+'-12-31']
+          }
+          else if(qsTime!=='selectedDate'){
+            dataTime=[params.name,params.name]
+          }
             that.props.changeToListPage({cczt: params.seriesName && params.seriesName === '出库' ? '1' : '3'}, dataTime);
         });
     };
