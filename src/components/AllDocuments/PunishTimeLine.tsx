@@ -66,8 +66,9 @@ export default class PunishTimeLine extends PureComponent {
     };
     // 处罚步骤
     showSteps = (punishData) => {
+        console.log('punishData',punishData)
         const {leftPx} = this.state;
-        const stepData = punishData || [];
+        const stepData = [...punishData] || [];
         const stepLenght = stepData.length;
         if (stepLenght > 0 && stepLenght < 4) {
             const emptyStepLength = 4 - stepLenght;
@@ -80,11 +81,11 @@ export default class PunishTimeLine extends PureComponent {
                 {
                     <Steps progressDot current={stepLenght - 1} size='small'>
                         {
-                            stepData.map(item => (
+                            stepData.map((item,idx) => (
                                     item === '' ? (
                                         <Step title="" description=""/>
                                     ) : (
-                                        <Step title={item.qzcsName} description={item.qzrq}/>
+                                        <Step title={item.qzcsName} description={item.qzrq} />
                                     )
                                 ),
                             )

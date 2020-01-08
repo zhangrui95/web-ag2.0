@@ -30,6 +30,13 @@ const Navigation = props => {
         if (selectTabKey) {
             if (navigationData[index].children) {
                 setActiveKey(selectTabKey);
+                let payload = {
+                    key:navigationData[index].key,
+                    name:navigationData[index].name,
+                    path:navigationData[index].path,
+                    query:navigationData[index].query ? navigationData[index].query : {},
+                };
+                sessionStorage.setItem('query', JSON.stringify(payload));
             } else {
                 let query = navigationData[index].query;
                 if (query) {

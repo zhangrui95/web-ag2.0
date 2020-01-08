@@ -45,9 +45,12 @@ class Detail extends Component {
   constructor(props) {
     super(props);
       let res = props.location.query.record;
+      console.log('什么------->',res);
       if (typeof res == 'string') {
+          console.log('执行？')
           res = JSON.parse(sessionStorage.getItem('query')).query.record;
       }
+      console.log('res',res);
     this.state = {
       loading: false,
       current: 1,
