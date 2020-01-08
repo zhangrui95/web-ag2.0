@@ -877,10 +877,9 @@ export default class Index extends PureComponent {
                 <FormItem
                   label="预警时间"
                   {...formItemLayout}
-                  getCalendarContainer={() => document.getElementById('baqyjtableListForm')}
                 >
                   {getFieldDecorator('yjsj')(
-                    <RangePicker disabledDate={this.disabledDate} style={{ width: '100%' }} />,
+                    <RangePicker disabledDate={this.disabledDate} style={{ width: '100%' }} getCalendarContainer={() => document.getElementById('baqyjtableListForm')} />,
                   )}
                 </FormItem>
               </Col>
