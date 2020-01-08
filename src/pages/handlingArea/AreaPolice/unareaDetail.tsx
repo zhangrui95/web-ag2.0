@@ -47,6 +47,13 @@ import noListLight from '@/assets/viewData/noListLight.png';
 import nophotoLight from '@/assets/common/nophotoLight.png';
 import DetailShow from "@/components/Common/detailShow";
 
+import left from '../../../assets/common/left.png';
+import left1 from '../../../assets/common/left1.png';
+import left2 from '../../../assets/common/left2.png';
+import right from '../../../assets/common/right.png';
+import right1 from '../../../assets/common/right1.png';
+import right2 from '../../../assets/common/right2.png';
+
 const FormItem = Form.Item;
 const { Step } = Steps;
 const { confirm } = Modal;
@@ -616,9 +623,9 @@ export default class unareaDetail extends PureComponent {
         });
       }
     } else if (newObjWidth === 1920) {
-      if (this.state.left - 322 * 4 < -(322 * (num - 4))) {
+      if (this.state.left - 241 * 4 < -(241 * (num - 4))) {
         this.setState({
-          left: -(322 * (num - 4)),
+          left: -(241 * (num - 4)),
           colordailyright: 'gray',
           colordailyleft: 'blue',
         });
@@ -627,7 +634,7 @@ export default class unareaDetail extends PureComponent {
         this.setState({
           colordailyright: 'blue',
           colordailyleft: 'blue',
-          left: this.state.left - 322 * 4,
+          left: this.state.left - 241 * 4,
         });
       }
     }
@@ -681,7 +688,7 @@ export default class unareaDetail extends PureComponent {
         });
       }
     } else if (newObjWidth === 1920) {
-      if (this.state.trailLeft + 306 * 4 > 0) {
+      if (this.state.trailLeft + 241 * 4 > 0) {
         this.setState({
           trailLeft: 0,
           colortrailleft: 'gray',
@@ -692,7 +699,7 @@ export default class unareaDetail extends PureComponent {
         this.setState({
           colortrailleft: 'blue',
           colortrailright: 'blue',
-          trailLeft: this.state.trailLeft + 306 * 4,
+          trailLeft: this.state.trailLeft + 241 * 4,
         });
       }
     }
@@ -772,18 +779,18 @@ export default class unareaDetail extends PureComponent {
       }
     } else if (newObjWidth === 1920) {
       if (num > 4) {
-        if (this.state.trailLeft - 306 * 4 < -(306 * (num - 4))) {
+        if (this.state.trailLeft - 241 * 4 < -(241 * (num - 4))) {
           this.setState({
             colortrailright: 'gray',
             colortrailleft: 'blue',
-            trailLeft: -(306 * (num - 4)),
+            trailLeft: -(241 * (num - 4)),
           });
           // message.info('已经到达最末端');
         } else {
           this.setState({
             colortrailright: 'blue',
             colortrailleft: 'blue',
-            trailLeft: this.state.trailLeft - 306 * 4,
+            trailLeft: this.state.trailLeft - 241 * 4,
           });
         }
       } else {
@@ -912,6 +919,7 @@ export default class unareaDetail extends PureComponent {
   };
 
   AllButton1 = (newObjWidth, length) => {
+    let dark = this.props.global && this.props.global.dark;
     if (newObjWidth === 1280) {
       if (length > 4) {
         return (
@@ -921,33 +929,33 @@ export default class unareaDetail extends PureComponent {
           >
             {this.state.colortrailleft === 'blue' ? (
               <img
-                src="/images/left.png"
-                width="60"
-                height="60"
+                src={dark ? left : left2}
+                width="45"
+                height="45"
                 onClick={() => this.trailLeftClick(newObjWidth, length)}
                 style={{ cursor: 'pointer' }}
               />
             ) : (
               <img
-                src="/images/left1.png"
-                width="60"
-                height="60"
+                src={left1}
+                width="45"
+                height="45"
                 onClick={() => this.trailLeftClick(newObjWidth, length)}
               />
             )}
             {this.state.colortrailright === 'blue' ? (
               <img
-                src="/images/right.png"
-                width="60"
-                height="60"
+                src={dark ? right : right2}
+                width="45"
+                height="45"
                 onClick={() => this.trailRightClick(newObjWidth, length)}
                 style={{ marginLeft: '30px', cursor: 'pointer' }}
               />
             ) : (
               <img
-                src="/images/right1.png"
-                width="60"
-                height="60"
+                src={right1}
+                width="45"
+                height="45"
                 onClick={() => this.trailRightClick(newObjWidth, length)}
                 style={{ marginLeft: '30px' }}
               />
@@ -960,8 +968,8 @@ export default class unareaDetail extends PureComponent {
             className={styles.IconStyle}
             style={{ width: '186px', top: '50%', marginTop: '-30px' }}
           >
-            <img src="/images/left1.png" width="60" height="60" />
-            <img src="/images/right1.png" width="60" height="60" style={{ marginLeft: '30px' }} />
+            <img src={left1} width="45" height="45" />
+            <img src={right1} width="45" height="45" style={{ marginLeft: '30px' }} />
           </div>
         );
       }
@@ -974,33 +982,33 @@ export default class unareaDetail extends PureComponent {
           >
             {this.state.colortrailleft === 'blue' ? (
               <img
-                src="/images/left.png"
-                width="60"
-                height="60"
+                src={dark ? left : left2}
+                width="45"
+                height="45"
                 onClick={() => this.trailLeftClick(newObjWidth, length)}
                 style={{ cursor: 'pointer' }}
               />
             ) : (
               <img
-                src="/images/left1.png"
-                width="60"
-                height="60"
+                src={left1}
+                width="45"
+                height="45"
                 onClick={() => this.trailLeftClick(newObjWidth, length)}
               />
             )}
             {this.state.colortrailright === 'blue' ? (
               <img
-                src="/images/right.png"
-                width="60"
-                height="60"
+                src={dark ? right : right2}
+                width="45"
+                height="45"
                 onClick={() => this.trailRightClick(newObjWidth, length)}
                 style={{ marginLeft: '30px', cursor: 'pointer' }}
               />
             ) : (
               <img
-                src="/images/right1.png"
-                width="60"
-                height="60"
+                src={right1}
+                width="45"
+                height="45"
                 onClick={() => this.trailRightClick(newObjWidth, length)}
                 style={{ marginLeft: '30px' }}
               />
@@ -1013,8 +1021,8 @@ export default class unareaDetail extends PureComponent {
             className={styles.IconStyle}
             style={{ width: '186px', top: '50%', marginTop: '-30px' }}
           >
-            <img src="/images/left1.png" width="60" height="60" />
-            <img src="/images/right1.png" width="60" height="60" style={{ marginLeft: '30px' }} />
+            <img src={left1} width="45" height="45" />
+            <img src={right1} width="45" height="45" style={{ marginLeft: '30px' }} />
           </div>
         );
       }
@@ -1027,33 +1035,33 @@ export default class unareaDetail extends PureComponent {
           >
             {this.state.colortrailleft === 'blue' ? (
               <img
-                src="/images/left.png"
-                width="60"
-                height="60"
+                src={dark ? left : left2}
+                width="45"
+                height="45"
                 onClick={() => this.trailLeftClick(newObjWidth, length)}
                 style={{ cursor: 'pointer' }}
               />
             ) : (
               <img
-                src="/images/left1.png"
-                width="60"
-                height="60"
+                src={left1}
+                width="45"
+                height="45"
                 onClick={() => this.trailLeftClick(newObjWidth, length)}
               />
             )}
             {this.state.colortrailright === 'blue' ? (
               <img
-                src="/images/right.png"
-                width="60"
-                height="60"
+                src={dark ? right : right2}
+                width="45"
+                height="45"
                 onClick={() => this.trailRightClick(newObjWidth, length)}
                 style={{ marginLeft: '30px', cursor: 'pointer' }}
               />
             ) : (
               <img
-                src="/images/right1.png"
-                width="60"
-                height="60"
+                src={right1}
+                width="45"
+                height="45"
                 onClick={() => this.trailRightClick(newObjWidth, length)}
                 style={{ marginLeft: '30px' }}
               />
@@ -1066,8 +1074,8 @@ export default class unareaDetail extends PureComponent {
             className={styles.IconStyle}
             style={{ width: '186px', top: '50%', marginTop: '-30px' }}
           >
-            <img src="/images/left1.png" width="60" height="60" />
-            <img src="/images/right1.png" width="60" height="60" style={{ marginLeft: '30px' }} />
+            <img src={left1} width="45" height="45" />
+            <img src={right1} width="45" height="45" style={{ marginLeft: '30px' }} />
           </div>
         );
       }
@@ -1080,33 +1088,33 @@ export default class unareaDetail extends PureComponent {
           >
             {this.state.colortrailleft === 'blue' ? (
               <img
-                src="/images/left.png"
-                width="60"
-                height="60"
+                src={dark ? left : left2}
+                width="45"
+                height="45"
                 onClick={() => this.trailLeftClick(newObjWidth, length)}
                 style={{ cursor: 'pointer' }}
               />
             ) : (
               <img
-                src="/images/left1.png"
-                width="60"
-                height="60"
+                src={left1}
+                width="45"
+                height="45"
                 onClick={() => this.trailLeftClick(newObjWidth, length)}
               />
             )}
             {this.state.colortrailright === 'blue' ? (
               <img
-                src="/images/right.png"
-                width="60"
-                height="60"
+                src={dark ? right : right2}
+                width="45"
+                height="45"
                 onClick={() => this.trailRightClick(newObjWidth, length)}
                 style={{ marginLeft: '30px', cursor: 'pointer' }}
               />
             ) : (
               <img
-                src="/images/right1.png"
-                width="60"
-                height="60"
+                src={right1}
+                width="45"
+                height="45"
                 onClick={() => this.trailRightClick(newObjWidth, length)}
                 style={{ marginLeft: '30px' }}
               />
@@ -1119,8 +1127,8 @@ export default class unareaDetail extends PureComponent {
             className={styles.IconStyle}
             style={{ width: '186px', top: '50%', marginTop: '-30px' }}
           >
-            <img src="/images/left1.png" width="60" height="60" />
-            <img src="/images/right1.png" width="60" height="60" style={{ marginLeft: '30px' }} />
+            <img src={left1} width="45" height="45" />
+            <img src={right1} width="45" height="45" style={{ marginLeft: '30px' }} />
           </div>
         );
       }
@@ -1389,7 +1397,7 @@ export default class unareaDetail extends PureComponent {
       } else if (objwidth >= 1920) {
         newObjWidth = 1920;
         superveWidth = 1548;
-        trackWidth = 1224;
+        trackWidth = 964;
       }
     } else if (objheight < allheight) {
       if (objwidth < 1263 || objwidth === 1263) {
@@ -1411,7 +1419,7 @@ export default class unareaDetail extends PureComponent {
       } else if (objwidth >= 1903) {
         newObjWidth = 1920;
         superveWidth = 1548;
-        trackWidth = 1224;
+        trackWidth = 964;
       }
     }
     const extra = (
