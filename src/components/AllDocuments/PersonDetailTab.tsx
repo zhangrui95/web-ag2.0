@@ -344,7 +344,6 @@ export default class PersonDetailTab extends PureComponent {
                                     <Col md={24} sm={24}>
                                         <Table
                                             bordered
-                                            style={{backgroundColor: '#fff'}}
                                             pagination={{
                                                 pageSize: 3,
                                                 showTotal: (total, range) => <div
@@ -399,7 +398,6 @@ export default class PersonDetailTab extends PureComponent {
                             <div className={styles.tabDiv}>
                                 <Table
                                     bordered
-                                    style={{backgroundColor: '#fff'}}
                                     pagination={{
                                         pageSize: 3,
                                         showTotal: (total, range) => <div
@@ -430,7 +428,6 @@ export default class PersonDetailTab extends PureComponent {
                             <div className={styles.tabDiv}>
                                 <Table
                                     bordered
-                                    style={{backgroundColor: '#fff'}}
                                     pagination={{
                                         pageSize: 3,
                                         showTotal: (total, range) => <div
@@ -528,7 +525,6 @@ export default class PersonDetailTab extends PureComponent {
                                 <Col md={24} sm={24}>
                                     <Table
                                         bordered
-                                        style={{backgroundColor: '#fff'}}
                                         pagination={{
                                             pageSize: 3,
                                             showTotal: (total, range) => <div
@@ -589,7 +585,6 @@ export default class PersonDetailTab extends PureComponent {
                         <div className={styles.tabDiv}>
                             <Table
                                 bordered
-                                style={{backgroundColor: '#fff'}}
                                 pagination={{
                                     pageSize: 3,
                                     showTotal: (total, range) => <div
@@ -624,7 +619,6 @@ export default class PersonDetailTab extends PureComponent {
                         <div className={styles.tabDiv}>
                             <Table
                                 bordered
-                                style={{backgroundColor: '#fff'}}
                                 pagination={{
                                     pageSize: 3,
                                     showTotal: (total, range) => <div
