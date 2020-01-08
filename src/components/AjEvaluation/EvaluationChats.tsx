@@ -65,11 +65,11 @@ export default class EvaluationChats extends PureComponent {
                 }
             } else {
                 if (this.props.tjnrRedio === '0') {
-                    this.initRyDataAj(0, this.props, this.state['sortCharts' + idx], '0');
+                    this.initRyDataAj(0, this.props, this.state['sortCharts' + idx], '0', this.state.ryValue.toString(),true);
                 } else if (this.props.tjnrRedio === '1') {
-                    this.initRyDataGj(0, this.props, this.state['sortCharts' + idx], '0');
+                    this.initRyDataGj(0, this.props, this.state['sortCharts' + idx], '0', this.state.ryValue.toString(),true);
                 } else {
-                    this.initRyData(0, this.props, this.state['sortCharts' + idx], '0');
+                    this.initRyData(0, this.props, this.state['sortCharts' + idx], '0', this.state.ryValue.toString(),true);
                 }
             }
         });

@@ -307,6 +307,7 @@ export default class DossierDetail extends PureComponent {
             ajbh: DossierDetailData.ajbh,
             system_id: DossierDetailData.system_id,
             ajGzLx: ajGzLx,
+              is_fxgz:'0',
           },
           callback: res => {
             if (!res.error) {

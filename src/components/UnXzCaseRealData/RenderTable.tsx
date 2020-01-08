@@ -174,6 +174,7 @@ class RenderTable extends PureComponent {
                     ajbh: res.ajbh,
                     system_id: res.system_id,
                     ajGzLx: ajGzLx,
+                    is_fxgz:'0',
                     // ssmk: this.props.ssmk,
                 },
                 callback: (res) => {

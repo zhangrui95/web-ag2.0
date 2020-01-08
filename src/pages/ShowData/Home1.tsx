@@ -587,6 +587,7 @@ export default class Home1 extends PureComponent {
                 ajbh: res.ajbh,
                 system_id: res.tzlx === 'jqxx' ? res.agid : res.system_id,
                 ajGzLx: ajGzLx,
+                is_fxgz:this.state.tabs === 's1' || this.state.tabs === 's2' ? '1' : '0',
             },
             callback: res => {
                 if (!res.error) {

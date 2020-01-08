@@ -288,6 +288,7 @@ export default class policeDetail extends PureComponent {
           payload: {
             agid: policeDetails.id,
             lx: this.state.lx,
+              is_fxgz:'0',
             sx:
               (policeDetails.jjdw ? policeDetails.jjdw + '、' : '') +
               (policeDetails.jjly_mc ? policeDetails.jjly_mc + '、' : '') +
