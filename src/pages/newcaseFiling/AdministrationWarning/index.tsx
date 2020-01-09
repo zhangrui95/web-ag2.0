@@ -575,7 +575,7 @@ export default class Index extends PureComponent {
       form: { getFieldDecorator },
       common: { depTree, superviseStatusDict, YJJBType },
       EarlyWarning: {
-        data: { page, list, tbCount },
+        xzajyjdata: { page, list, tbCount },
       },
       loading,
     } = this.props;

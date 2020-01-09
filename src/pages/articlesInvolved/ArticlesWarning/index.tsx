@@ -552,7 +552,7 @@ export default class Index extends PureComponent {
     };
 
     render() {
-        const {form: {getFieldDecorator}, common: {depTree, superviseStatusDict, YJJBType}, EarlyWarning: {data: {page, list, tbCount}}, loading} = this.props;
+        const {form: {getFieldDecorator}, common: {depTree, superviseStatusDict, YJJBType}, EarlyWarning: {wpyjdata: {page, list, tbCount}}, loading} = this.props;
         const newAddDetail = this.state.arrayDetail;
         const allPoliceOptions = this.state.allPolice.map(d => <Option key={`${d.idcard},${d.pcard}`}
                                                                        value={`${d.idcard},${d.pcard}$$`}
