@@ -208,7 +208,7 @@ export default class uncaseDetail extends PureComponent {
     //                 cljg_yy:cljg_yy,
     //             },
     //             callback: (data) => {
-    //                 message.info('督办保存完成');
+    //                 message.success('督办保存完成');
     //                 this.caseDetailDatas(this.props.id, this.props.systemId);
     //                 if(this.props.refreshTable){
     //                   this.props.refreshTable();
@@ -222,7 +222,7 @@ export default class uncaseDetail extends PureComponent {
     //         });
     //     }
     //     else {
-    //         message.info('该数据无法督办');
+    //         message.error('该数据无法督办');
     //         this.setState({
     //             is_ok: '1',
     //             loading1: false,
@@ -302,7 +302,7 @@ export default class uncaseDetail extends PureComponent {
                 id: this.state.dbid,
             },
             callback: () => {
-                message.info('督办整改完成');
+                message.success('督办整改完成');
                 this.caseDetailDatas(this.props.id, this.props.systemId);
                 if (this.props.refreshTable) {
                     this.props.refreshTable();

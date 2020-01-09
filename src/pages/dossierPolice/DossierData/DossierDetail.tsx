@@ -152,7 +152,7 @@ export default class DossierDetail extends PureComponent {
       //     from: from,
       // });
     } else {
-      message.info('该人员无法进行问题判定');
+      message.error('该人员无法进行问题判定');
     }
   };
 
@@ -330,7 +330,7 @@ export default class DossierDetail extends PureComponent {
           },
         });
       } else {
-        message.info('您的操作太频繁，请稍后再试');
+        message.warning('您的操作太频繁，请稍后再试');
       }
     }
   };
@@ -361,7 +361,7 @@ export default class DossierDetail extends PureComponent {
         },
       });
     } else {
-      message.info('您的操作太频繁，请稍后再试');
+      message.warning('您的操作太频繁，请稍后再试');
     }
   };
   handleCancel = e => {

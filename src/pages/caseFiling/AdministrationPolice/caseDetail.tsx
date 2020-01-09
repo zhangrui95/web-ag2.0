@@ -200,7 +200,7 @@ export default class caseDetail extends PureComponent {
                         this.caseDetailDatas(this.props.id, this.props.systemId);
                     }
                 } else {
-                    message.info('该数据无法督办');
+                    message.error('该数据无法督办');
                 }
             },
         });
@@ -533,7 +533,7 @@ export default class caseDetail extends PureComponent {
                 id: this.state.dbid,
             },
             callback: () => {
-                message.info('督办整改完成');
+                message.success('督办整改完成');
                 this.caseDetailDatas(this.props.id, this.props.systemId);
                 if (this.props.refreshTable) {
                     this.props.refreshTable();

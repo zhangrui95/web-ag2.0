@@ -434,7 +434,7 @@ export default class DossierDetail extends PureComponent {
         id: this.state.dbid,
       },
       callback: () => {
-        message.info('督办整改完成');
+        message.success('督办整改完成');
         const { record } = this.state;
         this.getDossierDetail(record.id, record.wtid, record.dossier_id);
         this.setState({

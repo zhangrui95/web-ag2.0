@@ -657,7 +657,7 @@ export default class Index extends PureComponent {
             this.refreshTable();
           }
         } else {
-          message.info('该数据无法督办');
+          message.error('该数据无法督办');
         }
       },
     });
