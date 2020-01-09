@@ -1452,7 +1452,7 @@ export default class unareaDetail extends PureComponent {
     let dark = this.props.global && this.props.global.dark;
     return (
       <div
-        style={{ background: dark ? '#252c3c' : '#fff', height: autoheight() - 250 + 'px' }}
+        style={{ background: dark ? '#252c3c' : '#fff', height: autoheight() - 260 + 'px' }}
         className={styles.detailBoxScroll}
       >
         <SupervisionLog
@@ -1623,7 +1623,7 @@ export default class unareaDetail extends PureComponent {
         </div>
         {UnareaDetail && UnareaDetail.rqxx && UnareaDetail.rqxx.length > 0 ? (
           <div>
-            <div className={styles.title} style={{ marginTop: '24px' }}>
+            <div className={styles.title}>
               | 入区详情
             </div>
             <div className={styles.message}>
@@ -1730,10 +1730,10 @@ export default class unareaDetail extends PureComponent {
           ''
         )}
 
-        <div className={styles.title} style={{ marginTop: '16px' }}>
+        <div className={styles.title}>
           | 随身物品信息
         </div>
-        <div className={styles.tablemessage} style={{ marginBottom: '16px', padding: '24px' }}>
+        <div className={styles.tablemessage} style={{ padding: '0 24px 24px' }}>
           <Table
             bordered
             // size={'middle'}
@@ -1763,10 +1763,10 @@ export default class unareaDetail extends PureComponent {
           />
         </div>
 
-        <div className={styles.title} style={{ marginTop: '16px' }}>
+        <div className={styles.title}>
           | 涉案物品信息
         </div>
-        <div className={styles.tablemessage} style={{ padding: '24px' }}>
+        <div className={styles.tablemessage} style={{ padding: '0 24px 24px' }}>
           <Table
             // size={'middle'}
             bordered

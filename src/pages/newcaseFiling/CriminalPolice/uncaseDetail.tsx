@@ -856,7 +856,7 @@ export default class uncaseDetail extends PureComponent {
     let dark = this.props.global && this.props.global.dark;
     return (
       <div
-        style={{ background: dark ? '#252c3c' : '#fff', height: autoheight() - 250 + 'px',padding:'16px 0 0' }}
+        style={{ background: dark ? '#252c3c' : '#fff', height: autoheight() - 260 + 'px',padding:'16px 0 0' }}
         className={styles.detailBoxScroll}
       >
         <SupervisionLog
@@ -900,7 +900,7 @@ export default class uncaseDetail extends PureComponent {
           />
         </div>
         <div className={styles.title}>| 案件信息</div>
-        <div className={styles.message} style={{ padding: '12px 64px' }}>
+        <div className={styles.message} style={{ padding: '0 64px 12px 64px' }}>
           <Row style={{ marginRight: 0 }} className={styles.xqrow}>
             <Col md={6} sm={24} className={styles.xqcol}>
               <div className={liststyles.Indexfrom}>案件编号：</div>

@@ -684,10 +684,10 @@ export default class caseDetail extends PureComponent {
     let dark = this.props.global && this.props.global.dark;
     return (
       <div
-        style={{ background: dark ? '#252c3c' : '#fff', height: autoheight() - 250 + 'px' }}
+        style={{ background: dark ? '#252c3c' : '#fff', height: autoheight() - 260 + 'px',paddingTop:24 }}
         className={styles.detailBoxScroll}
       >
-        <div style={{ textAlign: 'right', marginTop: 30 }}>
+        <div style={{ textAlign: 'right' }}>
           {caseDetails && caseDetails.jqxxList && caseDetails.jqxxList.length > 0 ? (
             <Button
               type="primary"
@@ -744,7 +744,7 @@ export default class caseDetail extends PureComponent {
           )}
         </div>
         <div className={styles.title}>| 案件信息</div>
-        <div className={styles.message} style={{ padding: '24px 70px' }}>
+        <div className={styles.message} style={{ padding: '0 70px 24px 70px' }}>
           <Row className={styles.xqrow}>
             <Col md={8} sm={24} className={styles.xqcol}>
               <div className={liststyles.Indexfrom}>

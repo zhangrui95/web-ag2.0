@@ -1367,7 +1367,7 @@ export default class areaDetail extends PureComponent {
     );
     return (
       <div
-        style={{ background: dark ? '#252c3c' : '#fff', height: autoheight() - 250 + 'px' }}
+        style={{ background: dark ? '#252c3c' : '#fff', height: autoheight() - 260 + 'px' }}
         className={styles.detailBoxScroll}
       >
         {areaDetails && areaDetails.ajxx ? (
@@ -1582,7 +1582,7 @@ export default class areaDetail extends PureComponent {
         </div>
         {areaDetails && areaDetails.rqxx && areaDetails.rqxx.length > 0 ? (
           <div>
-            <div className={styles.title} style={{ marginTop: '24px' }}>
+            <div className={styles.title}>
               | 入区详情
             </div>
             <div className={styles.message}>
@@ -1702,7 +1702,7 @@ export default class areaDetail extends PureComponent {
           ''
         )}
         <div className={styles.title}>| 随身物品信息</div>
-        <div className={styles.tablemessage} style={{ marginBottom: '16px', padding: '24px' }}>
+        <div className={styles.tablemessage} style={{ padding: '0 24px 24px' }}>
           <Table
             // size={'middle'}
             // style={{ backgroundColor: '#252C3C' }}
@@ -1732,7 +1732,7 @@ export default class areaDetail extends PureComponent {
           />
         </div>
         <div className={styles.title}>| 涉案物品信息</div>
-        <div className={styles.tablemessage} style={{ padding: '24px', marginBottom: 24 }}>
+        <div className={styles.tablemessage} style={{ padding: '0 24px 24px' }}>
           <Table
             // size={'middle'}
             // style={{ backgroundColor: '#252C3C' }}
