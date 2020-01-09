@@ -586,24 +586,22 @@ export default class DossierDetail extends PureComponent {
                 <span>
                   <span className={liststyles.collect}>
                     {handleDossierSfgz === 0 ? (
-                      <Tooltip title="关注">
+                      <Tooltip title="关注" onClick={() => this.saveShare(DossierDetailData, 1, 0)}>
                         <img
                           src={dark ? nocollect : nocollect1}
                           width={25}
                           height={25}
                           style={{ marginLeft: 12 }}
-                          onClick={() => this.saveShare(DossierDetailData, 1, 0)}
                         />
                         <div style={{ fontSize: 12, textAlign: 'center', width: 48 }}>关注</div>
                       </Tooltip>
                     ) : (
-                      <Tooltip title="取消关注">
+                      <Tooltip title="取消关注"  onClick={() => this.noFollow(DossierDetailData)}>
                         <img
                           src={dark ? collect : collect1}
                           width={25}
                           height={25}
                           style={{ marginLeft: 12 }}
-                          onClick={() => this.noFollow(DossierDetailData)}
                         />
                         <div style={{ fontSize: 12, textAlign: 'center', width: 48 }}>取消关注</div>
                       </Tooltip>
