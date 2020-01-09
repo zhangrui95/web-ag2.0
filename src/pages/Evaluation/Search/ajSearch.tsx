@@ -447,7 +447,7 @@ class AjSearch extends PureComponent {
                                         treeDefaultExpandedKeys={this.state.treeDefaultExpandedKeys}
                                         treeNodeFilterProp="title"
                                     >
-                                        {depTree && depTree.length > 0 ? this.renderloop(depTree) : null}
+                                        {depTree && depTree.length > 0 ? this.renderloop(depTree) : []}
                                     </TreeSelect>,
                                 )}
                             </FormItem>
@@ -529,7 +529,7 @@ class AjSearch extends PureComponent {
                                         getPopupContainer={() => document.getElementById('ajSearchBox')}
                                         treeNodeFilterProp="title"
                                     >
-                                        {depTree && depTree.length > 0 ? this.renderloop(depTree) : null}
+                                        {depTree && depTree.length > 0 ? this.renderloop(depTree) : []}
                                     </TreeSelect>,
                                 )}
                             </FormItem>

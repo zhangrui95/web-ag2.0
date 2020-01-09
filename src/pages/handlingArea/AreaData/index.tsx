@@ -23,7 +23,7 @@ import {
 import moment from 'moment/moment';
 import styles from '../../common/listPage.less';
 import RenderTable from '../../../components/AreaRealData/RenderTable';
-import {exportListDataMaxDays, tableList} from '../../../utils/utils';
+import {exportListDataMaxDays, getUserInfos, tableList} from '../../../utils/utils';
 import AreaDataView from '../../../components/AreaRealData/AreaDataView';
 import DataViewButtonArea from '../../../components/Common/DataViewButtonArea';
 import SyncTime from '../../../components/Common/SyncTime';
@@ -135,7 +135,10 @@ export default class Index extends PureComponent {
     getBaqTree = () => {
         this.props.dispatch({
             type: 'common/getBaqTree',
-            payload: {},
+            payload: {
+                ssxt:'106307',
+                code:getUserInfos().department,
+            },
         });
     };
     // 关闭页面
@@ -569,7 +572,7 @@ export default class Index extends PureComponent {
                                     treeNodeFilterProp="title"
                                     getPopupContainer={() => document.getElementById('baqsjtableListForm')}
                                 >
-                                    {depTree && depTree.length > 0 ? this.renderloop(depTree) : null}
+                                    {depTree && depTree.length > 0 ? this.renderloop(depTree) : []}
                                 </TreeSelect>,
                             )}
                         </FormItem>
@@ -623,7 +626,7 @@ export default class Index extends PureComponent {
                                     // onChange={this.onChange}
                                     getPopupContainer={() => document.getElementById('baqsjtableListForm')}
                                 >
-                                    {baqTree.length > 0 ? this.renderBaqloop(baqTree) : null}
+                                    {baqTree&&baqTree.length > 0 ? this.renderBaqloop(baqTree) : []}
                                 </TreeSelect>,
                             )}
                         </FormItem>

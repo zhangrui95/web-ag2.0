@@ -1082,7 +1082,7 @@ class Detail extends Component {
                       onChange={e => this.emptyJgxz(e)}
                       disabled={this.state.modleType == 0 ? false : true}
                     >
-                      {depTree && depTree.length > 0 ? this.renderloop(depTree) : null}
+                      {depTree && depTree.length > 0 ? this.renderloop(depTree) : []}
                     </TreeSelect>,
                   )}
                 </FormItem>

@@ -341,7 +341,7 @@ export default class zfdaTable extends PureComponent {
                                             treeNodeFilterProp="title"
                                             getPopupContainer={() => document.getElementById('form' + this.props.url)}
                                         >
-                                            {depTree && depTree.length > 0 ? this.renderloop(depTree) : null}
+                                            {depTree && depTree.length > 0 ? this.renderloop(depTree) : []}
                                         </TreeSelect>,
                                     )}
                                 </FormItem>

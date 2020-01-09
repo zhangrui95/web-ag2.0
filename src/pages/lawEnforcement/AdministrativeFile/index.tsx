@@ -424,7 +424,7 @@ export default class AdministrativeCaseDoc extends PureComponent {
                                         key='cjdwSelect'
                                         getPopupContainer={() => document.getElementById('formAdministrativeFile')}
                                     >
-                                        {depTree && depTree.length > 0 ? this.renderloop(depTree) : null}
+                                        {depTree && depTree.length > 0 ? this.renderloop(depTree) : []}
                                     </TreeSelect>,
                                 )}
                             </FormItem>

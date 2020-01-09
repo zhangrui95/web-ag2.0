@@ -31,10 +31,12 @@ export default class EvaluationChats extends PureComponent {
     }
 
     componentWillReceiveProps(nextProps, nextContext) {
-        if (this.props.isSearch !== nextProps.isSearch || this.props.reset !== nextProps.reset || this.props.global.dark !== nextProps.global.dark) {
+        if(this.props.isSearch !== nextProps.isSearch || this.props.reset !== nextProps.reset){
             this.setState({
                 ryValue: undefined,
-            })
+            });
+        }
+        if (this.props.isSearch !== nextProps.isSearch || this.props.reset !== nextProps.reset || this.props.global.dark !== nextProps.global.dark) {
             if (nextProps.tjnrRedio === '0') {
                 this.initDataAj(0, nextProps, this.state.sortCharts1, nextProps.tjnrCode);
                 this.initRyDataAj(0, nextProps, this.state.sortCharts3, nextProps.tjnrCode);
@@ -42,8 +44,8 @@ export default class EvaluationChats extends PureComponent {
                 this.initDataGj(0, nextProps, this.state.sortCharts1, nextProps.tjnrCode);
                 this.initRyDataGj(0, nextProps, this.state.sortCharts3, nextProps.tjnrCode);
             } else {
-                this.initData(0, nextProps, this.state.sortCharts1, nextProps.tjnrCode);
-                this.initRyData(0, nextProps, this.state.sortCharts3, nextProps.tjnrCode);
+                this.initData(0, nextProps, this.state.sortCharts1, nextProps.tjnrCode ? nextProps.tjnrCode : '0');
+                this.initRyData(0, nextProps, this.state.sortCharts3, nextProps.tjnrCode ? nextProps.tjnrCode : '0');
             }
         }
     }
@@ -65,11 +67,11 @@ export default class EvaluationChats extends PureComponent {
                 }
             } else {
                 if (this.props.tjnrRedio === '0') {
-                    this.initRyDataAj(0, this.props, this.state['sortCharts' + idx], '0', this.state.ryValue.toString(),true);
+                    this.initRyDataAj(0, this.props, this.state['sortCharts' + idx], '0', this.state.ryValue ? this.state.ryValue.toString() : '',true);
                 } else if (this.props.tjnrRedio === '1') {
-                    this.initRyDataGj(0, this.props, this.state['sortCharts' + idx], '0', this.state.ryValue.toString(),true);
+                    this.initRyDataGj(0, this.props, this.state['sortCharts' + idx], '0', this.state.ryValue ? this.state.ryValue.toString() : '',true);
                 } else {
-                    this.initRyData(0, this.props, this.state['sortCharts' + idx], '0', this.state.ryValue.toString(),true);
+                    this.initRyData(0, this.props, this.state['sortCharts' + idx], '0', this.state.ryValue ? this.state.ryValue.toString() : '',true);
                 }
             }
         });
@@ -248,7 +250,6 @@ export default class EvaluationChats extends PureComponent {
         let arrDatal = {};
         let seriesValue = [];
         let currentPage1 = this.state.currentPage1 + next * 1;
-        console.log('currentPage1',currentPage1)
         this.setState({
             currentPage1: next === 0 ? 1 : currentPage1,
         });

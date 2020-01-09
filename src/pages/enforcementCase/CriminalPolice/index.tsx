@@ -687,7 +687,7 @@ export default class Index extends PureComponent {
                                         treeNodeFilterProp="title"
                                         getPopupContainer={() => document.getElementById('zfbaxsajgjtableListForm')}
                                     >
-                                        {depTree && depTree.length > 0 ? this.renderloop(depTree) : null}
+                                        {depTree && depTree.length > 0 ? this.renderloop(depTree) : []}
                                     </TreeSelect>,
                                 )}
                             </FormItem>
@@ -774,7 +774,7 @@ export default class Index extends PureComponent {
                                         treeNodeFilterProp="title"
                                         getPopupContainer={() => document.getElementById('zfbaxsajgjtableListForm')}
                                     >
-                                        {depTree && depTree.length > 0 ? this.renderloop(depTree) : null}
+                                        {depTree && depTree.length > 0 ? this.renderloop(depTree) : []}
                                     </TreeSelect>,
                                 )}
                             </FormItem>

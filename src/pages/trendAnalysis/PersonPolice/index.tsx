@@ -243,7 +243,7 @@ export default class PeopleTrendAnalysis extends PureComponent {
                                         >
                                             {this.renderloop(depTree)}
                                         </TreeSelect>
-                                    ) : null
+                                    ) : []
                                 }
 
 

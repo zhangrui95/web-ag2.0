@@ -99,7 +99,7 @@ export default class DataViewButtonArea extends PureComponent {
                     treeNodeFilterProp="title"
                     getPopupContainer={() => document.getElementById('tongjiCommon' + pathname)}
                 >
-                  {depTree && depTree.length > 0 ? renderloop(depTree) : null}
+                  {depTree && depTree.length > 0 ? renderloop(depTree) : []}
                 </TreeSelect>
               </span>
             </span>
@@ -119,7 +119,7 @@ export default class DataViewButtonArea extends PureComponent {
                     treeNodeFilterProp="title"
                     getPopupContainer={() => document.getElementById('tongjiCommon' + pathname)}
                 >
-                  {depTree && depTree.length > 0 ? renderloop(depTree) : null}
+                  {depTree && depTree.length > 0 ? renderloop(depTree) : []}
                 </TreeSelect>
               </span>
             </span>
@@ -140,7 +140,7 @@ export default class DataViewButtonArea extends PureComponent {
                   treeNodeFilterProp="title"
                   getPopupContainer={() => document.getElementById('tongjiCommon' + pathname)}
               >
-                {depTree && depTree.length > 0 ? renderloop(depTree) : null}
+                {depTree && depTree.length > 0 ? renderloop(depTree) : []}
               </TreeSelect>
             </span>
           </span>

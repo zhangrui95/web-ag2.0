@@ -722,7 +722,7 @@ export default class CriminalFile extends PureComponent {
                                         treeNodeFilterProp="title"
                                         getPopupContainer={() => document.getElementById('formCriminalFile')}
                                     >
-                                        {depTree && depTree.length > 0 ? this.renderloop(depTree) : null}
+                                        {depTree && depTree.length > 0 ? this.renderloop(depTree) : []}
                                     </TreeSelect>,
                                 )}
                             </FormItem>

@@ -203,7 +203,7 @@ export default class SeniorSearchModal extends PureComponent {
                                                 treeNodeFilterProp="title"
                                                 getPopupContainer={triggerNode => triggerNode.parentNode}
                                             >
-                                                {depTree && depTree.length > 0 ? this.renderloop(depTree) : null}
+                                                {depTree && depTree.length > 0 ? this.renderloop(depTree) : []}
                                             </TreeSelect>,
                                         )}
                                     </FormItem>
@@ -227,7 +227,7 @@ export default class SeniorSearchModal extends PureComponent {
                                                 treeNodeFilterProp="title"
                                                 getPopupContainer={triggerNode => triggerNode.parentNode}
                                             >
-                                                {depTree && depTree.length > 0 ? this.renderloop(depTree) : null}
+                                                {depTree && depTree.length > 0 ? this.renderloop(depTree) : []}
                                             </TreeSelect>,
                                         )}
                                     </FormItem>
@@ -251,7 +251,7 @@ export default class SeniorSearchModal extends PureComponent {
                                                 treeNodeFilterProp="title"
                                                 getPopupContainer={triggerNode => triggerNode.parentNode}
                                             >
-                                                {depTree && depTree.length > 0 ? this.renderloop(depTree) : null}
+                                                {depTree && depTree.length > 0 ? this.renderloop(depTree) : []}
                                             </TreeSelect>,
                                         )}
                                     </FormItem>
@@ -275,7 +275,7 @@ export default class SeniorSearchModal extends PureComponent {
                                                 treeNodeFilterProp="title"
                                                 getPopupContainer={triggerNode => triggerNode.parentNode}
                                             >
-                                                {depTree && depTree.length > 0 ? this.renderloop(depTree) : null}
+                                                {depTree && depTree.length > 0 ? this.renderloop(depTree) : []}
                                             </TreeSelect>,
                                         )}
                                     </FormItem>
@@ -299,7 +299,7 @@ export default class SeniorSearchModal extends PureComponent {
                                                 treeNodeFilterProp="title"
                                                 getPopupContainer={triggerNode => triggerNode.parentNode}
                                             >
-                                                {depTree && depTree.length > 0 ? this.renderloop(depTree) : null}
+                                                {depTree && depTree.length > 0 ? this.renderloop(depTree) : []}
                                             </TreeSelect>,
                                         )}
                                     </FormItem>
