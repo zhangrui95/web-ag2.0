@@ -652,7 +652,7 @@ export default class PersonalDocDetail extends PureComponent {
         return (
             <div>
                 <Spin spinning={loading}>
-                    <Card>
+                    <Card style={{margin:'16px 0'}}>
                         <Row gutter={{md: 8, lg: 24, xl: 48}}>
                             <Col>
                                 <Button type='primary' style={{margin: '10px', float: 'left'}}
@@ -661,7 +661,7 @@ export default class PersonalDocDetail extends PureComponent {
 
                         </Row>
                     </Card>
-                    <Card style={{height: autoheight() - 220 + 'px', marginTop: '12px'}} ref={'scroll'}
+                    <Card style={{height: autoheight() - 240 + 'px', marginTop: '12px'}} ref={'scroll'}
                           className={className}>
                         <div>
                             <div id={`Nameryxx${this.props.location.query.id}`} className={styles.borderBottom}>

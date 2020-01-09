@@ -941,7 +941,7 @@ export default class Index extends PureComponent {
                           treeNodeFilterProp="title"
                           getPopupContainer={() => document.getElementById('jzsjtableListForm')}
                         >
-                          {depTree && depTree.length > 0 ? this.renderloop(depTree) : null}
+                          {depTree && depTree.length > 0 ? this.renderloop(depTree) : []}
                         </TreeSelect>,
                       )}
                     </FormItem>

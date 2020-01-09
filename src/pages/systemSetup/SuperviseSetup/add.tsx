@@ -908,7 +908,7 @@ class Detail extends Component {
                                             treeNodeFilterProp="title"
                                             onChange={e => this.emptyJgxz(e)}
                                         >
-                                            {depTree && depTree.length > 0 ? this.renderloop(depTree) : null}
+                                            {depTree && depTree.length > 0 ? this.renderloop(depTree) : []}
                                         </TreeSelect>,
                                     )}
                                 </FormItem>

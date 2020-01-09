@@ -408,7 +408,7 @@ class MessageLog extends Component {
                                         treeNodeFilterProp="title"
                                         getPopupContainer={() => document.getElementById('formLog')}
                                     >
-                                        {depTree && depTree.length > 0 ? this.renderloop(depTree) : null}
+                                        {depTree && depTree.length > 0 ? this.renderloop(depTree) : []}
                                     </TreeSelect>,
                                 )}
                             </FormItem>

@@ -159,7 +159,7 @@ export default class MessagePushLogModal extends PureComponent {
             logDetail = JSON.parse(sessionStorage.getItem('query')).query.record;
         }
         return (
-            <Card style={{padding: '24px'}}>
+            <Card style={{padding: '24px',marginTop:16}}>
                 <Row gutter={rowLayout} style={{lineHeight: '36px'}}>
                     <Col {...colLayout}>
                         推送事项：{logDetail ? <a onClick={this.logDetailCheckOut}>{logDetail.tssx_mc}</a> : ''}

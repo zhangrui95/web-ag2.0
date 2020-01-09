@@ -138,7 +138,10 @@ export default class GeneralQuery extends PureComponent {
     getBaqTree = () => {
         this.props.dispatch({
             type: 'common/getBaqTree',
-            payload: {},
+            payload: {
+                ssxt:'106307',
+                code:getUserInfos().department,
+            },
         });
     };
     // 获取案件类型
@@ -1339,7 +1342,7 @@ export default class GeneralQuery extends PureComponent {
                         </AutoComplete>
                     </div>
                 </Affix>
-                <Card className={stylescommon.cardArea} style={{padding: '5px 0'}}>
+                <Card className={stylescommon.cardArea} style={{padding: '5px 0',marginTop:0}}>
                     <div className={styles.searchConditionArea}>
                         <div className={styles.searchType}>
                             {/*<a className={searchType === 'all' ? styles.chosenType : null}*/}
@@ -1528,7 +1531,7 @@ export default class GeneralQuery extends PureComponent {
                                         getPopupContainer={() => document.getElementById('formSearch')}
                                         treeNodeFilterProp="title"
                                     >
-                                        {depTree && depTree.length > 0 ? this.renderloop(depTree) : null}
+                                        {depTree && depTree.length > 0 ? this.renderloop(depTree) : []}
                                     </TreeSelect>
                                 </div>
                                 {searchType === 'baq' ? (
@@ -1548,7 +1551,7 @@ export default class GeneralQuery extends PureComponent {
                                             treeNodeFilterProp="title"
                                             getPopupContainer={() => document.getElementById('formSearch')}
                                         >
-                                            {baqTree.length > 0 ? this.renderBaqloop(baqTree) : null}
+                                            {baqTree&&baqTree.length > 0 ? this.renderBaqloop(baqTree) : []}
                                         </TreeSelect>
                                     </div>
                                 ) : null}

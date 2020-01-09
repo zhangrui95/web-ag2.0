@@ -70,7 +70,7 @@ const MessagePush = (props: MessagePushProps) => {
     let className = props.global.dark ? style.sendMessage : style.sendMessage + ' ' + style.lightBox;
     return (
         <div className={className}>
-            <Tabs defaultActiveKey="cspz" onChange={getTabs} activeKey={tab}>
+            <Tabs defaultActiveKey="cspz" onChange={getTabs} activeKey={tab} style={{marginTop:16}}>
                 <TabPane tab={tab === "cspz" ? "● 参数配置" : "参数配置"} key="cspz">
                     <SendConfig formItemLayout={formItemLayout} setMessageData={setMessageData}
                                 splitMessage={splitMessage} {...props} />

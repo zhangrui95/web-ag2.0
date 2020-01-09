@@ -25,7 +25,7 @@ import styles from '../../common/listPage.less';
 import RenderTable from '../../../components/UnAreaRealData/RenderTable';
 import {
     exportListDataMaxDays,
-    getQueryString,
+    getQueryString, getUserInfos,
     tableList,
     userResourceCodeDb,
 } from '../../../utils/utils';
@@ -196,7 +196,10 @@ export default class Index extends PureComponent {
     getBaqTree = () => {
         this.props.dispatch({
             type: 'common/getBaqTree',
-            payload: {},
+            payload: {
+                ssxt:'106307',
+                code:getUserInfos().department,
+            },
         });
     };
     // 获取问题类型
@@ -793,7 +796,7 @@ export default class Index extends PureComponent {
                                     treeNodeFilterProp="title"
                                     getPopupContainer={() => document.getElementById('baqgjsjtableListForm')}
                                 >
-                                    {depTree && depTree.length > 0 ? this.renderloop(depTree) : null}
+                                    {depTree && depTree.length > 0 ? this.renderloop(depTree) : []}
                                 </TreeSelect>,
                             )}
                         </FormItem>
@@ -816,7 +819,7 @@ export default class Index extends PureComponent {
                                     // onChange={this.onChange}
                                     getPopupContainer={() => document.getElementById('baqgjsjtableListForm')}
                                 >
-                                    {baqTree.length > 0 ? this.renderBaqloop(baqTree) : null}
+                                    {baqTree&&baqTree.length > 0 ? this.renderBaqloop(baqTree) : []}
                                 </TreeSelect>,
                             )}
                         </FormItem>

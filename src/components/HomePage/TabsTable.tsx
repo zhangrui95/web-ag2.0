@@ -120,7 +120,7 @@ export default class TabsTable extends PureComponent {
                                                     treeNodeFilterProp="title"
                                                     getPopupContainer={() => document.getElementById('myshare')}
                                                 >
-                                                    {depTree && depTree.length > 0 ? this.props.renderloop(depTree) : null}
+                                                    {depTree && depTree.length > 0 ? this.props.renderloop(depTree) : []}
                                                 </TreeSelect>,
                                             )}
                                         </FormItem>
@@ -249,7 +249,7 @@ export default class TabsTable extends PureComponent {
                                                     treeNodeFilterProp="title"
                                                     getPopupContainer={() => document.getElementById('shareme')}
                                                 >
-                                                    {depTree && depTree.length > 0 ? this.props.renderloop(depTree) : null}
+                                                    {depTree && depTree.length > 0 ? this.props.renderloop(depTree) : []}
                                                 </TreeSelect>,
                                             )}
                                         </FormItem>

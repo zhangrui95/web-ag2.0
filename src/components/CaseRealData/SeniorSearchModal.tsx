@@ -191,7 +191,7 @@ export default class SeniorSearchModal extends PureComponent {
                                                 treeDefaultExpandedKeys={treeDefaultExpandedKeys}
                                                 treeNodeFilterProp="title"
                                             >
-                                                {depTree && depTree.length > 0 ? this.renderloop(depTree) : null}
+                                                {depTree && depTree.length > 0 ? this.renderloop(depTree) : []}
                                             </TreeSelect>,
                                         )}
                                     </FormItem>
@@ -214,7 +214,7 @@ export default class SeniorSearchModal extends PureComponent {
                                                 treeDefaultExpandedKeys={treeDefaultExpandedKeys}
                                                 treeNodeFilterProp="title"
                                             >
-                                                {depTree && depTree.length > 0 ? this.renderloop(depTree) : null}
+                                                {depTree && depTree.length > 0 ? this.renderloop(depTree) : []}
                                             </TreeSelect>,
                                         )}
                                     </FormItem>
@@ -237,7 +237,7 @@ export default class SeniorSearchModal extends PureComponent {
                                                 treeDefaultExpandedKeys={treeDefaultExpandedKeys}
                                                 treeNodeFilterProp="title"
                                             >
-                                                {depTree && depTree.length > 0 ? this.renderloop(depTree) : null}
+                                                {depTree && depTree.length > 0 ? this.renderloop(depTree) : []}
                                             </TreeSelect>,
                                         )}
                                     </FormItem>
@@ -260,7 +260,7 @@ export default class SeniorSearchModal extends PureComponent {
                                                 treeDefaultExpandedKeys={treeDefaultExpandedKeys}
                                                 treeNodeFilterProp="title"
                                             >
-                                                {depTree && depTree.length > 0 ? this.renderloop(depTree) : null}
+                                                {depTree && depTree.length > 0 ? this.renderloop(depTree) : []}
                                             </TreeSelect>,
                                         )}
                                     </FormItem>
@@ -283,7 +283,7 @@ export default class SeniorSearchModal extends PureComponent {
                                                 treeDefaultExpandedKeys={treeDefaultExpandedKeys}
                                                 treeNodeFilterProp="title"
                                             >
-                                                {depTree && depTree.length > 0 ? this.renderloop(depTree) : null}
+                                                {depTree && depTree.length > 0 ? this.renderloop(depTree) : []}
                                             </TreeSelect>,
                                         )}
                                     </FormItem>
