@@ -167,17 +167,17 @@ class DailyRecord extends PureComponent {
                                 <Col md={2} span={24}>
                                     <div className={styles.Line}/>
                                 </Col>
-                                {item.jsr.split(',').map((e, idx) => {
-                                    return <Col md={12} span={12} key={idx}>
-                                        <Row className={styles.bgLine}>
-                                            <Col md={5} span={24}>接收人：{e}</Col>
-                                            <Col md={8} span={24}>发送时间：{item.insertime}</Col>
-                                            <Col md={11} span={24} style={{paddingBottom: 8}}>接收单位：<Tooltip
-                                                title={item.jsdw.split(',')[idx].length > 15 ? item.jsdw.split(',')[idx] : null}>{item.jsdw.split(',')[idx].length > 15 ? item.jsdw.split(',')[idx].substring(0, 15) + '...' : item.jsdw.split(',')[idx]}</Tooltip></Col>
-                                            <Col md={24} span={24}>提醒建议：{item.txjy}</Col>
-                                        </Row>
-                                    </Col>;
-                                })}
+                                <Col md={12} span={12}>
+                                  {item.jsr.split(',').map((e, idx) => {
+                                      return  <Row className={styles.bgLine}>
+                                                  <Col md={5} span={24}>接收人：{e}</Col>
+                                                  <Col md={8} span={24}>发送时间：{item.insertime}</Col>
+                                                  <Col md={11} span={24} style={{paddingBottom: 8}}>接收单位：<Tooltip
+                                                      title={item.jsdw.split(',')[idx].length > 15 ? item.jsdw.split(',')[idx] : null}>{item.jsdw.split(',')[idx].length > 15 ? item.jsdw.split(',')[idx].substring(0, 15) + '...' : item.jsdw.split(',')[idx]}</Tooltip></Col>
+                                                  <Col md={24} span={24}>提醒建议：{item.txjy}</Col>
+                                              </Row>;
+                                  })}
+                                </Col>
                             </Row>
 
                             {/*<Row style={{ paddingLeft: 30, paddingBottom: 8 }}>*/}
