@@ -690,10 +690,14 @@ export default class Index extends PureComponent {
     const colLayout = { sm: 24, md: 12, xl: 8 };
 
     const columns = [
-      {
-        title: '入库时间',
-        dataIndex: 'rksj',
-        width: 100,
+        this.state.timeName && this.state.timeName === 'ljsj' ? {
+            title: '立卷时间',
+            dataIndex: 'ljsj',
+            width: 100,
+        }:{
+          title: '入库时间',
+              dataIndex: 'rksj',
+              width: 100,
       },
       {
         title: '案件类型',

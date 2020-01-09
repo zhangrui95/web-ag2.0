@@ -267,7 +267,16 @@ export default class DossierDataView extends PureComponent {
             },
         });
     }
-
+    //换行
+    formatter = (val) => {
+        let strs = val.split(''); //字符串数组
+        let str = '';
+        for (let i = 0, s; s = strs[i++];) { //遍历字符串数组
+            str += s;
+            if (!(i % 11)) str += '\n'; //按需要求余
+        }
+        return str;
+    };
     // 卷宗趋势
     showCaseJzqspie(qsTime, orgcode = this.props.orgcode, sTime, eTime) {
       let aDate, oDate1, oDate2, iDays,typeLabel;
@@ -343,8 +352,7 @@ export default class DossierDataView extends PureComponent {
                         });
                         const data1 = data.list;
                         for (let a = 0; a < data1.length; a++) {
-                            const legendData = data1[a].name;
-
+                            const legendData = this.formatter(data1[a].name);
                             const seriesData1 = data1[a].count1;
                             const seriesData2 = data1[a].count2;
                             newData1.push(seriesData1);
@@ -373,7 +381,6 @@ export default class DossierDataView extends PureComponent {
                         {
                             name: '在库',
                             type: 'line',
-                            stack: '总量',
                             data: newData1,
                             itemStyle: {
                                 color: '#FD0132',
@@ -382,7 +389,6 @@ export default class DossierDataView extends PureComponent {
                         {
                             name: '出库',
                             type: 'line',
-                            stack: '总量',
                             data: newData2,
                             itemStyle: {
                                 color: '#2A9DF6',
@@ -393,7 +399,7 @@ export default class DossierDataView extends PureComponent {
                         legend: {
                             data: ['在库', '出库'],
                             top: '5%',
-                            right: '15%',
+                            right: '5%',
                             // data:[],
                         },
                         xAxis: {
@@ -630,9 +636,9 @@ export default class DossierDataView extends PureComponent {
                 },
             },
             grid: {
-                left: '3%',
-                right: '4%',
-                bottom: '3%',
+                left: '5%',
+                right: '5%',
+                bottom: 25,
                 containLabel: true,
             },
             xAxis: {
@@ -711,7 +717,7 @@ export default class DossierDataView extends PureComponent {
                 itemWidth: 10,
                 itemHeight: 10,
                 itemGap: 25,
-                selectedMode: true, // 点击
+                selectedMode:false, // 点击
                 textStyle: {
                     color: nextProps.global && nextProps.global.dark ? '#fff' : '#4d4d4d',
                     fontSize: 16,
@@ -782,7 +788,7 @@ export default class DossierDataView extends PureComponent {
                 itemWidth: 10,
                 itemHeight: 10,
                 itemGap: 25,
-                selectedMode: true, // 点击
+                selectedMode: false, // 点击
                 textStyle: {
                     color: nextProps.global && nextProps.global.dark ? '#fff' : '#4d4d4d',
                     fontSize: 16,
@@ -924,7 +930,7 @@ export default class DossierDataView extends PureComponent {
                             </Col>
                             <Col {...colLayout}>
                                 <div className={styles.cardBoxTitle}>| 在库卷宗数量展示</div>
-                                <div className={styles.cardBoxzk} style={{padding: '0 5px'}}>
+                                <div className={styles.cardBoxzk} style={{padding: '10px 5px'}}>
                                     {ZkjzData.length > 0 ?
                                         <div>
                                             <Row gutter={rowLayout}>
@@ -989,7 +995,6 @@ export default class DossierDataView extends PureComponent {
                                             top: 0,
                                             left: 0,
                                             padding: 16,
-                                            backgroundColor: '#ffffff',
                                         }}>
                                             <div style={{fontSize: 16, padding: '8px 0 0 8px'}}>卷宗趋势</div>
                                             <div style={{
