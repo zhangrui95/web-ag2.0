@@ -71,7 +71,7 @@ class ShareModal extends PureComponent {
                         fx_dwdm: dirNum.toString(),
                         fx_dwmc: dirName.toString(),
                         fx_xm: name.toString(),
-                        agid: record && (record.tzlx === 'jqwt' || record.tzlx === 'jzwt') ? record.wtid : record.id,
+                        agid: tzlx === 'jqwt' || tzlx === 'jzwt' ? record.wtid : record.id,
                         fxjy: values.shareSuggest,
                         lx: from ? from : '',
                         sx: sx ? sx : '',

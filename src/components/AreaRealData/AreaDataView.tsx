@@ -1163,11 +1163,11 @@ export default class ItemDataView extends PureComponent {
     returnSaryrqrczs = (SARYRQRCdataLength, SARYRQRCdata, SARYRQRCTotal, chooseBaq) => {
         if (SARYRQRCdataLength === 1) {
             return (
-                <div id="saryrqrczs" className={styles.cardBox}></div>
+                <div id="saryrqrczs"></div>
             );
         } else if (SARYRQRCdataLength > 1) {
             return (
-                    <div className={AreaDataViewStyles.IntoAreaName + ' ' + styles.cardBox}>
+                    <div className={AreaDataViewStyles.IntoAreaName}>
                         {SARYRQRCdata &&
                         SARYRQRCdata.map(item => (
                             <div className={AreaDataViewStyles.IntoPerson}>
@@ -1319,7 +1319,7 @@ export default class ItemDataView extends PureComponent {
                                                         placement="bottomLeft"
                                                     >
                                                         <Progress
-                                                            percent={Math.round((item.count / NLFBTotal) * 100)}
+                                                            percent={item.count&&NLFBTotal ? Math.round((item.count / NLFBTotal) * 100) : 0}
                                                             strokeWidth={12}
                                                             format={percent => `${percent}%`}
                                                             strokeColor={'#2092fb'}
