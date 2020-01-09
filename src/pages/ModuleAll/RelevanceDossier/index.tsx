@@ -27,7 +27,8 @@ export default class IntoArea extends PureComponent {
     constructor(props) {
         super(props);
         let res = props.location.query.record;
-        if (typeof res == 'string') {
+        console.log('res',typeof res)
+        if (typeof res == 'string'||typeof res == 'object') {
             res = JSON.parse(sessionStorage.getItem('query')).query.record;
         }
         this.state = {
@@ -138,13 +139,13 @@ export default class IntoArea extends PureComponent {
             },
         ];
         return (
-            <div>
+            <div style={{padding:'12px 0'}}>
                 <Table
+                    style={{ borderRadius: 0, padding: 24 }}
                     pagination={{
                         pageSize: 3,
                         showTotal: (total, range) => <div
-                            style={{color: '#b7b7b7'}}>共 {total} 条记录
-                            第 {this.state.dossiercurrent} / {(Math.ceil(total / 3))} 页</div>,
+                            style={{color: '#b7b7b7'}}>共 {(Math.ceil(total / 3))} 页， {total} 条记录</div>,
                         onChange: (page) => {
                             this.setState({dossiercurrent: page});
                         },
