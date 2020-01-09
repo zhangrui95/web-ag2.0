@@ -108,6 +108,15 @@ const Navigation = props => {
                 query: query,
             }));
         } else {
+            if(tabItem.key === '/ShowData/RegulatePanel'){
+                dispatch({
+                    type: 'global/changeResetList',
+                    payload: {
+                        isReset: !props.isReset,
+                        url:'/ShowData/RegulatePanel'
+                    },
+                });
+            }
             dispatch(routerRedux.push(tabItem.path));
         }
     };
@@ -244,4 +253,5 @@ const Navigation = props => {
 
 export default connect(({global}: ConnectState) => ({
     navigationData: global.navigation,
+    isReset: global.isResetList.isReset,
 }))(Navigation);

@@ -1163,7 +1163,7 @@ export default class ItemDataView extends PureComponent {
     returnSaryrqrczs = (SARYRQRCdataLength, SARYRQRCdata, SARYRQRCTotal, chooseBaq) => {
         if (SARYRQRCdataLength === 1) {
             return (
-                <div id="saryrqrczs"></div>
+                <div id="saryrqrczs" className={styles.cardBoxCharts}></div>
             );
         } else if (SARYRQRCdataLength > 1) {
             return (
