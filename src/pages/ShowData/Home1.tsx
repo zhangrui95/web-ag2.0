@@ -121,11 +121,11 @@ export default class Home1 extends PureComponent {
 
     componentDidMount() {
         this.getHeaderNum();
-        this.myNews(1);
+        this.myNews(1,true);
         this.myFollow(1, false);
         this.myShare(1, false);
         this.myDb(1, false);
-        this.getLog();
+        // this.getLog();
         setInterval(() => {
             this.setState({
                 newsTime: moment().format('YYYY[年]MMMDo'),
@@ -135,6 +135,24 @@ export default class Home1 extends PureComponent {
         const jigouArea = sessionStorage.getItem('user');
         const newjigouArea = JSON.parse(jigouArea);
         this.getDepTree(newjigouArea.department);
+    }
+
+    componentWillReceiveProps(nextProps) {
+        if (this.props.global.isResetList.isReset !== nextProps.global.isResetList.isReset && nextProps.global.isResetList.url === '/ShowData/RegulatePanel') {
+            this.myNews(1,false);
+            this.myFollow(1, false);
+            this.myShare(1, false);
+            this.myDb(1, false);
+            if (this.state.idx === 0) {
+                this.myNews(1,true);
+            } else if (this.state.idx === 1) {
+                this.myDb(1, true);
+            } else if (this.state.idx === 2) {
+               this.handleSearch(0);
+            } else if (this.state.idx === 3) {
+                this.handleSearch(1);
+            }
+        }
     }
 
     // 获取数据总览数
@@ -186,7 +204,7 @@ export default class Home1 extends PureComponent {
             pd: null,
         });
         if (idx === 0) {
-            this.myNews(1);
+            this.myNews(1,true);
         } else if (idx === 1) {
             this.myDb(1, true);
         } else if (idx === 2) {
@@ -232,7 +250,7 @@ export default class Home1 extends PureComponent {
                     },
                     callback: res => {
                         if (res.error === null) {
-                            this.myNews(this.state.pageNew);
+                            this.myNews(this.state.pageNew,true);
                             if (record) {
                                 this.props.dispatch(
                                     routerRedux.push({
@@ -469,109 +487,123 @@ export default class Home1 extends PureComponent {
             });
         }
     };
-    myNews = (page, pageSize) => {
-        this.setState({
-            loading: true,
-            columns: [
-                {
-                    title: '消息状态',
-                    key: 'tags',
-                    dataIndex: 'tags',
-                    render: tags => (
-                        <Tag
-                            style={{cursor: 'default'}}
-                            color={tags === '未读' ? '#ee5655' : '#0c0'}
-                            key={tags}
-                        >
-                            {tags}
-                        </Tag>
-                    ),
-                },
-                {
-                    title: '发送时间',
-                    dataIndex: 'time',
-                    key: 'time',
-                },
-                {
-                    title: '消息类型',
-                    dataIndex: 'type',
-                    key: 'type',
-                },
-                {
-                    title: '标题',
-                    dataIndex: 'wtlxMc',
-                    key: 'wtlxMc',
-                },
-                {
-                    title: '简述',
-                    dataIndex: 'xxjs',
-                    key: 'xxjs',
-                    render: text => (
-                        <Tooltip placement="top" title={text}>
-                            <span>{text && text.length > 15 ? text.substring(0, 15) + '...' : text}</span>
-                        </Tooltip>
-                    ),
-                },
-                {
-                    title: '操作',
-                    key: 'action',
-                    render: (text, record) => (
-                        <span>
+    myNews = (page,type) => {
+        if(type){
+            this.setState({
+                loading: true,
+                columns: [
+                    {
+                        title: '消息状态',
+                        key: 'tags',
+                        dataIndex: 'tags',
+                        render: tags => (
+                            <Tag
+                                style={{cursor: 'default'}}
+                                color={tags === '未读' ? '#ee5655' : '#0c0'}
+                                key={tags}
+                            >
+                                {tags}
+                            </Tag>
+                        ),
+                    },
+                    {
+                        title: '发送时间',
+                        dataIndex: 'time',
+                        key: 'time',
+                    },
+                    {
+                        title: '消息类型',
+                        dataIndex: 'type',
+                        key: 'type',
+                    },
+                    {
+                        title: '标题',
+                        dataIndex: 'wtlxMc',
+                        key: 'wtlxMc',
+                    },
+                    {
+                        title: '简述',
+                        dataIndex: 'xxjs',
+                        key: 'xxjs',
+                        render: text => (
+                            <Tooltip placement="top" title={text}>
+                                <span>{text && text.length > 15 ? text.substring(0, 15) + '...' : text}</span>
+                            </Tooltip>
+                        ),
+                    },
+                    {
+                        title: '操作',
+                        key: 'action',
+                        render: (text, record) => (
+                            <span>
               <a href="javascript:;" onClick={() => this.goLook(record, 0)}>
                 查看
               </a>
             </span>
-                    ),
+                        ),
+                    },
+                ],
+            });
+            this.props.dispatch({
+                type: 'Home/getMyNews',
+                payload: {
+                    currentPage: page,
+                    currentResult: 0,
+                    entityOrField: true,
+                    pageStr: 'string',
+                    pd: {},
+                    showCount: this.state.pageSize,
+                    totalPage: 0,
+                    totalResult: 0,
                 },
-            ],
-        });
-        this.props.dispatch({
-            type: 'Home/getMyNews',
-            payload: {
-                currentPage: page,
-                currentResult: 0,
-                entityOrField: true,
-                pageStr: 'string',
-                pd: {},
-                showCount: pageSize ? pageSize : this.state.pageSize,
-                totalPage: 0,
-                totalResult: 0,
-            },
-            callback: res => {
-                this.state.headerList[0].tital = res.page.totalResult;
-                this.setState({
-                    headerList: this.state.headerList,
-                });
-                let list = [];
-                res.list.map((item, i) => {
-                    list.push({
-                        key: i,
-                        time: item.fksj,
-                        name: item.ajmc,
-                        type: '督办反馈',
-                        content: item.fkr_fkyj,
-                        tags: item.dqztMc,
-                        dbid: item.dbid,
-                        sslx:item.sslx,
-                        zrrName: item.zrrName,
-                        zrrDwmc: item.zrrDwmc,
-                        wtlxMc: item.wtlxMc,
-                        ajbh: item.ajbh,
-                        xxjs:
-                            `${item.ajbh ? item.ajbh : ''}` +
-                            `${item.ajbh && item.ajmc ? '、' : ''}` +
-                            `${item.ajmc ? item.ajmc : ''}`,
-                    });
-                });
-                if (this.state.idx === 0) {
+                callback: res => {
+                    this.state.headerList[0].tital = res.page.totalResult;
                     this.setState({
-                        data: list,
-                        pageTotal: res.page.totalResult,
-                        loading: false,
+                        headerList: this.state.headerList,
                     });
-                }
-            },
-        });
+                    let list = [];
+                    res.list.map((item, i) => {
+                        list.push({
+                            key: i,
+                            time: item.fksj,
+                            name: item.ajmc,
+                            type: '督办反馈',
+                            content: item.fkr_fkyj,
+                            tags: item.dqztMc,
+                            dbid: item.dbid,
+                            sslx:item.sslx,
+                            zrrName: item.zrrName,
+                            zrrDwmc: item.zrrDwmc,
+                            wtlxMc: item.wtlxMc,
+                            ajbh: item.ajbh,
+                            xxjs:
+                                `${item.ajbh ? item.ajbh : ''}` +
+                                `${item.ajbh && item.ajmc ? '、' : ''}` +
+                                `${item.ajmc ? item.ajmc : ''}`,
+                        });
+                    });
+                    if (this.state.idx === 0) {
+                        this.setState({
+                            data: list,
+                            pageTotal: res.page.totalResult,
+                            loading: false,
+                        });
+                    }
+                },
+            });
+        }else{
+            this.props.dispatch({
+                type: 'Home/getMyNews',
+                payload: {
+                    currentPage: page,
+                    pd: {},
+                    showCount: this.state.pageSize,
+                },
+                callback: res => {
+                    this.state.headerList[0].tital = res.page.totalResult;
+                },
+            });
+        }
     };
     saveShare = (res, type, ajGzLx) => {
         this.props.dispatch({
@@ -623,10 +655,10 @@ export default class Home1 extends PureComponent {
         });
     };
     myShare = (page, type, path, pd, tabs) => {
-        this.setState({
-            data: [],
-        });
         if (type) {
+            this.setState({
+                data: [],
+            });
             this.setState({
                 loading: true,
                 columns: [
@@ -1151,7 +1183,7 @@ export default class Home1 extends PureComponent {
                     pageNew: e,
                 });
                 if (this.state.idx === 0) {
-                    this.myNews(e);
+                    this.myNews(e,true);
                 } else if (this.state.idx === 1) {
                     this.myDb(e, true);
                 } else if (this.state.idx === 2) {
