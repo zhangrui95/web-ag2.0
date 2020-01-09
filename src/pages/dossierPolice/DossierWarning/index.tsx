@@ -542,7 +542,7 @@ export default class Index extends PureComponent {
       form: { getFieldDecorator },
       common: { depTree, superviseStatusDict, YJJBType },
       EarlyWarning: {
-        returnjzyjList: { page, list, tbCount },
+        jzyjdata: { page, list, tbCount },
       },
       loading,
     } = this.props;
