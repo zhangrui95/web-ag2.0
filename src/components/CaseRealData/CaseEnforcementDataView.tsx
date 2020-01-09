@@ -456,7 +456,7 @@ export default class CaseEnforcementDataView extends PureComponent {
                 itemWidth: 10,
                 itemHeight: 10,
                 itemGap: 15,
-                selectedMode: true, // 点击
+                selectedMode: false, // 点击
                 textStyle: {
                     color: '#fff',
                     fontSize: 16,

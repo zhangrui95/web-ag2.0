@@ -919,7 +919,7 @@ export default class DossierDetail extends PureComponent {
               </div>
             </Col>
           </Row>
-          <Row gutter={rowLayout} className={styles.xqrow}>
+          <Row>
             <Col {...specialcolLayout} className={styles.xqcol}>
               <div className={liststyles.Indexfrom}>卷宗描述：</div>
               <div className={liststyles.Indextail}>

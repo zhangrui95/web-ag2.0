@@ -408,7 +408,7 @@ export default class UnItemDataView extends PureComponent {
         itemWidth: 10,
         itemHeight: 10,
         itemGap: 25,
-        selectedMode: true, // 点击
+        selectedMode: false, // 点击
         textStyle: {
           color: nextProps.global && nextProps.global.dark ? '#fff' : '#4d4d4d',
           fontSize: 16,

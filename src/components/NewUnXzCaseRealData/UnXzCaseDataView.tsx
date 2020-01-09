@@ -390,7 +390,7 @@ export default class UnXzCaseDataView extends PureComponent {
                 itemWidth: 10,
                 itemHeight: 10,
                 itemGap: 25,
-                selectedMode: true, // 点击
+                selectedMode: false, // 点击
                 textStyle: {
                     color: '#fff',
                     fontSize: 16,
