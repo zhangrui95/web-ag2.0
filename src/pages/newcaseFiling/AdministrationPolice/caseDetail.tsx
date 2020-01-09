@@ -221,7 +221,7 @@ export default class caseDetail extends PureComponent {
             this.caseDetailDatas(this.props.location.query.id, this.state.record.system_id);
           }
         } else {
-          message.info('该数据无法督办');
+          message.error('该数据无法督办');
         }
       },
     });
@@ -610,7 +610,7 @@ export default class caseDetail extends PureComponent {
         id: this.state.dbid,
       },
       callback: () => {
-        message.info('督办整改完成');
+        message.success('督办整改完成');
         if (this.props.location && this.props.location.query && this.state.record) {
           this.caseDetailDatas(this.props.location.query.id, this.state.record.system_id);
         }

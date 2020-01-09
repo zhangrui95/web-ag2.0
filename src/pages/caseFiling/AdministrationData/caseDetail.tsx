@@ -246,7 +246,7 @@ export default class caseDetail extends PureComponent {
                     },
                 });
             } else {
-                message.info('您的操作太频繁，请稍后再试');
+                message.warning('您的操作太频繁，请稍后再试');
             }
         }
     };
@@ -278,7 +278,7 @@ export default class caseDetail extends PureComponent {
                 },
             });
         } else {
-            message.info('您的操作太频繁，请稍后再试');
+            message.warning('您的操作太频繁，请稍后再试');
         }
     };
     handleCancel = e => {

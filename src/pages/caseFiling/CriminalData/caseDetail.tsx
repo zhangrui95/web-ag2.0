@@ -181,7 +181,7 @@ export default class caseDetail extends PureComponent {
                 // sabar: caseDetails.sabar,
             });
         } else {
-            message.info('该案件无法进行问题判定');
+            message.error('该案件无法进行问题判定');
         }
     };
     // 关闭督办模态框
@@ -243,7 +243,7 @@ export default class caseDetail extends PureComponent {
                     },
                 });
             } else {
-                message.info('您的操作太频繁，请稍后再试');
+                message.warning('您的操作太频繁，请稍后再试');
             }
         }
     };
@@ -275,7 +275,7 @@ export default class caseDetail extends PureComponent {
                 },
             });
         } else {
-            message.info('您的操作太频繁，请稍后再试');
+            message.warning('您的操作太频繁，请稍后再试');
         }
     };
     handleCancel = e => {
