@@ -531,7 +531,7 @@ export default class AdministrativeCaseDocDetail extends PureComponent {
             }
         }
         return (
-            <Card>
+            <Card style={{margin:'16px 0'}}>
                 <Row gutter={{md: 8, lg: 24, xl: 48}}>
                     <Col>
                         <span style={{float: 'left', margin: '10px'}}>
@@ -870,7 +870,7 @@ export default class AdministrativeCaseDocDetail extends PureComponent {
         ];
         let className = this.props.global && this.props.global.dark ? styles.detailBoxScroll : styles.detailBoxScroll + ' ' + styles.detailBoxLight;
         return (
-            <Card style={{height: autoheight() - 225 + 'px', marginTop: '12px'}}
+            <Card style={{height: autoheight() - 240 + 'px', marginTop: '12px'}}
                 // onScrollCapture={this.scrollHandler}
                   id={'scrollAdmin'}
                   className={className}>

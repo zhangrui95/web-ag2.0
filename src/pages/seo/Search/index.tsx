@@ -1342,7 +1342,7 @@ export default class GeneralQuery extends PureComponent {
                         </AutoComplete>
                     </div>
                 </Affix>
-                <Card className={stylescommon.cardArea} style={{padding: '5px 0'}}>
+                <Card className={stylescommon.cardArea} style={{padding: '5px 0',marginTop:0}}>
                     <div className={styles.searchConditionArea}>
                         <div className={styles.searchType}>
                             {/*<a className={searchType === 'all' ? styles.chosenType : null}*/}
