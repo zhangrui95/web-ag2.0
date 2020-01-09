@@ -218,6 +218,20 @@ export function getDefaultDaysForMonth(momentMonth) {
     }
     return dayArry;
 }
+// 返回查询周的7天
+export function getDefaultDaysForWeek(momentWeek) {
+    let dayArry = ['', '', '', '', '', '', ''];
+    if (momentWeek) {
+        dayArry.map((item,idx)=>{
+            if(idx === 0){
+                dayArry[idx] = momentWeek.startOf('week').format('YYYY-MM-DD')
+            }else{
+                dayArry[idx] =  momentWeek.add(1,'days').format('YYYY-MM-DD')
+            }
+        })
+    }
+    return dayArry;
+}
 
 export function getPlainNode(nodeList, parentPath = '') {
     const arr = [];

@@ -40,6 +40,7 @@ export default class PoliceClear extends PureComponent {
             loading: false,
             data: null,
             tab: '0',
+            selectedRowKeys:[],
         };
     }
 
@@ -187,6 +188,9 @@ export default class PoliceClear extends PureComponent {
             },
             callback: () => {
                 message.success('操作成功');
+                this.setState({
+                    selectedRowKeys:[],
+                });
                 this.getList(this.state.tab);
             }
         });
@@ -228,13 +232,12 @@ export default class PoliceClear extends PureComponent {
         ];
         const rowSelection = {
             onChange: (selectedRowKeys, selectedRows) => {
-                this.state.selectedRowKeys = selectedRowKeys;
                 this.setState({
-                    selectedRowKeys: this.state.selectedRowKeys,
+                    selectedRowKeys: selectedRowKeys,
                     selectedRows: `${selectedRows}`,
                 })
             },
-            selectedRowKeys: this.state.selectedRowKeys,
+            selectedRowKeys: this.state.selectedRowKeys ? [...this.state.selectedRowKeys]:[],
         };
         return (
             <div className={stylescommon.statistics} id={'boxEval'}>
