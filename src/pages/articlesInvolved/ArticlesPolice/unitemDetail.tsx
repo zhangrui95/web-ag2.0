@@ -648,7 +648,7 @@ export default class unitemDetail extends PureComponent {
           </Row>
         </Card>
         {UnitemDetail && UnitemDetail.wpgjList && UnitemDetail.wpgjList.length > 0 ? (
-          window.configUrl.is_area === '5' ? (
+          window.configUrl.is_area === '5'||window.configUrl.is_area === '2' ? (
             <div>
               <Card title="| 物品轨迹" className={styles.wpxxcard} bordered={false}>
                 {UnitemDetail.wpgjList.map(wpgj => (

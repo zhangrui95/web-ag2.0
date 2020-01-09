@@ -860,7 +860,7 @@ export default class caseDetail extends PureComponent {
           )}
         </div>
         <div className={styles.title}>| 案件信息</div>
-        <div className={styles.message} style={{ padding: '24px 70px' }}>
+        <div className={styles.message} style={{ padding: '0px 70px 24px' }}>
           <Row className={styles.xqrow}>
             <Col md={8} sm={24} className={styles.xqcol}>
               <div className={liststyles.Indexfrom}>

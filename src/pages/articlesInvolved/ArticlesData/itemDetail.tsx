@@ -503,7 +503,7 @@ export default class itemDetail extends PureComponent {
     let dark = this.props.global && this.props.global.dark;
     return (
       <div
-        style={{ background: dark ? '#252c3c' : '#fff', height: autoheight() - 250 + 'px' }}
+        style={{ background: dark ? '#252c3c' : '#fff', height: autoheight() - 260 + 'px' }}
         className={styles.detailBoxScroll}
       >
         {itemDetails && itemDetails.system_id && itemDetails.ajlx ? (
@@ -687,7 +687,7 @@ export default class itemDetail extends PureComponent {
           </Row>
         </Card>
         {itemDetails && itemDetails.wpgjList && itemDetails.wpgjList.length > 0 ? (
-          window.configUrl.is_area === '5' ? (
+          window.configUrl.is_area === '5'||window.configUrl.is_area === '2' ? (
             <div>
               <Card title="| 物品轨迹" className={liststyles.card} bordered={false}>
                 {itemDetails.wpgjList.map(wpgj => (

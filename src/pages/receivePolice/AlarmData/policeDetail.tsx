@@ -546,7 +546,7 @@ export default class policeDetail extends PureComponent {
     let dark = this.props.global && this.props.global.dark;
     return (
       <div
-        style={{ background: dark ? '#252c3c' : '#fff', height: autoheight() - 280 + 'px',marginTop:16, borderRadius: 10,padding:'16px 0 0' }}
+        style={{ background: dark ? '#252c3c' : '#fff', height: autoheight() - 260 + 'px',marginTop:16, borderRadius: 10,padding:'16px 0 0' }}
         id={`jqDetail${this.props.location.query.id}`}
         className={styles.detailBoxScroll}
       >
