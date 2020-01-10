@@ -507,7 +507,7 @@ export default class itemDetail extends PureComponent {
         className={styles.detailBoxScroll}
       >
         {itemDetails && itemDetails.system_id && itemDetails.ajlx ? (
-          <div style={{ textAlign: 'right', margin: '16px' }}>
+          <div style={{ textAlign: 'right', padding: '16px 52px' }}>
             <Button
               type="primary"
               onClick={() => this.openCaseDetail(itemDetails)}
@@ -523,7 +523,10 @@ export default class itemDetail extends PureComponent {
         ) : (
           ''
         )}
-        <Card title="| 物品信息" className={styles.wpxxcard} bordered={false}>
+        <Card
+          title={<div style={{ borderLeft: dark ? '3px solid #fff' : '3px solid #3D63D1', paddingLeft: 16 }}>物品信息</div>}
+          className={styles.wpxxcard} bordered={false}
+        >
           <Row gutter={rowLayout} style={{ marginLeft: 0, marginRight: 0 }}>
             <Col md={6} sm={24}>
               <div>
@@ -689,10 +692,10 @@ export default class itemDetail extends PureComponent {
         {itemDetails && itemDetails.wpgjList && itemDetails.wpgjList.length > 0 ? (
           window.configUrl.is_area === '5'||window.configUrl.is_area === '2' ? (
             <div>
-              <Card title="| 物品轨迹" className={liststyles.card} bordered={false}>
+              <Card title={<div style={{ borderLeft: dark ? '3px solid #fff' : '3px solid #3D63D1', paddingLeft: 16 }}>物品轨迹</div>}  className={liststyles.card} bordered={false}>
                 {itemDetails.wpgjList.map(wpgj => (
-                  <Row gutter={8} style={{ marginBottom: '24px' }}>
-                    <Col md={4} sm={24} style={{ paddingLeft: 36 }}>
+                  <Row gutter={8} style={{ marginBottom: '24px',marginLeft:'-16px' }}>
+                    <Col md={4} sm={24}>
                       <div className={styles.break}>物品状态：{wpgj.wpzt}</div>
                     </Col>
                     <Col md={5} sm={24}>
@@ -713,9 +716,9 @@ export default class itemDetail extends PureComponent {
             </div>
           ) : (
             <div>
-              <Card title="| 物品轨迹" className={liststyles.card} bordered={false}>
+              <Card title={<div style={{ borderLeft: dark ? '3px solid #fff' : '3px solid #3D63D1', paddingLeft: 16 }}>物品轨迹</div>} className={liststyles.card} bordered={false}>
                 {itemDetails.wpgjList.map(wpgj => (
-                  <Row gutter={8} style={{ marginBottom: '24px' }}>
+                  <Row gutter={8} style={{ marginBottom: '24px',marginLeft:'-16px' }}>
                     <Col md={4} sm={24} style={{ paddingLeft: 36 }}>
                       <div className={styles.break}>{wpgj.wpzt}</div>
                     </Col>

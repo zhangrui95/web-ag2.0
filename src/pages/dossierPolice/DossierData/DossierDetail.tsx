@@ -777,7 +777,7 @@ export default class DossierDetail extends PureComponent {
         style={{ background: dark ? '#252c3c' : '#fff', height: autoheight() - 260 + 'px' }}
         className={styles.detailBoxScroll}
       >
-        <div style={{ textAlign: 'right' }}>
+        <div style={{ textAlign: 'right',padding: '16px 52px' }}>
           {DossierDetailData &&
           DossierDetailData.ajxxList &&
           DossierDetailData.ajxxList.length > 0 ? (
@@ -794,7 +794,7 @@ export default class DossierDetail extends PureComponent {
             ''
           )}
         </div>
-        <Card title="| 卷宗信息" className={liststyles.card} bordered={false}>
+        <Card title={<div style={{ borderLeft: dark ? '3px solid #fff' : '3px solid #3D63D1', paddingLeft: 16 }}>卷宗信息</div>} className={styles.card} bordered={false}>
           <Row className={styles.xqrow}>
             <Col {...colLayout} className={styles.xqcol}>
               <div className={liststyles.Indexfrom}>案件名称：</div>
@@ -930,8 +930,8 @@ export default class DossierDetail extends PureComponent {
         </Card>
         {DossierDetailData.jzgjList && DossierDetailData.jzgjList.length > 0 ? (
           <Card
-            title="| 卷宗轨迹"
-            className={liststyles.card}
+            title={<div style={{ borderLeft: dark ? '3px solid #fff' : '3px solid #3D63D1', paddingLeft: 16 }}>卷宗轨迹</div>}
+            className={styles.card}
             bordered={false}
             style={{ marginBottom: 0 }}
           >

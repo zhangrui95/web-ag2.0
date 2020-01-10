@@ -618,7 +618,7 @@ export default class DossierDetail extends PureComponent {
         />
 
         <Card
-          title="| 卷宗信息"
+          title={<div style={{ borderLeft: dark ? '3px solid #fff' : '3px solid #3D63D1', paddingLeft: 16 }}>卷宗信息</div>}
           className={dark ? styles.wpxxcard : styles.wpxxcard1}
           bordered={false}
         >
@@ -749,7 +749,7 @@ export default class DossierDetail extends PureComponent {
           </Row>
         </Card>
         <Card
-          title="| 卷宗轨迹"
+          title={<div style={{ borderLeft: dark ? '3px solid #fff' : '3px solid #3D63D1', paddingLeft: 16 }}>卷宗轨迹</div>}
           className={dark ? liststyles.card : liststyles.card1}
           bordered={false}
           style={{ marginBottom: 0 }}

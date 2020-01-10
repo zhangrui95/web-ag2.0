@@ -500,7 +500,7 @@ export default class unitemDetail extends PureComponent {
           sureReform={this.sureReform}
           frompath="/articlesInvolved/ArticlesPolice/unitemDetail"
         />
-        <Card title="| 物品信息" className={styles.wpxxcard} bordered={false}>
+        <Card title={<div style={{ borderLeft: dark ? '3px solid #fff' : '3px solid #3D63D1', paddingLeft: 16 }}>物品信息</div>} className={styles.wpxxcard} bordered={false}>
           <Row gutter={{ md: 8, lg: 24, xl: 48 }}>
             <Col md={6} sm={24}>
               <div>
@@ -535,7 +535,7 @@ export default class unitemDetail extends PureComponent {
                   </Col>
                   <Col md={8} sm={24}>
                     <div className={styles.Indexfrom}>重量：</div>
-                    <div className={styles.Indextail} style={{ paddingLeft: 46 }}>
+                    <div className={styles.Indextail} style={{ paddingLeft: 28 }}>
                       {UnitemDetail ? UnitemDetail.wpzl : ''}
                     </div>
                   </Col>
@@ -547,13 +547,13 @@ export default class unitemDetail extends PureComponent {
                   </Col>
                   <Col md={8} sm={24}>
                     <div className={styles.Indexfrom}>型号：</div>
-                    <div className={styles.Indextail} style={{ paddingLeft: 46 }}>
+                    <div className={styles.Indextail} style={{ paddingLeft: 28 }}>
                       {UnitemDetail ? UnitemDetail.wpxh : ''}
                     </div>
                   </Col>
                   <Col md={8} sm={24}>
                     <div className={styles.Indexfrom}>规格：</div>
-                    <div className={styles.Indextail} style={{ paddingLeft: 46 }}>
+                    <div className={styles.Indextail} style={{ paddingLeft: 28 }}>
                       {UnitemDetail ? UnitemDetail.wpgg : ''}
                     </div>
                   </Col>
@@ -561,7 +561,7 @@ export default class unitemDetail extends PureComponent {
                 <Row gutter={{ md: 8, lg: 24, xl: 48 }}>
                   <Col md={8} sm={24}>
                     <div className={styles.Indexfrom}>物品所有人：</div>
-                    <div className={styles.Indextail} style={{ paddingLeft: 86 }}>
+                    <div className={styles.Indextail} style={{ paddingLeft: 70 }}>
                       <a
                         onClick={() => this.person(UnitemDetail)}
                         style={{ textDecoration: 'underline' }}
@@ -572,13 +572,13 @@ export default class unitemDetail extends PureComponent {
                   </Col>
                   <Col md={8} sm={24}>
                     <div className={styles.Indexfrom}>特征：</div>
-                    <div className={styles.Indextail} style={{ paddingLeft: 46 }}>
+                    <div className={styles.Indextail} style={{ paddingLeft: 28 }}>
                       {UnitemDetail ? UnitemDetail.wptz : ''}
                     </div>
                   </Col>
                   <Col md={8} sm={24}>
                     <div className={styles.Indexfrom}>数量：</div>
-                    <div className={styles.Indextail} style={{ paddingLeft: 46 }}>
+                    <div className={styles.Indextail} style={{ paddingLeft: 28 }}>
                       {UnitemDetail ? UnitemDetail.wpsl : ''}
                     </div>
                   </Col>
@@ -600,13 +600,13 @@ export default class unitemDetail extends PureComponent {
                 <Row gutter={{ md: 8, lg: 24, xl: 48 }}>
                   <Col md={8} sm={24}>
                     <div className={styles.Indexfrom}>扣押批准人：</div>
-                    <div className={styles.Indextail} style={{ paddingLeft: 84 }}>
+                    <div className={styles.Indextail} style={{ paddingLeft: 68 }}>
                       {UnitemDetail ? UnitemDetail.kypzr : ''}
                     </div>
                   </Col>
                   <Col md={8} sm={24}>
                     <div className={styles.Indexfrom}>库房管理员：</div>
-                    <div className={styles.Indextail} style={{ paddingLeft: 86 }}>
+                    <div className={styles.Indextail} style={{ paddingLeft: 70 }}>
                       {UnitemDetail ? UnitemDetail.kfgly : ''}
                     </div>
                   </Col>
@@ -624,13 +624,13 @@ export default class unitemDetail extends PureComponent {
                   </Col>
                   <Col md={8} sm={24}>
                     <div className={styles.Indexfrom}>所在库位：</div>
-                    <div className={styles.Indextail} style={{ paddingLeft: 76 }}>
+                    <div className={styles.Indextail}>
                       {UnitemDetail ? UnitemDetail.szkw : ''}
                     </div>
                   </Col>
                   <Col md={8} sm={24}>
                     <div className={styles.Indexfrom}>所在库房名称：</div>
-                    <div className={styles.Indextail} style={{ paddingLeft: 100 }}>
+                    <div className={styles.Indextail} style={{ paddingLeft: 84 }}>
                       {UnitemDetail ? UnitemDetail.szkf : ''}
                     </div>
                   </Col>
@@ -638,7 +638,7 @@ export default class unitemDetail extends PureComponent {
                 <Row gutter={{ md: 8, lg: 24, xl: 48 }}>
                   <Col md={24} sm={24}>
                     <div className={styles.Indexfrom}>备注：</div>
-                    <div className={styles.Indextail} style={{ paddingLeft: 45 }}>
+                    <div className={styles.Indextail} style={{ paddingLeft: 29 }}>
                       {UnitemDetail ? UnitemDetail.bz : ''}
                     </div>
                   </Col>
@@ -650,10 +650,10 @@ export default class unitemDetail extends PureComponent {
         {UnitemDetail && UnitemDetail.wpgjList && UnitemDetail.wpgjList.length > 0 ? (
           window.configUrl.is_area === '5'||window.configUrl.is_area === '2' ? (
             <div>
-              <Card title="| 物品轨迹" className={styles.wpxxcard} bordered={false}>
+              <Card title={<div style={{ borderLeft: dark ? '3px solid #fff' : '3px solid #3D63D1', paddingLeft: 16 }}>物品轨迹</div>} className={styles.wpxxcard} bordered={false}>
                 {UnitemDetail.wpgjList.map(wpgj => (
-                  <Row gutter={8} style={{ marginBottom: '24px' }}>
-                    <Col md={4} sm={24} style={{ paddingLeft: 36 }}>
+                  <Row gutter={8} style={{ marginBottom: '24px',marginLeft:'-16px' }}>
+                    <Col md={4} sm={24}>
                       <div className={styles.break}>物品状态：{wpgj.wpzt}</div>
                     </Col>
                     <Col md={5} sm={24}>
@@ -674,10 +674,10 @@ export default class unitemDetail extends PureComponent {
             </div>
           ) : (
             <div>
-              <Card title="| 物品轨迹" className={dark ? liststyles.card : liststyles.lightcard} bordered={false}>
+              <Card title={<div style={{ borderLeft: dark ? '3px solid #fff' : '3px solid #3D63D1', paddingLeft: 16 }}>物品轨迹</div>} className={dark ? liststyles.card : liststyles.lightcard} bordered={false}>
                 {UnitemDetail.wpgjList.map(wpgj => (
-                  <Row gutter={8} style={{ marginBottom: '24px' }}>
-                    <Col md={4} sm={24} style={{ paddingLeft: 36 }}>
+                  <Row gutter={8} style={{ marginBottom: '24px',marginLeft:'-16px' }}>
+                    <Col md={4} sm={24}>
                       <div className={styles.break}>{wpgj.wpzt}</div>
                     </Col>
                     <Col md={5} sm={24}>
@@ -700,17 +700,17 @@ export default class unitemDetail extends PureComponent {
         ) : (
           ''
         )}
-        <Card title="| 案件信息" className={styles.wpxxcard} bordered={false}>
+        <Card title={<div style={{ borderLeft: dark ? '3px solid #fff' : '3px solid #3D63D1', paddingLeft: 16 }}>案件信息</div>} className={styles.wpxxcard} bordered={false}>
           <Row style={{ paddingRight: 24 }}>
             <Col md={12} sm={24}>
-              <div className={styles.Indexfrom}>案件名称：</div>
-              <div className={styles.Indextail} style={{ paddingLeft: 96 }}>
+              <div className={styles.Indexfrom} style={{left:'-12px'}}>案件名称：</div>
+              <div className={styles.Indextail} style={{ paddingLeft: 58 }}>
                 {UnitemDetail ? UnitemDetail.ajmc : ''}
               </div>
             </Col>
             <Col md={12} sm={24}>
               <div className={styles.Indexfrom}>案件编号：</div>
-              <div className={styles.Indextail} style={{ paddingLeft: 96 }}>
+              <div className={styles.Indextail} style={{ paddingLeft: 80 }}>
                 {UnitemDetail && UnitemDetail.ajbh ? (
                   UnitemDetail.system_id && UnitemDetail.ajlx ? (
                     <a
@@ -731,14 +731,14 @@ export default class unitemDetail extends PureComponent {
 
           <Row style={{ paddingRight: 24 }}>
             <Col md={12} sm={24}>
-              <div className={styles.Indexfrom}>案件状态：</div>
-              <div className={styles.Indextail} style={{ paddingLeft: 96 }}>
+              <div className={styles.Indexfrom} style={{left:'-12px'}}>案件状态：</div>
+              <div className={styles.Indextail} style={{ paddingLeft: 58 }}>
                 {UnitemDetail ? UnitemDetail.ajzt : ''}
               </div>
             </Col>
             <Col md={12} sm={24}>
               <div className={styles.Indexfrom}>立案时间：</div>
-              <div className={styles.Indextail} style={{ paddingLeft: 96 }}>
+              <div className={styles.Indextail} style={{ paddingLeft: 80 }}>
                 {UnitemDetail ? UnitemDetail.larq : ''}
               </div>
             </Col>
@@ -746,22 +746,22 @@ export default class unitemDetail extends PureComponent {
 
           <Row style={{ paddingRight: 24 }}>
             <Col md={12} sm={24}>
-              <div className={styles.Indexfrom}>办案单位：</div>
-              <div className={styles.Indextail} style={{ paddingLeft: 96 }}>
+              <div className={styles.Indexfrom} style={{left:'-12px'}}>办案单位：</div>
+              <div className={styles.Indextail} style={{ paddingLeft: 58 }}>
                 {UnitemDetail ? UnitemDetail.badw : ''}
               </div>
             </Col>
             <Col md={12} sm={24}>
               <div className={styles.Indexfrom}>办案人：</div>
-              <div className={styles.Indextail} style={{ paddingLeft: 82 }}>
+              <div className={styles.Indextail} style={{ paddingLeft: 66 }}>
                 {UnitemDetail ? UnitemDetail.bar : ''}
               </div>
             </Col>
           </Row>
           <Row style={{ paddingRight: 24 }}>
             <Col md={12} sm={24}>
-              <div className={styles.Indexfrom}>案发时段：</div>
-              <div className={styles.Indextail} style={{ paddingLeft: 96 }}>
+              <div className={styles.Indexfrom} style={{left:'-12px'}}>案发时段：</div>
+              <div className={styles.Indextail} style={{ paddingLeft: 58 }}>
                 {UnitemDetail && UnitemDetail.fasjsx && UnitemDetail.fasjxx
                   ? UnitemDetail.fasjsx + '~' + UnitemDetail.fasjxx
                   : ''}
@@ -769,15 +769,15 @@ export default class unitemDetail extends PureComponent {
             </Col>
             <Col md={12} sm={24}>
               <div className={styles.Indexfrom}>案发地点：</div>
-              <div className={styles.Indextail} style={{ paddingLeft: 96 }}>
+              <div className={styles.Indextail} style={{ paddingLeft: 80 }}>
                 {UnitemDetail ? UnitemDetail.fadd : ''}
               </div>
             </Col>
           </Row>
           <Row style={{ paddingRight: 24 }}>
             <Col md={24} sm={24}>
-              <div className={styles.Indexfrom}>简要案情：</div>
-                <DetailShow paddingLeft={96} word={UnitemDetail ? UnitemDetail.jyaq : ''} {...this.props}/>
+              <div className={styles.Indexfrom} style={{left:'-12px'}}>简要案情：</div>
+                <DetailShow paddingLeft={58} word={UnitemDetail ? UnitemDetail.jyaq : ''} {...this.props}/>
             </Col>
           </Row>
         </Card>
