@@ -19,7 +19,8 @@ import {
   Tooltip,
   message,
   Modal,
-  Empty,Icon
+  Empty,
+  Icon,
 } from 'antd';
 // import DescriptionList from 'components/DescriptionList';
 import styles from './uncaseDetail.less';
@@ -39,7 +40,7 @@ import Ellipsis from 'ant-design-pro/lib/Ellipsis';
 import noList from '@/assets/viewData/noList.png';
 import { routerRedux } from 'dva/router';
 import noListLight from '@/assets/viewData/noListLight.png';
-import DetailShow from "@/components/Common/detailShow";
+import DetailShow from '@/components/Common/detailShow';
 import nophoto from '@/assets/common/nophoto.png';
 
 const FormItem = Form.Item;
@@ -116,8 +117,14 @@ export default class uncaseDetail extends PureComponent {
     }
   }
   componentWillReceiveProps(nextProps) {
-     if (this.props.global.isResetList.isReset !== nextProps.global.isResetList.isReset && nextProps.global.isResetList.url === '/newcaseFiling/casePolice/CriminalPolice/uncaseDetail') {
-      this.caseDetailDatas(nextProps.location.query.record.id, nextProps.location.query.record.system_id);
+    if (
+      this.props.global.isResetList.isReset !== nextProps.global.isResetList.isReset &&
+      nextProps.global.isResetList.url === '/newcaseFiling/casePolice/CriminalPolice/uncaseDetail'
+    ) {
+      this.caseDetailDatas(
+        nextProps.location.query.record.id,
+        nextProps.location.query.record.system_id,
+      );
     }
   }
 
@@ -592,18 +599,20 @@ export default class uncaseDetail extends PureComponent {
     const { unCaseDetailData, isDb } = this.state;
     let dark = this.props.global && this.props.global.dark;
     return (
-      <div style={{ backgroundColor: dark ? '#252C3C' : '#fff', margin: '16px 0' }}>
+      <div
+        style={{ backgroundColor: dark ? '#252C3C' : '#fff', margin: '16px 0', borderRadius: 10 }}
+      >
         <Row gutter={{ md: 8, lg: 24, xl: 48 }}>
           {/*<Col md={8} sm={24}>*/}
-            {/*<span style={{ margin: '16px', display: 'block' }}>刑事案件详情</span>*/}
+          {/*<span style={{ margin: '16px', display: 'block' }}>刑事案件详情</span>*/}
           {/*</Col>*/}
-          <Col style={{minHeight:0}}>
+          <Col style={{ minHeight: 0 }}>
             <span>
               {unCaseDetailData.zt === '待督办' && isDb ? (
                 <Button
-                  type='primary'
+                  type="primary"
                   className={styles.TopMenu}
-                  style={{margin:'12px 0 12px 16px'}}
+                  style={{ margin: '12px 0 12px 16px' }}
                   loading={this.state.loading1}
                   onClick={() => this.onceSupervise(true, unCaseDetailData)}
                 >
@@ -617,9 +626,9 @@ export default class uncaseDetail extends PureComponent {
                   unCaseDetailData.dbList[unCaseDetailData.dbList.length - 1].fkzt !== '1')) &&
               isDb ? (
                 <Button
-                  type='primary'
+                  type="primary"
                   className={styles.TopMenu}
-                  style={{margin:'12px 0 12px 16px'}}
+                  style={{ margin: '12px 0 12px 16px' }}
                   loading={this.state.feedbackButtonLoading}
                   onClick={() => this.feedback(true, unCaseDetailData)}
                 >
@@ -630,7 +639,7 @@ export default class uncaseDetail extends PureComponent {
                 <Button
                   type="primary"
                   className={styles.TopMenu}
-                  style={{margin:'12px 0 12px 16px'}}
+                  style={{ margin: '12px 0 12px 16px' }}
                   onClick={() => this.props.saveDispatch(this.props.record)}
                 >
                   调度
@@ -683,7 +692,7 @@ export default class uncaseDetail extends PureComponent {
             ? {
                 pageSize: 8,
                 showTotal: (total, range) => (
-                  <div style={{color: '#b7b7b7'}}>
+                  <div style={{ color: '#b7b7b7' }}>
                     共 {total} 条记录， 第 {this.state.current} / {Math.ceil(total / 8)} 页
                   </div>
                 ),
@@ -699,11 +708,7 @@ export default class uncaseDetail extends PureComponent {
           <List.Item>
             <div className={styles.colsImg}>
               <div className={styles.sawpImg}>
-                <img
-                  width="70"
-                  height="70"
-                  src={item && item.url ? item.url : nophoto}
-                />
+                <img width="70" height="70" src={item && item.url ? item.url : nophoto} />
               </div>
               <div className={styles.sawpName}>
                 <div className={styles.sawpName1}>
@@ -761,7 +766,7 @@ export default class uncaseDetail extends PureComponent {
       {
         title: '接警来源',
         dataIndex: 'jjly_mc',
-          width:280,
+        width: 280,
         render: text => {
           return (
             <Ellipsis lines={2} tooltip>
@@ -840,7 +845,11 @@ export default class uncaseDetail extends PureComponent {
         title: '是否受案',
         dataIndex: 'is_sa',
         render(text) {
-          return <span style={{color:statusMap[text] === 'success' ? '#27D427':'#c41a1a'}}>{status[text]}</span>;
+          return (
+            <span style={{ color: statusMap[text] === 'success' ? '#27D427' : '#c41a1a' }}>
+              {status[text]}
+            </span>
+          );
         },
       },
       {
@@ -871,7 +880,16 @@ export default class uncaseDetail extends PureComponent {
           rowLayout={rowLayout}
           frompath="/newcaseFiling/casePolice/CriminalPolice/uncaseDetail"
         />
-        <div className={styles.title}><div style={{ borderLeft: dark ? '3px solid #fff' : '3px solid #3D63D1', paddingLeft: '16px' }}>警情信息</div></div>
+        <div className={styles.title}>
+          <div
+            style={{
+              borderLeft: dark ? '3px solid #fff' : '3px solid #3D63D1',
+              paddingLeft: '16px',
+            }}
+          >
+            警情信息
+          </div>
+        </div>
         <div className={styles.tablemessage}>
           <Table
             // size={'middle'}
@@ -880,7 +898,7 @@ export default class uncaseDetail extends PureComponent {
             pagination={{
               pageSize: 3,
               showTotal: (total, range) => (
-                <div style={{color: '#b7b7b7'}}>
+                <div style={{ color: '#b7b7b7' }}>
                   共 {Math.ceil(total / 3)} 页， {total} 条记录
                 </div>
               ),
@@ -901,7 +919,16 @@ export default class uncaseDetail extends PureComponent {
             }}
           />
         </div>
-        <div className={styles.title}><div style={{ borderLeft: dark ? '3px solid #fff' : '3px solid #3D63D1', paddingLeft: '16px' }}>案件信息</div></div>
+        <div className={styles.title}>
+          <div
+            style={{
+              borderLeft: dark ? '3px solid #fff' : '3px solid #3D63D1',
+              paddingLeft: '16px',
+            }}
+          >
+            案件信息
+          </div>
+        </div>
         <div className={styles.message} style={{ padding: '0 84px 24px' }}>
           <Row style={{ marginRight: 0 }} className={styles.xqrow}>
             <Col md={6} sm={24} className={styles.xqcol}>
@@ -956,7 +983,11 @@ export default class uncaseDetail extends PureComponent {
           <Row style={{ marginRight: 0 }} className={styles.xqrow}>
             <Col md={24} sm={24} className={styles.xqcol}>
               <div className={liststyles.Indexfrom}>简要案情：</div>
-                <DetailShow paddingLeft={60} word= {unCaseDetailData && unCaseDetailData.jyaq ? unCaseDetailData.jyaq : ''} {...this.props}/>
+              <DetailShow
+                paddingLeft={60}
+                word={unCaseDetailData && unCaseDetailData.jyaq ? unCaseDetailData.jyaq : ''}
+                {...this.props}
+              />
             </Col>
           </Row>
           {unCaseDetailData && unCaseDetailData.ajzt ? (
@@ -973,13 +1004,31 @@ export default class uncaseDetail extends PureComponent {
         </div>
         {unCaseDetailData && unCaseDetailData.ajzt ? (
           <div style={{ borderBottom: dark ? '1px solid #171925' : '1px solid #e6e6e6' }}>
-            <div className={styles.title}><div style={{ borderLeft: dark ? '3px solid #fff' : '3px solid #3D63D1', paddingLeft: '16px' }}>案件轨迹</div></div>
+            <div className={styles.title}>
+              <div
+                style={{
+                  borderLeft: dark ? '3px solid #fff' : '3px solid #3D63D1',
+                  paddingLeft: '16px',
+                }}
+              >
+                案件轨迹
+              </div>
+            </div>
             <CaseModalTrail {...this.props} caseDetails={unCaseDetailData} from="刑事" />
           </div>
         ) : (
           ''
         )}
-        <div className={styles.title}><div style={{ borderLeft: dark ? '3px solid #fff' : '3px solid #3D63D1', paddingLeft: '16px' }}>涉案物品</div></div>
+        <div className={styles.title}>
+          <div
+            style={{
+              borderLeft: dark ? '3px solid #fff' : '3px solid #3D63D1',
+              paddingLeft: '16px',
+            }}
+          >
+            涉案物品
+          </div>
+        </div>
         <div className={styles.tablemessage}>
           <div style={{ padding: '12px 84px 24px' }}>
             {this.sawpCol(

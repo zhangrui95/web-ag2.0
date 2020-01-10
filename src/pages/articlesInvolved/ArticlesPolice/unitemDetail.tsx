@@ -40,7 +40,7 @@ import SupervisionLog from '../../../components/Common/SupervisionLog';
 import nophoto from '../../../assets/common/nophoto.png';
 import { routerRedux } from 'dva/router';
 import nophotoLight from '@/assets/common/nophotoLight.png';
-import DetailShow from "@/components/Common/detailShow";
+import DetailShow from '@/components/Common/detailShow';
 
 const FormItem = Form.Item;
 const { Step } = Steps;
@@ -100,8 +100,14 @@ export default class unitemDetail extends PureComponent {
   }
 
   componentWillReceiveProps(nextProps) {
-      if (this.props.global.isResetList.isReset !== nextProps.global.isResetList.isReset && nextProps.global.isResetList.url === '/articlesInvolved/ArticlesPolice/unitemDetail') {
-      this.itemDetailDatas(nextProps.location.query.record.id, nextProps.location.query.record.system_id);
+    if (
+      this.props.global.isResetList.isReset !== nextProps.global.isResetList.isReset &&
+      nextProps.global.isResetList.url === '/articlesInvolved/ArticlesPolice/unitemDetail'
+    ) {
+      this.itemDetailDatas(
+        nextProps.location.query.record.id,
+        nextProps.location.query.record.system_id,
+      );
     }
   }
 
@@ -272,7 +278,7 @@ export default class unitemDetail extends PureComponent {
   // 确认整改完成
   sureReform = (dbid, flag) => {
     this.setState(
-{
+      {
         // reformModal: !!flag,
         dbid: dbid,
       },
@@ -321,7 +327,7 @@ export default class unitemDetail extends PureComponent {
       payload: {
         id: id,
         system_id: systemId,
-  },
+      },
       callback: data => {
         if (data) {
           this.setState({
@@ -336,7 +342,7 @@ export default class unitemDetail extends PureComponent {
             }
           }
         }
-  },
+      },
     });
   };
   // 更新未读数据状态
@@ -345,13 +351,13 @@ export default class unitemDetail extends PureComponent {
       type: 'MySuperviseData/changeReadStatus',
       payload: {
         dbid: id,
-  },
+      },
       callback: data => {
         if (data && this.props.refreshTable && this.props.refreshNotice) {
           this.props.refreshTable();
           this.props.refreshNotice();
         }
-  },
+      },
     });
   };
 
@@ -359,17 +365,19 @@ export default class unitemDetail extends PureComponent {
     const { UnitemDetail, isDb } = this.state;
     let dark = this.props.global && this.props.global.dark;
     return (
-      <div style={{ backgroundColor: dark ? '#252C3C' : '#fff', margin: '16px 0' }}>
+      <div
+        style={{ backgroundColor: dark ? '#252C3C' : '#fff', margin: '16px 0', borderRadius: 10 }}
+      >
         <Row gutter={{ md: 8, lg: 24, xl: 48 }}>
           {/*<Col md={8} sm={24}>*/}
           {/*<span style={{ margin: '16px', display: 'block' }}>涉案物品详情</span>*/}
           {/*</Col>*/}
-          <Col style={{minHeight:0}}>
+          <Col style={{ minHeight: 0 }}>
             <span>
               {UnitemDetail && UnitemDetail.zt === '待督办' && isDb ? (
                 <Button
                   type="primary"
-                  style={{margin:'12px 0 12px 16px'}}
+                  style={{ margin: '12px 0 12px 16px' }}
                   className={styles.TopMenu}
                   loading={this.state.loading1}
                   onClick={() => this.onceSupervise(true, UnitemDetail)}
@@ -387,7 +395,7 @@ export default class unitemDetail extends PureComponent {
               isDb ? (
                 <Button
                   type="primary"
-                  style={{margin:'12px 0 12px 16px'}}
+                  style={{ margin: '12px 0 12px 16px' }}
                   className={styles.TopMenu}
                   loading={this.state.feedbackButtonLoading}
                   onClick={() => this.feedback(true, UnitemDetail)}
@@ -409,7 +417,7 @@ export default class unitemDetail extends PureComponent {
       payload: {
         ajbh: UnitemDetail.ajbh,
         sfzh: UnitemDetail.syrSfzh,
-  },
+      },
       callback: data => {
         if (data && data.ryxx) {
           this.props.dispatch(
@@ -419,7 +427,7 @@ export default class unitemDetail extends PureComponent {
                 record: UnitemDetail,
                 id: UnitemDetail && UnitemDetail.syrSfzh ? UnitemDetail.syrSfzh : '1',
                 fromPath: '/articlesInvolved/ArticlesPolice/unitemDetail',
-  },
+              },
             }),
           );
           // const divs = (
@@ -437,7 +445,7 @@ export default class unitemDetail extends PureComponent {
         } else {
           message.error('该人员暂无档案信息！');
         }
-  },
+      },
     });
   };
 
@@ -500,7 +508,17 @@ export default class unitemDetail extends PureComponent {
           sureReform={this.sureReform}
           frompath="/articlesInvolved/ArticlesPolice/unitemDetail"
         />
-        <Card title={<div style={{ borderLeft: dark ? '3px solid #fff' : '3px solid #3D63D1', paddingLeft: 16 }}>物品信息</div>} className={styles.wpxxcard} bordered={false}>
+        <Card
+          title={
+            <div
+              style={{ borderLeft: dark ? '3px solid #fff' : '3px solid #3D63D1', paddingLeft: 16 }}
+            >
+              物品信息
+            </div>
+          }
+          className={styles.wpxxcard}
+          bordered={false}
+        >
           <Row gutter={{ md: 8, lg: 24, xl: 48 }}>
             <Col md={6} sm={24}>
               <div>
@@ -624,9 +642,7 @@ export default class unitemDetail extends PureComponent {
                   </Col>
                   <Col md={8} sm={24}>
                     <div className={styles.Indexfrom}>所在库位：</div>
-                    <div className={styles.Indextail}>
-                      {UnitemDetail ? UnitemDetail.szkw : ''}
-                    </div>
+                    <div className={styles.Indextail}>{UnitemDetail ? UnitemDetail.szkw : ''}</div>
                   </Col>
                   <Col md={8} sm={24}>
                     <div className={styles.Indexfrom}>所在库房名称：</div>
@@ -648,11 +664,24 @@ export default class unitemDetail extends PureComponent {
           </Row>
         </Card>
         {UnitemDetail && UnitemDetail.wpgjList && UnitemDetail.wpgjList.length > 0 ? (
-          window.configUrl.is_area === '5'||window.configUrl.is_area === '2' ? (
+          window.configUrl.is_area === '5' || window.configUrl.is_area === '2' ? (
             <div>
-              <Card title={<div style={{ borderLeft: dark ? '3px solid #fff' : '3px solid #3D63D1', paddingLeft: 16 }}>物品轨迹</div>} className={styles.wpxxcard} bordered={false}>
+              <Card
+                title={
+                  <div
+                    style={{
+                      borderLeft: dark ? '3px solid #fff' : '3px solid #3D63D1',
+                      paddingLeft: 16,
+                    }}
+                  >
+                    物品轨迹
+                  </div>
+                }
+                className={styles.wpxxcard}
+                bordered={false}
+              >
                 {UnitemDetail.wpgjList.map(wpgj => (
-                  <Row gutter={8} style={{ marginBottom: '24px',marginLeft:'-16px' }}>
+                  <Row gutter={8} style={{ marginBottom: '24px', marginLeft: '-16px' }}>
                     <Col md={4} sm={24}>
                       <div className={styles.break}>物品状态：{wpgj.wpzt}</div>
                     </Col>
@@ -674,9 +703,22 @@ export default class unitemDetail extends PureComponent {
             </div>
           ) : (
             <div>
-              <Card title={<div style={{ borderLeft: dark ? '3px solid #fff' : '3px solid #3D63D1', paddingLeft: 16 }}>物品轨迹</div>} className={dark ? liststyles.card : liststyles.lightcard} bordered={false}>
+              <Card
+                title={
+                  <div
+                    style={{
+                      borderLeft: dark ? '3px solid #fff' : '3px solid #3D63D1',
+                      paddingLeft: 16,
+                    }}
+                  >
+                    物品轨迹
+                  </div>
+                }
+                className={dark ? liststyles.card : liststyles.lightcard}
+                bordered={false}
+              >
                 {UnitemDetail.wpgjList.map(wpgj => (
-                  <Row gutter={8} style={{ marginBottom: '24px',marginLeft:'-16px' }}>
+                  <Row gutter={8} style={{ marginBottom: '24px', marginLeft: '-16px' }}>
                     <Col md={4} sm={24}>
                       <div className={styles.break}>{wpgj.wpzt}</div>
                     </Col>
@@ -700,10 +742,22 @@ export default class unitemDetail extends PureComponent {
         ) : (
           ''
         )}
-        <Card title={<div style={{ borderLeft: dark ? '3px solid #fff' : '3px solid #3D63D1', paddingLeft: 16 }}>案件信息</div>} className={styles.wpxxcard} bordered={false}>
+        <Card
+          title={
+            <div
+              style={{ borderLeft: dark ? '3px solid #fff' : '3px solid #3D63D1', paddingLeft: 16 }}
+            >
+              案件信息
+            </div>
+          }
+          className={styles.wpxxcard}
+          bordered={false}
+        >
           <Row style={{ paddingRight: 24 }}>
             <Col md={12} sm={24}>
-              <div className={styles.Indexfrom} style={{left:'-12px'}}>案件名称：</div>
+              <div className={styles.Indexfrom} style={{ left: '-12px' }}>
+                案件名称：
+              </div>
               <div className={styles.Indextail} style={{ paddingLeft: 58 }}>
                 {UnitemDetail ? UnitemDetail.ajmc : ''}
               </div>
@@ -731,7 +785,9 @@ export default class unitemDetail extends PureComponent {
 
           <Row style={{ paddingRight: 24 }}>
             <Col md={12} sm={24}>
-              <div className={styles.Indexfrom} style={{left:'-12px'}}>案件状态：</div>
+              <div className={styles.Indexfrom} style={{ left: '-12px' }}>
+                案件状态：
+              </div>
               <div className={styles.Indextail} style={{ paddingLeft: 58 }}>
                 {UnitemDetail ? UnitemDetail.ajzt : ''}
               </div>
@@ -746,7 +802,9 @@ export default class unitemDetail extends PureComponent {
 
           <Row style={{ paddingRight: 24 }}>
             <Col md={12} sm={24}>
-              <div className={styles.Indexfrom} style={{left:'-12px'}}>办案单位：</div>
+              <div className={styles.Indexfrom} style={{ left: '-12px' }}>
+                办案单位：
+              </div>
               <div className={styles.Indextail} style={{ paddingLeft: 58 }}>
                 {UnitemDetail ? UnitemDetail.badw : ''}
               </div>
@@ -760,7 +818,9 @@ export default class unitemDetail extends PureComponent {
           </Row>
           <Row style={{ paddingRight: 24 }}>
             <Col md={12} sm={24}>
-              <div className={styles.Indexfrom} style={{left:'-12px'}}>案发时段：</div>
+              <div className={styles.Indexfrom} style={{ left: '-12px' }}>
+                案发时段：
+              </div>
               <div className={styles.Indextail} style={{ paddingLeft: 58 }}>
                 {UnitemDetail && UnitemDetail.fasjsx && UnitemDetail.fasjxx
                   ? UnitemDetail.fasjsx + '~' + UnitemDetail.fasjxx
@@ -776,8 +836,14 @@ export default class unitemDetail extends PureComponent {
           </Row>
           <Row style={{ paddingRight: 24 }}>
             <Col md={24} sm={24}>
-              <div className={styles.Indexfrom} style={{left:'-12px'}}>简要案情：</div>
-                <DetailShow paddingLeft={58} word={UnitemDetail ? UnitemDetail.jyaq : ''} {...this.props}/>
+              <div className={styles.Indexfrom} style={{ left: '-12px' }}>
+                简要案情：
+              </div>
+              <DetailShow
+                paddingLeft={58}
+                word={UnitemDetail ? UnitemDetail.jyaq : ''}
+                {...this.props}
+              />
             </Col>
           </Row>
         </Card>
@@ -848,5 +914,5 @@ export default class unitemDetail extends PureComponent {
         {/*}*/}
       </div>
     );
-}
+  }
 }

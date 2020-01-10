@@ -521,7 +521,7 @@ export default class Index extends PureComponent {
               pathname: '/ModuleAll/Share',
               query: {
                 record: res,
-                id: res && res.id ? res.id : '1',
+                id: res && res.dossier_id ? res.dossier_id : '1',
                 from: '卷宗信息',
                 tzlx: 'jzxx',
                 fromPath: '/dossierPolice/DossierData',
@@ -550,7 +550,7 @@ export default class Index extends PureComponent {
           ajbh: res.ajbh,
           system_id: res.dossier_id,
           ajGzLx: ajGzLx,
-            is_fxgz:'0',
+          is_fxgz: '0',
         },
         callback: data => {
           if (!data.error) {
@@ -690,15 +690,17 @@ export default class Index extends PureComponent {
     const colLayout = { sm: 24, md: 12, xl: 8 };
 
     const columns = [
-        this.state.timeName && this.state.timeName === 'ljsj' ? {
+      this.state.timeName && this.state.timeName === 'ljsj'
+        ? {
             title: '立卷时间',
             dataIndex: 'ljsj',
             width: 100,
-        }:{
-          title: '入库时间',
-              dataIndex: 'rksj',
-              width: 100,
-      },
+          }
+        : {
+            title: '入库时间',
+            dataIndex: 'rksj',
+            width: 100,
+          },
       {
         title: '案件类型',
         dataIndex: 'ajlx_mc',

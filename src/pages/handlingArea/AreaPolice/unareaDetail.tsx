@@ -45,7 +45,7 @@ import noList from '@/assets/viewData/noList.png';
 import { routerRedux } from 'dva/router';
 import noListLight from '@/assets/viewData/noListLight.png';
 import nophotoLight from '@/assets/common/nophotoLight.png';
-import DetailShow from "@/components/Common/detailShow";
+import DetailShow from '@/components/Common/detailShow';
 
 import left from '../../../assets/common/left.png';
 import left1 from '../../../assets/common/left1.png';
@@ -122,15 +122,16 @@ export default class unareaDetail extends PureComponent {
     const { location } = this.props;
     if (location && location.query && res && res.id && res.baq_id) {
       this.getDetail(res.id, res.baq_id);
-    }
-    else if(location && location.query && res && res.agid && res.system_id){
+    } else if (location && location.query && res && res.agid && res.system_id) {
       this.getDetail(res.agid, res.system_id);
-
     }
   }
 
   componentWillReceiveProps(nextProps) {
-      if (this.props.global.isResetList.isReset !== nextProps.global.isResetList.isReset && nextProps.global.isResetList.url ===  '/handlingArea/AreaPolice/UnareaDetail') {
+    if (
+      this.props.global.isResetList.isReset !== nextProps.global.isResetList.isReset &&
+      nextProps.global.isResetList.url === '/handlingArea/AreaPolice/UnareaDetail'
+    ) {
       this.getDetail(nextProps.location.query.record.id, nextProps.location.query.record.baq_id);
     }
   }
@@ -438,7 +439,7 @@ export default class unareaDetail extends PureComponent {
   //   );
   // };
   // 台账
-  Ledger = (res) =>{
+  Ledger = res => {
     this.props.dispatch(
       routerRedux.push({
         pathname: '/ModuleAll/PersonLedger',
@@ -457,29 +458,31 @@ export default class unareaDetail extends PureComponent {
     const { UnareaDetail, isDb } = this.state;
     let dark = this.props.global && this.props.global.dark;
     return (
-      <div style={{ backgroundColor: dark ? '#252C3C' : '#fff', margin: '16px 0' }}>
+      <div
+        style={{ backgroundColor: dark ? '#252C3C' : '#fff', margin: '16px 0', borderRadius: 10 }}
+      >
         <Row gutter={{ md: 8, lg: 24, xl: 48 }}>
           {/*<Col md={8} sm={24}>*/}
           {/*<span style={{ margin: '16px', display: 'block' }}>人员在区详情</span>*/}
           {/*</Col>*/}
-          <Col style={{minHeight:0}}>
+          <Col style={{ minHeight: 0 }}>
             <div>
-              {UnareaDetail?
+              {UnareaDetail ? (
                 <Button
                   type="primary"
-                  style={{margin:'12px 0 12px 16px'}}
+                  style={{ margin: '12px 0 12px 16px' }}
                   className={styles.TopMenu}
                   onClick={() => this.Ledger(UnareaDetail)}
                 >
                   台账
                 </Button>
-                :
+              ) : (
                 ''
-              }
+              )}
               {UnareaDetail && UnareaDetail.zt === '待督办' && isDb ? (
                 <Button
                   type="primary"
-                  style={{margin:'12px 0 12px 16px'}}
+                  style={{ margin: '12px 0 12px 16px' }}
                   className={styles.TopMenu}
                   loading={this.state.loading1}
                   onClick={() => this.onceSupervise(true, UnareaDetail)}
@@ -497,7 +500,7 @@ export default class unareaDetail extends PureComponent {
               isDb ? (
                 <Button
                   type="primary"
-                  style={{margin:'12px 0 12px 16px'}}
+                  style={{ margin: '12px 0 12px 16px' }}
                   className={styles.TopMenu}
                   loading={this.state.feedbackButtonLoading}
                   onClick={() => this.feedback(true, UnareaDetail)}
@@ -1464,7 +1467,16 @@ export default class unareaDetail extends PureComponent {
           sureReform={this.sureReform}
           frompath="/handlingArea/AreaPolice/UnareaDetail"
         />
-        <div className={styles.title}><div style={{ borderLeft: dark ? '3px solid #fff' : '3px solid #3D63D1', paddingLeft: '16px' }}>人员信息</div></div>
+        <div className={styles.title}>
+          <div
+            style={{
+              borderLeft: dark ? '3px solid #fff' : '3px solid #3D63D1',
+              paddingLeft: '16px',
+            }}
+          >
+            人员信息
+          </div>
+        </div>
         <div className={styles.message}>
           <Row>
             <Col md={3} sm={24}>
@@ -1612,7 +1624,11 @@ export default class unareaDetail extends PureComponent {
                     <Row gutter={{ md: 8, lg: 16, xl: 24 }}>
                       <Col md={24} sm={24}>
                         <div className={styles.Indexfrom}>简要案情：</div>
-                          <DetailShow paddingLeft={70} word={UnareaDetail && UnareaDetail.jyaq ? UnareaDetail.jyaq : ''} {...this.props}/>
+                        <DetailShow
+                          paddingLeft={70}
+                          word={UnareaDetail && UnareaDetail.jyaq ? UnareaDetail.jyaq : ''}
+                          {...this.props}
+                        />
                       </Col>
                     </Row>
                   </Card>
@@ -1624,7 +1640,14 @@ export default class unareaDetail extends PureComponent {
         {UnareaDetail && UnareaDetail.rqxx && UnareaDetail.rqxx.length > 0 ? (
           <div>
             <div className={styles.title}>
-              <div style={{ borderLeft: dark ? '3px solid #fff' : '3px solid #3D63D1', paddingLeft: '16px' }}>入区详情</div>
+              <div
+                style={{
+                  borderLeft: dark ? '3px solid #fff' : '3px solid #3D63D1',
+                  paddingLeft: '16px',
+                }}
+              >
+                入区详情
+              </div>
             </div>
             <div className={styles.message}>
               <Row style={{ marginLeft: -24 }}>
@@ -1731,7 +1754,14 @@ export default class unareaDetail extends PureComponent {
         )}
 
         <div className={styles.title}>
-          <div style={{ borderLeft: dark ? '3px solid #fff' : '3px solid #3D63D1', paddingLeft: '16px' }}>随身物品信息</div>
+          <div
+            style={{
+              borderLeft: dark ? '3px solid #fff' : '3px solid #3D63D1',
+              paddingLeft: '16px',
+            }}
+          >
+            随身物品信息
+          </div>
         </div>
         <div className={styles.tablemessage} style={{ padding: '0 24px 24px' }}>
           <Table
@@ -1742,7 +1772,7 @@ export default class unareaDetail extends PureComponent {
             pagination={{
               pageSize: 3,
               showTotal: (total, range) => (
-                <div style={{color: '#b7b7b7'}}>
+                <div style={{ color: '#b7b7b7' }}>
                   共 {Math.ceil(total / 3)} 页， {total} 条记录
                 </div>
               ),
@@ -1764,7 +1794,14 @@ export default class unareaDetail extends PureComponent {
         </div>
 
         <div className={styles.title}>
-          <div style={{ borderLeft: dark ? '3px solid #fff' : '3px solid #3D63D1', paddingLeft: '16px' }}>涉案物品信息</div>
+          <div
+            style={{
+              borderLeft: dark ? '3px solid #fff' : '3px solid #3D63D1',
+              paddingLeft: '16px',
+            }}
+          >
+            涉案物品信息
+          </div>
         </div>
         <div className={styles.tablemessage} style={{ padding: '0 24px 24px' }}>
           <Table
@@ -1775,7 +1812,7 @@ export default class unareaDetail extends PureComponent {
             pagination={{
               pageSize: 3,
               showTotal: (total, range) => (
-                <div style={{color: '#b7b7b7'}}>
+                <div style={{ color: '#b7b7b7' }}>
                   共 {Math.ceil(total / 3)} 页， {total} 条记录
                 </div>
               ),

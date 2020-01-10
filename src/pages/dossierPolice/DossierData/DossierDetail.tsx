@@ -49,7 +49,7 @@ import { autoheight, getUserInfos, userResourceCodeDb } from '../../../utils/uti
 import Ellipsis from 'ant-design-pro/lib/Ellipsis';
 import { authorityIsTrue } from '../../../utils/authority';
 import { routerRedux } from 'dva/router';
-import {tableList} from "@/utils/utils";
+import { tableList } from '@/utils/utils';
 
 @connect(({ DossierData, common, MySuperviseData, AllDetail, global }) => ({
   DossierData,
@@ -100,8 +100,8 @@ export default class DossierDetail extends PureComponent {
 
   componentDidMount() {
     const { location } = this.props;
-    if (location && location.query && location.query && (location.query.id||location.system_id)) {
-      this.getDossierDetail(location.query.system_id||location.query.id);
+    if (location && location.query && location.query && (location.query.id || location.system_id)) {
+      this.getDossierDetail(location.query.system_id || location.query.id);
     }
   }
 
@@ -114,7 +114,9 @@ export default class DossierDetail extends PureComponent {
     //         this.getDossierDetail(this.props.id);
     //     }
     // }
-      if (this.props.global.isResetList.isReset !== nextProps.global.isResetList.isReset && nextProps.global.isResetList.url === '/receivePolice/AlarmData/policeDetail'
+    if (
+      this.props.global.isResetList.isReset !== nextProps.global.isResetList.isReset &&
+      nextProps.global.isResetList.url === '/receivePolice/AlarmData/policeDetail'
     ) {
       this.getDossierDetail(this.props.location.query.id);
     }
@@ -180,8 +182,8 @@ export default class DossierDetail extends PureComponent {
     );
   }
   // 是否关注刷新列表
-  refreshTable = (param) => {
-    if(param.movefrom === '卷宗常规'){
+  refreshTable = param => {
+    if (param.movefrom === '卷宗常规') {
       this.props.dispatch({
         type: 'DossierData/getDossierData',
         payload: {
@@ -190,16 +192,15 @@ export default class DossierDetail extends PureComponent {
           pd: {},
         },
       });
-    }
-    else if(param.movefrom === '卷宗预警'){
+    } else if (param.movefrom === '卷宗预警') {
       this.props.dispatch({
         type: 'EarlyWarning/getList',
         payload: {
-          pd: { yj_type: 'jz' }
+          pd: { yj_type: 'jz' },
         },
       });
     }
-  }
+  };
   // 分享和关注（2为分享，1为关注）
   saveShare = (DossierDetailData, type, ajGzLx) => {
     this.setState({
@@ -208,65 +209,16 @@ export default class DossierDetail extends PureComponent {
         (DossierDetailData.jzlb_mc ? DossierDetailData.jzlb_mc : ''),
     });
     if (type === 2) {
-      let detail = (
-        <Row style={{ lineHeight: '55px', paddingLeft: 66 }}>
-          <Col span={8}>
-            卷宗名称：
-            <Tooltip
-              title={
-                DossierDetailData && DossierDetailData.jzmc && DossierDetailData.jzmc.length > 12
-                  ? DossierDetailData.jzmc
-                  : null
-              }
-            >
-              {DossierDetailData && DossierDetailData.jzmc
-                ? DossierDetailData.jzmc.length > 12
-                  ? DossierDetailData.jzmc.substring(0, 12) + '...'
-                  : DossierDetailData.jzmc
-                : ''}
-            </Tooltip>
-          </Col>
-          <Col span={8}>
-            卷宗类别：
-            {DossierDetailData && DossierDetailData.jzlb_mc ? DossierDetailData.jzlb_mc : ''}
-          </Col>
-          <Col span={8}>
-            卷宗描述：
-            <Tooltip
-              title={
-                DossierDetailData && DossierDetailData.jzms && DossierDetailData.jzms.length > 12
-                  ? DossierDetailData.jzms
-                  : null
-              }
-            >
-              {DossierDetailData && DossierDetailData.jzms
-                ? DossierDetailData.jzms.length > 12
-                  ? DossierDetailData.jzms.substring(0, 12) + '...'
-                  : DossierDetailData.jzms
-                : ''}
-            </Tooltip>
-          </Col>
-          <Col span={8}>
-            案件名称：
-            <Tooltip
-              title={
-                DossierDetailData && DossierDetailData.ajmc && DossierDetailData.ajmc.length > 12
-                  ? DossierDetailData.ajmc
-                  : null
-              }
-            >
-              {DossierDetailData && DossierDetailData.ajmc
-                ? DossierDetailData.ajmc.length > 12
-                  ? DossierDetailData.ajmc.substring(0, 12) + '...'
-                  : DossierDetailData.ajmc
-                : ''}
-            </Tooltip>
-          </Col>
-          <Col span={8}>
-            案件状态：{DossierDetailData && DossierDetailData.ajzt ? DossierDetailData.ajzt : ''}
-          </Col>
-        </Row>
-      );
+      let detail = [
+        `卷宗名称：${DossierDetailData && DossierDetailData.jzmc ? DossierDetailData.jzmc : ''}`,
+        `卷宗类别：${
+          DossierDetailData && DossierDetailData.jzlb_mc ? DossierDetailData.jzlb_mc : ''
+        }`,
+        `卷宗描述：${DossierDetailData && DossierDetailData.jzms ? DossierDetailData.jzms : ''}`,
+        `案件名称：${DossierDetailData && DossierDetailData.ajmc ? DossierDetailData.ajmc : ''}`,
+        `案件状态：${DossierDetailData && DossierDetailData.ajzt ? DossierDetailData.ajzt : ''}`,
+      ];
+      DossierDetailData.detail = detail;
       this.props.dispatch(
         routerRedux.push({
           pathname: '/ModuleAll/Share',
@@ -279,7 +231,6 @@ export default class DossierDetail extends PureComponent {
             from: '卷宗信息',
             tzlx: 'jzxx',
             fromPath: '/dossierPolice/DossierData/DossierDetail',
-            detail,
             tab: '详情',
             sx:
               (DossierDetailData.ajmc ? DossierDetailData.ajmc + '、' : '') +
@@ -307,7 +258,7 @@ export default class DossierDetail extends PureComponent {
             ajbh: DossierDetailData.ajbh,
             system_id: DossierDetailData.system_id,
             ajGzLx: ajGzLx,
-              is_fxgz:'0',
+            is_fxgz: '0',
           },
           callback: res => {
             if (!res.error) {
@@ -534,22 +485,29 @@ export default class DossierDetail extends PureComponent {
     const rowLayout = { md: 8, lg: 24, xl: 48 };
     const colLayout = { sm: 24, md: 12, xl: 8 };
     let dark = this.props.global && this.props.global.dark;
-      let handleDossierSfgz,DossierDetailData;
-      if(this.state.DossierDetailData&&this.props.DossierData&&this.props.DossierData.DossierDetailData&&this.state.DossierDetailData.id === this.props.DossierData.DossierDetailData.id){
-          handleDossierSfgz = this.props.DossierData.handleDossierSfgz;
-          DossierDetailData = this.props.DossierData.DossierDetailData;
-          this.setState({
-              DossierDetailData,
-          })
-      }else{
-          handleDossierSfgz = this.state.DossierDetailData ? this.state.DossierDetailData.sfgz : '';
-          DossierDetailData = this.state.DossierDetailData;
-      }
+    let handleDossierSfgz, DossierDetailData;
+    if (
+      this.state.DossierDetailData &&
+      this.props.DossierData &&
+      this.props.DossierData.DossierDetailData &&
+      this.state.DossierDetailData.id === this.props.DossierData.DossierDetailData.id
+    ) {
+      handleDossierSfgz = this.props.DossierData.handleDossierSfgz;
+      DossierDetailData = this.props.DossierData.DossierDetailData;
+      this.setState({
+        DossierDetailData,
+      });
+    } else {
+      handleDossierSfgz = this.state.DossierDetailData ? this.state.DossierDetailData.sfgz : '';
+      DossierDetailData = this.state.DossierDetailData;
+    }
     return (
-      <div style={{ backgroundColor: dark ? '#252C3C' : '#fff', margin: '16px 0',borderRadius:10 }}>
-        {DossierDetailData?
+      <div
+        style={{ backgroundColor: dark ? '#252C3C' : '#fff', margin: '16px 0', borderRadius: 10 }}
+      >
+        {DossierDetailData ? (
           <Row gutter={rowLayout}>
-            <Col {...colLayout} style={{minHeight:0}}>
+            <Col {...colLayout} style={{ minHeight: 0 }}>
               {/*<span style={{ margin: '16px', display: 'block' }}>卷宗详情</span>*/}
               {isDb &&
               DossierDetailData &&
@@ -557,7 +515,7 @@ export default class DossierDetail extends PureComponent {
               DossierDetailData.zrdwList.length > 0 ? (
                 <Button
                   type="primary"
-                  style={{margin:'12px 0 12px 16px'}}
+                  style={{ margin: '12px 0 12px 16px' }}
                   className={styles.TopMenu}
                   onClick={() => this.onceSupervise(DossierDetailData, true, '卷宗详情问题判定')}
                 >
@@ -571,7 +529,7 @@ export default class DossierDetail extends PureComponent {
               DossierDetailData.is_gldzjdm === '1' ? (
                 <Button
                   type="primary"
-                  style={{margin:'12px 0 12px 16px'}}
+                  style={{ margin: '12px 0 12px 16px' }}
                   className={styles.TopMenu}
                   onClick={() => this.Marking(DossierDetailData, true)}
                 >
@@ -581,8 +539,8 @@ export default class DossierDetail extends PureComponent {
                 ''
               )}
             </Col>
-            <Col style={{minHeight:0}}>
-            <span style={{ float: 'right',margin:'6px 16px 6px 0' }}>
+            <Col style={{ minHeight: 0 }}>
+              <span style={{ float: 'right', margin: '6px 16px 6px 0' }}>
                 <span>
                   <span className={liststyles.collect}>
                     {handleDossierSfgz === 0 ? (
@@ -596,7 +554,7 @@ export default class DossierDetail extends PureComponent {
                         <div style={{ fontSize: 12, textAlign: 'center', width: 48 }}>关注</div>
                       </Tooltip>
                     ) : (
-                      <Tooltip title="取消关注"  onClick={() => this.noFollow(DossierDetailData)}>
+                      <Tooltip title="取消关注" onClick={() => this.noFollow(DossierDetailData)}>
                         <img
                           src={dark ? collect : collect1}
                           width={25}
@@ -617,12 +575,12 @@ export default class DossierDetail extends PureComponent {
                     </Tooltip>
                   </span>
                 </span>
-            </span>
+              </span>
             </Col>
           </Row>
-          :
+        ) : (
           ''
-        }
+        )}
       </div>
     );
   }
@@ -633,7 +591,7 @@ export default class DossierDetail extends PureComponent {
     const colLayoutInName = { sm: 24, md: 4, xl: 4 };
     const colLayoutInData = { sm: 24, md: 20, xl: 20 };
     const specialcolLayout = { sm: 24, md: 24, xl: 24 };
-        const { DossierDetailData } = this.state;
+    const { DossierDetailData } = this.state;
     let dark = this.props.global && this.props.global.dark;
     let stap1 = [];
     let stap2 = [];
@@ -775,16 +733,19 @@ export default class DossierDetail extends PureComponent {
         style={{ background: dark ? '#252c3c' : '#fff', height: autoheight() - 260 + 'px' }}
         className={styles.detailBoxScroll}
       >
-        <div style={{ textAlign: 'right',padding: '16px 52px' }}>
+        <div style={{ textAlign: 'right', padding: '16px 52px' }}>
           {DossierDetailData &&
           DossierDetailData.ajxxList &&
           DossierDetailData.ajxxList.length > 0 ? (
             <Button
               type="primary"
               onClick={() => this.seeCase(true, DossierDetailData)}
-              style={{ margin: 16,backgroundColor: dark
-                      ? 'linear-gradient(to right, #0084FA, #03A3FF)'
-                      : 'linear-gradient(to right, #3D63D1, #333FE4)', }}
+              style={{
+                margin: 16,
+                backgroundColor: dark
+                  ? 'linear-gradient(to right, #0084FA, #03A3FF)'
+                  : 'linear-gradient(to right, #3D63D1, #333FE4)',
+              }}
             >
               查看关联案件
             </Button>
@@ -792,12 +753,23 @@ export default class DossierDetail extends PureComponent {
             ''
           )}
         </div>
-        <Card title={<div style={{ borderLeft: dark ? '3px solid #fff' : '3px solid #3D63D1', paddingLeft: 16 }}>卷宗信息</div>} className={styles.card} bordered={false}>
+        <Card
+          title={
+            <div
+              style={{ borderLeft: dark ? '3px solid #fff' : '3px solid #3D63D1', paddingLeft: 16 }}
+            >
+              卷宗信息
+            </div>
+          }
+          className={styles.card}
+          bordered={false}
+        >
           <Row className={styles.xqrow}>
             <Col {...colLayout} className={styles.xqcol}>
               <div className={liststyles.Indexfrom}>案件名称：</div>
               <div className={liststyles.Indextail}>
-                {DossierDetailData && DossierDetailData.ajxxList &&
+                {DossierDetailData &&
+                DossierDetailData.ajxxList &&
                 DossierDetailData.ajxxList.length > 0 &&
                 DossierDetailData.ajxxList[0].ajmc
                   ? DossierDetailData.ajxxList[0].ajmc
@@ -809,7 +781,8 @@ export default class DossierDetail extends PureComponent {
             <Col {...colLayout} className={styles.xqcol}>
               <div className={liststyles.Indexfrom}>案件编号：</div>
               <div className={liststyles.Indextail}>
-                {DossierDetailData && DossierDetailData.ajxxList &&
+                {DossierDetailData &&
+                DossierDetailData.ajxxList &&
                 DossierDetailData.ajxxList.length > 0 &&
                 DossierDetailData.ajxxList[0].ajbh
                   ? DossierDetailData.ajxxList[0].ajbh
@@ -821,7 +794,8 @@ export default class DossierDetail extends PureComponent {
             <Col {...colLayout} className={styles.xqcol}>
               <div className={liststyles.Indexfrom}>案件类型：</div>
               <div className={liststyles.Indextail}>
-                {DossierDetailData && DossierDetailData.ajxxList &&
+                {DossierDetailData &&
+                DossierDetailData.ajxxList &&
                 DossierDetailData.ajxxList.length > 0 &&
                 DossierDetailData.ajxxList[0].ajlx_mc
                   ? DossierDetailData.ajxxList[0].ajlx_mc
@@ -835,7 +809,8 @@ export default class DossierDetail extends PureComponent {
             <Col {...colLayout} className={styles.xqcol}>
               <div className={liststyles.Indexfrom}>案件状态：</div>
               <div className={liststyles.Indextail}>
-                {DossierDetailData && DossierDetailData.ajxxList &&
+                {DossierDetailData &&
+                DossierDetailData.ajxxList &&
                 DossierDetailData.ajxxList.length > 0 &&
                 DossierDetailData.ajxxList[0].ajzt
                   ? DossierDetailData.ajxxList[0].ajzt
@@ -847,7 +822,8 @@ export default class DossierDetail extends PureComponent {
             <Col {...colLayout} className={styles.xqcol}>
               <div className={liststyles.Indexfrom}>办案单位：</div>
               <div className={liststyles.Indextail}>
-                {DossierDetailData && DossierDetailData.ajxxList &&
+                {DossierDetailData &&
+                DossierDetailData.ajxxList &&
                 DossierDetailData.ajxxList.length > 0 &&
                 DossierDetailData.ajxxList[0].bardwmc
                   ? DossierDetailData.ajxxList[0].bardwmc
@@ -859,7 +835,8 @@ export default class DossierDetail extends PureComponent {
             <Col {...colLayout} className={styles.xqcol}>
               <div className={liststyles.Indexfrom}>办案人：</div>
               <div className={liststyles.Indextail} style={{ paddingLeft: 46 }}>
-                {DossierDetailData && DossierDetailData.ajxxList &&
+                {DossierDetailData &&
+                DossierDetailData.ajxxList &&
                 DossierDetailData.ajxxList.length > 0 &&
                 DossierDetailData.ajxxList[0].barxm
                   ? DossierDetailData.ajxxList[0].barxm
@@ -928,7 +905,16 @@ export default class DossierDetail extends PureComponent {
         </Card>
         {DossierDetailData.jzgjList && DossierDetailData.jzgjList.length > 0 ? (
           <Card
-            title={<div style={{ borderLeft: dark ? '3px solid #fff' : '3px solid #3D63D1', paddingLeft: 16 }}>卷宗轨迹</div>}
+            title={
+              <div
+                style={{
+                  borderLeft: dark ? '3px solid #fff' : '3px solid #3D63D1',
+                  paddingLeft: 16,
+                }}
+              >
+                卷宗轨迹
+              </div>
+            }
             className={styles.card}
             bordered={false}
             style={{ marginBottom: 0 }}
@@ -1113,7 +1099,7 @@ export default class DossierDetail extends PureComponent {
             pagination={{
               pageSize: 3,
               showTotal: (total, range) => (
-                <div style={{color: '#b7b7b7'}}>
+                <div style={{ color: '#b7b7b7' }}>
                   共 {total} 条记录 第 {this.state.casecurrent} / {Math.ceil(total / 3)} 页
                 </div>
               ),
