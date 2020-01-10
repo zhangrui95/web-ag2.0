@@ -128,25 +128,38 @@ export default class ItemDataView extends PureComponent {
                 this.showCaseEchartRQRCQSZSPie(nextProps);
                 // this.changeCountButtonCurrent(this.state.type);
             }
+            let currentType = '';
+            if(this.props.searchType !== nextProps.searchType){
+                if (nextProps.searchType === 'week') {
+                    currentType='week';
+                }else if (nextProps.searchType === 'month') {
+                    currentType='month';
+                }else if (nextProps.searchType === 'selectedDate') {
+                    currentType='selectedDate';
+                }
+                this.setState({
+                    currentType,
+                });
+            }
             if (
                 this.props.searchType !== nextProps.searchType ||
                 this.props.orgcode !== nextProps.orgcode ||
                 this.props.selectedDateVal !== nextProps.selectedDateVal ||
                 this.props.global.dark !== nextProps.global.dark
             ) {
+                currentType = currentType ? currentType : this.state.currentType;
                 this.setState({
                     chooseBaqName: null,
                 });
                 if (nextProps.searchType === 'week') {
                     this.setState({
-                        currentType: 'week',
                         TypeTime: [
-                            moment(getTimeDistance('week')[0]).format('YYYY-MM-DD'),
-                            getTimeDistance('week')[1].format('YYYY-MM-DD'),
+                            moment(getTimeDistance(currentType)[0]).format('YYYY-MM-DD'),
+                            getTimeDistance(currentType)[1].format('YYYY-MM-DD'),
                         ], // 请求数据的时间
                     });
                     this.getViewCountData('week', nextProps.orgcode);
-                    const weekTypeTime = this.getTime(nextProps.searchType);
+                    const weekTypeTime = this.getTime(currentType);
                     this.getAreaRYCFCount(weekTypeTime[0], weekTypeTime[1], nextProps.orgcode);
                     this.getAreaSpecialRYCFCount(weekTypeTime[0], weekTypeTime[1], nextProps.orgcode);
                     this.getAreaNLHFCount(weekTypeTime[0], weekTypeTime[1], nextProps.orgcode);
@@ -156,14 +169,13 @@ export default class ItemDataView extends PureComponent {
                     this.getAreaRQRCQSCount('3', nextProps.orgcode);
                 } else if (nextProps.searchType === 'month') {
                     this.setState({
-                        currentType: 'month',
                         TypeTime: [
-                            moment(getTimeDistance('month')[0]).format('YYYY-MM-DD'),
-                            getTimeDistance('month')[1].format('YYYY-MM-DD'),
+                            moment(getTimeDistance(currentType)[0]).format('YYYY-MM-DD'),
+                            getTimeDistance(currentType)[1].format('YYYY-MM-DD'),
                         ], // 请求数据的时间
                     });
                     this.getViewCountData('month', nextProps.orgcode);
-                    const monthTypeTime = this.getTime(nextProps.searchType);
+                    const monthTypeTime = this.getTime(currentType);
                     this.getAreaRYCFCount(monthTypeTime[0], monthTypeTime[1], nextProps.orgcode);
                     this.getAreaSpecialRYCFCount(monthTypeTime[0], monthTypeTime[1], nextProps.orgcode);
                     this.getAreaNLHFCount(monthTypeTime[0], monthTypeTime[1], nextProps.orgcode);
@@ -175,7 +187,6 @@ export default class ItemDataView extends PureComponent {
                     const {selectedDateVal} = nextProps;
                     this.setState(
                         {
-                            currentType: 'selectedDate',
                             TypeTime: selectedDateVal,
                         },
                         function () {
@@ -288,6 +299,18 @@ export default class ItemDataView extends PureComponent {
                                 count = parseInt(data1[0].count);
                             }
                             itemEchartRYCFPie.setOption({
+                                title:[{
+                                    text:'总数\n\n' + count.toString(),
+                                    textStyle: {
+                                        fontSize: 22,
+                                        fontWeight: 'normal',
+                                        color: this.props.global && this.props.global.dark ? '#fff' : '#4d4d4d'
+                                    },
+                                    x: '29%',
+                                    y: '40%',
+                                    padding: 7,
+                                    textAlign: 'center',
+                                }],
                                 legend: {
                                     data: newData,
                                     formatter: function (name) {
@@ -302,7 +325,7 @@ export default class ItemDataView extends PureComponent {
                                     {
                                         label: {
                                             normal: {
-                                                formatter: '总数\n\n' + count.toString(),
+                                                formatter: ``,
                                             },
                                         },
                                         data: newData1,
@@ -574,6 +597,18 @@ export default class ItemDataView extends PureComponent {
                         count += parseInt(data1[a].count);
                     }
                     itemEchartRQYYBar.setOption({
+                        title:[{
+                            text:count.toString(),
+                            textStyle: {
+                                fontSize: 22,
+                                fontWeight: 'normal',
+                                color: this.props.global && this.props.global.dark ? '#fff' : '#4d4d4d'
+                            },
+                            x: '29%',
+                            y: '45%',
+                            padding: 7,
+                            textAlign: 'center',
+                        }],
                         legend: {
                             data: newData,
                             formatter: function (name) {
@@ -588,7 +623,7 @@ export default class ItemDataView extends PureComponent {
                             {
                                 label: {
                                     normal: {
-                                        formatter: count.toString(),
+                                        formatter: ``,
                                     },
                                 },
                                 data: newData1,

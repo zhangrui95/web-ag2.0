@@ -167,8 +167,22 @@ body {
     .ant-calendar-disabled-cell .ant-calendar-date {
       background-color: @component-background;
       color: @text-word-color;
+      border: 0!important;
+      &:hover{
+        border: 0!important;
+      }
     }
-
+    .ant-calendar .ant-calendar-ok-btn{
+      background-color: @highlight-color;
+      border-color: @highlight-color;
+      &:hover{
+        background-color: @highlight-color;
+        border-color: @highlight-color;
+      }
+    }
+    .ant-calendar-time-picker-btn{
+      color: @highlight-color;
+    }
     .ant-calendar-range .ant-calendar-in-range-cell::before {
       background-color: @component-background;
     }
@@ -1153,6 +1167,9 @@ body {
     }
     .ant-progress-text,.ant-progress-status-success .ant-progress-text{
       color: #4d4d4d;
+    }
+    .ant-steps-item-finish > .ant-steps-item-container > .ant-steps-item-tail::after {
+      background-color: #4662d5;
     }
   }
 }

@@ -72,13 +72,26 @@ export default class DossierDataView extends PureComponent {
                 this.showCaseEchartdzhqkzsBar(nextProps);
                 // this.changeCountButtonCurrent(this.state.type);
             }
+            let currentType = '';
+            if(this.props.searchType !== nextProps.searchType){
+                if (nextProps.searchType === 'week') {
+                    currentType='week';
+                }else if (nextProps.searchType === 'month') {
+                    currentType='month';
+                }else if (nextProps.searchType === 'selectedDate') {
+                    currentType='selectedDate';
+                }
+                this.setState({
+                    currentType,
+                });
+            }
             if (this.props.searchType !== nextProps.searchType || this.props.orgcode !== nextProps.orgcode || this.props.selectedDateVal !== nextProps.selectedDateVal||this.props.global.dark !== nextProps.global.dark) {
+                currentType = currentType ? currentType : this.state.currentType;
                 if (nextProps.searchType === 'week') {
                     this.setState({
-                        currentType: 'week',
                         TypeTime: [moment(getTimeDistance('week')[0]).format('YYYY-MM-DD'), (getTimeDistance('week')[1]).format('YYYY-MM-DD')],// 请求数据的时间
                     });
-                    const weekTypeTime = this.getTime(nextProps.searchType);
+                    const weekTypeTime = this.getTime(currentType);
                     this.getDossierNumCount(weekTypeTime[0], weekTypeTime[1], nextProps.orgcode);
                     this.getDossierCRKCount(weekTypeTime[0], weekTypeTime[1], '3', nextProps.orgcode);
                     this.showCaseZKNumpie(weekTypeTime[0], weekTypeTime[1], nextProps.orgcode);
@@ -86,10 +99,9 @@ export default class DossierDataView extends PureComponent {
                     this.getDossierDZHQKShow(weekTypeTime[0], weekTypeTime[1], nextProps.orgcode);
                 } else if (nextProps.searchType === 'month') {
                     this.setState({
-                        currentType: 'month',
                         TypeTime: [moment(getTimeDistance('month')[0]).format('YYYY-MM-DD'), (getTimeDistance('month')[1]).format('YYYY-MM-DD')],// 请求数据的时间
                     });
-                    const monthTypeTime = this.getTime(nextProps.searchType);
+                    const monthTypeTime = this.getTime(currentType);
                     this.getDossierNumCount(monthTypeTime[0], monthTypeTime[1], nextProps.orgcode);
                     this.getDossierCRKCount(monthTypeTime[0], monthTypeTime[1], '3', nextProps.orgcode);
                     this.showCaseZKNumpie(monthTypeTime[0], monthTypeTime[1], nextProps.orgcode);
@@ -97,7 +109,6 @@ export default class DossierDataView extends PureComponent {
                     this.getDossierDZHQKShow(monthTypeTime[0], monthTypeTime[1], nextProps.orgcode);
                 } else if (nextProps.searchType === 'selectedDate') {
                     this.setState({
-                        currentType: 'selectedDate',
                         TypeTime: nextProps.selectedDateVal,
                     }, function () {
                         const {selectedDateVal} = nextProps;
@@ -154,6 +165,18 @@ export default class DossierDataView extends PureComponent {
                     }
                     ;
                     itemEchartRingPie.setOption({
+                        title:[{
+                            text:'卷宗总数\n\n' + count.toString(),
+                            textStyle: {
+                                fontSize: 22,
+                                fontWeight: 'normal',
+                                color: this.props.global && this.props.global.dark ? '#fff' : '#4d4d4d'
+                            },
+                            x: '29%',
+                            y: '40%',
+                            padding: 7,
+                            textAlign: 'center',
+                        }],
                         legend: {
                             data: newData,
                             formatter: function (name) {
@@ -168,7 +191,7 @@ export default class DossierDataView extends PureComponent {
                             {
                                 label: {
                                     normal: {
-                                        formatter: '卷宗总数\n\n' + count.toString(),
+                                        formatter: ``,
                                     },
                                 },
                                 data: newData1,
@@ -448,6 +471,18 @@ export default class DossierDataView extends PureComponent {
                     }
                     ;
                     itemEchartdzhqkPie.setOption({
+                        title:[{
+                            text:'总数\n\n' + count.toString(),
+                            textStyle: {
+                                fontSize: 22,
+                                fontWeight: 'normal',
+                                color: this.props.global && this.props.global.dark ? '#fff' : '#4d4d4d'
+                            },
+                            x: '29%',
+                            y: '40%',
+                            padding: 7,
+                            textAlign: 'center',
+                        }],
                         legend: {
                             data: newData,
                             formatter: function (name) {
@@ -462,7 +497,7 @@ export default class DossierDataView extends PureComponent {
                             {
                                 label: {
                                     normal: {
-                                        formatter: '总数\n\n' + count.toString(),
+                                        formatter: ``,
                                     },
                                 },
                                 data: newData1,

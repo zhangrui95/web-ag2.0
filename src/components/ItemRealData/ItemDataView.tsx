@@ -74,18 +74,31 @@ export default class ItemDataView extends PureComponent {
                 this.showCaseEchartwpqsBar(nextProps);
                 // this.changeCountButtonCurrent(this.state.type);
             }
+            let currentType = '';
+            if(this.props.searchType !== nextProps.searchType){
+                if (nextProps.searchType === 'week') {
+                    currentType='week';
+                }else if (nextProps.searchType === 'month') {
+                    currentType='month';
+                }else if (nextProps.searchType === 'selectedDate') {
+                    currentType='selectedDate';
+                }
+                this.setState({
+                    currentType,
+                });
+            }
             if (
                 this.props.searchType !== nextProps.searchType ||
                 this.props.orgcode !== nextProps.orgcode ||
                 this.props.selectedDateVal !== nextProps.selectedDateVal ||
                 this.props.global.dark !== nextProps.global.dark
             ) {
+                currentType = currentType ? currentType : this.state.currentType;
                 if (nextProps.searchType === 'week') {
                     this.setState({
-                        currentType: 'week',
                         TypeTime: [
-                            moment(getTimeDistance('week')[0]).format('YYYY-MM-DD'),
-                            getTimeDistance('week')[1].format('YYYY-MM-DD'),
+                            moment(getTimeDistance(currentType)[0]).format('YYYY-MM-DD'),
+                            getTimeDistance(currentType)[1].format('YYYY-MM-DD'),
                         ], // 请求数据的时间
                         showrkDataViewDJ: true,
                         showrkDataViewZK: false,
@@ -94,17 +107,16 @@ export default class ItemDataView extends PureComponent {
                         showrkDataViewCZ: false,
                         showrkDataViewYCCK: false,
                     });
-                    const weekTypeTime = this.getTime(nextProps.searchType);
+                    const weekTypeTime = this.getTime(currentType);
                     this.getItemNumCount(weekTypeTime[0], weekTypeTime[1], nextProps.orgcode);
                     this.getItemCRKCount(weekTypeTime[0], weekTypeTime[1], '登记', nextProps.orgcode);
                     this.showCaseZKNumpie(weekTypeTime[0], weekTypeTime[1], nextProps.orgcode);
                     this.showCaseWpqspie('3', nextProps.orgcode);
                 } else if (nextProps.searchType === 'month') {
                     this.setState({
-                        currentType: 'month',
                         TypeTime: [
-                            moment(getTimeDistance('month')[0]).format('YYYY-MM-DD'),
-                            getTimeDistance('month')[1].format('YYYY-MM-DD'),
+                            moment(getTimeDistance(currentType)[0]).format('YYYY-MM-DD'),
+                            getTimeDistance(currentType)[1].format('YYYY-MM-DD'),
                         ], // 请求数据的时间
                         showrkDataViewDJ: true,
                         showrkDataViewZK: false,
@@ -113,7 +125,7 @@ export default class ItemDataView extends PureComponent {
                         showrkDataViewCZ: false,
                         showrkDataViewYCCK: false,
                     });
-                    const monthTypeTime = this.getTime(nextProps.searchType);
+                    const monthTypeTime = this.getTime(currentType);
                     this.getItemNumCount(monthTypeTime[0], monthTypeTime[1], nextProps.orgcode);
                     this.getItemCRKCount(monthTypeTime[0], monthTypeTime[1], '登记', nextProps.orgcode);
                     this.showCaseZKNumpie(monthTypeTime[0], monthTypeTime[1], nextProps.orgcode);
@@ -121,7 +133,6 @@ export default class ItemDataView extends PureComponent {
                 } else if (nextProps.searchType === 'selectedDate') {
                     this.setState(
                         {
-                            currentType: 'selectedDate',
                             TypeTime: nextProps.selectedDateVal, // 请求数据的时间
                             showrkDataViewDJ: true,
                             showrkDataViewZK: false,
@@ -204,11 +215,23 @@ export default class ItemDataView extends PureComponent {
                                 }
                             },
                         },
+                        title:[{
+                            text:'物品总数\n\n' + count.toString(),
+                            textStyle: {
+                                fontSize: 22,
+                                fontWeight: 'normal',
+                                color: this.props.global && this.props.global.dark ? '#fff' : '#4d4d4d'
+                            },
+                            x: '29%',
+                            y: '40%',
+                            padding: 7,
+                            textAlign: 'center',
+                        }],
                         series: [
                             {
                                 label: {
                                     normal: {
-                                        formatter: '物品总数\n\n' + count.toString(),
+                                        formatter: ``,
                                     },
                                     textStyle: {
                                         color: this.props.global && this.props.global.dark ? '#fff' : '#4d4d4d',
@@ -795,7 +818,7 @@ export default class ItemDataView extends PureComponent {
             legend: {
                 orient: 'vertical',
                 right: '7%',
-                top: 60,
+                top: 40,
                 show: true,
                 itemWidth: 10,
                 itemHeight: 10,

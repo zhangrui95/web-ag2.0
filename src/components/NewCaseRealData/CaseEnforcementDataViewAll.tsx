@@ -66,43 +66,43 @@ export default class CaseEnforcementDataView extends PureComponent {
                 this.showCaseTypeStatisticsBar(nextProps);
                 // this.changeCountButtonCurrent(this.state.type);
             }
+            let currentType = '';
+            if(this.props.searchType !== nextProps.searchType){
+                if (nextProps.searchType === 'week') {
+                    currentType='week';
+                }else if (nextProps.searchType === 'month') {
+                    currentType='month';
+                }else if (nextProps.searchType === 'selectedDate') {
+                    currentType='selectedDate';
+                }
+                this.setState({
+                    currentType,
+                });
+            }
             if (
                 this.props.searchType !== nextProps.searchType ||
                 this.props.orgcode !== nextProps.orgcode ||
                 this.props.selectedDateVal !== nextProps.selectedDateVal ||
                 this.props.global.dark !== nextProps.global.dark
             ) {
-                console.log('nextProps.orgcode',nextProps.orgcode)
+                currentType = currentType ? currentType : this.state.currentType;
                 if (nextProps.searchType === 'week') {
-                    this.setState({
-                        currentType: 'week',
-                    });
                     this.getViewCountData('week', nextProps.orgcode);
-                    const weekTypeTime = this.getTime('week');
+                    const weekTypeTime = this.getTime(currentType);
                     this.getAllCaseProgress(weekTypeTime[0], weekTypeTime[1], nextProps.orgcode);
                     this.getEnforcementMeasure(weekTypeTime[0], weekTypeTime[1], nextProps.orgcode);
                     this.getCaseTypeStatistics(weekTypeTime[0], weekTypeTime[1], nextProps.orgcode);
                 } else if (nextProps.searchType === 'month') {
-                    this.setState({
-                        currentType: 'month',
-                    });
                     this.getViewCountData('month', nextProps.orgcode);
-                    const monthTypeTime = this.getTime('month');
+                    const monthTypeTime = this.getTime(currentType);
                     this.getAllCaseProgress(monthTypeTime[0], monthTypeTime[1], nextProps.orgcode);
                     this.getEnforcementMeasure(monthTypeTime[0], monthTypeTime[1], nextProps.orgcode);
                     this.getCaseTypeStatistics(monthTypeTime[0], monthTypeTime[1], nextProps.orgcode);
                 } else if (nextProps.searchType === 'selectedDate') {
                     const {selectedDateVal} = nextProps;
-                    this.setState(
-                        {
-                            currentType: 'selectedDate',
-                        },
-                        function () {
-                            this.getAllCaseProgress(selectedDateVal[0], selectedDateVal[1], nextProps.orgcode);
-                            this.getEnforcementMeasure(selectedDateVal[0], selectedDateVal[1], nextProps.orgcode);
-                            this.getCaseTypeStatistics(selectedDateVal[0], selectedDateVal[1], nextProps.orgcode);
-                        },
-                    );
+                    this.getAllCaseProgress(selectedDateVal[0], selectedDateVal[1], nextProps.orgcode);
+                    this.getEnforcementMeasure(selectedDateVal[0], selectedDateVal[1], nextProps.orgcode);
+                    this.getCaseTypeStatistics(selectedDateVal[0], selectedDateVal[1], nextProps.orgcode);
                 }
             }
         }
@@ -238,6 +238,18 @@ export default class CaseEnforcementDataView extends PureComponent {
                         });
                     }
                     caseEchartRingPie.setOption({
+                        title:[{
+                            text:'总数\n\n' + countData,
+                            textStyle: {
+                                fontSize: 22,
+                                fontWeight: 'normal',
+                                color: this.props.global && this.props.global.dark ? '#fff' : '#4d4d4d'
+                            },
+                            x: '29%',
+                            y: '40%',
+                            padding: 7,
+                            textAlign: 'center',
+                        }],
                         legend: {
                             data: legendData,
                             formatter: function (name) {
@@ -256,7 +268,7 @@ export default class CaseEnforcementDataView extends PureComponent {
                                 data: pieData,
                                 label: {
                                     normal: {
-                                        formatter: '总数\n\n' + countData,
+                                        formatter: ``,
                                     },
                                 },
                             },

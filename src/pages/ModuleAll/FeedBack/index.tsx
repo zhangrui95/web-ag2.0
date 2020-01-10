@@ -72,7 +72,7 @@ export default class FeedBack extends PureComponent {
             } else {
                 let that = this;
                 confirm({
-                    title: '是否取消反馈?',
+                    title: '是否确认反馈?',
                     centered: true,
                     okText: '确认',
                     cancelText: '取消',

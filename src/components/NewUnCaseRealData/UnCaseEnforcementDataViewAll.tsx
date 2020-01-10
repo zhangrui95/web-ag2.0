@@ -68,40 +68,42 @@ export default class UnCaseEnforcementDataView extends PureComponent {
                 this.showUnCaseEchartRingPie(nextProps);
                 // this.changeCountButtonCurrent(this.state.type);
             }
+            let currentType = '';
+            if(this.props.searchType !== nextProps.searchType) {
+                if (nextProps.searchType === 'day') {
+                    currentType = 'today';
+                } else if (nextProps.searchType === 'selectedDate') {
+                    currentType = 'selectedDate';
+                }
+                this.setState({
+                    currentType,
+                });
+            }
             if (
                 this.props.searchType !== nextProps.searchType ||
                 this.props.orgcode !== nextProps.orgcode ||
                 this.props.selectedDateVal !== nextProps.selectedDateVal||
                 this.props.global.dark !== nextProps.global.dark
             ) {
+                currentType = currentType ? currentType : this.state.currentType;
                 if (nextProps.searchType === 'day') {
-                    this.setState({
-                        currentType: 'today',
-                    });
                     this.getViewCountData('day', nextProps.orgcode);
-                    const dayTypeTime = this.getTime('today');
+                    const dayTypeTime = this.getTime(currentType);
                     this.getNewAddWarnings(dayTypeTime[0], dayTypeTime[1], 'today', nextProps.orgcode);
                     this.getAllTypeWarningCount(dayTypeTime[0], dayTypeTime[1], 'today', nextProps.orgcode);
                 } else if (nextProps.searchType === 'selectedDate') {
-                    this.setState(
-                        {
-                            currentType: 'selectedDate',
-                        },
-                        function () {
-                            const {selectedDateVal} = nextProps;
-                            this.getNewAddWarnings(
-                                selectedDateVal[0],
-                                selectedDateVal[1],
-                                'selectedDate',
-                                nextProps.orgcode,
-                            );
-                            this.getAllTypeWarningCount(
-                                selectedDateVal[0],
-                                selectedDateVal[1],
-                                'selectedDate',
-                                nextProps.orgcode,
-                            );
-                        },
+                    const {selectedDateVal} = nextProps;
+                    this.getNewAddWarnings(
+                        selectedDateVal[0],
+                        selectedDateVal[1],
+                        'selectedDate',
+                        nextProps.orgcode,
+                    );
+                    this.getAllTypeWarningCount(
+                        selectedDateVal[0],
+                        selectedDateVal[1],
+                        'selectedDate',
+                        nextProps.orgcode,
                     );
                 }
             }
@@ -354,6 +356,18 @@ export default class UnCaseEnforcementDataView extends PureComponent {
                                 //     ? '告警情况'
                                 //     : '昨日告警情况',
                             },
+                            title:[{
+                                text:`告警总数\n\n${countData}`,
+                                textStyle: {
+                                    fontSize: 22,
+                                    fontWeight: 'normal',
+                                    color: this.props.global && this.props.global.dark ? '#fff' : '#4d4d4d'
+                                },
+                                x: '29%',
+                                y: '40%',
+                                padding: 7,
+                                textAlign: 'center',
+                            }],
                             legend: {
                                 data: legendData,
                                 formatter: function (name) {
@@ -372,7 +386,7 @@ export default class UnCaseEnforcementDataView extends PureComponent {
                                     data: pieData,
                                     label: {
                                         normal: {
-                                            formatter: `告警总数\n\n${countData}`,
+                                            formatter: ``,
                                         },
                                     },
                                 },
