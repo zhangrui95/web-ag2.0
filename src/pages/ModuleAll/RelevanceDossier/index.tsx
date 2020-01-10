@@ -141,7 +141,7 @@ export default class IntoArea extends PureComponent {
         return (
             <div style={{padding:'12px 0'}}>
                 <Table
-                    style={{ borderRadius: 0, padding: 24 }}
+                    style={{ borderRadius: 10 }}
                     pagination={{
                         pageSize: 3,
                         showTotal: (total, range) => <div

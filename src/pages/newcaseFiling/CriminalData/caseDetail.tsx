@@ -435,7 +435,7 @@ export default class caseDetail extends PureComponent {
           caseDetails = this.state.caseDetails;
       }
     return (
-      <div style={{ backgroundColor: dark ? '#252C3C' : '#fff', margin: '16px 0' }}>
+      <div style={{ backgroundColor: dark ? '#252C3C' : '#fff', margin: '16px 0',borderRadius:10 }}>
         {caseDetails?
           <Row gutter={{ md: 8, lg: 24, xl: 48 }}>
             <Col md={8} sm={24} style={{minHeight:0}}>

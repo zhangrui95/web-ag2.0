@@ -102,7 +102,7 @@ export default class IntoArea extends PureComponent {
         return (
             <div style={{padding:'12px 0'}}>
                 <Table
-                    style={{ borderRadius: 0, padding: 24 }}
+                    style={{ borderRadius: 10 }}
                     pagination={{
                         pageSize: 3,
                         showTotal: (total, range) => <div style={{color: '#b7b7b7'}}>共 {(Math.ceil(total / 3))} 页， {total} 条记录</div>,

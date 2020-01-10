@@ -335,7 +335,7 @@ export default class caseDetail extends PureComponent {
         const {record} = this.props;
 
         return (
-            <div style={{backgroundColor: '#252C3C', margin: '16px 0'}}>
+            <div style={{backgroundColor: '#252C3C', margin: '16px 0',borderRadius:10}}>
                 <Row gutter={{md: 8, lg: 24, xl: 48}}>
                     <Col md={8} sm={24}>
                         {/*<span style={{ margin: '16px', display: 'block' }}>刑事案件详情</span>*/}

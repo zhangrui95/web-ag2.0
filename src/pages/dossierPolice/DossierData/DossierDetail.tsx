@@ -546,7 +546,7 @@ export default class DossierDetail extends PureComponent {
           DossierDetailData = this.state.DossierDetailData;
       }
     return (
-      <div style={{ backgroundColor: dark ? '#252C3C' : '#fff', margin: '16px 0' }}>
+      <div style={{ backgroundColor: dark ? '#252C3C' : '#fff', margin: '16px 0',borderRadius:10 }}>
         {DossierDetailData?
           <Row gutter={rowLayout}>
             <Col {...colLayout} style={{minHeight:0}}>
