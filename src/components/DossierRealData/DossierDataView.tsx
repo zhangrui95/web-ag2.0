@@ -966,7 +966,7 @@ export default class DossierDataView extends PureComponent {
                                                 alignItems: 'center',
                                                 flexDirection: 'column',
                                                 justifyContent: 'center',
-                                                marginTop: this.props.global && this.props.global.dark ? 60 : 22,
+                                                marginTop: this.props.global && this.props.global.dark ? 60 : 0,
                                             }}>
                                                 <img
                                                     src={this.props.global && this.props.global.dark ? nonDivImg : noListLight}

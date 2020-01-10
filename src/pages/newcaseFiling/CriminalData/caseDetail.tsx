@@ -484,24 +484,22 @@ export default class caseDetail extends PureComponent {
                 <span>
                   <span className={liststyles.collect}>
                     {handleXsCaseSfgz === 0 ? (
-                      <Tooltip title="关注">
+                      <Tooltip title="关注" onClick={() => this.saveShare(caseDetails, record, 1, 0)}>
                         <img
                           src={dark ? nocollect : nocollect1}
                           width={25}
                           height={25}
                           style={{ marginLeft: 12 }}
-                          onClick={() => this.saveShare(caseDetails, record, 1, 0)}
                         />
                         <div style={{ fontSize: 12, textAlign: 'center', width: 48 }}>关注</div>
                       </Tooltip>
                     ) : (
-                      <Tooltip title="取消关注">
+                      <Tooltip title="取消关注"  onClick={() => this.noFollow(caseDetails)}>
                         <img
                           src={dark ? collect : collect1}
                           width={25}
                           height={25}
                           style={{ marginLeft: 12 }}
-                          onClick={() => this.noFollow(caseDetails)}
                         />
                         <div style={{ fontSize: 12, textAlign: 'center', width: 48 }}>取消关注</div>
                       </Tooltip>
