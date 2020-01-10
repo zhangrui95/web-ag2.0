@@ -174,7 +174,7 @@ export default class UnAreaDataView extends PureComponent {
                     for (let i = 0; i < barData.length; i++) {
                         dataShadow.push({
                             name: barData[i].name,
-                            value: bigestNum + 100,
+                            value: bigestNum + 10,
                             code: barData[i].code,
                         });
                     }
