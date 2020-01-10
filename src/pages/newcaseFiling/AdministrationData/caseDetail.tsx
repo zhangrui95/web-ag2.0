@@ -685,14 +685,13 @@ export default class caseDetail extends PureComponent {
         style={{ background: dark ? '#252c3c' : '#fff', height: autoheight() - 260 + 'px' }}
         className={styles.detailBoxScroll}
       >
-
+        <div style={{paddingRight:84,height:'auto'}}>
           {caseDetails && caseDetails.jqxxList && caseDetails.jqxxList.length > 0 ? (
-            <div style={{ textAlign: 'right',padding: '16px 52px' }}>
+            <div style={{ float: 'right',padding: '16px' }}>
               <Button
                 type="primary"
                 onClick={() => this.seePolice(true, caseDetails)}
                 style={{
-                  marginRight: 70,
                   background: dark
                     ? 'linear-gradient(to right, #0084FA, #03A3FF)'
                     : 'linear-gradient(to right, #3D63D1, #333FE4)',
@@ -705,12 +704,11 @@ export default class caseDetail extends PureComponent {
             ''
           )}
           {caseDetails && caseDetails.rqxyrList && caseDetails.rqxyrList.length > 0 ? (
-            <div style={{ textAlign: 'right',padding: '16px 52px' }}>
+            <div style={{ float: 'right',padding: '16px' }}>
               <Button
                 type="primary"
                 onClick={() => this.seeArea(true, caseDetails)}
                 style={{
-                  marginRight: 16,
                   background: dark
                     ? 'linear-gradient(to right, #0084FA, #03A3FF)'
                     : 'linear-gradient(to right, #3D63D1, #333FE4)',
@@ -723,11 +721,15 @@ export default class caseDetail extends PureComponent {
             ''
           )}
           {caseDetails && caseDetails.sawpList && caseDetails.sawpList.length > 0 ? (
-            <div style={{ textAlign: 'right',padding: '16px 52px' }}>
+            <div style={{ float: 'right',padding: '16px' }}>
               <Button
                 type="primary"
                 onClick={() => this.seeRes(true, caseDetails)}
-                style={{ marginRight: 16 }}
+                style={{
+                  background: dark
+                    ? 'linear-gradient(to right, #0084FA, #03A3FF)'
+                    : 'linear-gradient(to right, #3D63D1, #333FE4)',
+                }}
               >
                 查看涉案物品
               </Button>
@@ -736,11 +738,15 @@ export default class caseDetail extends PureComponent {
             ''
           )}
           {caseDetails && caseDetails.jzList && caseDetails.jzList.length > 0 ? (
-            <div style={{ textAlign: 'right',padding: '16px 52px' }}>
+            <div style={{ float: 'right',padding: '16px' }}>
               <Button
                 type="primary"
                 onClick={() => this.seeDossier(true, caseDetails)}
-                style={{ marginRight: 16 }}
+                style={{
+                  background: dark
+                    ? 'linear-gradient(to right, #0084FA, #03A3FF)'
+                    : 'linear-gradient(to right, #3D63D1, #333FE4)',
+                }}
               >
                 查看卷宗信息
               </Button>
@@ -748,7 +754,8 @@ export default class caseDetail extends PureComponent {
           ) : (
             ''
           )}
-
+          <div style={{content:'',clear:'both',display:'block'}} />
+        </div>
         <div className={styles.title}><div style={{ borderLeft: dark ? '3px solid #fff' : '3px solid #3D63D1', paddingLeft: '16px' }}>案件信息</div></div>
         <div className={styles.message} style={{ padding: '0 84px 24px' }}>
           <Row className={styles.xqrow}>

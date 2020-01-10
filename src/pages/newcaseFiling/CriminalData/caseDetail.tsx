@@ -796,72 +796,73 @@ export default class caseDetail extends PureComponent {
         }}
         className={styles.detailBoxScroll}
       >
-          {caseDetails && caseDetails.jqxxList && caseDetails.jqxxList.length > 0 ? (
-            <div style={{ textAlign: 'right',padding: '16px 52px' }}>
-              <Button
-                // type="primary"
-                onClick={() => this.seePolice(true, caseDetails)}
-                style={{
-                  marginRight: 16,
-                  background: dark
-                    ? 'linear-gradient(to right, #0084FA, #03A3FF)'
-                    : 'linear-gradient(to right, #3D63D1, #333FE4)',
-                }}
-              >
-                查看关联警情
-              </Button>
-            </div>
-          ) : (
-            ''
-          )}
-          {caseDetails && caseDetails.rqxyrList && caseDetails.rqxyrList.length > 0 ? (
-            <div style={{ textAlign: 'right',padding: '16px 52px' }}>
-              <Button
-                // type="primary"
-                onClick={() => this.seeArea(true, caseDetails)}
-                style={{
-                  marginRight: 16,
-                  background: dark
-                    ? 'linear-gradient(to right, #0084FA, #03A3FF)'
-                    : 'linear-gradient(to right, #3D63D1, #333FE4)',
-                }}
-              >
-                查看涉案人员在区情况
-              </Button>
-            </div>
-          ) : (
-            ''
-          )}
-          {caseDetails && caseDetails.sawpList && caseDetails.sawpList.length > 0 ? (
-            <div style={{ textAlign: 'right',padding: '16px 52px' }}>
-              <Button
-                // type="primary"
-                onClick={() => this.seeRes(true, caseDetails)}
-                style={{ marginRight: 16, background:  dark
-                        ? 'linear-gradient(to right, #0084FA, #03A3FF)'
-                        : 'linear-gradient(to right, #3D63D1, #333FE4)', }}
-              >
-                查看涉案物品
-              </Button>
-            </div>
-          ) : (
-            ''
-          )}
-          {caseDetails && caseDetails.jzList && caseDetails.jzList.length > 0 ? (
-            <div style={{ textAlign: 'right',padding: '16px 52px' }}>
-              <Button
-                // type="primary"
-                onClick={() => this.seeDossier(true, caseDetails)}
-                style={{ marginRight: 16, background:  dark
-                        ? 'linear-gradient(to right, #0084FA, #03A3FF)'
-                        : 'linear-gradient(to right, #3D63D1, #333FE4)', }}
-              >
-                查看卷宗信息
-              </Button>
-            </div>
-          ) : (
-            ''
-          )}
+        <div style={{paddingRight:84,height:'auto'}}>
+            {caseDetails && caseDetails.jqxxList && caseDetails.jqxxList.length > 0 ? (
+              <div style={{ float: 'right',padding: '16px' }}>
+                <Button
+                  // type="primary"
+                  onClick={() => this.seePolice(true, caseDetails)}
+                  style={{
+                    background: dark
+                      ? 'linear-gradient(to right, #0084FA, #03A3FF)'
+                      : 'linear-gradient(to right, #3D63D1, #333FE4)',
+                  }}
+                >
+                  查看关联警情
+                </Button>
+              </div>
+            ) : (
+              ''
+            )}
+            {caseDetails && caseDetails.rqxyrList && caseDetails.rqxyrList.length > 0 ? (
+              <div style={{ float: 'right',padding: '16px' }}>
+                <Button
+                  // type="primary"
+                  onClick={() => this.seeArea(true, caseDetails)}
+                  style={{
+                    background: dark
+                      ? 'linear-gradient(to right, #0084FA, #03A3FF)'
+                      : 'linear-gradient(to right, #3D63D1, #333FE4)',
+                  }}
+                >
+                  查看涉案人员在区情况
+                </Button>
+              </div>
+            ) : (
+              ''
+            )}
+            {caseDetails && caseDetails.sawpList && caseDetails.sawpList.length > 0 ? (
+              <div style={{ float: 'right',padding: '16px' }}>
+                <Button
+                  // type="primary"
+                  onClick={() => this.seeRes(true, caseDetails)}
+                  style={{ background:  dark
+                          ? 'linear-gradient(to right, #0084FA, #03A3FF)'
+                          : 'linear-gradient(to right, #3D63D1, #333FE4)', }}
+                >
+                  查看涉案物品
+                </Button>
+              </div>
+            ) : (
+              ''
+            )}
+            {caseDetails && caseDetails.jzList && caseDetails.jzList.length > 0 ? (
+              <div style={{ float: 'right',padding: '16px' }}>
+                <Button
+                  // type="primary"
+                  onClick={() => this.seeDossier(true, caseDetails)}
+                  style={{ background:  dark
+                          ? 'linear-gradient(to right, #0084FA, #03A3FF)'
+                          : 'linear-gradient(to right, #3D63D1, #333FE4)', }}
+                >
+                  查看卷宗信息
+                </Button>
+              </div>
+            ) : (
+              ''
+            )}
+            <div style={{content:'',clear:'both',display:'block'}} />
+          </div>
         <div className={styles.title}><div style={{ borderLeft: dark ? '3px solid #fff' : '3px solid #3D63D1', paddingLeft: '16px' }}>案件信息</div></div>
         <div className={styles.message} style={{ padding: '0px 84px 24px' }}>
           <Row className={styles.xqrow}>

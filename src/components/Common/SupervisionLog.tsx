@@ -184,7 +184,7 @@ export default class SupervisionLog extends PureComponent {
         {detailData && detailData.dbList && detailData.dbList.length > 0 ? (
           <div>
             <div className={styles.title}>
-              <span className={styles.DbrzSpan}><div style={{ borderLeft: dark ? '3px solid #fff' : '3px solid #3D63D1', paddingLeft: '16px' }}>督办日志</div></span>
+              <span className={styles.DbrzSpan}><div style={{ borderLeft: dark ? '3px solid #fff' : '3px solid #fff', paddingLeft: '16px' }}>督办日志</div></span>
             </div>
             <div
               className={styles.message}

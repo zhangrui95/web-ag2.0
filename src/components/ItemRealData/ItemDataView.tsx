@@ -22,6 +22,7 @@ import {MiniProgress, ChartCard} from 'ant-design-pro/lib/Charts';
 import nonDivImg from '../../assets/viewData/nonData.png';
 import {connect} from "dva";
 import noListLight from "@/assets/viewData/noListLight.png";
+import {getDefaultDaysForWeek} from "@/utils/utils";
 
 let itemEchartpictorialBar;
 let itemEchartRingPie;
@@ -409,27 +410,39 @@ export default class ItemDataView extends PureComponent {
                             newData.push(legendData);
                         }
                     }
-                    // else {
-                    //     // this.setState({
-                    //     //     wpqsNoData: true,
-                    //     // })
-                    //     let momentMonth;
-                    //     if (qsTime === '6') {
-                    //         momentMonth = moment();
-                    //     } else if (qsTime === '7') {
-                    //         momentMonth = moment().subtract(1, 'months');
-                    //     } else if (qsTime === '8') {
-                    //         momentMonth = moment().subtract(2, 'months');
-                    //     }
-                    //     const dayArry = getDefaultDaysForMonth(momentMonth);
-                    //     newData1 = [0, 0, 0, 0, 0, 0, 0];
-                    //     newData2 = [0, 0, 0, 0, 0, 0, 0];
-                    //     newData3 = [0, 0, 0, 0, 0, 0, 0];
-                    //     newData4 = [0, 0, 0, 0, 0, 0, 0];
-                    //     newData5 = [0, 0, 0, 0, 0, 0, 0];
-                    //     newData6 = [0, 0, 0, 0, 0, 0, 0];
-                    //     newData = dayArry;
-                    // }
+                    else {
+                        // this.setState({
+                        //     wpqsNoData: true,
+                        // })
+                        let momentMonth,dayArry;
+                      if (qsTime === '6') {
+                        momentMonth = moment();
+                        dayArry = getDefaultDaysForMonth(momentMonth);
+                      } else if (qsTime === '7') {
+                        momentMonth = moment().subtract(1, 'months');
+                        dayArry = getDefaultDaysForMonth(momentMonth);
+                      } else if (qsTime === '8') {
+                        momentMonth = moment().subtract(2, 'months');
+                        dayArry = getDefaultDaysForMonth(momentMonth);
+                      } else if (qsTime === '3') {
+                        momentMonth = moment();
+                        dayArry = getDefaultDaysForWeek(momentMonth);
+                      } else if (qsTime === '4') {
+                        momentMonth = moment().subtract(1, 'weeks');
+                        dayArry = getDefaultDaysForWeek(momentMonth);
+                      } else if (qsTime === '5') {
+                        momentMonth = moment().subtract(2, 'weeks');
+                        dayArry = getDefaultDaysForWeek(momentMonth);
+                      }
+                        // const dayArry = getDefaultDaysForMonth(momentMonth);
+                        newData1 = [0, 0, 0, 0, 0, 0, 0];
+                        newData2 = [0, 0, 0, 0, 0, 0, 0];
+                        newData3 = [0, 0, 0, 0, 0, 0, 0];
+                        newData4 = [0, 0, 0, 0, 0, 0, 0];
+                        newData5 = [0, 0, 0, 0, 0, 0, 0];
+                        newData6 = [0, 0, 0, 0, 0, 0, 0];
+                        newData = dayArry;
+                    }
                     const seriesDataAll = [
                         {
                             name: '登记',

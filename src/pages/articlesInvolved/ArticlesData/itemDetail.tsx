@@ -504,23 +504,26 @@ export default class itemDetail extends PureComponent {
         style={{ background: dark ? '#252c3c' : '#fff', height: autoheight() - 260 + 'px' }}
         className={styles.detailBoxScroll}
       >
-        {itemDetails && itemDetails.system_id && itemDetails.ajlx ? (
-          <div style={{ textAlign: 'right', padding: '16px 52px' }}>
-            <Button
-              type="primary"
-              onClick={() => this.openCaseDetail(itemDetails)}
-              style={{
-                background: dark
-                  ? 'linear-gradient(to right, #0084FA, #03A3FF)'
-                  : 'linear-gradient(to right, #3D63D1, #333FE4)',
-              }}
-            >
-              查看关联案件
-            </Button>
-          </div>
-        ) : (
-          ''
-        )}
+        <div style={{paddingRight:84,height:'auto'}}>
+          {itemDetails && itemDetails.system_id && itemDetails.ajlx ? (
+            <div style={{ float: 'right', padding: '16px' }}>
+              <Button
+                type="primary"
+                onClick={() => this.openCaseDetail(itemDetails)}
+                style={{
+                  background: dark
+                    ? 'linear-gradient(to right, #0084FA, #03A3FF)'
+                    : 'linear-gradient(to right, #3D63D1, #333FE4)',
+                }}
+              >
+                查看关联案件
+              </Button>
+            </div>
+          ) : (
+            ''
+          )}
+          <div style={{content:'',clear:'both',display:'block'}} />
+        </div>
         <Card
           title={<div style={{ borderLeft: dark ? '3px solid #fff' : '3px solid #3D63D1', paddingLeft: 16 }}>物品信息</div>}
           className={styles.wpxxcard} bordered={false}

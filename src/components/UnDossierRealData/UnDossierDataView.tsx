@@ -82,7 +82,7 @@ export default class UnDossierDataView extends PureComponent {
           this.getViewCountData('day', nextProps.orgcode);
           const dayTypeTime = this.getTime('today');
           this.getNewAddWarnings(dayTypeTime[0], dayTypeTime[1], 'today', nextProps.orgcode);
-          // this.getAllTypeWarningCount(dayTypeTime[0], dayTypeTime[1], 'today', nextProps.orgcode);
+          this.getAllTypeWarningCount(dayTypeTime[0], dayTypeTime[1], 'today', nextProps.orgcode);
         } else if (nextProps.searchType === 'selectedDate') {
           this.setState(
             {

@@ -550,21 +550,24 @@ export default class policeDetail extends PureComponent {
         id={`jqDetail${this.props.location.query.id}`}
         className={styles.detailBoxScroll}
       >
-        {policeDetails && policeDetails.ajbh && policeDetails.is_sa === 1 ? (
-          <div style={{ textAlign: 'right', padding: '16px 52px' }}>
-            <Button
-              className={styles.connectBtn}
-              style={{background: dark
-                      ? 'linear-gradient(to right, #0084FA, #03A3FF)'
-                      : 'linear-gradient(to right, #3D63D1, #333FE4)'}}
-              onClick={() => this.openCaseDetail(policeDetails)}
-            >
-              查看关联案件
-            </Button>
-          </div>
-        ) : (
-          ''
-        )}
+        <div style={{paddingRight:84,height:'auto'}}>
+          {policeDetails && policeDetails.ajbh && policeDetails.is_sa === 1 ? (
+            <div style={{ float: 'right', padding: '16px' }}>
+              <Button
+                className={styles.connectBtn}
+                style={{background: dark
+                        ? 'linear-gradient(to right, #0084FA, #03A3FF)'
+                        : 'linear-gradient(to right, #3D63D1, #333FE4)'}}
+                onClick={() => this.openCaseDetail(policeDetails)}
+              >
+                查看关联案件
+              </Button>
+            </div>
+          ) : (
+            ''
+          )}
+          <div style={{content:'',clear:'both',display:'block'}} />
+        </div>
         <Card
           title={
             <div
