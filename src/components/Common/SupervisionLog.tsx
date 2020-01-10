@@ -132,7 +132,7 @@ export default class SupervisionLog extends PureComponent {
       } else if (objwidth >= 1680 && objwidth < 1920) {
         superveWidth = 1305;
       } else if (objwidth >= 1920) {
-        superveWidth = 1545;
+        superveWidth = 1458;
       }
     } else if (objheight < allheight) {
       if (objwidth < 1263 || objwidth === 1263) {
@@ -184,11 +184,11 @@ export default class SupervisionLog extends PureComponent {
         {detailData && detailData.dbList && detailData.dbList.length > 0 ? (
           <div>
             <div className={styles.title}>
-              <span className={styles.DbrzSpan}>| 督办日志</span>
+              <span className={styles.DbrzSpan}><div style={{ borderLeft: dark ? '3px solid #fff' : '3px solid #3D63D1', paddingLeft: '16px' }}>督办日志</div></span>
             </div>
             <div
               className={styles.message}
-              style={{ padding: '24px', borderBottom: '1px solid #171925' }}
+              style={{ padding: '0 38px 12px', borderBottom: '1px solid #171925' }}
             >
               <Row style={{ margin: '16px 46px' }}>
                 <Col md={8} sm={24}>
@@ -323,7 +323,9 @@ export default class SupervisionLog extends PureComponent {
                 color: '#fff',
               }}
             >
-              | 问题信息
+              <div style={{ borderLeft: dark ? '3px solid #fff' : '3px solid #3D63D1', paddingLeft: '16px' }}>
+                问题信息
+              </div>
             </div>
             <div className={styles.message} style={{ borderBottom: '1px solid #1e2230' }}>
               <Row>

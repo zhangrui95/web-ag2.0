@@ -326,14 +326,12 @@ export default class unpoliceDetail extends PureComponent {
         const {policeDetails, isDb} = this.state;
         let dark = this.props.global && this.props.global.dark;
         return (
-            <div
-                style={{backgroundColor: dark ? '#252C3C' : '#fff', margin: '16px 0', borderRadius: 10}}
-            >
-                <Row gutter={{md: 8, lg: 24, xl: 48}}>
+            <div style={{backgroundColor: dark ? '#252C3C' : '#fff', margin: '16px 0', borderRadius: 10}}>
                     {/*<Col md={8} sm={24}>*/}
                         {/*<span style={{ margin: '16px', display: 'block' }}>警情详情</span>*/}
                     {/*</Col>*/}
                     {isDb ? (
+                      <Row gutter={{md: 8, lg: 24, xl: 48}}>
                         <Col style={{minHeight:0}}>
                           <div>
                             {policeDetails && policeDetails.zt === '待督办' ? (
@@ -366,8 +364,9 @@ export default class unpoliceDetail extends PureComponent {
                               ) : null}
                           </div>
                         </Col>
+                      </Row>
                     ) : null}
-                </Row>
+
             </div>
         );
     }
@@ -442,7 +441,7 @@ export default class unpoliceDetail extends PureComponent {
         let dark = this.props.global && this.props.global.dark;
         return (
             <div
-                style={{background: dark ? '#252c3c' : '#fff', height: autoheight() - 260 + 'px',padding:'16px 0 0'}}
+                style={{background: dark ? '#252c3c' : '#fff', height: autoheight() - 260 + 'px'}}
                 className={styles.detailBoxScroll}
             >
                 <SupervisionLog
@@ -455,7 +454,7 @@ export default class unpoliceDetail extends PureComponent {
                     sureReform={this.sureReform}
                     frompath="/receivePolice/AlarmPolice/unpoliceDetail"
                 />
-                <div className={styles.title}>| 接警信息</div>
+                <div className={styles.title}><div style={{ borderLeft: dark ? '3px solid #fff' : '3px solid #3D63D1', paddingLeft: '16px' }}>接警信息</div></div>
                 <div className={styles.message}>
                     <Row gutter={rowLayout} className={styles.xqrow}>
                         <Col md={6} sm={24} className={styles.xqcol}>
@@ -510,7 +509,7 @@ export default class unpoliceDetail extends PureComponent {
                         </Col>
                     </Row>
                 </div>
-                <div className={styles.title}>| 处警信息</div>
+                <div className={styles.title}><div style={{ borderLeft: dark ? '3px solid #fff' : '3px solid #3D63D1', paddingLeft: '16px' }}>处警信息</div></div>
                 <div className={styles.message}>
                     <Row gutter={rowLayout} className={styles.xqrow}>
                         <Col md={6} sm={24} className={styles.xqcol}>
@@ -573,7 +572,7 @@ export default class unpoliceDetail extends PureComponent {
                     policeDetails.ajxz_mc ||
                     policeDetails.jyaq) ? (
                     <div>
-                        <div className={styles.title}>| 案件信息</div>
+                        <div className={styles.title}><div style={{ borderLeft: dark ? '3px solid #fff' : '3px solid #3D63D1', paddingLeft: '16px' }}>案件信息</div></div>
                         <div className={styles.message}>
                             <Row gutter={rowLayout} className={styles.xqrow}>
                                 <Col md={6} sm={24} className={styles.xqcol}>
@@ -621,7 +620,7 @@ export default class unpoliceDetail extends PureComponent {
                                 </Col>
                                 <Col md={6} sm={24} className={styles.xqcol}>
                                     <div className={liststyles.Indexfrom}>办案人：</div>
-                                    <div className={liststyles.Indextail} style={{paddingLeft: '70px'}}>
+                                    <div className={liststyles.Indextail} style={{paddingLeft: '45px'}}>
                                         {policeDetails && policeDetails.barxm ? policeDetails.barxm : ''}
                                     </div>
                                 </Col>
@@ -635,11 +634,11 @@ export default class unpoliceDetail extends PureComponent {
                             <Row gutter={rowLayout}  className={styles.xqrow}>
                                 <Col md={24} sm={24} className={styles.xqcol}>
                                     <div className={liststyles.Indexfrom}>简要案情：</div>
-                                    <DetailShow paddingLeft={70} word={policeDetails && policeDetails.jyaq ? policeDetails.jyaq : ''} {...this.props}/>
+                                    <DetailShow paddingLeft={58} word={policeDetails && policeDetails.jyaq ? policeDetails.jyaq : ''} {...this.props}/>
                                 </Col>
                             </Row>
                             {policeDetails.ajgjList && policeDetails.ajgjList.length > 0 ? (
-                                <Card title={'案件流程'} style={{marginTop: '12px'}} className={styles.ajlcCard}>
+                                <Card title={'案件流程'} style={{margin:'12px -12px 12px -12px'}} className={styles.ajlcCard}>
                                     <CaseModalStep {...this.props} caseDetails={policeDetails}/>
                                 </Card>
                             ) : null}

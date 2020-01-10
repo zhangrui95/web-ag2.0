@@ -1371,7 +1371,7 @@ export default class areaDetail extends PureComponent {
         className={styles.detailBoxScroll}
       >
         {areaDetails && areaDetails.ajxx ? (
-          <div style={{ textAlign: 'right', padding: '16px 32px' }}>
+          <div style={{ textAlign: 'right', padding: '16px 52px' }}>
             <Button
               // type="primary"
               onClick={() => this.openCaseDetail(areaDetails)}
@@ -1387,7 +1387,7 @@ export default class areaDetail extends PureComponent {
         ) : (
           ''
         )}
-        <div className={styles.title}>| 人员信息</div>
+        <div className={styles.title}><div style={{ borderLeft: dark ? '3px solid #fff' : '3px solid #3D63D1', paddingLeft: '16px' }}>人员信息</div></div>
         <div className={styles.message}>
           <Row>
             <Col md={3} sm={24}>
@@ -1583,7 +1583,7 @@ export default class areaDetail extends PureComponent {
         {areaDetails && areaDetails.rqxx && areaDetails.rqxx.length > 0 ? (
           <div>
             <div className={styles.title}>
-              | 入区详情
+              <div style={{ borderLeft: dark ? '3px solid #fff' : '3px solid #3D63D1', paddingLeft: '16px' }}>入区详情</div>
             </div>
             <div className={styles.message}>
               <Row style={{ marginBottom: 12 }}>
@@ -1701,7 +1701,7 @@ export default class areaDetail extends PureComponent {
         ) : (
           ''
         )}
-        <div className={styles.title}>| 随身物品信息</div>
+        <div className={styles.title}><div style={{ borderLeft: dark ? '3px solid #fff' : '3px solid #3D63D1', paddingLeft: '16px' }}>随身物品信息</div></div>
         <div className={styles.tablemessage} style={{ padding: '0 24px 24px' }}>
           <Table
             // size={'middle'}
@@ -1731,7 +1731,7 @@ export default class areaDetail extends PureComponent {
             }}
           />
         </div>
-        <div className={styles.title}>| 涉案物品信息</div>
+        <div className={styles.title}><div style={{ borderLeft: dark ? '3px solid #fff' : '3px solid #3D63D1', paddingLeft: '16px' }}>涉案物品信息</div></div>
         <div className={styles.tablemessage} style={{ padding: '0 24px 24px' }}>
           <Table
             // size={'middle'}

@@ -507,7 +507,6 @@ export default class caseDetail extends PureComponent {
         pagination={
           sawpList.length > 0
             ? {
-                size: 'small',
                 pageSize: 8,
                 showTotal: (total, range) => (
                   <div style={{ color: '#fff' }}>
@@ -752,7 +751,7 @@ export default class caseDetail extends PureComponent {
     let dark = this.props.global && this.props.global.dark;
     return (
       <div
-        style={{ background: dark ? '#252c3c' : '#fff', height: autoheight() - 260 + 'px',padding:'16px 0 0' }}
+        style={{ background: dark ? '#252c3c' : '#fff', height: autoheight() - 260 + 'px' }}
         className={styles.detailBoxScroll}
       >
         <SupervisionLog
@@ -765,7 +764,7 @@ export default class caseDetail extends PureComponent {
           rowLayout={rowLayout}
         />
 
-        <div className={styles.title}>| 警情信息</div>
+        <div className={styles.title}><div style={{ borderLeft: dark ? '3px solid #fff' : '3px solid #3D63D1', paddingLeft: '16px' }}>警情信息</div></div>
         <div className={styles.tablemessage}>
           <Table
             // size={'middle'}
@@ -795,8 +794,8 @@ export default class caseDetail extends PureComponent {
             }}
           />
         </div>
-        <div className={styles.title}>| 案件信息</div>
-        <div className={styles.message} style={{ padding: '0 70px 24px 70px' }}>
+        <div className={styles.title}><div style={{ borderLeft: dark ? '3px solid #fff' : '3px solid #3D63D1', paddingLeft: '16px' }}>案件信息</div></div>
+        <div className={styles.message} style={{ padding: '0 84px 24px' }}>
           <Row style={{ marginRight: 0 }} className={styles.xqrow}>
             <Col md={6} sm={24} className={styles.xqcol}>
               <div className={liststyles.Indexfrom}>案件编号：</div>
@@ -873,16 +872,16 @@ export default class caseDetail extends PureComponent {
 
         {caseDetails && caseDetails.ajzt ? (
           <div style={{ borderBottom: dark ? '1px solid #171925' : '1px solid #e6e6e6' }}>
-            <div className={styles.title}>| 案件轨迹</div>
+            <div className={styles.title}><div style={{ borderLeft: dark ? '3px solid #fff' : '3px solid #3D63D1', paddingLeft: '16px' }}>案件轨迹</div></div>
             <CaseModalTrail {...this.props} caseDetails={caseDetails} from="行政" />
           </div>
         ) : (
           ''
         )}
 
-        <div className={styles.title}>| 涉案物品</div>
+        <div className={styles.title}><div style={{ borderLeft: dark ? '3px solid #fff' : '3px solid #3D63D1', paddingLeft: '16px' }}>涉案物品</div></div>
         <div className={styles.tablemessage}>
-          <div style={{ padding: '24px' }}>
+          <div style={{ padding: '12px 84px 24px' }}>
             {this.sawpCol(caseDetails && caseDetails.sawpList ? caseDetails.sawpList : [])}
           </div>
         </div>
