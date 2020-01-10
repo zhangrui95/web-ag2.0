@@ -455,7 +455,7 @@ export default class areaDetail extends PureComponent {
       areaDetails = this.state.areaDetails;
     }
     return (
-      <div style={{ backgroundColor: dark ? '#252C3C' : '#fff', margin: '16px 0' }}>
+      <div style={{ backgroundColor: dark ? '#252C3C' : '#fff', margin: '16px 0',borderRadius:10 }}>
         <Row gutter={{ md: 8, lg: 24, xl: 48 }}>
           {/*<Col md={8} sm={24}>*/}
           {/*{isDb && areaDetails && areaDetails.zrdwList && areaDetails.zrdwList.length > 0 ? (*/}

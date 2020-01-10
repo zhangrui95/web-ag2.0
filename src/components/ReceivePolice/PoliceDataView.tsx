@@ -102,6 +102,21 @@ export default class PoliceDataView extends PureComponent {
             this.showPoliceThreePie2(nextProps);
             // this.changeCountButtonCurrent(this.state.type);
         }
+        let currentType = '';
+        if(this.props.searchType !== nextProps.searchType){
+            if (nextProps.searchType === 'day') {
+                currentType='today';
+            }else if (nextProps.searchType === 'week') {
+                currentType='week';
+            }else if (nextProps.searchType === 'month') {
+                currentType='month';
+            }else if (nextProps.searchType === 'selectedDate') {
+                currentType='selectedDate';
+            }
+            this.setState({
+                currentType,
+            });
+        }
       if (
         this.props.searchType !== nextProps.searchType ||
         this.props.jjdw !== nextProps.jjdw ||
@@ -109,12 +124,10 @@ export default class PoliceDataView extends PureComponent {
         this.props.selectedDateVal !== nextProps.selectedDateVal||
         this.props.global.dark !== nextProps.global.dark
       ) {
+        currentType = currentType ? currentType : this.state.currentType;
         if (nextProps.searchType === 'day') {
-          this.setState({
-            currentType: 'today',
-          });
           this.getViewCountData('day', nextProps.jjdw, nextProps.cjdw);
-          const dayTypeTime = this.getTime('today');
+          const dayTypeTime = this.getTime(currentType);
           this.getPoliceSituationCount(
             dayTypeTime[0],
             dayTypeTime[1],
@@ -136,11 +149,8 @@ export default class PoliceDataView extends PureComponent {
           );
           this.getHandlePoliceSituation('today', nextProps.jjdw, nextProps.cjdw);
         } else if (nextProps.searchType === 'week') {
-          this.setState({
-            currentType: 'week',
-          });
           this.getViewCountData('week', nextProps.jjdw, nextProps.cjdw);
-          const weekTypeTime = this.getTime('week');
+          const weekTypeTime = this.getTime(currentType);
           this.getPoliceSituationCount(
             weekTypeTime[0],
             weekTypeTime[1],
@@ -162,11 +172,8 @@ export default class PoliceDataView extends PureComponent {
           );
           this.getHandlePoliceSituation('week', nextProps.jjdw, nextProps.cjdw);
         } else if (nextProps.searchType === 'month') {
-          this.setState({
-            currentType: 'month',
-          });
           this.getViewCountData('month', nextProps.jjdw, nextProps.cjdw);
-          const monthTypeTime = this.getTime('month');
+          const monthTypeTime = this.getTime(currentType);
           this.getPoliceSituationCount(
             monthTypeTime[0],
             monthTypeTime[1],
@@ -188,45 +195,38 @@ export default class PoliceDataView extends PureComponent {
           );
           this.getHandlePoliceSituation('month', nextProps.jjdw, nextProps.cjdw);
         } else if (nextProps.searchType === 'selectedDate') {
-          this.setState(
-            {
-              currentType: 'selectedDate',
-            },
-            function() {
-              const { selectedDateVal } = nextProps;
-              this.getPoliceSituationCount(
+            const { selectedDateVal } = nextProps;
+            this.getPoliceSituationCount(
                 selectedDateVal[0],
                 selectedDateVal[1],
                 nextProps.jjdw,
                 nextProps.cjdw,
-              );
-              this.getHandleResult(
+            );
+            this.getHandleResult(
                 selectedDateVal[0],
                 selectedDateVal[1],
                 nextProps.jjdw,
                 nextProps.cjdw,
-              );
-              this.getHandlePoliceSituationHadResult(
+            );
+            this.getHandlePoliceSituationHadResult(
                 selectedDateVal[0],
                 selectedDateVal[1],
                 nextProps.jjdw,
                 nextProps.cjdw,
-              );
-              this.getAcceptPoliceSituation(
+            );
+            this.getAcceptPoliceSituation(
                 selectedDateVal[0],
                 selectedDateVal[1],
                 nextProps.jjdw,
                 nextProps.cjdw,
-              );
-              this.getHandlePoliceSituation(
+            );
+            this.getHandlePoliceSituation(
                 'selectedDate',
                 nextProps.jjdw,
                 nextProps.cjdw,
                 selectedDateVal[0],
                 selectedDateVal[1],
-              );
-            },
-          );
+            );
         }
       }
     }
@@ -365,9 +365,11 @@ export default class PoliceDataView extends PureComponent {
                 series: [
                   {
                     data: dataShadow,
+                      barWidth: 10,
                   },
                   {
                     data: barData,
+                      barWidth: 10,
                   },
                 ],
               });
@@ -576,12 +578,24 @@ export default class PoliceDataView extends PureComponent {
                 return formatStr;
               },
             },
+              title:[{
+                  text:`${countData}`,
+                  textStyle: {
+                      fontSize: 22,
+                      fontWeight: 'normal',
+                      color: this.props.global && this.props.global.dark ? '#fff' : '#4d4d4d'
+                  },
+                  x: '29.2%',
+                  y: '45%',
+                  padding: 7,
+                  textAlign: 'center',
+              }],
             series: [
               {
                 data: pieData,
                 label: {
                   normal: {
-                    formatter: `${countData}`,
+                    formatter: ``,
                   },
                 },
               },
@@ -720,7 +734,7 @@ export default class PoliceDataView extends PureComponent {
                 data: pieData,
                 label: {
                   normal: {
-                    formatter: '警情总数\n\n' + countData,
+                    formatter: '{c}',
                   },
                 },
               },
@@ -779,7 +793,7 @@ export default class PoliceDataView extends PureComponent {
                 data: pieData,
                 label: {
                   normal: {
-                    formatter: '警情总数\n\n' + countData,
+                    formatter: '{c}',
                   },
                 },
               },
@@ -882,18 +896,10 @@ export default class PoliceDataView extends PureComponent {
           },
           itemStyle: {
             normal: {
-              color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
-                { offset: 0, color: '#83bff6' },
-                { offset: 0.5, color: '#188df0' },
-                { offset: 1, color: '#188df0' },
-              ]),
+              color: ['#1EB8CE'],
             },
             emphasis: {
-              color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
-                { offset: 0, color: '#2378f7' },
-                { offset: 0.7, color: '#2378f7' },
-                { offset: 1, color: '#83bff6' },
-              ]),
+              color: ['#1EB8CE'],
             },
           },
         },
@@ -925,8 +931,8 @@ export default class PoliceDataView extends PureComponent {
       },
       legend: {
         orient: 'vertical',
-        right: '8%',
-        top: '15%',
+        right: '5%',
+        top: '14%',
         show: true,
         itemWidth: 10,
         itemHeight: 10,
@@ -1055,6 +1061,18 @@ export default class PoliceDataView extends PureComponent {
         //   },
         //   padding: 7,
         // },
+      {
+          text: '警情总数',
+          textStyle: {
+              fontSize: 16,
+              fontWeight: 'normal',
+              color: nextProps.global && nextProps.global.dark ? '#fff' : '#4d4d4d',
+          },
+          x: '50.1%',
+          y: '85%',
+          padding: [7, 0],
+          textAlign: 'center',
+      },
         {
           text: window.configUrl.is_area === '2' ? '分流' : '处警',
           textStyle: {
@@ -1089,15 +1107,15 @@ export default class PoliceDataView extends PureComponent {
           name: '处警情况',
           type: 'pie',
           center: ['50%', '50%'],
-          radius: ['60%', '70%'],
+          radius: ['52%', '62%'],
           avoidLabelOverlap: false,
           label: {
             normal: {
               show: true,
               position: 'center',
               textStyle: {
-                fontSize: '22',
-                color: nextProps.global && nextProps.global.dark ? '#fff' : '#4d4d4d',
+                  fontSize: '28',
+                  color: '#1EB8CE',
               },
             },
             emphasis: {
@@ -1123,8 +1141,8 @@ export default class PoliceDataView extends PureComponent {
               position: 'center',
               formatter: '{c}',
               textStyle: {
-                fontSize: '22',
-                color: nextProps.global && nextProps.global.dark ? '#fff' : '#4d4d4d',
+                fontSize: '26',
+                color: '#1ECE79',
               },
             },
             emphasis: {
@@ -1150,8 +1168,8 @@ export default class PoliceDataView extends PureComponent {
               position: 'center',
               formatter: '{c}',
               textStyle: {
-                fontSize: '22',
-                color: nextProps.global && nextProps.global.dark ? '#fff' : '#4d4d4d',
+                  fontSize: '26',
+                  color: '#1E50CE',
               },
             },
             emphasis: {
@@ -1209,6 +1227,18 @@ export default class PoliceDataView extends PureComponent {
           padding: [7, 0],
           textAlign: 'center',
         },
+          {
+              text: '警情总数',
+              textStyle: {
+                  fontSize: 16,
+                  fontWeight: 'normal',
+                  color: nextProps.global && nextProps.global.dark ? '#fff' : '#4d4d4d',
+              },
+              x: '50.1%',
+              y: '85%',
+              padding: [7, 0],
+              textAlign: 'center',
+          },
         {
           text: '未受案',
           textStyle: {
@@ -1231,15 +1261,15 @@ export default class PoliceDataView extends PureComponent {
           name: '受案情况',
           type: 'pie',
           center: ['50%', '50%'],
-          radius: ['60%', '70%'],
+          radius: ['52%', '62%'],
           avoidLabelOverlap: false,
           label: {
             normal: {
               show: true,
               position: 'center',
               textStyle: {
-                fontSize: '22',
-                color: nextProps.global && nextProps.global.dark ? '#fff' : '#4d4d4d',
+                  fontSize: '28',
+                  color: '#1EB8CE',
               },
             },
             emphasis: {
@@ -1265,8 +1295,8 @@ export default class PoliceDataView extends PureComponent {
               position: 'center',
               formatter: '{c}',
               textStyle: {
-                fontSize: '22',
-                color: nextProps.global && nextProps.global.dark ? '#fff' : '#4d4d4d',
+                  fontSize: '26',
+                  color: '#1ECE79',
               },
             },
             emphasis: {
@@ -1292,8 +1322,8 @@ export default class PoliceDataView extends PureComponent {
               position: 'center',
               formatter: '{c}',
               textStyle: {
-                fontSize: '22',
-                color: nextProps.global && nextProps.global.dark ? '#fff' : '#4d4d4d',
+                  fontSize: '26',
+                  color: '#1E50CE',
               },
             },
             emphasis: {

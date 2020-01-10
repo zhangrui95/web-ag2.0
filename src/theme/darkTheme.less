@@ -157,8 +157,14 @@ body {
     .ant-calendar-disabled-cell .ant-calendar-date {
       background-color: @component-background;
       color: @text-word-color;
+      border: 0!important;
+      &:hover{
+        border: 0!important;
+      }
     }
-
+    .ant-calendar-time .ant-calendar-footer .ant-calendar-time-picker-btn-disabled{
+      color: rgba(255,255,255,0.45)!important;
+    }
     .ant-calendar-range .ant-calendar-in-range-cell::before {
       background-color: @component-background;
     }

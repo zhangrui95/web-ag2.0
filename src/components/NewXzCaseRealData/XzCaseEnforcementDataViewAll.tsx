@@ -81,54 +81,55 @@ export default class XzCaseEnforcementDataView extends PureComponent {
                 this.showCaseTypeStatisticsBar(nextProps);
                 // this.changeCountButtonCurrent(this.state.type);
             }
+            let currentType = '';
+            if(this.props.searchType !== nextProps.searchType){
+                if (nextProps.searchType === 'week') {
+                    currentType='week';
+                }else if (nextProps.searchType === 'month') {
+                    currentType='month';
+                }else if (nextProps.searchType === 'selectedDate') {
+                    currentType='selectedDate';
+                }
+                this.setState({
+                    currentType,
+                });
+            }
             if (
                 this.props.searchType !== nextProps.searchType ||
                 this.props.orgcode !== nextProps.orgcode ||
                 this.props.selectedDateVal !== nextProps.selectedDateVal ||
                 this.props.global.dark !== nextProps.global.dark
             ) {
+                currentType = currentType ? currentType : this.state.currentType;
                 if (nextProps.searchType === 'week') {
-                    this.setState({
-                        currentType: 'week',
-                    });
                     this.getViewCountData('week', nextProps.orgcode);
-                    const weekTypeTime = this.getTime('week');
+                    const weekTypeTime = this.getTime(currentType);
                     this.getAllXzCaseProgress(weekTypeTime[0], weekTypeTime[1], nextProps.orgcode);
                     this.getAdministrativePenalty(weekTypeTime[0], weekTypeTime[1], nextProps.orgcode);
                     this.getAllXzTypeCase('week', nextProps.orgcode);
                     this.getCaseTypeStatistics(weekTypeTime[0], weekTypeTime[1], nextProps.orgcode);
                 } else if (nextProps.searchType === 'month') {
-                    this.setState({
-                        currentType: 'month',
-                    });
                     this.getViewCountData('month', nextProps.orgcode);
-                    const monthTypeTime = this.getTime('month');
+                    const monthTypeTime = this.getTime(currentType);
                     this.getAllXzCaseProgress(monthTypeTime[0], monthTypeTime[1], nextProps.orgcode);
                     this.getAdministrativePenalty(monthTypeTime[0], monthTypeTime[1], nextProps.orgcode);
                     this.getAllXzTypeCase('month', nextProps.orgcode);
                     this.getCaseTypeStatistics(monthTypeTime[0], monthTypeTime[1], nextProps.orgcode);
                 } else if (nextProps.searchType === 'selectedDate') {
                     const {selectedDateVal} = nextProps;
-                    this.setState(
-                        {
-                            currentType: 'selectedDate',
-                        },
-                        function () {
-                            this.getAllXzCaseProgress(selectedDateVal[0], selectedDateVal[1], nextProps.orgcode);
-                            this.getAdministrativePenalty(
-                                selectedDateVal[0],
-                                selectedDateVal[1],
-                                nextProps.orgcode,
-                            );
-                            this.getAllXzTypeCase(
-                                'selectedDate',
-                                nextProps.orgcode,
-                                selectedDateVal[0],
-                                selectedDateVal[1],
-                            );
-                            this.getCaseTypeStatistics(selectedDateVal[0], selectedDateVal[1], nextProps.orgcode);
-                        },
+                    this.getAllXzCaseProgress(selectedDateVal[0], selectedDateVal[1], nextProps.orgcode);
+                    this.getAdministrativePenalty(
+                        selectedDateVal[0],
+                        selectedDateVal[1],
+                        nextProps.orgcode,
                     );
+                    this.getAllXzTypeCase(
+                        'selectedDate',
+                        nextProps.orgcode,
+                        selectedDateVal[0],
+                        selectedDateVal[1],
+                    );
+                    this.getCaseTypeStatistics(selectedDateVal[0], selectedDateVal[1], nextProps.orgcode);
                 }
             }
         }
@@ -235,12 +236,24 @@ export default class XzCaseEnforcementDataView extends PureComponent {
                                     return formatStr;
                                 },
                             },
+                            title:[{
+                                text:'案件总数\n\n' + countData,
+                                textStyle: {
+                                    fontSize: 22,
+                                    fontWeight: 'normal',
+                                    color: this.props.global && this.props.global.dark ? '#fff' : '#4d4d4d'
+                                },
+                                x: '48%',
+                                y: '45%',
+                                padding: 7,
+                                textAlign: 'center',
+                            }],
                             series: [
                                 {
                                     data: pieData,
                                     label: {
                                         normal: {
-                                            formatter: '案件总数\n\n' + countData,
+                                            formatter: ``,
                                         },
                                     },
                                 },
