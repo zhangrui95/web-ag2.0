@@ -138,7 +138,10 @@ export default class areaDetail extends PureComponent {
   }
 
   componentWillReceiveProps(nextProps) {
-      if (this.props.global.isResetList.isReset !== nextProps.global.isResetList.isReset && nextProps.global.isResetList.url === '/receivePolice/AlarmData/policeDetail') {
+    if (
+      this.props.global.isResetList.isReset !== nextProps.global.isResetList.isReset &&
+      nextProps.global.isResetList.url === '/receivePolice/AlarmData/policeDetail'
+    ) {
       this.getDetail(this.props.location.query.id);
     }
   }
@@ -354,7 +357,7 @@ export default class areaDetail extends PureComponent {
             ajbh: res.ajbh,
             system_id: areaDetails.system_id,
             ajGzLx: ajGzLx,
-              is_fxgz:'0',
+            is_fxgz: '0',
           },
           callback: res => {
             if (!res.error) {
@@ -455,7 +458,9 @@ export default class areaDetail extends PureComponent {
       areaDetails = this.state.areaDetails;
     }
     return (
-      <div style={{ backgroundColor: dark ? '#252C3C' : '#fff', margin: '16px 0',borderRadius:10 }}>
+      <div
+        style={{ backgroundColor: dark ? '#252C3C' : '#fff', margin: '16px 0', borderRadius: 10 }}
+      >
         <Row gutter={{ md: 8, lg: 24, xl: 48 }}>
           {/*<Col md={8} sm={24}>*/}
           {/*{isDb && areaDetails && areaDetails.zrdwList && areaDetails.zrdwList.length > 0 ? (*/}
@@ -471,12 +476,16 @@ export default class areaDetail extends PureComponent {
           {/*''*/}
           {/*)}*/}
           {/*</Col>*/}
-          <Col style={{minHeight:0}}>
+          <Col style={{ minHeight: 0 }}>
             <span>
               {areaDetails ? (
                 <span>
                   <div className={styles.objMenu}>
-                    <Button type='primary' className={styles.TopMenu} onClick={() => this.Ledger(areaDetails)}>
+                    <Button
+                      type="primary"
+                      className={styles.TopMenu}
+                      onClick={() => this.Ledger(areaDetails)}
+                    >
                       台账
                     </Button>
                   </div>
@@ -486,7 +495,7 @@ export default class areaDetail extends PureComponent {
                   areaDetails.zrdwList.length > 0 ? (
                     <div className={styles.objMenu}>
                       <Button
-                        type='primary'
+                        type="primary"
                         className={styles.TopMenu}
                         onClick={() => this.onceSupervise(areaDetails, true, '办案区详情问题判定')}
                       >
@@ -1370,24 +1379,36 @@ export default class areaDetail extends PureComponent {
         style={{ background: dark ? '#252c3c' : '#fff', height: autoheight() - 260 + 'px' }}
         className={styles.detailBoxScroll}
       >
-        {areaDetails && areaDetails.ajxx ? (
-          <div style={{ textAlign: 'right', padding: '16px 52px' }}>
-            <Button
-              // type="primary"
-              onClick={() => this.openCaseDetail(areaDetails)}
-              style={{
-                background: dark
-                  ? 'linear-gradient(to right, #0084FA, #03A3FF)'
-                  : 'linear-gradient(to right, #3D63D1, #333FE4)',
-              }}
-            >
-              查看当前涉案信息
-            </Button>
+        <div style={{ paddingRight: 84, height: 'auto' }}>
+          {areaDetails && areaDetails.ajxx ? (
+            <div style={{ float: 'right', padding: '16px' }}>
+              <Button
+                // type="primary"
+                onClick={() => this.openCaseDetail(areaDetails)}
+                style={{
+                  background: dark
+                    ? 'linear-gradient(to right, #0084FA, #03A3FF)'
+                    : 'linear-gradient(to right, #3D63D1, #333FE4)',
+                }}
+              >
+                查看当前涉案信息
+              </Button>
+            </div>
+          ) : (
+            ''
+          )}
+          <div style={{ content: '', clear: 'both', display: 'block' }} />
+        </div>
+        <div className={styles.title}>
+          <div
+            style={{
+              borderLeft: dark ? '3px solid #fff' : '3px solid #3D63D1',
+              paddingLeft: '16px',
+            }}
+          >
+            人员信息
           </div>
-        ) : (
-          ''
-        )}
-        <div className={styles.title}><div style={{ borderLeft: dark ? '3px solid #fff' : '3px solid #3D63D1', paddingLeft: '16px' }}>人员信息</div></div>
+        </div>
         <div className={styles.message}>
           <Row>
             <Col md={3} sm={24}>
@@ -1583,7 +1604,14 @@ export default class areaDetail extends PureComponent {
         {areaDetails && areaDetails.rqxx && areaDetails.rqxx.length > 0 ? (
           <div>
             <div className={styles.title}>
-              <div style={{ borderLeft: dark ? '3px solid #fff' : '3px solid #3D63D1', paddingLeft: '16px' }}>入区详情</div>
+              <div
+                style={{
+                  borderLeft: dark ? '3px solid #fff' : '3px solid #3D63D1',
+                  paddingLeft: '16px',
+                }}
+              >
+                入区详情
+              </div>
             </div>
             <div className={styles.message}>
               <Row style={{ marginBottom: 12 }}>
@@ -1701,7 +1729,16 @@ export default class areaDetail extends PureComponent {
         ) : (
           ''
         )}
-        <div className={styles.title}><div style={{ borderLeft: dark ? '3px solid #fff' : '3px solid #3D63D1', paddingLeft: '16px' }}>随身物品信息</div></div>
+        <div className={styles.title}>
+          <div
+            style={{
+              borderLeft: dark ? '3px solid #fff' : '3px solid #3D63D1',
+              paddingLeft: '16px',
+            }}
+          >
+            随身物品信息
+          </div>
+        </div>
         <div className={styles.tablemessage} style={{ padding: '0 24px 24px' }}>
           <Table
             // size={'middle'}
@@ -1711,7 +1748,7 @@ export default class areaDetail extends PureComponent {
             pagination={{
               pageSize: 3,
               showTotal: (total, range) => (
-                <div style={{color: '#b7b7b7'}}>
+                <div style={{ color: '#b7b7b7' }}>
                   共 {Math.ceil(total / 3)} 页，{total} 条记录
                 </div>
               ),
@@ -1731,7 +1768,16 @@ export default class areaDetail extends PureComponent {
             }}
           />
         </div>
-        <div className={styles.title}><div style={{ borderLeft: dark ? '3px solid #fff' : '3px solid #3D63D1', paddingLeft: '16px' }}>涉案物品信息</div></div>
+        <div className={styles.title}>
+          <div
+            style={{
+              borderLeft: dark ? '3px solid #fff' : '3px solid #3D63D1',
+              paddingLeft: '16px',
+            }}
+          >
+            涉案物品信息
+          </div>
+        </div>
         <div className={styles.tablemessage} style={{ padding: '0 24px 24px' }}>
           <Table
             // size={'middle'}
@@ -1741,7 +1787,7 @@ export default class areaDetail extends PureComponent {
             pagination={{
               pageSize: 3,
               showTotal: (total, range) => (
-                <div style={{color: '#b7b7b7'}}>
+                <div style={{ color: '#b7b7b7' }}>
                   共 {Math.ceil(total / 3)} 页， {total} 条记录
                 </div>
               ),

@@ -95,8 +95,13 @@ export default class itemDetail extends PureComponent {
   componentDidMount() {
     const { location } = this.props;
     // conosle.log('location',location);
-    if (location && location.query && location.query.record && (location.query.system_id||location.query.id)) {
-      this.itemDetailDatas(location.query.system_id||location.query.id);
+    if (
+      location &&
+      location.query &&
+      location.query.record &&
+      (location.query.system_id || location.query.id)
+    ) {
+      this.itemDetailDatas(location.query.system_id || location.query.id);
     }
   }
 
@@ -147,7 +152,7 @@ export default class itemDetail extends PureComponent {
   // 修改改变模态框状态 通过id 获取数据
   itemDetailDatas = id => {
     this.setState(
-{
+      {
         IsSure: false,
       },
       () => {
@@ -341,7 +346,7 @@ export default class itemDetail extends PureComponent {
             ajbh: res.ajbh,
             system_id: itemDetails.system_id,
             ajGzLx: ajGzLx,
-              is_fxgz:'0',
+            is_fxgz: '0',
           },
           callback: res => {
             if (!res.error) {
@@ -393,7 +398,7 @@ export default class itemDetail extends PureComponent {
             //   },
             // );
           }
-  },
+        },
       });
     } else {
       message.warning('您的操作太频繁，请稍后再试');
@@ -426,15 +431,17 @@ export default class itemDetail extends PureComponent {
       itemDetails = this.state.itemDetails;
     }
     return (
-      <div style={{ backgroundColor: dark ? '#252C3C' : '#fff', margin: '16px 0',borderRadius:10 }}>
-        {itemDetails?
+      <div
+        style={{ backgroundColor: dark ? '#252C3C' : '#fff', margin: '16px 0', borderRadius: 10 }}
+      >
+        {itemDetails ? (
           <Row gutter={{ md: 8, lg: 24, xl: 48 }}>
-            <Col md={8} sm={24} style={{minHeight:0}}>
+            <Col md={8} sm={24} style={{ minHeight: 0 }}>
               {/*<span style={{ margin: '16px', display: 'block' }}>涉案物品详情</span>*/}
               {isDb && itemDetails && itemDetails.zrdwList && itemDetails.zrdwList.length > 0 ? (
                 <Button
                   type="primary"
-                  style={{margin:'12px 0 12px 16px'}}
+                  style={{ margin: '12px 0 12px 16px' }}
                   className={styles.TopMenu}
                   onClick={() => this.onceSupervise(itemDetails, true, '涉案物品详情问题判定')}
                 >
@@ -444,53 +451,56 @@ export default class itemDetail extends PureComponent {
                 ''
               )}
             </Col>
-            <Col style={{minHeight:0}}>
-            <span style={{ float: 'right',margin: '6px 16px 6px 0' }}>
-              <span>
-                <span className={liststyles.collect}>
-                  {handleWpSfgz === 0 ? (
-                    <Tooltip title="关注" onClick={() => this.saveShare(itemDetails, record, 1, 0)}>
+            <Col style={{ minHeight: 0 }}>
+              <span style={{ float: 'right', margin: '6px 16px 6px 0' }}>
+                <span>
+                  <span className={liststyles.collect}>
+                    {handleWpSfgz === 0 ? (
+                      <Tooltip
+                        title="关注"
+                        onClick={() => this.saveShare(itemDetails, record, 1, 0)}
+                      >
+                        <img
+                          src={dark ? nocollect : nocollect1}
+                          width={25}
+                          height={25}
+                          style={{ marginLeft: 12 }}
+                        />
+                        <div style={{ fontSize: 12, textAlign: 'center', width: 48 }}>关注</div>
+                      </Tooltip>
+                    ) : (
+                      <Tooltip title="取消关注" onClick={() => this.noFollow(itemDetails)}>
+                        <img
+                          src={dark ? collect : collect1}
+                          width={25}
+                          height={25}
+                          style={{ marginLeft: 12 }}
+                        />
+                        <div style={{ fontSize: 12, textAlign: 'center', width: 48 }}>取消关注</div>
+                      </Tooltip>
+                    )}
+                  </span>
+                  <span
+                    className={liststyles.collect}
+                    onClick={() => this.saveShare(itemDetails, record, 2)}
+                  >
+                    <Tooltip title="分享">
                       <img
-                        src={dark ? nocollect : nocollect1}
+                        src={dark ? share : share1}
+                        style={{ marginLeft: 12 }}
                         width={25}
                         height={25}
-                        style={{ marginLeft: 12 }}
                       />
-                      <div style={{ fontSize: 12, textAlign: 'center', width: 48 }}>关注</div>
                     </Tooltip>
-                  ) : (
-                    <Tooltip title="取消关注"  onClick={() => this.noFollow(itemDetails)}>
-                      <img
-                        src={dark ? collect : collect1}
-                        width={25}
-                        height={25}
-                        style={{ marginLeft: 12 }}
-                      />
-                      <div style={{ fontSize: 12, textAlign: 'center', width: 48 }}>取消关注</div>
-                    </Tooltip>
-                  )}
-                </span>
-                <span
-                  className={liststyles.collect}
-                  onClick={() => this.saveShare(itemDetails, record, 2)}
-                >
-                  <Tooltip title="分享">
-                    <img
-                      src={dark ? share : share1}
-                      style={{ marginLeft: 12 }}
-                      width={25}
-                      height={25}
-                    />
-                  </Tooltip>
-                  <div style={{ fontSize: 12, textAlign: 'center', width: 48 }}>分享</div>
+                    <div style={{ fontSize: 12, textAlign: 'center', width: 48 }}>分享</div>
+                  </span>
                 </span>
               </span>
-            </span>
             </Col>
           </Row>
-          :''
-        }
-
+        ) : (
+          ''
+        )}
       </div>
     );
   }
@@ -504,26 +514,36 @@ export default class itemDetail extends PureComponent {
         style={{ background: dark ? '#252c3c' : '#fff', height: autoheight() - 260 + 'px' }}
         className={styles.detailBoxScroll}
       >
-        {itemDetails && itemDetails.system_id && itemDetails.ajlx ? (
-          <div style={{ textAlign: 'right', padding: '16px 52px' }}>
-            <Button
-              type="primary"
-              onClick={() => this.openCaseDetail(itemDetails)}
-              style={{
-                background: dark
-                  ? 'linear-gradient(to right, #0084FA, #03A3FF)'
-                  : 'linear-gradient(to right, #3D63D1, #333FE4)',
-              }}
-            >
-              查看关联案件
-            </Button>
-          </div>
-        ) : (
-          ''
-        )}
+        <div style={{ paddingRight: 84, height: 'auto' }}>
+          {itemDetails && itemDetails.system_id && itemDetails.ajlx ? (
+            <div style={{ float: 'right', padding: '16px' }}>
+              <Button
+                type="primary"
+                onClick={() => this.openCaseDetail(itemDetails)}
+                style={{
+                  background: dark
+                    ? 'linear-gradient(to right, #0084FA, #03A3FF)'
+                    : 'linear-gradient(to right, #3D63D1, #333FE4)',
+                }}
+              >
+                查看关联案件
+              </Button>
+            </div>
+          ) : (
+            ''
+          )}
+          <div style={{ content: '', clear: 'both', display: 'block' }} />
+        </div>
         <Card
-          title={<div style={{ borderLeft: dark ? '3px solid #fff' : '3px solid #3D63D1', paddingLeft: 16 }}>物品信息</div>}
-          className={styles.wpxxcard} bordered={false}
+          title={
+            <div
+              style={{ borderLeft: dark ? '3px solid #fff' : '3px solid #3D63D1', paddingLeft: 16 }}
+            >
+              物品信息
+            </div>
+          }
+          className={styles.wpxxcard}
+          bordered={false}
         >
           <Row gutter={rowLayout} style={{ marginLeft: 0, marginRight: 0 }}>
             <Col md={6} sm={24}>
@@ -688,11 +708,24 @@ export default class itemDetail extends PureComponent {
           </Row>
         </Card>
         {itemDetails && itemDetails.wpgjList && itemDetails.wpgjList.length > 0 ? (
-          window.configUrl.is_area === '5'||window.configUrl.is_area === '2' ? (
+          window.configUrl.is_area === '5' || window.configUrl.is_area === '2' ? (
             <div>
-              <Card title={<div style={{ borderLeft: dark ? '3px solid #fff' : '3px solid #3D63D1', paddingLeft: 16 }}>物品轨迹</div>}  className={liststyles.card} bordered={false}>
+              <Card
+                title={
+                  <div
+                    style={{
+                      borderLeft: dark ? '3px solid #fff' : '3px solid #3D63D1',
+                      paddingLeft: 16,
+                    }}
+                  >
+                    物品轨迹
+                  </div>
+                }
+                className={liststyles.card}
+                bordered={false}
+              >
                 {itemDetails.wpgjList.map(wpgj => (
-                  <Row gutter={8} style={{ marginBottom: '24px',marginLeft:'-16px' }}>
+                  <Row gutter={8} style={{ marginBottom: '24px', marginLeft: '-16px' }}>
                     <Col md={4} sm={24}>
                       <div className={styles.break}>物品状态：{wpgj.wpzt}</div>
                     </Col>
@@ -714,9 +747,22 @@ export default class itemDetail extends PureComponent {
             </div>
           ) : (
             <div>
-              <Card title={<div style={{ borderLeft: dark ? '3px solid #fff' : '3px solid #3D63D1', paddingLeft: 16 }}>物品轨迹</div>} className={liststyles.card} bordered={false}>
+              <Card
+                title={
+                  <div
+                    style={{
+                      borderLeft: dark ? '3px solid #fff' : '3px solid #3D63D1',
+                      paddingLeft: 16,
+                    }}
+                  >
+                    物品轨迹
+                  </div>
+                }
+                className={liststyles.card}
+                bordered={false}
+              >
                 {itemDetails.wpgjList.map(wpgj => (
-                  <Row gutter={8} style={{ marginBottom: '24px',marginLeft:'-16px' }}>
+                  <Row gutter={8} style={{ marginBottom: '24px', marginLeft: '-16px' }}>
                     <Col md={4} sm={24} style={{ paddingLeft: 36 }}>
                       <div className={styles.break}>{wpgj.wpzt}</div>
                     </Col>
@@ -843,5 +889,5 @@ export default class itemDetail extends PureComponent {
         {/*tzlx={this.state.tzlx} sx={this.state.sx}/>*/}
       </div>
     );
-}
+  }
 }

@@ -59,9 +59,9 @@ import CaseModalStep from '../../../components/Common/CaseModalStep';
 // import RetrieveModal from '../../components/ShareModal/RetrieveModal';
 import { authorityIsTrue } from '../../../utils/authority';
 import { routerRedux } from 'dva/router';
-import DetailShow from "@/components/Common/detailShow";
+import DetailShow from '@/components/Common/detailShow';
 // import MakeTableModal from '../../../components/CaseRealData/MakeTableModal';
-import {tableList} from "@/utils/utils";
+import { tableList } from '@/utils/utils';
 
 @connect(({ CaseData, loading, MySuperviseData, AllDetail, global }) => ({
   CaseData,
@@ -107,7 +107,7 @@ export default class caseDetail extends PureComponent {
       shareVisible: false,
       shareItem: null,
       personList: [],
-      tzlx:'xsajxx3',
+      tzlx: 'xsajxx3',
       lx: '案件信息',
       sx: '',
       sfgz: res && res.sfgz && res.sfgz === 0 ? res.sfgz : '',
@@ -130,15 +130,18 @@ export default class caseDetail extends PureComponent {
     if (
       this.props.location &&
       this.props.location.query &&
-      this.props.location.query.record && this.props.location.query.from !== '首页'&&
+      this.props.location.query.record &&
+      this.props.location.query.from !== '首页' &&
       (this.props.location.query.record.system_id || this.props.location.query.id)
     ) {
       this.caseDetailDatas(this.props.location.query.id);
-    }
-    else if( this.props.location &&
+    } else if (
+      this.props.location &&
       this.props.location.query &&
-      this.props.location.query.record && this.props.location.query.from === '首页'&&
-      (this.props.location.query.record.system_id || this.props.location.query.id)){
+      this.props.location.query.record &&
+      this.props.location.query.from === '首页' &&
+      (this.props.location.query.record.system_id || this.props.location.query.id)
+    ) {
       this.caseDetailDatas(this.props.location.query.system_id);
     }
   }
@@ -152,7 +155,10 @@ export default class caseDetail extends PureComponent {
     //   }
     // }
 
-    if (this.props.global.isResetList.isReset !== nextProps.global.isResetList.isReset && nextProps.global.isResetList.url === '/newcaseFiling/caseData/CriminalData/caseDetail') {
+    if (
+      this.props.global.isResetList.isReset !== nextProps.global.isResetList.isReset &&
+      nextProps.global.isResetList.url === '/newcaseFiling/caseData/CriminalData/caseDetail'
+    ) {
       this.caseDetailDatas(this.props.location.query.id);
     }
   }
@@ -229,8 +235,8 @@ export default class caseDetail extends PureComponent {
     });
     this.caseDetailDatas(this.props.id);
   };
-  refreshTable = (param) => {
-    if(param.movefrom === '刑事案件常规'){
+  refreshTable = param => {
+    if (param.movefrom === '刑事案件常规') {
       this.props.dispatch({
         type: 'CaseData/caseFetch',
         payload: {
@@ -239,16 +245,15 @@ export default class caseDetail extends PureComponent {
           pd: {},
         },
       });
-    }
-    else if(param.movefrom === '刑事案件预警'){
+    } else if (param.movefrom === '刑事案件预警') {
       this.props.dispatch({
         type: 'EarlyWarning/getList',
         payload: {
-          pd: { yj_type: 'xsaj' }
+          pd: { yj_type: 'xsaj' },
         },
       });
     }
-  }
+  };
   // 分享和关注（2为分享，1为关注）
   saveShare = (caseDetails, res, type, ajGzLx) => {
     this.setState({
@@ -290,14 +295,15 @@ export default class caseDetail extends PureComponent {
             lx: this.state.lx,
             sx: (res && res.ajmc ? res.ajmc + '、' : '') + (res && res.schj ? res.schj : ''),
             type: type,
-            tzlx: this.props.location && this.props.location.query && this.props.location.query.tzlx
-              ? this.props.location.query.tzlx
-              : '',
+            tzlx:
+              this.props.location && this.props.location.query && this.props.location.query.tzlx
+                ? this.props.location.query.tzlx
+                : '',
             wtid: res.wtid,
             ajbh: res.ajbh,
             system_id: caseDetails.system_id,
             ajGzLx: ajGzLx,
-              is_fxgz:'0',
+            is_fxgz: '0',
           },
           callback: res => {
             if (!res.error) {
@@ -311,7 +317,7 @@ export default class caseDetail extends PureComponent {
               //     sfgz: 1,
               //   },
               //   () => {
-                  this.caseDetailDatas(caseDetails.system_id);
+              this.caseDetailDatas(caseDetails.system_id);
               //   },
               // );
             }
@@ -344,7 +350,7 @@ export default class caseDetail extends PureComponent {
             //     sfgz: 0,
             //   },
             //   () => {
-                this.caseDetailDatas(caseDetails.system_id);
+            this.caseDetailDatas(caseDetails.system_id);
             //   },
             // );
           }
@@ -423,22 +429,29 @@ export default class caseDetail extends PureComponent {
     const { sfgz, isDb, isZb, isTb, record } = this.state;
     // const { CaseData:{handleXsCaseSfgz,caseDetails} } = this.props;
     let dark = this.props.global && this.props.global.dark;
-      let handleXsCaseSfgz,caseDetails;
-      if(this.state.caseDetails&&this.props.CaseData&&this.props.CaseData.caseDetails&&this.state.caseDetails.id === this.props.CaseData.caseDetails.id){
-          handleXsCaseSfgz = this.props.CaseData.handleXsCaseSfgz;
-          caseDetails = this.props.CaseData.caseDetails;
-          this.setState({
-              caseDetails,
-          });
-      }else{
-          handleXsCaseSfgz = this.state.caseDetails ? this.state.caseDetails.sfgz : '';
-          caseDetails = this.state.caseDetails;
-      }
+    let handleXsCaseSfgz, caseDetails;
+    if (
+      this.state.caseDetails &&
+      this.props.CaseData &&
+      this.props.CaseData.caseDetails &&
+      this.state.caseDetails.id === this.props.CaseData.caseDetails.id
+    ) {
+      handleXsCaseSfgz = this.props.CaseData.handleXsCaseSfgz;
+      caseDetails = this.props.CaseData.caseDetails;
+      this.setState({
+        caseDetails,
+      });
+    } else {
+      handleXsCaseSfgz = this.state.caseDetails ? this.state.caseDetails.sfgz : '';
+      caseDetails = this.state.caseDetails;
+    }
     return (
-      <div style={{ backgroundColor: dark ? '#252C3C' : '#fff', margin: '16px 0',borderRadius:10 }}>
-        {caseDetails?
+      <div
+        style={{ backgroundColor: dark ? '#252C3C' : '#fff', margin: '16px 0', borderRadius: 10 }}
+      >
+        {caseDetails ? (
           <Row gutter={{ md: 8, lg: 24, xl: 48 }}>
-            <Col md={8} sm={24} style={{minHeight:0}}>
+            <Col md={8} sm={24} style={{ minHeight: 0 }}>
               {/*<span style={{ margin: '16px', display: 'block' }}>刑事案件详情</span>*/}
               {isDb &&
               caseDetails.zrdwList &&
@@ -447,7 +460,7 @@ export default class caseDetail extends PureComponent {
                 <Button
                   type="primary"
                   className={styles.TopMenu}
-                  style={{margin:'12px 0 12px 16px'}}
+                  style={{ margin: '12px 0 12px 16px' }}
                   loading={this.state.loading1}
                   onClick={() => this.onceSupervise(caseDetails, true, '刑事案件详情问题判定')}
                 >
@@ -457,7 +470,7 @@ export default class caseDetail extends PureComponent {
               {isZb ? (
                 <Button
                   type="primary"
-                  style={{margin:'12px 0 12px 16px'}}
+                  style={{ margin: '12px 0 12px 16px' }}
                   className={styles.TopMenu}
                   onClick={() => this.makeTable(caseDetails, true)}
                 >
@@ -465,26 +478,29 @@ export default class caseDetail extends PureComponent {
                 </Button>
               ) : null}
               {// 案件状态为移送才能退补
-                (caseDetails.ajzt && caseDetails.ajzt === '结案') ||
-                !isTb ||
-                caseDetails.qsrq === '' ||
-                (caseDetails.tbrq2 && caseDetails.tbyy2) ? null : (
-                  <Button
-                    type="primary"
-                    style={{margin:'12px 0 12px 16px'}}
-                    className={styles.TopMenu}
-                    onClick={() => this.saveRetrieve(caseDetails, true)}
-                  >
-                    退补
-                  </Button>
-                )}
+              (caseDetails.ajzt && caseDetails.ajzt === '结案') ||
+              !isTb ||
+              caseDetails.qsrq === '' ||
+              (caseDetails.tbrq2 && caseDetails.tbyy2) ? null : (
+                <Button
+                  type="primary"
+                  style={{ margin: '12px 0 12px 16px' }}
+                  className={styles.TopMenu}
+                  onClick={() => this.saveRetrieve(caseDetails, true)}
+                >
+                  退补
+                </Button>
+              )}
             </Col>
-            <Col style={{minHeight:0}}>
-            <span style={{ float: 'right',margin: '6px 16px 6px 0' }}>
+            <Col style={{ minHeight: 0 }}>
+              <span style={{ float: 'right', margin: '6px 16px 6px 0' }}>
                 <span>
                   <span className={liststyles.collect}>
                     {handleXsCaseSfgz === 0 ? (
-                      <Tooltip title="关注" onClick={() => this.saveShare(caseDetails, record, 1, 0)}>
+                      <Tooltip
+                        title="关注"
+                        onClick={() => this.saveShare(caseDetails, record, 1, 0)}
+                      >
                         <img
                           src={dark ? nocollect : nocollect1}
                           width={25}
@@ -494,7 +510,7 @@ export default class caseDetail extends PureComponent {
                         <div style={{ fontSize: 12, textAlign: 'center', width: 48 }}>关注</div>
                       </Tooltip>
                     ) : (
-                      <Tooltip title="取消关注"  onClick={() => this.noFollow(caseDetails)}>
+                      <Tooltip title="取消关注" onClick={() => this.noFollow(caseDetails)}>
                         <img
                           src={dark ? collect : collect1}
                           width={25}
@@ -515,12 +531,12 @@ export default class caseDetail extends PureComponent {
                     </Tooltip>
                   </span>
                 </span>
-            </span>
+              </span>
             </Col>
           </Row>
-          :
+        ) : (
           ''
-        }
+        )}
       </div>
     );
   }
@@ -792,17 +808,18 @@ export default class caseDetail extends PureComponent {
     return (
       <div
         style={{
-          background: dark ? '#252c3c' : '#fff', height: autoheight() - 260 + 'px',
+          background: dark ? '#252c3c' : '#fff',
+          height: autoheight() - 260 + 'px',
         }}
         className={styles.detailBoxScroll}
       >
+        <div style={{ paddingRight: 84, height: 'auto' }}>
           {caseDetails && caseDetails.jqxxList && caseDetails.jqxxList.length > 0 ? (
-            <div style={{ textAlign: 'right',padding: '16px 52px' }}>
+            <div style={{ float: 'right', padding: '16px' }}>
               <Button
                 // type="primary"
                 onClick={() => this.seePolice(true, caseDetails)}
                 style={{
-                  marginRight: 16,
                   background: dark
                     ? 'linear-gradient(to right, #0084FA, #03A3FF)'
                     : 'linear-gradient(to right, #3D63D1, #333FE4)',
@@ -815,12 +832,11 @@ export default class caseDetail extends PureComponent {
             ''
           )}
           {caseDetails && caseDetails.rqxyrList && caseDetails.rqxyrList.length > 0 ? (
-            <div style={{ textAlign: 'right',padding: '16px 52px' }}>
+            <div style={{ float: 'right', padding: '16px' }}>
               <Button
                 // type="primary"
                 onClick={() => this.seeArea(true, caseDetails)}
                 style={{
-                  marginRight: 16,
                   background: dark
                     ? 'linear-gradient(to right, #0084FA, #03A3FF)'
                     : 'linear-gradient(to right, #3D63D1, #333FE4)',
@@ -833,13 +849,15 @@ export default class caseDetail extends PureComponent {
             ''
           )}
           {caseDetails && caseDetails.sawpList && caseDetails.sawpList.length > 0 ? (
-            <div style={{ textAlign: 'right',padding: '16px 52px' }}>
+            <div style={{ float: 'right', padding: '16px' }}>
               <Button
                 // type="primary"
                 onClick={() => this.seeRes(true, caseDetails)}
-                style={{ marginRight: 16, background:  dark
-                        ? 'linear-gradient(to right, #0084FA, #03A3FF)'
-                        : 'linear-gradient(to right, #3D63D1, #333FE4)', }}
+                style={{
+                  background: dark
+                    ? 'linear-gradient(to right, #0084FA, #03A3FF)'
+                    : 'linear-gradient(to right, #3D63D1, #333FE4)',
+                }}
               >
                 查看涉案物品
               </Button>
@@ -848,13 +866,15 @@ export default class caseDetail extends PureComponent {
             ''
           )}
           {caseDetails && caseDetails.jzList && caseDetails.jzList.length > 0 ? (
-            <div style={{ textAlign: 'right',padding: '16px 52px' }}>
+            <div style={{ float: 'right', padding: '16px' }}>
               <Button
                 // type="primary"
                 onClick={() => this.seeDossier(true, caseDetails)}
-                style={{ marginRight: 16, background:  dark
-                        ? 'linear-gradient(to right, #0084FA, #03A3FF)'
-                        : 'linear-gradient(to right, #3D63D1, #333FE4)', }}
+                style={{
+                  background: dark
+                    ? 'linear-gradient(to right, #0084FA, #03A3FF)'
+                    : 'linear-gradient(to right, #3D63D1, #333FE4)',
+                }}
               >
                 查看卷宗信息
               </Button>
@@ -862,7 +882,18 @@ export default class caseDetail extends PureComponent {
           ) : (
             ''
           )}
-        <div className={styles.title}><div style={{ borderLeft: dark ? '3px solid #fff' : '3px solid #3D63D1', paddingLeft: '16px' }}>案件信息</div></div>
+          <div style={{ content: '', clear: 'both', display: 'block' }} />
+        </div>
+        <div className={styles.title}>
+          <div
+            style={{
+              borderLeft: dark ? '3px solid #fff' : '3px solid #3D63D1',
+              paddingLeft: '16px',
+            }}
+          >
+            案件信息
+          </div>
+        </div>
         <div className={styles.message} style={{ padding: '0px 84px 24px' }}>
           <Row className={styles.xqrow}>
             <Col md={8} sm={24} className={styles.xqcol}>
@@ -911,14 +942,22 @@ export default class caseDetail extends PureComponent {
           >
             <Col md={24} sm={24} className={styles.xqcol}>
               <div className={liststyles.Indexfrom}>简要案情：</div>
-                <DetailShow paddingLeft={60} word={caseDetails && caseDetails.jyaq ? caseDetails.jyaq : ''} {...this.props}/>
+              <DetailShow
+                paddingLeft={60}
+                word={caseDetails && caseDetails.jyaq ? caseDetails.jyaq : ''}
+                {...this.props}
+              />
             </Col>
           </Row>
           {caseDetails && caseDetails.pajk ? (
             <Row className={styles.xqrow}>
               <Col md={24} sm={24} className={styles.xqcol}>
                 <div className={liststyles.Indexfrom}>破案简况：</div>
-                  <DetailShow paddingLeft={60} word={caseDetails && caseDetails.pajk ? caseDetails.pajk : ''} {...this.props}/>
+                <DetailShow
+                  paddingLeft={60}
+                  word={caseDetails && caseDetails.pajk ? caseDetails.pajk : ''}
+                  {...this.props}
+                />
               </Col>
             </Row>
           ) : (
@@ -953,7 +992,16 @@ export default class caseDetail extends PureComponent {
         </div>
         {caseDetails && caseDetails.ajzt ? (
           <div>
-            <div className={styles.title}><div style={{ borderLeft: dark ? '3px solid #fff' : '3px solid #3D63D1', paddingLeft: '16px' }}>案件轨迹</div></div>
+            <div className={styles.title}>
+              <div
+                style={{
+                  borderLeft: dark ? '3px solid #fff' : '3px solid #3D63D1',
+                  paddingLeft: '16px',
+                }}
+              >
+                案件轨迹
+              </div>
+            </div>
             <CaseModalTrail {...this.props} caseDetails={caseDetails} from="刑事" />
           </div>
         ) : (
@@ -1030,7 +1078,7 @@ export default class caseDetail extends PureComponent {
       {
         title: '接警来源',
         dataIndex: 'jjly_mc',
-        width:280,
+        width: 280,
         render: text => {
           return text ? (
             <Ellipsis lines={2} tooltip>
@@ -1304,31 +1352,33 @@ export default class caseDetail extends PureComponent {
         {/*}*/}
 
         <Modal
-        visible={policevisible}
-        title="警情信息"
-        centered
-        className={styles.policeModal}
-        width={1000}
-        maskClosable={false}
-        onCancel={this.policeCancel}
-        footer={null}
-        getContainer={() => document.getElementById(this.ResultId())}
+          visible={policevisible}
+          title="警情信息"
+          centered
+          className={styles.policeModal}
+          width={1000}
+          maskClosable={false}
+          onCancel={this.policeCancel}
+          footer={null}
+          getContainer={() => document.getElementById(this.ResultId())}
         >
-        <Table
-        size={'middle'}
-        style={{ backgroundColor: '#fff' }}
-        pagination={{
-        pageSize: 3,
-        showTotal: (total, range) => <div
-        style={{color: '#b7b7b7'}}>共 {total} 条记录
-        第 {this.state.jqcurrent} / {(Math.ceil(total / 3))} 页</div>,
-        onChange: (page) => {
-        this.setState({ jqcurrent: page });
-        },
-        }}
-        dataSource={caseDetails ? caseDetails.jqxxList : []}
-        columns={JqColumns}
-        />
+          <Table
+            size={'middle'}
+            style={{ backgroundColor: '#fff' }}
+            pagination={{
+              pageSize: 3,
+              showTotal: (total, range) => (
+                <div style={{ color: '#b7b7b7' }}>
+                  共 {total} 条记录 第 {this.state.jqcurrent} / {Math.ceil(total / 3)} 页
+                </div>
+              ),
+              onChange: page => {
+                this.setState({ jqcurrent: page });
+              },
+            }}
+            dataSource={caseDetails ? caseDetails.jqxxList : []}
+            columns={JqColumns}
+          />
         </Modal>
         {/*<Modal*/}
         {/*visible={resvisible}*/}

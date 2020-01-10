@@ -1,6 +1,6 @@
 @import '~antd/lib/style/themes/default.less';
 @import '../../utils/utils.less';
-@import "../../theme/darkTheme";
+@import '../../theme/darkTheme';
 
 .policeDataCard {
   :global {
@@ -19,29 +19,32 @@
   align-items: center;
   border-radius: 10px;
   .countButtonCurrent {
-    background-color: #019BB9;
+    background-color: #019bb9;
 
     .countButtonTitle {
-      background: #03C8EA;
+      background: #03c8ea;
     }
   }
 
   .countButton {
-    background: #1E2331;
+    background: #1e2331;
 
     .countButtonTitle {
       background: #171925;
     }
   }
 
-  .countButton, .countButtonCurrent {
+  .countButton,
+  .countButtonCurrent {
     height: 75px;
     color: #fff;
     display: flex;
     margin-right: 16px;
     cursor: pointer;
 
-    .countButtonTitle, .countButtonNumber, .bigCountButtonNumber {
+    .countButtonTitle,
+    .countButtonNumber,
+    .bigCountButtonNumber {
       padding: 0 16px;
       height: 75px;
       display: flex;
@@ -52,10 +55,10 @@
     .countButtonTitle {
       line-height: normal;
       text-align: center;
-
     }
 
-    .countButtonNumber, .bigCountButtonNumber {
+    .countButtonNumber,
+    .bigCountButtonNumber {
       div {
         height: 37px;
         line-height: 37px;
@@ -76,21 +79,27 @@
     display: flex;
     cursor: pointer;
 
-    .warningCountButtonTitleBlue, .warningCountButtonNumberBlue {
-      color: #0099FE;
+    .warningCountButtonTitleBlue,
+    .warningCountButtonNumberBlue {
+      color: #0099fe;
     }
 
-    .warningCountButtonTitlePink, .warningCountButtonNumberPink {
-      color: #FE0032;
+    .warningCountButtonTitlePink,
+    .warningCountButtonNumberPink {
+      color: #fe0032;
     }
 
-    .warningCountButtonTitleBlue, .warningCountButtonNumberBlue, .warningCountButtonTitlePink, .warningCountButtonNumberPink {
+    .warningCountButtonTitleBlue,
+    .warningCountButtonNumberBlue,
+    .warningCountButtonTitlePink,
+    .warningCountButtonNumberPink {
       height: 100px;
       line-height: 100px;
       font-size: @font-size-lg;
     }
 
-    .warningCountButtonNumberBlue, .warningCountButtonNumberPink {
+    .warningCountButtonNumberBlue,
+    .warningCountButtonNumberPink {
       width: 100px;
       position: relative;
       text-align: center;
@@ -108,7 +117,7 @@
     }
   }
 }
-.cardBoxCharts{
+.cardBoxCharts {
   height: 300px;
   width: 100%;
 }
@@ -148,7 +157,8 @@
     text-align: center;
   }
 
-  .leftGo, .rightGo {
+  .leftGo,
+  .rightGo {
     position: absolute;
     font-size: 30px;
     color: #ccc;
@@ -182,7 +192,8 @@
 
   .cardBoxzk {
     //border: 1px solid #e8e8e8;
-    width: 100%;
+    width: 96%;
+    margin-left: 2%;
     height: 300px;
     background: @body-background;
     overflow-y: auto;
@@ -254,17 +265,18 @@
   width: 100%;
 
   .viewCount {
-    background: url("../../assets/viewData/policeViewData.png") no-repeat #171925;
+    background: url('../../assets/viewData/policeViewData.png') no-repeat #171925;
     background-size: 100%;
     border-radius: 10px;
   }
 }
 
-.caseDataView, .xzCaseDataView {
+.caseDataView,
+.xzCaseDataView {
   margin-bottom: 48px;
 
   .viewCount {
-    background: url("../../assets/viewData/policeViewData.png") no-repeat #171925;
+    background: url('../../assets/viewData/policeViewData.png') no-repeat #171925;
     background-size: 100%;
     border-radius: 10px;
   }
@@ -274,7 +286,7 @@
   margin-bottom: 48px;
 
   .viewCount {
-    background: url("../../assets/viewData/policeViewData.png") no-repeat #171925;
+    background: url('../../assets/viewData/policeViewData.png') no-repeat #171925;
     background-size: 100%;
     border-radius: 10px;
   }
@@ -284,7 +296,7 @@
   margin-bottom: 48px;
 
   .viewCount {
-    background: url("../../assets/viewData/policeViewData.png") no-repeat #171925;
+    background: url('../../assets/viewData/policeViewData.png') no-repeat #171925;
     background-size: 100%;
     border-radius: 10px;
   }
@@ -339,7 +351,8 @@
   overflow: hidden;
 
   :global {
-    .anticon-caret-up, .anticon-caret-down {
+    .anticon-caret-up,
+    .anticon-caret-down {
       color: #ccc;
       font-size: 18px;
     }
@@ -386,7 +399,7 @@
 
   .leftView {
     float: left;
-    width: calc(~"50% - 10px");
+    width: calc(~'50% - 10px');
     margin: 15px 10px 0 0;
     border-radius: 10px;
     overflow: hidden;
@@ -399,14 +412,14 @@
         height: 150px;
         line-height: 150px;
         text-align: center;
-        background: linear-gradient(#04CDE2, #00BAFF) !important;
+        background: linear-gradient(#04cde2, #00baff) !important;
       }
     }
   }
 
   .rightView {
     float: left;
-    width: calc(~"50% - 10px");
+    width: calc(~'50% - 10px');
     margin: 15px 0 0 10px;
     border-radius: 10px;
     overflow: hidden;
@@ -416,7 +429,7 @@
       .ant-card-body {
         padding: 0 15%;
         color: #fff;
-        background: linear-gradient(#8C80F8, #B588FC) !important;
+        background: linear-gradient(#8c80f8, #b588fc) !important;
         height: 150px;
         line-height: 150px;
         text-align: center;
@@ -429,7 +442,8 @@
     font-style: italic;
   }
 
-  .warningCountButtonNumberBlue, .warningCountButtonNumberPink {
+  .warningCountButtonNumberBlue,
+  .warningCountButtonNumberPink {
     position: relative;
     text-align: center;
     margin: 0 10px;
@@ -462,7 +476,7 @@
 
   .cardBoxTitle {
     background: #fff;
-    color: #4662D5;
+    color: #4662d5;
   }
 
   .cardBox {
@@ -474,15 +488,15 @@
   }
 
   .viewCount {
-    background: url("../../assets/viewData/Headerbg.png") no-repeat #fff !important;
+    background: url('../../assets/viewData/Headerbg.png') no-repeat #fff !important;
     border-radius: 10px;
   }
 
   .countButton {
-    background: #BFBFBF;
+    background: #bfbfbf;
 
     .countButtonTitle {
-      background: #cFcFcF;
+      background: #cfcfcf;
     }
   }
 
@@ -508,7 +522,7 @@
   }
 
   .listPageHeaderCurrent {
-    color: #4662D5 !important;
+    color: #4662d5 !important;
   }
 
   .UnlistPageHeaderCurrent {

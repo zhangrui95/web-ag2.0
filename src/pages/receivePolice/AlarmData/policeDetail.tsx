@@ -25,7 +25,7 @@ import { autoheight, userResourceCodeDb } from '../../../utils/utils';
 import { authorityIsTrue } from '../../../utils/authority';
 // import DispatchModal from '../../../components/DispatchModal/DispatchModal';
 import { routerRedux } from 'dva/router';
-import {tableList} from "@/utils/utils";
+import { tableList } from '@/utils/utils';
 
 let imgBase = [];
 let res = {};
@@ -63,7 +63,7 @@ export default class policeDetail extends PureComponent {
       // keyWord:['打','杀','伤','刀','剑','棍','棒','偷','盗','抢','骗','死','赌','毒','卖淫','嫖娼','侮辱'],
       policeDispatchVisible: false, // 调度模态框
       policeDispatchItem: null, // 调度信息
-      record:res, // 表格信息
+      record: res, // 表格信息
     };
     if (props.isDd) {
       this.getPoliceKeyword();
@@ -91,11 +91,13 @@ export default class policeDetail extends PureComponent {
   };
 
   componentDidMount() {
-      this.getDetail(this.props.location.query.id);
+    this.getDetail(this.props.location.query.id);
   }
 
   componentWillReceiveProps(nextProps) {
-      if (this.props.global.isResetList.isReset !== nextProps.global.isResetList.isReset && nextProps.global.isResetList.url ===  '/receivePolice/AlarmData/policeDetail'
+    if (
+      this.props.global.isResetList.isReset !== nextProps.global.isResetList.isReset &&
+      nextProps.global.isResetList.url === '/receivePolice/AlarmData/policeDetail'
     ) {
       this.getDetail(this.props.location.query.id);
     }
@@ -212,8 +214,8 @@ export default class policeDetail extends PureComponent {
     });
     this.getDetail(this.props.location.query.id);
   };
-  refreshTable = (param) => {
-    if(param.movefrom === '警情常规'){
+  refreshTable = param => {
+    if (param.movefrom === '警情常规') {
       this.props.dispatch({
         type: 'policeData/policeFetch',
         payload: {
@@ -224,8 +226,7 @@ export default class policeDetail extends PureComponent {
           },
         },
       });
-    }
-    else if(param.movefrom === '警情预警'){
+    } else if (param.movefrom === '警情预警') {
       this.props.dispatch({
         type: 'EarlyWarning/getList',
         payload: {
@@ -237,7 +238,7 @@ export default class policeDetail extends PureComponent {
         },
       });
     }
-  }
+  };
   // 分享和关注（2为分享，1为关注）
   saveShare = (policeDetails, res, type, ajGzLx) => {
     // console.log('res',res);
@@ -253,10 +254,10 @@ export default class policeDetail extends PureComponent {
       let res = policeDetails;
       let detail = [
         `管辖单位：${res && res.jjdw ? res.jjdw : ''}`,
-          `接警人：${res && res.jjr ? res.jjr : ''}`,
+        `接警人：${res && res.jjr ? res.jjr : ''}`,
         `接警信息：${res && res.jjnr ? res.jjnr : ''}`,
         `处警单位：${res && res.cjdw ? res.cjdw : ''}`,
-          `处警人：${res && res.cjr ? res.cjr : ''}`,
+        `处警人：${res && res.cjr ? res.cjr : ''}`,
         `处警信息：${res && res.cjqk ? res.cjqk : ''}`,
         `处置结果：${res && res.czjg_mc ? res.czjg_mc : ''}`,
       ];
@@ -279,16 +280,15 @@ export default class policeDetail extends PureComponent {
           },
         }),
       );
-    }
-    else {
+    } else {
       if (this.state.IsSure) {
-        console.log('this.state.record',this.state.record);
+        console.log('this.state.record', this.state.record);
         this.props.dispatch({
           type: 'share/getMyFollow',
           payload: {
             agid: policeDetails.id,
             lx: this.state.lx,
-              is_fxgz:'0',
+            is_fxgz: '0',
             sx:
               (policeDetails.jjdw ? policeDetails.jjdw + '、' : '') +
               (policeDetails.jjly_mc ? policeDetails.jjly_mc + '、' : '') +
@@ -296,7 +296,7 @@ export default class policeDetail extends PureComponent {
               (policeDetails.jjsj ? policeDetails.jjsj : ''),
             type: type,
             // tzlx: this.props.location.query.tzlx,
-            tzlx: this.state.record&&this.state.record.tzlx?this.state.record.tzlx:'jqxx',
+            tzlx: this.state.record && this.state.record.tzlx ? this.state.record.tzlx : 'jqxx',
             wtid: policeDetails.wtid,
             ajbh: policeDetails.ajbh,
             system_id:
@@ -321,7 +321,7 @@ export default class policeDetail extends PureComponent {
               //     sfgz: 1,
               //   },
               //   () => {
-                  this.getDetail(this.state.policeDetails.id);
+              this.getDetail(this.state.policeDetails.id);
               //   },
               // );
             }
@@ -361,7 +361,7 @@ export default class policeDetail extends PureComponent {
             //     sfgz: 0,
             //   },
             //   () => {
-                this.getDetail(this.state.policeDetails.id);
+            this.getDetail(this.state.policeDetails.id);
             //   },
             // );
           }
@@ -432,31 +432,37 @@ export default class policeDetail extends PureComponent {
     });
   };
 
-
   Topdetail() {
-    const { sfgz, isDb,record } = this.state;
+    const { sfgz, isDb, record } = this.state;
     // const { policeData:{handlePoliceSfgz,policeDetails} } = this.props
-      let handlePoliceSfgz,policeDetails;
-      if(this.state.policeDetails&&this.props.policeData&&this.props.policeData.policeDetails&&this.state.policeDetails.id === this.props.policeData.policeDetails.id){
-          handlePoliceSfgz = this.props.policeData.handlePoliceSfgz;
-          policeDetails = this.props.policeData.policeDetails;
-          this.setState({
-              policeDetails,
-          })
-      }else{
-          handlePoliceSfgz = this.state.policeDetails ? this.state.policeDetails.sfgz : '';
-          policeDetails = this.state.policeDetails;
-      }
+    let handlePoliceSfgz, policeDetails;
+    if (
+      this.state.policeDetails &&
+      this.props.policeData &&
+      this.props.policeData.policeDetails &&
+      this.state.policeDetails.id === this.props.policeData.policeDetails.id
+    ) {
+      handlePoliceSfgz = this.props.policeData.handlePoliceSfgz;
+      policeDetails = this.props.policeData.policeDetails;
+      this.setState({
+        policeDetails,
+      });
+    } else {
+      handlePoliceSfgz = this.state.policeDetails ? this.state.policeDetails.sfgz : '';
+      policeDetails = this.state.policeDetails;
+    }
     // const {query: { record }} = this.props.location;
     let dark = this.props.global && this.props.global.dark;
     return (
-      <div
-        style={{ backgroundColor: dark ? '#252C3C' : '#fff', marginTop: 16, borderRadius: 10 }}
-      >
+      <div style={{ backgroundColor: dark ? '#252C3C' : '#fff', marginTop: 16, borderRadius: 10 }}>
         <Row gutter={{ md: 8, lg: 24, xl: 48 }}>
           <Col md={8} sm={24}>
             {/*<span style={{ margin: '16px', display: 'block' }}>警情详情</span>*/}
-            <Button type='primary' className={styles.TopMenu} onClick={() => this.ExportStatistics()}>
+            <Button
+              type="primary"
+              className={styles.TopMenu}
+              onClick={() => this.ExportStatistics()}
+            >
               导出
             </Button>
             {isDb &&
@@ -464,7 +470,7 @@ export default class policeDetail extends PureComponent {
             policeDetails.zrdwList &&
             policeDetails.zrdwList.length > 0 ? (
               <Button
-                type='primary'
+                type="primary"
                 className={styles.TopMenu}
                 onClick={() => this.onceSupervise(policeDetails, true, '警情详情问题判定')}
               >
@@ -473,11 +479,9 @@ export default class policeDetail extends PureComponent {
             ) : (
               ''
             )}
-            {this.state.isDd &&
-            record &&
-            record.is_sqdd === '0' ? (
+            {this.state.isDd && record && record.is_sqdd === '0' ? (
               <Button
-                type='primary'
+                type="primary"
                 className={styles.TopMenu}
                 onClick={() => this.saveDispatch(record)}
               >
@@ -540,31 +544,41 @@ export default class policeDetail extends PureComponent {
     );
   }
   renderDetail() {
-    const { record,policeDetails } = this.state;
+    const { record, policeDetails } = this.state;
     // const { policeData:{policeDetails} } = this.props
     const rowLayout = { md: 8, xl: 16, xxl: 24 };
     let dark = this.props.global && this.props.global.dark;
     return (
       <div
-        style={{ background: dark ? '#252c3c' : '#fff', height: autoheight() - 260 + 'px',marginTop:16, borderRadius: 10 }}
+        style={{
+          background: dark ? '#252c3c' : '#fff',
+          height: autoheight() - 260 + 'px',
+          marginTop: 16,
+          borderRadius: 10,
+        }}
         id={`jqDetail${this.props.location.query.id}`}
         className={styles.detailBoxScroll}
       >
-        {policeDetails && policeDetails.ajbh && policeDetails.is_sa === 1 ? (
-          <div style={{ textAlign: 'right', padding: '16px 52px' }}>
-            <Button
-              className={styles.connectBtn}
-              style={{background: dark
-                      ? 'linear-gradient(to right, #0084FA, #03A3FF)'
-                      : 'linear-gradient(to right, #3D63D1, #333FE4)'}}
-              onClick={() => this.openCaseDetail(policeDetails)}
-            >
-              查看关联案件
-            </Button>
-          </div>
-        ) : (
-          ''
-        )}
+        <div style={{ paddingRight: 84, height: 'auto' }}>
+          {policeDetails && policeDetails.ajbh && policeDetails.is_sa === 1 ? (
+            <div style={{ float: 'right', padding: '16px' }}>
+              <Button
+                className={styles.connectBtn}
+                style={{
+                  background: dark
+                    ? 'linear-gradient(to right, #0084FA, #03A3FF)'
+                    : 'linear-gradient(to right, #3D63D1, #333FE4)',
+                }}
+                onClick={() => this.openCaseDetail(policeDetails)}
+              >
+                查看关联案件
+              </Button>
+            </div>
+          ) : (
+            ''
+          )}
+          <div style={{ content: '', clear: 'both', display: 'block' }} />
+        </div>
         <Card
           title={
             <div
