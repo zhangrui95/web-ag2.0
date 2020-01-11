@@ -67,7 +67,7 @@ const Navigation = props => {
                 if (dispatch && item) {
                     let payload = {
                         key: id ? item.path + id : item.path,
-                        name: item.name,
+                        name: queryLoc&&queryLoc.tabName ? queryLoc.tabName : item.name,
                         path: item.path,
                         isShow: true,
                         query: queryLoc,

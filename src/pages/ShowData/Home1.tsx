@@ -231,7 +231,7 @@ export default class Home1 extends PureComponent {
         this.props.dispatch(
             routerRedux.push({
                 pathname: '/ShowData/MyShare',
-                query: {record: record, id: record && record.id ? record.id : '1'},
+                query: {record: record, id: record && record.id ? record.id : '1',tab:this.state.tabs === 's2' ? '1' : '0',tabName:this.state.tabs === 's2'?'分享给我':'我的分享'},
             }),
         );
         // this.setState({

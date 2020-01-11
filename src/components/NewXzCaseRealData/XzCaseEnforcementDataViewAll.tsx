@@ -101,19 +101,28 @@ export default class XzCaseEnforcementDataView extends PureComponent {
                 this.props.global.dark !== nextProps.global.dark
             ) {
                 currentType = currentType ? currentType : this.state.currentType;
+                let type = this.state.type;
+                let rqtype = '';
+                if (type === 'now') {
+                    rqtype = nextProps.searchType === 'week' ? 'week' : 'month';
+                } else if (type === 'last') {
+                    rqtype = nextProps.searchType === 'week' ? 'lastWeek' : 'lastMonth';
+                } else if (type === 'beforeLast') {
+                    rqtype = nextProps.searchType === 'week' ? 'beforeLastWeek' : 'beforeLastMonth';
+                }
                 if (nextProps.searchType === 'week') {
                     this.getViewCountData('week', nextProps.orgcode);
                     const weekTypeTime = this.getTime(currentType);
                     this.getAllXzCaseProgress(weekTypeTime[0], weekTypeTime[1], nextProps.orgcode);
                     this.getAdministrativePenalty(weekTypeTime[0], weekTypeTime[1], nextProps.orgcode);
-                    this.getAllXzTypeCase('week', nextProps.orgcode);
+                    this.getAllXzTypeCase(rqtype ? rqtype : 'week', nextProps.orgcode);
                     this.getCaseTypeStatistics(weekTypeTime[0], weekTypeTime[1], nextProps.orgcode);
                 } else if (nextProps.searchType === 'month') {
                     this.getViewCountData('month', nextProps.orgcode);
                     const monthTypeTime = this.getTime(currentType);
                     this.getAllXzCaseProgress(monthTypeTime[0], monthTypeTime[1], nextProps.orgcode);
                     this.getAdministrativePenalty(monthTypeTime[0], monthTypeTime[1], nextProps.orgcode);
-                    this.getAllXzTypeCase('month', nextProps.orgcode);
+                    this.getAllXzTypeCase(rqtype ? rqtype : 'month', nextProps.orgcode);
                     this.getCaseTypeStatistics(monthTypeTime[0], monthTypeTime[1], nextProps.orgcode);
                 } else if (nextProps.searchType === 'selectedDate') {
                     const {selectedDateVal} = nextProps;

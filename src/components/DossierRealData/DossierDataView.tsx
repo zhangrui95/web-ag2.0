@@ -88,25 +88,37 @@ export default class DossierDataView extends PureComponent {
             }
             if (this.props.searchType !== nextProps.searchType || this.props.orgcode !== nextProps.orgcode || this.props.selectedDateVal !== nextProps.selectedDateVal||this.props.global.dark !== nextProps.global.dark) {
                 currentType = currentType ? currentType : this.state.currentType;
+                let type = this.state.type;
+                let rqtype = '';
+                if (type === 'now') {
+                    currentType = nextProps.searchType === 'week' ? 'week' : 'month';
+                    rqtype = currentType === 'week' ? '3' : '6';
+                } else if (type === 'last') {
+                    currentType = nextProps.searchType === 'week' ? 'lastWeek' : 'lastMonth';
+                    rqtype = currentType === 'lastWeek' ? '4' : '7';
+                } else if (type === 'beforeLast') {
+                    currentType = nextProps.searchType === 'week' ? 'beforeLastWeek' : 'beforeLastMonth';
+                    rqtype = currentType === 'beforeLastWeek' ? '5' : '8';
+                }
                 if (nextProps.searchType === 'week') {
                     this.setState({
-                        TypeTime: [moment(getTimeDistance('week')[0]).format('YYYY-MM-DD'), (getTimeDistance('week')[1]).format('YYYY-MM-DD')],// 请求数据的时间
+                        TypeTime: [moment(getTimeDistance(currentType)[0]).format('YYYY-MM-DD'), (getTimeDistance(currentType)[1]).format('YYYY-MM-DD')],// 请求数据的时间
                     });
                     const weekTypeTime = this.getTime(currentType);
                     this.getDossierNumCount(weekTypeTime[0], weekTypeTime[1], nextProps.orgcode);
-                    this.getDossierCRKCount(weekTypeTime[0], weekTypeTime[1], '3', nextProps.orgcode);
+                    this.getDossierCRKCount(weekTypeTime[0], weekTypeTime[1], this.state.showrkDataView ? '3' : '1', nextProps.orgcode);
                     this.showCaseZKNumpie(weekTypeTime[0], weekTypeTime[1], nextProps.orgcode);
-                    this.showCaseJzqspie('3', nextProps.orgcode);
+                    this.showCaseJzqspie(rqtype ? rqtype : '3', nextProps.orgcode);
                     this.getDossierDZHQKShow(weekTypeTime[0], weekTypeTime[1], nextProps.orgcode);
                 } else if (nextProps.searchType === 'month') {
                     this.setState({
-                        TypeTime: [moment(getTimeDistance('month')[0]).format('YYYY-MM-DD'), (getTimeDistance('month')[1]).format('YYYY-MM-DD')],// 请求数据的时间
+                        TypeTime: [moment(getTimeDistance(currentType)[0]).format('YYYY-MM-DD'), (getTimeDistance(currentType)[1]).format('YYYY-MM-DD')],// 请求数据的时间
                     });
                     const monthTypeTime = this.getTime(currentType);
                     this.getDossierNumCount(monthTypeTime[0], monthTypeTime[1], nextProps.orgcode);
-                    this.getDossierCRKCount(monthTypeTime[0], monthTypeTime[1], '3', nextProps.orgcode);
+                    this.getDossierCRKCount(monthTypeTime[0], monthTypeTime[1], this.state.showrkDataView ? '3' : '1', nextProps.orgcode);
                     this.showCaseZKNumpie(monthTypeTime[0], monthTypeTime[1], nextProps.orgcode);
-                    this.showCaseJzqspie('6', nextProps.orgcode);
+                    this.showCaseJzqspie(rqtype ? rqtype : '6', nextProps.orgcode);
                     this.getDossierDZHQKShow(monthTypeTime[0], monthTypeTime[1], nextProps.orgcode);
                 } else if (nextProps.searchType === 'selectedDate') {
                     this.setState({
@@ -114,13 +126,12 @@ export default class DossierDataView extends PureComponent {
                     }, function () {
                         const {selectedDateVal} = nextProps;
                         this.getDossierNumCount(selectedDateVal[0], selectedDateVal[1], nextProps.orgcode);
-                        this.getDossierCRKCount(selectedDateVal[0], selectedDateVal[1], '3', nextProps.orgcode);
+                        this.getDossierCRKCount(selectedDateVal[0], selectedDateVal[1], this.state.showrkDataView ? '3' : '1', nextProps.orgcode);
                         this.showCaseZKNumpie(selectedDateVal[0], selectedDateVal[1], nextProps.orgcode);
                         this.getDossierDZHQKShow(selectedDateVal[0], selectedDateVal[1], nextProps.orgcode);
                         this.showCaseJzqspie('selectedDate', nextProps.orgcode, selectedDateVal[0], selectedDateVal[1]);
                     });
                 }
-
             }
         }
     }
@@ -966,7 +977,7 @@ export default class DossierDataView extends PureComponent {
                             </Col>
                             <Col {...colLayout}>
                                 <div className={styles.cardBoxTitle}>| 在库卷宗数量展示</div>
-                                <div className={styles.cardBoxzk} style={{marginLeft:'3%'}}>
+                                <div className={styles.cardBoxzk} style={{padding: '10px 5px',marginLeft:'3%'}}>
                                     {ZkjzData.length > 0 ?
                                         <div>
                                             <Row gutter={rowLayout}>

@@ -88,6 +88,41 @@ export default class ItemDataView extends PureComponent {
           currentType,
         });
       }
+      let wpStatus = '登记';
+      if(this.props.global.dark !== nextProps.global.dark){
+          this.setState({
+              showrkDataViewDJ: this.state.zt === 'dj' || !this.state.zt ? true : false,
+              showrkDataViewZK: this.state.zt === 'zk' ? true : false,
+              showrkDataViewDY: this.state.zt === 'dy' ? true : false,
+              showrkDataViewYS: this.state.zt === 'ys' ? true : false,
+              showrkDataViewCZ: this.state.zt === 'cz' ? true : false,
+              showrkDataViewYCCK: this.state.zt === 'ycck' ? true : false,
+          });
+          wpStatus = this.state.zt === 'dj' || !this.state.zt || this.props.searchType !== nextProps.searchType
+              ? '登记'
+              : this.state.zt === 'zk'
+                  ? '在库'
+                  : this.state.zt === 'dy'
+                      ? '调用'
+                      : this.state.zt === 'ys'
+                          ? '移送'
+                          : this.state.zt === 'cz'
+                              ? '处置'
+                              : this.state.zt === 'ycck'
+                                  ? '异常出库'
+                                  : ''
+      }else if(this.props.searchType !== nextProps.searchType ||
+          this.props.orgcode !== nextProps.orgcode ||
+          this.props.selectedDateVal !== nextProps.selectedDateVal){
+          this.setState({
+              showrkDataViewDJ: true,
+              showrkDataViewZK: false,
+              showrkDataViewDY: false,
+              showrkDataViewYS: false,
+              showrkDataViewCZ: false,
+              showrkDataViewYCCK: false,
+          });
+      }
       if (
         this.props.searchType !== nextProps.searchType ||
         this.props.orgcode !== nextProps.orgcode ||
@@ -95,52 +130,46 @@ export default class ItemDataView extends PureComponent {
         this.props.global.dark !== nextProps.global.dark
       ) {
         currentType = currentType ? currentType : this.state.currentType;
+           let type = this.state.type;
+          let rqtype = '';
+          if (type === 'now') {
+              currentType = nextProps.searchType === 'week' ? 'week' : 'month';
+              rqtype = currentType === 'week' ? '3' : '6';
+          } else if (type === 'last') {
+              currentType = nextProps.searchType === 'week' ? 'lastWeek' : 'lastMonth';
+              rqtype = currentType === 'lastWeek' ? '4' : '7';
+          } else if (type === 'beforeLast') {
+              currentType = nextProps.searchType === 'week' ? 'beforeLastWeek' : 'beforeLastMonth';
+              rqtype = currentType === 'beforeLastWeek' ? '5' : '8';
+          }
         if (nextProps.searchType === 'week') {
           this.setState({
             TypeTime: [
               moment(getTimeDistance(currentType)[0]).format('YYYY-MM-DD'),
               getTimeDistance(currentType)[1].format('YYYY-MM-DD'),
             ], // 请求数据的时间
-            showrkDataViewDJ: true,
-            showrkDataViewZK: false,
-            showrkDataViewDY: false,
-            showrkDataViewYS: false,
-            showrkDataViewCZ: false,
-            showrkDataViewYCCK: false,
           });
           const weekTypeTime = this.getTime(currentType);
           this.getItemNumCount(weekTypeTime[0], weekTypeTime[1], nextProps.orgcode);
-          this.getItemCRKCount(weekTypeTime[0], weekTypeTime[1], '登记', nextProps.orgcode);
+          this.getItemCRKCount(weekTypeTime[0], weekTypeTime[1], wpStatus, nextProps.orgcode);
           this.showCaseZKNumpie(weekTypeTime[0], weekTypeTime[1], nextProps.orgcode);
-          this.showCaseWpqspie('3', nextProps.orgcode);
+          this.showCaseWpqspie(rqtype ? rqtype : '3', nextProps.orgcode);
         } else if (nextProps.searchType === 'month') {
           this.setState({
             TypeTime: [
               moment(getTimeDistance(currentType)[0]).format('YYYY-MM-DD'),
               getTimeDistance(currentType)[1].format('YYYY-MM-DD'),
             ], // 请求数据的时间
-            showrkDataViewDJ: true,
-            showrkDataViewZK: false,
-            showrkDataViewDY: false,
-            showrkDataViewYS: false,
-            showrkDataViewCZ: false,
-            showrkDataViewYCCK: false,
           });
           const monthTypeTime = this.getTime(currentType);
           this.getItemNumCount(monthTypeTime[0], monthTypeTime[1], nextProps.orgcode);
-          this.getItemCRKCount(monthTypeTime[0], monthTypeTime[1], '登记', nextProps.orgcode);
+          this.getItemCRKCount(monthTypeTime[0], monthTypeTime[1], wpStatus, nextProps.orgcode);
           this.showCaseZKNumpie(monthTypeTime[0], monthTypeTime[1], nextProps.orgcode);
-          this.showCaseWpqspie('6', nextProps.orgcode);
+          this.showCaseWpqspie(rqtype ? rqtype : '6', nextProps.orgcode);
         } else if (nextProps.searchType === 'selectedDate') {
           this.setState(
             {
               TypeTime: nextProps.selectedDateVal, // 请求数据的时间
-              showrkDataViewDJ: true,
-              showrkDataViewZK: false,
-              showrkDataViewDY: false,
-              showrkDataViewYS: false,
-              showrkDataViewCZ: false,
-              showrkDataViewYCCK: false,
             },
             function() {
               const { selectedDateVal } = nextProps;
@@ -148,7 +177,7 @@ export default class ItemDataView extends PureComponent {
               this.getItemCRKCount(
                 selectedDateVal[0],
                 selectedDateVal[1],
-                '登记',
+                wpStatus,
                 nextProps.orgcode,
               );
               this.showCaseZKNumpie(selectedDateVal[0], selectedDateVal[1], nextProps.orgcode);
@@ -718,6 +747,7 @@ export default class ItemDataView extends PureComponent {
       showrkDataViewYS: zt === 'ys' ? true : false,
       showrkDataViewCZ: zt === 'cz' ? true : false,
       showrkDataViewYCCK: zt === 'ycck' ? true : false,
+      zt:zt,
     });
     // const weekTypeTime = this.getTime('week');
     if (zt === 'dj') {
@@ -983,23 +1013,9 @@ export default class ItemDataView extends PureComponent {
               </Col>
               <Col {...colLayout}>
                 <div className={styles.cardBoxTitle}>| 在库物品数量展示</div>
-                <Card className={styles.cardBoxzk} style={{ padding: '0 5px' }}>
+                <Card className={styles.cardBoxzk} style={{ padding: '10px 5px' }}>
                   {ZkwpData.length > 0 ? (
                     <div>
-                      <Row gutter={rowLayout}>
-                        <Col
-                          sm={24}
-                          lg={24}
-                          style={{
-                            fontSize: 16,
-                            marginBottom: 20,
-                            paddingTop: 18,
-                            paddingLeft: 28,
-                          }}
-                        >
-                          {/*在库物品数量展示*/}
-                        </Col>
-                      </Row>
                       {ZkwpData.map(item => (
                         <div>
                           <div className={styles.progressName}>{item.name}</div>
@@ -1019,9 +1035,6 @@ export default class ItemDataView extends PureComponent {
                     </div>
                   ) : (
                     <div style={{ padding: 16 }}>
-                      <div style={{ fontSize: 16, paddingTop: 2, color: 'rgba(0,0,0,0.85)' }}>
-                        {/*在库物品数量展示*/}
-                      </div>
                       <div
                         style={{
                           height: '100%',
