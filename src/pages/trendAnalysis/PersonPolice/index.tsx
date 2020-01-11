@@ -191,13 +191,13 @@ export default class PeopleTrendAnalysis extends PureComponent {
     // 图表统计导出功能
     ExportStatistics = () => {
         imgBase = [];
-        html2canvas(document.querySelector('#capture1')).then(canvas => {
+        html2canvas(document.querySelector('#capturePerson1')).then(canvas => {
             this.addBase(canvas.toDataURL().split('base64,')[1]);
         });
-        html2canvas(document.querySelector('#capture2')).then(canvas => {
+        html2canvas(document.querySelector('#capturePerson2')).then(canvas => {
             this.addBase(canvas.toDataURL().split('base64,')[1]);
         });
-        html2canvas(document.getElementsByClassName('capture3')[1]).then(canvas => {
+        html2canvas(document.getElementsByClassName('capturePerson3')[1]).then(canvas => {
             this.addBase(canvas.toDataURL().split('base64,')[1]);
         });
     };
@@ -269,17 +269,17 @@ export default class PeopleTrendAnalysis extends PureComponent {
                         <Icon type="double-right" className={styles.buttonIcon}/>
                     </div>
                     <Carousel ref={c => (this.slider = c)}>
-                        <div id='capture1'>
+                        <div id='capturePerson1'>
                             <PersonOverview {...this.state} {...this.props} goToCarousel={this.goToCarousel}
                                             changeLoadingStatus={this.changeLoadingStatus}
                                             departorgan={obj} dateArr={dateArr}/>
                         </div>
-                        <div id='capture2'>
+                        <div id='capturePerson2'>
                             <PersonIllegalPunish {...this.state} {...this.props} goToCarousel={this.goToCarousel}
                                                  changeLoadingStatus={this.changeLoadingStatus}
                                                  departorgan={obj} dateArr={dateArr}/>
                         </div>
-                        <div id='capture3' className='capture3'>
+                        <div id='capturePerson3' className='capturePerson3'>
                             <PersonSuspectPunish {...this.state} {...this.props} goToCarousel={this.goToCarousel}
                                                  changeLoadingStatus={this.changeLoadingStatus}
                                                  departorgan={obj} dateArr={dateArr}/>

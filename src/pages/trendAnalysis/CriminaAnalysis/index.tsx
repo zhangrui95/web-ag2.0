@@ -131,13 +131,13 @@ export default class CriminalCaseTrendAnalysis extends PureComponent {
     // 图表统计导出功能
     ExportStatistics = () => {
         imgBase = [];
-        html2canvas(document.querySelector('#capture1')).then(canvas => {
+        html2canvas(document.querySelector('#capturexs1')).then(canvas => {
             this.addBase(canvas.toDataURL().split('base64,')[1]);
         });
-        html2canvas(document.querySelector('#capture2')).then(canvas => {
+        html2canvas(document.querySelector('#capturexs2')).then(canvas => {
             this.addBase(canvas.toDataURL().split('base64,')[1]);
         });
-        html2canvas(document.getElementsByClassName('capture3')[1]).then(canvas => {
+        html2canvas(document.getElementsByClassName('capturexs3')[1]).then(canvas => {
             this.addBase(canvas.toDataURL().split('base64,')[1]);
         });
     };
@@ -174,15 +174,15 @@ export default class CriminalCaseTrendAnalysis extends PureComponent {
                         <Icon type="double-right" className={styles.buttonIcon}/>
                     </div>
                     <Carousel ref={c => (this.slider = c)}>
-                        <div id='capture1'>
+                        <div id={'capturexs1'}>
                             <CriminalCaseOverview {...this.state} {...this.props} goToCarousel={this.goToCarousel}
                                                   changeLoadingStatus={this.changeLoadingStatus}/>
                         </div>
-                        <div id='capture2'>
+                        <div id='capturexs2'>
                             <CriminalCaseType {...this.state} {...this.props} goToCarousel={this.goToCarousel}
                                               changeLoadingStatus={this.changeLoadingStatus}/>
                         </div>
-                        <div id='capture3' className='capture3'>
+                        <div id='capturexs3' className='capturexs3'>
                             <CriminalCaseAndPolice {...this.state} {...this.props} goToCarousel={this.goToCarousel}
                                                    changeLoadingStatus={this.changeLoadingStatus}/>
                         </div>
