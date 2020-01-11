@@ -262,7 +262,7 @@ export default class SuperviseModal extends PureComponent {
                     cljg_yy: values.gqyy ? values.gqyy : '',
                 },
                 callback: (data) => {
-                    message.info('督办保存成功');
+                    message.info('督办成功');
                     this.setState({
                         SureModalVisible: false,
                         dbLoading: false,
