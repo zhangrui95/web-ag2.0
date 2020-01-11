@@ -16,7 +16,7 @@ import 'echarts/lib/component/legend';
 import 'echarts/lib/component/tooltip';
 import styles from '../../pages/common/dataView.less';
 // import datastyles from '../Styles/dataView.less';
-import { getDefaultDaysForMonth, getTimeDistance } from '../../utils/utils';
+import { getDefaultDaysForMonth, getTimeDistance, getDefaultDays, getDefaultYears, getDefaultMonths } from '../../utils/utils';
 import DataViewDateShow from '../Common/DataViewDateShow';
 import { MiniProgress, ChartCard } from 'ant-design-pro/lib/Charts';
 import nonDivImg from '../../assets/viewData/nonData.png';
@@ -457,14 +457,26 @@ export default class ItemDataView extends PureComponent {
             } else if (qsTime === '5') {
               momentMonth = moment().subtract(2, 'weeks');
               dayArry = getDefaultDaysForWeek(momentMonth);
+            } else if (qsTime === 'selectedDate'){
+              if(typeLabel === 'day'){
+                dayArry = getDefaultDays(sTime,eTime);
+              }else if(typeLabel === 'week'){
+
+              }else if(typeLabel === 'month'){
+                // console.log('sTime',moment(sTime).format("MM"));
+                // console.log('sTime',moment(eTime).format("MM"));
+                dayArry = getDefaultMonths(sTime,eTime);
+              }else if(typeLabel === 'year'){
+                dayArry = getDefaultYears(sTime,eTime);
+              }
             }
             // const dayArry = getDefaultDaysForMonth(momentMonth);
-            newData1 = [0, 0, 0, 0, 0, 0, 0];
-            newData2 = [0, 0, 0, 0, 0, 0, 0];
-            newData3 = [0, 0, 0, 0, 0, 0, 0];
-            newData4 = [0, 0, 0, 0, 0, 0, 0];
-            newData5 = [0, 0, 0, 0, 0, 0, 0];
-            newData6 = [0, 0, 0, 0, 0, 0, 0];
+            newData1 = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+            newData2 = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+            newData3 = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+            newData4 = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+            newData5 = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+            newData6 = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
             newData = dayArry;
           }
           const seriesDataAll = [

@@ -81,22 +81,23 @@ export default class unpoliceDetail extends PureComponent {
             res = JSON.parse(sessionStorage.getItem('query')).query.record;
         }
         if (res&&resquery) {
-            this.getDetail(resquery,res);
+            this.getDetail(res);
         }
     }
 
     componentWillReceiveProps(nextProps) {
+      console.log('nextProps',nextProps);
         if (this.props.global.isResetList.isReset !== nextProps.global.isResetList.isReset && nextProps.global.isResetList.url === '/receivePolice/AlarmPolice/unpoliceDetail'
         ) {
-            this.getDetail(nextProps.location.query,nextProps.location.query.record);
+            this.getDetail(nextProps.location.query.record);
         }
     }
 
-    getDetail(resquery,record) {
+    getDetail(record) {
         this.props.dispatch({
             type: 'UnPoliceData/UnPoliceDetailFetch',
             payload: {
-                id: resquery.system_id,
+                id: record.id,
                 wtid: record.wtid || record.wt_id,
             },
             callback: data => {

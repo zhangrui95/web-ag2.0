@@ -270,42 +270,42 @@ export default class Home1 extends PureComponent {
                 //   datail: record,
                 // });
             } else if (read === 1) {
-                if (record.wtflMc === '警情') {
+                if (record.wtflId === '203201') { // 警情告警
                     this.props.dispatch(
                         routerRedux.push({
                             pathname: '/receivePolice/AlarmPolice/unpoliceDetail',
-                            query: {record: record, id: record && record.id ? record.id : '1'},
+                            query: {record: record, id: record && record.id ? record.id : '1',wtid: record && record.wt_id ? record.wt_id:'1'},
                         }),
                     );
-                } else if (record.wtflMc === '刑事案件') {
+                } else if (record.wtflId === '203202') { //刑事案件告警
                     this.props.dispatch(
                         routerRedux.push({
                             pathname: '/newcaseFiling/casePolice/CriminalPolice/uncaseDetail',
-                            query: {record: record, id: record && record.id ? record.id : '1'},
+                            query: {record: record, id: record && record.wt_id ? record.wt_id : '1'},
                         }),
                     );
-                } else if (record.wtflMc === '行政案件') {
+                } else if (record.wtflId === '203205') { //行政案件告警
                     this.props.dispatch(
                         routerRedux.push({
                             pathname: '/newcaseFiling/casePolice/AdministrationPolice/uncaseDetail',
-                            query: {record: record, id: record && record.id ? record.id : '1'},
+                            query: {record: record, id: record && record.wt_id ? record.wt_id : '1'},
                         }),
                     );
-                } else if (record.wtflMc === '办案区') {
+                } else if (record.wtflId === '203203') { //办案区告警
                     this.props.dispatch(
                         routerRedux.push({
                             pathname: '/handlingArea/AreaPolice/UnareaDetail',
-                            query: {record: record, id: record && record.id ? record.id : '1'},
+                            query: {record: record, id: record && record.wt_id ? record.wt_id : '1',baqid:record && record.id ? record.id : '1',},
                         }),
                     );
-                } else if (record.wtflMc === '涉案物品' || record.wtflMc === '物品' || record.wtflMc === '涉案财物') {
+                } else if (record.wtflId === '203204') { //涉案物品告警
                     this.props.dispatch(
                         routerRedux.push({
                             pathname: '/articlesInvolved/ArticlesPolice/unitemDetail',
                             query: {record: record, id: record && record.id ? record.id : '1'},
                         }),
                     );
-                } else if (record.wtflMc === '卷宗') {
+                } else if (record.wtflId === '203206') { //卷宗告警
                     this.props.dispatch(
                         routerRedux.push({
                             pathname: '/dossierPolice/DossierPolice/UnDossierDetail',

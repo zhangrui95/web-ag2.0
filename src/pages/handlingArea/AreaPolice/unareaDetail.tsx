@@ -113,18 +113,21 @@ export default class unareaDetail extends PureComponent {
 
   componentDidMount() {
     let res = this.props.location.query.record;
+    let resquery = this.props.location.query;
     if (typeof res == 'string') {
       res = JSON.parse(sessionStorage.getItem('query')).query.record;
     }
+    console.log('resquery',resquery);
     this.setState({
       record: res,
     });
     const { location } = this.props;
-    if (location && location.query && res && res.id && res.baq_id) {
-      this.getDetail(res.id, res.baq_id);
-    } else if (location && location.query && res && res.agid && res.system_id) {
-      this.getDetail(res.agid, res.system_id);
+    if (resquery&&resquery.id&&resquery.baqid) {
+      this.getDetail(resquery.id, resquery.baqid);
     }
+    // else if (location && location.query && res && res.agid && res.system_id) {
+    //   this.getDetail(res.agid, res.system_id);
+    // }
   }
 
   componentWillReceiveProps(nextProps) {
