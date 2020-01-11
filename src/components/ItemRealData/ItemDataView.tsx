@@ -16,7 +16,7 @@ import 'echarts/lib/component/legend';
 import 'echarts/lib/component/tooltip';
 import styles from '../../pages/common/dataView.less';
 // import datastyles from '../Styles/dataView.less';
-import { getDefaultDaysForMonth, getTimeDistance, getDefaultDays, getDefaultYears, getDefaultMonths } from '../../utils/utils';
+import { getDefaultDaysForMonth, getTimeDistance, getDefaultDays, getDefaultYears, getDefaultMonths, getDefaultWeeks } from '../../utils/utils';
 import DataViewDateShow from '../Common/DataViewDateShow';
 import { MiniProgress, ChartCard } from 'ant-design-pro/lib/Charts';
 import nonDivImg from '../../assets/viewData/nonData.png';
@@ -461,10 +461,8 @@ export default class ItemDataView extends PureComponent {
               if(typeLabel === 'day'){
                 dayArry = getDefaultDays(sTime,eTime);
               }else if(typeLabel === 'week'){
-
+                dayArry = getDefaultWeeks(sTime,eTime);
               }else if(typeLabel === 'month'){
-                // console.log('sTime',moment(sTime).format("MM"));
-                // console.log('sTime',moment(eTime).format("MM"));
                 dayArry = getDefaultMonths(sTime,eTime);
               }else if(typeLabel === 'year'){
                 dayArry = getDefaultYears(sTime,eTime);
