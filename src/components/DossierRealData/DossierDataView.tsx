@@ -23,6 +23,7 @@ import nonDivImg from '../../assets/viewData/nonData.png';
 import {connect} from "dva";
 import noListLight from "@/assets/viewData/noListLight.png";
 import {marginLeft} from "html2canvas/dist/types/css/property-descriptors/margin";
+import {getDefaultDays, getDefaultDaysForWeek, getDefaultMonths, getDefaultWeeks, getDefaultYears} from "@/utils/utils";
 
 let itemEchartpictorialBar;
 let itemEchartRingPie;
@@ -399,17 +400,38 @@ export default class DossierDataView extends PureComponent {
                         // this.setState({
                         //     jzqsNoData: true,
                         // })
-                        let momentMonth;
+                        let momentMonth,dayArry;
                         if (qsTime === '6') {
                             momentMonth = moment();
+                            dayArry = getDefaultDaysForMonth(momentMonth);
                         } else if (qsTime === '7') {
                             momentMonth = moment().subtract(1, 'months');
+                            dayArry = getDefaultDaysForMonth(momentMonth);
                         } else if (qsTime === '8') {
                             momentMonth = moment().subtract(2, 'months');
+                            dayArry = getDefaultDaysForMonth(momentMonth);
+                        } else if (qsTime === '3') {
+                            momentMonth = moment();
+                            dayArry = getDefaultDaysForWeek(momentMonth);
+                        } else if (qsTime === '4') {
+                            momentMonth = moment().subtract(1, 'weeks');
+                            dayArry = getDefaultDaysForWeek(momentMonth);
+                        } else if (qsTime === '5') {
+                            momentMonth = moment().subtract(2, 'weeks');
+                            dayArry = getDefaultDaysForWeek(momentMonth);
+                        } else if (qsTime === 'selectedDate'){
+                          if(typeLabel === 'day'){
+                            dayArry = getDefaultDays(sTime,eTime);
+                          }else if(typeLabel === 'week'){
+                            dayArry = getDefaultWeeks(sTime,eTime);
+                          }else if(typeLabel === 'month'){
+                            dayArry = getDefaultMonths(sTime,eTime);
+                          }else if(typeLabel === 'year'){
+                            dayArry = getDefaultYears(sTime,eTime);
+                          }
                         }
-                        const dayArry = getDefaultDaysForMonth(momentMonth);
-                        newData1 = [0, 0, 0, 0, 0, 0, 0];
-                        newData2 = [0, 0, 0, 0, 0, 0, 0];
+                        newData1 = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+                        newData2 = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
                         newData = dayArry;
                     }
                     const seriesDataAll = [

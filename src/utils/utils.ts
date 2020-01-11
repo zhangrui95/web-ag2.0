@@ -236,11 +236,42 @@ export function getDefaultDaysForWeek(momentWeek) {
 export function getDefaultDays(startTime, endTime) {
   let end = moment(endTime);
   let start = moment(startTime);
-  let dayNum = end.diff(moment(start), 'day');
+  let dayNum = end.diff(moment(start), 'days');
   let dayArry = [];
   dayArry.push(startTime);
   for (let i = 0; i < dayNum; i++) {
     dayArry.push(start.add(1, 'days').format('YYYY-MM-DD'));
+  }
+  return dayArry;
+}
+// 返回制定时间段内日期年
+export function getDefaultYears(startTime, endTime) {
+  let end = moment(endTime).format("YYYY");
+  let start = moment(startTime).format("YYYY");
+  let dayNum = end-start;
+  let dayArry = [];
+  dayArry.push(start);
+  for (let i = 0; i < dayNum; i++) {
+    dayArry.push(moment(start).add(1+i, 'years').format('YYYY'));
+  }
+  return dayArry;
+}
+// 返回制定时间段内日期月
+export function getDefaultMonths(startTime, endTime) {
+  let end1 = moment(endTime).format("YYYY");
+  let start1 = moment(startTime).format("YYYY");
+  let end2 = moment(endTime).format("M");
+  let start2 = moment(startTime).format("M");
+  let dayNum;
+  let dayArry = [];
+  if(end1 === start1){
+    dayNum = end2-start2;
+  }else if(end1 !== start1){
+    dayNum = end2-start2+12;
+  }
+  dayArry.push(moment(startTime).format("YYYY-MM"));
+  for (let i = 0; i < dayNum; i++) {
+    dayArry.push(moment(start1).add(1+i, 'months').format('YYYY-MM'));
   }
   return dayArry;
 }

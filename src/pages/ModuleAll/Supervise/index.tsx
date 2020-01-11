@@ -240,7 +240,7 @@ export default class SuperviseModal extends PureComponent {
         } else {
           let that = this;
           confirm({
-            title: '是否督办?',
+            title: fieldsValue.gqyy&&this.state.gqType?'是否直接挂起？':'确认督办?',
             centered: true,
             okText: '确认',
             cancelText: '取消',
@@ -279,7 +279,7 @@ export default class SuperviseModal extends PureComponent {
         } else {
           let that = this;
           confirm({
-            title: '是否督办?',
+            title: fieldsValue.gqyy&&this.state.gqType?'是否直接挂起':'确认督办?',
             centered: true,
             okText: '确认',
             cancelText: '取消',
@@ -351,7 +351,7 @@ export default class SuperviseModal extends PureComponent {
           cljg_yy: values.gqyy ? values.gqyy : '',
         },
         callback: data => {
-          message.success('督办保存成功');
+          message.success('督办成功');
           this.setState({
             SureModalVisible: false,
             dbLoading: false,
