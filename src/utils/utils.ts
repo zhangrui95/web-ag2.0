@@ -244,6 +244,23 @@ export function getDefaultDays(startTime, endTime) {
   }
   return dayArry;
 }
+// 获取指定时间段周范围
+export function getDefaultWeeks(startTime, endTime) {
+    let end = moment(endTime);
+    let start = moment(startTime);
+    let weekNum = end.diff(moment(start), 'week');
+    let dayArry = [];
+    dayArry.push(getWeek(start));
+    for (let i = 0; i < weekNum; i++) {
+        dayArry.push(getWeek(start.add(7, 'days')));
+    }
+    return dayArry;
+}
+export function getWeek(time) {
+    let start = time.startOf('week').format('YYYY-MM-DD');
+    let end = time.endOf('week').format('YYYY-MM-DD');
+    return `${start}~${end}`;
+}
 export function getPlainNode(nodeList, parentPath = '') {
   const arr = [];
   nodeList.forEach(node => {
