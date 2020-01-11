@@ -91,6 +91,7 @@ export default class Index extends PureComponent {
                 dbzt: '',
                 ccdw: props.location.state.code,
                 gjsj: [props.location.state.kssj ? moment(props.location.state.kssj) : null, props.location.state.jssj ? moment(props.location.state.jssj) : null],
+                searchHeight:true,
             });
             this.props.form.setFieldsValue({
                 kfgly: props.location.state.bar_name,

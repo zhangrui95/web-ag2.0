@@ -70,22 +70,43 @@ export default class Index extends PureComponent {
                 showDataView: false,
             });
         }
+        this.getAllList(this.props);
+    }
+
+    componentWillReceiveProps(nextProps) {
+        if (this.props.global.isResetList.isReset !== nextProps.global.isResetList.isReset && nextProps.global.isResetList.url === '/handlingArea/AreaData') {
+            if (nextProps.global.isResetList.state){
+                this.getAllList(nextProps.global.isResetList.state);
+            }else{
+                const params = {
+                    currentPage: 1,
+                    showCount: tableList,
+                    pd: {
+                        ...this.state.formValues,
+                    },
+                };
+                this.getArea(params);
+            }
+        }
+    }
+    getAllList = (props) => {
         if (
-            this.props.location.state &&
-            this.props.location.state.code &&
-            this.props.location.state.kssj &&
-            this.props.location.state.jssj
+            props.location.state &&
+            props.location.state.code &&
+            props.location.state.kssj &&
+            props.location.state.jssj
         ) {
             this.setState({
                 showDataView: false,
                 dbzt: true,
-                badw: this.props.location.state.code,
-                rqsj: [moment(this.props.location.state.kssj), moment(this.props.location.state.jssj)],
+                badw: props.location.state.code,
+                rqsj: [moment(props.location.state.kssj), moment(props.location.state.jssj)],
+                searchHeight:true,
             });
             const formValues = {
-                badw: this.props.location.state.code,
-                rqsj_ks: this.props.location.state.kssj,
-                rqsj_js: this.props.location.state.jssj,
+                badw: props.location.state.code,
+                rqsj_ks: props.location.state.kssj,
+                rqsj_js: props.location.state.jssj,
                 is_tz: '1',
             };
             this.setState({
@@ -111,21 +132,6 @@ export default class Index extends PureComponent {
             this.getBaqTree();
         }
     }
-
-    componentWillReceiveProps(nextProps) {
-        if (this.props.global.isResetList.isReset !== nextProps.global.isResetList.isReset && nextProps.global.isResetList.url === '/handlingArea/AreaData') {
-            // this.handleFormReset();
-          const params = {
-            currentPage: 1,
-            showCount: tableList,
-            pd: {
-              ...this.state.formValues,
-            },
-          };
-          this.getArea(params);
-        }
-    }
-
     onChange = activeKey => {
         this.setState({
             activeKey,
