@@ -1331,7 +1331,7 @@ export default class ItemDataView extends PureComponent {
                             <Col {...colLayout}>
                                 {/*<div className={AreaDataViewStyles.rycfBox}>*/}
                                 <div className={styles.cardBoxTitle}>| 性别统计</div>
-                                <div id="rycf" className={styles.cardBox} style={{height: '350px'}}></div>
+                                <div id="rycf" className={styles.cardBox} style={{height: '350px',marginLeft:'3%'}}></div>
                                 {/*</div>*/}
                             </Col>
                             <Col {...colLayout2}>
@@ -1341,7 +1341,7 @@ export default class ItemDataView extends PureComponent {
                                 {/*  // contentHeight={46}*/}
                                 {/*  className={AreaDataViewStyles.nlhfBox}*/}
                                 {/*>*/}
-                                <div id="nlhf" className={styles.cardBox} style={{height: 350, padding: 30}}>
+                                <div id="nlhf" className={styles.cardBox} style={{height: 350, padding: 30,marginLeft: '1.5%',width: '98%'}}>
                                     {NLFBdata.length > 0
                                         ? NLFBdata.map(item => (
                                             <Row gutter={rowLayout} style={{height: 44}}>
@@ -1379,7 +1379,7 @@ export default class ItemDataView extends PureComponent {
                                             </a> : ''
                                         }
                                     </div>
-                                    <div className={styles.cardBox}>
+                                    <div className={styles.cardBox} style={{marginLeft:'3%'}}>
                                         {this.returnSaryrqrczs(
                                             SARYRQRCdataLength,
                                             SARYRQRCdata,
@@ -1391,17 +1391,17 @@ export default class ItemDataView extends PureComponent {
                             </Col>
                             <Col {...colLayout}>
                                 <div className={styles.cardBoxTitle}>| 人员类型</div>
-                                <div id="salxBaq" className={styles.cardBox}></div>
+                                <div id="salxBaq" className={styles.cardBox} style={{marginLeft:'3%'}}></div>
                             </Col>
                             <Col {...colLayout}>
                                 <div className={styles.cardBoxTitle}>| 入区原因</div>
-                                <div id="rqyy" className={styles.cardBox}></div>
+                                <div id="rqyy" className={styles.cardBox} style={{marginLeft:'3%'}}></div>
                             </Col>
                         </Row>
                         <Row gutter={rowLayout} className={styles.listPageRow}>
                             <Col {...colLayout1} style={{marginBottom: 32}}>
                                 <div className={styles.cardBoxTitle}>| 人员入区人次展示</div>
-                                <div id="rqrcqszs" className={styles.cardBox} style={{width:'98%',marginLeft:'1%'}}></div>
+                                <div id="rqrcqszs" className={styles.cardBox} style={{width:'98.5%',marginLeft:'1%'}}></div>
                             </Col>
                         </Row>
                     </div>

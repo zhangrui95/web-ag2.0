@@ -22,6 +22,7 @@ import {MiniProgress, ChartCard} from 'ant-design-pro/lib/Charts';
 import nonDivImg from '../../assets/viewData/nonData.png';
 import {connect} from "dva";
 import noListLight from "@/assets/viewData/noListLight.png";
+import {marginLeft} from "html2canvas/dist/types/css/property-descriptors/margin";
 
 let itemEchartpictorialBar;
 let itemEchartRingPie;
@@ -936,7 +937,7 @@ export default class DossierDataView extends PureComponent {
                         <Row gutter={rowLayout} className={styles.listPageRow}>
                             <Col {...colLayout}>
                                 <div className={styles.cardBoxTitle}>| 卷宗数量展示</div>
-                                <div id="jzslzs" className={styles.cardBox}></div>
+                                <div id="jzslzs" className={styles.cardBox} style={{marginLeft:'3%'}}></div>
                             </Col>
                             <Col {...colLayout}>
                                 <div className={styles.listPageWrap} style={{top: 52}}>
@@ -961,11 +962,11 @@ export default class DossierDataView extends PureComponent {
                                     </div>
                                 </div>
                                 <div className={styles.cardBoxTitle}>| 卷宗在库情况</div>
-                                <div id="jzcrkqk" className={styles.cardBox}></div>
+                                <div id="jzcrkqk" className={styles.cardBox} style={{marginLeft:'3%'}}></div>
                             </Col>
                             <Col {...colLayout}>
                                 <div className={styles.cardBoxTitle}>| 在库卷宗数量展示</div>
-                                <div className={styles.cardBoxzk} style={{padding: '10px 5px'}}>
+                                <div className={styles.cardBoxzk} style={{marginLeft:'3%'}}>
                                     {ZkjzData.length > 0 ?
                                         <div>
                                             <Row gutter={rowLayout}>
@@ -1020,7 +1021,7 @@ export default class DossierDataView extends PureComponent {
                         <Row gutter={rowLayout} className={styles.listPageRow}>
                             <Col {...colLayout1} style={{marginBottom: 32}}>
                                 <div className={styles.cardBoxTitle}>| 卷宗趋势</div>
-                                <div id="jzqs" className={styles.cardBox}></div>
+                                <div id="jzqs" className={styles.cardBox} style={{marginLeft: '1.5%',width: '98%'}}></div>
                                 {
                                     jzqsNoData ? (
                                         <div style={{
@@ -1053,7 +1054,7 @@ export default class DossierDataView extends PureComponent {
                             </Col>
                             <Col {...colLayout2} style={{marginBottom: 32}}>
                                 <div className={styles.cardBoxTitle}>| 电子化情况展示</div>
-                                <div id="dzhqkzs" className={styles.cardBox}></div>
+                                <div id="dzhqkzs" className={styles.cardBox} style={{marginLeft:'3%'}}></div>
                             </Col>
                         </Row>
                     </div>
