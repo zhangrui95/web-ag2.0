@@ -89,44 +89,7 @@ export default class Index extends PureComponent {
       record.dossier_id = record.system_id;
       this.newDetail(record);
     }
-    if (
-      this.props.location.state &&
-      this.props.location.state.code &&
-      this.props.location.state.kssj &&
-      this.props.location.state.jssj
-    ) {
-      const formValues = {
-        badw: this.props.location.state.code,
-        rksj_ks: this.props.location.state.kssj,
-        rksj_js: this.props.location.state.jssj,
-        is_tz: '1',
-      };
-      this.setState({
-        formValues,
-        is_tz: '1',
-        showDataView: false,
-        dbzt: true,
-        badw: this.props.location.state.code,
-        rksj: [moment(this.props.location.state.kssj), moment(this.props.location.state.jssj)],
-      });
-      const params = {
-        currentPage: 1,
-        showCount: tableList,
-        pd: {
-          ...formValues,
-        },
-      };
-      this.getDossier(params);
-    } else {
-      const jigouArea = sessionStorage.getItem('user');
-      const newjigouArea = JSON.parse(jigouArea);
-      this.handleFormReset();
-      this.getDossier();
-      this.getDossierType();
-      this.getDossierSaveTypeDict();
-      this.getCaseProcessDict();
-      this.getDepTree(newjigouArea.department);
-    }
+      this.getAllList(this.props);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -134,17 +97,61 @@ export default class Index extends PureComponent {
       this.props.global.isResetList.isReset !== nextProps.global.isResetList.isReset &&
       nextProps.global.isResetList.url === '/dossierPolice/DossierData'
     ) {
-      const params = {
-        currentPage: 1,
-        showCount: tableList,
-        pd: {
-          ...this.state.formValues,
-        },
-      };
-      this.getDossier(params);
+        if (nextProps.global.isResetList.state){
+            this.getAllList(nextProps.global.isResetList.state);
+        }else{
+            const params = {
+                currentPage: 1,
+                showCount: tableList,
+                pd: {
+                    ...this.state.formValues,
+                },
+            };
+            this.getDossier(params);
+        }
     }
   }
-
+    getAllList = props => {
+        if (
+            props.location.state &&
+            props.location.state.code &&
+            props.location.state.kssj &&
+            props.location.state.jssj
+        ) {
+            const formValues = {
+                badw: props.location.state.code,
+                rksj_ks: props.location.state.kssj,
+                rksj_js: props.location.state.jssj,
+                is_tz: '1',
+            };
+            this.setState({
+                formValues,
+                is_tz: '1',
+                showDataView: false,
+                dbzt: true,
+                badw: props.location.state.code,
+                rksj: [moment(props.location.state.kssj), moment(props.location.state.jssj)],
+                searchHeight:true,
+            });
+            const params = {
+                currentPage: 1,
+                showCount: tableList,
+                pd: {
+                    ...formValues,
+                },
+            };
+            this.getDossier(params);
+        } else {
+            const jigouArea = sessionStorage.getItem('user');
+            const newjigouArea = JSON.parse(jigouArea);
+            this.handleFormReset();
+            this.getDossier();
+            this.getDossierType();
+            this.getDossierSaveTypeDict();
+            this.getCaseProcessDict();
+            this.getDepTree(newjigouArea.department);
+        }
+    }
   // 切换tab
   onTabChange = activeKey => {
     this.setState({

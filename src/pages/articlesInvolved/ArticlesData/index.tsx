@@ -72,22 +72,44 @@ export default class Index extends PureComponent {
                 showDataView: false,
             });
         }
+        this.getAllList(this.props);
+        this.getDepTree(getUserInfos().department);
+    }
+
+    componentWillReceiveProps(nextProps) {
+      if (this.props.global.isResetList.isReset !== nextProps.global.isResetList.isReset && nextProps.global.isResetList.url === '/articlesInvolved/ArticlesData') {
+          if (nextProps.global.isResetList.state){
+              this.getAllList(nextProps.global.isResetList.state);
+          }else{
+              const params = {
+                  currentPage: 1,
+                  showCount: tableList,
+                  pd: {
+                      ...this.state.formValues,
+                  },
+              };
+              this.getItem(params);
+          }
+      }
+    }
+    getAllList = (props) => {
         if (
-            this.props.location.state &&
-            this.props.location.state.code &&
-            this.props.location.state.kssj &&
-            this.props.location.state.jssj
+            props.location.state &&
+            props.location.state.code &&
+            props.location.state.kssj &&
+            props.location.state.jssj
         ) {
             this.setState({
                 showDataView: false,
                 dbzt: true,
-                ccdw: this.props.location.state.code,
-                rksj: [moment(this.props.location.state.kssj), moment(this.props.location.state.jssj)],
+                ccdw: props.location.state.code,
+                rksj: [moment(props.location.state.kssj), moment(props.location.state.jssj)],
+                searchHeight:true,
             });
             const formValues = {
-                ccdw: this.props.location.state.code,
-                rksj_ks: this.props.location.state.kssj,
-                rksj_js: this.props.location.state.jssj,
+                ccdw: props.location.state.code,
+                rksj_ks: props.location.state.kssj,
+                rksj_js: props.location.state.jssj,
                 is_tz: '1',
             };
             this.setState({
@@ -114,20 +136,6 @@ export default class Index extends PureComponent {
             this.getItemsStorage();
             this.getItemStatus();
         }
-        this.getDepTree(getUserInfos().department);
-    }
-
-    componentWillReceiveProps(nextProps) {
-      if (this.props.global.isResetList.isReset !== nextProps.global.isResetList.isReset && nextProps.global.isResetList.url === '/articlesInvolved/ArticlesData') {
-        const params = {
-          currentPage: 1,
-          showCount: tableList,
-          pd: {
-            ...this.state.formValues,
-          },
-        };
-        this.getItem(params);
-      }
     }
 
     onChange = activeKey => {

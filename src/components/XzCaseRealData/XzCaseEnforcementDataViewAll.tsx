@@ -883,7 +883,7 @@ export default class XzCaseEnforcementDataView extends PureComponent {
                     <Row gutter={rowLayout} className={styles.listPageRow}>
                         <Col sm={24} lg={12} xl={6}>
                             <div className={styles.cardBoxTitle}>| 案件情况展示</div>
-                            <div id="ajqkzs" className={styles.cardBox}></div>
+                            <div id="ajqkzs" className={styles.cardBox} style={{marginLeft:'4%'}}></div>
                         </Col>
                         <Col sm={24} lg={12} xl={18}>
                             <div className={styles.cardBoxTitle}>| 受结情况展示</div>

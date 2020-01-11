@@ -40,19 +40,31 @@ export default class PersonalDoc extends PureComponent {
     componentDidMount() {
         this.getDepTree(JSON.parse(sessionStorage.getItem('user')).department);
         this.getEnforcementDictType();
-        if (this.props.location.state && this.props.location.state.code && this.props.location.state.kssj && this.props.location.state.jssj) {
+        this.getAllList(this.props);
+        this.getCaseTypeTree(window.configUrl.is_area);
+    }
+    componentWillReceiveProps(nextProps) {
+        if (this.props.global.isResetList.isReset !== nextProps.global.isResetList.isReset && nextProps.global.isResetList.url === '/lawEnforcement/PersonFile') {
+            if (nextProps.global.isResetList.state){
+                this.getAllList(nextProps.global.isResetList.state);
+            }
+        }
+    }
+    getAllList = (props) => {
+        if (props.location.state && props.location.state.code && props.location.state.kssj && props.location.state.jssj) {
             const formValues = {
-                cjrq_ks: this.props.location.state.kssj,
-                cjrq_js: this.props.location.state.jssj,
-                tbdw: this.props.location.state.code,
+                cjrq_ks: props.location.state.kssj,
+                cjrq_js: props.location.state.jssj,
+                tbdw: props.location.state.code,
                 is_tz: '1',
             };
             this.setState({
                 formValues,
                 is_tz: '1',
-                tbdw: this.props.location.state.code,
-                cjsj: [moment(this.props.location.state.kssj), moment(this.props.location.state.jssj)],
-                salx: this.props.location.state.params.name,
+                tbdw: props.location.state.code,
+                cjsj: [moment(props.location.state.kssj), moment(props.location.state.jssj)],
+                salx: props.location.state.params&&props.location.state.params.name ? props.location.state.params.name : '',
+                searchHeight:true,
             });
             const params = {
                 currentPage: 1,
@@ -62,12 +74,12 @@ export default class PersonalDoc extends PureComponent {
                 },
             };
             this.getPersonData(params);
-        } else if (this.props.location && this.props.location.queryChange) {
-            const {searchTime, qzcsName, departmentId, from} = this.props.location.queryChange;
+        } else if (props.location && props.location.queryChange) {
+            const {searchTime, qzcsName, departmentId, from} = props.location.queryChange;
             const qzcsfxqssj = searchTime ? moment(searchTime).startOf('month').format('YYYY-MM-DD HH:mm:ss') : '';
             const qzcsfxzzsj = searchTime ? moment(searchTime).endOf('month').format('YYYY-MM-DD HH:mm:ss') : '';
             if (from === 'rylx') {
-                this.props.form.setFieldsValue({
+                props.form.setFieldsValue({
                     salx: qzcsName,
                     slsj: [moment(moment(searchTime).startOf('month').format('YYYY-MM-DD HH:mm:ss')), moment(moment(searchTime).endOf('month').format('YYYY-MM-DD HH:mm:ss'))],
                 });
@@ -92,7 +104,7 @@ export default class PersonalDoc extends PureComponent {
                 };
                 this.getPersonData(params);
             } else {
-                this.props.form.setFieldsValue({
+                props.form.setFieldsValue({
                     qzcslx: qzcsName,
                     qzcsfxsj: [moment(moment(searchTime).startOf('month').format('YYYY-MM-DD HH:mm:ss')), moment(moment(searchTime).endOf('month').format('YYYY-MM-DD HH:mm:ss'))],
                 });
@@ -123,7 +135,6 @@ export default class PersonalDoc extends PureComponent {
             this.getInvolvedType();
             this.getPersonData();
         }
-        this.getCaseTypeTree(window.configUrl.is_area);
     }
 
     // 获取案件类别树

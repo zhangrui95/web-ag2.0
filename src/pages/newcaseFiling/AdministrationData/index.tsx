@@ -55,16 +55,40 @@ export default class Index extends PureComponent {
                 showDataView: false,
             });
         }
-        if (this.props.location.state && this.props.location.state.code && this.props.location.state.kssj && this.props.location.state.jssj) {
+        this.getAllList(this.props);
+        this.getCaseStatus();
+        this.getEnforcementDictType();
+        this.getCaseTypeTree(window.configUrl.is_area);
+    }
+
+    componentWillReceiveProps(nextProps) {
+      if (this.props.global.isResetList.isReset !== nextProps.global.isResetList.isReset && nextProps.global.isResetList.url ===  '/newcaseFiling/caseData/AdministrationData') {
+          if (nextProps.global.isResetList.state){
+              this.getAllList(nextProps.global.isResetList.state);
+          }else{
+              const params = {
+                  currentPage: 1,
+                  showCount: tableList,
+                  pd: {
+                      ...this.state.formValues,
+                  },
+              };
+              this.getCase(params);
+          }
+      }
+    }
+    getAllList = (props) => {
+        if (props.location.state && props.location.state.code && props.location.state.kssj && props.location.state.jssj) {
             this.setState({
                 showDataView: false,
-                sldw: this.props.location.state.code,
-                slrq: [moment(this.props.location.state.kssj), moment(this.props.location.state.jssj)],
+                sldw: props.location.state.code,
+                slrq: [moment(props.location.state.kssj), moment(props.location.state.jssj)],
+                searchHeight:true,
             });
             const formValues = {
-                slrq_ks: this.props.location.state.kssj,
-                slrq_js: this.props.location.state.jssj,
-                sldw: this.props.location.state.code,
+                slrq_ks: props.location.state.kssj,
+                slrq_js: props.location.state.jssj,
+                sldw: props.location.state.code,
                 is_tz: '1',
             };
             this.setState({
@@ -81,13 +105,13 @@ export default class Index extends PureComponent {
             this.getCase(params);
         } else {
             this.handleFormReset();
-            const org = getQueryString(this.props.location.search, 'org') || '';
-            const slrq_ks = getQueryString(this.props.location.search, 'startTime') || '';
-            const slrq_js = getQueryString(this.props.location.search, 'endTime') || '';
+            const org = getQueryString(props.location.search, 'org') || '';
+            const slrq_ks = getQueryString(props.location.search, 'startTime') || '';
+            const slrq_js = getQueryString(props.location.search, 'endTime') || '';
             const jigouArea = sessionStorage.getItem('user');
             const newjigouArea = JSON.parse(jigouArea);
             if ((slrq_ks !== '') && (slrq_js !== '')) {
-                this.props.form.setFieldsValue({
+                props.form.setFieldsValue({
                     slrq: [moment(slrq_ks, 'YYYY-MM-DD'), moment(slrq_js, 'YYYY-MM-DD')],
                 });
             }
@@ -104,24 +128,7 @@ export default class Index extends PureComponent {
             this.getCase(obj);
             this.getDepTree(newjigouArea.department);
         }
-        this.getCaseStatus();
-        this.getEnforcementDictType();
-        this.getCaseTypeTree(window.configUrl.is_area);
     }
-
-    componentWillReceiveProps(nextProps) {
-      if (this.props.global.isResetList.isReset !== nextProps.global.isResetList.isReset && nextProps.global.isResetList.url ===  '/newcaseFiling/caseData/AdministrationData') {
-        const params = {
-          currentPage: 1,
-          showCount: tableList,
-          pd: {
-            ...this.state.formValues,
-          },
-        };
-        this.getCase(params);
-      }
-    }
-
     // 获取人员强制措施字典
     getEnforcementDictType = () => {
         this.props.dispatch({
