@@ -27,7 +27,7 @@ export default class IntoArea extends PureComponent {
     constructor(props) {
         super(props);
         let res = props.location.query.record;
-        console.log('res',typeof res)
+        // console.log('res',typeof res)
         if (typeof res == 'string'||typeof res == 'object') {
             res = JSON.parse(sessionStorage.getItem('query')).query.record;
         }
