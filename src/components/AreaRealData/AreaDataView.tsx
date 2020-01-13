@@ -59,7 +59,7 @@ const colors1 = [
 export default class ItemDataView extends PureComponent {
     state = {
         currentType: 'week',
-        type: 'now',
+        type: '',
         rqtype: '3',
         TypeTime: [
             moment(getTimeDistance('week')[0]).format('YYYY-MM-DD'),
@@ -160,6 +160,7 @@ export default class ItemDataView extends PureComponent {
                     currentType = nextProps.searchType === 'week' ? 'beforeLastWeek' : 'beforeLastMonth';
                     rqtype = currentType === 'beforeLastWeek' ? '5' : '8';
                 }
+                console.log('rqtype-------->',rqtype)
                 this.setState({
                     chooseBaqName: null,
                 });
@@ -200,6 +201,7 @@ export default class ItemDataView extends PureComponent {
                     this.setState(
                         {
                             TypeTime: selectedDateVal,
+                            currentType,
                         },
                         function () {
                             this.getAreaRYCFCount(selectedDateVal[0], selectedDateVal[1], nextProps.orgcode);
@@ -414,7 +416,7 @@ export default class ItemDataView extends PureComponent {
                     const data1 = data.list;
                     if (data.list.length > 1) {
                         for (let a = 0; a < data.list.length; a++) {
-                            SARYRQRC += data.list[a].count1;
+                            SARYRQRC += parseInt(data.list[a].count1) +  parseInt(data.list[a].count2) +  parseInt(data.list[a].count3);
                         }
                         const DataListLength = data1.length;
                         this.setState({
@@ -654,7 +656,7 @@ export default class ItemDataView extends PureComponent {
             orgId: orgid,
             orgcode,
         };
-        if (qsTime === 'selectedDate') {
+        if (this.state.currentType === 'selectedDate') {
             payload = {
                 kssj: sTime,
                 jssj: eTime,
@@ -1182,6 +1184,7 @@ export default class ItemDataView extends PureComponent {
     // 点击涉案人员入区人次展示切换办案区
     chooseBaq = item => {
         const {TypeTime, currentType, rqtype} = this.state;
+        console.log('currentType',currentType);
         this.setState({
             chooseBaq: item.orgid,
             chooseBaqName:item.name,
@@ -1192,7 +1195,7 @@ export default class ItemDataView extends PureComponent {
         this.getAreaSALXCount(TypeTime[0], TypeTime[1], this.props.orgcode, item.orgid);
         this.getAreaRQYYCount(TypeTime[0], TypeTime[1], this.props.orgcode, item.orgid);
         // this.getAreaSARYRQRCCount(TypeTime[0],TypeTime[1]);
-        this.getAreaRQRCQSCount(rqtype, this.props.orgcode, '', '', item.orgid);
+        this.getAreaRQRCQSCount(rqtype, this.props.orgcode, TypeTime[0], TypeTime[1], item.orgid);
     };
     resetBaq = () => {
         const {TypeTime, currentType, rqtype} = this.state;
@@ -1220,9 +1223,9 @@ export default class ItemDataView extends PureComponent {
                             <div className={AreaDataViewStyles.IntoPerson}>
                                 <h5>{item.name}</h5>
                                 <div>
-                                    <Tooltip title={item.name + '入区人数：' + item.count1} placement="bottomLeft">
+                                    <Tooltip title={`${item.name}入区人数：${parseInt(item.count1) + parseInt(item.count2) + parseInt(item.count3)}`} placement="bottomLeft">
                                         <Progress
-                                            percent={(item.count1 / parseInt(SARYRQRCTotal)) * 100}
+                                            percent={(`${parseInt(item.count1) + parseInt(item.count2) + parseInt(item.count3)}`/ parseInt(SARYRQRCTotal)) * 100}
                                             status={
                                                 item.orgid === chooseBaq && chooseBaq !== '' ? 'exception' : 'active'
                                             }
