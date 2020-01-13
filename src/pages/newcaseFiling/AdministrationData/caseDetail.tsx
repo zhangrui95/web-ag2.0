@@ -199,7 +199,7 @@ export default class caseDetail extends PureComponent {
             id: caseDetails && caseDetails.ajbh ? caseDetails.ajbh : '1',
             from: '行政案件详情问题判定',
             fromPath: '/newcaseFiling/caseData/AdministrationData/caseDetail',
-            wtflId: '203202',
+            wtflId: '203205',
             wtflMc: '行政案件',
           },
         }),
@@ -695,9 +695,9 @@ export default class caseDetail extends PureComponent {
         style={{ background: dark ? '#252c3c' : '#fff', height: autoheight() - 260 + 'px' }}
         className={styles.detailBoxScroll}
       >
-        <div style={{ paddingRight: 84, height: 'auto' }}>
+        <div style={{ height: 'auto' }}>
           {caseDetails && caseDetails.jqxxList && caseDetails.jqxxList.length > 0 ? (
-            <div style={{ float: 'right', padding: '16px' }}>
+            <div style={{ float: 'right', padding: '16px 0',marginRight: 16 }}>
               <Button
                 type="primary"
                 onClick={() => this.seePolice(true, caseDetails)}
@@ -714,7 +714,7 @@ export default class caseDetail extends PureComponent {
             ''
           )}
           {caseDetails && caseDetails.rqxyrList && caseDetails.rqxyrList.length > 0 ? (
-            <div style={{ float: 'right', padding: '16px' }}>
+            <div style={{ float: 'right', padding: '16px 0',marginRight: 16 }}>
               <Button
                 type="primary"
                 onClick={() => this.seeArea(true, caseDetails)}
@@ -731,7 +731,7 @@ export default class caseDetail extends PureComponent {
             ''
           )}
           {caseDetails && caseDetails.sawpList && caseDetails.sawpList.length > 0 ? (
-            <div style={{ float: 'right', padding: '16px' }}>
+            <div style={{ float: 'right', padding: '16px 0',marginRight: 16 }}>
               <Button
                 type="primary"
                 onClick={() => this.seeRes(true, caseDetails)}
@@ -748,7 +748,7 @@ export default class caseDetail extends PureComponent {
             ''
           )}
           {caseDetails && caseDetails.jzList && caseDetails.jzList.length > 0 ? (
-            <div style={{ float: 'right', padding: '16px' }}>
+            <div style={{ float: 'right', padding: '16px 0',marginRight: 16 }}>
               <Button
                 type="primary"
                 onClick={() => this.seeDossier(true, caseDetails)}

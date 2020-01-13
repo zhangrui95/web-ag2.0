@@ -621,7 +621,7 @@ export default class caseDetail extends PureComponent {
                         <Button
                             // type="primary"
                             onClick={() => this.seePolice(true, caseDetails.jqxxList)}
-                            style={{marginRight: 70, background: dark
+                            style={{marginRight: 16, background: dark
                                 ? 'linear-gradient(to right, #0084FA, #03A3FF)'
                                 : 'linear-gradient(to right, #3D63D1, #333FE4)'}}
                         >

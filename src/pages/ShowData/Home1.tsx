@@ -453,7 +453,7 @@ export default class Home1 extends PureComponent {
                     totalResult: 0,
                 },
                 callback: res => {
-                    this.state.headerList[1].tital = res.page.totalResult;
+                    this.state.headerList[1].tital = res&&res.page&&res.page.totalResult ? res.page.totalResult : 0;
                     this.setState({
                         headerList: this.state.headerList,
                     });
@@ -461,7 +461,7 @@ export default class Home1 extends PureComponent {
                         if (this.state.idx === 1) {
                             this.setState({
                                 data: res.list,
-                                pageTotal: res.page.totalResult,
+                                pageTotal: res&&res.page&&res.page.totalResult ? res.page.totalResult : 0,
                                 loading: false,
                             });
                         }
@@ -482,7 +482,7 @@ export default class Home1 extends PureComponent {
                     totalResult: 0,
                 },
                 callback: res => {
-                    this.state.headerList[1].tital = res.page.totalResult;
+                    this.state.headerList[1].tital = res&&res.page&&res.page.totalResult ? res.page.totalResult : 0;
                 },
             });
         }
@@ -557,7 +557,7 @@ export default class Home1 extends PureComponent {
                     totalResult: 0,
                 },
                 callback: res => {
-                    this.state.headerList[0].tital = res.page.totalResult;
+                    this.state.headerList[0].tital = res&&res.page&&res.page.totalResult ? res.page.totalResult : 0;
                     this.setState({
                         headerList: this.state.headerList,
                     });
@@ -585,7 +585,7 @@ export default class Home1 extends PureComponent {
                     if (this.state.idx === 0) {
                         this.setState({
                             data: list,
-                            pageTotal: res.page.totalResult,
+                            pageTotal: res&&res.page&&res.page.totalResult ? res.page.totalResult : 0,
                             loading: false,
                         });
                     }
@@ -600,7 +600,7 @@ export default class Home1 extends PureComponent {
                     showCount: this.state.pageSize,
                 },
                 callback: res => {
-                    this.state.headerList[0].tital = res.page.totalResult;
+                    this.state.headerList[0].tital = res&&res.page&&res.page.totalResult ? res.page.totalResult : 0;
                 },
             });
         }
@@ -817,7 +817,7 @@ export default class Home1 extends PureComponent {
                     if (this.state.idx === 2) {
                         this.setState({
                             data: res.list,
-                            pageTotal: res.page.totalResult,
+                            pageTotal: res&&res.page&&res.page.totalResult ? res.page.totalResult : 0,
                             loading: false,
                         });
                     }
@@ -840,7 +840,7 @@ export default class Home1 extends PureComponent {
                 },
                 callback: res => {
                     this.setState({
-                        fxgw: res.page.totalResult,
+                        fxgw:res&&res.page&&res.page.totalResult ? res.page.totalResult : 0,
                     });
                 },
             });
@@ -853,7 +853,7 @@ export default class Home1 extends PureComponent {
                 },
                 callback: res => {
                     this.setState({
-                        wdfx: res.page.totalResult,
+                        wdfx: res&&res.page&&res.page.totalResult ? res.page.totalResult : 0,
                     });
                 },
             });
@@ -987,7 +987,7 @@ export default class Home1 extends PureComponent {
                     if (this.state.idx === 3) {
                         this.setState({
                             data: res.list,
-                            pageTotal: res.page.totalResult,
+                            pageTotal: res&&res.page&&res.page.totalResult ? res.page.totalResult : 0,
                             loading: false,
                         });
                     }
@@ -1014,7 +1014,7 @@ export default class Home1 extends PureComponent {
             },
             callback: res => {
                 this.setState({
-                    zzgz: res.page.totalResult,
+                    zzgz: res&&res.page&&res.page.totalResult ? res.page.totalResult : 0,
                 });
             },
         });
@@ -1027,7 +1027,7 @@ export default class Home1 extends PureComponent {
             },
             callback: res => {
                 this.setState({
-                    lsgz: res.page.totalResult,
+                    lsgz: res&&res.page&&res.page.totalResult ? res.page.totalResult : 0,
                 });
             },
         });

@@ -559,7 +559,7 @@ export default class policeDetail extends PureComponent {
         id={`jqDetail${this.props.location.query.id}`}
         className={styles.detailBoxScroll}
       >
-        <div style={{ paddingRight: 84, height: 'auto' }}>
+        <div style={{ height: 'auto' }}>
           {policeDetails && policeDetails.ajbh && policeDetails.is_sa === 1 ? (
             <div style={{ float: 'right', padding: '16px' }}>
               <Button

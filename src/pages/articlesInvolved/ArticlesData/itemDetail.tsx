@@ -514,7 +514,7 @@ export default class itemDetail extends PureComponent {
         style={{ background: dark ? '#252c3c' : '#fff', height: autoheight() - 260 + 'px' }}
         className={styles.detailBoxScroll}
       >
-        <div style={{ paddingRight: 84, height: 'auto' }}>
+        <div style={{ height: 'auto' }}>
           {itemDetails && itemDetails.system_id && itemDetails.ajlx ? (
             <div style={{ float: 'right', padding: '16px' }}>
               <Button

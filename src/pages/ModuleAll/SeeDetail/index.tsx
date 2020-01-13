@@ -174,8 +174,8 @@ export default class DbHistory extends PureComponent {
                 <div className={styles.dbrz}>
                   {Isdetail === '发起督办'
                     ? record.zrrMc
-                    : record.fkrXmOfXq
-                    ? record.fkrXmOfXq
+                    : record.fkrXmOfXq || record.zrrMc
+                    ? record.fkrXmOfXq || record.zrrMc
                     : ''}
                 </div>
               </Col>
@@ -215,17 +215,17 @@ export default class DbHistory extends PureComponent {
               )}
             </Row>
             <Row gutter={{ md: 8, lg: 24, xl: 48 }}>
+                <Col md={24} sm={24}>
+                    <div className={styles.historydbrz}>
+                  <span className={styles.dbrzName1}>
+                    {Isdetail === '发起督办' ? '整改意见：' : ''}
+                      {record.zgyj}
+                  </span>
+                    </div>
+                </Col>
               <Col md={24} sm={24}>
                 <div className={styles.historydbrz}>
                   <span className={styles.dbrzName1}>{record.fkyj ? record.fkyj : ''}</span>
-                </div>
-              </Col>
-              <Col md={24} sm={24}>
-                <div className={styles.historydbrz}>
-                  <span className={styles.dbrzName1}>
-                    {Isdetail === '发起督办' ? '整改意见：' : ''}
-                    {record.zgyj}
-                  </span>
                 </div>
               </Col>
             </Row>
