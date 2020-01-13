@@ -683,6 +683,15 @@ export default class DossierDataView extends PureComponent {
         const dataTime = currentType === 'selectedDate' ? this.props.selectedDateVal : this.getTime(currentType);
         this.props.changeToListPage({szkf: name, cczt: '3'}, dataTime);
     };
+    // 字符串指定位置插入字符： flag：字符；sn：位置
+    insertFlg = (str, flg, sn) => {
+      let newstr = '';
+      for (let i = 0; i < str.length; i += sn) {
+        const tmp = str.substring(i, i + sn);
+        newstr += tmp + flg;
+      }
+      return newstr;
+    };
     // 卷宗趋势
     showCaseEchartRingPie = (nextProps) => {
         itemEchartwpqsBar = echarts.init(document.getElementById('jzqs'));
@@ -716,10 +725,33 @@ export default class DossierDataView extends PureComponent {
                 // data: ['周一','周二','周三','周四','周五','周六','周日']
                 data: [],
                 axisLabel: {
-                    textStyle: {
-                        color: nextProps.global && nextProps.global.dark ? '#fff' : '#4d4d4d',
-                    },
+                  textStyle: {
+                      color: nextProps.global && nextProps.global.dark ? '#fff' : '#4d4d4d',
+                  },
+                  interval:0,
+                  formatter:function(value,index) {
+                    let ret = "";//拼接加\n返回的类目项
+                    const maxLength = 5;//每项显示文字个数
+                    const valLength = value.length;//X轴类目项的文字个数
+                    const rowN = Math.ceil(valLength / maxLength); //类目项需要换行的行数
+                    if (rowN > 1)//如果类目项的文字大于3,
+                    {
+                      for (let i = 0; i < rowN; i++) {
+                        const temp = "";//每次截取的字符串
+                        const start = i * maxLength;//开始截取的位置
+                        const end = start + maxLength;//结束截取的位置
+                        //这里也可以加一个是否是最后一行的判断，但是不加也没有影响，那就不加吧
+                        temp = value.substring(start, end) + "\n";
+                        ret += temp; //凭借最终的字符串
+                      }
+                      return ret;
+                    }
+                    else {
+                      return value;
+                    }
+                  },
                 },
+
             },
             yAxis: {
                 type: 'value',

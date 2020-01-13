@@ -117,7 +117,8 @@ class ShareModal extends PureComponent {
             },
             callback: (res) => {
                 this.setState({
-                    personList: res.list,
+                    // allPolice: res.slice(0, 50),
+                    personList: res.list&&res.list.length>0?res.list.slice(0, 50):[],
                     loading: false,
                 });
             },

@@ -105,7 +105,9 @@
 .trajectory {
   position: relative;
   //top: 10px;
-  border: 1px solid #1890ff;
+  //border: 1px solid #1890ff;
+  background-color: @component-background;
+  border-radius:10px;
   font-size: 13px;
   padding: 7px;
   cursor: pointer;
@@ -519,7 +521,7 @@
 
 .tableExtra {
   position: relative;
-  padding: 24px 0 24px 40px;
+  //padding: 24px 0 24px 40px;
 }
 
 .break {
@@ -643,6 +645,18 @@
   }
 }
 
+.rqgjCard {
+  border-radius: 10px !important;
+  background-color: @body-background!important;
+  :global {
+    .ant-card-body {
+      padding: 12px 24px;
+    }
+    .ant-card-head {
+      border-bottom: 1px solid #252c3c;
+    }
+  }
+}
 .lightBox {
   :global {
     .ant-card-body {
@@ -668,6 +682,15 @@
   .message, .tablemessage {
     background-color: #fff !important;
     border-bottom: 1px solid #e6e6e6 !important;
+  }
+
+  .rqgjCard,.dqsaxxCard {
+    background-color: #fafafa!important;
+    :global {
+      .ant-card-head {
+        border-bottom: 1px solid #e6e6e6;
+      }
+    }
   }
 
   .ajlczCard {

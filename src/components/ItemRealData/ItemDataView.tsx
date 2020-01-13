@@ -647,6 +647,27 @@ export default class ItemDataView extends PureComponent {
           // rotate: 10,
           interval: 0,
           formatter: value => this.insertFlg(value, '\n', 6),
+          // formatter:function(value,index) {
+          //   const ret = "";//拼接加\n返回的类目项
+          //   const maxLength = 5;//每项显示文字个数
+          //   const valLength = value.length;//X轴类目项的文字个数
+          //   const rowN = Math.ceil(valLength / maxLength); //类目项需要换行的行数
+          //   if (rowN > 1)//如果类目项的文字大于3,
+          //   {
+          //     for (let i = 0; i < rowN; i++) {
+          //       const temp = "";//每次截取的字符串
+          //       const start = i * maxLength;//开始截取的位置
+          //       const end = start + maxLength;//结束截取的位置
+          //       //这里也可以加一个是否是最后一行的判断，但是不加也没有影响，那就不加吧
+          //       temp = value.substring(start, end) + "\n";
+          //       ret += temp; //凭借最终的字符串
+          //     }
+          //     return ret;
+          //   }
+          //   else {
+          //     return value;
+          //   }
+          // },
         },
         axisTick: {
           show: false,
@@ -805,14 +826,25 @@ export default class ItemDataView extends PureComponent {
       },
       xAxis: {
         type: 'category',
-        boundaryGap: false,
-        // data: ['周一','周二','周三','周四','周五','周六','周日']
-        data: [],
         axisLabel: {
+          inside: false,
           textStyle: {
             color: nextProps.global && nextProps.global.dark ? '#fff' : '#4d4d4d',
           },
+          // rotate: 40,
+          // interval: 0,
+          formatter: value => this.insertFlg(value, '\n', 11),
         },
+        axisTick: {
+          show: false,
+        },
+        axisLine: {
+          show: false,
+        },
+        z: 30,
+        data: [],
+        boundaryGap: false,
+        // // data: ['周一','周二','周三','周四','周五','周六','周日']
       },
       yAxis: {
         type: 'value',

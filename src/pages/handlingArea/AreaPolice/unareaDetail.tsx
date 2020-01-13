@@ -117,7 +117,7 @@ export default class unareaDetail extends PureComponent {
     if (typeof res == 'string') {
       res = JSON.parse(sessionStorage.getItem('query')).query.record;
     }
-    console.log('resquery',resquery);
+    // console.log('resquery',resquery);
     this.setState({
       record: res,
     });
@@ -1742,7 +1742,7 @@ export default class unareaDetail extends PureComponent {
                 </Col>
               </Row>
               {UnareaDetail && UnareaDetail.trackList && UnareaDetail.trackList.length > 0 ? (
-                <Card title={this.trailtitle(UnareaDetail)}>
+                <Card title={this.trailtitle(UnareaDetail)} className={styles.rqgjCard}>
                   {UnareaDetail && UnareaDetail.trackList && UnareaDetail.trackList.length > 0
                     ? extra
                     : ''}

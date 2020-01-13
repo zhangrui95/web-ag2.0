@@ -447,7 +447,7 @@ export default class Index extends PureComponent {
     };
     // 图表点击跳转到列表页面
     changeToListPage = (name, timeArry) => {
-        console.log('name',name);
+        // console.log('name',name);
         this.props.form.resetFields();
         this.setState(
             {
