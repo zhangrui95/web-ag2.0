@@ -211,37 +211,41 @@ export default class PoliceDataView extends PureComponent {
           this.getHandlePoliceSituation(rqtype?rqtype:'month', nextProps.jjdw, nextProps.cjdw);
         } else if (nextProps.searchType === 'selectedDate') {
             const { selectedDateVal } = nextProps;
-            this.getPoliceSituationCount(
-                selectedDateVal[0],
-                selectedDateVal[1],
-                nextProps.jjdw,
-                nextProps.cjdw,
-            );
-            this.getHandleResult(
-                selectedDateVal[0],
-                selectedDateVal[1],
-                nextProps.jjdw,
-                nextProps.cjdw,
-            );
-            this.getHandlePoliceSituationHadResult(
-                selectedDateVal[0],
-                selectedDateVal[1],
-                nextProps.jjdw,
-                nextProps.cjdw,
-            );
-            this.getAcceptPoliceSituation(
-                selectedDateVal[0],
-                selectedDateVal[1],
-                nextProps.jjdw,
-                nextProps.cjdw,
-            );
-            this.getHandlePoliceSituation(
-                'selectedDate',
-                nextProps.jjdw,
-                nextProps.cjdw,
-                selectedDateVal[0],
-                selectedDateVal[1],
-            );
+            this.setState({
+                currentType,
+            },()=>{
+                this.getPoliceSituationCount(
+                    selectedDateVal[0],
+                    selectedDateVal[1],
+                    nextProps.jjdw,
+                    nextProps.cjdw,
+                );
+                this.getHandleResult(
+                    selectedDateVal[0],
+                    selectedDateVal[1],
+                    nextProps.jjdw,
+                    nextProps.cjdw,
+                );
+                this.getHandlePoliceSituationHadResult(
+                    selectedDateVal[0],
+                    selectedDateVal[1],
+                    nextProps.jjdw,
+                    nextProps.cjdw,
+                );
+                this.getAcceptPoliceSituation(
+                    selectedDateVal[0],
+                    selectedDateVal[1],
+                    nextProps.jjdw,
+                    nextProps.cjdw,
+                );
+                this.getHandlePoliceSituation(
+                    'selectedDate',
+                    nextProps.jjdw,
+                    nextProps.cjdw,
+                    selectedDateVal[0],
+                    selectedDateVal[1],
+                );
+            })
         }
       }
     }

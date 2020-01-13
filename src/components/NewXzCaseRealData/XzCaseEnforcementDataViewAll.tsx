@@ -125,20 +125,24 @@ export default class XzCaseEnforcementDataView extends PureComponent {
                     this.getAllXzTypeCase(rqtype ? rqtype : 'month', nextProps.orgcode);
                     this.getCaseTypeStatistics(monthTypeTime[0], monthTypeTime[1], nextProps.orgcode);
                 } else if (nextProps.searchType === 'selectedDate') {
-                    const {selectedDateVal} = nextProps;
-                    this.getAllXzCaseProgress(selectedDateVal[0], selectedDateVal[1], nextProps.orgcode);
-                    this.getAdministrativePenalty(
-                        selectedDateVal[0],
-                        selectedDateVal[1],
-                        nextProps.orgcode,
-                    );
-                    this.getAllXzTypeCase(
-                        'selectedDate',
-                        nextProps.orgcode,
-                        selectedDateVal[0],
-                        selectedDateVal[1],
-                    );
-                    this.getCaseTypeStatistics(selectedDateVal[0], selectedDateVal[1], nextProps.orgcode);
+                    this.setState({
+                        currentType,
+                    },()=>{
+                        const {selectedDateVal} = nextProps;
+                        this.getAllXzCaseProgress(selectedDateVal[0], selectedDateVal[1], nextProps.orgcode);
+                        this.getAdministrativePenalty(
+                            selectedDateVal[0],
+                            selectedDateVal[1],
+                            nextProps.orgcode,
+                        );
+                        this.getAllXzTypeCase(
+                            'selectedDate',
+                            nextProps.orgcode,
+                            selectedDateVal[0],
+                            selectedDateVal[1],
+                        );
+                        this.getCaseTypeStatistics(selectedDateVal[0], selectedDateVal[1], nextProps.orgcode);
+                    });
                 }
             }
         }
