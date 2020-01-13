@@ -730,7 +730,7 @@ export default class DossierDataView extends PureComponent {
                   },
                   interval:0,
                   formatter:function(value,index) {
-                    const ret = "";//拼接加\n返回的类目项
+                    let ret = "";//拼接加\n返回的类目项
                     const maxLength = 5;//每项显示文字个数
                     const valLength = value.length;//X轴类目项的文字个数
                     const rowN = Math.ceil(valLength / maxLength); //类目项需要换行的行数
