@@ -834,7 +834,7 @@ export default class Index extends PureComponent {
                                 数据统计
                             </a>
                         )}
-                        <span>|</span>
+                         <span className={styles.borderCenter}>|</span>
                         {showDataView ? (
                             <a className={styles.UnlistPageHeaderCurrent} onClick={this.changeListPageHeader}>
                                 数据列表

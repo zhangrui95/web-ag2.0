@@ -14,6 +14,16 @@ import {routerRedux} from 'dva/router';
     home, global
 }))
 export default class MyShare extends PureComponent {
+    constructor(props) {
+        super(props);
+        let res = this.props.location.query && this.props.location.query.record ? this.props.location.query.record : '';
+        if (typeof res == 'string') {
+            res = JSON.parse(sessionStorage.getItem('query')).query.record;
+        }
+        this.state = {
+            res:res,
+        }
+    }
     goCaseData = record => {
         this.props.dispatch(
             routerRedux.push({
@@ -84,6 +94,7 @@ export default class MyShare extends PureComponent {
                     system_id: record.system_id,
                     wtid: record.wtid,
                     record: record,
+                    from:'首页'
                 },
             }),
         );
@@ -93,6 +104,8 @@ export default class MyShare extends PureComponent {
         // console.log('this.props', this.props);
         const rowLayout = {md: 8, xl: 16, xxl: 24};
         let dark = this.props.global && this.props.global.dark;
+        let type = this.props.location.query.tab;
+        console.log('type',type)
         return (
             /*<Modal
               title="我的分享"
@@ -174,34 +187,42 @@ export default class MyShare extends PureComponent {
                 </Col>
               </Row>
             </Modal>*/
-            <div>
-                <div style={{backgroundColor: dark ? '#202839' : '#fff'}}>
-          <span style={{margin: '16px', display: 'block', lineHeight: '61px', fontSize: 20}}>
-            我的分享
-          </span>
+            <div className={styles.box}>
+                <div style={{backgroundColor: dark ? '#202839' : '#fff',padding:'16px 16px 0'}}>
+                  <span className={ dark ? styles.title : styles.titles}>
+                      {type==='1' ? '分享给我' : '我的分享'}
+                  </span>
                 </div>
                 <div className={styles.myNewsMessage} style={{backgroundColor: dark ? '#202839' : '#fff'}}>
                     <Row gutter={rowLayout} style={{marginBottom: 24}}>
-                        <Col span={8}>
+                        {type==='1' ? <Col span={8}>
+                            分享人：
+                            {this.props.location &&
+                            this.props.location.query &&
+                            this.state.res &&
+                            this.state.res.czr
+                                ? this.state.res.czr
+                                : ''}
+                        </Col> :<Col span={8}>
                             被分享人：
                             {this.props.location &&
                             this.props.location.query &&
-                            this.props.location.query.record &&
-                            this.props.location.query.record.fx_xm
-                                ? this.props.location.query.record.fx_xm
+                            this.state.res &&
+                            this.state.res.fx_xm
+                                ? this.state.res.fx_xm
                                 : ''}
-                        </Col>
+                        </Col>}
                         <Col span={8}>
                             分享事项：
                             <a
                                 href="javascript:;"
-                                onClick={() => this.goCaseData(this.props.location.query.record)}
+                                onClick={() => this.goCaseData(this.state.res)}
                             >
                                 {this.props.location &&
                                 this.props.location.query &&
-                                this.props.location.query.record &&
-                                this.props.location.query.record.sx
-                                    ? this.props.location.query.record.sx
+                                this.state.res &&
+                                this.state.res.sx
+                                    ? this.state.res.sx
                                     : ''}
                             </a>
                         </Col>
@@ -209,32 +230,28 @@ export default class MyShare extends PureComponent {
                             分享时间：
                             {this.props.location &&
                             this.props.location.query &&
-                            this.props.location.query.record &&
-                            this.props.location.query.record.czsj
-                                ? this.props.location.query.record.czsj
+                            this.state.res &&
+                            this.state.res.czsj
+                                ? this.state.res.czsj
                                 : ''}
                         </Col>
-                    </Row>
-                    <Row gutter={rowLayout} style={{marginBottom: 24}}>
                         <Col span={24}>
                             分享类型：
                             {this.props.location &&
                             this.props.location.query &&
-                            this.props.location.query.record &&
-                            this.props.location.query.record.lx
-                                ? this.props.location.query.record.lx
+                            this.state.res &&
+                            this.state.res.lx
+                                ? this.state.res.lx
                                 : ''}
                         </Col>
-                    </Row>
-                    <Row gutter={rowLayout} style={{marginBottom: 24}}>
                         <Col span={24}>
                             <div className={styles.content}>分享建议：</div>
                             <div className={styles.content} style={{width: '700px'}}>
                                 {this.props.location &&
                                 this.props.location.query &&
-                                this.props.location.query.record &&
-                                this.props.location.query.record.fxjy
-                                    ? this.props.location.query.record.fxjy
+                                this.state.res &&
+                                this.state.res.fxjy
+                                    ? this.state.res.fxjy
                                     : ''}
                             </div>
                         </Col>

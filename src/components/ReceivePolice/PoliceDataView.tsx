@@ -125,6 +125,21 @@ export default class PoliceDataView extends PureComponent {
         this.props.global.dark !== nextProps.global.dark
       ) {
         currentType = currentType ? currentType : this.state.currentType;
+          let type = this.state.type;
+          let rqtype = '';
+          if (type === 'now') {
+              rqtype = nextProps.searchType === 'day' ? 'today' : nextProps.searchType === 'week' ? 'week' : 'month';
+          } else if (type === 'last') {
+              rqtype =
+                  nextProps.searchType === 'day' ? 'lastDay' : nextProps.searchType === 'week' ? 'lastWeek' : 'lastMonth';
+          } else if (type === 'beforeLast') {
+              rqtype =
+                  nextProps.searchType === 'day'
+                      ? 'beforeLastDay'
+                      : nextProps.searchType === 'week'
+                      ? 'beforeLastWeek'
+                      : 'beforeLastMonth';
+          }
         if (nextProps.searchType === 'day') {
           this.getViewCountData('day', nextProps.jjdw, nextProps.cjdw);
           const dayTypeTime = this.getTime(currentType);
@@ -147,7 +162,7 @@ export default class PoliceDataView extends PureComponent {
             nextProps.jjdw,
             nextProps.cjdw,
           );
-          this.getHandlePoliceSituation('today', nextProps.jjdw, nextProps.cjdw);
+          this.getHandlePoliceSituation(rqtype?rqtype:'today', nextProps.jjdw, nextProps.cjdw);
         } else if (nextProps.searchType === 'week') {
           this.getViewCountData('week', nextProps.jjdw, nextProps.cjdw);
           const weekTypeTime = this.getTime(currentType);
@@ -170,7 +185,7 @@ export default class PoliceDataView extends PureComponent {
             nextProps.jjdw,
             nextProps.cjdw,
           );
-          this.getHandlePoliceSituation('week', nextProps.jjdw, nextProps.cjdw);
+          this.getHandlePoliceSituation(rqtype ? rqtype:'week', nextProps.jjdw, nextProps.cjdw);
         } else if (nextProps.searchType === 'month') {
           this.getViewCountData('month', nextProps.jjdw, nextProps.cjdw);
           const monthTypeTime = this.getTime(currentType);
@@ -193,40 +208,44 @@ export default class PoliceDataView extends PureComponent {
             nextProps.jjdw,
             nextProps.cjdw,
           );
-          this.getHandlePoliceSituation('month', nextProps.jjdw, nextProps.cjdw);
+          this.getHandlePoliceSituation(rqtype?rqtype:'month', nextProps.jjdw, nextProps.cjdw);
         } else if (nextProps.searchType === 'selectedDate') {
             const { selectedDateVal } = nextProps;
-            this.getPoliceSituationCount(
-                selectedDateVal[0],
-                selectedDateVal[1],
-                nextProps.jjdw,
-                nextProps.cjdw,
-            );
-            this.getHandleResult(
-                selectedDateVal[0],
-                selectedDateVal[1],
-                nextProps.jjdw,
-                nextProps.cjdw,
-            );
-            this.getHandlePoliceSituationHadResult(
-                selectedDateVal[0],
-                selectedDateVal[1],
-                nextProps.jjdw,
-                nextProps.cjdw,
-            );
-            this.getAcceptPoliceSituation(
-                selectedDateVal[0],
-                selectedDateVal[1],
-                nextProps.jjdw,
-                nextProps.cjdw,
-            );
-            this.getHandlePoliceSituation(
-                'selectedDate',
-                nextProps.jjdw,
-                nextProps.cjdw,
-                selectedDateVal[0],
-                selectedDateVal[1],
-            );
+            this.setState({
+                currentType,
+            },()=>{
+                this.getPoliceSituationCount(
+                    selectedDateVal[0],
+                    selectedDateVal[1],
+                    nextProps.jjdw,
+                    nextProps.cjdw,
+                );
+                this.getHandleResult(
+                    selectedDateVal[0],
+                    selectedDateVal[1],
+                    nextProps.jjdw,
+                    nextProps.cjdw,
+                );
+                this.getHandlePoliceSituationHadResult(
+                    selectedDateVal[0],
+                    selectedDateVal[1],
+                    nextProps.jjdw,
+                    nextProps.cjdw,
+                );
+                this.getAcceptPoliceSituation(
+                    selectedDateVal[0],
+                    selectedDateVal[1],
+                    nextProps.jjdw,
+                    nextProps.cjdw,
+                );
+                this.getHandlePoliceSituation(
+                    'selectedDate',
+                    nextProps.jjdw,
+                    nextProps.cjdw,
+                    selectedDateVal[0],
+                    selectedDateVal[1],
+                );
+            })
         }
       }
     }

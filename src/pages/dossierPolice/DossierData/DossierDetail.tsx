@@ -733,7 +733,7 @@ export default class DossierDetail extends PureComponent {
         style={{ background: dark ? '#252c3c' : '#fff', height: autoheight() - 260 + 'px' }}
         className={styles.detailBoxScroll}
       >
-        <div style={{ textAlign: 'right', padding: '16px 52px' }}>
+        <div style={{ textAlign: 'right', padding: '16px 0' }}>
           {DossierDetailData &&
           DossierDetailData.ajxxList &&
           DossierDetailData.ajxxList.length > 0 ? (
@@ -741,7 +741,7 @@ export default class DossierDetail extends PureComponent {
               type="primary"
               onClick={() => this.seeCase(true, DossierDetailData)}
               style={{
-                margin: 16,
+                marginRight: 16,
                 backgroundColor: dark
                   ? 'linear-gradient(to right, #0084FA, #03A3FF)'
                   : 'linear-gradient(to right, #3D63D1, #333FE4)',

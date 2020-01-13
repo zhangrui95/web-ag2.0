@@ -99,10 +99,14 @@ export default class CaseEnforcementDataView extends PureComponent {
                     this.getEnforcementMeasure(monthTypeTime[0], monthTypeTime[1], nextProps.orgcode);
                     this.getCaseTypeStatistics(monthTypeTime[0], monthTypeTime[1], nextProps.orgcode);
                 } else if (nextProps.searchType === 'selectedDate') {
-                    const {selectedDateVal} = nextProps;
-                    this.getAllCaseProgress(selectedDateVal[0], selectedDateVal[1], nextProps.orgcode);
-                    this.getEnforcementMeasure(selectedDateVal[0], selectedDateVal[1], nextProps.orgcode);
-                    this.getCaseTypeStatistics(selectedDateVal[0], selectedDateVal[1], nextProps.orgcode);
+                    this.setState({
+                        currentType,
+                    },()=>{
+                        const {selectedDateVal} = nextProps;
+                        this.getAllCaseProgress(selectedDateVal[0], selectedDateVal[1], nextProps.orgcode);
+                        this.getEnforcementMeasure(selectedDateVal[0], selectedDateVal[1], nextProps.orgcode);
+                        this.getCaseTypeStatistics(selectedDateVal[0], selectedDateVal[1], nextProps.orgcode);
+                    });
                 }
             }
         }

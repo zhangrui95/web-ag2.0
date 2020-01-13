@@ -34,6 +34,7 @@ let levelNum = 0;
 export default class Statistics extends PureComponent {
   state = {
     data: [],
+    currentList:[],
     newData: null,
     firstList: true,
     loading: false,
@@ -222,15 +223,19 @@ export default class Statistics extends PureComponent {
         if (res.error === null) {
           if (res.data && res.data.list.length > 0) {
             let data = this.state.data;
+            let currentList = this.state.currentList;
             if (
               getUserInfos().department === data[data.length - 1] ||
               data[data.length - 1] !== code
             ) {
               data.push(code);
+              if(current){
+                  currentList.push(current);
+              }
             }
-            // console.log('code',code);
             this.setState({
               data: data,
+              currentList,
               newData: res.data,
               loading: false,
               firstList: levelNum === 0 ? true : false,
@@ -256,12 +261,14 @@ export default class Statistics extends PureComponent {
     //返回上一级
     levelNum--;
     let data = this.state.data;
+    let currentList = this.state.currentList;
     data.pop();
     let code = data[data.length - 1];
+    let current = currentList.length > 0 ? currentList[currentList.length - 1] : '';
     if (type === '0') {
       this.canPolice(code);
     } else if (type === '1') {
-      this.getNextLevelDeps(code, this.state.rqType);
+      this.getNextLevelDeps(code, this.state.rqType,current);
     } else if (type === '2') {
       this.getZhTjSlByDwOfSecond(code, this.state.rqType);
     }

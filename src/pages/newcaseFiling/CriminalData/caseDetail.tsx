@@ -813,9 +813,9 @@ export default class caseDetail extends PureComponent {
         }}
         className={styles.detailBoxScroll}
       >
-        <div style={{ paddingRight: 84, height: 'auto' }}>
+        <div style={{height: 'auto' }}>
           {caseDetails && caseDetails.jqxxList && caseDetails.jqxxList.length > 0 ? (
-            <div style={{ float: 'right', padding: '16px' }}>
+            <div style={{ float: 'right', padding: '16px 0',marginRight: 16 }}>
               <Button
                 // type="primary"
                 onClick={() => this.seePolice(true, caseDetails)}
@@ -832,7 +832,7 @@ export default class caseDetail extends PureComponent {
             ''
           )}
           {caseDetails && caseDetails.rqxyrList && caseDetails.rqxyrList.length > 0 ? (
-            <div style={{ float: 'right', padding: '16px' }}>
+            <div style={{ float: 'right', padding: '16px 0',marginRight: 16 }}>
               <Button
                 // type="primary"
                 onClick={() => this.seeArea(true, caseDetails)}
@@ -849,7 +849,7 @@ export default class caseDetail extends PureComponent {
             ''
           )}
           {caseDetails && caseDetails.sawpList && caseDetails.sawpList.length > 0 ? (
-            <div style={{ float: 'right', padding: '16px' }}>
+            <div style={{ float: 'right', padding: '16px 0',marginRight: 16 }}>
               <Button
                 // type="primary"
                 onClick={() => this.seeRes(true, caseDetails)}
@@ -866,7 +866,7 @@ export default class caseDetail extends PureComponent {
             ''
           )}
           {caseDetails && caseDetails.jzList && caseDetails.jzList.length > 0 ? (
-            <div style={{ float: 'right', padding: '16px' }}>
+            <div style={{ float: 'right', padding: '16px 0',marginRight: 16 }}>
               <Button
                 // type="primary"
                 onClick={() => this.seeDossier(true, caseDetails)}

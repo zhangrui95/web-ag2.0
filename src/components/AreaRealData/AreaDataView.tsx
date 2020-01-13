@@ -148,6 +148,18 @@ export default class ItemDataView extends PureComponent {
                 this.props.global.dark !== nextProps.global.dark
             ) {
                 currentType = currentType ? currentType : this.state.currentType;
+                let type = this.state.type;
+                let rqtype = '';
+                if (type === 'now') {
+                    currentType = nextProps.searchType === 'week' ? 'week' : 'month';
+                    rqtype = currentType === 'week' ? '3' : '6';
+                } else if (type === 'last') {
+                    currentType = nextProps.searchType === 'week' ? 'lastWeek' : 'lastMonth';
+                    rqtype = currentType === 'lastWeek' ? '4' : '7';
+                } else if (type === 'beforeLast') {
+                    currentType = nextProps.searchType === 'week' ? 'beforeLastWeek' : 'beforeLastMonth';
+                    rqtype = currentType === 'beforeLastWeek' ? '5' : '8';
+                }
                 this.setState({
                     chooseBaqName: null,
                 });
@@ -166,7 +178,7 @@ export default class ItemDataView extends PureComponent {
                     this.getAreaSALXCount(weekTypeTime[0], weekTypeTime[1], nextProps.orgcode);
                     this.getAreaRQYYCount(weekTypeTime[0], weekTypeTime[1], nextProps.orgcode);
                     this.getAreaSARYRQRCCount(weekTypeTime[0], weekTypeTime[1], nextProps.orgcode);
-                    this.getAreaRQRCQSCount('3', nextProps.orgcode);
+                    this.getAreaRQRCQSCount(rqtype ? rqtype : '3', nextProps.orgcode);
                 } else if (nextProps.searchType === 'month') {
                     this.setState({
                         TypeTime: [
@@ -182,7 +194,7 @@ export default class ItemDataView extends PureComponent {
                     this.getAreaSALXCount(monthTypeTime[0], monthTypeTime[1], nextProps.orgcode);
                     this.getAreaRQYYCount(monthTypeTime[0], monthTypeTime[1], nextProps.orgcode);
                     this.getAreaSARYRQRCCount(monthTypeTime[0], monthTypeTime[1], nextProps.orgcode);
-                    this.getAreaRQRCQSCount('6', nextProps.orgcode);
+                    this.getAreaRQRCQSCount(rqtype ? rqtype : '6', nextProps.orgcode);
                 } else if (nextProps.searchType === 'selectedDate') {
                     const {selectedDateVal} = nextProps;
                     this.setState(
