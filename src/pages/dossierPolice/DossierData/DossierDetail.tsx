@@ -569,7 +569,7 @@ export default class DossierDetail extends PureComponent {
                     className={liststyles.collect}
                     onClick={() => this.saveShare(DossierDetailData, 2)}
                   >
-                    <Tooltip title="分享">
+                    <Tooltip title="分享" >
                       <img src={dark ? share : share1} width={20} height={20} />
                       <div style={{ fontSize: 12 }}>分享</div>
                     </Tooltip>

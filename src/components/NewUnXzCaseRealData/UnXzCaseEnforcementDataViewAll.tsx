@@ -475,23 +475,35 @@ export default class UnXzCaseDataView extends PureComponent {
                         <Row gutter={rowLayout} className={styles.listPageRow}>
                             <Col {...colLayout} style={{marginBottom: 32}}>
                                 <div className={styles.cardBoxTitle}>
-                                    |{' '}
+                                    <span
+                                        style={{
+                                            borderLeft: this.props.global && this.props.global.dark ? '3px solid #fff' : '3px solid #3D63D1',
+                                            paddingLeft: 10,
+                                        }}
+                                    >
                                     {currentType === 'today'
                                         ? '今日新增告警'
                                         : currentType === 'selectedDate'
                                             ? '告警'
                                             : '昨日告警'}
+                                    </span>
                                 </div>
                                 <div id="unXzCaseXzgj" className={styles.cardBox}></div>
                             </Col>
                             <Col {...colLayout} style={{marginBottom: 32}}>
                                 <div className={styles.cardBoxTitle}>
-                                    |{' '}
+                                   <span
+                                       style={{
+                                           borderLeft: this.props.global && this.props.global.dark ? '3px solid #fff' : '3px solid #3D63D1',
+                                           paddingLeft: 10,
+                                       }}
+                                   >
                                     {currentType === 'today'
                                         ? '今日告警情况'
                                         : currentType === 'selectedDate'
                                             ? '告警情况'
                                             : '昨日告警情况'}
+                                   </span>
                                 </div>
                                 <div id="unXzCaseGjqk" className={styles.cardBox}></div>
                             </Col>

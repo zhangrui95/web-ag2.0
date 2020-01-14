@@ -911,11 +911,21 @@ export default class XzCaseEnforcementDataView extends PureComponent {
                 }}>
                     <Row gutter={rowLayout} className={styles.listPageRow}>
                         <Col sm={24} lg={12} xl={6}>
-                            <div className={styles.cardBoxTitle}>| 案件情况展示</div>
-                            <div id="ajqkzs" className={styles.cardBox}></div>
+                            <div className={styles.cardBoxTitle}><span
+                                style={{
+                                    borderLeft: this.props.global && this.props.global.dark ? '3px solid #fff' : '3px solid #3D63D1',
+                                    paddingLeft: 10,
+                                }}
+                            >案件情况展示</span></div>
+                            <div id="ajqkzs" className={styles.cardBox} style={{marginLeft:'3.5%'}}></div>
                         </Col>
                         <Col sm={24} lg={12} xl={18}>
-                            <div className={styles.cardBoxTitle}>| 受结情况展示</div>
+                            <div className={styles.cardBoxTitle} style={{marginLeft:'1.5%'}}><span
+                                style={{
+                                    borderLeft: this.props.global && this.props.global.dark ? '3px solid #fff' : '3px solid #3D63D1',
+                                    paddingLeft: 10,
+                                }}
+                            >受结情况展示</span></div>
                             <div id="sjqkzs" className={styles.cardBox}></div>
                             {sjqkzsNoData ? (
                                 <div
@@ -952,13 +962,23 @@ export default class XzCaseEnforcementDataView extends PureComponent {
                     </Row>
                     <Row gutter={rowLayout} className={styles.listPageRow}>
                         <Col span={24}>
-                            <div className={styles.cardBoxTitle}>| 人员行政处罚情况</div>
+                            <div className={styles.cardBoxTitle}><span
+                                style={{
+                                    borderLeft: this.props.global && this.props.global.dark ? '3px solid #fff' : '3px solid #3D63D1',
+                                    paddingLeft: 10,
+                                }}
+                            >人员行政处罚情况</span></div>
                             <div id="ryxzcfqk" className={styles.cardBox} style={{width:'98%',marginLeft:'1%'}}></div>
                         </Col>
                     </Row>
                     <Row gutter={rowLayout} className={styles.listPageRow}>
                         <Col span={24} style={{marginBottom: 32}}>
-                            <div className={styles.cardBoxTitle}>| 案件类型统计</div>
+                            <div className={styles.cardBoxTitle}><span
+                                style={{
+                                    borderLeft: this.props.global && this.props.global.dark ? '3px solid #fff' : '3px solid #3D63D1',
+                                    paddingLeft: 10,
+                                }}
+                            >案件类型统计</span></div>
                             <div id="ajlxtjXz" className={styles.cardBox} style={{width:'98%',marginLeft:'1%'}}></div>
                         </Col>
                     </Row>

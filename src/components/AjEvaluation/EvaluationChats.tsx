@@ -899,11 +899,17 @@ export default class EvaluationChats extends PureComponent {
                                                                                                value={`${d.idcard}`}
                                                                                                title={d.name}>{`${d.name} ${d.pcard}`}</Option>);
         let className = this.props.global && this.props.global.dark ? styles.evalDataView : styles.evalDataView + ' ' + styles.lightBox + ' ' + styles.lightBoxEval;
+        let dark = this.props.global&&this.props.global.dark;
         return (
             <Card className={className} id={'formRyChart'}>
                 <Row gutter={rowLayout} className={styles.listPageRow}>
                     <Col {...colLayout} className={styles.viewBox}>
-                        <div className={styles.titleTop}>| 机构排名</div>
+                        <div className={styles.titleTop}><span
+                            style={{
+                                borderLeft: dark ? '3px solid #fff' : '3px solid #3D63D1',
+                                paddingLeft: 10,
+                            }}
+                        >机构排名</span></div>
                         <Icon type="left" className={this.state.currentPage1 === 1 ? styles.none : styles.leftGo}
                               onClick={() => this.props.tjnrRedio === '0' ? this.initDataAj(-1, this.props, this.state.sortCharts1) : this.props.tjnrRedio === '1' ? this.initDataGj(-1, this.props, this.state.sortCharts1) : this.initData(-1, this.props, this.state.sortCharts1, this.props.tjnrCode)}/>
                         <div className={styles.sortIcon} style={{left: '120px'}} onClick={() => this.getSort('1')}>
@@ -937,7 +943,12 @@ export default class EvaluationChats extends PureComponent {
                         </div>
                     </Col>
                     <Col {...colLayout} className={styles.viewBox}>
-                        <div className={styles.titleTop}>| 人员考核排名</div>
+                        <div className={styles.titleTop}><span
+                            style={{
+                                borderLeft: dark ? '3px solid #fff' : '3px solid #3D63D1',
+                                paddingLeft: 10,
+                            }}
+                        >人员考核排名</span></div>
                         <Icon type="left" className={styles.leftGo}
                               className={this.state.currentPage3 === 1 ? styles.none : styles.leftGo}
                               onClick={() => this.props.tjnrRedio === '0' ? this.initRyDataAj(-1, this.props, this.state.sortCharts3, this.props.tjnrCode) : this.props.tjnrRedio === '1' ? this.initRyDataGj(-1, this.props, this.state.sortCharts3, this.props.tjnrCode) : this.initRyData(-1, this.props, this.state.sortCharts3, this.props.tjnrCode)}/>

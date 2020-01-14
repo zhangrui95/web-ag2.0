@@ -516,25 +516,37 @@ export default class UnAreaDataView extends PureComponent {
                         <Row gutter={rowLayout} className={styles.listPageRow}>
                             <Col xl={24} xxl={15} style={{marginBottom: 32}}>
                                 <div className={styles.cardBoxTitle}>
-                                    |{' '}
-                                    {currentType === 'today'
-                                        ? '今日新增告警'
-                                        : currentType === 'selectedDate'
-                                            ? '告警'
-                                            : '昨日告警'}
+                                      <span
+                                          style={{
+                                              borderLeft: this.props.global && this.props.global.dark ? '3px solid #fff' : '3px solid #3D63D1',
+                                              paddingLeft: 10,
+                                          }}
+                                      >
+                                             {currentType === 'today'
+                                                 ? '今日新增告警'
+                                                 : currentType === 'selectedDate'
+                                                     ? '告警'
+                                                     : '昨日告警'}
+                                      </span>
                                 </div>
-                                <div id="unAreaXzgj" className={styles.cardBox}></div>
+                                <div id="unAreaXzgj" className={styles.cardBox}  style={{marginLeft:'1.5%'}}></div>
                             </Col>
                             <Col xl={24} xxl={9} style={{marginBottom: 32}}>
                                 <div className={styles.cardBoxTitle}>
-                                    |{' '}
-                                    {currentType === 'today'
-                                        ? '今日告警情况'
-                                        : currentType === 'selectedDate'
-                                            ? '告警情况'
-                                            : '昨日告警情况'}
+                                    <span
+                                        style={{
+                                            borderLeft: this.props.global && this.props.global.dark ? '3px solid #fff' : '3px solid #3D63D1',
+                                            paddingLeft: 10,
+                                        }}
+                                    >
+                                        {currentType === 'today'
+                                            ? '今日告警情况'
+                                            : currentType === 'selectedDate'
+                                                ? '告警情况'
+                                                : '昨日告警情况'}
+                                    </span>
                                 </div>
-                                <div id="unAreaGjqk" className={styles.cardBox}></div>
+                                <div id="unAreaGjqk" className={styles.cardBox} style={{marginLeft:'2.5%'}}></div>
                             </Col>
                         </Row>
                     </div>

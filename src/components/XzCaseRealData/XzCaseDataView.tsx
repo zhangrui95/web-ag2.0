@@ -721,11 +721,21 @@ export default class XzCaseDataView extends PureComponent {
                     <div style={{backgroundColor: '#252c3c', padding: '0 16px'}}>
                         <Row gutter={rowLayout} className={styles.listPageRow}>
                             <Col sm={24} lg={12} xl={6}>
-                                <div className={styles.cardBoxTitle}>| 案件情况展示</div>
+                                <div className={styles.cardBoxTitle}><span
+                                    style={{
+                                        borderLeft: this.props.global && this.props.global.dark ? '3px solid #fff' : '3px solid #3D63D1',
+                                        paddingLeft: 10,
+                                    }}
+                                >案件情况展示</span></div>
                                 <div id="ajqkzs" className={styles.cardBox}></div>
                             </Col>
                             <Col sm={24} lg={12} xl={18}>
-                                <div className={styles.cardBoxTitle}>| 受案情况展示</div>
+                                <div className={styles.cardBoxTitle}><span
+                                    style={{
+                                        borderLeft: this.props.global && this.props.global.dark ? '3px solid #fff' : '3px solid #3D63D1',
+                                        paddingLeft: 10,
+                                    }}
+                                >受案情况展示</span></div>
                                 <div id="sjqkzs" className={styles.cardBox}></div>
                                 {sjqkzsNoData ? (
                                     <div
@@ -763,7 +773,12 @@ export default class XzCaseDataView extends PureComponent {
                         </Row>
                         <Row gutter={rowLayout} className={styles.listPageRow}>
                             <Col span={24}>
-                                <div className={styles.cardBoxTitle}>| 案件类型统计</div>
+                                <div className={styles.cardBoxTitle}><span
+                                    style={{
+                                        borderLeft: this.props.global && this.props.global.dark ? '3px solid #fff' : '3px solid #3D63D1',
+                                        paddingLeft: 10,
+                                    }}
+                                >案件类型统计</span></div>
                                 <div id="ajlxtj" className={styles.cardBox} style={{width:'98%',marginLeft:'1%'}}></div>
                             </Col>
                         </Row>

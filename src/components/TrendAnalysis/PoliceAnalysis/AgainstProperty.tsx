@@ -267,7 +267,7 @@ export default class AgainstProperty extends PureComponent {
             yAxis: {
                 axisLabel: {   // y轴线 标签修改
                     textStyle: {
-                        color: this.props.global && this.props.global.dark ? '#fff' : '#e6e6e6', //坐标值得具体的颜色
+                        color: this.props.global && this.props.global.dark ? '#fff' : '#4d4d4d', //坐标值得具体的颜色
                     }
                 },
                 axisLine: {

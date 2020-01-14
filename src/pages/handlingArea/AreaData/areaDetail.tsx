@@ -537,9 +537,8 @@ export default class areaDetail extends PureComponent {
                     </span>
                     <span
                       className={liststyles.collect}
-                      onClick={() => this.saveShare(areaDetails, record, 2)}
                     >
-                      <Tooltip title="分享">
+                      <Tooltip title="分享"  onClick={() => this.saveShare(areaDetails, record, 2)}>
                         <img src={dark ? share : share1} width={20} height={20} />
                         <div style={{ fontSize: 12 }}>分享</div>
                       </Tooltip>

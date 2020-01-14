@@ -692,17 +692,32 @@ export default class CaseDataView extends PureComponent {
                     <div style={{backgroundColor: '#252c3c', padding: '0 16px'}}>
                         <Row gutter={rowLayout} className={styles.listPageRow}>
                             <Col {...colLayout}>
-                                <div className={styles.cardBoxTitle}>| 案件办理进度</div>
+                                <div className={styles.cardBoxTitle}><span
+                                    style={{
+                                        borderLeft: this.props.global && this.props.global.dark ? '3px solid #fff' : '3px solid #3D63D1',
+                                        paddingLeft: 10,
+                                    }}
+                                >案件办理进度</span></div>
                                 <div id="ajbljd" className={styles.cardBox}></div>
                             </Col>
                             <Col {...colLayout}>
-                                <div className={styles.cardBoxTitle}>| 案件专项类别情况展示</div>
+                                <div className={styles.cardBoxTitle}><span
+                                    style={{
+                                        borderLeft: this.props.global && this.props.global.dark ? '3px solid #fff' : '3px solid #3D63D1',
+                                        paddingLeft: 10,
+                                    }}
+                                >案件专项类别情况展示</span></div>
                                 <div id="ryqzcsqk" className={styles.cardBox}></div>
                             </Col>
                         </Row>
                         <Row gutter={rowLayout} className={styles.listPageRow}>
                             <Col span={24} style={{marginBottom: 32}}>
-                                <div className={styles.cardBoxTitle}>| 案件类型统计</div>
+                                <div className={styles.cardBoxTitle}><span
+                                    style={{
+                                        borderLeft: this.props.global && this.props.global.dark ? '3px solid #fff' : '3px solid #3D63D1',
+                                        paddingLeft: 10,
+                                    }}
+                                >案件类型统计</span></div>
                                 <div id="ajlxtj" className={styles.cardBox} style={{width:'98%',marginLeft:'1%'}}></div>
                             </Col>
                         </Row>
