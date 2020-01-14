@@ -68,6 +68,7 @@ export default class Index extends PureComponent {
 
 
     componentDidMount() {
+      console.log('this.props.location',this.props.location);
         if (this.props.location.query && this.props.location.query.id) {
             this.setState({
                 showDataView: false,
@@ -131,6 +132,7 @@ export default class Index extends PureComponent {
     }
 
     componentWillReceiveProps(nextProps) {
+      // console.log('nextProps',nextProps);
         if (this.props.global.isResetList.isReset !== nextProps.global.isResetList.isReset && nextProps.global.isResetList.url ===  '/receivePolice/AlarmData') {
             // this.handleFormReset();
           const params = {
@@ -412,7 +414,12 @@ export default class Index extends PureComponent {
     };
     // 重置
     handleFormReset = () => {
-        this.props.form.resetFields();
+      console.log('time1',moment().subtract(3, "days").format("YYYY-MM-DD 00:00:00"));
+      console.log('time2',moment().format("YYYY-MM-DD HH:mm:ss"))
+        this.props.form.setFieldsValue({
+          // jjsj: [moment().format("YYYY-MM-DD 00:00:00"), moment().format("YYYY-MM-DD 23:59:59")],
+          jjsj: [moment(moment().subtract(3, "days").format("YYYY-MM-DD 00:00:00"), 'YYYY-MM-DD 00:00:00'), moment(moment(), 'YYYY-MM-DD HH:mm:ss')],
+        });
         this.setState({
             formValues: {
                 is_sa: '0',
@@ -427,6 +434,9 @@ export default class Index extends PureComponent {
             showCount: tableList,
             pd: {
                 is_sa: '0',
+                is_tz: '0',
+                jjsj_ks: moment(moment().subtract(3, "days").format("YYYY-MM-DD 00:00:00"),'YYYY-MM-DD 00:00:00'),
+                jjsj_js: moment(moment(),'YYYY-MM-DD HH:mm:ss'),
             },
         };
         this.getPolice(obj);
