@@ -683,8 +683,8 @@ export default class Home1 extends PureComponent {
                                     {record.czr_dwmc ? (
                                         <span>
                       {record.czr_dwmc
-                          ? record.czr_dwmc.length > 15
-                              ? record.czr_dwmc.substring(0, 15) + '...'
+                          ? record.czr_dwmc.length > 14
+                              ? record.czr_dwmc.substring(0, 14) + '...'
                               : record.czr_dwmc
                           : ''}
                                             <br/>
@@ -698,15 +698,15 @@ export default class Home1 extends PureComponent {
                                 <Tooltip
                                     placement="top"
                                     title={
-                                        (record.czr_dwmc ? record.czr_dwmc : '') + (record.fx_xm ? record.fx_xm : '')
+                                        (record.fx_dwmc ? record.fx_dwmc : '') + (record.fx_xm ? record.fx_xm : '')
                                     }
                                 >
-                                    {record.czr_dwmc ? (
+                                    {record.fx_dwmc ? (
                                         <span>
-                      {record.czr_dwmc
-                          ? record.czr_dwmc.length > 15
-                              ? record.czr_dwmc.substring(0, 15) + '...'
-                              : record.czr_dwmc
+                      {record.fx_dwmc
+                          ? record.fx_dwmc.length > 13
+                              ? record.fx_dwmc.substring(0, 13) + '...'
+                              : record.fx_dwmc
                           : ''}
                                             <br/>
                     </span>
