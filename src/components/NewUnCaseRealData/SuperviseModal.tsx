@@ -638,7 +638,7 @@ export default class SuperviseModal extends PureComponent {
                             </Row>
                             <Row style={{paddingTop: 20}}>
                                 <Col>
-                                    <span className={styles.outtext} style={{color: 'rgba(0, 0, 0, 0.45)'}}>文件上传最多10个，支持扩展名：.rar .zip .doc .docx .pdf .jpg .png .bmp</span>
+                                    <span className={styles.outtext} style={{color: '#1890FF'}}>文件上传最多10个，支持扩展名：.rar .zip .doc .docx .pdf .jpg .png .bmp</span>
                                 </Col>
                             </Row>
                             <Row style={{margin: '16px 0'}}>
