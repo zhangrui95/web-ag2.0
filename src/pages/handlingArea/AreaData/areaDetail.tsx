@@ -582,6 +582,19 @@ export default class areaDetail extends PureComponent {
       </div>
     );
   };
+  descrip = (pane) =>{
+    if(pane&&pane.children&&pane.children.length>0){
+      return (
+        <div className={styles.descripStyle}>
+          {pane.children.map(item => (
+            <div className={styles.IndexTitle} onClick={() => this.trajectoryTitle(item)}>
+              <span className={styles.spanTitle}>{item.camera_name}</span>
+            </div>
+          ))}
+        </div>
+      )
+    }
+  }
   // 日志左右切换
   dailyRightClick = (newObjWidth, num) => {
     if (newObjWidth === 1280) {
@@ -1362,7 +1375,7 @@ export default class areaDetail extends PureComponent {
           >
             {areaDetails && areaDetails.trackList && areaDetails.trackList.length > 0
               ? areaDetails.trackList.map(pane => (
-                  <Step title={this.Title(pane.room_name, pane.begin_time, pane.end_time, pane)} />
+                  <Step title={this.Title(pane.room_name, pane.begin_time, pane.end_time, pane)} description={this.descrip(pane)} />
                 ))
               : ''}
           </Steps>
