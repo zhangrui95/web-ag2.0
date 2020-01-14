@@ -831,6 +831,19 @@ export default class unareaDetail extends PureComponent {
       },
     });
   };
+  descrip = (pane) =>{
+    if(pane&&pane.children&&pane.children.length>0){
+      return (
+        <div className={styles.descripStyle}>
+          {pane.children.map(item => (
+            <div className={styles.IndexTitle} onClick={() => this.trajectoryTitle(item)}>
+              <span className={styles.spanTitle}>{item.camera_name}</span>
+            </div>
+          ))}
+        </div>
+      )
+    }
+  }
   Title = (roomName, trackTime, trackLeftTime, paneData) => {
     return (
       <div className={styles.trajectory} onClick={() => this.trajectoryTitle(paneData)}>
@@ -1443,7 +1456,7 @@ export default class unareaDetail extends PureComponent {
           >
             {UnareaDetail && UnareaDetail.trackList && UnareaDetail.trackList.length > 0
               ? UnareaDetail.trackList.map(pane => (
-                  <Step title={this.Title(pane.room_name, pane.begin_time, pane.end_time, pane)} />
+                  <Step title={this.Title(pane.room_name, pane.begin_time, pane.end_time, pane)} description={this.descrip(pane)} />
                 ))
               : ''}
           </Steps>

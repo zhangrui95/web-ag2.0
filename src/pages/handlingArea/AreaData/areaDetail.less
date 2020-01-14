@@ -45,12 +45,15 @@
   //top: 10px;
   //border: 1px solid #1890ff;
   border-radius: 10px;
-  background: #252C3C;
+  background: @component-background;
   font-size: 13px;
   padding: 7px 10px;
   cursor: pointer;
 }
 .superve{
+  display: inline-block;
+  overflow: hidden;
+  height: auto;
   :global{
     .ant-steps-dot .ant-steps-item-tail::after{
       height: 1px!important;
@@ -62,6 +65,19 @@
   margin-bottom: 0;
 }
 
+.descripStyle{
+  position: relative;
+  top: 27px;
+}
+.IndexTitle{
+  width: 140px;
+  background: @component-background;
+  padding: 7px 10px;
+  font-size: 13px;
+  border-radius: 10px;
+  margin-bottom: 8px;
+  cursor: pointer;
+}
 @media screen and (max-width: 1280px) {
   .message .steps {
     position: relative;
@@ -76,9 +92,9 @@
         //overflow: visible;
       }
 
-      .ant-steps-item:nth-child(2n + 2) .ant-steps-item-content {
+      .ant-steps-item-content {
         position: relative;
-        //top: -100px;
+        top: -100px;
       }
 
       .ant-steps-item-description {
@@ -103,9 +119,9 @@
         //overflow: visible;
       }
 
-      .ant-steps-item:nth-child(2n + 2) .ant-steps-item-content {
+      .ant-steps-item-content {
         position: relative;
-        //top: -100px;
+        top: -100px;
       }
 
       .ant-steps-item-description {
@@ -130,9 +146,9 @@
         //overflow: visible;
       }
 
-      .ant-steps-item:nth-child(2n + 2) .ant-steps-item-content {
+      .ant-steps-item-content {
         position: relative;
-        //top: -100px;
+        top: -100px;
       }
 
       .ant-steps-item-description {
@@ -157,9 +173,9 @@
         //overflow: visible;
       }
 
-      .ant-steps-item:nth-child(2n + 2) .ant-steps-item-content {
+      .ant-steps-item-content {
         position: relative;
-        //top: -100px;
+        top: -100px;
       }
 
       .ant-steps-item-description {
@@ -184,9 +200,9 @@
         //overflow: visible;
       }
 
-      .ant-steps-item:nth-child(2n + 2) .ant-steps-item-content {
+      .ant-steps-item-content {
         position: relative;
-        //top: -100px;
+        top: -100px;
       }
 
       .ant-steps-item-description {
@@ -197,11 +213,6 @@
   }
 }
 
-.superve {
-  display: inline-block;
-  overflow: hidden;
-  height: 182px;
-}
 
 .tableExtra {
   position: relative;
