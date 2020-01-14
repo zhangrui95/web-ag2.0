@@ -386,7 +386,7 @@ export default class SuperviseModal extends PureComponent {
         //         url: file.url,
         //     },
         // })
-        window.open(configUrl.serverUrl + '/downFile?name=' + file.name + '&url=' + file.url);
+      window.open('http://'+file.response.fileUrl);
     };
     chooseWtlx = (value) => {
         let newValue = [];
@@ -630,6 +630,7 @@ export default class SuperviseModal extends PureComponent {
                                           // multiple={true}
                                           onChange={this.handleChange}
                                           onPreview={this.fileOnPreview}
+                                          onDownload={this.fileOnPreview}
                                       >
                                         {this.state.fileList.length >= 10 ? '' : uploadButton}
                                       </Upload>

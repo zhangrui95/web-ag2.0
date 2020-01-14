@@ -783,6 +783,7 @@ export default class SuperviseModal extends PureComponent {
                     fileList={this.state.fileList}
                     // multiple={true}
                     onChange={this.handleChange}
+                    onPreview={this.fileOnPreview}
                     onDownload={this.fileOnPreview}
                   >
                     {this.state.fileList.length >= 10 ? '' : uploadButton}

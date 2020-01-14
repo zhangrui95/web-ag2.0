@@ -83,6 +83,11 @@ export default class DbHistory extends PureComponent {
         }
     }
 
+    // 点击文件查看
+    fileOnPreview = file => {
+      window.open('http://'+file.url);
+    };
+
     extraDescription = (pane) => {
         return (
             <div style={{position: 'relative', top: '10px'}}>
@@ -122,7 +127,8 @@ export default class DbHistory extends PureComponent {
                             <div className={styles.dbrzfj}>
                                 <span className={styles.dbrzName1}>附件信息： </span>
                                 <span className={styles.dbrzName2}>
-                                  <Upload fileList={pane.fileList}/>
+                                  <Upload fileList={pane.fileList} onPreview={this.fileOnPreview}
+                                          onDownload={this.fileOnPreview}/>
                                 </span>
                             </div>
                         </Col>

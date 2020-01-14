@@ -23,6 +23,7 @@ import {routerRedux} from 'dva/router';
 import {getSysAuthority} from '../../utils/authority';
 import styles from './SuperviseModal.less';
 // import Ellipsis from '../../components/Ellipsis';
+import Ellipsis from 'ant-design-pro/lib/Ellipsis';
 
 const TreeNode = TreeSelect.TreeNode;
 const {Option, OptGroup} = Select;
@@ -385,7 +386,7 @@ export default class SuperviseModal extends PureComponent {
         //         url: file.url,
         //     },
         // })
-        window.open(configUrl.serverUrl + '/downFile?name=' + file.name + '&url=' + file.url);
+      window.open('http://'+file.response.fileUrl);
     };
     chooseWtlx = (value) => {
         let newValue = [];
@@ -629,6 +630,7 @@ export default class SuperviseModal extends PureComponent {
                                           // multiple={true}
                                           onChange={this.handleChange}
                                           onPreview={this.fileOnPreview}
+                                          onDownload={this.fileOnPreview}
                                       >
                                         {this.state.fileList.length >= 10 ? '' : uploadButton}
                                       </Upload>

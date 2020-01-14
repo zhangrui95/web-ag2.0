@@ -205,7 +205,7 @@ export default class FeedbackModal extends PureComponent {
     };
     // 点击文件查看
     fileOnPreview = (file) => {
-        window.open(configUrl.serverUrl + '/downFile?name=' + file.name + '&url=' + file.url);
+        window.open('http://'+file.response.fileUrl);
     };
 
     handleonChange = (value) => {
@@ -359,6 +359,7 @@ export default class FeedbackModal extends PureComponent {
                                             fileList={this.state.fileList}
                                             onChange={this.handleChange}
                                             onPreview={this.fileOnPreview}
+                                            onDownload={this.fileOnPreview}
                                         >
                                             {this.state.fileList.length >= 10 ? '' : uploadButton}
                                         </Upload>
