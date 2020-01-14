@@ -24,16 +24,16 @@ export default class detailShow extends PureComponent {
             let maxLen = '';
             if(objwidth<1280){
                 maxLen = 35;
-            }else if(objwidth>=1280){
+            }else if(objwidth>=1280 && objwidth < 1360){
                 maxLen = 45;
-            }else if(objwidth>=1360){
+            }else if(objwidth>=1360 && objwidth < 1440 ){
                 maxLen=50;
-            }else if(objwidth>=1440){
+            }else if(objwidth>=1440 && objwidth < 1600){
                 maxLen=60;
-            }else if(objwidth>=1600){
+            }else if(objwidth>=1600 && objwidth < 1680){
                 maxLen=70;
-            }else if(objwidth>=1680){
-                maxLen=75;
+            }else if(objwidth>=1680 && objwidth < 1920){
+                maxLen=80;
             }else if(objwidth>=1920){
                 maxLen=90;
             }
