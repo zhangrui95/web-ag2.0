@@ -552,9 +552,11 @@ export default class ItemDataView extends PureComponent {
                         series: [
                             {
                                 data: dataShadow,
+                                barWidth: 10,
                             },
                             {
                                 data: newData1,
+                                barWidth: 10,
                             },
                         ],
                     });
@@ -965,18 +967,10 @@ export default class ItemDataView extends PureComponent {
                     type: 'bar',
                     itemStyle: {
                         normal: {
-                            color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
-                                {offset: 0, color: '#83bff6'},
-                                {offset: 0.5, color: '#188df0'},
-                                {offset: 1, color: '#188df0'},
-                            ]),
+                            color: ['#1EB8CE'],
                         },
                         emphasis: {
-                            color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
-                                {offset: 0, color: '#2378f7'},
-                                {offset: 0.7, color: '#2378f7'},
-                                {offset: 1, color: '#83bff6'},
-                            ]),
+                            color: ['#1EB8CE'],
                         },
                     },
                     // data: data,

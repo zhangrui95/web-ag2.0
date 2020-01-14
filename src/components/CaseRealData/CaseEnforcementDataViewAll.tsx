@@ -196,9 +196,11 @@ export default class CaseEnforcementDataView extends PureComponent {
                             series: [
                                 {
                                     data: dataShadow,
+                                    barWidth: 10,
                                 },
                                 {
                                     data: barData,
+                                    barWidth: 10,
                                 },
                             ],
                         });
@@ -313,6 +315,7 @@ export default class CaseEnforcementDataView extends PureComponent {
                         series: [
                             {
                                 data: barData,
+                                barWidth: 10,
                             },
                         ],
                     });

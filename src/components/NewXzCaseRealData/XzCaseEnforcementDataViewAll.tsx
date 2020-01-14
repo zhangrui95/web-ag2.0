@@ -313,6 +313,7 @@ export default class XzCaseEnforcementDataView extends PureComponent {
                                 series: [
                                     {
                                         data: barData,
+                                        barWidth: 10,
                                     },
                                 ],
                             });
@@ -456,6 +457,7 @@ export default class XzCaseEnforcementDataView extends PureComponent {
                         series: [
                             {
                                 data: barData,
+                                barWidth: 10,
                             },
                         ],
                     });
@@ -488,7 +490,7 @@ export default class XzCaseEnforcementDataView extends PureComponent {
     showXzCaseEchartBar = (nextProps) => {
         xzCaseEchartBar = echarts.init(document.getElementById('ryxzcfqk'));
         const option = {
-            color: ['#3398DB'],
+            color: ['#1EB8CE'],
             title: {
                 // text: '人员行政处罚情况',
                 // textStyle: {
@@ -709,7 +711,7 @@ export default class XzCaseEnforcementDataView extends PureComponent {
         const that = this;
         caseTypeStatisticsBar = echarts.init(document.getElementById('ajlxtjXz'));
         const option = {
-            color: ['#3398DB'],
+            color: ['#1EB8CE'],
             tooltip: {
                 trigger: 'axis',
                 axisPointer: {

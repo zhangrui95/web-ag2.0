@@ -202,9 +202,11 @@ export default class CaseEnforcementDataView extends PureComponent {
                             series: [
                                 {
                                     data: dataShadow,
+                                    barWidth: 10,
                                 },
                                 {
                                     data: barData,
+                                    barWidth: 10,
                                 },
                             ],
                         });
@@ -331,6 +333,7 @@ export default class CaseEnforcementDataView extends PureComponent {
                         series: [
                             {
                                 data: barData,
+                                barWidth: 10,
                             },
                         ],
                     });
@@ -367,7 +370,7 @@ export default class CaseEnforcementDataView extends PureComponent {
         const that = this;
         caseEchartBar = echarts.init(document.getElementById('ajbljd'));
         const option = {
-            color: ['#3398DB'],
+            color: ['#1EB8CE'],
             title: {
                 // text: '案件办理进度',
                 // textStyle: {
@@ -541,7 +544,7 @@ export default class CaseEnforcementDataView extends PureComponent {
         const that = this;
         caseTypeStatisticsBar = echarts.init(document.getElementById('ajlxtj'));
         const option = {
-            color: ['#3398DB'],
+            color: ['#1EB8CE'],
             tooltip: {
                 trigger: 'axis',
                 axisPointer: {
