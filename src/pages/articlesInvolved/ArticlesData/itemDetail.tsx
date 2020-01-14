@@ -482,9 +482,8 @@ export default class itemDetail extends PureComponent {
                   </span>
                   <span
                     className={liststyles.collect}
-                    onClick={() => this.saveShare(itemDetails, record, 2)}
                   >
-                    <Tooltip title="分享">
+                    <Tooltip title="分享"  onClick={() => this.saveShare(itemDetails, record, 2)}>
                       <img
                         src={dark ? share : share1}
                         style={{ marginLeft: 12 }}

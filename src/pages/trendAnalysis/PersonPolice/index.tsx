@@ -6,7 +6,7 @@
 
 import React, {PureComponent} from 'react';
 import {connect} from 'dva';
-import {Row, Col, DatePicker, Icon, Card, Table, Carousel, TreeSelect, Spin, Button} from 'antd';
+import {Row, Col, DatePicker, Icon, Card, Table, Carousel, TreeSelect, Spin, Button, Modal, Progress} from 'antd';
 import moment from 'moment';
 import html2canvas from 'html2canvas';
 import Ellipsis from 'ant-design-pro/lib/Ellipsis';
@@ -19,6 +19,7 @@ import {getUserInfos} from '../../../utils/utils';
 const {MonthPicker} = DatePicker;
 const TreeNode = TreeSelect.TreeNode;
 let imgBase = [];
+let num = 0;
 
 @connect(({common, trendAnalysis, loading, global}) => ({
     common,
@@ -49,6 +50,8 @@ export default class PeopleTrendAnalysis extends PureComponent {
         personIllegalPunishLoadingStatus: false, // 违法行为人处罚
         personSuspectPunishLoadingStatus: false, // 强制措施
         treeDefaultExpandedKeys: [], // 办案单位树默认展开keys
+        percent:0,
+        downLoading:false,
     };
 
     componentWillMount() {
@@ -177,27 +180,45 @@ export default class PeopleTrendAnalysis extends PureComponent {
             callback: (data) => {
                 if (data && data.result) {
                     window.location.href = `${configUrl.tbtjExportUrl}/down-docx/涉案人员分析图表统计导出.docx`;
+                    this.setState({
+                        percent:0,
+                    });
+                    num = 0;
                 }
             },
         });
     };
     // 图表统计导出功能参数集合
     addBase = (add) => {
+        num ++;
+        let percent = Math.round((num/3)*100);
+        this.setState({
+            percent:percent,
+        });
         imgBase.push(add);
         if (imgBase.length === 3) {
+            this.setState({
+                downLoading:false,
+            });
             this.exprotService(imgBase);
         }
     };
     // 图表统计导出功能
-    ExportStatistics = () => {
+    ExportStatistics = async () => {
+        this.setState({
+            downLoading:true
+        });
+        window.pageYOffset = 0;
+        document.documentElement.scrollTop = 0;
+        document.body.scrollTop = 0;
         imgBase = [];
-        html2canvas(document.querySelector('#capturePerson1')).then(canvas => {
+        await html2canvas(document.querySelector('#capturePerson1')).then(canvas => {
             this.addBase(canvas.toDataURL().split('base64,')[1]);
         });
-        html2canvas(document.querySelector('#capturePerson2')).then(canvas => {
+        await html2canvas(document.querySelector('#capturePerson2')).then(canvas => {
             this.addBase(canvas.toDataURL().split('base64,')[1]);
         });
-        html2canvas(document.getElementsByClassName('capturePerson3')[1]).then(canvas => {
+        await html2canvas(document.getElementsByClassName('capturePerson3')[1]).then(canvas => {
             this.addBase(canvas.toDataURL().split('base64,')[1]);
         });
     };
@@ -286,6 +307,16 @@ export default class PeopleTrendAnalysis extends PureComponent {
                         </div>
                     </Carousel>
                 </Card>
+                <Modal
+                    visible={this.state.downLoading}
+                    closable={false}
+                    footer={null}
+                    centered={true}
+                    getContainer={()=>document.getElementById('messageBox')}
+                >
+                    <p className={this.props.global && this.props.global.dark ? styles.dcWords : styles.dcWord}>正在导出</p>
+                    <Progress percent={this.state.percent} status="active" strokeColor={this.props.global && this.props.global.dark ? '#3285ff':'#4662D5'}/>
+                </Modal>
             </div>
         );
     }

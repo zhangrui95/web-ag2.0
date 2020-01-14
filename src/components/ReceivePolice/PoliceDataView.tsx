@@ -1485,7 +1485,12 @@ export default class PoliceDataView extends PureComponent {
           >
             <Row gutter={rowLayout} className={styles.listPageRow}>
               <Col {...colLayout}>
-                <div className={styles.cardBoxTitle}>| 警情数量</div>
+                <div className={styles.cardBoxTitle}><span
+                    style={{
+                        borderLeft: this.props.global && this.props.global.dark ? '3px solid #fff' : '3px solid #3D63D1',
+                        paddingLeft: 10,
+                    }}
+                >警情数量</span></div>
                 <div id="jqsl" className={styles.cardBox}></div>
                 {jqslNoData ? (
                   <div>
@@ -1517,23 +1522,43 @@ export default class PoliceDataView extends PureComponent {
                 ) : null}
               </Col>
               <Col {...colLayout}>
-                <div className={styles.cardBoxTitle}>| 处置结果</div>
+                <div className={styles.cardBoxTitle}><span
+                    style={{
+                        borderLeft: this.props.global && this.props.global.dark ? '3px solid #fff' : '3px solid #3D63D1',
+                        paddingLeft: 10,
+                    }}
+                >处置结果</span></div>
                 <div id="czjg" className={styles.cardBox}></div>
               </Col>
             </Row>
             <Row gutter={rowLayout} className={styles.listPageRow}>
               <Col {...colLayout}>
-                <div className={styles.cardBoxTitle}>| 处警情况</div>
+                <div className={styles.cardBoxTitle}><span
+                    style={{
+                        borderLeft: this.props.global && this.props.global.dark ? '3px solid #fff' : '3px solid #3D63D1',
+                        paddingLeft: 10,
+                    }}
+                >处警情况</span></div>
                 <div id="cjqk" className={styles.cardBox}></div>
               </Col>
               <Col {...colLayout}>
-                <div className={styles.cardBoxTitle}>| 受案情况</div>
+                <div className={styles.cardBoxTitle}><span
+                    style={{
+                        borderLeft: this.props.global && this.props.global.dark ? '3px solid #fff' : '3px solid #3D63D1',
+                        paddingLeft: 10,
+                    }}
+                >受案情况</span></div>
                 <div id="saqk" className={styles.cardBox}></div>
               </Col>
             </Row>
             <Row gutter={rowLayout} className={styles.listPageRow}>
               <Col span={24} style={{ marginBottom: 32 }}>
-                <div className={styles.cardBoxTitle}>| 警情状况</div>
+                <div className={styles.cardBoxTitle}><span
+                    style={{
+                        borderLeft: this.props.global && this.props.global.dark ? '3px solid #fff' : '3px solid #3D63D1',
+                        paddingLeft: 10,
+                    }}
+                >警情状况</span></div>
                 <div id="jqzk" className={styles.cardBox}  style={{width:'98%',marginLeft:'1%'}}></div>
                 {jqzkNoData ? (
                   <div

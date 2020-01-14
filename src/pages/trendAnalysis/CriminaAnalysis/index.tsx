@@ -6,7 +6,7 @@
 
 import React, {PureComponent} from 'react';
 import {connect} from 'dva';
-import {Row, Col, DatePicker, Icon, Card, Table, Carousel, Spin, Button} from 'antd';
+import {Row, Col, DatePicker, Icon, Card, Table, Carousel, Spin, Button, Modal, Progress} from 'antd';
 import moment from 'moment';
 import html2canvas from 'html2canvas';
 import CriminalCaseOverview from '../../../components/TrendAnalysis/CirminalCaseAnalysis/CriminalCaseOverview';
@@ -16,6 +16,7 @@ import styles from '../../trendAnalysis/PoliceAnalysis/index.less';
 
 const {MonthPicker} = DatePicker;
 let imgBase = [];
+let num = 0;
 
 @connect(({common, trendAnalysis, loading, global}) => ({
     common,
@@ -42,6 +43,8 @@ export default class CriminalCaseTrendAnalysis extends PureComponent {
         criminalCaseOverviewLoadingStatus: false, // 综述加载数据状态
         criminalCaseTypeLoadingStatus: false, // 类型分析
         criminalCaseAndPoliceLoadingStatus: false, // 警情、受理、立案
+        percent:0,
+        downLoading:false,
     };
     // 改变模块加载状态
     changeLoadingStatus = (status) => {
@@ -117,27 +120,45 @@ export default class CriminalCaseTrendAnalysis extends PureComponent {
             callback: (data) => {
                 if (data && data.result) {
                     window.location.href = `${configUrl.tbtjExportUrl}/down-docx/刑事案件分析图表统计导出.docx`;
+                    this.setState({
+                        percent:0,
+                    });
+                    num = 0;
                 }
             },
         });
     };
     // 图表统计导出功能参数集合
     addBase = (add) => {
+        num ++;
+        let percent = Math.round((num/3)*100);
+        this.setState({
+            percent:percent,
+        });
         imgBase.push(add);
         if (imgBase.length === 3) {
+            this.setState({
+                downLoading:false,
+            });
             this.exprotService(imgBase);
         }
     };
     // 图表统计导出功能
-    ExportStatistics = () => {
+    ExportStatistics = async () => {
+        this.setState({
+            downLoading:true
+        });
+        window.pageYOffset = 0;
+        document.documentElement.scrollTop = 0;
+        document.body.scrollTop = 0;
         imgBase = [];
-        html2canvas(document.querySelector('#capturexs1')).then(canvas => {
+        await html2canvas(document.querySelector('#capturexs1')).then(canvas => {
             this.addBase(canvas.toDataURL().split('base64,')[1]);
         });
-        html2canvas(document.querySelector('#capturexs2')).then(canvas => {
+        await html2canvas(document.querySelector('#capturexs2')).then(canvas => {
             this.addBase(canvas.toDataURL().split('base64,')[1]);
         });
-        html2canvas(document.getElementsByClassName('capturexs3')[1]).then(canvas => {
+        await html2canvas(document.getElementsByClassName('capturexs3')[1]).then(canvas => {
             this.addBase(canvas.toDataURL().split('base64,')[1]);
         });
     };
@@ -188,6 +209,16 @@ export default class CriminalCaseTrendAnalysis extends PureComponent {
                         </div>
                     </Carousel>
                 </Card>
+                <Modal
+                    visible={this.state.downLoading}
+                    closable={false}
+                    footer={null}
+                    centered={true}
+                    getContainer={()=>document.getElementById('messageBox')}
+                >
+                    <p className={this.props.global && this.props.global.dark ? styles.dcWords : styles.dcWord}>正在导出</p>
+                    <Progress percent={this.state.percent} status="active" strokeColor={this.props.global && this.props.global.dark ? '#3285ff':'#4662D5'}/>
+                </Modal>
             </div>
         );
     }

@@ -989,7 +989,12 @@ export default class DossierDataView extends PureComponent {
                     }}>
                         <Row gutter={rowLayout} className={styles.listPageRow}>
                             <Col {...colLayout}>
-                                <div className={styles.cardBoxTitle}>| 卷宗数量展示</div>
+                                <div className={styles.cardBoxTitle}><span
+                                    style={{
+                                        borderLeft: this.props.global && this.props.global.dark ? '3px solid #fff' : '3px solid #3D63D1',
+                                        paddingLeft: 10,
+                                    }}
+                                >卷宗数量展示</span></div>
                                 <div id="jzslzs" className={styles.cardBox} style={{marginLeft:'3%'}}></div>
                             </Col>
                             <Col {...colLayout}>
@@ -1014,11 +1019,21 @@ export default class DossierDataView extends PureComponent {
                                         }
                                     </div>
                                 </div>
-                                <div className={styles.cardBoxTitle}>| 卷宗在库情况</div>
+                                <div className={styles.cardBoxTitle}><span
+                                    style={{
+                                        borderLeft: this.props.global && this.props.global.dark ? '3px solid #fff' : '3px solid #3D63D1',
+                                        paddingLeft: 10,
+                                    }}
+                                >卷宗在库情况</span></div>
                                 <div id="jzcrkqk" className={styles.cardBox} style={{marginLeft:'3%'}}></div>
                             </Col>
                             <Col {...colLayout}>
-                                <div className={styles.cardBoxTitle}>| 在库卷宗数量展示</div>
+                                <div className={styles.cardBoxTitle}><span
+                                    style={{
+                                        borderLeft: this.props.global && this.props.global.dark ? '3px solid #fff' : '3px solid #3D63D1',
+                                        paddingLeft: 10,
+                                    }}
+                                >在库卷宗数量展示</span></div>
                                 <div className={styles.cardBoxzk} style={{padding: '10px 5px',marginLeft:'3%'}}>
                                     {ZkjzData.length > 0 ?
                                         <div>
@@ -1073,7 +1088,12 @@ export default class DossierDataView extends PureComponent {
                         </Row>
                         <Row gutter={rowLayout} className={styles.listPageRow}>
                             <Col {...colLayout1} style={{marginBottom: 32}}>
-                                <div className={styles.cardBoxTitle}>| 卷宗趋势</div>
+                                <div className={styles.cardBoxTitle}><span
+                                    style={{
+                                        borderLeft: this.props.global && this.props.global.dark ? '3px solid #fff' : '3px solid #3D63D1',
+                                        paddingLeft: 10,
+                                    }}
+                                >卷宗趋势</span></div>
                                 <div id="jzqs" className={styles.cardBox} style={{marginLeft: '1.5%',width: '98%'}}></div>
                                 {
                                     jzqsNoData ? (
@@ -1106,7 +1126,12 @@ export default class DossierDataView extends PureComponent {
                                 }
                             </Col>
                             <Col {...colLayout2} style={{marginBottom: 32}}>
-                                <div className={styles.cardBoxTitle}>| 电子化情况展示</div>
+                                <div className={styles.cardBoxTitle}><span
+                                    style={{
+                                        borderLeft: this.props.global && this.props.global.dark ? '3px solid #fff' : '3px solid #3D63D1',
+                                        paddingLeft: 10,
+                                    }}
+                                >电子化情况展示</span></div>
                                 <div id="dzhqkzs" className={styles.cardBox} style={{marginLeft:'3%'}}></div>
                             </Col>
                         </Row>

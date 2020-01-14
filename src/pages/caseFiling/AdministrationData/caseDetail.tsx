@@ -365,9 +365,8 @@ export default class caseDetail extends PureComponent {
                   </span>
                   <span
                       className={liststyles.collect}
-                      onClick={() => this.saveShare(caseDetails, record, 2)}
                   >
-                    <Tooltip title="分享">
+                    <Tooltip title="分享" onClick={() => this.saveShare(caseDetails, record, 2)}>
                       <img src={share} width={25} height={25}/>
                       <div style={{fontSize: 12}}>分享</div>
                     </Tooltip>

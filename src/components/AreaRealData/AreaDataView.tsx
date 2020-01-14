@@ -1339,12 +1339,22 @@ export default class ItemDataView extends PureComponent {
                         <Row gutter={rowLayout} className={styles.listPageRow}>
                             <Col {...colLayout}>
                                 {/*<div className={AreaDataViewStyles.rycfBox}>*/}
-                                <div className={styles.cardBoxTitle}>| 性别统计</div>
+                                <div className={styles.cardBoxTitle}><span
+                                    style={{
+                                        borderLeft: this.props.global && this.props.global.dark ? '3px solid #fff' : '3px solid #3D63D1',
+                                        paddingLeft: 10,
+                                    }}
+                                >性别统计</span></div>
                                 <div id="rycf" className={styles.cardBox} style={{height: '350px',marginLeft:'3%'}}></div>
                                 {/*</div>*/}
                             </Col>
                             <Col {...colLayout2}>
-                                <div className={styles.cardBoxTitle}>| 年龄划分</div>
+                                <div className={styles.cardBoxTitle}><span
+                                    style={{
+                                        borderLeft: this.props.global && this.props.global.dark ? '3px solid #fff' : '3px solid #3D63D1',
+                                        paddingLeft: 10,
+                                    }}
+                                >年龄划分</span></div>
                                 {/*<ChartCard*/}
                                 {/*  // title="年龄划分"*/}
                                 {/*  // contentHeight={46}*/}
@@ -1381,7 +1391,12 @@ export default class ItemDataView extends PureComponent {
                             <Col {...colLayout}>
                                 <div>
                                     <div className={AreaDataViewStyles.IntoTitle+' '+styles.cardBoxTitle}>
-                                        | 办案区入区人次展示
+                                       <span
+                                           style={{
+                                               borderLeft: this.props.global && this.props.global.dark ? '3px solid #fff' : '3px solid #3D63D1',
+                                               paddingLeft: 10,
+                                           }}
+                                       >办案区入区人次展示</span>
                                         {
                                             SARYRQRCdataLength > 1 ?   <a style={{float: 'right',color:this.props.global && this.props.global.dark ? '#3285ff' : '#4662d5'}} onClick={() => this.resetBaq()}>
                                                 全部
@@ -1399,17 +1414,32 @@ export default class ItemDataView extends PureComponent {
                                 </div>
                             </Col>
                             <Col {...colLayout}>
-                                <div className={styles.cardBoxTitle}>| 人员类型</div>
+                                <div className={styles.cardBoxTitle}><span
+                                    style={{
+                                        borderLeft: this.props.global && this.props.global.dark ? '3px solid #fff' : '3px solid #3D63D1',
+                                        paddingLeft: 10,
+                                    }}
+                                >人员类型</span></div>
                                 <div id="salxBaq" className={styles.cardBox} style={{marginLeft:'3%'}}></div>
                             </Col>
                             <Col {...colLayout}>
-                                <div className={styles.cardBoxTitle}>| 入区原因</div>
+                                <div className={styles.cardBoxTitle}><span
+                                    style={{
+                                        borderLeft: this.props.global && this.props.global.dark ? '3px solid #fff' : '3px solid #3D63D1',
+                                        paddingLeft: 10,
+                                    }}
+                                >入区原因</span></div>
                                 <div id="rqyy" className={styles.cardBox} style={{marginLeft:'3%'}}></div>
                             </Col>
                         </Row>
                         <Row gutter={rowLayout} className={styles.listPageRow}>
                             <Col {...colLayout1} style={{marginBottom: 32}}>
-                                <div className={styles.cardBoxTitle}>| 人员入区人次展示</div>
+                                <div className={styles.cardBoxTitle}><span
+                                    style={{
+                                        borderLeft: this.props.global && this.props.global.dark ? '3px solid #fff' : '3px solid #3D63D1',
+                                        paddingLeft: 10,
+                                    }}
+                                >人员入区人次展示</span></div>
                                 <div id="rqrcqszs" className={styles.cardBox} style={{width:'98.5%',marginLeft:'1%'}}></div>
                             </Col>
                         </Row>

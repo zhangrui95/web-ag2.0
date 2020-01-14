@@ -648,7 +648,8 @@ export default class PersonalDocDetail extends PureComponent {
 
     render() {
         const {personData, loading} = this.state;
-        let className = this.props.global.dark ? styles.detailBoxScroll : styles.detailBoxScroll + ' ' + styles.detailBoxLight;
+        let className = this.props.global&&this.props.global.dark ? styles.detailBoxScroll : styles.detailBoxScroll + ' ' + styles.detailBoxLight;
+        let dark = this.props.global&&this.props.global.dark;
         return (
             <div>
                 <Spin spinning={loading}>
@@ -665,7 +666,12 @@ export default class PersonalDocDetail extends PureComponent {
                           className={className}>
                         <div>
                             <div id={`Nameryxx${this.props.location.query.id}`} className={styles.borderBottom}>
-                                <Card title="|  人员信息" className={listStyles.cardCharts} bordered={false} id='capture1'>
+                                <Card title={ <div
+                                    style={{
+                                        borderLeft: dark ? '3px solid #fff' : '3px solid #3D63D1',
+                                        paddingLeft: 16,
+                                    }}
+                                >人员信息</div>} className={listStyles.cardCharts} bordered={false}>
                                     <div style={{padding: 16}}>
                                         <Row>
                                             <Col md={2} sm={24} style={{textAlign: 'right'}}>
@@ -734,7 +740,12 @@ export default class PersonalDocDetail extends PureComponent {
                                 </Card>
                             </div>
                             <div id={`Namegxtp${this.props.location.query.id}`} className={styles.borderBottom}>
-                                <Card title="|  关系图谱" className={listStyles.cardCharts} bordered={false}>
+                                <Card title={ <div
+                                    style={{
+                                        borderLeft: dark ? '3px solid #fff' : '3px solid #3D63D1',
+                                        paddingLeft: 16,
+                                    }}
+                                >关系图谱</div>} className={listStyles.cardCharts} bordered={false}>
                                     <div
                                         id={'ryRegulateTree' + this.state.res.xyr_sfzh}
                                         style={
@@ -747,7 +758,12 @@ export default class PersonalDocDetail extends PureComponent {
                                 </Card>
                             </div>
                           {personData.ajxx ?
-                            (<Card title="|  涉案信息" className={listStyles.cardCharts + ' ' + styles.saxx}
+                            (<Card title={ <div
+                                style={{
+                                    borderLeft: dark ? '3px solid #fff' : '3px solid #3D63D1',
+                                    paddingLeft: 16,
+                                }}
+                            >涉案信息</div>} className={listStyles.cardCharts + ' ' + styles.saxx}
                                   id={`cardCharts${this.props.location.query.id}`}
                                   bordered={false}>
                                 {

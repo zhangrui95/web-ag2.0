@@ -1044,11 +1044,21 @@ export default class ItemDataView extends PureComponent {
           >
             <Row gutter={rowLayout} className={styles.listPageRow}>
               <Col {...colLayout}>
-                <div className={styles.cardBoxTitle}>| 物品数量展示</div>
+                <div className={styles.cardBoxTitle}><span
+                    style={{
+                        borderLeft: this.props.global && this.props.global.dark ? '3px solid #fff' : '3px solid #3D63D1',
+                        paddingLeft: 10,
+                    }}
+                >物品数量展示</span></div>
                 <div id="wpslzs" className={styles.cardBox}></div>
               </Col>
               <Col {...colLayout}>
-                <div className={styles.cardBoxTitle}>| 在库物品数量展示</div>
+                <div className={styles.cardBoxTitle}><span
+                    style={{
+                        borderLeft: this.props.global && this.props.global.dark ? '3px solid #fff' : '3px solid #3D63D1',
+                        paddingLeft: 10,
+                    }}
+                >在库物品数量展示</span></div>
                 <Card className={styles.cardBoxzk} style={{ padding: '10px 5px' }}>
                   {ZkwpData.length > 0 ? (
                     <div>
@@ -1174,7 +1184,12 @@ export default class ItemDataView extends PureComponent {
                     )}
                   </div>
                 </div>
-                <div className={styles.cardBoxTitle}>| 物品出入库情况</div>
+                <div className={styles.cardBoxTitle}><span
+                    style={{
+                        borderLeft: this.props.global && this.props.global.dark ? '3px solid #fff' : '3px solid #3D63D1',
+                        paddingLeft: 10,
+                    }}
+                >物品出入库情况</span></div>
                 <div
                   id="wpcrkqk"
                   className={styles.cardBox}
@@ -1184,7 +1199,12 @@ export default class ItemDataView extends PureComponent {
             </Row>
             <Row gutter={rowLayout} className={styles.listPageRow}>
               <Col {...colLayout1} style={{ marginBottom: 32 }}>
-                <div className={styles.cardBoxTitle}>| 物品趋势</div>
+                <div className={styles.cardBoxTitle}><span
+                    style={{
+                        borderLeft: this.props.global && this.props.global.dark ? '3px solid #fff' : '3px solid #3D63D1',
+                        paddingLeft: 10,
+                    }}
+                >物品趋势</span></div>
                 <div
                   id="wpqs"
                   className={wpqsNoData ? styles.none : styles.cardBox}
