@@ -132,6 +132,12 @@ export default class DbHistory extends PureComponent {
       });
     }
   };
+
+  // 点击文件查看
+  fileOnPreview = file => {
+    window.open('http://'+file.url);
+  };
+
   render() {
     // const { Isdetail, NowDbrz } = this.props;
     const { record, Isdetail } = this.state;
@@ -236,7 +242,8 @@ export default class DbHistory extends PureComponent {
                     <div className={styles.dbrzfj}>
                       <span className={styles.dbrzName1}>附件信息： </span>
                       <span className={styles.dbrzName2}>
-                        <Upload fileList={record.fileList} />
+                        <Upload fileList={record.fileList} onPreview={this.fileOnPreview}
+                                onDownload={this.fileOnPreview} />
                       </span>
                     </div>
                   </Col>
@@ -250,7 +257,8 @@ export default class DbHistory extends PureComponent {
                   <div className={styles.dbrzfj}>
                     <span className={styles.dbrzName1}>附件信息： </span>
                     <span className={styles.dbrzName2}>
-                      <Upload fileList={record.fileListOfFk} />
+                      <Upload fileList={record.fileListOfFk} onPreview={this.fileOnPreview}
+                              onDownload={this.fileOnPreview} />
                     </span>
                   </div>
                 </Col>

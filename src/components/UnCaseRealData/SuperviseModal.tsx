@@ -23,6 +23,7 @@ import {routerRedux} from 'dva/router';
 import {getSysAuthority} from '../../utils/authority';
 import styles from './SuperviseModal.less';
 // import Ellipsis from '../../components/Ellipsis';
+import Ellipsis from 'ant-design-pro/lib/Ellipsis';
 
 const TreeNode = TreeSelect.TreeNode;
 const {Option, OptGroup} = Select;
@@ -385,7 +386,7 @@ export default class SuperviseModal extends PureComponent {
         //         url: file.url,
         //     },
         // })
-        window.open(configUrl.serverUrl + '/downFile?name=' + file.name + '&url=' + file.url);
+      window.open('http://'+file.response.fileUrl);
     };
     chooseWtlx = (value) => {
         let newValue = [];
@@ -629,6 +630,7 @@ export default class SuperviseModal extends PureComponent {
                                           // multiple={true}
                                           onChange={this.handleChange}
                                           onPreview={this.fileOnPreview}
+                                          onDownload={this.fileOnPreview}
                                       >
                                         {this.state.fileList.length >= 10 ? '' : uploadButton}
                                       </Upload>
@@ -637,7 +639,7 @@ export default class SuperviseModal extends PureComponent {
                             </Row>
                             <Row style={{paddingTop: 20}}>
                                 <Col>
-                                    <span className={styles.outtext} style={{color: 'rgba(0, 0, 0, 0.45)'}}>文件上传最多10个，支持扩展名：.rar .zip .doc .docx .pdf .jpg .png .bmp</span>
+                                    <span className={styles.outtext} style={{color: '#1890FF'}}>文件上传最多10个，支持扩展名：.rar .zip .doc .docx .pdf .jpg .png .bmp</span>
                                 </Col>
                             </Row>
                             <Row style={{margin: '16px 0'}}>

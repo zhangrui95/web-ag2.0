@@ -124,7 +124,7 @@ export default class CaseModalTrail extends PureComponent {
                             ))}
                         </Timeline>
                     )}
-                    <span className={styles.DetailRightline1}/>
+                    {/*<span className={styles.DetailRightline1}/>*/}
                 </div>
             );
         } else {
@@ -141,7 +141,7 @@ export default class CaseModalTrail extends PureComponent {
                             </Timeline.Item>
                         ))}
                     </Timeline>
-                    <span className={styles.DetailRightline1}/>
+                    {/*<span className={styles.DetailRightline1}/>*/}
                 </div>
             );
         }

@@ -205,7 +205,7 @@ export default class FeedbackModal extends PureComponent {
     };
     // 点击文件查看
     fileOnPreview = (file) => {
-        window.open(configUrl.serverUrl + '/downFile?name=' + file.name + '&url=' + file.url);
+        window.open('http://'+file.response.fileUrl);
     };
 
     handleonChange = (value) => {
@@ -359,6 +359,7 @@ export default class FeedbackModal extends PureComponent {
                                             fileList={this.state.fileList}
                                             onChange={this.handleChange}
                                             onPreview={this.fileOnPreview}
+                                            onDownload={this.fileOnPreview}
                                         >
                                             {this.state.fileList.length >= 10 ? '' : uploadButton}
                                         </Upload>
@@ -367,7 +368,7 @@ export default class FeedbackModal extends PureComponent {
                             </Row>
                             <Row style={{paddingTop: 20}}>
                                 <Col>
-                                    <span className={styles.outtext} style={{color: 'rgba(0, 0, 0, 0.45)'}}>文件上传最多10个，支持扩展名：.rar .zip .doc .docx .pdf .jpg .png .bmp</span>
+                                    <span className={styles.outtext} style={{color: '#1890FF'}}>文件上传最多10个，支持扩展名：.rar .zip .doc .docx .pdf .jpg .png .bmp</span>
                                 </Col>
                             </Row>
                         </Form>

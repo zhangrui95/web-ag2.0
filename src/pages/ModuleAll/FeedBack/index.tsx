@@ -245,7 +245,7 @@ export default class FeedBack extends PureComponent {
     };
     // 点击文件查看
     fileOnPreview = (file) => {
-        window.open(configUrl.serverUrl + '/downFile?name=' + file.name + '&url=' + file.url);
+      window.open('http://'+file.response.fileUrl);
     };
 
     onEdit = (isReset) => {
@@ -288,6 +288,7 @@ export default class FeedBack extends PureComponent {
     render() {
         const {SureModalVisible, fkr_dwmc, fkr_name,record} = this.state;
         const {form: {getFieldDecorator}, common: {rectificationStatusDict}} = this.props;
+        let dark = this.props.global && this.props.global.dark
         let rectificationStatusOptions = [];
         if (rectificationStatusDict.length > 0) {
             for (let i = 0; i < rectificationStatusDict.length; i++) {
@@ -417,6 +418,7 @@ export default class FeedBack extends PureComponent {
                                       fileList={this.state.fileList}
                                       onChange={this.handleChange}
                                       onPreview={this.fileOnPreview}
+                                      onDownload={this.fileOnPreview}
                                   >
                                       {this.state.fileList.length >= 10 ? '' : uploadButton}
                                   </Upload>
@@ -425,7 +427,7 @@ export default class FeedBack extends PureComponent {
                         </Row>
                         <Row style={{paddingTop: 20}}>
                             <Col>
-                                <span className={styles.outtext} style={{color: 'rgba(255, 255, 255)'}}>文件上传最多10个，支持扩展名：.rar .zip .doc .docx .pdf .jpg .png .bmp</span>
+                                <span className={styles.outtext} style={{color: '#1890FF'}}>文件上传最多10个，支持扩展名：.rar .zip .doc .docx .pdf .jpg .png .bmp</span>
                             </Col>
                         </Row>
                     </Form>

@@ -240,7 +240,7 @@ export default class SuperviseModal extends PureComponent {
         } else {
           let that = this;
           confirm({
-            title: fieldsValue.gqyy&&this.state.gqType?'是否直接挂起？':'确认督办?',
+            title: fieldsValue.gqyy&&this.state.gqType?'是否直接挂起？':'确认督办？',
             centered: true,
             okText: '确认',
             cancelText: '取消',
@@ -279,7 +279,7 @@ export default class SuperviseModal extends PureComponent {
         } else {
           let that = this;
           confirm({
-            title: fieldsValue.gqyy&&this.state.gqType?'是否直接挂起':'确认督办?',
+            title: fieldsValue.gqyy&&this.state.gqType?'是否直接挂起？':'确认督办？',
             centered: true,
             okText: '确认',
             cancelText: '取消',
@@ -783,6 +783,7 @@ export default class SuperviseModal extends PureComponent {
                     fileList={this.state.fileList}
                     // multiple={true}
                     onChange={this.handleChange}
+                    onPreview={this.fileOnPreview}
                     onDownload={this.fileOnPreview}
                   >
                     {this.state.fileList.length >= 10 ? '' : uploadButton}
@@ -792,7 +793,7 @@ export default class SuperviseModal extends PureComponent {
             </Row>
             <Row style={{ paddingTop: 20 }}>
               <Col>
-                <span className={styles.outtext}>
+                <span className={styles.outtext} style={{color: '#1890FF'}}>
                   文件上传最多10个，支持扩展名：.rar .zip .doc .docx .pdf .jpg .png .bmp
                 </span>
               </Col>
