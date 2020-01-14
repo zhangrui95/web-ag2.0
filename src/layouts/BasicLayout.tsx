@@ -104,7 +104,7 @@ const BasicLayout: React.FC<BasicLayoutProps> = props => {
      * constructor
      */
     useEffect(() => {
-        let options = {top:20,getContainer: () => document.getElementById('messageBox')};
+        let options = {top:20,getContainer: () => document.getElementById('root')};
         message.config(options);
         if (dispatch) {
             // dispatch({
