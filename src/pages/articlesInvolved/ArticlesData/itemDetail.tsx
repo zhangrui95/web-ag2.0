@@ -239,7 +239,7 @@ export default class itemDetail extends PureComponent {
       this.props.dispatch(
         routerRedux.push({
           pathname: '/newcaseFiling/caseData/AdministrationData/caseDetail',
-          query: { id: itemDetails && itemDetails.id ? itemDetails.id : '1', record: itemDetails },
+          query: { id: itemDetails && itemDetails.ajbh ? itemDetails.ajbh : '1', record: itemDetails },
         }),
       );
       // const divs = (

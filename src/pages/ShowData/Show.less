@@ -8,7 +8,7 @@
       padding: 0 16px;
     }
     .ant-table-thead > tr > th {
-      background: #171925 !important;
+      background: #1A202F !important;
     }
 
     .ant-table {
@@ -19,7 +19,7 @@
       background: #252C3C;
 
       &:nth-child(2n) {
-        background:#171925 !important;
+        background:#1A202F !important;
       }
     }
   }
@@ -214,8 +214,10 @@
 }
 
 .leftBox {
-  width: 511px;
+  width: 500px;
   float: left;
+  border-right: 1px solid @body-background;
+  margin-right: 10px;
 }
 
 .rightBox {
@@ -263,9 +265,9 @@
   line-height: 30px;
   //float: left;
   font-size: 16px;
-  margin: 3px 10px;
-  padding: 3px 20px 3px 60px;
-  text-decoration: underline;
+  margin: 0px 10px;
+  padding: 0px 20px 0px 60px;
+  //text-decoration: underline;
   //width: 210px;
   //text-align: center;
 }
@@ -671,7 +673,7 @@
 .glajStyle {
   padding-right: 12px;
   border: 1px solid #0f1220;
-  margin-left: 60px;
+  margin: 0 20px 0 70px;
   border-bottom: 0;
   &:last-child{
     border-bottom:1px solid #0f1220;
@@ -708,7 +710,7 @@
 }
 
 .DataTotal {
-  text-decoration: underline;
+  //text-decoration: underline;
   color: #47B2FF;
   font-size: 18px;
   cursor: auto;
@@ -851,6 +853,9 @@
 }
 
 .lightBox {
+  .leftBox{
+    border-right: 1px solid #e6e6e6;
+  }
   .iconPerson {
     color: #333333;
   }

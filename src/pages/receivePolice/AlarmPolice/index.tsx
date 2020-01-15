@@ -213,11 +213,17 @@ export default class Index extends PureComponent {
     getSourceOfAlarmDict = area => {
         const org6 = area ? area.substring(0, 6) : '';
         this.props.dispatch({
-            type: 'common/getDictType',
+            type: 'common/getDictTypeOld',
             payload: {
-                appCode: window.configUrl.appCode,
-                code: '2000',
-                org6,
+                // appCode: window.configUrl.appCode,
+                // code: '2000',
+                // org6,
+                currentPage: 1,
+                pd: {
+                    pid: '2000',
+                    org6,
+                },
+                showCount: 999,
             },
         });
     };

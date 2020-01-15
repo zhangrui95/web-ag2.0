@@ -19,6 +19,7 @@ import {
     getCaseManagementDicts,
     getPoliceTypeTreeServices,
     getDepPcsTree,
+    getDictTypeOld
 } from '../services/common';
 import {ddjl} from '../services/Dispatch';
 
@@ -432,6 +433,22 @@ export default {
                 // 项目类型
                 yield put({
                     type: 'setXmType',
+                    payload: response && response.error === null ? response.data : [],
+                });
+            }
+            if (payload.isCaseAll) {
+                if (callback && response && !response.error) {
+                    callback(response.data);
+                }
+            }
+        },
+        //根据id,获取字典项
+        * getDictTypeOld({payload, callback}, {call, put}) {
+            const response = yield call(getDictTypeOld, payload);
+            if (payload.pid === '2000') {
+                // 接警来源字典
+                yield put({
+                    type: 'setSourceOfAlarmDict',
                     payload: response && response.error === null ? response.data : [],
                 });
             }
