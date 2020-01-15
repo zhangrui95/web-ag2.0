@@ -37,7 +37,7 @@ const GlobalHeaderRight: React.SFC<GlobalHeaderRightProps> = props => {
                 }
                 {
                     authorityIsTrue('zhag_sawp') ?  <Button shape="round">
-                    <IconFont type='icon-caiwu'/> 涉案物品管理
+                    <IconFont type='icon-caiwu'/> 涉案财物管理
                 </Button> : ''}
                 {
                     authorityIsTrue('zhag_jz') ?  <Button shape="round">

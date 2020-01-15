@@ -832,11 +832,12 @@ export default class unareaDetail extends PureComponent {
     });
   };
   descrip = (pane) =>{
+      let dark = this.props.global && this.props.global.dark;
     if(pane&&pane.children&&pane.children.length>0){
       return (
         <div className={styles.descripStyle}>
           {pane.children.map(item => (
-            <div className={styles.IndexTitle} onClick={() => this.trajectoryTitle(item)}>
+            <div className={styles.IndexTitle} style={{backgroundColor:dark ? '#252c3c' : '#e6e6e6'}} onClick={() => this.trajectoryTitle(item)}>
               <span className={styles.spanTitle}>{item.camera_name}</span>
             </div>
           ))}

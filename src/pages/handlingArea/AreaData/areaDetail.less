@@ -55,10 +55,10 @@
   overflow: hidden;
   height: auto;
   :global{
-    .ant-steps-dot .ant-steps-item-tail::after{
-      height: 1px!important;
-    }
-  }
+     .ant-steps-dot .ant-steps-item-tail::after{
+       height: 1px!important;
+     }
+   }
 }
 
 .clsj_time {
@@ -331,6 +331,16 @@
       height: 8px;
       left: -2px;
       top: -2px;
+    }
+  }
+  .steps{
+    :global{
+      .ant-steps-item-finish .ant-steps-item-icon{
+        border: 0!important;
+      }
+      .ant-steps-item-finish .ant-steps-item-icon > .ant-steps-icon .ant-steps-icon-dot {
+        background: #4662d5;
+      }
     }
   }
   .rqgjCard,.dqsaxxCard {
