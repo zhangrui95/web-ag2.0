@@ -536,10 +536,10 @@ export default class Index extends PureComponent {
                     <Col {...colLayout}>
                         <FormItem label="案件编号" {...formItemLayout}>
                             {getFieldDecorator('ajbh', {
-                                rules: [
-                                    {pattern: /^[A-Za-z0-9]+$/, message: '请输入正确的案件编号！'},
-                                    {max: 32, message: '最多输入32个字！'},
-                                ],
+                                // rules: [
+                                //     {pattern: /^[A-Za-z0-9]+$/, message: '请输入正确的案件编号！'},
+                                //     {max: 32, message: '最多输入32个字！'},
+                                // ],
                             })(<Input placeholder="请输入案件编号"/>)}
                         </FormItem>
                     </Col>

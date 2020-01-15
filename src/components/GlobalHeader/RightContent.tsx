@@ -28,7 +28,7 @@ const GlobalHeaderRight: React.SFC<GlobalHeaderRightProps> = props => {
             <div className={styles.btnBox}>
                 <div className={styles.border}></div>
                 <Button type="primary" shape="round">
-                    <IconFont type='icon-jiankongmianban-mianxing'/> 监管问题
+                    <IconFont type='icon-jiankongmianban-mianxing'/> 执法管理
                 </Button>
                 {
                     authorityIsTrue('zhag_baq') ?  <Button shape="round">
