@@ -386,7 +386,10 @@ export default class Index extends PureComponent {
     };
     // 重置
     handleFormReset = () => {
-        this.props.form.resetFields();
+        // this.props.form.resetFields();
+        this.props.form.setFieldsValue({
+          gjsj: [moment().startOf('day'), moment()],
+        });
         this.setState({
             formValues: {
                 dbzt: '00',
@@ -395,7 +398,16 @@ export default class Index extends PureComponent {
             allPolice: [],
             cjrPolice: [],
         });
-        this.getPolice();
+        const obj = {
+          currentPage: 1,
+          showCount: tableList,
+          pd: {
+            gjsj_ks: moment().format('YYYY-MM-DD'),
+            gjsj_js: moment().format('YYYY-MM-DD'),
+            dbzt: '00',
+          },
+        };
+        this.getPolice(obj);
     };
     // 导出
     exportData = () => {
