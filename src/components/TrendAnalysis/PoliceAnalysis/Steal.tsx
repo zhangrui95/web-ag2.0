@@ -55,6 +55,7 @@ export default class Steal extends PureComponent {
         nowtime: selectedDate,
         lastyear: yearOnYearDate,
         lastmonth: monthOnMonthDate,
+        jqlbmc: window.configUrl.is_ssds,
       },
       callback: data => {
         if (data) {
