@@ -920,13 +920,13 @@ export default class XzCaseEnforcementDataView extends PureComponent {
                             <div id="ajqkzs" className={styles.cardBox} style={{marginLeft:'3.5%'}}></div>
                         </Col>
                         <Col sm={24} lg={12} xl={18}>
-                            <div className={styles.cardBoxTitle} style={{marginLeft:'1.5%'}}><span
+                            <div className={styles.cardBoxTitle}><span
                                 style={{
                                     borderLeft: this.props.global && this.props.global.dark ? '3px solid #fff' : '3px solid #3D63D1',
                                     paddingLeft: 10,
                                 }}
                             >受结情况展示</span></div>
-                            <div id="sjqkzs" className={styles.cardBox}></div>
+                            <div id="sjqkzs" className={styles.cardBox} style={{marginLeft:'1.5%'}}></div>
                             {sjqkzsNoData ? (
                                 <div
                                     style={{

@@ -71,6 +71,7 @@ const Model: LoginModelType = {
             const {redirect} = getPageQuery();
             // redirect
             if (window.location.pathname !== '/user/login' && !redirect) {
+                // window.location.href = (`http://192.168.3.24:8001/#/user/login`);
                 yield put(
                     routerRedux.replace({
                         pathname: '/user/login',

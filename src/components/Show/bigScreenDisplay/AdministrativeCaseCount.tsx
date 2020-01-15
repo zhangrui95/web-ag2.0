@@ -47,8 +47,8 @@ export default class AdministrativeCaseCount extends PureComponent {
                     let num = 0;
                     for (let i = 0; i < data.list.length; i++) {
                         xData.push(data.list[i].name);
-                        barData.push(data.list[i].count1);
-                        num = num + parseInt(data.list[i].count1);
+                        barData.push(data.list[i].count);
+                        num = num + parseInt(data.list[i].count);
                     }
                     this.props.getAllNum(this.props.idx, num, '行政案件数量');
                     myChart.setOption({

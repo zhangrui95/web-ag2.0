@@ -144,13 +144,25 @@ export default class Home1 extends PureComponent {
             this.myShare(1, false);
             this.myDb(1, false);
             if (this.state.idx === 0) {
-                this.myNews(1,true);
+                this.myNews(this.state.pageNew ? this.state.pageNew : 1,true);
             } else if (this.state.idx === 1) {
-                this.myDb(1, true);
+                this.myDb(this.state.pageNew ? this.state.pageNew : 1, true);
             } else if (this.state.idx === 2) {
-               this.handleSearch(0);
+                this.myShare(
+                    this.state.pageNew ? this.state.pageNew : 1,
+                    true,
+                    this.state.tabs === 's2' ? 'Home/getShareList' : 'Home/getmyShareList',
+                    {},
+                    this.state.tabs,
+                );
             } else if (this.state.idx === 3) {
-                this.handleSearch(1);
+                this.myFollow(
+                    this.state.pageNew ? this.state.pageNew : 1,
+                    true,
+                    this.state.tabs === 'f2' ? 'Home/getHistoryFollowList' : 'Home/getFollowList',
+                    {},
+                    this.state.tabs,
+                );
             }
         }
     }

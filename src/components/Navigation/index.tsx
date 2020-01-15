@@ -23,6 +23,9 @@ const Navigation = props => {
         );
     });
     const selectTabKey = index > -1 ? navigationData[index].key : '';
+    if(index===0&&!navigationData[index].children){
+        navigationData[index].children = children;
+    }
     // 定义当前选中的Tab
     const [activeKey, setActiveKey] = useState<string>('');
     // 监听页面路由变化，一旦路由变化，默认选中的tab跟着变化
