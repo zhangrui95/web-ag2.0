@@ -116,7 +116,7 @@ export default class DossierDetail extends PureComponent {
     // }
     if (
       this.props.global.isResetList.isReset !== nextProps.global.isResetList.isReset &&
-      nextProps.global.isResetList.url === '/receivePolice/AlarmData/policeDetail'
+      nextProps.global.isResetList.url === '/dossierPolice/DossierData/DossierDetail'
     ) {
       this.getDossierDetail(this.props.location.query.id);
     }

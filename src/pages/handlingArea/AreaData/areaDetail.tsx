@@ -140,7 +140,7 @@ export default class areaDetail extends PureComponent {
   componentWillReceiveProps(nextProps) {
     if (
       this.props.global.isResetList.isReset !== nextProps.global.isResetList.isReset &&
-      nextProps.global.isResetList.url === '/receivePolice/AlarmData/policeDetail'
+      nextProps.global.isResetList.url === '/handlingArea/AreaData/areaDetail'
     ) {
       this.getDetail(this.props.location.query.id);
     }
