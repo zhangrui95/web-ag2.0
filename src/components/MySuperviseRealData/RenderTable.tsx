@@ -49,7 +49,7 @@ class RenderTable extends PureComponent {
       this.props.dispatch(
         routerRedux.push({
           pathname: '/handlingArea/AreaPolice/UnareaDetail',
-          query: { record: record, id: wtId, baqId: systemId },
+          query: { record: record, id: wtId, baqid: systemId },
         }),
       );
     } else if (wtflId === '203204') {

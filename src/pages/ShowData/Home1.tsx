@@ -1231,7 +1231,7 @@ export default class Home1 extends PureComponent {
                         }
                     >
                         <div className={styles.leftBox}>
-                            <div style={{width: '100%', height: '60px', marginBottom: '16px'}}>
+                            <div style={{width: '100%', height: '60px'}}>
                                 <img src={header} className={styles.header}/>
                                 <div className={styles.personNews}>{getUserInfos().name} 警官，您好！</div>
                                 <span className={styles.timeLogin}>
@@ -1254,7 +1254,7 @@ export default class Home1 extends PureComponent {
                                     <a
                                         className={styles.DataTotal}
                                         style={{
-                                            textDecoration: 'underline',
+                                            // textDecoration: 'underline',
                                             color: dark ? '#47B2FF' : '#2564CE',
                                             fontSize: 18,
                                             cursor: 'auto',
@@ -1265,7 +1265,7 @@ export default class Home1 extends PureComponent {
                                     起&nbsp;&nbsp;&nbsp;&nbsp; 刑事{' '}
                                     <a
                                         style={{
-                                            textDecoration: 'underline',
+                                            // textDecoration: 'underline',
                                             color: dark ? '#47B2FF' : '#2564CE',
                                             fontSize: 18,
                                             cursor: 'auto',
@@ -1291,7 +1291,7 @@ export default class Home1 extends PureComponent {
                   预警{' '}
                                     <a
                                         style={{
-                                            textDecoration: 'underline',
+                                            // textDecoration: 'underline',
                                             color: dark ? '#47B2FF' : '#2564CE',
                                             fontSize: 18,
                                             cursor: 'auto',
@@ -1302,7 +1302,7 @@ export default class Home1 extends PureComponent {
                                     条 &nbsp;&nbsp;&nbsp;&nbsp;告警{' '}
                                     <a
                                         style={{
-                                            textDecoration: 'underline',
+                                            // textDecoration: 'underline',
                                             color: dark ? '#47B2FF' : '#2564CE',
                                             fontSize: 18,
                                             cursor: 'auto',
