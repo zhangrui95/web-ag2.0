@@ -8,7 +8,7 @@ import {
     DatePicker,
     Card,
     TreeSelect,
-    Select, Icon,
+    Select, Icon,Spin
 } from 'antd';
 import moment from 'moment';
 import styles from './index.less';
@@ -409,7 +409,7 @@ export default class zfdaTable extends PureComponent {
                           style={{top: this.props.height ? parseInt(this.props.height) / 2 : 575 + 'px'}}
                           onClick={() => this.getNextAj(-1)}/>
                     {this.state.srcUrl ? <iframe className={styles.box} src={this.state.srcUrl + '&jzmc=' + this.state.jz}
-                            height={this.props.height ? this.props.height : '1150px'}></iframe> : ''}
+                                                 height={this.props.height ? this.props.height : '1150px'}></iframe> :  <Spin/>}
                     <Icon type="right"
                           className={this.state.rightHideBtn ? styles.none : this.props.searchAjBtn ? styles.iconRight : styles.none}
                           style={{top: this.props.height ? parseInt(this.props.height) / 2 : 575 + 'px'}}

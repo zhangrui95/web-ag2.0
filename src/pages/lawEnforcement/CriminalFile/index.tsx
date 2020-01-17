@@ -317,7 +317,7 @@ export default class CriminalFile extends PureComponent {
         });
         const formValues = {
             ajbh: values.ajbh ? values.ajbh.trim() : '',
-            ajmc: values.ajmc || '',
+            ajmc: values.ajmc ? values.ajmc.trim() : '',
             bardw: values.bardw || '',
             barxm: values.bar || '',
             ajzt: values.ajzt || '',
@@ -391,7 +391,7 @@ export default class CriminalFile extends PureComponent {
         // });
         const newformValues = {
             ajbh: formValues.ajbh ? formValues.ajbh.trim() : '',
-            ajmc: formValues.ajmc || '',
+            ajmc: formValues.ajmc ? formValues.ajmc.trim() : '',
             bardw: formValues.bardw || '',
             barxm: formValues.bar || '',
             ajzt: formValues.ajzt || '',
@@ -413,19 +413,18 @@ export default class CriminalFile extends PureComponent {
             xarq_js: formValues.xarq_js,
             jarq_ks: formValues.jarq_ks,
             jarq_js: formValues.jarq_js,
-
             tbsj_ks: tbsjTime && tbsjTime.length > 0 ? tbsjTime[0].format('YYYY-MM-DD') : '',
             tbsj_js: tbsjTime && tbsjTime.length > 0 ? tbsjTime[1].format('YYYY-MM-DD') : '',
-            qsrq_ks: ysqsTime && ysqsTime.length > 0 ? ysqsTime[0].format('YYYY-MM-DD') : '',
-            qsrq_js: ysqsTime && ysqsTime.length > 0 ? ysqsTime[1].format('YYYY-MM-DD') : '',
+            qsrq_ks: formValues.qsrq_ks,
+            qsrq_js: formValues.qsrq_js,
         };
-        if ((newformValues.jarq_ks && newformValues.jarq_js) || (newformValues.xarq_ks && newformValues.xarq_js) || (newformValues.parq_ks && newformValues.parq_js) || (newformValues.sarq_ks && newformValues.sarq_js) || (newformValues.larq_ks && newformValues.larq_js) || (ysqsTime && ysqsTime.length > 0)) {
+        if ((newformValues.jarq_ks && newformValues.jarq_js) || (newformValues.xarq_ks && newformValues.xarq_js) || (newformValues.parq_ks && newformValues.parq_js) || (newformValues.sarq_ks && newformValues.sarq_js) || (newformValues.larq_ks && newformValues.larq_js) || (newformValues.qsrq_ks && newformValues.qsrq_js)) {
             const saisAfterDate = newformValues.sarq_js && newformValues.sarq_ks ? moment(newformValues.sarq_js).isAfter(moment(newformValues.sarq_ks).add(exportListDataMaxDays, 'days')) : true;
             const laisAfterDate = newformValues.larq_js && newformValues.larq_ks ? moment(newformValues.larq_js).isAfter(moment(newformValues.larq_ks).add(exportListDataMaxDays, 'days')) : true;
             const paisAfterDate = newformValues.parq_js && newformValues.parq_ks ? moment(newformValues.parq_js).isAfter(moment(newformValues.parq_ks).add(exportListDataMaxDays, 'days')) : true;
             const xaisAfterDate = newformValues.xarq_js && newformValues.xarq_ks ? moment(newformValues.xarq_js).isAfter(moment(newformValues.xarq_ks).add(exportListDataMaxDays, 'days')) : true;
             const jaisAfterDate = newformValues.jarq_js && newformValues.jarq_ks ? moment(newformValues.jarq_js).isAfter(moment(newformValues.jarq_ks).add(exportListDataMaxDays, 'days')) : true;
-            const isAfterDate2 = ysqsTime && ysqsTime.length > 0 ? moment(newformValues.qsrq_js).isAfter(moment(newformValues.qsrq_ks).add(exportListDataMaxDays, 'days')) : true;
+            const isAfterDate2 = newformValues.qsrq_js && newformValues.qsrq_ks ? moment(newformValues.qsrq_js).isAfter(moment(newformValues.qsrq_ks).add(exportListDataMaxDays, 'days')) : true;
             if (saisAfterDate && laisAfterDate && paisAfterDate && xaisAfterDate && jaisAfterDate && isAfterDate2) { // 选择时间间隔应小于exportListDataMaxDays
                 message.warning(`日期间隔需小于${exportListDataMaxDays}天`);
             } else {
@@ -875,19 +874,21 @@ export default class CriminalFile extends PureComponent {
         let dark = this.props.global && this.props.global.dark;
         return (
             <div className={dark ? '' : styles.ligthBox}>
+                {window.configUrl.is_area==='1'?
                 <Card className={stylescommon.titleArea}>
                     <Button onClick={this.exportData} icon="download">
                         导出表格
                     </Button>
                     <div className={styles.btnHeightSearch}>
-                        {window.configUrl.is_area==='1'?
-                            <Button onClick={this.seniorSearch}>高级查询</Button>
-                            :
-                            ''
-                        }
+                       <Button onClick={this.seniorSearch}>高级查询</Button>
                     </div>
-                </Card>
+                </Card> :''}
                 {this.renderForm()}
+                {window.configUrl.is_area!=='1'? <div className={stylescommon.btnTableBox}>
+                    <Button onClick={this.exportData} icon="download">
+                        导出表格
+                    </Button>
+                </div>:''}
                 {this.renderTable()}
                 <SyncTime dataLatestTime={returnData.tbCount ? returnData.tbCount.tbsj : ''} {...this.props} />
                 <SeniorSearchModal

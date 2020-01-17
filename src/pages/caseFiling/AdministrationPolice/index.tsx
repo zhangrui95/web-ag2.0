@@ -310,7 +310,7 @@ export default class Index extends PureComponent {
         const formValues = {
             wtlx_id: values.wtlx || '',
             ajbh: values.ajbh ? values.ajbh.trim() : '',
-            ajmc: values.ajmc || '',
+            ajmc: values.ajmc ? values.ajmc.trim() : '',
             sldw_dm: values.sldw || '',
             bar_name: values.bar || '',
             // schj: values.ajzt || '',
@@ -357,7 +357,7 @@ export default class Index extends PureComponent {
         const formValues = {
             wtlx_id: values.wtlx || '',
             ajbh: values.ajbh ? values.ajbh.trim() : '',
-            ajmc: values.ajmc || '',
+            ajmc: values.ajmc ? values.ajmc.trim() : '',
             sldw_dm: values.sldw || '',
             bar_name: values.bar || '',
             ajzt: values.ajzt || '',

@@ -270,7 +270,7 @@ class mySupervise extends Component {
         const fksjTime = values.fksj;
         const formValues = {
             ajbh: values.ajbh ? values.ajbh.trim() : '',
-            ajmc: values.ajmc || '',
+            ajmc: values.ajmc ? values.ajmc.trim() : '',
             wtlxId: values.wtlxId || '',
             fkzt: values.fkzt || '',
             dbzt: values.dbzt && values.dbzt.dbzt ? values.dbzt.dbzt : '',
@@ -315,7 +315,7 @@ class mySupervise extends Component {
         const fksjTime = values.fksj;
         const formValues = {
             ajbh: values.ajbh ? values.ajbh.trim() : '',
-            ajmc: values.ajmc || '',
+            ajmc: values.ajmc ? values.ajmc.trim() : '',
             wtlxId: values.wtlxId || '',
             fkzt: values.fkzt || '',
             dbzt: values.dbzt && values.dbzt.dbzt ? values.dbzt.dbzt : '',

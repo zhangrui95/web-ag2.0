@@ -337,7 +337,7 @@ export default class Index extends PureComponent {
         // console.log('values', values);
         const formValues = {
             ajbh: values.ajbh ? values.ajbh.trim() : '',
-            ajmc: values.ajmc || '',
+            ajmc: values.ajmc ? values.ajmc.trim() : '',
             bardw: values.bardw || '',
             barxm: values.bar || '',
             ajzt: values.ajzt || '',
@@ -420,7 +420,7 @@ export default class Index extends PureComponent {
         // });
         const newformValues = {
             ajbh:formValues.ajbh ? formValues.ajbh.trim() : '',
-            ajmc: formValues.ajmc || '',
+            ajmc: formValues.ajmc ?  formValues.ajmc.trim() : '',
             bardw: formValues.bardw || '',
             barxm: formValues.bar || '',
             ajzt: formValues.ajzt || '',
