@@ -105,7 +105,6 @@ export default class MyShare extends PureComponent {
         const rowLayout = {md: 8, xl: 16, xxl: 24};
         let dark = this.props.global && this.props.global.dark;
         let type = this.props.location.query.tab;
-        console.log('type',type)
         return (
             /*<Modal
               title="我的分享"

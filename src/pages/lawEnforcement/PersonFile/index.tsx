@@ -286,8 +286,8 @@ export default class PersonalDoc extends PureComponent {
         const fxtime = values.qzcsfxsj;
         const sltime = values.slsj;
         const formValues = {
-            ajbh: values.ajbh || '',
-            ajmc: values.ajmc || '',
+            ajbh: values.ajbh ? values.ajbh.trim() : '',
+            ajmc: values.ajmc ? values.ajmc.trim() : '',
             name: values.name || '',
             salx: values.salx || '',
             sex: values.sex || '',
@@ -324,8 +324,8 @@ export default class PersonalDoc extends PureComponent {
         const fxtime = values.qzcsfxsj;
         const sltime = values.slsj;
         const formValues = {
-            ajbh: values.ajbh || '',
-            ajmc: values.ajmc || '',
+            ajbh: values.ajbh ? values.ajbh.trim() : '',
+            ajmc: values.ajmc ? values.ajmc.trim() : '',
             name: values.name || '',
             salx: values.salx || '',
             sex: values.sex || '',
@@ -341,9 +341,11 @@ export default class PersonalDoc extends PureComponent {
             slqssj: sltime && sltime.length > 0 ? sltime[0].format('YYYY-MM-DD HH:mm:ss') : '',
             slzzsj: sltime && sltime.length > 0 ? sltime[1].format('YYYY-MM-DD HH:mm:ss') : '',
         };
-        if (time && time.length > 0) {
+        if (time && time.length > 0 || fxtime && fxtime.length > 0 || sltime && sltime.length > 0) {
             const isAfterDate = moment(formValues.cjrq_js).isAfter(moment(formValues.cjrq_ks).add(exportListDataMaxDays, 'days'));
-            if (isAfterDate) { // 选择时间间隔应小于exportListDataMaxDays
+            const isAfterDate1 = moment(formValues.qzcsfxqssj).isAfter(moment(formValues.qzcsfxzzsj).add(exportListDataMaxDays, 'days'));
+            const isAfterDate2 = moment(formValues.slqssj).isAfter(moment(formValues.slzzsj).add(exportListDataMaxDays, 'days'));
+            if (isAfterDate || isAfterDate1 || isAfterDate2) { // 选择时间间隔应小于exportListDataMaxDays
                 message.warning(`日期间隔需小于${exportListDataMaxDays}天`);
             } else {
                 this.props.dispatch({

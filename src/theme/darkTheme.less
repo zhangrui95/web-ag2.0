@@ -52,9 +52,9 @@ body {
       color: @text-word-color;
     }
 
-    .ant-cascader-picker-label{
-      z-index: 1;
-    }
+    //.ant-cascader-picker-label{
+    //  z-index: 1;
+    //}
 
     .antd-pro-pages-receive-police-alarm-data-index-redioGroup .ant-radio-button-wrapper {
       background-color: @body-background;
@@ -69,6 +69,13 @@ body {
     .ant-input {
       &:hover {
         background-color: @body-background !important;
+      }
+    }
+    .ant-cascader-picker{
+      .ant-input{
+        &:hover{
+          background: transparent!important;
+        }
       }
     }
     .ant-input:focus,

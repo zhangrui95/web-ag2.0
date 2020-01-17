@@ -333,8 +333,8 @@ export default class Index extends PureComponent {
         const tbsjTime = values.tbsj;
         const saTime = values.slrq;
         const formValues = {
-            ajbh: values.ajbh || '',
-            ajmc: values.ajmc || '',
+            ajbh: values.ajbh ? values.ajbh.trim() : '',
+            ajmc: values.ajmc ? values.ajmc.trim() : '',
             bardw: values.bardw || '',
             barxm: values.bar || '',
             ajzt: values.ajzt || '',
@@ -388,8 +388,8 @@ export default class Index extends PureComponent {
         const tbsjTime = values.tbsj;
         const saTime = values.slrq;
         const formValues = {
-            ajbh: values.ajbh || '',
-            ajmc: values.ajmc || '',
+            ajbh: values.ajbh ? values.ajbh.trim() : '',
+            ajmc: values.ajmc ? values.ajmc.trim() : '',
             bardw: values.bardw || '',
             barxm: values.bar || '',
             ajzt: values.ajzt || '',

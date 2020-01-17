@@ -47,7 +47,7 @@ const UserLayout: React.SFC<UserLayoutProps> = props => {
                         <img alt="logo" className={styles.logo} src={logo}/>
                         <div className={styles.title}>
                             <img src={leftBg}/>
-                            <span className={styles.centerTitle}>执法线管理系统</span>
+                            <span className={styles.centerTitle}>{window.configUrl.loginName ? window.configUrl.loginName : '执法线管理系统'}</span>
                             <img src={rightBg}/>
                         </div>
                     </div>

@@ -308,9 +308,9 @@ export default class Index extends PureComponent {
         const formValues = {
             wpmc: values.wpmc || '',
             wplx: values.wplx || '',
-            ajbh: values.ajbh || '',
+            ajbh: values.ajbh ? values.ajbh.trim() : '',
             szkf: values.szkf || '',
-            ajmc: values.ajmc || '',
+            ajmc: values.ajmc ? values.ajmc.trim() : '',
             wpzt: values.wpzt || '',
             ccdw: values.ccdw || '',
             rksj_ks: rkTime && rkTime.length > 0 ? rkTime[0].format('YYYY-MM-DD') : '',
@@ -355,9 +355,9 @@ export default class Index extends PureComponent {
         const formValues = {
             wpmc: values.wpmc || '',
             wplx: values.wplx || '',
-            ajbh: values.ajbh || '',
+            ajbh: values.ajbh ? values.ajbh.trim() : '',
             szkf: values.szkf || '',
-            ajmc: values.ajmc || '',
+            ajmc: values.ajmc ? values.ajmc.trim() : '',
             wpzt: values.wpzt || '',
             ccdw: values.ccdw || '',
             rksj_ks: rkTime && rkTime.length > 0 ? rkTime[0].format('YYYY-MM-DD') : '',

@@ -8,7 +8,7 @@ const onlineips = {
 const developips = {
   ip: 'http://192.168.3.92', // 92
   baqIp: 'http://192.169.40.1', // 办案区服务地址
-  maintainIp: 'http://192.168.3.202', // 运维中心地址
+  maintainIp: 'http://192.168.3.92', // 运维中心地址
   aqzxIp: 'http://192.168.3.92', // 安全中心地址
   TbtjDcIp: 'http://192.168.3.245', // 图表统计导出功能地址
   downLoadIp: 'http://192.168.3.201', // 下载地址
@@ -46,7 +46,8 @@ const configItem = {
   is_ssds: 'pl', // 接处警报警类别的所属地市dltq
   startTheme:true,//初始化主题深色版本true,浅色版本false,
   is_sawpbb:'2', // 涉案物品后台数据版本;1为1.0版本,2为2.0版本;
-  loginHttp:'',//登录界面地址，如为''默认使用子系统自身登录;
+  loginHttp:'http://192.168.3.245',//登录界面地址，如为''默认使用子系统自身登录;
+  loginName:'执法线管理系统',//登录页面名称
 };
 // 开发模式地址
 const developConfigUrl = {
@@ -55,7 +56,7 @@ const developConfigUrl = {
   weedUrl: `${ips.ip}:9222`, // 上传存储服务
   securityCenterUrl: `${ips.aqzxIp}:8100`, // 安全中心
   baqServerUrl: `${ips.baqIp}:7500`, // 办案区服务
-  maintainCenterUrl: `${ips.maintainIp}:7402`, // 运维中心
+  maintainCenterUrl: `${ips.maintainIp}:7400`, // 运维中心
   generalQueryUrl: `http://192.168.3.92:9200/`, // 综合查询es服务地址,
   srcUrl: `http://192.168.3.92:7300/raqReport-service/reportJsp/`, //润乾报表地址
   baqRaqUrl: `${ips.baqIp}:7300/raqReport-service/reportJsp/`, //办案区润乾报表地址

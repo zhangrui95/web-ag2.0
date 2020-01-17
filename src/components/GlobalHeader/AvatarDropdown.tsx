@@ -59,22 +59,23 @@ class AvatarDropdown extends React.Component<GlobalHeaderRightProps> {
     //退出
     onClick = () => {
         const {dispatch} = this.props;
-
         if (dispatch) {
             dispatch({
                 type: 'login/logout',
             });
-            dispatch({
-                type: 'global/changeNavigation',
-                payload: {},
-                callback: () =>
-                    //跳转回首页
-                    dispatch(routerRedux.push('/ShowData/RegulatePanel')),
-            });
-            dispatch({
-                type: 'global/changeSessonNavigation',
-                payload: {},
-            });
+            if(!window.configUrl.loginHttp){
+                dispatch({
+                    type: 'global/changeNavigation',
+                    payload: {},
+                    callback: () =>
+                        //跳转回首页
+                        dispatch(routerRedux.push('/ShowData/RegulatePanel')),
+                });
+                dispatch({
+                    type: 'global/changeSessonNavigation',
+                    payload: {},
+                });
+            }
         }
 
         return;
@@ -121,7 +122,7 @@ class AvatarDropdown extends React.Component<GlobalHeaderRightProps> {
     }
 }
 
-export default connect(({user, global}: ConnectState) => ({
+export default connect(({user, global,login}: ConnectState) => ({
     currentUser: user.currentUser,
     dark: global.dark,
 }))(AvatarDropdown);

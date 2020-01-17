@@ -2,7 +2,7 @@ import {Reducer} from 'redux';
 import {routerRedux} from 'dva/router';
 import {Effect} from 'dva';
 import {stringify} from 'querystring';
-import {fakeAccountLogin, getFakeCaptcha, tokenLogin} from '@/services/login';
+import {fakeAccountLogin, getFakeCaptcha, tokenLogin, httpPermission} from '@/services/login';
 import {setAuthority} from '@/utils/authority';
 import {getPageQuery} from '@/utils/utils';
 import {reloadAuthorized} from '@/utils/Authorized';
@@ -20,6 +20,7 @@ export interface LoginModelType {
         login: Effect;
         getCaptcha: Effect;
         logout: Effect;
+        setTopList:Effect;
     };
     reducers: {
         changeLoginStatus: Reducer<StateType>;
@@ -31,6 +32,7 @@ const Model: LoginModelType = {
 
     state: {
         status: undefined,
+        topList:[]
     },
 
     effects: {
@@ -47,12 +49,15 @@ const Model: LoginModelType = {
                 return false;
             }
         },
+        * httpPermission({payload, callback}, {call, put}) {
+            const response = yield call(httpPermission, payload);
+            yield put({
+                type: 'setTopList',
+                payload: response && !response.error && response.data ? response.data : [],
+            });
+        },
         * tokenLogin({payload, callback}, {call, put}) {
             const response = yield call(tokenLogin, payload);
-            yield put({
-                type: 'setTokenLogin',
-                payload: response && response.error === null ? response.data : [],
-            });
             if (response && response.data && response.data.token) {
                 sessionStorage.setItem('userToken', response.data.token);
                 sessionStorage.setItem('user', JSON.stringify(response.data.user));
@@ -72,7 +77,7 @@ const Model: LoginModelType = {
             // redirect
             if (window.location.pathname !== '/user/login' && !redirect) {
                 if(window.configUrl.loginHttp){
-                    window.location.href = (`${window.configUrl.loginHttp}/#/user/login`);
+                    window.location.href = `${window.configUrl.loginHttp}/#/user/login`;
                 }else{
                     yield put(
                         routerRedux.replace({
@@ -94,6 +99,12 @@ const Model: LoginModelType = {
                 ...state,
                 status: payload.status,
                 type: payload.type,
+            };
+        },
+        setTopList(state, action) {
+            return {
+                ...state,
+                topList: action.payload,
             };
         },
     },

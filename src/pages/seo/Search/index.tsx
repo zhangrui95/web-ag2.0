@@ -691,7 +691,7 @@ export default class GeneralQuery extends PureComponent {
         this.props.dispatch({
             type: 'generalQuery/getSaveSsNrXX',
             payload: {
-                ssnr: value,
+                ssnr: value ? value : value.trim(),
             },
         });
     };

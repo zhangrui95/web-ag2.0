@@ -82,6 +82,16 @@ export default class AllCriminalCaseLinksCount extends PureComponent {
                     myChart.setOption({
                         legend: {
                             data: legendData,
+                            formatter: function (name) {
+                                let formatStr = '';
+                                for (let i = 0; i < funnelData.length; i++) {
+                                    if (name === funnelData[i].name) {
+                                        formatStr = `${name} ${funnelData[i].value}`;
+                                        break;
+                                    }
+                                }
+                                return formatStr;
+                            },
                         },
                         series: [
                             {

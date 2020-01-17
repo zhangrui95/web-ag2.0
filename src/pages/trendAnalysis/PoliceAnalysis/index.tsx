@@ -177,7 +177,6 @@ export default class PoliceTrendAnalysis extends PureComponent {
         const {overViewLoadingStatus, againstPropertyLoadingStatus, robGrabFraudLoadingStatus, stealLoadingStatus} = this.state;
         const exportButtonStatus = overViewLoadingStatus || againstPropertyLoadingStatus || robGrabFraudLoadingStatus || stealLoadingStatus; // 导出按钮禁用状态
         let className = this.props.global && this.props.global.dark ? styles.trendAnalysis : styles.trendAnalysis + ' ' + styles.lightBox
-        console.log('this.state.percent',this.state.percent)
         return (
             <div className={className}>
                 <div className={styles.titleArea}>

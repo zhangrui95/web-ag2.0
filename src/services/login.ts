@@ -26,3 +26,9 @@ export async function tokenLogin(params) {
         data: params,
     });
 }
+export async function httpPermission(params) {
+    return request(`${securityCenterUrl}/external/queryAppPermissionByIdCard`, {
+        method: 'POST',
+        data: params,
+    });
+}

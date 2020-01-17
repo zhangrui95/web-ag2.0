@@ -192,8 +192,8 @@ class AjSearch extends PureComponent {
         const tbsjTime = values.tbsj;
         const slrqTime = values.slrq;
         const formValues = {
-            ajbh: values.ajbh || '',
-            ajmc: values.ajmc || '',
+            ajbh: values.ajbh ? values.ajbh.trim() : '',
+            ajmc: values.ajmc ? values.ajmc.trim() : '',
             bardw_dm: values.bardw || '',
             bar: values.bar || '',
             ajzt_dm: values.ajzt || '',
