@@ -319,7 +319,7 @@ export default class Index extends PureComponent {
         const jarqTime = values.jarq;
         const sldwDepTreeObj = values.sldw ? JSON.parse(values.sldw) : null;
         const formValues = {
-            ajbh: values.ajbh || '',
+            ajbh: values.ajbh ? values.ajbh.trim() : '',
             ajmc: values.ajmc || '',
             sldw: values.sldw || '',
             bar: values.bar || '',
@@ -354,7 +354,7 @@ export default class Index extends PureComponent {
         const tbsjTime = values.tbsj;
         const jarqTime = values.jarq;
         const formValues = {
-            ajbh: values.ajbh || '',
+            ajbh: values.ajbh ? values.ajbh.trim() : '',
             ajmc: values.ajmc || '',
             sldw: values.sldw || '',
             bar: values.bar || '',

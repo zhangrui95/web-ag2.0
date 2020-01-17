@@ -336,7 +336,7 @@ export default class Index extends PureComponent {
         const values = this.props.form.getFieldsValue();
         const rqsj = values.rqsj;
         const formValues = {
-            ajbh: values.ajbh || '',
+            ajbh: values.ajbh ? values.ajbh.trim() : '',
             ajmc: values.ajmc || '',
             badw: values.badw || '',
             bar: values.bar || '',
@@ -377,7 +377,7 @@ export default class Index extends PureComponent {
         const values = this.props.form.getFieldsValue();
         const rqsj = values.rqsj;
         const formValues = {
-            ajbh: values.ajbh || '',
+            ajbh: values.ajbh ? values.ajbh.trim() : '',
             ajmc: values.ajmc || '',
             badw: values.badw || '',
             bar: values.bar || '',

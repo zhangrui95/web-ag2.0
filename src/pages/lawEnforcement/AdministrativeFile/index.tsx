@@ -251,7 +251,7 @@ export default class AdministrativeCaseDoc extends PureComponent {
         const tbsjTime = values.tbsj;
         const jarqTime = values.jarq;
         const formValues = {
-            ajbh: values.ajbh || '',
+            ajbh: values.ajbh ? values.ajbh.trim() : '',
             ajmc: values.ajmc || '',
             sldw: values.sldw || '',
             bar: values.bar || '',
@@ -284,7 +284,7 @@ export default class AdministrativeCaseDoc extends PureComponent {
         const tbsjTime = values.tbsj;
         const jarqTime = values.jarq;
         const formValues = {
-            ajbh: values.ajbh || '',
+            ajbh: values.ajbh ? values.ajbh.trim() : '',
             ajmc: values.ajmc || '',
             sldw: values.sldw || '',
             bar: values.bar || '',

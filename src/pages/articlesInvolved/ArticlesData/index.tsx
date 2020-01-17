@@ -308,7 +308,7 @@ export default class Index extends PureComponent {
         const formValues = {
             wpmc: values.wpmc || '',
             wplx: values.wplx || '',
-            ajbh: values.ajbh || '',
+            ajbh: values.ajbh ? values.ajbh.trim() : '',
             szkf: values.szkf || '',
             ajmc: values.ajmc || '',
             wpzt: values.wpzt || '',
@@ -355,7 +355,7 @@ export default class Index extends PureComponent {
         const formValues = {
             wpmc: values.wpmc || '',
             wplx: values.wplx || '',
-            ajbh: values.ajbh || '',
+            ajbh: values.ajbh ? values.ajbh.trim() : '',
             szkf: values.szkf || '',
             ajmc: values.ajmc || '',
             wpzt: values.wpzt || '',

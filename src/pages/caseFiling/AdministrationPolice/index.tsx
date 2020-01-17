@@ -309,7 +309,7 @@ export default class Index extends PureComponent {
         const gjTime = values.gjsj;
         const formValues = {
             wtlx_id: values.wtlx || '',
-            ajbh: values.ajbh || '',
+            ajbh: values.ajbh ? values.ajbh.trim() : '',
             ajmc: values.ajmc || '',
             sldw_dm: values.sldw || '',
             bar_name: values.bar || '',
@@ -356,7 +356,7 @@ export default class Index extends PureComponent {
         const gjTime = values.gjsj;
         const formValues = {
             wtlx_id: values.wtlx || '',
-            ajbh: values.ajbh || '',
+            ajbh: values.ajbh ? values.ajbh.trim() : '',
             ajmc: values.ajmc || '',
             sldw_dm: values.sldw || '',
             bar_name: values.bar || '',

@@ -316,7 +316,7 @@ export default class CriminalFile extends PureComponent {
             qzcslx.push("'" + item + "'");
         });
         const formValues = {
-            ajbh: values.ajbh || '',
+            ajbh: values.ajbh ? values.ajbh.trim() : '',
             ajmc: values.ajmc || '',
             bardw: values.bardw || '',
             barxm: values.bar || '',
@@ -390,7 +390,7 @@ export default class CriminalFile extends PureComponent {
         //   ajztd.push("'" + item + "'");
         // });
         const newformValues = {
-            ajbh: formValues.ajbh || '',
+            ajbh: formValues.ajbh ? formValues.ajbh.trim() : '',
             ajmc: formValues.ajmc || '',
             bardw: formValues.bardw || '',
             barxm: formValues.bar || '',

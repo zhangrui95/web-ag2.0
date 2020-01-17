@@ -286,7 +286,7 @@ export default class PersonalDoc extends PureComponent {
         const fxtime = values.qzcsfxsj;
         const sltime = values.slsj;
         const formValues = {
-            ajbh: values.ajbh || '',
+            ajbh: values.ajbh ? values.ajbh.trim() : '',
             ajmc: values.ajmc || '',
             name: values.name || '',
             salx: values.salx || '',
@@ -324,7 +324,7 @@ export default class PersonalDoc extends PureComponent {
         const fxtime = values.qzcsfxsj;
         const sltime = values.slsj;
         const formValues = {
-            ajbh: values.ajbh || '',
+            ajbh: values.ajbh ? values.ajbh.trim() : '',
             ajmc: values.ajmc || '',
             name: values.name || '',
             salx: values.salx || '',
