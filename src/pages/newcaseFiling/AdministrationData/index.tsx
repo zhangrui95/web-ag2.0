@@ -370,9 +370,10 @@ export default class Index extends PureComponent {
             jarq_ks: jarqTime && jarqTime.length > 0 ? jarqTime[0].format('YYYY-MM-DD') : '',
             jarq_js: jarqTime && jarqTime.length > 0 ? jarqTime[1].format('YYYY-MM-DD') : '',
         };
-        if (slrqTime && slrqTime.length > 0) {
+        if ((slrqTime && slrqTime.length > 0) || (jarqTime && jarqTime.length > 0)) {
             const isAfterDate = moment(formValues.slrq_js).isAfter(moment(formValues.slrq_ks).add(exportListDataMaxDays, 'days'));
-            if (isAfterDate) { // 选择时间间隔应小于exportListDataMaxDays
+            const isAfterDate1 = moment(formValues.jarq_js).isAfter(moment(formValues.jarq_ks).add(exportListDataMaxDays, 'days'));
+            if (isAfterDate || isAfterDate1) { // 选择时间间隔应小于exportListDataMaxDays
                 message.warning(`日期间隔需小于${exportListDataMaxDays}天`);
             } else {
                 this.props.dispatch({
