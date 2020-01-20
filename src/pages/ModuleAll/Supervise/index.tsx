@@ -81,6 +81,7 @@ export default class SuperviseModal extends PureComponent {
       tab,
       fromPath,
       id,
+      success:false,
     }
   }
 
@@ -199,11 +200,17 @@ export default class SuperviseModal extends PureComponent {
       },
     });
   }
+    closeConfirm=()=>{
+        this.setState({
+            SureModalVisible:false,
+        })
+    }
 
   handleAlarm = () => {
     const {from } = this.state;
     this.props.form.validateFields((err, fieldsValue) => {
       const { zrrValue } = this.state;
+      this.setState({fieldsValue})
       if (
         from === '警情详情问题判定' ||
         from === '刑事案件详情问题判定' ||
@@ -238,23 +245,9 @@ export default class SuperviseModal extends PureComponent {
         } else if (zrrValue && zrrValue.length === 0) {
           message.warning('请选择责任人');
         } else {
-          let that = this;
-          confirm({
-            title: fieldsValue.gqyy&&this.state.gqType?'是否直接挂起？':'确认督办？',
-            centered: true,
-            okText: '确认',
-            cancelText: '取消',
-            getContainer: document.getElementById('messageBox'),
-            onOk() {
-              that.handleAlarmSure();
-            },
-            onCancel() {
-              // console.log('Cancel');
-            },
+          this.setState({
+            SureModalVisible: true,
           });
-          // this.setState({
-          //   SureModalVisible: true,
-          // });
         }
       } else {
         if (
@@ -277,27 +270,19 @@ export default class SuperviseModal extends PureComponent {
         } else if (zrrValue && zrrValue.length === 0) {
           message.warning('请选择责任人');
         } else {
-          let that = this;
-          confirm({
-            title: fieldsValue.gqyy&&this.state.gqType?'是否直接挂起？':'确认督办？',
-            centered: true,
-            okText: '确认',
-            cancelText: '取消',
-            getContainer: document.getElementById('messageBox'),
-            onOk() {
-              that.handleAlarmSure();
-            },
-            onCancel() {
-              // console.log('Cancel');
-            },
+          this.setState({
+            SureModalVisible: true,
           });
-          // this.setState({
-          //   SureModalVisible: true,
-          // });
         }
       }
     });
   };
+    handleCancel = () => {
+        this.setState({
+            success: false,
+        });
+        this.onEdit(true)
+    };
   handleAlarmSure = () => {
     this.setState({
       dbLoading: true,
@@ -351,13 +336,17 @@ export default class SuperviseModal extends PureComponent {
           cljg_yy: values.gqyy ? values.gqyy : '',
         },
         callback: data => {
-          message.success('督办成功');
+          // message.success('督办成功');
           this.setState({
             SureModalVisible: false,
             dbLoading: false,
           });
-          this.onEdit(true);
+            this.closeConfirm();
+          // this.onEdit(true);
           // this.props.getRefresh(false);
+            this.setState({
+                success:true,
+            });
         },
       });
     } else {
@@ -383,14 +372,18 @@ export default class SuperviseModal extends PureComponent {
           cljg_yy: values.gqyy ? values.gqyy : '',
         },
         callback: data => {
-          message.success('问题判定保存完成');
+          // message.success('问题判定保存完成');
           this.setState({
             SureModalVisible: false,
             dbLoading: false,
           });
+            this.closeConfirm();
           // this.getDetail(this.props.id);
           // this.props.getRefresh(false);
-          this.onEdit(true);
+          // this.onEdit(true);
+            this.setState({
+                success:true,
+            });
         },
       });
     }
@@ -827,6 +820,7 @@ export default class SuperviseModal extends PureComponent {
               style={{ marginLeft: 8 }}
               onClick={this.handleAlarm}
               className={styles.okBtn}
+              loading={this.state.dbLoading}
             >
               确定
             </Button>
@@ -847,6 +841,25 @@ export default class SuperviseModal extends PureComponent {
         {/*<div className={styles.question}>是否对该问题进行督办？</div>*/}
         {/*</Modal> : ''*/}
         {/*}*/}
+          <Modal visible={SureModalVisible} centered={true} footer={null} header={null} closable={false} width={400} getContainer={()=>document.getElementById('messageBox')}>
+              <div className={styles.modalBox}>
+                  <div className={styles.question}><Icon type="question-circle" style={{color:'#faad14',fontSize: '22px',marginRight: '16px'}}/>{this.state.fieldsValue&&this.state.fieldsValue.gqyy&&this.state.gqType?'是否直接挂起？':'确认督办？'}</div>
+                  <div style={{marginTop:40,float:"right"}}><Button onClick={this.closeConfirm}>取消</Button><Button type="primary" style={{marginLeft:'16px'}} onClick={this.handleAlarmSure} loading={this.state.dbLoading}>确认</Button></div>
+              </div>
+          </Modal>
+          <Modal
+              title=" "
+              visible={this.state.success}
+              className={this.props.global && this.props.global.dark ? styles.success : styles.successLight}
+              width={350}
+              style={{top: '250px'}}
+              maskClosable={false}
+              cancelText={null}
+              onCancel={this.handleCancel}
+              footer={<button onClick={this.handleCancel} className={styles.successBtn}>确定</button>}
+          >
+              {this.state.from === '督办'?'督办完成！':'问题判定完成！'}
+          </Modal>
       </div>
     );
   }

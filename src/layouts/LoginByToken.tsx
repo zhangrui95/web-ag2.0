@@ -11,6 +11,7 @@ import DocumentTitle from 'react-document-title';
 import {message} from 'antd';
 import styles from './UserLayout.less';
 import {getQueryString} from '../utils/utils';
+import cookie from 'react-cookies'
 
 @connect(({login}) => ({
     login,
@@ -27,6 +28,12 @@ export default class LoginByToken extends PureComponent {
         const wtid = getQueryString(this.props.location.search, 'wtid') || '';
         const old_id = getQueryString(this.props.location.search, 'old_id') || '';
         const system_id = getQueryString(this.props.location.search, 'system_id');
+        const backUrl = getQueryString(this.props.location.search, 'backUrl');
+        const dark = getQueryString(this.props.location.search, 'dark') ? getQueryString(this.props.location.search, 'dark') : false;
+        cookie.save('dark', dark, {maxAge: 31536000});
+        if(backUrl){
+            window.configUrl.loginHttp = backUrl;
+        }
         // console.log('LoginByToken token', token);
         // console.log('LoginByToken type', type);
         if (token !== null) {

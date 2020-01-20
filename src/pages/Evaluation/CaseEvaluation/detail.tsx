@@ -143,10 +143,10 @@ export default class Detail extends PureComponent {
         this.getKhDetail(this.state.recordKp, e.target.value, false);
     }
     onEdit = (isReset) => {
-        let key = '/Evaluation/CaseEvaluation/Detail' + this.props.location.query.id;
+        // let key = '/Evaluation/CaseEvaluation/Detail' + this.props.location.query.id;
         const {dispatch} = this.props;
         if (dispatch) {
-            dispatch(routerRedux.push({pathname: '/Evaluation/CaseEvaluation'}));
+            // dispatch(routerRedux.push({pathname: '/Evaluation/CaseEvaluation'}));
             if(isReset){
                 dispatch({
                     type: 'global/changeResetList',
@@ -156,20 +156,20 @@ export default class Detail extends PureComponent {
                     },
                 });
             }
-            dispatch({
-                type: 'global/changeSessonNavigation',
-                payload: {
-                    key,
-                    isShow: false,
-                },
-            });
-            dispatch({
-                type: 'global/changeNavigation',
-                payload: {
-                    key,
-                    isShow: false,
-                },
-            });
+            // dispatch({
+            //     type: 'global/changeSessonNavigation',
+            //     payload: {
+            //         key,
+            //         isShow: false,
+            //     },
+            // });
+            // dispatch({
+            //     type: 'global/changeNavigation',
+            //     payload: {
+            //         key,
+            //         isShow: false,
+            //     },
+            // });
         }
     };
     // 根据案件编号打开案件窗口
@@ -262,9 +262,7 @@ export default class Detail extends PureComponent {
                 title: '项目',
                 render: text => {
                     return (
-                        <Ellipsis lines={1} tooltip>
-                            {text}
-                        </Ellipsis>
+                       text
                     );
                 },
             },
@@ -284,9 +282,7 @@ export default class Detail extends PureComponent {
                 title: '项目',
                 render: text => {
                     return (
-                        <Ellipsis lines={1} tooltip>
-                            {text}
-                        </Ellipsis>
+                            text
                     );
                 },
             },

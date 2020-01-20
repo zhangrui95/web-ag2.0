@@ -179,10 +179,22 @@ export default class PeopleTrendAnalysis extends PureComponent {
             },
             callback: (data) => {
                 if (data && data.result) {
-                    window.location.href = `${configUrl.tbtjExportUrl}/down-docx/涉案人员分析图表统计导出.docx`;
                     this.setState({
-                        percent:0,
+                        percent:100,
+                    },()=>{
+                        setTimeout(()=>{
+                            this.setState({
+                                downLoading:false,
+                            },()=>{
+                                setTimeout(()=>{
+                                    this.setState({
+                                        percent:0,
+                                    });
+                                },100);
+                            });
+                        },100);
                     });
+                    window.location.href = `${configUrl.tbtjExportUrl}/down-docx/涉案人员分析图表统计导出.docx`;
                     num = 0;
                 }
             },
@@ -191,15 +203,12 @@ export default class PeopleTrendAnalysis extends PureComponent {
     // 图表统计导出功能参数集合
     addBase = (add) => {
         num ++;
-        let percent = Math.round((num/3)*100);
+        let percent = Math.round((num/4)*100);
         this.setState({
             percent:percent,
         });
         imgBase.push(add);
         if (imgBase.length === 3) {
-            this.setState({
-                downLoading:false,
-            });
             this.exprotService(imgBase);
         }
     };
@@ -315,7 +324,7 @@ export default class PeopleTrendAnalysis extends PureComponent {
                     getContainer={()=>document.getElementById('messageBox')}
                 >
                     <p className={this.props.global && this.props.global.dark ? styles.dcWords : styles.dcWord}>正在导出</p>
-                    <Progress percent={this.state.percent} status="active" strokeColor={this.props.global && this.props.global.dark ? '#3285ff':'#4662D5'}/>
+                    <Progress percent={this.state.percent} strokeColor={this.props.global && this.props.global.dark ? '#3285ff':'#4662D5'}/>
                 </Modal>
             </div>
         );
