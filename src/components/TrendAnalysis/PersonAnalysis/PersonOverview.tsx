@@ -662,7 +662,7 @@ export default class PersonOverview extends PureComponent {
                     <AnalysisTitleArea analysisTitle="人员综述" {...this.props} />
                     <Row className={styles.fraudArea}>
                         <Col lg={12} md={24}>
-                            <div id="suspectCountBar" style={{height: 420}}
+                            <div id="suspectCountBar" style={{height: 420,marginLeft:'4%'}}
                                  className={this.props.global && this.props.global.dark ? '' : styles.lightChartBox}/>
                         </Col>
                         <Col lg={12} md={24}>
@@ -671,7 +671,7 @@ export default class PersonOverview extends PureComponent {
                                 dataSource={suspectCountTableData}
                                 bordered
                                 className={styles.tableArea}
-                                style={{paddingTop: 0}}
+                                style={{paddingTop: 0,margin:'0 2%'}}
                                 pagination={false}
                                 locale={{
                                     emptyText: <Empty

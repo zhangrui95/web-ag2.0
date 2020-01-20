@@ -70,25 +70,23 @@ export default class FeedBack extends PureComponent {
             if (err) {
                 message.warning(err.zrr ? err.zrr.errors[0].message : err.fkjg.errors[0].message);
             } else {
-                let that = this;
-                confirm({
-                    title: '是否确认反馈?',
-                    centered: true,
-                    okText: '确认',
-                    cancelText: '取消',
-                    getContainer: document.getElementById('messageBox'),
-                    onOk() {
-                        that.handleAlarmSure();
-                    },
-                    onCancel() {
-                        // console.log('Cancel');
-                    },
-                });
+               this.setState({
+                   SureModalVisible:true,
+               })
             }
         });
     };
+    handleCancel = () => {
+        this.setState({
+            success: false,
+        });
+        this.onEdit(true)
+    };
     // 反馈确认
     handleAlarmSure = () => {
+        this.setState({
+            dbLoading:true,
+        });
         const values = this.props.form.getFieldsValue();
         const {fileList,record} = this.state;
         let wjxx = [];
@@ -160,14 +158,22 @@ export default class FeedBack extends PureComponent {
                     feedbackButtonLoading: false,
                 });
                 if (data) {
-                    message.success('反馈保存完成');
-                    this.onEdit(true);
+                    // message.success('反馈保存完成');
+                    this.setState({
+                        success:true,
+                        dbLoading: false,
+                    });
+                    this.closeConfirm();
                     // this.getDetail(this.props.id, this.props.wtid);
                     // if (this.props.getPolice) {
                     //   this.props.getPolice({ currentPage: this.props.current, pd: this.props.formValues });
                     // }
                 } else {
                     message.error('反馈保存失败');
+                    this.closeConfirm();
+                    this.setState({
+                        dbLoading: false,
+                    });
                 }
             },
         });
@@ -284,7 +290,11 @@ export default class FeedBack extends PureComponent {
             });
         }
     };
-
+    closeConfirm=()=>{
+        this.setState({
+            SureModalVisible:false,
+        })
+    }
     render() {
         const {SureModalVisible, fkr_dwmc, fkr_name,record} = this.state;
         const {form: {getFieldDecorator}, common: {rectificationStatusDict}} = this.props;
@@ -444,6 +454,25 @@ export default class FeedBack extends PureComponent {
                         </Button>
                     </div>
                 </Card>
+                <Modal visible={SureModalVisible} centered={true} footer={null} header={null} closable={false} width={400} getContainer={()=>document.getElementById('messageBox')}>
+                    <div className={styles.modalBox}>
+                        <div className={styles.question}><Icon type="question-circle" style={{color:'#faad14',fontSize: '22px',marginRight: '16px'}}/>是否确认反馈?</div>
+                        <div style={{marginTop:40,float:"right"}}><Button onClick={this.closeConfirm}>取消</Button><Button type="primary" style={{marginLeft:'16px'}} onClick={this.handleAlarmSure} loading={this.state.dbLoading}>确认</Button></div>
+                    </div>
+                </Modal>
+                <Modal
+                    title=" "
+                    visible={this.state.success}
+                    className={this.props.global && this.props.global.dark ? styles.success : styles.successLight}
+                    width={350}
+                    style={{top: '250px'}}
+                    maskClosable={false}
+                    cancelText={null}
+                    onCancel={this.handleCancel}
+                    footer={<button onClick={this.handleCancel} className={styles.successBtn}>确定</button>}
+                >
+                    反馈完成！
+                </Modal>
                 {/*{*/}
                 {/*SureModalVisible ? (*/}
                 {/*<Modal*/}

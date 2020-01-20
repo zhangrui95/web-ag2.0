@@ -40,7 +40,7 @@ const GlobalHeaderRight: React.SFC<GlobalHeaderRightProps> = props => {
     let token = sessionStorage.getItem('userToken');
     const goLinkGo = (path)=>{
         if(path){
-            window.location.href = `${path}/#/loginByToken?token=${token}`
+            window.location.href = `${path}/#/loginByToken?token=${token}&dark=${props.dark}`
         }else {
             message.warning('该用户无访问权限');
         }

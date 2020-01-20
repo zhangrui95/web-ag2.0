@@ -126,10 +126,18 @@ export default class PoliceTrendAnalysis extends PureComponent {
             },
             callback: (data) => {
                 if (data && data.result) {
+                    setTimeout(()=>{
+                        this.setState({
+                            downLoading:false,
+                        },()=>{
+                            setTimeout(()=>{
+                                this.setState({
+                                    percent:0,
+                                });
+                            },100);
+                        });
+                    },100);
                     window.location.href = `${configUrl.tbtjExportUrl}/down-docx/警情分析图表统计导出.docx`;
-                    this.setState({
-                        percent:0,
-                    });
                     num = 0;
                 }
             },
@@ -138,15 +146,12 @@ export default class PoliceTrendAnalysis extends PureComponent {
     // 图表统计导出功能参数集合
     addBase = (add) => {
         num ++;
-        let percent = (num/4)*100;
+        let percent = (num/5)*100;
         this.setState({
             percent:percent,
         });
         imgBase.push(add);
         if (imgBase.length === 4) {
-            this.setState({
-                downLoading:false,
-            });
             this.exprotService(imgBase);
         }
     };
@@ -231,7 +236,7 @@ export default class PoliceTrendAnalysis extends PureComponent {
                     getContainer={()=>document.getElementById('messageBox')}
                 >
                     <p className={this.props.global && this.props.global.dark ? styles.dcWords : styles.dcWord}>正在导出</p>
-                    <Progress percent={this.state.percent} status="active" strokeColor={this.props.global && this.props.global.dark ? '#3285ff':'#4662D5'}/>
+                    <Progress percent={this.state.percent} strokeColor={this.props.global && this.props.global.dark ? '#3285ff':'#4662D5'}/>
                 </Modal>
             </div>
         );

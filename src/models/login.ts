@@ -6,6 +6,7 @@ import {fakeAccountLogin, getFakeCaptcha, tokenLogin, httpPermission} from '@/se
 import {setAuthority} from '@/utils/authority';
 import {getPageQuery} from '@/utils/utils';
 import {reloadAuthorized} from '@/utils/Authorized';
+import cookie from 'react-cookies'
 
 export interface StateType {
     status?: 'ok' | 'error';
@@ -77,7 +78,7 @@ const Model: LoginModelType = {
             // redirect
             if (window.location.pathname !== '/user/login' && !redirect) {
                 if(window.configUrl.loginHttp){
-                    window.location.href = `${window.configUrl.loginHttp}/#/user/login`;
+                    window.location.href = `${window.configUrl.loginHttp}/#/user/login?dark=${cookie.load('dark')}`;
                 }else{
                     yield put(
                         routerRedux.replace({

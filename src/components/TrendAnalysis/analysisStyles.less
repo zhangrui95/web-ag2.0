@@ -42,23 +42,28 @@
       .ant-table-small > .ant-table-content > .ant-table-body > table {
         padding: 0;
       }
-
+      .ant-table-tbody > tr > td{
+        color: #fff;
+        &:last-child{
+          border-right: 0!important;
+        }
+      }
       .ant-table .ant-table-tbody .categories {
         background: #fafafa;
       }
-
-      .ant-table-small > .ant-table-content > .ant-table-body > table > .ant-table-thead > tr > th {
-        background: #fafafa;
+      .ant-table-thead > tr > th {
+        &:last-child{
+          border-right: 0!important;
+        }
       }
     }
   }
-
   .tableArea {
-    padding: 48px 24px 0;
+    padding: 48px 2% 0;
   }
 
   .fraudTable {
-    padding: 24px 24px 0;
+    padding: 24px 28px 0;
   }
 
   .fraudArea {
@@ -110,7 +115,7 @@
   width: 96%;
   margin-left: 2%;
   box-shadow: 0 0 8px #eee;
-  border-radius: 6px;
+  border-radius: 10px;
 }
 .titles{
   border-left: 3px solid #4662D5!important;

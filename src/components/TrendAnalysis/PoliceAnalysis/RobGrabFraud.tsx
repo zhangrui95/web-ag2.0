@@ -440,7 +440,7 @@ export default class RobGrabFraud extends PureComponent {
                     <h2 className={styles.areaTitle}>诈骗案件</h2>
                     <Row className={styles.fraudArea}>
                         <Col lg={12} md={24}>
-                            <div id="fraudBar" style={{height: 420, marginTop: 25}}
+                            <div id="fraudBar" style={{height: 420, margin: '25px 0 0 26px' }}
                                  className={this.props.global && this.props.global.dark ? '' : styles.lightChartBox}/>
                         </Col>
                         <Col lg={12} md={24}>

@@ -481,7 +481,7 @@ export default class CriminalCaseAndPolice extends PureComponent {
                         <Col lg={12} md={24}>
                             <div
                                 className={"criminalCaseAccept" + ' ' + (this.props.global && this.props.global.dark ? '' : styles.lightChartBox)}
-                                style={{height: 425, marginTop: 25}}/>
+                                style={{height: 425, margin:'25px 0 0 4%'}}/>
                         </Col>
                         <Col lg={12} md={24}>
                             <Table columns={acceptCaseColumns} dataSource={acceptCaseTableData} locale={{

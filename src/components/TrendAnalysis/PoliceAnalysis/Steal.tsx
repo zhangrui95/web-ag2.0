@@ -597,7 +597,7 @@ export default class Steal extends PureComponent {
       <Spin spinning={loadingData} size="large" tip="数据加载中...">
         <div className={styles.analysis}>
           <AnalysisTitleArea analysisTitle="盗窃类警情" {...this.props} />
-          <Row>
+          <Row style={{ padding: '0 12px'}}>
             <Col lg={12} md={24}>
               <div
                 className={
