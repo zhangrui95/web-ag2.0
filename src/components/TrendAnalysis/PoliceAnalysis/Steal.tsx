@@ -394,7 +394,7 @@ export default class Steal extends PureComponent {
                 <span>
                   同比增幅（起）
                   <Tooltip title="同比增幅=本期数-同期数">
-                    <Icon type="info-circle-o" />
+                    <Icon type="info-circle-o"/>
                   </Tooltip>
                 </span>
               );
@@ -403,7 +403,7 @@ export default class Steal extends PureComponent {
                 <span>
                   同比增幅（%）
                   <Tooltip title="同比增涨率=（本期数-同期数）/同期数×100%">
-                    <Icon type="info-circle-o" />
+                    <Icon type="info-circle-o"/>
                   </Tooltip>
                 </span>
               );
@@ -412,7 +412,7 @@ export default class Steal extends PureComponent {
                 <span>
                   环比增幅（起）
                   <Tooltip title="环比增幅=本期数-上期数">
-                    <Icon type="info-circle-o" />
+                    <Icon type="info-circle-o"/>
                   </Tooltip>
                 </span>
               );
@@ -421,7 +421,7 @@ export default class Steal extends PureComponent {
                 <span>
                   环比增幅（%）
                   <Tooltip title="环比增涨率=（本期数-上期数）/上期数×100%">
-                    <Icon type="info-circle-o" />
+                    <Icon type="info-circle-o"/>
                   </Tooltip>
                 </span>
               );

@@ -126,19 +126,23 @@ export default class PoliceTrendAnalysis extends PureComponent {
             },
             callback: (data) => {
                 if (data && data.result) {
-                    setTimeout(()=>{
-                        this.setState({
-                            downLoading:false,
-                        },()=>{
-                            setTimeout(()=>{
-                                this.setState({
-                                    percent:0,
-                                });
-                            },100);
-                        });
-                    },100);
-                    window.location.href = `${configUrl.tbtjExportUrl}/down-docx/警情分析图表统计导出.docx`;
-                    num = 0;
+                    this.setState({
+                        percent:100,
+                    },()=>{
+                        setTimeout(()=>{
+                            this.setState({
+                                downLoading:false,
+                            },()=>{
+                                setTimeout(()=>{
+                                    this.setState({
+                                        percent:0,
+                                    });
+                                },100);
+                            });
+                            window.location.href = `${configUrl.tbtjExportUrl}/down-docx/警情分析图表统计导出.docx`;
+                            num = 0;
+                        },200);
+                    });
                 }
             },
         });
