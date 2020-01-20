@@ -822,7 +822,7 @@ export default class Index extends PureComponent {
                       getPopupContainer={() => document.getElementById('newslaxzajgjtableListForm')}
                     >
                       <Option value="">全部</Option>
-                      <Option value="5025902">结案（30日办理延期）</Option>
+                      <Option value="5025902">未结案（30日办理延期）</Option>
                       <Option value="5025903">未结案（60日）</Option>
                     </Select>,
                   )}
