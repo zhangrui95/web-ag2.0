@@ -392,7 +392,7 @@ export default class Index extends PureComponent {
     };
     // 重置
     handleFormReset = () => {
-        // this.props.form.resetFields();
+        this.props.form.resetFields();
         this.props.form.setFieldsValue({
           gjsj: [moment().startOf('day'), moment()],
         });
@@ -445,6 +445,7 @@ export default class Index extends PureComponent {
             if (gjTime && gjTime.length > 0) {
                 dateArry2 = [...gjTime];
             }
+            console.log('dateArry2',dateArry2);
             const isAfterDate =
                 dateArry.length > 0
                     ? moment(dateArry[1].format('YYYY-MM-DD')).isAfter(
@@ -454,9 +455,10 @@ export default class Index extends PureComponent {
             const isAfterDate2 =
                 dateArry2.length > 0
                     ? moment(dateArry2[1].format('YYYY-MM-DD')).isAfter(
-                    moment(dateArry2[1].format('YYYY-MM-DD')).add(exportListDataMaxDays, 'days'),
+                    moment(dateArry2[0].format('YYYY-MM-DD')).add(exportListDataMaxDays, 'days'),
                     )
                     : true;
+            console.log('isAfterDate2',isAfterDate2);
             if (isAfterDate && isAfterDate2) {
                 // 选择时间间隔应小于exportListDataMaxDays
                 message.warning(`日期间隔需小于${exportListDataMaxDays}天`);

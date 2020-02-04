@@ -448,16 +448,19 @@ export default class Index extends PureComponent {
             qsrq_ks: formValues && formValues.qsrq_ks ? formValues.qsrq_ks : '',
             qsrq_js: formValues && formValues.qsrq_js ? formValues.qsrq_js : '',
         };
-        if ((newformValues.jarq_ks && newformValues.jarq_js) || (newformValues.xarq_ks && newformValues.xarq_js) || (newformValues.parq_ks && newformValues.parq_js) || (newformValues.sarq_ks && newformValues.sarq_js) || (newformValues.qsrq_ks && newformValues.qsrq_js) || (newformValues.qsrq_ks && newformValues.qsrq_js)) {
+        if ((newformValues.jarq_ks && newformValues.jarq_js) || (newformValues.xarq_ks && newformValues.xarq_js) || (newformValues.parq_ks && newformValues.parq_js) || (newformValues.sarq_ks && newformValues.sarq_js) || (newformValues.qsrq_ks && newformValues.qsrq_js) || (newformValues.larq_ks && newformValues.larq_js)) {
             const saisAfterDate = newformValues.sarq_js && newformValues.sarq_ks ? moment(newformValues.sarq_js).isAfter(moment(newformValues.sarq_ks).add(exportListDataMaxDays, 'days')) : true;
             const laisAfterDate = newformValues.larq_js && newformValues.larq_ks ? moment(newformValues.larq_js).isAfter(moment(newformValues.larq_ks).add(exportListDataMaxDays, 'days')) : true;
             const paisAfterDate = newformValues.parq_js && newformValues.parq_ks ? moment(newformValues.parq_js).isAfter(moment(newformValues.parq_ks).add(exportListDataMaxDays, 'days')) : true;
             const xaisAfterDate = newformValues.xarq_js && newformValues.xarq_ks ? moment(newformValues.xarq_js).isAfter(moment(newformValues.xarq_ks).add(exportListDataMaxDays, 'days')) : true;
             const jaisAfterDate = newformValues.jarq_js && newformValues.jarq_ks ? moment(newformValues.jarq_js).isAfter(moment(newformValues.jarq_ks).add(exportListDataMaxDays, 'days')) : true;
             const isAfterDate2 = newformValues.qsrq_js && newformValues.qsrq_ks ? moment(newformValues.qsrq_js).isAfter(moment(newformValues.qsrq_ks).add(exportListDataMaxDays, 'days')) : true;
-            if ((saisAfterDate && laisAfterDate && paisAfterDate && xaisAfterDate && jaisAfterDate) || isAfterDate2) { // 选择时间间隔应小于exportListDataMaxDays
+            console.log('laisAfterDate',laisAfterDate);
+            console.log('isAfterDate2',isAfterDate2);
+            if (saisAfterDate && laisAfterDate && paisAfterDate && xaisAfterDate && jaisAfterDate&& isAfterDate2) { // 选择时间间隔应小于exportListDataMaxDays
                 message.warning(`日期间隔需小于${exportListDataMaxDays}天`);
-            } else {
+            }
+            else {
                 this.props.dispatch({
                     type: 'common/exportData',
                     payload: {

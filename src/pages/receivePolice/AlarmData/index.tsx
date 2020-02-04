@@ -419,6 +419,7 @@ export default class Index extends PureComponent {
     };
     // 重置
     handleFormReset = () => {
+        this.props.form.resetFields();
         this.props.form.setFieldsValue({
           // jjsj: [moment().format("YYYY-MM-DD 00:00:00"), moment().format("YYYY-MM-DD 23:59:59")],
           jjsj: [moment(moment().subtract(3, "days").format("YYYY-MM-DD 00:00:00"), 'YYYY-MM-DD 00:00:00'), moment(moment(), 'YYYY-MM-DD HH:mm:ss')],
