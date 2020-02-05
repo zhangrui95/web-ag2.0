@@ -240,11 +240,11 @@ export default class CriminalCaseType extends PureComponent {
             dataIndex: 'yearOnYearDateStr',
             key: 'yearOnYearDateStr',
         }, {
-            title: <span>同比增幅（起）<Tooltip title="同比增幅=本期数-同期数"><Icon type="info-circle-o"/></Tooltip></span>,
+            title: <span>同比增幅（起）<Tooltip title="同比增幅=本期数-同期数"><Icon type="info-circle-o" theme={this.props.global && this.props.global.dark ? "twoTone" : "outlined"} twoToneColor={this.props.global && this.props.global.dark ? "#aaa" :''} /></Tooltip></span>,
             key: 'tbzf_q',
             dataIndex: 'tbzf_q',
         }, {
-            title: <span>同比增幅（%）<Tooltip title="同比增涨率=（本期数-同期数）/同期数×100%"><Icon type="info-circle-o"/></Tooltip></span>,
+            title: <span>同比增幅（%）<Tooltip title="同比增涨率=（本期数-同期数）/同期数×100%"><Icon type="info-circle-o" theme={this.props.global && this.props.global.dark ? "twoTone" : "outlined"} twoToneColor={this.props.global && this.props.global.dark ? "#aaa" :''} /></Tooltip></span>,
             key: 'tbzf_l',
             dataIndex: 'tbzf_l',
         }, {
@@ -252,11 +252,11 @@ export default class CriminalCaseType extends PureComponent {
             dataIndex: 'monthOnMonthDateStr',
             key: 'monthOnMonthDateStr',
         }, {
-            title: <span>环比增幅（起）<Tooltip title="环比增幅=本期数-上期数"><Icon type="info-circle-o"/></Tooltip></span>,
+            title: <span>环比增幅（起）<Tooltip title="环比增幅=本期数-上期数"><Icon type="info-circle-o" theme={this.props.global && this.props.global.dark ? "twoTone" : "outlined"} twoToneColor={this.props.global && this.props.global.dark ? "#aaa" :''} /></Tooltip></span>,
             key: 'hbzf_q',
             dataIndex: 'hbzf_q',
         }, {
-            title: <span>环比增幅（%）<Tooltip title="环比增涨率=（本期数-上期数）/上期数×100%"><Icon type="info-circle-o"/></Tooltip></span>,
+            title: <span>环比增幅（%）<Tooltip title="环比增涨率=（本期数-上期数）/上期数×100%"><Icon type="info-circle-o" theme={this.props.global && this.props.global.dark ? "twoTone" : "outlined"} twoToneColor={this.props.global && this.props.global.dark ? "#aaa" :''} /></Tooltip></span>,
             key: 'hbzf_l',
             dataIndex: 'hbzf_l',
         }];

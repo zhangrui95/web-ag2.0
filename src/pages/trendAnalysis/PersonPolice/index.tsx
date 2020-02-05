@@ -192,10 +192,10 @@ export default class PeopleTrendAnalysis extends PureComponent {
                                     });
                                 },100);
                             });
-                        },100);
+                            window.location.href = `${configUrl.tbtjExportUrl}/down-docx/涉案人员分析图表统计导出.docx`;
+                            num = 0;
+                        },200);
                     });
-                    window.location.href = `${configUrl.tbtjExportUrl}/down-docx/涉案人员分析图表统计导出.docx`;
-                    num = 0;
                 }
             },
         });
