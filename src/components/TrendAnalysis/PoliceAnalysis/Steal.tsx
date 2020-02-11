@@ -394,7 +394,11 @@ export default class Steal extends PureComponent {
                 <span>
                   同比增幅（起）
                   <Tooltip title="同比增幅=本期数-同期数">
-                   <Icon type="info-circle-o" theme={this.props.global && this.props.global.dark ? "twoTone" : "outlined"} twoToneColor={this.props.global && this.props.global.dark ? "#aaa" :''} />
+                    <Icon
+                      type="info-circle-o"
+                      theme={this.props.global && this.props.global.dark ? 'twoTone' : 'outlined'}
+                      twoToneColor={this.props.global && this.props.global.dark ? '#aaa' : ''}
+                    />
                   </Tooltip>
                 </span>
               );
@@ -403,7 +407,11 @@ export default class Steal extends PureComponent {
                 <span>
                   同比增幅（%）
                   <Tooltip title="同比增涨率=（本期数-同期数）/同期数×100%">
-                       <Icon type="info-circle-o" theme={this.props.global && this.props.global.dark ? "twoTone" : "outlined"} twoToneColor={this.props.global && this.props.global.dark ? "#aaa" :''} />
+                    <Icon
+                      type="info-circle-o"
+                      theme={this.props.global && this.props.global.dark ? 'twoTone' : 'outlined'}
+                      twoToneColor={this.props.global && this.props.global.dark ? '#aaa' : ''}
+                    />
                   </Tooltip>
                 </span>
               );
@@ -412,7 +420,11 @@ export default class Steal extends PureComponent {
                 <span>
                   环比增幅（起）
                   <Tooltip title="环比增幅=本期数-上期数">
-                    <Icon type="info-circle-o" theme={this.props.global && this.props.global.dark ? "twoTone" : "outlined"} twoToneColor={this.props.global && this.props.global.dark ? "#aaa" :''} />
+                    <Icon
+                      type="info-circle-o"
+                      theme={this.props.global && this.props.global.dark ? 'twoTone' : 'outlined'}
+                      twoToneColor={this.props.global && this.props.global.dark ? '#aaa' : ''}
+                    />
                   </Tooltip>
                 </span>
               );
@@ -421,7 +433,11 @@ export default class Steal extends PureComponent {
                 <span>
                   环比增幅（%）
                   <Tooltip title="环比增涨率=（本期数-上期数）/上期数×100%">
-                    <Icon type="info-circle-o" theme={this.props.global && this.props.global.dark ? "twoTone" : "outlined"} twoToneColor={this.props.global && this.props.global.dark ? "#aaa" :''} />
+                    <Icon
+                      type="info-circle-o"
+                      theme={this.props.global && this.props.global.dark ? 'twoTone' : 'outlined'}
+                      twoToneColor={this.props.global && this.props.global.dark ? '#aaa' : ''}
+                    />
                   </Tooltip>
                 </span>
               );
@@ -499,7 +515,11 @@ export default class Steal extends PureComponent {
                 <span>
                   同比增幅（起）
                   <Tooltip title="同比增幅=本期数-同期数">
-                    <Icon type="info-circle-o" theme={this.props.global && this.props.global.dark ? "twoTone" : "outlined"} twoToneColor={this.props.global && this.props.global.dark ? "#aaa" :''} />
+                    <Icon
+                      type="info-circle-o"
+                      theme={this.props.global && this.props.global.dark ? 'twoTone' : 'outlined'}
+                      twoToneColor={this.props.global && this.props.global.dark ? '#aaa' : ''}
+                    />
                   </Tooltip>
                 </span>
               );
@@ -508,7 +528,11 @@ export default class Steal extends PureComponent {
                 <span>
                   同比增幅（%）
                   <Tooltip title="同比增涨率=（本期数-同期数）/同期数×100%">
-                    <Icon type="info-circle-o" theme={this.props.global && this.props.global.dark ? "twoTone" : "outlined"} twoToneColor={this.props.global && this.props.global.dark ? "#aaa" :''} />
+                    <Icon
+                      type="info-circle-o"
+                      theme={this.props.global && this.props.global.dark ? 'twoTone' : 'outlined'}
+                      twoToneColor={this.props.global && this.props.global.dark ? '#aaa' : ''}
+                    />
                   </Tooltip>
                 </span>
               );
@@ -517,7 +541,11 @@ export default class Steal extends PureComponent {
                 <span>
                   环比增幅（起）
                   <Tooltip title="环比增幅=本期数-上期数">
-                    <Icon type="info-circle-o" theme={this.props.global && this.props.global.dark ? "twoTone" : "outlined"} twoToneColor={this.props.global && this.props.global.dark ? "#aaa" :''} />
+                    <Icon
+                      type="info-circle-o"
+                      theme={this.props.global && this.props.global.dark ? 'twoTone' : 'outlined'}
+                      twoToneColor={this.props.global && this.props.global.dark ? '#aaa' : ''}
+                    />
                   </Tooltip>
                 </span>
               );
@@ -526,7 +554,11 @@ export default class Steal extends PureComponent {
                 <span>
                   环比增幅（%）
                   <Tooltip title="环比增涨率=（本期数-上期数）/上期数×100%">
-                    <Icon type="info-circle-o" theme={this.props.global && this.props.global.dark ? "twoTone" : "outlined"} twoToneColor={this.props.global && this.props.global.dark ? "#aaa" :''} />
+                    <Icon
+                      type="info-circle-o"
+                      theme={this.props.global && this.props.global.dark ? 'twoTone' : 'outlined'}
+                      twoToneColor={this.props.global && this.props.global.dark ? '#aaa' : ''}
+                    />
                   </Tooltip>
                 </span>
               );
@@ -597,7 +629,7 @@ export default class Steal extends PureComponent {
       <Spin spinning={loadingData} size="large" tip="数据加载中...">
         <div className={styles.analysis}>
           <AnalysisTitleArea analysisTitle="盗窃类警情" {...this.props} />
-          <Row style={{ padding: '0 12px'}}>
+          <Row style={{ padding: '0 12px' }}>
             <Col lg={12} md={24}>
               <div
                 className={

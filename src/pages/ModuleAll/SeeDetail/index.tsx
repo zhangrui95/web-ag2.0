@@ -38,14 +38,14 @@ const { Step } = Steps;
 }))
 @Form.create()
 export default class DbHistory extends PureComponent {
-  constructor(props){
+  constructor(props) {
     super(props);
     let record = props.location.query.record;
     let Isdetail = props.location.query.Isdetail;
-    if(record && typeof record === 'string'){
+    if (record && typeof record === 'string') {
       record = JSON.parse(sessionStorage.getItem('query')).query.record;
     }
-    if(Isdetail && typeof Isdetail === 'string'){
+    if (Isdetail && typeof Isdetail === 'string') {
       Isdetail = JSON.parse(sessionStorage.getItem('query')).query.Isdetail;
     }
     this.state = {
@@ -53,7 +53,6 @@ export default class DbHistory extends PureComponent {
       Isdetail,
     };
   }
-
 
   componentDidMount() {}
 
@@ -102,20 +101,20 @@ export default class DbHistory extends PureComponent {
         routerRedux.push({
           pathname: this.props.location.query.fromPath,
           query: {
-                id: tab === '表格' ? '' : this.props.location.query.id,
-                record: tab === '表格' ? '' : this.props.location.query.record,
-              },
+            id: tab === '表格' ? '' : this.props.location.query.id,
+            record: tab === '表格' ? '' : this.props.location.query.record,
+          },
         }),
       );
-        if(isReset){
-            dispatch({
-                type: 'global/changeResetList',
-                payload: {
-                    isReset: !this.props.global.isResetList.isReset,
-                    url: this.props.location.query.fromPath,
-                },
-            });
-        }
+      if (isReset) {
+        dispatch({
+          type: 'global/changeResetList',
+          payload: {
+            isReset: !this.props.global.isResetList.isReset,
+            url: this.props.location.query.fromPath,
+          },
+        });
+      }
       dispatch({
         type: 'global/changeSessonNavigation',
         payload: {
@@ -135,7 +134,7 @@ export default class DbHistory extends PureComponent {
 
   // 点击文件查看
   fileOnPreview = file => {
-    window.open('http://'+file.url);
+    window.open('http://' + file.url);
   };
 
   render() {
@@ -221,14 +220,14 @@ export default class DbHistory extends PureComponent {
               )}
             </Row>
             <Row gutter={{ md: 8, lg: 24, xl: 48 }}>
-                <Col md={24} sm={24}>
-                    <div className={styles.historydbrz}>
+              <Col md={24} sm={24}>
+                <div className={styles.historydbrz}>
                   <span className={styles.dbrzName1}>
                     {Isdetail === '发起督办' ? '整改意见：' : ''}
-                      {record.zgyj}
+                    {record.zgyj}
                   </span>
-                    </div>
-                </Col>
+                </div>
+              </Col>
               <Col md={24} sm={24}>
                 <div className={styles.historydbrz}>
                   <span className={styles.dbrzName1}>{record.fkyj ? record.fkyj : ''}</span>
@@ -242,8 +241,12 @@ export default class DbHistory extends PureComponent {
                     <div className={styles.dbrzfj}>
                       <span className={styles.dbrzName1}>附件信息： </span>
                       <span className={styles.dbrzName2}>
-                        <Upload fileList={record.fileList} onPreview={this.fileOnPreview}
-                                onDownload={this.fileOnPreview} />
+                        <Upload
+                          fileList={record.fileList}
+                          onPreview={this.fileOnPreview}
+                          onDownload={this.fileOnPreview}
+                          showUploadList={{ showRemoveIcon: false }}
+                        />
                       </span>
                     </div>
                   </Col>
@@ -257,8 +260,12 @@ export default class DbHistory extends PureComponent {
                   <div className={styles.dbrzfj}>
                     <span className={styles.dbrzName1}>附件信息： </span>
                     <span className={styles.dbrzName2}>
-                      <Upload fileList={record.fileListOfFk} onPreview={this.fileOnPreview}
-                              onDownload={this.fileOnPreview} />
+                      <Upload
+                        fileList={record.fileListOfFk}
+                        onPreview={this.fileOnPreview}
+                        showUploadList={{ showRemoveIcon: false }}
+                        onDownload={this.fileOnPreview}
+                      />
                     </span>
                   </div>
                 </Col>
