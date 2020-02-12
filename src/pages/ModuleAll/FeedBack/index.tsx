@@ -92,8 +92,8 @@ export default class FeedBack extends PureComponent {
         let wjxx = [];
         for (let i in fileList) {
             const obj = {
-                wj_name: fileList[i].fileName,
-                wj_url: fileList[i].fileUrl,
+                wj_name: fileList&&fileList[i].response&&fileList[i].response.fileName?fileList[i].response.fileName:'',
+                wj_url: fileList&&fileList[i].response&&fileList[i].response.fileUrl?fileList[i].response.fileUrl:'',
             };
             wjxx.push(obj);
         }
@@ -256,8 +256,6 @@ export default class FeedBack extends PureComponent {
 
     onEdit = (isReset) => {
         const {query: {record, detail, tab, fromPath, id}} = this.props.location;
-        // console.log('fromPath',fromPath);
-        // console.log('isReset',isReset);
         let key = '/ModuleAll/FeedBack' + this.props.location.query.id;
         // 鍒犻櫎褰撳墠tab骞朵笖灏嗚矾鐢辫烦杞嚦鍓嶄竴涓猼ab鐨刾ath
         const {dispatch} = this.props;
