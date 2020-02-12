@@ -76,5 +76,5 @@ const onlineConfigUrl = {
 };
 window.configUrl = Object.assign(
   configItem,
-  developModa === true ? developConfigUrl : onlineConfigUrl,
+  developModa ? developConfigUrl : onlineConfigUrl
 );
