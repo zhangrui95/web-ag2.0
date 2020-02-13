@@ -29,6 +29,7 @@ export default class Detail extends PureComponent {
             kpxmType: '0',
             kpjlType: '',
             targetKeys: [],
+            btnLoading: false,
         };
     }
 
@@ -39,6 +40,9 @@ export default class Detail extends PureComponent {
     }
 
     handleSave = () => {
+      this.setState({
+        btnLoading:true,
+      });
         let kpxx = [];
         this.state.targetKeys.map((event) => {
             this.state.allList.map((item) => {
@@ -71,7 +75,8 @@ export default class Detail extends PureComponent {
                     this.onEdit(true);
                     this.getKhDetail(this.state.recordKp, '', true);
                     this.setState({
-                        targetKeys: [],
+                       targetKeys: [],
+                       btnLoading:false,
                     });
                 }
             });
@@ -378,7 +383,7 @@ export default class Detail extends PureComponent {
                 </Card>
                 <Card>
                     <div className={styles.btns}>
-                        <Button type="primary" style={{marginLeft: 8}} onClick={this.handleSave}>
+                        <Button type="primary" style={{marginLeft: 8}} onClick={this.handleSave} loading={this.state.btnLoading}>
                             保存
                         </Button>
                     </div>
