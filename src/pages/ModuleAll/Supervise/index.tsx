@@ -843,7 +843,7 @@ export default class SuperviseModal extends PureComponent {
         {/*}*/}
           <Modal visible={SureModalVisible} centered={true} footer={null} header={null} closable={false} width={400} getContainer={()=>document.getElementById('messageBox')}>
               <div className={styles.modalBox}>
-                  <div className={styles.question}><Icon type="question-circle" style={{color:'#faad14',fontSize: '22px',marginRight: '16px'}}/>{this.state.fieldsValue&&this.state.fieldsValue.gqyy&&this.state.gqType?'是否直接挂起？':'确认督办？'}</div>
+                  <div className={styles.question} style={this.props.global && this.props.global.dark ? {color:'#fff'} : {}}><Icon type="question-circle" style={{color:'#faad14',fontSize: '22px',marginRight: '16px'}}/>{this.state.fieldsValue&&this.state.fieldsValue.gqyy&&this.state.gqType?'是否直接挂起？':'确认督办？'}</div>
                   <div style={{marginTop:40,float:"right"}}><Button onClick={this.closeConfirm}>取消</Button><Button type="primary" style={{marginLeft:'16px'}} onClick={this.handleAlarmSure} loading={this.state.dbLoading}>确认</Button></div>
               </div>
           </Modal>
