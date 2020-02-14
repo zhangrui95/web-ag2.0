@@ -193,6 +193,7 @@ export default class areaDetail extends PureComponent {
             fromPath: '/handlingArea/AreaData/areaDetail',
             wtflId: '203203',
             wtflMc: '办案区',
+            tabName: '问题判定'
           },
         }),
       );

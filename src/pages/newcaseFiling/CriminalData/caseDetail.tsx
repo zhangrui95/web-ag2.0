@@ -201,6 +201,7 @@ export default class caseDetail extends PureComponent {
             fromPath: '/newcaseFiling/caseData/CriminalData/caseDetail',
             wtflId: '203202',
             wtflMc: '刑事案件',
+            tabName: '问题判定'
           },
         }),
       );

@@ -131,6 +131,7 @@ export default class itemDetail extends PureComponent {
             fromPath: '/articlesInvolved/ArticlesData/itemDetail',
             wtflId: '203204',
             wtflMc: '涉案财物',
+            tabName: '问题判定'
           },
         }),
       );
