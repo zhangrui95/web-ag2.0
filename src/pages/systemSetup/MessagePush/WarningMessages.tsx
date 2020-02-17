@@ -29,15 +29,15 @@ class WarningMessages extends Component {
                 values:values,
             });
             if (!errors &&
-                !(this.state.values&&this.state.values.gj_wsajq&&!this.state.values.gj_wsajq.mData&&this.state.values.gj_wsajq.sfqy==1)&&
-                !(this.state.values&&this.state.values.gj_wczjg&&!this.state.values.gj_wczjg.mData&&this.state.values.gj_wczjg.sfqy==1)&&
-                !(this.state.values&&this.state.values.gj_qbhscq&&!this.state.values.gj_qbhscq.mData&&this.state.values.gj_qbhscq.sfqy==1)&&
-                !(this.state.values&&this.state.values.gj_jccq&&!this.state.values.gj_jccq.mData&&this.state.values.gj_jccq.sfqy==1)&&
-                !(this.state.values&&this.state.values.gj_dbcq&&!this.state.values.gj_dbcq.mData&&this.state.values.gj_dbcq.sfqy==1)&&
-                !(this.state.values&&this.state.values.gj_xsjlcq&&!this.state.values.gj_xsjlcq.mData&&this.state.values.gj_xsjlcq.sfqy==1)&&
-                !(this.state.values&&this.state.values.gj_jsjzcq&&!this.state.values.gj_jsjzcq.mData&&this.state.values.gj_jsjzcq.sfqy==1)&&
-                !(this.state.values&&this.state.values.gj_wcfjg&&!this.state.values.gj_wcfjg.mData&&this.state.values.gj_wcfjg.sfqy==1)&&
-                !(this.state.values&&this.state.values.gj_cswja&&!this.state.values.gj_cswja.mData&&this.state.values.gj_cswja.sfqy==1)
+                !(values.gj_wsajq&&!values.gj_wsajq.mData&&values.gj_wsajq.sfqy==1)&&
+                !(values.gj_wczjg&&!values.gj_wczjg.mData&&values.gj_wczjg.sfqy==1)&&
+                !(values.gj_qbhscq&&!values.gj_qbhscq.mData&&values.gj_qbhscq.sfqy==1)&&
+                !(values.gj_jccq&&!values.gj_jccq.mData&&values.gj_jccq.sfqy==1)&&
+                !(values.gj_dbcq&&!values.gj_dbcq.mData&&values.gj_dbcq.sfqy==1)&&
+                !(values.gj_xsjlcq&&!values.gj_xsjlcq.mData&&values.gj_xsjlcq.sfqy==1)&&
+                !(values.gj_jsjzcq&&!values.gj_jsjzcq.mData&&values.gj_jsjzcq.sfqy==1)&&
+                !(values.gj_wcfjg&&!values.gj_wcfjg.mData&&values.gj_wcfjg.sfqy==1)&&
+                !(values.gj_cswja&&!values.gj_cswja.mData&&values.gj_cswja.sfqy==1)
             ) {
                 confirm({
                     title: '确定要保存告警推送消息吗？',

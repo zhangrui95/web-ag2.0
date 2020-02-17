@@ -31,10 +31,10 @@ class SuperviseMessages extends Component {
                 values:values,
             });
             if (!errors &&
-                !(this.state.values&&this.state.values.db_zg_jq&&!this.state.values.db_zg_jq.mData&&this.state.values.db_zg_jq.sfqy==1)&&
-                !(this.state.values&&this.state.values.db_zg_aj&&!this.state.values.db_zg_aj.mData&&this.state.values.db_zg_aj.sfqy==1)&&
-                !(this.state.values&&this.state.values.db_gq_jq&&!this.state.values.db_gq_jq.mData&&this.state.values.db_gq_jq.sfqy==1)&&
-                !(this.state.values&&this.state.values.db_gq_aj&&!this.state.values.db_gq_aj.mData&&this.state.values.db_gq_aj.sfqy==1)
+                !(values.db_zg_jq&&!values.db_zg_jq.mData&&values.db_zg_jq.sfqy==1)&&
+                !(values.db_zg_aj&&!values.db_zg_aj.mData&&values.db_zg_aj.sfqy==1)&&
+                !(values.db_gq_jq&&!values.db_gq_jq.mData&&values.db_gq_jq.sfqy==1)&&
+                !(values.db_gq_aj&&!values.db_gq_aj.mData&&values.db_gq_aj.sfqy==1)
             ) {
                 confirm({
                     title: '确定要保存督办消息推送吗？',

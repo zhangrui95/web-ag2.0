@@ -29,14 +29,14 @@ class EarlyWarningMessages extends Component {
                 values:values,
             });
             if (!errors &&
-                !(this.state.values&&this.state.values.yj_wsajq&&!this.state.values.yj_wsajq.mData&&this.state.values.yj_wsajq.sfqy==1)&&
-                !(this.state.values&&this.state.values.yj_wczjg&&!this.state.values.yj_wczjg.mData&&this.state.values.yj_wczjg.sfqy==1)&&
-                !(this.state.values&&this.state.values.yj_qbhscq&&!this.state.values.yj_qbhscq.mData&&this.state.values.yj_qbhscq.sfqy==1)&&
-                !(this.state.values&&this.state.values.yj_jccq&&!this.state.values.yj_jccq.mData&&this.state.values.yj_jccq.sfqy==1)&&
-                !(this.state.values&&this.state.values.yj_dbcq&&!this.state.values.yj_dbcq.mData&&this.state.values.yj_dbcq.sfqy==1)&&
-                !(this.state.values&&this.state.values.yj_xsjlcq&&!this.state.values.yj_xsjlcq.mData&&this.state.values.yj_xsjlcq.sfqy==1)&&
-                !(this.state.values&&this.state.values.yj_jsjzcq&&!this.state.values.yj_jsjzcq.mData&&this.state.values.yj_jsjzcq.sfqy==1)&&
-                !(this.state.values&&this.state.values.yj_cswja&&!this.state.values.yj_cswja.mData&&this.state.values.yj_cswja.sfqy==1)
+                !(values.yj_wsajq&&!values.yj_wsajq.mData&&values.yj_wsajq.sfqy==1)&&
+                !(values.yj_wczjg&&!values.yj_wczjg.mData&&values.yj_wczjg.sfqy==1)&&
+                !(values.yj_qbhscq&&!values.yj_qbhscq.mData&&values.yj_qbhscq.sfqy==1)&&
+                !(values.yj_jccq&&!values.yj_jccq.mData&&values.yj_jccq.sfqy==1)&&
+                !(values.yj_dbcq&&!values.yj_dbcq.mData&&values.yj_dbcq.sfqy==1)&&
+                !(values.yj_xsjlcq&&!values.yj_xsjlcq.mData&&values.yj_xsjlcq.sfqy==1)&&
+                !(values.yj_jsjzcq&&!values.yj_jsjzcq.mData&&values.yj_jsjzcq.sfqy==1)&&
+                !(values.yj_cswja&&!values.yj_cswja.mData&&values.yj_cswja.sfqy==1)
             ) {
                 confirm({
                     title: '确定要保存预警推送消息吗？',
