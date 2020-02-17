@@ -6,7 +6,7 @@
 
 import request from '../utils/request';
 
-const generalQueryUrl = configUrl.generalQueryUrl;
+const generalQueryUrl = window.configUrl&&window.configUrl.generalQueryUrl ? window.configUrl.generalQueryUrl : '';
 
 export async function getSearchData(param) {
     return request(generalQueryUrl, {
