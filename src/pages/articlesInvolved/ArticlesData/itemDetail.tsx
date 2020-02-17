@@ -34,7 +34,7 @@ import liststyles from '../../common/listDetail.less';
 // import ShareModal from '../../components/ShareModal/ShareModal';
 import collect from '../../../assets/common/collect.png';
 import nocollect from '../../../assets/common/nocollect.png';
-import nophoto from '../../../assets/common/nophoto.png';
+import nophoto from '../../../assets/common/zwwpDark.png';
 import share from '../../../assets/common/share.png';
 import collect1 from '../../../assets/common/collect1.png';
 import nocollect1 from '../../../assets/common/nocollect1.png';
@@ -42,7 +42,7 @@ import share1 from '../../../assets/common/share1.png';
 import { autoheight, getUserInfos, userResourceCodeDb } from '../../../utils/utils';
 import { authorityIsTrue } from '../../../utils/authority';
 import { routerRedux } from 'dva/router';
-import nophotoLight from '@/assets/common/nophotoLight.png';
+import nophotoLight from '@/assets/common/zwwp.png';
 import { tableList } from '@/utils/utils';
 
 const FormItem = Form.Item;

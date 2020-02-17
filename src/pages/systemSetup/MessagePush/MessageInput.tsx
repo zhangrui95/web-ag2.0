@@ -33,9 +33,10 @@ export default class MessageInput extends PureComponent {
     triggerChange = (changedValue) => {
         // Should provide an event to pass value to Form.
         const onChange = this.props.onChange;
+        const id = this.props.id;
         if (onChange) {
             const onChangObj = Object.assign({}, this.props.value, changedValue);
-            onChange(onChangObj);
+            onChange(onChangObj,id);
         }
     };
 

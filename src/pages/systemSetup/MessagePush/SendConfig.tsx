@@ -70,20 +70,24 @@ class SendConfig extends Component {
         isTrue = false;
       }
     });
-    if (isTrue) {
-      confirm({
-        title: '确定要保存配置信息吗？',
-        okText: '确定',
-        cancelText: '取消',
-        centered: true,
-        getContainer: document.getElementById('boxSend'),
-        onOk() {
-          that.saveSendConfig();
-        },
+      this.props.form.validateFields((errors, values) => {
+          if (!errors) {
+              if (isTrue) {
+                  confirm({
+                      title: '确定要保存配置信息吗？',
+                      okText: '确定',
+                      cancelText: '取消',
+                      centered: true,
+                      getContainer: document.getElementById('boxSend'),
+                      onOk() {
+                          that.saveSendConfig();
+                      },
+                  });
+              } else {
+                  message.warning('免打扰不能存在未闭合区间');
+              }
+          }
       });
-    } else {
-      message.warning('免打扰不能存在未闭合区间');
-    }
   };
   // 保存配置信息
   saveSendConfig = () => {
@@ -221,7 +225,7 @@ class SendConfig extends Component {
                 rules: [
                   {
                     required: true,
-                    message: '接口地址!',
+                    message: '请输入接口地址!',
                   },
                 ],
               })(<Input />)}
@@ -232,7 +236,7 @@ class SendConfig extends Component {
                 rules: [
                   {
                     required: true,
-                    message: '系统代码!',
+                    message: '请输入系统代码!',
                   },
                 ],
               })(<Input />)}
@@ -243,7 +247,7 @@ class SendConfig extends Component {
                 rules: [
                   {
                     required: true,
-                    message: '系统模块代码!',
+                    message: '请输入系统模块代码!',
                   },
                 ],
               })(<Input />)}
