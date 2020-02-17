@@ -137,7 +137,7 @@ export default class DossierDetail extends PureComponent {
                 from: '督办',
                 tzlx: 'jzwt',
                 fromPath: '/dossierPolice/DossierPolice/UnDossierDetail',
-                tab: '表格',
+                tab: '详情',
               },
             }),
           );
