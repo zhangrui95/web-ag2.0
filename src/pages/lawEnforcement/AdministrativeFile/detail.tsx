@@ -104,7 +104,7 @@ export default class AdministrativeCaseDocDetail extends PureComponent {
 
     scrollHandler = () => {
         if (this.state.first) {
-            let scroll = document.getElementById("scrollAdmin");
+            let scroll = document.getElementById("scrollAdmin"+this.state.res.ajbh);
             if (scroll) {
                 scroll.addEventListener("scroll", e => {
                     let afterScrollTop = e.target.scrollTop;
@@ -872,8 +872,8 @@ export default class AdministrativeCaseDocDetail extends PureComponent {
         let dark = this.props.global&&this.props.global.dark;
         return (
             <Card style={{height: autoheight() - 240 + 'px', marginTop: '12px'}}
-                // onScrollCapture={this.scrollHandler}
-                  id={'scrollAdmin'}
+                onScrollCapture={this.scrollHandler}
+                  id={'scrollAdmin'+this.state.res.ajbh}
                   className={className}>
                 <Spin spinning={loading}>
                     <div>
@@ -1100,28 +1100,29 @@ export default class AdministrativeCaseDocDetail extends PureComponent {
 
                 <div className={styles.anchorBox}>
                     <Anchor
+                        getContainer={() => document.querySelector('#scrollAdmin'+this.state.res.ajbh)}
                         className={!(this.state.Anchor && this.state.AnchorShow) ? styles.AnchorHide : this.state.AnchorShow ? styles.fadeBoxIn : styles.fadeBoxOut}
                         offsetTop={70} onChange={this.goLink}>
                         <Link
-                            href={`#${this.state.res.ajbh}gxtp`}
+                            href={`${location.hash}#${this.state.res.ajbh}gxtp`}
                             title="关系图谱"/>
                         <Link
-                            href={`#${this.state.res.ajbh}jqxx`}
+                            href={`${location.hash}#${this.state.res.ajbh}jqxx`}
                             title="警情信息"/>
                         <Link
-                            href={`#${this.state.res.ajbh}ajxx`}
+                            href={`${location.hash}#${this.state.res.ajbh}ajxx`}
                             title="案件信息"/>
                         <Link
-                            href={`#${this.state.res.ajbh}ajgj`}
+                            href={`${location.hash}#${this.state.res.ajbh}ajgj`}
                             title="案件轨迹"/>
                         <Link
-                            href={`#${this.state.res.ajbh}sawp`}
+                            href={`${location.hash}#${this.state.res.ajbh}sawp`}
                             title="涉案物品"/>
                         <Link
-                            href={`#${this.state.res.ajbh}jzxx`}
+                            href={`${location.hash}#${this.state.res.ajbh}jzxx`}
                             title="卷宗信息"/>
                         <Link
-                            href={`#${this.state.res.ajbh}gjxx`}
+                            href={`${location.hash}#${this.state.res.ajbh}gjxx`}
                             title="告警信息"/>
                     </Anchor>
                 </div>
