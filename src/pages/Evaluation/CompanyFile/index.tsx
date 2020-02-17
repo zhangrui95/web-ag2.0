@@ -50,9 +50,22 @@ export default class UnitArchives extends PureComponent {
 
     componentWillReceiveProps(nextProps) {
         if (this.props.global.isResetList.isReset !== nextProps.global.isResetList.isReset && nextProps.global.isResetList.url === '/Evaluation/File/CompanyFile') {
-            this.setState({
-                selectedRowsId: nextProps.history.location.query.selectedRowsId,
-            });
+            if(nextProps.history.location.query.typeId){
+                this.setState({
+                    word:nextProps.history.location.query.typeId === 'xsAjPgb' ? '4' :
+                        nextProps.history.location.query.typeId === 'ajShSpJl' ? '5' :
+                        nextProps.history.location.query.typeId === 'fzyAjShYjDjb' ? '6' :
+                        nextProps.history.location.query.typeId=== 'fzddAjShCpb' ? '7' :
+                        nextProps.history.location.query.typeId === 'xzFySsGjPcAjTjb' ? '9' :
+                            this.state.word,
+                },()=>{
+                    setTimeout(()=>{
+                        this.setState({
+                            selectedRowsId: nextProps.history.location.query.selectedRowsId,
+                        });
+                    },50);
+                });
+            }
         }
     }
 

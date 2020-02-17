@@ -372,7 +372,7 @@ export default class Index extends PureComponent {
             gjsj_ks: gjTime && gjTime.length > 0 && gjTime[0] ? gjTime[0].format('YYYY-MM-DD') : '',
             gjsj_js: gjTime && gjTime.length > 0 && gjTime[1] ? gjTime[1].format('YYYY-MM-DD') : '',
             wtlx_id: values.wtlx || '',
-            szkf_id: values.szkf || '',
+            szkf_id: values.szkf ?  values.szkf.trim() : '',
             ajbh: values.ajbh ? values.ajbh.trim() : '',
             ajmc: values.ajmc ? values.ajmc.trim() : '',
             wpzt: values.wpzt || '',
@@ -382,7 +382,7 @@ export default class Index extends PureComponent {
             dbzt: values.dbzt && values.dbzt.dbzt ? values.dbzt.dbzt : '',
             cljg_dm: values.dbzt && values.dbzt.zgzt ? values.dbzt.zgzt : '',
             csfs: values.csfs || '',
-            wpmc: values.wpmc || '',
+            wpmc: values.wpmc ? values.wpmc.trim() : '',
             is_tz: this.state.is_tz,
         };
         this.setState({
@@ -418,7 +418,7 @@ export default class Index extends PureComponent {
             gjsj_ks: gjTime && gjTime.length > 0 ? gjTime[0].format('YYYY-MM-DD') : '',
             gjsj_js: gjTime && gjTime.length > 0 ? gjTime[1].format('YYYY-MM-DD') : '',
             wtlx_id: values.wtlx || '',
-            szkf_id: values.szkf || '',
+            szkf_id: values.szkf ?  values.szkf.trim() : '',
             ajbh: values.ajbh ? values.ajbh.trim() : '',
             ajmc: values.ajmc ? values.ajmc.trim() : '',
             wpzt: values.wpzt || '',
@@ -428,7 +428,7 @@ export default class Index extends PureComponent {
             dbzt: values.dbzt && values.dbzt.dbzt ? values.dbzt.dbzt : '',
             cljg_dm: values.dbzt && values.dbzt.zgzt ? values.dbzt.zgzt : '',
             csfs: values.csfs || '',
-            wpmc: values.wpmc || '',
+            wpmc: values.wpmc ? values.wpmc.trim() : '',
         };
         if (gjTime && gjTime.length > 0) {
             const isAfterDate = moment(formValues.gjsj_js).isAfter(moment(formValues.gjsj_ks).add(exportListDataMaxDays, 'days'));

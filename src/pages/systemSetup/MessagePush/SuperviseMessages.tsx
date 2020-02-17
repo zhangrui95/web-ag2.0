@@ -16,20 +16,38 @@ const confirm = Modal.confirm;
 @Form.create()
 
 class SuperviseMessages extends Component {
+    constructor(props){
+        super(props);
+        this.state={
+            values:{},
+        }
+    }
     // 保存确认框
     showConfirm = (e) => {
         e.preventDefault();
         const that = this;
-        confirm({
-            title: '确定要保存督办推送消息吗？',
-            okText: '确定',
-            cancelText: '取消',
-            centered: true,
-            getContainer: document.getElementById('boxSend3'),
-            onOk() {
-                that.saveSuperviseMessages();
-            },
-        });
+        this.props.form.validateFields((errors, values) => {
+            this.setState({
+                values:values,
+            });
+            if (!errors &&
+                !(values.db_zg_jq&&!values.db_zg_jq.mData&&values.db_zg_jq.sfqy==1)&&
+                !(values.db_zg_aj&&!values.db_zg_aj.mData&&values.db_zg_aj.sfqy==1)&&
+                !(values.db_gq_jq&&!values.db_gq_jq.mData&&values.db_gq_jq.sfqy==1)&&
+                !(values.db_gq_aj&&!values.db_gq_aj.mData&&values.db_gq_aj.sfqy==1)
+            ) {
+                confirm({
+                    title: '确定要保存督办消息推送吗？',
+                    okText: '确定',
+                    cancelText: '取消',
+                    centered: true,
+                    getContainer: document.getElementById('boxSend3'),
+                    onOk() {
+                        that.saveSuperviseMessages();
+                    },
+                });
+            }
+         });
     };
     // 保存督办推送消息
     saveSuperviseMessages = () => {
@@ -48,7 +66,13 @@ class SuperviseMessages extends Component {
             }
         });
     };
-
+    onChange = (value,id) =>{
+        let values = this.state.values;
+        values[id] = value;
+        this.setState({
+            values,
+        });
+    }
     render() {
         const {formItemLayout, form: {getFieldDecorator}, systemSetup: {systemSetup: {messageList}}, splitMessage} = this.props;
         return (
@@ -57,47 +81,47 @@ class SuperviseMessages extends Component {
                     <Form>
                         <div className={style.moduleBottom}>
                             <h6 className={style.title}>需要整改</h6>
-                            <Form.Item label="警情" {...formItemLayout}>
+                            <Form.Item label="警情" {...formItemLayout}  validateStatus={this.state.values&&this.state.values.db_zg_jq&&!this.state.values.db_zg_jq.mData&&this.state.values.db_zg_jq.sfqy==1 ? "error" : "success"} help={this.state.values&&this.state.values.db_zg_jq&&!this.state.values.db_zg_jq.mData&&this.state.values.db_zg_jq.sfqy==1 ? "请输入警情需要整改消息推送格式!" : ''}>
                                 {getFieldDecorator('db_zg_jq', {
                                     initialValue: splitMessage(messageList, 'db_zg_jq'),
                                     rules: [{
                                         required: true, message: '警情!',
                                     }],
                                 })(
-                                    <MessageInput/>,
+                                    <MessageInput onChange={this.onChange} id={'db_zg_jq'}/>,
                                 )}
                             </Form.Item>
-                            <Form.Item label="案件" {...formItemLayout}>
+                            <Form.Item label="案件" {...formItemLayout} validateStatus={this.state.values&&this.state.values.db_zg_aj&&!this.state.values.db_zg_aj.mData&&this.state.values.db_zg_aj.sfqy==1 ? "error" : "success"} help={this.state.values&&this.state.values.db_zg_aj&&!this.state.values.db_zg_aj.mData&&this.state.values.db_zg_aj.sfqy==1 ? "请输入案件需要整改消息推送格式!" : ''}>
                                 {getFieldDecorator('db_zg_aj', {
                                     initialValue: splitMessage(messageList, 'db_zg_aj'),
                                     rules: [{
                                         required: true, message: '案件!',
                                     }],
                                 })(
-                                    <MessageInput/>,
+                                    <MessageInput onChange={this.onChange} id={'db_zg_aj'}/>,
                                 )}
                             </Form.Item>
                         </div>
                         <div>
                             <h6 className={style.title}>挂起</h6>
-                            <Form.Item label="警情" {...formItemLayout}>
+                            <Form.Item label="警情" {...formItemLayout}   validateStatus={this.state.values&&this.state.values.db_gq_jq&&!this.state.values.db_gq_jq.mData&&this.state.values.db_gq_jq.sfqy==1 ? "error" : "success"} help={this.state.values&&this.state.values.db_gq_jq&&!this.state.values.db_gq_jq.mData&&this.state.values.db_gq_jq.sfqy==1 ? "请输入警情挂起消息推送格式!" : ''}>
                                 {getFieldDecorator('db_gq_jq', {
                                     initialValue: splitMessage(messageList, 'db_gq_jq'),
                                     rules: [{
                                         required: true, message: '警情!',
                                     }],
                                 })(
-                                    <MessageInput/>,
+                                    <MessageInput onChange={this.onChange} id={'db_gq_jq'}/>,
                                 )}
                             </Form.Item>
-                            <Form.Item label="案件" {...formItemLayout}>
+                            <Form.Item label="案件" {...formItemLayout} validateStatus={this.state.values&&this.state.values.db_gq_aj&&!this.state.values.db_gq_aj.mData&&this.state.values.db_gq_aj.sfqy==1 ? "error" : "success"} help={this.state.values&&this.state.values.db_gq_aj&&!this.state.values.db_gq_aj.mData&&this.state.values.db_gq_aj.sfqy==1 ? "请输入案件挂起息推送格式!" : ''}>
                                 {getFieldDecorator('db_gq_aj', {
                                     initialValue: splitMessage(messageList, 'db_gq_aj'),
                                     rules: [{
                                         required: true, message: '案件!',
                                     }],
                                 })(
-                                    <MessageInput/>,
+                                    <MessageInput onChange={this.onChange} id={'db_gq_aj'}/>,
                                 )}
                             </Form.Item>
                         </div>

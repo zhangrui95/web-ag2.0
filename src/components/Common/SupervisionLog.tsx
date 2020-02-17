@@ -60,7 +60,7 @@ export default class SupervisionLog extends PureComponent {
           record: NowDbrz,
           id: detail && detail.wtid ? Isdetail === '发起督办' ? detail.wtid+'db' : detail.wtid+'fk' : '1',
           fromPath: this.props.frompath,
-            tabName:Isdetail === '发起督办' ?  '督办详情' : Isdetail === '处理反馈' ?  '反馈详情' : '详情',
+          tabName:Isdetail === '发起督办' ?  '督办详情' : Isdetail === '处理反馈' ?  '反馈详情' : '详情',
           detail,
           Isdetail,
         },

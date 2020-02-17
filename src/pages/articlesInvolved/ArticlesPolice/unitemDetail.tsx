@@ -37,9 +37,9 @@ import { autoheight, getQueryString, userResourceCodeDb } from '../../../utils/u
 // import FeedbackModal from '../../components/Common/FeedbackModal';
 import { authorityIsTrue } from '../../../utils/authority';
 import SupervisionLog from '../../../components/Common/SupervisionLog';
-import nophoto from '../../../assets/common/nophoto.png';
+import nophoto from '../../../assets/common/zwwpDark.png';
 import { routerRedux } from 'dva/router';
-import nophotoLight from '@/assets/common/nophotoLight.png';
+import nophotoLight from '@/assets/common/zwwp.png';
 import DetailShow from '@/components/Common/detailShow';
 
 const FormItem = Form.Item;

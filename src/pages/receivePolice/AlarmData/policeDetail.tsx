@@ -188,6 +188,7 @@ export default class policeDetail extends PureComponent {
             fromPath: '/receivePolice/AlarmData/policeDetail',
             wtflId: '203201',
             wtflMc: '警情',
+            tabName: '问题判定'
           },
         }),
       );

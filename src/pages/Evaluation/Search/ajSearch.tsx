@@ -59,7 +59,7 @@ class AjSearch extends PureComponent {
         const jigouArea = sessionStorage.getItem('user');
         const newjigouArea = JSON.parse(jigouArea);
         this.getSpecialCaseType();
-        this.getCaseStatus();
+        this.getCaseStatus(this.state.record.ajType);
         this.getCaseTypeTree(window.configUrl.is_area);
         this.getDepTree(newjigouArea.department);
         this.setState({
@@ -113,8 +113,8 @@ class AjSearch extends PureComponent {
         this.props.dispatch({
             type: 'common/getCaseTypeTree',
             payload: {
-                ajlb: 'xs', // 案件类别xs,xz
-                is_area: areaNum,
+                ajlb: this.state.ajType === 'xs' ? 'xs' : this.state.ajType === 'xz' ? 'xz' : 'xs,xz', // 案件类别xs,xz
+                is_area: areaNum === '1' ? '1' : '0',
             },
             callback: (data) => {
                 if (data.list) {
@@ -320,7 +320,7 @@ class AjSearch extends PureComponent {
         if (dispatch) {
             dispatch(routerRedux.push({
                 pathname: this.state.record.url,
-                query: isReset ? {selectedRowsId: selectedRowsId} : {}
+                query: isReset ? {selectedRowsId: selectedRowsId,typeId:this.props.location.query.id} : {}
             }));
             if(isReset){
                 dispatch({
@@ -372,11 +372,11 @@ class AjSearch extends PureComponent {
         if (CaseStatusType.length > 0) {
             for (let i = 0; i < CaseStatusType.length; i++) {
                 const item = CaseStatusType[i];
-                if (item.code === '101' || item.code === '102') {
+                // if (item.code === '101' || item.code === '102') {
                     CaseStatusOption.push(
                         <Option key={item.id} value={item.code}>{item.name}</Option>,
                     );
-                }
+                // }
             }
         }
         let XzCaseStatusOption = [];
@@ -400,7 +400,7 @@ class AjSearch extends PureComponent {
                                     initialValue: this.state.ajType,
                                 })(
                                     <Select placeholder="请选择" style={{width: '100%'}} onChange={this.changeAjType}
-                                            getPopupContainer={() => document.getElementById('ajSearchBox')}>
+                                            getPopupContainer={() => document.getElementById('ajSearchBox'+this.props.location.query.id)}>
                                         <Option value="">全部</Option>
                                         <Option value="xs">刑事案件</Option>
                                         <Option value="xz">行政案件</Option>
@@ -443,7 +443,7 @@ class AjSearch extends PureComponent {
                                         placeholder="请输入办案单位"
                                         allowClear
                                         key='badwSelect'
-                                        getPopupContainer={() => document.getElementById('ajSearchBox')}
+                                        getPopupContainer={() => document.getElementById('ajSearchBox'+this.props.location.query.id)}
                                         treeDefaultExpandedKeys={this.state.treeDefaultExpandedKeys}
                                         treeNodeFilterProp="title"
                                     >
@@ -460,7 +460,7 @@ class AjSearch extends PureComponent {
                                     <RangePicker
                                         disabledDate={this.disabledDate}
                                         style={{width: '100%'}}
-                                        getCalendarContainer={() => document.getElementById('ajSearchBox')}
+                                        getCalendarContainer={() => document.getElementById('ajSearchBox'+this.props.location.query.id)}
                                     />,
                                 )}
                             </FormItem>
@@ -473,7 +473,7 @@ class AjSearch extends PureComponent {
                                     <RangePicker
                                         disabledDate={this.disabledDate}
                                         style={{width: '100%'}}
-                                        getCalendarContainer={() => document.getElementById('ajSearchBox')}
+                                        getCalendarContainer={() => document.getElementById('ajSearchBox'+this.props.location.query.id)}
                                     />,
                                 )}
                             </FormItem>
@@ -484,7 +484,7 @@ class AjSearch extends PureComponent {
                                     initialValue: this.state.ajzt,
                                 })(
                                     <Select placeholder="请选择" style={{width: '100%'}}
-                                            getPopupContainer={() => document.getElementById('ajSearchBox')}>
+                                            getPopupContainer={() => document.getElementById('ajSearchBox'+this.props.location.query.id)}>
                                         <Option value="">全部</Option>
                                         {CaseStatusOption}
                                     </Select>,
@@ -506,7 +506,7 @@ class AjSearch extends PureComponent {
                                         placeholder="请输入办案人"
                                         onSearch={this.handleAllPoliceOptionChange}
                                         onFocus={this.handleAllPoliceOptionChange}
-                                        getPopupContainer={() => document.getElementById('ajSearchBox')}
+                                        getPopupContainer={() => document.getElementById('ajSearchBox'+this.props.location.query.id)}
                                     >
                                         {allPoliceOptions}
                                     </Select>,
@@ -526,7 +526,7 @@ class AjSearch extends PureComponent {
                                         allowClear
                                         key='cjdwSelect'
                                         treeDefaultExpandedKeys={this.state.treeDefaultExpandedKeys}
-                                        getPopupContainer={() => document.getElementById('ajSearchBox')}
+                                        getPopupContainer={() => document.getElementById('ajSearchBox'+this.props.location.query.id)}
                                         treeNodeFilterProp="title"
                                     >
                                         {depTree && depTree.length > 0 ? this.renderloop(depTree) : []}
@@ -540,7 +540,7 @@ class AjSearch extends PureComponent {
                                     initialValue: this.state.ajzt,
                                 })(
                                     <Select placeholder="请选择" style={{width: '100%'}}
-                                            getPopupContainer={() => document.getElementById('ajSearchBox')}>
+                                            getPopupContainer={() => document.getElementById('ajSearchBox'+this.props.location.query.id)}>
                                         <Option value="">全部</Option>
                                         {XzCaseStatusOption}
                                     </Select>,
@@ -563,7 +563,7 @@ class AjSearch extends PureComponent {
                                         placeholder="请输入办案人"
                                         onSearch={this.handleAllPoliceOptionChange}
                                         onFocus={this.handleAllPoliceOptionChange}
-                                        getPopupContainer={() => document.getElementById('ajSearchBox')}
+                                        getPopupContainer={() => document.getElementById('ajSearchBox'+this.props.location.query.id)}
                                     >
                                         {allPoliceOptions}
                                     </Select>,
@@ -577,7 +577,7 @@ class AjSearch extends PureComponent {
                                 })(
                                     <Select placeholder="请选择" style={{width: '100%'}}
                                             onChange={this.specialCaseOnChange}
-                                            getPopupContainer={() => document.getElementById('ajSearchBox')}>
+                                            getPopupContainer={() => document.getElementById('ajSearchBox'+this.props.location.query.id)}>
                                         <Option value="">全部</Option>
                                         {specialCaseTypeOptions}
                                     </Select>,
@@ -593,7 +593,7 @@ class AjSearch extends PureComponent {
                                         options={this.state.caseTypeTree}
                                         placeholder="请选择案件类别"
                                         changeOnSelect={true}
-                                        getPopupContainer={() => document.getElementById('ajSearchBox')}
+                                        getPopupContainer={() => document.getElementById('ajSearchBox'+this.props.location.query.id)}
                                         showSearch={
                                             {
                                                 filter: (inputValue, path) => {
@@ -771,7 +771,7 @@ class AjSearch extends PureComponent {
             }),
         };
         return (
-            <div id={'ajSearchBox'}>
+            <div id={'ajSearchBox'+this.props.location.query.id}>
                 <div className={styles.standardTable}>
                     <Table
                         rowSelection={rowSelection}

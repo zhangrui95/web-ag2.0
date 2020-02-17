@@ -138,6 +138,7 @@ export default class DossierDetail extends PureComponent {
             fromPath: '/dossierPolice/DossierData/DossierDetail',
             wtflId: '203206',
             wtflMc: '卷宗',
+            tabName: '问题判定'
           },
         }),
       );
