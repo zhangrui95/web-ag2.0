@@ -35,6 +35,7 @@ export default class PersonalDoc extends PureComponent {
         caseTypeTreeXZ: [], // 案件类别树
         caseTypeTreeXS: [], // 案件类别树
         ajlbqf: '', // 查询案件类别时的区分是行政还是刑事
+        salx:'',
     };
 
     componentDidMount() {
@@ -446,7 +447,9 @@ export default class PersonalDoc extends PureComponent {
                         </Col>
                         <Col {...colLayout}>
                             <FormItem label="人员性别" {...formItemLayout}>
-                                {getFieldDecorator('sex', {})(
+                                {getFieldDecorator('sex', {
+                                    initialValue: '',
+                                })(
                                     <Select placeholder="请选择人员性别" style={{width: '100%'}}
                                             getPopupContainer={() => document.getElementById('formPersonFile')}>
                                         <Option value="">全部</Option>
@@ -540,7 +543,9 @@ export default class PersonalDoc extends PureComponent {
                         </Col>
                         <Col {...colLayout}>
                             <FormItem label="强制措施" {...formItemLayout}>
-                                {getFieldDecorator('qzcslx', {})(
+                                {getFieldDecorator('qzcslx', {
+                                    initialValue: '',
+                                })(
                                     <Select placeholder="请选择强制措施" style={{width: '100%'}}
                                             getPopupContainer={() => document.getElementById('formPersonFile')}>
                                         <Option value="">全部</Option>

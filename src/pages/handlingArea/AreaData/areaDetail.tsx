@@ -1393,7 +1393,7 @@ export default class areaDetail extends PureComponent {
         style={{ background: dark ? '#252c3c' : '#fff', height: autoheight() - 260 + 'px' }}
         className={styles.detailBoxScroll}
       >
-        <div style={{ paddingRight: 84, height: 'auto' }}>
+        <div style={{  height: 'auto' }}>
           {areaDetails && areaDetails.ajxx ? (
             <div style={{ float: 'right', padding: '16px' }}>
               <Button
