@@ -384,11 +384,11 @@ export default class PoliceDataView extends PureComponent {
                 series: [
                   {
                     data: dataShadow,
-                      barWidth: 10,
+                      barWidth: 20,
                   },
                   {
                     data: barData,
-                      barWidth: 10,
+                      barWidth: 20,
                   },
                 ],
               });

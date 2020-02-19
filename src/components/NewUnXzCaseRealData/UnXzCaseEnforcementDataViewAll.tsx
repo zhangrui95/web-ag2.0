@@ -186,7 +186,7 @@ export default class UnXzCaseDataView extends PureComponent {
                             },
                             series: [{
                                 data: barData,
-                                barWidth: 10,
+                                barWidth: 20,
                             }],
                         });
                     }

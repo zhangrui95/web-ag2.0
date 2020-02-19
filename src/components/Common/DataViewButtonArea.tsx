@@ -24,6 +24,7 @@ import {
 } from 'antd';
 import moment from 'moment/moment';
 import style from './DataViewButtonArea.less';
+import {getUserInfos} from "@/utils/utils";
 
 const {RangePicker} = DatePicker;
 
@@ -139,6 +140,7 @@ export default class DataViewButtonArea extends PureComponent {
                   treeDefaultExpandedKeys={treeDefaultExpandedKeys}
                   treeNodeFilterProp="title"
                   getPopupContainer={() => document.getElementById('tongjiCommon' + pathname)}
+                  defaultValue={getUserInfos().department}
               >
                 {depTree && depTree.length > 0 ? renderloop(depTree) : []}
               </TreeSelect>

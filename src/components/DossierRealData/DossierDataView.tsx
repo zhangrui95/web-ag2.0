@@ -268,11 +268,11 @@ export default class DossierDataView extends PureComponent {
                         series: [
                             {
                                 data: dataShadow,
-                                barWidth: 10,
+                                barWidth: 20,
                             },
                             {
                                 data: newData1,
-                                barWidth: 10,
+                                barWidth: 20,
                             },
                         ],
                     });

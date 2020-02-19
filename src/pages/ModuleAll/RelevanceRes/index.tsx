@@ -66,9 +66,10 @@ export default class IntoArea extends PureComponent {
             {
                 title: '物品名称',
                 dataIndex: 'wpmc',
+                width:'40%',
                 render: text => {
                     return text ? (
-                        <Ellipsis length={10} tooltip>
+                        <Ellipsis lines={1} tooltip>
                             {text}
                         </Ellipsis>
                     ) : (
@@ -79,9 +80,10 @@ export default class IntoArea extends PureComponent {
             {
                 title: '物品种类',
                 dataIndex: 'wpzlMc',
+                width:'40%',
                 render: text => {
                     return text ? (
-                        <Ellipsis length={20} tooltip>
+                        <Ellipsis lines={1} tooltip>
                             {text}
                         </Ellipsis>
                     ) : (
@@ -104,8 +106,8 @@ export default class IntoArea extends PureComponent {
                 <Table
                     style={{ borderRadius: 10 }}
                     pagination={{
-                        pageSize: 3,
-                        showTotal: (total, range) => <div style={{color: '#b7b7b7'}}>共 {(Math.ceil(total / 3))} 页， {total} 条记录</div>,
+                        pageSize: 10,
+                        showTotal: (total, range) => <div style={{color: '#b7b7b7'}}>共 {(Math.ceil(total / 10))} 页， {total} 条记录</div>,
                         onChange: (page) => {
                             this.setState({jqcurrent: page});
                         },

@@ -693,7 +693,7 @@ export default class Index extends PureComponent {
                         <FormItem label="物品名称" {...formItemLayout}>
                             {getFieldDecorator('wpmc', {
                                 // initialValue: this.state.caseType,
-                                rules: [{max: 128, message: '最多输入128个字！'}],
+                                // rules: [{max: 128, message: '最多输入128个字！'}],
                             })(
                                 <Input placeholder="请输入案件名称"/>,
                             )}
@@ -750,7 +750,7 @@ export default class Index extends PureComponent {
                         <FormItem label="案件名称" {...formItemLayout}>
                             {getFieldDecorator('ajmc', {
                                 // initialValue: this.state.caseType,
-                                rules: [{max: 128, message: '最多输入128个字！'}],
+                                // rules: [{max: 128, message: '最多输入128个字！'}],
                             })(
                                 <Input placeholder="请输入案件名称"/>,
                             )}
@@ -834,7 +834,7 @@ export default class Index extends PureComponent {
                     <Col {...colLayout}>
                         <FormItem label="库管员" {...formItemLayout}>
                             {getFieldDecorator('kfgly', {
-                                rules: [{max: 32, message: '最多输入32个字！'}],
+                                //rules: [{max: 32, message: '最多输入32个字！'}],
                             })(
                                 <Select
                                     mode="combobox"

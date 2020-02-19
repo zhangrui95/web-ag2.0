@@ -1,6 +1,6 @@
 import React, {useState, useEffect, PureComponent} from 'react';
 import {connect} from 'dva';
-import {Col, Divider, Radio, Row, Spin, Table, Timeline, Transfer, Card, Empty, Button, message} from 'antd';
+import {Col, Divider, Radio, Row, Spin, Table, Timeline, Transfer, Card, Empty, Button, message, Modal} from 'antd';
 import 'ant-design-pro/dist/ant-design-pro.css';
 import styles from "@/components/AjEvaluation/EvaluationTable.less";
 import {WaterWave} from "ant-design-pro/lib/Charts";
@@ -10,7 +10,7 @@ import {NavigationItem} from "@/components/Navigation/navigation";
 import {routerRedux} from "dva/router";
 import noListLight from "@/assets/viewData/noListLight.png";
 import Ellipsis from "ant-design-pro/lib/Ellipsis";
-
+const confirm = Modal.confirm;
 @connect(({Evaluation, global}) => ({
     Evaluation, global
 }))
@@ -44,9 +44,15 @@ export default class Detail extends PureComponent {
         btnLoading:true,
       });
         let kpxx = [];
+        let num = 0;
         this.state.targetKeys.map((event) => {
             this.state.allList.map((item) => {
                 if (event === item.id) {
+                    if(item.xm_type === '0'){
+                        num = num - parseInt(item.fz);
+                    }else{
+                        num = num + parseInt(item.fz);
+                    }
                     kpxx.push({
                         ajbh: this.state.recordKp && this.state.recordKp.ajbh ? this.state.recordKp.ajbh : '',
                         ajkp_pz_id: event,
@@ -64,6 +70,46 @@ export default class Detail extends PureComponent {
                 }
             })
         });
+        let allNum = this.state.detail.total_score + num;
+        if(allNum < 0){
+            let that = this;
+            confirm({
+                title: '您的考评将低于最低分数0分，是否仍要执行当前操作？',
+                centered: true,
+                okText: '确认',
+                cancelText: '取消',
+                getContainer: document.getElementById('messageBox'),
+                onOk() {
+                    that.getSaveAllNum(kpxx);
+                },
+                onCancel() {
+                    that.setState({
+                        btnLoading:false,
+                    });
+                },
+            });
+        }else if(allNum > 100){
+            let that = this;
+            confirm({
+                title: '您的考评将超过最高分数100分，是否仍要执行当前操作？',
+                centered: true,
+                okText: '确认',
+                cancelText: '取消',
+                getContainer: document.getElementById('messageBox'),
+                onOk() {
+                    that.getSaveAllNum(kpxx);
+                },
+                onCancel() {
+                    that.setState({
+                        btnLoading:false,
+                    });
+                },
+            });
+        }else{
+            this.getSaveAllNum(kpxx);
+        }
+    }
+    getSaveAllNum = (kpxx) =>{
         if (this.state.targetKeys && this.state.targetKeys.length > 0) {
             this.props.dispatch({
                 type: 'Evaluation/saveAjkpXx',
@@ -75,13 +121,16 @@ export default class Detail extends PureComponent {
                     this.onEdit(true);
                     this.getKhDetail(this.state.recordKp, '', true);
                     this.setState({
-                       targetKeys: [],
-                       btnLoading:false,
+                        targetKeys: [],
+                        btnLoading:false,
                     });
                 }
             });
         } else {
             message.warn('请选择考评项目');
+            this.setState({
+                btnLoading:false,
+            });
         }
     }
     getList = (type) => {//获取考评项目
@@ -139,6 +188,7 @@ export default class Detail extends PureComponent {
         this.getList(e.target.value);
     }
     onChange = (nextTargetKeys) => {
+        console.log('nextTargetKeys------>',nextTargetKeys);
         this.setState({targetKeys: nextTargetKeys});
     };
     getKpjl = (e) => {
@@ -319,10 +369,10 @@ export default class Detail extends PureComponent {
                                 }
                             </Col>
                             <Col span={19} className={styles.topDetail}>
-                                <Col span={24}>案件名称：<a
-                                    onClick={() => this.openCaseDetail(this.state.recordKp.ajlx, this.state.recordKp)}>{this.state.recordKp && this.state.recordKp.ajmc ? this.state.recordKp.ajmc : ''}</a></Col>
+                                <Col span={24}>案件名称：{this.state.recordKp && this.state.recordKp.ajmc ? this.state.recordKp.ajmc : ''}</Col>
                                 <Col
-                                    span={12}>案件编号：{this.state.recordKp && this.state.recordKp.ajbh ? this.state.recordKp.ajbh : ''}</Col>
+                                    span={12}>案件编号：<a
+                                    onClick={() => this.openCaseDetail(this.state.recordKp.ajlx, this.state.recordKp)}>{this.state.recordKp && this.state.recordKp.ajbh ? this.state.recordKp.ajbh : ''}</a></Col>
                                 <Col
                                     span={6}>案件状态：{this.state.recordKp && this.state.recordKp.ajzt ? this.state.recordKp.ajzt : ''}</Col>
                                 <Col

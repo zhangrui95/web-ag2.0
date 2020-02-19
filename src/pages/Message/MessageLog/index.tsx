@@ -417,7 +417,7 @@ class MessageLog extends Component {
                             <FormItem label="&nbsp;&nbsp;&nbsp; 接收人" {...formItemLayout}>
                                 {getFieldDecorator('jsr', {
                                     // initialValue: this.state.gzry,
-                                    rules: [{max: 32, message: '最多输入32个字！'}],
+                                    //rules: [{max: 32, message: '最多输入32个字！'}],
                                 })(
                                     <Select
                                         mode="combobox"
@@ -476,7 +476,7 @@ class MessageLog extends Component {
                             <FormItem label="推送事项" {...formItemLayout}>
                                 {getFieldDecorator('tssx', {
                                     // initialValue: this.state.gzry,
-                                    rules: [{max: 32, message: '最多输入32个字！'}],
+                                    //rules: [{max: 32, message: '最多输入32个字！'}],
                                 })(
                                     <Select
                                         placeholder="请选择推送事项"

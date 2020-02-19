@@ -439,7 +439,7 @@ export default class PersonalDoc extends PureComponent {
                             <FormItem label="涉案人员" {...formItemLayout}>
                                 {getFieldDecorator('name', {
                                     // initialValue: this.state.caseType,
-                                    rules: [{max: 32, message: '最多输入32个字！'}],
+                                    //rules: [{max: 32, message: '最多输入32个字！'}],
                                 })(
                                     <Input placeholder="请输入涉案人员"/>,
                                 )}
@@ -480,7 +480,7 @@ export default class PersonalDoc extends PureComponent {
                             <FormItem label="涉案人证件号" {...formItemLayout}>
                                 {getFieldDecorator('sfzh', {
                                     // initialValue: this.state.caseType,
-                                    rules: [{max: 128, message: '最多输入128个字！'}],
+                                    // rules: [{max: 128, message: '最多输入128个字！'}],
                                 })(
                                     <Input placeholder="请输入涉案人证件号"/>,
                                 )}
@@ -490,7 +490,7 @@ export default class PersonalDoc extends PureComponent {
                             <FormItem label="案件名称" {...formItemLayout}>
                                 {getFieldDecorator('ajmc', {
                                     // initialValue: this.state.caseType,
-                                    rules: [{max: 128, message: '最多输入128个字！'}],
+                                    // rules: [{max: 128, message: '最多输入128个字！'}],
                                 })(
                                     <Input placeholder="请输入案件名称"/>,
                                 )}

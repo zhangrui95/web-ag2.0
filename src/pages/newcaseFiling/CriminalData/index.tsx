@@ -13,7 +13,7 @@ import RenderTable from '../../../components/NewCaseRealData/RenderTable';
 import CaseDataView from '../../../components/NewCaseRealData/CaseEnforcementDataViewAll';
 // import SeniorSearchModal from '../../components/NewCaseRealData/SeniorSearchModal';
 import DataViewButtonArea from '../../../components/Common/DataViewButtonArea';
-import {exportListDataMaxDays, getQueryString, tableList} from '../../../utils/utils';
+import {exportListDataMaxDays, getQueryString, getUserInfos, tableList} from '../../../utils/utils';
 import SyncTime from '../../../components/Common/SyncTime';
 
 const FormItem = Form.Item;
@@ -47,7 +47,7 @@ export default class Index extends PureComponent {
         typeButtons: 'week', // 图表展示类别（week,month）
         current: '',
         selectedDateVal: null, // 手动选择的日期
-        selectedDeptVal: '', // 手动选择机构
+        selectedDeptVal: getUserInfos().department, // 手动选择机构
         is_tz: '0',
         treeDefaultExpandedKeys: [], // 办案单位树默认展开keys
         seniorSearchModalVisible: false, // 高级查询框
@@ -455,8 +455,8 @@ export default class Index extends PureComponent {
             const xaisAfterDate = newformValues.xarq_js && newformValues.xarq_ks ? moment(newformValues.xarq_js).isAfter(moment(newformValues.xarq_ks).add(exportListDataMaxDays, 'days')) : true;
             const jaisAfterDate = newformValues.jarq_js && newformValues.jarq_ks ? moment(newformValues.jarq_js).isAfter(moment(newformValues.jarq_ks).add(exportListDataMaxDays, 'days')) : true;
             const isAfterDate2 = newformValues.qsrq_js && newformValues.qsrq_ks ? moment(newformValues.qsrq_js).isAfter(moment(newformValues.qsrq_ks).add(exportListDataMaxDays, 'days')) : true;
-            console.log('laisAfterDate',laisAfterDate);
-            console.log('isAfterDate2',isAfterDate2);
+            // console.log('laisAfterDate',laisAfterDate);
+            // console.log('isAfterDate2',isAfterDate2);
             if (saisAfterDate && laisAfterDate && paisAfterDate && xaisAfterDate && jaisAfterDate&& isAfterDate2) { // 选择时间间隔应小于exportListDataMaxDays
                 message.warning(`日期间隔需小于${exportListDataMaxDays}天`);
             }
@@ -726,7 +726,7 @@ export default class Index extends PureComponent {
                         <FormItem label="案件名称" {...formItemLayout}>
                             {getFieldDecorator('ajmc', {
                                 // initialValue: this.state.caseType,
-                                rules: [{max: 128, message: '最多输入128个字！'}],
+                                // rules: [{max: 128, message: '最多输入128个字！'}],
                             })(
                                 <Input placeholder="请输入案件名称"/>,
                             )}
@@ -842,7 +842,7 @@ export default class Index extends PureComponent {
                         <FormItem label="&nbsp;&nbsp;&nbsp; 办案人" {...formItemLayout}>
                             {getFieldDecorator('bar', {
                                 // initialValue: this.state.gzry,
-                                rules: [{max: 32, message: '最多输入32个字！'}],
+                                //rules: [{max: 32, message: '最多输入32个字！'}],
                             })(
                                 <Select
                                     mode="combobox"

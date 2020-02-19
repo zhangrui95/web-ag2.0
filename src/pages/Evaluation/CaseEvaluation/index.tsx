@@ -15,6 +15,7 @@ import {
   Cascader,
   Card,
   Icon,
+  Tooltip
 } from 'antd';
 import moment from 'moment/moment';
 import styles from './index.less';
@@ -41,7 +42,8 @@ const formItemLayout = {
 };
 const rowLayout = { md: 8, xl: 16, xxl: 24 };
 const colLayout = { sm: 24, md: 12, xl: 8 };
-const colLayouts = { sm: 12, md: 12, xl: 10, xxl: 9 };
+const colLayouts = { sm: 12, md: 12, xl: 10, xxl: 10 };
+const colLayoutRqs = { sm: 12, md: 12, xl: 10, xxl: 8 };
 const colLayoutBox = { sm: 15, md: 15, xl: 14, xxl: 15 };
 const formItemLayoutRadio = {
   labelCol: { xs: { span: 24 }, md: { span: 10 }, xl: { span: 4 }, xxl: { span: 7 } },
@@ -101,6 +103,9 @@ export default class Index extends PureComponent {
       reset: false,
       treeDefaultExpandedKeys: [], // 办案单位树默认展开keys
       tbtz: '0',
+      name:'',
+      nameList:'',
+      nameLength:0,
     };
     const jigouArea = sessionStorage.getItem('user');
     const newjigouArea = JSON.parse(jigouArea);
@@ -542,7 +547,18 @@ export default class Index extends PureComponent {
       searchHeight: !this.state.searchHeight,
     });
   };
-
+    getChangeTree = (e,event) =>{
+        this.setState({
+            name:event.length > 1 && event[1] ? event[1] : '',
+            nameLength:event.length,
+        });
+        if(event.length > 1 ){
+            event.splice(0, 2);
+            this.setState({
+                nameList:event.toString(),
+            });
+        }
+    }
   tbrenderForm() {
     const {
       form: { getFieldDecorator },
@@ -574,11 +590,14 @@ export default class Index extends PureComponent {
                     placeholder="请输入被考评单位"
                     allowClear={false}
                     key="bkpdwTbSelect"
-                    maxTagCount={1}
+                    maxTagCount={2}
+                    maxTagTextLength={8}
+                    maxTagPlaceholder={()=> <Tooltip title={this.state.nameList ? this.state.nameList : null}>{this.state.nameLength&&this.state.nameLength > 2 ? this.state.nameList.substring(0,2)+'…' : ''}</Tooltip>}
                     treeNodeFilterProp={'title'}
                     showCheckedStrategy={SHOW_PARENT}
                     treeDefaultExpandedKeys={this.state.treeDefaultExpandedKeys}
                     getPopupContainer={() => document.getElementById('formCaseEvaluation')}
+                    onChange={this.getChangeTree}
                   >
                     {deptrees && deptrees.length > 0 ? (
                       this.renderloop(deptrees)
@@ -612,7 +631,7 @@ export default class Index extends PureComponent {
                 )}
               </FormItem>
             </Col>
-            <Col {...colLayouts}>
+            <Col {...colLayoutRqs}>
               <FormItem label="考评日期" {...formItemLayoutShow}>
                 {getFieldDecorator('kprqTb', {
                   initialValue: this.state.kprqTb,
@@ -625,7 +644,7 @@ export default class Index extends PureComponent {
                 )}
               </FormItem>
             </Col>
-            <Col {...colLayoutBox}>
+            <Col {...colLayoutBox} style={{marginLeft:'10px'}}>
               <FormItem label="统计内容" {...formItemLayoutRadios}>
                 {getFieldDecorator('tjnr', {
                   initialValue: this.state.tjnr,
@@ -764,7 +783,7 @@ export default class Index extends PureComponent {
             <Col {...colLayout}>
               <FormItem label="被考评人" {...formItemLayout}>
                 {getFieldDecorator('bkpr', {
-                  rules: [{ max: 32, message: '最多输入32个字！' }],
+                  // rules: [{ max: 32, message: '最多输入32个字！' }],
                 })(
                   <Select
                     mode="combobox"

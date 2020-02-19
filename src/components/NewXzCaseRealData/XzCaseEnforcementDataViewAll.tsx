@@ -313,7 +313,7 @@ export default class XzCaseEnforcementDataView extends PureComponent {
                                 series: [
                                     {
                                         data: barData,
-                                        barWidth: 10,
+                                        barWidth: 20,
                                     },
                                 ],
                             });
@@ -457,7 +457,7 @@ export default class XzCaseEnforcementDataView extends PureComponent {
                         series: [
                             {
                                 data: barData,
-                                barWidth: 10,
+                                barWidth: 20,
                             },
                         ],
                     });
