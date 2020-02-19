@@ -181,12 +181,17 @@ export default class areaDetail extends PureComponent {
   }
 
   onceSupervise = (areaDetails, flag, from) => {
+      let res = {
+          system_id: areaDetails.system_id,
+          id: areaDetails.id,
+          zrdwList:areaDetails.zrdwList
+      }
     if (areaDetails) {
       this.props.dispatch(
         routerRedux.push({
           pathname: '/ModuleAll/Supervise',
           query: {
-            record: areaDetails,
+            record: res,
             id: areaDetails && areaDetails.id ? areaDetails.id : '1',
             from: '办案区详情问题判定',
             tzlx: 'baqxx',
@@ -423,11 +428,15 @@ export default class areaDetail extends PureComponent {
   };
   // 台账
   Ledger = res => {
+      let record = {
+          system_id: res.system_id,
+          id: res.id
+      }
     this.props.dispatch(
       routerRedux.push({
         pathname: '/ModuleAll/PersonLedger',
         query: {
-          record: res,
+          record: record,
           id: res && res.system_id ? res.system_id : '1',
           // from: this.state.lx,
           // tzlx: this.state.tzlx,
@@ -1054,12 +1063,16 @@ export default class areaDetail extends PureComponent {
   };
   // 根据案件编号打开案件窗口
   openCaseDetail = areaDetails => {
+      let res = {
+          system_id: areaDetails.system_id,
+          id: areaDetails.id
+      }
     if (areaDetails.ajxx.ajlx === '22001') {
       // 刑事案件
       this.props.dispatch(
         routerRedux.push({
           pathname: '/newcaseFiling/caseData/CriminalData/caseDetail',
-          query: { id: areaDetails.ajxx.system_id, record: areaDetails },
+          query: { id: areaDetails.ajxx.system_id, record: res },
         }),
       );
       // const divs = (
@@ -1077,7 +1090,7 @@ export default class areaDetail extends PureComponent {
       this.props.dispatch(
         routerRedux.push({
           pathname: '/newcaseFiling/caseData/AdministrationData/caseDetail',
-          query: { id: areaDetails.ajxx.system_id, record: areaDetails },
+          query: { id: areaDetails.ajxx.system_id, record: res },
         }),
       );
       // const divs = (

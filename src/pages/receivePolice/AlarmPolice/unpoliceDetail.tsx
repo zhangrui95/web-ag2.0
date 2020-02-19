@@ -140,7 +140,7 @@ export default class unpoliceDetail extends PureComponent {
             this.props.dispatch(
                 routerRedux.push({
                     pathname: '/newcaseFiling/caseData/CriminalData/caseDetail',
-                    query: {record: policeDetails, id: policeDetails.system_id},
+                    query: {record: policeDetails, id: policeDetails.ajbh},
                 }),
             );
             // const divs = (
@@ -158,7 +158,7 @@ export default class unpoliceDetail extends PureComponent {
             this.props.dispatch(
                 routerRedux.push({
                     pathname: '/newcaseFiling/caseData/AdministrationData/caseDetail',
-                    query: {record: policeDetails, id: policeDetails.system_id},
+                    query: {record: policeDetails, id: policeDetails.ajbh},
                 }),
             );
             // const divs = (

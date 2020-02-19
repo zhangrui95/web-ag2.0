@@ -180,6 +180,8 @@ export default class SupervisionLog extends PureComponent {
       }
     }
     let dark = this.props.global && this.props.global.dark;
+    console.log('detailData------->',detailData);
+    console.log('问题类型------->',detailData && detailData.wtlx ? detailData.wtlx : '');
     return (
       <div className={dark ? '' : styles.lightBox}>
         {detailData && detailData.dbList && detailData.dbList.length > 0 ? (

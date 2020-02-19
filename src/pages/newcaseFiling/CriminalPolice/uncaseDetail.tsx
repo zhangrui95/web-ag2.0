@@ -122,7 +122,7 @@ export default class uncaseDetail extends PureComponent {
       nextProps.global.isResetList.url === '/newcaseFiling/casePolice/CriminalPolice/uncaseDetail'
     ) {
       this.caseDetailDatas(
-        nextProps.location.query.record.id,
+        nextProps.location.query.record.wtid,
         nextProps.location.query.record.system_id,
       );
     }
