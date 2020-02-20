@@ -1,0 +1,69 @@
+@import '~antd/lib/style/themes/default.less';
+@import '../../utils/utils.less';
+@import '../../theme/darkTheme.less';
+
+.tableListForm {
+  background-color: @component-background;
+  padding: 16px 24px;
+  margin: 16px 0;
+  border-radius: 10px;
+  .submitButtons {
+    white-space: nowrap;
+    margin-bottom: 24px;
+  }
+}
+
+.tableListOperator {
+  //background-color: @body-background;
+  margin-bottom: 48px;
+
+  button {
+    margin-right: 8px;
+  }
+}
+
+.listPageWrap {
+  padding: 10px 0 !important;
+  margin-top: 16px;
+
+  :global {
+    .ant-form-inline .ant-form-item {
+      display: block;
+    }
+
+    .ant-table-thead > tr > th,
+    .ant-table-tbody > tr > td {
+      //text-align: center;
+    }
+  }
+}
+
+.search {
+  width: 260px;
+  float: left;
+  margin: 4px 0 0 12px;
+}
+
+.searchForm {
+  width: calc(~'100% - 260px');
+  float: left;
+  border-right: 1px solid @body-background;
+  overflow: hidden;
+}
+
+
+
+
+
+.lightFromBox {
+  .tableListForm {
+    background-color: #fff;
+    border-radius: 10px;
+  }
+  .listPageWrap{
+    background: #fff!important;
+  }
+  .searchForm {
+    border-right: 1px solid #DBDBDB !important;
+  }
+}

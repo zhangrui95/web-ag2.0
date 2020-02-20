@@ -19,7 +19,8 @@ import {
     getCaseManagementDicts,
     getPoliceTypeTreeServices,
     getDepPcsTree,
-    getDictTypeOld
+    getDictTypeOld,
+    getfbdwzllxDict,
 } from '../services/common';
 import {ddjl} from '../services/Dispatch';
 
@@ -82,6 +83,9 @@ export default {
         handleStatusDict: [], // 警情处理状态
         jqType: [], //警情状态
         xmType: [], //项目类型
+        FbdwTypeData:[], // 发布单位
+        ZllxTypeData:[], // 资料类型
+
     },
 
     effects: {
@@ -603,6 +607,36 @@ export default {
             });
             if (callback && !response.error && response.data) callback(response.data);
         },
+        // 获取发布单位字典 资料类型字典
+        * getfbdwDictType({payload, callback}, {call, put}) {
+          const response = yield call(getfbdwzllxDict, payload);
+          if (payload.pd.id === '587e4f3b-70c0-448a-a7df-a9ca78d4919a') {
+            // 发布单位
+            yield put({
+              type: 'returnfbdwType',
+              payload: response && response.error === null && response.data && response.data.list ? response.data.list : [],
+            });
+            if (callback && response) {
+              callback(response);
+            }
+          }
+          if (payload.pd.id === 'e71fc6ad-d568-4d27-ba9c-00ea0cfdebfb') {
+            // 资料类型
+            yield put({
+              type: 'returnzllxType',
+              payload: response && response.error === null && response.data && response.data.list ? response.data.list : [],
+            });
+            if (callback && response) {
+              callback(response);
+            }
+          }
+          // yield put({
+          //   type: 'setSyncTime',
+          //   payload: response && response.error === null ? response.data : [],
+          // });
+          // if (callback && !response.error && response.data) callback(response.data);
+        },
+
     },
 
     reducers: {
@@ -935,6 +969,18 @@ export default {
                 ...state,
                 handleStatusDict: action.payload,
             };
+        },
+        returnfbdwType(state, action) {
+          return {
+            ...state,
+            FbdwTypeData: action.payload,
+          };
+        },
+        returnzllxType(state, action) {
+          return {
+            ...state,
+            ZllxTypeData: action.payload,
+          };
         },
     },
 };

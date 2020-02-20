@@ -1,0 +1,466 @@
+/*
+* AlarmData/index.js 在线学习
+* author：jhm
+* 20200218
+* */
+
+import React, {PureComponent} from 'react';
+import {connect} from 'dva';
+import {
+  Row,
+  Col,
+  Form,
+  Select,
+  TreeSelect,
+  Input,
+  Button,
+  DatePicker,
+  Tabs,
+  Radio,
+  message,
+  Cascader,
+  Icon,
+  Card,Icon,Upload
+} from 'antd';
+import moment from 'moment/moment';
+import styles from './Learning.less';
+import learningRenderTable from '../../components/Show/learningTable';
+import RenderTable from '../../components/Show/learningTable';
+import {exportListDataMaxDays, getQueryString, tableList} from '../../utils/utils';
+import {routerRedux} from "dva/router";
+
+
+const FormItem = Form.Item;
+const {Option} = Select;
+const {RangePicker} = DatePicker;
+const TabPane = Tabs.TabPane;
+const TreeNode = TreeSelect.TreeNode;
+const RadioGroup = Radio.Group;
+let timeout;
+let currentValue;
+
+@connect(({Learning,common}) => ({
+  Learning,common,
+  // loading: loading.models.alarmManagement,
+}))
+@Form.create()
+export default class Index extends PureComponent {
+  state = {
+    searchHeight: false, // 查询条件展开筛选
+    dataList:'', // 数据列表
+    formValues:'', // 条件
+    fileList: [],
+    fbdwData:[], // 发布单位字典
+    zllxData:[], // 资料类型字典
+  };
+
+
+  componentDidMount() {
+    this.getfbdwList(); // 发布单位
+    this.getzllxList(); // 资料类型
+    const param = {
+      currentPage: 1,
+      pd: {},
+      showCount: tableList,
+    }
+    this.getDataList(param); // 获取文件列表
+  }
+
+  componentWillReceiveProps(nextProps) {
+
+  }
+
+  // 发布单位字典
+  getfbdwList = () => {
+    this.props.dispatch({
+      type:'common/getfbdwDictType',
+      payload:{
+        currentPage: 1,
+        pd: {id: "587e4f3b-70c0-448a-a7df-a9ca78d4919a", name: "", appCode: "106305"},
+        showCount: tableList,
+      },
+      callback:(data)=>{
+
+      }
+    })
+  }
+
+  // 资料类型字典
+  getzllxList = () => {
+    this.props.dispatch({
+      type:'common/getfbdwDictType',
+      payload:{
+        currentPage: 1,
+        pd: {id: "e71fc6ad-d568-4d27-ba9c-00ea0cfdebfb", name: "", appCode: "106305"},
+        showCount: tableList,
+      },
+      callback:(data)=>{
+
+      }
+    })
+  }
+
+  getDataList = (param) => {
+    this.props.dispatch({
+      type:'Learning/getLearningList',
+      payload:param?param:'',
+      callback:(data)=>{
+        this.setState({
+          dataList:data,
+        })
+        // console.log('data',data);
+      }
+    })
+  }
+
+
+  // 无法选择的日期
+  disabledDate = current => {
+    // Can not select days before today and today
+    return current && current.valueOf() > Date.now();
+  };
+
+  // 展开筛选和关闭筛选
+  getSearchHeight = () => {
+    this.setState({
+      searchHeight: !this.state.searchHeight,
+    });
+  }
+
+  // 导出
+  exportData = () => {
+    const {formValues} = this.state;
+    const values = this.props.form.getFieldsValue();
+    const scTime = values.scsj;
+    if (scTime && scTime.length > 0) {
+      const isAfterDate = moment(formValues.scsj_js).isAfter(moment(formValues.scsj_ks).add(exportListDataMaxDays, 'days'));
+      if (isAfterDate) { // 选择时间间隔应小于exportListDataMaxDays
+        message.warning(`日期间隔需小于${exportListDataMaxDays}天`);
+      } else {
+        this.props.dispatch({
+          type: 'common/exportData',
+          payload: {
+            tableType: '1',
+            sqdd_type: '2',
+            ...formValues,
+          },
+          callback: (data) => {
+            if (data.text) {
+              message.error(data.text);
+            } else {
+              window.open(configUrl.serverUrl + data.url);
+            }
+          },
+        });
+      }
+    } else {
+      message.warning(`请选择需要导出的数据日期，日期间隔需小于${exportListDataMaxDays}天`);
+    }
+  };
+
+
+  // 资料删除
+  deleteData = () => {
+
+  }
+
+  // 表格分页
+  handleTableChange = (pagination, filtersArg, sorter) => {
+    const {formValues} = this.state;
+    const params = {
+      pd: {
+        ...formValues,
+      },
+      currentPage: pagination.current,
+      showCount: pagination.pageSize,
+    };
+    this.getDataList(params);
+  };
+
+  // 查询
+  handleSearch = (e) => {
+    if (e) e.preventDefault();
+    // const values = this.props.form.getFieldsValue();
+    this.props.form.validateFields((err, values) => {
+      if (!err) {
+        const formValues = {
+          scsj_ks:values.scsj[0],
+          scsj_js:values.scsj[1],
+          zllx:values.zllx,
+          fbdw:values.fbdw,
+          zlmc:values.zlmc,
+        };
+        this.setState({
+          formValues,
+        });
+        const params = {
+          currentPage: 1,
+          showCount: tableList,
+          pd: {
+            ...formValues,
+          },
+        };
+        this.getDataList(params);
+      }
+    })
+  };
+
+  // 重置
+  handleFormReset = () => {
+    this.props.form.resetFields();
+    this.setState({
+      formValues:'',
+    })
+    const params = {
+      currentPage: 1,
+      showCount: tableList,
+      pd: {
+
+      },
+    };
+    this.getDataList(params);
+  };
+
+  // 导入资料
+  importData = () => {
+    const {form: {getFieldDecorator}, common: {FbdwTypeData, ZllxTypeData}} = this.props;
+    this.props.dispatch(
+      routerRedux.push({
+        pathname: '/ModuleAll/ImportData',
+        query: {
+          record: FbdwTypeData,
+          // searchDetail: record,
+          // id: NewDossierDetail && NewDossierDetail.id ? NewDossierDetail.id : '1',
+          // from: '督办',
+          // tzlx: 'jzwt',
+          fromPath: '/ShowData/Learning',
+          // tab: '表格',
+        },
+      }),
+    );
+  }
+
+  // beforeUploadFun = (file, fileList) => {
+  //   const allowTypeArry = ['rar', 'zip', 'doc', 'docx', 'pdf', 'jpg', 'png', 'bmp', 'mp4'];
+  //   const nameArry = file.name.split('.');
+  //   const fileType = nameArry[nameArry.length - 1];
+  //   const isLt50M = file.size / 1024 / 1024 < 50;
+  //   if (!isLt50M) {
+  //     message.error('上传的文件大小不能超过50M');
+  //   }
+  //   const allowType = allowTypeArry.includes(fileType);
+  //   if (!allowType) {
+  //     message.error('支持扩展名：.rar .zip .doc .docx .pdf .jpg .png .bmp .mp4',);
+  //   }
+  //   return isLt50M && allowType;
+  // };
+  //
+  // handleChange = info => {
+  //   let fileList = info.fileList;
+  //   for (let i = 0; i < fileList.length; i++) {
+  //     let file = fileList[i];
+  //     const allowTypeArry = ['rar', 'zip', 'doc', 'docx', 'pdf', 'jpg', 'png', 'bmp', 'mp4'];
+  //     const nameArry = file.name.split('.');
+  //     const fileType = nameArry[nameArry.length - 1];
+  //     const isLt50M = file.size / 1024 / 1024 < 50;
+  //     if (!isLt50M) {
+  //       return false;
+  //     }
+  //     const allowType = allowTypeArry.includes(fileType);
+  //     if (!allowType) {
+  //       return false;
+  //     }
+  //   }
+  //   fileList = fileList.map(file => {
+  //     if (file.response && file.response.data) {
+  //       file.url = file.response.data.url;
+  //     }
+  //     return file;
+  //   });
+  //   // 3. Filter successfully uploaded files according to response from server
+  //   // fileList = fileList.filter(file => {
+  //   //   if (file.response) {
+  //   //     return file.response.error === null;
+  //   //   }
+  //   //   return true;
+  //   // });
+  //   this.setState({ fileList });
+  //   this.getinfoview(fileList);
+  //
+  // };
+
+  // 点击文件查看
+  fileOnPreview = file => {
+    // console.log('file',file);
+    // this.props.dispatch({
+    //     type: 'common/downFile',
+    //     payload: {
+    //         name: file.name,
+    //         url: file.url,
+    //     },
+    // })
+    window.open('http://'+file.response.fileUrl);
+  };
+
+  renderForm() {
+    const {form: {getFieldDecorator}, common: {FbdwTypeData, ZllxTypeData}} = this.props;
+    // console.log('ZllxTypeData',ZllxTypeData);
+    let zllxAlarmDictOptions = [], fblxAlarmDictOptions = [];
+    if (ZllxTypeData.length > 0) {
+      for (let i = 0; i < ZllxTypeData.length; i++) {
+        const item = ZllxTypeData[i];
+        zllxAlarmDictOptions.push(
+          <Option key={item.id} value={item.code}>{item.name}</Option>,
+        );
+      }
+    }
+    if (FbdwTypeData.length > 0) {
+      for (let i = 0; i < FbdwTypeData.length; i++) {
+        const item = FbdwTypeData[i];
+        fblxAlarmDictOptions.push(
+          <Option key={item.id} value={item.code}>{item.name}</Option>,
+        );
+      }
+    }
+    const formItemLayout = {
+      labelCol: {xs: {span: 24}, md: {span: 8}, xl: {span: 6}, xxl: {span: 4}},
+      wrapperCol: {xs: {span: 24}, md: {span: 16}, xl: {span: 18}, xxl: {span: 20}},
+    };
+    const rowLayout = {md: 8, xl: 16, xxl: 24};
+    const colLayout = {sm: 24, md: 12, xl: 8};
+    return (
+      <Card
+        className={styles.listPageWrap}
+        id="slaxsgjsearchForm"
+        style={{border: '0px solid #ccc'}}
+      >
+        <Form
+          onSubmit={this.handleSearch}
+          style={{height: this.state.searchHeight ? 'auto' : '59px'}}
+        >
+          <Row gutter={rowLayout} className={styles.searchForm}>
+            <Col {...colLayout}>
+              <FormItem label="上传时间" {...formItemLayout}>
+                {getFieldDecorator('scsj', {
+                  // initialValue: this.state.wtlx,
+                })(
+                  <RangePicker
+                    disabledDate={this.disabledDate}
+                    style={{width: '100%'}}
+                    getCalendarContainer={() => document.getElementById('slaxsgjsearchForm')}
+                  />,
+                )}
+              </FormItem>
+            </Col>
+            <Col {...colLayout}>
+              <FormItem label="资料类型" {...formItemLayout}>
+                {getFieldDecorator('zllx', {
+                })(
+                  <Select
+                    placeholder="请选择资料类型"
+                    style={{width: '100%'}}
+                    getPopupContainer={() => document.getElementById('slaxsgjsearchForm')}
+                  >
+                    <Option value="">全部</Option>
+                    {zllxAlarmDictOptions}
+                  </Select>,
+                )}
+              </FormItem>
+            </Col>
+            <Col {...colLayout}>
+              <FormItem label="发布单位" {...formItemLayout}>
+                {getFieldDecorator('fbdw', {
+                  // initialValue: this.state.caseType,
+                })(
+                  <Select
+                    placeholder="请选择发布单位"
+                    style={{width: '100%'}}
+                    getPopupContainer={() => document.getElementById('slaxsgjsearchForm')}
+                  >
+                    <Option value="">全部</Option>
+                    {fblxAlarmDictOptions}
+                  </Select>,
+                )}
+              </FormItem>
+            </Col>
+            <Col {...colLayout}>
+              <FormItem label="资料名称" {...formItemLayout}>
+                {getFieldDecorator('badw', {
+                  initialValue: this.state.badw,
+                })(
+                  <Input placeholder="请输入资料名称"/>
+                )}
+              </FormItem>
+            </Col>
+          </Row>
+          <Row className={styles.search} style={{position: 'absolute', top: 10, right: 32}}>
+            <span style={{float: 'right', marginBottom: 24, marginTop: 5}}>
+              <Button style={{marginLeft: 8}} type="primary" htmlType="submit">
+                查询
+              </Button>
+              <Button style={{marginLeft: 8}} onClick={this.handleFormReset}>
+                重置
+              </Button>
+              <Button
+                style={{marginLeft: 8}}
+                onClick={this.getSearchHeight}
+                className={styles.empty}
+              >
+                {this.state.searchHeight ? '收起筛选' : '展开筛选'}{' '}
+                <Icon type={this.state.searchHeight ? 'up' : 'down'}/>
+              </Button>
+            </span>
+          </Row>
+        </Form>
+      </Card>
+    );
+  }
+
+  renderTable() {
+    const {dataList} = this.state;
+    return (
+      <div>
+        <RenderTable
+          data={dataList}
+          onChange={this.handleTableChange}
+          // dispatch={this.props.dispatch}
+        />
+      </div>
+    );
+  }
+
+  render() {
+    return (
+      <div className={this.props.location.query && this.props.location.query.id ? styles.onlyDetail : ''}>
+        <div className={styles.tableListForm}>
+          {this.renderForm()}
+        </div>
+        <div className={styles.tableListOperator} style={{marginBottom: 0}}>
+          <Button
+            style={{ borderColor: '#2095FF', marginBottom: 16 }}
+            onClick={this.exportData}
+            icon="download"
+          >
+            导出表格
+          </Button>
+          <Button
+            style={{ borderColor: '#2095FF', marginBottom: 16 }}
+            onClick={this.importData}
+            icon="download"
+          >
+            资料导入
+          </Button>
+
+          <Button
+            style={{ borderColor: '#2095FF', marginBottom: 16 }}
+            onClick={this.deleteData}
+            // icon="download"
+          >
+            资料删除
+          </Button>
+          {this.renderTable()}
+        </div>
+      </div>
+    );
+  }
+}

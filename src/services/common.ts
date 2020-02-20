@@ -190,3 +190,14 @@ export async function getCaseManagementDicts(params) {
         },
     });
 }
+
+export async function getfbdwzllxDict(params) {
+  return request(`${configUrl.maintainCenterUrl}/dict/findDictchildrenById`, {
+    method: 'POST',
+    data: {
+      ...params,
+    },
+  });
+}
+
+

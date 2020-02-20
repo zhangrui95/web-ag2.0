@@ -830,6 +830,12 @@ export function routes() {
                             authority: ['zhag_jgkb'],
                         },
                         {
+                          path: '/ShowData/Learning',
+                          name: '在线学习',
+                          icon: 'icon-jingwuicon_svg_huaban',
+                          component: './ShowData/Learning',
+                        },
+                        {
                           path: '/ModuleAll/Share',
                           name: '分享',
                           icon: 'smile',
@@ -941,6 +947,13 @@ export function routes() {
                           component: './ModuleAll/PersonLedger',
                           hideInMenu: true,
                         },
+                      {
+                        path: '/ModuleAll/ImportData',
+                        name: '资料导入',
+                        icon: 'smile',
+                        component: './ModuleAll/ImportData',
+                        hideInMenu: true,
+                      },
                         {
                             component: './404',
                         },

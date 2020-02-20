@@ -1,0 +1,46 @@
+import {
+  LearningList,InsertList,
+} from '../services/Learning';
+
+export default {
+  namespace: 'Learning',
+
+  state: {
+
+  },
+
+  effects: {
+    * getLearningList({payload, callback}, {call, put}) {
+      const response = yield call(LearningList, payload);
+      yield put({
+        type: 'areaSfgz',
+        payload: response && response.error === null ? response.data.sfgz : {},
+      });
+      if (callback && response && !response.error && response.data) {
+        callback(response.data);
+      }
+    },
+    * getInsertList({payload, callback}, {call, put}) {
+      const response = yield call(InsertList, payload);
+      console.log('response',response)
+      yield put({
+        type: 'areaSfgz',
+        payload: response && response.error === null ? response.data : {},
+      });
+      if (callback && response && !response.error && response.data) {
+        callback(response.data);
+      }
+    },
+  },
+
+  reducers: {
+    // areaSearch(state, action) {
+    //   // console.log('action.payload',action.payload);
+    //   return {
+    //     ...state,
+    //     area: action.payload,
+    //   };
+    // },
+
+  },
+};
