@@ -80,7 +80,7 @@ export default class PersonalDoc extends PureComponent {
             const qzcsfxqssj = searchTime ? moment(searchTime).startOf('month').format('YYYY-MM-DD HH:mm:ss') : '';
             const qzcsfxzzsj = searchTime ? moment(searchTime).endOf('month').format('YYYY-MM-DD HH:mm:ss') : '';
             if (from === 'rylx') {
-                props.form.setFieldsValue({
+                this.props.form.setFieldsValue({
                     salx: qzcsName,
                     slsj: [moment(moment(searchTime).startOf('month').format('YYYY-MM-DD HH:mm:ss')), moment(moment(searchTime).endOf('month').format('YYYY-MM-DD HH:mm:ss'))],
                 });
@@ -105,7 +105,7 @@ export default class PersonalDoc extends PureComponent {
                 };
                 this.getPersonData(params);
             } else {
-                props.form.setFieldsValue({
+                this.props.form.setFieldsValue({
                     qzcslx: qzcsName,
                     qzcsfxsj: [moment(moment(searchTime).startOf('month').format('YYYY-MM-DD HH:mm:ss')), moment(moment(searchTime).endOf('month').format('YYYY-MM-DD HH:mm:ss'))],
                 });

@@ -128,17 +128,55 @@ export default class RobGrabFraud extends PureComponent {
                                 hbzf_l: liangqiang.hbzf100 || '0%',
                             },
                         ];
+                        let title = [
+                            {
+                                text: `${selectedDateStr}\n\n案发${liangqiang.nowtime}起`,
+                                textStyle: {
+                                    fontSize: 20,
+                                    fontWeight: 'normal',
+                                    color: this.props.global && this.props.global.dark ? '#fff' : '#4d4d4d'
+                                },
+                                x: '50%',
+                                y: '45%',
+                                padding: 7,
+                                textAlign: 'center',
+                            },
+                            {
+                                text: `${yearOnYearDateStr}\n\n案发${liangqiang.lastyear}起`,
+                                textStyle: {
+                                    fontSize: 20,
+                                    fontWeight: 'normal',
+                                    color: this.props.global && this.props.global.dark ? '#fff' : '#4d4d4d'
+                                },
+                                x: '20%',
+                                y: '45%',
+                                padding: [7, 0],
+                                textAlign: 'center',
+                            },
+                            {
+                                text: `${monthOnMonthDateStr}\n\n案发${liangqiang.lastmonth}起`,
+                                textStyle: {
+                                    fontSize: 20,
+                                    fontWeight: 'normal',
+                                    color: this.props.global && this.props.global.dark ? '#fff' : '#4d4d4d'
+                                },
+                                x: '80%',
+                                y: '45%',
+                                textAlign: 'center',
+                                padding: [7, 0],
+                            },
+                        ];
                         let serise = [{
                             data: pie1,
                             label: {
                                 normal: {
-                                    show: true,
+                                    show: false,
                                     position: 'center',
                                     textStyle: {
                                         fontSize: '20',
                                         color: this.props.global && this.props.global.dark ? '#fff' : '#4d4d4d',
                                     },
-                                    formatter: `${selectedDateStr}\n\n案发${liangqiang.nowtime}起`,
+                                    formatter: ``,
                                 },
                                 emphasis: {
                                     show: true,
@@ -148,14 +186,14 @@ export default class RobGrabFraud extends PureComponent {
                             data: pie2,
                             label: {
                                 normal: {
-                                    show: true,
+                                    show: false,
                                     position: 'center',
                                     formatter: '{c}',
                                     textStyle: {
                                         fontSize: '20',
                                         color: this.props.global && this.props.global.dark ? '#fff' : '#4d4d4d',
                                     },
-                                    formatter: `${yearOnYearDateStr}\n\n案发${liangqiang.lastyear}起`,
+                                    formatter: ``,
                                 },
                                 emphasis: {
                                     show: true,
@@ -165,14 +203,14 @@ export default class RobGrabFraud extends PureComponent {
                             data: pie3,
                             label: {
                                 normal: {
-                                    show: true,
+                                    show: false,
                                     position: 'center',
                                     formatter: '{c}',
                                     textStyle: {
                                         fontSize: '20',
                                         color: this.props.global && this.props.global.dark ? '#fff' : '#4d4d4d',
                                     },
-                                    formatter: `${monthOnMonthDateStr}\n\n案发${liangqiang.lastmonth}起`,
+                                    formatter: ``,
                                 },
                                 emphasis: {
                                     show: true,
@@ -180,7 +218,7 @@ export default class RobGrabFraud extends PureComponent {
                             },
                         }];
                         if (document.getElementById('robGrabPie')) {
-                            this.showEchart(serise);
+                            this.showEchart(serise,title);
                             window.addEventListener('resize', treePie.resize);
                         }
                     }
@@ -261,9 +299,13 @@ export default class RobGrabFraud extends PureComponent {
         });
     };
 
-    showEchart = (serise) => {
+    showEchart = (serise,title) => {
         treePie = echarts.init(document.getElementById('robGrabPie'));
         const option = {
+            title,
+            legend:{
+                selectedMode: false, // 点击
+            },
             series: [
                 {
                     type: 'pie',

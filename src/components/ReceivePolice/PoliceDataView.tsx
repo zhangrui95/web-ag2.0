@@ -373,7 +373,7 @@ export default class PoliceDataView extends PureComponent {
               for (let i = 0; i < barData.length; i++) {
                 dataShadow.push({
                   name: barData[i].name,
-                  value: bigestNum + 100,
+                  value: bigestNum > 5 ? bigestNum : 5,
                   code: barData[i].code,
                 });
               }

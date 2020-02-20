@@ -51,10 +51,19 @@ export default class AdministrativeCaseCount extends PureComponent {
                         num = num + parseInt(data.list[i].count);
                     }
                     this.props.getAllNum(this.props.idx, num, '行政案件数量');
+                    let yAxis = {};
+                    let maxTrue = true;
+                    if(barData&&barData.length > 0){
+                        maxTrue = false;
+                    }
+                    if(maxTrue){
+                        yAxis.max = 5;
+                    }
                     myChart.setOption({
                         xAxis: {
                             data: xData,
                         },
+                        yAxis:yAxis,
                         series: [{
                             data: barData,
                         }],
@@ -117,6 +126,7 @@ export default class AdministrativeCaseCount extends PureComponent {
                         color: '#334553',
                     },
                 },
+                min: 0,
             },
             series: [
                 {

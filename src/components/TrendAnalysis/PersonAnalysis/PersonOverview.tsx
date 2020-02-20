@@ -18,10 +18,13 @@ import {routerRedux} from 'dva/router';
 import moment from 'moment';
 import noList from "@/assets/viewData/noList.png";
 import noListLight from "@/assets/viewData/noListLight.png";
+import {connect} from "dva";
 
 let suspectCountBar;
 let dealSuspectTypeBar;
-
+@connect(({ global }) => ({
+    global,
+}))
 export default class PersonOverview extends PureComponent {
     state = {
         suspectCountTableData: [],
@@ -403,9 +406,32 @@ export default class PersonOverview extends PureComponent {
                     monthOnMonthDateStr,
                     monthOnMonthDate,
                 } = that.props.dateArr;
+                let location = {
+                    location: {
+                        queryChange: {
+                            departmentId: departorgan && departorgan.id ? departorgan.id : '',
+                            qzcsName: param.data.code,
+                            searchTime:
+                                param.seriesName === selectedDateStr
+                                    ? selectedDate
+                                    : param.seriesName === yearOnYearDateStr
+                                    ? yearOnYearDate
+                                    : monthOnMonthDate,
+                            from: 'rylx',
+                        },
+                    },
+                };
+                that.props.dispatch({
+                    type: 'global/changeResetList',
+                    payload: {
+                        isReset: !that.props.global.isResetList.isReset,
+                        url: '/lawEnforcement/PersonFile',
+                        state: location,
+                    },
+                });
                 that.props.dispatch(
                     routerRedux.push({
-                        pathname: '/allDocuments/personalDocTransfer/personalDoc',
+                        pathname: '/lawEnforcement/PersonFile',
                         queryChange: {
                             departmentId: departorgan && departorgan.id ? departorgan.id : '',
                             qzcsName: param.data.code,
@@ -485,9 +511,32 @@ export default class PersonOverview extends PureComponent {
                     monthOnMonthDateStr,
                     monthOnMonthDate,
                 } = that.props;
+                let location = {
+                    location: {
+                        queryChange: {
+                            departmentId: departorgan && departorgan.id ? departorgan.id : '',
+                            qzcsName: param.data.code,
+                            searchTime:
+                                param.seriesName === selectedDateStr
+                                    ? selectedDate
+                                    : param.seriesName === yearOnYearDateStr
+                                    ? yearOnYearDate
+                                    : monthOnMonthDate,
+                            from: 'rylx',
+                        },
+                    },
+                };
+                that.props.dispatch({
+                    type: 'global/changeResetList',
+                    payload: {
+                        isReset: !that.props.global.isResetList.isReset,
+                        url: '/lawEnforcement/PersonFile',
+                        state: location,
+                    },
+                });
                 that.props.dispatch(
                     routerRedux.push({
-                        pathname: '/allDocuments/personalDocTransfer/personalDoc',
+                        pathname: '/lawEnforcement/PersonFile',
                         queryChange: {
                             departmentId: departorgan && departorgan.id ? departorgan.id : '',
                             qzcsName: param.data.code,

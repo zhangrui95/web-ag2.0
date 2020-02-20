@@ -188,7 +188,6 @@ export default class Detail extends PureComponent {
         this.getList(e.target.value);
     }
     onChange = (nextTargetKeys) => {
-        console.log('nextTargetKeys------>',nextTargetKeys);
         this.setState({targetKeys: nextTargetKeys});
     };
     getKpjl = (e) => {

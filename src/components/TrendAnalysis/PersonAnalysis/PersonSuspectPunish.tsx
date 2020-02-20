@@ -67,7 +67,7 @@ export default class PersonSuspectPunish extends PureComponent {
                         barData = [{
                             name: selectedDateStr,
                             type: 'bar',
-                            cursor: 'pointer',
+                            cursor: 'default',
                             label: {
                                 normal: {
                                     show: true,
@@ -84,7 +84,7 @@ export default class PersonSuspectPunish extends PureComponent {
                         }, {
                             name: yearOnYearDateStr,
                             type: 'bar',
-                            cursor: 'pointer',
+                            cursor: 'default',
                             label: {
                                 normal: {
                                     show: true,
@@ -101,7 +101,7 @@ export default class PersonSuspectPunish extends PureComponent {
                         }, {
                             name: monthOnMonthDateStr,
                             type: 'bar',
-                            cursor: 'pointer',
+                            cursor: 'default',
                             label: {
                                 normal: {
                                     show: true,
@@ -353,21 +353,21 @@ export default class PersonSuspectPunish extends PureComponent {
             series: barData,
         };
         myChart.setOption(option);
-        if (window.configUrl.is_area === '2') {
-            myChart.on('click', function (param) {
-                const {departorgan} = that.props;
-                const {selectedDateStr, selectedDate, yearOnYearDateStr, yearOnYearDate, monthOnMonthDateStr, monthOnMonthDate} = that.props.dateArr;
-                that.props.dispatch(routerRedux.push({
-                    pathname: '/allDocuments/personalDocTransfer/personalDoc',
-                    queryChange: {
-                        departmentId: departorgan && departorgan.id ? departorgan.id : '',
-                        qzcsName: param.data.code,
-                        searchTime: param.seriesName === selectedDateStr ? selectedDate : param.seriesName === yearOnYearDateStr ? yearOnYearDate : monthOnMonthDate,
-                    },
-                }));
-
-            })
-        }
+        // if (window.configUrl.is_area === '2') {
+        //     myChart.on('click', function (param) {
+        //         const {departorgan} = that.props;
+        //         const {selectedDateStr, selectedDate, yearOnYearDateStr, yearOnYearDate, monthOnMonthDateStr, monthOnMonthDate} = that.props.dateArr;
+        //         that.props.dispatch(routerRedux.push({
+        //             pathname: '/allDocuments/personalDocTransfer/personalDoc',
+        //             queryChange: {
+        //                 departmentId: departorgan && departorgan.id ? departorgan.id : '',
+        //                 qzcsName: param.data.code,
+        //                 searchTime: param.seriesName === selectedDateStr ? selectedDate : param.seriesName === yearOnYearDateStr ? yearOnYearDate : monthOnMonthDate,
+        //             },
+        //         }));
+        //
+        //     })
+        // }
     };
     showRatePieEchart = (title, series) => {
         ratePie = echarts.init(document.getElementsByClassName('suspectPunishRate')[1]);
