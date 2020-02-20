@@ -307,55 +307,61 @@ export default class CriminalFile extends PureComponent {
     // 查询
     handleSearch = (e) => {
         if (e) e.preventDefault();
-        const values = this.props.form.getFieldsValue();
-        const larqTime = values.larq;
-        const tbsjTime = values.tbsj;
-        const ysqsTime = values.ysqssj;
-        const qzcslx = [];
-        values.qzcslx && values.qzcslx.map((item) => {
-            qzcslx.push("'" + item + "'");
-        });
-        const formValues = {
-            ajbh: values.ajbh ? values.ajbh.trim() : '',
-            ajmc: values.ajmc ? values.ajmc.trim() : '',
-            bardw: values.bardw || '',
-            barxm: values.bar || '',
-            ajzt: values.ajzt || '',
-            zxlb: values.zxlb || '',
-            ajlb: values.ajlb ? values.ajlb[values.ajlb.length - 1] : '',
-            ajlb_dl: values.ajlb ? values.ajlb[0] : '',
-            csfs: values.csfs || '',
-            is_tz: this.state.is_tz,
-            qzcslx: qzcslx.toString() || '',
-            is_area: window.configUrl.is_area,
-            isY: '0', // 判断是高级查询还是普通查询，0是普通查询，1是高级查询
-            sarq_ks: values.slrq && values.slrq.length > 0 ? values.slrq[0].format('YYYY-MM-DD') : '',
-            sarq_js: values.slrq && values.slrq.length > 0 ? values.slrq[1].format('YYYY-MM-DD') : '',
-            larq_ks: values.larq && values.larq.length > 0 ? values.larq[0].format('YYYY-MM-DD') : '',
-            larq_js: values.larq && values.larq.length > 0 ? values.larq[1].format('YYYY-MM-DD') : '',
-            parq_ks: values.parq && values.parq.length > 0 ? values.parq[0].format('YYYY-MM-DD') : '',
-            parq_js: values.parq && values.parq.length > 0 ? values.parq[1].format('YYYY-MM-DD') : '',
-            xarq_ks: values.xarq && values.xarq.length > 0 ? values.xarq[0].format('YYYY-MM-DD') : '',
-            xarq_js: values.xarq && values.xarq.length > 0 ? values.xarq[1].format('YYYY-MM-DD') : '',
-            jarq_ks: values.jarq && values.jarq.length > 0 ? values.jarq[0].format('YYYY-MM-DD') : '',
-            jarq_js: values.jarq && values.jarq.length > 0 ? values.jarq[1].format('YYYY-MM-DD') : '',
-            tbsj_ks: tbsjTime && tbsjTime.length > 0 ? tbsjTime[0].format('YYYY-MM-DD') : '',
-            tbsj_js: tbsjTime && tbsjTime.length > 0 ? tbsjTime[1].format('YYYY-MM-DD') : '',
-            qsrq_ks: ysqsTime && ysqsTime.length > 0 ? ysqsTime[0].format('YYYY-MM-DD') : '',
-            qsrq_js: ysqsTime && ysqsTime.length > 0 ? ysqsTime[1].format('YYYY-MM-DD') : '',
-        };
-        this.setState({
-            formValues,
-            isY: '0',
-        });
-        const params = {
-            currentPage: 1,
-            showCount: tableList,
-            pd: {
+        // const values = this.props.form.getFieldsValue();
+        this.props.form.validateFields((err, values) => {
+          if (!err) {
+            const larqTime = values.larq;
+            const tbsjTime = values.tbsj;
+            const ysqsTime = values.ysqssj;
+            const qzcslx = [];
+            values.qzcslx && values.qzcslx.map((item) => {
+              qzcslx.push("'" + item + "'");
+            });
+            const formValues = {
+              ajbh: values.ajbh ? values.ajbh.trim() : '',
+              ajmc: values.ajmc ? values.ajmc.trim() : '',
+              bardw: values.bardw || '',
+              barxm: values.bar || '',
+              ajzt: values.ajzt || '',
+              zxlb: values.zxlb || '',
+              ajlb: values.ajlb ? values.ajlb[values.ajlb.length - 1] : '',
+              ajlb_dl: values.ajlb ? values.ajlb[0] : '',
+              csfs: values.csfs || '',
+              is_tz: this.state.is_tz,
+              qzcslx: qzcslx.toString() || '',
+              is_area: window.configUrl.is_area,
+              isY: '0', // 判断是高级查询还是普通查询，0是普通查询，1是高级查询
+              sarq_ks: values.slrq && values.slrq.length > 0 ? values.slrq[0].format('YYYY-MM-DD') : '',
+              sarq_js: values.slrq && values.slrq.length > 0 ? values.slrq[1].format('YYYY-MM-DD') : '',
+              larq_ks: values.larq && values.larq.length > 0 ? values.larq[0].format('YYYY-MM-DD') : '',
+              larq_js: values.larq && values.larq.length > 0 ? values.larq[1].format('YYYY-MM-DD') : '',
+              parq_ks: values.parq && values.parq.length > 0 ? values.parq[0].format('YYYY-MM-DD') : '',
+              parq_js: values.parq && values.parq.length > 0 ? values.parq[1].format('YYYY-MM-DD') : '',
+              xarq_ks: values.xarq && values.xarq.length > 0 ? values.xarq[0].format('YYYY-MM-DD') : '',
+              xarq_js: values.xarq && values.xarq.length > 0 ? values.xarq[1].format('YYYY-MM-DD') : '',
+              jarq_ks: values.jarq && values.jarq.length > 0 ? values.jarq[0].format('YYYY-MM-DD') : '',
+              jarq_js: values.jarq && values.jarq.length > 0 ? values.jarq[1].format('YYYY-MM-DD') : '',
+              tbsj_ks: tbsjTime && tbsjTime.length > 0 ? tbsjTime[0].format('YYYY-MM-DD') : '',
+              tbsj_js: tbsjTime && tbsjTime.length > 0 ? tbsjTime[1].format('YYYY-MM-DD') : '',
+              qsrq_ks: ysqsTime && ysqsTime.length > 0 ? ysqsTime[0].format('YYYY-MM-DD') : '',
+              qsrq_js: ysqsTime && ysqsTime.length > 0 ? ysqsTime[1].format('YYYY-MM-DD') : '',
+            };
+            this.setState({
+              formValues,
+              isY: '0',
+            });
+            const params = {
+              currentPage: 1,
+              showCount: tableList,
+              pd: {
                 ...formValues,
-            },
-        };
-        this.getCase(params);
+              },
+            };
+            this.getCase(params);
+          }
+        });
+        // console.log('values',values);
+
     };
     // 重置
     handleFormReset = () => {

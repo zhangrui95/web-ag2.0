@@ -561,11 +561,16 @@ export default class areaDetail extends PureComponent {
       type: 'areaData/areaPartVideo',
       payload: {
         handleareaNum: paneData.handlearea_num,
-        startTime: paneData.startTime,
-        finishTime: paneData.finishTime,
+        startTime: paneData.startTime?paneData.startTime:paneData.begin_time,
+        finishTime: paneData.finishTime?paneData.finishTime:paneData.end_time,
         roomId: paneData.room_id,
         roomName: paneData.room_name,
       },
+      callback:(data)=>{
+        if(data.error!==null){
+          message.error(data.error);
+        }
+      }
     });
   };
   Title = (roomName, trackTime, trackLeftTime, paneData) => {
@@ -1001,6 +1006,11 @@ export default class areaDetail extends PureComponent {
         handleareaNum: areaDetails.rqxx[0].haNum,
         personId: areaDetails.rqxx[0].person_id,
       },
+      callback:(data)=>{
+        if(data.error!==null){
+          message.error(data.error);
+        }
+      }
     });
   };
 

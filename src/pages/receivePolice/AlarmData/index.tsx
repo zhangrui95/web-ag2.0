@@ -383,39 +383,42 @@ export default class Index extends PureComponent {
     // 查询
     handleSearch = (e) => {
         if (e) e.preventDefault();
-        const values = this.props.form.getFieldsValue();
-        const jjTime = values.jjsj;
-        const tbTime = values.tbsj;
-        const formValues = {
-            bar: values.bar || '',
-            cjdw: values.cjdw || '',
-            cjr: values.cjr || '',
-            jjdw: values.jjdw || '',
-            jjly_dm: values.jjly || '',
-            jjr: values.jjr || '',
-            is_sa: values.sfsa || '',
-            is_cj: values.sfcj || '',
-            jqzt_dm: values.clzt || '',
-            jqlb: values.jqlb ? values.jqlb[values.jqlb.length - 1] : '',
-            jqlbdj: values.jqlb ? values.jqlb.length : '',
-            jjsj_ks: jjTime && jjTime.length > 0 ? jjTime[0].format('YYYY-MM-DD HH:mm:ss') : '',
-            jjsj_js: jjTime && jjTime.length > 0 ? jjTime[1].format('YYYY-MM-DD HH:mm:ss') : '',
-            tbsj_ks: tbTime && tbTime.length > 0 ? tbTime[0].format('YYYY-MM-DD HH:mm:ss') : '',
-            tbsj_js: tbTime && tbTime.length > 0 ? tbTime[1].format('YYYY-MM-DD HH:mm:ss') : '',
-            is_tz: this.state.is_tz,
-        };
-        this.setState({
-            formValues,
-        });
-        const params = {
-            currentPage: 1,
-            showCount: tableList,
-            pd: {
+        // const values = this.props.form.getFieldsValue();
+        this.props.form.validateFields((err, values) => {
+          if (!err) {
+            const jjTime = values.jjsj;
+            const tbTime = values.tbsj;
+            const formValues = {
+              bar: values.bar || '',
+              cjdw: values.cjdw || '',
+              cjr: values.cjr || '',
+              jjdw: values.jjdw || '',
+              jjly_dm: values.jjly || '',
+              jjr: values.jjr || '',
+              is_sa: values.sfsa || '',
+              is_cj: values.sfcj || '',
+              jqzt_dm: values.clzt || '',
+              jqlb: values.jqlb ? values.jqlb[values.jqlb.length - 1] : '',
+              jqlbdj: values.jqlb ? values.jqlb.length : '',
+              jjsj_ks: jjTime && jjTime.length > 0 ? jjTime[0].format('YYYY-MM-DD HH:mm:ss') : '',
+              jjsj_js: jjTime && jjTime.length > 0 ? jjTime[1].format('YYYY-MM-DD HH:mm:ss') : '',
+              tbsj_ks: tbTime && tbTime.length > 0 ? tbTime[0].format('YYYY-MM-DD HH:mm:ss') : '',
+              tbsj_js: tbTime && tbTime.length > 0 ? tbTime[1].format('YYYY-MM-DD HH:mm:ss') : '',
+              is_tz: this.state.is_tz,
+            };
+            this.setState({
+              formValues,
+            });
+            const params = {
+              currentPage: 1,
+              showCount: tableList,
+              pd: {
                 ...formValues,
-            },
-        };
-        this.getPolice(params);
-        return false;
+              },
+            };
+            this.getPolice(params);
+          }
+        })
     };
     // 重置
     handleFormReset = () => {
