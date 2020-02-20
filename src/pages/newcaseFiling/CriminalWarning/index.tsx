@@ -235,27 +235,31 @@ export default class Index extends PureComponent {
   // 查询
   handleSearch = e => {
     e.preventDefault();
-    const values = this.props.form.getFieldsValue();
-    const yjsjTime = values.yjsj;
-    const formValues = {
-      txzt: values.txzt || '',
-      yjjbdm: values.yjjb || '',
-      yjlxdm: values.yjlx || '',
-      yjsj_ks: yjsjTime && yjsjTime.length > 0 ? yjsjTime[0].format('YYYY-MM-DD') : '',
-      yjsj_js: yjsjTime && yjsjTime.length > 0 ? yjsjTime[1].format('YYYY-MM-DD') : '',
-      yj_type: 'xsaj',
-    };
-    this.setState({
-      formValues,
-    });
-    const params = {
-      currentPage: 1,
-      showCount: tableList,
-      pd: {
-        ...formValues,
-      },
-    };
-    this.getDossier(params);
+    // const values = this.props.form.getFieldsValue();
+    this.props.form.validateFields((err, values) => {
+      if (!err) {
+        const yjsjTime = values.yjsj;
+        const formValues = {
+          txzt: values.txzt || '',
+          yjjbdm: values.yjjb || '',
+          yjlxdm: values.yjlx || '',
+          yjsj_ks: yjsjTime && yjsjTime.length > 0 ? yjsjTime[0].format('YYYY-MM-DD') : '',
+          yjsj_js: yjsjTime && yjsjTime.length > 0 ? yjsjTime[1].format('YYYY-MM-DD') : '',
+          yj_type: 'xsaj',
+        };
+        this.setState({
+          formValues,
+        });
+        const params = {
+          currentPage: 1,
+          showCount: tableList,
+          pd: {
+            ...formValues,
+          },
+        };
+        this.getDossier(params);
+      }})
+
   };
   // 获取办案人信息
   handleAllPoliceOptionChange = value => {
