@@ -36,6 +36,8 @@ export default class detailShow extends PureComponent {
                 maxLen=80;
             }else if(objwidth>=1920){
                 maxLen=90;
+            }else if(objwidth>=2500){
+                maxLen=160;
             }
             this.setState({
                 maxLen,

@@ -11,6 +11,7 @@ import {routerRedux} from "dva/router";
 import noListLight from "@/assets/viewData/noListLight.png";
 import Ellipsis from "ant-design-pro/lib/Ellipsis";
 const confirm = Modal.confirm;
+let key = 0;
 @connect(({Evaluation, global}) => ({
     Evaluation, global
 }))
@@ -23,6 +24,9 @@ export default class Detail extends PureComponent {
         }
         this.state = {
             kpList: [],
+            kpList0: [],
+            kpList1: [],
+            kpList2: [],
             allList: [],
             detail: null,
             recordKp: res,
@@ -47,7 +51,7 @@ export default class Detail extends PureComponent {
         let num = 0;
         this.state.targetKeys.map((event) => {
             this.state.allList.map((item) => {
-                if (event === item.id) {
+                if (event === item.key) {
                     if(item.xm_type === '0'){
                         num = num - parseInt(item.fz);
                     }else{
@@ -120,6 +124,8 @@ export default class Detail extends PureComponent {
                     message.success('操作成功');
                     this.onEdit(true);
                     this.getKhDetail(this.state.recordKp, '', true);
+                    this.getList(this.state.kpxmType,true);
+                    this.getList('');
                     this.setState({
                         targetKeys: [],
                         btnLoading:false,
@@ -133,7 +139,12 @@ export default class Detail extends PureComponent {
             });
         }
     }
-    getList = (type) => {//获取考评项目
+    getList = (type,isReset) => {//获取考评项目
+        if(isReset){
+            this.setState({
+                ['kpList'+type]: [],
+            });
+        }
         this.props.dispatch({
             type: 'Evaluation/getList',
             payload: {
@@ -145,13 +156,18 @@ export default class Detail extends PureComponent {
             },
             callback: (data) => {
                 if (type) {
+                    if(!(this.state['kpList'+type]&&this.state['kpList'+type].length > 0)||isReset){
+                        data.list.map((item) => {
+                            item.key = item.id;
+                        })
+                        this.setState({
+                            ['kpList'+type]: data.list,
+                        });
+                    }
+                } else {
                     data.list.map((item) => {
                         item.key = item.id;
                     })
-                    this.setState({
-                        kpList: data.list,
-                    })
-                } else {
                     this.setState({
                         allList: data.list,
                     })
@@ -185,10 +201,53 @@ export default class Detail extends PureComponent {
         this.setState({
             kpxmType: e.target.value,
         });
-        this.getList(e.target.value);
+        this.getList(e.target.value,!(this.state.targetKeys&&this.state.targetKeys.length > 0));
     }
-    onChange = (nextTargetKeys) => {
-        this.setState({targetKeys: nextTargetKeys});
+    onChange = (nextTargetKeys, direction, moveKeys) => {
+        let list = [];
+        let kpList = [...this.state['kpList'+this.state.kpxmType]];
+        let allList = [...this.state.allList];
+        moveKeys.map((event)=>{
+            if(event){
+                this.state['kpList'+this.state.kpxmType].map((item)=>{
+                    if(event === item.key){
+                        list.push(item);
+                    }
+                });
+            }
+        });
+        if(direction === 'right'){
+            key++;
+            this.setState({targetKeys: nextTargetKeys},()=>{
+                list.forEach((item)=>{
+                    let index = kpList.indexOf(item);
+                    let event = {id: item.id,
+                        xm_mc: item.xm_mc,
+                        xm_type: item.xm_type,
+                        fz: item.fz,
+                        zxxgsj: item.zxxgsj,
+                        key: item.key+key}
+                    kpList.splice(index, 0, event);
+                    allList.splice(index, 0, event);
+                });
+                this.setState({
+                    ['kpList'+this.state.kpxmType]:kpList,
+                    allList,
+                });
+            });
+        }else{
+            this.setState({targetKeys: nextTargetKeys},()=>{
+                list.forEach((item)=>{
+                    let index = kpList.indexOf(item);
+                    kpList.splice(index, 1);
+                    allList.splice(index, 1);
+                });
+                this.setState({
+                    ['kpList'+this.state.kpxmType]:kpList,
+                    allList
+                });
+            });
+        }
     };
     getKpjl = (e) => {
         this.setState({
@@ -246,7 +305,8 @@ export default class Detail extends PureComponent {
     };
 
     render() {
-        const {targetKeys, detail, kpList} = this.state;
+        const {targetKeys, detail} = this.state;
+        let kpList = this.state['kpList'+this.state.kpxmType];
         const TableTransfer = ({leftColumns, rightColumns, ...restProps}) => (
             <Transfer {...restProps} showSelectAll={false}>
                 {({
@@ -390,7 +450,7 @@ export default class Detail extends PureComponent {
                                 <Radio.Button value="2">加分</Radio.Button>
                             </Radio.Group>
                             <TableTransfer
-                                dataSource={kpList}
+                                dataSource={kpList ? kpList : []}
                                 targetKeys={targetKeys}
                                 showSearch={true}
                                 onChange={this.onChange}

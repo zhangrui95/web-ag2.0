@@ -305,6 +305,7 @@ export default class RobGrabFraud extends PureComponent {
             title,
             legend:{
                 selectedMode: false, // 点击
+                data:[],
             },
             series: [
                 {

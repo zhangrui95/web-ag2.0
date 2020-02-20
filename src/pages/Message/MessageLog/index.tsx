@@ -374,11 +374,12 @@ class MessageLog extends Component {
                 );
             }
         }
+        //暂时屏蔽App和Pc筛选项
         if (pushWayDict && pushWayDict.length > 0) {
             for (let i = 0; i < pushWayDict.length; i++) {
                 const item = pushWayDict[i];
                 pushWayDictOptions.push(
-                    <Radio key={item.id} value={item.code}>
+                    <Radio key={item.id} value={item.code} disabled={item.code!=='5009711'}>
                         {item.name}
                     </Radio>,
                 );
