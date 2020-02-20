@@ -90,8 +90,8 @@ export default {
                 type: 'changeLoading',
                 payload: false,
             });
-            if (callback && response && !response.error && response.data) {
-                callback(response.data);
+            if (callback && response ) {
+                callback(response);
             }
         },
         // 播放部分的轨迹视频
@@ -109,8 +109,8 @@ export default {
                 type: 'changeLoading',
                 payload: false,
             });
-            if (callback && response && !response.error && response.data) {
-                callback(response.data);
+            if (callback && response ) {
+                callback(response);
             }
         },
         // 人员成分图表统计
