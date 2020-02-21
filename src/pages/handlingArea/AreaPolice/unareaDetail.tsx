@@ -824,11 +824,16 @@ export default class unareaDetail extends PureComponent {
       type: 'areaData/areaPartVideo',
       payload: {
         handleareaNum: paneData.handlearea_num,
-        startTime: paneData.startTime,
-        finishTime: paneData.finishTime,
+        startTime: paneData.startTime?paneData.startTime:paneData.begin_time,
+        finishTime: paneData.finishTime?paneData.finishTime:paneData.end_time,
         roomId: paneData.room_id,
         roomName: paneData.room_name,
       },
+      callback:(data)=>{
+        if(data.error!==null){
+          message.error(data.error);
+        }
+      }
     });
   };
   descrip = (pane) =>{
@@ -1188,6 +1193,11 @@ export default class unareaDetail extends PureComponent {
         handleareaNum: UnareaDetail.rqxx[0].haNum,
         personId: UnareaDetail.rqxx[0].person_id,
       },
+      callback:(data)=>{
+        if(data.error!==null){
+          message.error(data.error);
+        }
+      }
     });
   };
 
