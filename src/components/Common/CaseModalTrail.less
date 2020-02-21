@@ -926,7 +926,12 @@
     .ant-steps {
       display: block;
     }
-
+    .ant-steps-item-finish .ant-steps-item-icon{
+      border: 2px solid @highlight-color;
+    }
+    .ant-steps-item-process .ant-steps-item-icon {
+      border: 2px solid #fff;
+    }
     .ant-steps-item {
       width: 18%;
       margin-bottom: 16px;
@@ -1021,7 +1026,9 @@
       top: -4px !important;
       left: -3px !important;
     }
-
+    .ant-steps-item-process .ant-steps-item-icon {
+      border: 2px solid #4662d5 !important;
+    }
     .ant-timeline-item-tail {
       border-left: 0 solid #4662D5;
       background-color: #4662D5;
