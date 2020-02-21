@@ -305,6 +305,7 @@ export default class PersonIllegalPunish extends PureComponent {
         const that = this;
         myChart = echarts.init(document.getElementById('illegalPunishType'));
         const option = {
+            backgroundColor: this.props.global && this.props.global.dark ? '#252c3c' : '#fff',
             tooltip: {
                 trigger: 'axis',
                 axisPointer: {            // 坐标轴指示器，坐标轴触发有效
@@ -363,6 +364,7 @@ export default class PersonIllegalPunish extends PureComponent {
     showRatePieEchart = (title, series) => {
         ratePie = echarts.init(document.getElementById('illegalPunishRate'));
         const option = {
+            backgroundColor: this.props.global && this.props.global.dark ? '#252c3c' : '#fff',
             title,
             series: [
                 {

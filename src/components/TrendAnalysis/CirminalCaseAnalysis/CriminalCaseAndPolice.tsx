@@ -269,6 +269,7 @@ export default class CriminalCaseAndPolice extends PureComponent {
     showEchart = (title, pie1, pie2, pie3) => {
         treePie = echarts.init(document.getElementsByClassName('criminalCaseAndPolice')[1]);
         const option = {
+            backgroundColor: this.props.global && this.props.global.dark ? '#252c3c' : '#fff',
             title,
             series: [
                 {
@@ -338,6 +339,7 @@ export default class CriminalCaseAndPolice extends PureComponent {
         criminalCaseAcceptBar = echarts.init(document.getElementsByClassName('criminalCaseAccept')[1]);
         const {selectedDateStr, yearOnYearDateStr, monthOnMonthDateStr} = this.props;
         const option = {
+            backgroundColor: this.props.global && this.props.global.dark ? '#252c3c' : '#fff',
             tooltip: {
                 trigger: 'axis',
                 axisPointer: {            // 坐标轴指示器，坐标轴触发有效

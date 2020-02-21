@@ -160,7 +160,6 @@ export default class ItemDataView extends PureComponent {
                     currentType = nextProps.searchType === 'week' ? 'beforeLastWeek' : 'beforeLastMonth';
                     rqtype = currentType === 'beforeLastWeek' ? '5' : '8';
                 }
-                console.log('rqtype-------->',rqtype)
                 this.setState({
                     chooseBaqName: null,
                 });
@@ -1216,18 +1215,21 @@ export default class ItemDataView extends PureComponent {
                         SARYRQRCdata.map(item => (
                             <div className={AreaDataViewStyles.IntoPerson}>
                                 <h5>{item.name}</h5>
-                                <div>
-                                    <Tooltip title={`${item.name}入区人数：${parseInt(item.count1) + parseInt(item.count2) + parseInt(item.count3)}`} placement="bottomLeft">
-                                        <Progress
-                                            percent={(`${parseInt(item.count1) + parseInt(item.count2) + parseInt(item.count3)}`/ parseInt(SARYRQRCTotal)) * 100}
-                                            status={
-                                                item.orgid === chooseBaq && chooseBaq !== '' ? 'exception' : 'active'
-                                            }
-                                            strokeWidth={16}
-                                            className={AreaDataViewStyles.Progress}
-                                            onClick={() => this.chooseBaq(item)}
-                                        />
-                                    </Tooltip>
+                                <div className={AreaDataViewStyles.ProgressBox}>
+                                    <div className={styles.box}>
+                                        <Tooltip title={`${item.name}入区人数：${parseInt(item.count1) + parseInt(item.count2) + parseInt(item.count3)}`} placement="bottomLeft">
+                                            <Progress
+                                                percent={(`${parseInt(item.count1) + parseInt(item.count2) + parseInt(item.count3)}`/ parseInt(SARYRQRCTotal)) * 100}
+                                                // status={
+                                                //     item.orgid === chooseBaq && chooseBaq !== '' ? 'exception' : 'active'
+                                                // }
+                                                strokeWidth={16}
+                                                className={AreaDataViewStyles.Progress}
+                                                onClick={() => this.chooseBaq(item)}
+                                            />
+                                        </Tooltip>
+                                    </div>
+                                    <span className={styles.numBox}>{parseInt(item.count1) + parseInt(item.count2) + parseInt(item.count3)}</span>
                                 </div>
                             </div>
                         ))}

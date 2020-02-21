@@ -77,12 +77,15 @@ export default class PersonalDoc extends PureComponent {
             this.getPersonData(params);
         } else if (props.location && props.location.queryChange) {
             const {searchTime, qzcsName, departmentId, from} = props.location.queryChange;
-            const qzcsfxqssj = searchTime ? moment(searchTime).startOf('month').format('YYYY-MM-DD HH:mm:ss') : '';
-            const qzcsfxzzsj = searchTime ? moment(searchTime).endOf('month').format('YYYY-MM-DD HH:mm:ss') : '';
+            const qzcsfxqssj = searchTime ? moment(searchTime).startOf('month').format('YYYY-MM-DD') : '';
+            const qzcsfxzzsj = searchTime ? moment(searchTime).endOf('month').format('YYYY-MM-DD') : '';
+            this.setState({
+                searchHeight:true,
+            });
             if (from === 'rylx') {
                 this.props.form.setFieldsValue({
                     salx: qzcsName,
-                    slsj: [moment(moment(searchTime).startOf('month').format('YYYY-MM-DD HH:mm:ss')), moment(moment(searchTime).endOf('month').format('YYYY-MM-DD HH:mm:ss'))],
+                    slsj: [moment(moment(searchTime).startOf('month').format('YYYY-MM-DD')), moment(moment(searchTime).endOf('month').format('YYYY-MM-DD'))],
                 });
                 const formValues = {
                     slqssj: qzcsfxqssj,
@@ -107,7 +110,7 @@ export default class PersonalDoc extends PureComponent {
             } else {
                 this.props.form.setFieldsValue({
                     qzcslx: qzcsName,
-                    qzcsfxsj: [moment(moment(searchTime).startOf('month').format('YYYY-MM-DD HH:mm:ss')), moment(moment(searchTime).endOf('month').format('YYYY-MM-DD HH:mm:ss'))],
+                    qzcsfxsj: [moment(moment(searchTime).startOf('month').format('YYYY-MM-DD')), moment(moment(searchTime).endOf('month').format('YYYY-MM-DD'))],
                 });
                 const formValues = {
                     qzcsfxqssj: qzcsfxqssj,
@@ -301,10 +304,10 @@ export default class PersonalDoc extends PureComponent {
             cjrq_js: time && time.length > 0 ? time[1].format('YYYY-MM-DD') : '',
             tbdw: values.tbdw || '',
             is_tz: this.state.is_tz,
-            qzcsfxqssj: fxtime && fxtime.length > 0 ? fxtime[0].format('YYYY-MM-DD HH:mm:ss') : '',
-            qzcsfxzzsj: fxtime && fxtime.length > 0 ? fxtime[1].format('YYYY-MM-DD HH:mm:ss') : '',
-            slqssj: sltime && sltime.length > 0 ? sltime[0].format('YYYY-MM-DD HH:mm:ss') : '',
-            slzzsj: sltime && sltime.length > 0 ? sltime[1].format('YYYY-MM-DD HH:mm:ss') : '',
+            qzcsfxqssj: fxtime && fxtime.length > 0 ? fxtime[0].format('YYYY-MM-DD') : '',
+            qzcsfxzzsj: fxtime && fxtime.length > 0 ? fxtime[1].format('YYYY-MM-DD') : '',
+            slqssj: sltime && sltime.length > 0 ? sltime[0].format('YYYY-MM-DD') : '',
+            slzzsj: sltime && sltime.length > 0 ? sltime[1].format('YYYY-MM-DD') : '',
         };
         this.setState({
             formValues,
@@ -337,10 +340,10 @@ export default class PersonalDoc extends PureComponent {
             cjrq_ks: time && time.length > 0 ? time[0].format('YYYY-MM-DD') : '',
             cjrq_js: time && time.length > 0 ? time[1].format('YYYY-MM-DD') : '',
             tbdw: values.tbdw || '',
-            qzcsfxqssj: fxtime && fxtime.length > 0 ? fxtime[0].format('YYYY-MM-DD HH:mm:ss') : '',
-            qzcsfxzzsj: fxtime && fxtime.length > 0 ? fxtime[1].format('YYYY-MM-DD HH:mm:ss') : '',
-            slqssj: sltime && sltime.length > 0 ? sltime[0].format('YYYY-MM-DD HH:mm:ss') : '',
-            slzzsj: sltime && sltime.length > 0 ? sltime[1].format('YYYY-MM-DD HH:mm:ss') : '',
+            qzcsfxqssj: fxtime && fxtime.length > 0 ? fxtime[0].format('YYYY-MM-DD') : '',
+            qzcsfxzzsj: fxtime && fxtime.length > 0 ? fxtime[1].format('YYYY-MM-DD') : '',
+            slqssj: sltime && sltime.length > 0 ? sltime[0].format('YYYY-MM-DD') : '',
+            slzzsj: sltime && sltime.length > 0 ? sltime[1].format('YYYY-MM-DD') : '',
         };
         if (time && time.length > 0 || fxtime && fxtime.length > 0 || sltime && sltime.length > 0) {
             const isAfterDate = moment(formValues.cjrq_js).isAfter(moment(formValues.cjrq_ks).add(exportListDataMaxDays, 'days'));

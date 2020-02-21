@@ -302,6 +302,7 @@ export default class RobGrabFraud extends PureComponent {
     showEchart = (serise,title) => {
         treePie = echarts.init(document.getElementById('robGrabPie'));
         const option = {
+            backgroundColor: this.props.global && this.props.global.dark ? '#252c3c' : '#fff',
             title,
             legend:{
                 selectedMode: false, // 点击
@@ -355,6 +356,7 @@ export default class RobGrabFraud extends PureComponent {
     showFraudBar = (xData, barData) => {
         fraudBar = echarts.init(document.getElementById('fraudBar'));
         const option = {
+            backgroundColor: this.props.global && this.props.global.dark ? '#252c3c' : '#fff',
             color: ['#3AA0FF', '#DCCA23', '#31BD74'],
             xAxis: {
                 type: 'category',

@@ -354,7 +354,12 @@ export default class AdministrativeCaseDocDetail extends PureComponent {
             node.label = {
                 normal: {
                     show: true,
-                    formatter: '{b}'
+                    formatter: '{b}',
+                    textStyle: {
+                        color: dark ? '#eee' : '#4D4D4D',
+                        fontSize: node.attributes.modularity_class === 0 ? 16 :
+                            node.attributes.modularity_class === 1 ? 14 : 12
+                    },
                 }
             };
             node.category = node.attributes.modularity_class;
@@ -569,7 +574,6 @@ export default class AdministrativeCaseDocDetail extends PureComponent {
                                       description={'暂无数据'}/>
                 }}
                 pagination={sawpList.length > 0 ? {
-                    size: 'small',
                     pageSize: 8,
                     showTotal: (total, range) => <div style={{
                         color: this.props.global && this.props.global.dark ? '#fff' : '#999'
@@ -643,7 +647,6 @@ export default class AdministrativeCaseDocDetail extends PureComponent {
                                       description={'暂无数据'}/>
                 }}
                 pagination={gjxxList.length > 0 ? {
-                    size: 'small',
                     pageSize: 8,
                     showTotal: (total, range) => <div style={{
                         color: this.props.global && this.props.global.dark ? '#fff' : '#999'

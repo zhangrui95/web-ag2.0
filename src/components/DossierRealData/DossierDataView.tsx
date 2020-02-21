@@ -24,6 +24,7 @@ import {connect} from "dva";
 import noListLight from "@/assets/viewData/noListLight.png";
 import {marginLeft} from "html2canvas/dist/types/css/property-descriptors/margin";
 import {getDefaultDays, getDefaultDaysForWeek, getDefaultMonths, getDefaultWeeks, getDefaultYears} from "@/utils/utils";
+import AreaDataViewStyles from "@/components/AreaRealData/AreaDataView.less";
 
 let itemEchartpictorialBar;
 let itemEchartRingPie;
@@ -1028,13 +1029,16 @@ export default class DossierDataView extends PureComponent {
                                             {ZkjzData.map((item) =>
                                                 <div onClick={() => this.goList(item.name)} style={{cursor: 'pointer'}}>
                                                     <div className={styles.progressName}>{item.name}</div>
-                                                    <div className={styles.progressCount}>
-                                                        <Tooltip title={item.name + ':' + item.count}>
-                                                            <Progress
-                                                                percent={Math.round((item.count / ZkjzTotal) * 100)}
-                                                                status="active" format={percent => `${percent}%`}
-                                                                strokeColor={'#2092fb'} strokeWidth={16}/>
-                                                        </Tooltip>
+                                                        <div className={styles.progressCount}>
+                                                            <div className={styles.box}>
+                                                            <Tooltip title={item.name + ':' + item.count}>
+                                                                <Progress
+                                                                    percent={Math.round((item.count / ZkjzTotal) * 100)}
+                                                                    // status="active" format={percent => `${percent}%`}
+                                                                    strokeColor={'#2092fb'} strokeWidth={16}  className={styles.Progress}/>
+                                                            </Tooltip>
+                                                        </div>
+                                                        <span className={styles.numBox}>{item.count}</span>
                                                     </div>
                                                 </div>,
                                             )}

@@ -49,7 +49,6 @@ export default class PersonDetailTab extends PureComponent {
                 itemLayout="vertical"
                 size="small"
                 pagination={tarList.length > 0 ? {
-                    size: 'small',
                     pageSize: 8,
                     showTotal: (total, range) => <div style={{
                         color: this.props.global && this.props.global.dark ? '#fff' : '#999'
@@ -100,7 +99,6 @@ export default class PersonDetailTab extends PureComponent {
             <List
                 itemLayout="vertical"
                 pagination={sawpList.length > 0 ? {
-                    size: 'small',
                     pageSize: 8,
                     showTotal: (total, range) => <div style={{
                         color: this.props.global && this.props.global.dark ? '#fff' : '#999'

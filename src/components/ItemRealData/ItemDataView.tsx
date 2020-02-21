@@ -293,6 +293,7 @@ export default class ItemDataView extends PureComponent {
         if (itemEchartpictorialBar && data) {
           const newData = [];
           const newData1 = [];
+          const newDataNum = [];
           const data1 = data.list;
           const dataShadow = [];
           for (let a = 0; a < data1.length; a++) {
@@ -302,12 +303,13 @@ export default class ItemDataView extends PureComponent {
               value: data1[a].count,
               code: a + 1,
             };
+            newDataNum.push(data1[a].count);
             newData.push(legendData);
             newData1.push(seriesData);
           }
-          let yMax = Math.max(...newData1);
-          if (yMax === 0) {
-            yMax += 100;
+          let yMax = Math.max(...newDataNum);
+          if (yMax < 5) {
+            yMax = 5;
           }
           for (let i = 0; i < data1.length; i++) {
             dataShadow.push({ value: yMax, code: i + 1 });
@@ -436,7 +438,6 @@ export default class ItemDataView extends PureComponent {
           let newData5 = [];
           let newData6 = [];
           if (data.list && data.list.length > 0) {
-            // console.log('data---', data);
             this.setState({
               wpqsNoData: false,
               typeLabel:
@@ -564,6 +565,14 @@ export default class ItemDataView extends PureComponent {
               },
             },
           ];
+          let newDataNum = newData1.concat(newData2).concat(newData3).concat(newData4).concat(newData5).concat(newData6);
+          let yAxis = {min:0};
+            let yMax = Math.max(...newDataNum);
+            if (yMax < 5) {
+                yAxis.max = 5;
+            }else{
+                yAxis.max = yMax;
+            }
           itemEchartwpqsBar.setOption({
             legend: {
               data: ['登记', '在库', '调用', '移送', '处置', '异常出库'],
@@ -576,6 +585,7 @@ export default class ItemDataView extends PureComponent {
               boundaryGap: false,
               data: newData,
             },
+            yAxis:yAxis,
             series: seriesDataAll,
           });
         }
@@ -1072,15 +1082,19 @@ export default class ItemDataView extends PureComponent {
                         <div>
                           <div className={styles.progressName}>{item.name}</div>
                           <div className={styles.progressCount}>
-                            <Tooltip title={item.name + ':' + item.count}>
-                              <Progress
-                                percent={Math.round((item.count / ZkwpTotal) * 100)}
-                                status="active"
-                                format={percent => `${percent}%`}
-                                strokeColor={'#2092fb'}
-                                strokeWidth={16}
-                              />
-                            </Tooltip>
+                              <div className={styles.box}>
+                                  <Tooltip title={item.name + ':' + item.count}>
+                                      <Progress
+                                          percent={Math.round((item.count / ZkwpTotal) * 100)}
+                                          // status="active"
+                                          format={percent => `${percent}%`}
+                                          strokeColor={'#2092fb'}
+                                          strokeWidth={16}
+                                          className={styles.Progress}
+                                      />
+                                  </Tooltip>
+                              </div>
+                              <span className={styles.numBox}>{item.count}</span>
                           </div>
                         </div>
                       ))}
