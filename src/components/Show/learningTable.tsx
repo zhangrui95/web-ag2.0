@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react';
-import { Table, Divider, Tooltip, message, Dropdown, Menu, Row, Col, Empty } from 'antd';
+import { Table, Divider, Tooltip, message, Dropdown, Menu, Row, Col, Empty, Icon, Radio,Card,Checkbox,Pagination } from 'antd';
 import styles from './learningTable.less';
 // import Detail from '../../routes/AreaRealData/areaDetail';
 // import ShareModal from './../ShareModal/ShareModal';
@@ -8,12 +8,14 @@ import { routerRedux } from 'dva/router';
 import noList from '@/assets/viewData/noList.png';
 import noListLight from '@/assets/viewData/noListLight.png';
 import { connect } from 'dva';
+import {tableList} from "@/utils/utils";
 @connect(({ global }) => ({
   global,
 }))
 class learningTable extends PureComponent {
   state = {
-
+    mode:'left',
+    selectedRows:[],
   };
   handleTableChange = (pagination, filters, sorter) => {
     this.props.onChange(pagination, filters, sorter);
@@ -21,6 +23,9 @@ class learningTable extends PureComponent {
       current: pagination.current,
     });
   };
+  handleStandardTableChanges = (page) => {
+    this.props.viewChange(page);
+  }
 
   componentDidMount() {
 
@@ -33,12 +38,152 @@ class learningTable extends PureComponent {
 
   // 下载
   downLoad = (record) => {
-    // window.open('http://'+file.response.fileUrl);
+    console.log('record',record);
+//     const downloadFileA = document.createElement('a')
+//     document.body.append(downloadFileA)
+//     downloadFileA.href=`http://192.168.3.92:8777/5,030ba2c6d489`;
+//     downloadFileA.download = 'filename'
+// // 超链接 target="_blank" 要增加 rel="noopener noreferrer" 来堵住钓鱼安全漏洞。如果你在链接上使用 target="_blank"属性，并且不加上rel="noopener"属性，那么你就让用户暴露在一个非常简单的钓鱼攻击之下。(摘要)
+//     downloadFileA.rel = 'noopener noreferrer'
+//     downloadFileA.click()
+//     document.body.removeChild(downloadFileA)
+    window.open('http://'+record.xzlj);
+//     var reader=new FileReader;
+//     reader.readAsText(file,'gb2312');
+//     //reader.readAsDataURL(file);
+//     reader.onload=function(evt){
+//       var data=evt.target.result;
+//       $('#textarea_id').val(data);
+//     }
   }
 
-  render() {
-    const { data, loading } = this.props;
-    console.log('data',data);
+  // 删除
+  DeleteVideo = (record) => {
+    this.props.deleteOneData(record);
+  }
+  // 左右切换
+  handleModeChange = (e) => {
+    // alert(1)
+    const mode = e.target.value;
+    // console.log('mode',mode);
+    this.setState({ mode });
+    // const { formValues } = this.state;
+
+    // const { pageNow } = this.props;
+    // const { dispatch, formValues } = this.props;
+    // this.props.setA(pageNow, this.props.showCountNow);
+    // dispatch({
+    //   type: 'JgIndex/fetch',
+    //   payload: {
+    //     currentPage: pageNow,
+    //     pd: formValues,
+    //     showCount: this.props.showCountNow,
+    //   },
+    // });
+  };
+  CaseQuery(){
+    const { data } = this.props;
+    const list = data.list;
+    const dataLength = list.length;
+    const rows = [];
+    if (data&&list) {
+      const rowLength = Math.floor(dataLength / 5);
+      const restLength = dataLength % 5;
+      const rows1 = [];
+      const rows2 = [];
+      const casequery = [];
+      list.map((item)=>{
+        return(
+          rows.push(
+            <div className={styles.list}>
+              <div className={styles.card} style={{padding: '0 24px 24px 0'}}>
+                <Card className={styles.card}>
+                  <img width='100%' height={150} src={noList}/>
+                  <div className={styles.listmes}>
+                    <div style={{fontSize: 16}}>{item.zlmc}</div>
+                    <div>{item.scsj}</div>
+                  </div>
+                </Card>
+              </div>
+            </div>
+          )
+        )
+      })
+
+    }
+    return rows;
+  }
+  // CaseQuery() {
+  //   {/*<Checkbox.Group onChange={this.onChange}>*/}
+  //     {/*<Checkbox value='a'>a</Checkbox>*/}
+  //     {/*<Checkbox value='b'>b</Checkbox>*/}
+  //     {/*<Checkbox value='c'>c</Checkbox>*/}
+  //   {/*</Checkbox.Group>*/}
+  //   const { data } = this.props;
+  //   const list = data.list;
+  //   const dataLength = list.length;
+  //   if (data&&list) {
+  //     const rowLength = Math.floor(dataLength / 5);
+  //     const restLength = dataLength % 5;
+  //     const rows = [];
+  //     const rows1 = [];
+  //     const rows2 = [];
+  //     const casequery = [];
+  //     for (let a = 0; a < rowLength; a++) {
+  //       const cols = [];
+  //       for (let b = 5 * a; b < 5 * (a + 1); b++) {
+  //         cols.push(
+  //             <div className={styles.list}>
+  //               <div className={styles.card} style={{padding: '0 24px 24px 0'}}>
+  //                 <Card className={styles.card}>
+  //                   <img width='100%' height={150} src={noList} />
+  //                   <div className={styles.listmes}>
+  //                     <div style={{fontSize:20}}>{list[b].zlmc}</div>
+  //                     <div>{list[b].scsj}</div>
+  //                   </div>
+  //                 </Card>
+  //               </div>
+  //             </div>
+  //         );
+  //       }
+  //       rows1.push(cols);
+  //     }
+  //     if (restLength) {
+  //       for (let c = 0; c < 5; c++) {
+  //         if (c < restLength) {
+  //           casequery.push(
+  //             <div className={styles.list}>
+  //               <div className={styles.card} style={{padding: '0 24px 24px 0'}}>
+  //                 <Card className={styles.card}>
+  //                   <img width='100%' height={150} src={noList} />
+  //                   <div className={styles.listmes}>
+  //                     <div style={{fontSize:20}}>{list[c].zlmc}</div>
+  //                     <div>{list[c].scsj}</div>
+  //                   </div>
+  //                 </Card>
+  //               </div>
+  //             </div>
+  //           );
+  //         } else {
+  //           casequery.push(
+  //             <div className={styles.list}>
+  //               {/*<div className={styles.card}>*/}
+  //                 {/*<Card className={styles.card} />*/}
+  //               {/*</div>*/}
+  //             </div>
+  //           );
+  //         }
+  //       }
+  //     }
+  //     rows2.push({casequery});
+  //     rows.push(rows1);
+  //     rows.push(rows2);
+  //     return rows;
+  //   }
+  // }
+  tabLeft = () => {
+    const { data } = this.props;
+    const { mode } = this.state;
     let columns;
     columns = [
       {
@@ -73,10 +218,28 @@ class learningTable extends PureComponent {
             <a onClick={() => this.playVideo(record)}>查看</a>
             <Divider type="vertical"/>
             <a onClick={() => this.downLoad(record)}>下载</a>
+            <Divider type="vertical"/>
+            <a onClick={() => this.DeleteVideo(record)}>删除</a>
           </div>
         ),
       },
     ];
+    const rowSelection = {
+      onChange: (selectedRowKeys, selectedRows) => {
+        console.log('selectedRowKeys',selectedRowKeys);
+        console.log('selectedRows',selectedRows);
+        if(this.props.chooseSelect){
+          this.props.chooseSelect(selectedRows);
+        }
+        // this.setState({
+        //   selectedRows,
+        // })
+      },
+      // getCheckboxProps: record => ({
+      //   disabled: record.name === 'Disabled User', // Column configuration not to be checked
+      //   name: record.name,
+      // }),
+    };
     const paginationProps = {
       // showSizeChanger: true,
       // showQuickJumper: true,
@@ -92,13 +255,14 @@ class learningTable extends PureComponent {
       ),
     };
     return (
-      <div className={styles.standardTable} id="baqcardArea">
+      <div>
         <Table
           // size={'middle'}
           // loading={loading}
-          rowKey={record => record.key}
+          rowKey={record => record.id}
           dataSource={data.list}
           columns={columns}
+          rowSelection={rowSelection}
           pagination={paginationProps}
           onChange={this.handleTableChange}
           locale={{
@@ -110,6 +274,73 @@ class learningTable extends PureComponent {
             ),
           }}
         />
+        {/*<Table*/}
+          {/*size="middle"*/}
+          {/*loading={loading}*/}
+          {/*rowKey={record => record.xh}*/}
+          {/*dataSource={list || ''}*/}
+          {/*columns={columns}*/}
+          {/*// pagination={list ? paginationProps : false}*/}
+          {/*pagination={false}*/}
+          {/*onChange={this.handleTableChange}*/}
+        {/*/>*/}
+      </div>
+    );
+  };
+  tabRight = () => {
+    const { data,pagenow } = this.props;
+    console.log('data',pagenow);
+    return (
+      <div className={styles.ListStyle}>
+        {data&&data.list ? this.CaseQuery(): ''}
+        <div style={{ padding: '24px 0', position: 'relative' }}>
+          <Pagination
+            className={styles.paginations}
+            total={data.page.totalResult}
+            // size="small"
+            current={pagenow}
+            // showSizeChanger
+            // showQuickJumper
+            onChange={this.handleStandardTableChanges}
+            // onShowSizeChange={this.onShowSizeChange}
+            pageSize={tableList}
+            showTotal={() => `共 ${data ? data.page.totalPage : 1} 页，${data ? data.page.totalResult : 0} 条记录`}
+          />
+
+        </div>
+      </div>
+    );
+  }
+  onChange=(e)=>{
+    console.log('e----',e);
+  }
+  render() {
+    const { data } = this.props;
+    const { mode } = this.state;
+    return (
+      <div className={styles.standardTable} >
+
+        <Radio.Group onChange={this.handleModeChange} value={mode} className={styles.radio}>
+          <Tooltip title="列表展示">
+            <Radio.Button value="left">
+              <Icon type="bars" style={{ fontSize: 16 }} />
+              <span>{'列表展示' && '列表展示'.substring(0, 0)}</span>
+            </Radio.Button>
+          </Tooltip>
+          <Tooltip title="图标展示">
+            <Radio.Button value="right">
+              <Icon type="appstore-o" style={{ fontSize: 16 }} />
+              <span>{'图标展示' && '图标展示'.substring(0, 0)}</span>
+            </Radio.Button>
+          </Tooltip>
+        </Radio.Group>
+        {mode === 'left' ? this.tabLeft() : this.tabRight()}
+        {data && data.page && data.page.totalResult === 0 && mode === 'right' ?
+          <div style={{ textAlign: 'center', color: 'rgba(0, 0, 0, 0.45)', padding: '16px' }}>暂无数据</div>
+          :
+          ''
+        }
+
       </div>
     );
   }

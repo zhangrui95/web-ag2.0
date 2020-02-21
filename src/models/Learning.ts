@@ -1,5 +1,5 @@
 import {
-  LearningList,InsertList,
+  LearningList,InsertList,DeleteList,
 } from '../services/Learning';
 
 export default {
@@ -22,13 +22,23 @@ export default {
     },
     * getInsertList({payload, callback}, {call, put}) {
       const response = yield call(InsertList, payload);
+      yield put({
+        type: 'areaSfgz',
+        payload: response && response.error === null ? response.data : {},
+      });
+      if (callback && response ) {
+        callback(response);
+      }
+    },
+    * getDeleteList({payload, callback}, {call, put}) {
+      const response = yield call(DeleteList, payload);
       console.log('response',response)
       yield put({
         type: 'areaSfgz',
         payload: response && response.error === null ? response.data : {},
       });
-      if (callback && response && !response.error && response.data) {
-        callback(response.data);
+      if (callback && response) {
+        callback(response);
       }
     },
   },

@@ -1,80 +1,39 @@
 /*
- * Supervise/index.tsx 导入资料
- * author：jhm
- * 20200219
- * */
+* Show/ImportFileModal.tsx 在线学习导入文件模态框
+* author：jhm
+* 20200221
+* */
 
-import React, { PureComponent } from 'react';
-import { connect } from 'dva';
-import {
-  Modal,
-  Table,
-  Divider,
-  Button,
-  Popconfirm,
-  message,
-  Icon,
-  Tag,
-  Tooltip,
-  Row,
-  Col,
-  Form,
-  Select,
-  Upload,
-  TreeSelect,
-  Checkbox,
-  Input,
-  Card,
-} from 'antd';
-import { routerRedux } from 'dva/router';
-import { getSysAuthority } from '../../../utils/authority';
-import styles from './index.less';
-import Ellipsis from 'ant-design-pro/lib/Ellipsis';
-import { NavigationItem } from '@/components/Navigation/navigation';
+import React, {PureComponent} from 'react';
+import {Modal, Form, Input, Select, message, button, Card, Button, Row, Col, Icon, Upload} from 'antd';
+import styles from './ImportFIleModal.less';
+
+const {TextArea} = Input;
+const {Option, OptGroup} = Select;
+import {connect} from 'dva';
+import {getUserInfos} from '../../utils/utils';
 import moment from "moment";
 
-const TreeNode = TreeSelect.TreeNode;
-const { Option, OptGroup } = Select;
 const FormItem = Form.Item;
-const { TextArea } = Input;
-const { confirm } = Modal;
-@connect(({ common, global }) => ({
-  common,
-  global,
-  // loading: loading.models.alarmManagement,
-}))
-@Form.create()
-export default class SuperviseModal extends PureComponent {
-  constructor(props){
-    super(props);
-    // const {query: {from,wtflId, wtflMc,tab, fromPath, id },} = props.location;
-    let record = props.location.query;
-    if(record && typeof record === 'string'||typeof record === 'object'){
-      record = JSON.parse(sessionStorage.getItem('query')).query.record;
-    }
 
-    this.state={
-      // wtlx: '',
-      // SureModalVisible: false,
-      // zgjg: '',
-      // formValues: {},
-      // fileList: [],
-      // zrrValue: [],
-      // chooseValue: [],
-      // gqType: false,
-      // dbLoading: false,
+@connect(({share}) => ({
+  share,
+}))
+class ImportFileModal extends PureComponent {
+  constructor(props, context) {
+    super(props);
+    console.log('props',props)
+    // const {query: {from,wtflId, wtflMc,tab, fromPath, id },} = props.location;
+    let record = props.record;
+    // if(record && typeof record === 'string'||typeof record === 'object'){
+    //   record = JSON.parse(sessionStorage.getItem('query')).query.record;
+    // }
+    this.state = {
       record,
-      // from,
-      // wtflId,
-      // wtflMc,
-      // tab,
-      // fromPath,
-      // id,
-      // success:false,
-    }
+    };
   }
 
-  componentDidMount() {
+  componentWillReceiveProps(nextProps) {
 
   }
 
@@ -110,26 +69,35 @@ export default class SuperviseModal extends PureComponent {
     }
     // console.log('Objwjxx',Objwjxx);
     const param = {
-        fbdw:obj.fbdw,
-        wjxx:Objwjxx,
+      fbdw:obj.fbdw,
+      wjxx:Objwjxx,
     }
     this.props.dispatch({
       type:'Learning/getInsertList',
       payload:param?param:'',
       callback:(data)=>{
         console.log('data---',data);
+        if(data.error===null&&this.props.handleFormReset){
+          this.props.handleFormReset()
+          this.props.handleCancel()
+        }
       }
     })
   }
 
   handleAlarm = () => {
     const {from } = this.state;
-    this.props.form.validateFields((err, fieldsValue) => {
-      if(!err){
-        console.log('fieldsValue',fieldsValue);
+    const values = this.props.form.getFieldsValue();
+
+
+        console.log('fieldsValue',values);
         // this.setState({fieldsValue})
-        this.getinfoview(fieldsValue);
-      }
+    if(values.scwj&&values.fbdw){
+      this.getinfoview(values);
+    }
+    else{
+      message.warning('请选择发布单位或者上传文件')
+    }
 
 
       // if (
@@ -197,7 +165,6 @@ export default class SuperviseModal extends PureComponent {
       //     });
       //   }
       // }
-    });
   };
   handleCancel = () => {
     this.setState({
@@ -317,7 +284,7 @@ export default class SuperviseModal extends PureComponent {
     //   message.error('最多上传10个文件');
     //   return false;
     // }
-    const allowTypeArry = ['rar', 'zip', 'doc', 'docx', 'pdf', 'jpg', 'png', 'bmp', 'mp4'];
+    const allowTypeArry = ['rar', 'zip', 'doc', 'docx', 'pdf', 'jpg', 'png', 'bmp', 'mp4', 'mp3'];
     const nameArry = file.name.split('.');
     const fileType = nameArry[nameArry.length - 1];
     const isLt50M = file.size / 1024 / 1024 < 50;
@@ -326,7 +293,7 @@ export default class SuperviseModal extends PureComponent {
     }
     const allowType = allowTypeArry.includes(fileType);
     if (!allowType) {
-      message.error('支持扩展名：.rar .zip .doc .docx .pdf .jpg .png .bmp .mp4');
+      message.error('支持扩展名：.rar .zip .doc .docx .pdf .jpg .png .bmp .mp4 .mp3');
     }
     return isLt50M && allowType;
   };
@@ -335,7 +302,7 @@ export default class SuperviseModal extends PureComponent {
     let fileList = info.fileList;
     for (let i = 0; i < fileList.length; i++) {
       let file = fileList[i];
-      const allowTypeArry = ['rar', 'zip', 'doc', 'docx', 'pdf', 'jpg', 'png', 'bmp', 'mp4'];
+      const allowTypeArry = ['rar', 'zip', 'doc', 'docx', 'pdf', 'jpg', 'png', 'bmp', 'mp4', 'mp3'];
       const nameArry = file.name.split('.');
       const fileType = nameArry[nameArry.length - 1];
       const isLt50M = file.size / 1024 / 1024 < 50;
@@ -375,46 +342,6 @@ export default class SuperviseModal extends PureComponent {
     window.open('http://'+file.response.fileUrl);
   };
 
-  onEdit = isReset => {
-    const {record, tab, fromPath, id} = this.state;
-    // console.log('fromPath',fromPath);
-    // console.log('isReset',isReset);
-    let key = '/ModuleAll/Supervise' + this.props.location.query.id;
-    // 鍒犻櫎褰撳墠tab骞朵笖灏嗚矾鐢辫烦杞嚦鍓嶄竴涓猼ab鐨刾ath
-    const { dispatch } = this.props;
-    if (dispatch) {
-      dispatch(
-        routerRedux.push({
-          pathname: fromPath ? fromPath : '',
-          query: { id: tab === '表格' ? '' : id, record: tab === '表格' ? '' : record },
-        }),
-      );
-      if(isReset){
-        dispatch({
-          type: 'global/changeResetList',
-          payload: {
-            isReset: !this.props.global.isResetList.isReset,
-            url:fromPath ? fromPath : ''
-          },
-        });
-      }
-      dispatch({
-        type: 'global/changeSessonNavigation',
-        payload: {
-          key,
-          isShow: false,
-        },
-      });
-      dispatch({
-        type: 'global/changeNavigation',
-        payload: {
-          key,
-          isShow: false,
-        },
-      });
-    }
-  };
-
   render() {
     const { SureModalVisible,record, from } = this.state;
     const { getFieldDecorator } = this.props.form;
@@ -440,109 +367,119 @@ export default class SuperviseModal extends PureComponent {
         );
       }
     }
-    // console.log('window.configUrl.weedUrl',window.configUrl.weedUrl)
     return (
-      <div className={this.props.global && this.props.global.dark ? '' : styles.lightBox}>
-        <Card className={styles.standardTable} id="importModule">
-          <Form className={styles.standardForm}>
-            <Row gutter={{ md: 8, lg: 24, xl: 48 }} style={{ marginBottom: '16px' }}>
-              <Col {...colLayout}>
-                <FormItem label="发布单位" {...formItemLayout}>
-                  {getFieldDecorator('fbdw', {
-                    // initialValue: this.state.caseType,
-                    rules: [{required:true, message: '请选择发布单位'}],
-                  })(
-                    <Select
-                      placeholder="请选择发布单位"
-                      style={{width: '100%'}}
-                      // getPopupContainer={() => document.getElementById('slaxsgjsearchForm')}
-                    >
-                      <Option value="">全部</Option>
-                      {fblxAlarmDictOptions}
-                    </Select>,
-                  )}
-                </FormItem>
-              </Col>
-            </Row>
-            <Row>
-              <Col {...colLayout}>
-                <FormItem label="上传文件" {...formItemLayout}>
-                  {getFieldDecorator('scwj', {
-                    // initialValue: this.state.caseType,
-                    rules: [{required:true, message: '请上传文件'}],
-                  })(
-                    <Upload
-                      // action={`${window.configUrl.weedUrl}/submit`}
-                      action='http://192.168.3.92:9222/submit'
-                      beforeUpload={this.beforeUploadFun}
-                      // fileList={this.state.fileList}
-                      // multiple={true}
-                      onChange={this.handleChange}
-                      onPreview={this.fileOnPreview}
-                      onDownload={this.fileOnPreview}
-                      style={{diaplay:'inlineBlock'}}
-                    >
-                      {uploadButton}
-                    </Upload>
-                  )}
-                </FormItem>
-                {/*<span className={styles.title}>上传附件：</span>*/}
-                {/*<span className={styles.outtext}>*/}
+      <Modal
+        visible={this.props.visible}
+        title="资料导入"
+        // onOk={this.handleOk}
+        onCancel={this.props.handleCancel}
+        className={styles.shareHeader}
+        // confirmLoading={this.state.btnLoading}
+        width={900}
+        maskClosable={false}
+        style={{top: '250px'}}
+        footer={null}
+      >
+        <div className={this.props.global && this.props.global.dark ? '' : styles.lightBox}>
+            <Form className={styles.standardForm}>
+              <Row  style={{ marginBottom: '16px' }}>
+                <Col {...colLayout}>
+                  <FormItem label="发布单位" {...formItemLayout}>
+                    {getFieldDecorator('fbdw', {
+                      // initialValue: this.state.caseType,
+                      // rules: [{required:true, message: '请选择发布单位'}],
+                    })(
+                      <Select
+                        placeholder="请选择发布单位"
+                        style={{width: '100%'}}
+                        // getPopupContainer={() => document.getElementById('slaxsgjsearchForm')}
+                      >
+                        <Option value="">全部</Option>
+                        {fblxAlarmDictOptions}
+                      </Select>,
+                    )}
+                  </FormItem>
+                </Col>
+              </Row>
+              <Row>
+                <Col {...colLayout}>
+                  <FormItem label="上传文件" {...formItemLayout}>
+                    {getFieldDecorator('scwj', {
+                      // initialValue: this.state.caseType,
+                      // rules: [{required:true, message: '请上传文件'}],
+                    })(
+                      <Upload
+                        // action={`${window.configUrl.weedUrl}/submit`}
+                        action='http://192.168.3.92:9222/submit'
+                        beforeUpload={this.beforeUploadFun}
+                        // fileList={this.state.fileList}
+                        // multiple={true}
+                        onChange={this.handleChange}
+                        onPreview={this.fileOnPreview}
+                        onDownload={this.fileOnPreview}
+                        style={{diaplay:'inlineBlock'}}
+                      >
+                        {uploadButton}
+                      </Upload>
+                    )}
+                  </FormItem>
+                  {/*<span className={styles.title}>上传附件：</span>*/}
+                  {/*<span className={styles.outtext}>*/}
                   {/*<Upload*/}
-                    {/*// action={`${window.configUrl.weedUrl}/submit`}*/}
-                    {/*action='http://192.168.3.92:9222/submit'*/}
-                    {/*beforeUpload={this.beforeUploadFun}*/}
-                    {/*// fileList={this.state.fileList}*/}
-                    {/*// multiple={true}*/}
-                    {/*onChange={this.handleChange}*/}
-                    {/*onPreview={this.fileOnPreview}*/}
-                    {/*onDownload={this.fileOnPreview}*/}
-                    {/*style={{diaplay:'inlineBlock'}}*/}
+                  {/*// action={`${window.configUrl.weedUrl}/submit`}*/}
+                  {/*action='http://192.168.3.92:9222/submit'*/}
+                  {/*beforeUpload={this.beforeUploadFun}*/}
+                  {/*// fileList={this.state.fileList}*/}
+                  {/*// multiple={true}*/}
+                  {/*onChange={this.handleChange}*/}
+                  {/*onPreview={this.fileOnPreview}*/}
+                  {/*onDownload={this.fileOnPreview}*/}
+                  {/*style={{diaplay:'inlineBlock'}}*/}
                   {/*>*/}
                   {/*{uploadButton}*/}
-                {/*</Upload>*/}
-                {/*</span>*/}
-              </Col>
-            </Row>
-          </Form>
-        </Card>
-        <Card>
-          <div className={styles.btns}>
-            {/*<Button type="primary" style={{marginLeft: 8}} className={styles.qxBtn}*/}
-            {/*        onClick={() => this.onEdit(false)}>*/}
-            {/*    取消*/}
-            {/*</Button>*/}
-            <Button
-              type="primary"
-              style={{ marginLeft: 8 }}
-              onClick={this.handleAlarm}
-              className={styles.okBtn}
-              loading={this.state.dbLoading}
-            >
-              确定
-            </Button>
-          </div>
-        </Card>
-        <Modal visible={SureModalVisible} centered={true} footer={null} header={null} closable={false} width={400} getContainer={()=>document.getElementById('messageBox')}>
-          <div className={styles.modalBox}>
-            <div className={styles.question} style={this.props.global && this.props.global.dark ? {color:'#fff'} : {}}><Icon type="question-circle" style={{color:'#faad14',fontSize: '22px',marginRight: '16px'}}/>确认上传文件?</div>
-            <div style={{marginTop:40,float:"right"}}><Button onClick={this.closeConfirm}>取消</Button><Button type="primary" style={{marginLeft:'16px'}} onClick={this.handleAlarmSure} loading={this.state.dbLoading}>确认</Button></div>
-          </div>
-        </Modal>
-        <Modal
-          title=""
-          visible={this.state.success}
-          className={this.props.global && this.props.global.dark ? styles.success : styles.successLight}
-          width={350}
-          style={{top: '250px'}}
-          maskClosable={false}
-          cancelText={null}
-          onCancel={this.handleCancel}
-          footer={<button onClick={this.handleCancel} className={styles.successBtn}>确定</button>}
-        >
-          上传成功！
-        </Modal>
-      </div>
+                  {/*</Upload>*/}
+                  {/*</span>*/}
+                </Col>
+              </Row>
+            </Form>
+            <div className={styles.btns}>
+              {/*<Button type="primary" style={{marginLeft: 8}} className={styles.qxBtn}*/}
+              {/*        onClick={() => this.onEdit(false)}>*/}
+              {/*    取消*/}
+              {/*</Button>*/}
+              <Button
+                type="primary"
+                style={{ marginLeft: 8 }}
+                onClick={this.handleAlarm}
+                className={styles.okBtn}
+                // loading={this.state.dbLoading}
+              >
+                确定
+              </Button>
+            </div>
+          <Modal visible={SureModalVisible} centered={true} footer={null} header={null} closable={false} width={400} getContainer={()=>document.getElementById('messageBox')}>
+            <div className={styles.modalBox}>
+              <div className={styles.question} style={this.props.global && this.props.global.dark ? {color:'#fff'} : {}}><Icon type="question-circle" style={{color:'#faad14',fontSize: '22px',marginRight: '16px'}}/>确认上传文件?</div>
+              <div style={{marginTop:40,float:"right"}}><Button onClick={this.closeConfirm}>取消</Button><Button type="primary" style={{marginLeft:'16px'}} onClick={this.handleAlarmSure} loading={this.state.dbLoading}>确认</Button></div>
+            </div>
+          </Modal>
+          <Modal
+            title=""
+            visible={this.state.success}
+            className={this.props.global && this.props.global.dark ? styles.success : styles.successLight}
+            width={350}
+            style={{top: '250px'}}
+            maskClosable={false}
+            cancelText={null}
+            onCancel={this.handleCancel}
+            footer={<button onClick={this.handleCancel} className={styles.successBtn}>确定</button>}
+          >
+            上传成功！
+          </Modal>
+        </div>
+      </Modal>
     );
   }
 }
+
+export default Form.create()(ImportFileModal);

@@ -20,16 +20,18 @@ import {
   message,
   Cascader,
   Icon,
-  Card,Icon,Upload
+  Card, Icon, Upload, Modal,
 } from 'antd';
 import moment from 'moment/moment';
 import styles from './Learning.less';
 import learningRenderTable from '../../components/Show/learningTable';
 import RenderTable from '../../components/Show/learningTable';
+import ImportFileModal from '../../components/Show/ImportFileModal';
 import {exportListDataMaxDays, getQueryString, tableList} from '../../utils/utils';
 import {routerRedux} from "dva/router";
 
 
+const confirm = Modal.confirm;
 const FormItem = Form.Item;
 const {Option} = Select;
 const {RangePicker} = DatePicker;
@@ -46,12 +48,15 @@ let currentValue;
 @Form.create()
 export default class Index extends PureComponent {
   state = {
-    searchHeight: false, // 查询条件展开筛选
+    // searchHeight: false, // 查询条件展开筛选
     dataList:'', // 数据列表
     formValues:'', // 条件
     fileList: [],
     fbdwData:[], // 发布单位字典
     zllxData:[], // 资料类型字典
+    deletedata:[], // 选择删除的数据
+    ImportModal:false, // 导入文件模态框
+    pagenow:1, // 默认当前处在第几页
   };
 
 
@@ -120,12 +125,12 @@ export default class Index extends PureComponent {
     return current && current.valueOf() > Date.now();
   };
 
-  // 展开筛选和关闭筛选
-  getSearchHeight = () => {
-    this.setState({
-      searchHeight: !this.state.searchHeight,
-    });
-  }
+  // // 展开筛选和关闭筛选
+  // getSearchHeight = () => {
+  //   this.setState({
+  //     searchHeight: !this.state.searchHeight,
+  //   });
+  // }
 
   // 导出
   exportData = () => {
@@ -140,8 +145,7 @@ export default class Index extends PureComponent {
         this.props.dispatch({
           type: 'common/exportData',
           payload: {
-            tableType: '1',
-            sqdd_type: '2',
+            tableType: '42',
             ...formValues,
           },
           callback: (data) => {
@@ -158,12 +162,67 @@ export default class Index extends PureComponent {
     }
   };
 
+  // 表格操作的删除单条数据功能
+  deleteOneData = (obj) =>{
+    let deleteId = [],that=this;
+    let objDelete={
+      id:obj.id,
+    }
+    deleteId.push(objDelete);
+    confirm({
+      title: '确定删除？',
+      content: '',
+      okText: '确定',
+      cancelText: '取消',
+      style: {top: 200},
+      onOk() {
+        that.delete(deleteId)
+      },
+    });
+  }
 
   // 资料删除
   deleteData = () => {
-
+    const { deletedata } = this.state;
+    let that = this;
+    let deleteId = [], objDeleteId={};
+    if(deletedata&&deletedata.length>0){
+      deletedata.map((item) => {
+        objDeleteId = {
+          id:item.id,
+        }
+        deleteId.push(objDeleteId);
+      });
+      confirm({
+        title: '确定删除这'+deletedata.length+'条资料？',
+        content: '',
+        okText: '确定',
+        cancelText: '取消',
+        style: {top: 200},
+        onOk() {
+          that.delete(deleteId)
+        },
+      });
+    }
+    else{
+      message.warning('请选择要删除的资料');
+    }
   }
 
+  delete = (deleteId) => {
+    this.props.dispatch({
+      type:'Learning/getDeleteList',
+      payload:{
+        wjxx:deleteId,
+      },
+      callback:(obj)=>{
+        if(obj.error === null){
+          message.success('删除成功');
+          this.handleFormReset()
+        }
+      }
+    })
+  }
   // 表格分页
   handleTableChange = (pagination, filtersArg, sorter) => {
     const {formValues} = this.state;
@@ -175,7 +234,25 @@ export default class Index extends PureComponent {
       showCount: pagination.pageSize,
     };
     this.getDataList(params);
+    this.setState({
+      pagenow:pagination.current,
+    })
   };
+  // 视图分页
+  viewChange = (page) => {
+    const {formValues} = this.state;
+    const params = {
+      pd: {
+        ...formValues,
+      },
+      currentPage: page,
+      showCount: tableList,
+    };
+    this.getDataList(params);
+    this.setState({
+      pagenow:page,
+    })
+  }
 
   // 查询
   handleSearch = (e) => {
@@ -183,9 +260,10 @@ export default class Index extends PureComponent {
     // const values = this.props.form.getFieldsValue();
     this.props.form.validateFields((err, values) => {
       if (!err) {
+        console.log('values',moment(values.scsj[0]).format('YYYY-MM-DD'));
         const formValues = {
-          scsj_ks:values.scsj[0],
-          scsj_js:values.scsj[1],
+          scsj_ks:values&&values.scsj?moment(values.scsj[0]).format('YYYY-MM-DD'):'',
+          scsj_js:values&&values.scsj?moment(values.scsj[1]).format('YYYY-MM-DD'):'',
           zllx:values.zllx,
           fbdw:values.fbdw,
           zlmc:values.zlmc,
@@ -210,6 +288,7 @@ export default class Index extends PureComponent {
     this.props.form.resetFields();
     this.setState({
       formValues:'',
+      deletedata:[],
     })
     const params = {
       currentPage: 1,
@@ -222,22 +301,25 @@ export default class Index extends PureComponent {
   };
 
   // 导入资料
-  importData = () => {
-    const {form: {getFieldDecorator}, common: {FbdwTypeData, ZllxTypeData}} = this.props;
-    this.props.dispatch(
-      routerRedux.push({
-        pathname: '/ModuleAll/ImportData',
-        query: {
-          record: FbdwTypeData,
-          // searchDetail: record,
-          // id: NewDossierDetail && NewDossierDetail.id ? NewDossierDetail.id : '1',
-          // from: '督办',
-          // tzlx: 'jzwt',
-          fromPath: '/ShowData/Learning',
-          // tab: '表格',
-        },
-      }),
-    );
+  importData = (flag) => {
+    // const {form: {getFieldDecorator}, common: {FbdwTypeData, ZllxTypeData}} = this.props;
+    // this.props.dispatch(
+    //   routerRedux.push({
+    //     pathname: '/ModuleAll/ImportData',
+    //     query: {
+    //       record: FbdwTypeData,
+    //       // searchDetail: record,
+    //       // id: NewDossierDetail && NewDossierDetail.id ? NewDossierDetail.id : '1',
+    //       // from: '督办',
+    //       // tzlx: 'jzwt',
+    //       fromPath: '/ShowData/Learning',
+    //       // tab: '表格',
+    //     },
+    //   }),
+    // );
+    this.setState({
+      ImportModal:!!flag,
+    })
   }
 
   // beforeUploadFun = (file, fileList) => {
@@ -302,6 +384,20 @@ export default class Index extends PureComponent {
     window.open('http://'+file.response.fileUrl);
   };
 
+  // 选择删除的数据
+  chooseSelect = (deletedata) => {
+    this.setState({
+      deletedata,
+    })
+  };
+
+  // 关闭导入文件模态框
+  handleCancel = () => {
+    this.setState({
+      ImportModal:false,
+    })
+  }
+
   renderForm() {
     const {form: {getFieldDecorator}, common: {FbdwTypeData, ZllxTypeData}} = this.props;
     // console.log('ZllxTypeData',ZllxTypeData);
@@ -336,7 +432,8 @@ export default class Index extends PureComponent {
       >
         <Form
           onSubmit={this.handleSearch}
-          style={{height: this.state.searchHeight ? 'auto' : '59px'}}
+          // style={{height: this.state.searchHeight ? 'auto' : '59px'}}
+          style={{height:  'auto' }}
         >
           <Row gutter={rowLayout} className={styles.searchForm}>
             <Col {...colLayout}>
@@ -385,16 +482,16 @@ export default class Index extends PureComponent {
             </Col>
             <Col {...colLayout}>
               <FormItem label="资料名称" {...formItemLayout}>
-                {getFieldDecorator('badw', {
-                  initialValue: this.state.badw,
+                {getFieldDecorator('zlmc', {
+                  // initialValue: this.state.badw,
                 })(
                   <Input placeholder="请输入资料名称"/>
                 )}
               </FormItem>
             </Col>
           </Row>
-          <Row className={styles.search} style={{position: 'absolute', top: 10, right: 32}}>
-            <span style={{float: 'right', marginBottom: 24, marginTop: 5}}>
+          <Row className={styles.search}>
+            <span style={{ marginTop: 5}}>
               <Button style={{marginLeft: 8}} type="primary" htmlType="submit">
                 查询
               </Button>
@@ -402,13 +499,38 @@ export default class Index extends PureComponent {
                 重置
               </Button>
               <Button
-                style={{marginLeft: 8}}
-                onClick={this.getSearchHeight}
-                className={styles.empty}
+                style={{ borderColor: '#2095FF',marginLeft: 8 }}
+                onClick={this.exportData}
+                icon="download"
               >
-                {this.state.searchHeight ? '收起筛选' : '展开筛选'}{' '}
-                <Icon type={this.state.searchHeight ? 'up' : 'down'}/>
-              </Button>
+              导出表格
+            </Button>
+              {/*<Button*/}
+                {/*style={{marginLeft: 8}}*/}
+                {/*onClick={this.getSearchHeight}*/}
+                {/*className={styles.empty}*/}
+              {/*>*/}
+                {/*{this.state.searchHeight ? '收起筛选' : '展开筛选'}{' '}*/}
+                {/*<Icon type={this.state.searchHeight ? 'up' : 'down'}/>*/}
+              {/*</Button>*/}
+            </span>
+          </Row>
+          <Row className={styles.search}>
+            <span style={{marginTop: 5}}>
+              <Button
+                style={{ borderColor: '#2095FF', marginLeft: 8 }}
+                onClick={()=>this.importData(true)}
+                icon="download"
+              >
+            资料导入
+          </Button>
+          <Button
+            style={{ borderColor: '#2095FF', marginLeft: 8 }}
+            onClick={this.deleteData}
+            // icon="download"
+          >
+            资料删除
+          </Button>
             </span>
           </Row>
         </Form>
@@ -417,49 +539,46 @@ export default class Index extends PureComponent {
   }
 
   renderTable() {
-    const {dataList} = this.state;
+    const {dataList, pagenow} = this.state;
+    console.log('pagenow',pagenow);
     return (
       <div>
         <RenderTable
           data={dataList}
           onChange={this.handleTableChange}
+          deleteOneData={this.deleteOneData}  // 删除单条数据
+          chooseSelect={this.chooseSelect} // 删除多条数据
           // dispatch={this.props.dispatch}
+          pagenow={pagenow} // 当前视图处在第几页
+          viewChange={this.viewChange} // 视图分页
         />
       </div>
     );
   }
 
   render() {
+    const {ImportModal} = this.state;
+    const {form: {getFieldDecorator}, common: {FbdwTypeData, ZllxTypeData}} = this.props;
     return (
       <div className={this.props.location.query && this.props.location.query.id ? styles.onlyDetail : ''}>
         <div className={styles.tableListForm}>
           {this.renderForm()}
         </div>
         <div className={styles.tableListOperator} style={{marginBottom: 0}}>
-          <Button
-            style={{ borderColor: '#2095FF', marginBottom: 16 }}
-            onClick={this.exportData}
-            icon="download"
-          >
-            导出表格
-          </Button>
-          <Button
-            style={{ borderColor: '#2095FF', marginBottom: 16 }}
-            onClick={this.importData}
-            icon="download"
-          >
-            资料导入
-          </Button>
-
-          <Button
-            style={{ borderColor: '#2095FF', marginBottom: 16 }}
-            onClick={this.deleteData}
-            // icon="download"
-          >
-            资料删除
-          </Button>
           {this.renderTable()}
         </div>
+
+        {ImportModal?
+          <ImportFileModal
+             visible={ImportModal}
+             record={FbdwTypeData}
+             handleCancel={this.handleCancel}
+             handleFormReset={this.handleFormReset}
+
+          />
+          :
+          ''
+        }
       </div>
     );
   }

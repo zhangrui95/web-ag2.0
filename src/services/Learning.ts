@@ -16,3 +16,12 @@ export async function InsertList(params) {
     data: params,
   });
 }
+
+// 删除在线学习的文件
+export async function DeleteList(params) {
+  return request(`${configUrl.serverUrl}/deleteZxxx`, {
+    method: 'POST',
+    data: params,
+  });
+}
+

@@ -7,14 +7,19 @@
   //width: 300px;
   //text-align: right;
   color: @white;
+  text-align: right;
 
   :global {
     .ant-pagination-total-text {
       position: absolute;
       left: 0;
-      color: @text-color-secondary;
+      color: @text-word-color;
     }
   }
+}
+.paginations{
+  color: @white;
+  text-align: right;
 }
 
 .standardTable {
@@ -22,3 +27,65 @@
   position: relative;
   min-height: 400px;
 }
+
+
+.radio {
+  //position: relative;
+  //top: -32px;
+  //float: right;
+ }
+
+
+.list {
+  display:inline-block;
+  width:20%;
+  :hover {
+    .descript {
+      display: none;
+    }
+    .Alldescript {
+      display: block;
+    }
+  }
+}
+
+.ListStyle {
+  position: relative;
+  padding: 0 0 24px 0;
+}
+
+.card {
+  position: relative;
+  :global {
+    .ant-card-body{
+      cursor :text!important;
+    }
+    .ant-card-meta-title {
+      margin-bottom: 12px;
+      & > a {
+        color: @heading-color;
+      }
+    }
+    .ant-card-actions {
+      background: #f7f9fa;
+    }
+    .ant-card-body:hover {
+      .ant-card-meta-title > a {
+        color: @primary-color;
+      }
+    }
+  }
+}
+
+.Rows {
+  padding-bottom: 16px;
+}
+
+.listmes{
+  position: relative;
+  left: 20px;
+  padding-bottom:10px;
+}
+
+
+
