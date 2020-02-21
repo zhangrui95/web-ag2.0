@@ -650,6 +650,17 @@ export default class DossierDataView extends PureComponent {
                     },
                     // data: newData1,
                     data: [],
+                    label: {
+                        normal: {
+                            show: true,
+                            position: 'top',
+                            formatter: '{c}',
+                            textStyle: {
+                                fontSize: 16,
+                                color: nextProps.global && nextProps.global.dark ? '#fff' : '#4d4d4d',
+                            },
+                        },
+                    },
                 },
             ],
         };

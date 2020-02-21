@@ -1214,7 +1214,7 @@ export default class CriminalCaseDocDetail extends PureComponent {
                                     borderLeft: dark ? '3px solid #fff' : '3px solid #3D63D1',
                                     paddingLeft: 16,
                                 }}
-                            >告警信息</div>} className={liststyles.card} bordered={false}
+                            >告警信息</div>} className={liststyles.card+' '+liststyles.cardLast} bordered={false}
                                   id={this.state.res.ajbh + 'gjxx'}>
                                 <div>
                                     {this.gjxxCol(caseDetails && caseDetails.problemList ? caseDetails.problemList : [])}

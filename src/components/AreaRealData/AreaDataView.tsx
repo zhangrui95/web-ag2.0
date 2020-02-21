@@ -974,6 +974,17 @@ export default class ItemDataView extends PureComponent {
                     },
                     // data: data,
                     data: [],
+                    label: {
+                        normal: {
+                            show: true,
+                            position: 'top',
+                            formatter: '{c}',
+                            textStyle: {
+                                fontSize: 16,
+                                color: nextProps.global && nextProps.global.dark ? '#fff' : '#4d4d4d',
+                            },
+                        },
+                    },
                 },
             ],
         };
