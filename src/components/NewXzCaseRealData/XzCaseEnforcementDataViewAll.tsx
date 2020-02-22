@@ -789,7 +789,7 @@ export default class XzCaseEnforcementDataView extends PureComponent {
                     const dataTime =
                         currentType === 'selectedDate' ? that.props.selectedDateVal : that.getTime(currentType);
                     that.props.changeToListPage(
-                        {ajlb: [code.substring(0, 2) + '0000', code.substring(0, 4) + '00', code]},
+                        {ajlb: [code.substring(0, 1) + '00000', code.substring(0, 3) + '000', code]},
                         dataTime,
                         '受理',
                     );
