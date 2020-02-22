@@ -19,6 +19,8 @@ class learningTable extends PureComponent {
     selectedRows:[],
     previewModal:false, // 预览模态框
     previewRecord:'',
+    tablechoose:[], // 表格中的选中项
+    checkboxchoose:[],
   };
   handleTableChange = (pagination, filters, sorter) => {
     this.props.onChange(pagination, filters, sorter);
@@ -74,19 +76,16 @@ class learningTable extends PureComponent {
   };
   checkboxView = (checkedValues) => {
     console.log('checkedValues',checkedValues)
+    this.setState({
+      checkboxchoose:checkedValues,
+    })
     this.props.chooseSelect(checkedValues);
   }
   CaseQuery(){
     const { data } = this.props;
     const list = data.list;
-    const dataLength = list.length;
     const rows = [];
     if (data&&list) {
-      const rowLength = Math.floor(dataLength / 5);
-      const restLength = dataLength % 5;
-      const rows1 = [];
-      const rows2 = [];
-      const casequery = [];
       list.map((item)=>{
         return(
           rows.push(
@@ -180,8 +179,8 @@ class learningTable extends PureComponent {
   // }
   tabLeft = () => {
     const { data } = this.props;
-    const { mode } = this.state;
-    let columns;
+    const { mode,checkboxchoose } = this.state;
+    let columns, checkboxchooseObj = [];
     columns = [
       {
         title: '资料名称',
@@ -221,11 +220,16 @@ class learningTable extends PureComponent {
         ),
       },
     ];
+
     const rowSelection = {
-      // selectedRowKeys:['3874267e-c40d-405c-9016-d7a4616b3599'],
+      // selectedRowKeys: checkboxchoose,
+      selections:checkboxchoose,
       onChange: (selectedRowKeys, selectedRows) => {
         // console.log('selectedRowKeys',selectedRowKeys);
         console.log('selectedRows',selectedRows);
+        this.setState({
+          tablechoose:selectedRowKeys,
+        })
         if(this.props.chooseSelect){
           this.props.chooseSelect(selectedRowKeys);
         }
@@ -233,6 +237,7 @@ class learningTable extends PureComponent {
         //   selectedRows,
         // })
       },
+
       // getCheckboxProps: record => ({
       //   disabled: record.name === 'Disabled User', // Column configuration not to be checked
       //   name: record.name,
@@ -321,7 +326,6 @@ class learningTable extends PureComponent {
   render() {
     const { data } = this.props;
     const { mode,previewModal,previewRecord } = this.state;
-    console.log('previewRecord',previewRecord.xzlj);
     return (
       <div className={styles.standardTable} >
 
