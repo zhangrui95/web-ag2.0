@@ -164,14 +164,13 @@ export default class Detail extends PureComponent {
             this.setState({
                 detail: null,
             });
-        }
-        ;
+        };
         this.props.dispatch({
             type: 'Evaluation/getAjkpXqByAjbh',
             payload: {
                 ajbh: record.ajbh,
-                kprq_ks: this.props.kprq && this.props.kprq[0] ? this.props.kprq[0].format('YYYY-MM-DD') : '',
-                kprq_js: this.props.kprq && this.props.kprq[1] ? this.props.kprq[1].format('YYYY-MM-DD') : '',
+                kprq_ks: record.kprq_time && record.kprq_time[0] ? record.kprq_time[0].format('YYYY-MM-DD') : '',
+                kprq_js: record.kprq_time && record.kprq_time[1] ? record.kprq_time[1].format('YYYY-MM-DD') : '',
                 xm_type: xm_type
             },
             callback: (data) => {
