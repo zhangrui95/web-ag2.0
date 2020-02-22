@@ -375,6 +375,7 @@ export default class CriminalCaseDocDetail extends PureComponent {
         dataList.forEach(function (node) {
             node.itemStyle = null;
             node.symbolSize /= 1.5;
+            console.log(node);
             node.label = {
                 normal: {
                     show: true,
