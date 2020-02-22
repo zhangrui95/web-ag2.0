@@ -22,7 +22,7 @@ const FormItem = Form.Item;
 class ImportFileModal extends PureComponent {
   constructor(props, context) {
     super(props);
-    console.log('props',props)
+    // console.log('props',props)
     // const {query: {from,wtflId, wtflMc,tab, fromPath, id },} = props.location;
     let record = props.record;
     // if(record && typeof record === 'string'||typeof record === 'object'){
@@ -53,15 +53,24 @@ class ImportFileModal extends PureComponent {
   // 保存上传的文件
   getinfoview = (obj) => {
     console.log('obj',obj);
-    // const objPart = JSON.parse(sessionStorage.getItem('user'));
     const zlxx = obj&&obj.scwj&&obj.scwj.fileList?obj.scwj.fileList:'';
-    // console.log('objPart',objPart);
+    let ChiType= '';
     let Objwjxx=[];
     for(let a = 0; a < zlxx.length; a++ ){
+      const zlxxName = zlxx[a].response.fileName;
+      if(zlxxName.split('.')[1] === 'mp4'){
+        ChiType = '视频'
+      }
+      else if(zlxxName.split('.')[1] === 'mp3'){
+        ChiType = '音频'
+      }
+      else if(zlxxName.split('.')[1] === 'doc'||zlxxName.split('.')[1] === 'docx'){
+        ChiType = '文档'
+      }
       let wj = {
-        zlmc:zlxx[a].response.fileName,
+        zlmc:zlxxName,
         scsj:moment().format('YYYY-MM-DD'),
-        lx:zlxx[a].type,
+        lx:ChiType,
         wjdx:zlxx[a].size/1024/1024,
         xzlj:zlxx[a].response.fileUrl,
       }
@@ -76,24 +85,27 @@ class ImportFileModal extends PureComponent {
       type:'Learning/getInsertList',
       payload:param?param:'',
       callback:(data)=>{
-        console.log('data---',data);
+        // console.log('data---',data);
         if(data.error===null&&this.props.handleFormReset){
           this.props.handleFormReset()
           this.props.handleCancel()
+          this.setState({
+            dbLoading: false,
+            SureModalVisible:false,
+            success:true,
+          })
         }
       }
     })
   }
 
   handleAlarm = () => {
-    const {from } = this.state;
     const values = this.props.form.getFieldsValue();
-
-
-        console.log('fieldsValue',values);
-        // this.setState({fieldsValue})
     if(values.scwj&&values.fbdw){
-      this.getinfoview(values);
+      this.setState({
+        SureModalVisible:true,
+      })
+      // this.getinfoview(values);
     }
     else{
       message.warning('请选择发布单位或者上传文件')
@@ -170,112 +182,13 @@ class ImportFileModal extends PureComponent {
     this.setState({
       success: false,
     });
-    this.onEdit(true)
   };
   handleAlarmSure = () => {
+    const values = this.props.form.getFieldsValue();
     this.setState({
       dbLoading: true,
     });
-    const values = this.props.form.getFieldsValue();
-    const { fileList, zrrValue, record, from, wtflId, wtflMc } = this.state;
-    let wjxx = [];
-    for (let i in fileList) {
-      const obj = {
-        // wj_name: fileList[i].fileName,
-        // wj_url: fileList[i].fileUrl,
-        wj_name: fileList[i]&&fileList[i].response&&fileList[i].response.fileName||'',
-        wj_url: fileList[i]&&fileList[i].response&&fileList[i].response.fileUrl||'',
-      };
-      wjxx.push(obj);
-    }
-    const dbzrr = [],
-      dbzrdw = [],
-      dbzrdwid = [],
-      dbzrrsfzh = [],
-      dbzrrjh = [];
-    for (let a = 0; a < zrrValue.length; a++) {
-      dbzrr.push(zrrValue[a][0]);
-      dbzrdw.push(zrrValue[a][2]);
-      dbzrdwid.push(zrrValue[a][3]);
-      dbzrrsfzh.push(zrrValue[a][1]);
-      dbzrrjh.push(zrrValue[a][4]);
-    }
-    const newdbzrr = dbzrr.join(',');
-    const newdbzrdw = dbzrdw.join(',');
-    const newdbzrdwid = dbzrdwid.join(',');
-    const newdbzrrsfzh = dbzrrsfzh.join(',');
-    const newdbzrrjh = dbzrrjh.join(',');
-    // this.props.saveModal(false, values.zgyj, wjxx, newdbzrr, newdbzrdw, newdbzrdwid, newdbzrrsfzh, values.wtlx.split(',')[1], values.wtlx.split(',')[0], this.state.gqType ? '挂起' : '', values.gqyy ? values.gqyy : '');
-    if (from === '督办') {
-      this.props.dispatch({
-        type: 'UnPoliceData/SureSupervise',
-        payload: {
-          wtid: record.wtid,
-          wjxx,
-          id: record.id,
-          zgyj: values.zgyj,
-          zrr_dwid: newdbzrdwid,
-          zrr_dwmc: newdbzrdw,
-          zrr_name: newdbzrr,
-          zrr_sfzh: newdbzrrsfzh,
-          zrr_jh: newdbzrrjh,
-          ajbh: record && record.ajbh ? record.ajbh : '',
-          ajmc: record && record.ajmc ? record.ajmc : '',
-          cljg_mc: this.state.gqType ? '挂起' : '',
-          cljg_yy: values.gqyy ? values.gqyy : '',
-        },
-        callback: data => {
-          // message.success('督办成功');
-          this.setState({
-            SureModalVisible: false,
-            dbLoading: false,
-          });
-          this.closeConfirm();
-          // this.onEdit(true);
-          // this.props.getRefresh(false);
-          this.setState({
-            success:true,
-          });
-        },
-      });
-    } else {
-      this.props.dispatch({
-        type: 'CaseData/CaseSureSupervise',
-        payload: {
-          wjxx,
-          ag_id: record.id,
-          system_id: record.system_id,
-          wtfl_id: wtflId,
-          wtfl_mc: wtflMc,
-          wtlx_id: values.wtlx.split(',')[1],
-          wtlx_mc: values.wtlx.split(',')[0],
-          zgyj: values.zgyj,
-          zrr_dwid: newdbzrdwid,
-          zrr_dwmc: newdbzrdw,
-          zrr_name: newdbzrr,
-          zrr_sfzh: newdbzrrsfzh,
-          zrr_jh: newdbzrrjh,
-          ajbh: record && record.ajbh ? record.ajbh : '',
-          ajmc: record && record.ajmc ? record.ajmc : '',
-          cljg_mc: this.state.gqType ? '挂起' : '',
-          cljg_yy: values.gqyy ? values.gqyy : '',
-        },
-        callback: data => {
-          // message.success('问题判定保存完成');
-          this.setState({
-            SureModalVisible: false,
-            dbLoading: false,
-          });
-          this.closeConfirm();
-          // this.getDetail(this.props.id);
-          // this.props.getRefresh(false);
-          // this.onEdit(true);
-          this.setState({
-            success:true,
-          });
-        },
-      });
-    }
+    this.getinfoview(values);
   };
 
 
@@ -284,7 +197,7 @@ class ImportFileModal extends PureComponent {
     //   message.error('最多上传10个文件');
     //   return false;
     // }
-    const allowTypeArry = ['rar', 'zip', 'doc', 'docx', 'pdf', 'jpg', 'png', 'bmp', 'mp4', 'mp3'];
+    const allowTypeArry = [ 'doc', 'docx', 'mp4', 'mp3'];
     const nameArry = file.name.split('.');
     const fileType = nameArry[nameArry.length - 1];
     const isLt50M = file.size / 1024 / 1024 < 50;
@@ -293,7 +206,7 @@ class ImportFileModal extends PureComponent {
     }
     const allowType = allowTypeArry.includes(fileType);
     if (!allowType) {
-      message.error('支持扩展名：.rar .zip .doc .docx .pdf .jpg .png .bmp .mp4 .mp3');
+      message.error('支持扩展名：.doc .docx .mp4 .mp3');
     }
     return isLt50M && allowType;
   };
@@ -302,7 +215,7 @@ class ImportFileModal extends PureComponent {
     let fileList = info.fileList;
     for (let i = 0; i < fileList.length; i++) {
       let file = fileList[i];
-      const allowTypeArry = ['rar', 'zip', 'doc', 'docx', 'pdf', 'jpg', 'png', 'bmp', 'mp4', 'mp3'];
+      const allowTypeArry = [ 'doc', 'docx', 'mp4', 'mp3'];
       const nameArry = file.name.split('.');
       const fileType = nameArry[nameArry.length - 1];
       const isLt50M = file.size / 1024 / 1024 < 50;
@@ -457,7 +370,7 @@ class ImportFileModal extends PureComponent {
                 确定
               </Button>
             </div>
-          <Modal visible={SureModalVisible} centered={true} footer={null} header={null} closable={false} width={400} getContainer={()=>document.getElementById('messageBox')}>
+          <Modal visible={SureModalVisible} centered={true} footer={null} header={null} closable={false} width={400}>
             <div className={styles.modalBox}>
               <div className={styles.question} style={this.props.global && this.props.global.dark ? {color:'#fff'} : {}}><Icon type="question-circle" style={{color:'#faad14',fontSize: '22px',marginRight: '16px'}}/>确认上传文件?</div>
               <div style={{marginTop:40,float:"right"}}><Button onClick={this.closeConfirm}>取消</Button><Button type="primary" style={{marginLeft:'16px'}} onClick={this.handleAlarmSure} loading={this.state.dbLoading}>确认</Button></div>
@@ -471,7 +384,7 @@ class ImportFileModal extends PureComponent {
             style={{top: '250px'}}
             maskClosable={false}
             cancelText={null}
-            onCancel={this.handleCancel}
+            // onCancel={this.handleCancel}
             footer={<button onClick={this.handleCancel} className={styles.successBtn}>确定</button>}
           >
             上传成功！

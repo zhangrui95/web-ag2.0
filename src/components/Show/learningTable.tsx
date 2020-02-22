@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react';
-import { Table, Divider, Tooltip, message, Dropdown, Menu, Row, Col, Empty, Icon, Radio,Card,Checkbox,Pagination } from 'antd';
+import { Table, Divider, Tooltip, message, Dropdown, Menu, Row, Col, Empty, Icon, Radio,Card,Checkbox,Pagination,Modal } from 'antd';
 import styles from './learningTable.less';
 // import Detail from '../../routes/AreaRealData/areaDetail';
 // import ShareModal from './../ShareModal/ShareModal';
@@ -7,6 +7,7 @@ import Ellipsis from 'ant-design-pro/lib/Ellipsis';
 import { routerRedux } from 'dva/router';
 import noList from '@/assets/viewData/noList.png';
 import noListLight from '@/assets/viewData/noListLight.png';
+import suspend from '@/assets/common/suspend.png';
 import { connect } from 'dva';
 import {tableList} from "@/utils/utils";
 @connect(({ global }) => ({
@@ -16,6 +17,8 @@ class learningTable extends PureComponent {
   state = {
     mode:'left',
     selectedRows:[],
+    previewModal:false, // 预览模态框
+    previewRecord:'',
   };
   handleTableChange = (pagination, filters, sorter) => {
     this.props.onChange(pagination, filters, sorter);
@@ -33,28 +36,16 @@ class learningTable extends PureComponent {
 
   //查看
   playVideo=(record)=>{
-
+    this.setState({
+      previewModal:true,
+      previewRecord:record,
+    })
   }
 
   // 下载
   downLoad = (record) => {
-    console.log('record',record);
-//     const downloadFileA = document.createElement('a')
-//     document.body.append(downloadFileA)
-//     downloadFileA.href=`http://192.168.3.92:8777/5,030ba2c6d489`;
-//     downloadFileA.download = 'filename'
-// // 超链接 target="_blank" 要增加 rel="noopener noreferrer" 来堵住钓鱼安全漏洞。如果你在链接上使用 target="_blank"属性，并且不加上rel="noopener"属性，那么你就让用户暴露在一个非常简单的钓鱼攻击之下。(摘要)
-//     downloadFileA.rel = 'noopener noreferrer'
-//     downloadFileA.click()
-//     document.body.removeChild(downloadFileA)
-    window.open('http://'+record.xzlj);
-//     var reader=new FileReader;
-//     reader.readAsText(file,'gb2312');
-//     //reader.readAsDataURL(file);
-//     reader.onload=function(evt){
-//       var data=evt.target.result;
-//       $('#textarea_id').val(data);
-//     }
+    // console.log('record',record);
+    window.open('http://'+record.xzlj+'?dl=true');
   }
 
   // 删除
@@ -81,6 +72,10 @@ class learningTable extends PureComponent {
     //   },
     // });
   };
+  checkboxView = (checkedValues) => {
+    console.log('checkedValues',checkedValues)
+    this.props.chooseSelect(checkedValues);
+  }
   CaseQuery(){
     const { data } = this.props;
     const list = data.list;
@@ -95,23 +90,25 @@ class learningTable extends PureComponent {
       list.map((item)=>{
         return(
           rows.push(
-            <div className={styles.list}>
-              <div className={styles.card} style={{padding: '0 24px 24px 0'}}>
-                <Card className={styles.card}>
-                  <img width='100%' height={150} src={noList}/>
-                  <div className={styles.listmes}>
-                    <div style={{fontSize: 16}}>{item.zlmc}</div>
-                    <div>{item.scsj}</div>
-                  </div>
-                </Card>
+            <Checkbox value={item.id} className={styles.checkbox}>
+              <div className={styles.list}>
+                <div className={styles.card} style={{padding: '0 24px 24px 0'}}>
+                  <Card className={styles.card}>
+                    <img width='100%' height={150} src={suspend}/>
+                    <div className={styles.listmes}>
+                      <div style={{fontSize: 16}}>{item.zlmc}</div>
+                      <div>{item.scsj}</div>
+                    </div>
+                  </Card>
+                </div>
               </div>
-            </div>
+            </Checkbox>
           )
         )
       })
 
     }
-    return rows;
+    return <Checkbox.Group className={styles.CheckGroup} onChange={this.checkboxView}>{rows}</Checkbox.Group>;
   }
   // CaseQuery() {
   //   {/*<Checkbox.Group onChange={this.onChange}>*/}
@@ -225,11 +222,12 @@ class learningTable extends PureComponent {
       },
     ];
     const rowSelection = {
+      // selectedRowKeys:['3874267e-c40d-405c-9016-d7a4616b3599'],
       onChange: (selectedRowKeys, selectedRows) => {
-        console.log('selectedRowKeys',selectedRowKeys);
+        // console.log('selectedRowKeys',selectedRowKeys);
         console.log('selectedRows',selectedRows);
         if(this.props.chooseSelect){
-          this.props.chooseSelect(selectedRows);
+          this.props.chooseSelect(selectedRowKeys);
         }
         // this.setState({
         //   selectedRows,
@@ -289,7 +287,7 @@ class learningTable extends PureComponent {
   };
   tabRight = () => {
     const { data,pagenow } = this.props;
-    console.log('data',pagenow);
+    // console.log('data',pagenow);
     return (
       <div className={styles.ListStyle}>
         {data&&data.list ? this.CaseQuery(): ''}
@@ -311,12 +309,19 @@ class learningTable extends PureComponent {
       </div>
     );
   }
-  onChange=(e)=>{
-    console.log('e----',e);
+  // onChange=(e)=>{
+    // console.log('e----',e);
+  // }
+  previewModalCancel = () => {
+    this.setState({
+      previewModal:false,
+      previewRecord:'',
+    })
   }
   render() {
     const { data } = this.props;
-    const { mode } = this.state;
+    const { mode,previewModal,previewRecord } = this.state;
+    console.log('previewRecord',previewRecord.xzlj);
     return (
       <div className={styles.standardTable} >
 
@@ -340,7 +345,26 @@ class learningTable extends PureComponent {
           :
           ''
         }
-
+        {
+          previewModal?
+            <Modal
+              visible={previewModal}
+              footer={null}
+              title='法规培训'
+              className={styles.show}
+              onCancel={this.previewModalCancel}
+            >
+              <iframe
+                // title="集体通案记载表"
+                className={styles.box}
+                src={'http://'+previewRecord.xzlj}
+                width="1170px"
+                height="607px"
+              />
+            </Modal>
+            :
+            ''
+        }
       </div>
     );
   }

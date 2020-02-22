@@ -38,7 +38,7 @@
 
 .list {
   display:inline-block;
-  width:20%;
+  //width:20%;
   :hover {
     .descript {
       display: none;
@@ -87,5 +87,55 @@
   padding-bottom:10px;
 }
 
+.CheckGroup{
+  :global{
+    .ant-checkbox-wrapper{
+      width:20%;
+      margin: 0;
+    }
+    .ant-checkbox{
+      position: relative;
+      top: 33px;
+      left: 22px;
+      z-index: 1001;
+    }
+  }
+}
 
+.show{
+  :global{
+    .ant-modal-header{
+      background-color: #1D276E;
+      //font-size: 16px;
+      height: 90px;
+    }
+    .ant-modal-title{
+      color: #fff;
+      font-size: 26px;
+      line-height: 60px;
+    }
+    .ant-modal-content{
+      width: 1170px;
+      height: 700px;
+      position: relative;
+      left: -400px;
+    }
+    .ant-modal-body{
+      padding: 0;
+    }
+    .ant-modal-close-x{
+      margin-top: 24px;
+      border-radius:100%;
+      background-color: #0F173D;
+      width: 40px;
+      height: 40px;
+      margin-right: 20px;
+      color: #fff;
+      font-size: 20px;
+      text-align: center;
+      line-height: 40px;
+
+    }
+  }
+}
 

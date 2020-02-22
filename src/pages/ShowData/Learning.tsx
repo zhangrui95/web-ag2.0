@@ -189,7 +189,7 @@ export default class Index extends PureComponent {
     if(deletedata&&deletedata.length>0){
       deletedata.map((item) => {
         objDeleteId = {
-          id:item.id,
+          id:item,
         }
         deleteId.push(objDeleteId);
       });
@@ -260,11 +260,11 @@ export default class Index extends PureComponent {
     // const values = this.props.form.getFieldsValue();
     this.props.form.validateFields((err, values) => {
       if (!err) {
-        console.log('values',moment(values.scsj[0]).format('YYYY-MM-DD'));
+        console.log('values',values);
         const formValues = {
           scsj_ks:values&&values.scsj?moment(values.scsj[0]).format('YYYY-MM-DD'):'',
           scsj_js:values&&values.scsj?moment(values.scsj[1]).format('YYYY-MM-DD'):'',
-          zllx:values.zllx,
+          lx:values.zllx,
           fbdw:values.fbdw,
           zlmc:values.zlmc,
         };
@@ -386,6 +386,7 @@ export default class Index extends PureComponent {
 
   // 选择删除的数据
   chooseSelect = (deletedata) => {
+    // console.log()
     this.setState({
       deletedata,
     })
@@ -406,7 +407,7 @@ export default class Index extends PureComponent {
       for (let i = 0; i < ZllxTypeData.length; i++) {
         const item = ZllxTypeData[i];
         zllxAlarmDictOptions.push(
-          <Option key={item.id} value={item.code}>{item.name}</Option>,
+          <Option key={item.id} value={item.name}>{item.name}</Option>,
         );
       }
     }
@@ -414,7 +415,7 @@ export default class Index extends PureComponent {
       for (let i = 0; i < FbdwTypeData.length; i++) {
         const item = FbdwTypeData[i];
         fblxAlarmDictOptions.push(
-          <Option key={item.id} value={item.code}>{item.name}</Option>,
+          <Option key={item.id} value={item.name}>{item.name}</Option>,
         );
       }
     }
@@ -540,7 +541,7 @@ export default class Index extends PureComponent {
 
   renderTable() {
     const {dataList, pagenow} = this.state;
-    console.log('pagenow',pagenow);
+    // console.log('pagenow',pagenow);
     return (
       <div>
         <RenderTable
