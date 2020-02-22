@@ -183,7 +183,7 @@ class RenderTable extends PureComponent {
       ),
     };
     return (
-      <Card className={stylescommon.cardArea}>
+      <Card className={stylescommon.cardArea} style={{minHeight:400}}>
         <Table
           loading={loading.loading}
           rowKey={record => record.key}

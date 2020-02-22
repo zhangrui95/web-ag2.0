@@ -136,7 +136,7 @@ export default class caseDetail extends PureComponent {
         '/newcaseFiling/casePolice/AdministrationPolice/uncaseDetail'
     ) {
       this.caseDetailDatas(
-        nextProps.location.query.record.id,
+        nextProps.location.query.record.wtid,
         nextProps.location.query.record.system_id,
       );
     }

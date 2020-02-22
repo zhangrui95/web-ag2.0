@@ -236,7 +236,7 @@ export default class SupervisionLog extends PureComponent {
                   </div>
                 </Col>
               </Row>
-              <div className={styles.superve} style={{ width: superveWidth }}>
+              <div className={styles.superve} style={{ width: '94%' }}>
                 <Steps current={currentNum}>
                   <Step
                     title={<span style={{ fontSize: 14 }}>发起督办</span>}

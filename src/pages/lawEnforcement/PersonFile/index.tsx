@@ -35,6 +35,7 @@ export default class PersonalDoc extends PureComponent {
         caseTypeTreeXZ: [], // 案件类别树
         caseTypeTreeXS: [], // 案件类别树
         ajlbqf: '', // 查询案件类别时的区分是行政还是刑事
+        salx:'',
     };
 
     componentDidMount() {
@@ -79,7 +80,7 @@ export default class PersonalDoc extends PureComponent {
             const qzcsfxqssj = searchTime ? moment(searchTime).startOf('month').format('YYYY-MM-DD HH:mm:ss') : '';
             const qzcsfxzzsj = searchTime ? moment(searchTime).endOf('month').format('YYYY-MM-DD HH:mm:ss') : '';
             if (from === 'rylx') {
-                props.form.setFieldsValue({
+                this.props.form.setFieldsValue({
                     salx: qzcsName,
                     slsj: [moment(moment(searchTime).startOf('month').format('YYYY-MM-DD HH:mm:ss')), moment(moment(searchTime).endOf('month').format('YYYY-MM-DD HH:mm:ss'))],
                 });
@@ -104,7 +105,7 @@ export default class PersonalDoc extends PureComponent {
                 };
                 this.getPersonData(params);
             } else {
-                props.form.setFieldsValue({
+                this.props.form.setFieldsValue({
                     qzcslx: qzcsName,
                     qzcsfxsj: [moment(moment(searchTime).startOf('month').format('YYYY-MM-DD HH:mm:ss')), moment(moment(searchTime).endOf('month').format('YYYY-MM-DD HH:mm:ss'))],
                 });
@@ -438,7 +439,7 @@ export default class PersonalDoc extends PureComponent {
                             <FormItem label="涉案人员" {...formItemLayout}>
                                 {getFieldDecorator('name', {
                                     // initialValue: this.state.caseType,
-                                    rules: [{max: 32, message: '最多输入32个字！'}],
+                                    //rules: [{max: 32, message: '最多输入32个字！'}],
                                 })(
                                     <Input placeholder="请输入涉案人员"/>,
                                 )}
@@ -446,7 +447,9 @@ export default class PersonalDoc extends PureComponent {
                         </Col>
                         <Col {...colLayout}>
                             <FormItem label="人员性别" {...formItemLayout}>
-                                {getFieldDecorator('sex', {})(
+                                {getFieldDecorator('sex', {
+                                    initialValue: '',
+                                })(
                                     <Select placeholder="请选择人员性别" style={{width: '100%'}}
                                             getPopupContainer={() => document.getElementById('formPersonFile')}>
                                         <Option value="">全部</Option>
@@ -477,7 +480,7 @@ export default class PersonalDoc extends PureComponent {
                             <FormItem label="涉案人证件号" {...formItemLayout}>
                                 {getFieldDecorator('sfzh', {
                                     // initialValue: this.state.caseType,
-                                    rules: [{max: 128, message: '最多输入128个字！'}],
+                                    // rules: [{max: 128, message: '最多输入128个字！'}],
                                 })(
                                     <Input placeholder="请输入涉案人证件号"/>,
                                 )}
@@ -487,7 +490,7 @@ export default class PersonalDoc extends PureComponent {
                             <FormItem label="案件名称" {...formItemLayout}>
                                 {getFieldDecorator('ajmc', {
                                     // initialValue: this.state.caseType,
-                                    rules: [{max: 128, message: '最多输入128个字！'}],
+                                    // rules: [{max: 128, message: '最多输入128个字！'}],
                                 })(
                                     <Input placeholder="请输入案件名称"/>,
                                 )}
@@ -540,7 +543,9 @@ export default class PersonalDoc extends PureComponent {
                         </Col>
                         <Col {...colLayout}>
                             <FormItem label="强制措施" {...formItemLayout}>
-                                {getFieldDecorator('qzcslx', {})(
+                                {getFieldDecorator('qzcslx', {
+                                    initialValue: '',
+                                })(
                                     <Select placeholder="请选择强制措施" style={{width: '100%'}}
                                             getPopupContainer={() => document.getElementById('formPersonFile')}>
                                         <Option value="">全部</Option>

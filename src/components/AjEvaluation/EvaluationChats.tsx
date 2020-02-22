@@ -141,7 +141,7 @@ export default class EvaluationChats extends PureComponent {
                 for (let i = 0; i < legendData.length; i++) {
                     let seriesDataVal = null;
                     seriesDataVal = {
-                        barWidth: 10,//柱状条宽度
+                        barWidth: 20,//柱状条宽度
                         name: legendData[i],
                         type: 'bar',
                         barGap:1,
@@ -219,7 +219,7 @@ export default class EvaluationChats extends PureComponent {
                 for (let i = 0; i < legendData.length; i++) {
                     let seriesDataVal = null;
                     seriesDataVal = {
-                        barWidth: 10,//柱状条宽度
+                        barWidth: 20,//柱状条宽度
                         name: legendData[i],
                         type: 'bar',
                         barGap:1,
@@ -298,7 +298,7 @@ export default class EvaluationChats extends PureComponent {
                 for (let i = 0; i < legendData.length; i++) {
                     let seriesDataVal = null;
                     seriesDataVal = {
-                        barWidth: 10,//柱状条宽度
+                        barWidth: 20,//柱状条宽度
                         name: legendData[i],
                         type: 'bar',
                         barGap:1,
@@ -392,6 +392,7 @@ export default class EvaluationChats extends PureComponent {
                 y: 'top',//图例说明文字设置
                 itemWidth: 10,  // 设置宽度
                 itemHeight: 10, // 设置高度
+                selectedMode: false
             },
             grid: {
                 left: '2%',
@@ -503,7 +504,7 @@ export default class EvaluationChats extends PureComponent {
                 for (let i = 0; i < legendData.length; i++) {
                     let seriesDataVal = null;
                     seriesDataVal = {
-                        barWidth: 10,//柱状条宽度
+                        barWidth: 20,//柱状条宽度
                         name: legendData[i],
                         barGap:1,
                         type: 'bar',
@@ -606,7 +607,7 @@ export default class EvaluationChats extends PureComponent {
                 for (let i = 0; i < legendData.length; i++) {
                     let seriesDataVal = null;
                     seriesDataVal = {
-                        barWidth: 10,//柱状条宽度
+                        barWidth: 20,//柱状条宽度
                         name: legendData[i],
                         barGap:1,
                         type: 'bar',
@@ -709,7 +710,7 @@ export default class EvaluationChats extends PureComponent {
                 for (let i = 0; i < legendData.length; i++) {
                     let seriesDataVal = null;
                     seriesDataVal = {
-                        barWidth: 10,//柱状条宽度
+                        barWidth: 20,//柱状条宽度
                         name: legendData[i],
                         barGap:1,
                         type: 'bar',
@@ -825,6 +826,7 @@ export default class EvaluationChats extends PureComponent {
                 y: 'top',//图例说明文字设置
                 itemWidth: 10,  // 设置宽度
                 itemHeight: 10, // 设置高度
+                selectedMode: false
             },
             grid: {
                 left: '2%',

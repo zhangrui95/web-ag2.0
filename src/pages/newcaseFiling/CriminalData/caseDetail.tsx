@@ -902,9 +902,7 @@ export default class caseDetail extends PureComponent {
               </div>
               <div className={liststyles.Indextail} style={{ paddingLeft: 58 }}>
                 <div className={liststyles.special1}>
-                  <Ellipsis lines={1} tooltip>
                     {caseDetails && caseDetails.ajmc ? caseDetails.ajmc : ''}
-                  </Ellipsis>
                 </div>
               </div>
             </Col>

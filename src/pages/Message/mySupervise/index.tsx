@@ -451,7 +451,7 @@ class mySupervise extends Component {
                             <FormItem label="案件名称" {...formItemLayout}>
                                 {getFieldDecorator('ajmc', {
                                     // initialValue: this.state.MySuperviseType,
-                                    rules: [{max: 128, message: '最多输入128个字！'}],
+                                    // rules: [{max: 128, message: '最多输入128个字！'}],
                                 })(
                                     <Input placeholder="请输入案件名称"/>,
                                 )}

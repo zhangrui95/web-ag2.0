@@ -913,14 +913,14 @@ export default class Index extends PureComponent {
                   <Col {...colLayout}>
                     <FormItem label="所属案件" {...formItemLayout}>
                       {getFieldDecorator('ssaj', {
-                        rules: [{ max: 128, message: '最多输入128个字！' }],
+                        // rules: [{ max: 128, message: '最多输入128个字！' }],
                       })(<Input placeholder="请输入案件名称或案件编号" />)}
                     </FormItem>
                   </Col>
                   <Col {...colLayout}>
                     <FormItem label="办案人" {...formItemLayout}>
                       {getFieldDecorator('bar', {
-                        rules: [{ max: 32, message: '最多输入32个字！' }],
+                        // rules: [{ max: 32, message: '最多输入32个字！' }],
                       })(
                         <Select
                           mode="combobox"
@@ -1054,7 +1054,7 @@ export default class Index extends PureComponent {
                   <Col {...colLayout}>
                     <FormItem label="所在库房" {...formItemLayout}>
                       {getFieldDecorator('szkf', {
-                        rules: [{ max: 128, message: '最多输入128个字！' }],
+                        // rules: [{ max: 128, message: '最多输入128个字！' }],
                       })(<Input placeholder="请输入所在库房" />)}
                     </FormItem>
                   </Col>

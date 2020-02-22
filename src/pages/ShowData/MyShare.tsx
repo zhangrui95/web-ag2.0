@@ -90,7 +90,12 @@ export default class MyShare extends PureComponent {
                                                                                                                                         ? '/dossierPolice/DossierData/DossierDetail'
                                                                                                                                         : '',
                 query: {
-                    id: record.tzlx === 'jqwt' ? record.id : record.agid,
+                    id: record.tzlx === 'jqwt' ? record.id :
+                        record.tzlx === 'xsajxx1' || record.tzlx === 'xsajxx2' || record.tzlx === 'xsajxx3'||
+                        record.tzlx === 'xsajyj1' || record.tzlx === 'xsajyj2' || record.tzlx === 'xsajyj3'||
+                        record.tzlx === 'xzajyj1' || record.tzlx === 'xzajyj2' || record.tzlx === 'xzajyj3'||
+                        record.tzlx === 'xzajxx1' || record.tzlx === 'xzajxx2' || record.tzlx === 'xzajxx3' ? record.ajbh :
+                            record.agid,
                     system_id: record.system_id,
                     wtid: record.wtid,
                     record: record,

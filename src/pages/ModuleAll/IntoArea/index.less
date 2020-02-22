@@ -1,21 +1,22 @@
-@import '~antd/es/style/themes/default.less';
+@import '~antd/lib/style/themes/default.less';
+@import '../../../utils/utils.less';
 @import '../../../theme/darkTheme';
 
 .title {
   color: #fff;
   font-weight: bold;
-  line-height: 56px;
-  padding-left: 16px;
+  //line-height: 56px;
+  padding: 16px 0 16px 16px;
   //background-color: #CDE8FA;
   font-size: 16px;
-  background: linear-gradient(to right, #1F83DF, #FCFDFF);
+  background: @component-background;
 }
 
 .message {
-  background-color: #fff;
-  border-bottom: 3px solid #108EE9;
-  padding: 16px 24px;
-  margin-bottom: 24px;
+  background-color: @component-background;
+  border-bottom: 1px solid #1e2331;
+  padding: 0 84px 16px 84px;
+  //margin-bottom: 16px;
 
   :global {
     .index__extra___fYrGu {
@@ -30,9 +31,411 @@
     .index__title___3qVcV {
       margin-bottom: 0;
     }
+    .ant-card-head{
+      padding: 0 16px;
+    }
+  }
+}
+.messageBox{
+  :global{
+    .ant-card-body{
+      padding: 10px;
+    }
   }
 }
 
-.break {
-  word-break: break-all;
+.tablemessage {
+  background-color: @component-background;
+  border-bottom: 1px solid #171a26;
+  //padding: 24px;
+}
+
+.trajectory {
+  position: relative;
+  //top: 10px;
+  //border: 1px solid #1890ff;
+  border-radius: 10px;
+  background: @component-background;
+  font-size: 13px;
+  padding: 7px 10px;
+  cursor: pointer;
+}
+.superve{
+  display: inline-block;
+  overflow: hidden;
+  height: auto;
+  :global{
+    .ant-steps-dot .ant-steps-item-tail::after{
+      height: 1px!important;
+    }
+  }
+}
+
+.clsj_time {
+  margin-bottom: 0;
+}
+
+.descripStyle{
+  position: relative;
+  top: 27px;
+}
+.IndexTitle{
+  width: 140px;
+  background: @component-background;
+  padding: 7px 10px;
+  font-size: 13px;
+  border-radius: 10px;
+  margin-bottom: 8px;
+  cursor: pointer;
+}
+@media screen and (max-width: 1280px) {
+  .message .steps {
+    position: relative;
+    left: 0;
+    top: 70px;
+    display: inline-flex;
+    width: auto;
+
+    :global {
+      .ant-steps-item {
+        width: 146px;
+        //overflow: visible;
+      }
+
+      .ant-steps-item-content {
+        position: relative;
+        top: -100px;
+      }
+
+      .ant-steps-item-description {
+        width: 106px;
+        max-width: 108px;
+      }
+    }
+  }
+}
+
+@media screen and (min-width: 1280px) {
+  .message .steps {
+    position: relative;
+    left: 0;
+    top: 70px;
+    display: inline-flex;
+    width: auto;
+
+    :global {
+      .ant-steps-item {
+        width: 146px;
+        //overflow: visible;
+      }
+
+      .ant-steps-item-content {
+        position: relative;
+        top: -100px;
+      }
+
+      .ant-steps-item-description {
+        width: 106px;
+        max-width: 108px;
+      }
+    }
+  }
+}
+
+@media screen and (min-width: 1600px) {
+  .message .steps {
+    position: relative;
+    left: 0;
+    top: 70px;
+    display: inline-flex;
+    width: auto;
+
+    :global {
+      .ant-steps-item {
+        width: 226px;
+        //overflow: visible;
+      }
+
+      .ant-steps-item-content {
+        position: relative;
+        top: -100px;
+      }
+
+      .ant-steps-item-description {
+        width: 186px;
+        max-width: 188px;
+      }
+    }
+  }
+}
+
+@media screen and (min-width: 1680px) {
+  .message .steps {
+    position: relative;
+    left: 0;
+    top: 70px;
+    display: inline-flex;
+    width: auto;
+
+    :global {
+      .ant-steps-item {
+        width: 246px;
+        //overflow: visible;
+      }
+
+      .ant-steps-item-content {
+        position: relative;
+        top: -100px;
+      }
+
+      .ant-steps-item-description {
+        width: 226px;
+        max-width: 220px;
+      }
+    }
+  }
+}
+
+@media screen and (min-width: 1920px) {
+  .message .steps {
+    position: relative;
+    left: 0;
+    top: 70px;
+    display: inline-flex;
+    width: auto;
+
+    :global {
+      .ant-steps-item {
+        width: 241px;
+        //overflow: visible;
+      }
+
+      .ant-steps-item-content {
+        position: relative;
+        top: -100px;
+      }
+
+      .ant-steps-item-description {
+        width: 266px;
+        max-width: 268px;
+      }
+    }
+  }
+}
+
+
+.tableExtra {
+  position: relative;
+}
+
+.IconStyle {
+  display: inline-block;
+  width: 205px;
+  position: absolute;
+  right: 0;
+  top: 50%;
+  margin-top: -30px;
+  //background-color: #faa;
+}
+
+.trailname {
+  font-size: @font-size-lg;
+}
+
+.traillink {
+  //text-decoration: underline;
+  font-size: @font-size-base;
+  color: @primary-color;
+  margin-left: @padding-sm;
+}
+
+.detailBoxScroll {
+  overflow-y: scroll;
+  overflow-x: hidden;
+  border-radius: 10px;
+}
+
+.dqsaxxCard {
+  border-radius: 10px !important;
+  border: 0!important;
+  background-color:@body-background!important;
+
+  :global {
+    .ant-card-head {
+      border-bottom: 0;
+    }
+    .ant-card-body {
+      padding: 12px;
+    }
+  }
+}
+
+.sswpxxTable {
+  :global {
+    .ant-table {
+      border-radius: @zero;
+      overflow: hidden;
+    }
+
+    .ant-table-thead > tr > th {
+      background: #323c4d !important;
+      color: @white;
+    }
+
+    .ant-table-tbody > tr {
+      background: @table-body-sort-bg;
+
+      &:nth-child(n) {
+        background: @component-background !important;
+      }
+
+      &:nth-child(2n) {
+        background: #323c4d !important;
+      }
+    }
+  }
+}
+
+.TopMenu {
+  margin-left: 16px;
+  margin-top: 12px;
+  margin-bottom: 12px;
+  //background-color: #171925 !important;
+  //border: 1px solid #2b6ccc !important;
+  //color: #2b6ccc !important;
+}
+
+.objMenu{
+  //padding: 6px 0;
+  display: inline-block;
+}
+
+.connectBtn {
+  background-color: 'linear-gradient(#0086FA, #03A3FF)';
+}
+
+.rqgjCard {
+  border-radius: 10px !important;
+  background-color: @body-background!important;
+  :global {
+    .ant-card-body {
+      padding: 12px 24px;
+    }
+    .ant-card-head {
+      border-bottom: 1px solid #252c3c;
+    }
+  }
+}
+
+.lightBox {
+  :global {
+    .ant-card-body {
+      border-bottom: 0 !important;
+    }
+    .ant-steps-item-finish > .ant-steps-item-container > .ant-steps-item-tail::after{
+      background-color: #4662D5;
+    }
+    .ant-steps-item-finish .ant-steps-item-icon > .ant-steps-icon .ant-steps-icon-dot{
+      background: #4662D5;
+      width: 8px;
+      height: 8px;
+      left: -2px;
+      top: -2px;
+    }
+  }
+  .steps{
+    :global{
+      .ant-steps-item-finish .ant-steps-item-icon{
+        border: 0!important;
+      }
+      .ant-steps-item-finish .ant-steps-item-icon > .ant-steps-icon .ant-steps-icon-dot {
+        background: #4662d5;
+      }
+    }
+  }
+  .rqgjCard,.dqsaxxCard {
+    background-color: #fafafa!important;
+    :global {
+      .ant-card-head {
+        border-bottom: 1px solid #e6e6e6;
+      }
+    }
+  }
+  .traillink{
+    color: #3D63D1 !important;
+  }
+  .trajectory{
+    //border: 1px solid #3D63D1;
+    background: #e6e6e6;
+  }
+
+  .title {
+    background: #fff !important;
+    color: #3D63D1 !important;
+  }
+
+  .TopMenu {
+    background-color: #3D63D1 !important;
+    border: 1px solid #3D63D1 !important;
+    color: #fff !important;
+  }
+
+  .objMenu{
+    //padding: 6px 0;
+    display: inline-block;
+  }
+
+  .xqrow {
+    border-bottom: 0;
+  }
+
+  .message, .tablemessage {
+    background-color: #fff !important;
+    border-bottom: 1px solid #e6e6e6 !important;
+  }
+
+  .ajlczCard {
+    background-color: #fafafa !important;
+    color: #475568;
+
+    :global {
+      .ant-steps-item-finish .ant-steps-item-icon {
+        background-color: transparent !important;
+        border: 2px solid #4662d5 !important;
+      }
+
+      .ant-card-bordered {
+        background: #fafafa;
+      }
+
+      .ant-card-head {
+        border-bottom: 1px solid #eeeeee;
+      }
+
+      .ant-card-head-title {
+        color: #475568 !important;
+      }
+
+      .ant-card-body {
+        padding: 24px;
+      }
+    }
+  }
+
+  .sswpxxTable {
+    :global {
+      .ant-table-thead > tr > th {
+        background: #F5F5F5 !important;
+        color: #4d4d4d;
+      }
+
+      .ant-table-tbody > tr {
+        background: #fff !important;
+
+        &:nth-child(2n) {
+          background: #F5F5FA !important;
+        }
+      }
+    }
+  }
 }

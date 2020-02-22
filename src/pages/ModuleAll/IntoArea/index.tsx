@@ -13,11 +13,14 @@ import styles from './index.less';
 // import XzCaseDetail from '../XzCaseRealData/caseDetail';
 import liststyles from '../../common/listDetail.less';
 import {routerRedux} from "dva/router";
+import nophoto from "@/assets/common/nophoto.png";
+import nophotoLight from "@/assets/common/nophotoLight.png";
 
-@connect(({CaseData, loading, common}) => ({
+@connect(({CaseData, loading, common,global}) => ({
     common,
     CaseData,
     loading: loading.models.CaseData,
+    global,
 }))
 
 export default class IntoArea extends PureComponent {
@@ -115,6 +118,7 @@ export default class IntoArea extends PureComponent {
 
     render() {
         // const { CaseData: { intoAreaData }} = this.props;
+        let dark = this.props.global && this.props.global.dark;
         const {intoAreaData} = this.state;
         const rowLayout = {md: 8, xl: 16, xxl: 24};
         const colLayoutInName = {sm: 24, md: 6, xl: 6};
@@ -157,22 +161,23 @@ export default class IntoArea extends PureComponent {
                 ),
             }];
         return (
-            <div>
-                <div style={{backgroundColor: '#fff'}}>
-                    <Row gutter={{md: 8, lg: 24, xl: 48}}>
-                        <Col md={8} sm={24}>
-                            <span style={{margin: '16px', display: 'block'}}>涉案人员在区情况</span>
-                        </Col>
-                    </Row>
-                </div>
-                <div style={{padding: '24px 24px 24px', background: '#F0F2F5'}}>
-                    <div className={styles.title}>人员信息</div>
-                    <div className={styles.message}>
+            <div className={dark ? '' : styles.lightBox}>
+                <div style={{backgroundColor: dark ? '#252C3C' : '#fff', margin: '16px 0', borderRadius: 10,overflow:"hidden"}}>
+                    <div className={styles.title}>
+                        <div
+                            style={{
+                                borderLeft: dark ? '3px solid #fff' : '3px solid #3D63D1',
+                                paddingLeft: '16px',
+                            }}
+                        >人员信息</div></div>
+                    <div className={styles.message+' '+styles.messageBox}>
                         <Row>
                             <Col md={2} sm={24}>
                                 <div>
                                     <img
-                                        src={intoAreaData && intoAreaData.ryxx && intoAreaData.ryxx.photo ? intoAreaData.ryxx.photo : '/images/nophoto.png'}
+                                        src={intoAreaData && intoAreaData.ryxx && intoAreaData.ryxx.photo ? intoAreaData.ryxx.photo :  dark
+                                            ? nophoto
+                                            : nophotoLight}
                                         width='100%' alt='暂无图片显示'/>
                                 </div>
                             </Col>
@@ -236,9 +241,9 @@ export default class IntoArea extends PureComponent {
                                 </Row>
                                 <Row>
                                     <Col md={24} sm={24}>
-                                        <Card title="涉案信息">
+                                        <Card title="涉案信息" className={styles.dqsaxxCard}>
                                             <Row gutter={{md: 8, lg: 24, xl: 48}}>
-                                                <Col md={6} sm={24}>
+                                                <Col md={8} sm={24}>
                                                     <Row className={liststyles.JzInfoDiv}>
                                                         <Col {...colLayoutInName} className={liststyles.JzInfoRight}>
                                                             案件编号：
@@ -275,7 +280,7 @@ export default class IntoArea extends PureComponent {
                                                     {/*}*/}
                                                     {/*</div>*/}
                                                 </Col>
-                                                <Col md={6} sm={24}>
+                                                <Col md={8} sm={24}>
                                                     <Row className={liststyles.JzInfoDiv}>
                                                         <Col {...colLayoutInName} className={liststyles.JzInfoRight}>
                                                             案件名称：
@@ -286,7 +291,7 @@ export default class IntoArea extends PureComponent {
                                                     </Row>
                                                     {/*<div className={styles.break}>案件名称：{intoAreaData && intoAreaData.ajxx ? intoAreaData.ajxx.ajmc : ''}</div>*/}
                                                 </Col>
-                                                <Col md={6} sm={24}>
+                                                <Col md={8} sm={24}>
                                                     <Row className={liststyles.JzInfoDiv}>
                                                         <Col {...colLayoutInName} className={liststyles.JzInfoRight}>
                                                             案件状态：
@@ -297,7 +302,9 @@ export default class IntoArea extends PureComponent {
                                                     </Row>
                                                     {/*<div className={styles.break}>案件状态：{intoAreaData && intoAreaData.ajxx ? intoAreaData.ajxx.ajzt : ''}</div>*/}
                                                 </Col>
-                                                <Col md={6} sm={24}>
+                                            </Row>
+                                            <Row gutter={{md: 8, lg: 24, xl: 48}}>
+                                                <Col md={8} sm={24}>
                                                     <Row className={liststyles.JzInfoDiv}>
                                                         <Col {...colLayoutInName} className={liststyles.JzInfoRight}>
                                                             案发时段：
@@ -308,9 +315,7 @@ export default class IntoArea extends PureComponent {
                                                     </Row>
                                                     {/*<div className={styles.break}>案发时段：{(intoAreaData && intoAreaData.ajxx && intoAreaData.ajxx.fasjsx && intoAreaData.ajxx.fasjxx? intoAreaData.ajxx.fasjsx+'~'+ intoAreaData.ajxx.fasjxx : '')}</div>*/}
                                                 </Col>
-                                            </Row>
-                                            <Row gutter={{md: 8, lg: 24, xl: 48}}>
-                                                <Col md={6} sm={24}>
+                                                <Col md={8} sm={24}>
                                                     <Row className={liststyles.JzInfoDiv}>
                                                         <Col {...colLayoutInName} className={liststyles.JzInfoRight}>
                                                             办案单位：
@@ -320,8 +325,9 @@ export default class IntoArea extends PureComponent {
                                                         </Col>
                                                     </Row>
                                                     {/*<div className={styles.break}>办案单位：{intoAreaData && intoAreaData.ajxx ? intoAreaData.ajxx.bardwmc  : ''}</div>*/}
+                                                    {/*<div className={styles.break}>办案单位：{intoAreaData && intoAreaData.ajxx ? intoAreaData.ajxx.bardwmc  : ''}</div>*/}
                                                 </Col>
-                                                <Col md={6} sm={24}>
+                                                <Col md={8} sm={24}>
                                                     <Row className={liststyles.JzInfoDiv}>
                                                         <Col {...colLayoutInName} className={liststyles.JzInfoRight}>
                                                             办案人：
@@ -332,10 +338,10 @@ export default class IntoArea extends PureComponent {
                                                     </Row>
                                                     {/*<div className={styles.break}>办案人：{intoAreaData && intoAreaData.ajxx ? intoAreaData.ajxx.barxm  : ''}</div>*/}
                                                 </Col>
-                                                <Col md={12} sm={24}>
+                                                <Col md={24} sm={24}>
                                                     <Row className={liststyles.JzInfoDiv}>
                                                         <Col sm={24} md={3} xl={3} className={liststyles.JzInfoRight}
-                                                             style={{width: 74.11}}>
+                                                             style={{width: 99}}>
                                                             案发地点：
                                                         </Col>
                                                         <Col sm={24} md={21} xl={21}>
@@ -349,7 +355,7 @@ export default class IntoArea extends PureComponent {
                                                 <Col md={24} sm={24}>
                                                     <Row className={liststyles.JzInfoDiv}>
                                                         <Col sm={24} md={2} xl={2} className={liststyles.JzInfoRight}
-                                                             style={{width: 74.11}}>
+                                                             style={{width: 99}}>
                                                             简要案情：
                                                         </Col>
                                                         <Col sm={24} md={22} xl={22}>
@@ -365,8 +371,14 @@ export default class IntoArea extends PureComponent {
                             </Col>
                         </Row>
                     </div>
-                    <div className={styles.title} style={{marginTop: '24px'}}>人员在区信息</div>
-                    <div className={styles.message} style={{marginBottom: 36}}>
+                    <div className={styles.title} style={{marginTop: '24px'}}>
+                        <div
+                            style={{
+                                borderLeft: dark ? '3px solid #fff' : '3px solid #3D63D1',
+                                paddingLeft: '16px',
+                            }}
+                        >人员在区信息</div></div>
+                    <div className={styles.message}>
                         {intoAreaData && intoAreaData.haList ? (
                             intoAreaData.haList.map((item, index) => {
                                 return (

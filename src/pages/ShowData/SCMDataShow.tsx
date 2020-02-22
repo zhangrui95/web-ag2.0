@@ -195,6 +195,10 @@ export default class SCMDataShow extends PureComponent {
                 return <AdministrativeCaseWarning idx={idx} getAllNum={(idx, num, name) => {
                     this.getAllNum(idx, num, name);
                 }} {...this.props} {...this.state}/>;
+            case 'xzaj-wtgj': // 行政案件问题告警
+                return <AdministrativeCaseWarning idx={idx} getAllNum={(idx, num, name) => {
+                    this.getAllNum(idx, num, name);
+                }} {...this.props} {...this.state}/>;
             case 'zbghjaj-sl': // 侦办各环节案件数量
                 return <AllCriminalCaseLinksCount idx={idx} getAllNum={(idx, num, name) => {
                     this.getAllNum(idx, num, name);

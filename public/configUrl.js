@@ -2,7 +2,7 @@ const developModa = true; // 是否为开发模式
 // 线上服务地址
 const onlineips = {
   ip: 'http://192.168.3.201', // 服务地址[需配置]
-  baqIp: 'http://192.169.40.1', // 办案区服务地址[需配置]
+  baqIp: 'http://192.168.41.249', // 办案区服务地址[需配置]
 };
 // 开发服务模式
 const developips = {

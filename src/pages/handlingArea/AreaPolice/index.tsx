@@ -720,7 +720,7 @@ export default class Index extends PureComponent {
                         <FormItem label="涉案人员" {...formItemLayout}>
                             {getFieldDecorator('sary', {
                                 // initialValue: this.state.caseType,
-                                rules: [{max: 32, message: '最多输入32个字！'}],
+                                //rules: [{max: 32, message: '最多输入32个字！'}],
                             })(<Input placeholder="请输入涉案人员"/>)}
                         </FormItem>
                     </Col>
@@ -755,7 +755,7 @@ export default class Index extends PureComponent {
                         <FormItem label="案件名称" {...formItemLayout}>
                             {getFieldDecorator('ajmc', {
                                 // initialValue: this.state.caseType,
-                                rules: [{max: 128, message: '最多输入128个字！'}],
+                                // rules: [{max: 128, message: '最多输入128个字！'}],
                             })(<Input placeholder="请输入案件名称"/>)}
                         </FormItem>
                     </Col>
@@ -763,7 +763,7 @@ export default class Index extends PureComponent {
                         <FormItem label="&nbsp;&nbsp;&nbsp;办案人" {...formItemLayout}>
                             {getFieldDecorator('bar', {
                                 // initialValue: this.state.caseType,
-                                rules: [{max: 32, message: '最多输入32个字！'}],
+                                //rules: [{max: 32, message: '最多输入32个字！'}],
                             })(
                                 <Select
                                     mode="combobox"

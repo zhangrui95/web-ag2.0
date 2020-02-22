@@ -692,7 +692,7 @@ export default class Index extends PureComponent {
                         <FormItem label="&nbsp;&nbsp;&nbsp; 接警人" {...formItemLayout}>
                             {getFieldDecorator('jjr', {
                                 // initialValue: this.state.caseType,
-                                rules: [{max: 32, message: '最多输入32个字！'}],
+                                //rules: [{max: 32, message: '最多输入32个字！'}],
                             })(
                                 <Select
                                     mode="combobox"
@@ -752,7 +752,7 @@ export default class Index extends PureComponent {
                         <FormItem label="&nbsp;&nbsp;&nbsp; 处警人" {...formItemLayout}>
                             {getFieldDecorator('cjr', {
                                 // initialValue: this.state.gzry,
-                                rules: [{max: 32, message: '最多输入32个字！'}],
+                                //rules: [{max: 32, message: '最多输入32个字！'}],
                             })(
                                 <Select
                                     mode="combobox"

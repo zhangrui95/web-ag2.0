@@ -235,8 +235,8 @@ export default class DossierMarkingModal extends PureComponent {
                         </Col>
                     </Row>
                 </Card>
-                <Card>
-                    <div className={styles.btns}>
+                {/*<Card>*/}
+                {/*    <div className={styles.btns}>*/}
                         {/*<Button type="primary" style={{marginLeft: 8}} className={styles.qxBtn}*/}
                         {/*        onClick={() => this.onEdit(false)}>*/}
                         {/*    取消*/}
@@ -244,8 +244,8 @@ export default class DossierMarkingModal extends PureComponent {
                         {/*<Button type="primary" style={{ marginLeft: 8 }} onClick={this.handleOk}>*/}
                         {/*确定*/}
                         {/*</Button>*/}
-                    </div>
-                </Card>
+                {/*    </div>*/}
+                {/*</Card>*/}
                 {/*</Modal>*/}
             </div>
         );

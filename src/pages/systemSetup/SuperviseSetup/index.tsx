@@ -88,6 +88,8 @@ class SuperviseSetup extends Component {
         this.getCommon('500816'); //三级颜色
         this.getCommon('500852'); //提醒人员
         this.getDepTree(JSON.parse(sessionStorage.getItem('user')).department);
+        this.props.SuperviseSetup.SuperviseSetup.JgdType = [];
+        this.props.SuperviseSetup.common.JgsxType = [];
     }
 
     componentWillReceiveProps(nextProps) {
@@ -635,7 +637,7 @@ class SuperviseSetup extends Component {
             {
                 title: '监管状态',
                 render: (record) => (<Tag
-                    color={record.jgdzt_dm === '5008002'&&record.scbj==='1' ? record.sf_qy && record.sf_qy === '1' ? '#00cc00' : '#EE5655' : '#ccc'}>{record.jgdzt_mc}</Tag>),
+                    color={record.scbj==='0' ? '#ccc' : record.jgdzt_dm === '5008002' ? record.sf_qy && record.sf_qy === '1' ? '#00cc00' : '#EE5655' : '#ccc'}>{record.scbj==='0' ? '未启用' : record.jgdzt_mc}</Tag>),
             },
             {
                 title: '操作',
