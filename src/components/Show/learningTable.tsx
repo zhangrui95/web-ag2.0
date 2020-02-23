@@ -89,19 +89,18 @@ class learningTable extends PureComponent {
       list.map((item)=>{
         return(
           rows.push(
-            <Checkbox value={item.id} className={styles.checkbox}>
-              <div className={styles.list}>
-                <div className={styles.card} style={{padding: '0 24px 24px 0'}}>
-                  <Card className={styles.card}>
+            <div className={styles.list}>
+              <Checkbox value={item.id} className={styles.checkbox} />
+              <div className={styles.card} style={{padding: '0 24px 24px 0'}} onClick={()=>this.playVideo(item)}>
+                <Card className={styles.card}>
                     <img width='100%' height={150} src={suspend}/>
                     <div className={styles.listmes}>
-                      <div style={{fontSize: 16}}>{item.zlmc}</div>
+                      <div style={{fontSize: 16}}><Ellipsis length={16} tooltip>{item.zlmc}</Ellipsis></div>
                       <div>{item.scsj}</div>
                     </div>
-                  </Card>
-                </div>
+                </Card>
               </div>
-            </Checkbox>
+            </div>
           )
         )
       })
@@ -203,7 +202,7 @@ class learningTable extends PureComponent {
         // width: 100,
       },
       {
-        title: '文件大小',
+        title: '文件大小(M/KB)',
         dataIndex: 'wjdx',
         // width: 100,
       },
@@ -223,10 +222,10 @@ class learningTable extends PureComponent {
 
     const rowSelection = {
       // selectedRowKeys: checkboxchoose,
-      selections:checkboxchoose,
+      // selections:checkboxchoose,
       onChange: (selectedRowKeys, selectedRows) => {
         // console.log('selectedRowKeys',selectedRowKeys);
-        console.log('selectedRows',selectedRows);
+        // console.log('selectedRows',selectedRows);
         this.setState({
           tablechoose:selectedRowKeys,
         })

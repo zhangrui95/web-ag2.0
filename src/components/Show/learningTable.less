@@ -59,6 +59,7 @@
   :global {
     .ant-card-body{
       cursor :text!important;
+      position: relative;
     }
     .ant-card-meta-title {
       margin-bottom: 12px;
@@ -82,9 +83,10 @@
 }
 
 .listmes{
-  position: relative;
+  position: absolute;
   left: 20px;
-  padding-bottom:10px;
+  top: 100px;
+  //padding-bottom:10px;
 }
 
 .CheckGroup{
@@ -100,6 +102,11 @@
       z-index: 1001;
     }
   }
+}
+
+.checkbox{
+  position: relative;
+  z-index: 1;
 }
 
 .show{

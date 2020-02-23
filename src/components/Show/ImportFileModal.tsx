@@ -55,7 +55,7 @@ class ImportFileModal extends PureComponent {
     console.log('obj',obj);
     const zlxx = obj&&obj.scwj&&obj.scwj.fileList?obj.scwj.fileList:'';
     let ChiType= '';
-    let Objwjxx=[];
+    let Objwjxx=[], wjdxSize='';
     for(let a = 0; a < zlxx.length; a++ ){
       const zlxxName = zlxx[a].response.fileName;
       if(zlxxName.split('.')[1] === 'mp4'){
@@ -67,11 +67,17 @@ class ImportFileModal extends PureComponent {
       else if(zlxxName.split('.')[1] === 'doc'||zlxxName.split('.')[1] === 'docx'){
         ChiType = '文档'
       }
+      if(zlxx[a].size/1024/1024>1){
+        wjdxSize=(zlxx[a].size/1024/1024).toFixed(2)+'M'
+      }
+      else {
+        wjdxSize=(zlxx[a].size/1024).toFixed(2)+'KB'
+      }
       let wj = {
         zlmc:zlxxName,
         scsj:moment().format('YYYY-MM-DD'),
         lx:ChiType,
-        wjdx:zlxx[a].size/1024/1024,
+        wjdx:wjdxSize,
         xzlj:zlxx[a].response.fileUrl,
       }
       Objwjxx.push(wj);
