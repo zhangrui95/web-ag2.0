@@ -859,7 +859,7 @@ export default class ItemDataView extends PureComponent {
                     name: '访问来源',
                     type: 'pie',
                     center: ['30%', '50%'],
-                    radius: '50%',
+                    radius: '70%',
                     avoidLabelOverlap: false,
                     label: {
                         normal: {
@@ -1358,7 +1358,7 @@ export default class ItemDataView extends PureComponent {
                                         paddingLeft: 10,
                                     }}
                                 >性别统计</span></div>
-                                <div id="rycf" className={styles.cardBox} style={{height: '350px',marginLeft:'3%'}}></div>
+                                <div id="rycf" className={styles.cardBox} style={{height: '350px',marginLeft:'3%',padding:'25px 0'}}></div>
                                 {/*</div>*/}
                             </Col>
                             <Col {...colLayout2}>

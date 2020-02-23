@@ -375,7 +375,6 @@ export default class CriminalCaseDocDetail extends PureComponent {
         dataList.forEach(function (node) {
             node.itemStyle = null;
             node.symbolSize /= 1.5;
-            console.log(node);
             node.label = {
                 normal: {
                     show: true,
@@ -383,7 +382,7 @@ export default class CriminalCaseDocDetail extends PureComponent {
                     textStyle: {
                         color: dark ? '#eee' : '#4D4D4D',
                         fontSize: node.attributes.modularity_class === 0 ? 16 :
-                            node.attributes.modularity_class === 1 ? 14 : 12
+                          node.name === '涉案人员' || node.name === "涉案物品" || node.name === "卷宗" || node.name === "警情" ? 14 : 12
                     },
                 }
             };
