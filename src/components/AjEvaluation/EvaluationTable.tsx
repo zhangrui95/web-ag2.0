@@ -132,6 +132,7 @@ export default class EvaluationTable extends PureComponent {
         });
     };
     getKp = async (record) => {
+      record.kprq_time = this.props.kprq;
         this.props.dispatch(
             routerRedux.push({
                 pathname: '/Evaluation/CaseEvaluation/Detail',

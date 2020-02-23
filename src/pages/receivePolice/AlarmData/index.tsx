@@ -469,7 +469,7 @@ export default class Index extends PureComponent {
             jjsj_js: jjTime && jjTime.length > 0 ? jjTime[1].format('YYYY-MM-DD HH:mm:ss') : '',
             tbsj_ks: tbTime && tbTime.length > 0 ? tbTime[0].format('YYYY-MM-DD HH:mm:ss') : '',
             tbsj_js: tbTime && tbTime.length > 0 ? tbTime[1].format('YYYY-MM-DD HH:mm:ss') : '',
-
+            is_fl: window.configUrl.is_area === '2' ? '1' : '0',
         };
         if (jjTime && jjTime.length > 0) {
             const isAfterDate = moment(formValues.jjsj_js).isAfter(moment(formValues.jjsj_ks).add(exportListDataMaxDays, 'days'));
