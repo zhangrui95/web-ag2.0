@@ -64,7 +64,7 @@ class ImportFileModal extends PureComponent {
       else if(zlxxName.split('.')[1] === 'mp3'){
         ChiType = '音频'
       }
-      else if(zlxxName.split('.')[1] === 'doc'||zlxxName.split('.')[1] === 'docx'){
+      else if(zlxxName.split('.')[1] === 'doc'||zlxxName.split('.')[1] === 'docx'||zlxxName.split('.')[1] === 'pdf'){
         ChiType = '文档'
       }
       if(zlxx[a].size/1024/1024>1){
@@ -203,7 +203,7 @@ class ImportFileModal extends PureComponent {
     //   message.error('最多上传10个文件');
     //   return false;
     // }
-    const allowTypeArry = [ 'doc', 'docx', 'mp4', 'mp3'];
+    const allowTypeArry = [ 'doc', 'docx', 'mp4', 'mp3', 'pdf'];
     const nameArry = file.name.split('.');
     const fileType = nameArry[nameArry.length - 1];
     const isLt50M = file.size / 1024 / 1024 < 50;
@@ -212,7 +212,7 @@ class ImportFileModal extends PureComponent {
     }
     const allowType = allowTypeArry.includes(fileType);
     if (!allowType) {
-      message.error('支持扩展名：.doc .docx .mp4 .mp3');
+      message.error('支持扩展名：.doc .docx .mp4 .mp3 .pdf');
     }
     return isLt50M && allowType;
   };
@@ -221,7 +221,7 @@ class ImportFileModal extends PureComponent {
     let fileList = info.fileList;
     for (let i = 0; i < fileList.length; i++) {
       let file = fileList[i];
-      const allowTypeArry = [ 'doc', 'docx', 'mp4', 'mp3'];
+      const allowTypeArry = [ 'doc', 'docx', 'mp4', 'mp3', 'pdf'];
       const nameArry = file.name.split('.');
       const fileType = nameArry[nameArry.length - 1];
       const isLt50M = file.size / 1024 / 1024 < 50;
