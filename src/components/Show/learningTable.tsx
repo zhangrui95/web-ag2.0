@@ -331,14 +331,14 @@ class learningTable extends PureComponent {
         <Radio.Group onChange={this.handleModeChange} value={mode} className={styles.radio}>
           <Tooltip title="列表展示">
             <Radio.Button value="left">
+              <span>列表展示</span>
               <Icon type="bars" style={{ fontSize: 16 }} />
-              <span>{'列表展示' && '列表展示'.substring(0, 0)}</span>
             </Radio.Button>
           </Tooltip>
-          <Tooltip title="图标展示">
+          <Tooltip title="图表展示">
             <Radio.Button value="right">
+              <span>图表展示</span>
               <Icon type="appstore-o" style={{ fontSize: 16 }} />
-              <span>{'图标展示' && '图标展示'.substring(0, 0)}</span>
             </Radio.Button>
           </Tooltip>
         </Radio.Group>
