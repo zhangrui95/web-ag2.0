@@ -54,9 +54,7 @@ export default class SsWoodMessage extends PureComponent {
         res,
       }
     }
-    state = {
-        // current:'1',
-    };
+
     content = (pane) => {
         const picture = pane.photo;
         return (

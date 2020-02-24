@@ -28,6 +28,8 @@ import {
 } from 'antd';
 import {routerRedux} from 'dva/router';
 import styles from './index.less';
+import nophoto from '../../../assets/common/nophoto.png';
+import nophotoLight from "@/assets/common/nophotoLight.png";
 
 
 const FormItem = Form.Item;
@@ -53,7 +55,7 @@ export default class SaWoodMessage extends PureComponent {
     content = (pane) => {
         const picture = pane.photo;
         return (
-            <div>
+            <Card>
                 <Row>
                     <Col md={8}>
                         <div className={styles.woodName}>
@@ -61,7 +63,8 @@ export default class SaWoodMessage extends PureComponent {
                                 {/*<li>*/}
                                 {/*<img width={250} src={pane.photo_url} alt='暂无图片' />*/}
                                 {/*</li>*/}
-                                {picture.map(pic => <li><img width={250} src={pic} alt='暂无图片'/></li>)}
+                                {picture.map(pic => <li><img width={250} ref={'imgBox'} src={pic ? pic : this.props.global && this.props.global.dark ? nophoto : nophotoLight}
+                                                             alt='暂无图片'/></li>)}
                             </ul>
                         </div>
                     </Col>
@@ -112,14 +115,13 @@ export default class SaWoodMessage extends PureComponent {
                         </div>
                     </Col>
                 </Row>
-            </div>
+            </Card>
         );
     };
 
     render() {
-        // const {query: {record, res}} = this.props.location;
-        const {record,res} = this.state;
         // const { data, wpId } = this.props;
+        const { record,res } = this.state;
         return (
             <Tabs
                 defaultActiveKey={res.wp_id.toString()}
