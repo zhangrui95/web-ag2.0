@@ -111,7 +111,7 @@ export default class SuperviseModal extends PureComponent {
       type: 'common/getDictType',
       payload: {
         appCode: window.configUrl.appCode,
-        code: '2016',
+        code: '20160001',//2016
       },
       callback: data => {
         this.setState({
@@ -127,7 +127,7 @@ export default class SuperviseModal extends PureComponent {
       type: 'common/getDictType',
       payload: {
         appCode: window.configUrl.appCode,
-        code: '2068',
+        code: '206800',//2068
       },
       callback: data => {
         this.setState({
@@ -143,7 +143,7 @@ export default class SuperviseModal extends PureComponent {
       type: 'common/getDictType',
       payload: {
         appCode: window.configUrl.appCode,
-        code: '6001',
+        code: '60010001',//6001
       },
       callback: data => {
         this.setState({

@@ -330,6 +330,7 @@ export default class SLAQKJDGLDJB extends PureComponent {
                             pagination={paginationProps}
                             onChange={this.handleTableChange}
                             columns={columns}
+                            className={stylescommon.tableBox}
                             dataSource={this.state.data.list}
                             scroll={{
                                 x:

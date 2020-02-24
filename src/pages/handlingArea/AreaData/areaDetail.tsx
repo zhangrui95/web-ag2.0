@@ -184,7 +184,9 @@ export default class areaDetail extends PureComponent {
       let res = {
           system_id: areaDetails.system_id,
           id: areaDetails.id,
-          zrdwList:areaDetails.zrdwList
+          zrdwList:areaDetails.zrdwList,
+          ajbh:areaDetails.ajbh,
+          ajmc:areaDetails.ajmc,
       }
     if (areaDetails) {
       this.props.dispatch(
@@ -428,23 +430,24 @@ export default class areaDetail extends PureComponent {
   };
   // 台账
   Ledger = res => {
-      let record = {
-          system_id: res.system_id,
-          id: res.id
-      }
-    this.props.dispatch(
-      routerRedux.push({
-        pathname: '/ModuleAll/PersonLedger',
-        query: {
-          record: record,
-          id: res && res.system_id ? res.system_id : '1',
-          // from: this.state.lx,
-          // tzlx: this.state.tzlx,
-          // fromPath: '/handlingArea/AreaData',
-          // tab: '表格',
-        },
-      }),
-    );
+      // let record = {
+      //     system_id: res.system_id,
+      //     id: res.id
+      // }
+      window.open(`${window.configUrl.baqRaqUrl}showReport3.jsp?rpx=TZ-HLJ.rpx&personId=${res && res.system_id ? res.system_id : '1'}`);
+    // this.props.dispatch(
+    //   routerRedux.push({
+    //     pathname: '/ModuleAll/PersonLedger',
+    //     query: {
+    //       record: record,
+    //       id: res && res.system_id ? res.system_id : '1',
+    //       // from: this.state.lx,
+    //       // tzlx: this.state.tzlx,
+    //       // fromPath: '/handlingArea/AreaData',
+    //       // tab: '表格',
+    //     },
+    //   }),
+    // );
   };
 
   Topdetail() {

@@ -86,6 +86,13 @@ export default class Index extends PureComponent {
     this.getDossier({ pd: { yj_type: 'jq' } });
     this.getSuperviseStatusDict();
     this.getYjjbDictionary();
+      this.props.dispatch({
+          type: 'common/getDictType',
+          payload: {
+              appCode: window.configUrl.appCode,
+              code: '5025300',//5025300
+          },
+      });
   }
 
   // 切换tab
@@ -547,7 +554,7 @@ export default class Index extends PureComponent {
   render() {
     const {
       form: { getFieldDecorator },
-      common: { depTree, superviseStatusDict, YJJBType },
+      common: { depTree, superviseStatusDict, YJJBType, JqyjType },
       EarlyWarning: {
         jqyjdata: { page, list, tbCount },
       },
@@ -825,8 +832,11 @@ export default class Index extends PureComponent {
                       getPopupContainer={() => document.getElementById('jqyjtableListForm')}
                     >
                       <Option value="">全部</Option>
-                      <Option value="5025302">未受案警情</Option>
-                      <Option value="5025301">无处置结果</Option>
+                        {JqyjType.map(event => {
+                            return <Option value={event.code}>{event.name}</Option>;
+                        })}
+                      {/*<Option value="5025302">未受案警情</Option>*/}
+                      {/*<Option value="5025301">无处置结果</Option>*/}
                     </Select>,
                   )}
                 </FormItem>

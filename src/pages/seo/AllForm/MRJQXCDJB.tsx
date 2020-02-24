@@ -282,6 +282,7 @@ export default class MRJQXCDJB extends PureComponent {
                         <Table
                             bordered
                             loading={this.state.loading}
+                            className={stylescommon.tableBox}
                             rowKey={record => record.id}
                             pagination={paginationProps}
                             onChange={this.handleTableChange}
