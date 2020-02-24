@@ -161,7 +161,7 @@ export default class Index extends PureComponent {
             type: 'common/getDictType',
             payload: {
                 appCode: window.configUrl.appCode,
-                code: '501126',
+                code: '5315000',
             },
         });
     };
@@ -171,7 +171,7 @@ export default class Index extends PureComponent {
             type: 'common/getDictType',
             payload: {
                 appCode: window.configUrl.appCode,
-                code: '501133',
+                code: '5308000',
             },
         });
     };

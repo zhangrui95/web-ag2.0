@@ -447,9 +447,13 @@ export default class ItemDataView extends PureComponent {
                                             value: data.list.length === 0 ? 0 : data1[0].count2,
                                         },
                                         {
-                                            name: '临时离开',
+                                            name: '临时离区',
                                             icon: 'circle',
                                             value: data.list.length === 0 ? 0 : data1[0].count3,
+                                        }, {
+                                            name: '返回办案区',
+                                            icon: 'circle',
+                                            value: data.list.length === 0 ? 0 : data1[0].count4,
                                         },
                                     ];
                                     const seriesData = [
@@ -468,10 +472,16 @@ export default class ItemDataView extends PureComponent {
                                             },
                                         },
                                         {
-                                            name: '临时离开',
+                                            name: '临时离区',
                                             value: data.list.length === 0 ? 0 : data1[0].count3,
                                             itemStyle: {
                                                 color: colors1[2],
+                                            },
+                                        },{
+                                            name: '返回办案区',
+                                            value: data.list.length === 0 ? 0 : data1[0].count4 ? data1[0].count4 : 0,
+                                            itemStyle: {
+                                                color: colors1[5],
                                             },
                                         },
                                     ];
@@ -840,7 +850,7 @@ export default class ItemDataView extends PureComponent {
             legend: {
                 orient: 'vertical',
                 right: '7%',
-                top: 90,
+                top: 60,
                 show: true,
                 itemWidth: 10,
                 itemHeight: 10,
