@@ -1633,7 +1633,7 @@ export default class unareaDetail extends PureComponent {
                       </Col>
                       <Col md={6} sm={24}>
                         <div className={styles.Indexfrom}>办案人：</div>
-                        <div className={styles.Indextail} style={{ paddingLeft: '56px' }}>
+                        <div className={styles.Indextail} style={{ paddingLeft: '66px' }}>
                           {UnareaDetail && UnareaDetail.ajxx && UnareaDetail.ajxx.barxm
                             ? UnareaDetail.ajxx.barxm
                             : ''}
