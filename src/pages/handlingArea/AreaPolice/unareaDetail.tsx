@@ -122,7 +122,7 @@ export default class unareaDetail extends PureComponent {
       record: res,
     });
     const { location } = this.props;
-    if (resquery&&resquery.id&&resquery.baqid) {
+    if (resquery && resquery.id && resquery.baqid) {
       this.getDetail(resquery.id, resquery.baqid);
     }
     // else if (location && location.query && res && res.agid && res.system_id) {
@@ -167,7 +167,7 @@ export default class unareaDetail extends PureComponent {
               query: {
                 record: UnareaDetail,
                 id: UnareaDetail && UnareaDetail.wtid ? UnareaDetail.wtid : '1',
-                from: '办案区详情问题判定',
+                from: '督办',
                 tzlx: 'baqwt',
                 fromPath: '/handlingArea/AreaPolice/UnareaDetail',
                 wtflId: '203203',
@@ -443,7 +443,11 @@ export default class unareaDetail extends PureComponent {
   // };
   // 台账
   Ledger = res => {
-      window.open(`${window.configUrl.baqRaqUrl}showReport3.jsp?rpx=TZ-HLJ.rpx&personId=${res && res.system_id ? res.system_id : '1'}`);
+    window.open(
+      `${window.configUrl.baqRaqUrl}showReport3.jsp?rpx=TZ-HLJ.rpx&personId=${
+        res && res.system_id ? res.system_id : '1'
+      }`,
+    );
     // this.props.dispatch(
     //   routerRedux.push({
     //     pathname: '/ModuleAll/PersonLedger',
@@ -825,32 +829,36 @@ export default class unareaDetail extends PureComponent {
       type: 'areaData/areaPartVideo',
       payload: {
         handleareaNum: paneData.handlearea_num,
-        startTime: paneData.startTime?paneData.startTime:paneData.begin_time,
-        finishTime: paneData.finishTime?paneData.finishTime:paneData.end_time,
+        startTime: paneData.startTime ? paneData.startTime : paneData.begin_time,
+        finishTime: paneData.finishTime ? paneData.finishTime : paneData.end_time,
         roomId: paneData.room_id,
         roomName: paneData.room_name,
       },
-      callback:(data)=>{
-        if(data.error!==null){
+      callback: data => {
+        if (data.error !== null) {
           message.error(data.error);
         }
-      }
+      },
     });
   };
-  descrip = (pane) =>{
-      let dark = this.props.global && this.props.global.dark;
-    if(pane&&pane.children&&pane.children.length>0){
+  descrip = pane => {
+    let dark = this.props.global && this.props.global.dark;
+    if (pane && pane.children && pane.children.length > 0) {
       return (
         <div className={styles.descripStyle}>
           {pane.children.map(item => (
-            <div className={styles.IndexTitle} style={{backgroundColor:dark ? '#252c3c' : '#e6e6e6'}} onClick={() => this.trajectoryTitle(item)}>
+            <div
+              className={styles.IndexTitle}
+              style={{ backgroundColor: dark ? '#252c3c' : '#e6e6e6' }}
+              onClick={() => this.trajectoryTitle(item)}
+            >
               <span className={styles.spanTitle}>{item.camera_name}</span>
             </div>
           ))}
         </div>
-      )
+      );
     }
-  }
+  };
   Title = (roomName, trackTime, trackLeftTime, paneData) => {
     return (
       <div className={styles.trajectory} onClick={() => this.trajectoryTitle(paneData)}>
@@ -1194,11 +1202,11 @@ export default class unareaDetail extends PureComponent {
         handleareaNum: UnareaDetail.rqxx[0].haNum,
         personId: UnareaDetail.rqxx[0].person_id,
       },
-      callback:(data)=>{
-        if(data.error!==null){
+      callback: data => {
+        if (data.error !== null) {
           message.error(data.error);
         }
-      }
+      },
     });
   };
 
@@ -1468,7 +1476,10 @@ export default class unareaDetail extends PureComponent {
           >
             {UnareaDetail && UnareaDetail.trackList && UnareaDetail.trackList.length > 0
               ? UnareaDetail.trackList.map(pane => (
-                  <Step title={this.Title(pane.room_name, pane.begin_time, pane.end_time, pane)} description={this.descrip(pane)} />
+                  <Step
+                    title={this.Title(pane.room_name, pane.begin_time, pane.end_time, pane)}
+                    description={this.descrip(pane)}
+                  />
                 ))
               : ''}
           </Steps>
