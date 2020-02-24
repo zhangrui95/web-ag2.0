@@ -13,6 +13,8 @@ import noListLight from "@/assets/viewData/noListLight.png";
 import {connect} from "dva";
 import DetailShow from "@/components/Common/detailShow";
 import liststyles from "@/pages/lawEnforcement/docListStyle.less";
+import nophotoLight from '@/assets/common/zwwp1.png';
+import nophoto from '@/assets/common/zwwpDark1.png';
 
 const TabPane = Tabs.TabPane;
 @connect(({ global }) => ({
@@ -95,6 +97,7 @@ export default class PersonDetailTab extends PureComponent {
     };
     // 涉案物品List
     showSawpList = (sawpList) => {
+        let dark = this.props.global && this.props.global.dark;
         return (
             <List
                 itemLayout="vertical"
@@ -120,13 +123,15 @@ export default class PersonDetailTab extends PureComponent {
                 style={{color: '#faa'}}
                 renderItem={item => (
                     <List.Item>
-                        <div className={styles.whiteItems}>
-                            <div className={styles.listItemContents}>
-                                <div className={styles.sawpImg}>
-                                    <img width='90' height='90'
-                                         src={item && item.imageList && item.imageList.length > 0 ? item.imageList[0].imageurl : 'images/nophoto.png'}/>
+                        <div className={styles.blueItems}>
+                            <div className={styles.listItemContents} style={{overflow:'hidden'}}>
+                                <div className={styles.sawpImg} style={{float:'left'}}>
+                                    <img
+                                        width="90"
+                                        src={item && item.imageList && item.imageList.length > 0 ? item.imageList[0].imageurl : dark ? nophoto : nophotoLight}
+                                    />
                                 </div>
-                                <div className={styles.sawpName}>
+                                <div className={styles.sawpName} style={{float:'left',marginTop:20}}>
                                     <div className={styles.sawpName1}>物品名称：<Tooltip
                                         overlayStyle={{wordBreak: 'break-all'}}
                                         title={item.wpmc}>{item.wpmc}</Tooltip></div>

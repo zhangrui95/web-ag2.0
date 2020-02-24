@@ -150,7 +150,7 @@ class SuperviseSetup extends Component {
     handleSearch = () => {
         this.props.form.validateFields((err, values) => {
             let pd = {
-                jgd_dm: values.jgd && values.jgd.key ? values.jgd.key : '',
+                jgd_dm: values.jgd && values.jgd.key && JSON.parse(values.jgd.key)&& JSON.parse(values.jgd.key).code ? JSON.parse(values.jgd.key).code : '',
                 jgdzt_dm: values.jgdzt ? values.jgdzt : '',
                 jgqx_js: values.jgqx[1] ? moment(values.jgqx[1]).format('YYYY-MM-DD') : '',
                 jgqx_ks: values.jgqx[0] ? moment(values.jgqx[0]).format('YYYY-MM-DD') : '',
@@ -830,7 +830,7 @@ class SuperviseSetup extends Component {
                                             <Option value="">全部</Option>
                                             {JgdType &&
                                             JgdType.map(event => {
-                                                return <Option value={event.code}>{event.name}</Option>;
+                                                return <Option value={JSON.stringify({code:event.code,name:event.name})}>{event.name}</Option>;
                                             })}
                                         </Select>,
                                     )}

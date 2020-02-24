@@ -99,6 +99,7 @@ export default class CriminalCaseDocDetail extends PureComponent {
             res: res,
             link: '',
             show:false,
+            isdc:false,
         };
     }
 
@@ -575,6 +576,7 @@ export default class CriminalCaseDocDetail extends PureComponent {
     ExportStatistics = () => {
         this.setState({
             loading: true,
+            isdc:!this.state.isdc,
         });
         imgBase = [];
         const Namegxtp = `#Namegxtp${this.state.res.ajbh}`;
@@ -873,20 +875,10 @@ export default class CriminalCaseDocDetail extends PureComponent {
                 title: '接警来源',
                 dataIndex: 'jjly_mc',
                 width:280,
-                render: (text) => {
-                    return (
-                        text ? <Ellipsis lines={2} tooltip>{text}</Ellipsis> : ''
-                    );
-                },
             },
             {
                 title: '接警时间',
                 dataIndex: 'jjsj',
-                render: (text) => {
-                    return (
-                        text ? <Ellipsis length={20} tooltip>{text}</Ellipsis> : ''
-                    );
-                },
             },
             {
                 title: '管辖单位',
@@ -898,7 +890,7 @@ export default class CriminalCaseDocDetail extends PureComponent {
                         if (strArry.length > 0) {
                             str = strArry[strArry.length - 1];
                             return (
-                                <Ellipsis lines={2} tooltip>{str}</Ellipsis>
+                                <span>{str}</span>
                             );
                         }
                         return str;
@@ -916,7 +908,7 @@ export default class CriminalCaseDocDetail extends PureComponent {
                         if (strArry.length > 0) {
                             str = strArry[strArry.length - 1];
                             return (
-                                <Ellipsis lines={2} tooltip>{str}</Ellipsis>
+                                <span>{str}</span>
                             );
                         }
                         return str;
@@ -934,7 +926,7 @@ export default class CriminalCaseDocDetail extends PureComponent {
                         if (strArry.length > 0) {
                             str = strArry[strArry.length - 1];
                             return (
-                                <Ellipsis lines={2} tooltip>{str}</Ellipsis>
+                                <span>{str}</span>
                             );
                         }
                         return str;
@@ -952,7 +944,7 @@ export default class CriminalCaseDocDetail extends PureComponent {
                         if (strArry.length > 0) {
                             str = strArry[strArry.length - 1];
                             return (
-                                <Ellipsis lines={2} tooltip>{str}</Ellipsis>
+                                <span>{str}</span>
                             );
                         }
                         return str;
@@ -963,11 +955,6 @@ export default class CriminalCaseDocDetail extends PureComponent {
             {
                 title: '报案人',
                 dataIndex: 'bar',
-                render: (text) => {
-                    return (
-                        text ? <Ellipsis lines={2} tooltip>{text}</Ellipsis> : ''
-                    );
-                },
             },
             {
                 title: '是否受案',
@@ -990,11 +977,6 @@ export default class CriminalCaseDocDetail extends PureComponent {
             {
                 title: '卷宗名称',
                 dataIndex: 'jzmc',
-                render: (text) => {
-                    return (
-                        text ? <Ellipsis lines={2} tooltip>{text}</Ellipsis> : ''
-                    );
-                },
             },
             {
                 title: '卷宗类别',
@@ -1084,7 +1066,7 @@ export default class CriminalCaseDocDetail extends PureComponent {
                             </Card>
                         </div>
                         <div id={`Nameajxx${this.state.res.ajbh}`} className={styles.borderBottom}>
-                            <div className={styles.title} id={this.state.res.ajbh + 'ajxx'}>
+                            <div className={styles.title} id={this.state.res.ajbh + 'ajxx'} style={{marginTop:10}}>
                                 <span
                                     style={{
                                         borderLeft: dark ? '3px solid #fff' : '3px solid #3D63D1',
@@ -1127,7 +1109,7 @@ export default class CriminalCaseDocDetail extends PureComponent {
                                 <Row gutter={rowLayout}>
                                     <Col md={24} sm={24}>
                                         <div className={liststyles.Indexfrom}>简要案情：</div>
-                                        <DetailShow word={caseDetails && caseDetails.jyaq ? caseDetails.jyaq : ''} {...this.props}/>
+                                        <DetailShow isdc={this.state.isdc} word={caseDetails && caseDetails.jyaq ? caseDetails.jyaq : ''} {...this.props} style={{background:dark ? '#252c3c' : '#fff'}}/>
                                     </Col>
                                 </Row>
 
@@ -1247,7 +1229,7 @@ export default class CriminalCaseDocDetail extends PureComponent {
                     <Anchor
                         getContainer={() => document.querySelector('#scroll'+this.state.res.ajbh)}
                         className={!(this.state.Anchor && this.state.AnchorShow) ? styles.AnchorHide : this.state.AnchorShow ? styles.fadeBoxIn : styles.fadeBoxOut}
-                        offsetTop={70} onChange={this.goLink}>
+                        offsetTop={0} onChange={this.goLink}>
                         <Link
                             href={`${location.hash}#${this.state.res.ajbh}gxtp`}
                             title="关系图谱"/>

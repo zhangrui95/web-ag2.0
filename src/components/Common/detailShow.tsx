@@ -50,6 +50,11 @@ export default class detailShow extends PureComponent {
                 wordLen:this.realSubstring(nextProps.word),
             });
         }
+        if(this.props.isdc !== nextProps.isdc){
+            this.setState({
+                show:true
+            });
+        }
     }
     //多行详情展开，收起
     getShow = () =>{
@@ -72,13 +77,14 @@ export default class detailShow extends PureComponent {
         let paddingLeft = this.props.paddingLeft ? {paddingLeft:this.props.paddingLeft} : {};
         return (
             <div className={this.props.global&&this.props.global.dark ? '' : styles.detailBoxLight}>
-                {this.state.show ? <div className={liststyles.Indextail} style={paddingLeft}>
+                {this.state.show && this.state.wordLen > this.state.maxLen ? <div className={liststyles.Indextail} style={paddingLeft}>
                     {this.props.word ? this.props.word : ''}
                     <span className={styles.linesBtn} onClick={this.getShow}> 收起<Icon type="up"/></span>
                 </div> : <div className={liststyles.Indextail} style={paddingLeft}>
+                    {this.props.word && this.state.wordLen > this.state.maxLen ?
                     <Ellipsis style={{float: "left", width: 'auto', maxWidth: "calc(100% - 50px)"}} lines={1}>
                         {this.props.word ? this.props.word : ''}
-                    </Ellipsis>
+                    </Ellipsis> :  this.props.word ? this.props.word : ''}
                     {this.props.word && this.state.wordLen > this.state.maxLen ? <span className={styles.linesBtn} style={{float: "left", marginLeft: 5}}
                           onClick={this.getShow}>展开<Icon type="down"/></span> : ''}
                 </div>}
