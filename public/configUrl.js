@@ -7,7 +7,7 @@ const onlineips = {
 // 开发服务模式
 const developips = {
   ip: 'http://192.168.3.92', // 92
-  baqIp: 'http://192.169.40.1', // 办案区服务地址
+  baqIp: 'http://192.168.41.249', // 办案区服务地址
   maintainIp: 'http://192.168.3.92', // 运维中心地址
   aqzxIp: 'http://192.168.3.92', // 安全中心地址
   TbtjDcIp: 'http://192.168.3.245', // 图表统计导出功能地址

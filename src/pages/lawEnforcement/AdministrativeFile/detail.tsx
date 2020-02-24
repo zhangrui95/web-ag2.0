@@ -80,7 +80,8 @@ export default class AdministrativeCaseDocDetail extends PureComponent {
             loading: false, // 默认详情页是否为加载状态
             first: true,
             res: res,
-            link: ''
+            link: '',
+            isdc:false,
         };
     }
 
@@ -358,7 +359,7 @@ export default class AdministrativeCaseDocDetail extends PureComponent {
                     textStyle: {
                         color: dark ? '#eee' : '#4D4D4D',
                         fontSize: node.attributes.modularity_class === 0 ? 16 :
-                            node.attributes.modularity_class === 1 ? 14 : 12
+                          node.name === '涉案人员' || node.name === "涉案物品" || node.name === "卷宗" || node.name === "警情" ? 14 : 12
                     },
                 }
             };
@@ -490,6 +491,7 @@ export default class AdministrativeCaseDocDetail extends PureComponent {
     ExportStatistics = () => {
         this.setState({
             loading: true,
+            isdc:!this.state.isdc,
         });
         imgBase = [];
         const Namegxtp = `#Namegxtp${this.props.location.query.id}`;
@@ -758,65 +760,30 @@ export default class AdministrativeCaseDocDetail extends PureComponent {
                 title: '接警来源',
                 dataIndex: 'jjly_mc',
                 width:280,
-                render: (text) => {
-                    return (
-                        text ? <Ellipsis lines={2} tooltip>{text}</Ellipsis> : ''
-                    );
-                },
             },
             {
                 title: '接警时间',
                 dataIndex: 'jjsj',
-                render: (text) => {
-                    return (
-                        text ? <Ellipsis length={20} tooltip>{text}</Ellipsis> : ''
-                    );
-                },
             },
             {
                 title: '管辖单位',
                 dataIndex: 'jjdw',
-                render: (text) => {
-                    return (
-                        text ? <Ellipsis lines={2} tooltip>{text}</Ellipsis> : ''
-                    );
-                },
             },
 {
                 title: '接警人',
                 dataIndex: 'jjr',
-                render: (text) => {
-                    return (
-                        text ? <Ellipsis lines={2} tooltip>{text}</Ellipsis> : ''
-                    );
-                },
             },
             {
                 title: '处警单位',
                 dataIndex: 'cjdw',
-                render: (text) => {
-                    return (
-                        text ? <Ellipsis lines={2} tooltip>{text}</Ellipsis> : ''
-                    );
-                },
             },
             {
                 title: '处警人',
                 dataIndex: 'cjr',
-                render: (text) => {
-                    return (
-                        text ? <Ellipsis lines={2} tooltip>{text}</Ellipsis> : ''
-                    );
-                },
             },
             {
                 title: '报案人',
                 dataIndex: 'bar',
-                render: (text) => {
-                    return (
-                        text ? <Ellipsis lines={2} tooltip>{text}</Ellipsis> : ''
-                    );
-                },
             },
             {
                 title: '是否受案',
@@ -839,11 +806,6 @@ export default class AdministrativeCaseDocDetail extends PureComponent {
             {
                 title: '卷宗名称',
                 dataIndex: 'jzmc',
-                render: (text) => {
-                    return (
-                        text ? <Ellipsis length={20} tooltip>{text}</Ellipsis> : ''
-                    );
-                },
   },
             {
                 title: '卷宗类别',
@@ -982,7 +944,7 @@ export default class AdministrativeCaseDocDetail extends PureComponent {
                                 <Row gutter={{md: 8, lg: 24, xl: 48}}>
                                     <Col md={24} sm={24}>
                                         <div className={liststyles.Indexfrom}>简要案情：</div>
-                                        <DetailShow word={caseDetails && caseDetails.ajjj ? caseDetails.ajjj : ''} {...this.props}/>
+                                        <DetailShow isdc={this.state.isdc} word={caseDetails && caseDetails.ajjj ? caseDetails.ajjj : ''} {...this.props}/>
                                     </Col>
                                 </Row>
 
@@ -1105,7 +1067,7 @@ export default class AdministrativeCaseDocDetail extends PureComponent {
                     <Anchor
                         getContainer={() => document.querySelector('#scrollAdmin'+this.state.res.ajbh)}
                         className={!(this.state.Anchor && this.state.AnchorShow) ? styles.AnchorHide : this.state.AnchorShow ? styles.fadeBoxIn : styles.fadeBoxOut}
-                        offsetTop={70} onChange={this.goLink}>
+                        offsetTop={0} onChange={this.goLink}>
                         <Link
                             href={`${location.hash}#${this.state.res.ajbh}gxtp`}
                             title="关系图谱"/>

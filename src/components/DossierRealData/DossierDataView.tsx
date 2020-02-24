@@ -515,7 +515,7 @@ export default class DossierDataView extends PureComponent {
                                 fontWeight: 'normal',
                                 color: this.props.global && this.props.global.dark ? '#fff' : '#4d4d4d'
                             },
-                            x: '29%',
+                            x: '28.5%',
                             y: '40%',
                             padding: 7,
                             textAlign: 'center',

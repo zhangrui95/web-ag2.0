@@ -213,15 +213,15 @@ class Detail extends Component {
             if (values.jgsx) {
                 this.getSupervise(
                     values.jgsx.key === '5008301'
-                        ? '2068'
+                        ? '206800'
                         : values.jgsx.key === '5008302'
-                        ? '2016'
+                        ? '20160001'
                         : values.jgsx.key === '5008303'
                             ? '3'
                             : values.jgsx.key === '5008304'
                                 ? '2017'
                                 : values.jgsx.key === '5008305'
-                                    ? '6001'
+                                    ? '60010001'
                                     : values.jgsx.key === '5008306'
                                         ? '5007725'
                                         : values.jgsx.key,
@@ -395,15 +395,15 @@ class Detail extends Component {
         });
         this.getSupervise(
             e.key === '5008301'
-                ? '2068'
+                ? '206800'
                 : e.key === '5008302'
-                ? '2016'
+                ? '20160001'
                 : e.key === '5008303'
                     ? '3'
                     : e.key === '5008304'
                         ? '2017'
                         : e.key === '5008305'
-                            ? '6001'
+                            ? '60010001'
                             : e.key === '5008306'
                                 ? '5007725'
                                 : e.key,

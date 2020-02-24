@@ -314,7 +314,7 @@ class RenderTable extends PureComponent {
                                             (record.tbrq2 && record.tbyy2) ? (
                                                 <span>
                             <Divider type="vertical"/>
-                            <a style={{color: '#C3C3C3'}}>退补</a>
+                            <a style={{color: '#C3C3C3',cursor: 'not-allowed'}}>退补</a>
                           </span>
                                             ) : (
                                                 <span>
@@ -368,7 +368,7 @@ class RenderTable extends PureComponent {
                                         (record.tbrq2 && record.tbyy2) ? (
                                             <span>
                           <Divider type="vertical"/>
-                          <a style={{color: '#C3C3C3'}}>退补</a>
+                          <a style={{color: '#C3C3C3',cursor: 'not-allowed'}}>退补</a>
                         </span>
                                         ) : (
                                             <span>
