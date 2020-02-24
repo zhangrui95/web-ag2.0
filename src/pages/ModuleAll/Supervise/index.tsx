@@ -858,7 +858,8 @@ export default class SuperviseModal extends PureComponent {
               onCancel={this.handleCancel}
               footer={<button onClick={this.handleCancel} className={styles.successBtn}>确定</button>}
           >
-              {this.state.from === '督办'?'督办完成！':'问题判定完成！'}
+              {/*{this.state.from === '督办'?'督办完成！':'问题判定完成！'}*/}
+              督办完成！
           </Modal>
       </div>
     );

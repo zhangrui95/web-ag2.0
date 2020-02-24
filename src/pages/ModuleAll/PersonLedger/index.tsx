@@ -37,7 +37,6 @@ export default class PersonLedger extends PureComponent {
 
     render() {
         const {query:{id}}  = this.props.location
-        console.log(`${window.configUrl.baqRaqUrl}showReport3.jsp?rpx=TZ-HLJ.rpx&personId=${id}`)
         return (
             <Card className={styles.boxTable}>
               <iframe

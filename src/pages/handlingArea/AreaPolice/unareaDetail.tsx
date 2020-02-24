@@ -192,8 +192,8 @@ export default class unareaDetail extends PureComponent {
     });
   };
   // 反馈
-  feedback = (flag, unCaseDetailData) => {
-    const { wtid } = unCaseDetailData;
+  feedback = (flag, UnareaDetail) => {
+    const { wtid } = UnareaDetail;
     this.props.dispatch({
       type: 'UnareaData/getUnareaByProblemId',
       payload: {
@@ -209,8 +209,8 @@ export default class unareaDetail extends PureComponent {
             routerRedux.push({
               pathname: '/ModuleAll/FeedBack',
               query: {
-                record: unCaseDetailData,
-                id: unCaseDetailData && unCaseDetailData.wtid ? unCaseDetailData.wtid : '1',
+                record: UnareaDetail,
+                id: UnareaDetail && UnareaDetail.wtid ? UnareaDetail.wtid : '1',
                 tzlx: 'baqwt',
                 fromPath: '/handlingArea/AreaPolice/UnareaDetail',
                 tab: '详情',
@@ -504,7 +504,8 @@ export default class unareaDetail extends PureComponent {
               (UnareaDetail.dbid === '' ||
                 (UnareaDetail.dbList &&
                   UnareaDetail.dbList.length > 0 &&
-                  UnareaDetail.dbList[0].fkzt !== '1')) &&
+                    UnareaDetail.dbList[UnareaDetail.dbList.length - 1].fkzt !== '1')
+              ) &&
               isDb ? (
                 <Button
                   type="primary"
