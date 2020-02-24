@@ -328,7 +328,7 @@ export default class FeedBack extends PureComponent {
         );
         return (
             <div className={this.props.global && this.props.global.dark ? '' : styles.lightBox}>
-                <Card className={styles.standardTable} id='FeedBackModule'>
+                <Card className={styles.standardTable} id={'FeedBackModule' + this.props.location.query.id}>
                     <Form className={styles.standardForm}>
                         <Row gutter={{md: 8, lg: 24, xl: 48}} style={{marginBottom: '16px'}}>
                             <Col md={12} sm={24}>
@@ -365,7 +365,7 @@ export default class FeedBack extends PureComponent {
                                       placeholder="请选择责任人"
                                       allowClear
                                       // getPopupContainer={triggerNode => triggerNode.parentNode}
-                                      getPopupContainer={() => document.getElementById('FeedBackModule')}
+                                      getPopupContainer={() => document.getElementById('FeedBackModule' + this.props.location.query.id)}
                                   >
                                       {zrrTreeNodeTypeOptions}
                                   </Select>,
@@ -392,7 +392,7 @@ export default class FeedBack extends PureComponent {
                           initialValue: {key: '500741', label: '已处理'},
                       })(
                           <Select placeholder="请选择处理结果" labelInValue
-                                  getPopupContainer={() => document.getElementById('FeedBackModule')}>
+                                  getPopupContainer={() => document.getElementById('FeedBackModule' + this.props.location.query.id)}>
                               {rectificationStatusOptions}
                           </Select>,
                       )}
