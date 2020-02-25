@@ -109,6 +109,8 @@ export default class unareaDetail extends PureComponent {
     feedbackButtonLoading: false, // 反馈按钮加载状态
     isDb: authorityIsTrue(userResourceCodeDb.baq), // 督办权限
     record: '', // 表格信息
+      idDetail:'',
+      baqidDetail:'',
   };
 
   componentDidMount() {
@@ -124,6 +126,10 @@ export default class unareaDetail extends PureComponent {
     const { location } = this.props;
     if (resquery && resquery.id && resquery.baqid) {
       this.getDetail(resquery.id, resquery.baqid);
+      this.setState({
+          idDetail:resquery.id,
+          baqidDetail:resquery.baqid,
+      })
     }
     // else if (location && location.query && res && res.agid && res.system_id) {
     //   this.getDetail(res.agid, res.system_id);
@@ -135,7 +141,8 @@ export default class unareaDetail extends PureComponent {
       this.props.global.isResetList.isReset !== nextProps.global.isResetList.isReset &&
       nextProps.global.isResetList.url === '/handlingArea/AreaPolice/UnareaDetail'
     ) {
-      this.getDetail(nextProps.location.query.record.id, nextProps.location.query.record.baq_id);
+      this.getDetail(nextProps.location.query.record.id ? nextProps.location.query.record.id : this.state.idDetail,
+          nextProps.location.query.record.baq_id ? nextProps.location.query.record.baq_id : this.state.baqidDetail)
     }
   }
 
@@ -445,7 +452,7 @@ export default class unareaDetail extends PureComponent {
   Ledger = res => {
     window.open(
       `${window.configUrl.baqRaqUrl}showReport3.jsp?rpx=TZ-HLJ.rpx&personId=${
-        res && res.system_id ? res.system_id : '1'
+        res && res.system_id ? res.system_id : ''
       }`,
     );
     // this.props.dispatch(

@@ -129,14 +129,14 @@ export default {
                     payload: response && response.error === null ? response.data : [],
                 });
             }
-            if (payload.code === '2008') {
+            if (payload.code === '2008' || payload.code === '5308000') {
                 // 获取物品种类
                 yield put({
                     type: 'itemsTypes',
                     payload: response && response.error === null ? response.data : [],
                 });
             }
-            if (payload.code === '501133') {
+            if (payload.code === '501133' || payload.code === '5308000' ) {
                 // 获取物品种类新版
                 yield put({
                     type: 'itemsTypesNew',
@@ -195,7 +195,7 @@ export default {
                     payload: response && response.error === null ? response.data : [],
                 });
             }
-            if (payload.code === '501126') {
+            if (payload.code === '501126' || payload.code === '5315000') {
                 //获取物品状态新版
                 yield put({
                     type: 'setItemStatusS',
@@ -216,14 +216,14 @@ export default {
                     payload: response && response.error === null ? response.data : [],
                 });
             }
-            if (payload.code === '5308') {
+            if (payload.code === '5308'|| payload.code === '5308000') {
                 // 物品种类
                 yield put({
                     type: 'setSearchWpzl',
                     payload: response && response.error === null ? response.data : [],
                 });
             }
-            if (payload.code === '5315') {
+            if (payload.code === '5315' || payload.code === '5315000' ) {
                 // 物品状态
                 yield put({
                     type: 'setSearchWpzt',

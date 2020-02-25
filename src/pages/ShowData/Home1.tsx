@@ -152,7 +152,7 @@ export default class Home1 extends PureComponent {
                     this.state.pageNew ? this.state.pageNew : 1,
                     true,
                     this.state.tabs === 's2' ? 'Home/getShareList' : 'Home/getmyShareList',
-                    {},
+                    this.state.pd ? this.state.pd : {},
                     this.state.tabs,
                 );
             } else if (this.state.idx === 3) {
@@ -160,7 +160,7 @@ export default class Home1 extends PureComponent {
                     this.state.pageNew ? this.state.pageNew : 1,
                     true,
                     this.state.tabs === 'f2' ? 'Home/getHistoryFollowList' : 'Home/getFollowList',
-                    {},
+                    this.state.pd ? this.state.pd : {},
                     this.state.tabs,
                 );
             }
@@ -327,79 +327,81 @@ export default class Home1 extends PureComponent {
                 }
             } else if (read === 2 || read === 3) {
                 record['id'] = record.agid;
-                this.props.dispatch(
-                    routerRedux.push({
-                        pathname:
-                            record.tzlx === 'wpwt'
-                                ? '/articlesInvolved/ArticlesPolice/unitemDetail'
-                                : record.tzlx === 'xzajwt1'
-                                ? '/newcaseFiling/casePolice/AdministrationPolice/uncaseDetail'
-                                : record.tzlx === 'xzajwt2'
+                if(record.tzlx){
+                    this.props.dispatch(
+                        routerRedux.push({
+                            pathname:
+                                record.tzlx === 'wpwt'
+                                    ? '/articlesInvolved/ArticlesPolice/unitemDetail'
+                                    : record.tzlx === 'xzajwt1'
                                     ? '/newcaseFiling/casePolice/AdministrationPolice/uncaseDetail'
-                                    : record.tzlx === 'xzajwt3'
+                                    : record.tzlx === 'xzajwt2'
                                         ? '/newcaseFiling/casePolice/AdministrationPolice/uncaseDetail'
-                                        : record.tzlx === 'jqwt'
-                                            ? '/receivePolice/AlarmPolice/unpoliceDetail'
-                                            : record.tzlx === 'xsajwt1'
-                                                ? '/newcaseFiling/casePolice/CriminalPolice/uncaseDetail'
-                                                : record.tzlx === 'xsajwt2'
+                                        : record.tzlx === 'xzajwt3'
+                                            ? '/newcaseFiling/casePolice/AdministrationPolice/uncaseDetail'
+                                            : record.tzlx === 'jqwt'
+                                                ? '/receivePolice/AlarmPolice/unpoliceDetail'
+                                                : record.tzlx === 'xsajwt1'
                                                     ? '/newcaseFiling/casePolice/CriminalPolice/uncaseDetail'
-                                                    : record.tzlx === 'xsajwt3'
+                                                    : record.tzlx === 'xsajwt2'
                                                         ? '/newcaseFiling/casePolice/CriminalPolice/uncaseDetail'
-                                                        : record.tzlx === 'baqwt'
-                                                            ? '/handlingArea/AreaPolice/UnareaDetail'
-                                                            : record.tzlx === 'jzwt'
-                                                                ? '/dossierPolice/DossierPolice/UnDossierDetail'
-                                                                : record.tzlx === 'wpxx'
-                                                                    ? '/articlesInvolved/ArticlesData/itemDetail'
-                                                                    : record.tzlx === 'xzajxx1'
-                                                                        ? '/newcaseFiling/caseData/AdministrationData/caseDetail'
-                                                                        : record.tzlx === 'xzajxx2'
+                                                        : record.tzlx === 'xsajwt3'
+                                                            ? '/newcaseFiling/casePolice/CriminalPolice/uncaseDetail'
+                                                            : record.tzlx === 'baqwt'
+                                                                ? '/handlingArea/AreaPolice/UnareaDetail'
+                                                                : record.tzlx === 'jzwt'
+                                                                    ? '/dossierPolice/DossierPolice/UnDossierDetail'
+                                                                    : record.tzlx === 'wpxx'
+                                                                        ? '/articlesInvolved/ArticlesData/itemDetail'
+                                                                        : record.tzlx === 'xzajxx1'
                                                                             ? '/newcaseFiling/caseData/AdministrationData/caseDetail'
-                                                                            : record.tzlx === 'xzajxx3'
+                                                                            : record.tzlx === 'xzajxx2'
                                                                                 ? '/newcaseFiling/caseData/AdministrationData/caseDetail'
-                                                                                : record.tzlx === 'jqxx'
-                                                                                    ? '/receivePolice/AlarmData/policeDetail'
-                                                                                    : record.tzlx === 'xsajxx1'
-                                                                                        ? '/newcaseFiling/caseData/CriminalData/caseDetail'
-                                                                                        : record.tzlx === 'xsajxx2'
+                                                                                : record.tzlx === 'xzajxx3'
+                                                                                    ? '/newcaseFiling/caseData/AdministrationData/caseDetail'
+                                                                                    : record.tzlx === 'jqxx'
+                                                                                        ? '/receivePolice/AlarmData/policeDetail'
+                                                                                        : record.tzlx === 'xsajxx1'
                                                                                             ? '/newcaseFiling/caseData/CriminalData/caseDetail'
-                                                                                            : record.tzlx === 'xsajxx3'
+                                                                                            : record.tzlx === 'xsajxx2'
                                                                                                 ? '/newcaseFiling/caseData/CriminalData/caseDetail'
-                                                                                                : record.tzlx === 'baqxx'
-                                                                                                    ? '/handlingArea/AreaData/areaDetail'
-                                                                                                    : record.tzlx === 'jzxx'
-                                                                                                        ? '/dossierPolice/DossierData/DossierDetail'
-                                                                                                        : record.tzlx === 'jqyj'
-                                                                                                            ? '/receivePolice/AlarmData/policeDetail'
-                                                                                                            : record.tzlx === 'xzajyj1'
-                                                                                                                ? '/newcaseFiling/caseData/AdministrationData/caseDetail'
-                                                                                                                : record.tzlx === 'xsajyj1'
-                                                                                                                    ? '/newcaseFiling/caseData/CriminalData/caseDetail'
-                                                                                                                    : record.tzlx === 'xzajyj2'
-                                                                                                                        ? '/newcaseFiling/caseData/AdministrationData/caseDetail'
-                                                                                                                        : record.tzlx === 'xsajyj2'
-                                                                                                                            ? '/newcaseFiling/caseData/CriminalData/caseDetail'
-                                                                                                                            : record.tzlx === 'xzajyj3'
-                                                                                                                                ? '/newcaseFiling/caseData/AdministrationData/caseDetail'
-                                                                                                                                : record.tzlx === 'xsajyj3'
-                                                                                                                                    ? '/newcaseFiling/caseData/CriminalData/caseDetail'
-                                                                                                                                    : record.tzlx === 'baqyj'
-                                                                                                                                        ? '/handlingArea/AreaData/areaDetail'
-                                                                                                                                        : record.tzlx === 'wpyj'
-                                                                                                                                            ? '/articlesInvolved/ArticlesData/itemDetail'
-                                                                                                                                            : record.tzlx === 'jzyj'
-                                                                                                                                                ? '/dossierPolice/DossierData/DossierDetail'
-                                                                                                                                                : '',
-                        query: {
-                            id: record.tzlx === 'jqwt' ? record.id : record.tzlx === 'jqyj' ?record.id:record.agid,
-                            system_id: record.system_id,
-                            wtid: record.wtid,
-                            record: record,
-                            from:'首页'
-                        },
-                    }),
-                );
+                                                                                                : record.tzlx === 'xsajxx3'
+                                                                                                    ? '/newcaseFiling/caseData/CriminalData/caseDetail'
+                                                                                                    : record.tzlx === 'baqxx'
+                                                                                                        ? '/handlingArea/AreaData/areaDetail'
+                                                                                                        : record.tzlx === 'jzxx'
+                                                                                                            ? '/dossierPolice/DossierData/DossierDetail'
+                                                                                                            : record.tzlx === 'jqyj'
+                                                                                                                ? '/receivePolice/AlarmData/policeDetail'
+                                                                                                                : record.tzlx === 'xzajyj1'
+                                                                                                                    ? '/newcaseFiling/caseData/AdministrationData/caseDetail'
+                                                                                                                    : record.tzlx === 'xsajyj1'
+                                                                                                                        ? '/newcaseFiling/caseData/CriminalData/caseDetail'
+                                                                                                                        : record.tzlx === 'xzajyj2'
+                                                                                                                            ? '/newcaseFiling/caseData/AdministrationData/caseDetail'
+                                                                                                                            : record.tzlx === 'xsajyj2'
+                                                                                                                                ? '/newcaseFiling/caseData/CriminalData/caseDetail'
+                                                                                                                                : record.tzlx === 'xzajyj3'
+                                                                                                                                    ? '/newcaseFiling/caseData/AdministrationData/caseDetail'
+                                                                                                                                    : record.tzlx === 'xsajyj3'
+                                                                                                                                        ? '/newcaseFiling/caseData/CriminalData/caseDetail'
+                                                                                                                                        : record.tzlx === 'baqyj'
+                                                                                                                                            ? '/handlingArea/AreaData/areaDetail'
+                                                                                                                                            : record.tzlx === 'wpyj'
+                                                                                                                                                ? '/articlesInvolved/ArticlesData/itemDetail'
+                                                                                                                                                : record.tzlx === 'jzyj'
+                                                                                                                                                    ? '/dossierPolice/DossierData/DossierDetail'
+                                                                                                                                                    : '',
+                            query: {
+                                id: record.tzlx === 'jqwt' ? record.id : record.tzlx === 'jqyj' ?record.id:record.agid,
+                                system_id: record.system_id,
+                                wtid: record.wtid,
+                                record: record,
+                                from:'首页'
+                            },
+                        }),
+                    );
+                }
             }
         }
     };

@@ -170,7 +170,7 @@ export default class GeneralQuery extends PureComponent {
             type: 'common/getDictType',
             payload: {
                 appCode: window.configUrl.appCode,
-                code: '5308',
+                code: '5308000'
             },
         });
     };
@@ -180,7 +180,7 @@ export default class GeneralQuery extends PureComponent {
             type: 'common/getDictType',
             payload: {
                 appCode: window.configUrl.appCode,
-                code:'5315',
+                code:'5315000',
             },
         });
     };
