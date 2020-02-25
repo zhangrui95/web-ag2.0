@@ -509,7 +509,7 @@ export default class Index extends PureComponent {
             wrapperCol: {xs: {span: 24}, md: {span: 16}, xl: {span: 18}, xxl: {span: 19}},
         };
         const formItemLayouts = {
-            labelCol: {xs: {span: 24}, md: {span: 8}, xl: {span: 5}, xxl: {span: 3}},
+            labelCol: {xs: {span: 24}, md: {span: 8}, xl: {span: 4}, xxl: {span: 3}},
             wrapperCol: {xs: {span: 24}, md: {span: 16}, xl: {span: 19}, xxl: {span: 20}},
         };
         const rowLayout = {md: 8, xl: 16, xxl: 24};
