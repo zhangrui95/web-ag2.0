@@ -262,10 +262,10 @@ export default class caseDetail extends PureComponent {
     });
     if (type === 2) {
       let detail = [
-        `案件名称：${res && res.ajmc ? res.ajmc : ''}`,
-        `办案单位：${res && res.bardwmc ? res.bardwmc : ''}`,
-        `案件状态：${res && res.schj ? res.schj : ''}`,
-        `办案民警：${res && res.barxm ? res.barxm : ''}`,
+        `案件名称：${ caseDetails&&caseDetails.ajmc ? caseDetails.ajmc : ''}`,
+        `办案单位：${caseDetails&&caseDetails.bardwmc ? caseDetails.bardwmc : ''}`,
+        `案件状态：${caseDetails&&caseDetails.schj ? caseDetails.schj : ''}`,
+        `办案民警：${caseDetails&&caseDetails.barxm ? caseDetails.barxm : ''}`,
       ];
       res.detail = detail;
       this.props.dispatch(
