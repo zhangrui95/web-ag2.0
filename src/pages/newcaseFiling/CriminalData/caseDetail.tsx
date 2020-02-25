@@ -299,7 +299,7 @@ export default class caseDetail extends PureComponent {
             tzlx:
               this.props.location && this.props.location.query && this.props.location.query.tzlx
                 ? this.props.location.query.tzlx
-                : '',
+                : this.state.tzlx,
             wtid: res.wtid,
             ajbh: res.ajbh,
             system_id: caseDetails.system_id,
