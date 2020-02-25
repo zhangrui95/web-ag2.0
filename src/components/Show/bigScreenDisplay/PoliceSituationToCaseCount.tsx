@@ -57,12 +57,12 @@ export default class PoliceSituationToCaseCount extends PureComponent {
                     }
                     this.props.getAllNum(this.props.idx, num, '警情转化案件数量');
                     let yAxis = [{}];
-                    let maxTrue = true;
-                    if(dataList&&dataList.length > 0){
-                        maxTrue = false;
-                    }
-                    if(maxTrue){
+                    let newDataNum = lineData1.concat(lineData2);
+                    let yMax = Math.max(...newDataNum);
+                    if (yMax < 5) {
                         yAxis[0].max = 5;
+                    }else{
+                        yAxis[0].max = yMax;
                     }
                     myChart.setOption({
                         xAxis: {

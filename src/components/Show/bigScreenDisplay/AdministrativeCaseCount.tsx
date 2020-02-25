@@ -52,12 +52,11 @@ export default class AdministrativeCaseCount extends PureComponent {
                     }
                     this.props.getAllNum(this.props.idx, num, '行政案件数量');
                     let yAxis = {};
-                    let maxTrue = true;
-                    if(barData&&barData.length > 0){
-                        maxTrue = false;
-                    }
-                    if(maxTrue){
+                    let yMax = Math.max(...barData);
+                    if (yMax < 5) {
                         yAxis.max = 5;
+                    }else{
+                        yAxis.max = yMax;
                     }
                     myChart.setOption({
                         xAxis: {
