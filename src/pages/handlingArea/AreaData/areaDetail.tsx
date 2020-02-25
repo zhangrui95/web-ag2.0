@@ -434,7 +434,7 @@ export default class areaDetail extends PureComponent {
       //     system_id: res.system_id,
       //     id: res.id
       // }
-      window.open(`${window.configUrl.baqRaqUrl}showReport3.jsp?rpx=TZ-HLJ.rpx&personId=${res && res.system_id ? res.system_id : '1'}`);
+      window.open(`${window.configUrl.baqRaqUrl}showReport3.jsp?rpx=TZ-HLJ.rpx&personId=${res && res.system_id ? res.system_id : this.state.record.system_id ? this.state.record.system_id :'1'}`);
     // this.props.dispatch(
     //   routerRedux.push({
     //     pathname: '/ModuleAll/PersonLedger',
