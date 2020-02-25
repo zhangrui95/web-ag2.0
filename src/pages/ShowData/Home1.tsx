@@ -152,7 +152,7 @@ export default class Home1 extends PureComponent {
                     this.state.pageNew ? this.state.pageNew : 1,
                     true,
                     this.state.tabs === 's2' ? 'Home/getShareList' : 'Home/getmyShareList',
-                    {},
+                    this.state.pd ? this.state.pd : {},
                     this.state.tabs,
                 );
             } else if (this.state.idx === 3) {
@@ -160,7 +160,7 @@ export default class Home1 extends PureComponent {
                     this.state.pageNew ? this.state.pageNew : 1,
                     true,
                     this.state.tabs === 'f2' ? 'Home/getHistoryFollowList' : 'Home/getFollowList',
-                    {},
+                    this.state.pd ? this.state.pd : {},
                     this.state.tabs,
                 );
             }
