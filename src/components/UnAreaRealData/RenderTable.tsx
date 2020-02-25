@@ -220,7 +220,7 @@ class RenderTable extends PureComponent {
     });
   };
   Ledger = (res) => {
-      window.open(`${window.configUrl.baqRaqUrl}showReport3.jsp?rpx=TZ-HLJ.rpx&personId=${res && res.system_id ? res.system_id : '1'}`);
+      window.open(`${window.configUrl.baqRaqUrl}showReport3.jsp?rpx=TZ-HLJ.rpx&personId=${res && res.system_id ? res.system_id : ''}`);
     // this.props.dispatch(
     //   routerRedux.push({
     //     pathname: '/ModuleAll/PersonLedger',

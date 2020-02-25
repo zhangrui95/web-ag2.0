@@ -452,7 +452,7 @@ export default class unareaDetail extends PureComponent {
   Ledger = res => {
     window.open(
       `${window.configUrl.baqRaqUrl}showReport3.jsp?rpx=TZ-HLJ.rpx&personId=${
-        res && res.system_id ? res.system_id : '1'
+        res && res.system_id ? res.system_id : ''
       }`,
     );
     // this.props.dispatch(
