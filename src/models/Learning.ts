@@ -1,5 +1,5 @@
 import {
-  LearningList,InsertList,DeleteList,
+  LearningList,InsertList,DeleteList,FormatConvertService,
 } from '../services/Learning';
 
 export default {
@@ -32,6 +32,17 @@ export default {
     },
     * getDeleteList({payload, callback}, {call, put}) {
       const response = yield call(DeleteList, payload);
+      console.log('response',response)
+      yield put({
+        type: 'areaSfgz',
+        payload: response && response.error === null ? response.data : {},
+      });
+      if (callback && response) {
+        callback(response);
+      }
+    },
+    * getFormatConvert({payload, callback}, {call, put}) {
+      const response = yield call(FormatConvertService, payload);
       console.log('response',response)
       yield put({
         type: 'areaSfgz',

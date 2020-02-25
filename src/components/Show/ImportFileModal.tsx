@@ -87,6 +87,23 @@ class ImportFileModal extends PureComponent {
       fbdw:obj.fbdw,
       wjxx:Objwjxx,
     }
+    this.FormatConvert(param,obj);
+
+  }
+
+  FormatConvert = (param,obj) => {
+    this.props.dispatch({
+      type:'Learning/getFormatConvert',
+      payload:param?param:'',
+      callback:(data)=>{
+        console.log('data',data);
+        this.getInsert();
+      }
+    })
+
+  }
+
+  getInsert = (param) => {
     this.props.dispatch({
       type:'Learning/getInsertList',
       payload:param?param:'',
@@ -302,62 +319,75 @@ class ImportFileModal extends PureComponent {
         <div className={this.props.global && this.props.global.dark ? '' : styles.lightBox}>
             <Form className={styles.standardForm}>
               <Row  style={{ marginBottom: '16px' }}>
-                <Col {...colLayout}>
-                  <FormItem label="发布单位" {...formItemLayout}>
-                    {getFieldDecorator('fbdw', {
-                      // initialValue: this.state.caseType,
-                      // rules: [{required:true, message: '请选择发布单位'}],
-                    })(
-                      <Select
-                        placeholder="请选择发布单位"
-                        style={{width: '100%'}}
-                        // getPopupContainer={() => document.getElementById('slaxsgjsearchForm')}
-                      >
-                        <Option value="">全部</Option>
-                        {fblxAlarmDictOptions}
-                      </Select>,
-                    )}
-                  </FormItem>
-                </Col>
+                {/*<Col {...colLayout}>*/}
+                  {/*<FormItem label="发布单位" {...formItemLayout}>*/}
+                    {/*{getFieldDecorator('fbdw', {*/}
+                      {/*// initialValue: this.state.caseType,*/}
+                      {/*// rules: [{required:true, message: '请选择发布单位'}],*/}
+                    {/*})(*/}
+                      {/*<Select*/}
+                        {/*placeholder="请选择发布单位"*/}
+                        {/*style={{width: '100%'}}*/}
+                        {/*// getPopupContainer={() => document.getElementById('slaxsgjsearchForm')}*/}
+                      {/*>*/}
+                        {/*<Option value="">全部</Option>*/}
+                        {/*{fblxAlarmDictOptions}*/}
+                      {/*</Select>,*/}
+                    {/*)}*/}
+                  {/*</FormItem>*/}
+                {/*</Col>*/}
+                <span>发布单位</span>
+                <span>
+                  <Col md={24} sm={24}>
+                    <Select
+                      placeholder="请选择发布单位"
+                      style={{width: '100%'}}
+                      // getPopupContainer={() => document.getElementById('slaxsgjsearchForm')}
+                    >
+                      <Option value="">全部</Option>
+                      {fblxAlarmDictOptions}
+                    </Select>,
+                  </Col>
+                </span>
               </Row>
               <Row>
                 <Col {...colLayout}>
-                  <FormItem label="上传文件" {...formItemLayout}>
-                    {getFieldDecorator('scwj', {
-                      // initialValue: this.state.caseType,
-                      // rules: [{required:true, message: '请上传文件'}],
-                    })(
-                      <Upload
-                        // action={`${window.configUrl.weedUrl}/submit`}
-                        action='http://192.168.3.92:9222/submit'
-                        beforeUpload={this.beforeUploadFun}
-                        // fileList={this.state.fileList}
-                        // multiple={true}
-                        onChange={this.handleChange}
-                        onPreview={this.fileOnPreview}
-                        onDownload={this.fileOnPreview}
-                        style={{diaplay:'inlineBlock'}}
-                      >
-                        {uploadButton}
-                      </Upload>
-                    )}
-                  </FormItem>
-                  {/*<span className={styles.title}>上传附件：</span>*/}
-                  {/*<span className={styles.outtext}>*/}
-                  {/*<Upload*/}
-                  {/*// action={`${window.configUrl.weedUrl}/submit`}*/}
-                  {/*action='http://192.168.3.92:9222/submit'*/}
-                  {/*beforeUpload={this.beforeUploadFun}*/}
-                  {/*// fileList={this.state.fileList}*/}
-                  {/*// multiple={true}*/}
-                  {/*onChange={this.handleChange}*/}
-                  {/*onPreview={this.fileOnPreview}*/}
-                  {/*onDownload={this.fileOnPreview}*/}
-                  {/*style={{diaplay:'inlineBlock'}}*/}
-                  {/*>*/}
-                  {/*{uploadButton}*/}
-                  {/*</Upload>*/}
-                  {/*</span>*/}
+                  {/*<FormItem label="上传文件" {...formItemLayout}>*/}
+                    {/*{getFieldDecorator('scwj', {*/}
+                      {/*// initialValue: this.state.caseType,*/}
+                      {/*// rules: [{required:true, message: '请上传文件'}],*/}
+                    {/*})(*/}
+                      {/*<Upload*/}
+                        {/*// action={`${window.configUrl.weedUrl}/submit`}*/}
+                        {/*action='http://192.168.3.92:9222/submit'*/}
+                        {/*beforeUpload={this.beforeUploadFun}*/}
+                        {/*// fileList={this.state.fileList}*/}
+                        {/*// multiple={true}*/}
+                        {/*onChange={this.handleChange}*/}
+                        {/*onPreview={this.fileOnPreview}*/}
+                        {/*onDownload={this.fileOnPreview}*/}
+                        {/*style={{diaplay:'inlineBlock'}}*/}
+                      {/*>*/}
+                        {/*{uploadButton}*/}
+                      {/*</Upload>*/}
+                    {/*)}*/}
+                  {/*</FormItem>*/}
+                  <span className={styles.title}>上传附件：</span>
+                  <span className={styles.outtext}>
+                  <Upload
+                    // action={`${window.configUrl.weedUrl}/submit`}
+                    action='http://192.168.3.92:9222/submit'
+                    beforeUpload={this.beforeUploadFun}
+                    // fileList={this.state.fileList}
+                    // multiple={true}
+                    onChange={this.handleChange}
+                    onPreview={this.fileOnPreview}
+                    onDownload={this.fileOnPreview}
+                    style={{diaplay:'inlineBlock'}}
+                  >
+                  {uploadButton}
+                  </Upload>
+                  </span>
                 </Col>
               </Row>
             </Form>

@@ -25,3 +25,10 @@ export async function DeleteList(params) {
   });
 }
 
+// 文档格式转换
+export async function FormatConvertService(params) {
+  return request(`${configUrl.serverUrl}/getPdfPath`, {
+    method: 'POST',
+    data: params,
+  });
+}
