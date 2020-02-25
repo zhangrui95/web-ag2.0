@@ -229,7 +229,7 @@ export default class PersonSuspectPunish extends PureComponent {
                                     color: this.props.global && this.props.global.dark ? '#fff' : '#4d4d4d'
                                 },
                                 x: '50%',
-                                y: '45%',
+                                y: '47%',
                                 padding: 7,
                                 textAlign: 'center',
                             },
@@ -241,7 +241,7 @@ export default class PersonSuspectPunish extends PureComponent {
                                     color: this.props.global && this.props.global.dark ? '#fff' : '#4d4d4d'
                                 },
                                 x: '20%',
-                                y: '45%',
+                                y: '47%',
                                 padding: [7, 0],
                                 textAlign: 'center',
                             },
@@ -253,7 +253,7 @@ export default class PersonSuspectPunish extends PureComponent {
                                     color: this.props.global && this.props.global.dark ? '#fff' : '#4d4d4d'
                                 },
                                 x: '80%',
-                                y: '45%',
+                                y: '47%',
                                 textAlign: 'center',
                                 padding: [7, 0],
                             },

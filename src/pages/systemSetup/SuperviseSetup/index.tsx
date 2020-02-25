@@ -656,7 +656,7 @@ class SuperviseSetup extends Component {
                             record.scbj === '1' ?
                                 <a onClick={() => this.addList(2, record)}>修改</a>
                                 :
-                                <span style={{color: '#C3C3C3'}}>修改</span>
+                                <span style={{color: '#C3C3C3',cursor: 'not-allowed'}}>修改</span>
                         }
                         {isSCJGD ?
                             <span>
@@ -665,7 +665,7 @@ class SuperviseSetup extends Component {
                                     record.scbj === '1' ?
                                         <a onClick={() => this.del(record.id)}>删除</a>
                                         :
-                                        <span style={{color: '#C3C3C3'}}>删除</span>
+                                        <span style={{color: '#C3C3C3',cursor: 'not-allowed'}}>删除</span>
                                 }
                           </span>
                             : null

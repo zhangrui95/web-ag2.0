@@ -943,8 +943,8 @@ export default class DossierDataView extends PureComponent {
             const dataTime = currentType === 'selectedDate' ? that.props.selectedDateVal : that.getTime(currentType);
             that.props.changeToListPage({
                 dzh: params.name === '有电子卷' ? '1' : params.name === '无电子卷' ? '0' : params.name,
-                timeName: 'ljsj',
-            }, dataTime);
+                // timeName: 'ljsj',
+        }, dataTime);
         });
     };
 

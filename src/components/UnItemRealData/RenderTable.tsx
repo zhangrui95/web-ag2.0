@@ -290,7 +290,7 @@ class RenderTable extends PureComponent {
                   {record.dbzt === '00' ? (
                     <a onClick={() => this.supervise(true, record)}>督办</a>
                   ) : (
-                    <a style={{ color: '#C3C3C3' }}>督办</a>
+                    <a style={{ color: '#C3C3C3',cursor: 'not-allowed' }}>督办</a>
                   )}
                   <Divider type="vertical" />
                 </span>

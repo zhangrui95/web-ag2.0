@@ -503,7 +503,7 @@ class RenderTable extends PureComponent {
                                     record.is_sqdd === '1' ? <span>
                                         {
                                             record.qtpdlx === '已处理' ?
-                                                <span style={{color: '#C3C3C3'}}>反馈</span>
+                                                <span style={{color: '#C3C3C3',cursor: 'not-allowed'}}>反馈</span>
                                                 :
                                                 <a onClick={() => this.feddBack(record)}>反馈</a>
                                         }
@@ -523,7 +523,7 @@ class RenderTable extends PureComponent {
                                                             <a href="#">确认清零</a>
                                                         </Popconfirm>
                                                         :
-                                                        <span style={{color: '#C3C3C3'}}>确认清零</span>
+                                                        <span style={{color: '#C3C3C3',cursor: 'not-allowed'}}>确认清零</span>
                                                     :
                                                     ''
                                             }
