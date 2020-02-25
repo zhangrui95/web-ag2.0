@@ -300,7 +300,7 @@ export default class Index extends PureComponent {
     this.getDataList(params);
   };
 
-  // 导入资料
+  // 资料导入
   importData = (flag) => {
     // const {form: {getFieldDecorator}, common: {FbdwTypeData, ZllxTypeData}} = this.props;
     // this.props.dispatch(
@@ -429,7 +429,6 @@ export default class Index extends PureComponent {
       <Card
         className={styles.listPageWrap}
         id="slaxsgjsearchForm"
-        style={{border: '0px solid #ccc'}}
       >
         <Form
           onSubmit={this.handleSearch}
@@ -521,7 +520,7 @@ export default class Index extends PureComponent {
               <Button
                 style={{ borderColor: '#2095FF', marginLeft: 8 }}
                 onClick={()=>this.importData(true)}
-                icon="download"
+                // icon="download"
               >
             资料导入
           </Button>
@@ -560,8 +559,9 @@ export default class Index extends PureComponent {
   render() {
     const {ImportModal} = this.state;
     const {form: {getFieldDecorator}, common: {FbdwTypeData, ZllxTypeData}} = this.props;
+    let className = this.props.global && this.props.global.dark ? styles.listPageWrap : styles.listPageWrap + ' ' + styles.lightBox;
     return (
-      <div className={this.props.location.query && this.props.location.query.id ? styles.onlyDetail : ''}>
+      <div className={className}>
         <div className={styles.tableListForm}>
           {this.renderForm()}
         </div>

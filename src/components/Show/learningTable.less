@@ -17,6 +17,11 @@
     }
   }
 }
+
+.showTable{
+  border-top-left-radius:0!important;
+}
+
 .paginations{
   color: @white;
   text-align: right;
@@ -33,6 +38,17 @@
   //position: relative;
   //top: -32px;
   //float: right;
+  :global{
+    .ant-radio-button-wrapper{
+      border: 0 solid #ccc;
+    }
+    .ant-radio-button-wrapper:first-child{
+      border-radius: 4px 0 0 0;
+    }
+    .ant-radio-button-wrapper:last-child{
+      border-radius: 0 4px 0 0 !important;
+    }
+  }
  }
 
 
@@ -52,6 +68,7 @@
 .ListStyle {
   position: relative;
   padding: 0 0 24px 0;
+  background-color: @text-word-color;
 }
 
 .card {

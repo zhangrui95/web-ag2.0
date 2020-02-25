@@ -267,6 +267,7 @@ class learningTable extends PureComponent {
           rowSelection={rowSelection}
           pagination={paginationProps}
           onChange={this.handleTableChange}
+          className={styles.showTable}
           locale={{
             emptyText: (
               <Empty
@@ -276,16 +277,6 @@ class learningTable extends PureComponent {
             ),
           }}
         />
-        {/*<Table*/}
-          {/*size="middle"*/}
-          {/*loading={loading}*/}
-          {/*rowKey={record => record.xh}*/}
-          {/*dataSource={list || ''}*/}
-          {/*columns={columns}*/}
-          {/*// pagination={list ? paginationProps : false}*/}
-          {/*pagination={false}*/}
-          {/*onChange={this.handleTableChange}*/}
-        {/*/>*/}
       </div>
     );
   };
@@ -326,9 +317,8 @@ class learningTable extends PureComponent {
     const { data } = this.props;
     const { mode,previewModal,previewRecord } = this.state;
     return (
-      <div className={styles.standardTable} >
-
-        <Radio.Group onChange={this.handleModeChange} value={mode} className={styles.radio}>
+      <div className={styles.standardTable}>
+        <Radio.Group onChange={this.handleModeChange} value={mode} className={styles.radio} buttonStyle="solid">
           <Tooltip title="列表展示">
             <Radio.Button value="left">
               <span>列表展示</span>
