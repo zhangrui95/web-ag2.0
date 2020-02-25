@@ -522,15 +522,15 @@ export default class Index extends PureComponent {
                 onClick={()=>this.importData(true)}
                 // icon="download"
               >
-            资料导入
-          </Button>
-          <Button
-            style={{ borderColor: '#2095FF', marginLeft: 8 }}
-            onClick={this.deleteData}
-            // icon="download"
-          >
-            资料删除
-          </Button>
+                资料导入
+              </Button>
+              <Button
+                style={{ borderColor: '#2095FF', marginLeft: 8 }}
+                onClick={this.deleteData}
+                // icon="download"
+              >
+                资料删除
+              </Button>
             </span>
           </Row>
         </Form>
