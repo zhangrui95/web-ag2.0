@@ -114,6 +114,8 @@ export default class caseDetail extends PureComponent {
     feedbackButtonLoading: false, // 反馈按钮加载状态
     isDb: authorityIsTrue(userResourceCodeDb.zfba_xz), // 督办权限
     record: '', // 表格信息
+      idDetail:'',
+      system_idDetail:'',
   };
 
   componentDidMount() {
@@ -125,6 +127,8 @@ export default class caseDetail extends PureComponent {
       this.caseDetailDatas(this.props.location.query.id, res.system_id);
       this.setState({
         record: res,
+          idDetail:this.props.location.query.id,
+          system_idDetail:res.system_id,
       });
     }
   }
@@ -136,8 +140,8 @@ export default class caseDetail extends PureComponent {
         '/newcaseFiling/casePolice/AdministrationPolice/uncaseDetail'
     ) {
       this.caseDetailDatas(
-        nextProps.location.query.record.wtid,
-        nextProps.location.query.record.system_id,
+        nextProps.location.query.record.wtid ? nextProps.location.query.record.wtid : this.state.idDetail,
+        nextProps.location.query.record.system_id ? nextProps.location.query.record.system_id : this.state.system_idDetail,
       );
     }
   }

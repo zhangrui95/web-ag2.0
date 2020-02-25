@@ -80,6 +80,9 @@ export default class DossierDetail extends PureComponent {
     feedbackButtonLoading: false, // 反馈按钮加载状态
     isDb: authorityIsTrue(userResourceCodeDb.dossier), // 督办权限
     record: '', // 表格信息
+    idDetail:'',
+    wtidDetail:'',
+    dossier_idDetail:''
   };
 
   componentDidMount() {
@@ -92,18 +95,35 @@ export default class DossierDetail extends PureComponent {
     });
     if (res.id && res.wtid && res.dossier_id) {
       this.getDossierDetail(res.id, res.wtid, res.dossier_id);
+      this.setState({
+          idDetail:res.id,
+          wtidDetail:res.wtid,
+          dossier_idDetail:res.dossier_id,
+      });
     }
     else if(res.id && (res.wtid || res.wt_id) && res.system_id){
         this.getDossierDetail(res.id , res.wtid || res.wt_id , res.system_id);
+        this.setState({
+            idDetail:res.id,
+            wtidDetail:res.wtid || res.wt_id,
+            dossier_idDetail:res.system_id,
+        });
     }
     else if(res.agid && res.wtid && res.system_id){
       this.getDossierDetail(res.agid , res.wtid , res.system_id);
+        this.setState({
+            idDetail:res.agid,
+            wtidDetail:res.wtid ,
+            dossier_idDetail:res.system_id,
+        });
     }
   }
 
   componentWillReceiveProps(nextProps) {
     if (this.props.global.isResetList.isReset !== nextProps.global.isResetList.isReset && nextProps.global.isResetList.url ===  '/dossierPolice/DossierPolice/UnDossierDetail') {
-      this.getDossierDetail(nextProps.location.query.record.id, nextProps.location.query.record.wtid,nextProps.location.query.record.system_id);
+      this.getDossierDetail(nextProps.location.query.record.id ? nextProps.location.query.record.id : this.state.idDetail,
+          nextProps.location.query.record.wtid ? nextProps.location.query.record.wtid : this.state.wtidDetail,
+          nextProps.location.query.record.system_id ? nextProps.location.query.record.system_id:this.state.dossier_idDetail);
     }
   }
 
