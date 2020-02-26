@@ -651,8 +651,7 @@ export default class GeneralQuery extends PureComponent {
     handleSearch = val => {
         this.setState({
             res: [],
-        });
-        this.setState({
+            current: 1,
             autoCom: true,
         });
         if (val && val.length > 0) {

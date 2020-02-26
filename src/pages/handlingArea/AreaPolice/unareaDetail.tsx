@@ -53,6 +53,7 @@ import left2 from '../../../assets/common/left2.png';
 import right from '../../../assets/common/right.png';
 import right1 from '../../../assets/common/right1.png';
 import right2 from '../../../assets/common/right2.png';
+import liststyles from "@/pages/common/listDetail.less";
 
 const FormItem = Form.Item;
 const { Step } = Steps;
@@ -919,14 +920,14 @@ export default class unareaDetail extends PureComponent {
     }
   };
   // 根据案件编号打开案件窗口
-  openCaseDetail = areaDetails => {
-    // console.log('areaDetails', areaDetails);
-    if (areaDetails.ajxx.ajlx === '22001') {
+  openCaseDetail = UnareaDetail => {
+    // console.log('UnareaDetail', UnareaDetail);
+    if (UnareaDetail.ajxx.ajlx === '22001') {
       // 刑事案件
       this.props.dispatch(
         routerRedux.push({
           pathname: '/newcaseFiling/caseData/CriminalData/caseDetail',
-          query: { id: areaDetails.ajxx.system_id, record: areaDetails },
+          query: { id: UnareaDetail.ajxx.system_id, record: UnareaDetail },
         }),
       );
       // const divs = (
@@ -939,12 +940,12 @@ export default class unareaDetail extends PureComponent {
       // );
       // const AddNewDetail = { title: '刑事案件详情', content: divs, key: ajbh };
       // this.props.newDetail(AddNewDetail);
-    } else if (areaDetails.ajxx.ajlx === '22002') {
+    } else if (UnareaDetail.ajxx.ajlx === '22002') {
       // 行政案件
       this.props.dispatch(
         routerRedux.push({
           pathname: '/newcaseFiling/caseData/AdministrationData/caseDetail',
-          query: { id: areaDetails.ajxx.system_id, record: areaDetails },
+          query: { id: UnareaDetail.ajxx.system_id, record: UnareaDetail },
         }),
       );
       // const divs = (
@@ -1536,13 +1537,21 @@ export default class unareaDetail extends PureComponent {
                       ? nophoto
                       : nophotoLight
                   }
-                  style={{ width: '100%' }}
+                  width="120"
                   alt="暂无图片显示"
                 />
               </div>
             </Col>
             <Col md={21} sm={24} style={{ paddingLeft: '24px' }}>
               <Row gutter={{ md: 8, lg: 24, xl: 48 }}>
+                  <Col md={5} sm={24}>
+                      <div className={styles.Indexfrom}>人员类型：</div>
+                      <div className={styles.Indextail}>
+                          {UnareaDetail && UnareaDetail.ryxx && UnareaDetail.ryxx.salx_mc
+                              ? UnareaDetail.ryxx.salx_mc
+                              : ''}
+                      </div>
+                  </Col>
                 <Col md={5} sm={24}>
                   <div className={styles.Indexfrom}>姓名：</div>
                   <div className={styles.Indextail} style={{ paddingLeft: '42px' }}>
@@ -1558,7 +1567,7 @@ export default class unareaDetail extends PureComponent {
                     </a>
                   </div>
                 </Col>
-                <Col md={5} sm={24}>
+                <Col md={4} sm={24}>
                   <div className={styles.Indexfrom}>年龄：</div>
                   <div className={styles.Indextail} style={{ paddingLeft: '42px' }}>
                     {UnareaDetail && UnareaDetail.ryxx && UnareaDetail.ryxx.age
@@ -1574,7 +1583,7 @@ export default class unareaDetail extends PureComponent {
                       : ''}
                   </div>
                 </Col>
-                <Col md={5} sm={24}>
+                <Col md={6} sm={24}>
                   <div className={styles.Indexfrom}>证件号码：</div>
                   <div className={styles.Indextail}>
                     {UnareaDetail && UnareaDetail.ryxx && UnareaDetail.ryxx.zjhm
@@ -1582,20 +1591,12 @@ export default class unareaDetail extends PureComponent {
                       : ''}
                   </div>
                 </Col>
-                <Col md={5} sm={24}>
-                  <div className={styles.Indexfrom}>人员类型：</div>
-                  <div className={styles.Indextail}>
-                    {UnareaDetail && UnareaDetail.ryxx && UnareaDetail.ryxx.salx_mc
-                      ? UnareaDetail.ryxx.salx_mc
-                      : ''}
-                  </div>
-                </Col>
               </Row>
               <Row>
                 <Col md={24} sm={24}>
-                  <Card title="涉案信息" className={styles.saxxCard}>
+                  <Card title="当前涉案信息" className={styles.saxxCard}>
                     <Row gutter={{ md: 8, lg: 16, xl: 24 }}>
-                      <Col md={6} sm={24}>
+                      <Col md={8} sm={24}>
                         <div className={styles.Indexfrom}>案件编号：</div>
                         <div className={styles.Indextail}>
                           {UnareaDetail && UnareaDetail.ajxx && UnareaDetail.ajxx.ajbh ? (
@@ -1614,7 +1615,7 @@ export default class unareaDetail extends PureComponent {
                           )}
                         </div>
                       </Col>
-                      <Col md={6} sm={24}>
+                      <Col md={8} sm={24}>
                         <div className={styles.Indexfrom}>案件名称：</div>
                         <div className={styles.Indextail}>
                           {UnareaDetail && UnareaDetail.ajxx && UnareaDetail.ajxx.ajmc
@@ -1622,7 +1623,17 @@ export default class unareaDetail extends PureComponent {
                             : ''}
                         </div>
                       </Col>
-                      <Col md={6} sm={24}>
+                        <Col md={8} sm={24}>
+                            <div className={styles.Indexfrom}>
+                                案件类型：
+                            </div>
+                            <div className={styles.Indextail}>
+                                {UnareaDetail && UnareaDetail.ajxx && UnareaDetail.ajxx.ajxz
+                                    ? UnareaDetail.ajxx.ajxz
+                                    : ''}
+                            </div>
+                        </Col>
+                      <Col md={8} sm={24}>
                         <div className={styles.Indexfrom}>案件状态：</div>
                         <div className={styles.Indextail}>
                           {UnareaDetail && UnareaDetail.ajxx && UnareaDetail.ajxx.ajzt
@@ -1630,7 +1641,7 @@ export default class unareaDetail extends PureComponent {
                             : ''}
                         </div>
                       </Col>
-                      <Col md={6} sm={24}>
+                      <Col md={8} sm={24}>
                         <div className={styles.Indexfrom}>案发时段：</div>
                         <div className={styles.Indextail}>
                           {UnareaDetail &&
@@ -1641,9 +1652,7 @@ export default class unareaDetail extends PureComponent {
                             : ''}
                         </div>
                       </Col>
-                    </Row>
-                    <Row gutter={{ md: 8, lg: 16, xl: 24 }}>
-                      <Col md={6} sm={24}>
+                      <Col md={8} sm={24}>
                         <div className={styles.Indexfrom}>办案单位：</div>
                         <div className={styles.Indextail}>
                           {UnareaDetail && UnareaDetail.ajxx && UnareaDetail.ajxx.bardwmc
@@ -1651,7 +1660,7 @@ export default class unareaDetail extends PureComponent {
                             : ''}
                         </div>
                       </Col>
-                      <Col md={6} sm={24}>
+                      <Col md={8} sm={24}>
                         <div className={styles.Indexfrom}>办案人：</div>
                         <div className={styles.Indextail} style={{ paddingLeft: '66px' }}>
                           {UnareaDetail && UnareaDetail.ajxx && UnareaDetail.ajxx.barxm
@@ -1659,7 +1668,7 @@ export default class unareaDetail extends PureComponent {
                             : ''}
                         </div>
                       </Col>
-                      <Col md={12} sm={24}>
+                      <Col md={16} sm={24}>
                         <div className={styles.Indexfrom}>案发地点：</div>
                         <div className={styles.Indextail}>
                           {UnareaDetail && UnareaDetail.ajxx && UnareaDetail.ajxx.afdd

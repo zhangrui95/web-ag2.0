@@ -28,13 +28,16 @@ import {
 } from 'antd';
 import {routerRedux} from 'dva/router';
 import styles from './index.less';
-import nophoto from '../../../assets/common/nophoto.png';
-import nophotoLight from "@/assets/common/nophotoLight.png";
+import nophoto from '@/assets/common/zwwpDark.png';
+import nophotoLight from "@/assets/common/zwwp.png";
 
 
 const FormItem = Form.Item;
 const {Step} = Steps;
 const TabPane = Tabs.TabPane;
+@connect(({global}) => ({
+    global
+}))
 export default class SaWoodMessage extends PureComponent {
     constructor(props){
       super(props);
@@ -59,12 +62,13 @@ export default class SaWoodMessage extends PureComponent {
                 <Row>
                     <Col md={8}>
                         <div className={styles.woodName}>
-                            <ul className={styles.indexmenu} style={{padding: '0 12px'}}>
+                            <ul className={styles.indexmenu} style={{padding: '24px 12px'}}>
                                 {/*<li>*/}
                                 {/*<img width={250} src={pane.photo_url} alt='暂无图片' />*/}
                                 {/*</li>*/}
-                                {picture.map(pic => <li><img width={250} ref={'imgBox'} src={pic ? pic : this.props.global && this.props.global.dark ? nophoto : nophotoLight}
-                                                             alt='暂无图片'/></li>)}
+                                {picture&&picture.length > 0 ? picture.map(pic => <li style={{textAlign:'center'}}><img width={250} ref={'imgBox'} src={pic ? pic : this.props.global && this.props.global.dark ? nophoto : nophotoLight}
+                                                             alt='暂无图片'/></li>) : <li style={{textAlign:'center'}}><img width={250} ref={'imgBox'} src={this.props.global && this.props.global.dark ? nophoto : nophotoLight}
+                                                                                           alt='暂无图片'/></li>}
                             </ul>
                         </div>
                     </Col>
