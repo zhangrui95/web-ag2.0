@@ -260,7 +260,7 @@ export default class Index extends PureComponent {
     // const values = this.props.form.getFieldsValue();
     this.props.form.validateFields((err, values) => {
       if (!err) {
-        console.log('values',values);
+        // console.log('values',values);
         const formValues = {
           scsj_ks:values&&values.scsj?moment(values.scsj[0]).format('YYYY-MM-DD'):'',
           scsj_js:values&&values.scsj?moment(values.scsj[1]).format('YYYY-MM-DD'):'',
