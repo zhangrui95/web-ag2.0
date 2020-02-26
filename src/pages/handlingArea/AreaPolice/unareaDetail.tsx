@@ -843,7 +843,7 @@ export default class unareaDetail extends PureComponent {
         roomName: paneData.room_name,
       },
       callback: data => {
-        if (data.error !== null) {
+        if(data.error&&data.error!==null){
           message.error(data.error);
         }
       },
@@ -1211,7 +1211,7 @@ export default class unareaDetail extends PureComponent {
         personId: UnareaDetail.rqxx[0].person_id,
       },
       callback: data => {
-        if (data.error !== null) {
+        if(data.error!==null&&!data.data){
           message.error(data.error);
         }
       },
