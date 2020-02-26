@@ -150,15 +150,17 @@ export default class ItemDataView extends PureComponent {
                 currentType = currentType ? currentType : this.state.currentType;
                 let type = this.state.type;
                 let rqtype = '';
-                if (type === 'now') {
-                    currentType = nextProps.searchType === 'week' ? 'week' : 'month';
-                    rqtype = currentType === 'week' ? '3' : '6';
-                } else if (type === 'last') {
-                    currentType = nextProps.searchType === 'week' ? 'lastWeek' : 'lastMonth';
-                    rqtype = currentType === 'lastWeek' ? '4' : '7';
-                } else if (type === 'beforeLast') {
-                    currentType = nextProps.searchType === 'week' ? 'beforeLastWeek' : 'beforeLastMonth';
-                    rqtype = currentType === 'beforeLastWeek' ? '5' : '8';
+                if(this.props.global.dark !== nextProps.global.dark){
+                    if (type === 'now') {
+                        currentType = nextProps.searchType === 'week' ? 'week' : 'month';
+                        rqtype = currentType === 'week' ? '3' : '6';
+                    } else if (type === 'last') {
+                        currentType = nextProps.searchType === 'week' ? 'lastWeek' : 'lastMonth';
+                        rqtype = currentType === 'lastWeek' ? '4' : '7';
+                    } else if (type === 'beforeLast') {
+                        currentType = nextProps.searchType === 'week' ? 'beforeLastWeek' : 'beforeLastMonth';
+                        rqtype = currentType === 'beforeLastWeek' ? '5' : '8';
+                    }
                 }
                 this.setState({
                     chooseBaqName: null,

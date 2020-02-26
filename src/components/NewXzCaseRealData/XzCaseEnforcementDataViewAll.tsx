@@ -103,12 +103,14 @@ export default class XzCaseEnforcementDataView extends PureComponent {
                 currentType = currentType ? currentType : this.state.currentType;
                 let type = this.state.type;
                 let rqtype = '';
-                if (type === 'now') {
-                    rqtype = nextProps.searchType === 'week' ? 'week' : 'month';
-                } else if (type === 'last') {
-                    rqtype = nextProps.searchType === 'week' ? 'lastWeek' : 'lastMonth';
-                } else if (type === 'beforeLast') {
-                    rqtype = nextProps.searchType === 'week' ? 'beforeLastWeek' : 'beforeLastMonth';
+                if(this.props.global.dark !== nextProps.global.dark){
+                    if (type === 'now') {
+                        rqtype = nextProps.searchType === 'week' ? 'week' : 'month';
+                    } else if (type === 'last') {
+                        rqtype = nextProps.searchType === 'week' ? 'lastWeek' : 'lastMonth';
+                    } else if (type === 'beforeLast') {
+                        rqtype = nextProps.searchType === 'week' ? 'beforeLastWeek' : 'beforeLastMonth';
+                    }
                 }
                 if (nextProps.searchType === 'week') {
                     this.getViewCountData('week', nextProps.orgcode);
