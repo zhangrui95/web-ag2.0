@@ -31,6 +31,7 @@ const {RangePicker} = DatePicker;
 export default class DataViewButtonArea extends PureComponent {
     state = {
         popoverVisible: false,
+        time:[],
     };
     handleRangePickerChange = val => {
         const sTime = moment(val[0]).format('YYYY-MM-DD');
@@ -38,6 +39,7 @@ export default class DataViewButtonArea extends PureComponent {
         this.props.setSelectedDate([sTime, eTime]);
         this.setState({
             popoverVisible: false,
+            time:val,
         });
     };
     // 接警树
@@ -56,12 +58,16 @@ export default class DataViewButtonArea extends PureComponent {
             popoverVisible: visible,
         });
     };
-
+    getChangeDate = (type) =>{
+        this.setState({
+            time:[],
+        });
+        this.props.changeTypeButtons(type);
+    }
     render() {
         const {
             styles,
             typeButtons,
-            changeTypeButtons,
             disabledDate,
             depTree,
             renderloop,
@@ -155,7 +161,7 @@ export default class DataViewButtonArea extends PureComponent {
                                                        color: typeButtons === 'day' ? '#fff' : dark ? '#fff' : '#4d4d4d',
                                                        backgroundColor: typeButtons === 'day' ? (dark ? '#3285FF' : '#3C43DF') : (dark ? '#171925' : '#fff'),
                                                        borderRight: '1px solid #252C3C'
-                                                   }} onClick={() => changeTypeButtons('day')}>日</Button>
+                                                   }} onClick={() => this.getChangeDate('day')}>日</Button>
                 }
                 {
                     hideWeekButton ? null :
@@ -164,14 +170,14 @@ export default class DataViewButtonArea extends PureComponent {
                                     color: typeButtons === 'week' ? '#fff' : dark ? '#fff' : '#4d4d4d',
                                     backgroundColor: typeButtons === 'week' ? (dark ? '#3285FF' : '#3C43DF') : (dark ? '#171925' : '#fff'),
                                     borderRight: '1px solid #252C3C'
-                                }} onClick={() => changeTypeButtons('week')}>周</Button>
+                                }} onClick={() => this.getChangeDate('week')}>周</Button>
                 }
                 {
                     hideMonthButton ? null : <Button type="primary" className={style.btnRadius} style={{
                         color: typeButtons === 'month' ? '#fff' : dark ? '#fff' : '#4d4d4d',
                         backgroundColor: typeButtons === 'month' ? (dark ? '#3285FF' : '#3C43DF') : (dark ? '#171925' : '#fff'),
                         borderRight: '1px solid #252C3C'
-                    }} onClick={() => changeTypeButtons('month')}>月</Button>
+                    }} onClick={() => this.getChangeDate('month')}>月</Button>
                 }
 
                 <Popover
@@ -181,6 +187,7 @@ export default class DataViewButtonArea extends PureComponent {
                             style={{width: '200'}}
                             onChange={this.handleRangePickerChange}
                             getCalendarContainer={() => document.getElementById('tongjiCommon' + pathname)}
+                            value={this.state.time}
                         />
                     }
                     placement="bottomRight"

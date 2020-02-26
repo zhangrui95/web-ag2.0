@@ -987,10 +987,22 @@ body {
 
     .ant-steps-item-finish .ant-steps-item-icon {
       background: @transparent;
-    }
+      border: 2px solid @highlight-color;
 
+      .anticon {
+        color: @highlight-color;
+      }
+    }
+    .ant-steps-item-finish
+    > .ant-steps-item-container
+    > .ant-steps-item-content
+    > .ant-steps-item-title::after {
+      background-color: @highlight-color;
+      height:2px;
+    }
     .ant-steps-item-process .ant-steps-item-icon {
       background: @highlight-color;
+      border: 2px solid @highlight-color;
     }
 
     .ant-steps-item-title, .ant-steps-item-description {
