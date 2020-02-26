@@ -59,6 +59,7 @@ import noList from '@/assets/viewData/noList.png';
 import { routerRedux } from 'dva/router';
 import noListLight from '@/assets/viewData/noListLight.png';
 import { tableList } from '@/utils/utils';
+import DetailShow from "@/components/Common/detailShow";
 
 const FormItem = Form.Item;
 const { Step } = Steps;
@@ -1558,7 +1559,7 @@ export default class areaDetail extends PureComponent {
                 <Col md={24} sm={24}>
                   <Card title="当前涉案信息" className={styles.dqsaxxCard}>
                     <Row>
-                      <Col md={6} sm={24}>
+                      <Col md={8} sm={24}>
                         {/*<Row className={liststyles.JzInfoDiv} style={{marginBottom:0}}>*/}
                         {/*<Col sm={24} md={6} xl={6}>案件编号：</Col>*/}
                         {/*<Col sm={24} md={18} xl={18}>*/}
@@ -1586,7 +1587,7 @@ export default class areaDetail extends PureComponent {
                             : ''}
                         </div>
                       </Col>
-                      <Col md={6} sm={24}>
+                      <Col md={8} sm={24}>
                         {/*<Row className={liststyles.JzInfoDiv} style={{marginBottom:0}}>*/}
                         {/*<Col sm={24} md={6} xl={6}>案件名称：</Col>*/}
                         {/*<Col sm={24} md={18} xl={18}>*/}
@@ -1602,7 +1603,7 @@ export default class areaDetail extends PureComponent {
                             : ''}
                         </div>
                       </Col>
-                      <Col md={6} sm={24}>
+                      <Col md={8} sm={24}>
                         {/*<Row className={liststyles.JzInfoDiv} style={{marginBottom:0}}>*/}
                         {/*<Col sm={24} md={6} xl={6}>案件类型：</Col>*/}
                         {/*<Col sm={24} md={18} xl={18}>*/}
@@ -1618,7 +1619,7 @@ export default class areaDetail extends PureComponent {
                             : ''}
                         </div>
                       </Col>
-                      <Col md={6} sm={24}>
+                      <Col md={8} sm={24}>
                         {/*<Row className={liststyles.JzInfoDiv} style={{marginBottom:0}}>*/}
                         {/*<Col sm={24} md={6} xl={6}>案件状态：</Col>*/}
                         {/*<Col sm={24} md={18} xl={18}>*/}
@@ -1634,7 +1635,52 @@ export default class areaDetail extends PureComponent {
                             : ''}
                         </div>
                       </Col>
+                        <Col md={8} sm={24}>
+                            <div className={liststyles.Indexfrom} style={{ left: 12, top: 0 }}>案发时段：</div>
+                            <div className={liststyles.Indextail} style={{ paddingLeft: 84 }}>
+                                {areaDetails &&
+                                areaDetails.ajxx &&
+                                areaDetails.ajxx.fasjsx &&
+                                areaDetails.ajxx.fasjxx
+                                    ? areaDetails.ajxx.fasjsx + '~' + areaDetails.ajxx.fasjxx
+                                    : ''}
+                            </div>
+                        </Col>
+                        <Col md={8} sm={24}>
+                            <div className={liststyles.Indexfrom} style={{ left: 12, top: 0 }}>办案单位：</div>
+                            <div className={liststyles.Indextail} style={{ paddingLeft: 84 }}>
+                                {areaDetails && areaDetails.ajxx && areaDetails.ajxx.bardwmc
+                                    ? areaDetails.ajxx.bardwmc
+                                    : ''}
+                            </div>
+                        </Col>
+                        <Col md={8} sm={24}>
+                            <div className={liststyles.Indexfrom} style={{ left: 12, top: 0 }}>办案人：</div>
+                            <div className={liststyles.Indextail} style={{ paddingLeft: '66px' }}>
+                                {areaDetails && areaDetails.ajxx && areaDetails.ajxx.barxm
+                                    ? areaDetails.ajxx.barxm
+                                    : ''}
+                            </div>
+                        </Col>
+                        <Col md={16} sm={24}>
+                            <div className={liststyles.Indexfrom} style={{ left: 12, top: 0 }}>案发地点：</div>
+                            <div className={liststyles.Indextail} style={{ paddingLeft: 84 }}>
+                                {areaDetails && areaDetails.ajxx && areaDetails.ajxx.afdd
+                                    ? areaDetails.ajxx.afdd
+                                    : ''}
+                            </div>
+                        </Col>
                     </Row>
+                      <Row gutter={{ md: 8, lg: 16, xl: 24 }}>
+                          <Col md={24} sm={24}>
+                              <div className={liststyles.Indexfrom} style={{ left: 24, top: 0 }}>简要案情：</div>
+                              <DetailShow
+                                  paddingLeft={84}
+                                  word={areaDetails && areaDetails.jyaq ? areaDetails.jyaq : ''}
+                                  {...this.props}
+                              />
+                          </Col>
+                      </Row>
                   </Card>
                 </Col>
               </Row>
