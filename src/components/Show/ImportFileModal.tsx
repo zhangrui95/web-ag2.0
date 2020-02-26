@@ -85,7 +85,7 @@ class ImportFileModal extends PureComponent {
     }
     // console.log('Objwjxx',Objwjxx);
     const param = {
-      fbdw:obj.fbdw,
+      // fbdw:obj.fbdw,
       wjxx:Objwjxx,
     }
     this.FormatConvert(param,obj);
