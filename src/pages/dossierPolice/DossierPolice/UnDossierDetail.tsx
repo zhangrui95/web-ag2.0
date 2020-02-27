@@ -576,39 +576,39 @@ export default class DossierDetail extends PureComponent {
             ) : (
               ''
             )}
-            {relevanceInfo[relevanceInfo.length - i - 1].dossier_current_custody_details &&
-            relevanceInfo[relevanceInfo.length - i - 1].dossier_current_custody_details
+            {relevanceInfo[relevanceInfo.length - i - 1].dossier_current_custody_details&&JSON.parse(relevanceInfo[relevanceInfo.length - i - 1].dossier_current_custody_details) &&
+            JSON.parse(relevanceInfo[relevanceInfo.length - i - 1].dossier_current_custody_details)
               .cabinet_id ? (
-              relevanceInfo[relevanceInfo.length - i - 1].dossier_current_custody_details
+              JSON.parse(relevanceInfo[relevanceInfo.length - i - 1].dossier_current_custody_details)
                 .cabinet_id === '106202002' ? (
                 <Col md={7} span={24}>
                   存储位置：
                   {`${
-                    relevanceInfo[relevanceInfo.length - i - 1].dossier_current_custody_details.kfmc
+                    JSON.parse(relevanceInfo[relevanceInfo.length - i - 1].dossier_current_custody_details).kfmc
                   }/${
-                    relevanceInfo[relevanceInfo.length - i - 1].dossier_current_custody_details.qymc
+                    JSON.parse(relevanceInfo[relevanceInfo.length - i - 1].dossier_current_custody_details).qymc
                   }/${
-                    relevanceInfo[relevanceInfo.length - i - 1].dossier_current_custody_details.kwmc
+                    JSON.parse(relevanceInfo[relevanceInfo.length - i - 1].dossier_current_custody_details).kwmc
                   }/${
-                    relevanceInfo[relevanceInfo.length - i - 1].dossier_current_custody_details.gmc
+                    JSON.parse(relevanceInfo[relevanceInfo.length - i - 1].dossier_current_custody_details).gmc
                   }/${
-                    relevanceInfo[relevanceInfo.length - i - 1].dossier_current_custody_details
+                    JSON.parse(relevanceInfo[relevanceInfo.length - i - 1].dossier_current_custody_details)
                       .mjjmc
                   }/${
-                    relevanceInfo[relevanceInfo.length - i - 1].dossier_current_custody_details.mmc
+                    JSON.parse(relevanceInfo[relevanceInfo.length - i - 1].dossier_current_custody_details).mmc
                   }`}
                 </Col>
               ) : (
                 <Col md={7} span={24}>
                   存储位置：
                   {`${
-                    relevanceInfo[relevanceInfo.length - i - 1].dossier_current_custody_details.kfmc
+                    JSON.parse(relevanceInfo[relevanceInfo.length - i - 1].dossier_current_custody_details).kfmc
                   }/${
-                    relevanceInfo[relevanceInfo.length - i - 1].dossier_current_custody_details.qymc
+                    JSON.parse(relevanceInfo[relevanceInfo.length - i - 1].dossier_current_custody_details).qymc
                   }/${
-                    relevanceInfo[relevanceInfo.length - i - 1].dossier_current_custody_details.kwmc
+                    JSON.parse(relevanceInfo[relevanceInfo.length - i - 1].dossier_current_custody_details).kwmc
                   }/${
-                    relevanceInfo[relevanceInfo.length - i - 1].dossier_current_custody_details.gmc
+                    JSON.parse(relevanceInfo[relevanceInfo.length - i - 1].dossier_current_custody_details).gmc
                   }`}
                 </Col>
               )
