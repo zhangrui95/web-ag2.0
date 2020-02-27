@@ -56,35 +56,25 @@ class learningTable extends PureComponent {
   }
   // 左右切换
   handleModeChange = (e) => {
-    // alert(1)
     const mode = e.target.value;
     // console.log('mode',mode);
     this.setState({ mode });
-    // const { formValues } = this.state;
-
-    // const { pageNow } = this.props;
-    // const { dispatch, formValues } = this.props;
-    // this.props.setA(pageNow, this.props.showCountNow);
-    // dispatch({
-    //   type: 'JgIndex/fetch',
-    //   payload: {
-    //     currentPage: pageNow,
-    //     pd: formValues,
-    //     showCount: this.props.showCountNow,
-    //   },
-    // });
   };
   checkboxView = (checkedValues) => {
-    console.log('checkedValues',checkedValues)
+    // console.log('checkedValues',checkedValues)
     this.setState({
-      checkboxchoose:checkedValues,
+      tablechoose:checkedValues,
     })
-    this.props.chooseSelect(checkedValues);
+    if(this.props.chooseSelect){
+      this.props.chooseSelect(checkedValues);
+    }
   }
   CaseQuery(){
     const { data } = this.props;
+    const { tablechoose,checkboxchoose } = this.state;
     const list = data.list;
     const rows = [];
+    // console.log('tablechoose',this.state.tablechoose);
     if (data&&list) {
       list.map((item)=>{
         return(
@@ -106,7 +96,7 @@ class learningTable extends PureComponent {
       })
 
     }
-    return <Checkbox.Group className={styles.CheckGroup} onChange={this.checkboxView}>{rows}</Checkbox.Group>;
+    return <Checkbox.Group defaultValue={[...tablechoose]} className={styles.CheckGroup} onChange={this.checkboxView}>{rows}</Checkbox.Group>;
   }
   // CaseQuery() {
   //   {/*<Checkbox.Group onChange={this.onChange}>*/}
@@ -178,7 +168,7 @@ class learningTable extends PureComponent {
   // }
   tabLeft = () => {
     const { data } = this.props;
-    const { mode,checkboxchoose } = this.state;
+    const { mode,checkboxchoose,tablechoose } = this.state;
     let columns, checkboxchooseObj = [];
     columns = [
       {
@@ -219,24 +209,25 @@ class learningTable extends PureComponent {
         ),
       },
     ];
-
     const rowSelection = {
-      // selectedRowKeys: checkboxchoose,
+
       // selections:checkboxchoose,
       onChange: (selectedRowKeys, selectedRows) => {
         // console.log('selectedRowKeys',selectedRowKeys);
         // console.log('selectedRows',selectedRows);
         this.setState({
           tablechoose:selectedRowKeys,
+
         })
         if(this.props.chooseSelect){
           this.props.chooseSelect(selectedRowKeys);
         }
+
         // this.setState({
         //   selectedRows,
         // })
       },
-
+      selectedRowKeys: [...tablechoose],
       // getCheckboxProps: record => ({
       //   disabled: record.name === 'Disabled User', // Column configuration not to be checked
       //   name: record.name,

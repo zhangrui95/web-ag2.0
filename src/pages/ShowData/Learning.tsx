@@ -219,6 +219,9 @@ export default class Index extends PureComponent {
         if(obj.error === null){
           message.success('删除成功');
           this.handleFormReset()
+          this.setState({
+            deletedata:[],
+          })
         }
       }
     })
@@ -387,6 +390,7 @@ export default class Index extends PureComponent {
   // 选择删除的数据
   chooseSelect = (deletedata) => {
     // console.log()
+    console.log('deletedata',deletedata);
     this.setState({
       deletedata,
     })

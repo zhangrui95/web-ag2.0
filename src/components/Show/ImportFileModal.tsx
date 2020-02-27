@@ -30,6 +30,7 @@ class ImportFileModal extends PureComponent {
     // }
     this.state = {
       record,
+      fileList:[],
     };
   }
 
@@ -219,10 +220,10 @@ class ImportFileModal extends PureComponent {
 
 
   beforeUploadFun = (file, fileList) => {
-    // if (this.state.fileList.length >= 10) {
-    //   message.error('最多上传10个文件');
-    //   return false;
-    // }
+    if (this.state.fileList.length >= 10) {
+      message.error('一次最多上传10个文件');
+      return false;
+    }
     const allowTypeArry = [ 'doc', 'docx', 'mp4', 'mp3', 'pdf'];
     const nameArry = file.name.split('.');
     const fileType = nameArry[nameArry.length - 1];
@@ -355,7 +356,7 @@ class ImportFileModal extends PureComponent {
                     onDownload={this.fileOnPreview}
                     style={{diaplay:'inlineBlock'}}
                   >
-                  {uploadButton}
+                  {this.state.fileList.length >= 10 ? '' : uploadButton}
                   </Upload>
                   </span>
                 </Col>
