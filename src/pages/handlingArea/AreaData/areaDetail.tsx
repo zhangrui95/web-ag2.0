@@ -1581,7 +1581,7 @@ export default class areaDetail extends PureComponent {
                         <div className={liststyles.Indexfrom} style={{ left: 12, top: 0 }}>
                           案件编号：
                         </div>
-                        <div className={liststyles.Indextail} style={{ paddingLeft: 84 }}>
+                        <div className={liststyles.Indextail} style={{ paddingLeft: 84,marginBottom:12 }}>
                           {areaDetails && areaDetails.ajxx && areaDetails.ajxx.ajbh
                             ? areaDetails.ajxx.ajbh
                             : ''}
@@ -1597,7 +1597,7 @@ export default class areaDetail extends PureComponent {
                         <div className={liststyles.Indexfrom} style={{ left: 12, top: 0 }}>
                           案件名称：
                         </div>
-                        <div className={liststyles.Indextail} style={{ paddingLeft: 84 }}>
+                        <div className={liststyles.Indextail} style={{ paddingLeft: 84,marginBottom:12 }}>
                           {areaDetails && areaDetails.ajxx && areaDetails.ajxx.ajmc
                             ? areaDetails.ajxx.ajmc
                             : ''}
@@ -1613,7 +1613,7 @@ export default class areaDetail extends PureComponent {
                         <div className={liststyles.Indexfrom} style={{ left: 12, top: 0 }}>
                           案件类型：
                         </div>
-                        <div className={liststyles.Indextail} style={{ paddingLeft: 84 }}>
+                        <div className={liststyles.Indextail} style={{ paddingLeft: 84,marginBottom:12 }}>
                           {areaDetails && areaDetails.ajxx && areaDetails.ajxx.ajxz
                             ? areaDetails.ajxx.ajxz
                             : ''}
@@ -1629,7 +1629,7 @@ export default class areaDetail extends PureComponent {
                         <div className={liststyles.Indexfrom} style={{ left: 12, top: 0 }}>
                           案件状态：
                         </div>
-                        <div className={liststyles.Indextail} style={{ paddingLeft: 84 }}>
+                        <div className={liststyles.Indextail} style={{ paddingLeft: 84,marginBottom:12 }}>
                           {areaDetails && areaDetails.ajxx && areaDetails.ajxx.ajzt
                             ? areaDetails.ajxx.ajzt
                             : ''}
@@ -1637,7 +1637,7 @@ export default class areaDetail extends PureComponent {
                       </Col>
                         <Col md={8} sm={24}>
                             <div className={liststyles.Indexfrom} style={{ left: 12, top: 0 }}>案发时段：</div>
-                            <div className={liststyles.Indextail} style={{ paddingLeft: 84 }}>
+                            <div className={liststyles.Indextail} style={{ paddingLeft: 84,marginBottom:12 }}>
                                 {areaDetails &&
                                 areaDetails.ajxx &&
                                 areaDetails.ajxx.fasjsx &&
@@ -1648,7 +1648,7 @@ export default class areaDetail extends PureComponent {
                         </Col>
                         <Col md={8} sm={24}>
                             <div className={liststyles.Indexfrom} style={{ left: 12, top: 0 }}>办案单位：</div>
-                            <div className={liststyles.Indextail} style={{ paddingLeft: 84 }}>
+                            <div className={liststyles.Indextail} style={{ paddingLeft: 84,marginBottom:12 }}>
                                 {areaDetails && areaDetails.ajxx && areaDetails.ajxx.bardwmc
                                     ? areaDetails.ajxx.bardwmc
                                     : ''}
@@ -1664,7 +1664,7 @@ export default class areaDetail extends PureComponent {
                         </Col>
                         <Col md={16} sm={24}>
                             <div className={liststyles.Indexfrom} style={{ left: 12, top: 0 }}>案发地点：</div>
-                            <div className={liststyles.Indextail} style={{ paddingLeft: 84 }}>
+                            <div className={liststyles.Indextail} style={{ paddingLeft: 84,marginBottom:12 }}>
                                 {areaDetails && areaDetails.ajxx && areaDetails.ajxx.afdd
                                     ? areaDetails.ajxx.afdd
                                     : ''}
@@ -1705,7 +1705,7 @@ export default class areaDetail extends PureComponent {
                   <div className={liststyles.Indexfrom} style={{ top: 0 }}>
                     办案区名称：
                   </div>
-                  <div className={liststyles.Indextail} style={{ paddingLeft: 84 }}>
+                  <div className={liststyles.Indextail} style={{ paddingLeft: 84,marginBottom:12 }}>
                     {areaDetails &&
                     areaDetails.rqxx &&
                     areaDetails.rqxx.length > 0 &&

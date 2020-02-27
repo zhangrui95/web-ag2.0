@@ -685,9 +685,10 @@ export default class DossierDetail extends PureComponent {
             ) : (
               ''
             )}
-            {JSON.parse(relevanceInfo[relevanceInfo.length - i - 1].dossier_current_custody_details) &&
+
+            {relevanceInfo[relevanceInfo.length - i - 1].dossier_current_custody_details&&JSON.parse(relevanceInfo[relevanceInfo.length - i - 1].dossier_current_custody_details) &&
             JSON.parse(relevanceInfo[relevanceInfo.length - i - 1].dossier_current_custody_details)
-              .cabinet_id ? (
+                .cabinet_id ? (
               JSON.parse(relevanceInfo[relevanceInfo.length - i - 1].dossier_current_custody_details)
                 .cabinet_id === '106202002' ? (
                 <Col md={7} span={24}>
