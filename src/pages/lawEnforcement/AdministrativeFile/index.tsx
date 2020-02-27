@@ -85,16 +85,16 @@ export default class AdministrativeCaseDoc extends PureComponent {
     this.getCase(obj);
     this.getDepTree(newjigouArea.department);
     this.getCaseStatus();
-    this.getCaseTypeTree(window.configUrl.is_area === '1' ? '1' : '0');
+    this.getCaseTypeTree(window.configUrl.is_area);
   }
 
   // 获取案件类别树
   getCaseTypeTree = areaNum => {
     this.props.dispatch({
-      type: 'common/getCaseTypeTree',
+      type: areaNum === '2' ? 'common/getPlCaseTypeTree' : 'common/getCaseTypeTree',
       payload: {
         ajlb: 'xz', // 案件类别xs,xz
-        is_area: areaNum,
+        is_area: areaNum === '1' ? areaNum : '0',
       },
       callback: data => {
         if (data.list) {
