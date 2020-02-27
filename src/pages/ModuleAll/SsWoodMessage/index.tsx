@@ -125,7 +125,7 @@ export default class SsWoodMessage extends PureComponent {
         // const { data, wpId } = this.props;
         const { record,res } = this.state;
         return (
-            <Card style={{borderRadius:10,overflow:'hidden'}}>
+            <Card style={{borderRadius:10,overflow:'hidden'}} className={this.props.global && this.props.global.dark ? styles.box : styles.boxLight}>
                 <Tabs
                     defaultActiveKey={res.wp_id.toString()}
                     tabPosition='left'
