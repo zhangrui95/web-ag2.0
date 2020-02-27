@@ -21,7 +21,7 @@ const configItem = {
   sysName: '智慧法制案管系统',
   headName: '智慧法制案管系统', // 左侧导航顶部显示名称
   footName: '哈尔滨海邻科信息技术有限公司',
-  version: 'r2.0.0.20191226', // 版本号
+  version: 'r2.0.0.20200227', // 版本号
   sid: '591b1586-681e-4fce-a9b9-2c9c36717224', // 系统资源ID
   showDataTitle: '', // 大屏展示标题
   mapCityName: '', // 大屏展示地图名称（可配置项： mudanjiang/ hulunbeier/baishan/hebi/erduosi/guiLin）
