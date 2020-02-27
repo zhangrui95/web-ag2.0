@@ -56,7 +56,7 @@ class ImportFileModal extends PureComponent {
     // console.log('obj',obj);
     const zlxx = this.state.fileList;
     let ChiType= '';
-    let Objwjxx=[], wjdxSize='';
+    let beforeObjwjxx=[],afterObjwjxx=[], wjdxSize='';
     for(let a = 0; a < zlxx.length; a++ ){
       const zlxxName = zlxx[a].response.fileName;
       if(zlxxName.split('.')[1] === 'mp4'){
@@ -74,23 +74,38 @@ class ImportFileModal extends PureComponent {
       else {
         wjdxSize=(zlxx[a].size/1024).toFixed(2)+'KB'
       }
-      let wj = {
+      let beforewj = {
         filename:zlxxName,
         scsj:moment().format('YYYY-MM-DD'),
         lx:ChiType,
         wjdx:wjdxSize,
         filepath:zlxx[a].response.fileUrl,
       }
-      console.log('wj',wj);
-      Objwjxx.push(wj);
+      let afterwj = {
+        zlmc:zlxxName,
+        scsj:moment().format('YYYY-MM-DD'),
+        lx:ChiType,
+        wjdx:wjdxSize,
+        xzlj:zlxx[a].response.fileUrl,
+      }
+      beforeObjwjxx.push(beforewj)
+      afterObjwjxx.push(afterwj);
     }
     // console.log('Objwjxx',Objwjxx);
-    const param = {
+    const beforeparam = {
       // fbdw:obj.fbdw,
-      wjxx:Objwjxx,
+      wjxx:beforeObjwjxx,
+    };
+    const afterparam = {
+      fbdw:obj.fbdw,
+      wjxx:afterObjwjxx,
     }
-    this.FormatConvert(param,obj);
-
+    if(ChiType === '文档'){
+      this.FormatConvert(beforeparam,obj);
+    }
+    else{
+      this.getInsert(afterparam);
+    }
   }
 
   FormatConvert = (param,obj) => {
@@ -98,7 +113,7 @@ class ImportFileModal extends PureComponent {
       type:'Learning/getFormatConvert',
       payload:param?param:'',
       callback:(data)=>{
-        // console.log('data',data);
+        console.log('data',data);
         this.getInsert();
       }
     })

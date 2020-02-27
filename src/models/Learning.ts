@@ -13,7 +13,7 @@ export default {
     * getLearningList({payload, callback}, {call, put}) {
       const response = yield call(LearningList, payload);
       yield put({
-        type: 'areaSfgz',
+        type: 'returnLearningList',
         payload: response && response.error === null ? response.data.sfgz : {},
       });
       if (callback && response && !response.error && response.data) {
@@ -23,7 +23,7 @@ export default {
     * getInsertList({payload, callback}, {call, put}) {
       const response = yield call(InsertList, payload);
       yield put({
-        type: 'areaSfgz',
+        type: 'returnInsertList',
         payload: response && response.error === null ? response.data : {},
       });
       if (callback && response ) {
@@ -34,7 +34,7 @@ export default {
       const response = yield call(DeleteList, payload);
       // console.log('response',response)
       yield put({
-        type: 'areaSfgz',
+        type: 'returnDeleteList',
         payload: response && response.error === null ? response.data : {},
       });
       if (callback && response) {
@@ -43,9 +43,9 @@ export default {
     },
     * getFormatConvert({payload, callback}, {call, put}) {
       const response = yield call(FormatConvertService, payload);
-      // console.log('response',response)
+      console.log('response',response)
       yield put({
-        type: 'areaSfgz',
+        type: 'returnFormatConvert',
         payload: response && response.error === null ? response.data : {},
       });
       if (callback && response) {
