@@ -614,6 +614,7 @@ export default class PoliceDataView extends PureComponent {
             series: [
               {
                 data: pieData,
+                  cursor: 'default',
                 label: {
                   normal: {
                     formatter: ``,

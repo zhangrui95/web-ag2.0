@@ -807,6 +807,7 @@ export default class ItemDataView extends PureComponent {
                     center: ['30%', '50%'],
                     radius: ['50%', '70%'],
                     avoidLabelOverlap: false,
+                    cursor: 'default',
                     label: {
                         normal: {
                             show: true,

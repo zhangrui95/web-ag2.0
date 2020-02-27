@@ -209,7 +209,7 @@ export default class Index extends PureComponent {
             type: 'common/getDictType',
             payload: {
                 appCode: window.configUrl.appCode,
-                code: '2057',
+                code: '5315000',
             },
         });
     };
@@ -601,7 +601,7 @@ export default class Index extends PureComponent {
     };
 
     renderForm() {
-        const {form: {getFieldDecorator}, common: {WtlxSawpTypeData, superviseStatusDict, itemsTypesDict, itemsStorage, libraryPositionType, itemStatus, rectificationStatusDict, depTree}} = this.props;
+        const {form: {getFieldDecorator}, common: {WtlxSawpTypeData, superviseStatusDict, itemsTypesDict, itemsStorage, libraryPositionType, itemStatusS, rectificationStatusDict, depTree}} = this.props;
         let problemTypeOptions = [], superviseStatusOptions = [], itemsTypesOptions = [], itemsStorageOptions = [],
             libraryPositionTypeOption = [], itemStatusOption = [];
         const allPoliceOptions = this.state.allPolice.map(d => <Option key={`${d.idcard},${d.pcard}`}
@@ -658,9 +658,9 @@ export default class Index extends PureComponent {
                 );
             }
         }
-        if (itemStatus.length > 0) {
-            for (let i = 0; i < itemStatus.length; i++) {
-                const item = itemStatus[i];
+        if (itemStatusS.length > 0) {
+            for (let i = 0; i < itemStatusS.length; i++) {
+                const item = itemStatusS[i];
                 itemStatusOption.push(
                     <Option key={item.id} value={item.name}>{item.name}</Option>,
                 );
