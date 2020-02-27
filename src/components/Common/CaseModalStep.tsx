@@ -28,13 +28,13 @@ export default class CaseModalTrail extends PureComponent {
     let dwmcTrue = false;
     let zbrxmTrue = false;
     let xbrxmTrue = false;
-    if ((idx > 0 && dwmc && dwmc !== ajgjList[idx - 1].dwmc) || idx === 0) {
+    if ((idx > 0 && dwmc && dwmc !== ajgjList[idx - 1].dwmc) || (idx === 0 &&dwmc)) {
       dwmcTrue = true;
     }
-    if ((idx > 0 && zbrxm && zbrxm !== ajgjList[idx - 1].zbrxm) || idx === 0) {
+    if ((idx > 0 && zbrxm && zbrxm !== ajgjList[idx - 1].zbrxm) || (idx === 0&&zbrxm)) {
       zbrxmTrue = true;
     }
-    if ((idx > 0 && xbrxm && xbrxm !== ajgjList[idx - 1].xbrxm) || idx === 0) {
+    if ((idx > 0 && xbrxm && xbrxm !== ajgjList[idx - 1].xbrxm) || (idx === 0&&xbrxm)) {
       xbrxmTrue = true;
     }
     return (
