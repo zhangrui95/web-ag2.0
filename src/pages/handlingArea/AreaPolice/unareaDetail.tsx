@@ -54,6 +54,7 @@ import right from '../../../assets/common/right.png';
 import right1 from '../../../assets/common/right1.png';
 import right2 from '../../../assets/common/right2.png';
 import liststyles from "@/pages/common/listDetail.less";
+import moment from "moment";
 
 const FormItem = Form.Item;
 const { Step } = Steps;
@@ -838,8 +839,8 @@ export default class unareaDetail extends PureComponent {
       type: 'areaData/areaPartVideo',
       payload: {
         handleareaNum: paneData.handlearea_num,
-        startTime: paneData.startTime ? paneData.startTime : paneData.begin_time,
-        finishTime: paneData.finishTime ? paneData.finishTime : paneData.end_time,
+        startTime: paneData.startTime?moment(paneData.startTime).format('YYYY-MM-DD hh:mm:ss'):moment(paneData.begin_time).format('YYYY-MM-DD hh:mm:ss'),
+        finishTime:paneData.finishTime?moment(paneData.finishTime).format('YYYY-MM-DD hh:mm:ss'):moment(paneData.end_time).format('YYYY-MM-DD hh:mm:ss'),
         roomId: paneData.room_id,
         roomName: paneData.room_name,
       },
