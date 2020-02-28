@@ -12,7 +12,7 @@ const developips = {
   aqzxIp: 'http://192.168.3.92', // 安全中心地址
   TbtjDcIp: 'http://192.168.3.245', // 图表统计导出功能地址
   downLoadIp: 'http://192.168.3.201', // 下载地址
-  jz: 'http://192.168.3.116',
+  jz: 'http://192.168.3.116',//卷宗
 };
 const ips = developModa ? developips : onlineips; // ip地址
 // 通用配置项[需配置]
