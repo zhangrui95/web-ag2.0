@@ -83,6 +83,8 @@ export default class unitemDetail extends PureComponent {
     feedbackButtonLoading: false, // 反馈按钮加载状态
     isDb: authorityIsTrue(userResourceCodeDb.item), // 督办权限
     record: '', // 表格信息
+      idDetail:'',
+      system_idDetail:'',
   };
 
   componentDidMount() {
@@ -95,6 +97,8 @@ export default class unitemDetail extends PureComponent {
       this.itemDetailDatas(res.id, res.system_id);
       this.setState({
         record: res,
+          idDetail:res.id,
+          system_idDetail:res.system_id,
       });
     }
   }
@@ -105,8 +109,8 @@ export default class unitemDetail extends PureComponent {
       nextProps.global.isResetList.url === '/articlesInvolved/ArticlesPolice/unitemDetail'
     ) {
       this.itemDetailDatas(
-        nextProps.location.query.record.id,
-        nextProps.location.query.record.system_id,
+        nextProps.location.query.record.id ? nextProps.location.query.record.id : this.state.idDetail,
+        nextProps.location.query.record.system_id ? nextProps.location.query.record.system_id : this.state.system_idDetail,
       );
     }
   }

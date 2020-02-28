@@ -28,8 +28,8 @@ import {
 } from 'antd';
 import {routerRedux} from 'dva/router';
 import styles from './index.less';
-import nophoto from '../../../assets/common/nophoto.png';
-import nophotoLight from "@/assets/common/nophotoLight.png";
+import nophoto from '@/assets/common/zwwpDark.png';
+import nophotoLight from "@/assets/common/zwwp.png";
 
 
 const FormItem = Form.Item;
@@ -54,22 +54,20 @@ export default class SsWoodMessage extends PureComponent {
         res,
       }
     }
-    state = {
-        // current:'1',
-    };
+
     content = (pane) => {
         const picture = pane.photo;
         return (
-            <Card>
                 <Row>
-                    <Col md={8}>
+                    <Col md={6}>
                         <div className={styles.woodName}>
-                            <ul className={styles.indexmenu} style={{padding: '0 12px'}}>
+                            <ul className={styles.indexmenu} style={{padding: '24px 12px'}}>
                                 {/*<li>*/}
                                 {/*<img width={250} src={pane.photo_url} alt='暂无图片' />*/}
                                 {/*</li>*/}
-                                {picture.map(pic => <li><img width={250} ref={'imgBox'} src={pic ? pic : this.props.global && this.props.global.dark ? nophoto : nophotoLight}
-                                                             alt='暂无图片'/></li>)}
+                                {picture&&picture.length > 0 ? picture.map(pic => <li style={{textAlign:'center'}}><img width={250} ref={'imgBox'} src={pic ? pic : this.props.global && this.props.global.dark ? nophoto : nophotoLight}
+                                                             alt='暂无图片'/></li>): <li style={{textAlign:'center'}}><img width={180} ref={'imgBox'} src={this.props.global && this.props.global.dark ? nophoto : nophotoLight}
+                                                                                                                       alt='暂无图片'/></li>}
                             </ul>
                         </div>
                     </Col>
@@ -120,7 +118,6 @@ export default class SsWoodMessage extends PureComponent {
                         </div>
                     </Col>
                 </Row>
-            </Card>
         );
     };
 
@@ -128,15 +125,17 @@ export default class SsWoodMessage extends PureComponent {
         // const { data, wpId } = this.props;
         const { record,res } = this.state;
         return (
-            <Tabs
-                defaultActiveKey={res.wp_id.toString()}
-                tabPosition='left'
-                className={styles.indexmenu}
-                type='card'
-            >
-                {record.map(pane => <TabPane tab={pane.wpName}
-                                             key={pane.wp_id.toString()}>{this.content(pane)}</TabPane>)}
-            </Tabs>
+            <Card style={{borderRadius:10,overflow:'hidden'}} className={this.props.global && this.props.global.dark ? styles.box : styles.boxLight}>
+                <Tabs
+                    defaultActiveKey={res.wp_id.toString()}
+                    tabPosition='left'
+                    className={styles.indexmenu}
+                    type='card'
+                >
+                    {record.map(pane => <TabPane tab={pane.wpName}
+                                                 key={pane.wp_id.toString()}>{this.content(pane)}</TabPane>)}
+                </Tabs>
+            </Card>
         );
     }
 }

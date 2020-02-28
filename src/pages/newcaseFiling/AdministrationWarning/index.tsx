@@ -86,6 +86,13 @@ export default class Index extends PureComponent {
     this.getDossier({ pd: { yj_type: 'xzaj' } });
     this.getSuperviseStatusDict();
     this.getYjjbDictionary();
+      this.props.dispatch({
+          type: 'common/getDictType',
+          payload: {
+              appCode: window.configUrl.appCode,
+              code: '60010003',// 60010003
+          },
+      });
   }
 
   // 切换tab
@@ -573,7 +580,7 @@ export default class Index extends PureComponent {
   render() {
     const {
       form: { getFieldDecorator },
-      common: { depTree, superviseStatusDict, YJJBType },
+      common: { depTree, superviseStatusDict, YJJBType,XzyjType },
       EarlyWarning: {
         xzajyjdata: { page, list, tbCount },
       },
@@ -822,8 +829,11 @@ export default class Index extends PureComponent {
                       getPopupContainer={() => document.getElementById('newslaxzajgjtableListForm')}
                     >
                       <Option value="">全部</Option>
-                      <Option value="5025902">未结案（30日办理延期）</Option>
-                      <Option value="5025903">未结案（60日）</Option>
+                      {/*<Option value="5025902">未结案（30日办理延期）</Option>*/}
+                      {/*<Option value="5025903">未结案（60日）</Option>*/}
+                        {XzyjType.map(event => {
+                            return <Option value={event.code}>{event.name}</Option>;
+                        })}
                     </Select>,
                   )}
                 </FormItem>

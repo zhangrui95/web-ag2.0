@@ -715,7 +715,7 @@ export default class Index extends PureComponent {
       {
         title: '所属案件',
         dataIndex: 'ajmc',
-        width: '20%',
+        width: '15%',
         render: text => {
           return (
             <Ellipsis lines={2} tooltip>
@@ -763,6 +763,17 @@ export default class Index extends PureComponent {
         title: '存储状态',
         dataIndex: 'cczt_mc',
       },
+        {
+            title: '所在库房',
+            dataIndex: 'kfmc',
+            render: text => {
+                return (
+                    <Ellipsis lines={2} tooltip>
+                        {text}
+                    </Ellipsis>
+                );
+            },
+        },
       {
         title: '操作',
         render: record => (

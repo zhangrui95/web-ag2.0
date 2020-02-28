@@ -114,7 +114,7 @@ class mySupervise extends Component {
             type: 'common/getDictType',
             payload: {
                 appCode: window.configUrl.appCode,
-                code: '2016',
+                code: '20160001',//2016
             },
         });
     };
@@ -141,7 +141,7 @@ class mySupervise extends Component {
             type: 'common/getDictType',
             payload: {
                 appCode: window.configUrl.appCode,
-                code: '2068',
+                code: '206800',//2068
             },
         });
 
@@ -152,7 +152,7 @@ class mySupervise extends Component {
             type: 'common/getDictType',
             payload: {
                 appCode: window.configUrl.appCode,
-                code: '6001',
+                code: '60010001',//6001
             },
         });
     };

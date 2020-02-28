@@ -292,6 +292,7 @@ export default class Steal extends PureComponent {
     const stealBar = document.getElementsByClassName('stealBar')[1];
     myChart = echarts.init(stealBar);
     const option = {
+        backgroundColor: this.props.global && this.props.global.dark ? '#252c3c' : '#fff',
       tooltip: {
         trigger: 'axis',
         axisPointer: {
@@ -353,6 +354,7 @@ export default class Steal extends PureComponent {
     const stealAllType = document.getElementsByClassName('stealAllType')[1];
     radarChart = echarts.init(stealAllType);
     const option = {
+        backgroundColor: this.props.global && this.props.global.dark ? '#252c3c' : '#fff',
       tooltip: {
         confine: true,
       },

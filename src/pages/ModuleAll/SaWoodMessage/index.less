@@ -1,6 +1,31 @@
 @import '~antd/es/style/themes/default.less';
 @import '../../../theme/darkTheme';
-
+.box{
+  :global{
+    .ant-tabs .ant-tabs-left-content{
+      border-left: 0;
+    }
+    .ant-tabs .ant-tabs-left-bar{
+      border-right: 1px solid #171925;
+    }
+    .ant-tabs.ant-tabs-card .ant-tabs-card-bar .ant-tabs-tab{
+      border-right: 0!important;
+    }
+  }
+}
+.boxLight{
+  :global{
+    .ant-tabs .ant-tabs-left-content{
+      border-left: 0;
+    }
+    .ant-tabs .ant-tabs-left-bar{
+      border-right: 1px solid #e6e6e6;
+    }
+    .ant-tabs.ant-tabs-card .ant-tabs-card-bar .ant-tabs-tab{
+      border-right: 0!important;
+    }
+  }
+}
 .indexmodal {
   //position: absolute;
   //top: 50%;
@@ -32,16 +57,20 @@
   :global {
     .ant-tabs-content {
       height: 100%;
+      padding-left: 0;
+    }
+    .ant-tabs-nav-container{
+      width: 100%!important;
     }
   }
 }
 
 .woodName {
-  border-right: 1px solid #EBEBEB;
+  //border-right: 1px solid #EBEBEB;
 }
 
 .woodNameThird {
-  padding: 0 @padding-lg;
+  padding: 16px @padding-lg;
 }
 
 .indexmenu li {

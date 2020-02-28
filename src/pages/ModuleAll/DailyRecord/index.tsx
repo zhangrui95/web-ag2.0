@@ -109,14 +109,15 @@ class DailyRecord extends PureComponent {
                         >
                             <Row style={{paddingLeft: 30, paddingBottom: 8}}>
                                 <Col md={3} span={24}>
-                                    {item.name}
+                                    <span style={{fontSize:16}}>{item.name}</span>
                                     <Tag style={{
                                         background: item.yjjbmc,
-                                        width: 74,
+                                        padding: '3px 12px',
                                         textAlign: 'center',
                                         cursor: 'default',
                                         color: '#fff',
                                         marginLeft: 24,
+                                        border:0,
                                     }}>{yjName}</Tag>
                                 </Col>
                                 <Col md={2} span={24}>
@@ -152,16 +153,17 @@ class DailyRecord extends PureComponent {
                         >
                             <Row style={{paddingLeft: 30, paddingBottom: 8}}>
                                 <Col md={3} span={24}>
-                                    {item.name}
+                                    <span style={{fontSize:16}}>{item.name}</span>
                                     <Tag style={{
                                         background: item.yjjbmc,
-                                        width: 74,
+                                        padding: '3px 12px',
                                         textAlign: 'center',
                                         cursor: 'default',
                                         color: '#fff',
                                         // position: 'absolute',
                                         // top: '-28px',
                                         marginLeft: 24,
+                                        border:0,
                                     }}>{yjName}</Tag>
                                 </Col>
                                 <Col md={2} span={24}>
@@ -207,14 +209,15 @@ class DailyRecord extends PureComponent {
                         >
                             <Row style={{paddingLeft: 30, paddingBottom: 8}}>
                                 <Col span={3}>
-                                    {item.name}
+                                    <span style={{fontSize:16}}>{item.name}</span>
                                     <Tag style={{
-                                        background: '#aaa',
-                                        width: 74,
+                                        background: '#cacbcc',
+                                        padding: '3px 12px',
                                         textAlign: 'center',
                                         cursor: 'default',
                                         color: '#fff',
                                         marginLeft: 24,
+                                        border:0,
                                     }}>{yjName}</Tag>
                                 </Col>
                                 <Col span={2}>

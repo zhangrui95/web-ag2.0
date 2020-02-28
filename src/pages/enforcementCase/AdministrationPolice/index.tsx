@@ -253,7 +253,7 @@ export default class Index extends PureComponent {
             type: 'common/getDictType',
             payload: {
                 appCode: window.configUrl.appCode,
-                code: '6001',
+                code: '60010001',//6001
             },
         });
     };

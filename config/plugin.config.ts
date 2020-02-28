@@ -4,7 +4,8 @@
 import ThemeColorReplacer from 'webpack-theme-color-replacer';
 import generate from '@ant-design/colors/lib/generate';
 import path from 'path';
-
+import moment from 'moment';
+let version = `r2.0.0`; //版本号
 function getModulePackageName(module: { context: string }) {
   if (!module.context) return null;
 
@@ -89,6 +90,15 @@ export default (config: any) => {
         },
       },
     });
+  //css的修改
+  config.plugin('extract-css').use(require('mini-css-extract-plugin'), [
+    {
+      filename: `[name].${version}.${moment().format('YYYYMMDD')}.css`,
+      chunkFilename: `[name].[contenthash:8].css`,
+    },
+  ]);
+  //js的修改
+  config.output.filename(`[name].${version}.${moment().format('YYYYMMDD')}.js`);
 };
 
 const getAntdSerials = (color: string) => {

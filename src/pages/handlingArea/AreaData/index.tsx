@@ -508,8 +508,13 @@ export default class Index extends PureComponent {
             labelCol: {xs: {span: 24}, md: {span: 8}, xl: {span: 6}, xxl: {span: 5}},
             wrapperCol: {xs: {span: 24}, md: {span: 16}, xl: {span: 18}, xxl: {span: 19}},
         };
+        const formItemLayouts = {
+            labelCol: {xs: {span: 24}, md: {span: 8}, xl: {span: 4}, xxl: {span: 3}},
+            wrapperCol: {xs: {span: 24}, md: {span: 16}, xl: {span: 19}, xxl: {span: 20}},
+        };
         const rowLayout = {md: 8, xl: 16, xxl: 24};
         const colLayout = {sm: 24, md: 12, xl: 8};
+        const colLayouts = {sm: 24, md: 12, xl: 12};
         return (
             <Form
                 onSubmit={this.handleSearch}
@@ -638,20 +643,6 @@ export default class Index extends PureComponent {
                         </FormItem>
                     </Col>
                     <Col {...colLayout}>
-                        <FormItem label="在区状态" {...formItemLayout}>
-                            {getFieldDecorator('zqzt', {
-                                initialValue: this.state.zqzt,
-                            })(
-                                <Radio.Group onChange={this.onRadioChange}>
-                                    <Radio value="">全部</Radio>
-                                    <Radio value="在区">在区</Radio>
-                                    <Radio value="临时离开">临时离开</Radio>
-                                    <Radio value="离区">离区</Radio>
-                                </Radio.Group>,
-                            )}
-                        </FormItem>
-                    </Col>
-                    <Col {...colLayout}>
                         <FormItem label="入区原因" {...formItemLayout}>
                             {getFieldDecorator('rqyy', {
                                 initialValue: this.state.rqyy,
@@ -664,6 +655,21 @@ export default class Index extends PureComponent {
                                     <Option value="">全部</Option>
                                     {rqyyTypeOptions}
                                 </Select>,
+                            )}
+                        </FormItem>
+                    </Col>
+                    <Col {...colLayouts} style={{marginLeft:8}}>
+                        <FormItem label="在区状态" {...formItemLayouts}>
+                            {getFieldDecorator('zqzt', {
+                                initialValue: this.state.zqzt,
+                            })(
+                                <Radio.Group onChange={this.onRadioChange}>
+                                    <Radio value="">全部</Radio>
+                                    <Radio value="在区">在区</Radio>
+                                    <Radio value="临时离区">临时离区</Radio>
+                                    <Radio value="离区">离区</Radio>
+                                    <Radio value="返回办案区">返回办案区</Radio>
+                                </Radio.Group>,
                             )}
                         </FormItem>
                     </Col>

@@ -124,17 +124,17 @@ export default class CriminalCaseWarningCount extends PureComponent {
             },
             legend: {
                 orient: 'vertical',
-                right: '5%',
-                top: '15%',
+                right: '2%',
+                top: '10%',
                 show: true,
                 itemWidth: 10,
                 itemHeight: 10,
-                itemGap: 15,
+                itemGap: 10,
                 selectedMode: false, // 点击
                 textStyle: {
                     color: '#fff',
                     fontSize: 16,
-                    lineHeight: 24,
+                    lineHeight: 20,
                 },
                 data: [],
             },

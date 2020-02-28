@@ -372,7 +372,7 @@ export default class Index extends PureComponent {
   // 获取案件类别树
   getCaseTypeTree = areaNum => {
     this.props.dispatch({
-      type: 'common/getCaseTypeTree',
+      type: areaNum === '2' ? 'common/getPlCaseTypeTree' : 'common/getCaseTypeTree',
       payload: {
         ajlb: 'xs,xz',
         is_area: areaNum === '1' ? '1' : '0',

@@ -53,6 +53,7 @@ import left2 from '../../../assets/common/left2.png';
 import right from '../../../assets/common/right.png';
 import right1 from '../../../assets/common/right1.png';
 import right2 from '../../../assets/common/right2.png';
+import liststyles from "@/pages/common/listDetail.less";
 
 const FormItem = Form.Item;
 const { Step } = Steps;
@@ -109,6 +110,8 @@ export default class unareaDetail extends PureComponent {
     feedbackButtonLoading: false, // 反馈按钮加载状态
     isDb: authorityIsTrue(userResourceCodeDb.baq), // 督办权限
     record: '', // 表格信息
+      idDetail:'',
+      baqidDetail:'',
   };
 
   componentDidMount() {
@@ -122,8 +125,12 @@ export default class unareaDetail extends PureComponent {
       record: res,
     });
     const { location } = this.props;
-    if (resquery&&resquery.id&&resquery.baqid) {
+    if (resquery && resquery.id && resquery.baqid) {
       this.getDetail(resquery.id, resquery.baqid);
+      this.setState({
+          idDetail:resquery.id,
+          baqidDetail:resquery.baqid,
+      })
     }
     // else if (location && location.query && res && res.agid && res.system_id) {
     //   this.getDetail(res.agid, res.system_id);
@@ -135,7 +142,8 @@ export default class unareaDetail extends PureComponent {
       this.props.global.isResetList.isReset !== nextProps.global.isResetList.isReset &&
       nextProps.global.isResetList.url === '/handlingArea/AreaPolice/UnareaDetail'
     ) {
-      this.getDetail(nextProps.location.query.record.id, nextProps.location.query.record.baq_id);
+      this.getDetail(nextProps.location.query.record.id ? nextProps.location.query.record.id : this.state.idDetail,
+          nextProps.location.query.record.baq_id ? nextProps.location.query.record.baq_id : this.state.baqidDetail)
     }
   }
 
@@ -167,7 +175,7 @@ export default class unareaDetail extends PureComponent {
               query: {
                 record: UnareaDetail,
                 id: UnareaDetail && UnareaDetail.wtid ? UnareaDetail.wtid : '1',
-                from: '办案区详情问题判定',
+                from: '督办',
                 tzlx: 'baqwt',
                 fromPath: '/handlingArea/AreaPolice/UnareaDetail',
                 wtflId: '203203',
@@ -192,8 +200,8 @@ export default class unareaDetail extends PureComponent {
     });
   };
   // 反馈
-  feedback = (flag, unCaseDetailData) => {
-    const { wtid } = unCaseDetailData;
+  feedback = (flag, UnareaDetail) => {
+    const { wtid } = UnareaDetail;
     this.props.dispatch({
       type: 'UnareaData/getUnareaByProblemId',
       payload: {
@@ -209,8 +217,8 @@ export default class unareaDetail extends PureComponent {
             routerRedux.push({
               pathname: '/ModuleAll/FeedBack',
               query: {
-                record: unCaseDetailData,
-                id: unCaseDetailData && unCaseDetailData.wtid ? unCaseDetailData.wtid : '1',
+                record: UnareaDetail,
+                id: UnareaDetail && UnareaDetail.wtid ? UnareaDetail.wtid : '1',
                 tzlx: 'baqwt',
                 fromPath: '/handlingArea/AreaPolice/UnareaDetail',
                 tab: '详情',
@@ -443,19 +451,24 @@ export default class unareaDetail extends PureComponent {
   // };
   // 台账
   Ledger = res => {
-    this.props.dispatch(
-      routerRedux.push({
-        pathname: '/ModuleAll/PersonLedger',
-        query: {
-          record: res,
-          id: res && res.system_id ? res.system_id : '1',
-          // from: this.state.lx,
-          // tzlx: this.state.tzlx,
-          // fromPath: '/handlingArea/AreaData',
-          // tab: '表格',
-        },
-      }),
+    window.open(
+      `${window.configUrl.baqRaqUrl}showReport3.jsp?rpx=TZ-HLJ.rpx&personId=${
+        res && res.system_id ? res.system_id : ''
+      }`,
     );
+    // this.props.dispatch(
+    //   routerRedux.push({
+    //     pathname: '/ModuleAll/PersonLedger',
+    //     query: {
+    //       record: res,
+    //       id: res && res.system_id ? res.system_id : '1',
+    //       // from: this.state.lx,
+    //       // tzlx: this.state.tzlx,
+    //       // fromPath: '/handlingArea/AreaData',
+    //       // tab: '表格',
+    //     },
+    //   }),
+    // );
   };
   Topdetail() {
     const { UnareaDetail, isDb } = this.state;
@@ -499,7 +512,8 @@ export default class unareaDetail extends PureComponent {
               (UnareaDetail.dbid === '' ||
                 (UnareaDetail.dbList &&
                   UnareaDetail.dbList.length > 0 &&
-                  UnareaDetail.dbList[0].fkzt !== '1')) &&
+                    UnareaDetail.dbList[UnareaDetail.dbList.length - 1].fkzt !== '1')
+              ) &&
               isDb ? (
                 <Button
                   type="primary"
@@ -824,27 +838,36 @@ export default class unareaDetail extends PureComponent {
       type: 'areaData/areaPartVideo',
       payload: {
         handleareaNum: paneData.handlearea_num,
-        startTime: paneData.startTime,
-        finishTime: paneData.finishTime,
+        startTime: paneData.startTime ? paneData.startTime : paneData.begin_time,
+        finishTime: paneData.finishTime ? paneData.finishTime : paneData.end_time,
         roomId: paneData.room_id,
         roomName: paneData.room_name,
       },
+      callback: data => {
+        if(data.error&&data.error!==null){
+          message.error(data.error);
+        }
+      },
     });
   };
-  descrip = (pane) =>{
-      let dark = this.props.global && this.props.global.dark;
-    if(pane&&pane.children&&pane.children.length>0){
+  descrip = pane => {
+    let dark = this.props.global && this.props.global.dark;
+    if (pane && pane.children && pane.children.length > 0) {
       return (
         <div className={styles.descripStyle}>
           {pane.children.map(item => (
-            <div className={styles.IndexTitle} style={{backgroundColor:dark ? '#252c3c' : '#e6e6e6'}} onClick={() => this.trajectoryTitle(item)}>
+            <div
+              className={styles.IndexTitle}
+              style={{ backgroundColor: dark ? '#252c3c' : '#e6e6e6' }}
+              onClick={() => this.trajectoryTitle(item)}
+            >
               <span className={styles.spanTitle}>{item.camera_name}</span>
             </div>
           ))}
         </div>
-      )
+      );
     }
-  }
+  };
   Title = (roomName, trackTime, trackLeftTime, paneData) => {
     return (
       <div className={styles.trajectory} onClick={() => this.trajectoryTitle(paneData)}>
@@ -897,14 +920,14 @@ export default class unareaDetail extends PureComponent {
     }
   };
   // 根据案件编号打开案件窗口
-  openCaseDetail = areaDetails => {
-    // console.log('areaDetails', areaDetails);
-    if (areaDetails.ajxx.ajlx === '22001') {
+  openCaseDetail = UnareaDetail => {
+    // console.log('UnareaDetail', UnareaDetail);
+    if (UnareaDetail.ajxx.ajlx === '22001') {
       // 刑事案件
       this.props.dispatch(
         routerRedux.push({
           pathname: '/newcaseFiling/caseData/CriminalData/caseDetail',
-          query: { id: areaDetails.ajxx.system_id, record: areaDetails },
+          query: { id: UnareaDetail.ajxx.system_id, record: UnareaDetail },
         }),
       );
       // const divs = (
@@ -917,12 +940,12 @@ export default class unareaDetail extends PureComponent {
       // );
       // const AddNewDetail = { title: '刑事案件详情', content: divs, key: ajbh };
       // this.props.newDetail(AddNewDetail);
-    } else if (areaDetails.ajxx.ajlx === '22002') {
+    } else if (UnareaDetail.ajxx.ajlx === '22002') {
       // 行政案件
       this.props.dispatch(
         routerRedux.push({
           pathname: '/newcaseFiling/caseData/AdministrationData/caseDetail',
-          query: { id: areaDetails.ajxx.system_id, record: areaDetails },
+          query: { id: UnareaDetail.ajxx.system_id, record: UnareaDetail },
         }),
       );
       // const divs = (
@@ -1187,6 +1210,11 @@ export default class unareaDetail extends PureComponent {
       payload: {
         handleareaNum: UnareaDetail.rqxx[0].haNum,
         personId: UnareaDetail.rqxx[0].person_id,
+      },
+      callback: data => {
+        if(data.error!==null&&!data.data){
+          message.error(data.error);
+        }
       },
     });
   };
@@ -1457,7 +1485,10 @@ export default class unareaDetail extends PureComponent {
           >
             {UnareaDetail && UnareaDetail.trackList && UnareaDetail.trackList.length > 0
               ? UnareaDetail.trackList.map(pane => (
-                  <Step title={this.Title(pane.room_name, pane.begin_time, pane.end_time, pane)} description={this.descrip(pane)} />
+                  <Step
+                    title={this.Title(pane.room_name, pane.begin_time, pane.end_time, pane)}
+                    description={this.descrip(pane)}
+                  />
                 ))
               : ''}
           </Steps>
@@ -1506,13 +1537,21 @@ export default class unareaDetail extends PureComponent {
                       ? nophoto
                       : nophotoLight
                   }
-                  style={{ width: '100%' }}
+                  width="120"
                   alt="暂无图片显示"
                 />
               </div>
             </Col>
             <Col md={21} sm={24} style={{ paddingLeft: '24px' }}>
               <Row gutter={{ md: 8, lg: 24, xl: 48 }}>
+                  <Col md={5} sm={24}>
+                      <div className={styles.Indexfrom}>人员类型：</div>
+                      <div className={styles.Indextail}>
+                          {UnareaDetail && UnareaDetail.ryxx && UnareaDetail.ryxx.salx_mc
+                              ? UnareaDetail.ryxx.salx_mc
+                              : ''}
+                      </div>
+                  </Col>
                 <Col md={5} sm={24}>
                   <div className={styles.Indexfrom}>姓名：</div>
                   <div className={styles.Indextail} style={{ paddingLeft: '42px' }}>
@@ -1528,7 +1567,7 @@ export default class unareaDetail extends PureComponent {
                     </a>
                   </div>
                 </Col>
-                <Col md={5} sm={24}>
+                <Col md={4} sm={24}>
                   <div className={styles.Indexfrom}>年龄：</div>
                   <div className={styles.Indextail} style={{ paddingLeft: '42px' }}>
                     {UnareaDetail && UnareaDetail.ryxx && UnareaDetail.ryxx.age
@@ -1544,7 +1583,7 @@ export default class unareaDetail extends PureComponent {
                       : ''}
                   </div>
                 </Col>
-                <Col md={5} sm={24}>
+                <Col md={6} sm={24}>
                   <div className={styles.Indexfrom}>证件号码：</div>
                   <div className={styles.Indextail}>
                     {UnareaDetail && UnareaDetail.ryxx && UnareaDetail.ryxx.zjhm
@@ -1552,20 +1591,12 @@ export default class unareaDetail extends PureComponent {
                       : ''}
                   </div>
                 </Col>
-                <Col md={5} sm={24}>
-                  <div className={styles.Indexfrom}>人员类型：</div>
-                  <div className={styles.Indextail}>
-                    {UnareaDetail && UnareaDetail.ryxx && UnareaDetail.ryxx.salx_mc
-                      ? UnareaDetail.ryxx.salx_mc
-                      : ''}
-                  </div>
-                </Col>
               </Row>
               <Row>
                 <Col md={24} sm={24}>
-                  <Card title="涉案信息" className={styles.saxxCard}>
+                  <Card title="当前涉案信息" className={styles.saxxCard}>
                     <Row gutter={{ md: 8, lg: 16, xl: 24 }}>
-                      <Col md={6} sm={24}>
+                      <Col md={8} sm={24}>
                         <div className={styles.Indexfrom}>案件编号：</div>
                         <div className={styles.Indextail}>
                           {UnareaDetail && UnareaDetail.ajxx && UnareaDetail.ajxx.ajbh ? (
@@ -1584,7 +1615,7 @@ export default class unareaDetail extends PureComponent {
                           )}
                         </div>
                       </Col>
-                      <Col md={6} sm={24}>
+                      <Col md={8} sm={24}>
                         <div className={styles.Indexfrom}>案件名称：</div>
                         <div className={styles.Indextail}>
                           {UnareaDetail && UnareaDetail.ajxx && UnareaDetail.ajxx.ajmc
@@ -1592,7 +1623,17 @@ export default class unareaDetail extends PureComponent {
                             : ''}
                         </div>
                       </Col>
-                      <Col md={6} sm={24}>
+                        <Col md={8} sm={24}>
+                            <div className={styles.Indexfrom}>
+                                案件类型：
+                            </div>
+                            <div className={styles.Indextail}>
+                                {UnareaDetail && UnareaDetail.ajxx && UnareaDetail.ajxx.ajxz
+                                    ? UnareaDetail.ajxx.ajxz
+                                    : ''}
+                            </div>
+                        </Col>
+                      <Col md={8} sm={24}>
                         <div className={styles.Indexfrom}>案件状态：</div>
                         <div className={styles.Indextail}>
                           {UnareaDetail && UnareaDetail.ajxx && UnareaDetail.ajxx.ajzt
@@ -1600,7 +1641,7 @@ export default class unareaDetail extends PureComponent {
                             : ''}
                         </div>
                       </Col>
-                      <Col md={6} sm={24}>
+                      <Col md={8} sm={24}>
                         <div className={styles.Indexfrom}>案发时段：</div>
                         <div className={styles.Indextail}>
                           {UnareaDetail &&
@@ -1611,9 +1652,7 @@ export default class unareaDetail extends PureComponent {
                             : ''}
                         </div>
                       </Col>
-                    </Row>
-                    <Row gutter={{ md: 8, lg: 16, xl: 24 }}>
-                      <Col md={6} sm={24}>
+                      <Col md={8} sm={24}>
                         <div className={styles.Indexfrom}>办案单位：</div>
                         <div className={styles.Indextail}>
                           {UnareaDetail && UnareaDetail.ajxx && UnareaDetail.ajxx.bardwmc
@@ -1621,15 +1660,15 @@ export default class unareaDetail extends PureComponent {
                             : ''}
                         </div>
                       </Col>
-                      <Col md={6} sm={24}>
+                      <Col md={8} sm={24}>
                         <div className={styles.Indexfrom}>办案人：</div>
-                        <div className={styles.Indextail} style={{ paddingLeft: '56px' }}>
+                        <div className={styles.Indextail} style={{ paddingLeft: '66px' }}>
                           {UnareaDetail && UnareaDetail.ajxx && UnareaDetail.ajxx.barxm
                             ? UnareaDetail.ajxx.barxm
                             : ''}
                         </div>
                       </Col>
-                      <Col md={12} sm={24}>
+                      <Col md={16} sm={24}>
                         <div className={styles.Indexfrom}>案发地点：</div>
                         <div className={styles.Indextail}>
                           {UnareaDetail && UnareaDetail.ajxx && UnareaDetail.ajxx.afdd

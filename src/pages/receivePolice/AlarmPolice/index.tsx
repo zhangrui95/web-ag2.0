@@ -249,7 +249,7 @@ export default class Index extends PureComponent {
             type: 'common/getDictType',
             payload: {
                 appCode: window.configUrl.appCode,
-                code: '2068',
+                code: '206800',//2068
             },
             callback: data => {
                 if (data) {

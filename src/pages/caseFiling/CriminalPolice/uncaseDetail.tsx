@@ -611,7 +611,6 @@ export default class uncaseDetail extends PureComponent {
                 pagination={
                     sawpList.length > 0
                         ? {
-                            size: 'small',
                             pageSize: 8,
                             showTotal: (total, range) => (
                                 <div style={{color: '#b7b7b7'}}>
