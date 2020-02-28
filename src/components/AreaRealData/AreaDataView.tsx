@@ -150,17 +150,18 @@ export default class ItemDataView extends PureComponent {
                 currentType = currentType ? currentType : this.state.currentType;
                 let type = this.state.type;
                 let rqtype = '';
-                if (type === 'now') {
-                    currentType = nextProps.searchType === 'week' ? 'week' : 'month';
-                    rqtype = currentType === 'week' ? '3' : '6';
-                } else if (type === 'last') {
-                    currentType = nextProps.searchType === 'week' ? 'lastWeek' : 'lastMonth';
-                    rqtype = currentType === 'lastWeek' ? '4' : '7';
-                } else if (type === 'beforeLast') {
-                    currentType = nextProps.searchType === 'week' ? 'beforeLastWeek' : 'beforeLastMonth';
-                    rqtype = currentType === 'beforeLastWeek' ? '5' : '8';
+                if(this.props.global.dark !== nextProps.global.dark){
+                    if (type === 'now') {
+                        currentType = nextProps.searchType === 'week' ? 'week' : 'month';
+                        rqtype = currentType === 'week' ? '3' : '6';
+                    } else if (type === 'last') {
+                        currentType = nextProps.searchType === 'week' ? 'lastWeek' : 'lastMonth';
+                        rqtype = currentType === 'lastWeek' ? '4' : '7';
+                    } else if (type === 'beforeLast') {
+                        currentType = nextProps.searchType === 'week' ? 'beforeLastWeek' : 'beforeLastMonth';
+                        rqtype = currentType === 'beforeLastWeek' ? '5' : '8';
+                    }
                 }
-                console.log('rqtype-------->',rqtype)
                 this.setState({
                     chooseBaqName: null,
                 });
@@ -448,9 +449,13 @@ export default class ItemDataView extends PureComponent {
                                             value: data.list.length === 0 ? 0 : data1[0].count2,
                                         },
                                         {
-                                            name: '临时离开',
+                                            name: '临时离区',
                                             icon: 'circle',
                                             value: data.list.length === 0 ? 0 : data1[0].count3,
+                                        }, {
+                                            name: '返回办案区',
+                                            icon: 'circle',
+                                            value: data.list.length === 0 ? 0 : data1[0].count4,
                                         },
                                     ];
                                     const seriesData = [
@@ -469,10 +474,16 @@ export default class ItemDataView extends PureComponent {
                                             },
                                         },
                                         {
-                                            name: '临时离开',
+                                            name: '临时离区',
                                             value: data.list.length === 0 ? 0 : data1[0].count3,
                                             itemStyle: {
                                                 color: colors1[2],
+                                            },
+                                        },{
+                                            name: '返回办案区',
+                                            value: data.list.length === 0 ? 0 : data1[0].count4 ? data1[0].count4 : 0,
+                                            itemStyle: {
+                                                color: colors1[5],
                                             },
                                         },
                                     ];
@@ -796,6 +807,7 @@ export default class ItemDataView extends PureComponent {
                     center: ['30%', '50%'],
                     radius: ['50%', '70%'],
                     avoidLabelOverlap: false,
+                    cursor: 'default',
                     label: {
                         normal: {
                             show: true,
@@ -841,7 +853,7 @@ export default class ItemDataView extends PureComponent {
             legend: {
                 orient: 'vertical',
                 right: '7%',
-                top: 90,
+                top: 60,
                 show: true,
                 itemWidth: 10,
                 itemHeight: 10,
@@ -860,7 +872,7 @@ export default class ItemDataView extends PureComponent {
                     name: '访问来源',
                     type: 'pie',
                     center: ['30%', '50%'],
-                    radius: '50%',
+                    radius: '70%',
                     avoidLabelOverlap: false,
                     label: {
                         normal: {
@@ -975,6 +987,17 @@ export default class ItemDataView extends PureComponent {
                     },
                     // data: data,
                     data: [],
+                    label: {
+                        normal: {
+                            show: true,
+                            position: 'top',
+                            formatter: '{c}',
+                            textStyle: {
+                                fontSize: 16,
+                                color: nextProps.global && nextProps.global.dark ? '#fff' : '#4d4d4d',
+                            },
+                        },
+                    },
                 },
             ],
         };
@@ -1216,18 +1239,21 @@ export default class ItemDataView extends PureComponent {
                         SARYRQRCdata.map(item => (
                             <div className={AreaDataViewStyles.IntoPerson}>
                                 <h5>{item.name}</h5>
-                                <div>
-                                    <Tooltip title={`${item.name}入区人数：${parseInt(item.count1) + parseInt(item.count2) + parseInt(item.count3)}`} placement="bottomLeft">
-                                        <Progress
-                                            percent={(`${parseInt(item.count1) + parseInt(item.count2) + parseInt(item.count3)}`/ parseInt(SARYRQRCTotal)) * 100}
-                                            status={
-                                                item.orgid === chooseBaq && chooseBaq !== '' ? 'exception' : 'active'
-                                            }
-                                            strokeWidth={16}
-                                            className={AreaDataViewStyles.Progress}
-                                            onClick={() => this.chooseBaq(item)}
-                                        />
-                                    </Tooltip>
+                                <div className={AreaDataViewStyles.ProgressBox}>
+                                    <div className={styles.box}>
+                                        <Tooltip title={`${item.name}入区人数：${parseInt(item.count1) + parseInt(item.count2) + parseInt(item.count3)}`} placement="bottomLeft">
+                                            <Progress
+                                                percent={(`${parseInt(item.count1) + parseInt(item.count2) + parseInt(item.count3)}`/ parseInt(SARYRQRCTotal)) * 100}
+                                                // status={
+                                                //     item.orgid === chooseBaq && chooseBaq !== '' ? 'exception' : 'active'
+                                                // }
+                                                strokeWidth={16}
+                                                className={AreaDataViewStyles.Progress}
+                                                onClick={() => this.chooseBaq(item)}
+                                            />
+                                        </Tooltip>
+                                    </div>
+                                    <span className={styles.numBox}>{parseInt(item.count1) + parseInt(item.count2) + parseInt(item.count3)}</span>
                                 </div>
                             </div>
                         ))}
@@ -1345,7 +1371,7 @@ export default class ItemDataView extends PureComponent {
                                         paddingLeft: 10,
                                     }}
                                 >性别统计</span></div>
-                                <div id="rycf" className={styles.cardBox} style={{height: '350px',marginLeft:'3%'}}></div>
+                                <div id="rycf" className={styles.cardBox} style={{height: '350px',marginLeft:'3%',padding:'25px 0'}}></div>
                                 {/*</div>*/}
                             </Col>
                             <Col {...colLayout2}>

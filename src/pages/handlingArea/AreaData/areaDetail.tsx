@@ -59,6 +59,7 @@ import noList from '@/assets/viewData/noList.png';
 import { routerRedux } from 'dva/router';
 import noListLight from '@/assets/viewData/noListLight.png';
 import { tableList } from '@/utils/utils';
+import DetailShow from "@/components/Common/detailShow";
 
 const FormItem = Form.Item;
 const { Step } = Steps;
@@ -184,7 +185,9 @@ export default class areaDetail extends PureComponent {
       let res = {
           system_id: areaDetails.system_id,
           id: areaDetails.id,
-          zrdwList:areaDetails.zrdwList
+          zrdwList:areaDetails.zrdwList,
+          ajbh:areaDetails.ajbh,
+          ajmc:areaDetails.ajmc,
       }
     if (areaDetails) {
       this.props.dispatch(
@@ -428,23 +431,24 @@ export default class areaDetail extends PureComponent {
   };
   // 台账
   Ledger = res => {
-      let record = {
-          system_id: res.system_id,
-          id: res.id
-      }
-    this.props.dispatch(
-      routerRedux.push({
-        pathname: '/ModuleAll/PersonLedger',
-        query: {
-          record: record,
-          id: res && res.system_id ? res.system_id : '1',
-          // from: this.state.lx,
-          // tzlx: this.state.tzlx,
-          // fromPath: '/handlingArea/AreaData',
-          // tab: '表格',
-        },
-      }),
-    );
+      // let record = {
+      //     system_id: res.system_id,
+      //     id: res.id
+      // }
+      window.open(`${window.configUrl.baqRaqUrl}showReport3.jsp?rpx=TZ-HLJ.rpx&personId=${res && res.system_id ? res.system_id : this.state.record.system_id ? this.state.record.system_id :''}`);
+    // this.props.dispatch(
+    //   routerRedux.push({
+    //     pathname: '/ModuleAll/PersonLedger',
+    //     query: {
+    //       record: record,
+    //       id: res && res.system_id ? res.system_id : '1',
+    //       // from: this.state.lx,
+    //       // tzlx: this.state.tzlx,
+    //       // fromPath: '/handlingArea/AreaData',
+    //       // tab: '表格',
+    //     },
+    //   }),
+    // );
   };
 
   Topdetail() {
@@ -576,7 +580,7 @@ export default class areaDetail extends PureComponent {
         roomName: paneData.room_name,
       },
       callback:(data)=>{
-        if(data.error!==null){
+        if(data.error&&data.error!==null){
           message.error(data.error);
         }
       }
@@ -1016,7 +1020,7 @@ export default class areaDetail extends PureComponent {
         personId: areaDetails.rqxx[0].person_id,
       },
       callback:(data)=>{
-        if(data.error!==null){
+        if(data.error!==null&&!data.data){
           message.error(data.error);
         }
       }
@@ -1555,7 +1559,7 @@ export default class areaDetail extends PureComponent {
                 <Col md={24} sm={24}>
                   <Card title="当前涉案信息" className={styles.dqsaxxCard}>
                     <Row>
-                      <Col md={6} sm={24}>
+                      <Col md={8} sm={24}>
                         {/*<Row className={liststyles.JzInfoDiv} style={{marginBottom:0}}>*/}
                         {/*<Col sm={24} md={6} xl={6}>案件编号：</Col>*/}
                         {/*<Col sm={24} md={18} xl={18}>*/}
@@ -1577,13 +1581,13 @@ export default class areaDetail extends PureComponent {
                         <div className={liststyles.Indexfrom} style={{ left: 12, top: 0 }}>
                           案件编号：
                         </div>
-                        <div className={liststyles.Indextail} style={{ paddingLeft: 84 }}>
+                        <div className={liststyles.Indextail} style={{ paddingLeft: 84,marginBottom:12 }}>
                           {areaDetails && areaDetails.ajxx && areaDetails.ajxx.ajbh
                             ? areaDetails.ajxx.ajbh
                             : ''}
                         </div>
                       </Col>
-                      <Col md={6} sm={24}>
+                      <Col md={8} sm={24}>
                         {/*<Row className={liststyles.JzInfoDiv} style={{marginBottom:0}}>*/}
                         {/*<Col sm={24} md={6} xl={6}>案件名称：</Col>*/}
                         {/*<Col sm={24} md={18} xl={18}>*/}
@@ -1593,13 +1597,13 @@ export default class areaDetail extends PureComponent {
                         <div className={liststyles.Indexfrom} style={{ left: 12, top: 0 }}>
                           案件名称：
                         </div>
-                        <div className={liststyles.Indextail} style={{ paddingLeft: 84 }}>
+                        <div className={liststyles.Indextail} style={{ paddingLeft: 84,marginBottom:12 }}>
                           {areaDetails && areaDetails.ajxx && areaDetails.ajxx.ajmc
                             ? areaDetails.ajxx.ajmc
                             : ''}
                         </div>
                       </Col>
-                      <Col md={6} sm={24}>
+                      <Col md={8} sm={24}>
                         {/*<Row className={liststyles.JzInfoDiv} style={{marginBottom:0}}>*/}
                         {/*<Col sm={24} md={6} xl={6}>案件类型：</Col>*/}
                         {/*<Col sm={24} md={18} xl={18}>*/}
@@ -1609,13 +1613,13 @@ export default class areaDetail extends PureComponent {
                         <div className={liststyles.Indexfrom} style={{ left: 12, top: 0 }}>
                           案件类型：
                         </div>
-                        <div className={liststyles.Indextail} style={{ paddingLeft: 84 }}>
+                        <div className={liststyles.Indextail} style={{ paddingLeft: 84,marginBottom:12 }}>
                           {areaDetails && areaDetails.ajxx && areaDetails.ajxx.ajxz
                             ? areaDetails.ajxx.ajxz
                             : ''}
                         </div>
                       </Col>
-                      <Col md={6} sm={24}>
+                      <Col md={8} sm={24}>
                         {/*<Row className={liststyles.JzInfoDiv} style={{marginBottom:0}}>*/}
                         {/*<Col sm={24} md={6} xl={6}>案件状态：</Col>*/}
                         {/*<Col sm={24} md={18} xl={18}>*/}
@@ -1625,13 +1629,58 @@ export default class areaDetail extends PureComponent {
                         <div className={liststyles.Indexfrom} style={{ left: 12, top: 0 }}>
                           案件状态：
                         </div>
-                        <div className={liststyles.Indextail} style={{ paddingLeft: 84 }}>
+                        <div className={liststyles.Indextail} style={{ paddingLeft: 84,marginBottom:12 }}>
                           {areaDetails && areaDetails.ajxx && areaDetails.ajxx.ajzt
                             ? areaDetails.ajxx.ajzt
                             : ''}
                         </div>
                       </Col>
+                        <Col md={8} sm={24}>
+                            <div className={liststyles.Indexfrom} style={{ left: 12, top: 0 }}>案发时段：</div>
+                            <div className={liststyles.Indextail} style={{ paddingLeft: 84,marginBottom:12 }}>
+                                {areaDetails &&
+                                areaDetails.ajxx &&
+                                areaDetails.ajxx.fasjsx &&
+                                areaDetails.ajxx.fasjxx
+                                    ? areaDetails.ajxx.fasjsx + '~' + areaDetails.ajxx.fasjxx
+                                    : ''}
+                            </div>
+                        </Col>
+                        <Col md={8} sm={24}>
+                            <div className={liststyles.Indexfrom} style={{ left: 12, top: 0 }}>办案单位：</div>
+                            <div className={liststyles.Indextail} style={{ paddingLeft: 84,marginBottom:12 }}>
+                                {areaDetails && areaDetails.ajxx && areaDetails.ajxx.bardwmc
+                                    ? areaDetails.ajxx.bardwmc
+                                    : ''}
+                            </div>
+                        </Col>
+                        <Col md={8} sm={24}>
+                            <div className={liststyles.Indexfrom} style={{ left: 12, top: 0 }}>办案人：</div>
+                            <div className={liststyles.Indextail} style={{ paddingLeft: '66px' }}>
+                                {areaDetails && areaDetails.ajxx && areaDetails.ajxx.barxm
+                                    ? areaDetails.ajxx.barxm
+                                    : ''}
+                            </div>
+                        </Col>
+                        <Col md={16} sm={24}>
+                            <div className={liststyles.Indexfrom} style={{ left: 12, top: 0 }}>案发地点：</div>
+                            <div className={liststyles.Indextail} style={{ paddingLeft: 84,marginBottom:12 }}>
+                                {areaDetails && areaDetails.ajxx && areaDetails.ajxx.afdd
+                                    ? areaDetails.ajxx.afdd
+                                    : ''}
+                            </div>
+                        </Col>
                     </Row>
+                      <Row gutter={{ md: 8, lg: 16, xl: 24 }}>
+                          <Col md={24} sm={24}>
+                              <div className={liststyles.Indexfrom} style={{ left: 24, top: 0 }}>简要案情：</div>
+                              <DetailShow
+                                  paddingLeft={84}
+                                  word={areaDetails && areaDetails.jyaq ? areaDetails.jyaq : ''}
+                                  {...this.props}
+                              />
+                          </Col>
+                      </Row>
                   </Card>
                 </Col>
               </Row>
@@ -1656,7 +1705,7 @@ export default class areaDetail extends PureComponent {
                   <div className={liststyles.Indexfrom} style={{ top: 0 }}>
                     办案区名称：
                   </div>
-                  <div className={liststyles.Indextail} style={{ paddingLeft: 84 }}>
+                  <div className={liststyles.Indextail} style={{ paddingLeft: 84,marginBottom:12 }}>
                     {areaDetails &&
                     areaDetails.rqxx &&
                     areaDetails.rqxx.length > 0 &&

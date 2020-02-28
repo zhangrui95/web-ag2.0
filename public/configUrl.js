@@ -6,13 +6,13 @@ const onlineips = {
 };
 // 开发服务模式
 const developips = {
-  ip: 'http://192.168.104.233', // 92
-  baqIp: 'http://192.169.40.1', // 办案区服务地址
+  ip: 'http://192.168.3.92', // 92
+  baqIp: 'http://192.168.41.249', // 办案区服务地址
   maintainIp: 'http://192.168.3.92', // 运维中心地址
   aqzxIp: 'http://192.168.3.92', // 安全中心地址
   TbtjDcIp: 'http://192.168.3.245', // 图表统计导出功能地址
   downLoadIp: 'http://192.168.3.201', // 下载地址
-  jz: 'http://192.168.3.116',
+  jz: 'http://192.168.3.116',//卷宗
 };
 const ips = developModa ? developips : onlineips; // ip地址
 // 通用配置项[需配置]
@@ -21,7 +21,7 @@ const configItem = {
   sysName: '智慧法制案管系统',
   headName: '智慧法制案管系统', // 左侧导航顶部显示名称
   footName: '哈尔滨海邻科信息技术有限公司',
-  version: 'r2.0.0.20191226', // 版本号
+  version: 'r2.0.0.20200227', // 版本号
   sid: '591b1586-681e-4fce-a9b9-2c9c36717224', // 系统资源ID
   showDataTitle: '', // 大屏展示标题
   mapCityName: '', // 大屏展示地图名称（可配置项： mudanjiang/ hulunbeier/baishan/hebi/erduosi/guiLin）

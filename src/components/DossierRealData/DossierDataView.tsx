@@ -24,6 +24,7 @@ import {connect} from "dva";
 import noListLight from "@/assets/viewData/noListLight.png";
 import {marginLeft} from "html2canvas/dist/types/css/property-descriptors/margin";
 import {getDefaultDays, getDefaultDaysForWeek, getDefaultMonths, getDefaultWeeks, getDefaultYears} from "@/utils/utils";
+import AreaDataViewStyles from "@/components/AreaRealData/AreaDataView.less";
 
 let itemEchartpictorialBar;
 let itemEchartRingPie;
@@ -91,15 +92,17 @@ export default class DossierDataView extends PureComponent {
                 currentType = currentType ? currentType : this.state.currentType;
                 let type = this.state.type;
                 let rqtype = '';
-                if (type === 'now') {
-                    currentType = nextProps.searchType === 'week' ? 'week' : 'month';
-                    rqtype = currentType === 'week' ? '3' : '6';
-                } else if (type === 'last') {
-                    currentType = nextProps.searchType === 'week' ? 'lastWeek' : 'lastMonth';
-                    rqtype = currentType === 'lastWeek' ? '4' : '7';
-                } else if (type === 'beforeLast') {
-                    currentType = nextProps.searchType === 'week' ? 'beforeLastWeek' : 'beforeLastMonth';
-                    rqtype = currentType === 'beforeLastWeek' ? '5' : '8';
+                if(this.props.global.dark !== nextProps.global.dark){
+                    if (type === 'now') {
+                        currentType = nextProps.searchType === 'week' ? 'week' : 'month';
+                        rqtype = currentType === 'week' ? '3' : '6';
+                    } else if (type === 'last') {
+                        currentType = nextProps.searchType === 'week' ? 'lastWeek' : 'lastMonth';
+                        rqtype = currentType === 'lastWeek' ? '4' : '7';
+                    } else if (type === 'beforeLast') {
+                        currentType = nextProps.searchType === 'week' ? 'beforeLastWeek' : 'beforeLastMonth';
+                        rqtype = currentType === 'beforeLastWeek' ? '5' : '8';
+                    }
                 }
                 if (nextProps.searchType === 'week') {
                     this.setState({
@@ -514,7 +517,7 @@ export default class DossierDataView extends PureComponent {
                                 fontWeight: 'normal',
                                 color: this.props.global && this.props.global.dark ? '#fff' : '#4d4d4d'
                             },
-                            x: '29%',
+                            x: '28.5%',
                             y: '40%',
                             padding: 7,
                             textAlign: 'center',
@@ -649,6 +652,17 @@ export default class DossierDataView extends PureComponent {
                     },
                     // data: newData1,
                     data: [],
+                    label: {
+                        normal: {
+                            show: true,
+                            position: 'top',
+                            formatter: '{c}',
+                            textStyle: {
+                                fontSize: 16,
+                                color: nextProps.global && nextProps.global.dark ? '#fff' : '#4d4d4d',
+                            },
+                        },
+                    },
                 },
             ],
         };
@@ -931,8 +945,8 @@ export default class DossierDataView extends PureComponent {
             const dataTime = currentType === 'selectedDate' ? that.props.selectedDateVal : that.getTime(currentType);
             that.props.changeToListPage({
                 dzh: params.name === '有电子卷' ? '1' : params.name === '无电子卷' ? '0' : params.name,
-                timeName: 'ljsj',
-            }, dataTime);
+                // timeName: 'ljsj',
+        }, dataTime);
         });
     };
 
@@ -1028,13 +1042,16 @@ export default class DossierDataView extends PureComponent {
                                             {ZkjzData.map((item) =>
                                                 <div onClick={() => this.goList(item.name)} style={{cursor: 'pointer'}}>
                                                     <div className={styles.progressName}>{item.name}</div>
-                                                    <div className={styles.progressCount}>
-                                                        <Tooltip title={item.name + ':' + item.count}>
-                                                            <Progress
-                                                                percent={Math.round((item.count / ZkjzTotal) * 100)}
-                                                                status="active" format={percent => `${percent}%`}
-                                                                strokeColor={'#2092fb'} strokeWidth={16}/>
-                                                        </Tooltip>
+                                                        <div className={styles.progressCount}>
+                                                            <div className={styles.box}>
+                                                            <Tooltip title={item.name + ':' + item.count}>
+                                                                <Progress
+                                                                    percent={Math.round((item.count / ZkjzTotal) * 100)}
+                                                                    // status="active" format={percent => `${percent}%`}
+                                                                    strokeColor={'#2092fb'} strokeWidth={16}  className={styles.Progress}/>
+                                                            </Tooltip>
+                                                        </div>
+                                                        <span className={styles.numBox}>{item.count}</span>
                                                     </div>
                                                 </div>,
                                             )}

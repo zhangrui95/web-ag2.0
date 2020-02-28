@@ -72,6 +72,8 @@ export default {
         TxryType: [],
         JzCaseStatusType: [], // 卷宗告警问题类型
         XsyjType: [],
+        XzyjType: [],
+        JqyjType: [],
         YSLXType: [], // 要素类型
         itemsCode: [],
         pushMattersDict: [], // 推送事项
@@ -131,21 +133,21 @@ export default {
                     payload: response && response.error === null ? response.data : [],
                 });
             }
-            if (payload.code === '2008') {
+            if (payload.code === '2008' || payload.code === '5308000') {
                 // 获取物品种类
                 yield put({
                     type: 'itemsTypes',
                     payload: response && response.error === null ? response.data : [],
                 });
             }
-            if (payload.code === '501133') {
+            if (payload.code === '501133' || payload.code === '5308000' ) {
                 // 获取物品种类新版
                 yield put({
                     type: 'itemsTypesNew',
                     payload: response && response.error === null ? response.data : [],
                 });
             }
-            if (payload.code === '2016') {
+            if (payload.code === '2016' || payload.code === '20160001') {
                 //获取问题类型
                 yield put({
                     type: 'setProblemTypeDict',
@@ -155,7 +157,7 @@ export default {
                     callback(response);
                 }
             }
-            if (payload.code === '2068') {
+            if (payload.code === '2068' || payload.code === '206800') {
                 //获取警情问题类型
                 yield put({
                     type: 'setjqProblemTypeDict',
@@ -197,7 +199,7 @@ export default {
                     payload: response && response.error === null ? response.data : [],
                 });
             }
-            if (payload.code === '501126') {
+            if (payload.code === '501126' || payload.code === '5315000') {
                 //获取物品状态新版
                 yield put({
                     type: 'setItemStatusS',
@@ -218,14 +220,14 @@ export default {
                     payload: response && response.error === null ? response.data : [],
                 });
             }
-            if (payload.code === '5308') {
+            if (payload.code === '5308'|| payload.code === '5308000') {
                 // 物品种类
                 yield put({
                     type: 'setSearchWpzl',
                     payload: response && response.error === null ? response.data : [],
                 });
             }
-            if (payload.code === '5315') {
+            if (payload.code === '5315' || payload.code === '5315000' ) {
                 // 物品状态
                 yield put({
                     type: 'setSearchWpzt',
@@ -246,7 +248,7 @@ export default {
                     payload: response && response.error === null ? response.data : [],
                 });
             }
-            if (payload.code === '6001') {
+            if (payload.code === '6001' || payload.code === '60010001') {
                 // 告警类型
                 yield put({
                     type: 'returnXzWtlxAjType',
@@ -370,10 +372,24 @@ export default {
                     payload: response && response.error === null ? response.data : [],
                 });
             }
-            if (payload.code === '5007726') {
+            if (payload.code === '5007726' || payload.code === '20160003') {
                 //刑事案件预警
                 yield put({
                     type: 'setXsyj',
+                    payload: response && response.error === null ? response.data : [],
+                });
+            }
+            if (payload.code === '60010003') {
+                //行政案件预警
+                yield put({
+                    type: 'setXzyj',
+                    payload: response && response.error === null ? response.data : [],
+                });
+            }
+            if (payload.code === '5025300') {
+                //行政案件预警
+                yield put({
+                    type: 'setJqyj',
                     payload: response && response.error === null ? response.data : [],
                 });
             }
@@ -902,6 +918,18 @@ export default {
             return {
                 ...state,
                 XsyjType: action.payload,
+            };
+        },
+        setXzyj(state, action) {
+            return {
+                ...state,
+                XzyjType: action.payload,
+            };
+        },
+        setJqyj(state, action) {
+            return {
+                ...state,
+                JqyjType: action.payload,
             };
         },
         setJzCaseStatus(state, action) {

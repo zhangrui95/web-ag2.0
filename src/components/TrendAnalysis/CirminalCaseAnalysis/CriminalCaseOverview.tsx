@@ -192,6 +192,7 @@ export default class CriminalCaseOverview extends PureComponent {
         myChart = echarts.init(document.getElementById('criminalCaseOverview'));
         const {selectedDateStr, yearOnYearDateStr, monthOnMonthDateStr} = this.props;
         const option = {
+            backgroundColor: this.props.global && this.props.global.dark ? '#252c3c' : '#fff',
             tooltip: {
                 trigger: 'axis',
                 axisPointer: {            // 坐标轴指示器，坐标轴触发有效

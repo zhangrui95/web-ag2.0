@@ -1104,7 +1104,6 @@ export default class Home2 extends PureComponent {
                     : this.state.idx === 3
                     ? this.state.pageSizeFollow
                     : this.state.pageSize,
-            size: 'small',
             showQuickJumper: true,
             showTotal: () => (
                 <span className={styles.pagination}>{`共 ${this.state.pageTotal} 条记录 第 ${

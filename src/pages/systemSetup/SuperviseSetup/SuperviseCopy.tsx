@@ -157,7 +157,7 @@ export default class SuperviseCopy extends PureComponent {
         this.props.dispatch({
             type: 'SuperviseSetup/getfyJgd',
             payload: {
-                jgsx_dm: e,
+                jgsx_dm: e&&JSON.parse(e)&&JSON.parse(e).code ? JSON.parse(e).code : '',
                 ssjg_dm: this.state.ssjg_dm,
             },
             callback: res => {
@@ -332,7 +332,7 @@ export default class SuperviseCopy extends PureComponent {
                                             this.state.fyjgsxList.map(event => {
                                                 return (
                                                     <Option
-                                                        value={event.jgsx_dm}
+                                                        value={JSON.stringify({code:event.jgsx_dm,name:event.jgsx_mc})}
                                                     >{`${event.jgsx_mc}(${event.jglx_mc})`}</Option>
                                                 );
                                             })}

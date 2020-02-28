@@ -118,7 +118,7 @@ export default class AdministrativeCaseWarning extends PureComponent {
             },
             legend: {
                 orient: 'vertical',
-                right: '3%',
+                right: '2%',
                 top: '20%',
                 show: true,
                 itemWidth: 10,

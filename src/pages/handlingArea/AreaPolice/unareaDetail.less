@@ -576,7 +576,7 @@
 }
 
 .Indextail {
-  padding-left: 70px;
+  padding-left: 80px;
   word-break: break-all;
   margin-bottom: 12px;
   min-height: 24px;
@@ -624,10 +624,13 @@
 
 .saxxCard {
   border-radius: 10px !important;
-
+  background-color:@body-background!important;
   :global {
     .ant-card-body {
       padding: 12px;
+    }
+    .ant-card-head{
+      border-bottom: 1px solid #252c3c;
     }
   }
 }
@@ -688,6 +691,14 @@
       }
       .ant-steps-item-finish .ant-steps-item-icon > .ant-steps-icon .ant-steps-icon-dot {
         background: #4662d5;
+      }
+    }
+  }
+  .saxxCard{
+    background-color: #fafafa!important;
+    :global {
+      .ant-card-head {
+        border-bottom: 1px solid #e6e6e6;
       }
     }
   }

@@ -199,6 +199,7 @@ export default class AgainstProperty extends PureComponent {
         myChart = echarts.init(document.getElementById('againstPropertyChart'));
         const {selectedDateStr, yearOnYearDateStr, monthOnMonthDateStr} = this.props;
         const option = {
+            backgroundColor: this.props.global && this.props.global.dark ? '#252c3c' : '#fff',
             tooltip: {
                 trigger: 'axis',
                 axisPointer: {            // 坐标轴指示器，坐标轴触发有效
@@ -249,6 +250,7 @@ export default class AgainstProperty extends PureComponent {
     showHurtBar = (shanghaiBarData, xData) => {
         hurtBar = echarts.init(document.getElementById('hurtBar'));
         const option = {
+            backgroundColor: this.props.global && this.props.global.dark ? '#252c3c' : '#fff',
             color: ['#3AA0FF', '#DCCA23', '#31BD74'],
             xAxis: {
                 data: xData,

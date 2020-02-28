@@ -54,10 +54,19 @@ export default class DossierCount extends PureComponent {
                         num = num + parseInt(dataList[i].count1) + parseInt(dataList[i].count2);
                     }
                     this.props.getAllNum(this.props.idx, num, '卷宗数量');
+                    let yAxis = {min:0};
+                    let newDataNum = barData1.concat(barData2);
+                    let yMax = Math.max(...newDataNum);
+                    if (yMax < 5) {
+                        yAxis.max = 5;
+                    }else{
+                        yAxis.max = yMax;
+                    }
                     myChart.setOption({
                         xAxis: {
                             data: xData,
                         },
+                        yAxis:yAxis,
                         series: [{
                             data: barData1,
                         }, {

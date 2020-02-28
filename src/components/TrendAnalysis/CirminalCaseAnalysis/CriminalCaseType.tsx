@@ -174,6 +174,11 @@ export default class CriminalCaseType extends PureComponent {
         myChart = echarts.init(document.getElementById('criminalCaseType'));
         const {selectedDateStr, yearOnYearDateStr, monthOnMonthDateStr} = this.props;
         const option = {
+            backgroundColor: this.props.global && this.props.global.dark ? '#252c3c' : '#fff',
+            grid:{
+                x:80,
+                x2:180,
+            },
             tooltip: {
                 trigger: 'axis',
                 axisPointer: {            // 坐标轴指示器，坐标轴触发有效
@@ -265,7 +270,7 @@ export default class CriminalCaseType extends PureComponent {
             <Spin spinning={loadingData} size="large" tip="数据加载中...">
                 <div className={styles.analysis}>
                     <AnalysisTitleArea analysisTitle="类型分析" {...this.props} />
-                    <div id="criminalCaseType" style={{height: 300, paddingRight: 70}}
+                    <div id="criminalCaseType" style={{height: 300}}
                          className={this.props.global && this.props.global.dark ? '' : styles.lightChartBox}/>
                     <div className={styles.buttonOnChartArea}>
                         <Button type={caseType === 'blaj' ? 'primary' : 'dashed'} size="large"

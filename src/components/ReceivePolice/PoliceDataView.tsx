@@ -127,18 +127,20 @@ export default class PoliceDataView extends PureComponent {
         currentType = currentType ? currentType : this.state.currentType;
           let type = this.state.type;
           let rqtype = '';
-          if (type === 'now') {
-              rqtype = nextProps.searchType === 'day' ? 'today' : nextProps.searchType === 'week' ? 'week' : 'month';
-          } else if (type === 'last') {
-              rqtype =
-                  nextProps.searchType === 'day' ? 'lastDay' : nextProps.searchType === 'week' ? 'lastWeek' : 'lastMonth';
-          } else if (type === 'beforeLast') {
-              rqtype =
-                  nextProps.searchType === 'day'
-                      ? 'beforeLastDay'
-                      : nextProps.searchType === 'week'
-                      ? 'beforeLastWeek'
-                      : 'beforeLastMonth';
+          if(this.props.global.dark !== nextProps.global.dark){
+              if (type === 'now') {
+                  rqtype = nextProps.searchType === 'day' ? 'today' : nextProps.searchType === 'week' ? 'week' : 'month';
+              } else if (type === 'last') {
+                  rqtype =
+                      nextProps.searchType === 'day' ? 'lastDay' : nextProps.searchType === 'week' ? 'lastWeek' : 'lastMonth';
+              } else if (type === 'beforeLast') {
+                  rqtype =
+                      nextProps.searchType === 'day'
+                          ? 'beforeLastDay'
+                          : nextProps.searchType === 'week'
+                          ? 'beforeLastWeek'
+                          : 'beforeLastMonth';
+              }
           }
         if (nextProps.searchType === 'day') {
           this.getViewCountData('day', nextProps.jjdw, nextProps.cjdw);
@@ -612,6 +614,7 @@ export default class PoliceDataView extends PureComponent {
             series: [
               {
                 data: pieData,
+                  cursor: 'default',
                 label: {
                   normal: {
                     formatter: ``,

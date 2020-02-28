@@ -10,7 +10,7 @@ export function watermark (id) {
     watermark_x: 35, //水印起始位置x轴坐标
     watermark_y: 48, //水印起始位置Y轴坐标
     watermark_rows: 20, //水印行数
-    watermark_cols: 8, //水印列数
+    watermark_cols: 20, //水印列数
     watermark_x_space: 10, //水印x轴间隔
     watermark_y_space: 20, //水印y轴间隔
     watermark_color: '#afafaf', //水印字体颜色

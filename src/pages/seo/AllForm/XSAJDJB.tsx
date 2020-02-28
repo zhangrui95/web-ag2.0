@@ -271,6 +271,7 @@ export default class XSAJDJB extends PureComponent {
                             onChange={this.handleTableChange}
                             columns={columns}
                             dataSource={this.state.data.list}
+                            className={stylescommon.tableBox}
                             scroll={{
                                 x:
                                     this.state.data && this.state.data.list && this.state.data.list.length > 0

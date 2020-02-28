@@ -109,6 +109,7 @@ export default class PersonalDocDetail extends PureComponent {
     };
     // 入区信息详情
     IntoArea = (item) => {
+        item.system_id = item.id;
         this.props.dispatch(
             routerRedux.push({
                 pathname: '/handlingArea/AreaData/areaDetail',

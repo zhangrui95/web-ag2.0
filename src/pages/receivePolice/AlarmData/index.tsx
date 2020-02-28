@@ -776,17 +776,19 @@ export default class Index extends PureComponent {
                             )}
                         </FormItem>
                     </Col>
-                    <Col {...colLayout}>
-                        <FormItem label="处理状态" {...formItemLayout}>
-                            {getFieldDecorator('clzt', {})(
-                                <Select placeholder="请选择处理状态" style={{width: '100%'}}
-                                        getPopupContainer={() => document.getElementById('tableListForm')}>
-                                    <Option value="">全部</Option>
-                                    {handleStatusDictOptions}
-                                </Select>,
-                            )}
-                        </FormItem>
-                    </Col>
+                    {
+                        window.configUrl.is_area === '1' ? <Col {...colLayout}>
+                            <FormItem label="处理状态" {...formItemLayout}>
+                                {getFieldDecorator('clzt', {})(
+                                    <Select placeholder="请选择处理状态" style={{width: '100%'}}
+                                            getPopupContainer={() => document.getElementById('tableListForm')}>
+                                        <Option value="">全部</Option>
+                                        {handleStatusDictOptions}
+                                    </Select>,
+                                )}
+                            </FormItem>
+                        </Col> : ''
+                    }
                 </Row>
 
                 <Row className={styles.search}>

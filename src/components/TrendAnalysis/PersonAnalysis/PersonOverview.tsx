@@ -353,6 +353,7 @@ export default class PersonOverview extends PureComponent {
         const that = this;
         dealSuspectTypeBar = echarts.init(document.getElementById('dealSuspectTypeBar'));
         const option = {
+            backgroundColor: this.props.global && this.props.global.dark ? '#252c3c' : '#fff',
             color: ['#3AA0FF', '#DCCA23', '#31BD74'],
             tooltip: {
                 trigger: 'axis',
@@ -453,6 +454,7 @@ export default class PersonOverview extends PureComponent {
         const that = this;
         suspectCountBar = echarts.init(document.getElementById('suspectCountBar'));
         const option = {
+            backgroundColor: this.props.global && this.props.global.dark ? '#252c3c' : '#fff',
             color: ['#3AA0FF', '#DCCA23', '#31BD74'],
             tooltip: {
                 trigger: 'axis',

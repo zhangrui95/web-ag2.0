@@ -3,7 +3,7 @@
 
 .statistics {
   color: @white;
-
+  min-height: 500px;
   .buttonArea {
     text-align: right;
 
@@ -257,19 +257,22 @@
 
 .lightFromBox {
   :global {
-    .ant-input, .ant-select-selection, .ant-calendar-picker-input {
+    .ant-input,
+    .ant-select-selection,
+    .ant-calendar-picker-input {
       background: #fff;
-      border: 1px solid #DEDEDE!important;
+      border: 1px solid #dedede !important;
     }
 
     .ant-select-selection__choice {
-      background-color: #E6E6E6;
+      background-color: #e6e6e6;
     }
-    .ant-card,.ant-table-wrapper{
+    .ant-card,
+    .ant-table-wrapper {
       background: transparent;
     }
     .ant-table-bordered .ant-table-thead > tr > th {
-      background: #F5F5F5 !important;
+      background: #f5f5f5 !important;
     }
 
     .ant-table {
@@ -284,7 +287,14 @@
       }
     }
   }
-  .listPageWrap{
-    background: #fff!important;
+  .listPageWrap {
+    background: #fff !important;
+  }
+}
+.tableBox{
+  :global{
+    .ant-table-bordered .ant-table-thead > tr > th{
+      text-align: center;
+    }
   }
 }

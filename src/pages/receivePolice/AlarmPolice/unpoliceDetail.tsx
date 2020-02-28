@@ -72,6 +72,7 @@ export default class unpoliceDetail extends PureComponent {
         feedbackVisibleModal: false, // 反馈状态模态框
         feedbackButtonLoading: false, // 反馈按钮加载状态
         isDb: authorityIsTrue(userResourceCodeDb.police), // 督办权限
+        record:{},
     };
 
     componentDidMount() {
@@ -82,14 +83,16 @@ export default class unpoliceDetail extends PureComponent {
         }
         if (res&&resquery) {
             this.getDetail(res);
+            this.setState({
+                record: res
+            });
         }
     }
 
     componentWillReceiveProps(nextProps) {
-      console.log('nextProps',nextProps);
         if (this.props.global.isResetList.isReset !== nextProps.global.isResetList.isReset && nextProps.global.isResetList.url === '/receivePolice/AlarmPolice/unpoliceDetail'
         ) {
-            this.getDetail(nextProps.location.query.record);
+            this.getDetail(nextProps.location.query.record ? nextProps.location.query.record : this.state.record);
         }
     }
 

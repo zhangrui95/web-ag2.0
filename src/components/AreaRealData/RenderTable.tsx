@@ -169,19 +169,20 @@ class RenderTable extends PureComponent {
     });
   };
   Ledger = (res) => {
-    this.props.dispatch(
-      routerRedux.push({
-        pathname: '/ModuleAll/PersonLedger',
-        query: {
-          record: res,
-          id: res && res.system_id ? res.system_id : '1',
-          // from: this.state.lx,
-          // tzlx: this.state.tzlx,
-          // fromPath: '/handlingArea/AreaData',
-          // tab: '表格',
-        },
-      }),
-    );
+      window.open(`${window.configUrl.baqRaqUrl}showReport3.jsp?rpx=TZ-HLJ.rpx&personId=${res && res.system_id ? res.system_id : ''}`);
+    // this.props.dispatch(
+    //   routerRedux.push({
+    //     pathname: '/ModuleAll/PersonLedger',
+    //     query: {
+    //       record: res,
+    //       id: res && res.system_id ? res.system_id : '1',
+    //       // from: this.state.lx,
+    //       // tzlx: this.state.tzlx,
+    //       // fromPath: '/handlingArea/AreaData',
+    //       // tab: '表格',
+    //     },
+    //   }),
+    // );
   };
   render() {
     const { data, loading } = this.props;

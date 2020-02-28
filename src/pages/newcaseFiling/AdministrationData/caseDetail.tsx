@@ -85,6 +85,7 @@ export default class caseDetail extends PureComponent {
       lx: '案件信息',
       sx: '',
       sfgz: res && res.sfgz && res.sfgz === 0 ? res.sfgz : '',
+      tzlx:'xzajxx3',
 
       policevisible: false,
       resvisible: false,
@@ -276,7 +277,7 @@ export default class caseDetail extends PureComponent {
             record: caseDetails,
             id: caseDetails && caseDetails.system_id ? caseDetails.system_id : '1',
             from: '案件信息',
-            tzlx: 'xzajxx3',
+            tzlx: this.state.tzlx,
             fromPath: '/newcaseFiling/caseData/AdministrationData/caseDetail',
             tab: '详情',
             sx:
@@ -299,7 +300,7 @@ export default class caseDetail extends PureComponent {
             tzlx:
               this.props.location && this.props.location.query && this.props.location.query.tzlx
                 ? this.props.location.query.tzlx
-                : '',
+                : this.state.tzlx,
             wtid: caseDetails.wtid,
             ajbh: caseDetails.ajbh,
             system_id: caseDetails.system_id,
