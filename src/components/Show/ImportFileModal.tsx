@@ -113,8 +113,26 @@ class ImportFileModal extends PureComponent {
       type:'Learning/getFormatConvert',
       payload:param?param:'',
       callback:(data)=>{
-        console.log('data',data);
-        this.getInsert();
+        // console.log('data',data);
+        let newObj = [];
+        data.list.map((item)=>{
+          const newObjSty = {
+            zlmc:item.filename,
+            scsj:item.scsj,
+            lx:item.lx,
+            wjdx:item.wjdx,
+            xzlj:item.filepath,
+            yllj:item.yllj,
+          }
+          newObj.push(newObjSty);
+          return newObj
+        })
+        // console.log('newObj',newObj);
+        const afterObjSty = {
+          fbdw:obj.fbdw,
+          wjxx:newObj,
+        }
+        this.getInsert(afterObjSty);
       }
     })
 
@@ -141,8 +159,8 @@ class ImportFileModal extends PureComponent {
 
   handleAlarm = () => {
     const values = this.props.form.getFieldsValue();
-    console.log('values',values);
-    console.log('fileList',this.state.fileList);
+    // console.log('values',values);
+    // console.log('fileList',this.state.fileList);
     if(values.fbdw&&this.state.fileList.length>0){
       this.setState({
         SureModalVisible:true,
@@ -332,7 +350,7 @@ class ImportFileModal extends PureComponent {
         // confirmLoading={this.state.btnLoading}
         width={600}
         maskClosable={false}
-        style={{top: '250px'}}
+        style={{top: '300px'}}
         footer={null}
       >
         <div className={this.props.global && this.props.global.dark ? '' : styles.lightBox}>

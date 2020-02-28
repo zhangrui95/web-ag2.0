@@ -210,7 +210,6 @@ class learningTable extends PureComponent {
       },
     ];
     const rowSelection = {
-
       // selections:checkboxchoose,
       onChange: (selectedRowKeys, selectedRows) => {
         // console.log('selectedRowKeys',selectedRowKeys);
@@ -341,7 +340,7 @@ class learningTable extends PureComponent {
               <iframe
                 // title="集体通案记载表"
                 className={styles.box}
-                src={'http://'+previewRecord.xzlj}
+                src={previewRecord.lx==='文档'?previewRecord.yllj:'http://'+previewRecord.xzlj}
                 width="1170px"
                 height="607px"
               />

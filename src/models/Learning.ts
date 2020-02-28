@@ -43,7 +43,7 @@ export default {
     },
     * getFormatConvert({payload, callback}, {call, put}) {
       const response = yield call(FormatConvertService, payload);
-      console.log('response',response)
+      // console.log('response',response)
       yield put({
         type: 'returnFormatConvert',
         payload: response && response.error === null ? response.data : {},

@@ -41,8 +41,8 @@ const RadioGroup = Radio.Group;
 let timeout;
 let currentValue;
 
-@connect(({Learning,common}) => ({
-  Learning,common,
+@connect(({Learning,common,global}) => ({
+  Learning,common,global,
   // loading: loading.models.alarmManagement,
 }))
 @Form.create()
@@ -174,7 +174,7 @@ export default class Index extends PureComponent {
       content: '',
       okText: '确定',
       cancelText: '取消',
-      style: {top: 200},
+      style: {top: 417},
       onOk() {
         that.delete(deleteId)
       },
@@ -198,7 +198,7 @@ export default class Index extends PureComponent {
         content: '',
         okText: '确定',
         cancelText: '取消',
-        style: {top: 200},
+        style: {top: 417},
         onOk() {
           that.delete(deleteId)
         },
@@ -564,6 +564,7 @@ export default class Index extends PureComponent {
     const {ImportModal} = this.state;
     const {form: {getFieldDecorator}, common: {FbdwTypeData, ZllxTypeData}} = this.props;
     let className = this.props.global && this.props.global.dark ? styles.listPageWrap : styles.listPageWrap + ' ' + styles.lightBox;
+    console.log('dark',this.props)
     return (
       <div className={className}>
         <div className={styles.tableListForm}>

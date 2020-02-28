@@ -27,7 +27,7 @@ export async function DeleteList(params) {
 
 // 文档格式转换
 export async function FormatConvertService(params) {
-  return request(`${configUrl.serverUrl}/getPdfPath`, {
+  return request(`${configUrl.serverUrl}/getPdfPath2`, {
     method: 'POST',
     data: params,
   });
