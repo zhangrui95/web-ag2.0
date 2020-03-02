@@ -785,7 +785,8 @@ export function routes() {
                                     icon: 'icon-jixiaokaoping',
                                     component: './systemSetup/EvaluationSetup',
                                     authority: ['zhag_xtpz_kppz'],
-                                }, {
+                                },
+                                {
                                     path: '/systemSetup/EvaluationSetup/Add',
                                     name: '添加考评配置',
                                     component: './systemSetup/EvaluationSetup/add.tsx',
@@ -796,12 +797,14 @@ export function routes() {
                                     name: '监管点详情',
                                     component: './systemSetup/SuperviseSetup/detail.tsx',
                                     hideInMenu: true,
-                                }, {
+                                },
+                                {
                                     path: '/systemSetup/SuperviseSetup/Add',
                                     name: '添加监管点',
                                     component: './systemSetup/SuperviseSetup/add.tsx',
                                     hideInMenu: true,
-                                }, {
+                                },
+                                {
                                     path: '/systemSetup/SuperviseSetup/Update',
                                     name: '修改监管点',
                                     component: './systemSetup/SuperviseSetup/update.tsx',
@@ -819,6 +822,13 @@ export function routes() {
                                     icon: 'icon-xiaoxixinfengnews',
                                     component: './systemSetup/MessagePush',
                                     authority: ['zhag_xtpz_xxts'],
+                                },
+                                {
+                                    path: '/systemSetup/QuestionBankConfig',
+                                    name: '测评题库配置',
+                                    icon: 'icon-jixiaokaoping',
+                                    component: './systemSetup/QuestionBankConfig',
+                                    // authority: ['zhag_xtpz_tkpz'],
                                 },
                             ],
                         },

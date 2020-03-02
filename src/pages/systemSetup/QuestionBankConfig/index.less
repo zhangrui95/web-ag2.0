@@ -1,0 +1,123 @@
+@import '~antd/lib/style/themes/default.less';
+@import '../../../utils/utils.less';
+@import '../../../theme/darkTheme.less';
+
+.tableListForm {
+  background-color: @component-background;
+  padding: 16px 24px;
+  margin: 16px 0;
+  border-radius: 10px;
+  .submitButtons {
+    white-space: nowrap;
+    margin-bottom: 24px;
+  }
+}
+
+.search {
+  width: 260px;
+  float: left;
+  margin: 10px 0 0 12px;
+}
+
+.searchForm {
+  width: calc(~'100% - 260px');
+  float: left;
+  border-right: 1px solid @body-background;
+  overflow: hidden;
+}
+
+
+
+.listPageWrap {
+  background-color: @body-background;
+
+  .listPageHeader {
+    background: @component-background;
+    padding: 16px 24px;
+    //border: 1px solid #e8e8e8;
+    //border-top: none;
+    position: relative;
+    margin-top: 16px;
+    border-radius: 10px;
+
+    a {
+      font-size: @font-size-lg;
+      color: @heading-color;
+      line-height: 26px;
+
+      &:hover {
+        color: @link-active-color;
+      }
+    }
+
+    .listPageHeaderCurrent {
+      //font-size: @font-size-lg;
+      font-weight: bold;
+      color: @primary-color;
+      span{
+        padding: 0 8px;
+      }
+    }
+
+    .UnlistPageHeaderCurrent {
+      font-weight: bold;
+      color: @title-color;
+    }
+
+    .borderCenter {
+      padding: 0 8px;
+    }
+
+    .typeButtonsArea {
+      float: right;
+
+      button {
+        margin-right: 16px;
+
+        span {
+          padding: 0;
+          line-height: 26px;
+          margin-top: -3px;
+          display: block;
+        }
+      }
+    }
+  }
+}
+
+.lightBox {
+  background-color: transparent;
+
+  .listPageHeader {
+    background: #fff !important;
+    color: #E6E6E6;
+  }
+
+  .listPageHeaderCurrent {
+    color: #3D63D1 !important;
+  }
+
+  .tableListForm {
+    background-color: #fff;
+    border-radius: 10px;
+  }
+
+  .typeButtonsArea {
+    color: #475366 !important;
+  }
+
+  .empty {
+    background: #EBEBEB !important;
+    color: #455365 !important;
+  }
+
+  .searchForm {
+    border-right: 1px solid #DBDBDB !important;
+  }
+
+  .downloadBtn {
+    background: #4662D5;
+    color: #fff;
+    border: 1px solid #4662D5;
+  }
+}

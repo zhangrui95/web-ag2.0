@@ -1,0 +1,173 @@
+@import '~antd/lib/style/themes/default.less';
+@import '../../theme/darkTheme';
+
+.pagination {
+  //position: absolute;
+  //right: 370px;
+  //width: 300px;
+  //text-align: right;
+  color: @white;
+  text-align: right;
+
+  :global {
+    .ant-pagination-total-text {
+      position: absolute;
+      left: 0;
+      color: @text-word-color;
+    }
+  }
+}
+
+.showTable{
+  border-top-left-radius:0!important;
+}
+
+.paginations{
+  color: @white;
+  text-align: right;
+}
+
+.standardTable {
+  //padding: 0 24px;
+  position: relative;
+  min-height: 400px;
+}
+
+
+.radio {
+  //position: relative;
+  //top: -32px;
+  //float: right;
+  :global{
+    .ant-radio-button-wrapper{
+      border: 0 solid #ccc;
+    }
+    .ant-radio-button-wrapper:first-child{
+      border-radius: 4px 0 0 0;
+    }
+    .ant-radio-button-wrapper:last-child{
+      border-radius: 0 4px 0 0 !important;
+    }
+  }
+ }
+
+
+.list {
+  display:inline-block;
+  //width:20%;
+  :hover {
+    .descript {
+      display: none;
+    }
+    .Alldescript {
+      display: block;
+    }
+  }
+}
+
+.ListStyle {
+  position: relative;
+  padding: 0 16px;
+  background-color: @component-background;
+}
+
+.card {
+  position: relative;
+  :global {
+    .ant-card-body{
+      position: relative;
+      cursor :pointer !important;
+    }
+    .ant-card-meta-title {
+      margin-bottom: 12px;
+      & > a {
+        color: @heading-color;
+      }
+    }
+    .ant-card-actions {
+      background: #f7f9fa;
+    }
+    .ant-card-body:hover {
+      .ant-card-meta-title > a {
+        color: @primary-color;
+      }
+    }
+  }
+}
+
+.Rows {
+  padding-bottom: 16px;
+}
+
+.listmes{
+  position: absolute;
+  top: 100px;
+  left: 20px;
+  color: @text-word-color;
+  //padding-bottom:10px;
+}
+
+.CheckGroup{
+  :global{
+    .ant-checkbox-wrapper{
+      width:20%;
+      margin: 0;
+    }
+    .ant-checkbox{
+      position: relative;
+      top: 33px;
+      left: 22px;
+      z-index: 1001;
+    }
+  }
+}
+
+.checkbox{
+  position: relative;
+  z-index: 1;
+}
+
+.show{
+  :global{
+    .ant-modal-header{
+      background-color: #1D276E;
+      //font-size: 16px;
+      height: 60px;
+    }
+    .ant-modal-title{
+      color: #fff;
+      font-size: 26px;
+      line-height: 30px;
+    }
+    .ant-modal-content{
+      width: 1170px;
+      height: 700px;
+      position: relative;
+      left: -400px;
+    }
+    .ant-modal-body{
+      padding: 0;
+    }
+    .ant-modal-close-x{
+      margin-top: 10px;
+      border-radius:100%;
+      background-color: #0F173D;
+      width: 40px;
+      height: 40px;
+      margin-right: 20px;
+      color: #fff;
+      font-size: 20px;
+      text-align: center;
+      line-height: 40px;
+
+    }
+  }
+}
+
+.lightBox{
+  .ListStyle {
+    position: relative;
+    padding: 0 16px;
+    background-color: @text-word-color;
+  }
+}
