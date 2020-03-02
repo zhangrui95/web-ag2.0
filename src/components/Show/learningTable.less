@@ -67,16 +67,16 @@
 
 .ListStyle {
   position: relative;
-  padding: 0 0 24px 0;
-  background-color: @text-word-color;
+  padding: 0 16px;
+  background-color: @component-background;
 }
 
 .card {
   position: relative;
   :global {
     .ant-card-body{
-      cursor :text!important;
       position: relative;
+      cursor :pointer !important;
     }
     .ant-card-meta-title {
       margin-bottom: 12px;
@@ -164,3 +164,10 @@
   }
 }
 
+.lightBox{
+  .ListStyle {
+    position: relative;
+    padding: 0 16px;
+    background-color: @text-word-color;
+  }
+}

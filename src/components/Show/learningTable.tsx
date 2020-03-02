@@ -306,8 +306,10 @@ class learningTable extends PureComponent {
   render() {
     const { data } = this.props;
     const { mode,previewModal,previewRecord } = this.state;
+    console.log('this.props',this.props);
+    let className = this.props.global && this.props.global.dark ? styles.standardTable : styles.standardTable + ' ' + styles.lightBox;
     return (
-      <div className={styles.standardTable}>
+      <div className={className}>
         <Radio.Group onChange={this.handleModeChange} value={mode} className={styles.radio} buttonStyle="solid">
           <Tooltip title="列表展示">
             <Radio.Button value="left">
