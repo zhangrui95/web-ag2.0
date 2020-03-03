@@ -759,6 +759,67 @@ export function routes() {
                                 },
                             ],
                         },
+                      {
+                        name: '音视频管理',
+                        icon: 'icon-yichuligaojing',
+                        path: '/videoManage',
+                        authority: ['zhag_jcj'],
+                        routes: [
+                          {
+                            path: '/videoManage/videoData',
+                            name: '音视频数据',
+                            icon: 'icon-weibiaoti--',
+                            component: './videoManage/videoData',
+                            authority: ['zhag_jcj_jqsj'],
+                          },
+                          {
+                            path: '/videoManage/videoData/videoDetail',
+                            name: '播放',
+                            icon: 'icon-weibiaoti--',
+                            component: './videoManage/videoData/videoDetail',
+                            hideInMenu: true,
+                          },
+                          {
+                            name: '音视频预警',
+                            icon: 'icon-yujing',
+                            path: '/videoManage/Warning',
+                            authority: ['zhag_new_sla_yj'],
+                            routes: [
+                              {
+                                name: '音视频警情预警',
+                                path: '/videoManage/Warning/receiveVideoWarning',
+                                component: './videoManage/receiveVideoWarning',
+                                authority: ['zhag_new_sla_yj_xs'],
+                              },
+                              {
+                                name: '音视频案件预警',
+                                path: '/videoManage/Warning/lawVideoWarning',
+                                component: './videoManage/lawVideoWarning',
+                                authority: ['zhag_new_sla_yj_xz'],
+                              },
+                            ],
+                          },{
+                            name: '音视频告警',
+                            icon: 'icon-yujing',
+                            path: '/videoManage/Police',
+                            authority: ['zhag_new_sla_yj'],
+                            routes: [
+                              {
+                                name: '音视频警情告警',
+                                path: '/videoManage/Police/receiveVideoPolice',
+                                component: './videoManage/receiveVideoPolice',
+                                authority: ['zhag_new_sla_yj_xs'],
+                              },
+                              {
+                                name: '音视频案件告警',
+                                path: '/videoManage/Police/lawVideoPolice',
+                                component: './videoManage/lawVideoPolice',
+                                authority: ['zhag_new_sla_yj_xz'],
+                              },
+                            ],
+                          },
+                        ],
+                      },
                         {
                             name: '系统配置',
                             icon: 'icon-peizhiguanli',
