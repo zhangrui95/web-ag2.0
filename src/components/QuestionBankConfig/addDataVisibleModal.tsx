@@ -77,6 +77,10 @@ export default class addDataVisibleModal extends PureComponent {
 
   }
 
+  // 确认单选题的正确答案
+  onRightAnswer = (e) => {
+
+  }
   render() {
     const {questionType} = this.state;
     const rowLayout = {md: 8, xl: 16, xxl: 24};
@@ -155,6 +159,23 @@ export default class addDataVisibleModal extends PureComponent {
                           // initialValue: this.state.caseType,
                           //rules: [{max: 32, message: '最多输入32个字！'}],
                         })(<Input placeholder="请输入选项4"/>)}
+                      </FormItem>
+                    </Col>
+                  </Row>
+                  <Row gutter={rowLayout}>
+                    <Col sm={24} md={24} xl={12}>
+                      <FormItem label="正确答案" {...formItemLayouts}>
+                        {getFieldDecorator('zqda', {
+                          // initialValue: this.state.caseType,
+                          //rules: [{max: 32, message: '最多输入32个字！'}],
+                        })(
+                          <Radio.Group onChange={this.onRightAnswer}>
+                            <Radio value={1}>选项1</Radio>
+                            <Radio value={2}>选项2</Radio>
+                            <Radio value={3}>选项3</Radio>
+                            <Radio value={4}>选项4</Radio>
+                          </Radio.Group>
+                        )}
                       </FormItem>
                     </Col>
                   </Row>
@@ -271,7 +292,7 @@ export default class addDataVisibleModal extends PureComponent {
                   </Form>
                 </div>
           }
-          <div>
+          <div style={{padding:16}}>
             <Button onClick={() => this.addQuestion()} type="primary" style={{width: '100%', background: '#A3C2FE', border: '1px #6600FF dashed'}}>
               <Icon type="plus" /> 新增题目
             </Button>
