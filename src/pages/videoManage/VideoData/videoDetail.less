@@ -1,3 +1,4 @@
+@import '../../../theme/darkTheme';
 .darkBox,.lightBox{
   border-radius: 10px;
   overflow: hidden;
@@ -5,9 +6,49 @@
 }
 .darkBox{
   background: #252c3c;
+  .qxBtn {
+    background: @body-background !important;
+  }
+  .okBtn {
+    background: linear-gradient(#4662D5, #0083FA, #03A3FF) !important;
+  }
+  :global{
+    .ant-table-thead > tr > th {
+      background: #1A202F !important;
+    }
+    .ant-table {
+      border-radius: 0 !important;
+    }
+    .ant-table-tbody > tr {
+      background: #252C3C;
+      &:nth-child(2n) {
+        background:#1A202F !important;
+      }
+    }
+  }
 }
 .lightBox{
   background: #fff;
+  .qxBtn {
+    background: #B3B3B3 !important;
+  }
+  .okBtn {
+    background: linear-gradient(#3D63D1, #333FE4) !important;
+  }
+  :global{
+    .ant-table-thead > tr > th {
+      background: #F5F5F5 !important;
+    }
+    .ant-table {
+      border-radius: 0 !important;
+    }
+    .ant-table-tbody > tr {
+      background: #fff;
+      &:nth-child(2n) {
+        background: #f5f5fa !important;
+      }
+    }
+  }
 }
 .detailBox{
   overflow: hidden;
@@ -59,4 +100,12 @@
 .addBtn{
   float: right;
   margin-right: 20px;
+}
+.btns{
+  float: right;
+  margin: 20px;
+}
+.searchBox{
+  width: 500px;
+  margin: 0 20px 20px;
 }

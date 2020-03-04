@@ -513,14 +513,14 @@ body {
     .ant-table-placeholder {
       background: @component-background;
       border: @zero;
-      padding: 65px 16px;
+      padding: 16px;
 
       .ant-empty-description {
         color: #999;
       }
     }
 
-    .ant-table-tbody > tr:hover:not(.ant-table-expanded-row) > td {
+    .ant-table-tbody > tr:hover:not(.ant-table-expanded-row) > td,.ant-table-tbody > tr.ant-table-row-hover:not(.ant-table-expanded-row):not(.ant-table-row-selected)> td {
       background-color: @hover-color !important;
     }
 

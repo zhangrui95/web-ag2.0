@@ -786,8 +786,8 @@ export default class Index extends PureComponent {
         const {policeData: {police, loading}} = this.props;
         // console.log('policeData', this.props.policeData);
        let data = {list:[
-         {wj_mc:'20191203打架视频',wjlbmc:'mp4',sprq:'2019-12-03',sply:'询问室',ajmc:'孙军殴打李芳案',ajlb:'殴打他人',badw:'抚顺公安局',bar:'张扬',ajzt:'受案',sfgl:'是'},
-         {wj_mc:'20200121审讯音频',wjlbmc:'mp3',sprq:'2020-01-22',sply:'讯问室',ajmc:'李阳诈骗案',ajlb:'诈骗案',badw:'盘锦公安局',bar:'刘峰',ajzt:'破案',sfgl:'否'},
+         {wj_mc:'20191203打架视频',wjlbmc:'视频',sprq:'2019-12-03',sply:'办案区',ajmc:'孙军殴打李芳案',ajlb:'殴打他人',badw:'抚顺公安局',bar:'张扬',ajzt:'受案',sfgl:'是',ajbh:'A4503305100002019120020',jqbh:'J450330550000201912000033'},
+         {wj_mc:'20200121审讯音频',wjlbmc:'音频',sprq:'2020-01-22',sply:'执法记录仪',ajmc:'李阳诈骗案',ajlb:'诈骗案',badw:'盘锦公安局',bar:'刘峰',ajzt:'破案',sfgl:'否',ajbh:'A4503305700002019120004',jqbh:'J450330070000201912000101'},
          ],page: { showCount: 10,
            totalPage: 1,
            totalResult: 2,

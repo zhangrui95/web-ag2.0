@@ -5,7 +5,7 @@
 * */
 
 import React, {PureComponent} from 'react';
-import {Table, Divider, Tooltip, message, Dropdown, Menu, Row, Col, Card, Empty} from 'antd';
+import {Table, Divider, Tooltip, message, Dropdown, Menu, Row, Col, Card, Empty,Icon} from 'antd';
 import styles from './RenderTable.less';
 import Detail from '../../pages/receivePolice/AlarmData/policeDetail';
 import ShareModal from './../ShareModal/ShareModal';
@@ -31,6 +31,7 @@ class RenderTable extends PureComponent {
             tzlx: 'yspxx',
             sx: '',
             current: 1,
+            allTable: false,
         };
     }
 
@@ -55,6 +56,12 @@ class RenderTable extends PureComponent {
         //     let record = this.props.location.query.record;
         //     this.deatils(record);
         // }
+    }
+
+    getAllTable = () =>{
+        this.setState({
+            allTable: !this.state.allTable,
+        });
     }
 
     deatils = (record) => {
@@ -189,6 +196,8 @@ class RenderTable extends PureComponent {
             {
                 title: '文件名称',
                 dataIndex: 'wj_mc',
+                fixed: 'left',
+                width: 200,
             },
             {
                 title: '文件类别',
@@ -199,7 +208,7 @@ class RenderTable extends PureComponent {
                 dataIndex: 'sprq',
             },
           {
-            title: '视频来源',
+            title: '音视频来源',
             dataIndex: 'sply',
           },{
             title: '案件名称',
@@ -217,11 +226,23 @@ class RenderTable extends PureComponent {
             title: '案件状态',
             dataIndex: 'ajzt'
           },{
-            title: '是否关联',
+            title: <div>是否关联 <Icon type={this.state.allTable ? 'left' : 'right'} className={styles.iconStyle} onClick={this.getAllTable}/></div>,
             dataIndex: 'sfgl',
           },
+          this.state.allTable ? {
+            title: '案件编号',
+            dataIndex: 'ajbh',
+            width: 200,
+          } : {},
+          this.state.allTable ? {
+            title: '警情编号',
+            dataIndex: 'jqbh',
+            width: 210,
+          }: {},
             {
                 title: '操作',
+                fixed: 'right',
+                width: 150,
                 render: (record) => (
                     <div>
                         <a onClick={()=>this.deatils(record)}>播放</a>
@@ -256,6 +277,7 @@ class RenderTable extends PureComponent {
                             emptyText: <Empty image={this.props.global && this.props.global.dark ? noList : noListLight}
                                               description={'暂无数据'}/>
                         }}
+                        scroll={this.state.allTable ? { x: '120%' } : {}}
                     />
                 </Card>
                 {/*<ShareModal*/}
