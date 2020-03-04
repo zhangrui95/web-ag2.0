@@ -1,0 +1,79 @@
+@import '~antd/lib/style/themes/default.less';
+@import '../../../utils/utils.less';
+@import '../../../theme/darkTheme.less';
+
+.tableListForm {
+  background-color: @component-background;
+  padding: 16px 24px;
+  margin: 16px 0;
+  border-radius: 10px;
+  .submitButtons {
+    white-space: nowrap;
+    margin-bottom: 24px;
+  }
+}
+
+.searchForm {
+  width: calc(~'100% - 260px');
+  float: left;
+  border-right: 1px solid @body-background;
+  overflow: hidden;
+}
+
+.search {
+  width: 260px;
+  float: left;
+  margin: 10px 0 0 12px;
+}
+
+.listPageWrap {
+  background-color: @body-background;
+
+  .listPageHeader {
+    background: @component-background;
+    padding: 16px 24px;
+    position: relative;
+    margin-top: 16px;
+    border-radius: 10px;
+  }
+}
+
+.lightBox {
+  background-color: transparent;
+
+  .listPageHeader {
+    background: #fff !important;
+    color: #E6E6E6;
+  }
+
+  .listPageWrap{
+    background: #fff !important;
+    border: 0 solid #ccc !important;
+  }
+
+  .tableListForm {
+    background-color: #fff;
+    border-radius: 10px;
+  }
+
+  .typeButtonsArea {
+    color: #475366 !important;
+  }
+
+  .empty {
+    background: #EBEBEB !important;
+    color: #455365 !important;
+  }
+
+  .searchForm {
+    border-right: 1px solid #DBDBDB !important;
+  }
+
+  .downloadBtn {
+    background: #4662D5;
+    color: #fff;
+    border: 1px solid #4662D5;
+  }
+}
+
+

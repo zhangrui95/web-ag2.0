@@ -1,7 +1,7 @@
 /*
- * QuestionBankConfig/QuestionDefendTable.tsx 题库维护表格
+ * QuestionBankConfig/EvaluateTemplateTable.tsx 测评模板表格
  * author：jhm
- * 20200302
+ * 20200303
  * */
 
 import React, { PureComponent } from 'react';
@@ -19,7 +19,7 @@ import {tableList} from "@/utils/utils";
 @connect(({ global }) => ({
   global,
 }))
-class QuestionDefendTable extends PureComponent {
+class EvaluateTemplateTable extends PureComponent {
   state = {
     selectedRows:[],
     previewRecord:'',
@@ -34,7 +34,7 @@ class QuestionDefendTable extends PureComponent {
     this.props.onChange(pagination, filters, sorter);
   };
 
-  //查看
+  //详情
   playVideo=(record)=>{
     this.setState({
       previewModal:true,
@@ -64,18 +64,13 @@ class QuestionDefendTable extends PureComponent {
         // width: 100,
       },
       {
-        title: '题目类型',
-        dataIndex: 'tmlx',
+        title: '模板名称',
+        dataIndex: 'mbmc',
         // width: 100,
       },
       {
-        title: '题目',
-        dataIndex: 'tm',
-        // width: 100,
-      },
-      {
-        title: '答案解析',
-        dataIndex: 'dajx',
+        title: '模板概况',
+        dataIndex: 'mbgk',
         // width: 100,
       },
       {
@@ -149,4 +144,4 @@ class QuestionDefendTable extends PureComponent {
   }
 }
 
-export default QuestionDefendTable;
+export default EvaluateTemplateTable;

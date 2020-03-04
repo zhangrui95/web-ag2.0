@@ -23,8 +23,9 @@ import {
 import moment from 'moment/moment';
 import styles from './index.less';
 import QuestionDefendTable from '../../../components/QuestionBankConfig/QuestionDefendTable';
+import AddDataVisibleModal from '../../../components/QuestionBankConfig/addDataVisibleModal';
 import {exportListDataMaxDays, getUserInfos, tableList} from '../../../utils/utils';
-// import EvaluateTemplate from './EvaluateTemplate';
+import EvaluateTemplate from './EvaluateTemplate';
 
 
 const FormItem = Form.Item;
@@ -48,14 +49,10 @@ export default class Index extends PureComponent {
   state = {
     formValues: {},
     showDataView: true, // 控制显示图表或者列表（true显示图表）
+    addDataVisible: false, // 题目添加模态框
   };
 
   componentDidMount() {
-    if (this.props.location.query && this.props.location.query.id) {
-      this.setState({
-        showDataView: false,
-      });
-    }
 
   }
 
@@ -152,7 +149,12 @@ export default class Index extends PureComponent {
     }
   };
 
-
+  // 题目添加
+  addData = (flag) => {
+    this.setState({
+      addDataVisible:!!flag,
+    })
+  };
 
   renderForm() {
     const {
@@ -170,23 +172,9 @@ export default class Index extends PureComponent {
         );
       }
     }
-    let rqyyTypeOptions = [];
-    if (rqyyType.length > 0) {
-      rqyyType.map(item => {
-        rqyyTypeOptions.push(
-          <Option key={item.id} value={item.code}>
-            {item.name}
-          </Option>,
-        );
-      });
-    }
     const formItemLayout = {
-      labelCol: {xs: {span: 24}, md: {span: 8}, xl: {span: 6}, xxl: {span: 5}},
-      wrapperCol: {xs: {span: 24}, md: {span: 16}, xl: {span: 18}, xxl: {span: 19}},
-    };
-    const formItemLayouts = {
-      labelCol: {xs: {span: 24}, md: {span: 8}, xl: {span: 4}, xxl: {span: 3}},
-      wrapperCol: {xs: {span: 24}, md: {span: 16}, xl: {span: 19}, xxl: {span: 20}},
+      labelCol: {xs: {span: 24}, md: {span: 8}, xl: {span: 6}, xxl: {span: 4}},
+      wrapperCol: {xs: {span: 24}, md: {span: 16}, xl: {span: 18}, xxl: {span: 20}},
     };
     const rowLayout = {md: 8, xl: 16, xxl: 24};
     const colLayout = {sm: 24, md: 12, xl: 8};
@@ -202,7 +190,7 @@ export default class Index extends PureComponent {
               {getFieldDecorator('tm', {
                 // initialValue: this.state.caseType,
                 //rules: [{max: 32, message: '最多输入32个字！'}],
-              })(<Input placeholder="请输入涉案人员"/>)}
+              })(<Input placeholder="请输入题目"/>)}
             </FormItem>
           </Col>
           <Col {...colLayout}>
@@ -212,7 +200,7 @@ export default class Index extends PureComponent {
                 <Select
                   placeholder="请选择"
                   style={{width: '100%'}}
-                  getPopupContainer={() => document.getElementById('baqsjtableListForm')}
+                  // getPopupContainer={() => document.getElementById('baqsjtableListForm')}
                 >
                   <Option value="">全部</Option>
                   {involvedTypeOptions}
@@ -243,7 +231,7 @@ export default class Index extends PureComponent {
           <span style={{marginTop: 5}}>
             <Button
               style={{ borderColor: '#2095FF', marginLeft: 8 }}
-              onClick={()=>this.importData(true)}
+              onClick={()=>this.addData(true)}
               // icon="download"
             >
               题目添加
@@ -277,16 +265,20 @@ export default class Index extends PureComponent {
     const {showDataView} = this.state;
     this.setState({
       showDataView: !showDataView,
-      // typeButtons:'week',
     });
-    // if(showDataView) this.handleFormReset();
   };
+
+  // 关闭题目添加模态框
+  closeCancel = () => {
+    this.setState({
+      addDataVisible:false,
+    })
+  }
 
   render() {
     const {areaData: {area, loading}, common: {depTree}} = this.props;
-    const {
-      showDataView,
-    } = this.state;
+    const {showDataView,addDataVisible} = this.state;
+    // console.log('addDataVisible',addDataVisible)
     let className = this.props.global && this.props.global.dark ? styles.listPageWrap : styles.listPageWrap + ' ' + styles.lightBox;
     return (
       <div className={this.props.location.query && this.props.location.query.id ? styles.onlyDetail : ''}>
@@ -312,10 +304,12 @@ export default class Index extends PureComponent {
               </a>
             )}
           </div>
-          {/*<EvaluateTemplate*/}
-            {/*{...this.props}*/}
-            {/*showDataView={showDataView}*/}
-          {/*/>*/}
+          <div style={showDataView ? {display: 'none'} : {display: 'block'}}>
+            <EvaluateTemplate
+              {...this.props}
+              showDataView={showDataView}
+            />
+          </div>
           <div style={showDataView ? {display: 'block'} : {display: 'none'}}>
             <div className={styles.tableListForm} id="baqsjtableListForm">
               {this.renderForm()}
@@ -323,6 +317,16 @@ export default class Index extends PureComponent {
             <div className={styles.tableListOperator}>{this.renderTable()}</div>
           </div>
         </div>
+
+        {addDataVisible?
+          <AddDataVisibleModal
+            title="题目添加"
+            visible={addDataVisible}
+            CloseCancelModal={this.closeCancel}
+          />
+          :
+          ''
+        }
       </div>
     );
   }

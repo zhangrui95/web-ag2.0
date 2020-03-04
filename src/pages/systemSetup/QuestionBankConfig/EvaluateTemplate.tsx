@@ -21,8 +21,8 @@ import {
   Icon,
 } from 'antd';
 import moment from 'moment/moment';
-import styles from '../../common/listPage.less';
-import RenderTable from '../../../components/AreaRealData/RenderTable';
+import styles from './EvaluateTemplate.less';
+import EvaluateTemplateTable from '../../../components/QuestionBankConfig/EvaluateTemplateTable';
 import {exportListDataMaxDays, getUserInfos, tableList} from '../../../utils/utils';
 
 
@@ -151,8 +151,6 @@ export default class EvaluateTemplate extends PureComponent {
     }
   };
 
-
-
   renderForm() {
     const {
       form: {getFieldDecorator},
@@ -193,33 +191,17 @@ export default class EvaluateTemplate extends PureComponent {
     return (
       <Form
         onSubmit={this.handleSearch}
-        style={{height: this.state.searchHeight ? 'auto' : '50px'}}
+        style={{height: 'auto' }}
       >
         <Row gutter={rowLayout} className={styles.searchForm}>
           <Col {...colLayout}>
-            <FormItem label="题目" {...formItemLayout}>
+            <FormItem label="模板名称" {...formItemLayout}>
               {getFieldDecorator('tm', {
                 // initialValue: this.state.caseType,
                 //rules: [{max: 32, message: '最多输入32个字！'}],
-              })(<Input placeholder="请输入涉案人员"/>)}
+              })(<Input placeholder="请输入模板名称"/>)}
             </FormItem>
           </Col>
-          <Col {...colLayout}>
-            <FormItem label="题目类型" {...formItemLayout}>
-              {getFieldDecorator('tmlx', {
-              })(
-                <Select
-                  placeholder="请选择"
-                  style={{width: '100%'}}
-                  getPopupContainer={() => document.getElementById('baqsjtableListForm')}
-                >
-                  <Option value="">全部</Option>
-                  {involvedTypeOptions}
-                </Select>,
-              )}
-            </FormItem>
-          </Col>
-
         </Row>
         <Row className={styles.search}>
           <span style={{ marginTop: 5}}>
@@ -239,20 +221,14 @@ export default class EvaluateTemplate extends PureComponent {
           </span>
         </Row>
         <Row className={styles.search}>
-          <span style={{marginTop: 5}}>
-            <Button
-              style={{ borderColor: '#2095FF', marginLeft: 8 }}
-              onClick={()=>this.importData(true)}
-              // icon="download"
-            >
-              题目添加
-            </Button>
+          <span style={{ marginTop: 5}}>
+            <Button style={{ borderColor: '#2095FF', marginLeft: 8 }} type='primary'>添加测评模板</Button>
             <Button
               style={{ borderColor: '#2095FF', marginLeft: 8 }}
               onClick={this.deleteData}
               // icon="download"
             >
-              题目删除
+              模板删除
             </Button>
           </span>
         </Row>
@@ -266,7 +242,7 @@ export default class EvaluateTemplate extends PureComponent {
     } = this.props;
     return (
       <div>
-        <RenderTable
+        <EvaluateTemplateTable
           loading={loading}
           data={area}
           onChange={this.handleTableChange}
@@ -289,32 +265,10 @@ export default class EvaluateTemplate extends PureComponent {
     return (
       <div className={this.props.location.query && this.props.location.query.id ? styles.onlyDetail : ''}>
         <div className={className}>
-          <div className={styles.listPageHeader}>
-            {showDataView ? (
-              <a className={styles.listPageHeaderCurrent}>
-                <span>●</span>题库维护
-              </a>
-            ) : (
-              <a className={styles.UnlistPageHeaderCurrent} onClick={this.changeListPageHeader}>
-                题库维护
-              </a>
-            )}
-            <span className={styles.borderCenter}>|</span>
-            {showDataView ? (
-              <a className={styles.UnlistPageHeaderCurrent} onClick={this.changeListPageHeader}>
-                测评模板
-              </a>
-            ) : (
-              <a className={styles.listPageHeaderCurrent}>
-                <span>●</span>测评模板
-              </a>
-            )}
-          </div>
-          <EvaluateTemplate
-            {...this.props}
-            showDataView={showDataView}
-          />
-          <div style={showDataView ? {display: 'none'} : {display: 'block'}}>
+          {/*<div className={styles.listPageHeader}>*/}
+            {/*<Button type='primary' className={styles.exportTable}>导出表格</Button>*/}
+          {/*</div>*/}
+          <div>
             <div className={styles.tableListForm} id="baqsjtableListForm">
               {this.renderForm()}
             </div>
