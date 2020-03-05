@@ -60,6 +60,7 @@ import { routerRedux } from 'dva/router';
 import noListLight from '@/assets/viewData/noListLight.png';
 import { tableList } from '@/utils/utils';
 import DetailShow from "@/components/Common/detailShow";
+import moment from 'moment/moment';
 
 const FormItem = Form.Item;
 const { Step } = Steps;
@@ -574,8 +575,8 @@ export default class areaDetail extends PureComponent {
       type: 'areaData/areaPartVideo',
       payload: {
         handleareaNum: paneData.handlearea_num,
-        startTime: paneData.startTime?paneData.startTime:paneData.begin_time,
-        finishTime: paneData.finishTime?paneData.finishTime:paneData.end_time,
+        startTime: paneData.startTime?moment(paneData.startTime).format('YYYY-MM-DD hh:mm:ss'):moment(paneData.begin_time).format('YYYY-MM-DD hh:mm:ss'),
+        finishTime:paneData.finishTime?moment(paneData.finishTime).format('YYYY-MM-DD hh:mm:ss'):moment(paneData.end_time).format('YYYY-MM-DD hh:mm:ss'),
         roomId: paneData.room_id,
         roomName: paneData.room_name,
       },
