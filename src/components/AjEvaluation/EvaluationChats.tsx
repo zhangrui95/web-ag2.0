@@ -132,6 +132,7 @@ export default class EvaluationChats extends PureComponent {
     let arrDatal = {};
     let seriesValue = [];
     let currentPage1 = this.state.currentPage1 + next * 1;
+    let newDataNum = ['0'];
     this.setState({
       currentPage1: next === 0 ? 1 : currentPage1,
     });
@@ -172,6 +173,7 @@ export default class EvaluationChats extends PureComponent {
           arrDatal['arr' + i] = [];
         });
         data.list.map(event => {
+          newDataNum = newDataNum.concat(event.kflx_kfz.split(',') ? event.kflx_kfz.split(',') : ['0']);
           let num = 0;
           legendData.map((e, i) => {
             arrDatal['arr' + i].push({
@@ -206,7 +208,8 @@ export default class EvaluationChats extends PureComponent {
           };
           seriesValue.push(seriesDataVal);
         }
-        this.buildChart(legendData, axisLabel, seriesValue, 'kfqk', nextProps);
+        let yMax = Math.max(...newDataNum);
+        this.buildChart(legendData, axisLabel, seriesValue, 'kfqk', nextProps,yMax);
       },
     });
   };
@@ -217,6 +220,7 @@ export default class EvaluationChats extends PureComponent {
     let arrDatal = {};
     let seriesValue = [];
     let currentPage1 = this.state.currentPage1 + next * 1;
+    let newDataNum = ['0'];
     this.setState({
       currentPage1: next === 0 ? 1 : currentPage1,
     });
@@ -256,6 +260,7 @@ export default class EvaluationChats extends PureComponent {
           arrDatal['arr' + i] = [];
         });
         data.list.map(event => {
+          newDataNum = newDataNum.concat(event.kflx_kfz.split(',') ? event.kflx_kfz.split(',') : ['0']);
           let num = 0;
           legendData.map((e, i) => {
             arrDatal['arr' + i].push({
@@ -290,7 +295,8 @@ export default class EvaluationChats extends PureComponent {
           };
           seriesValue.push(seriesDataVal);
         }
-        this.buildChart(legendData, axisLabel, seriesValue, 'kfqkAj', nextProps);
+        let yMax = Math.max(...newDataNum);
+        this.buildChart(legendData, axisLabel, seriesValue, 'kfqkAj', nextProps, yMax);
       },
     });
   };
@@ -299,6 +305,7 @@ export default class EvaluationChats extends PureComponent {
     let bgColorList = ['#3AA1FF', '#4ECB73', '#c23531', '#c2923d', '#61a0a8'];
     let axisLabel = [];
     let arrDatal = {};
+    let newDataNum = ['0'];
     let seriesValue = [];
     let currentPage1 = this.state.currentPage1 + next * 1;
     this.setState({
@@ -340,6 +347,7 @@ export default class EvaluationChats extends PureComponent {
           arrDatal['arr' + i] = [];
         });
         data.list.map(event => {
+          newDataNum = newDataNum.concat(event.gjlx_count.split(',') ? event.gjlx_count.split(',') : ['0']);
           let num = 0;
           legendData.map((e, i) => {
             arrDatal['arr' + i].push({
@@ -352,6 +360,8 @@ export default class EvaluationChats extends PureComponent {
           });
           axisLabel.push(`${this.formatter(event.bkpr_dwmc)}(${num})`);
         });
+        let yMax = Math.max(...newDataNum);
+        // dataShadow.push(yMax);
         for (let i = 0; i < legendData.length; i++) {
           let seriesDataVal = null;
           seriesDataVal = {
@@ -375,11 +385,11 @@ export default class EvaluationChats extends PureComponent {
           };
           seriesValue.push(seriesDataVal);
         }
-        this.buildChart(legendData, axisLabel, seriesValue, 'kfqkGj', nextProps);
+        this.buildChart(legendData, axisLabel, seriesValue, 'kfqkGj', nextProps, yMax);
       },
     });
   };
-  buildChart = (legendData, axisLabel, seriesValue, id, nextProps) => {
+  buildChart = (legendData, axisLabel, seriesValue, id, nextProps,yMax) => {
     let yAxis = [
       {
         min: 0,
@@ -406,14 +416,10 @@ export default class EvaluationChats extends PureComponent {
         },
       },
     ];
-    let maxTrue = true;
-    seriesValue.map(item => {
-      if (item.data && item.data.length > 0) {
-        maxTrue = false;
-      }
-    });
-    if (maxTrue) {
+    if (parseInt(yMax) < 5) {
       yAxis[0].max = 5;
+    }else{
+      yAxis[0].max = undefined;
     }
     let chart = document.getElementById(id);
     let echart = echarts.init(chart);
@@ -528,6 +534,7 @@ export default class EvaluationChats extends PureComponent {
     });
     let legendData = ['分值'];
     let bgColorList = ['#3AA1FF', '#4ECB73', '#c23531', '#2f4554', '#61a0a8'];
+    let newDataNum = ['0'];
     let axisLabel = [];
     let arrData = [];
     let seriesValue = [];
@@ -566,6 +573,7 @@ export default class EvaluationChats extends PureComponent {
           rykh: data.list,
         });
         data.list.map(event => {
+          newDataNum.push(event.kfz ? event.kfz : '0');
           axisLabel.push(this.formatter(event.bkpr_name));
           arrData.push({
             value: event.kfz ? event.kfz : '0',
@@ -597,7 +605,8 @@ export default class EvaluationChats extends PureComponent {
           };
           seriesValue.push(seriesDataVal);
         }
-        this.buildRyChart(legendData, axisLabel, seriesValue, 'rykh', nextProps);
+        let yMax = Math.max(...newDataNum);
+        this.buildRyChart(legendData, axisLabel, seriesValue, 'rykh', nextProps,yMax);
       },
     });
     if (!noSearchPerson) {
@@ -632,6 +641,7 @@ export default class EvaluationChats extends PureComponent {
   };
   initRyDataAj = (next, nextProps, sort, type, bkpr_sfzh, noSearchPerson) => {
     let currentPage3 = this.state.currentPage3 + next * 1;
+    let newDataNum = ['0'];
     this.setState({
       currentPage3: currentPage3,
     });
@@ -678,6 +688,7 @@ export default class EvaluationChats extends PureComponent {
         });
         data.list.map(event => {
           let num = 0;
+          newDataNum = newDataNum.concat(event.kflx_kfz.split(',') ? event.kflx_kfz.split(',') : ['0']);
           legendData.map((e, i) => {
             arrData['arr' + i].push({
               value: event.kflx_kfz.split(',')[i] ? event.kflx_kfz.split(',')[i] : '0',
@@ -712,7 +723,8 @@ export default class EvaluationChats extends PureComponent {
           };
           seriesValue.push(seriesDataVal);
         }
-        this.buildRyChart(legendData, axisLabel, seriesValue, 'rykhAj', nextProps);
+        let yMax = Math.max(...newDataNum);
+        this.buildRyChart(legendData, axisLabel, seriesValue, 'rykhAj', nextProps,yMax);
       },
     });
     if (!noSearchPerson) {
@@ -746,6 +758,7 @@ export default class EvaluationChats extends PureComponent {
   };
   initRyDataGj = (next, nextProps, sort, type, bkpr_sfzh, noSearchPerson) => {
     let currentPage3 = this.state.currentPage3 + next * 1;
+    let newDataNum = ['0'];
     this.setState({
       currentPage3: next === 0 ? 1 : currentPage3,
     });
@@ -792,6 +805,7 @@ export default class EvaluationChats extends PureComponent {
         });
         data.list.map(event => {
           let num = 0;
+          newDataNum = newDataNum.concat(event.gjlx_count.split(',') ? event.gjlx_count.split(',') : ['0']);
           legendData.map((e, i) => {
             arrData['arr' + i].push({
               value: event.gjlx_count.split(',')[i] ? event.gjlx_count.split(',')[i] : '0',
@@ -827,7 +841,8 @@ export default class EvaluationChats extends PureComponent {
           };
           seriesValue.push(seriesDataVal);
         }
-        this.buildRyChart(legendData, axisLabel, seriesValue, 'rykhGj', nextProps);
+        let yMax = Math.max(...newDataNum);
+        this.buildRyChart(legendData, axisLabel, seriesValue, 'rykhGj', nextProps,yMax);
       },
     });
     if (!noSearchPerson) {
@@ -859,7 +874,7 @@ export default class EvaluationChats extends PureComponent {
       });
     }
   };
-  buildRyChart = (legendData, axisLabel, seriesValue, id, nextProps) => {
+  buildRyChart = (legendData, axisLabel, seriesValue, id, nextProps,yMax) => {
     let yAxis = [
       {
         min: 0,
@@ -886,14 +901,10 @@ export default class EvaluationChats extends PureComponent {
         },
       },
     ];
-    let maxTrue = true;
-    seriesValue.map(item => {
-      if (item.data && item.data.length > 0) {
-        maxTrue = false;
-      }
-    });
-    if (maxTrue) {
+    if (parseInt(yMax) < 5) {
       yAxis[0].max = 5;
+    }else{
+      yAxis[0].max = undefined;
     }
     let chart = document.getElementById(id);
     let that = this;
