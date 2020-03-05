@@ -14,16 +14,17 @@ import { routerRedux } from 'dva/router';
 import noList from '@/assets/viewData/noList.png';
 import noListLight from '@/assets/viewData/noListLight.png';
 import suspend from '@/assets/common/suspend.png';
+import ListDetailVisibleModal from '../../components/QuestionBankConfig/ListDetailVisibleModal'
 import { connect } from 'dva';
 import {tableList} from "@/utils/utils";
-@connect(({ global }) => ({
-  global,
+@connect(({ global,QuestionBankConfig }) => ({
+  global,QuestionBankConfig
 }))
 class QuestionDefendTable extends PureComponent {
   state = {
-    selectedRows:[],
-    previewRecord:'',
     tablechoose:[], // 表格中的选中项
+    listDetail:'',  // 题目详情
+    listDetailVisible:false, //题目详情模态框
   };
 
   componentDidMount() {
@@ -34,28 +35,47 @@ class QuestionDefendTable extends PureComponent {
     this.props.onChange(pagination, filters, sorter);
   };
 
-  //查看
+  //详情
   playVideo=(record)=>{
+    // console.log('record',record);
+    this.props.dispatch({
+      type:'QuestionBankConfig/getQuestionList',
+      payload:{
+          pd:{
+            id:record.id,
+          },
+          currentPage:1,
+          showCount:10,
+      },
+      callback:(data)=>{
+        // console.log('data',data);
+        if(data&&data.list&&data.list.length>0){
+          this.setState({
+            listDetail:data.list[0],
+            listDetailVisible:true,
+          })
+        }else{
+          message.error('数据请求错误');
+        }
+      }
+    })
+  }
+
+  // 关闭详情模态框
+  closeListDetailModal = () => {
     this.setState({
-      previewModal:true,
-      previewRecord:record,
+      listDetailVisible:false,
     })
   }
 
   // 删除
   DeleteVideo = (record) => {
-    this.props.deleteOneData(record);
+    this.props.deleteListData(record);
   }
 
-  previewModalCancel = () => {
-    this.setState({
-      previewModal:false,
-      previewRecord:'',
-    })
-  }
   render() {
     const { data } = this.props;
-    const { mode,tablechoose } = this.state;
+    const { mode,tablechoose,listDetailVisible,listDetail } = this.state;
     let columns, checkboxchooseObj = [];
     columns = [
       {
@@ -65,7 +85,7 @@ class QuestionDefendTable extends PureComponent {
       },
       {
         title: '题目类型',
-        dataIndex: 'tmlx',
+        dataIndex: 'tmlxzw',
         // width: 100,
       },
       {
@@ -105,34 +125,34 @@ class QuestionDefendTable extends PureComponent {
         //   selectedRows,
         // })
       },
-      selectedRowKeys: [...tablechoose],
+      // selectedRowKeys: [...tablechoose],
       // getCheckboxProps: record => ({
       //   disabled: record.name === 'Disabled User', // Column configuration not to be checked
       //   name: record.name,
       // }),
     };
-    // const paginationProps = {
-    //   // showSizeChanger: true,
-    //   // showQuickJumper: true,
-    //   current: data.page ? data.page.currentPage : '',
-    //   total: data.page ? data.page.totalResult : '',
-    //   pageSize: data.page ? data.page.showCount : '',
-    //   showTotal: (total, range) => (
-    //     <span className={styles.pagination}  style={{
-    //       color: this.props.global && this.props.global.dark ? '#fff' : '#999'
-    //     }}>{`共 ${data.page ? data.page.totalPage : 1} 页， ${
-    //       data.page ? data.page.totalResult : 0
-    //       } 条记录 `}</span>
-    //   ),
-    // };
+    const paginationProps = {
+      // showSizeChanger: true,
+      // showQuickJumper: true,
+      current: data.page ? data.page.currentPage : '',
+      total: data.page ? data.page.totalResult : '',
+      pageSize: data.page ? data.page.showCount : '',
+      showTotal: (total, range) => (
+        <span className={styles.pagination}  style={{
+          color: this.props.global && this.props.global.dark ? '#fff' : '#999'
+        }}>{`共 ${data.page ? data.page.totalPage : 1} 页， ${
+          data.page ? data.page.totalResult : 0
+          } 条记录 `}</span>
+      ),
+    };
     return (
       <div>
         <Table
           rowKey={record => record.id}
-          // dataSource={data.list}
+          dataSource={data.list}
           columns={columns}
           rowSelection={rowSelection}
-          // pagination={paginationProps}
+          pagination={paginationProps}
           onChange={this.handleTableChange}
           className={styles.showTable}
           locale={{
@@ -144,6 +164,18 @@ class QuestionDefendTable extends PureComponent {
             ),
           }}
         />
+
+        {
+          listDetailVisible?
+            <ListDetailVisibleModal
+              visible={listDetailVisible}
+              title="题目详情"
+              closeListDetailModal={this.closeListDetailModal} // 关闭详情模态框
+              listDetail={listDetail} // 题目详情
+            />
+            :
+            ''
+        }
       </div>
     )
   }

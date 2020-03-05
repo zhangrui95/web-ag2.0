@@ -87,7 +87,7 @@ export default {
         xmType: [], //项目类型
         FbdwTypeData:[], // 发布单位
         ZllxTypeData:[], // 资料类型
-
+        TklxTypeData:[], // 题目类型
     },
 
     effects: {
@@ -646,6 +646,16 @@ export default {
               callback(response);
             }
           }
+          if (payload.pd.id === '117b5fb2-953e-4983-835d-c5d082feb9d5') {
+            // 题库类型字典项
+            yield put({
+              type: 'returntklxType',
+              payload: response && response.error === null && response.data && response.data.list ? response.data.list : [],
+            });
+            if (callback && response) {
+              callback(response);
+            }
+          }
           // yield put({
           //   type: 'setSyncTime',
           //   payload: response && response.error === null ? response.data : [],
@@ -1008,6 +1018,12 @@ export default {
           return {
             ...state,
             ZllxTypeData: action.payload,
+          };
+        },
+        returntklxType(state, action) {
+          return {
+            ...state,
+            TklxTypeData: action.payload,
           };
         },
     },

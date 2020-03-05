@@ -390,7 +390,6 @@ export default class Index extends PureComponent {
   // 选择删除的数据
   chooseSelect = (deletedata) => {
     // console.log()
-    console.log('deletedata',deletedata);
     this.setState({
       deletedata,
     })
@@ -444,7 +443,7 @@ export default class Index extends PureComponent {
                 <RangePicker
                   disabledDate={this.disabledDate}
                   style={{width: '100%'}}
-                  getCalendarContainer={() => document.getElementById('slaxsgjsearchForm')}
+                  getCalendarContainer={() => document.getElementById('zxxxsjtableListForm')}
                 />,
               )}
             </FormItem>
@@ -456,7 +455,7 @@ export default class Index extends PureComponent {
                 <Select
                   placeholder="请选择资料类型"
                   style={{width: '100%'}}
-                  getPopupContainer={() => document.getElementById('slaxsgjsearchForm')}
+                  getPopupContainer={() => document.getElementById('zxxxsjtableListForm')}
                 >
                   <Option value="">全部</Option>
                   {zllxAlarmDictOptions}
@@ -554,7 +553,7 @@ export default class Index extends PureComponent {
     console.log('dark',this.props)
     return (
       <div className={className}>
-        <div className={styles.tableListForm}>
+        <div className={styles.tableListForm} id="zxxxsjtableListForm">
           {this.renderForm()}
         </div>
         <div className={styles.tableListOperator} style={{marginBottom: 0}}>

@@ -18,7 +18,7 @@ import {
   Tabs,
   Radio,
   message,
-  Icon,
+  Icon, Modal,
 } from 'antd';
 import moment from 'moment/moment';
 import styles from './index.less';
@@ -29,6 +29,7 @@ import EvaluateTemplate from './EvaluateTemplate';
 
 
 const FormItem = Form.Item;
+const confirm = Modal.confirm;
 const {Option} = Select;
 const {RangePicker} = DatePicker;
 const TabPane = Tabs.TabPane;
@@ -37,8 +38,8 @@ const RadioGroup = Radio.Group;
 let timeout;
 let currentValue;
 
-@connect(({areaData, loading, common, global}) => ({
-  areaData,
+@connect(({QuestionBankConfig, loading, common, global}) => ({
+  QuestionBankConfig,
   loading,
   common,
   global
@@ -50,15 +51,52 @@ export default class Index extends PureComponent {
     formValues: {},
     showDataView: true, // 控制显示图表或者列表（true显示图表）
     addDataVisible: false, // 题目添加模态框
+    questionList:'', // 题目详情
+    deletedata:[], // 选择删除的数据
   };
 
   componentDidMount() {
-
+    const param = {
+      pd:{},
+      currentPage:1,
+      showCount:10,
+    }
+    this.getItemConfigList(param); // 获取题库列表
+    this.getItemLabelList(); // 获取题目类型字典项
   }
 
   componentWillReceiveProps(nextProps) {
 
   }
+
+  //获取题目类型字典项
+  getItemLabelList = () => {
+    this.props.dispatch({
+      type:'common/getfbdwDictType',
+      payload:{
+        currentPage: 1,
+        pd: {id: "117b5fb2-953e-4983-835d-c5d082feb9d5", name: "", appCode: "106305"},
+        showCount: tableList,
+      },
+    })
+  }
+
+  //获取题库列表
+  getItemConfigList = (param) => {
+    this.props.dispatch({
+      type:'QuestionBankConfig/getQuestionList',
+      payload:param?param:'',
+      callback:(data)=>{
+        // console.log('data',data);
+        if(data){
+          this.setState({
+            questionList:data,
+          })
+        }
+      }
+    })
+  }
+
   // 表格分页
   handleTableChange = (pagination, filtersArg, sorter) => {
     const {formValues} = this.state;
@@ -69,43 +107,43 @@ export default class Index extends PureComponent {
       currentPage: pagination.current,
       showCount: pagination.pageSize,
     };
-    this.getArea(params);
+    this.getItemConfigList(params);
   };
   // 查询
   handleSearch = e => {
     if (e) e.preventDefault();
-    const values = this.props.form.getFieldsValue();
-    const rqsj = values.rqsj;
-    const formValues = {
-      ajbh: values.ajbh ? values.ajbh.trim() : '',
-      ajmc: values.ajmc ? values.ajmc.trim() : '',
-      bar: values.bar || '',
-      name: values.xm || '',
-      ha_name: values.ssbaq || '',
-      rqyy_dm: values.rqyy || '',
-      rqsj_ks: rqsj && rqsj.length > 0 ? rqsj[0].format('YYYY-MM-DD') : '',
-      rqsj_js: rqsj && rqsj.length > 0 ? rqsj[1].format('YYYY-MM-DD') : '',
-    };
-    this.setState({
-      formValues,
+    this.props.form.validateFields((err, values) => {
+      if(!err){
+        const formValues = {
+          tm:values.tm,
+          tmlx:values.tmlx,
+        };
+        this.setState({
+          formValues,
+        });
+        const params = {
+          currentPage: 1,
+          showCount: tableList,
+          pd: {
+            ...formValues,
+          },
+        };
+        this.getItemConfigList(params);
+      }
     });
-    const params = {
-      currentPage: 1,
-      showCount: tableList,
-      pd: {
-        ...formValues,
-      },
-    };
-    this.getArea(params);
   };
   // 重置
   handleFormReset = () => {
     this.props.form.resetFields();
     this.setState({
-      formValues: {},
-      rqsj: null,
-    });
-    this.getArea();
+      formValues:'',
+    })
+    const params = {
+      currentPage: 1,
+      showCount: tableList,
+      pd: {},
+    };
+    this.getItemConfigList(params);
   };
   // 导出
   exportData = () => {
@@ -156,15 +194,86 @@ export default class Index extends PureComponent {
     })
   };
 
+  // 题目删除(多个)
+  deleteData = () => {
+    const { deletedata } = this.state;
+    console.log('deletedata',deletedata);
+    let that = this;
+    let deleteId = [], objDeleteId={};
+    if(deletedata&&deletedata.length>0){
+      deletedata.map((item) => {
+        objDeleteId = {
+          tkid:item,
+        }
+        deleteId.push(objDeleteId);
+      });
+      confirm({
+        title: '确定删除这'+deletedata.length+'条资料？',
+        content: '',
+        okText: '确定',
+        cancelText: '取消',
+        style: {top: 417},
+        onOk() {
+          that.delete(deleteId)
+        },
+      });
+    }
+    else{
+      message.warning('请选择要删除的资料');
+    }
+  }
+
+  // 删除题目（单个）
+  deleteListData = (obj) => {
+    let deleteId = [],that=this;
+    let objDelete={
+      tkid:obj.id,
+    }
+    deleteId.push(objDelete);
+    confirm({
+      title: '确定删除？',
+      content: '',
+      okText: '确定',
+      cancelText: '取消',
+      style: {top: 417},
+      onOk() {
+        that.delete(deleteId)
+      },
+    });
+  }
+
+  delete = (deleteId) => {
+    this.props.dispatch({
+      type:'QuestionBankConfig/getDeleteQuestion',
+      payload:{
+        tkxx:deleteId,
+      },
+      callback:(obj)=>{
+        if(obj.error === null){
+          message.success('删除成功');
+          this.handleFormReset();
+          this.setState({
+            deletedata:[],
+          })
+        }
+      }
+    })
+  }
+
+  // 选择删除的数据
+  chooseSelect = (deletedata) => {
+    // console.log()
+    this.setState({
+      deletedata,
+    })
+  };
   renderForm() {
     const {
-      form: {getFieldDecorator},
-      common: {involvedType, depTree, baqTree, rqyyType},
-    } = this.props;
+      form: {getFieldDecorator}, common: {TklxTypeData},} = this.props;
     let involvedTypeOptions = [];
-    if (involvedType.length > 0) {
-      for (let i = 0; i < involvedType.length; i++) {
-        const item = involvedType[i];
+    if (TklxTypeData.length > 0) {
+      for (let i = 0; i < TklxTypeData.length; i++) {
+        const item = TklxTypeData[i];
         involvedTypeOptions.push(
           <Option key={item.id} value={item.code}>
             {item.name}
@@ -200,7 +309,7 @@ export default class Index extends PureComponent {
                 <Select
                   placeholder="请选择"
                   style={{width: '100%'}}
-                  // getPopupContainer={() => document.getElementById('baqsjtableListForm')}
+                  getPopupContainer={() => document.getElementById('cptkpzsjtableListForm')}
                 >
                   <Option value="">全部</Option>
                   {involvedTypeOptions}
@@ -250,11 +359,14 @@ export default class Index extends PureComponent {
   }
 
   renderTable() {
+    const {questionList} = this.state;
     return (
       <div>
         <QuestionDefendTable
-          // data={area}
-          onChange={this.handleTableChange}
+          data={questionList}
+          onChange={this.handleTableChange} // 分页
+          deleteListData={this.deleteListData} // 表格删除
+          chooseSelect={this.chooseSelect} // 删除多条数据
         />
       </div>
     );
@@ -275,8 +387,14 @@ export default class Index extends PureComponent {
     })
   }
 
+  //关闭题目添加模态框
+  closeAddDataVisibleModal = () => {
+    this.setState({
+      addDataVisible:false,
+    })
+  }
   render() {
-    const {areaData: {area, loading}, common: {depTree}} = this.props;
+    const {common: {depTree}} = this.props;
     const {showDataView,addDataVisible} = this.state;
     // console.log('addDataVisible',addDataVisible)
     let className = this.props.global && this.props.global.dark ? styles.listPageWrap : styles.listPageWrap + ' ' + styles.lightBox;
@@ -311,7 +429,7 @@ export default class Index extends PureComponent {
             />
           </div>
           <div style={showDataView ? {display: 'block'} : {display: 'none'}}>
-            <div className={styles.tableListForm} id="baqsjtableListForm">
+            <div className={styles.tableListForm} id="cptkpzsjtableListForm">
               {this.renderForm()}
             </div>
             <div className={styles.tableListOperator}>{this.renderTable()}</div>
@@ -322,7 +440,9 @@ export default class Index extends PureComponent {
           <AddDataVisibleModal
             title="题目添加"
             visible={addDataVisible}
-            CloseCancelModal={this.closeCancel}
+            CloseCancelModal={this.closeCancel} // 关闭题目添加模态框
+            getItemConfigList={this.getItemConfigList} // 刷新表格
+            closeAddDataVisibleModal={this.closeAddDataVisibleModal} // 题目添加完毕关闭'题目添加'模态框
           />
           :
           ''
