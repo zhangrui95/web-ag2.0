@@ -17,17 +17,53 @@ import { getUserInfos } from '../../utils/utils';
 const { Option } = Select;
 
 export default class EvaluationChats extends PureComponent {
-  state = {
-    sortCharts1: false,
-    sortCharts3: false,
-    currentPage1: 1,
-    currentPage2: 1,
-    currentPage3: 1,
-  };
+  constructor(props) {
+    super(props);
+    const obj1 = document.getElementsByTagName('body');
+    const objwidth = obj1[0].clientWidth;
+    let showCount = this.getBarWidth(objwidth);
+    this.state = {
+      sortCharts1: false,
+      sortCharts3: false,
+      currentPage1: 1,
+      currentPage2: 1,
+      currentPage3: 1,
+      showCount,
+    };
+  }
 
   componentDidMount() {
+    window.addEventListener('resize',()=>{
+      const obj2 = document.getElementsByTagName('body');
+      const objwidth2 = obj2[0].clientWidth;
+      let showCount = this.getBarWidth(objwidth2);
+      this.setState({
+        showCount,
+      });
+    });
     this.initData(0, this.props, false, '0');
     this.initRyData(0, this.props, false, '0');
+  }
+  getBarWidth = (objwidth) =>{
+    let showCount = 8;
+    if(objwidth<1280){
+      showCount=2;
+    }else if(objwidth>=1280 && objwidth < 1360){
+      showCount=3;
+    }else if(objwidth>=1360 && objwidth < 1440 ){
+      showCount=4;
+    }else if(objwidth>=1440 && objwidth < 1600){
+      showCount=4;
+    }else if(objwidth>=1600 && objwidth < 1680){
+      showCount=6;
+    }else if(objwidth>=1680 && objwidth < 1920){
+      showCount=8;
+    }else if(objwidth>=1920){
+      showCount=8;
+    }else if(objwidth>=2500){
+      showCount=8;
+    }
+    return showCount;
   }
 
   componentWillReceiveProps(nextProps, nextContext) {
@@ -150,7 +186,7 @@ export default class EvaluationChats extends PureComponent {
           sort: sort ? '0' : '1',
           xm_type: type,
         },
-        showCount: 8,
+        showCount: this.state.showCount,
       },
       callback: data => {
         if (
@@ -237,7 +273,7 @@ export default class EvaluationChats extends PureComponent {
           tjfw: nextProps.tjfw ? nextProps.tjfw : '',
           sort: sort ? '0' : '1',
         },
-        showCount: 8,
+        showCount: this.state.showCount,
       },
       callback: data => {
         if (
@@ -324,7 +360,7 @@ export default class EvaluationChats extends PureComponent {
           tjfw: nextProps.tjfw ? nextProps.tjfw : '',
           sort: sort ? '0' : '1',
         },
-        showCount: 8,
+        showCount: this.state.showCount,
       },
       callback: data => {
         if (
@@ -553,7 +589,7 @@ export default class EvaluationChats extends PureComponent {
           xm_type: type,
           bkpr_sfzh: bkpr_sfzh ? bkpr_sfzh : '',
         },
-        showCount: 8,
+        showCount: this.state.showCount,
       },
       callback: data => {
         if (
@@ -664,7 +700,7 @@ export default class EvaluationChats extends PureComponent {
           tjfw: nextProps.tjfw ? nextProps.tjfw : '',
           bkpr_sfzh: bkpr_sfzh ? bkpr_sfzh : '',
         },
-        showCount: 8,
+        showCount: this.state.showCount,
       },
       callback: data => {
         if (
@@ -781,7 +817,7 @@ export default class EvaluationChats extends PureComponent {
           tjfw: nextProps.tjfw ? nextProps.tjfw : '',
           bkpr_sfzh: bkpr_sfzh ? bkpr_sfzh : '',
         },
-        showCount: 8,
+        showCount: this.state.showCount,
       },
       callback: data => {
         if (
