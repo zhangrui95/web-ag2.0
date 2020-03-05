@@ -64,12 +64,13 @@ class RenderTable extends PureComponent {
         });
     }
 
-    deatils = (record) => {
+    deatils = (record,type) => {
       // console.log('current',this.state.current);
+        record.type = type;
         this.props.dispatch(
             routerRedux.push({
                 pathname: '/videoManage/videoData/videoDetail',
-                query: {record: record, id: record && record.id ? record.id : '1',current:this.state.current},
+                query: {record: record, id: record && record.id ? record.id+type : '1', tabName:type==='0' ? '播放': type==='1' ? '编辑' : '关联'},
             }),
         )
 
@@ -245,9 +246,9 @@ class RenderTable extends PureComponent {
                 width: 150,
                 render: (record) => (
                     <div>
-                        <a onClick={()=>this.deatils(record)}>播放</a>
+                        <a onClick={()=>this.deatils(record,'0')}>播放</a>
                         <Divider type="vertical"/>
-                      {record.sfgl === '是' ? <a>编辑</a> : <a>关联</a>}
+                      {record.sfgl === '是' ? <a onClick={()=>this.deatils(record,'1')}>编辑</a> : <a onClick={()=>this.deatils(record,'2')}>关联</a>}
                         <Divider type="vertical"/>
                       <a>下载</a>
                     </div>

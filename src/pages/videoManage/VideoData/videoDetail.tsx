@@ -57,12 +57,12 @@ export default class policeDetail extends PureComponent {
   }
   render() {
     let dark = this.props.global && this.props.global.dark;
-    let {data,tab,add} = this.state;
+    let {data,tab,add,record} = this.state;
     let columns = tab === '0' ? [
       {
         title: '序号',
         dataIndex: 'index',
-        render: (text,record,index) => index
+        render: (text,record,index) => index+1
       },
       {
         title: '接警编号',
@@ -133,57 +133,60 @@ export default class policeDetail extends PureComponent {
       {
         title: '序号',
         dataIndex: 'index',
-        render: (text,record,index) => index
+        render: (text,record,index) => index+1
       },
       {
         title: '接警编号',
-        dataIndex: 'wjlbmc',
+        dataIndex: 'jjbh',
       },
       {
         title: '接警名称',
-        dataIndex: 'sprq',
+        dataIndex: 'jjmc',
       },
       {
         title: '警情类型',
-        dataIndex: 'sply',
+        dataIndex: 'jqlx',
       },{
         title: '接警单位',
-        dataIndex: 'ajmc',
+        dataIndex: 'jjdw',
       },{
         title: '接警人员',
-        dataIndex: 'ajlb',
+        dataIndex: 'jjry',
       },{
         title: '报案时间',
-        dataIndex: 'badw',
+        dataIndex: 'basj',
       },
     ]:[
       {
         title: '序号',
         dataIndex: 'index',
-        render: (text,record,index) => index
+        render: (text,record,index) => index+1
       },
       {
         title: '案件编号',
-        dataIndex: 'wjlbmc',
+        dataIndex: 'ajbh',
       },
       {
         title: '案件名称',
-        dataIndex: 'sprq',
+        dataIndex: 'ajmc',
       },
       {
         title: '涉案人员',
-        dataIndex: 'sply',
+        dataIndex: 'sary',
       },{
         title: '办案单位',
-        dataIndex: 'ajmc',
+        dataIndex: 'badw',
       },{
         title: '办案人',
-        dataIndex: 'ajlb',
+        dataIndex: 'bar',
       },{
         title: '立案时间',
-        dataIndex: 'badw',
+        dataIndex: 'lasj',
       },
     ];
+    let policeList = [{id:'27837',jjbh:'J783465239908374667',jjmc:'20191223殴打案'},{id:'67291',jjbh:'J99074739908374654',jjmc:'2020123案件',basj:'2020-01-24'}];
+    let caseList = [{id:'6666',ajbh:'A4367985267345',ajmc:'自行车盗窃案'},{id:'7777',ajbh:'A748375235543',ajmc:'张三抢劫案'},{id:'8888',ajbh:'A884535234321',ajmc:'诈骗案'}];
+
     const paginationProps = {
       current: data.page ? data.page.currentPage : '',
       total: data.page ? data.page.totalResult : '',
@@ -212,29 +215,52 @@ export default class policeDetail extends PureComponent {
               </Row>
             </div>
         </div>
-        <div className={styles.detailBox}>
-          <div>
-            <Radio.Group defaultValue="0" buttonStyle="solid" className={styles.radioBox} onChange={this.getChangeTable}>
-              <Radio.Button value="0">关联警情</Radio.Button>
-              <Radio.Button value="1">关联案件</Radio.Button>
-            </Radio.Group>
-            <Button className={styles.addBtn} onClick={()=>this.getAdd(tab)}>{tab==='0' ? '添加关联警情' : '添加关联案件'}</Button>
-          </div>
-          {
-            add ? <div>
-              <Search
-                placeholder= {tab==='0' ? "请输入警情编号、名称、接警人员、单位" : "请输入案件编号、名称、接警人员、单位"}
-                enterButton="搜索"
-                size="large"
-                onSearch={value => console.log(value)}
-                className={styles.searchBox}
-              />
-              <Table
+        {
+          record.type === '0' ? '' : <div className={styles.detailBox}>
+            <div>
+              <Radio.Group defaultValue="0" buttonStyle="solid" className={styles.radioBox} onChange={this.getChangeTable}>
+                <Radio.Button value="0">关联警情</Radio.Button>
+                <Radio.Button value="1">关联案件</Radio.Button>
+              </Radio.Group>
+              <Button className={styles.addBtn} onClick={()=>this.getAdd(tab)}>{tab==='0' ? '添加关联警情' : '添加关联案件'}</Button>
+            </div>
+            {
+              add ? <div>
+                <Search
+                  placeholder= {tab==='0' ? "请输入警情编号、名称、接警人员、单位" : "请输入案件编号、名称、接警人员、单位"}
+                  enterButton="搜索"
+                  size="large"
+                  onSearch={value => console.log(value)}
+                  className={styles.searchBox}
+                />
+                <Table
+                  // size={'middle'}
+                  // loading={loading}
+                  rowKey={record => record.key}
+                  dataSource={tab==='0' ? policeList : caseList}
+                  columns={columns1}
+                  pagination={paginationProps}
+                  onChange={this.handleTableChange}
+                  locale={{
+                    emptyText: <Empty image={this.props.global && this.props.global.dark ? noList : noListLight}
+                                      description={'暂无数据'}/>
+                  }}
+                />
+                <div className={styles.btns}>
+                  <Button type="primary" style={{marginLeft: 8}} className={styles.qxBtn}
+                          onClick={this.onEdit}>
+                    取消
+                  </Button>
+                  <Button type="primary" style={{marginLeft: 8}} className={styles.okBtn}>
+                    确定
+                  </Button>
+                </div>
+              </div> : <Table
                 // size={'middle'}
                 // loading={loading}
                 rowKey={record => record.key}
                 dataSource={[]}
-                columns={columns1}
+                columns={columns}
                 pagination={paginationProps}
                 onChange={this.handleTableChange}
                 locale={{
@@ -242,30 +268,9 @@ export default class policeDetail extends PureComponent {
                                     description={'暂无数据'}/>
                 }}
               />
-              <div className={styles.btns}>
-                <Button type="primary" style={{marginLeft: 8}} className={styles.qxBtn}
-                        onClick={this.onEdit}>
-                  取消
-                </Button>
-                <Button type="primary" style={{marginLeft: 8}} className={styles.okBtn}>
-                  确定
-                </Button>
-              </div>
-            </div> : <Table
-              // size={'middle'}
-              // loading={loading}
-              rowKey={record => record.key}
-              dataSource={[]}
-              columns={columns}
-              pagination={paginationProps}
-              onChange={this.handleTableChange}
-              locale={{
-                emptyText: <Empty image={this.props.global && this.props.global.dark ? noList : noListLight}
-                                  description={'暂无数据'}/>
-              }}
-            />
-          }
-        </div>
+            }
+          </div>
+        }
       </div>
     );
   }
