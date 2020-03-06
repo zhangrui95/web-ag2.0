@@ -430,15 +430,16 @@ export default class Home1 extends PureComponent {
                         dataIndex: 'ajmc',
                         key: 'ajmc',
                         render: text => (
-                            <Tooltip placement="top" title={text}>
+                          text ?  <Tooltip placement="top" title={text}>
                                 <span>{text && text.length > 15 ? text.substring(0, 15) + '...' : text}</span>
-                            </Tooltip>
+                            </Tooltip> : '未关联案件'
                         ),
                     },
                     {
                         title: '案件编号',
                         dataIndex: 'ajbh',
                         key: 'ajbh',
+                        render: text => (text ? text : '未关联案件'),
                     },
                     {
                         title: '督办状态',

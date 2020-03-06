@@ -44,13 +44,18 @@ body {
 .light {
   --antd-wave-shadow-color: #666;
   :global {
-    .ant-select-selection,
+    //.ant-select-selection,
     .ant-calendar-picker-input,
-    .ant-cascader-picker,
     .ant-input,
     .ant-transfer-list,
     .ant-time-picker-input {
-      background-color: #f2f2f2;
+      background: #FAFAFA;
+      border: 1px solid #DEDEDE!important;
+      border: @no-box-shadow;
+      color: @text-word-color!important;
+    }
+    .ant-cascader-picker,.ant-select-selection{
+      background: #FAFAFA;
       border: @no-box-shadow;
       color: @text-word-color!important;
     }
@@ -262,7 +267,10 @@ body {
       height: 50px;
       line-height: 50px;
       padding-bottom: @zero !important;
-
+      font-size: 16px;
+      .anticon{
+        font-size: 16px;
+      }
       a {
         &:hover {
           color: @text-word-color !important;
@@ -275,7 +283,7 @@ body {
       color: @text-color;
       //border-top: 2px solid @body-background;
       padding: @zero !important;
-
+      font-size: 16px;
       a {
         color: @text-color;
       }
@@ -284,7 +292,7 @@ body {
         color: @text-word-color;
         background-color: @highlight-color;
         border-right: 4px solid @tabs-active-color;
-
+        font-size: 16px;
         a {
           color: @white !important;
         }
@@ -294,7 +302,10 @@ body {
         margin: @zero;
         height: 50px;
         line-height: 50px;
-
+        font-size: 16px;
+        .anticon{
+          font-size: 16px;
+        }
         &:hover {
           color: @text-word-color;
         }
@@ -332,7 +343,9 @@ body {
           background: @highlight-color;
           border-right: 4px solid @tabs-active-color;
           color: #fff !important;
-
+          .anticon{
+            font-size: 16px;
+          }
           &:hover {
             color: #fff;
           }
@@ -344,7 +357,10 @@ body {
         .ant-menu-inline {
           .ant-menu-submenu-title {
             color: #b9c8ff !important;
-
+            font-size: 16px;
+            .anticon{
+              font-size: 16px;
+            }
             &:hover {
               color: #fff !important;
             }
@@ -365,11 +381,14 @@ body {
       }
       .ant-menu-sub {
         .ant-menu-submenu-title {
+          font-size: 16px;
           background: @transparent;
           border-right: @zero;
           margin: @zero;
+          .anticon{
+            font-size: 16px;
+          }
         }
-
         .ant-menu-item-selected {
           color: @white !important;
           background-color: @transparent; //@menu-item-active-bg
@@ -378,6 +397,7 @@ body {
       }
       .ant-menu-submenu {
         .ant-menu-item {
+          font-size: 16px;
           height: 40px;
           line-height: 40px;
         }
@@ -389,6 +409,7 @@ body {
     }
 
     .ant-menu-submenu-active {
+      font-size: 16px;
       color: @text-color;
     }
 
@@ -397,11 +418,11 @@ body {
     }
 
     .ant-pro-global-header {
-      background: #21328a;
+      background: linear-gradient(to right,#101372, #243E93);//rgb(16, 19, 114); rgb(36, 62, 147);
     }
 
     .ant-pro-sider-menu-logo {
-      background: #21328a !important;
+      background: #101372 !important;
 
       h1 {
         color: white;
@@ -531,7 +552,7 @@ body {
 
     .ant-pagination {
       position: relative;
-      margin-right: @pagination-right !important;
+      margin-right: 16px !important;
 
       .ant-pagination-prev .ant-pagination-item-link,
       .ant-pagination-next .ant-pagination-item-link,
@@ -602,8 +623,8 @@ body {
       }
 
       .ant-input {
-        background-color: @body-background;
-        border: @zero;
+        background: #FAFAFA;
+        border: 1px solid #DEDEDE;
       }
     }
 
@@ -633,8 +654,8 @@ body {
     }
 
     .ant-select-selection {
-      background: #f2f2f2;
-      border: @zero;
+      background: #FAFAFA;
+      border: 1px solid #DEDEDE;
       color: @text-word-color;
     }
 
