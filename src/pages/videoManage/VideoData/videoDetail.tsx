@@ -66,77 +66,6 @@ export default class policeDetail extends PureComponent {
       },
       {
         title: '接警编号',
-        dataIndex: 'wjlbmc',
-      },
-      {
-        title: '接警名称',
-        dataIndex: 'sprq',
-      },
-      {
-        title: '警情类型',
-        dataIndex: 'sply',
-      },{
-        title: '接警单位',
-        dataIndex: 'ajmc',
-      },{
-        title: '接警人员',
-        dataIndex: 'ajlb',
-      },{
-        title: '报案时间',
-        dataIndex: 'badw',
-      },
-      {
-        title: '操作',
-        render: (record) => (
-          <div>
-            <a>取消关联</a>
-          </div>
-        ),
-      },
-    ]:[
-      {
-        title: '序号',
-        dataIndex: 'index',
-        render: (text,record,index) => index
-      },
-      {
-        title: '案件编号',
-        dataIndex: 'wjlbmc',
-      },
-      {
-        title: '案件名称',
-        dataIndex: 'sprq',
-      },
-      {
-        title: '涉案人员',
-        dataIndex: 'sply',
-      },{
-        title: '办案单位',
-        dataIndex: 'ajmc',
-      },{
-        title: '办案人',
-        dataIndex: 'ajlb',
-      },{
-        title: '立案时间',
-        dataIndex: 'badw',
-      },
-      {
-        title: '操作',
-        render: (record) => (
-          <div>
-            <a>取消关联</a>
-          </div>
-        ),
-      },
-    ];
-    let columns1 = tab === '0' ? [
-      {
-        title: '序号',
-        dataIndex: 'index',
-        render: (text,record,index) => index+1
-      },
-      {
-        title: '接警编号',
         dataIndex: 'jjbh',
       },
       {
@@ -145,7 +74,7 @@ export default class policeDetail extends PureComponent {
       },
       {
         title: '警情类型',
-        dataIndex: 'jqlx',
+        dataIndex: 'jjlx',
       },{
         title: '接警单位',
         dataIndex: 'jjdw',
@@ -155,6 +84,14 @@ export default class policeDetail extends PureComponent {
       },{
         title: '报案时间',
         dataIndex: 'basj',
+      },
+      {
+        title: '操作',
+        render: (record) => (
+          <div>
+            <a>查看</a>
+          </div>
+        ),
       },
     ]:[
       {
@@ -182,6 +119,14 @@ export default class policeDetail extends PureComponent {
       },{
         title: '立案时间',
         dataIndex: 'lasj',
+      },
+      {
+        title: '操作',
+        render: (record) => (
+          <div>
+            <a>查看</a>
+          </div>
+        ),
       },
     ];
     let policeList = [{id:'27837',jjbh:'J783465239908374667',jjmc:'20191223殴打案'},{id:'67291',jjbh:'J99074739908374654',jjmc:'2020123案件',basj:'2020-01-24'}];
@@ -222,44 +167,45 @@ export default class policeDetail extends PureComponent {
                 <Radio.Button value="0">关联警情</Radio.Button>
                 <Radio.Button value="1">关联案件</Radio.Button>
               </Radio.Group>
-              <Button className={styles.addBtn} onClick={()=>this.getAdd(tab)}>{tab==='0' ? '添加关联警情' : '添加关联案件'}</Button>
+              {/*<Button className={styles.addBtn} onClick={()=>this.getAdd(tab)}>{tab==='0' ? '添加关联警情' : '添加关联案件'}</Button>*/}
             </div>
-            {
-              add ? <div>
-                <Search
-                  placeholder= {tab==='0' ? "请输入警情编号、名称、接警人员、单位" : "请输入案件编号、名称、接警人员、单位"}
-                  enterButton="搜索"
-                  size="large"
-                  onSearch={value => console.log(value)}
-                  className={styles.searchBox}
-                />
+            {/*{*/}
+            {/*  add ? <div>*/}
+            {/*    <Search*/}
+            {/*      placeholder= {tab==='0' ? "请输入警情编号、名称、接警人员、单位" : "请输入案件编号、名称、接警人员、单位"}*/}
+            {/*      enterButton="搜索"*/}
+            {/*      size="large"*/}
+            {/*      onSearch={value => console.log(value)}*/}
+            {/*      className={styles.searchBox}*/}
+            {/*    />*/}
+            {/*    <Table*/}
+            {/*      // size={'middle'}*/}
+            {/*      // loading={loading}*/}
+            {/*      rowKey={record => record.key}*/}
+            {/*      dataSource={tab==='0' ? policeList : caseList}*/}
+            {/*      columns={columns1}*/}
+            {/*      pagination={paginationProps}*/}
+            {/*      onChange={this.handleTableChange}*/}
+            {/*      locale={{*/}
+            {/*        emptyText: <Empty image={this.props.global && this.props.global.dark ? noList : noListLight}*/}
+            {/*                          description={'暂无数据'}/>*/}
+            {/*      }}*/}
+            {/*    />*/}
+            {/*    <div className={styles.btns}>*/}
+            {/*      <Button type="primary" style={{marginLeft: 8}} className={styles.qxBtn}*/}
+            {/*              onClick={this.onEdit}>*/}
+            {/*        取消*/}
+            {/*      </Button>*/}
+            {/*      <Button type="primary" style={{marginLeft: 8}} className={styles.okBtn}>*/}
+            {/*        确定*/}
+            {/*      </Button>*/}
+            {/*    </div>*/}
+            {/*  </div> : */}
                 <Table
-                  // size={'middle'}
-                  // loading={loading}
-                  rowKey={record => record.key}
-                  dataSource={tab==='0' ? policeList : caseList}
-                  columns={columns1}
-                  pagination={paginationProps}
-                  onChange={this.handleTableChange}
-                  locale={{
-                    emptyText: <Empty image={this.props.global && this.props.global.dark ? noList : noListLight}
-                                      description={'暂无数据'}/>
-                  }}
-                />
-                <div className={styles.btns}>
-                  <Button type="primary" style={{marginLeft: 8}} className={styles.qxBtn}
-                          onClick={this.onEdit}>
-                    取消
-                  </Button>
-                  <Button type="primary" style={{marginLeft: 8}} className={styles.okBtn}>
-                    确定
-                  </Button>
-                </div>
-              </div> : <Table
                 // size={'middle'}
                 // loading={loading}
                 rowKey={record => record.key}
-                dataSource={[]}
+                dataSource={tab==='0' ? policeList : caseList}
                 columns={columns}
                 pagination={paginationProps}
                 onChange={this.handleTableChange}
@@ -268,7 +214,7 @@ export default class policeDetail extends PureComponent {
                                     description={'暂无数据'}/>
                 }}
               />
-            }
+            {/*}*/}
           </div>
         }
       </div>

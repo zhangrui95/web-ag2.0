@@ -5,7 +5,7 @@
 * */
 
 import React, {PureComponent} from 'react';
-import {Table, Divider, Tooltip, message, Dropdown, Menu, Row, Col, Card, Empty,Icon} from 'antd';
+import {Table, Divider, Tooltip, message, Dropdown, Menu, Row, Col, Card, Empty, Icon, Modal} from 'antd';
 import styles from './RenderTable.less';
 import Detail from '../../pages/receivePolice/AlarmData/policeDetail';
 import ShareModal from './../ShareModal/ShareModal';
@@ -15,7 +15,7 @@ import noList from "@/assets/viewData/noList.png";
 import noListLight from "@/assets/viewData/noListLight.png";
 import {connect} from "dva";
 import {tableList} from "@/utils/utils";
-
+const {confirm} = Modal;
 @connect(({global}) => ({
     global
 }))
@@ -70,7 +70,7 @@ class RenderTable extends PureComponent {
         this.props.dispatch(
             routerRedux.push({
                 pathname: '/videoManage/videoData/videoDetail',
-                query: {record: record, id: record && record.id ? record.id+type : '1', tabName:type==='0' ? '播放': type==='1' ? '编辑' : '关联'},
+                query: {record: record, id: record && record.id ? record.id+type : '1', tabName:type==='0' ? '播放': '查看'},
             }),
         )
 
@@ -187,7 +187,22 @@ class RenderTable extends PureComponent {
             },
         });
     };
-
+  getDel = (record) =>{
+    confirm({
+      title: '确定删除该音视频？',
+      content: '',
+      okText: '确定',
+      cancelText: '取消',
+      centered: true,
+      getContainer: document.getElementById('messageBox'),
+      onOk() {
+        console.log('record.id------->',record.id);
+      },
+      onCancel() {
+        // console.log('Cancel');
+      },
+    });
+  }
     render() {
         const {data, loading} = this.props;
         const {shareVisible} = this.state;
@@ -243,14 +258,16 @@ class RenderTable extends PureComponent {
             {
                 title: '操作',
                 fixed: 'right',
-                width: 150,
+                width: 200,
                 render: (record) => (
                     <div>
                         <a onClick={()=>this.deatils(record,'0')}>播放</a>
                         <Divider type="vertical"/>
-                      {record.sfgl === '是' ? <a onClick={()=>this.deatils(record,'1')}>编辑</a> : <a onClick={()=>this.deatils(record,'2')}>关联</a>}
+                        <a onClick={()=>this.deatils(record,'1')}>查看</a>
                         <Divider type="vertical"/>
-                      <a>下载</a>
+                        <a>下载</a>
+                        <Divider type="vertical"/>
+                        <a onClick={()=>this.getDel(record)}>删除</a>
                     </div>
                 ),
             },

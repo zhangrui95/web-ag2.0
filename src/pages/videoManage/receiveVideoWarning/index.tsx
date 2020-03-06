@@ -1,7 +1,7 @@
 /*
- *  所有刑事案件预警（新）
- *  author：jhm
- *  20190909
+ *  警情预警
+ *  author：zr
+ *  20181222
  * */
 import React, { PureComponent } from 'react';
 import { connect } from 'dva';
@@ -26,16 +26,17 @@ import {
   Empty,
 } from 'antd';
 import moment from 'moment/moment';
-import Ellipsis from 'ant-design-pro/lib/Ellipsis';
+// import Ellipsis from '../../../src/components/Ellipsis';
 import styles from '../../common/listPage.less';
 import { exportListDataMaxDays, getUserInfos, tableList } from '../../../utils/utils';
+import Detail from '../AlarmData/policeDetail';
+// import RemindModal from '../../../components/RemindModal/RemindModal';
+// import AnnouncementModal from '../../../components/AnnouncementModal/AnnouncementModal';
+// import ShareModal from '../../../components/ShareModal/ShareModal';
 import { routerRedux } from 'dva/router';
+import Ellipsis from 'ant-design-pro/lib/Ellipsis';
 import noList from '@/assets/viewData/noList.png';
 import noListLight from '@/assets/viewData/noListLight.png';
-// import Detail from '../../routes/CaseRealData/caseDetail';
-// import RemindModal from '../../../src/components/RemindModal/RemindModal';
-// import AnnouncementModal from '../../../src/components/AnnouncementModal/AnnouncementModal';
-// import ShareModal from '../../components/ShareModal/ShareModal';
 
 const { Option } = Select;
 const { RangePicker } = DatePicker;
@@ -47,9 +48,10 @@ const RadioGroup = Radio.Group;
 let timeout;
 let currentValue;
 
-@connect(({ EarlyWarning, loading, common, global }) => ({
+@connect(({ EarlyWarning, loading, common, policeData, global }) => ({
   EarlyWarning,
   common,
+  policeData,
   global,
   loading: loading.models.EarlyWarning,
 }))
@@ -57,7 +59,7 @@ let currentValue;
 export default class Index extends PureComponent {
   state = {
     yjjb: '',
-    formValues: { yj_type: 'xsaj' }, // 查询条件
+    formValues: { yj_type: 'jq' }, // 查询条件
     activeKey: '0',
     arrayDetail: [],
     allPolice: [],
@@ -67,30 +69,30 @@ export default class Index extends PureComponent {
     shareVisible: false,
     shareItem: null,
     personList: [],
-    lx: '案件信息',
-    tzlx: window.configUrl.is_area === '1' ? 'xsajyj3' : 'xsajyj1',
+    lx: '警情信息',
+    tzlx: 'jqyj',
     sx: '',
     current: 1,
     AnnouncementVisible: false,
     RzList: [],
-    caseDetails: '',
+    policeDetails: '',
     searchHeight: false, // 查询条件展开筛选
   };
 
   componentDidMount() {
-    if (this.props.location.query && this.props.location.query.record) {
+    if (this.props.location.query && this.props.location.query.id) {
       this.details(this.props.location.query.record);
     }
-    this.getDossier({ pd: { yj_type: 'xsaj' } });
+    this.getDossier({ pd: { yj_type: 'jq' } });
     this.getSuperviseStatusDict();
     this.getYjjbDictionary();
-    this.props.dispatch({
-      type: 'common/getDictType',
-      payload: {
-        appCode: window.configUrl.appCode,
-        code: '20160003',//5007726
-      },
-    });
+      this.props.dispatch({
+          type: 'common/getDictType',
+          payload: {
+              appCode: window.configUrl.appCode,
+              code: '5025300',//5025300
+          },
+      });
   }
 
   // 切换tab
@@ -102,16 +104,6 @@ export default class Index extends PureComponent {
   // 关闭页面
   onTabEdit = (targetKey, action) => {
     this[action](targetKey); // this.remove(targetKey);
-  };
-  // 获取预警级别字典项
-  getYjjbDictionary = () => {
-    this.props.dispatch({
-      type: 'common/getDictType',
-      payload: {
-        appCode: window.configUrl.appCode,
-        code: '500847',
-      },
-    });
   };
   // 关闭页面链接的函数
   remove = targetKey => {
@@ -142,6 +134,16 @@ export default class Index extends PureComponent {
       });
     }
   };
+  // 获取预警级别字典项
+  getYjjbDictionary = () => {
+    this.props.dispatch({
+      type: 'common/getDictType',
+      payload: {
+          appCode: window.configUrl.appCode,
+          code: '500847',
+      },
+    });
+  };
   // 获取数据
   getDossier = param => {
     this.props.dispatch({
@@ -154,8 +156,8 @@ export default class Index extends PureComponent {
     this.props.dispatch({
       type: 'common/getDictType',
       payload: {
-        appCode: window.configUrl.appCode,
-        code: '2039',
+          appCode: window.configUrl.appCode,
+          code: '2039',
       },
     });
   };
@@ -188,21 +190,21 @@ export default class Index extends PureComponent {
   handleFormReset = () => {
     this.props.form.resetFields();
     this.setState({
-      formValues: { yj_type: 'xsaj' },
+      formValues: { yj_type: 'jq' },
     });
-    this.getDossier({ pd: { yj_type: 'xsaj' } });
+    this.getDossier({ pd: { yj_type: 'jq' } });
   };
   // 导出
   exportData = () => {
     const values = this.props.form.getFieldsValue();
     const yjsjTime = values.yjsj;
     const formValues = {
+      yj_type: 'jq',
       txzt: values.txzt || '',
       yjjbdm: values.yjjb || '',
       yjlxdm: values.yjlx || '',
       yjsj_ks: yjsjTime && yjsjTime.length > 0 ? yjsjTime[0].format('YYYY-MM-DD') : '',
       yjsj_js: yjsjTime && yjsjTime.length > 0 ? yjsjTime[1].format('YYYY-MM-DD') : '',
-      yj_type: 'xsaj',
     };
     if (yjsjTime && yjsjTime.length > 0) {
       const isAfterDate = moment(formValues.yjsj_js).isAfter(
@@ -215,7 +217,7 @@ export default class Index extends PureComponent {
         this.props.dispatch({
           type: 'common/exportData',
           payload: {
-            tableType: '29',
+            tableType: '27',
             ...formValues,
           },
           callback: data => {
@@ -231,35 +233,47 @@ export default class Index extends PureComponent {
       message.warning(`请选择需要导出的数据日期，日期间隔需小于${exportListDataMaxDays}天`);
     }
   };
-
+    refreshDetail = (res) => {
+      // console.log('res',res);
+      this.props.dispatch({
+        type: 'policeData/policeDetailFetch',
+        payload: {
+          id: res.system_id,
+        },
+        callback: data => {
+          // if (data) {
+          //   this.setState({
+          //     policeDetails: data,
+          //     IsSure: true,
+          //   });
+          // }
+        },
+      });
+    };
   // 查询
   handleSearch = e => {
     e.preventDefault();
-    // const values = this.props.form.getFieldsValue();
-    this.props.form.validateFields((err, values) => {
-      if (!err) {
-        const yjsjTime = values.yjsj;
-        const formValues = {
-          txzt: values.txzt || '',
-          yjjbdm: values.yjjb || '',
-          yjlxdm: values.yjlx || '',
-          yjsj_ks: yjsjTime && yjsjTime.length > 0 ? yjsjTime[0].format('YYYY-MM-DD') : '',
-          yjsj_js: yjsjTime && yjsjTime.length > 0 ? yjsjTime[1].format('YYYY-MM-DD') : '',
-          yj_type: 'xsaj',
-        };
-        this.setState({
-          formValues,
-        });
-        const params = {
-          currentPage: 1,
-          showCount: tableList,
-          pd: {
-            ...formValues,
-          },
-        };
-        this.getDossier(params);
-      }})
-
+    const values = this.props.form.getFieldsValue();
+    const yjsjTime = values.yjsj;
+    const formValues = {
+      yj_type: 'jq',
+      txzt: values.txzt || '',
+      yjjbdm: values.yjjb || '',
+      yjlxdm: values.yjlx || '',
+      yjsj_ks: yjsjTime && yjsjTime.length > 0 ? yjsjTime[0].format('YYYY-MM-DD') : '',
+      yjsj_js: yjsjTime && yjsjTime.length > 0 ? yjsjTime[1].format('YYYY-MM-DD') : '',
+    };
+    this.setState({
+      formValues,
+    });
+    const params = {
+      currentPage: 1,
+      showCount: tableList,
+      pd: {
+        ...formValues,
+      },
+    };
+    this.getDossier(params);
   };
   // 获取办案人信息
   handleAllPoliceOptionChange = value => {
@@ -271,7 +285,7 @@ export default class Index extends PureComponent {
     const params = {
       pd: {
         ...formValues,
-        yj_type: 'xsaj',
+        yj_type: 'jq',
       },
       currentPage: pagination.current,
       showCount: pagination.pageSize,
@@ -283,21 +297,11 @@ export default class Index extends PureComponent {
   };
   // 打开新的详情页面
   details = record => {
-    this.props.dispatch(
-      routerRedux.push({
-        pathname: '/newcaseFiling/caseData/CriminalData/caseDetail',
-        query: {
-          record: record,
-          id: record && record.system_id ? record.system_id : '1',
-          movefrom: '刑事案件预警',
-          current: this.state.current,
-        },
-      }),
-    );
     // const divs = (
     //   <div>
     //     <Detail
     //       {...this.props}
+    //       getPolice={() => this.getDossier({ pd: { yj_type: 'jq' } })}
     //       id={record.system_id}
     //       systemId={record.ag_id}
     //       record={record}
@@ -308,15 +312,21 @@ export default class Index extends PureComponent {
     //       details={this.deatils}
     //       current={this.state.current}
     //       newDetail={this.newDetail}
-    //       getCase={() => this.getDossier({ pd: { yj_type: 'xsaj' } })}
-    //       yjid={record.id}
     //       yjType="yj"
+    //       yjid={record.id}
     //     />
     //   </div>
     // );
-    // const AddNewDetail = { title: '刑事案件预警详情', content: divs, key: record.id };
+    // const AddNewDetail = { title: '警情预警详情', content: divs, key: record.id };
     // this.newDetail(AddNewDetail);
+    this.props.dispatch(
+      routerRedux.push({
+        pathname: '/receivePolice/AlarmData/policeDetail',
+        query: { record: record, id: record && record.system_id ? record.system_id : '1', movefrom: '警情预警',current:this.state.current },
+      }),
+    );
   };
+
   // 打开新的详情页面
   newDetail = addDetail => {
     let newDetail = [];
@@ -345,59 +355,17 @@ export default class Index extends PureComponent {
     return current && current.valueOf() > Date.now();
   };
   // 请求当前数据的详情（提醒弹窗中的回显数据从此处获取）
-  thisNewDetails = (res, type) => {
+  thisNewDetails = res => {
     this.props.dispatch({
-      type: 'CaseData/getAjxxXqById',
+      type: 'policeData/policeDetailFetch',
       payload: {
-        system_id: res.system_id,
+        id: res.system_id,
       },
       callback: data => {
         if (data) {
           this.setState({
-            caseDetails: data,
+            policeDetails: data,
           });
-          let detail = [
-            `案件名称：${res && res.ajmc ? res.ajmc : ''}`,
-            `办案单位：${res && res.bardwmc ? res.bardwmc : ''}`,
-            `案件状态：${res && res.schj ? res.schj : ''}`,
-            `办案民警：${res && res.barxm ? res.barxm : ''}`,
-          ];
-          res.detail = detail;
-          if (type === 3) {
-            this.props.dispatch(
-              routerRedux.push({
-                pathname: '/ModuleAll/Remind',
-                query: {
-                  record: res,
-                  itemDetails: data,
-                  id: res && res.system_id ? res.system_id : '1',
-                  from: this.state.lx,
-                  fromPath: '/newcaseFiling/caseWarning/CriminalWarning',
-                  detail,
-                  tab: '表格',
-                },
-              }),
-            );
-          } else if (type === 2) {
-            this.props.dispatch(
-              routerRedux.push({
-                pathname: '/ModuleAll/Share',
-                query: {
-                  record: res,
-                  id: res && res.system_id ? res.system_id : '1',
-                  from: this.state.lx,
-                  tzlx: this.state.tzlx,
-                  fromPath: '/newcaseFiling/caseWarning/CriminalWarning',
-                  tab: '表格',
-                  sx:
-                    (res.wpmc ? res.wpmc + '、' : '') +
-                    (res.wplx_mc ? res.wplx_mc + '、' : '') +
-                    (res.yjlxmc ? res.yjlxmc + '、' : '') +
-                    (res.yjsj ? res.yjsj : ''),
-                },
-              }),
-            );
-          }
         }
       },
     });
@@ -422,23 +390,44 @@ export default class Index extends PureComponent {
   saveShare = (res, type, ajGzLx) => {
     this.setState({
       sx:
-        (res.ajmc ? res.ajmc + '、' : '') +
+        (res.jjdw_mc ? res.jjdw_mc + '、' : '') +
         (res.yjlxmc ? res.yjlxmc + '、' : '') +
-        (res.yjsj ? res.yjsj : ''),
+        (res.cjddsj ? res.cjddsj : ''),
       shareRecord: res,
     });
     if (type === 3) {
-      // this.setState({
-      //   txVisible: true,
-      //   txItem: res,
-      // });
-      this.thisNewDetails(res, type);
+      this.setState({
+        txVisible: true,
+        txItem: res,
+      });
+      this.thisNewDetails(res);
     } else if (type === 2) {
-      // this.setState({
-      //   shareVisible: true,
-      //   shareItem: res,
-      // });
-      this.thisNewDetails(res, type);
+      let detail = [
+        `管辖单位：${res && res.jjdw_mc ? res.jjdw_mc : ''}`,
+         `接警人：${res && res.jjr ? res.jjr : ''}`,
+        `接警信息：${res && res.jjnr ? res.jjnr : ''}`,
+        `处警单位：${res && res.cjdw ? res.cjdw : ''}`,
+         `处警人：${res && res.cjr ? res.cjr : ''}`,
+        `处警信息：${res && res.cjqk ? res.cjqk : ''}`,
+      ];
+      res.detail = detail;
+      this.props.dispatch(
+        routerRedux.push({
+          pathname: '/ModuleAll/Share',
+          query: {
+            record: res,
+            id: res && res.id ? res.id : '1',
+            from: this.state.lx,
+            tzlx: this.state.tzlx,
+            fromPath: '/receivePolice/AlarmWarning',
+            tab: '表格',
+            sx:
+              (res.jjdw_mc ? res.jjdw_mc + '、' : '') +
+              (res.yjlxmc ? res.yjlxmc + '、' : '') +
+              (res.cjddsj ? res.cjddsj : ''),
+          },
+        }),
+      );
     } else {
       this.props.dispatch({
         type: 'share/getMyFollow',
@@ -446,7 +435,7 @@ export default class Index extends PureComponent {
           agid: res.id,
           lx: this.state.lx,
           sx:
-            (res.ajmc ? res.ajmc + '、' : '') +
+            (res.jjdw_mc ? res.jjdw_mc + '、' : '') +
             (res.yjlxmc ? res.yjlxmc + '、' : '') +
             (res.yjsj ? res.yjsj : ''),
           type: type,
@@ -459,17 +448,19 @@ export default class Index extends PureComponent {
         },
         callback: data => {
           if (!data.error) {
+            // message.success('关注成功');
+            // console.log('res',res);
             this.props.dispatch({
               type: 'share/getMyFollow',
               payload: {
                 agid: res.ag_id,
                 lx: this.state.lx,
                 sx:
-                (res.ajmc ? res.ajmc + '、' : '') +
+                (res.jjdw_mc ? res.jjdw_mc + '、' : '') +
                 (res.yjlxmc ? res.yjlxmc + '、' : '') +
                 (res.yjsj ? res.yjsj : ''),
                 type: type,
-                tzlx: this.state.tzlx,
+                tzlx: 'jqxx',
                 wtid: res.wtid,
                 ajbh: res.ajbh,
                 system_id: res.system_id,
@@ -479,44 +470,35 @@ export default class Index extends PureComponent {
               callback: data1 => {
                 if (!data1.error) {
                   message.success('关注成功');
+
                   this.getDossier({ currentPage: this.state.current, pd: this.state.formValues });
                   this.refreshDetail(res);
                 }
               },
             });
+
+            // this.getDossier({ currentPage: this.state.current, pd: this.state.formValues });
+            // this.refreshDetail(res);
           }
         },
       });
     }
   };
-  refreshDetail = (res) => {
-    this.props.dispatch({
-      type: 'CaseData/getAjxxXqById',
-      payload: {
-        system_id: res.system_id,
-      },
-      callback: data => {
-        // if (data) {
-        //   this.setState({
-        //     caseDetails: data,
-        //     IsSure: true,
-        //   });
-        // }
-      },
-    });
-  };
-  handleCancel = () => {
-    this.setState({
-      shareVisible: false,
-      txVisible: false,
-    });
-  };
-  handleCancels = () => {
-    this.setState({
-      AnnouncementVisible: false,
-    });
-  };
+  // handleCancel = () => {
+  //   this.setState({
+  //     shareVisible: false,
+  //     txVisible: false,
+  //   });
+  // };
+  // handleCancels = () => {
+  //   this.setState({
+  //     AnnouncementVisible: false,
+  //   });
+  // };
   getTg = record => {
+    // this.setState({
+    //   AnnouncementVisible: true,
+    // });
     this.props.dispatch({
       type: 'share/getRz',
       payload: {
@@ -531,8 +513,8 @@ export default class Index extends PureComponent {
               record: record,
               RzList: res.list,
               id: record && record.id ? record.id : '1',
-              fromPath: '/newcaseFiling/caseWarning/CriminalWarning',
-              movefrom: '案件预警',
+              fromPath: '/receivePolice/AlarmWarning',
+              movefrom: '警情预警',
               tab: '表格',
             },
           }),
@@ -542,21 +524,6 @@ export default class Index extends PureComponent {
         // });
       },
     });
-    // this.setState({
-    //   AnnouncementVisible: true,
-    // });
-    // this.props.dispatch({
-    //   type: 'share/getRz',
-    //   payload: {
-    //     ag_id: record.ag_id,
-    //     yj_id: record.id,
-    //   },
-    //   callback: (res) => {
-    //     this.setState({
-    //       RzList: res.list,
-    //     });
-    //   },
-    // });
   };
   noFollow = record => {
     this.props.dispatch({
@@ -571,10 +538,12 @@ export default class Index extends PureComponent {
         if (!res.error) {
           message.success('取消关注成功');
           this.getDossier({ currentPage: this.state.current, pd: this.state.formValues });
+          this.refreshDetail(record);
         }
       },
     });
   };
+
   // 展开筛选和关闭筛选
   getSearchHeight = () => {
     this.setState({
@@ -585,13 +554,14 @@ export default class Index extends PureComponent {
   render() {
     const {
       form: { getFieldDecorator },
-      common: { depTree, superviseStatusDict, YJJBType, XsyjType },
+      common: { depTree, superviseStatusDict, YJJBType, JqyjType },
       EarlyWarning: {
-        xsajyjdata: { page, list, tbCount },
+        jqyjdata: { page, list, tbCount },
       },
       loading,
     } = this.props;
     const newAddDetail = this.state.arrayDetail;
+    const { policeDetails } = this.state;
     const allPoliceOptions = this.state.allPolice.map(d => (
       <Option
         key={`${d.idcard},${d.pcard}`}
@@ -638,26 +608,18 @@ export default class Index extends PureComponent {
         dataIndex: 'yjlxmc',
       },
       {
-        title: '案件名称',
-        dataIndex: 'ajmc',
-        render: text => {
-          return (
-            <Ellipsis length={25} tooltip>
-              {text}
-            </Ellipsis>
-          );
-        },
-      },
-      {
-        title: '案件编号',
-        dataIndex: 'ajbh',
+        title: '警情编号',
+        dataIndex: 'jqbh',
+        // render: (text) =>{
+        //     return <Ellipsis length={12} tooltip>{text}</Ellipsis>
+        // },
       },
       {
         title: '预警内容',
         dataIndex: 'yjnr',
         render: text => {
           return (
-            <Ellipsis length={25} tooltip>
+            <Ellipsis length={40} tooltip>
               {text}
             </Ellipsis>
           );
@@ -689,35 +651,35 @@ export default class Index extends PureComponent {
             <a href="javascript:;" onClick={() => this.getTg(record)}>
               日志
             </a>
-              {record.yjjbdm === '5008474' ? '' : <span>
-                   <Divider type="vertical" />
-                  {record.sfgz === 0 ? (
-                      <Dropdown
-                          overlay={
-                              <Menu>
-                                  <Menu.Item key="0">
-                                      <a onClick={() => this.saveShare(record, 1, 0)}>本案件关注</a>
-                                  </Menu.Item>
-                                  <Menu.Item key="1">
-                                      <a onClick={() => this.saveShare(record, 1, 1)}>全要素关注</a>
-                                  </Menu.Item>
-                              </Menu>
-                          }
-                          trigger={['click']}
-                          getPopupContainer={() => document.getElementById('xsajyjtableListOperator')}
-                      >
-                          <a href="javascript:;">关注</a>
-                      </Dropdown>
-                  ) : (
-                      <a href="javascript:;" onClick={() => this.noFollow(record)}>
-                          取消{record.ajgzlx && record.ajgzlx === '0' ? '本案件' : '全要素'}关注
-                      </a>
-                  )}
-                  <Divider type="vertical" />
+            {record.yjjbdm === '5008474' ? '' : <span>
+                <Divider type="vertical" />
+                {record.sfgz === 0 ? (
+                    <Dropdown
+                        overlay={
+                            <Menu>
+                                <Menu.Item key="0">
+                                    <a onClick={() => this.saveShare(record, 1, 0)}>本警情关注</a>
+                                </Menu.Item>
+                                <Menu.Item key="1">
+                                    <a onClick={() => this.saveShare(record, 1, 1)}>全要素关注</a>
+                                </Menu.Item>
+                            </Menu>
+                        }
+                        getPopupContainer={() => document.getElementById('jqyjcardArea')}
+                        trigger={['click']}
+                    >
+                        <a href="javascript:;">关注</a>
+                    </Dropdown>
+                ) : (
+                    <a href="javascript:;" onClick={() => this.noFollow(record)}>
+                        取消{record.ajgzlx && record.ajgzlx === '0' ? '本警情' : '全要素'}关注
+                    </a>
+                )}
+                <Divider type="vertical" />
             <a href="javascript:;" onClick={() => this.saveShare(record, 2)}>
               分享
             </a>
-              </span>}
+            </span>}
           </div>
         ),
       },
@@ -751,14 +713,109 @@ export default class Index extends PureComponent {
       total: page ? page.totalResult : '',
       pageSize: page ? page.showCount : '',
       showTotal: (total, range) => (
-        <span className={styles.listPagination}>{`共 ${page ? page.totalPage : 1} 页， ${
+        <span className={styles.listPagination}>{`共 ${page ? page.totalPage : 1} 页，${
           page ? page.totalResult : 0
-        } 条记录 `}</span>
+        } 条记录`}</span>
       ),
     };
+    let detail = (
+      <Row
+        style={{
+          width: '90%',
+          margin: '0 52px 10px',
+          lineHeight: '36px',
+          color: 'rgba(0, 0, 0, 0.85)',
+        }}
+      >
+        <Col span={8}>
+          接警人：
+          {this.state.policeDetails && this.state.policeDetails.jjr
+            ? this.state.policeDetails.jjr
+            : ''}
+        </Col>
+        <Col span={8}>
+          管辖单位：
+          <Tooltip
+            title={
+              this.state.policeDetails &&
+              this.state.policeDetails.jjdw &&
+              this.state.policeDetails.jjdw.length > 12
+                ? this.state.policeDetails.jjdw
+                : null
+            }
+          >
+            {this.state.policeDetails && this.state.policeDetails.jjdw
+              ? this.state.policeDetails.jjdw.length > 12
+                ? this.state.policeDetails.jjdw.substring(0, 12) + '...'
+                : this.state.policeDetails.jjdw
+              : ''}
+          </Tooltip>
+        </Col>
+        <Col span={8}>
+          接警信息：
+          <Tooltip
+            title={
+              this.state.policeDetails &&
+              this.state.policeDetails.jjnr &&
+              this.state.policeDetails.jjnr.length > 12
+                ? this.state.policeDetails.jjnr
+                : null
+            }
+          >
+            {this.state.policeDetails && this.state.policeDetails.jjnr
+              ? this.state.policeDetails.jjnr.length > 12
+                ? this.state.policeDetails.jjnr.substring(0, 12) + '...'
+                : this.state.policeDetails.jjnr
+              : ''}
+          </Tooltip>
+        </Col>
+        <Col span={8}>
+          处警人：
+          {this.state.policeDetails && this.state.policeDetails.cjr
+            ? this.state.policeDetails.cjr
+            : ''}
+        </Col>
+        <Col span={8}>
+          处警单位：
+          <Tooltip
+            title={
+              this.state.policeDetails &&
+              this.state.policeDetails.cjdw &&
+              this.state.policeDetails.cjdw.length > 12
+                ? this.state.policeDetails.cjdw
+                : null
+            }
+          >
+            {this.state.policeDetails && this.state.policeDetails.cjdw
+              ? this.state.policeDetails.cjdw.length > 12
+                ? this.state.policeDetails.cjdw.substring(0, 12) + '...'
+                : this.state.policeDetails.cjdw
+              : ''}
+          </Tooltip>
+        </Col>
+        <Col span={8}>
+          处警信息：
+          <Tooltip
+            title={
+              this.state.policeDetails &&
+              this.state.policeDetails.cjqk &&
+              this.state.policeDetails.cjqk.length > 12
+                ? this.state.policeDetails.cjqk
+                : null
+            }
+          >
+            {this.state.policeDetails && this.state.policeDetails.cjqk
+              ? this.state.policeDetails.cjqk.length > 12
+                ? this.state.policeDetails.cjqk.substring(0, 12) + '...'
+                : this.state.policeDetails.cjqk
+              : ''}
+          </Tooltip>
+        </Col>
+      </Row>
+    );
     return (
       <div className={this.props.global && this.props.global.dark ? '' : styles.lightBox}>
-        <div className={styles.tableListForm} id="newslaxsajyjtableListForm">
+        <div className={styles.tableListForm} id="jqyjtableListForm">
           <Form
             onSubmit={this.handleSearch}
             style={{ height: this.state.searchHeight ? 'auto' : '50px' }}
@@ -770,14 +827,16 @@ export default class Index extends PureComponent {
                     initialValue: this.state.yjlx,
                   })(
                     <Select
-                      placeholder="请选择预警类型"
+                      placeholder="请选择"
                       style={{ width: '100%' }}
-                      getPopupContainer={() => document.getElementById('newslaxsajyjtableListForm')}
+                      getPopupContainer={() => document.getElementById('jqyjtableListForm')}
                     >
                       <Option value="">全部</Option>
-                      {XsyjType.map(event => {
-                        return <Option value={event.code}>{event.name}</Option>;
-                      })}
+                        {JqyjType.map(event => {
+                            return <Option value={event.code}>{event.name}</Option>;
+                        })}
+                      {/*<Option value="5025302">未受案警情</Option>*/}
+                      {/*<Option value="5025301">无处置结果</Option>*/}
                     </Select>,
                   )}
                 </FormItem>
@@ -788,9 +847,9 @@ export default class Index extends PureComponent {
                     initialValue: this.state.yjjb,
                   })(
                     <Select
-                      placeholder="请选择预警级别"
+                      placeholder="请选择"
                       style={{ width: '100%' }}
-                      getPopupContainer={() => document.getElementById('newslaxsajyjtableListForm')}
+                      getPopupContainer={() => document.getElementById('jqyjtableListForm')}
                     >
                       <Option value="">全部</Option>
                       {YJJBStatusOptions}
@@ -817,9 +876,7 @@ export default class Index extends PureComponent {
                     <RangePicker
                       disabledDate={this.disabledDate}
                       style={{ width: '100%' }}
-                      getCalendarContainer={() =>
-                        document.getElementById('newslaxsajyjtableListForm')
-                      }
+                      getCalendarContainer={() => document.getElementById('jqyjtableListForm')}
                     />,
                   )}
                 </FormItem>
@@ -827,7 +884,7 @@ export default class Index extends PureComponent {
             </Row>
             <Row className={styles.search}>
               <span style={{ float: 'right', marginBottom: 24, marginTop: 5 }}>
-                <Button style={{ borderColor: '#2095FF' }} htmlType="submit">
+                <Button style={{ marginLeft: 8 }} type="primary" htmlType="submit">
                   查询
                 </Button>
                 <Button
@@ -849,7 +906,7 @@ export default class Index extends PureComponent {
             </Row>
           </Form>
         </div>
-        <div className={styles.tableListOperator} id="xsajyjtableListOperator">
+        <div className={styles.tableListOperator} id="jqyjcardArea">
           <Button
             style={{ borderColor: '#2095FF', marginBottom: 16 }}
             onClick={this.exportData}
@@ -866,24 +923,17 @@ export default class Index extends PureComponent {
             columns={columns}
             pagination={paginationProps}
             onChange={this.handleTableChange}
-            locale={{
-              emptyText: (
-                <Empty
-                  image={this.props.global && this.props.global.dark ? noList : noListLight}
-                  description={'暂无数据'}
-                />
-              ),
-            }}
+            locale={{ emptyText: <Empty image={this.props.global && this.props.global.dark ? noList : noListLight} description={'暂无数据'} /> }}
           />
           {/*<RemindModal caseDetails={this.state.caseDetails} txVisible={this.state.txVisible}*/}
           {/*detail={detail} handleCancel={this.handleCancel} txItem={this.state.txItem}*/}
-          {/*yjmc="案件预警" getResult={() => this.getDossier({*/}
+          {/*yjmc="警情预警" getResult={() => this.getDossier({*/}
           {/*currentPage: this.state.current,*/}
           {/*pd: this.state.formValues,*/}
           {/*})}/>*/}
           {/*<AnnouncementModal visible={this.state.AnnouncementVisible}*/}
           {/*handleCancel={this.handleCancels} RzList={this.state.RzList}/>*/}
-          {/*<ShareModal title="案件信息分享" detail={detail} shareVisible={this.state.shareVisible}*/}
+          {/*<ShareModal title="警情信息分享" detail={detail} shareVisible={this.state.shareVisible}*/}
           {/*handleCancel={this.handleCancel} shareItem={this.state.shareItem}*/}
           {/*personList={this.state.personList}*/}
           {/*lx={this.state.lx} tzlx={this.state.tzlx} sx={this.state.sx}/>*/}
