@@ -22,7 +22,6 @@ import {tableList} from "@/utils/utils";
 }))
 class QuestionDefendTable extends PureComponent {
   state = {
-    tablechoose:[], // 表格中的选中项
     listDetail:'',  // 题目详情
     listDetailVisible:false, //题目详情模态框
   };
@@ -75,7 +74,7 @@ class QuestionDefendTable extends PureComponent {
 
   render() {
     const { data } = this.props;
-    const { mode,tablechoose,listDetailVisible,listDetail } = this.state;
+    const { mode,listDetailVisible,listDetail } = this.state;
     let columns, checkboxchooseObj = [];
     columns = [
       {
@@ -113,10 +112,6 @@ class QuestionDefendTable extends PureComponent {
       onChange: (selectedRowKeys, selectedRows) => {
         // console.log('selectedRowKeys',selectedRowKeys);
         // console.log('selectedRows',selectedRows);
-        this.setState({
-          tablechoose:selectedRowKeys,
-
-        })
         if(this.props.chooseSelect){
           this.props.chooseSelect(selectedRowKeys);
         }

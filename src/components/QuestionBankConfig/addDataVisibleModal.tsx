@@ -66,18 +66,7 @@ export default class addDataVisibleModal extends PureComponent {
             closeAdd:false,
           });
           let showDataList=[...this.state.showDataList];
-          const showData = {
-            tm:obj.tm,
-            tmlx:obj.tmlxzw,
-            tmxx1:obj.tmxx_1,
-            tmxx2:obj.tmxx_2,
-            tmxx3:obj.tmxx_3,
-            tmxx4:obj.tmxx_4,
-            da:obj.xztda||obj.jdtdagjz,
-            dajx:obj.dajx,
-          }
-          showDataList.push(showData);
-          console.log('showDataList',showDataList);
+          showDataList.push(data.data.list);
           this.setState({
             showDataList,
           })
@@ -88,7 +77,6 @@ export default class addDataVisibleModal extends PureComponent {
 
   // 确认添加的题目关闭题目添加模态框，刷新列表
   addSuccess = () => {
-    console.log('showDataList',this.state.showDataList);
     if(this.state.showDataList.length>0){
       this.setState({
         messageSuccess:true,
@@ -158,7 +146,7 @@ export default class addDataVisibleModal extends PureComponent {
   // 保存当前添加的一个简答题目
   HoldShortAnswer = (item,num) => {
     this.props.form.validateFields((err, values) => {
-      console.log('values',values);
+      // console.log('values',values);
       if(!err){
         const param = {
           dajx:values.jddajx,
@@ -172,18 +160,29 @@ export default class addDataVisibleModal extends PureComponent {
     })
   }
 
-  // 确认单选题的正确答案
-  onRightAnswer = (e) => {
-
-  }
 
   // 题目添加完成后再预览的地方删除
-  deleteNowChange = () => {
+  deleteNowChange = (item) => {
+    const {showDataList} = this.state;
+    let newshowDataList = [];
+    console.log('item',item)
+    this.props.deleteListData(item);
+    showDataList&&showDataList.length>0?(
+      showDataList.map((obj)=>{
+        if(obj.id===item.id){
+          // newshowDataList.push(obj)
+          this.setState({
+            showDataList:[],
+          })
+        }
 
+      })
+    ):''
   }
 
   render() {
     const {questionType,closeAdd,showDataList} = this.state;
+    console.log('showDataList',showDataList);
     const rowLayout = {md: 8, xl: 16, xxl: 24};
     const colLayout = {sm: 24, md: 12, xl: 6};
     const formItemLayout = {
@@ -195,7 +194,6 @@ export default class addDataVisibleModal extends PureComponent {
       wrapperCol: {xs: {span: 24}, md: {span: 16}, xl: {span: 18}, xxl: {span: 21}},
     };
     const {form: {getFieldDecorator}} = this.props;
-    console.log('showDataList',showDataList);
     return (
       <div>
         <Modal
@@ -431,14 +429,14 @@ export default class addDataVisibleModal extends PureComponent {
           </div>
           <div>
             {showDataList.map((item)=>{
-              const reftem = item.tmlx==='简答'?(
-                <Card title={'题目类型：'+item.tmlx} extra={<Button type='primary' onClick={this.deleteNowChange}>删除</Button>}>
+              const reftem = item.tmlx==='00003'?(
+                <Card title={'题目类型：'+item.tmlx} extra={<Button type='primary' onClick={()=>this.deleteNowChange(item)}>删除</Button>}>
                   <Row>题目：&nbsp;&nbsp;&nbsp;&nbsp;{item.tm}</Row>
-                  <Row>答案：&nbsp;&nbsp;&nbsp;&nbsp;{item.da}</Row>
+                  <Row>答案：&nbsp;&nbsp;&nbsp;&nbsp;{item.jdtdagjz}</Row>
                   <Row>答案解析：&nbsp;&nbsp;&nbsp;&nbsp;{item.dajx}</Row>
                 </Card>
               ):(
-                <Card title={'题目类型：'+item.tmlx} extra={<Button type='primary' onClick={this.deleteNowChange}>删除</Button>}>
+                <Card title={'题目类型：'+item.tmlx} extra={<Button type='primary' onClick={()=>this.deleteNowChange(item)}>删除</Button>}>
                   <Row>题目：&nbsp;&nbsp;&nbsp;&nbsp;{item.tm}</Row>
                   <Row>选项：&nbsp;&nbsp;&nbsp;&nbsp;选项1：{item.tmxx1} 选项2：{item.tmxx2} 选项3：{item.tmxx3} 选项4：{item.tmxx4}</Row>
                   <Row>答案：&nbsp;&nbsp;&nbsp;&nbsp;{item.da}</Row>

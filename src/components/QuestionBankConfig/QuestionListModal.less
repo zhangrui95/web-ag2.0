@@ -1,0 +1,237 @@
+@import '~antd/lib/style/themes/default.less';
+@import '../../theme/darkTheme';
+
+.searchForm {
+  width: calc(~'100% - 260px');
+  float: left;
+  //border-right: 1px solid @body-background;
+  overflow: hidden;
+}
+.search {
+  width: 260px;
+  float: left;
+  margin: 10px 0 0 12px;
+}
+.success {
+  color: @white;
+
+  :global {
+    .ant-modal-header {
+      display: none;
+      background-color: #1890FF;
+      color: #fff;
+      height: 46px;
+    }
+
+    .ant-modal-close-x {
+      display: none;
+      height: 46px;
+      line-height: 46px;
+    }
+
+    .ant-modal-content {
+      //width: 452px;
+      //height: 158px;
+      background-color: #262c3d;
+    }
+
+    .ant-modal-title {
+      color: #fff;
+    }
+
+    .ant-modal-body {
+      height: 102px;
+      font-weight: 700;
+      font-size: 22px;
+      text-align: center;
+      padding: 0;
+    }
+
+    .ant-modal-close {
+      color: #fff;
+    }
+
+    .antd-pro-pages-module-all-share-index-successBtn {
+      width: 68px;
+      height: 36px;
+    }
+
+    .ant-modal-footer {
+      text-align: right;
+      border-top: 0;
+    }
+  }
+}
+.successLight {
+  color: #4d4d4d;
+  :global {
+    .ant-modal-header {
+      display: none;
+      background-color: #4662D5;
+      color: #fff;
+      height: 46px;
+    }
+
+    .ant-modal-close-x {
+      display: none;
+      height: 46px;
+      line-height: 46px;
+    }
+
+    .ant-modal-content {
+      width: 452px;
+      height: 158px;
+      background-color: #fff;
+    }
+
+    .ant-modal-title {
+      color: #4D4D4D;
+    }
+
+    .ant-modal-body {
+      font-weight: 700;
+      font-size: 22px;
+      text-align: center;
+      height: 102px;
+    }
+
+    .ant-modal-close {
+      color: #fff;
+    }
+
+    .ant-modal-footer {
+      text-align: right;
+      border-top: 0;
+    }
+  }
+}
+.successBtn {
+  background: #4662D5 !important;
+  width: 80px;
+  height: 32px;
+  //border-radius: 4px;
+  border: 0;
+  color: #fff;
+  cursor: pointer;
+}
+.shareHeader{
+  :global {
+    .ant-modal-body{
+      padding: 16px 0;
+    }
+    .ant-modal-header {
+      background-color: #1D256B;
+      //opacity: 0.4;
+      color: #fff;
+    }
+
+    .ant-modal-title {
+      color: #fff;
+    }
+
+    .ant-modal-close {
+      color: #fff;
+    }
+
+    .ant-modal-footer {
+      text-align: center;
+      //border-top: 0;
+    }
+  }
+}
+.showTable{
+  border-top-left-radius:0!important;
+}
+.listPageWrap {
+  background-color: @text-word-color;
+
+  .listPageHeader {
+    background: @component-background;
+    padding: 16px 24px;
+    //border: 1px solid #e8e8e8;
+    //border-top: none;
+    position: relative;
+    margin-top: 16px;
+    border-radius: 10px;
+
+    a {
+      font-size: @font-size-lg;
+      color: @heading-color;
+      line-height: 26px;
+
+      &:hover {
+        color: @link-active-color;
+      }
+    }
+
+    .listPageHeaderCurrent {
+      //font-size: @font-size-lg;
+      font-weight: bold;
+      color: @primary-color;
+      span{
+        padding: 0 8px;
+      }
+    }
+
+    .UnlistPageHeaderCurrent {
+      font-weight: bold;
+      color: @title-color;
+    }
+
+    .borderCenter {
+      padding: 0 8px;
+    }
+
+    .typeButtonsArea {
+      float: right;
+
+      button {
+        margin-right: 16px;
+
+        span {
+          padding: 0;
+          line-height: 26px;
+          margin-top: -3px;
+          display: block;
+        }
+      }
+    }
+  }
+}
+
+.lightBox {
+  background-color: transparent;
+
+  .listPageHeader {
+    background: #fff !important;
+    color: #E6E6E6;
+  }
+
+  .listPageHeaderCurrent {
+    color: #3D63D1 !important;
+  }
+
+  .tableListForm {
+    background-color: #fff;
+    border-radius: 10px;
+  }
+
+  .typeButtonsArea {
+    color: #475366 !important;
+  }
+
+  .empty {
+    background: #EBEBEB !important;
+    color: #455365 !important;
+  }
+
+  .searchForm {
+    border-right: 1px solid #DBDBDB !important;
+  }
+
+  .downloadBtn {
+    background: #4662D5;
+    color: #fff;
+    border: 1px solid #4662D5;
+  }
+}

@@ -7,6 +7,7 @@
 import React, { PureComponent } from 'react';
 import { Table, Divider, Tooltip, message, Dropdown, Menu, Row, Col, Empty, Icon, Radio,Card,Checkbox,Pagination,Modal } from 'antd';
 import styles from './QuestionDefendTable.less';
+import TemplateDetailVisibleModal from '../../components/QuestionBankConfig/TemplateDetailVisibleModal';
 // import Detail from '../../routes/AreaRealData/areaDetail';
 // import ShareModal from './../ShareModal/ShareModal';
 import Ellipsis from 'ant-design-pro/lib/Ellipsis';
@@ -21,9 +22,8 @@ import {tableList} from "@/utils/utils";
 }))
 class EvaluateTemplateTable extends PureComponent {
   state = {
-    selectedRows:[],
-    previewRecord:'',
-    tablechoose:[], // 表格中的选中项
+    previewRecord:'', // 请求的详情数据
+    previewVisible:false, // 详情模态框
   };
 
   componentDidMount() {
@@ -36,26 +36,37 @@ class EvaluateTemplateTable extends PureComponent {
 
   //详情
   playVideo=(record)=>{
-    this.setState({
-      previewModal:true,
-      previewRecord:record,
+    this.props.dispatch({
+      type:'QuestionBankConfig/getTemplateDetail',
+      payload:{
+        id:record.id,
+      },
+      callback:(data)=>{
+        if(data){
+          this.setState({
+            previewVisible:true,
+            previewRecord:data,
+          })
+        }
+      }
     })
   }
 
   // 删除
   DeleteVideo = (record) => {
-    this.props.deleteOneData(record);
+    this.props.deleteTemplateData(record);
   }
 
+  // 关闭详情模态框
   previewModalCancel = () => {
     this.setState({
-      previewModal:false,
+      previewVisible:false,
       previewRecord:'',
     })
   }
   render() {
     const { data } = this.props;
-    const { mode,tablechoose } = this.state;
+    const { mode,previewVisible,previewRecord } = this.state;
     let columns, checkboxchooseObj = [];
     columns = [
       {
@@ -65,7 +76,7 @@ class EvaluateTemplateTable extends PureComponent {
       },
       {
         title: '模板名称',
-        dataIndex: 'mbmc',
+        dataIndex: 'cpmbzw',
         // width: 100,
       },
       {
@@ -88,10 +99,6 @@ class EvaluateTemplateTable extends PureComponent {
       onChange: (selectedRowKeys, selectedRows) => {
         // console.log('selectedRowKeys',selectedRowKeys);
         // console.log('selectedRows',selectedRows);
-        this.setState({
-          tablechoose:selectedRowKeys,
-
-        })
         if(this.props.chooseSelect){
           this.props.chooseSelect(selectedRowKeys);
         }
@@ -100,34 +107,34 @@ class EvaluateTemplateTable extends PureComponent {
         //   selectedRows,
         // })
       },
-      selectedRowKeys: [...tablechoose],
+
       // getCheckboxProps: record => ({
       //   disabled: record.name === 'Disabled User', // Column configuration not to be checked
       //   name: record.name,
       // }),
     };
-    // const paginationProps = {
-    //   // showSizeChanger: true,
-    //   // showQuickJumper: true,
-    //   current: data.page ? data.page.currentPage : '',
-    //   total: data.page ? data.page.totalResult : '',
-    //   pageSize: data.page ? data.page.showCount : '',
-    //   showTotal: (total, range) => (
-    //     <span className={styles.pagination}  style={{
-    //       color: this.props.global && this.props.global.dark ? '#fff' : '#999'
-    //     }}>{`共 ${data.page ? data.page.totalPage : 1} 页， ${
-    //       data.page ? data.page.totalResult : 0
-    //       } 条记录 `}</span>
-    //   ),
-    // };
+    const paginationProps = {
+      // showSizeChanger: true,
+      // showQuickJumper: true,
+      current: data.page ? data.page.currentPage : '',
+      total: data.page ? data.page.totalResult : '',
+      pageSize: data.page ? data.page.showCount : '',
+      showTotal: (total, range) => (
+        <span className={styles.pagination}  style={{
+          color: this.props.global && this.props.global.dark ? '#fff' : '#999'
+        }}>{`共 ${data.page ? data.page.totalPage : 1} 页， ${
+          data.page ? data.page.totalResult : 0
+          } 条记录 `}</span>
+      ),
+    };
     return (
       <div>
         <Table
           rowKey={record => record.id}
-          // dataSource={data.list}
+          dataSource={data.list}
           columns={columns}
           rowSelection={rowSelection}
-          // pagination={paginationProps}
+          pagination={paginationProps}
           onChange={this.handleTableChange}
           className={styles.showTable}
           locale={{
@@ -139,6 +146,18 @@ class EvaluateTemplateTable extends PureComponent {
             ),
           }}
         />
+
+        {
+          previewVisible?
+            <TemplateDetailVisibleModal
+              visible={previewVisible}
+              title="模板详情"
+              closeListDetailModal={this.previewModalCancel} // 关闭详情模态框
+              TemplateDetail={previewRecord} // 模板详情
+            />
+            :
+            ''
+        }
       </div>
     )
   }

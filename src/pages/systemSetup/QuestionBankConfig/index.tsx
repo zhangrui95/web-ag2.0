@@ -51,7 +51,7 @@ export default class Index extends PureComponent {
     formValues: {},
     showDataView: true, // 控制显示图表或者列表（true显示图表）
     addDataVisible: false, // 题目添加模态框
-    questionList:'', // 题目详情
+    questionList:'', // 题目列表
     deletedata:[], // 选择删除的数据
   };
 
@@ -443,6 +443,7 @@ export default class Index extends PureComponent {
             CloseCancelModal={this.closeCancel} // 关闭题目添加模态框
             getItemConfigList={this.getItemConfigList} // 刷新表格
             closeAddDataVisibleModal={this.closeAddDataVisibleModal} // 题目添加完毕关闭'题目添加'模态框
+            deleteListData={this.deleteListData} // 删除添加的题目
           />
           :
           ''

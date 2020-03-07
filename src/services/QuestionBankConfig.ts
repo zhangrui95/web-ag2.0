@@ -55,3 +55,31 @@ export async function DeleteQuestion(params) {
     data: params,
   });
 }
+// 保存添加的模板
+export async function SaveTemplate(params) {
+  return request(`${configUrl.serverUrl}/saveCpmb`, {
+    method: 'POST',
+    data: params,
+  });
+}
+// 获取模板列表
+export async function TemplateList(params) {
+  return request(`${configUrl.serverUrl}/getCpmbPgListPage`, {
+    method: 'POST',
+    data: params,
+  });
+}
+// 获取模板详情
+export async function TemplateDetail(params) {
+  return request(`${configUrl.serverUrl}/getCpmbXqById`, {
+    method: 'POST',
+    data: params,
+  });
+}
+// 删除模板
+export async function DeleteTemplate(params) {
+  return request(`${configUrl.serverUrl}/deleteCpmb`, {
+    method: 'POST',
+    data: params,
+  });
+}
