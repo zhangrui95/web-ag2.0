@@ -53,6 +53,7 @@ export default class Index extends PureComponent {
     addDataVisible: false, // 题目添加模态框
     questionList:'', // 题目列表
     deletedata:[], // 选择删除的数据
+    // addShowDelete:false, // 添加试题预览时是否删除
   };
 
   componentDidMount() {
@@ -237,7 +238,7 @@ export default class Index extends PureComponent {
       cancelText: '取消',
       style: {top: 417},
       onOk() {
-        that.delete(deleteId)
+        that.delete(deleteId);
       },
     });
   }
@@ -254,6 +255,7 @@ export default class Index extends PureComponent {
           this.handleFormReset();
           this.setState({
             deletedata:[],
+
           })
         }
       }
@@ -444,6 +446,8 @@ export default class Index extends PureComponent {
             getItemConfigList={this.getItemConfigList} // 刷新表格
             closeAddDataVisibleModal={this.closeAddDataVisibleModal} // 题目添加完毕关闭'题目添加'模态框
             deleteListData={this.deleteListData} // 删除添加的题目
+            // addShowDelete={addShowDelete} // 添加试题预览时是否执行删除
+            delete={this.delete}
           />
           :
           ''

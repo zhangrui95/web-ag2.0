@@ -164,20 +164,22 @@ export default class addDataVisibleModal extends PureComponent {
   // 题目添加完成后再预览的地方删除
   deleteNowChange = (item) => {
     const {showDataList} = this.state;
-    let newshowDataList = [];
-    console.log('item',item)
-    this.props.deleteListData(item);
-    showDataList&&showDataList.length>0?(
-      showDataList.map((obj)=>{
-        if(obj.id===item.id){
-          // newshowDataList.push(obj)
-          this.setState({
-            showDataList:[],
-          })
-        }
-
-      })
-    ):''
+    let deleteId = [];
+    let objDelete={
+      tkid:item.id,
+    }
+    deleteId.push(objDelete);
+    this.props.delete(deleteId);
+      showDataList&&showDataList.length>0?(
+        showDataList.map((obj)=>{
+          if(obj.id===item.id){
+            // newshowDataList.push(obj)
+            this.setState({
+              showDataList:[],
+            })
+          }
+        })
+      ):''
   }
 
   render() {
