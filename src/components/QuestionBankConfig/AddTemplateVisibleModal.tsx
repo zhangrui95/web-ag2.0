@@ -161,7 +161,45 @@ export default class AddTemplateVisibleModal extends PureComponent {
     }
   }
   // 删除当前添加的题目
-  deleteNowChange = () =>{
+  deleteNowChange = (item,label) =>{
+    const {showDataList1,showDataList2,showDataList3} = this.state;
+    let newshowDataList1 = [],newshowDataList2 = [],newshowDataList3 = [];
+    if(label==='00001'){
+      showDataList1&&showDataList1.length>0?(
+        showDataList1.map((obj)=>{
+          if(obj.id!==item.id){
+            newshowDataList1.push(obj)
+            this.setState({
+              showDataList1:newshowDataList1,
+            })
+          }
+        })
+      ):''
+    }
+    else if(label==='00002'){
+      showDataList2&&showDataList2.length>0?(
+        showDataList2.map((obj)=>{
+          if(obj.id!==item.id){
+            newshowDataList2.push(obj)
+            this.setState({
+              showDataList2:newshowDataList2,
+            })
+          }
+        })
+      ):''
+    }
+    else if(label==='00003'){
+      showDataList3&&showDataList3.length>0?(
+        showDataList3.map((obj)=>{
+          if(obj.id!==item.id){
+            newshowDataList3.push(obj)
+            this.setState({
+              showDataList3:newshowDataList3,
+            })
+          }
+        })
+      ):''
+    }
 
   }
 
@@ -171,7 +209,7 @@ export default class AddTemplateVisibleModal extends PureComponent {
     showDataList1.map((item)=>{
       return(
         obj.push(<Card className={styles.Card}>
-          <Row>题目：&nbsp;&nbsp;&nbsp;&nbsp;{item.tm}<Button type='primary' onClick={this.deleteNowChange} style={{float:'right'}}>删除</Button></Row>
+          <Row>题目：&nbsp;&nbsp;&nbsp;&nbsp;{item.tm}<Button type='primary' onClick={()=>this.deleteNowChange(item,'00001')} style={{float:'right'}}>删除</Button></Row>
           <Row>选项：&nbsp;&nbsp;&nbsp;&nbsp;选项1：{item.tmxx_1} 选项2：{item.tmxx_2} 选项3：{item.tmxx_3} 选项4：{item.tmxx_4}</Row>
           <Row>答案：&nbsp;&nbsp;&nbsp;&nbsp;{item.xztda}</Row>
           <Row>答案解析：&nbsp;&nbsp;&nbsp;&nbsp;{item.dajx}</Row>
@@ -186,7 +224,7 @@ export default class AddTemplateVisibleModal extends PureComponent {
     showDataList2.map((item)=>{
       return(
         obj.push(<Card className={styles.Card}>
-          <Row>题目：&nbsp;&nbsp;&nbsp;&nbsp;{item.tm}<Button type='primary' onClick={this.deleteNowChange} style={{float:'right'}}>删除</Button></Row>
+          <Row>题目：&nbsp;&nbsp;&nbsp;&nbsp;{item.tm}<Button type='primary' onClick={()=>this.deleteNowChange(item,'00002')} style={{float:'right'}}>删除</Button></Row>
           <Row>选项：&nbsp;&nbsp;&nbsp;&nbsp;选项1：{item.tmxx_1} 选项2：{item.tmxx_2} 选项3：{item.tmxx_3} 选项4：{item.tmxx_4}</Row>
           <Row>答案：&nbsp;&nbsp;&nbsp;&nbsp;{item.xztda}</Row>
           <Row>答案解析：&nbsp;&nbsp;&nbsp;&nbsp;{item.dajx}</Row>
@@ -202,7 +240,7 @@ export default class AddTemplateVisibleModal extends PureComponent {
     showDataList3.map((item)=>{
       return(
         obj.push(<Card className={styles.Card}>
-          <Row>题目：&nbsp;&nbsp;&nbsp;&nbsp;{item.tm}<Button type='primary' onClick={this.deleteNowChange} style={{float:'right'}}>删除</Button></Row>
+          <Row>题目：&nbsp;&nbsp;&nbsp;&nbsp;{item.tm}<Button type='primary' onClick={()=>this.deleteNowChange(item,'00003')} style={{float:'right'}}>删除</Button></Row>
           <Row>答案：&nbsp;&nbsp;&nbsp;&nbsp;{item.jdtdagjz}</Row>
           <Row>答案解析：&nbsp;&nbsp;&nbsp;&nbsp;{item.dajx}</Row>
         </Card>)

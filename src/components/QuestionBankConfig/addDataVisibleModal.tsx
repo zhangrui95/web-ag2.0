@@ -170,21 +170,21 @@ export default class addDataVisibleModal extends PureComponent {
     }
     deleteId.push(objDelete);
     this.props.delete(deleteId);
-      showDataList&&showDataList.length>0?(
-        showDataList.map((obj)=>{
-          if(obj.id===item.id){
-            // newshowDataList.push(obj)
-            this.setState({
-              showDataList:[],
-            })
-          }
-        })
-      ):''
+    showDataList&&showDataList.length>0?(
+      showDataList.map((obj)=>{
+        if(obj.id===item.id){
+          // newshowDataList.push(obj)
+          this.setState({
+            showDataList:[],
+          })
+        }
+      })
+    ):''
   }
 
   render() {
     const {questionType,closeAdd,showDataList} = this.state;
-    console.log('showDataList',showDataList);
+    // console.log('showDataList',showDataList);
     const rowLayout = {md: 8, xl: 16, xxl: 24};
     const colLayout = {sm: 24, md: 12, xl: 6};
     const formItemLayout = {

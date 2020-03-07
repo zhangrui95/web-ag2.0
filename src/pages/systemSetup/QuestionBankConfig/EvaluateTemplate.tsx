@@ -147,7 +147,6 @@ export default class EvaluateTemplate extends PureComponent {
 
   // 选择删除的数据
   chooseSelect = (deletedata) => {
-    // console.log()
     this.setState({
       deletedata,
     })
@@ -358,6 +357,7 @@ export default class EvaluateTemplate extends PureComponent {
             CloseCancelModal={this.closeCancel} // 关闭模板添加模态框
             getTemplateConfigList={this.getTemplateConfigList} // 刷新表格
             // closeAddDataVisibleModal={this.closeAddDataVisibleModal} // 题目添加完毕关闭'题目添加'模态框
+            delete={this.delete} // 添加页面的删除功能
           />
           :
           ''
