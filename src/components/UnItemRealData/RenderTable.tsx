@@ -54,7 +54,7 @@ class RenderTable extends PureComponent {
     //     />
     //   </div>
     // );
-    // const AddNewDetail = { title: '涉案物品告警详情', content: divs, key: id };
+    // const AddNewDetail = { title: '涉案财物告警详情', content: divs, key: id };
     // this.props.newDetail(AddNewDetail);
   };
 

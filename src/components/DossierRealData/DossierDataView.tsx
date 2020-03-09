@@ -1,5 +1,5 @@
 /*
-* DossierDataView.js 涉案物品数据展示
+* DossierDataView.js 涉案财物数据展示
 * author：jhm
 * 20180111
 * */

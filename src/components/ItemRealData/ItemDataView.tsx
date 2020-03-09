@@ -1,5 +1,5 @@
 /*
- * ItemDataView.js 涉案物品数据展示
+ * ItemDataView.js 涉案财物数据展示
  * author：jhm
  * 20181112
  * */
@@ -203,7 +203,7 @@ export default class ItemDataView extends PureComponent {
     return [startTime, endTime];
   };
 
-  // 获取涉案物品数量图表统计
+  // 获取涉案财物数量图表统计
   getItemNumCount(startTime, endTime, orgcode = this.props.orgcode) {
     this.props.dispatch({
       type: 'itemData/itemDataView',
@@ -280,7 +280,7 @@ export default class ItemDataView extends PureComponent {
     });
   }
 
-  // 获取涉案物品出入库情况图表统计
+  // 获取涉案财物出入库情况图表统计
   getItemCRKCount(startTime, endTime, wpStatus, orgcode = this.props.orgcode) {
     this.props.dispatch({
       type: 'itemData/itemCRKDataView',

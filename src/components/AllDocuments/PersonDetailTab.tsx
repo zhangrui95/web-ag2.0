@@ -95,7 +95,7 @@ export default class PersonDetailTab extends PureComponent {
             />
         );
     };
-    // 涉案物品List
+    // 涉案财物List
     showSawpList = (sawpList) => {
         let dark = this.props.global && this.props.global.dark;
         return (
@@ -422,7 +422,7 @@ export default class PersonDetailTab extends PureComponent {
                                 />
                             </div>
                         </TabPane>
-                        <TabPane tab="涉案物品" key="7" forceRender className='Namesaxx7'>
+                        <TabPane tab="涉案财物" key="7" forceRender className='Namesaxx7'>
                             <div className={styles.tabDiv}>
                                 {this.showSawpList(caseData.sawpList || [])}
                             </div>
@@ -611,7 +611,7 @@ export default class PersonDetailTab extends PureComponent {
                     </div>
 
                     <div className='tabDiv7'>
-                        <div className={styles.titleHide}>涉案物品</div>
+                        <div className={styles.titleHide}>涉案财物</div>
                         <div className={styles.tabDiv}>
                             {this.showSawpList(caseData.sawpList || [])}
                         </div>

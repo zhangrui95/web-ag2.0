@@ -1,5 +1,5 @@
 /*
- * ItemRealData/RenderTable.js 涉案物品数据表格组件
+ * ItemRealData/RenderTable.js 涉案财物数据表格组件
  * author：jhm
  * 20180605
  * */
@@ -62,7 +62,7 @@ class RenderTable extends PureComponent {
     //     />
     //   </div>
     // );
-    // const AddNewDetail = { title: '涉案物品详情', content: divs, key: record.system_id };
+    // const AddNewDetail = { title: '涉案财物详情', content: divs, key: record.system_id };
     // this.props.newDetail(AddNewDetail);
   };
   // 是否关注详情刷新

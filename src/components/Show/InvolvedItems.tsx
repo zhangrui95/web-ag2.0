@@ -1,5 +1,5 @@
 /*
-* InvolvedItems.js 大屏展示 涉案物品模块
+* InvolvedItems.js 大屏展示 涉案财物模块
 * author：lyp
 * 20180612
 * */
@@ -42,7 +42,7 @@ export default class InvolvedItems extends PureComponent {
 
     }
 
-    // 获取涉案物品信息
+    // 获取涉案财物信息
     getInvolvedItems = () => {
         this.props.dispatch({
             type: 'show/getInvolvedItems',

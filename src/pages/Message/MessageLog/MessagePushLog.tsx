@@ -81,14 +81,14 @@ export default class MessagePushLogModal extends PureComponent {
             }
         } else if (item.tssx_dm === pushMattersDictCode.ITEM) {
             if (item.system_id) {
-                if (pushTypeDictCode.EARLYWARNING === item.tslx_dm) {//涉案物品预警详情
+                if (pushTypeDictCode.EARLYWARNING === item.tslx_dm) {//涉案财物预警详情
                     this.props.dispatch(
                         routerRedux.push({
                             pathname: '/articlesInvolved/ArticlesData/itemDetail',
                             query: {record: item, id: item.system_id},
                         }),
                     )
-                } else {//涉案物品告警详情
+                } else {//涉案财物告警详情
                     this.props.dispatch(
                         routerRedux.push({
                             pathname: '/articlesInvolved/ArticlesPolice/unitemDetail',

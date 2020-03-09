@@ -55,7 +55,7 @@ export default class IntoArea extends PureComponent {
         //         />
         //     </div>
         // );
-        // const AddNewDetail = { title: '涉案物品详情', content: divs, key: systemId };
+        // const AddNewDetail = { title: '涉案财物详情', content: divs, key: systemId };
         // this.props.newDetail(AddNewDetail);
     };
 

@@ -1,5 +1,5 @@
 /*
- * PersonWoods/index.tsx 涉案物品信息
+ * PersonWoods/index.tsx 涉案财物信息
  * author：jhm
  * 20191213
  * */
