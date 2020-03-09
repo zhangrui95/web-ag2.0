@@ -417,8 +417,7 @@ export default class caseDetail extends PureComponent {
               {isDb &&
               caseDetails &&
               caseDetails.zrdwList &&
-              caseDetails.zrdwList.length > 0 &&
-              caseDetails.ssmk === '2' ? (
+              caseDetails.zrdwList.length > 0 ? (
                 <Button
                   type="primary"
                   className={styles.TopMenu}

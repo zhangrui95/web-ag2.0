@@ -341,8 +341,7 @@ export default class caseDetail extends PureComponent {
                         {/*<span style={{ margin: '16px', display: 'block' }}>刑事案件详情</span>*/}
                         {isDb &&
                         caseDetails.zrdwList &&
-                        caseDetails.zrdwList.length > 0 &&
-                        caseDetails.ssmk === '2' ? (
+                        caseDetails.zrdwList.length > 0 ? (
                             <Button
                                 type="primary"
                                 className={styles.TopMenu}
