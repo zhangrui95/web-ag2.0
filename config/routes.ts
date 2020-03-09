@@ -839,12 +839,6 @@ export function routes() {
                             path: '/BigShow',
                             authority: ['zhag_jgkb'],
                         },
-                        // {
-                        //   path: '/ShowData/Learning',
-                        //   name: '在线学习',
-                        //   icon: 'icon-jingwuicon_svg_huaban',
-                        //   component: './ShowData/Learning',
-                        // },
                         {
                           name: '在线培训',
                           icon: 'icon-jingwuicon_svg_huaban',
@@ -858,13 +852,13 @@ export function routes() {
                               component: './Online/Learning',
                               // authority: ['zhag_xxzx_wddb'],
                             },
-                            // {
-                            //   path: '/Message/MessageLog',
-                            //   name: '测评',
-                            //   icon: 'icon-quanju_duanxintuisong',
-                            //   component: './Message/MessageLog',
-                            //   authority: ['zhag_xxzx_xxtsrz'],
-                            // },
+                            {
+                              path: '/Online/EvaluateText',
+                              name: '测评',
+                              icon: 'icon-quanju_duanxintuisong',
+                              component: './Online/EvaluateText',
+                              // authority: ['zhag_xxzx_xxtsrz'],
+                            },
                           ],
                         },
                         {

@@ -1,5 +1,5 @@
 /*
-* AlarmData/index.js 在线学习
+* Online/EvaluateHistory.tsx 测评历史
 * author：jhm
 * 20200218
 * */
@@ -23,11 +23,10 @@ import {
   Card, Icon, Upload, Modal,
 } from 'antd';
 import moment from 'moment/moment';
-import styles from './Learning.less';
-import learningRenderTable from '../../components/Online/learningTable';
-import RenderTable from '../../components/Online/learningTable';
-import ImportFileModal from '../../components/Online/ImportFileModal';
-import {exportListDataMaxDays, getQueryString, tableList} from '../../utils/utils';
+import styles from './index.less';
+import RenderTable from '../../../components/Online/learningTable';
+import ImportFileModal from '../../../components/Online/ImportFileModal';
+import {exportListDataMaxDays, getQueryString, tableList} from '../../../utils/utils';
 import {routerRedux} from "dva/router";
 
 
@@ -46,7 +45,7 @@ let currentValue;
   // loading: loading.models.alarmManagement,
 }))
 @Form.create()
-export default class Index extends PureComponent {
+export default class EvaluateHistory extends PureComponent {
   state = {
     // searchHeight: false, // 查询条件展开筛选
     dataList:'', // 数据列表
@@ -404,7 +403,7 @@ export default class Index extends PureComponent {
 
   renderForm() {
     const {form: {getFieldDecorator}, common: {FbdwTypeData, ZllxTypeData}} = this.props;
-    // console.log('ZllxTypeData',ZllxTypeData);
+    console.log('FbdwTypeData',FbdwTypeData);
     let zllxAlarmDictOptions = [], fblxAlarmDictOptions = [];
     if (ZllxTypeData.length > 0) {
       for (let i = 0; i < ZllxTypeData.length; i++) {
@@ -443,7 +442,7 @@ export default class Index extends PureComponent {
                 <RangePicker
                   disabledDate={this.disabledDate}
                   style={{width: '100%'}}
-                  getCalendarContainer={() => document.getElementById('zxxxsjtableListForm')}
+                  getCalendarContainer={() => document.getElementById('zxpxzlksearchForm')}
                 />,
               )}
             </FormItem>
@@ -455,7 +454,7 @@ export default class Index extends PureComponent {
                 <Select
                   placeholder="请选择资料类型"
                   style={{width: '100%'}}
-                  getPopupContainer={() => document.getElementById('zxxxsjtableListForm')}
+                  getPopupContainer={() => document.getElementById('zxpxzlksearchForm')}
                 >
                   <Option value="">全部</Option>
                   {zllxAlarmDictOptions}
@@ -471,7 +470,7 @@ export default class Index extends PureComponent {
                 <Select
                   placeholder="请选择发布单位"
                   style={{width: '100%'}}
-                  getPopupContainer={() => document.getElementById('slaxsgjsearchForm')}
+                  getPopupContainer={() => document.getElementById('zxpxzlksearchForm')}
                 >
                   <Option value="">全部</Option>
                   {fblxAlarmDictOptions}
@@ -550,10 +549,10 @@ export default class Index extends PureComponent {
     const {ImportModal} = this.state;
     const {form: {getFieldDecorator}, common: {FbdwTypeData, ZllxTypeData}} = this.props;
     let className = this.props.global && this.props.global.dark ? styles.listPageWrap : styles.listPageWrap + ' ' + styles.lightBox;
-    console.log('dark',this.props)
+    // console.log('dark',this.props)
     return (
       <div className={className}>
-        <div className={styles.tableListForm} id="zxxxsjtableListForm">
+        <div className={styles.tableListForm} id="zxpxzlksearchForm">
           {this.renderForm()}
         </div>
         <div className={styles.tableListOperator} style={{marginBottom: 0}}>
@@ -562,10 +561,10 @@ export default class Index extends PureComponent {
 
         {ImportModal?
           <ImportFileModal
-             visible={ImportModal}
-             record={FbdwTypeData}
-             handleCancel={this.handleCancel}
-             handleFormReset={this.handleFormReset}
+            visible={ImportModal}
+            record={FbdwTypeData}
+            handleCancel={this.handleCancel}
+            handleFormReset={this.handleFormReset}
 
           />
           :
