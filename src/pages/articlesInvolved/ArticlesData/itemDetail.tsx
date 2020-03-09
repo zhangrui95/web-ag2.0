@@ -1,5 +1,5 @@
 /*
- * ItemRealData/itemDetail.js 涉案物品详情数据
+ * ItemRealData/itemDetail.js 涉案财物详情数据
  * author：jhm
  * 20180605
  * */
@@ -22,7 +22,7 @@ import {
   Menu,
   Button,
   message,
-  Carousel,
+  Carousel, Timeline, Tag,
 } from 'antd';
 // import CaseDetail from '../CaseRealData/caseDetail';
 // import XzCaseDetail from '../NewXzCaseRealData/caseDetail';
@@ -438,13 +438,13 @@ export default class itemDetail extends PureComponent {
         {itemDetails ? (
           <Row gutter={{ md: 8, lg: 24, xl: 48 }}>
             <Col md={8} sm={24} style={{ minHeight: 0 }}>
-              {/*<span style={{ margin: '16px', display: 'block' }}>涉案物品详情</span>*/}
+              {/*<span style={{ margin: '16px', display: 'block' }}>涉案财物详情</span>*/}
               {isDb && itemDetails && itemDetails.zrdwList && itemDetails.zrdwList.length > 0 ? (
                 <Button
                   type="primary"
                   style={{ margin: '12px 0 12px 16px' }}
                   className={styles.TopMenu}
-                  onClick={() => this.onceSupervise(itemDetails, true, '涉案物品详情问题判定')}
+                  onClick={() => this.onceSupervise(itemDetails, true, '涉案财物详情问题判定')}
                 >
                   问题判定
                 </Button>
@@ -509,6 +509,65 @@ export default class itemDetail extends PureComponent {
     const { itemDetails, isDb } = this.state;
     const rowLayout = { md: 8, xl: 16, xxl: 24 };
     let dark = this.props.global && this.props.global.dark;
+    let stap1 = [];
+    itemDetails&&itemDetails.wpgjList&&itemDetails.wpgjList.map((item,index)=>{
+      stap1.push(
+        <Timeline.Item
+          dot={
+            <div>
+              <div
+                style={
+                  // item.dossierexceptionmc === '正常'
+                  //   ?
+                    {
+                      width: 30,
+                      height: 30,
+                      borderRadius: 30,
+                      backgroundColor: '#5858DF',
+                      textAlign: 'center',
+                      marginBottom: 7,
+                    }
+                    // : {
+                    //   width: 30,
+                    //   height: 30,
+                    //   borderRadius: 30,
+                    //   backgroundColor: 'rgb(255, 51, 102)',
+                    //   textAlign: 'center',
+                    //   marginBottom: 7,
+                    // }
+                }
+              >
+                <p style={{ paddingTop: 7, color: '#fff' }}>{index + 1}</p>
+              </div>
+            </div>
+          }
+          color={
+            // item.dossierexceptionmc === '正常'
+            //   ?
+              '#00CC33'
+              // : 'rgb(255, 51, 102)'
+          }
+        >
+          <Row gutter={8} style={{ paddingLeft:20 }}>
+            <Col md={8} sm={24} style={{marginBottom:8}}>
+              <div className={styles.break}>{window.configUrl.is_area === '5' || window.configUrl.is_area === '2' ? '物品状态：' : ''}{item.wpzt}</div>
+            </Col>
+            <Col md={8} sm={24} style={{marginBottom:8}}>
+              <div className={styles.break}>{window.configUrl.is_area === '5' || window.configUrl.is_area === '2' ? '操作时间：' : ''}{item.czsj}</div>
+            </Col>
+            <Col md={8} sm={24} style={{marginBottom:8}}>
+              <div className={styles.break}>{window.configUrl.is_area === '5' || window.configUrl.is_area === '2' ? '操作人：' : ''}{item.czr}</div>
+            </Col>
+            <Col md={8} sm={24} style={{marginBottom:8}}>
+              <div className={styles.break}>{window.configUrl.is_area === '5' || window.configUrl.is_area === '2' ? '操作原因：' : ''}{item.czyy}</div>
+            </Col>
+            <Col md={8} sm={24} style={{marginBottom:8}}>
+              <div className={styles.break}>{window.configUrl.is_area === '5' || window.configUrl.is_area === '2' ? '归还期限：' : ''}{item.ghqx}</div>
+            </Col>
+          </Row>
+        </Timeline.Item>,
+      );
+    })
     return (
       <div
         style={{ background: dark ? '#252c3c' : '#fff', height: autoheight() - 260 + 'px' }}
@@ -662,12 +721,6 @@ export default class itemDetail extends PureComponent {
                   </Col>
                 </Row>
                 <Row gutter={{ md: 8, lg: 24, xl: 48 }}>
-                  {/*<Col md={8} sm={24}>*/}
-                  {/*<div className={styles.Indexfrom}>扣押批准人：</div>*/}
-                  {/*<div className={styles.Indextail}*/}
-                  {/*style={{ paddingLeft: '84px' }}>{itemDetails && itemDetails.kypzr ? itemDetails.kypzr : ''}</div>*/}
-                  {/*</Col>*/}
-
                   <Col md={8} sm={24}>
                     <div className={styles.Indexfrom}>保存方式：</div>
                     <div className={styles.Indextail} style={{ paddingLeft: 70 }}>
@@ -707,8 +760,7 @@ export default class itemDetail extends PureComponent {
             </Col>
           </Row>
         </Card>
-        {itemDetails && itemDetails.wpgjList && itemDetails.wpgjList.length > 0 ? (
-          window.configUrl.is_area === '5' || window.configUrl.is_area === '2' ? (
+        {itemDetails && itemDetails.wpgjList && itemDetails.wpgjList.length > 0 ?
             <div>
               <Card
                 title={
@@ -724,66 +776,10 @@ export default class itemDetail extends PureComponent {
                 className={liststyles.card}
                 bordered={false}
               >
-                {itemDetails.wpgjList.map(wpgj => (
-                  <Row gutter={8} style={{ marginBottom: '24px', marginLeft: '-16px' }}>
-                    <Col md={4} sm={24}>
-                      <div className={styles.break}>物品状态：{wpgj.wpzt}</div>
-                    </Col>
-                    <Col md={5} sm={24}>
-                      <div className={styles.break}>操作时间：{wpgj.czsj}</div>
-                    </Col>
-                    <Col md={4} sm={24}>
-                      <div className={styles.break}>操作人：{wpgj.czr}</div>
-                    </Col>
-                    <Col md={4} sm={24}>
-                      <div className={styles.break}>操作原因：{wpgj.czyy}</div>
-                    </Col>
-                    <Col md={4} sm={24}>
-                      <div className={styles.break}>归还期限：{wpgj.ghqx}</div>
-                    </Col>
-                  </Row>
-                ))}
+                <Timeline style={{ marginTop: 20 }}>{stap1}</Timeline>
               </Card>
             </div>
-          ) : (
-            <div>
-              <Card
-                title={
-                  <div
-                    style={{
-                      borderLeft: dark ? '3px solid #fff' : '3px solid #3D63D1',
-                      paddingLeft: 16,
-                    }}
-                  >
-                    物品轨迹
-                  </div>
-                }
-                className={liststyles.card}
-                bordered={false}
-              >
-                {itemDetails.wpgjList.map(wpgj => (
-                  <Row gutter={8} style={{ marginBottom: '24px', marginLeft: '-16px' }}>
-                    <Col md={4} sm={24} style={{ paddingLeft: 36 }}>
-                      <div className={styles.break}>{wpgj.wpzt}</div>
-                    </Col>
-                    <Col md={5} sm={24}>
-                      <div className={styles.break}>{wpgj.czsj}</div>
-                    </Col>
-                    <Col md={4} sm={24}>
-                      <div className={styles.break}>{wpgj.czr}</div>
-                    </Col>
-                    <Col md={4} sm={24}>
-                      <div className={styles.break}>{wpgj.czyy}</div>
-                    </Col>
-                    <Col md={4} sm={24}>
-                      <div className={styles.break}>{wpgj.ghqx}</div>
-                    </Col>
-                  </Row>
-                ))}
-              </Card>
-            </div>
-          )
-        ) : (
+        : (
           ''
         )}
       </div>

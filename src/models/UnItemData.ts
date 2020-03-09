@@ -83,7 +83,7 @@ export default {
                 callback(response.data);
             }
         },
-        // 涉案物品问题告警图表统计
+        // 涉案财物问题告警图表统计
         * getUnItemAllTypeWarnings({payload, callback}, {call, put}) {
             const response = yield call(getUnItemAllTypeWarnings, payload);
             yield put({

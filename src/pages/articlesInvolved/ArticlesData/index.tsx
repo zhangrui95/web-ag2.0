@@ -1,5 +1,5 @@
 /*
- * ItemRealData/index.js 涉案物品数据
+ * ItemRealData/index.js 涉案财物数据
  * author：jhm
  * 20180605
  * */

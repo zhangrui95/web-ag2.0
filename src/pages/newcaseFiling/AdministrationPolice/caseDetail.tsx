@@ -76,7 +76,7 @@ function callback(key) {
 }))
 export default class caseDetail extends PureComponent {
   state = {
-    current: 1, // 涉案物品默认在第一页
+    current: 1, // 涉案财物默认在第一页
     jqcurrent: 1, // 警情信息默认在第一页
     trailLeft: '0',
     is_ok: '0', // 是否在该详情页督办过，默认0,没有督办过
@@ -482,7 +482,7 @@ export default class caseDetail extends PureComponent {
     //         />
     //     </div>
     // );
-    // const AddNewDetail = { title: '涉案物品详情', content: divs, key: system_id };
+    // const AddNewDetail = { title: '涉案财物详情', content: divs, key: system_id };
     // this.props.newDetail(AddNewDetail);
   };
   // 点击案件轨迹人员的在区情况
@@ -936,7 +936,7 @@ export default class caseDetail extends PureComponent {
               paddingLeft: '16px',
             }}
           >
-            涉案物品
+            涉案财物
           </div>
         </div>
         <div className={styles.tablemessage}>

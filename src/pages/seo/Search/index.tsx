@@ -531,7 +531,7 @@ export default class GeneralQuery extends PureComponent {
                 searchArry.push(ryxbValue);
             }
         }
-        /*---------------------------------------------涉案物品查询----------------------------------------------------------*/
+        /*---------------------------------------------涉案财物查询----------------------------------------------------------*/
         if (searchType === 'wp') {
             searchTypeUrl = itemsQueryIndex;
             // 物品
@@ -1070,7 +1070,7 @@ export default class GeneralQuery extends PureComponent {
             return (
                 <Card bodyStyle={{padding: 0}}>
                     <div className={styles.searchResaultArea}>
-                        <div className={styles.sawpCardTitle}>涉案物品</div>
+                        <div className={styles.sawpCardTitle}>涉案财物</div>
                         <div className={styles.cardBody}>
                             <div className={styles.cardBodyName}>{item._source ? item._source.wpmc : ''}</div>
                             <div className={styles.cardBodyContent}>
@@ -1349,7 +1349,7 @@ export default class GeneralQuery extends PureComponent {
                             {/*<a className={searchType === 'aj' ? styles.chosenType : null}*/}
                             {/*   onClick={() => this.searchType('aj')}>案件</a>*/}
                             {/*<a className={searchType === 'wp' ? styles.chosenType : null}*/}
-                            {/*   onClick={() => this.searchType('wp')}>涉案物品</a>*/}
+                            {/*   onClick={() => this.searchType('wp')}>涉案财物</a>*/}
                             {/*<a className={searchType === 'sary' ? styles.chosenType : null}*/}
                             {/*   onClick={() => this.searchType('sary')}>涉案人员</a>*/}
                             {/*<a className={searchType === 'baq' ? styles.chosenType : null}*/}
@@ -1360,7 +1360,7 @@ export default class GeneralQuery extends PureComponent {
                                          value={this.state.searchType}>
                                 <Radio.Button value="all">全部</Radio.Button>
                                 <Radio.Button value="aj">案件</Radio.Button>
-                                <Radio.Button value="wp">涉案物品</Radio.Button>
+                                <Radio.Button value="wp">涉案财物</Radio.Button>
                                 <Radio.Button value="sary">涉案人员</Radio.Button>
                                 <Radio.Button value="baq">办案区</Radio.Button>
                                 <Radio.Button value="jz">卷宗</Radio.Button>

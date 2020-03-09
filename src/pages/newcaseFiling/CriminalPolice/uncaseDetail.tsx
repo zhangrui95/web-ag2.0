@@ -57,7 +57,7 @@ const { confirm } = Modal;
 }))
 export default class uncaseDetail extends PureComponent {
   state = {
-    current: 1, // 涉案物品默认在第一页
+    current: 1, // 涉案财物默认在第一页
     jqcurrent: 1, // 警情信息默认在第一页
     left: '0',
     trailLeft: '0',
@@ -674,7 +674,7 @@ export default class uncaseDetail extends PureComponent {
     //         />
     //     </div>
     // );
-    // const AddNewDetail = { title: '涉案物品详情', content: divs, key: systemId };
+    // const AddNewDetail = { title: '涉案财物详情', content: divs, key: systemId };
     // this.props.newDetail(AddNewDetail);
   };
 
@@ -1030,7 +1030,7 @@ export default class uncaseDetail extends PureComponent {
               paddingLeft: '16px',
             }}
           >
-            涉案物品
+            涉案财物
           </div>
         </div>
         <div className={styles.tablemessage}>

@@ -310,7 +310,7 @@ export default class Home1 extends PureComponent {
                             query: {record: record, id: record && record.wt_id ? record.wt_id : '1',baqid:record && record.id ? record.id : '1',},
                         }),
                     );
-                } else if (record.wtflId === '203204') { //涉案物品告警
+                } else if (record.wtflId === '203204') { //涉案财物告警
                     this.props.dispatch(
                         routerRedux.push({
                             pathname: '/articlesInvolved/ArticlesPolice/unitemDetail',

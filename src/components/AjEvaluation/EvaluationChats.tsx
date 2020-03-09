@@ -337,7 +337,7 @@ export default class EvaluationChats extends PureComponent {
     });
   };
   initDataGj = (next, nextProps, sort, type) => {
-    let legendData = ['行政案件', '刑事案件', '涉案物品', '办案区', '卷宗'];
+    let legendData = ['行政案件', '刑事案件', '涉案财物', '办案区', '卷宗'];
     let bgColorList = ['#3AA1FF', '#4ECB73', '#c23531', '#c2923d', '#61a0a8'];
     let axisLabel = [];
     let arrDatal = {};
@@ -798,7 +798,7 @@ export default class EvaluationChats extends PureComponent {
     this.setState({
       currentPage3: next === 0 ? 1 : currentPage3,
     });
-    let legendData = ['行政案件', '刑事案件', '涉案物品', '办案区', '卷宗'];
+    let legendData = ['行政案件', '刑事案件', '涉案财物', '办案区', '卷宗'];
     let bgColorList = ['#3AA1FF', '#4ECB73', '#c23531', '#c2923d', '#61a0a8'];
     let axisLabel = [];
     let arrData = [];

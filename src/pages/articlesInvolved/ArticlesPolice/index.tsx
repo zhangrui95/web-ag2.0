@@ -1,5 +1,5 @@
 /*
-* ArticlesPolice/index.tsx 涉案物品告警数据
+* ArticlesPolice/index.tsx 涉案财物告警数据
 * author：jhm
 * 20180605
 * */
