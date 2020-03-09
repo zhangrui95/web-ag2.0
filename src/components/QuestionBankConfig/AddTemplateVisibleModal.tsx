@@ -37,7 +37,7 @@ export default class AddTemplateVisibleModal extends PureComponent {
   };
 
   componentDidMount() {
-    this.getDictNum()
+    // this.getDictNum()
   }
 
   SaveTemplate = () => {
@@ -297,7 +297,7 @@ export default class AddTemplateVisibleModal extends PureComponent {
                <FormItem label="测评时间（分钟）" {...formItemLayouts}>
                 {getFieldDecorator('cpsj', {
                   // initialValue: this.state.caseType,
-                  rules: [{max: 50, message: '最多输入50个字！'},{required:true,message: '请填写测评时间'}],
+                  rules: [{max: 50, message: '最多输入50个字！'},{required:true,message: '请填写测评时间'},{pattern: /^[0-9]+$/, message: '请输入数字！'},],
                 })(<Input placeholder="请输入时间,单位：分钟"/>)}
                </FormItem>
              </Col>
