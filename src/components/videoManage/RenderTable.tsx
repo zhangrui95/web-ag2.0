@@ -14,7 +14,8 @@ import {routerRedux} from "dva/router";
 import noList from "@/assets/viewData/noList.png";
 import noListLight from "@/assets/viewData/noListLight.png";
 import {connect} from "dva";
-import {tableList} from "@/utils/utils";
+import {tableList, userAuthorityCode} from "@/utils/utils";
+import {authorityIsTrue} from "@/utils/authority";
 const {confirm} = Modal;
 @connect(({global}) => ({
     global
@@ -261,13 +262,20 @@ class RenderTable extends PureComponent {
                 width: 200,
                 render: (record) => (
                     <div>
-                        <a onClick={()=>this.deatils(record,'0')}>播放</a>
+                      {authorityIsTrue('zhag_yspsj_bf') ?
+                       <span>
+                           <a onClick={()=>this.deatils(record,'0')}>播放</a>
                         <Divider type="vertical"/>
+                       </span> : ''}
+                      {authorityIsTrue('zhag_yspsj_ck') ?<span>
                         <a onClick={()=>this.deatils(record,'1')}>查看</a>
                         <Divider type="vertical"/>
+                        </span> : ''}
+                      {authorityIsTrue('zhag_yspsj_xz') ?<span>
                         <a>下载</a>
                         <Divider type="vertical"/>
-                        <a onClick={()=>this.getDel(record)}>删除</a>
+                        </span> : ''}
+                      {authorityIsTrue('zhag_yspsj_sc') ?<a onClick={()=>this.getDel(record)}>删除</a>: ''}
                     </div>
                 ),
             },

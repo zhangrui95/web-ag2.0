@@ -445,6 +445,7 @@ export default class Index extends PureComponent {
     };
     // 设置手动选择机构
     setSelectedDep = (val) => {
+      console.log('val-------->',val)
         this.setState({
             selectedDeptVal: val,
         });
@@ -816,7 +817,7 @@ export default class Index extends PureComponent {
         const {policeData: {police, loading}, common: {depTree}} = this.props;
         const {arrayDetail} = this.state;
         const {showDataView, typeButtons, selectedDeptVal, selectedDateVal, jjdw, cjdw, treeDefaultExpandedKeys} = this.state;
-        const orgcodeVal = selectedDeptVal !== '' ? JSON.parse(selectedDeptVal).id : '';
+        console.log('selectedDeptVal----->',selectedDeptVal)
         let className = this.props.global && this.props.global.dark ? styles.listPageWrap : styles.listPageWrap + ' ' + styles.lightBox;
         return (
             <div className={this.props.location.query && this.props.location.query.id ? styles.onlyDetail : ''}>
@@ -869,10 +870,8 @@ export default class Index extends PureComponent {
                         showDataView={showDataView}
                         searchType={typeButtons}
                         changeToListPage={this.changeToListPage}
-                        orgcode={orgcodeVal}
+                        orgcode={selectedDeptVal}
                         selectedDateVal={selectedDateVal}
-                        jjdw={jjdw}
-                        cjdw={cjdw}
                         {...this.props}
                     />
                     <div style={showDataView ? {display: 'none'} : {display: 'block'}}>

@@ -71,9 +71,9 @@ export default class PoliceDataView extends PureComponent {
     const dayTypeTime = this.getTime('today');
 
     // setTimeout(()=>{
-    this.showPoliceEchartLine(this.props);
-    this.showajEchartLine(this.props);
-    this.showcqwscEchartLine(this.props);
+    this.getJcj(this.props);
+    this.getAjsc(this.props);
+    this.getCqwsc(this.props);
     // },500)
 
     window.addEventListener('resize', policeEchartLine.resize);
@@ -83,9 +83,9 @@ export default class PoliceDataView extends PureComponent {
   componentWillReceiveProps(nextProps) {
     if (nextProps) {
         if (this.props.global.dark !== nextProps.global.dark) {
-            this.showPoliceEchartLine(nextProps);
-            this.showajEchartLine(nextProps);
-            this.showcqwscEchartLine(nextProps);
+            this.getJcj(nextProps);
+            this.getAjsc(nextProps);
+            this.getCqwsc(nextProps);
             // this.changeCountButtonCurrent(this.state.type);
         }
         let currentType = '';
@@ -103,10 +103,12 @@ export default class PoliceDataView extends PureComponent {
                 currentType,
             });
         }
+        if(this.props.orgcode!==nextProps.orgcode){
+          console.log('orgcode',nextProps.orgcode);
+        }
       if (
         this.props.searchType !== nextProps.searchType ||
-        this.props.jjdw !== nextProps.jjdw ||
-        this.props.cjdw !== nextProps.cjdw ||
+        this.props.orgcode!==nextProps.orgcode||
         this.props.selectedDateVal !== nextProps.selectedDateVal||
         this.props.global.dark !== nextProps.global.dark
       ) {
@@ -129,28 +131,162 @@ export default class PoliceDataView extends PureComponent {
               }
           }
         if (nextProps.searchType === 'day') {
-          this.getViewCountData('day', nextProps.jjdw, nextProps.cjdw);
+          this.getViewCountData('day');
           const dayTypeTime = this.getTime(currentType);
+          this.getJcj(nextProps,dayTypeTime[0], dayTypeTime[1], nextProps.orgcode);
+          this.getAjsc(nextProps,dayTypeTime[0], dayTypeTime[1], nextProps.orgcode);
+          this.getCqwsc(nextProps,dayTypeTime[0], dayTypeTime[1], nextProps.orgcode);
         } else if (nextProps.searchType === 'week') {
-          this.getViewCountData('week', nextProps.jjdw, nextProps.cjdw);
+          this.getViewCountData('week');
           const weekTypeTime = this.getTime(currentType);
+          this.getJcj(nextProps,weekTypeTime[0], weekTypeTime[1], nextProps.orgcode);
+          this.getAjsc(nextProps,weekTypeTime[0], weekTypeTime[1], nextProps.orgcode);
+          this.getCqwsc(nextProps,weekTypeTime[0], weekTypeTime[1], nextProps.orgcode);
         } else if (nextProps.searchType === 'month') {
-          this.getViewCountData('month', nextProps.jjdw, nextProps.cjdw);
+          this.getViewCountData('month');
           const monthTypeTime = this.getTime(currentType);
+          this.getJcj(nextProps,monthTypeTime[0], monthTypeTime[1], nextProps.orgcode);
+          this.getAjsc(nextProps,monthTypeTime[0], monthTypeTime[1], nextProps.orgcode);
+          this.getCqwsc(nextProps,monthTypeTime[0], monthTypeTime[1], nextProps.orgcode);
         } else if (nextProps.searchType === 'selectedDate') {
             const { selectedDateVal } = nextProps;
             this.setState({
                 currentType,
             },()=>{
-
+              this.getJcj(nextProps,selectedDateVal[0], selectedDateVal[1], nextProps.orgcode);
+              this.getAjsc(nextProps,selectedDateVal[0], selectedDateVal[1], nextProps.orgcode);
+              this.getCqwsc(nextProps,selectedDateVal[0], selectedDateVal[1], nextProps.orgcode);
             })
         }
       }
     }
   }
-
+//接处警统计接口
+  getJcj = (nextProps,startTime,endTime,org) =>{
+    let data = [
+      {
+        name: '警情总数',
+        type: 'bar',
+        data: [239,134,78,91,66],
+        barWidth: 20
+      },
+      {
+        name: '应上传数',
+        type: 'bar',
+        data: [42,167,90,33,215],
+        barWidth: 20
+      },
+      {
+        name: '已上传数',
+        type: 'bar',
+        data: [22,33,55,12,137],
+        barWidth: 20
+      },
+      {
+        name: '未上传数',
+        type: 'bar',
+        data: [20,101,41,15,98],
+        barWidth: 20
+      },
+      {
+        name: '已关联数',
+        type: 'bar',
+        data: [120,133,45,66,79],
+        barWidth: 20
+      },
+      {
+        name: '未关联数',
+        type: 'bar',
+        data: [43,92,156,22,43],
+        barWidth: 20
+      },
+      {
+        name: '上传完成率',
+        type: 'line',
+        yAxisIndex: 1,
+        data: [20.0, 21.2, 33.3, 54.5, 16.3],
+        barWidth: 20
+      },
+      {
+        name: '关联比例',
+        type: 'line',
+        yAxisIndex: 1,
+        data: [60.0, 72.2, 85.3, 24.5, 66.3],
+        barWidth: 20
+      }
+    ];
+    this.showPoliceEchartLine(nextProps,data);
+  }
+  //案件上传统计接口
+  getAjsc = (nextProps,startTime,endTime,org) =>{
+    let data = [
+      {
+        name: '上传总数',
+        type: 'bar',
+        data: [120,249,189],
+        barWidth: 20
+      },
+      {
+        name: '已上传总数',
+        type: 'bar',
+        data: [56,67,20],
+        barWidth: 20
+      },
+      {
+        name: '未上传总数',
+        type: 'bar',
+        data: [122,198,167],
+        barWidth: 20
+      },
+      {
+        name: '已关联数',
+        type: 'bar',
+        data: [20,33,145],
+        barWidth: 20
+      },
+      {
+        name: '未关联数',
+        type: 'bar',
+        data: [143,44,65],
+        barWidth: 20
+      },
+      {
+        name: '上传完成率',
+        type: 'line',
+        yAxisIndex: 1,
+        data: [66, 92, 37],
+        barWidth: 20
+      },
+      {
+        name: '关联比例',
+        type: 'line',
+        yAxisIndex: 1,
+        data: [78, 36, 83],
+        barWidth: 20
+      }
+    ]
+    this.showajEchartLine(nextProps,data);
+  }
+  //超期未上传统计接口
+  getCqwsc = (nextProps,startTime,endTime,org) => {
+    let data = [
+      {
+        name: '警情',
+        type: 'bar',
+        data: [20,49,18,45,32],
+        barWidth: 20
+      },
+      {
+        name: '案件',
+        type: 'bar',
+        data: [6,37,21,56,44],
+        barWidth: 20
+      },
+    ];
+    this.showcqwscEchartLine(nextProps,data);
+  }
   // 获取头部本、上、前按键数据
-  getViewCountData = (type, jjdw = this.props.jjdw, cjdw = this.props.cjdw) => {
+  getViewCountData = (type) => {
     const { dayType, weekType, monthType } = this.state;
     if (type === 'day') {
       for (let i in dayType) {
@@ -206,7 +342,7 @@ export default class PoliceDataView extends PureComponent {
     return newstr;
   };
   // 接处警统计
-  showPoliceEchartLine = nextProps => {
+  showPoliceEchartLine = (nextProps,data) => {
     policeEchartLine = echarts.init(document.getElementById('jcjtj'));
     const option = {
       tooltip: {
@@ -291,58 +427,7 @@ export default class PoliceDataView extends PureComponent {
           },
         }
       ],
-      series: [
-        {
-          name: '警情总数',
-          type: 'bar',
-          data: [239,134,78,91,66],
-          barWidth: 20
-        },
-        {
-          name: '应上传数',
-          type: 'bar',
-          data: [42,167,90,33,215],
-          barWidth: 20
-        },
-        {
-          name: '已上传数',
-          type: 'bar',
-          data: [22,33,55,12,137],
-          barWidth: 20
-        },
-        {
-          name: '未上传数',
-          type: 'bar',
-          data: [20,101,41,15,98],
-          barWidth: 20
-        },
-        {
-          name: '已关联数',
-          type: 'bar',
-          data: [120,133,45,66,79],
-          barWidth: 20
-        },
-        {
-          name: '未关联数',
-          type: 'bar',
-          data: [43,92,156,22,43],
-          barWidth: 20
-        },
-        {
-          name: '上传完成率',
-          type: 'line',
-          yAxisIndex: 1,
-          data: [20.0, 21.2, 33.3, 54.5, 16.3],
-          barWidth: 20
-        },
-        {
-          name: '关联比例',
-          type: 'line',
-          yAxisIndex: 1,
-          data: [60.0, 72.2, 85.3, 24.5, 66.3],
-          barWidth: 20
-        }
-      ]
+      series: data
     };
 
     policeEchartLine.setOption(option, true);
@@ -356,7 +441,7 @@ export default class PoliceDataView extends PureComponent {
     // })
   };
   // 案件上传统计
-  showajEchartLine = nextProps => {
+  showajEchartLine = (nextProps,data) => {
     ajEchart = echarts.init(document.getElementById('ajsc'));
     const option = {
       tooltip: {
@@ -448,52 +533,7 @@ export default class PoliceDataView extends PureComponent {
           },
         }
       ],
-      series: [
-        {
-          name: '上传总数',
-          type: 'bar',
-          data: [120,249,189],
-          barWidth: 20
-        },
-        {
-          name: '已上传总数',
-          type: 'bar',
-          data: [56,67,20],
-          barWidth: 20
-        },
-        {
-          name: '未上传总数',
-          type: 'bar',
-          data: [122,198,167],
-          barWidth: 20
-        },
-        {
-          name: '已关联数',
-          type: 'bar',
-          data: [20,33,145],
-          barWidth: 20
-        },
-        {
-          name: '未关联数',
-          type: 'bar',
-          data: [143,44,65],
-          barWidth: 20
-        },
-        {
-          name: '上传完成率',
-          type: 'line',
-          yAxisIndex: 1,
-          data: [66, 92, 37],
-          barWidth: 20
-        },
-        {
-          name: '关联比例',
-          type: 'line',
-          yAxisIndex: 1,
-          data: [78, 36, 83],
-          barWidth: 20
-        }
-      ]
+      series: data,
     };
 
     ajEchart.setOption(option, true);
@@ -507,7 +547,7 @@ export default class PoliceDataView extends PureComponent {
     // })
   };
   //超期未上传统计
-  showcqwscEchartLine = nextProps => {
+  showcqwscEchartLine = (nextProps,data) => {
     cqwscEchart = echarts.init(document.getElementById('cqwsc'));
     const option = {
       tooltip: {
@@ -574,20 +614,7 @@ export default class PoliceDataView extends PureComponent {
           },
         },
       ],
-      series: [
-        {
-          name: '警情',
-          type: 'bar',
-          data: [20,49,18,45,32],
-          barWidth: 20
-        },
-        {
-          name: '案件',
-          type: 'bar',
-          data: [6,37,21,56,44],
-          barWidth: 20
-        },
-      ]
+      series: data,
     };
 
     cqwscEchart.setOption(option, true);

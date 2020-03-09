@@ -763,7 +763,7 @@ export function routes() {
                         name: '音视频管理',
                         icon: 'icon-yichuligaojing',
                         path: '/videoManage',
-                        authority: ['zhag_jcj'],
+                        authority: ['zhag_yspgl'],
                         routes: [
                           {
                             path: '/videoManage/videoData',
@@ -783,38 +783,38 @@ export function routes() {
                             name: '音视频预警',
                             icon: 'icon-yujing',
                             path: '/videoManage/Warning',
-                            authority: ['zhag_new_sla_yj'],
+                            authority: ['zhag_yspgl_yspyj'],
                             routes: [
                               {
                                 name: '音视频警情预警',
                                 path: '/videoManage/Warning/receiveVideoWarning',
                                 component: './videoManage/receiveVideoWarning',
-                                authority: ['zhag_new_sla_yj_xs'],
+                                authority: ['zhag_yspyj_yspjqyj'],
                               },
                               {
                                 name: '音视频案件预警',
                                 path: '/videoManage/Warning/lawVideoWarning',
                                 component: './videoManage/lawVideoWarning',
-                                authority: ['zhag_new_sla_yj_xz'],
+                                authority: ['zhag_yspyj_yspajyj'],
                               },
                             ],
                           },{
                             name: '音视频告警',
                             icon: 'icon-yujing',
                             path: '/videoManage/Police',
-                            authority: ['zhag_new_sla_yj'],
+                            authority: ['zhag_yspgl_yspgj'],
                             routes: [
                               {
                                 name: '音视频警情告警',
                                 path: '/videoManage/Police/receiveVideoPolice',
                                 component: './videoManage/receiveVideoPolice',
-                                authority: ['zhag_new_sla_yj_xs'],
+                                authority: ['zhag_yspgj_yspjqgj'],
                               },
                               {
                                 name: '音视频案件告警',
                                 path: '/videoManage/Police/lawVideoPolice',
                                 component: './videoManage/lawVideoPolice',
-                                authority: ['zhag_new_sla_yj_xz'],
+                                authority: ['zhag_yspgj_yspajgj'],
                               },
                             ],
                           },
