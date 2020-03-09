@@ -6,7 +6,7 @@
 
 import React, {PureComponent} from 'react';
 import {Modal, Form, Input, Select, message, button, Card, Button, Row, Col, Icon, Upload} from 'antd';
-import styles from './ImportFIleModal.less';
+import styles from './ImportFileModal.less';
 
 const {TextArea} = Input;
 const {Option, OptGroup} = Select;

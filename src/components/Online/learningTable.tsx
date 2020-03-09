@@ -306,7 +306,7 @@ class learningTable extends PureComponent {
   render() {
     const { data } = this.props;
     const { mode,previewModal,previewRecord } = this.state;
-    console.log('this.props',this.props);
+    console.log('previewRecord',previewRecord);
     let className = this.props.global && this.props.global.dark ? styles.standardTable : styles.standardTable + ' ' + styles.lightBox;
     return (
       <div className={className}>
