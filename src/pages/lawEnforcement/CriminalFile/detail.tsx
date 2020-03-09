@@ -35,6 +35,8 @@ import jzxx from "@/assets/common/jzxx.png";
 import jqImg from "@/assets/common/jq.png";
 import {routerRedux} from "dva/router";
 import noListLight from "@/assets/viewData/noListLight.png";
+import nophotoLight from '@/assets/common/zwwp1.png';
+import nophoto from '@/assets/common/zwwpDark1.png';
 
 
 const FormItem = Form.Item;
@@ -133,29 +135,31 @@ export default class CriminalCaseDocDetail extends PureComponent {
         if (this.state.first) {
             let scroll = document.getElementById("scroll"+this.state.res.ajbh);
             if (scroll) {
-                scroll.addEventListener("scroll", e => {
-                    let afterScrollTop = e.target.scrollTop;
-                    if (afterScrollTop > this.state.afterScrollTop) {
-                        this.setState({
-                            AnchorShow: true,
-                            Anchor: true,
-                        });
-                    } else {
-                        this.setState({
-                            AnchorShow: false,
-                            Anchor: true,
-                        });
-                    }
-                    this.setState({
-                        afterScrollTop: afterScrollTop,
-                    });
-                });
+                scroll.addEventListener("scroll", this.getScroll);
             }
             this.setState({
                 first: false,
             });
         }
     };
+    //滚轮
+  getScroll = (e) => {
+    let afterScrollTop = e.target.scrollTop;
+    if (afterScrollTop > this.state.afterScrollTop) {
+      this.setState({
+        AnchorShow: true,
+        Anchor: true,
+      });
+    } else {
+      this.setState({
+          AnchorShow: false,
+          Anchor: true,
+      });
+    }
+    this.setState({
+      afterScrollTop: afterScrollTop,
+    });
+  }
 //换行
     formatter = (val) => {
         let strs = val.split(''); //字符串数组
@@ -707,27 +711,32 @@ export default class CriminalCaseDocDetail extends PureComponent {
                     },
                 } : false}
                 dataSource={sawpList}
-                className={styles.sawpListName}
+                className={styles.sawpListNames}
                 style={{color: '#faa'}}
                 locale={{
                     emptyText: <Empty image={this.props.global && this.props.global.dark ? noList : noListLight}
                                       description={'暂无数据'}/>
                 }}
+                grid={{
+                  gutter: 16, xs: 1, sm: 2, md: 4, lg: 4,
+                }}
                 renderItem={item => (
-                    <List.Item>
-                        <div className={styles.colsImg}>
+                    <List.Item style={{borderRadius:4,overflow:'hidden'}}>
+                        <div className={this.props.global && this.props.global.dark ? '' : styles.lightBox}>
+                          <div className={styles.listItemContents} style={{overflow:'hidden'}}>
                             <div className={styles.sawpImg}>
-                                <img width='70' height='70'
-                                     src={item && item.imageList && item.imageList.length > 0 ? item.imageList[0].imageurl : 'images/nophoto.png'}/>
+                              <img width='90' height='90'
+                                   src={item && item.imageList && item.imageList.length > 0&&item.imageList[0].imageurl ? item.imageList[0].imageurl :  this.props.global && this.props.global.dark ? nophoto : nophotoLight}/>
                             </div>
                             <div className={styles.sawpName}>
-                                <div className={styles.sawpName1}>物品名称：<Tooltip
-                                    overlayStyle={{wordBreak: 'break-all'}} title={item.wpmc}>{item.wpmc}</Tooltip>
-                                </div>
-                                <div className={styles.sawpName1}>物品种类：<Tooltip
-                                    overlayStyle={{wordBreak: 'break-all'}}
-                                    title={item.wpzlMc}>{item.wpzlMc}</Tooltip></div>
+                              <div className={styles.sawpName1}>物品名称：<Tooltip
+                                overlayStyle={{wordBreak: 'break-all'}} title={item.wpmc}>{item.wpmc}</Tooltip>
+                              </div>
+                              <div className={styles.sawpName1}>物品种类：<Tooltip
+                                overlayStyle={{wordBreak: 'break-all'}}
+                                title={item.wpzlMc}>{item.wpzlMc}</Tooltip></div>
                             </div>
+                          </div>
                             <div className={styles.sawpSee}
                                  onClick={() => this.openItemsDetail(item, item.system_id)}>查看
                             </div>
@@ -1214,6 +1223,15 @@ export default class CriminalCaseDocDetail extends PureComponent {
             link: link
         });
     }
+    getAnchor = ()=>{
+      let scroll = document.getElementById("scroll"+this.state.res.ajbh);
+      if(scroll){
+        scroll.removeEventListener("scroll",this.getScroll ,false);
+        setTimeout(()=>{
+          scroll.addEventListener("scroll", this.getScroll);
+        },500);
+      }
+    }
     render() {
         const {makeTableModalVisible, RetrieveVisible, RetrieveRecord, tbDetail} = this.state;
         return (
@@ -1227,6 +1245,7 @@ export default class CriminalCaseDocDetail extends PureComponent {
 
                 <div className={styles.anchorBox}>
                     <Anchor
+                        onClick={this.getAnchor}
                         getContainer={() => document.querySelector('#scroll'+this.state.res.ajbh)}
                         className={!(this.state.Anchor && this.state.AnchorShow) ? styles.AnchorHide : this.state.AnchorShow ? styles.fadeBoxIn : styles.fadeBoxOut}
                         offsetTop={0} onChange={this.goLink}>

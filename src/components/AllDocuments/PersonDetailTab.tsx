@@ -117,7 +117,7 @@ export default class PersonDetailTab extends PureComponent {
                 }}
                 dataSource={sawpList}
                 grid={{
-                    gutter: 32, xs: 1, sm: 2, md: 4, lg: 4,
+                    gutter: 16, xs: 1, sm: 2, md: 4, lg: 4,
                 }}
                 className={styles.listItem}
                 style={{color: '#faa'}}
@@ -131,7 +131,7 @@ export default class PersonDetailTab extends PureComponent {
                                         src={item && item.imageList && item.imageList.length > 0 ? item.imageList[0].imageurl : dark ? nophoto : nophotoLight}
                                     />
                                 </div>
-                                <div className={styles.sawpName} style={{float:'left',marginTop:20}}>
+                                <div className={styles.sawpName} style={{float:'left',marginTop:12}}>
                                     <div className={styles.sawpName1}>物品名称：<Tooltip
                                         overlayStyle={{wordBreak: 'break-all'}}
                                         title={item.wpmc}>{item.wpmc}</Tooltip></div>
