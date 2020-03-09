@@ -37,7 +37,7 @@ export default class AddTemplateVisibleModal extends PureComponent {
   };
 
   componentDidMount() {
-
+    this.getDictNum()
   }
 
   SaveTemplate = () => {
@@ -283,7 +283,7 @@ export default class AddTemplateVisibleModal extends PureComponent {
           onCancel={this.handleCancel}
           footer={<button onClick={this.addSuccess} className={styles.successBtn}>保存</button>}
         >
-         <Form onSubmit={()=>this.SaveTemplate()}>
+         <Form>
            <Row>
              <Col {...colLayout} className={styles.Col}>
                <FormItem label="测评模板名称" {...formItemLayouts1}>
