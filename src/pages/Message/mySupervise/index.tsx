@@ -421,7 +421,7 @@ class mySupervise extends Component {
                 );
             }
         }
-        const colLayout = {sm: 24, md: 12, xl: 8};
+        const colLayout = {sm: 24, md: 12,xl:12, xxl: 8};
         const formItemLayout = {
             labelCol: {xs: {span: 24}, md: {span: 8}, xl: {span: 6}, xxl: {span: 5}},
             wrapperCol: {xs: {span: 24}, md: {span: 16}, xl: {span: 18}, xxl: {span: 19}},
@@ -447,7 +447,7 @@ class mySupervise extends Component {
                                 )}
                             </FormItem>
                         </Col>
-                        <Col xl={8} md={12} sm={24}>
+                        <Col {...colLayout}>
                             <FormItem label="案件名称" {...formItemLayout}>
                                 {getFieldDecorator('ajmc', {
                                     // initialValue: this.state.MySuperviseType,
@@ -457,7 +457,7 @@ class mySupervise extends Component {
                                 )}
                             </FormItem>
                         </Col>
-                        <Col xl={8} md={12} sm={24}>
+                        <Col {...colLayout}>
                             <FormItem label="案件编号" {...formItemLayout}>
                                 {getFieldDecorator('ajbh', {
                                     // initialValue: this.state.MySuperviseType,
@@ -470,7 +470,7 @@ class mySupervise extends Component {
                                 )}
                             </FormItem>
                         </Col>
-                        <Col xl={8} md={12} sm={24}>
+                        <Col {...colLayout}>
                             <FormItem label="督办时间" {...formItemLayout}>
                                 {getFieldDecorator('dbsj', {
                                     // initialValue: this.state.ssbaq,
@@ -483,7 +483,7 @@ class mySupervise extends Component {
                                 )}
                             </FormItem>
                         </Col>
-                        <Col xl={8} md={12} sm={24}>
+                        <Col {...colLayout}>
                             <FormItem label="反馈时间" {...formItemLayout}>
                                 {getFieldDecorator('fksj', {
                                     // initialValue: this.state.ssbaq,
@@ -497,7 +497,7 @@ class mySupervise extends Component {
                             </FormItem>
                         </Col>
 
-                        <Col xl={8} md={12} sm={24}>
+                        <Col {...colLayout}>
                             <FormItem label="是否反馈" {...formItemLayout}>
                                 {getFieldDecorator('fkzt', {
                                     initialValue: this.state.fkzt,
@@ -510,7 +510,7 @@ class mySupervise extends Component {
                                 )}
                             </FormItem>
                         </Col>
-                        <Col xl={8} md={12} sm={24}>
+                        <Col {...colLayout}>
                             <FormItem label="督办状态" {...formItemLayout}>
                                 {getFieldDecorator('dbzt', {
                                     initialValue: {dbzt: this.state.dbzt, zgzt: ''},
@@ -521,7 +521,7 @@ class mySupervise extends Component {
                                 )}
                             </FormItem>
                         </Col>
-                        <Col xl={8} md={12} sm={24}>
+                        <Col {...colLayout}>
                             <FormItem label="要素类型" {...formItemLayout}>
                                 {getFieldDecorator('yslx', {
                                     initialValue: this.state.yslx,

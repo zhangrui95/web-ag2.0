@@ -501,7 +501,7 @@ export default class PersonalDoc extends PureComponent {
       wrapperCol: { xs: { span: 24 }, md: { span: 16 }, xl: { span: 18 }, xxl: { span: 18 } },
     };
     const rowLayout = { md: 8, xl: 16, xxl: 24 };
-    const colLayout = { sm: 24, md: 12, xl: 8 };
+    const colLayout = { sm: 24, md: 12, xl: 12,xxl:8 };
     return (
       <Card className={stylescommon.listPageWrap} id={'formPersonFile'}>
         <Form

@@ -126,7 +126,7 @@ export default class RYCZTZ extends PureComponent {
         return (
             <div>
                 <Row gutter={{md: 8, lg: 24, xl: 48}}>
-                    <Col md={12} sm={24}>
+                  <Col md={18} sm={24} xl={18}>
                         <StatisticsDateSelect
                             setSelectDateValue={this.setSelectDateValue}
                             selectDateValue={this.state.selectDateValue}
@@ -134,7 +134,7 @@ export default class RYCZTZ extends PureComponent {
                             id={'XZAJXDRYTJ'}
                         />
                     </Col>
-                    <Col md={12} sm={24}>
+                  <Col md={6} sm={24} xl={6}>
                         <div className={stylescommon.buttonArea}>
                             <Button type="submit" onClick={() => this.exportData()}>
                                 导出
