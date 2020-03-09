@@ -1,5 +1,5 @@
 /*
-*  涉案物品预警
+*  涉案财物预警
 *  author：zr
 *  20181222
 * */
@@ -297,7 +297,7 @@ export default class Index extends PureComponent {
         //     />
         //   </div>
         // );
-        // const AddNewDetail = { title: '涉案物品预警详情', content: divs, key: record.id };
+        // const AddNewDetail = { title: '涉案财物预警详情', content: divs, key: record.id };
         // this.newDetail(AddNewDetail);
     };
     // 打开新的详情页面
@@ -354,7 +354,7 @@ export default class Index extends PureComponent {
                                     record: res,
                                     itemDetails: data,
                                     id: res && res.system_id ? res.system_id : '1',
-                                    from: '涉案物品预警',
+                                    from: '涉案财物预警',
                                     fromPath: '/articlesInvolved/ArticlesWarning',
                                     tab: '表格'
                                 },
@@ -367,7 +367,7 @@ export default class Index extends PureComponent {
                                 query: {
                                     record: res,
                                     id: res && res.system_id ? res.system_id : '1',
-                                    from: '涉案物品预警',
+                                    from: '涉案财物预警',
                                     tzlx: 'wpxx',
                                     fromPath: '/articlesInvolved/ArticlesWarning',
                                     detail,
@@ -803,7 +803,7 @@ export default class Index extends PureComponent {
                     />
                     {/*<RemindModal caseDetails={this.state.caseDetails} txVisible={this.state.txVisible}*/}
                     {/*detail={detail} handleCancel={this.handleCancel} txItem={this.state.txItem}*/}
-                    {/*yjmc="涉案物品预警" getResult={() => this.getDossier({*/}
+                    {/*yjmc="涉案财物预警" getResult={() => this.getDossier({*/}
                     {/*currentPage: this.state.current,*/}
                     {/*pd: this.state.formValues,*/}
                     {/*})}/>*/}

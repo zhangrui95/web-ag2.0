@@ -261,7 +261,9 @@ body {
       background-color: @component-background;
       border-radius: @borderRadius;
     }
-
+    .ant-menu-inline .ant-menu-item::after{
+      display: none;
+    }
     .ant-menu-inline .ant-menu-item {
       margin: @zero !important;
       height: 50px;
@@ -287,7 +289,6 @@ body {
       a {
         color: @text-color;
       }
-
       .ant-menu-item-selected {
         color: @text-word-color;
         background-color: @highlight-color;
@@ -297,7 +298,6 @@ body {
           color: @white !important;
         }
       }
-
       .ant-menu-submenu-title {
         margin: @zero;
         height: 50px;
@@ -308,27 +308,30 @@ body {
         }
         &:hover {
           color: @text-word-color;
-        }
-      }
-
-      .ant-menu-submenu-title .ant-menu-submenu-arrow::before,
-      .ant-menu-submenu-title .ant-menu-submenu-arrow::after {
-        background: #72729f;
-      }
-
-      &:hover {
-        .ant-menu-submenu-title .ant-menu-submenu-arrow::before,
-        .ant-menu-submenu-title .ant-menu-submenu-arrow::after {
-          background: @text-word-color;
+          .ant-menu-submenu-arrow::before,
+          .ant-menu-submenu-arrow::after {
+            background: @text-word-color!important;
+          }
         }
       }
       .ant-menu-inline.ant-menu-sub {
         background: #f5f5f5;
         box-shadow: @no-box-shadow;
+        .ant-menu-submenu-title {
+          .ant-menu-submenu-arrow::before,
+          .ant-menu-submenu-arrow::after {
+            background: #808080 !important;
+          }
+          &:hover {
+            .ant-menu-submenu-arrow::before,
+            .ant-menu-submenu-arrow::after {
+              background: #4d4d4d !important;
+            }
+          }
+        }
         a {
           color: #808080;
         }
-
         a {
           &:hover {
             color: #4d4d4d;
@@ -346,13 +349,17 @@ body {
           .anticon{
             font-size: 16px;
           }
+          .ant-menu-submenu-arrow::before,
+          .ant-menu-submenu-arrow::after {
+            background: #fff!important;
+          }
           &:hover {
             color: #fff;
+            .ant-menu-submenu-arrow::before,
+            .ant-menu-submenu-arrow::after {
+              background: white!important;
+            }
           }
-        }
-        .ant-menu-submenu-title .ant-menu-submenu-arrow::before,
-        .ant-menu-submenu-title .ant-menu-submenu-arrow::after {
-          background: white;
         }
         .ant-menu-inline {
           .ant-menu-submenu-title {
@@ -378,24 +385,38 @@ body {
             }
           }
         }
-      }
-      .ant-menu-sub {
-        .ant-menu-submenu-title {
-          font-size: 16px;
-          background: @transparent;
-          border-right: @zero;
-          margin: @zero;
-          .anticon{
+        .ant-menu-sub {
+          .ant-menu-submenu-title {
             font-size: 16px;
+            background: @transparent;
+            border-right: @zero;
+            margin: @zero;
+            .ant-menu-submenu-arrow::before,
+            .ant-menu-submenu-arrow::after {
+              background: #b9c8ff!important;
+            }
+            &:hover{
+              .ant-menu-submenu-arrow::before,
+              .ant-menu-submenu-arrow::after {
+                background: #fff!important;
+              }
+            }
+            .anticon{
+              font-size: 16px;
+            }
           }
-        }
-        .ant-menu-item-selected {
-          color: @white !important;
-          background-color: @transparent; //@menu-item-active-bg
-          border-right: @zero !important;
+          .ant-menu-item-selected {
+            color: @white !important;
+            background-color: @transparent; //@menu-item-active-bg
+            border-right: @zero !important;
+          }
         }
       }
       .ant-menu-submenu {
+        .ant-menu-submenu-title .ant-menu-submenu-arrow::before,
+        .ant-menu-submenu-title .ant-menu-submenu-arrow::after {
+          background: #72729f;
+        }
         .ant-menu-item {
           font-size: 16px;
           height: 40px;

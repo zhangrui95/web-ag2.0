@@ -31,9 +31,9 @@ const configItem = {
   isSyncBaq: true, // 办案区
   isSyncCaseOnTime: true, // 案件实时数据
   isSyncCaseCount: true, // 案件统计
-  isSyncCaseItems: true, // 涉案物品
+  isSyncCaseItems: true, // 涉案财物
   isSmartLinKey: true, // 是否登录smartlinkey客户端
-  mainlineMenu: true, // 首页是否存在办案区/涉案物品/卷宗数据
+  mainlineMenu: true, // 首页是否存在办案区/涉案财物/卷宗数据
   personQueryIndex: 'index_saryxx', // 人员索引
   itemsQueryIndex: 'index_wpxx', // 物品索引
   caseQueryIndex: 'index_ajxx', // 案件索引
@@ -45,7 +45,7 @@ const configItem = {
   is_area: '2', // 刑事案件案件类别根据不同地区调用不同的接口；1表示牡丹江,2表示平乐,0表示主线，5表示达拉特旗
   is_ssds: 'pl', // 接处警报警类别的所属地市dltq
   startTheme:true,//初始化主题深色版本true,浅色版本false,
-  is_sawpbb:'2', // 涉案物品后台数据版本;1为1.0版本,2为2.0版本;
+  is_sawpbb:'2', // 涉案财物后台数据版本;1为1.0版本,2为2.0版本;
   loginName:'执法线管理系统',//登录页面名称
 };
 // 开发模式地址

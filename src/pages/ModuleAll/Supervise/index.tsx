@@ -169,7 +169,7 @@ export default class SuperviseModal extends PureComponent {
     });
   }
 
-  // 涉案物品问题类型字典
+  // 涉案财物问题类型字典
   dicType4() {
     this.props.dispatch({
       type: 'common/getDictType',
@@ -216,7 +216,7 @@ export default class SuperviseModal extends PureComponent {
         from === '刑事案件详情问题判定' ||
         from === '行政案件详情问题判定' ||
         from === '办案区详情问题判定' ||
-        from === '涉案物品详情问题判定' ||
+        from === '涉案财物详情问题判定' ||
         from === '卷宗详情问题判定'
       ) {
         if (
@@ -541,7 +541,7 @@ export default class SuperviseModal extends PureComponent {
           );
         }
       }
-    } else if (from === '涉案物品详情问题判定') {
+    } else if (from === '涉案财物详情问题判定') {
       if (returnsacwProblemType.length > 0) {
         for (let i = 0; i < returnsacwProblemType.length; i++) {
           const item = returnsacwProblemType[i];
@@ -729,7 +729,7 @@ export default class SuperviseModal extends PureComponent {
                   {(from && from === '刑事案件详情问题判定') ||
                   from === '行政案件详情问题判定' ||
                   from === '办案区详情问题判定' ||
-                  from === '涉案物品详情问题判定' ||
+                  from === '涉案财物详情问题判定' ||
                   from === '警情详情问题判定' ||
                   from === '卷宗详情问题判定' ? (
                     this.selectJudge()

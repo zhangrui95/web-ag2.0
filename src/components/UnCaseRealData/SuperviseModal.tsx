@@ -144,7 +144,7 @@ export default class SuperviseModal extends PureComponent {
         });
     };
 
-// 涉案物品问题类型字典
+// 涉案财物问题类型字典
     dicType4() {
         this.props.dispatch({
             type: 'common/getDictType',
@@ -179,7 +179,7 @@ export default class SuperviseModal extends PureComponent {
     handleAlarm = () => {
         this.props.form.validateFields((err, fieldsValue) => {
             const {zrrValue} = this.state;
-            if (this.props.from === '警情详情问题判定' || this.props.from === '刑事案件详情问题判定' || this.props.from === '行政案件详情问题判定' || this.props.from === '办案区详情问题判定' || this.props.from === '涉案物品详情问题判定' || this.props.from === '卷宗详情问题判定') {
+            if (this.props.from === '警情详情问题判定' || this.props.from === '刑事案件详情问题判定' || this.props.from === '行政案件详情问题判定' || this.props.from === '办案区详情问题判定' || this.props.from === '涉案财物详情问题判定' || this.props.from === '卷宗详情问题判定') {
                 if (fieldsValue.wtlx === '' || fieldsValue.wtlx === undefined || fieldsValue.wtlx === null) {
                     message.warning('请选择问题类型');
                 } else if (fieldsValue && fieldsValue.zgyj === '' || fieldsValue.zgyj === undefined || fieldsValue.zgyj === null) {
@@ -441,7 +441,7 @@ export default class SuperviseModal extends PureComponent {
                     );
                 }
             }
-        } else if (this.props.from === '涉案物品详情问题判定') {
+        } else if (this.props.from === '涉案财物详情问题判定') {
             if (returnsacwProblemType.length > 0) {
                 for (let i = 0; i < returnsacwProblemType.length; i++) {
                     const item = returnsacwProblemType[i];
@@ -480,7 +480,7 @@ export default class SuperviseModal extends PureComponent {
     };
 
     title() {
-        if (this.props.from === '警情详情问题判定' || this.props.from === '刑事案件详情问题判定' || this.props.from === '行政案件详情问题判定' || this.props.from === '办案区详情问题判定' || this.props.from === '涉案物品详情问题判定' || this.props.from === '卷宗详情问题判定') {
+        if (this.props.from === '警情详情问题判定' || this.props.from === '刑事案件详情问题判定' || this.props.from === '行政案件详情问题判定' || this.props.from === '办案区详情问题判定' || this.props.from === '涉案财物详情问题判定' || this.props.from === '卷宗详情问题判定') {
             return (
                 <div style={{color: '#fff'}}>问题判定</div>
             );
@@ -591,7 +591,7 @@ export default class SuperviseModal extends PureComponent {
                                        问题类型：
                                     </span>
                                     <span className={styles.outtext}>
-                                        {this.props.from && this.props.from === '刑事案件详情问题判定' || this.props.from === '行政案件详情问题判定' || this.props.from === '办案区详情问题判定' || this.props.from === '涉案物品详情问题判定' || this.props.from === '警情详情问题判定' || this.props.from === '卷宗详情问题判定' ? this.selectJudge() :
+                                        {this.props.from && this.props.from === '刑事案件详情问题判定' || this.props.from === '行政案件详情问题判定' || this.props.from === '办案区详情问题判定' || this.props.from === '涉案财物详情问题判定' || this.props.from === '警情详情问题判定' || this.props.from === '卷宗详情问题判定' ? this.selectJudge() :
                                             <span className={styles.wtlxstyle}>{this.props.wtlx}</span>}
                                     </span>
                                 </Col>

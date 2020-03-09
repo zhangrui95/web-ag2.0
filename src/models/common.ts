@@ -168,7 +168,7 @@ export default {
                 }
             }
             if (payload.code === '2017') {
-                //获取涉案物品的问题类型
+                //获取涉案财物的问题类型
                 yield put({
                     type: 'returnSawpTypeDict',
                     payload: response && response.error === null ? response.data : [],

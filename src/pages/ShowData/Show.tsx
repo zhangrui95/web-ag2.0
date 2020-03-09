@@ -109,7 +109,7 @@ export default class Show extends PureComponent {
                             <div className={styles.blockHeader}>
                                 <div className={styles.letfConner}></div>
                                 <div className={styles.rightConner}></div>
-                                <h4>涉案物品数据</h4>
+                                <h4>涉案财物数据</h4>
                             </div>
                             <div className={styles.smallBlockBody}>
                                 <InvolvedItems {...this.props} areaCode={this.state.areaCode}/>

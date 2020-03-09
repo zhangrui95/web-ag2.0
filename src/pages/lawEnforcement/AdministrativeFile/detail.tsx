@@ -45,7 +45,7 @@ export default class AdministrativeCaseDocDetail extends PureComponent {
             res = JSON.parse(sessionStorage.getItem('query')).query.record;
         }
         this.state = {
-            current: 1, // 涉案物品默认在第一页
+            current: 1, // 涉案财物默认在第一页
             jqcurrent: 1, // 警情信息默认在第一页
             jzcurrent: 1, // 卷宗信息默认在第一页
             gjcurrent: 1, // 告警信息默认在第一页
@@ -215,7 +215,7 @@ export default class AdministrativeCaseDocDetail extends PureComponent {
                 x: -1100,
                 y: 300
             }, {
-                name: '涉案物品',
+                name: '涉案财物',
                 attributes: {
                     modularity_class: 3,
                 },
@@ -269,7 +269,7 @@ export default class AdministrativeCaseDocDetail extends PureComponent {
         if (data.sawpList && data.sawpList.length > 0) {
             data.sawpList.map((event, index) => {
                 sawp.push({
-                    source: '涉案物品',
+                    source: '涉案财物',
                     target: (event.wpmc ? this.formatter(event.wpmc) : null) + index,
                 });
                 list.push(
@@ -318,7 +318,7 @@ export default class AdministrativeCaseDocDetail extends PureComponent {
                 target: '涉案人员'
             }, {
                 source: data.ajmc,
-                target: '涉案物品'
+                target: '涉案财物'
             }, {
                 source: data.ajmc,
                 target: '卷宗'
@@ -345,7 +345,7 @@ export default class AdministrativeCaseDocDetail extends PureComponent {
                 name: '涉案人员',    //类目名称
             },
             {
-                name: "涉案物品",    //类目名称
+                name: "涉案财物",    //类目名称
             },
             {
                 name: '卷宗',    //类目名称
@@ -363,14 +363,14 @@ export default class AdministrativeCaseDocDetail extends PureComponent {
                     textStyle: {
                         color: dark ? '#eee' : '#4D4D4D',
                         fontSize: node.attributes.modularity_class === 0 ? 16 :
-                          node.name === '涉案人员' || node.name === "涉案物品" || node.name === "卷宗" || node.name === "警情" ? 14 : 12
+                          node.name === '涉案人员' || node.name === "涉案财物" || node.name === "卷宗" || node.name === "警情" ? 14 : 12
                     },
                 }
             };
             node.category = node.attributes.modularity_class;
             node.symbol = node.attributes.modularity_class === 0 ? `image://${aj}` :
                 node.name === '涉案人员' ? `image://${tar}` :
-                    node.name === "涉案物品" ? `image://${wp}` :
+                    node.name === "涉案财物" ? `image://${wp}` :
                         node.name === "卷宗" ? `image://${jzxx}` :
                             node.name === "警情" ? `image://${jqImg}` :
                                 "circle";
@@ -631,7 +631,7 @@ export default class AdministrativeCaseDocDetail extends PureComponent {
             case '203203':
                 return '办案区告警';
             case '203204':
-                return '涉案物品告警';
+                return '涉案财物告警';
             case '203205':
                 return '行政案件告警';
             case '203206':
@@ -716,7 +716,7 @@ export default class AdministrativeCaseDocDetail extends PureComponent {
                     query: {record: item, id: item.wtid, baqId: item.id},
                 }),
             );
-        } else if (item.wtfl_id === '203204') {//涉案物品告警详情
+        } else if (item.wtfl_id === '203204') {//涉案财物告警详情
             this.props.dispatch(
                 routerRedux.push({
                     pathname: '/articlesInvolved/ArticlesPolice/unitemDetail',
@@ -997,7 +997,7 @@ export default class AdministrativeCaseDocDetail extends PureComponent {
                                     borderLeft: dark ? '3px solid #fff' : '3px solid #3D63D1',
                                     paddingLeft: 16,
                                 }}
-                            >涉案物品</span></div>
+                            >涉案财物</span></div>
                             <div className={styles.tablemessage}>
                                 <div style={{padding: '24px 24px'}}>
                                     {this.sawpCol(caseDetails && caseDetails.sawpList ? caseDetails.sawpList : [])}
@@ -1100,7 +1100,7 @@ export default class AdministrativeCaseDocDetail extends PureComponent {
                             title="案件轨迹"/>
                         <Link
                             href={`${location.hash}#${this.state.res.ajbh}sawp`}
-                            title="涉案物品"/>
+                            title="涉案财物"/>
                         <Link
                             href={`${location.hash}#${this.state.res.ajbh}jzxx`}
                             title="卷宗信息"/>
