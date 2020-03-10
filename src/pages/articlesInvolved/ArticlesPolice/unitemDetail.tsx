@@ -25,7 +25,7 @@ import {
   Steps,
   message,
   Carousel,
-  Modal, Timeline,
+  Modal, Timeline, Tag,
 } from 'antd';
 import styles from './unitemDetail.less';
 import liststyles from '../../common/listDetail.less';
@@ -538,9 +538,36 @@ export default class unitemDetail extends PureComponent {
           }
         >
           <Row gutter={8} style={{ paddingLeft:20 }}>
-            <Col md={8} sm={24} style={{marginBottom:8}}>
-              <div className={styles.break}>{window.configUrl.is_area === '5' || window.configUrl.is_area === '2' ? '物品状态：' : ''}{item.wpzt}</div>
+            <Col span={4}>
+              <Row style={{marginBottom:6}}>{item.wpzt}</Row>
+              <Row>
+                {item.sfzc ? <Tag
+                style={
+                  item.sfzc === '0'
+                    ? {
+                      background: '#00CC33',
+                      padding: '2px 12px',
+                      textAlign: 'center',
+                      cursor: 'default',
+                      border:0,
+                    }
+                    : {
+                      background: 'rgb(255, 51, 102)',
+                      padding: '2px 12px',
+                      textAlign: 'center',
+                      cursor: 'default',
+                      border:0,
+                    }
+                }
+              >
+                {item.sfzc === '0' ? '正常' : '异常'}
+              </Tag>: ''}</Row>
             </Col>
+            <Col span={20}>
+          <Row>
+            {/*<Col md={8} sm={24} style={{marginBottom:8}}>*/}
+            {/*  <div className={styles.break}>{window.configUrl.is_area === '5' || window.configUrl.is_area === '2' ? '财物状态：' : ''}{item.wpzt}</div>*/}
+            {/*</Col>*/}
             <Col md={8} sm={24} style={{marginBottom:8}}>
               <div className={styles.break}>{window.configUrl.is_area === '5' || window.configUrl.is_area === '2' ? '操作时间：' : ''}{item.czsj}</div>
             </Col>
@@ -552,6 +579,11 @@ export default class unitemDetail extends PureComponent {
             </Col>
             <Col md={8} sm={24} style={{marginBottom:8}}>
               <div className={styles.break}>{window.configUrl.is_area === '5' || window.configUrl.is_area === '2' ? '归还期限：' : ''}{item.ghqx}</div>
+            </Col>
+            <Col md={16} sm={24} style={{marginBottom:8}}>
+              <div className={styles.break}>{window.configUrl.is_area === '5' || window.configUrl.is_area === '2' ? '存储位置：' : ''}{item.ccwz_zw}</div>
+            </Col>
+          </Row>
             </Col>
           </Row>
         </Timeline.Item>,
@@ -603,125 +635,129 @@ export default class unitemDetail extends PureComponent {
             </Col>
             <Col md={18} sm={24}>
               <div style={{ paddingRight: 24 }}>
-                <Row gutter={{ md: 8, lg: 24, xl: 48 }}>
+                {
+                  UnitemDetail && UnitemDetail.wpzlCode && UnitemDetail.wpzlCode == 1 ?   <Row gutter={{ md: 8, lg: 24, xl: 48 }} className={styles.wpxx}>
+                      <Col md={8} sm={24}>
+                        名称：{UnitemDetail && UnitemDetail.wpmc ? UnitemDetail.wpmc : ''}
+                      </Col>
+                      <Col md={8} sm={24}>
+                        来源：{UnitemDetail && UnitemDetail.wply ? UnitemDetail.wply : ''}
+                      </Col>
+                      <Col span={8}>
+                        款项分类：{UnitemDetail && UnitemDetail.wpzlname2 ? UnitemDetail.wpzlname2 : ''}
+                      </Col>
+                      <Col span={8}>
+                        货币/金融工具分类：{UnitemDetail && UnitemDetail.wpzlname3 ? UnitemDetail.wpzlname3 : ''}
+                      </Col>
+                      <Col span={8}>
+                        货币/金融工具分类：{UnitemDetail && UnitemDetail.hbjrgjflzw ? UnitemDetail.hbjrgjflzw : ''}
+                      </Col>
+                      <Col span={8}>
+                        款项类别：{UnitemDetail && UnitemDetail.kxlbzw ? UnitemDetail.kxlbzw : ''}
+                      </Col>
+                      <Col span={8}>
+                        总金额：{UnitemDetail && UnitemDetail.zje ? UnitemDetail.zje : ''}
+                      </Col>
+                      <Col span={8}>
+                        存入账户：{UnitemDetail && UnitemDetail.crzh ? UnitemDetail.crzh : ''}
+                      </Col>
+                      <Col span={8}>
+                        存入日期：{UnitemDetail && UnitemDetail.crrq ? UnitemDetail.crrq : ''}
+                      </Col>
+                      <Col md={8} sm={24}>
+                        存入人：{UnitemDetail && UnitemDetail.crr ? UnitemDetail.crr : ''}
+                      </Col>
+                      <Col md={8} sm={24}>
+                        入账单据号：{UnitemDetail && UnitemDetail.rzdjh ? UnitemDetail.rzdjh : ''}
+                      </Col>
+                      <Col md={24} sm={24}>
+                        所在库房名称：{UnitemDetail && UnitemDetail.szkf ? UnitemDetail.szkf : ''}
+                      </Col>
+                      <Col md={24} sm={24}>
+                        备注：{UnitemDetail && UnitemDetail.bz ? UnitemDetail.bz : ''}
+                      </Col>
+                    </Row> :
+                    <Row gutter={{ md: 8, lg: 24, xl: 48 }} className={styles.wpxx}>
                   <Col md={8} sm={24}>
-                    <div className={styles.Indexfrom}>物品名称：</div>
-                    <div className={styles.Indextail}>{UnitemDetail ? UnitemDetail.wpmc : ''}</div>
+                    物品名称：{UnitemDetail ? UnitemDetail.wpmc : ''}
                   </Col>
                   <Col md={8} sm={24}>
-                    <div className={styles.Indexfrom}>物品种类：</div>
-                    <div className={styles.Indextail}>
-                      {UnitemDetail ? UnitemDetail.wpzlName : ''}
-                    </div>
+                    物品来源：{UnitemDetail && UnitemDetail.wply ? UnitemDetail.wply : ''}
+                  </Col>
+                  <Col span={8}>采取措施日期：{UnitemDetail && UnitemDetail.cqcsrq ? UnitemDetail.cqcsrq : ''}</Col>
+                  <Col span={8}>
+                    物品分类：{UnitemDetail && UnitemDetail.wpzlname2 ? UnitemDetail.wpzlname2 : ''}
+                  </Col>
+                  <Col span={8}>
+                    三级分类：{UnitemDetail && UnitemDetail.wpzlname3 ? UnitemDetail.wpzlname3 : ''}
+                  </Col>
+                  <Col span={8}>
+                    是否具有财产属性：{UnitemDetail && UnitemDetail.sfyccsx ? UnitemDetail.sfyccsx : ''}
+                  </Col>
+                  <Col span={8}>
+                    是否贵重物品：{UnitemDetail && UnitemDetail.sfgzwp ? UnitemDetail.sfgzwp : ''}
+                  </Col>
+                  <Col span={8}>
+                    是否易损易贬值：{UnitemDetail && UnitemDetail.sfysybz ? UnitemDetail.sfysybz : ''}
+                  </Col>
+                  <Col span={8}>
+                    唯一编号：{UnitemDetail && UnitemDetail.wpbh ? UnitemDetail.wpbh : ''}
                   </Col>
                   <Col md={8} sm={24}>
-                    <div className={styles.Indexfrom}>重量：</div>
-                    <div className={styles.Indextail} style={{ paddingLeft: 28 }}>
-                      {UnitemDetail ? UnitemDetail.wpzl : ''}
-                    </div>
-                  </Col>
-                </Row>
-                <Row gutter={{ md: 8, lg: 24, xl: 48 }}>
-                  <Col md={8} sm={24}>
-                    <div className={styles.Indexfrom}>物品编码：</div>
-                    <div className={styles.Indextail}>{UnitemDetail ? UnitemDetail.wpbh : ''}</div>
+                   重量：{UnitemDetail ? UnitemDetail.wpzl : ''}
                   </Col>
                   <Col md={8} sm={24}>
-                    <div className={styles.Indexfrom}>型号：</div>
-                    <div className={styles.Indextail} style={{ paddingLeft: 28 }}>
-                      {UnitemDetail ? UnitemDetail.wpxh : ''}
-                    </div>
+                    型号：{UnitemDetail ? UnitemDetail.wpxh : ''}
                   </Col>
                   <Col md={8} sm={24}>
-                    <div className={styles.Indexfrom}>规格：</div>
-                    <div className={styles.Indextail} style={{ paddingLeft: 28 }}>
-                      {UnitemDetail ? UnitemDetail.wpgg : ''}
-                    </div>
+                    规格：{UnitemDetail ? UnitemDetail.wpgg : ''}
                   </Col>
-                </Row>
-                <Row gutter={{ md: 8, lg: 24, xl: 48 }}>
                   <Col md={8} sm={24}>
-                    <div className={styles.Indexfrom}>物品所有人：</div>
-                    <div className={styles.Indextail} style={{ paddingLeft: 70 }}>
+                   物品所有人：
                       <a
                         onClick={() => this.person(UnitemDetail)}
                         style={{ textDecoration: 'underline' }}
                       >
                         {UnitemDetail.syrName}
                       </a>
-                    </div>
                   </Col>
                   <Col md={8} sm={24}>
-                    <div className={styles.Indexfrom}>特征：</div>
-                    <div className={styles.Indextail} style={{ paddingLeft: 28 }}>
-                      {UnitemDetail ? UnitemDetail.wptz : ''}
-                    </div>
+                    特征：{UnitemDetail ? UnitemDetail.wptz : ''}
                   </Col>
                   <Col md={8} sm={24}>
-                    <div className={styles.Indexfrom}>数量：</div>
-                    <div className={styles.Indextail} style={{ paddingLeft: 28 }}>
-                      {UnitemDetail ? UnitemDetail.wpsl : ''}
-                    </div>
-                  </Col>
-                </Row>
-                <Row gutter={{ md: 8, lg: 24, xl: 48 }}>
-                  <Col md={8} sm={24}>
-                    <div className={styles.Indexfrom}>扣押原因：</div>
-                    <div className={styles.Indextail}>{UnitemDetail ? UnitemDetail.kyyy : ''}</div>
+                   数量：{UnitemDetail ? UnitemDetail.wpsl : ''}
                   </Col>
                   <Col md={8} sm={24}>
-                    <div className={styles.Indexfrom}>扣押时间：</div>
-                    <div className={styles.Indextail}>{UnitemDetail ? UnitemDetail.kysj : ''}</div>
+                   扣押原因：{UnitemDetail ? UnitemDetail.kyyy : ''}
                   </Col>
                   <Col md={8} sm={24}>
-                    <div className={styles.Indexfrom}>保存期限：</div>
-                    <div className={styles.Indextail}>{UnitemDetail ? UnitemDetail.bcqx : ''}</div>
-                  </Col>
-                </Row>
-                <Row gutter={{ md: 8, lg: 24, xl: 48 }}>
-                  <Col md={8} sm={24}>
-                    <div className={styles.Indexfrom}>扣押批准人：</div>
-                    <div className={styles.Indextail} style={{ paddingLeft: 68 }}>
-                      {UnitemDetail ? UnitemDetail.kypzr : ''}
-                    </div>
+                    扣押时间：{UnitemDetail ? UnitemDetail.kysj : ''}
                   </Col>
                   <Col md={8} sm={24}>
-                    <div className={styles.Indexfrom}>库房管理员：</div>
-                    <div className={styles.Indextail} style={{ paddingLeft: 70 }}>
-                      {UnitemDetail ? UnitemDetail.kfgly : ''}
-                    </div>
+                    保存期限：{UnitemDetail ? UnitemDetail.bcqx : ''}
                   </Col>
                   <Col md={8} sm={24}>
-                    <div className={styles.Indexfrom}>保存方式：</div>
-                    <div className={styles.Indextail}>
-                      {UnitemDetail ? UnitemDetail.bcfsName : ''}
-                    </div>
-                  </Col>
-                </Row>
-                <Row gutter={{ md: 8, lg: 24, xl: 48 }}>
-                  <Col md={8} sm={24}>
-                    <div className={styles.Indexfrom}>物品状态：</div>
-                    <div className={styles.Indextail}>{UnitemDetail ? UnitemDetail.wpzt : ''}</div>
+                    扣押批准人：{UnitemDetail ? UnitemDetail.kypzr : ''}
                   </Col>
                   <Col md={8} sm={24}>
-                    <div className={styles.Indexfrom}>所在库位：</div>
-                    <div className={styles.Indextail}>{UnitemDetail ? UnitemDetail.szkw : ''}</div>
+                    库房管理员：{UnitemDetail ? UnitemDetail.kfgly : ''}
                   </Col>
                   <Col md={8} sm={24}>
-                    <div className={styles.Indexfrom}>所在库房名称：</div>
-                    <div className={styles.Indextail} style={{ paddingLeft: 84 }}>
-                      {UnitemDetail ? UnitemDetail.szkf : ''}
-                    </div>
+                   保存方式：{UnitemDetail ? UnitemDetail.bcfsName : ''}
                   </Col>
-                </Row>
-                <Row gutter={{ md: 8, lg: 24, xl: 48 }}>
+                  <Col md={8} sm={24}>
+                    财物状态：{UnitemDetail ? UnitemDetail.wpzt : ''}
+                  </Col>
+                  <Col md={8} sm={24}>
+                    所在库位：{UnitemDetail ? UnitemDetail.szkw : ''}
+                  </Col>
+                  <Col md={8} sm={24}>
+                    所在库房名称：{UnitemDetail ? UnitemDetail.szkf : ''}
+                  </Col>
                   <Col md={24} sm={24}>
-                    <div className={styles.Indexfrom}>备注：</div>
-                    <div className={styles.Indextail} style={{ paddingLeft: 29 }}>
-                      {UnitemDetail ? UnitemDetail.bz : ''}
-                    </div>
+                    备注：{UnitemDetail ? UnitemDetail.bz : ''}
                   </Col>
-                </Row>
+                </Row>}
               </div>
             </Col>
           </Row>

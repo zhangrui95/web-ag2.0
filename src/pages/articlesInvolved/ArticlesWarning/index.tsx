@@ -341,9 +341,9 @@ export default class Index extends PureComponent {
                         itemDetails: data,
                     });
                     let itemDetails = data;
-                    let detail = [`物品名称：${itemDetails && itemDetails.wpmc ? itemDetails.wpmc : ''}`, `物品种类：${itemDetails && itemDetails.wpzlName ? itemDetails.wpzlName : ''}`,
-                        `物品状态：${itemDetails && itemDetails.wpzt ? itemDetails.wpzt : ''}`, `库房信息：${itemDetails && itemDetails.szkf ? itemDetails.szkf : ''}`,
-                        `关联案件名称：${itemDetails && itemDetails.ajmc ? itemDetails.ajmc : ''}`, `办案单位：${itemDetails && itemDetails.badw ? itemDetails.badw : ''}`,
+                    let detail = [`财物名称：${itemDetails && itemDetails.wpmc ? itemDetails.wpmc : ''}`, `财物分类：${itemDetails && itemDetails.cwflzw ? itemDetails.cwflzw : ''}`,
+                        `财物状态：${itemDetails && itemDetails.wpzt ? itemDetails.wpzt : ''}`, `库房信息：${itemDetails && itemDetails.szkf ? itemDetails.szkf : ''}`,
+                        `案件名称：${itemDetails && itemDetails.ajmc ? itemDetails.ajmc : ''}`, `办案单位：${itemDetails && itemDetails.badw ? itemDetails.badw : ''}`,
                     ];
                     res.detail = detail;
                     if (type === 3) {
@@ -596,12 +596,12 @@ export default class Index extends PureComponent {
                 dataIndex: 'yjlxmc',
             },
             {
-                title: '物品名称',
+                title: '财物名称',
                 dataIndex: 'wpmc',
             },
             {
-                title: '物品种类',
-                dataIndex: 'wplx_mc',
+                title: '财物分类',
+                dataIndex: 'cwflzw',
             },
             {
                 title: '预警内容',
@@ -672,11 +672,11 @@ export default class Index extends PureComponent {
         // let detail = (
         //   <Row style={{ width: '90%', margin: '0 38px 10px', lineHeight: '36px', color: 'rgba(0, 0, 0, 0.85)' }}>
         //     <Col
-        //       span={6}>物品名称：{this.state.itemDetails && this.state.itemDetails.wpmc ? this.state.itemDetails.wpmc : ''}</Col>
+        //       span={6}>财物名称：{this.state.itemDetails && this.state.itemDetails.wpmc ? this.state.itemDetails.wpmc : ''}</Col>
         //     <Col
-        //       span={6}>物品种类：{this.state.itemDetails && this.state.itemDetails.wpzlName ? this.state.itemDetails.wpzlName : ''}</Col>
+        //       span={6}>财物分类：{this.state.itemDetails && this.state.itemDetails.wpzlName ? this.state.itemDetails.wpzlName : ''}</Col>
         //     <Col
-        //       span={6}>物品状态：{this.state.itemDetails && this.state.itemDetails.wpzt ? this.state.itemDetails.wpzt : ''}</Col>
+        //       span={6}>财物状态：{this.state.itemDetails && this.state.itemDetails.wpzt ? this.state.itemDetails.wpzt : ''}</Col>
         //     <Col span={6}>库房信息：<Tooltip
         //       title={this.state.itemDetails && this.state.itemDetails.szkf && this.state.itemDetails.szkf.length > 8 ? this.state.itemDetails.szkf : null}>{this.state.itemDetails && this.state.itemDetails.szkf ? this.state.itemDetails.szkf.length > 8 ? this.state.itemDetails.szkf.substring(0, 8) + '...' : this.state.itemDetails.szkf : ''}</Tooltip></Col>
         //     <Col span={12}>关联案件名称：<Tooltip

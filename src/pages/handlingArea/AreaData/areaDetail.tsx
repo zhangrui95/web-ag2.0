@@ -1129,7 +1129,7 @@ export default class areaDetail extends PureComponent {
     let dark = this.props.global && this.props.global.dark;
     const ajWoodColumns = [
       {
-        title: '物品名称',
+        title: '财物名称',
         dataIndex: 'wpName',
         render: record => {
           return record && record.length <= 20 ? (

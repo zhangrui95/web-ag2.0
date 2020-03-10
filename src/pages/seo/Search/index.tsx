@@ -7,20 +7,20 @@
 import React, {PureComponent} from 'react';
 import {connect} from 'dva';
 import {
-    Row,
-    Col,
-    Card,
-    Input,
-    Radio,
-    DatePicker,
-    TreeSelect,
-    List,
-    Icon,
-    Tabs,
-    message,
-    AutoComplete,
-    Affix,
-    Empty, Divider,
+  Row,
+  Col,
+  Card,
+  Input,
+  Radio,
+  DatePicker,
+  TreeSelect,
+  List,
+  Icon,
+  Tabs,
+  message,
+  AutoComplete,
+  Affix,
+  Empty, Divider, Cascader,
 } from 'antd';
 import moment from 'moment/moment';
 import styles from './index.less';
@@ -54,10 +54,11 @@ let currentValue;
 let timeoutBaq;
 let currentValueBaq;
 
-@connect(({common, generalQuery, loading, global}) => ({
+@connect(({common, generalQuery, loading, global,itemData}) => ({
     common,
     generalQuery,
     global,
+    itemData,
     loading:
         loading.effects['generalQuery/getSearchData'] ||
         loading.effects['generalQuery/getSearchDataNew'],
@@ -70,7 +71,7 @@ export default class GeneralQuery extends PureComponent {
         rangePickerValue: [], // 立案日期
         ajlxValue: null, // 案件类型
         ajztValue: null, // 案件状态
-        wpzlValue: null, // 物品种类
+        wpzlValue: null, // 财物分类
         wpztValue: null, // 物品类型
         rylxValue: null, // 人员类型
         ryxbValue: null, // 人员性别
@@ -164,15 +165,14 @@ export default class GeneralQuery extends PureComponent {
             },
         });
     };
-    // 获取物品种类
+    // 获取分类
     getDictWpzl = () => {
-        this.props.dispatch({
-            type: 'common/getDictType',
-            payload: {
-                appCode: window.configUrl.appCode,
-                code: '5308000'
-            },
-        });
+      this.props.dispatch({
+        type: 'itemData/findSacwbSysDictTreeByPcode',
+        payload: {
+          dict_scode:'009'
+        },
+      });
     };
     // 获取物品状态
     getDictWpzt = () => {
@@ -754,17 +754,17 @@ export default class GeneralQuery extends PureComponent {
             this.getSearchData,
         );
     };
-    // 查询物品种类
+    // 查询分类
     searchWpzl = e => {
-        const val = e.target.value;
-        let wpzlValue = null;
-        if (val !== '全部') {
-            wpzlValue = {
-                match: {
-                    wpzlmc: val,
-                },
-            };
-        }
+        const val = e;
+        let wpzlValue = {
+            match: {
+                // wpzlmc: val,
+              wpzlcode1:val&&val[0] ? val[0].toString() : '',
+              wpzlcode2:val&&val[1] ? val[1].toString() : '',
+              wpzlcode3:val&&val[2] ? val[2].toString() : '',
+            },
+        };
         this.setState(
             {
                 wpzlValue,
@@ -997,7 +997,7 @@ export default class GeneralQuery extends PureComponent {
             {
                 ajlxValue: null, // 案件类型
                 ajztValue: null, // 案件状态
-                wpzlValue: null, // 物品种类
+                wpzlValue: null, // 财物分类
                 wpztValue: null, // 物品类型
                 rylxValue: null, // 人员类型
                 ryxbValue: null, // 人员性别
@@ -1074,7 +1074,7 @@ export default class GeneralQuery extends PureComponent {
                         <div className={styles.cardBody}>
                             <div className={styles.cardBodyName}>{item._source ? item._source.wpmc : ''}</div>
                             <div className={styles.cardBodyContent}>
-                                <span>{item._source ? `${item._source.wpzlmc}，` : ''}</span>
+                                <span>{item._source&&item._source.cwflzw ? `${item._source.cwflzw}，` : ''}</span>
                                 <span>{item._source ? `${item._source.wpztmc}，` : ''}</span>
                                 <span>{item._source ? `${item._source.kwxx || ''}` : ''}</span>
                             </div>
@@ -1224,6 +1224,7 @@ export default class GeneralQuery extends PureComponent {
                 caseProcessDict,
                 dossierSaveTypeDict,
             },
+            itemData:{sacwTree},
             loading,
         } = this.props;
         const newAddDetail = this.state.arrayDetail;
@@ -1401,6 +1402,7 @@ export default class GeneralQuery extends PureComponent {
                                 <div className={styles.singleConditionArea}>
                                     <span className={styles.searchTitle}>其他：</span>
                                     <RangePicker
+                                        style={{width: '20%'}}
                                         value={rangePickerValue}
                                         onChange={this.handleRangePickerChange}
                                         getCalendarContainer={() => document.getElementById('formSearch')}
@@ -1419,17 +1421,34 @@ export default class GeneralQuery extends PureComponent {
                                 {searchType === 'wp' ? (
                                     <div>
                                         <div className={styles.singleConditionArea}>
-                                            <span className={styles.searchTitle}>物品种类：</span>
-                                            <RadioGroup
-                                                onChange={this.searchWpzl}
-                                                value={wpzlValue ? wpzlValue.match['wpzlmc'] : '全部'}
-                                            >
-                                                <RadioButton value="全部">全部</RadioButton>
-                                                {searchWpzlGroup}
-                                            </RadioGroup>
+                                            <span className={styles.searchTitle}>财物分类：</span>
+                                            <Cascader
+                                              onChange={this.searchWpzl}
+                                              style={{width: '20%'}}
+                                              options={sacwTree}
+                                              placeholder="请选择分类"
+                                              changeOnSelect={true}
+                                              getPopupContainer={() => document.getElementById('formSearch')}
+                                              fieldNames={{label: 'dict_name', value: 'dict_code'}}
+                                              showSearch={
+                                                {
+                                                  filter: (inputValue, path) => {
+                                                    return (path.some(items => (items.dict_name).indexOf(inputValue) > -1));
+                                                  },
+                                                  limit: 5,
+                                                }
+                                              }
+                                            />
+                                            {/*<RadioGroup*/}
+                                            {/*    onChange={this.searchWpzl}*/}
+                                            {/*    value={wpzlValue ? wpzlValue.match['wpzlmc'] : '全部'}*/}
+                                            {/*>*/}
+                                            {/*    <RadioButton value="全部">全部</RadioButton>*/}
+                                            {/*    {searchWpzlGroup}*/}
+                                            {/*</RadioGroup>*/}
                                         </div>
                                         <div className={styles.singleConditionArea}>
-                                            <span className={styles.searchTitle}>物品状态：</span>
+                                            <span className={styles.searchTitle}>财物状态：</span>
                                             <RadioGroup
                                                 onChange={this.searchWpzt}
                                                 value={wpztValue ? wpztValue.match['wpztmc'] : '全部'}
@@ -1517,7 +1536,7 @@ export default class GeneralQuery extends PureComponent {
                                     <span className={styles.searchTitle}>办案单位：</span>
                                     <TreeSelect
                                         showSearch
-                                        style={{width: '20%', marginLeft: 10}}
+                                        style={{width: '20%'}}
                                         // value={this.state.value}
                                         dropdownStyle={{maxHeight: 400, overflow: 'auto'}}
                                         placeholder="请输入办案单位"
