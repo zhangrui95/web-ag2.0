@@ -84,7 +84,17 @@ export default class Index extends PureComponent {
     this.getSuperviseStatusDict();
     this.getYjjbDictionary();
   }
-
+  componentWillReceiveProps(nextProps) {
+    if (this.props.global.isResetList.isReset !== nextProps.global.isResetList.isReset && nextProps.global.isResetList.url === '/dossierPolice/DossierWarning') {
+      const params = {
+        currentPage: this.state.current,
+        pd: {
+          ...this.state.formValues,
+        },
+      };
+      this.getDossier(params);
+    }
+  }
   // 切换tab
   onTabChange = activeKey => {
     this.setState({

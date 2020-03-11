@@ -92,6 +92,17 @@ export default class Index extends PureComponent {
       },
     });
   }
+  componentWillReceiveProps(nextProps) {
+    if (this.props.global.isResetList.isReset !== nextProps.global.isResetList.isReset && nextProps.global.isResetList.url === '/newcaseFiling/caseWarning/CriminalWarning') {
+      const params = {
+        currentPage: this.state.current,
+        pd: {
+          ...this.state.formValues,
+        },
+      };
+      this.getDossier(params);
+    }
+  }
 
   // 切换tab
   onTabChange = activeKey => {
