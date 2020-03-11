@@ -5,6 +5,7 @@ import {
     ItemCRKDatasView,
     ItemZKNumDatasView,
     ItemWpqsDatasView,
+  findSacwbSysDictTreeByPcode
 } from '../services/itemData';
 
 export default {
@@ -19,6 +20,7 @@ export default {
         returnZKNumDataView: [],
         returnWpqsDataView: [],
         handleWpSfgz:null,
+        sacwTree:[],
     },
 
     effects: {
@@ -61,6 +63,17 @@ export default {
             yield put({
                 type: 'setItemDataView',
                 payload: response && response.error === null ? response.data : {},
+            });
+            if (callback && response && !response.error && response.data) {
+                callback(response.data);
+            }
+        },
+      // 涉案财物2.0分类字典项树结构查询
+        *findSacwbSysDictTreeByPcode({payload, callback}, {call, put}) {
+            const response = yield call( findSacwbSysDictTreeByPcode, payload);
+            yield put({
+                type: 'setSacwTree',
+                payload: response && response.error === null&&response.data&&response.data.list ? response.data.list : [],
             });
             if (callback && response && !response.error && response.data) {
                 callback(response.data);
@@ -118,6 +131,12 @@ export default {
             return {
                 ...state,
                 returnDataView: action.payload,
+            };
+        },
+      setSacwTree(state, action) {
+            return {
+                ...state,
+              sacwTree: action.payload,
             };
         },
         setItemCRKDataView(state, action) {

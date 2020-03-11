@@ -480,15 +480,15 @@ export default class caseDetail extends PureComponent {
                             </div>
                             <div className={styles.sawpName}>
                                 <div className={styles.sawpName1}>
-                                    物品名称：
+                                    财物名称：
                                     <Tooltip overlayStyle={{wordBreak: 'break-all'}} title={item.wpmc}>
                                         {item.wpmc}
                                     </Tooltip>
                                 </div>
                                 <div className={styles.sawpName1}>
-                                    物品种类：
-                                    <Tooltip overlayStyle={{wordBreak: 'break-all'}} title={item.wpzlMc}>
-                                        {item.wpzlMc}
+                                    财物分类：
+                                    <Tooltip overlayStyle={{wordBreak: 'break-all'}} title={item.cwflzw}>
+                                        {item.cwflzw}
                                     </Tooltip>
                                 </div>
                             </div>

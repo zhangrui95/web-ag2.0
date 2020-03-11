@@ -302,7 +302,7 @@ export default class CriminalCaseDocDetail extends PureComponent {
                         name: event.wpmc ? this.formatter(event.wpmc) : null,
                         id: (event.wpmc ? this.formatter(event.wpmc) : null) + index,
                         attributes: {
-                            modularity_class: 2,
+                            modularity_class: 3,
                         },
                         symbolSize: 20,
                         x: this.getX(-900, 20, index, 80),
@@ -322,7 +322,7 @@ export default class CriminalCaseDocDetail extends PureComponent {
                         name: event.jzmc ? this.formatter(event.jzmc) : null,
                         id: (event.jzmc ? this.formatter(event.jzmc) : null) + index,
                         attributes: {
-                            modularity_class: 2,
+                            modularity_class: 4,
                         },
                         symbolSize: 20,
                         x: this.getX(-700, 20, index, 70),
@@ -729,12 +729,12 @@ export default class CriminalCaseDocDetail extends PureComponent {
                                    src={item && item.imageList && item.imageList.length > 0&&item.imageList[0].imageurl ? item.imageList[0].imageurl :  this.props.global && this.props.global.dark ? nophoto : nophotoLight}/>
                             </div>
                             <div className={styles.sawpName}>
-                              <div className={styles.sawpName1}>物品名称：<Tooltip
+                              <div className={styles.sawpName1}>财物名称：<Tooltip
                                 overlayStyle={{wordBreak: 'break-all'}} title={item.wpmc}>{item.wpmc}</Tooltip>
                               </div>
-                              <div className={styles.sawpName1}>物品种类：<Tooltip
+                              <div className={styles.sawpName1}>财物分类：<Tooltip
                                 overlayStyle={{wordBreak: 'break-all'}}
-                                title={item.wpzlMc}>{item.wpzlMc}</Tooltip></div>
+                                title={item.cwflzw}>{item.cwflzw}</Tooltip></div>
                             </div>
                           </div>
                             <div className={styles.sawpSee}

@@ -994,7 +994,7 @@ export default class caseDetail extends PureComponent {
     ];
     const WpColumns = [
       {
-        title: '物品名称',
+        title: '财物名称',
         dataIndex: 'wpmc',
         render: text => {
           return text ? (
@@ -1007,8 +1007,8 @@ export default class caseDetail extends PureComponent {
         },
       },
       {
-        title: '物品种类',
-        dataIndex: 'wpzlMc',
+        title: '财物分类',
+        dataIndex: 'cwflzw',
         render: text => {
           return text ? (
             <Ellipsis length={20} tooltip>

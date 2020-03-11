@@ -657,15 +657,19 @@ export default class DossierDetail extends PureComponent {
                   relevanceInfo[relevanceInfo.length - i - 1].dossierexceptionmc === '正常'
                     ? {
                         background: '#00CC33',
-                        width: 74,
+                        padding: '2px 12px',
                         textAlign: 'center',
                         cursor: 'default',
+                        border:0,
+                      marginTop:'-2px'
                       }
                     : {
                         background: 'rgb(255, 51, 102)',
-                        width: 74,
+                        padding: '2px 12px',
                         textAlign: 'center',
                         cursor: 'default',
+                         border:0,
+                      marginTop:'-2px'
                       }
                 }
               >

@@ -6,7 +6,21 @@
 
 import React, {PureComponent} from 'react';
 import {connect} from 'dva';
-import {Row, Col, Form, Select, message, Input, Button, DatePicker, Radio, Tabs, TreeSelect, Icon} from 'antd';
+import {
+  Row,
+  Col,
+  Form,
+  Select,
+  message,
+  Input,
+  Button,
+  DatePicker,
+  Radio,
+  Tabs,
+  TreeSelect,
+  Icon,
+  Cascader
+} from 'antd';
 import moment from 'moment/moment';
 import styles from '../../common/listPage.less';
 import RenderTable from '../../../components/UnItemRealData/RenderTable';
@@ -26,8 +40,8 @@ const TreeNode = TreeSelect.TreeNode;
 let timeout;
 let currentValue;
 
-@connect(({UnItemData, loading, common, MySuperviseData, global}) => ({
-    UnItemData, loading, common, MySuperviseData, global
+@connect(({UnItemData, loading, common, MySuperviseData, global,itemData}) => ({
+    UnItemData, loading, common, MySuperviseData, global,itemData
     // loading: loading.models.alarmManagement,
 }))
 @Form.create()
@@ -183,15 +197,14 @@ export default class Index extends PureComponent {
             },
         });
     };
-    // 获取物品种类
+    // 获取分类
     getItemsTypesDict = () => {
-        this.props.dispatch({
-            type: 'common/getDictType',
-            payload: {
-                appCode: window.configUrl.appCode,
-                code: '5308000',
-            },
-        });
+      this.props.dispatch({
+        type: 'itemData/findSacwbSysDictTreeByPcode',
+        payload: {
+          dict_scode:'009'
+        },
+      });
     };
     // 获取库位类型
     getLibraryPositionType = () => {
@@ -376,7 +389,9 @@ export default class Index extends PureComponent {
             ajbh: values.ajbh ? values.ajbh.trim() : '',
             ajmc: values.ajmc ? values.ajmc.trim() : '',
             wpzt: values.wpzt || '',
-            wpzl: values.wpzl || '',
+            wpzlcode1:values.wpzl&&values.wpzl[0] ? values.wpzl[0].toString() : '',
+            wpzlcode2:values.wpzl&&values.wpzl[1] ? values.wpzl[1].toString() : '',
+            wpzlcode3:values.wpzl&&values.wpzl[2] ? values.wpzl[2].toString() : '',
             ccdw: values.ccdw || '',
             kfgly: values.kfgly || '',
             dbzt: values.dbzt && values.dbzt.dbzt ? values.dbzt.dbzt : '',
@@ -422,7 +437,9 @@ export default class Index extends PureComponent {
             ajbh: values.ajbh ? values.ajbh.trim() : '',
             ajmc: values.ajmc ? values.ajmc.trim() : '',
             wpzt: values.wpzt || '',
-            wpzl: values.wpzl || '',
+            wpzlcode1:values.wpzl&&values.wpzl[0] ? values.wpzl[0].toString() : '',
+            wpzlcode2:values.wpzl&&values.wpzl[1] ? values.wpzl[1].toString() : '',
+            wpzlcode3:values.wpzl&&values.wpzl[2] ? values.wpzl[2].toString() : '',
             ccdw: values.ccdw || '',
             kfgly: values.kfgly || '',
             dbzt: values.dbzt && values.dbzt.dbzt ? values.dbzt.dbzt : '',
@@ -601,7 +618,7 @@ export default class Index extends PureComponent {
     };
 
     renderForm() {
-        const {form: {getFieldDecorator}, common: {WtlxSawpTypeData, superviseStatusDict, itemsTypesDict, itemsStorage, libraryPositionType, itemStatusS, rectificationStatusDict, depTree}} = this.props;
+        const { itemData:{sacwTree},form: {getFieldDecorator}, common: {WtlxSawpTypeData, superviseStatusDict, itemsTypesDict, itemsStorage, libraryPositionType, itemStatusS, rectificationStatusDict, depTree}} = this.props;
         let problemTypeOptions = [], superviseStatusOptions = [], itemsTypesOptions = [], itemsStorageOptions = [],
             libraryPositionTypeOption = [], itemStatusOption = [];
         const allPoliceOptions = this.state.allPolice.map(d => <Option key={`${d.idcard},${d.pcard}`}
@@ -690,25 +707,35 @@ export default class Index extends PureComponent {
                         </FormItem>
                     </Col>
                     <Col {...colLayout}>
-                        <FormItem label="物品名称" {...formItemLayout}>
+                        <FormItem label="财物名称" {...formItemLayout}>
                             {getFieldDecorator('wpmc', {
                                 // initialValue: this.state.caseType,
                                 // rules: [{max: 128, message: '最多输入128个字！'}],
                             })(
-                                <Input placeholder="请输入案件名称"/>,
+                                <Input placeholder="请输入物品名称"/>,
                             )}
                         </FormItem>
                     </Col>
                     <Col {...colLayout}>
-                        <FormItem label="物品种类" {...formItemLayout}>
+                        <FormItem label="财物分类" {...formItemLayout}>
                             {getFieldDecorator('wpzl', {
                                 initialValue: this.state.wpzl,
                             })(
-                                <Select placeholder="请选择物品种类" style={{width: '100%'}}
-                                        getPopupContainer={() => document.getElementById('sawpgjtableListForm')}>
-                                    <Option value="">全部</Option>
-                                    {itemsTypesOptions}
-                                </Select>,
+                              <Cascader
+                                options={sacwTree}
+                                placeholder="请选择分类"
+                                changeOnSelect={true}
+                                getPopupContainer={() => document.getElementById('sawpgjtableListForm')}
+                                fieldNames={{label: 'dict_name', value: 'dict_code'}}
+                                showSearch={
+                                  {
+                                    filter: (inputValue, path) => {
+                                      return (path.some(items => (items.dict_name).indexOf(inputValue) > -1));
+                                    },
+                                    limit: 5,
+                                  }
+                                }
+                              />,
                             )}
                         </FormItem>
                     </Col>
@@ -757,7 +784,7 @@ export default class Index extends PureComponent {
                         </FormItem>
                     </Col>
                     <Col {...colLayout}>
-                        <FormItem label="物品状态" {...formItemLayout}>
+                        <FormItem label="财物状态" {...formItemLayout}>
                             {getFieldDecorator('wpzt', {
                                 initialValue: this.state.wpzt,
                             })(

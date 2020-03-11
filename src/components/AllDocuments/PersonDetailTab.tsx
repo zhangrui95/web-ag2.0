@@ -132,12 +132,12 @@ export default class PersonDetailTab extends PureComponent {
                                     />
                                 </div>
                                 <div className={styles.sawpName} style={{float:'left',marginTop:12}}>
-                                    <div className={styles.sawpName1}>物品名称：<Tooltip
+                                    <div className={styles.sawpName1}>财物名称：<Tooltip
                                         overlayStyle={{wordBreak: 'break-all'}}
                                         title={item.wpmc}>{item.wpmc}</Tooltip></div>
-                                    <div className={styles.sawpName1}>物品种类：<Tooltip
+                                    <div className={styles.sawpName1}>财物分类：<Tooltip
                                         overlayStyle={{wordBreak: 'break-all'}}
-                                        title={item.wpzlMc}>{item.wpzlMc}</Tooltip></div>
+                                        title={item.cwflzw}>{item.cwflzw}</Tooltip></div>
                                 </div>
                             </div>
                             <div className={styles.operationButton}

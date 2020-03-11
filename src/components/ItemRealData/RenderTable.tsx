@@ -94,9 +94,9 @@ class RenderTable extends PureComponent {
     if (type === 2) {
       let itemDetails = res;
       let detail = [
-        `物品名称：${itemDetails && itemDetails.wpmc ? itemDetails.wpmc : ''}`,
-        `物品种类：${itemDetails && itemDetails.wplx_mc ? itemDetails.wplx_mc : ''}`,
-        `物品状态：${itemDetails && itemDetails.zt ? itemDetails.zt : ''}`,
+        `财物名称：${itemDetails && itemDetails.wpmc ? itemDetails.wpmc : ''}`,
+        `财物分类：${itemDetails && itemDetails.cwflzw ? itemDetails.cwflzw : ''}`,
+        `财物状态：${itemDetails && itemDetails.zt ? itemDetails.zt : ''}`,
         `库房信息：${itemDetails && itemDetails.szkf ? itemDetails.szkf : ''}`,
         `关联案件名称：${itemDetails && itemDetails.ajmc ? itemDetails.ajmc : ''}`,
         `办案单位：${itemDetails && itemDetails.kfgly_dwmc ? itemDetails.kfgly_dwmc : ''}`,
@@ -185,17 +185,16 @@ class RenderTable extends PureComponent {
         width: 100,
       },
       {
-        title: '物品名称',
+        title: '财物名称',
         dataIndex: 'wpmc',
       },
       {
-        title: '物品种类',
-        dataIndex: 'wplx_mc',
+        title: '财物分类',
+        dataIndex: 'cwflzw',
       },
       {
         title: '所在库房',
         dataIndex: 'szkf',
-        width: '15%',
         render: text => {
           return (
             <Ellipsis lines={2} tooltip>
@@ -212,7 +211,6 @@ class RenderTable extends PureComponent {
       {
         title: '案件名称',
         dataIndex: 'ajmc',
-        width: '20%',
         render: text => {
           return (
             <Ellipsis lines={2} tooltip>
@@ -222,9 +220,13 @@ class RenderTable extends PureComponent {
         },
       },
       {
-        title: '物品状态',
+        title: '财物状态',
         dataIndex: 'zt',
         width: 120,
+      },
+      {
+        title: '存储单位',
+        dataIndex: 'ccdw_mc',
       },
       {
         title: '操作',
@@ -276,85 +278,6 @@ class RenderTable extends PureComponent {
         } 条记录 `}</span>
       ),
     };
-    let detail = (
-      <Row
-        style={{
-          width: '90%',
-          margin: '0 38px 10px',
-          lineHeight: '36px',
-          color: 'rgba(0, 0, 0, 0.85)',
-        }}
-      >
-        <Col span={6}>
-          物品名称：
-          {this.state.shareRecord && this.state.shareRecord.wpmc ? this.state.shareRecord.wpmc : ''}
-        </Col>
-        <Col span={6}>
-          物品种类：
-          {this.state.shareRecord && this.state.shareRecord.wplx_mc
-            ? this.state.shareRecord.wplx_mc
-            : ''}
-        </Col>
-        <Col span={6}>
-          物品状态：
-          {this.state.shareRecord && this.state.shareRecord.zt ? this.state.shareRecord.zt : ''}
-        </Col>
-        <Col span={6}>
-          库房信息：
-          <Tooltip
-            title={
-              this.state.shareRecord &&
-              this.state.shareRecord.szkf &&
-              this.state.shareRecord.szkf.length > 8
-                ? this.state.shareRecord.szkf
-                : null
-            }
-          >
-            {this.state.shareRecord && this.state.shareRecord.szkf
-              ? this.state.shareRecord.szkf.length > 8
-                ? this.state.shareRecord.szkf.substring(0, 8) + '...'
-                : this.state.shareRecord.szkf
-              : ''}
-          </Tooltip>
-        </Col>
-        <Col span={12}>
-          关联案件名称：
-          <Tooltip
-            title={
-              this.state.shareRecord &&
-              this.state.shareRecord.ajmc &&
-              this.state.shareRecord.ajmc.length > 18
-                ? this.state.shareRecord.ajmc
-                : null
-            }
-          >
-            {this.state.shareRecord && this.state.shareRecord.ajmc
-              ? this.state.shareRecord.ajmc.length > 18
-                ? this.state.shareRecord.ajmc.substring(0, 18) + '...'
-                : this.state.shareRecord.ajmc
-              : ''}
-          </Tooltip>
-        </Col>
-        <Col span={12}>
-          办案单位：
-          <Tooltip
-            title={
-              this.state.shareRecord &&
-              this.state.shareRecord.kfgly_dwmc &&
-              this.state.shareRecord.kfgly_dwmc.length > 18
-                ? this.state.shareRecord.kfgly_dwmc
-                : null
-            }
-          >
-            {this.state.shareRecord && this.state.shareRecord.kfgly_dwmc
-              ? this.state.shareRecord.kfgly_dwmc.length > 18
-                ? this.state.shareRecord.kfgly_dwmc.substring(0, 18) + '...'
-                : this.state.shareRecord.kfgly_dwmc
-              : ''}
-          </Tooltip>
-        </Col>
-      </Row>
-    );
     return (
       <div className={styles.standardTable} id="sawpsjcardArea">
         <Table
@@ -374,17 +297,6 @@ class RenderTable extends PureComponent {
             ),
           }}
         />
-        {/*<ShareModal*/}
-        {/*title="物品信息分享"*/}
-        {/*detail={detail}*/}
-        {/*shareVisible={this.state.shareVisible}*/}
-        {/*handleCancel={this.handleCancel}*/}
-        {/*shareItem={this.state.shareItem}*/}
-        {/*personList={this.state.personList}*/}
-        {/*lx={this.state.lx}*/}
-        {/*tzlx={this.state.tzlx}*/}
-        {/*sx={this.state.sx}*/}
-        {/*/>*/}
       </div>
     );
   }

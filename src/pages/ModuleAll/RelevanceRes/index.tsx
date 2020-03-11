@@ -64,7 +64,7 @@ export default class IntoArea extends PureComponent {
         // console.log('record',record);
         const WpColumns = [
             {
-                title: '物品名称',
+                title: '财物名称',
                 dataIndex: 'wpmc',
                 width:'40%',
                 render: text => {
@@ -78,8 +78,8 @@ export default class IntoArea extends PureComponent {
                 },
             },
             {
-                title: '物品种类',
-                dataIndex: 'wpzlMc',
+                title: '财物分类',
+                dataIndex: 'cwflzw',
                 width:'40%',
                 render: text => {
                     return text ? (
