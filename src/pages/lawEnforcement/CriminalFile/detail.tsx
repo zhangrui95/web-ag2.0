@@ -302,7 +302,7 @@ export default class CriminalCaseDocDetail extends PureComponent {
                         name: event.wpmc ? this.formatter(event.wpmc) : null,
                         id: (event.wpmc ? this.formatter(event.wpmc) : null) + index,
                         attributes: {
-                            modularity_class: 2,
+                            modularity_class: 3,
                         },
                         symbolSize: 20,
                         x: this.getX(-900, 20, index, 80),
@@ -322,7 +322,7 @@ export default class CriminalCaseDocDetail extends PureComponent {
                         name: event.jzmc ? this.formatter(event.jzmc) : null,
                         id: (event.jzmc ? this.formatter(event.jzmc) : null) + index,
                         attributes: {
-                            modularity_class: 2,
+                            modularity_class: 4,
                         },
                         symbolSize: 20,
                         x: this.getX(-700, 20, index, 70),

@@ -72,6 +72,8 @@ export default class GeneralQuery extends PureComponent {
         ajlxValue: null, // 案件类型
         ajztValue: null, // 案件状态
         wpzlValue: null, // 财物分类
+        wpzlValue2: null, // 财物分类
+        wpzlValue3: null, // 财物分类
         wpztValue: null, // 物品类型
         rylxValue: null, // 人员类型
         ryxbValue: null, // 人员性别
@@ -409,6 +411,8 @@ export default class GeneralQuery extends PureComponent {
             ajlxValue,
             ajztValue,
             wpzlValue,
+            wpzlValue2,
+            wpzlValue3,
             wpztValue,
             rylxValue,
             ryxbValue,
@@ -541,6 +545,12 @@ export default class GeneralQuery extends PureComponent {
             if (wpzlValue !== null) {
                 searchArry.push(wpzlValue);
             }
+          if (wpzlValue2 !== null) {
+            searchArry.push(wpzlValue2);
+          }
+          if (wpzlValue3 !== null) {
+            searchArry.push(wpzlValue3);
+          }
         }
         /*---------------------------------------------案件查询----------------------------------------------------------*/
         if (searchType === 'aj') {
@@ -757,17 +767,27 @@ export default class GeneralQuery extends PureComponent {
     // 查询分类
     searchWpzl = e => {
         const val = e;
-        let wpzlValue = {
-            match: {
-                // wpzlmc: val,
-              wpzlcode1:val&&val[0] ? val[0].toString() : '',
-              wpzlcode2:val&&val[1] ? val[1].toString() : '',
-              wpzlcode3:val&&val[2] ? val[2].toString() : '',
-            },
-        };
+        let wpzlValue = val&&val[0] ? {
+        match: {
+          // wpzlmc: val,
+          wpzlcode1:val[0].toString(),
+        },
+      } : null;
+      let wpzlValue2 = val&&val[1] ? {
+        match: {
+          wpzlcode2:val[1].toString(),
+        },
+      } : null;
+      let wpzlValue3 = val&&val[2] ? {
+        match: {
+          wpzlcode3:val[2].toString(),
+        },
+      } : null;
         this.setState(
             {
                 wpzlValue,
+                wpzlValue2,
+                wpzlValue3,
             },
             this.getSearchData,
         );
@@ -998,6 +1018,8 @@ export default class GeneralQuery extends PureComponent {
                 ajlxValue: null, // 案件类型
                 ajztValue: null, // 案件状态
                 wpzlValue: null, // 财物分类
+                wpzlValue2: null, // 财物分类
+                wpzlValue3: null, // 财物分类
                 wpztValue: null, // 物品类型
                 rylxValue: null, // 人员类型
                 ryxbValue: null, // 人员性别
@@ -1076,7 +1098,7 @@ export default class GeneralQuery extends PureComponent {
                             <div className={styles.cardBodyContent}>
                                 <span>{item._source&&item._source.cwflzw ? `${item._source.cwflzw}，` : ''}</span>
                                 <span>{item._source ? `${item._source.wpztmc}，` : ''}</span>
-                                <span>{item._source ? `${item._source.kwxx || ''}` : ''}</span>
+                                <span>{item._source ? `${item._source.ccwz_zw || ''}` : ''}</span>
                             </div>
                         </div>
                         <div
@@ -1194,6 +1216,8 @@ export default class GeneralQuery extends PureComponent {
             ajlxValue,
             ajztValue,
             wpzlValue,
+            wpzlValue2,
+            wpzlValue3,
             wpztValue,
             rylxValue,
             ryxbValue,

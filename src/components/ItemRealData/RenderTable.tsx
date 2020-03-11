@@ -226,7 +226,7 @@ class RenderTable extends PureComponent {
       },
       {
         title: '存储单位',
-        dataIndex: 'ccdwzw',
+        dataIndex: 'ccdw_mc',
       },
       {
         title: '操作',

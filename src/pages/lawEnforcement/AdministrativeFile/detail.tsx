@@ -277,7 +277,7 @@ export default class AdministrativeCaseDocDetail extends PureComponent {
                         name: event.wpmc ? this.formatter(event.wpmc) : null,
                         id: (event.wpmc ? this.formatter(event.wpmc) : null) + index,
                         attributes: {
-                            modularity_class: 2,
+                            modularity_class: 3,
                         },
                         symbolSize: 20,
                         x: this.getX(-900, 20, index, 80),
@@ -297,7 +297,7 @@ export default class AdministrativeCaseDocDetail extends PureComponent {
                         name: event.jzmc ? this.formatter(event.jzmc) : null,
                         id: (event.jzmc ? this.formatter(event.jzmc) : null) + index,
                         attributes: {
-                            modularity_class: 2,
+                            modularity_class: 4,
                         },
                         symbolSize: 20,
                         x: this.getX(-700, 20, index, 70),
@@ -612,7 +612,7 @@ export default class AdministrativeCaseDocDetail extends PureComponent {
                               title={item.cwflzw}>{item.cwflzw}</Tooltip></div>
                           </div>
                         </div>
-                          <div className={styles.sawpSee} onClick={() => this.openItemsDetail(item)}>在区情况
+                          <div className={styles.sawpSee} onClick={() => this.openItemsDetail(item)}>查看
                           </div>
                       </div>
                     </List.Item>
