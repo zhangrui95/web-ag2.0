@@ -50,30 +50,36 @@
     }
   }
 }
+.pagination{
+  color: #999;
+}
 .detailBox{
   overflow: hidden;
   width: 100%;
   .videoBox{
-    width: calc(~'100% - 400px');
+    width: 60%;
     max-width: 1000px;
     float: left;
+    border-right: 1px solid #e6e6e6;
   }
   .videoWord{
-    width: 400px;
+    //width: 400px;
+    width: 100%;
     float: left;
   }
   .video{
-    width: 100%;
+    width: 94%;
+    margin: 20px;
   }
-  .title{
+  .title {
     font-size: 16px;
-    border-bottom: 1px solid #e6e6e6;
-    height: 58px;
-    line-height: 40px;
-    padding: 10px;
+    border-left: 3px solid #fff;
+    padding-left: 10px;
+    margin: 20px 20px 0;
   }
   .word{
-    padding: 10px;
+    padding: 10px 84px;
+    border-bottom: 1px solid #171925;
     :global{
       .ant-col{
         margin: 10px 0;
@@ -81,25 +87,36 @@
     }
   }
 }
-@media screen and (min-width: 1680px) {
+.lightBox{
   .detailBox{
-    .videoWord {
-      width: calc(~'100% - 1000px');
-    }
     .title{
-      padding-left: 20px;
+      border-left: 3px solid #4662D5;
+      color: #4662D5;
     }
-    .word {
-      padding: 10px 20px;
+    .word{
+      border-bottom: 1px solid #e6e6e6;
     }
   }
 }
+//@media screen and (min-width: 1680px) {
+//  .detailBox{
+//    //.videoWord {
+//    //  width: calc(~'100% - 1000px');
+//    //}
+//    .title{
+//      padding-left: 20px;
+//    }
+//    .word {
+//      padding: 10px 20px;
+//    }
+//  }
+//}
 .radioBox{
   margin:20px;
 }
 .addBtn{
   float: right;
-  margin-right: 20px;
+  margin: 20px;
 }
 .btns{
   float: right;
@@ -107,5 +124,8 @@
 }
 .searchBox{
   width: 500px;
-  margin: 0 20px 20px;
+  margin: 20px 0;
+}
+.tableBox{
+  padding: 0 20px;
 }

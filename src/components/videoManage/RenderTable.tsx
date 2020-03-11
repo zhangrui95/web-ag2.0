@@ -71,7 +71,7 @@ class RenderTable extends PureComponent {
         this.props.dispatch(
             routerRedux.push({
                 pathname: '/videoManage/videoData/videoDetail',
-                query: {record: record, id: record && record.id ? record.id+type : '1', tabName:type==='0' ? '播放': '查看'},
+                query: {record: record, id: record && record.id ? record.id+type : '1', tabName:type==='0' ? '播放' : type==='1' ? '编辑' : '关联'},
             }),
         )
 
@@ -158,7 +158,7 @@ class RenderTable extends PureComponent {
                 callback: (data) => {
                     if (!data.error) {
                         message.success('关注成功');
-                        this.props.getPolice({currentPage: this.state.current, pd: this.props.formValues});
+                        this.props.getList({currentPage: this.state.current, pd: this.props.formValues});
                         this.refreshDetail(res);
                     }
                 },
@@ -182,7 +182,7 @@ class RenderTable extends PureComponent {
             callback: (res) => {
                 if (!res.error) {
                     message.success('取消关注成功');
-                    this.props.getPolice({currentPage: this.state.current, pd: this.props.formValues});
+                    this.props.getList({currentPage: this.state.current, pd: this.props.formValues});
                     this.refreshDetail(record);
                 }
             },
@@ -268,7 +268,7 @@ class RenderTable extends PureComponent {
                         <Divider type="vertical"/>
                        </span> : ''}
                       {authorityIsTrue('zhag_yspsj_ck') ?<span>
-                        <a onClick={()=>this.deatils(record,'1')}>查看</a>
+                        {record.sfgl === '是' ? <a onClick={()=>this.deatils(record,'1')}>编辑</a> : <a onClick={()=>this.deatils(record,'2')}>关联</a>}
                         <Divider type="vertical"/>
                         </span> : ''}
                       {authorityIsTrue('zhag_yspsj_xz') ?<span>

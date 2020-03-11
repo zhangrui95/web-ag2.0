@@ -36,8 +36,8 @@ const colors1 = [
   '#6465FD',
   '#FF6600',
 ];
-@connect(({ global }) => ({
-  global,
+@connect(({ global,VideoDate }) => ({
+  global,VideoDate
 }))
 export default class PoliceDataView extends PureComponent {
   state = {
@@ -163,127 +163,33 @@ export default class PoliceDataView extends PureComponent {
   }
 //接处警统计接口
   getJcj = (nextProps,startTime,endTime,org) =>{
-    let data = [
-      {
-        name: '警情总数',
-        type: 'bar',
-        data: [239,134,78,91,66],
-        barWidth: 20
-      },
-      {
-        name: '应上传数',
-        type: 'bar',
-        data: [42,167,90,33,215],
-        barWidth: 20
-      },
-      {
-        name: '已上传数',
-        type: 'bar',
-        data: [22,33,55,12,137],
-        barWidth: 20
-      },
-      {
-        name: '未上传数',
-        type: 'bar',
-        data: [20,101,41,15,98],
-        barWidth: 20
-      },
-      {
-        name: '已关联数',
-        type: 'bar',
-        data: [120,133,45,66,79],
-        barWidth: 20
-      },
-      {
-        name: '未关联数',
-        type: 'bar',
-        data: [43,92,156,22,43],
-        barWidth: 20
-      },
-      {
-        name: '上传完成率',
-        type: 'line',
-        yAxisIndex: 1,
-        data: [20.0, 21.2, 33.3, 54.5, 16.3],
-        barWidth: 20
-      },
-      {
-        name: '关联比例',
-        type: 'line',
-        yAxisIndex: 1,
-        data: [60.0, 72.2, 85.3, 24.5, 66.3],
-        barWidth: 20
+    this.props.dispatch({
+      type: 'VideoDate/getJcjCount',
+      payload: {},
+      callback:(data)=>{
+        this.showPoliceEchartLine(nextProps,data);
       }
-    ];
-    this.showPoliceEchartLine(nextProps,data);
+    });
   }
   //案件上传统计接口
   getAjsc = (nextProps,startTime,endTime,org) =>{
-    let data = [
-      {
-        name: '上传总数',
-        type: 'bar',
-        data: [120,249,189],
-        barWidth: 20
-      },
-      {
-        name: '已上传总数',
-        type: 'bar',
-        data: [56,67,20],
-        barWidth: 20
-      },
-      {
-        name: '未上传总数',
-        type: 'bar',
-        data: [122,198,167],
-        barWidth: 20
-      },
-      {
-        name: '已关联数',
-        type: 'bar',
-        data: [20,33,145],
-        barWidth: 20
-      },
-      {
-        name: '未关联数',
-        type: 'bar',
-        data: [143,44,65],
-        barWidth: 20
-      },
-      {
-        name: '上传完成率',
-        type: 'line',
-        yAxisIndex: 1,
-        data: [66, 92, 37],
-        barWidth: 20
-      },
-      {
-        name: '关联比例',
-        type: 'line',
-        yAxisIndex: 1,
-        data: [78, 36, 83],
-        barWidth: 20
+    this.props.dispatch({
+      type: 'VideoDate/getAjscCount',
+      payload: {},
+      callback:(data)=>{
+        this.showajEchartLine(nextProps,data);
       }
-    ]
-    this.showajEchartLine(nextProps,data);
+    });
   }
   //超期未上传统计接口
   getCqwsc = (nextProps,startTime,endTime,org) => {
-    let data = [
-      {
-        name: '警情',
-        type: 'bar',
-        data: [20,49,18,45,32],
-        barWidth: 20
-      },
-      {
-        name: '案件',
-        type: 'bar',
-        data: [6,37,21,56,44],
-        barWidth: 20
-      },
-    ];
-    this.showcqwscEchartLine(nextProps,data);
+    this.props.dispatch({
+      type: 'VideoDate/getCqwscCount',
+      payload: {},
+      callback:(data)=>{
+        this.showcqwscEchartLine(nextProps,data);
+      }
+    });
   }
   // 获取头部本、上、前按键数据
   getViewCountData = (type) => {

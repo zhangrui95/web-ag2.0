@@ -39,8 +39,8 @@ const RadioGroup = Radio.Group;
 let timeout;
 let currentValue;
 
-@connect(({policeData, loading, common, global}) => ({
-    policeData, loading, common, global
+@connect(({policeData, loading, common, global,VideoDate}) => ({
+    policeData, loading, common, global,VideoDate
     // loading: loading.models.alarmManagement,
 }))
 @Form.create()
@@ -64,69 +64,17 @@ export default class Index extends PureComponent {
         treeDefaultExpandedKeys: [], // 办案单位树默认展开keys
         caseTypeTree: [], // 警情类别树
         searchHeight: false, // 查询条件展开筛选
+        dataList:[],
     };
 
 
     componentDidMount() {
-        if (this.props.location.query && this.props.location.query.id) {
-            this.setState({
-                showDataView: false,
-            });
-        }
-        if (this.props.location.state && this.props.location.state.rqType) {
-            let data_ks = '';
-            let data_js = '';
-            let rqType = this.props.location.state.rqType;
-            if (rqType === '3') {
-                data_ks = moment(new Date()).add(-1, 'days').format('YYYY-MM-DD 08:00:00');
-                data_js = moment(new Date()).format('YYYY-MM-DD 08:00:00');
-            } else if (rqType === '6') {
-                data_ks = moment().subtract('days', 31).format('YYYY-MM-DD 00:00:00');
-                data_js = moment().subtract('days', 1).format('YYYY-MM-DD 23:59:59');
-            } else if (rqType === '9') {
-                data_ks = moment().subtract('days', 90).format('YYYY-MM-DD 00:00:00');
-                data_js = moment().subtract('days', 1).format('YYYY-MM-DD 23:59:59');
-            }
-            this.props.form.setFieldsValue({
-                jjsj: [moment(data_ks > '2019-06-01 00:00:00' ? data_ks : '2019-06-01 00:00:00'), moment(data_js)],
-                cjdw: this.props.location.state.res.dw_code,
-            });
-            this.setState({
-                showDataView: false,
-                is_tz: '1',
-                sfsa: '',
-            }, () => {
-                this.handleSearch();
-            });
-        } else {
-            this.handleFormReset();
-            const org = getQueryString(this.props.location.search, 'org') || '';
-            const jjsj_js = getQueryString(this.props.location.search, 'jjsj_js') || '';
-            const jjsj_ks = getQueryString(this.props.location.search, 'jjsj_ks') || '';
-            const system_id = getQueryString(this.props.location.search, 'system_id') || '';
-            if ((jjsj_js !== '') && (jjsj_ks !== '')) {
-                this.props.form.setFieldsValue({
-                    jjsj: [moment(jjsj_ks, 'YYYY-MM-DD'), moment(jjsj_js, 'YYYY-MM-DD')],
-                });
-            }
-            const obj = {
-                currentPage: 1,
-                showCount: tableList,
-                pd: {
-                    org,
-                    jjsj_js,
-                    jjsj_ks,
-                    system_id,
-                    is_sa: '0',
-                },
-            };
-            // this.getPolice(obj);
-        }
         const jigouArea = sessionStorage.getItem('user');
         const newjigouArea = JSON.parse(jigouArea);
         this.getDepTree(newjigouArea.department);
         this.getCaseStatus();
-      this.getCaseTypeTree(window.configUrl.is_area);
+        this.getCaseTypeTree(window.configUrl.is_area);
+        this.getList({});
     }
 
     componentWillReceiveProps(nextProps) {
@@ -140,7 +88,7 @@ export default class Index extends PureComponent {
               ...this.state.formValues,
             },
           };
-          this.getPolice(params);
+          this.getList(params);
         }
     }
 
@@ -167,10 +115,16 @@ export default class Index extends PureComponent {
     };
 
 
-    getPolice(param) {
+    getList(param) {
+      console.log('查询--------->',param);
         this.props.dispatch({
-            type: 'policeData/policeFetch',
+            type: 'VideoDate/getList',
             payload: param ? param : '',
+            callback:(data)=>{
+                this.setState({
+                  dataList:data,
+                })
+            }
         });
     }
 
@@ -308,7 +262,7 @@ export default class Index extends PureComponent {
             currentPage: pagination.current,
             showCount: pagination.pageSize,
         };
-        this.getPolice(params);
+        this.getList(params);
     };
     // 查询
     handleSearch = (e) => {
@@ -316,25 +270,20 @@ export default class Index extends PureComponent {
         // const values = this.props.form.getFieldsValue();
         this.props.form.validateFields((err, values) => {
           if (!err) {
-            const jjTime = values.jjsj;
-            const tbTime = values.tbsj;
             const formValues = {
-              bar: values.bar || '',
-              cjdw: values.cjdw || '',
-              cjr: values.cjr || '',
-              jjdw: values.jjdw || '',
-              jjly_dm: values.jjly || '',
-              jjr: values.jjr || '',
-              is_sa: values.sfsa || '',
-              is_cj: values.sfcj || '',
-              jqzt_dm: values.clzt || '',
-              jqlb: values.jqlb ? values.jqlb[values.jqlb.length - 1] : '',
-              jqlbdj: values.jqlb ? values.jqlb.length : '',
-              jjsj_ks: jjTime && jjTime.length > 0 ? jjTime[0].format('YYYY-MM-DD HH:mm:ss') : '',
-              jjsj_js: jjTime && jjTime.length > 0 ? jjTime[1].format('YYYY-MM-DD HH:mm:ss') : '',
-              tbsj_ks: tbTime && tbTime.length > 0 ? tbTime[0].format('YYYY-MM-DD HH:mm:ss') : '',
-              tbsj_js: tbTime && tbTime.length > 0 ? tbTime[1].format('YYYY-MM-DD HH:mm:ss') : '',
-              is_tz: this.state.is_tz,
+              ajbh:values.ajbh ? values.ajbh.trim() : '',
+              ajmc:values.ajmc ? values.ajmc.trim() : '',
+              badw:values.badw ? values.badw : '',
+              ajzt:values.ajzt ? values.ajzt : '',
+              ajlb:values.ajlb ? values.ajlb : '',
+              bar:values.bar ? values.bar : '',
+              jqbh:values.jqbh ? values.jqbh : '',
+              lzrq_ks:values.lzrq && values.lzrq.length > 0 ? values.lzrq[0].format('YYYY-MM-DD HH:mm:ss') : '',
+              lzrq_js:values.lzrq && values.lzrq.length > 0 ? values.lzrq[1].format('YYYY-MM-DD HH:mm:ss') : '',
+              ysply:values.ysply ? values.ysply : '',
+              wjmc:values.wjmc ? values.wjmc : '',
+              sfgl:values.sfgl ? values.sfgl : '',
+              wjlx:values.wjlx ? values.wjlx : '',
             };
             this.setState({
               formValues,
@@ -346,7 +295,7 @@ export default class Index extends PureComponent {
                 ...formValues,
               },
             };
-            this.getPolice(params);
+            this.getList(params);
           }
         })
     };
@@ -376,7 +325,7 @@ export default class Index extends PureComponent {
                 jjsj_js: moment(moment(),'YYYY-MM-DD HH:mm:ss'),
             },
         };
-        this.getPolice(obj);
+        this.getList(obj);
     };
     // 导出
     exportData = () => {
@@ -539,7 +488,6 @@ export default class Index extends PureComponent {
       },
     });
   };
-
     renderForm() {
         const {form: {getFieldDecorator}, common: {sourceOfAlarmDict, depTree, handleStatusDict}} = this.props;
         const allPoliceOptions = this.state.allPolice.map(d => <Option key={`${d.idcard},${d.pcard}`}
@@ -680,7 +628,7 @@ export default class Index extends PureComponent {
                     </Col>
                   <Col {...colLayout}>
                     <FormItem label="警情编号" {...formItemLayout}>
-                      {getFieldDecorator('wjmc', {
+                      {getFieldDecorator('jqbh', {
                       })(
                         <Input placeholder="请输入警情编号"/>,
                       )}
@@ -784,28 +732,17 @@ export default class Index extends PureComponent {
     //
     // }
     renderTable() {
-        const {policeData: {police, loading}} = this.props;
+        const {policeData: {police}} = this.props;
         // console.log('policeData', this.props.policeData);
-       let data = {list:[
-         {id:'dssyueyhfhsagg1',wj_mc:'20191203打架视频',wjlbmc:'视频',sprq:'2019-12-03',sply:'办案区',ajmc:'孙军殴打李芳案',ajlb:'殴打他人',badw:'抚顺公安局',bar:'张扬',ajzt:'受案',sfgl:'是',ajbh:'A4503305100002019120020',jqbh:'J450330550000201912000033'},
-         {id:'dsakfoieurjbhs2',wj_mc:'20200121审讯音频',wjlbmc:'音频',sprq:'2020-01-22',sply:'执法记录仪',ajmc:'李阳诈骗案',ajlb:'诈骗案',badw:'盘锦公安局',bar:'刘峰',ajzt:'破案',sfgl:'否',ajbh:'A4503305700002019120004',jqbh:'J450330070000201912000101'},
-         ],page: { showCount: 10,
-           totalPage: 1,
-           totalResult: 2,
-           currentPage: 1,
-           currentResult: 0,
-           entityOrField: true,
-           pageStr: ""}
-      }
         return (
             <div>
                 <RenderTable
-                    loading={loading}
-                    data={data}
+                    // loading={loading}
+                    data={this.state.dataList}
                     onChange={this.handleTableChange}
                     dispatch={this.props.dispatch}
                     newDetail={this.newDetail}
-                    getPolice={(params) => this.getPolice(params)}
+                    getList={(params) => this.getList(params)}
                     location={this.props.location}
                     formValues={this.state.formValues}
                 />
@@ -817,7 +754,6 @@ export default class Index extends PureComponent {
         const {policeData: {police, loading}, common: {depTree}} = this.props;
         const {arrayDetail} = this.state;
         const {showDataView, typeButtons, selectedDeptVal, selectedDateVal, jjdw, cjdw, treeDefaultExpandedKeys} = this.state;
-        console.log('selectedDeptVal----->',selectedDeptVal)
         let className = this.props.global && this.props.global.dark ? styles.listPageWrap : styles.listPageWrap + ' ' + styles.lightBox;
         return (
             <div className={this.props.location.query && this.props.location.query.id ? styles.onlyDetail : ''}>
