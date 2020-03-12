@@ -721,9 +721,9 @@ export default class unitemDetail extends PureComponent {
                         {UnitemDetail.syrName}
                       </a>
                   </Col>
-                  <Col md={8} sm={24}>
-                    特征：{UnitemDetail ? UnitemDetail.wptz : ''}
-                  </Col>
+                  {/*<Col md={8} sm={24}>*/}
+                  {/*  特征：{UnitemDetail ? UnitemDetail.wptz : ''}*/}
+                  {/*</Col>*/}
                   <Col md={8} sm={24}>
                    数量：{UnitemDetail ? UnitemDetail.wpsl : ''}
                   </Col>
@@ -742,9 +742,9 @@ export default class unitemDetail extends PureComponent {
                   <Col md={8} sm={24}>
                     库房管理员：{UnitemDetail ? UnitemDetail.kfgly : ''}
                   </Col>
-                  <Col md={8} sm={24}>
-                   保存方式：{UnitemDetail ? UnitemDetail.bcfsName : ''}
-                  </Col>
+                  {/*<Col md={8} sm={24}>*/}
+                  {/* 保存方式：{UnitemDetail ? UnitemDetail.bcfsName : ''}*/}
+                  {/*</Col>*/}
                   <Col md={8} sm={24}>
                     财物状态：{UnitemDetail ? UnitemDetail.wpztzw : ''}
                   </Col>

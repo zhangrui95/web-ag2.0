@@ -741,9 +741,9 @@ export default class itemDetail extends PureComponent {
                         {itemDetails.syrName}
                       </a>
                     </Col>
-                    <Col md={8} sm={24}>
-                      缺损特征：{itemDetails && itemDetails.tzlx ? itemDetails.tzlx : ''}
-                    </Col>
+                    {/*<Col md={8} sm={24}>*/}
+                    {/*  缺损特征：{itemDetails && itemDetails.tzlx ? itemDetails.tzlx : ''}*/}
+                    {/*</Col>*/}
                     <Col md={8} sm={24}>
                       数量：{itemDetails && itemDetails.wpsl ? itemDetails.wpsl : ''}
                     </Col>
@@ -753,9 +753,9 @@ export default class itemDetail extends PureComponent {
                     <Col md={8} sm={24}>
                       库房管理员：{itemDetails && itemDetails.kfgly ? itemDetails.kfgly : ''}
                     </Col>
-                    <Col md={8} sm={24}>
-                      保存方式：{itemDetails && itemDetails.bcfsName ? itemDetails.bcfsName : ''}
-                    </Col>
+                    {/*<Col md={8} sm={24}>*/}
+                    {/*  保存方式：{itemDetails && itemDetails.bcfsName ? itemDetails.bcfsName : ''}*/}
+                    {/*</Col>*/}
                     <Col md={8} sm={24}>
                       财物状态：{itemDetails && itemDetails.wpztzw ? itemDetails.wpztzw : ''}
                     </Col>
