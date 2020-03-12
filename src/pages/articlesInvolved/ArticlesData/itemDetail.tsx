@@ -646,7 +646,7 @@ export default class itemDetail extends PureComponent {
                       <div>
                         <img
                           width="200"
-                          src={pane.imageurl ? pane.imageurl : dark ? nophoto : nophotoLight}
+                          src={pane.url ? pane.url : dark ? nophoto : nophotoLight}
                         />
                       </div>
                     ))}
