@@ -692,13 +692,13 @@ export default class unitemDetail extends PureComponent {
                     三级分类：{UnitemDetail && UnitemDetail.wpzlname3 ? UnitemDetail.wpzlname3 : ''}
                   </Col>
                   <Col span={8}>
-                    是否具有财产属性：{UnitemDetail && UnitemDetail.sfyccsx ? UnitemDetail.sfyccsx : ''}
+                    是否具有财产属性：{UnitemDetail && UnitemDetail.sfyccsx ? UnitemDetail.sfyccsx=== '1' ? '是' : '否' : ''}
                   </Col>
                   <Col span={8}>
-                    是否贵重物品：{UnitemDetail && UnitemDetail.sfgzwp ? UnitemDetail.sfgzwp : ''}
+                    是否贵重物品：{UnitemDetail && UnitemDetail.sfgzwp ? UnitemDetail.sfgzwp=== '1' ? '是' : '否' : ''}
                   </Col>
                   <Col span={8}>
-                    是否易损易贬值：{UnitemDetail && UnitemDetail.sfysybz ? UnitemDetail.sfysybz : ''}
+                    是否易损易贬值：{UnitemDetail && UnitemDetail.sfysybz ? UnitemDetail.sfysybz=== '1' ? '是' : '否' : ''}
                   </Col>
                   <Col span={8}>
                     唯一编号：{UnitemDetail && UnitemDetail.wpbh ? UnitemDetail.wpbh : ''}
@@ -746,7 +746,7 @@ export default class unitemDetail extends PureComponent {
                    保存方式：{UnitemDetail ? UnitemDetail.bcfsName : ''}
                   </Col>
                   <Col md={8} sm={24}>
-                    财物状态：{UnitemDetail ? UnitemDetail.wpzt : ''}
+                    财物状态：{UnitemDetail ? UnitemDetail.wpztzw : ''}
                   </Col>
                   <Col md={8} sm={24}>
                     所在库位：{UnitemDetail ? UnitemDetail.szkw : ''}
