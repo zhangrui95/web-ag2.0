@@ -6,6 +6,7 @@
 
 import React, {PureComponent} from 'react';
 import {connect} from 'dva';
+import Ellipsis from 'ant-design-pro/lib/Ellipsis';
 import {
   Row,
   Col,
@@ -1096,9 +1097,11 @@ export default class GeneralQuery extends PureComponent {
                         <div className={styles.cardBody}>
                             <div className={styles.cardBodyName}>{item._source ? item._source.wpmc : ''}</div>
                             <div className={styles.cardBodyContent}>
-                                <span>{item._source&&item._source.cwflzw ? `${item._source.cwflzw}，` : ''}</span>
-                                <span>{item._source ? `${item._source.wpztmc}，` : ''}</span>
-                                <span>{item._source ? `${item._source.ccwz_zw || ''}` : ''}</span>
+                              <Ellipsis tooltip lines={3}>
+                                {item._source&&item._source.cwflzw ? `${item._source.cwflzw}，` : ''}
+                                {item._source ? `${item._source.wpztmc}，` : ''}
+                                {item._source ? `${item._source.ccwz_zw || ''}` : ''}
+                              </Ellipsis>
                             </div>
                         </div>
                         <div
