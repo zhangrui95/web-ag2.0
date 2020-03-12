@@ -21,8 +21,8 @@ import {tableList} from "@/utils/utils";
 const FormItem = Form.Item;
 const {Option} = Select;
 
-@connect(({ global,QuestionBankConfig }) => ({
-  global,QuestionBankConfig,
+@connect(({ global,QuestionBankConfig,common }) => ({
+  global,QuestionBankConfig,common
 }))
 @Form.create()
 export default class AddTemplateVisibleModal extends PureComponent {
@@ -37,17 +37,110 @@ export default class AddTemplateVisibleModal extends PureComponent {
   };
 
   componentDidMount() {
-    // this.getDictNum()
+    this.getDictNum1(); // 单选题分值字典项
+    this.getDictNum2(); // 单选题数量字典项
+    this.getDictNum3(); // 多选题分值字典项
+    this.getDictNum4(); // 多选题数量字典项
+    this.getDictNum5(); // 简答题数量字典项
+    this.getDictNum6(); // 简答题分值字典项
   }
+  // 单选题分值字典项
+  getDictNum1 = () => {
+    this.props.dispatch({
+      type:'common/getfbdwDictType',
+      payload:{
+        currentPage: 1,
+        pd:{
+          id: "169f3e8a-2805-404a-a802-1c160d0e262c",
+          name: "",
+          appCode: "106305",
+        },
+        showCount: tableList,
+      },
+    })
+  };
+  // 单选题数量字典项
+  getDictNum2 = () => {
+    this.props.dispatch({
+      type:'common/getfbdwDictType',
+      payload:{
+        currentPage: 1,
+        pd:{
+          id: "1368b400-c289-4d11-b67c-a79af7269913",
+          name: "",
+          appCode: "106305",
+        },
+        showCount: tableList,
+      },
+    })
+  };
+  // 多选题分值字典项
+  getDictNum3 = () => {
+    this.props.dispatch({
+      type:'common/getfbdwDictType',
+      payload:{
+        currentPage: 1,
+        pd:{
+          id: "9f624ef3-01de-457c-a7f4-da1fe2c22bd2",
+          name: "",
+          appCode: "106305",
+        },
+        showCount: tableList,
+      },
+    })
+  };
+  // 多选题数量字典项
+  getDictNum4 = () => {
+    this.props.dispatch({
+      type:'common/getfbdwDictType',
+      payload:{
+        currentPage: 1,
+        pd:{
+          id: "ebbfd1d8-425d-49dc-a9a8-9a3612a8659e",
+          name: "",
+          appCode: "106305",
+        },
+        showCount: tableList,
+      },
+    })
+  };
+  // 简答题数量字典项
+  getDictNum5 = () => {
+    this.props.dispatch({
+      type:'common/getfbdwDictType',
+      payload:{
+        currentPage: 1,
+        pd:{
+          id: "2186a256-871d-43df-9176-2cd5cf40d1d6",
+          name: "",
+          appCode: "106305",
+        },
+        showCount: tableList,
+      },
+    })
+  };
+  // 简答题分值字典项
+  getDictNum6 = () => {
+    this.props.dispatch({
+      type:'common/getfbdwDictType',
+      payload:{
+        currentPage: 1,
+        pd:{
+          id: "d7901059-ed7a-4dc0-93f9-8926ef7ac592",
+          name: "",
+          appCode: "106305",
+        },
+        showCount: tableList,
+      },
+    })
+  };
 
-  SaveTemplate = () => {
-
-  }
-
+  // 关闭添加模板的模态框
   handleCancel = () => {
     this.props.CloseCancelModal()
   }
 
+  // 模板保存
   addSuccess = () => {
     const {showDataList1,showDataList2,showDataList3} = this.state;
     this.props.form.validateFields((err, values) => {
@@ -269,7 +362,62 @@ export default class AddTemplateVisibleModal extends PureComponent {
       labelCol: {xs: {span: 24}, md: {span: 8}, xl: {span: 6}, xxl: {span: 6}},
       wrapperCol: {xs: {span: 24}, md: {span: 16}, xl: {span: 18}, xxl: {span: 14}},
     };
-    const {form: {getFieldDecorator}} = this.props;
+    const {form: {getFieldDecorator},common:{DxtTypeData, DxtNumTypeData, mDxtNumTypeData, mDxtTypeData, jdtNumTypeData, jdtTypeData}} = this.props;
+    console.log('DxtTypeData',DxtTypeData)
+    console.log('DxtNumTypeData',DxtNumTypeData)
+    console.log('mDxtNumTypeData',mDxtNumTypeData)
+    console.log('mDxtTypeData',mDxtTypeData)
+    console.log('jdtNumTypeData',jdtNumTypeData)
+    console.log('jdtTypeData',jdtTypeData)
+    let DxtTypeDataDictOptions = [],DxtNumTypeDataDictOptions = [],mDxtNumTypeDataDictOptions = [],mDxtTypeDataDictOptions = [],jdtNumTypeDataDictOptions = [],jdtTypeDataDictOptions = [];
+    if (DxtTypeData.length > 0) {
+      for (let i = 0; i < DxtTypeData.length; i++) {
+        const item = DxtTypeData[i];
+        DxtTypeDataDictOptions.push(
+          <Option key={item.id} value={item.name}>{item.name}</Option>,
+        );
+      }
+    }
+    if (DxtNumTypeData.length > 0) {
+      for (let i = 0; i < DxtNumTypeData.length; i++) {
+        const item = DxtNumTypeData[i];
+        DxtNumTypeDataDictOptions.push(
+          <Option key={item.id} value={item.name}>{item.name}</Option>,
+        );
+      }
+    }
+    if (mDxtNumTypeData.length > 0) {
+      for (let i = 0; i < mDxtNumTypeData.length; i++) {
+        const item = mDxtNumTypeData[i];
+        mDxtNumTypeDataDictOptions.push(
+          <Option key={item.id} value={item.name}>{item.name}</Option>,
+        );
+      }
+    }
+    if (mDxtTypeData.length > 0) {
+      for (let i = 0; i < mDxtTypeData.length; i++) {
+        const item = mDxtTypeData[i];
+        mDxtTypeDataDictOptions.push(
+          <Option key={item.id} value={item.name}>{item.name}</Option>,
+        );
+      }
+    }
+    if (jdtNumTypeData.length > 0) {
+      for (let i = 0; i < jdtNumTypeData.length; i++) {
+        const item = jdtNumTypeData[i];
+        jdtNumTypeDataDictOptions.push(
+          <Option key={item.id} value={item.name}>{item.name}</Option>,
+        );
+      }
+    }
+    if (jdtTypeData.length > 0) {
+      for (let i = 0; i < jdtTypeData.length; i++) {
+        const item = jdtTypeData[i];
+        jdtTypeDataDictOptions.push(
+          <Option key={item.id} value={item.name}>{item.name}</Option>,
+        );
+      }
+    }
     return (
       <div>
         <Modal
@@ -315,11 +463,12 @@ export default class AddTemplateVisibleModal extends PureComponent {
                           style={{width: '100%'}}
                           // getPopupContainer={() => document.getElementById('cptkpzsjtableListForm')}
                         >
-                          <Option value="">全部</Option>
-                          <Option value="5">5</Option>
-                          <Option value="8">8</Option>
-                          <Option value="10">10</Option>
-                          <Option value="15">15</Option>
+                          {/*<Option value="">全部</Option>*/}
+                          {/*<Option value="5">5</Option>*/}
+                          {/*<Option value="8">8</Option>*/}
+                          {/*<Option value="10">10</Option>*/}
+                          {/*<Option value="15">15</Option>*/}
+                          {DxtNumTypeDataDictOptions}
                         </Select>
                       )}
                     </FormItem>
@@ -337,9 +486,10 @@ export default class AddTemplateVisibleModal extends PureComponent {
                           style={{width: '100%'}}
                           // getPopupContainer={() => document.getElementById('cptkpzsjtableListForm')}
                         >
-                          <Option value="">全部</Option>
-                          <Option value="1">1</Option>
-                          <Option value="2">2</Option>
+                          {/*<Option value="">全部</Option>*/}
+                          {/*<Option value="1">1</Option>*/}
+                          {/*<Option value="2">2</Option>*/}
+                          {DxtTypeDataDictOptions}
                         </Select>
                       )}
                     </FormItem>
@@ -361,11 +511,12 @@ export default class AddTemplateVisibleModal extends PureComponent {
                           style={{width: '100%'}}
                           // getPopupContainer={() => document.getElementById('cptkpzsjtableListForm')}
                         >
-                          <Option value="">全部</Option>
-                          <Option value="5">5</Option>
-                          <Option value="8">8</Option>
-                          <Option value="10">10</Option>
-                          <Option value="15">15</Option>
+                          {/*<Option value="">全部</Option>*/}
+                          {/*<Option value="5">5</Option>*/}
+                          {/*<Option value="8">8</Option>*/}
+                          {/*<Option value="10">10</Option>*/}
+                          {/*<Option value="15">15</Option>*/}
+                          {mDxtNumTypeDataDictOptions}
                         </Select>
                       )}
                     </FormItem>
@@ -383,9 +534,10 @@ export default class AddTemplateVisibleModal extends PureComponent {
                           style={{width: '100%'}}
                           // getPopupContainer={() => document.getElementById('cptkpzsjtableListForm')}
                         >
-                          <Option value="">全部</Option>
-                          <Option value="10">10</Option>
-                          <Option value="20">20</Option>
+                          {/*<Option value="">全部</Option>*/}
+                          {/*<Option value="10">10</Option>*/}
+                          {/*<Option value="20">20</Option>*/}
+                          {mDxtTypeDataDictOptions}
                         </Select>
                       )}
                     </FormItem>
@@ -409,10 +561,11 @@ export default class AddTemplateVisibleModal extends PureComponent {
                           style={{width: '100%'}}
                           // getPopupContainer={() => document.getElementById('cptkpzsjtableListForm')}
                         >
-                          <Option value="">全部</Option>
-                          <Option value="1">1</Option>
-                          <Option value="2">2</Option>
-                          <Option value="3">3</Option>
+                          {/*<Option value="">全部</Option>*/}
+                          {/*<Option value="1">1</Option>*/}
+                          {/*<Option value="2">2</Option>*/}
+                          {/*<Option value="3">3</Option>*/}
+                          {jdtNumTypeDataDictOptions}
                         </Select>
                       )}
                     </FormItem>
@@ -430,10 +583,11 @@ export default class AddTemplateVisibleModal extends PureComponent {
                           style={{width: '100%'}}
                           // getPopupContainer={() => document.getElementById('cptkpzsjtableListForm')}
                         >
-                          <Option value="">全部</Option>
-                          <Option value="10">10</Option>
-                          <Option value="20">20</Option>
-                          <Option value="30">30</Option>
+                          {/*<Option value="">全部</Option>*/}
+                          {/*<Option value="10">10</Option>*/}
+                          {/*<Option value="20">20</Option>*/}
+                          {/*<Option value="30">30</Option>*/}
+                          {jdtTypeDataDictOptions}
                         </Select>
                       )}
                     </FormItem>

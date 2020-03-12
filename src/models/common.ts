@@ -88,6 +88,12 @@ export default {
         FbdwTypeData:[], // 发布单位
         ZllxTypeData:[], // 资料类型
         TklxTypeData:[], // 题目类型
+        DxtTypeData:[], // 单选题分值设定集合
+        DxtNumTypeData:[], // 单选题数量设定集合
+        mDxtNumTypeData:[], // 多选题数量设定集合
+        mDxtTypeData:[], // 多选题分值设定集合
+        jdtNumTypeData:[], // 简答题数量设定集合
+        jdtTypeData:[], // 简答题分值设定集合
     },
 
     effects: {
@@ -656,6 +662,67 @@ export default {
               callback(response);
             }
           }
+
+          if (payload.pd.id === '169f3e8a-2805-404a-a802-1c160d0e262c') {
+            // 单选题分值字典项
+            yield put({
+              type: 'returndxtType',
+              payload: response && response.error === null && response.data && response.data.list ? response.data.list : [],
+            });
+            if (callback && response) {
+              callback(response);
+            }
+          }
+          if (payload.pd.id === '1368b400-c289-4d11-b67c-a79af7269913') {
+            // 单选题数量字典项
+            yield put({
+              type: 'returndxtNumType',
+              payload: response && response.error === null && response.data && response.data.list ? response.data.list : [],
+            });
+            if (callback && response) {
+              callback(response);
+            }
+          }
+          if (payload.pd.id === '9f624ef3-01de-457c-a7f4-da1fe2c22bd2') {
+            // 多选题分值字典项
+            yield put({
+              type: 'returnmdxtType',
+              payload: response && response.error === null && response.data && response.data.list ? response.data.list : [],
+            });
+            if (callback && response) {
+              callback(response);
+            }
+          }
+          if (payload.pd.id === 'ebbfd1d8-425d-49dc-a9a8-9a3612a8659e') {
+            // 多选题数量字典项
+            yield put({
+              type: 'returnmdxtNumType',
+              payload: response && response.error === null && response.data && response.data.list ? response.data.list : [],
+            });
+            if (callback && response) {
+              callback(response);
+            }
+          }
+          if (payload.pd.id === '2186a256-871d-43df-9176-2cd5cf40d1d6') {
+            // 简答题数量字典项
+            yield put({
+              type: 'returnjdtNumType',
+              payload: response && response.error === null && response.data && response.data.list ? response.data.list : [],
+            });
+            if (callback && response) {
+              callback(response);
+            }
+          }
+          if (payload.pd.id === 'd7901059-ed7a-4dc0-93f9-8926ef7ac592') {
+            // 简答题分值字典项
+            yield put({
+              type: 'returnjdtType',
+              payload: response && response.error === null && response.data && response.data.list ? response.data.list : [],
+            });
+            if (callback && response) {
+              callback(response);
+            }
+          }
           // yield put({
           //   type: 'setSyncTime',
           //   payload: response && response.error === null ? response.data : [],
@@ -1024,6 +1091,42 @@ export default {
           return {
             ...state,
             TklxTypeData: action.payload,
+          };
+        },
+        returndxtType(state, action) {
+          return {
+            ...state,
+            DxtTypeData: action.payload,
+          };
+        },
+        returndxtNumType(state, action) {
+          return {
+            ...state,
+            DxtNumTypeData: action.payload,
+          };
+        },
+        returnmdxtNumType(state, action) {
+          return {
+            ...state,
+            mDxtNumTypeData: action.payload,
+          };
+        },
+        returnmdxtType(state, action) {
+          return {
+            ...state,
+            mDxtTypeData: action.payload,
+          };
+        },
+        returnjdtNumType(state, action) {
+          return {
+            ...state,
+            jdtNumTypeData: action.payload,
+          };
+        },
+        returnjdtType(state, action) {
+          return {
+            ...state,
+            jdtTypeData: action.payload,
           };
         },
     },
