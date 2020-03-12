@@ -195,6 +195,10 @@ export default class addDataVisibleModal extends PureComponent {
       labelCol: {xs: {span: 24}, md: {span: 8}, xl: {span: 6}, xxl: {span: 3}},
       wrapperCol: {xs: {span: 24}, md: {span: 16}, xl: {span: 18}, xxl: {span: 21}},
     };
+    const formItemLayouts1 = {
+      labelCol: {xs: {span: 24}, md: {span: 8}, xl: {span: 6}, xxl: {span: 2}},
+      wrapperCol: {xs: {span: 24}, md: {span: 16}, xl: {span: 18}, xxl: {span: 22}},
+    };
     const {form: {getFieldDecorator}} = this.props;
     return (
       <div>
@@ -221,8 +225,8 @@ export default class addDataVisibleModal extends PureComponent {
               <div style={{padding:16}}>
                 <Form onSubmit={()=>this.HoldOne('单选','00001')}>
                   <Row gutter={rowLayout}>
-                    <Col sm={24} md={12} xl={8}>
-                      <FormItem label="题目" {...formItemLayouts}>
+                    <Col sm={24} md={12} xl={12}>
+                      <FormItem label="题目" {...formItemLayouts1}>
                         {getFieldDecorator('tm', {
                           // initialValue: this.state.caseType,
                           rules: [{max: 50, message: '最多输入50个字！'},{required:true,message: '请填写题目'}],
@@ -271,7 +275,7 @@ export default class addDataVisibleModal extends PureComponent {
                           // initialValue: this.state.caseType,
                           rules: [{required:true,message: '请选择正确答案'}],
                         })(
-                          <Radio.Group onChange={this.onRightAnswer} >
+                          <Radio.Group style={{paddingLeft:'8px'}}>
                             <Radio value='选项1'>选项1</Radio>
                             <Radio value='选项2'>选项2</Radio>
                             <Radio value='选项3'>选项3</Radio>
@@ -303,8 +307,8 @@ export default class addDataVisibleModal extends PureComponent {
                 <div style={{padding:16}}>
                   <Form onSubmit={()=>this.HoldMore('多选','00002')}>
                     <Row gutter={rowLayout}>
-                      <Col sm={24} md={12} xl={8}>
-                        <FormItem label="题目" {...formItemLayouts}>
+                      <Col sm={24} md={12} xl={12}>
+                        <FormItem label="题目" {...formItemLayouts1}>
                           {getFieldDecorator('dxtm', {
                             // initialValue: this.state.caseType,
                             rules: [{max: 50, message: '最多输入50个字！'},{required:true,message: '请填写题目'}],
@@ -353,7 +357,7 @@ export default class addDataVisibleModal extends PureComponent {
                             // initialValue: this.state.caseType,
                             rules: [{required:true,message: '请选择正确答案'}],
                           })(
-                            <Checkbox.Group onChange={this.onRightAnswer} >
+                            <Checkbox.Group style={{paddingLeft:'8px'}}>
                               <Checkbox  value='选项1'>选项1</Checkbox>
                               <Checkbox  value='选项2'>选项2</Checkbox>
                               <Checkbox  value='选项3'>选项3</Checkbox>
@@ -385,8 +389,8 @@ export default class addDataVisibleModal extends PureComponent {
                   <div style={{padding:16}}>
                     <Form onSubmit={()=>this.HoldShortAnswer('简答','00003')}>
                       <Row gutter={rowLayout}>
-                        <Col sm={24} md={12} xl={8}>
-                          <FormItem label="题目" {...formItemLayouts}>
+                        <Col sm={24} md={12} xl={12}>
+                          <FormItem label="题目" {...formItemLayouts1}>
                             {getFieldDecorator('jdtm', {
                               // initialValue: this.state.caseType,
                               rules: [{max: 50, message: '最多输入50个字！'},{required:true,message: '请填写题目'}],
