@@ -537,7 +537,7 @@ export default class itemDetail extends PureComponent {
                     // }
                 }
               >
-                <p style={{ paddingTop: 7, color: '#fff' }}>{index + 1}</p>
+                <p style={{ paddingTop: 7, color: '#fff' }}>{itemDetails.wpgjList.length - index}</p>
               </div>
             </div>
           }
@@ -571,7 +571,7 @@ export default class itemDetail extends PureComponent {
                       }
                   }
                 >
-                  {item.sfzc === '0' ? '正常' : '异常'}
+                  {item.sfzc === '0' ? '正常' : item.ycmc}
                 </Tag> : ''}
               </Row>
             </Col>
@@ -589,9 +589,9 @@ export default class itemDetail extends PureComponent {
                 <Col md={8} sm={24} style={{marginBottom:8}}>
                   <div className={styles.break}>{window.configUrl.is_area === '5' || window.configUrl.is_area === '2' ? '操作原因：' : ''}{item.czyy}</div>
                 </Col>
-                <Col md={8} sm={24} style={{marginBottom:8}}>
-                  <div className={styles.break}>{window.configUrl.is_area === '5' || window.configUrl.is_area === '2' ? '归还期限：' : ''}{item.ghqx}</div>
-                </Col>
+                {/*<Col md={8} sm={24} style={{marginBottom:8}}>*/}
+                {/*  <div className={styles.break}>{window.configUrl.is_area === '5' || window.configUrl.is_area === '2' ? '归还期限：' : ''}{item.ghqx}</div>*/}
+                {/*</Col>*/}
                 <Col md={16} sm={24} style={{marginBottom:8}}>
                   <div className={styles.break}>{window.configUrl.is_area === '5' || window.configUrl.is_area === '2' ? '存储位置：' : ''}{item.ccwz_zw}</div>
                 </Col>
