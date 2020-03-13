@@ -11,9 +11,11 @@ import styles from './videoDetail.less';
 import video from '@/assets/video.mp4';
 import noList from "@/assets/viewData/noList.png";
 import noListLight from "@/assets/viewData/noListLight.png";
+const { TextArea } = Input;
 let res = {};
 const { Search } = Input;
 const {confirm} = Modal;
+const FormItem = Form.Item;
 @connect(({ policeData, loading, global }) => ({
   policeData,
   loading,
@@ -35,7 +37,18 @@ export default class policeDetail extends PureComponent {
       add:'',
       selectedRowKeys: [],
       selectedRows: [],
+      bz:false,
     };
+  }
+  getBz = () =>{
+    this.setState({
+      bz:true,
+    });
+  }
+  getBzHide = () =>{
+    this.setState({
+      bz:false,
+    });
   }
   getChangeTable = (e) =>{
     this.setState({
@@ -244,6 +257,7 @@ export default class policeDetail extends PureComponent {
         }
             <div className={styles.videoWord} style={styleBox}>
               <div className={styles.title}>音视频信息</div>
+              {this.state.bz ? '' : <Button className={styles.wsxxBtn} onClick={this.getBz}>完善信息</Button>}
               <Row className={styles.word} style={styleBox1}>
                 <Col {...colSpan}>视频格式：MP4</Col>
                 <Col {...colSpan}>视频大小：25M</Col>
@@ -254,6 +268,20 @@ export default class policeDetail extends PureComponent {
                 <Col {...colSpan}>上传时间：2020-01-23 09:45:31</Col>
                 <Col {...colSpan}>对接设备：接入</Col>
                 <Col {...colSpan}>数据来源：办案区</Col>
+                {
+                  this.state.bz ? <Col span={24}>
+                    <div className={styles.leftTitle}>备注：</div>
+                    <TextArea placeholder="请输入备注" rows={3} className={styles.textArea}/>
+                    <div className={styles.btns} style={{margin:'40px 0 0'}}>
+                      <Button type="primary" style={{marginLeft: 8}} className={styles.qxBtn} onClick={this.getBzHide}>
+                        取消
+                      </Button>
+                      <Button type="primary" style={{marginLeft: 8}} className={styles.okBtn}>
+                        确定
+                      </Button>
+                    </div>
+                  </Col> : ''
+                }
               </Row>
             </div>
         </div>
