@@ -582,14 +582,15 @@ class Detail extends Component {
         label: item.name,
       };
       let objStr = JSON.stringify(obj);
-      if (item.childrenList && item.childrenList.length) {
+      if (item.childrenList && item.childrenList.length > 0) {
         return (
           <TreeNode value={objStr} key={objStr} title={item.name}>
             {this.renderloops(item.childrenList)}
           </TreeNode>
         );
+      }else{
+        return <TreeNode key={objStr} value={objStr} title={item.name}/>;
       }
-      // return <TreeNode key={objStr} value={objStr} title={item.name}/>;
     });
   renderloops = data =>
     data.map(item => {

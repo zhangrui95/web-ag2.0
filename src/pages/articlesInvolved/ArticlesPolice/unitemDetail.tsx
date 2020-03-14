@@ -526,7 +526,7 @@ export default class unitemDetail extends PureComponent {
                   // }
                 }
               >
-                <p style={{ paddingTop: 7, color: '#fff' }}>{index + 1}</p>
+                <p style={{ paddingTop: 7, color: '#fff' }}>{UnitemDetail.wpgjList.length - index}</p>
               </div>
             </div>
           }
@@ -560,7 +560,7 @@ export default class unitemDetail extends PureComponent {
                     }
                 }
               >
-                {item.sfzc === '0' ? '正常' : '异常'}
+                  {item.sfzc === '0' ? '正常' : item.ycmc}
               </Tag>: ''}</Row>
             </Col>
             <Col span={20}>
@@ -577,9 +577,9 @@ export default class unitemDetail extends PureComponent {
             <Col md={8} sm={24} style={{marginBottom:8}}>
               <div className={styles.break}>{window.configUrl.is_area === '5' || window.configUrl.is_area === '2' ? '操作原因：' : ''}{item.czyy}</div>
             </Col>
-            <Col md={8} sm={24} style={{marginBottom:8}}>
-              <div className={styles.break}>{window.configUrl.is_area === '5' || window.configUrl.is_area === '2' ? '归还期限：' : ''}{item.ghqx}</div>
-            </Col>
+            {/*<Col md={8} sm={24} style={{marginBottom:8}}>*/}
+            {/*  <div className={styles.break}>{window.configUrl.is_area === '5' || window.configUrl.is_area === '2' ? '归还期限：' : ''}{item.ghqx}</div>*/}
+            {/*</Col>*/}
             <Col md={16} sm={24} style={{marginBottom:8}}>
               <div className={styles.break}>{window.configUrl.is_area === '5' || window.configUrl.is_area === '2' ? '存储位置：' : ''}{item.ccwz_zw}</div>
             </Col>
@@ -622,7 +622,7 @@ export default class unitemDetail extends PureComponent {
                   <Carousel autoplay>
                     {UnitemDetail.imageList.map(pane => (
                       <div>
-                        <img width="200" src={pane.imageurl ? pane.imageurl : ''} />
+                        <img width="200" src={pane.url ? pane.url : dark ? nophoto : nophotoLight} />
                       </div>
                     ))}
                   </Carousel>
@@ -692,13 +692,13 @@ export default class unitemDetail extends PureComponent {
                     三级分类：{UnitemDetail && UnitemDetail.wpzlname3 ? UnitemDetail.wpzlname3 : ''}
                   </Col>
                   <Col span={8}>
-                    是否具有财产属性：{UnitemDetail && UnitemDetail.sfyccsx ? UnitemDetail.sfyccsx : ''}
+                    是否具有财产属性：{UnitemDetail && UnitemDetail.sfyccsx ? UnitemDetail.sfyccsx=== '1' ? '是' : '否' : ''}
                   </Col>
                   <Col span={8}>
-                    是否贵重物品：{UnitemDetail && UnitemDetail.sfgzwp ? UnitemDetail.sfgzwp : ''}
+                    是否贵重物品：{UnitemDetail && UnitemDetail.sfgzwp ? UnitemDetail.sfgzwp=== '1' ? '是' : '否' : ''}
                   </Col>
                   <Col span={8}>
-                    是否易损易贬值：{UnitemDetail && UnitemDetail.sfysybz ? UnitemDetail.sfysybz : ''}
+                    是否易损易贬值：{UnitemDetail && UnitemDetail.sfysybz ? UnitemDetail.sfysybz=== '1' ? '是' : '否' : ''}
                   </Col>
                   <Col span={8}>
                     唯一编号：{UnitemDetail && UnitemDetail.wpbh ? UnitemDetail.wpbh : ''}
@@ -721,9 +721,9 @@ export default class unitemDetail extends PureComponent {
                         {UnitemDetail.syrName}
                       </a>
                   </Col>
-                  <Col md={8} sm={24}>
-                    特征：{UnitemDetail ? UnitemDetail.wptz : ''}
-                  </Col>
+                  {/*<Col md={8} sm={24}>*/}
+                  {/*  特征：{UnitemDetail ? UnitemDetail.wptz : ''}*/}
+                  {/*</Col>*/}
                   <Col md={8} sm={24}>
                    数量：{UnitemDetail ? UnitemDetail.wpsl : ''}
                   </Col>
@@ -742,11 +742,11 @@ export default class unitemDetail extends PureComponent {
                   <Col md={8} sm={24}>
                     库房管理员：{UnitemDetail ? UnitemDetail.kfgly : ''}
                   </Col>
+                  {/*<Col md={8} sm={24}>*/}
+                  {/* 保存方式：{UnitemDetail ? UnitemDetail.bcfsName : ''}*/}
+                  {/*</Col>*/}
                   <Col md={8} sm={24}>
-                   保存方式：{UnitemDetail ? UnitemDetail.bcfsName : ''}
-                  </Col>
-                  <Col md={8} sm={24}>
-                    财物状态：{UnitemDetail ? UnitemDetail.wpzt : ''}
+                    财物状态：{UnitemDetail ? UnitemDetail.wpztzw : ''}
                   </Col>
                   <Col md={8} sm={24}>
                     所在库位：{UnitemDetail ? UnitemDetail.szkw : ''}

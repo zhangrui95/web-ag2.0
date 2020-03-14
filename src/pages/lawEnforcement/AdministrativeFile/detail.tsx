@@ -601,7 +601,7 @@ export default class AdministrativeCaseDocDetail extends PureComponent {
                         <div className={styles.listItemContents} style={{overflow:'hidden'}}>
                           <div className={styles.sawpImg}>
                             <img width='90' height='90'
-                                 src={item && item.imageList && item.imageList.length > 0&&item.imageList[0].imageurl ? item.imageList[0].imageurl :  this.props.global && this.props.global.dark ? nophoto : nophotoLight}/>
+                                 src={item && item.imageList && item.imageList.length > 0&&item.imageList[0].url ? item.imageList[0].url :  this.props.global && this.props.global.dark ? nophoto : nophotoLight}/>
                           </div>
                           <div className={styles.sawpName}>
                             <div className={styles.sawpName1}>财物名称：<Tooltip

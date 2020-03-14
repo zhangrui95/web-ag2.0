@@ -1706,7 +1706,7 @@ export default class areaDetail extends PureComponent {
                   <div className={liststyles.Indexfrom} style={{ top: 0 }}>
                     办案区名称：
                   </div>
-                  <div className={liststyles.Indextail} style={{ paddingLeft: 84,marginBottom:12 }}>
+                  <div className={liststyles.Indextail} style={{ paddingLeft: 84 }}>
                     {areaDetails &&
                     areaDetails.rqxx &&
                     areaDetails.rqxx.length > 0 &&

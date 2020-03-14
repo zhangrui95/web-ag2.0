@@ -88,6 +88,9 @@ export default {
             });
             if (callback && response && !response.error && response.data) {
                 callback(response.data);
+            }else{
+              let data = {list:[]};
+              callback(data);
             }
         },
         // 在库物品数量展示

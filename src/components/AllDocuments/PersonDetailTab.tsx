@@ -128,10 +128,10 @@ export default class PersonDetailTab extends PureComponent {
                                 <div className={styles.sawpImg} style={{float:'left'}}>
                                     <img
                                         width="90"
-                                        src={item && item.imageList && item.imageList.length > 0 ? item.imageList[0].imageurl : dark ? nophoto : nophotoLight}
+                                        src={item && item.imageList && item.imageList.length > 0&&item.imageList[0].url ? item.imageList[0].url : dark ? nophoto : nophotoLight}
                                     />
                                 </div>
-                                <div className={styles.sawpName} style={{float:'left',marginTop:12}}>
+                                <div className={styles.sawpName} style={{float:'left',margin:'12px 0 0 10px'}}>
                                     <div className={styles.sawpName1}>财物名称：<Tooltip
                                         overlayStyle={{wordBreak: 'break-all'}}
                                         title={item.wpmc}>{item.wpmc}</Tooltip></div>
@@ -159,11 +159,6 @@ export default class PersonDetailTab extends PureComponent {
             {
                 title: '办案区名称',
                 dataIndex: 'haName',
-                render: (text) => {
-                    return (
-                        text ? <Ellipsis length={20} tooltip>{text}</Ellipsis> : ''
-                    );
-                },
             },
             {
                 title: '入区时间',
@@ -200,11 +195,6 @@ export default class PersonDetailTab extends PureComponent {
             {
                 title: '卷宗名称',
                 dataIndex: 'jzmc',
-                render: (text) => {
-                    return (
-                        text ? <Ellipsis length={20} tooltip>{text}</Ellipsis> : ''
-                    );
-                },
             },
             {
                 title: '卷宗类别',
@@ -237,11 +227,6 @@ export default class PersonDetailTab extends PureComponent {
             {
                 title: '物品名称',
                 dataIndex: 'wpName',
-                render: (text) => {
-                    return (
-                        text ? <Ellipsis length={20} tooltip>{text}</Ellipsis> : ''
-                    );
-                },
             },
             {
                 title: '数量',
