@@ -159,11 +159,6 @@ export default class PersonDetailTab extends PureComponent {
             {
                 title: '办案区名称',
                 dataIndex: 'haName',
-                render: (text) => {
-                    return (
-                        text ? <Ellipsis length={20} tooltip>{text}</Ellipsis> : ''
-                    );
-                },
             },
             {
                 title: '入区时间',
@@ -200,11 +195,6 @@ export default class PersonDetailTab extends PureComponent {
             {
                 title: '卷宗名称',
                 dataIndex: 'jzmc',
-                render: (text) => {
-                    return (
-                        text ? <Ellipsis length={20} tooltip>{text}</Ellipsis> : ''
-                    );
-                },
             },
             {
                 title: '卷宗类别',
@@ -237,11 +227,6 @@ export default class PersonDetailTab extends PureComponent {
             {
                 title: '物品名称',
                 dataIndex: 'wpName',
-                render: (text) => {
-                    return (
-                        text ? <Ellipsis length={20} tooltip>{text}</Ellipsis> : ''
-                    );
-                },
             },
             {
                 title: '数量',
