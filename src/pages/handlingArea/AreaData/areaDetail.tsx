@@ -84,7 +84,7 @@ export default class areaDetail extends PureComponent {
       res = JSON.parse(sessionStorage.getItem('query')).query.record;
     }
     this.state = {
-      ajWoodCurrent: 1, // 涉案物品信息默认在第一页
+      ajWoodCurrent: 1, // 涉案财物信息默认在第一页
       ssWoodCurrent: 1, // 随身信息默认在第一页
       left: '0',
       colortrailleft: 'gray', // 左滑动按钮，若到达开始或者结束，是gray(置灰)，否则是blue(蓝色)(轨迹)
@@ -108,7 +108,7 @@ export default class areaDetail extends PureComponent {
       systemId: '',
       ssWpList: false,
       SsWpId: '', // 弹出随身物品详情弹窗时默认选中的状态
-      isState: '0', // 是随身物品信息还是涉案物品信息，0是随身，1是涉案
+      isState: '0', // 是随身物品信息还是涉案财物信息，0是随身，1是涉案
 
       shareVisible: false,
       shareItem: null,
@@ -999,7 +999,7 @@ export default class areaDetail extends PureComponent {
     //   ssWpList: !!flag,
     // });
   };
-  // 根据涉案物品ID打开物品详细窗口
+  // 根据涉案财物ID打开物品详细窗口
   ajWoodDetail = (res, record) => {
     this.props.dispatch(
       routerRedux.push({
@@ -1129,7 +1129,7 @@ export default class areaDetail extends PureComponent {
     let dark = this.props.global && this.props.global.dark;
     const ajWoodColumns = [
       {
-        title: '物品名称',
+        title: '财物名称',
         dataIndex: 'wpName',
         render: record => {
           return record && record.length <= 20 ? (
@@ -1706,7 +1706,7 @@ export default class areaDetail extends PureComponent {
                   <div className={liststyles.Indexfrom} style={{ top: 0 }}>
                     办案区名称：
                   </div>
-                  <div className={liststyles.Indextail} style={{ paddingLeft: 84,marginBottom:12 }}>
+                  <div className={liststyles.Indextail} style={{ paddingLeft: 84 }}>
                     {areaDetails &&
                     areaDetails.rqxx &&
                     areaDetails.rqxx.length > 0 &&
@@ -1835,7 +1835,7 @@ export default class areaDetail extends PureComponent {
             pagination={{
               pageSize: 3,
               showTotal: (total, range) => (
-                <div style={{ color: '#b7b7b7' }}>
+                <div style={{ color: '#999' }}>
                   共 {Math.ceil(total / 3)} 页，{total} 条记录
                 </div>
               ),
@@ -1862,7 +1862,7 @@ export default class areaDetail extends PureComponent {
               paddingLeft: '16px',
             }}
           >
-            涉案物品信息
+            涉案财物信息
           </div>
         </div>
         <div className={styles.tablemessage} style={{ padding: '0 24px 24px' }}>
@@ -1874,7 +1874,7 @@ export default class areaDetail extends PureComponent {
             pagination={{
               pageSize: 3,
               showTotal: (total, range) => (
-                <div style={{ color: '#b7b7b7' }}>
+                <div style={{ color: '#999' }}>
                   共 {Math.ceil(total / 3)} 页， {total} 条记录
                 </div>
               ),

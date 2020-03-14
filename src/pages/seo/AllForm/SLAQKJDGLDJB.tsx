@@ -127,7 +127,7 @@ export default class SLAQKJDGLDJB extends PureComponent {
         return (
             <div>
                 <Row gutter={{md: 8, lg: 24, xl: 48}}>
-                    <Col md={12} sm={24}>
+                  <Col md={18} sm={24} xl={18}>
                         <StatisticsDateSelect
                             placeholder="请选择受案时间"
                             setSelectDateValue={this.setSelectDateValue}
@@ -136,7 +136,7 @@ export default class SLAQKJDGLDJB extends PureComponent {
                             id={'SLAQKJDGLDJB'}
                         />
                     </Col>
-                    <Col md={12} sm={24}>
+                  <Col md={6} sm={24} xl={6}>
                         <div className={stylescommon.buttonArea}>
                             <Button type="submit" onClick={() => this.exportData()}>
                                 导出

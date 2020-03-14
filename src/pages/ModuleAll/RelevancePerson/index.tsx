@@ -136,7 +136,7 @@ export default class IntoArea extends PureComponent {
                     pagination={{
                         pageSize: 3,
                         showTotal: (total, range) => <div
-                            style={{color: '#b7b7b7'}}>共 {total} 条记录
+                            style={{color: '#999'}}>共 {total} 条记录
                             第 {this.state.areacurrent} / {(Math.ceil(total / 3))} 页</div>,
                         onChange: (page) => {
                             this.setState({areacurrent: page});

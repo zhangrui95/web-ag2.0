@@ -928,6 +928,7 @@ body {
   display: inline-block;
   height: 94px;
   padding: 12px 12px 12px 94px;
+  margin-left: 10px;
 }
 
 .gjxxName {
@@ -967,7 +968,7 @@ body {
   border-top: @border-width-base @border-style-base @body-background;
 
   &:hover {
-    color: #00ABFF;
+    color: #fff;
   }
 }
 
@@ -975,6 +976,29 @@ body {
   :global {
     .ant-list-item {
       width: 25%;
+      display: inline-block;
+      border-bottom: 0 solid #e8e8e8;
+      padding: 0;
+    }
+
+    .ant-spin-container > .ant-list-item:last-child {
+      border-bottom: 0 !important;
+    }
+
+    .ant-list-item-content {
+      margin: 0 12px 12px 12px;
+      border: @border-width-base @border-style-base #E9E9E9;
+    }
+
+    .ant-list-pagination {
+      margin-right: 12px;
+    }
+  }
+}
+.sawpListNames {
+  :global {
+    .ant-list-item {
+      width: 100%;
       display: inline-block;
       border-bottom: 0 solid #e8e8e8;
       padding: 0;
@@ -1222,12 +1246,12 @@ body {
   }
 
   .sawpSee {
-    background-color: #ebebeb;
+    background-color: @menu-item-active-bg;
     border-top: 1px solid #e6e6e6;
-    color: #4662D5;
+    color: #fff;
 
     &:hover {
-      color: #4662D5;
+      color: #fff;
     }
   }
 
@@ -1254,5 +1278,21 @@ body {
         padding: 24px;
       }
     }
+  }
+}
+.listItemContents {
+  border: 1px solid @body-background;
+  border-bottom: none;
+  background: @body-background;
+  padding: 8px;
+  border-radius: 5px 5px 0 0;
+  position: relative;
+  color: @white;
+}
+.lightBox{
+  .listItemContents{
+    border: 1px solid #e6e6e6!important;
+    background: #F2F2F2!important;
+    color: #4d4d4d!important;
   }
 }

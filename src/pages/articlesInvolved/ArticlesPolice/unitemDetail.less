@@ -199,8 +199,24 @@
   overflow-y: scroll;
   overflow-x: hidden;
   border-radius: 10px;
+  :global{
+    .ant-timeline-item-head{
+      background: transparent;
+    }
+    .ant-timeline-item-tail{
+      height: 36px!important;
+      top: 25px;
+    }
+  }
 }
-
+.wpxx{
+  :global{
+    .ant-col{
+      line-height: 36px;
+      height: 36px;
+    }
+  }
+}
 .Indexfrom {
   position: absolute;
   left: 8px;

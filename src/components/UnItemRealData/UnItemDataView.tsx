@@ -1,5 +1,5 @@
 /*
- * UnItemDataView.js 问题涉案物品案件数据展示
+ * UnItemDataView.js 问题涉案财物案件数据展示
  * author：lyp
  * 20181117
  * */

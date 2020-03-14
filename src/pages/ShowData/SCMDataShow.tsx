@@ -156,7 +156,7 @@ export default class SCMDataShow extends PureComponent {
                     this.getAllNum(idx, num, name);
                 }} selectDate={selectDate} orgCode={orgCode} org={org} shadeColors={shadeColors} {...this.props}
                                     orglist={orglist}/>;
-            case 'sawp-sl': // 涉案物品数量
+            case 'sawp-sl': // 涉案财物数量
                 return <CaseItemCount idx={idx} getAllNum={(idx, num, name) => {
                     this.getAllNum(idx, num, name);
                 }} selectDate={selectDate} orgCode={orgCode} org={org} shadeColors={shadeColors} {...this.props}
@@ -181,7 +181,7 @@ export default class SCMDataShow extends PureComponent {
                     this.getAllNum(idx, num, name);
                 }} selectDate={selectDate} orgCode={orgCode} org={org} shadeColors={shadeColors} {...this.props}
                                                 orglist={orglist}/>;
-            case 'sawp-gjsl': // 涉案物品告警数量
+            case 'sawp-gjsl': // 涉案财物告警数量
                 return <CaseItemWarningCount idx={idx} getAllNum={(idx, num, name) => {
                     this.getAllNum(idx, num, name);
                 }} selectDate={selectDate} orgCode={orgCode} org={org} shadeColors={shadeColors} {...this.props}
@@ -239,7 +239,7 @@ export default class SCMDataShow extends PureComponent {
                     this.getAllNum(idx, num, name);
                 }} selectDate={selectDate} orgCode={orgCode} org={org} shadeColors={shadeColors} {...this.props}
                                            orglist={orglist}/>;
-            case 'sawpsj': // 涉案物品数据
+            case 'sawpsj': // 涉案财物数据
                 return <CaseItemInfo idx={idx} getAllNum={(idx, num, name) => {
                     this.getAllNum(idx, num, name);
                 }} selectDate={selectDate} orgCode={orgCode} org={org} shadeColors={shadeColors} {...this.props}

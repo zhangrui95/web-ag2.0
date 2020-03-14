@@ -5,7 +5,7 @@ import ThemeColorReplacer from 'webpack-theme-color-replacer';
 import generate from '@ant-design/colors/lib/generate';
 import path from 'path';
 import moment from 'moment';
-let version = `r2.0.0`; //版本号
+let version = `r2.0.1`; //版本号
 function getModulePackageName(module: { context: string }) {
   if (!module.context) return null;
 

@@ -57,7 +57,7 @@ export default {
                 callback(response.data);
             }
         },
-        // 获取涉案物品数据
+        // 获取涉案财物数据
         * getInvolvedItems({payload, callback}, {call, put}) {
             const response = yield call(showService.getInvolvedItems, payload);
             yield put({
@@ -253,7 +253,7 @@ export default {
                 callback(response.data);
             }
         },
-        // 涉案物品数据
+        // 涉案财物数据
         * getCaseItemInfo({payload, callback}, {call, put}) {
             const response = yield call(showService.getCaseItemInfo, payload);
             if (response && !response.error && call && response.data) {

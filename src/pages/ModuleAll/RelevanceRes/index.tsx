@@ -55,7 +55,7 @@ export default class IntoArea extends PureComponent {
         //         />
         //     </div>
         // );
-        // const AddNewDetail = { title: '涉案物品详情', content: divs, key: systemId };
+        // const AddNewDetail = { title: '涉案财物详情', content: divs, key: systemId };
         // this.props.newDetail(AddNewDetail);
     };
 
@@ -64,7 +64,7 @@ export default class IntoArea extends PureComponent {
         // console.log('record',record);
         const WpColumns = [
             {
-                title: '物品名称',
+                title: '财物名称',
                 dataIndex: 'wpmc',
                 width:'40%',
                 render: text => {
@@ -78,8 +78,8 @@ export default class IntoArea extends PureComponent {
                 },
             },
             {
-                title: '物品种类',
-                dataIndex: 'wpzlMc',
+                title: '财物分类',
+                dataIndex: 'cwflzw',
                 width:'40%',
                 render: text => {
                     return text ? (
@@ -102,12 +102,12 @@ export default class IntoArea extends PureComponent {
             },
         ];
         return (
-            <div style={{padding:'12px 0'}}>
+            <div style={{padding:'16px 0'}}>
                 <Table
                     style={{ borderRadius: 10 }}
                     pagination={{
                         pageSize: 10,
-                        showTotal: (total, range) => <div style={{color: '#b7b7b7'}}>共 {(Math.ceil(total / 10))} 页， {total} 条记录</div>,
+                        showTotal: (total, range) => <div style={{color: '#999'}}>共 {(Math.ceil(total / 10))} 页， {total} 条记录</div>,
                         onChange: (page) => {
                             this.setState({jqcurrent: page});
                         },

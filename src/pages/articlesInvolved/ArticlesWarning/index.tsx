@@ -1,5 +1,5 @@
 /*
-*  涉案物品预警
+*  涉案财物预警
 *  author：zr
 *  20181222
 * */
@@ -85,7 +85,17 @@ export default class Index extends PureComponent {
         this.getSuperviseStatusDict();
         this.getYjjbDictionary();
     }
-
+  componentWillReceiveProps(nextProps) {
+    if (this.props.global.isResetList.isReset !== nextProps.global.isResetList.isReset && nextProps.global.isResetList.url === '/articlesInvolved/ArticlesWarning') {
+      const params = {
+        currentPage: this.state.current,
+        pd: {
+          ...this.state.formValues,
+        },
+      };
+      this.getDossier(params);
+    }
+  }
     // 切换tab
     onTabChange = (activeKey) => {
         this.setState({
@@ -297,7 +307,7 @@ export default class Index extends PureComponent {
         //     />
         //   </div>
         // );
-        // const AddNewDetail = { title: '涉案物品预警详情', content: divs, key: record.id };
+        // const AddNewDetail = { title: '涉案财物预警详情', content: divs, key: record.id };
         // this.newDetail(AddNewDetail);
     };
     // 打开新的详情页面
@@ -341,9 +351,9 @@ export default class Index extends PureComponent {
                         itemDetails: data,
                     });
                     let itemDetails = data;
-                    let detail = [`物品名称：${itemDetails && itemDetails.wpmc ? itemDetails.wpmc : ''}`, `物品种类：${itemDetails && itemDetails.wpzlName ? itemDetails.wpzlName : ''}`,
-                        `物品状态：${itemDetails && itemDetails.wpzt ? itemDetails.wpzt : ''}`, `库房信息：${itemDetails && itemDetails.szkf ? itemDetails.szkf : ''}`,
-                        `关联案件名称：${itemDetails && itemDetails.ajmc ? itemDetails.ajmc : ''}`, `办案单位：${itemDetails && itemDetails.badw ? itemDetails.badw : ''}`,
+                    let detail = [`财物名称：${itemDetails && itemDetails.wpmc ? itemDetails.wpmc : ''}`, `财物分类：${itemDetails && itemDetails.cwflzw ? itemDetails.cwflzw : ''}`,
+                        `财物状态：${itemDetails && itemDetails.wpzt ? itemDetails.wpzt : ''}`, `库房信息：${itemDetails && itemDetails.szkf ? itemDetails.szkf : ''}`,
+                        `案件名称：${itemDetails && itemDetails.ajmc ? itemDetails.ajmc : ''}`, `办案单位：${itemDetails && itemDetails.badw ? itemDetails.badw : ''}`,
                     ];
                     res.detail = detail;
                     if (type === 3) {
@@ -354,7 +364,7 @@ export default class Index extends PureComponent {
                                     record: res,
                                     itemDetails: data,
                                     id: res && res.system_id ? res.system_id : '1',
-                                    from: '涉案物品预警',
+                                    from: '涉案财物预警',
                                     fromPath: '/articlesInvolved/ArticlesWarning',
                                     tab: '表格'
                                 },
@@ -367,7 +377,7 @@ export default class Index extends PureComponent {
                                 query: {
                                     record: res,
                                     id: res && res.system_id ? res.system_id : '1',
-                                    from: '涉案物品预警',
+                                    from: '涉案财物预警',
                                     tzlx: 'wpxx',
                                     fromPath: '/articlesInvolved/ArticlesWarning',
                                     detail,
@@ -596,12 +606,12 @@ export default class Index extends PureComponent {
                 dataIndex: 'yjlxmc',
             },
             {
-                title: '物品名称',
+                title: '财物名称',
                 dataIndex: 'wpmc',
             },
             {
-                title: '物品种类',
-                dataIndex: 'wplx_mc',
+                title: '财物分类',
+                dataIndex: 'cwflzw',
             },
             {
                 title: '预警内容',
@@ -672,11 +682,11 @@ export default class Index extends PureComponent {
         // let detail = (
         //   <Row style={{ width: '90%', margin: '0 38px 10px', lineHeight: '36px', color: 'rgba(0, 0, 0, 0.85)' }}>
         //     <Col
-        //       span={6}>物品名称：{this.state.itemDetails && this.state.itemDetails.wpmc ? this.state.itemDetails.wpmc : ''}</Col>
+        //       span={6}>财物名称：{this.state.itemDetails && this.state.itemDetails.wpmc ? this.state.itemDetails.wpmc : ''}</Col>
         //     <Col
-        //       span={6}>物品种类：{this.state.itemDetails && this.state.itemDetails.wpzlName ? this.state.itemDetails.wpzlName : ''}</Col>
+        //       span={6}>财物分类：{this.state.itemDetails && this.state.itemDetails.wpzlName ? this.state.itemDetails.wpzlName : ''}</Col>
         //     <Col
-        //       span={6}>物品状态：{this.state.itemDetails && this.state.itemDetails.wpzt ? this.state.itemDetails.wpzt : ''}</Col>
+        //       span={6}>财物状态：{this.state.itemDetails && this.state.itemDetails.wpzt ? this.state.itemDetails.wpzt : ''}</Col>
         //     <Col span={6}>库房信息：<Tooltip
         //       title={this.state.itemDetails && this.state.itemDetails.szkf && this.state.itemDetails.szkf.length > 8 ? this.state.itemDetails.szkf : null}>{this.state.itemDetails && this.state.itemDetails.szkf ? this.state.itemDetails.szkf.length > 8 ? this.state.itemDetails.szkf.substring(0, 8) + '...' : this.state.itemDetails.szkf : ''}</Tooltip></Col>
         //     <Col span={12}>关联案件名称：<Tooltip
@@ -803,7 +813,7 @@ export default class Index extends PureComponent {
                     />
                     {/*<RemindModal caseDetails={this.state.caseDetails} txVisible={this.state.txVisible}*/}
                     {/*detail={detail} handleCancel={this.handleCancel} txItem={this.state.txItem}*/}
-                    {/*yjmc="涉案物品预警" getResult={() => this.getDossier({*/}
+                    {/*yjmc="涉案财物预警" getResult={() => this.getDossier({*/}
                     {/*currentPage: this.state.current,*/}
                     {/*pd: this.state.formValues,*/}
                     {/*})}/>*/}

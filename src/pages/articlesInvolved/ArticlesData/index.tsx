@@ -1,5 +1,5 @@
 /*
- * ItemRealData/index.js 涉案物品数据
+ * ItemRealData/index.js 涉案财物数据
  * author：jhm
  * 20180605
  * */
@@ -7,17 +7,17 @@
 import React, {PureComponent} from 'react';
 import {connect} from 'dva';
 import {
-    Row,
-    Col,
-    Form,
-    Select,
-    message,
-    Input,
-    Button,
-    DatePicker,
-    Tabs,
-    TreeSelect,
-    Icon,
+  Row,
+  Col,
+  Form,
+  Select,
+  message,
+  Input,
+  Button,
+  DatePicker,
+  Tabs,
+  TreeSelect,
+  Icon, Cascader,
 } from 'antd';
 import styles from '../../common/listPage.less';
 import RenderTable from '../../../components/ItemRealData/RenderTable';
@@ -165,13 +165,12 @@ export default class Index extends PureComponent {
             },
         });
     };
-    // 获取物品种类
+    // 获取分类
     getItemsTypesDict = () => {
         this.props.dispatch({
-            type: 'common/getDictType',
+            type: 'itemData/findSacwbSysDictTreeByPcode',
             payload: {
-                appCode: window.configUrl.appCode,
-                code: '5308000',
+              dict_scode:'009'
             },
         });
     };
@@ -305,9 +304,12 @@ export default class Index extends PureComponent {
         const values = this.props.form.getFieldsValue();
         const rkTime = values.rksj;
         const djTime = values.djsj;
+        console.log('values.wplx',values.wplx)
         const formValues = {
             wpmc: values.wpmc ? values.wpmc.trim() : '',
-            wplx: values.wplx || '',
+            wpzlcode1:values.wplx&&values.wplx[0] ? values.wplx[0].toString() : '',
+            wpzlcode2:values.wplx&&values.wplx[1] ? values.wplx[1].toString() : '',
+            wpzlcode3:values.wplx&&values.wplx[2] ? values.wplx[2].toString() : '',
             ajbh: values.ajbh ? values.ajbh.trim() : '',
             szkf: values.szkf ?  values.szkf.trim() : '',
             ajmc: values.ajmc ? values.ajmc.trim() : '',
@@ -354,7 +356,9 @@ export default class Index extends PureComponent {
         const djTime = values.djsj;
         const formValues = {
             wpmc: values.wpmc ? values.wpmc.trim() : '',
-            wplx: values.wplx || '',
+            wpzlcode1:values.wplx&&values.wplx[0] ? values.wplx[0].toString() : '',
+            wpzlcode2:values.wplx&&values.wplx[1] ? values.wplx[1].toString() : '',
+            wpzlcode3:values.wplx&&values.wplx[2] ? values.wplx[2].toString() : '',
             ajbh: values.ajbh ? values.ajbh.trim() : '',
             szkf: values.szkf ?  values.szkf.trim() : '',
             ajmc: values.ajmc ? values.ajmc.trim() : '',
@@ -444,6 +448,7 @@ export default class Index extends PureComponent {
         const {
             form: {getFieldDecorator},
             common: {itemsTypesDict, depTree, itemsStorage, itemStatusS, itemsTypesDictNew},
+            itemData:{sacwTree},
         } = this.props;
         let itemsTypesOptions = [],
             itemsStorageOptions = [],
@@ -492,7 +497,7 @@ export default class Index extends PureComponent {
             >
                 <Row gutter={rowLayout} className={styles.searchForm}>
                     <Col {...colLayout}>
-                        <FormItem label="物品名称" {...formItemLayout}>
+                        <FormItem label="财物名称" {...formItemLayout}>
                             {getFieldDecorator('wpmc', {
                                 // initialValue: this.state.caseType,
                                 //rules: [{max: 32, message: '最多输入32个字！'}],
@@ -500,15 +505,25 @@ export default class Index extends PureComponent {
                         </FormItem>
                     </Col>
                     <Col {...colLayout}>
-                        <FormItem label="物品种类" {...formItemLayout}>
+                        <FormItem label="财物分类" {...formItemLayout}>
                             {getFieldDecorator('wplx', {
                                 initialValue: this.state.wplx,
                             })(
-                                <Select placeholder="请选择" style={{width: '100%'}}
-                                        getPopupContainer={() => document.getElementById('sawpsjtableListForm')}>
-                                    <Option value="">全部</Option>
-                                    {itemsTypesOptions}
-                                </Select>,
+                              <Cascader
+                                options={sacwTree}
+                                placeholder="请选择分类"
+                                changeOnSelect={true}
+                                getPopupContainer={() => document.getElementById('sawpsjtableListForm')}
+                                fieldNames={{label: 'dict_name', value: 'dict_code'}}
+                                showSearch={
+                                  {
+                                    filter: (inputValue, path) => {
+                                      return (path.some(items => (items.dict_name).indexOf(inputValue) > -1));
+                                    },
+                                    limit: 5,
+                                  }
+                                }
+                              />,
                             )}
                         </FormItem>
                     </Col>
@@ -552,7 +567,7 @@ export default class Index extends PureComponent {
                         </FormItem>
                     </Col>
                     <Col {...colLayout}>
-                        <FormItem label="物品状态" {...formItemLayout}>
+                        <FormItem label="财物状态" {...formItemLayout}>
                             {getFieldDecorator('wpzt', {
                                 initialValue: this.state.wpzt,
                             })(

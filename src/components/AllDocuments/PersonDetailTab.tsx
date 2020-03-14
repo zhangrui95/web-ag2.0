@@ -95,7 +95,7 @@ export default class PersonDetailTab extends PureComponent {
             />
         );
     };
-    // 涉案物品List
+    // 涉案财物List
     showSawpList = (sawpList) => {
         let dark = this.props.global && this.props.global.dark;
         return (
@@ -117,7 +117,7 @@ export default class PersonDetailTab extends PureComponent {
                 }}
                 dataSource={sawpList}
                 grid={{
-                    gutter: 32, xs: 1, sm: 2, md: 4, lg: 4,
+                    gutter: 16, xs: 1, sm: 2, md: 4, lg: 4,
                 }}
                 className={styles.listItem}
                 style={{color: '#faa'}}
@@ -127,17 +127,17 @@ export default class PersonDetailTab extends PureComponent {
                             <div className={styles.listItemContents} style={{overflow:'hidden'}}>
                                 <div className={styles.sawpImg} style={{float:'left'}}>
                                     <img
-                                        width="90"
-                                        src={item && item.imageList && item.imageList.length > 0 ? item.imageList[0].imageurl : dark ? nophoto : nophotoLight}
+                                        width='90' height='90'
+                                        src={item && item.imageList && item.imageList.length > 0&&item.imageList[0].url ? item.imageList[0].url : dark ? nophoto : nophotoLight}
                                     />
                                 </div>
-                                <div className={styles.sawpName} style={{float:'left',marginTop:20}}>
-                                    <div className={styles.sawpName1}>物品名称：<Tooltip
+                                <div className={styles.sawpName} style={{float:'left',margin:'12px 0 0 10px'}}>
+                                    <div className={styles.sawpName1}>财物名称：<Tooltip
                                         overlayStyle={{wordBreak: 'break-all'}}
                                         title={item.wpmc}>{item.wpmc}</Tooltip></div>
-                                    <div className={styles.sawpName1}>物品种类：<Tooltip
+                                    <div className={styles.sawpName1}>财物分类：<Tooltip
                                         overlayStyle={{wordBreak: 'break-all'}}
-                                        title={item.wpzlMc}>{item.wpzlMc}</Tooltip></div>
+                                        title={item.cwflzw}>{item.cwflzw}</Tooltip></div>
                                 </div>
                             </div>
                             <div className={styles.operationButton}
@@ -159,11 +159,6 @@ export default class PersonDetailTab extends PureComponent {
             {
                 title: '办案区名称',
                 dataIndex: 'haName',
-                render: (text) => {
-                    return (
-                        text ? <Ellipsis length={20} tooltip>{text}</Ellipsis> : ''
-                    );
-                },
             },
             {
                 title: '入区时间',
@@ -200,11 +195,6 @@ export default class PersonDetailTab extends PureComponent {
             {
                 title: '卷宗名称',
                 dataIndex: 'jzmc',
-                render: (text) => {
-                    return (
-                        text ? <Ellipsis length={20} tooltip>{text}</Ellipsis> : ''
-                    );
-                },
             },
             {
                 title: '卷宗类别',
@@ -237,11 +227,6 @@ export default class PersonDetailTab extends PureComponent {
             {
                 title: '物品名称',
                 dataIndex: 'wpName',
-                render: (text) => {
-                    return (
-                        text ? <Ellipsis length={20} tooltip>{text}</Ellipsis> : ''
-                    );
-                },
             },
             {
                 title: '数量',
@@ -422,7 +407,7 @@ export default class PersonDetailTab extends PureComponent {
                                 />
                             </div>
                         </TabPane>
-                        <TabPane tab="涉案物品" key="7" forceRender className='Namesaxx7'>
+                        <TabPane tab="涉案财物" key="7" forceRender className='Namesaxx7'>
                             <div className={styles.tabDiv}>
                                 {this.showSawpList(caseData.sawpList || [])}
                             </div>
@@ -611,7 +596,7 @@ export default class PersonDetailTab extends PureComponent {
                     </div>
 
                     <div className='tabDiv7'>
-                        <div className={styles.titleHide}>涉案物品</div>
+                        <div className={styles.titleHide}>涉案财物</div>
                         <div className={styles.tabDiv}>
                             {this.showSawpList(caseData.sawpList || [])}
                         </div>

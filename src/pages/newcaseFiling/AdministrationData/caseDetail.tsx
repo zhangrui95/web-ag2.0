@@ -55,7 +55,7 @@ export default class caseDetail extends PureComponent {
       res = JSON.parse(sessionStorage.getItem('query')).query.record;
     }
     this.state = {
-      current: 1, // 涉案物品默认在第一页
+      current: 1, // 涉案财物默认在第一页
       jqcurrent: 1, // 警情信息默认在第一页
       wpcurrent: 1, // 物品信息默认在第一页
       areacurrent: 1, // 人员再区情况默认在第一页
@@ -417,8 +417,7 @@ export default class caseDetail extends PureComponent {
               {isDb &&
               caseDetails &&
               caseDetails.zrdwList &&
-              caseDetails.zrdwList.length > 0 &&
-              caseDetails.ssmk === '2' ? (
+              caseDetails.zrdwList.length > 0 ? (
                 <Button
                   type="primary"
                   className={styles.TopMenu}
@@ -524,7 +523,7 @@ export default class caseDetail extends PureComponent {
     //         />
     //     </div>
     // );
-    // const AddNewDetail = { title: '涉案物品详情', content: divs, key: system_id };
+    // const AddNewDetail = { title: '涉案财物详情', content: divs, key: system_id };
     // this.props.newDetail(AddNewDetail);
   };
 
@@ -742,7 +741,7 @@ export default class caseDetail extends PureComponent {
                     : 'linear-gradient(to right, #3D63D1, #333FE4)',
                 }}
               >
-                查看涉案物品
+                查看涉案财物
               </Button>
             </div>
           ) : (
@@ -995,7 +994,7 @@ export default class caseDetail extends PureComponent {
     ];
     const WpColumns = [
       {
-        title: '物品名称',
+        title: '财物名称',
         dataIndex: 'wpmc',
         render: text => {
           return text ? (
@@ -1008,8 +1007,8 @@ export default class caseDetail extends PureComponent {
         },
       },
       {
-        title: '物品种类',
-        dataIndex: 'wpzlMc',
+        title: '财物分类',
+        dataIndex: 'cwflzw',
         render: text => {
           return text ? (
             <Ellipsis length={20} tooltip>
@@ -1280,7 +1279,7 @@ export default class caseDetail extends PureComponent {
         {/*</Modal>*/}
         {/*<Modal*/}
         {/*visible={resvisible}*/}
-        {/*title="涉案物品信息"*/}
+        {/*title="涉案财物信息"*/}
         {/*centered*/}
         {/*className={styles.policeModal}*/}
         {/*width={1000}*/}
