@@ -48,7 +48,7 @@ export default {
   layout: 'sidemenu',
   // layout: 'topmenu',
   contentWidth: 'Fluid',
-  fixedHeader: false,
+  fixedHeader: true,
   autoHideHeader: false,
   fixSiderbar: false,
   // colorWeak: false,
