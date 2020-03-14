@@ -131,7 +131,7 @@ export default class PersonDetailTab extends PureComponent {
                                         src={item && item.imageList && item.imageList.length > 0&&item.imageList[0].url ? item.imageList[0].url : dark ? nophoto : nophotoLight}
                                     />
                                 </div>
-                                <div className={styles.sawpName} style={{float:'left',marginTop:12}}>
+                                <div className={styles.sawpName} style={{float:'left',margin:'12px 0 0 10px'}}>
                                     <div className={styles.sawpName1}>财物名称：<Tooltip
                                         overlayStyle={{wordBreak: 'break-all'}}
                                         title={item.wpmc}>{item.wpmc}</Tooltip></div>
