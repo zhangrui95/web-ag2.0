@@ -1,5 +1,5 @@
 /*
- * PersonWoods/index.tsx 涉案物品信息
+ * PersonWoods/index.tsx 涉案财物信息
  * author：jhm
  * 20191213
  * */
@@ -75,7 +75,7 @@ export default class SaWoodMessage extends PureComponent {
                         <div className={styles.woodNameThird}>
                             <Row gutter={{md: 8, lg: 24, xl: 48}}>
                                 <Col md={24} sm={24}>
-                                    <div className={styles.break1}>物品名称：{pane.wpName}</div>
+                                    <div className={styles.break1}>财物名称：{pane.wpName}</div>
                                 </Col>
                             </Row>
                             <Row gutter={{md: 8, lg: 24, xl: 48}}>

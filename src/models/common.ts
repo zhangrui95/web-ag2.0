@@ -36,8 +36,8 @@ export default {
         deptrees: [], // 机构及管辖树
         involvedType: [], // 人员类型
         rqyyType: [], //入区原因
-        itemsTypesDict: [], // 物品种类
-        itemsTypesDictNew: [], // 物品种类新版
+        itemsTypesDict: [], // 财物分类
+        itemsTypesDictNew: [], // 分类新版
         WtlxSawpTypeData: [],
         problemTypeDict: [],
         jqproblemTypeDict: [],
@@ -140,14 +140,14 @@ export default {
                 });
             }
             if (payload.code === '2008' || payload.code === '5308000') {
-                // 获取物品种类
+                // 获取分类
                 yield put({
                     type: 'itemsTypes',
                     payload: response && response.error === null ? response.data : [],
                 });
             }
             if (payload.code === '501133' || payload.code === '5308000' ) {
-                // 获取物品种类新版
+                // 获取分类新版
                 yield put({
                     type: 'itemsTypesNew',
                     payload: response && response.error === null ? response.data : [],
@@ -174,7 +174,7 @@ export default {
                 }
             }
             if (payload.code === '2017') {
-                //获取涉案物品的问题类型
+                //获取涉案财物的问题类型
                 yield put({
                     type: 'returnSawpTypeDict',
                     payload: response && response.error === null ? response.data : [],
@@ -227,14 +227,14 @@ export default {
                 });
             }
             if (payload.code === '5308'|| payload.code === '5308000') {
-                // 物品种类
+                // 财物分类
                 yield put({
                     type: 'setSearchWpzl',
                     payload: response && response.error === null ? response.data : [],
                 });
             }
             if (payload.code === '5315' || payload.code === '5315000' ) {
-                // 物品状态
+                // 财物状态
                 yield put({
                     type: 'setSearchWpzt',
                     payload: response && response.error === null ? response.data : [],

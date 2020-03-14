@@ -94,7 +94,17 @@ export default class Index extends PureComponent {
           },
       });
   }
-
+  componentWillReceiveProps(nextProps) {
+    if (this.props.global.isResetList.isReset !== nextProps.global.isResetList.isReset && nextProps.global.isResetList.url === '/newcaseFiling/caseWarning/AdministrationWarning') {
+      const params = {
+        currentPage: this.state.current,
+        pd: {
+          ...this.state.formValues,
+        },
+      };
+      this.getDossier(params);
+    }
+  }
   // 切换tab
   onTabChange = activeKey => {
     this.setState({
@@ -812,7 +822,7 @@ export default class Index extends PureComponent {
     };
     return (
       <div className={this.props.global && this.props.global.dark ? '' : styles.lightBox}>
-        <div className={styles.tableListForm} id="newslaxzajgjtableListForm">
+        <div className={styles.tableListForm} id="newslaxzajyjtableListForm">
           <Form
             onSubmit={this.handleSearch}
             style={{ height: this.state.searchHeight ? 'auto' : '50px' }}
@@ -826,7 +836,7 @@ export default class Index extends PureComponent {
                     <Select
                       placeholder="请选择"
                       style={{ width: '100%' }}
-                      getPopupContainer={() => document.getElementById('newslaxzajgjtableListForm')}
+                      getPopupContainer={() => document.getElementById('newslaxzajyjtableListForm')}
                     >
                       <Option value="">全部</Option>
                       {/*<Option value="5025902">未结案（30日办理延期）</Option>*/}
@@ -846,7 +856,7 @@ export default class Index extends PureComponent {
                     <Select
                       placeholder="请选择"
                       style={{ width: '100%' }}
-                      getPopupContainer={() => document.getElementById('newslaxzajgjtableListForm')}
+                      getPopupContainer={() => document.getElementById('newslaxzajyjtableListForm')}
                     >
                       <Option value="">全部</Option>
                       {YJJBStatusOptions}
@@ -874,7 +884,7 @@ export default class Index extends PureComponent {
                       disabledDate={this.disabledDate}
                       style={{ width: '100%' }}
                       getCalendarContainer={() =>
-                        document.getElementById('newslaxzajgjtableListForm')
+                        document.getElementById('newslaxzajyjtableListForm')
                       }
                     />,
                   )}

@@ -71,7 +71,7 @@ const { confirm } = Modal;
 @Form.create()
 export default class unareaDetail extends PureComponent {
   state = {
-    ajWoodCurrent: 1, // 涉案物品信息默认在第一页
+    ajWoodCurrent: 1, // 涉案财物信息默认在第一页
     ssWoodCurrent: 1, // 随身信息默认在第一页
     left: '0',
     trailLeft: '0',
@@ -99,7 +99,7 @@ export default class unareaDetail extends PureComponent {
     systemId: '',
     ssWpList: false,
     SsWpId: '', // 弹出随身物品详情弹窗时默认选中的状态
-    isState: '0', // 是随身物品信息还是涉案物品信息，0是随身，1是涉案
+    isState: '0', // 是随身物品信息还是涉案财物信息，0是随身，1是涉案
     reformModal: false, // 确认整改完成的判定state
     dbid: '',
     sureChange: false, // 点击确认整改完毕时，如果点击过，判断过程的loading状态；
@@ -1237,7 +1237,7 @@ export default class unareaDetail extends PureComponent {
     // const { UnareaData:{ UnareaDetail } } = this.props;
     const ajWoodColumns = [
       {
-        title: '物品名称',
+        title: '财物名称',
         dataIndex: 'wpName',
         render: record => {
           return record && record.length <= 20 ? (
@@ -1829,7 +1829,7 @@ export default class unareaDetail extends PureComponent {
             pagination={{
               pageSize: 3,
               showTotal: (total, range) => (
-                <div style={{ color: '#b7b7b7' }}>
+                <div style={{ color: '#999' }}>
                   共 {Math.ceil(total / 3)} 页， {total} 条记录
                 </div>
               ),
@@ -1857,7 +1857,7 @@ export default class unareaDetail extends PureComponent {
               paddingLeft: '16px',
             }}
           >
-            涉案物品信息
+            涉案财物信息
           </div>
         </div>
         <div className={styles.tablemessage} style={{ padding: '0 24px 24px' }}>
@@ -1869,7 +1869,7 @@ export default class unareaDetail extends PureComponent {
             pagination={{
               pageSize: 3,
               showTotal: (total, range) => (
-                <div style={{ color: '#b7b7b7' }}>
+                <div style={{ color: '#999' }}>
                   共 {Math.ceil(total / 3)} 页， {total} 条记录
                 </div>
               ),

@@ -99,6 +99,7 @@ export default class Index extends PureComponent {
       tjnr: '3',
       tjnrXm: '0',
       tjnrRedio: '3',
+      tjnrCode: '0',
       isSearch: false,
       reset: false,
       treeDefaultExpandedKeys: [], // 办案单位树默认展开keys

@@ -57,7 +57,7 @@ const { confirm } = Modal;
 }))
 export default class uncaseDetail extends PureComponent {
   state = {
-    current: 1, // 涉案物品默认在第一页
+    current: 1, // 涉案财物默认在第一页
     jqcurrent: 1, // 警情信息默认在第一页
     left: '0',
     trailLeft: '0',
@@ -674,7 +674,7 @@ export default class uncaseDetail extends PureComponent {
     //         />
     //     </div>
     // );
-    // const AddNewDetail = { title: '涉案物品详情', content: divs, key: systemId };
+    // const AddNewDetail = { title: '涉案财物详情', content: divs, key: systemId };
     // this.props.newDetail(AddNewDetail);
   };
 
@@ -696,7 +696,7 @@ export default class uncaseDetail extends PureComponent {
             ? {
                 pageSize: 8,
                 showTotal: (total, range) => (
-                  <div style={{ color: '#b7b7b7' }}>
+                  <div style={{ color: '#999' }}>
                     共 {total} 条记录， 第 {this.state.current} / {Math.ceil(total / 8)} 页
                   </div>
                 ),
@@ -716,15 +716,15 @@ export default class uncaseDetail extends PureComponent {
               </div>
               <div className={styles.sawpName}>
                 <div className={styles.sawpName1}>
-                  物品名称：
+                  财物名称：
                   <Tooltip overlayStyle={{ wordBreak: 'break-all' }} title={item.wpmc}>
                     {item.wpmc}
                   </Tooltip>
                 </div>
                 <div className={styles.sawpName1}>
-                  物品种类：
-                  <Tooltip overlayStyle={{ wordBreak: 'break-all' }} title={item.wpzlMc}>
-                    {item.wpzlMc}
+                  财物分类：
+                  <Tooltip overlayStyle={{ wordBreak: 'break-all' }} title={item.cwflzw}>
+                    {item.cwflzw}
                   </Tooltip>
                 </div>
               </div>
@@ -902,7 +902,7 @@ export default class uncaseDetail extends PureComponent {
             pagination={{
               pageSize: 3,
               showTotal: (total, range) => (
-                <div style={{ color: '#b7b7b7' }}>
+                <div style={{ color: '#999' }}>
                   共 {Math.ceil(total / 3)} 页， {total} 条记录
                 </div>
               ),
@@ -1030,7 +1030,7 @@ export default class uncaseDetail extends PureComponent {
               paddingLeft: '16px',
             }}
           >
-            涉案物品
+            涉案财物
           </div>
         </div>
         <div className={styles.tablemessage}>

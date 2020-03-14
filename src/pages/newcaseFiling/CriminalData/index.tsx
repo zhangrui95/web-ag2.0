@@ -389,6 +389,7 @@ export default class Index extends PureComponent {
             larq: null,
             linkToAjzt: null,
             isY: '0',
+            statusDate:'102',
         });
         const obj = {
             pd: {

@@ -1,5 +1,5 @@
 /*
- * CaseItemCount.js 智慧案管大屏---涉案物品数量funnel
+ * CaseItemCount.js 智慧案管大屏---涉案财物数量funnel
  * author：lyp
  * 20181120
  * */
@@ -39,7 +39,7 @@ export default class CaseItemCount extends PureComponent {
     }
   }
 
-  // 获取涉案物品数量
+  // 获取涉案财物数量
   getCaseItemCount = (startTime, endTime, org, orgCode, orglist) => {
     const { shadeColors } = this.props;
     this.props.dispatch({
@@ -90,7 +90,7 @@ export default class CaseItemCount extends PureComponent {
             num = num + parseInt(dataList[i].count);
             maxNum = maxNum > dataList[i].count ? maxNum : dataList[i].count;
           }
-          this.props.getAllNum(this.props.idx, num, '涉案物品数量');
+          this.props.getAllNum(this.props.idx, num, '涉案财物数量');
           // maxNum = maxNum + 100;
           myChart.setOption({
             legend: {
@@ -113,7 +113,7 @@ export default class CaseItemCount extends PureComponent {
 
     const option = {
       title: {
-        text: '涉案物品数量',
+        text: '涉案财物数量',
         textStyle: {
           color: '#66ccff',
           fontSize: 20,

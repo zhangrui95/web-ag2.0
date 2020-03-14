@@ -140,7 +140,7 @@ export default class PersonalDocDetail extends PureComponent {
             }),
         );
     };
-    // 涉案物品详情
+    // 涉案财物详情
     SaWpdeatils = (record) => {
         this.props.dispatch(
             routerRedux.push({
@@ -222,7 +222,7 @@ export default class PersonalDocDetail extends PureComponent {
                     target: '随身物品' + i
                 }, {
                     source: this.formatter(ajxx[i].ajmc) + i,
-                    target: '涉案物品' + i
+                    target: '涉案财物' + i
                 }, {
                     source: this.formatter(ajxx[i].ajmc) + i,
                     target: '相关卷宗' + i
@@ -283,8 +283,8 @@ export default class PersonalDocDetail extends PureComponent {
                         x: ssX,
                         y: ssY
                     }, {
-                        name: '涉案物品',
-                        id: '涉案物品' + i,
+                        name: '涉案财物',
+                        id: '涉案财物' + i,
                         attributes: {
                             modularity_class: 7,
                         },
@@ -395,7 +395,7 @@ export default class PersonalDocDetail extends PureComponent {
                 if (caseData.sawpList && caseData.sawpList.length > 0) {
                     caseData.sawpList.forEach((item, index) => {
                         link.push({
-                            source: '涉案物品' + i,
+                            source: '涉案财物' + i,
                             target: this.formatter(item.wpmc) + index + i,
                         });
                         datas.push({
@@ -458,7 +458,7 @@ export default class PersonalDocDetail extends PureComponent {
             {
                 name: '随身物品',    //类目名称
             }, {
-                name: '涉案物品',    //类目名称
+                name: '涉案财物',    //类目名称
             }, {
                 name: '相关卷宗',    //类目名称
             },
@@ -480,7 +480,7 @@ export default class PersonalDocDetail extends PureComponent {
             node.symbol = node.attributes.modularity_class === 0 ? `image://${user}` :
                 node.attributes.modularity_class === 1 ? `image://${aj}` :
                     node.name === '同案人' ? `image://${tar}` :
-                        node.name === "随身物品" || node.name === "涉案物品" ? `image://${wp}` :
+                        node.name === "随身物品" || node.name === "涉案财物" ? `image://${wp}` :
                             node.name === "强制措施记录" ? `image://${qzcsjl}` :
                                 node.name === "行政处罚记录" ? `image://${xzcfjl}` :
                                      node.name === "历史入区信息" ? `image://${rqjl}` :

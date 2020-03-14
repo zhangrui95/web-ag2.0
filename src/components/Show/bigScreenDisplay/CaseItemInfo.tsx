@@ -1,5 +1,5 @@
 /*
-* CaseItemInfo.js 智慧案管大屏---涉案物品数据
+* CaseItemInfo.js 智慧案管大屏---涉案财物数据
 * author：lyp
 * 20190116
 * */
@@ -28,7 +28,7 @@ export default class CaseItemInfo extends PureComponent {
         }
     }
 
-    // 涉案物品数据
+    // 涉案财物数据
     getCaseItemInfo = (startTime, endTime, org, orgCode, orglist) => {
         this.props.dispatch({
             type: 'show/getCaseItemInfo',
@@ -53,7 +53,7 @@ export default class CaseItemInfo extends PureComponent {
                         if (data[i].name === '库房占用率') storeHouseUseRate = data[i].count;
                     }
                     num = parseInt(itemCount) + parseInt(itemDisposeRate) + parseInt(storeHouseCount) + parseInt(storeHouseUseRate);
-                    this.props.getAllNum(this.props.idx, num, '涉案物品数据');
+                    this.props.getAllNum(this.props.idx, num, '涉案财物数据');
                     this.setState({
                         itemCount,
                         itemDisposeRate,
@@ -69,7 +69,7 @@ export default class CaseItemInfo extends PureComponent {
         const {itemCount, itemDisposeRate, storeHouseCount, storeHouseUseRate} = this.state;
         return (
             <div id="CaseItemInfo" style={{height: '100%', width: '100%'}}>
-                <h4 className={styles.cardTitle}>涉案物品数据</h4>
+                <h4 className={styles.cardTitle}>涉案财物数据</h4>
                 <div className={styles.cardContent}>
                     <div className={styles.pinkFull}>
                         <div>物品总数</div>

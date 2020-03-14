@@ -260,7 +260,7 @@ class RenderTable extends PureComponent {
                         let arry = text.split(',');
                         const num = arry.length - 1;
                         return (
-                            <Ellipsis tooltip length='7'>{arry[num]}</Ellipsis>
+                            <Ellipsis tooltip lines={2}>{arry[num]}</Ellipsis>
                         );
                     }
                 },

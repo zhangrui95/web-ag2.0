@@ -1,5 +1,5 @@
 /*
- * ItemDataView.js 涉案物品数据展示
+ * ItemDataView.js 涉案财物数据展示
  * author：jhm
  * 20181112
  * */
@@ -51,6 +51,7 @@ export default class ItemDataView extends PureComponent {
     selectedDateData: 0, // 头部统计警情总数——手动选择日期
     typeLabel: '', // 通过时间判断趋势是什么类型；'天','周','月','年'
     qsTime: '', // 确认点击的是本周、前一周、前两周还是本月、前一月、前两月
+    rkqkIsNull:false,
   };
 
   componentDidMount() {
@@ -203,7 +204,7 @@ export default class ItemDataView extends PureComponent {
     return [startTime, endTime];
   };
 
-  // 获取涉案物品数量图表统计
+  // 获取涉案财物数量图表统计
   getItemNumCount(startTime, endTime, orgcode = this.props.orgcode) {
     this.props.dispatch({
       type: 'itemData/itemDataView',
@@ -280,7 +281,7 @@ export default class ItemDataView extends PureComponent {
     });
   }
 
-  // 获取涉案物品出入库情况图表统计
+  // 获取涉案财物出入库情况图表统计
   getItemCRKCount(startTime, endTime, wpStatus, orgcode = this.props.orgcode) {
     this.props.dispatch({
       type: 'itemData/itemCRKDataView',
@@ -297,6 +298,9 @@ export default class ItemDataView extends PureComponent {
           const newData1 = [];
           const newDataNum = [];
           const data1 = data.list;
+          this.setState({
+            rkqkIsNull:data1.length > 0 ? false : true,
+          });
           const dataShadow = [];
           for (let a = 0; a < data1.length; a++) {
             const legendData = data1[a].name;
@@ -304,14 +308,19 @@ export default class ItemDataView extends PureComponent {
               name: data1[a].name,
               value: data1[a].count,
               code: a + 1,
+              wpzlcode1:parseInt(data1[a].wpzlcode1),
+              wpzlcode2:parseInt(data1[a].wpzlcode2),
+              wpzlcode3:parseInt(data1[a].wpzlcode3),
             };
             newDataNum.push(data1[a].count);
             newData.push(legendData);
             newData1.push(seriesData);
           }
-          let yMax = Math.max(...newDataNum);
+          let yMax = newDataNum.length > 0 ? Math.max(...newDataNum) : 0;
           if (yMax < 5) {
             yMax = 5;
+          }else {
+            yMax = undefined;
           }
           for (let i = 0; i < data1.length; i++) {
             dataShadow.push({ value: yMax, code: i + 1 });
@@ -758,7 +767,7 @@ export default class ItemDataView extends PureComponent {
       that.props.changeToListPage(
         {
           // wplx: params.data ? params.data.code.toString() : '',
-          wplx: params.data ? params.data.name : '',
+          wplx: params.data ? [params.data.wpzlcode1,params.data.wpzlcode2,params.data.wpzlcode3] : '',
           wpzt: that.state.showrkDataViewDJ
             ? '登记'
             : that.state.showrkDataViewZK
@@ -997,6 +1006,7 @@ export default class ItemDataView extends PureComponent {
       showrkDataViewYCCK,
       wpqsNoData,
       selectedDateData,
+      rkqkIsNull
     } = this.state;
     let className =
       this.props.global && this.props.global.dark
@@ -1223,11 +1233,43 @@ export default class ItemDataView extends PureComponent {
                         paddingLeft: 10,
                     }}
                 >物品出入库情况</span></div>
-                <div
-                  id="wpcrkqk"
-                  className={styles.cardBox}
-                  style={{ width: '98%', marginLeft: '1%' }}
-                ></div>
+                <div  className={styles.cardBox}>
+                  <div
+                    id="wpcrkqk"
+                    style={{ width: '98%', marginLeft: '1%',height: '300px',display:rkqkIsNull ? 'none' : 'block' }}
+                  ></div>
+                  {
+                    rkqkIsNull ?  <div style={{ padding: 16 }}>
+                      <div
+                        style={{
+                          height: '100%',
+                          width: '100%',
+                          display: 'flex',
+                          alignItems: 'center',
+                          flexDirection: 'column',
+                          justifyContent: 'center',
+                          marginTop: this.props.global && this.props.global.dark ? 60 : 16,
+                        }}
+                      >
+                        <img
+                          src={
+                            this.props.global && this.props.global.dark ? nonDivImg : noListLight
+                          }
+                          height={this.props.global && this.props.global.dark ? 100 : 200}
+                          alt="暂无数据"
+                        />
+                        <div
+                          style={{
+                            fontSize: 18,
+                            color: this.props.global && this.props.global.dark ? '#fff' : '#999',
+                          }}
+                        >
+                          暂无数据
+                        </div>
+                      </div>
+                    </div> : ''
+                  }
+                </div>
               </Col>
             </Row>
             <Row gutter={rowLayout} className={styles.listPageRow}>

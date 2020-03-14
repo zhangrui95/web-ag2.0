@@ -169,7 +169,7 @@ export default class SuperviseModal extends PureComponent {
     });
   }
 
-  // 涉案物品问题类型字典
+  // 涉案财物问题类型字典
   dicType4() {
     this.props.dispatch({
       type: 'common/getDictType',
@@ -216,7 +216,7 @@ export default class SuperviseModal extends PureComponent {
         from === '刑事案件详情问题判定' ||
         from === '行政案件详情问题判定' ||
         from === '办案区详情问题判定' ||
-        from === '涉案物品详情问题判定' ||
+        from === '涉案财物详情问题判定' ||
         from === '卷宗详情问题判定'
       ) {
         if (
@@ -350,27 +350,33 @@ export default class SuperviseModal extends PureComponent {
         },
       });
     } else {
+      let payload = {
+        wjxx,
+        ag_id: record.id,
+        system_id: record.system_id,
+        wtfl_id: wtflId,
+        wtfl_mc: wtflMc,
+        wtlx_id: values.wtlx.split(',')[1],
+        wtlx_mc: values.wtlx.split(',')[0],
+        zgyj: values.zgyj,
+        zrr_dwid: newdbzrdwid,
+        zrr_dwmc: newdbzrdw,
+        zrr_name: newdbzrr,
+        zrr_sfzh: newdbzrrsfzh,
+        zrr_jh: newdbzrrjh,
+        ajbh: record && record.ajbh ? record.ajbh : '',
+        ajmc: record && record.ajmc ? record.ajmc : '',
+        cljg_mc: this.state.gqType ? '挂起' : '',
+        cljg_yy: values.gqyy ? values.gqyy : '',
+      };
+      if(wtflMc === '警情'){
+        payload.jjsj = record.jjsj ? record.jjsj : '';
+      }else if(wtflMc === '行政案件'){
+        payload.slrq = record.slrq ? record.slrq : '';
+      }
       this.props.dispatch({
         type: 'CaseData/CaseSureSupervise',
-        payload: {
-          wjxx,
-          ag_id: record.id,
-          system_id: record.system_id,
-          wtfl_id: wtflId,
-          wtfl_mc: wtflMc,
-          wtlx_id: values.wtlx.split(',')[1],
-          wtlx_mc: values.wtlx.split(',')[0],
-          zgyj: values.zgyj,
-          zrr_dwid: newdbzrdwid,
-          zrr_dwmc: newdbzrdw,
-          zrr_name: newdbzrr,
-          zrr_sfzh: newdbzrrsfzh,
-          zrr_jh: newdbzrrjh,
-          ajbh: record && record.ajbh ? record.ajbh : '',
-          ajmc: record && record.ajmc ? record.ajmc : '',
-          cljg_mc: this.state.gqType ? '挂起' : '',
-          cljg_yy: values.gqyy ? values.gqyy : '',
-        },
+        payload: payload,
         callback: data => {
           // message.success('问题判定保存完成');
           this.setState({
@@ -541,7 +547,7 @@ export default class SuperviseModal extends PureComponent {
           );
         }
       }
-    } else if (from === '涉案物品详情问题判定') {
+    } else if (from === '涉案财物详情问题判定') {
       if (returnsacwProblemType.length > 0) {
         for (let i = 0; i < returnsacwProblemType.length; i++) {
           const item = returnsacwProblemType[i];
@@ -729,7 +735,7 @@ export default class SuperviseModal extends PureComponent {
                   {(from && from === '刑事案件详情问题判定') ||
                   from === '行政案件详情问题判定' ||
                   from === '办案区详情问题判定' ||
-                  from === '涉案物品详情问题判定' ||
+                  from === '涉案财物详情问题判定' ||
                   from === '警情详情问题判定' ||
                   from === '卷宗详情问题判定' ? (
                     this.selectJudge()

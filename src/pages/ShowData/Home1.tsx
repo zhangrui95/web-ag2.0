@@ -310,7 +310,7 @@ export default class Home1 extends PureComponent {
                             query: {record: record, id: record && record.wt_id ? record.wt_id : '1',baqid:record && record.id ? record.id : '1',},
                         }),
                     );
-                } else if (record.wtflId === '203204') { //涉案物品告警
+                } else if (record.wtflId === '203204') { //涉案财物告警
                     this.props.dispatch(
                         routerRedux.push({
                             pathname: '/articlesInvolved/ArticlesPolice/unitemDetail',
@@ -430,15 +430,16 @@ export default class Home1 extends PureComponent {
                         dataIndex: 'ajmc',
                         key: 'ajmc',
                         render: text => (
-                            <Tooltip placement="top" title={text}>
+                          text ?  <Tooltip placement="top" title={text}>
                                 <span>{text && text.length > 15 ? text.substring(0, 15) + '...' : text}</span>
-                            </Tooltip>
+                            </Tooltip> : '未关联案件'
                         ),
                     },
                     {
                         title: '案件编号',
                         dataIndex: 'ajbh',
                         key: 'ajbh',
+                        render: text => (text ? text : '未关联案件'),
                     },
                     {
                         title: '督办状态',

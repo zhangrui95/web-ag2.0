@@ -6,13 +6,14 @@ const onlineips = {
 };
 // 开发服务模式
 const developips = {
-  ip: 'http://192.168.103.247', // 92
+  // ip: 'http://192.168.105.249', // 敏
+  ip: 'http://192.168.3.92', // 92
   baqIp: 'http://192.168.41.249', // 办案区服务地址
   maintainIp: 'http://192.168.3.92', // 运维中心地址
   aqzxIp: 'http://192.168.3.92', // 安全中心地址
   TbtjDcIp: 'http://192.168.3.245', // 图表统计导出功能地址
   downLoadIp: 'http://192.168.3.201', // 下载地址
-  jz: 'http://192.168.3.116',
+  jz: 'http://192.168.3.116',//卷宗
 };
 const ips = developModa ? developips : onlineips; // ip地址
 // 通用配置项[需配置]
@@ -21,7 +22,7 @@ const configItem = {
   sysName: '智慧法制案管系统',
   headName: '智慧法制案管系统', // 左侧导航顶部显示名称
   footName: '哈尔滨海邻科信息技术有限公司',
-  version: 'r2.0.0.20191226', // 版本号
+  version: 'r2.0.0.20200227', // 版本号
   sid: '591b1586-681e-4fce-a9b9-2c9c36717224', // 系统资源ID
   showDataTitle: '', // 大屏展示标题
   mapCityName: '', // 大屏展示地图名称（可配置项： mudanjiang/ hulunbeier/baishan/hebi/erduosi/guiLin）
@@ -31,9 +32,9 @@ const configItem = {
   isSyncBaq: true, // 办案区
   isSyncCaseOnTime: true, // 案件实时数据
   isSyncCaseCount: true, // 案件统计
-  isSyncCaseItems: true, // 涉案物品
+  isSyncCaseItems: true, // 涉案财物
   isSmartLinKey: true, // 是否登录smartlinkey客户端
-  mainlineMenu: true, // 首页是否存在办案区/涉案物品/卷宗数据
+  mainlineMenu: true, // 首页是否存在办案区/涉案财物/卷宗数据
   personQueryIndex: 'index_saryxx', // 人员索引
   itemsQueryIndex: 'index_wpxx', // 物品索引
   caseQueryIndex: 'index_ajxx', // 案件索引
@@ -45,7 +46,7 @@ const configItem = {
   is_area: '2', // 刑事案件案件类别根据不同地区调用不同的接口；1表示牡丹江,2表示平乐,0表示主线，5表示达拉特旗
   is_ssds: 'pl', // 接处警报警类别的所属地市dltq
   startTheme:true,//初始化主题深色版本true,浅色版本false,
-  is_sawpbb:'2', // 涉案物品后台数据版本;1为1.0版本,2为2.0版本;
+  is_sawpbb:'2', // 涉案财物后台数据版本;1为1.0版本,2为2.0版本;
   loginName:'执法线管理系统',//登录页面名称
 };
 // 开发模式地址

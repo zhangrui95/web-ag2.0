@@ -38,6 +38,15 @@ export async function ItemDatasView(params) {
         },
     });
 }
+// 涉案财物2.0分类字典项树结构查询
+export async function findSacwbSysDictTreeByPcode(params) {
+    return request(`${configUrl.serverUrl}/findSacwbSysDictTreeByPcode`, {
+        method: 'POST',
+        data: {
+            ...params,
+        },
+    });
+}
 
 // 物品出入库情况
 export async function ItemCRKDatasView(params) {

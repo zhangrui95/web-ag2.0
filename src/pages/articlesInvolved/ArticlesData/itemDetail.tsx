@@ -1,5 +1,5 @@
 /*
- * ItemRealData/itemDetail.js 涉案物品详情数据
+ * ItemRealData/itemDetail.js 涉案财物详情数据
  * author：jhm
  * 20180605
  * */
@@ -22,7 +22,7 @@ import {
   Menu,
   Button,
   message,
-  Carousel,
+  Carousel, Timeline, Tag,
 } from 'antd';
 // import CaseDetail from '../CaseRealData/caseDetail';
 // import XzCaseDetail from '../NewXzCaseRealData/caseDetail';
@@ -301,11 +301,11 @@ export default class itemDetail extends PureComponent {
     });
     if (type === 2) {
       let detail = [
-        `物品名称：${itemDetails && itemDetails.wpmc ? itemDetails.wpmc : ''}`,
-        `物品种类：${itemDetails && itemDetails.wpzlName ? itemDetails.wpzlName : ''}`,
-        `物品状态：${itemDetails && itemDetails.wpzt ? itemDetails.wpzt : ''}`,
+        `财物名称：${itemDetails && itemDetails.wpmc ? itemDetails.wpmc : ''}`,
+        `财物分类：${itemDetails && itemDetails.cwflzw ? itemDetails.cwflzw : ''}`,
+        `财物状态：${itemDetails && itemDetails.wpzt ? itemDetails.wpzt : ''}`,
         `库房信息：${itemDetails && itemDetails.szkf ? itemDetails.szkf : ''}`,
-        `关联案件名称：${itemDetails && itemDetails.ajmc ? itemDetails.ajmc : ''}`,
+        `案件名称：${itemDetails && itemDetails.ajmc ? itemDetails.ajmc : ''}`,
         `办案单位：${itemDetails && itemDetails.kfgly_dwmc ? itemDetails.kfgly_dwmc : ''}`,
       ];
       res.detail = detail;
@@ -438,13 +438,13 @@ export default class itemDetail extends PureComponent {
         {itemDetails ? (
           <Row gutter={{ md: 8, lg: 24, xl: 48 }}>
             <Col md={8} sm={24} style={{ minHeight: 0 }}>
-              {/*<span style={{ margin: '16px', display: 'block' }}>涉案物品详情</span>*/}
+              {/*<span style={{ margin: '16px', display: 'block' }}>涉案财物详情</span>*/}
               {isDb && itemDetails && itemDetails.zrdwList && itemDetails.zrdwList.length > 0 ? (
                 <Button
                   type="primary"
                   style={{ margin: '12px 0 12px 16px' }}
                   className={styles.TopMenu}
-                  onClick={() => this.onceSupervise(itemDetails, true, '涉案物品详情问题判定')}
+                  onClick={() => this.onceSupervise(itemDetails, true, '涉案财物详情问题判定')}
                 >
                   问题判定
                 </Button>
@@ -509,6 +509,98 @@ export default class itemDetail extends PureComponent {
     const { itemDetails, isDb } = this.state;
     const rowLayout = { md: 8, xl: 16, xxl: 24 };
     let dark = this.props.global && this.props.global.dark;
+    let stap1 = [];
+    itemDetails&&itemDetails.wpgjList&&itemDetails.wpgjList.map((item,index)=>{
+      stap1.push(
+        <Timeline.Item
+          dot={
+            <div>
+              <div
+                style={
+                  // item.dossierexceptionmc === '正常'
+                  //   ?
+                    {
+                      width: 30,
+                      height: 30,
+                      borderRadius: 30,
+                      backgroundColor: '#5858DF',
+                      textAlign: 'center',
+                      marginBottom: 7,
+                    }
+                    // : {
+                    //   width: 30,
+                    //   height: 30,
+                    //   borderRadius: 30,
+                    //   backgroundColor: 'rgb(255, 51, 102)',
+                    //   textAlign: 'center',
+                    //   marginBottom: 7,
+                    // }
+                }
+              >
+                <p style={{ paddingTop: 7, color: '#fff' }}>{itemDetails.wpgjList.length - index}</p>
+              </div>
+            </div>
+          }
+          color={
+            // item.dossierexceptionmc === '正常'
+            //   ?
+              '#00CC33'
+              // : 'rgb(255, 51, 102)'
+          }
+        >
+          <Row gutter={8} style={{ paddingLeft:20 }}>
+            <Col span={4}>
+              <Row style={{marginBottom:6}}>{item.wpzt}</Row>
+              <Row>
+                {item.sfzc ? <Tag
+                  style={
+                    item.sfzc === '0'
+                      ? {
+                        background: '#00CC33',
+                        padding: '2px 12px',
+                        textAlign: 'center',
+                        cursor: 'default',
+                        border:0,
+                      }
+                      : {
+                        background: 'rgb(255, 51, 102)',
+                        padding: '2px 12px',
+                        textAlign: 'center',
+                        cursor: 'default',
+                        border:0,
+                      }
+                  }
+                >
+                  {item.sfzc === '0' ? '正常' : item.ycmc}
+                </Tag> : ''}
+              </Row>
+            </Col>
+            <Col span={20}>
+              <Row>
+                {/*<Col md={8} sm={24} style={{marginBottom:8}}>*/}
+                {/*  <div className={styles.break}>{window.configUrl.is_area === '5' || window.configUrl.is_area === '2' ? '财物状态：' : ''}{item.wpzt}</div>*/}
+                {/*</Col>*/}
+                <Col md={8} sm={24} style={{marginBottom:8}}>
+                  <div className={styles.break}>{window.configUrl.is_area === '5' || window.configUrl.is_area === '2' ? '操作时间：' : ''}{item.czsj}</div>
+                </Col>
+                <Col md={8} sm={24} style={{marginBottom:8}}>
+                  <div className={styles.break}>{window.configUrl.is_area === '5' || window.configUrl.is_area === '2' ? '操作人：' : ''}{item.czr}</div>
+                </Col>
+                <Col md={8} sm={24} style={{marginBottom:8}}>
+                  <div className={styles.break}>{window.configUrl.is_area === '5' || window.configUrl.is_area === '2' ? '操作原因：' : ''}{item.czyy}</div>
+                </Col>
+                {/*<Col md={8} sm={24} style={{marginBottom:8}}>*/}
+                {/*  <div className={styles.break}>{window.configUrl.is_area === '5' || window.configUrl.is_area === '2' ? '归还期限：' : ''}{item.ghqx}</div>*/}
+                {/*</Col>*/}
+                <Col md={16} sm={24} style={{marginBottom:8}}>
+                  <div className={styles.break}>{window.configUrl.is_area === '5' || window.configUrl.is_area === '2' ? '存储位置：' : ''}{item.ccwz_zw}</div>
+                </Col>
+              </Row>
+            </Col>
+          </Row>
+        </Timeline.Item>,
+      );
+    })
     return (
       <div
         style={{ background: dark ? '#252c3c' : '#fff', height: autoheight() - 260 + 'px' }}
@@ -554,7 +646,7 @@ export default class itemDetail extends PureComponent {
                       <div>
                         <img
                           width="200"
-                          src={pane.imageurl ? pane.imageurl : dark ? nophoto : nophotoLight}
+                          src={pane.url ? pane.url : dark ? nophoto : nophotoLight}
                         />
                       </div>
                     ))}
@@ -566,149 +658,123 @@ export default class itemDetail extends PureComponent {
             </Col>
             <Col md={18} sm={24}>
               <div>
-                <Row gutter={{ md: 8, lg: 24, xl: 48 }}>
-                  <Col md={8} sm={24}>
-                    <div className={styles.Indexfrom}>物品名称：</div>
-                    <div className={styles.Indextail} style={{ paddingLeft: 70 }}>
-                      {itemDetails && itemDetails.wpmc ? itemDetails.wpmc : ''}
-                    </div>
-                  </Col>
-                  <Col md={8} sm={24}>
-                    <div className={styles.Indexfrom}>物品种类：</div>
-                    <div className={styles.Indextail} style={{ paddingLeft: 70 }}>
-                      {itemDetails && itemDetails.wpzlName ? itemDetails.wpzlName : ''}
-                    </div>
-                  </Col>
-                  <Col md={8} sm={24}>
-                    <div className={styles.Indexfrom}>重量：</div>
-                    <div className={styles.Indextail} style={{ paddingLeft: 42 }}>
-                      {itemDetails && itemDetails.wpzl ? itemDetails.wpzl : ''}
-                    </div>
-                  </Col>
-                </Row>
-                <Row gutter={{ md: 8, lg: 24, xl: 48 }}>
-                  <Col md={8} sm={24}>
-                    <div className={styles.Indexfrom}>物品编码：</div>
-                    <div className={styles.Indextail} style={{ paddingLeft: 70 }}>
-                      {itemDetails && itemDetails.wpbh ? itemDetails.wpbh : ''}
-                    </div>
-                  </Col>
-                  <Col md={8} sm={24}>
-                    <div className={styles.Indexfrom}>型号：</div>
-                    <div className={styles.Indextail} style={{ paddingLeft: '42px' }}>
-                      {itemDetails && itemDetails.wpxh ? itemDetails.wpxh : ''}
-                    </div>
-                  </Col>
-                  <Col md={8} sm={24}>
-                    <div className={styles.Indexfrom}>规格：</div>
-                    <div className={styles.Indextail} style={{ paddingLeft: '42px' }}>
-                      {itemDetails && itemDetails.wpgg ? itemDetails.wpgg : ''}
-                    </div>
-                  </Col>
-                </Row>
-                <Row gutter={{ md: 8, lg: 24, xl: 48 }}>
-                  <Col md={8} sm={24}>
-                    <div className={styles.Indexfrom}>物品所有人：</div>
-                    <div className={styles.Indextail} style={{ paddingLeft: '84px' }}>
+                {
+                  itemDetails && itemDetails.wpzlCode && itemDetails.wpzlCode == 1 ?   <Row gutter={{ md: 8, lg: 24, xl: 48 }} className={styles.wpxx}>
+                    <Col md={8} sm={24}>
+                      名称：{itemDetails && itemDetails.wpmc ? itemDetails.wpmc : ''}
+                    </Col>
+                    <Col md={8} sm={24}>
+                      来源：{itemDetails && itemDetails.wply ? itemDetails.wply : ''}
+                    </Col>
+                    <Col span={8}>采取措施日期：{itemDetails && itemDetails.cqcsrq ? itemDetails.cqcsrq : ''}</Col>
+                    <Col span={8}>
+                      款项分类：{itemDetails && itemDetails.wpzlname2 ? itemDetails.wpzlname2 : ''}
+                    </Col>
+                    <Col span={8}>
+                      货币/金融工具分类：{itemDetails && itemDetails.wpzlname3 ? itemDetails.wpzlname3 : ''}
+                    </Col>
+                    <Col span={8}>
+                      款项类别：{itemDetails && itemDetails.kxlbzw ? itemDetails.kxlbzw : ''}
+                    </Col>
+                    <Col span={8}>
+                      总金额：{itemDetails && itemDetails.zje ? itemDetails.zje : ''}
+                    </Col>
+                    <Col span={8}>
+                      存入账户：{itemDetails && itemDetails.crzh ? itemDetails.crzh : ''}
+                    </Col>
+                    <Col span={8}>
+                      存入日期：{itemDetails && itemDetails.crrq ? itemDetails.crrq : ''}
+                    </Col>
+                    <Col md={8} sm={24}>
+                      存入人：{itemDetails && itemDetails.crr ? itemDetails.crr : ''}
+                    </Col>
+                    <Col md={8} sm={24}>
+                      入账单据号：{itemDetails && itemDetails.rzdjh ? itemDetails.rzdjh : ''}
+                    </Col>
+                    <Col md={24} sm={24}>
+                      所在库房名称：{itemDetails && itemDetails.szkf ? itemDetails.szkf : ''}
+                    </Col>
+                    <Col md={24} sm={24}>
+                      备注：{itemDetails && itemDetails.bz ? itemDetails.bz : ''}
+                    </Col>
+                  </Row> : <Row gutter={{ md: 8, lg: 24, xl: 48 }} className={styles.wpxx}>
+                    <Col md={8} sm={24}>
+                      物品名称：{itemDetails && itemDetails.wpmc ? itemDetails.wpmc : ''}
+                    </Col>
+                    <Col md={8} sm={24}>
+                      物品来源：{itemDetails && itemDetails.wply ? itemDetails.wply : ''}
+                    </Col>
+                    <Col span={8}>采取措施日期：{itemDetails && itemDetails.cqcsrq ? itemDetails.cqcsrq : ''}</Col>
+                    <Col span={8}>
+                      物品分类：{itemDetails && itemDetails.wpzlname2 ? itemDetails.wpzlname2 : ''}
+                    </Col>
+                    <Col span={8}>
+                      三级分类：{itemDetails && itemDetails.wpzlname3 ? itemDetails.wpzlname3 : ''}
+                    </Col>
+                    <Col span={8}>
+                      是否具有财产属性：{itemDetails && itemDetails.sfyccsx ? itemDetails.sfyccsx === '1' ? '是' : '否' : ''}
+                    </Col>
+                    <Col span={8}>
+                      是否贵重物品：{itemDetails && itemDetails.sfgzwp ? itemDetails.sfgzwp=== '1' ? '是' : '否' : ''}
+                    </Col>
+                    <Col span={8}>
+                      是否易损易贬值：{itemDetails && itemDetails.sfysybz ? itemDetails.sfysybz=== '1' ? '是' : '否' : ''}
+                    </Col>
+                    <Col span={8}>
+                      唯一编号：{itemDetails && itemDetails.wpbh ? itemDetails.wpbh : ''}
+                    </Col>
+                    <Col md={8} sm={24}>
+                      重量：{itemDetails && itemDetails.wpzl ? itemDetails.wpzl : ''}
+                    </Col>
+                    <Col md={8} sm={24}>
+                      型号：{itemDetails && itemDetails.wpxh ? itemDetails.wpxh : ''}
+                    </Col>
+                    <Col md={8} sm={24}>
+                      规格：{itemDetails && itemDetails.wpgg ? itemDetails.wpgg : ''}
+                    </Col>
+                    <Col md={8} sm={24}>
+                      物品所有人：
                       <a
                         onClick={() => this.person(itemDetails)}
                         style={{ textDecoration: 'underline' }}
                       >
                         {itemDetails.syrName}
                       </a>
-                    </div>
-                  </Col>
-                  <Col md={8} sm={24}>
-                    <div className={styles.Indexfrom}>缺损特征：</div>
-                    <div className={styles.Indextail} style={{ paddingLeft: '42px' }}>
-                      {itemDetails && itemDetails.tzlx ? itemDetails.tzlx : ''}
-                    </div>
-                  </Col>
-                  <Col md={8} sm={24}>
-                    <div className={styles.Indexfrom}>数量：</div>
-                    <div className={styles.Indextail} style={{ paddingLeft: '42px' }}>
-                      {itemDetails && itemDetails.wpsl ? itemDetails.wpsl : ''}
-                    </div>
-                  </Col>
-                </Row>
-                <Row gutter={{ md: 8, lg: 24, xl: 48 }}>
-                  <Col md={8} sm={24}>
-                    <div className={styles.Indexfrom}>物品来源：</div>
-                    <div className={styles.Indextail} style={{ paddingLeft: 70 }}>
-                      {itemDetails && itemDetails.wply ? itemDetails.wply : ''}
-                    </div>
-                  </Col>
-                  {/*<Col md={8} sm={24}>*/}
-                  {/*<div className={styles.Indexfrom}>扣押原因：</div>*/}
-                  {/*<div className={styles.Indextail}*/}
-                  {/*style={{ paddingLeft: 70 }}>{itemDetails && itemDetails.kyyy ? itemDetails.kyyy : ''}</div>*/}
-                  {/*</Col>*/}
-                  {/*<Col md={8} sm={24}>*/}
-                  {/*<div className={styles.Indexfrom}>扣押时间：</div>*/}
-                  {/*<div className={styles.Indextail}*/}
-                  {/*style={{ paddingLeft: 70 }}>{itemDetails && itemDetails.kysj ? itemDetails.kysj : ''}</div>*/}
-                  {/*</Col>*/}
-                  <Col md={8} sm={24}>
-                    <div className={styles.Indexfrom}>保存期限：</div>
-                    <div className={styles.Indextail} style={{ paddingLeft: 70 }}>
-                      {itemDetails && itemDetails.bcqx ? itemDetails.bcqx : ''}
-                    </div>
-                  </Col>
-                  <Col md={8} sm={24}>
-                    <div className={styles.Indexfrom}>库房管理员：</div>
-                    <div className={styles.Indextail} style={{ paddingLeft: '84px' }}>
-                      {itemDetails && itemDetails.kfgly ? itemDetails.kfgly : ''}
-                    </div>
-                  </Col>
-                </Row>
-                <Row gutter={{ md: 8, lg: 24, xl: 48 }}>
-                  {/*<Col md={8} sm={24}>*/}
-                  {/*<div className={styles.Indexfrom}>扣押批准人：</div>*/}
-                  {/*<div className={styles.Indextail}*/}
-                  {/*style={{ paddingLeft: '84px' }}>{itemDetails && itemDetails.kypzr ? itemDetails.kypzr : ''}</div>*/}
-                  {/*</Col>*/}
-
-                  <Col md={8} sm={24}>
-                    <div className={styles.Indexfrom}>保存方式：</div>
-                    <div className={styles.Indextail} style={{ paddingLeft: 70 }}>
-                      {itemDetails && itemDetails.bcfsName ? itemDetails.bcfsName : ''}
-                    </div>
-                  </Col>
-                  <Col md={8} sm={24}>
-                    <div className={styles.Indexfrom}>物品状态：</div>
-                    <div className={styles.Indextail} style={{ paddingLeft: 70 }}>
-                      {itemDetails && itemDetails.wpzt ? itemDetails.wpzt : ''}
-                    </div>
-                  </Col>
-                  <Col md={8} sm={24}>
-                    <div className={styles.Indexfrom}>所在库位：</div>
-                    <div className={styles.Indextail} style={{ paddingLeft: 70 }}>
-                      {itemDetails && itemDetails.szkw ? itemDetails.szkw : ''}
-                    </div>
-                  </Col>
-                </Row>
-                <Row gutter={{ md: 8, lg: 24, xl: 48 }}>
-                  <Col md={24} sm={24}>
-                    <div className={styles.Indexfrom}>所在库房名称：</div>
-                    <div className={styles.Indextail} style={{ paddingLeft: '98px' }}>
-                      {itemDetails && itemDetails.szkf ? itemDetails.szkf : ''}
-                    </div>
-                  </Col>
-                </Row>
-                <Row gutter={{ md: 8, lg: 24, xl: 48 }}>
-                  <Col md={24} sm={24}>
-                    <div className={styles.Indexfrom}>备注：</div>
-                    <div className={styles.Indextail} style={{ paddingLeft: '42px' }}>
-                      {itemDetails && itemDetails.bz ? itemDetails.bz : ''}
-                    </div>
-                  </Col>
-                </Row>
+                    </Col>
+                    {/*<Col md={8} sm={24}>*/}
+                    {/*  缺损特征：{itemDetails && itemDetails.tzlx ? itemDetails.tzlx : ''}*/}
+                    {/*</Col>*/}
+                    <Col md={8} sm={24}>
+                      数量：{itemDetails && itemDetails.wpsl ? itemDetails.wpsl : ''}
+                    </Col>
+                    <Col md={8} sm={24}>
+                      保存期限：{itemDetails && itemDetails.bcqx ? itemDetails.bcqx : ''}
+                    </Col>
+                    <Col md={8} sm={24}>
+                      库房管理员：{itemDetails && itemDetails.kfgly ? itemDetails.kfgly : ''}
+                    </Col>
+                    {/*<Col md={8} sm={24}>*/}
+                    {/*  保存方式：{itemDetails && itemDetails.bcfsName ? itemDetails.bcfsName : ''}*/}
+                    {/*</Col>*/}
+                    <Col md={8} sm={24}>
+                      财物状态：{itemDetails && itemDetails.wpztzw ? itemDetails.wpztzw : ''}
+                    </Col>
+                    <Col md={8} sm={24}>
+                      所在库位：{itemDetails && itemDetails.szkw ? itemDetails.szkw : ''}
+                    </Col>
+                    <Col md={24} sm={24}>
+                      所在库房名称：{itemDetails && itemDetails.szkf ? itemDetails.szkf : ''}
+                    </Col>
+                    <Col md={24} sm={24}>
+                      备注：{itemDetails && itemDetails.bz ? itemDetails.bz : ''}
+                    </Col>
+                  </Row>
+                }
               </div>
             </Col>
           </Row>
         </Card>
-        {itemDetails && itemDetails.wpgjList && itemDetails.wpgjList.length > 0 ? (
-          window.configUrl.is_area === '5' || window.configUrl.is_area === '2' ? (
+        {itemDetails && itemDetails.wpgjList && itemDetails.wpgjList.length > 0 ?
             <div>
               <Card
                 title={
@@ -724,66 +790,10 @@ export default class itemDetail extends PureComponent {
                 className={liststyles.card}
                 bordered={false}
               >
-                {itemDetails.wpgjList.map(wpgj => (
-                  <Row gutter={8} style={{ marginBottom: '24px', marginLeft: '-16px' }}>
-                    <Col md={4} sm={24}>
-                      <div className={styles.break}>物品状态：{wpgj.wpzt}</div>
-                    </Col>
-                    <Col md={5} sm={24}>
-                      <div className={styles.break}>操作时间：{wpgj.czsj}</div>
-                    </Col>
-                    <Col md={4} sm={24}>
-                      <div className={styles.break}>操作人：{wpgj.czr}</div>
-                    </Col>
-                    <Col md={4} sm={24}>
-                      <div className={styles.break}>操作原因：{wpgj.czyy}</div>
-                    </Col>
-                    <Col md={4} sm={24}>
-                      <div className={styles.break}>归还期限：{wpgj.ghqx}</div>
-                    </Col>
-                  </Row>
-                ))}
+                <Timeline style={{ marginTop: 20 }}>{stap1}</Timeline>
               </Card>
             </div>
-          ) : (
-            <div>
-              <Card
-                title={
-                  <div
-                    style={{
-                      borderLeft: dark ? '3px solid #fff' : '3px solid #3D63D1',
-                      paddingLeft: 16,
-                    }}
-                  >
-                    物品轨迹
-                  </div>
-                }
-                className={liststyles.card}
-                bordered={false}
-              >
-                {itemDetails.wpgjList.map(wpgj => (
-                  <Row gutter={8} style={{ marginBottom: '24px', marginLeft: '-16px' }}>
-                    <Col md={4} sm={24} style={{ paddingLeft: 36 }}>
-                      <div className={styles.break}>{wpgj.wpzt}</div>
-                    </Col>
-                    <Col md={5} sm={24}>
-                      <div className={styles.break}>{wpgj.czsj}</div>
-                    </Col>
-                    <Col md={4} sm={24}>
-                      <div className={styles.break}>{wpgj.czr}</div>
-                    </Col>
-                    <Col md={4} sm={24}>
-                      <div className={styles.break}>{wpgj.czyy}</div>
-                    </Col>
-                    <Col md={4} sm={24}>
-                      <div className={styles.break}>{wpgj.ghqx}</div>
-                    </Col>
-                  </Row>
-                ))}
-              </Card>
-            </div>
-          )
-        ) : (
+        : (
           ''
         )}
       </div>
@@ -793,100 +803,10 @@ export default class itemDetail extends PureComponent {
   render() {
     let dark = this.props.global && this.props.global.dark;
     const { superviseVisibleModal, itemDetails } = this.state;
-    let detail = (
-      <Row
-        style={{
-          width: '90%',
-          margin: '0 38px 10px',
-          lineHeight: '36px',
-          color: 'rgba(0, 0, 0, 0.85)',
-        }}
-      >
-        <Col span={6}>物品名称：{itemDetails && itemDetails.wpmc ? itemDetails.wpmc : ''}</Col>
-        <Col span={6}>
-          物品种类：{itemDetails && itemDetails.wpzlName ? itemDetails.wpzlName : ''}
-        </Col>
-        <Col span={6}>物品状态：{itemDetails && itemDetails.wpzt ? itemDetails.wpzt : ''}</Col>
-        <Col span={6}>
-          库房信息：
-          <Tooltip
-            title={
-              itemDetails && itemDetails.szkf && itemDetails.szkf.length > 8
-                ? itemDetails.szkf
-                : null
-            }
-          >
-            {itemDetails && itemDetails.szkf
-              ? itemDetails.szkf.length > 8
-                ? itemDetails.szkf.substring(0, 8) + '...'
-                : itemDetails.szkf
-              : ''}
-          </Tooltip>
-        </Col>
-        <Col span={12}>
-          关联案件名称：
-          <Tooltip
-            title={
-              itemDetails && itemDetails.ajmc && itemDetails.ajmc.length > 18
-                ? itemDetails.ajmc
-                : null
-            }
-          >
-            {itemDetails && itemDetails.ajmc
-              ? itemDetails.ajmc.length > 18
-                ? itemDetails.ajmc.substring(0, 18) + '...'
-                : itemDetails.ajmc
-              : ''}
-          </Tooltip>
-        </Col>
-        <Col span={12}>
-          办案单位：
-          <Tooltip
-            title={
-              itemDetails && itemDetails.kfgly_dwmc && itemDetails.kfgly_dwmc.length > 18
-                ? itemDetails.kfgly_dwmc
-                : null
-            }
-          >
-            {itemDetails && itemDetails.kfgly_dwmc
-              ? itemDetails.kfgly_dwmc.length > 18
-                ? itemDetails.kfgly_dwmc.substring(0, 18) + '...'
-                : itemDetails.kfgly_dwmc
-              : ''}
-          </Tooltip>
-        </Col>
-      </Row>
-    );
     return (
       <div className={dark ? '' : styles.lightBox}>
         <div>{this.Topdetail()}</div>
         <div>{this.renderDetail()}</div>
-
-        {/*{superviseVisibleModal ?*/}
-        {/*<SuperviseModal*/}
-        {/*{...this.props}*/}
-        {/*visible={superviseVisibleModal}*/}
-        {/*closeModal={this.closeModal}*/}
-        {/*// saveModal={this.saveModal}*/}
-        {/*caseDetails={this.state.itemDetails}*/}
-        {/*getRefresh={this.Refresh}*/}
-        {/*wtflId='203204'*/}
-        {/*wtflMc='涉案财物'*/}
-        {/*// 点击列表的督办显示的四个基本信息*/}
-        {/*wtlx={this.state.superviseWtlx}*/}
-        {/*// zrdw={this.state.superviseZrdw}*/}
-        {/*// zrdwId={this.state.superviseZrdwId}*/}
-        {/*// zrr={this.state.superviseZrr}*/}
-        {/*// id={this.state.id}*/}
-        {/*// zjhm={this.state.sfzh}*/}
-        {/*from={this.state.from}*/}
-        {/*/>*/}
-        {/*: ''*/}
-        {/*}*/}
-
-        {/*<ShareModal detail={detail} shareVisible={this.state.shareVisible} handleCancel={this.handleCancel}*/}
-        {/*shareItem={this.state.shareItem} personList={this.state.personList} lx={this.state.lx}*/}
-        {/*tzlx={this.state.tzlx} sx={this.state.sx}/>*/}
       </div>
     );
   }

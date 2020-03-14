@@ -1,5 +1,5 @@
 /*
-* CaseItemWarningCount.js 智慧案管大屏---涉案物品告警数量Pie
+* CaseItemWarningCount.js 智慧案管大屏---涉案财物告警数量Pie
 * author：lyp
 * 20181122
 * */
@@ -30,7 +30,7 @@ export default class CaseItemWarningCount extends PureComponent {
         }
     }
 
-    // 涉案物品告警数量
+    // 涉案财物告警数量
     getCaseItemWarningCount = (startTime, endTime, org, orgCode, orglist) => {
         const {shadeColors} = this.props;
         this.props.dispatch({
@@ -73,7 +73,7 @@ export default class CaseItemWarningCount extends PureComponent {
                         });
                         countData += parseInt(data.list[i].count);
                     }
-                    this.props.getAllNum(this.props.idx, countData, '涉案物品告警数量');
+                    this.props.getAllNum(this.props.idx, countData, '涉案财物告警数量');
                     myChart.setOption({
                         legend: {
                             data: legendData,
@@ -109,7 +109,7 @@ export default class CaseItemWarningCount extends PureComponent {
 
         const option = {
             title: {
-                text: '涉案物品告警数量',
+                text: '涉案财物告警数量',
                 textStyle: {
                     color: '#66ccff',
                     fontSize: 20,
@@ -138,7 +138,7 @@ export default class CaseItemWarningCount extends PureComponent {
             },
             series: [
                 {
-                    name: '涉案物品告警数量',
+                    name: '涉案财物告警数量',
                     type: 'pie',
                     center: ['30%', '50%'],
                     radius: ['50%', '70%'],

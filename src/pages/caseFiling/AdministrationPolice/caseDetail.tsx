@@ -73,7 +73,7 @@ function callback(key) {
 }))
 export default class caseDetail extends PureComponent {
     state = {
-        current: 1, // 涉案物品默认在第一页
+        current: 1, // 涉案财物默认在第一页
         jqcurrent: 1, // 警情信息默认在第一页
         trailLeft: '0',
         is_ok: '0', // 是否在该详情页督办过，默认0,没有督办过
@@ -424,7 +424,7 @@ export default class caseDetail extends PureComponent {
         //         />
         //     </div>
         // );
-        // const AddNewDetail = { title: '涉案物品详情', content: divs, key: system_id };
+        // const AddNewDetail = { title: '涉案财物详情', content: divs, key: system_id };
         // this.props.newDetail(AddNewDetail);
     };
     // 点击案件轨迹人员的在区情况
@@ -456,7 +456,7 @@ export default class caseDetail extends PureComponent {
                         ? {
                             pageSize: 8,
                             showTotal: (total, range) => (
-                                <div style={{color: '#b7b7b7'}}>
+                                <div style={{color: '#999'}}>
                                     共 {Math.ceil(total / 8)} 页， {total} 条记录{' '}
                                 </div>
                             ),
@@ -480,15 +480,15 @@ export default class caseDetail extends PureComponent {
                             </div>
                             <div className={styles.sawpName}>
                                 <div className={styles.sawpName1}>
-                                    物品名称：
+                                    财物名称：
                                     <Tooltip overlayStyle={{wordBreak: 'break-all'}} title={item.wpmc}>
                                         {item.wpmc}
                                     </Tooltip>
                                 </div>
                                 <div className={styles.sawpName1}>
-                                    物品种类：
-                                    <Tooltip overlayStyle={{wordBreak: 'break-all'}} title={item.wpzlMc}>
-                                        {item.wpzlMc}
+                                    财物分类：
+                                    <Tooltip overlayStyle={{wordBreak: 'break-all'}} title={item.cwflzw}>
+                                        {item.cwflzw}
                                     </Tooltip>
                                 </div>
                             </div>
@@ -692,7 +692,7 @@ export default class caseDetail extends PureComponent {
                         pagination={{
                             pageSize: 3,
                             showTotal: (total, range) => (
-                                <div style={{color: '#b7b7b7'}}>
+                                <div style={{color: '#999'}}>
                                     共 {Math.ceil(total / 3)} 页， {total} 条记录
                                 </div>
                             ),
@@ -794,7 +794,7 @@ export default class caseDetail extends PureComponent {
                     ''
                 )}
 
-                <div className={styles.title}>| 涉案物品</div>
+                <div className={styles.title}>| 涉案财物</div>
                 <div className={styles.tablemessage}>
                     <div style={{padding: '24px'}}>
                         {this.sawpCol(caseDetails && caseDetails.sawpList ? caseDetails.sawpList : [])}

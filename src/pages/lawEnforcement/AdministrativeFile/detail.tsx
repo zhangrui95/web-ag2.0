@@ -25,6 +25,8 @@ import jqImg from "@/assets/common/jq.png";
 import {routerRedux} from "dva/router";
 import noListLight from "@/assets/viewData/noListLight.png";
 import DetailShow from "@/components/Common/detailShow";
+import nophoto from "@/assets/common/zwwpDark1.png";
+import nophotoLight from "@/assets/common/zwwp1.png";
 
 const {Link} = Anchor;
 let echartTree;
@@ -43,7 +45,7 @@ export default class AdministrativeCaseDocDetail extends PureComponent {
             res = JSON.parse(sessionStorage.getItem('query')).query.record;
         }
         this.state = {
-            current: 1, // 涉案物品默认在第一页
+            current: 1, // 涉案财物默认在第一页
             jqcurrent: 1, // 警情信息默认在第一页
             jzcurrent: 1, // 卷宗信息默认在第一页
             gjcurrent: 1, // 告警信息默认在第一页
@@ -107,29 +109,31 @@ export default class AdministrativeCaseDocDetail extends PureComponent {
         if (this.state.first) {
             let scroll = document.getElementById("scrollAdmin"+this.state.res.ajbh);
             if (scroll) {
-                scroll.addEventListener("scroll", e => {
-                    let afterScrollTop = e.target.scrollTop;
-                    if (afterScrollTop > this.state.afterScrollTop) {
-                        this.setState({
-                            AnchorShow: true,
-                            Anchor: true,
-                        });
-                    } else {
-                        this.setState({
-                            AnchorShow: false,
-                            Anchor: true,
-                        });
-                    }
-                    this.setState({
-                        afterScrollTop: afterScrollTop,
-                    });
-                });
+                scroll.addEventListener("scroll", this.getScroll);
             }
             this.setState({
                 first: false,
             });
         }
     };
+  //滚轮
+    getScroll = (e) =>{
+      let afterScrollTop = e.target.scrollTop;
+      if (afterScrollTop > this.state.afterScrollTop) {
+        this.setState({
+          AnchorShow: true,
+          Anchor: true,
+        });
+      } else {
+        this.setState({
+          AnchorShow: false,
+          Anchor: true,
+        });
+      }
+      this.setState({
+        afterScrollTop: afterScrollTop,
+      });
+    }
     // 换行
     formatter = (val) => {
         let strs = val.split(''); //字符串数组
@@ -211,7 +215,7 @@ export default class AdministrativeCaseDocDetail extends PureComponent {
                 x: -1100,
                 y: 300
             }, {
-                name: '涉案物品',
+                name: '涉案财物',
                 attributes: {
                     modularity_class: 3,
                 },
@@ -265,7 +269,7 @@ export default class AdministrativeCaseDocDetail extends PureComponent {
         if (data.sawpList && data.sawpList.length > 0) {
             data.sawpList.map((event, index) => {
                 sawp.push({
-                    source: '涉案物品',
+                    source: '涉案财物',
                     target: (event.wpmc ? this.formatter(event.wpmc) : null) + index,
                 });
                 list.push(
@@ -273,7 +277,7 @@ export default class AdministrativeCaseDocDetail extends PureComponent {
                         name: event.wpmc ? this.formatter(event.wpmc) : null,
                         id: (event.wpmc ? this.formatter(event.wpmc) : null) + index,
                         attributes: {
-                            modularity_class: 2,
+                            modularity_class: 3,
                         },
                         symbolSize: 20,
                         x: this.getX(-900, 20, index, 80),
@@ -293,7 +297,7 @@ export default class AdministrativeCaseDocDetail extends PureComponent {
                         name: event.jzmc ? this.formatter(event.jzmc) : null,
                         id: (event.jzmc ? this.formatter(event.jzmc) : null) + index,
                         attributes: {
-                            modularity_class: 2,
+                            modularity_class: 4,
                         },
                         symbolSize: 20,
                         x: this.getX(-700, 20, index, 70),
@@ -314,7 +318,7 @@ export default class AdministrativeCaseDocDetail extends PureComponent {
                 target: '涉案人员'
             }, {
                 source: data.ajmc,
-                target: '涉案物品'
+                target: '涉案财物'
             }, {
                 source: data.ajmc,
                 target: '卷宗'
@@ -341,7 +345,7 @@ export default class AdministrativeCaseDocDetail extends PureComponent {
                 name: '涉案人员',    //类目名称
             },
             {
-                name: "涉案物品",    //类目名称
+                name: "涉案财物",    //类目名称
             },
             {
                 name: '卷宗',    //类目名称
@@ -359,14 +363,14 @@ export default class AdministrativeCaseDocDetail extends PureComponent {
                     textStyle: {
                         color: dark ? '#eee' : '#4D4D4D',
                         fontSize: node.attributes.modularity_class === 0 ? 16 :
-                          node.name === '涉案人员' || node.name === "涉案物品" || node.name === "卷宗" || node.name === "警情" ? 14 : 12
+                          node.name === '涉案人员' || node.name === "涉案财物" || node.name === "卷宗" || node.name === "警情" ? 14 : 12
                     },
                 }
             };
             node.category = node.attributes.modularity_class;
             node.symbol = node.attributes.modularity_class === 0 ? `image://${aj}` :
                 node.name === '涉案人员' ? `image://${tar}` :
-                    node.name === "涉案物品" ? `image://${wp}` :
+                    node.name === "涉案财物" ? `image://${wp}` :
                         node.name === "卷宗" ? `image://${jzxx}` :
                             node.name === "警情" ? `image://${jqImg}` :
                                 "circle";
@@ -575,6 +579,9 @@ export default class AdministrativeCaseDocDetail extends PureComponent {
                     emptyText: <Empty image={this.props.global && this.props.global.dark ? noList : noListLight}
                                       description={'暂无数据'}/>
                 }}
+                grid={{
+                  gutter: 16, xs: 1, sm: 2, md: 4, lg: 4,
+                }}
                 pagination={sawpList.length > 0 ? {
                     pageSize: 8,
                     showTotal: (total, range) => <div style={{
@@ -586,26 +593,28 @@ export default class AdministrativeCaseDocDetail extends PureComponent {
                     },
                 } : false}
                 dataSource={sawpList}
-                className={styles.sawpListName}
+                className={styles.sawpListNames}
                 style={{color: '#faa'}}
                 renderItem={item => (
-                    <List.Item>
-                        <div className={styles.colsImg}>
-                            <div className={styles.sawpImg}>
-                                <img width='70' height='70'
-                                     src={item && item.imageList && item.imageList.length > 0 ? item.imageList[0].imageurl : 'images/nophoto.png'}/>
+                    <List.Item style={{borderRadius:4,overflow:'hidden'}}>
+                      <div className={this.props.global && this.props.global.dark ? '' : styles.lightBox}>
+                        <div className={styles.listItemContents} style={{overflow:'hidden'}}>
+                          <div className={styles.sawpImg}>
+                            <img width='90' height='90'
+                                 src={item && item.imageList && item.imageList.length > 0&&item.imageList[0].url ? item.imageList[0].url :  this.props.global && this.props.global.dark ? nophoto : nophotoLight}/>
+                          </div>
+                          <div className={styles.sawpName}>
+                            <div className={styles.sawpName1}>财物名称：<Tooltip
+                              overlayStyle={{wordBreak: 'break-all'}} title={item.wpmc}>{item.wpmc}</Tooltip>
                             </div>
-                            <div className={styles.sawpName}>
-                                <div className={styles.sawpName1}>物品名称：<Tooltip
-                                    overlayStyle={{wordBreak: 'break-all'}} title={item.wpmc}>{item.wpmc}</Tooltip>
-                                </div>
-                                <div className={styles.sawpName1}>物品种类：<Tooltip
-                                    overlayStyle={{wordBreak: 'break-all'}}
-                                    title={item.wpzlMc}>{item.wpzlMc}</Tooltip></div>
-                            </div>
-                            <div className={styles.sawpSee} onClick={() => this.openItemsDetail(item)}>在区情况
-                            </div>
+                            <div className={styles.sawpName1}>财物分类：<Tooltip
+                              overlayStyle={{wordBreak: 'break-all'}}
+                              title={item.cwflzw}>{item.cwflzw}</Tooltip></div>
+                          </div>
                         </div>
+                          <div className={styles.sawpSee} onClick={() => this.openItemsDetail(item)}>查看
+                          </div>
+                      </div>
                     </List.Item>
                 )}
             />
@@ -622,7 +631,7 @@ export default class AdministrativeCaseDocDetail extends PureComponent {
             case '203203':
                 return '办案区告警';
             case '203204':
-                return '涉案物品告警';
+                return '涉案财物告警';
             case '203205':
                 return '行政案件告警';
             case '203206':
@@ -707,7 +716,7 @@ export default class AdministrativeCaseDocDetail extends PureComponent {
                     query: {record: item, id: item.wtid, baqId: item.id},
                 }),
             );
-        } else if (item.wtfl_id === '203204') {//涉案物品告警详情
+        } else if (item.wtfl_id === '203204') {//涉案财物告警详情
             this.props.dispatch(
                 routerRedux.push({
                     pathname: '/articlesInvolved/ArticlesPolice/unitemDetail',
@@ -988,9 +997,9 @@ export default class AdministrativeCaseDocDetail extends PureComponent {
                                     borderLeft: dark ? '3px solid #fff' : '3px solid #3D63D1',
                                     paddingLeft: 16,
                                 }}
-                            >涉案物品</span></div>
+                            >涉案财物</span></div>
                             <div className={styles.tablemessage}>
-                                <div style={{padding: '24px 0'}}>
+                                <div style={{padding: '24px 24px'}}>
                                     {this.sawpCol(caseDetails && caseDetails.sawpList ? caseDetails.sawpList : [])}
                                 </div>
                             </div>
@@ -1051,7 +1060,15 @@ export default class AdministrativeCaseDocDetail extends PureComponent {
             link: link
         });
     }
-
+  getAnchor = ()=>{
+    let scroll = document.getElementById("scrollAdmin"+this.state.res.ajbh);
+    if(scroll){
+      scroll.removeEventListener("scroll",this.getScroll ,false);
+      setTimeout(()=>{
+        scroll.addEventListener("scroll", this.getScroll);
+      },500);
+    }
+  }
     render() {
         const {makeTableModalVisible, superviseVisibleModal} = this.state;
         return (
@@ -1065,6 +1082,7 @@ export default class AdministrativeCaseDocDetail extends PureComponent {
 
                 <div className={styles.anchorBox}>
                     <Anchor
+                      onClick={this.getAnchor}
                         getContainer={() => document.querySelector('#scrollAdmin'+this.state.res.ajbh)}
                         className={!(this.state.Anchor && this.state.AnchorShow) ? styles.AnchorHide : this.state.AnchorShow ? styles.fadeBoxIn : styles.fadeBoxOut}
                         offsetTop={0} onChange={this.goLink}>
@@ -1082,7 +1100,7 @@ export default class AdministrativeCaseDocDetail extends PureComponent {
                             title="案件轨迹"/>
                         <Link
                             href={`${location.hash}#${this.state.res.ajbh}sawp`}
-                            title="涉案物品"/>
+                            title="涉案财物"/>
                         <Link
                             href={`${location.hash}#${this.state.res.ajbh}jzxx`}
                             title="卷宗信息"/>

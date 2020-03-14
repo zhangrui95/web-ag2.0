@@ -455,14 +455,15 @@ class SuperviseSetup extends Component {
         label: item.name,
       };
       let objStr = JSON.stringify(obj);
-      if (item.childrenList && item.childrenList.length) {
+      if (item.childrenList && item.childrenList.length > 0) {
         return (
           <TreeNode value={objStr} key={objStr} title={item.name}>
             {this.renderloops(item.childrenList)}
           </TreeNode>
         );
+      }else{
+        return <TreeNode key={objStr} value={objStr} title={item.name}/>;
       }
-      // return <TreeNode key={objStr} value={objStr} title={item.name}/>;
     });
   renderloops = data =>
     data.map(item => {
@@ -711,7 +712,7 @@ class SuperviseSetup extends Component {
       wrapperCol: { xs: { span: 24 }, md: { span: 16 }, xl: { span: 18 }, xxl: { span: 19 } },
     };
     const rowLayout = { md: 8, xl: 16, xxl: 24 };
-    const colLayout = { sm: 24, md: 12, xl: 8 };
+    const colLayout = { sm: 24, md: 12,xl:12, xxl: 8 };
     const colLayouts = { sm: 24, md: 12, xl: 16, xxl: 24 };
     const modleLayouts = {
       labelCol: { span: 8 },

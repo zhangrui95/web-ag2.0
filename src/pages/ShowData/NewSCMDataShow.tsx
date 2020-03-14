@@ -119,7 +119,7 @@ export default class SCMDataShow extends PureComponent {
                                                    shadeColors={shadeColors} {...this.props}  />;
             case 'qzcsrs': // 强制措施人数
                 return <PersonCount selectDate={selectDate} shadeColors={shadeColors} {...this.props}  />;
-            case 'sawp-sl': // 涉案物品数量
+            case 'sawp-sl': // 涉案财物数量
                 return <CaseItemCount selectDate={selectDate} shadeColors={shadeColors} {...this.props}  />;
             case 'jzsl': // 卷宗数量
                 return <DossierCount selectDate={selectDate} shadeColors={shadeColors} {...this.props}  />;
@@ -130,7 +130,7 @@ export default class SCMDataShow extends PureComponent {
                 return <PoliceSituationFrom selectDate={selectDate} shadeColors={shadeColors} {...this.props}  />;
             case 'xzaj-sl': // 行政案件数量
                 return <AdministrativeCaseCount selectDate={selectDate} shadeColors={shadeColors} {...this.props}  />;
-            case 'sawp-gjsl': // 涉案物品告警数量
+            case 'sawp-gjsl': // 涉案财物告警数量
                 return <CaseItemWarningCount selectDate={selectDate} shadeColors={shadeColors} {...this.props}  />;
             case 'baqxx-xj': // 办案区信息巡检
                 return <HandingCaseAreaInfo selectDate={selectDate} shadeColors={shadeColors} {...this.props}  />;
