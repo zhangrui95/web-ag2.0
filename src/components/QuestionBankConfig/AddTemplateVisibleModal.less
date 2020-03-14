@@ -95,7 +95,7 @@
   }
 }
 .successBtn {
-  background: #4662D5 !important;
+  background: #389DF6 !important;
   width: 80px;
   height: 32px;
   //border-radius: 4px;
@@ -126,6 +126,19 @@
       text-align: center;
       //border-top: 0;
     }
+
+    .ant-modal-close-x{
+      margin-top: 12px;
+      border-radius:100%;
+      background-color: #0E1437;
+      width: 30px;
+      height: 30px;
+      margin-right: 20px;
+      color: #fff;
+      font-size: 16px;
+      text-align: center;
+      line-height: 30px;
+    }
   }
 }
 .Card{
@@ -139,6 +152,67 @@
   :global{
     .ant-form-item{
       margin-bottom: 0;
+    }
+  }
+}
+
+.darkshareHeader{
+  :global {
+    .ant-modal-body{
+      padding: 16px;
+    }
+    .ant-modal-header {
+      background-color: #262C3D;
+      //opacity: 0.4;
+      color: #fff;
+    }
+
+    .ant-modal-title {
+      color: #fff;
+    }
+
+    .ant-modal-close {
+      color: #fff;
+    }
+
+    .ant-modal-content {
+      background-color: #262C3D;
+      //opacity: 0.4;
+      color: #fff;
+    }
+
+    .ant-modal-footer {
+      text-align: center;
+      //border-top: 0;
+    }
+
+    .ant-modal-close-x{
+      margin-top: 12px;
+      border-radius:100%;
+      background-color: #92969E;
+      width: 30px;
+      height: 30px;
+      margin-right: 20px;
+      color: #fff;
+      font-size: 16px;
+      text-align: center;
+      line-height: 30px;
+    }
+
+    .ant-form-item label{
+      color: @text-word-color;
+    }
+  }
+
+  .Card{
+    border: 0;
+    border-bottom:1px solid #e8e8e8;
+    color: @text-word-color;
+    :global{
+      .ant-card-body{
+        padding: 12px;
+        background-color: #262C3D;
+      }
     }
   }
 }

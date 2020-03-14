@@ -14,6 +14,7 @@ import { routerRedux } from 'dva/router';
 import noList from '@/assets/viewData/noList.png';
 import noListLight from '@/assets/viewData/noListLight.png';
 import suspend from '@/assets/common/suspend.png';
+import addStyle from '@/assets/common/addStyle.png';
 import QuestionListmodal from '../../components/QuestionBankConfig/QuestionListModal';
 import { connect } from 'dva';
 import {tableList} from "@/utils/utils";
@@ -418,12 +419,13 @@ export default class AddTemplateVisibleModal extends PureComponent {
         );
       }
     }
+    console.log('this.props',this.props);
     return (
       <div>
         <Modal
-          title={this.props.title}
+          title={<div><img src={addStyle} width={20} height={20} style={{marginTop:'-5px',marginRight:"12px"}} />{this.props.title}</div>}
           visible={this.props.visible}
-          className={styles.shareHeader}
+          className={this.props.global.dark?styles.darkshareHeader:styles.shareHeader}
           width={1200}
           // style={{top: '250px'}}
           maskClosable={false}
@@ -441,7 +443,7 @@ export default class AddTemplateVisibleModal extends PureComponent {
                 })(<Input placeholder="请输入题目,最多50个字"/>)}
                </FormItem>
              </Col>
-             <Col {...colLayout} className={styles.Col}>
+             <Col {...colLayout} className={styles.Col} stle={{paddingLeft:5}}>
                <FormItem label="测评时间（分钟）" {...formItemLayouts}>
                 {getFieldDecorator('cpsj', {
                   // initialValue: this.state.caseType,
@@ -473,7 +475,7 @@ export default class AddTemplateVisibleModal extends PureComponent {
                       )}
                     </FormItem>
                   </Col>
-                  <Col sm={24} md={12} xl={2} style={{padding:'9px 0 0 9px'}}>
+                  <Col sm={24} md={12} xl={2} style={{padding:'9px 0 0 9px',color:this.props.global.dark?'#fff':''}}>
                     个，
                   </Col>
                   <Col sm={24} md={12} xl={8}>
@@ -494,7 +496,7 @@ export default class AddTemplateVisibleModal extends PureComponent {
                       )}
                     </FormItem>
                   </Col>
-                  <Col sm={24} md={12} xl={2} style={{padding:'9px 0 0 9px'}}>
+                  <Col sm={24} md={12} xl={2} style={{padding:'9px 0 0 9px',color:this.props.global.dark?'#fff':''}}>
                     分
                   </Col>
                 </Row>
@@ -521,7 +523,7 @@ export default class AddTemplateVisibleModal extends PureComponent {
                       )}
                     </FormItem>
                   </Col>
-                  <Col sm={24} md={12} xl={2} style={{padding:'9px 0 0 9px'}}>
+                  <Col sm={24} md={12} xl={2} style={{padding:'9px 0 0 9px',color:this.props.global.dark?'#fff':''}}>
                     个，
                   </Col>
                   <Col sm={24} md={12} xl={8}>
@@ -542,7 +544,7 @@ export default class AddTemplateVisibleModal extends PureComponent {
                       )}
                     </FormItem>
                   </Col>
-                  <Col sm={24} md={12} xl={2} style={{padding:'9px 0 0 9px'}}>
+                  <Col sm={24} md={12} xl={2} style={{padding:'9px 0 0 9px',color:this.props.global.dark?'#fff':''}}>
                     分
                   </Col>
                 </Row>
@@ -570,7 +572,7 @@ export default class AddTemplateVisibleModal extends PureComponent {
                       )}
                     </FormItem>
                   </Col>
-                  <Col sm={24} md={12} xl={2} style={{padding:'9px 0 0 9px'}}>
+                  <Col sm={24} md={12} xl={2} style={{padding:'9px 0 0 9px',color:this.props.global.dark?'#fff':''}}>
                     个，
                   </Col>
                   <Col sm={24} md={12} xl={8}>
@@ -592,38 +594,38 @@ export default class AddTemplateVisibleModal extends PureComponent {
                       )}
                     </FormItem>
                   </Col>
-                  <Col sm={24} md={12} xl={2} style={{padding:'9px 0 0 9px'}}>
+                  <Col sm={24} md={12} xl={2} style={{padding:'9px 0 0 9px',color:this.props.global.dark?'#fff':''}}>
                     分
                   </Col>
                 </Row>
               </Col>
             </Row>
            <div style={{fontSize:16,fontWeight:'bold'}}>
-             <Divider orientation="left">单选题</Divider>
+             <Divider orientation="left" style={{color:this.props.global.dark?'#fff':''}}>单选题</Divider>
            </div>
            {this.showaddobj1(showDataList1)}
            <div style={{padding:18}}>
-             <Button onClick={() => this.addQuestion('00001')} type="primary" style={{width: '100%', background: '#A3C2FE', border: '1px #6600FF dashed'}}>
+             <Button onClick={() => this.addQuestion('00001')} type="primary" style={{width: '100%', background: '#389DF6'}}>
                <Icon type="plus" />
              </Button>
            </div>
 
            <div style={{fontSize:16,fontWeight:'bold'}}>
-             <Divider orientation="left">多选题</Divider>
+             <Divider orientation="left" style={{color:this.props.global.dark?'#fff':''}}>多选题</Divider>
            </div>
            {this.showaddobj2(showDataList2)}
            <div style={{padding:18}}>
-             <Button onClick={() => this.addQuestion('00002')} type="primary" style={{width: '100%', background: '#A3C2FE', border: '1px #6600FF dashed'}}>
+             <Button onClick={() => this.addQuestion('00002')} type="primary" style={{width: '100%', background: '#389DF6'}}>
                <Icon type="plus" />
              </Button>
            </div>
 
            <div style={{fontSize:16,fontWeight:'bold'}}>
-             <Divider orientation="left">简答题</Divider>
+             <Divider orientation="left" style={{color:this.props.global.dark?'#fff':''}}>简答题</Divider>
            </div>
            {this.showaddobj3(showDataList3)}
            <div style={{padding:18}}>
-             <Button onClick={() => this.addQuestion('00003')} type="primary" style={{width: '100%', background: '#A3C2FE', border: '1px #6600FF dashed'}}>
+             <Button onClick={() => this.addQuestion('00003')} type="primary" style={{width: '100%', background: '#389DF6'}}>
                <Icon type="plus" />
              </Button>
            </div>

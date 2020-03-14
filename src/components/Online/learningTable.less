@@ -25,6 +25,20 @@
 .paginations{
   color: @white;
   text-align: right;
+  :global{
+    .ant-pagination-total-text{
+      color: #999;
+    }
+  }
+}
+.paginationsw{
+  color: @white;
+  text-align: right;
+  :global{
+    .ant-pagination-total-text{
+      color: #fff;
+    }
+  }
 }
 
 .standardTable {
@@ -136,7 +150,7 @@
     }
     .ant-modal-title{
       color: #fff;
-      font-size: 26px;
+      font-size: 18px;
       line-height: 30px;
     }
     .ant-modal-content{
@@ -149,18 +163,64 @@
       padding: 0;
     }
     .ant-modal-close-x{
-      margin-top: 10px;
+      margin-top: 16px;
       border-radius:100%;
       background-color: #0F173D;
-      width: 40px;
-      height: 40px;
+      width: 30px;
+      height: 30px;
       margin-right: 20px;
       color: #fff;
-      font-size: 20px;
+      font-size: 16px;
       text-align: center;
-      line-height: 40px;
+      line-height: 30px;
 
     }
+    .box{
+      border: 0;
+    }
+  }
+}
+
+.darkshow{
+  :global{
+    .ant-modal-header{
+      background-color: #262C3D;
+      //font-size: 16px;
+      height: 60px;
+    }
+    .ant-modal-title{
+      color: #fff;
+      font-size: 18px;
+      line-height: 30px;
+    }
+    .ant-modal-content{
+      width: 1170px;
+      height: 700px;
+      position: relative;
+      left: -400px;
+      background-color:#262C3D;
+    }
+    .ant-modal-body{
+      padding: 0;
+    }
+    .ant-modal-close-x{
+      margin-top: 16px;
+      border-radius:100%;
+      background-color: #92969E;
+      width: 30px;
+      height: 30px;
+      margin-right: 20px;
+      color: #fff;
+      font-size: 16px;
+      text-align: center;
+      line-height: 30px;
+
+    }
+  }
+
+  .box{
+    background-color: #262C3D;
+    border: 0;
   }
 }
 

@@ -12,6 +12,7 @@ import { routerRedux } from 'dva/router';
 import noList from '@/assets/viewData/noList.png';
 import noListLight from '@/assets/viewData/noListLight.png';
 import suspend from '@/assets/common/suspend.png';
+import detailImg from '@/assets/common/detail.png';
 import { connect } from 'dva';
 import {tableList} from "@/utils/utils";
 
@@ -36,16 +37,16 @@ export default class ListDetailVisibleModal extends PureComponent {
   }
 
   render() {
-    const { listDetail } = this.props;
+    const { listDetail,dark } = this.props;
     console.log('listDetail',listDetail);
     const rowLayout = {md: 8, xl: 16, xxl: 24};
     const colLayout = {sm: 24, md: 12, xl: 8};
     return (
       <div>
         <Modal
-          title={this.props.title}
+          title={<div><img src={detailImg} width={20} height={20} style={{marginTop:'-5px',marginRight:"12px"}} />{this.props.title}</div>}
           visible={this.props.visible}
-          className={styles.shareHeader}
+          className={dark?styles.whiteshareHeader:styles.shareHeader}
           width={800}
           style={{top: '250px'}}
           maskClosable={false}

@@ -167,6 +167,7 @@ class QuestionDefendTable extends PureComponent {
               title="题目详情"
               closeListDetailModal={this.closeListDetailModal} // 关闭详情模态框
               listDetail={listDetail} // 题目详情
+              dark={this.props.global?this.props.global.dark:''}
             />
             :
             ''

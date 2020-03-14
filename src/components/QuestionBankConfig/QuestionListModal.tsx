@@ -197,7 +197,7 @@ export default class QuestionListModal extends PureComponent {
     return (
       <Form
         onSubmit={this.handleSearch}
-        style={{height:'auto',overflow:'hidden'}}
+        style={{height:'auto',overflow:'hidden',paddingBottom:24,borderBottom:'1px solid #ccc'}}
       >
         <Row gutter={rowLayout} className={styles.searchForm}>
           <Col {...colLayout}>
@@ -210,14 +210,14 @@ export default class QuestionListModal extends PureComponent {
           </Col>
         </Row>
         <Row className={styles.search}>
-          <span style={{ marginTop: 5}}>
+          <span>
             <Button style={{marginLeft: 8}} type="primary" htmlType="submit">
               查询
             </Button>
-            <Button style={{marginLeft: 8}} onClick={this.addSure}>
+            <Button style={{marginLeft: 8}} className={styles.darkAddSearch} onClick={this.addSure}>
               添加
             </Button>
-            <Button style={{marginLeft: 8}} onClick={this.addCancel}>
+            <Button style={{marginLeft: 8}} className={styles.darkCancelSearch} onClick={this.addCancel}>
               取消
             </Button>
           </span>
@@ -292,7 +292,7 @@ export default class QuestionListModal extends PureComponent {
       pageSize: questionList.page ? questionList.page.showCount : '',
       showTotal: (total, range) => (
         <span className={styles.pagination}  style={{
-          color: this.props.global && this.props.global.dark ? '#999' : '#999'
+          color: this.props.global && this.props.global.dark ? '#fff' : '#999'
         }}>{`共 ${questionList.page ? questionList.page.totalPage : 1} 页， ${
           questionList.page ? questionList.page.totalResult : 0
           } 条记录 `}</span>
@@ -332,7 +332,6 @@ export default class QuestionListModal extends PureComponent {
         title=""
         className={this.props.global && this.props.global.dark ? styles.success : styles.successLight}
         width={1200}
-
         maskClosable={false}
         cancelText={null}
         footer={null}
