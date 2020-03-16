@@ -127,7 +127,7 @@ export default class PersonDetailTab extends PureComponent {
                             <div className={styles.listItemContents} style={{overflow:'hidden'}}>
                                 <div className={styles.sawpImg} style={{float:'left'}}>
                                     <img
-                                        width="90"
+                                        width='90' height='90'
                                         src={item && item.imageList && item.imageList.length > 0&&item.imageList[0].url ? item.imageList[0].url : dark ? nophoto : nophotoLight}
                                     />
                                 </div>

@@ -1,0 +1,123 @@
+@import '~antd/lib/style/themes/default.less';
+@import '../../../utils/utils.less';
+@import '../../../theme/darkTheme.less';
+
+.tableListForm {
+  margin: 16px 0;
+  padding: 16px 24px;
+  background-color: @component-background;
+  border-radius: 10px;
+}
+
+.totalStyle{
+  padding: 60px 350px 15px 350px;
+}
+
+.top{
+  margin-bottom:50px;
+  font-size: 22px;
+  text-align: center;
+  img{
+    margin-right: 12px;
+    margin-top:-5px;
+  }
+}
+
+.Label{
+  padding: 0 0 30px 240px;
+  margin-top: 50px;
+}
+
+.Explain1{
+  width:900px;
+  padding: 32px 32px 16px 32px;
+  background-color: @body-background;
+  border-bottom: 1px solid #1D212F;
+  font-weight:bold;
+  font-Size:18px;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+}
+.Explain2{
+  width:900px;
+  padding: 16px 32px 32px 32px;
+  background-color: @body-background;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+}
+
+.startButton{
+  padding: 40px 0 50px 120px;
+}
+
+.ButtonNow{
+  height: 50px;
+  padding: 0 31px;
+}
+
+.time{
+  padding-left: 318px;
+}
+
+.listPageWrap {
+  background-color: @body-background;
+
+  .listPageHeader {
+    background: @component-background;
+    padding: 16px 24px;
+    //border: 1px solid #e8e8e8;
+    //border-top: none;
+    position: relative;
+    margin-top: 16px;
+    border-radius: 10px;
+
+    a {
+      font-size: @font-size-lg;
+      color: @heading-color;
+      line-height: 26px;
+
+      &:hover {
+        color: @link-active-color;
+      }
+    }
+
+    .listPageHeaderCurrent {
+      //font-size: @font-size-lg;
+      font-weight: bold;
+      color: @primary-color;
+      span{
+        padding: 0 8px;
+      }
+    }
+
+    .UnlistPageHeaderCurrent {
+      font-weight: bold;
+      color: @title-color;
+    }
+
+    .borderCenter {
+      padding: 0 8px;
+    }
+
+  }
+}
+
+.lightBox {
+
+  background-color: transparent;
+
+  .listPageHeader {
+    color: #E6E6E6;
+    background: #fff !important;
+  }
+
+  .listPageHeaderCurrent {
+    color: #3D63D1 !important;
+  }
+
+  .tableListForm {
+    background-color: #fff;
+    border-radius: 10px;
+  }
+
+}

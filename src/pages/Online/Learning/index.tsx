@@ -23,11 +23,10 @@ import {
   Card, Icon, Upload, Modal,
 } from 'antd';
 import moment from 'moment/moment';
-import styles from './Learning.less';
-import learningRenderTable from '../../components/Show/learningTable';
-import RenderTable from '../../components/Show/learningTable';
-import ImportFileModal from '../../components/Show/ImportFileModal';
-import {exportListDataMaxDays, getQueryString, tableList} from '../../utils/utils';
+import styles from './index.less';
+import RenderTable from '../../../components/Online/learningTable';
+import ImportFileModal from '../../../components/Online/ImportFileModal';
+import {exportListDataMaxDays, getQueryString, tableList} from '../../../utils/utils';
 import {routerRedux} from "dva/router";
 
 
@@ -390,7 +389,6 @@ export default class Index extends PureComponent {
   // 选择删除的数据
   chooseSelect = (deletedata) => {
     // console.log()
-    console.log('deletedata',deletedata);
     this.setState({
       deletedata,
     })
@@ -405,7 +403,7 @@ export default class Index extends PureComponent {
 
   renderForm() {
     const {form: {getFieldDecorator}, common: {FbdwTypeData, ZllxTypeData}} = this.props;
-    // console.log('ZllxTypeData',ZllxTypeData);
+    // console.log('FbdwTypeData',FbdwTypeData);
     let zllxAlarmDictOptions = [], fblxAlarmDictOptions = [];
     if (ZllxTypeData.length > 0) {
       for (let i = 0; i < ZllxTypeData.length; i++) {
@@ -430,115 +428,102 @@ export default class Index extends PureComponent {
     const rowLayout = {md: 8, xl: 16, xxl: 24};
     const colLayout = {sm: 24, md: 12, xl: 8};
     return (
-      <Card
-        className={styles.listPageWrap}
-        id="slaxsgjsearchForm"
+      <Form
+        onSubmit={this.handleSearch}
+        // style={{height: this.state.searchHeight ? 'auto' : '59px'}}
+        style={{height:  'auto' }}
       >
-        <Form
-          onSubmit={this.handleSearch}
-          // style={{height: this.state.searchHeight ? 'auto' : '59px'}}
-          style={{height:  'auto' }}
-        >
-          <Row gutter={rowLayout} className={styles.searchForm}>
-            <Col {...colLayout}>
-              <FormItem label="上传时间" {...formItemLayout}>
-                {getFieldDecorator('scsj', {
-                  // initialValue: this.state.wtlx,
-                })(
-                  <RangePicker
-                    disabledDate={this.disabledDate}
-                    style={{width: '100%'}}
-                    getCalendarContainer={() => document.getElementById('slaxsgjsearchForm')}
-                  />,
-                )}
-              </FormItem>
-            </Col>
-            <Col {...colLayout}>
-              <FormItem label="资料类型" {...formItemLayout}>
-                {getFieldDecorator('zllx', {
-                })(
-                  <Select
-                    placeholder="请选择资料类型"
-                    style={{width: '100%'}}
-                    getPopupContainer={() => document.getElementById('slaxsgjsearchForm')}
-                  >
-                    <Option value="">全部</Option>
-                    {zllxAlarmDictOptions}
-                  </Select>,
-                )}
-              </FormItem>
-            </Col>
-            <Col {...colLayout}>
-              <FormItem label="发布单位" {...formItemLayout}>
-                {getFieldDecorator('fbdw', {
-                  // initialValue: this.state.caseType,
-                })(
-                  <Select
-                    placeholder="请选择发布单位"
-                    style={{width: '100%'}}
-                    getPopupContainer={() => document.getElementById('slaxsgjsearchForm')}
-                  >
-                    <Option value="">全部</Option>
-                    {fblxAlarmDictOptions}
-                  </Select>,
-                )}
-              </FormItem>
-            </Col>
-            <Col {...colLayout}>
-              <FormItem label="资料名称" {...formItemLayout}>
-                {getFieldDecorator('zlmc', {
-                  // initialValue: this.state.badw,
-                })(
-                  <Input placeholder="请输入资料名称"/>
-                )}
-              </FormItem>
-            </Col>
-          </Row>
-          <Row className={styles.search}>
-            <span style={{ marginTop: 5}}>
-              <Button style={{marginLeft: 8}} type="primary" htmlType="submit">
-                查询
-              </Button>
-              <Button style={{marginLeft: 8}} onClick={this.handleFormReset}>
-                重置
-              </Button>
-              <Button
-                style={{ borderColor: '#2095FF',marginLeft: 8 }}
-                onClick={this.exportData}
-                icon="download"
-              >
-              导出表格
+        <Row gutter={rowLayout} className={styles.searchForm}>
+          <Col {...colLayout}>
+            <FormItem label="上传时间" {...formItemLayout}>
+              {getFieldDecorator('scsj', {
+                // initialValue: this.state.wtlx,
+              })(
+                <RangePicker
+                  disabledDate={this.disabledDate}
+                  style={{width: '100%'}}
+                  getCalendarContainer={() => document.getElementById('zxpxzlksearchForm')}
+                />,
+              )}
+            </FormItem>
+          </Col>
+          <Col {...colLayout}>
+            <FormItem label="资料类型" {...formItemLayout}>
+              {getFieldDecorator('zllx', {
+              })(
+                <Select
+                  placeholder="请选择资料类型"
+                  style={{width: '100%'}}
+                  getPopupContainer={() => document.getElementById('zxpxzlksearchForm')}
+                >
+                  <Option value="">全部</Option>
+                  {zllxAlarmDictOptions}
+                </Select>,
+              )}
+            </FormItem>
+          </Col>
+          <Col {...colLayout}>
+            <FormItem label="发布单位" {...formItemLayout}>
+              {getFieldDecorator('fbdw', {
+                // initialValue: this.state.caseType,
+              })(
+                <Select
+                  placeholder="请选择发布单位"
+                  style={{width: '100%'}}
+                  getPopupContainer={() => document.getElementById('zxpxzlksearchForm')}
+                >
+                  <Option value="">全部</Option>
+                  {fblxAlarmDictOptions}
+                </Select>,
+              )}
+            </FormItem>
+          </Col>
+          <Col {...colLayout}>
+            <FormItem label="资料名称" {...formItemLayout}>
+              {getFieldDecorator('zlmc', {
+                // initialValue: this.state.badw,
+              })(
+                <Input placeholder="请输入资料名称"/>
+              )}
+            </FormItem>
+          </Col>
+        </Row>
+        <Row className={styles.search}>
+          <span style={{ marginTop: 5}}>
+            <Button style={{marginLeft: 8}} type="primary" htmlType="submit">
+              查询
             </Button>
-              {/*<Button*/}
-                {/*style={{marginLeft: 8}}*/}
-                {/*onClick={this.getSearchHeight}*/}
-                {/*className={styles.empty}*/}
-              {/*>*/}
-                {/*{this.state.searchHeight ? '收起筛选' : '展开筛选'}{' '}*/}
-                {/*<Icon type={this.state.searchHeight ? 'up' : 'down'}/>*/}
-              {/*</Button>*/}
-            </span>
-          </Row>
-          <Row className={styles.search}>
-            <span style={{marginTop: 5}}>
-              <Button
-                style={{ borderColor: '#2095FF', marginLeft: 8 }}
-                onClick={()=>this.importData(true)}
-                // icon="download"
-              >
-                资料导入
-              </Button>
-              <Button
-                style={{ borderColor: '#2095FF', marginLeft: 8 }}
-                onClick={this.deleteData}
-                // icon="download"
-              >
-                资料删除
-              </Button>
-            </span>
-          </Row>
-        </Form>
-      </Card>
+            <Button style={{marginLeft: 8}} onClick={this.handleFormReset}>
+              重置
+            </Button>
+            <Button
+              style={{ borderColor: '#2095FF',marginLeft: 8 }}
+              onClick={this.exportData}
+              icon="download"
+            >
+            导出表格
+          </Button>
+          </span>
+        </Row>
+        <Row className={styles.search}>
+          <span style={{marginTop: 5}}>
+            <Button
+              style={{ borderColor: '#2095FF', marginLeft: 8 }}
+              onClick={()=>this.importData(true)}
+              // icon="download"
+            >
+              资料导入
+            </Button>
+            <Button
+              style={{ borderColor: '#2095FF', marginLeft: 8 }}
+              onClick={this.deleteData}
+              // icon="download"
+            >
+              资料删除
+            </Button>
+          </span>
+        </Row>
+      </Form>
     );
   }
 
@@ -564,10 +549,9 @@ export default class Index extends PureComponent {
     const {ImportModal} = this.state;
     const {form: {getFieldDecorator}, common: {FbdwTypeData, ZllxTypeData}} = this.props;
     let className = this.props.global && this.props.global.dark ? styles.listPageWrap : styles.listPageWrap + ' ' + styles.lightBox;
-    console.log('dark',this.props)
     return (
       <div className={className}>
-        <div className={styles.tableListForm}>
+        <div className={styles.tableListForm} id="zxpxzlksearchForm">
           {this.renderForm()}
         </div>
         <div className={styles.tableListOperator} style={{marginBottom: 0}}>
@@ -576,11 +560,11 @@ export default class Index extends PureComponent {
 
         {ImportModal?
           <ImportFileModal
-             visible={ImportModal}
-             record={FbdwTypeData}
-             handleCancel={this.handleCancel}
-             handleFormReset={this.handleFormReset}
-
+            visible={ImportModal}
+            record={FbdwTypeData}
+            handleCancel={this.handleCancel}
+            handleFormReset={this.handleFormReset}
+            dark={this.props.global.dark}
           />
           :
           ''

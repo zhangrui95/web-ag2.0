@@ -1,12 +1,13 @@
 /*
- * QuestionBankConfig/QuestionDefendTable.tsx 题库维护表格
+ * QuestionBankConfig/EvaluateTemplateTable.tsx 测评模板表格
  * author：jhm
- * 20200302
+ * 20200303
  * */
 
 import React, { PureComponent } from 'react';
 import { Table, Divider, Tooltip, message, Dropdown, Menu, Row, Col, Empty, Icon, Radio,Card,Checkbox,Pagination,Modal } from 'antd';
 import styles from './QuestionDefendTable.less';
+import TemplateDetailVisibleModal from '../../components/QuestionBankConfig/TemplateDetailVisibleModal';
 // import Detail from '../../routes/AreaRealData/areaDetail';
 // import ShareModal from './../ShareModal/ShareModal';
 import Ellipsis from 'ant-design-pro/lib/Ellipsis';
@@ -14,16 +15,15 @@ import { routerRedux } from 'dva/router';
 import noList from '@/assets/viewData/noList.png';
 import noListLight from '@/assets/viewData/noListLight.png';
 import suspend from '@/assets/common/suspend.png';
-import ListDetailVisibleModal from '../../components/QuestionBankConfig/ListDetailVisibleModal'
 import { connect } from 'dva';
 import {tableList} from "@/utils/utils";
-@connect(({ global,QuestionBankConfig }) => ({
-  global,QuestionBankConfig
+@connect(({ global }) => ({
+  global,
 }))
-class QuestionDefendTable extends PureComponent {
+class EvaluateTemplateTable extends PureComponent {
   state = {
-    listDetail:'',  // 题目详情
-    listDetailVisible:false, //题目详情模态框
+    previewRecord:'', // 请求的详情数据
+    previewVisible:false, // 详情模态框
   };
 
   componentDidMount() {
@@ -36,45 +36,37 @@ class QuestionDefendTable extends PureComponent {
 
   //详情
   playVideo=(record)=>{
-    // console.log('record',record);
     this.props.dispatch({
-      type:'QuestionBankConfig/getQuestionList',
+      type:'QuestionBankConfig/getTemplateDetail',
       payload:{
-          pd:{
-            id:record.id,
-          },
-          currentPage:1,
-          showCount:10,
+        id:record.id,
       },
       callback:(data)=>{
-        // console.log('data',data);
-        if(data&&data.list&&data.list.length>0){
+        if(data){
           this.setState({
-            listDetail:data.list[0],
-            listDetailVisible:true,
+            previewVisible:true,
+            previewRecord:data,
           })
-        }else{
-          message.error('数据请求错误');
         }
       }
     })
   }
 
-  // 关闭详情模态框
-  closeListDetailModal = () => {
-    this.setState({
-      listDetailVisible:false,
-    })
-  }
-
   // 删除
   DeleteVideo = (record) => {
-    this.props.deleteListData(record);
+    this.props.deleteTemplateData(record);
   }
 
+  // 关闭详情模态框
+  previewModalCancel = () => {
+    this.setState({
+      previewVisible:false,
+      previewRecord:'',
+    })
+  }
   render() {
     const { data } = this.props;
-    const { mode,listDetailVisible,listDetail } = this.state;
+    const { mode,previewVisible,previewRecord } = this.state;
     let columns, checkboxchooseObj = [];
     columns = [
       {
@@ -83,18 +75,13 @@ class QuestionDefendTable extends PureComponent {
         // width: 100,
       },
       {
-        title: '题目类型',
-        dataIndex: 'tmlxzw',
+        title: '模板名称',
+        dataIndex: 'cpmbzw',
         // width: 100,
       },
       {
-        title: '题目',
-        dataIndex: 'tm',
-        // width: 100,
-      },
-      {
-        title: '答案解析',
-        dataIndex: 'dajx',
+        title: '模板概况',
+        dataIndex: 'mbgk',
         // width: 100,
       },
       {
@@ -120,7 +107,7 @@ class QuestionDefendTable extends PureComponent {
         //   selectedRows,
         // })
       },
-      // selectedRowKeys: [...tablechoose],
+
       // getCheckboxProps: record => ({
       //   disabled: record.name === 'Disabled User', // Column configuration not to be checked
       //   name: record.name,
@@ -161,13 +148,12 @@ class QuestionDefendTable extends PureComponent {
         />
 
         {
-          listDetailVisible?
-            <ListDetailVisibleModal
-              visible={listDetailVisible}
-              title="题目详情"
-              closeListDetailModal={this.closeListDetailModal} // 关闭详情模态框
-              listDetail={listDetail} // 题目详情
-              dark={this.props.global?this.props.global.dark:''}
+          previewVisible?
+            <TemplateDetailVisibleModal
+              visible={previewVisible}
+              title="模板详情"
+              closeListDetailModal={this.previewModalCancel} // 关闭详情模态框
+              TemplateDetail={previewRecord} // 模板详情
             />
             :
             ''
@@ -177,4 +163,4 @@ class QuestionDefendTable extends PureComponent {
   }
 }
 
-export default QuestionDefendTable;
+export default EvaluateTemplateTable;

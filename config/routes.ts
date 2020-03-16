@@ -901,10 +901,26 @@ export function routes() {
                             authority: ['zhag_jgkb'],
                         },
                         {
-                          path: '/ShowData/Learning',
-                          name: '在线学习',
+                          name: '在线培训',
                           icon: 'icon-jingwuicon_svg_huaban',
-                          component: './ShowData/Learning',
+                          path: '/Online',
+                          // authority: ['zhag_zxxx'],
+                          routes: [
+                            {
+                              path: '/Online/Learning',
+                              name: '资料库',
+                              icon: 'icon-jianduchuanhuo',
+                              component: './Online/Learning',
+                              // authority: ['zhag_xxzx_wddb'],
+                            },
+                            {
+                              path: '/Online/EvaluateText',
+                              name: '测评',
+                              icon: 'icon-quanju_duanxintuisong',
+                              component: './Online/EvaluateText',
+                              // authority: ['zhag_xxzx_xxtsrz'],
+                            },
+                          ],
                         },
                         {
                           path: '/ModuleAll/Share',

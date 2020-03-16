@@ -6,13 +6,16 @@
 
 import React, {PureComponent} from 'react';
 import {Modal, Form, Input, Select, message, button, Card, Button, Row, Col, Icon, Upload} from 'antd';
-import styles from './ImportFIleModal.less';
+import styles from './ImportFileModal.less';
 
 const {TextArea} = Input;
 const {Option, OptGroup} = Select;
 import {connect} from 'dva';
 import {getUserInfos} from '../../utils/utils';
 import moment from "moment";
+import fileImgwhite from '@/assets/common/fileWhite.png';
+import fileImgBlack from '@/assets/common/fileBlack.png';
+import importImg from '@/assets/common/import.png';
 
 const FormItem = Form.Item;
 
@@ -170,73 +173,6 @@ class ImportFileModal extends PureComponent {
     else{
       message.warning('请选择发布单位或者上传文件')
     }
-
-
-      // if (
-      //   from === '警情详情问题判定' ||
-      //   from === '刑事案件详情问题判定' ||
-      //   from === '行政案件详情问题判定' ||
-      //   from === '办案区详情问题判定' ||
-      //   from === '涉案物品详情问题判定' ||
-      //   from === '卷宗详情问题判定'
-      // ) {
-      //   if (
-      //     fieldsValue.wtlx === '' ||
-      //     fieldsValue.wtlx === undefined ||
-      //     fieldsValue.wtlx === null
-      //   ) {
-      //     message.warning('请选择问题类型');
-      //   } else if (
-      //     (fieldsValue && fieldsValue.zgyj === '') ||
-      //     fieldsValue.zgyj === undefined ||
-      //     fieldsValue.zgyj === null
-      //   ) {
-      //     message.warning('请填写整改意见');
-      //   } else if (fieldsValue.zgyj.length > 500) {
-      //     message.warning('整改意见不可超过500字');
-      //   } else if (
-      //     this.state.gqType &&
-      //     ((fieldsValue && fieldsValue.gqyy === '') ||
-      //       fieldsValue.gqyy === undefined ||
-      //       fieldsValue.gqyy === null)
-      //   ) {
-      //     message.warning('请填写挂起原因');
-      //   } else if (fieldsValue.gqyy && fieldsValue.gqyy.length > 500) {
-      //     message.warning('挂起原因不可超过500字');
-      //   } else if (zrrValue && zrrValue.length === 0) {
-      //     message.warning('请选择责任人');
-      //   } else {
-      //     this.setState({
-      //       SureModalVisible: true,
-      //     });
-      //   }
-      // }
-      // else {
-      //   if (
-      //     (fieldsValue && fieldsValue.zgyj === '') ||
-      //     fieldsValue.zgyj === undefined ||
-      //     fieldsValue.zgyj === null
-      //   ) {
-      //     message.warning('请填写整改意见');
-      //   } else if (fieldsValue.zgyj.length > 500) {
-      //     message.warning('整改意见不可超过500字');
-      //   } else if (
-      //     this.state.gqType &&
-      //     ((fieldsValue && fieldsValue.gqyy === '') ||
-      //       fieldsValue.gqyy === undefined ||
-      //       fieldsValue.gqyy === null)
-      //   ) {
-      //     message.warning('请填写挂起原因');
-      //   } else if (fieldsValue.gqyy && fieldsValue.gqyy.length > 500) {
-      //     message.warning('挂起原因不可超过500字');
-      //   } else if (zrrValue && zrrValue.length === 0) {
-      //     message.warning('请选择责任人');
-      //   } else {
-      //     this.setState({
-      //       SureModalVisible: true,
-      //     });
-      //   }
-      // }
   };
   handleCancel = () => {
     this.setState({
@@ -304,31 +240,23 @@ class ImportFileModal extends PureComponent {
   };
   // 点击文件查看
   fileOnPreview = file => {
-    // console.log('file',file);
-    // this.props.dispatch({
-    //     type: 'common/downFile',
-    //     payload: {
-    //         name: file.name,
-    //         url: file.url,
-    //     },
-    // })
     window.open('http://'+file.response.fileUrl);
   };
 
   render() {
     const { SureModalVisible,record, from } = this.state;
     const { getFieldDecorator } = this.props.form;
-    // console.log('record',record);
+
     const formItemLayout = {
-      labelCol: {xs: {span: 24}, md: {span: 8}, xl: {span: 6}, xxl: {span: 4}},
-      wrapperCol: {xs: {span: 24}, md: {span: 16}, xl: {span: 18}, xxl: {span: 20}},
+      labelCol: {xs: {span: 24}, md: {span: 8}, xl: {span: 6}, xxl: {span: 6}},
+      wrapperCol: {xs: {span: 24}, md: {span: 16}, xl: {span: 18}, xxl: {span: 18}},
     };
     const rowLayout = {md: 8, xl: 16, xxl: 24};
     const colLayout = {sm: 24, md: 12, xl: 8};
     const uploadButton = (
-      <Button>
-        <Icon type="upload" icon={'upload'} />
-        上传文件
+      <Button className={styles.outtext}>
+        <img src={this.props.dark?fileImgBlack:fileImgwhite} width={48} height={40} />
+        打开文件选择器
       </Button>
     );
     let zllxAlarmDictOptions = [], fblxAlarmDictOptions = [];
@@ -341,74 +269,75 @@ class ImportFileModal extends PureComponent {
       }
     }
     return (
-      <Modal
-        visible={this.props.visible}
-        title="资料导入"
-        // onOk={this.handleOk}
-        onCancel={this.props.handleCancel}
-        className={styles.shareHeader}
-        // confirmLoading={this.state.btnLoading}
-        width={600}
-        maskClosable={false}
-        style={{top: '300px'}}
-        footer={null}
-      >
-        <div className={this.props.global && this.props.global.dark ? '' : styles.lightBox}>
-            <Form className={styles.standardForm}>
-              <Row>
-                <Col sm={24} md={18} xl={18}>
-                  <FormItem label="发布单位" {...formItemLayout}>
-                    {getFieldDecorator('fbdw', {
-                      // initialValue: this.state.caseType,
-                      // rules: [{required:true, message: '请选择发布单位'}],
-                    })(
-                      <Select
-                        placeholder="请选择发布单位"
-                        style={{width: '100%'}}
-                        // getPopupContainer={() => document.getElementById('slaxsgjsearchForm')}
-                      >
-                        <Option value="">全部</Option>
-                        {fblxAlarmDictOptions}
-                      </Select>,
-                    )}
-                  </FormItem>
-                </Col>
-              </Row>
-              <Row style={{marginBottom:16}}>
-                <Col {...colLayout}>
-                  <span className={styles.title}>上传附件：</span>
-                  <span className={styles.outtext}>
+      <div id='zldrsearchForm'>
+        <Modal
+          visible={this.props.visible}
+          title={<div><img src={importImg} width={20} height={20} style={{marginTop:'-5px',marginRight:"12px"}} />资料导入</div>}
+          // onOk={this.handleOk}
+          onCancel={this.props.handleCancel}
+          className={this.props && this.props.dark ? styles.darkshareHeader : styles.lightshareHeader}
+          // confirmLoading={this.state.btnLoading}
+          width={600}
+          maskClosable={false}
+          style={{top: '300px'}}
+          footer={null}
+        >
+          <Form className={styles.standardForm}>
+            <Row style={{padding:'0 100px'}}>
+              <Col sm={24} md={24} xl={24}>
+                <FormItem label="发布单位" {...formItemLayout}>
+                  {getFieldDecorator('fbdw', {
+                    // initialValue: this.state.caseType,
+                    // rules: [{required:true, message: '请选择发布单位'}],
+                  })(
+                    <Select
+                      placeholder="请选择发布单位"
+                      style={{width: '100%'}}
+                      getPopupContainer={() => document.getElementById('zldrsearchForm')}
+                    >
+                      <Option value="">全部</Option>
+                      {fblxAlarmDictOptions}
+                    </Select>,
+                  )}
+                </FormItem>
+              </Col>
+            </Row>
+            <Row style={{marginBottom:16,paddingLeft:'226px'}}>
+              <Col sm={24} md={24} xl={24}>
+                <span className={styles.outtext}>
                   <Upload
                     // action={`${window.configUrl.weedUrl}/submit`}
                     action='http://192.168.3.92:9222/submit'
                     beforeUpload={this.beforeUploadFun}
                     // fileList={this.state.fileList}
                     // multiple={true}
+                    className={styles.Upload}
                     onChange={this.handleChange}
                     onPreview={this.fileOnPreview}
                     onDownload={this.fileOnPreview}
                     style={{diaplay:'inlineBlock'}}
                   >
+
                   {this.state.fileList.length >= 10 ? '' : uploadButton}
                   </Upload>
-                  </span>
-                </Col>
-              </Row>
-            </Form>
-            <div className={styles.btns}>
-              <Button style={{marginLeft: 8}} className={styles.qxBtn} onClick={this.props.handleCancel}>
-                  取消
-              </Button>
-              <Button
-                type="primary"
-                style={{ marginLeft: 8 }}
-                onClick={this.handleAlarm}
-                className={styles.okBtn}
-                // loading={this.state.dbLoading}
-              >
-                确定
-              </Button>
-            </div>
+                </span>
+                {/*<span className={styles.title}>打开文件选择器</span>*/}
+              </Col>
+            </Row>
+          </Form>
+          <div className={styles.btns}>
+            <Button
+              type="primary"
+              style={{ marginLeft: 8 }}
+              onClick={this.handleAlarm}
+              // loading={this.state.dbLoading}
+            >
+              确定
+            </Button>
+            <Button style={{marginLeft: 8}} className={styles.qxBtn} onClick={this.props.handleCancel}>
+                取消
+            </Button>
+          </div>
           <Modal visible={SureModalVisible} centered={true} footer={null} header={null} closable={false} width={400}>
             <div className={styles.modalBox}>
               <div className={styles.question} style={this.props.global && this.props.global.dark ? {color:'#fff'} : {}}><Icon type="question-circle" style={{color:'#faad14',fontSize: '22px',marginRight: '16px'}}/>确认上传文件?</div>
@@ -428,8 +357,8 @@ class ImportFileModal extends PureComponent {
           >
             上传成功！
           </Modal>
-        </div>
-      </Modal>
+        </Modal>
+      </div>
     );
   }
 }

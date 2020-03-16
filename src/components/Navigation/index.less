@@ -8,6 +8,11 @@
     .ant-tabs-bar {
       margin: 0;
       border-bottom: 0px;
+      position: fixed;
+      top: 64px;
+      z-index: 99;
+      width: ~'calc(100% - 110px)';
+      border-top: 2px solid #171925;
     }
 
     .ant-tabs-ink-bar {
@@ -17,7 +22,7 @@
 
     .ant-tabs-nav-container {
       background: #252c3c;
-      width: ~'calc(100% - 110px)';
+      width: ~'calc(100% - 258px)';
     }
 
     .ant-tabs-tab {
@@ -32,15 +37,15 @@
 
   .close {
     padding: 10px;
-    position: absolute;
+    position: fixed;
     right: 0px;
-    background: fade(#000, 55%);
+    background: #0a0b11;
     color: #fff;
     top: 66px;
     height: 40px;
     border-radius: 1px;
     cursor: pointer;
-    z-index: 99;
+    z-index: 101;
     width: 110px;
     line-height: 20px;
     font-size: 16px;
@@ -51,7 +56,7 @@
 
   .closes {
     padding: 10px;
-    position: absolute;
+    position: fixed;
     right: 0px;
     background: #252c3c;
     top: 66px;
@@ -62,5 +67,16 @@
 
   .box {
     padding: 0 16px;
+    margin-top: 56px;
+    :global {
+      .ant-tabs-bar {
+        position: initial;
+        width: auto;
+        border-top:0;
+      }
+      .ant-tabs-nav-container {
+        width: auto;
+      }
+    }
   }
 }
