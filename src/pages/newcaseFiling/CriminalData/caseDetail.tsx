@@ -933,6 +933,12 @@ export default class caseDetail extends PureComponent {
                 {caseDetails && caseDetails.afdd ? caseDetails.afdd : ''}
               </div>
             </Col>
+              <Col md={8} sm={24} className={styles.xqcol}>
+                  <div className={liststyles.Indexfrom}>音视频：</div>
+                  <div className={liststyles.Indextail} style={{ paddingLeft: 44 }}>
+                    <a style={{ textDecoration: 'underline' }}>执法音视频-刑事</a>
+                  </div>
+              </Col>
           </Row>
           <Row
             className={caseDetails && (caseDetails.pajk || caseDetails.xayy) ? styles.xqrow : ''}

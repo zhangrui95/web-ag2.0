@@ -829,6 +829,11 @@ export default class caseDetail extends PureComponent {
               </div>
             </Col>
           </Row>
+            <Row gutter={rowLayout} className={styles.xqrow}>
+                <Col md={24} sm={24} className={styles.xqcol}>
+                    音视频：<a style={{ textDecoration: 'underline' }}>执法音视频-行政</a>
+                </Col>
+            </Row>
           <Row className={caseDetails && caseDetails.pajk && caseDetails.xayy ? styles.xqrow : ''}>
             <Col md={24} sm={24} className={styles.xqcol}>
               <div className={liststyles.Indexfrom}>简要案情：</div>
