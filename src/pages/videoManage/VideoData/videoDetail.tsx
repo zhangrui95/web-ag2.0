@@ -38,6 +38,8 @@ export default class policeDetail extends PureComponent {
       selectedRowKeys: [],
       selectedRows: [],
       bz:false,
+      current: 1,
+      count: 10,
     };
   }
   getBz = () =>{
@@ -56,9 +58,18 @@ export default class policeDetail extends PureComponent {
     })
   }
   handleTableChange = (pagination, filters, sorter) => {
-    this.props.onChange(pagination, filters, sorter);
+      // const { formValues } = this.state;
+      // const params = {
+      //     pd: {
+      //         ...formValues,
+      //     },
+      //     currentPage: pagination.current,
+      //     showCount: pagination.pageSize,
+      // };
+      // this.getList(params);
     this.setState({
       current: pagination.current,
+      count: pagination.pageSize,
     });
   };
   getAdd = (tab) =>{
@@ -92,6 +103,9 @@ export default class policeDetail extends PureComponent {
       },
     });
   }
+  getSearch = (value) =>{
+      console.log(value);
+  }
   render() {
     let dark = this.props.global && this.props.global.dark;
     let {data,tab,add,record} = this.state;
@@ -99,7 +113,9 @@ export default class policeDetail extends PureComponent {
       {
         title: '序号',
         dataIndex: 'index',
-        render: (text,record,index) => index+1
+          render: (text, record, index) => {
+              return <span>{(this.state.current - 1) * this.state.count + (index + 1)}</span>;
+          },
       },
       {
         title: '接警编号',
@@ -134,7 +150,9 @@ export default class policeDetail extends PureComponent {
       {
         title: '序号',
         dataIndex: 'index',
-        render: (text,record,index) => index+1
+          render: (text, record, index) => {
+              return <span>{(this.state.current - 1) * this.state.count + (index + 1)}</span>;
+          },
       },
       {
         title: '案件编号',
@@ -170,7 +188,9 @@ export default class policeDetail extends PureComponent {
       {
         title: '序号',
         dataIndex: 'index',
-        render: (text,record,index) => index+1
+          render: (text, record, index) => {
+              return <span>{(this.state.current - 1) * this.state.count + (index + 1)}</span>;
+          },
       },
       {
         title: '接警编号',
@@ -197,7 +217,9 @@ export default class policeDetail extends PureComponent {
       {
         title: '序号',
         dataIndex: 'index',
-        render: (text,record,index) => index+1
+          render: (text, record, index) => {
+              return <span>{(this.state.current - 1) * this.state.count + (index + 1)}</span>;
+          },
       },
       {
         title: '案件编号',
@@ -294,7 +316,7 @@ export default class policeDetail extends PureComponent {
                   placeholder= {tab==='0' ? "请输入警情编号、名称、接警人员、单位" : "请输入案件编号、名称、接警人员、单位"}
                   enterButton="搜索"
                   size="large"
-                  onSearch={value => console.log(value)}
+                  onSearch={this.getSearch}
                   className={styles.searchBox}
                 />
                 <Table

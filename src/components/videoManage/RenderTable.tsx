@@ -267,7 +267,7 @@ class RenderTable extends PureComponent {
                            <a onClick={()=>this.deatils(record,'0')}>播放</a>
                         <Divider type="vertical"/>
                        </span> : ''}
-                      {authorityIsTrue('zhag_yspsj_ck') ?<span>
+                      {authorityIsTrue('zhag_yspsj_gl') ?<span>
                         {record.sfgl === '是' ? <a onClick={()=>this.deatils(record,'1')}>编辑</a> : <a onClick={()=>this.deatils(record,'2')}>关联</a>}
                         <Divider type="vertical"/>
                         </span> : ''}

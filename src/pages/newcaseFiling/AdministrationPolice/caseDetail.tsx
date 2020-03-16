@@ -648,7 +648,9 @@ export default class caseDetail extends PureComponent {
       reformModal: false,
     });
   };
-
+    getVideo = () =>{
+        console.log('播放行政-告警音视频');
+    }
   renderDetail() {
     // const {UnXzCaseData: {caseDetails, loading}} = this.props;
     const { caseDetails, isDb, loading2, sureChange } = this.state;
@@ -834,59 +836,67 @@ export default class caseDetail extends PureComponent {
         </div>
         <div className={styles.message} style={{ padding: '0 84px 24px' }}>
           <Row style={{ marginRight: 0 }} className={styles.xqrow}>
-            <Col md={6} sm={24} className={styles.xqcol}>
+            <Col md={8} sm={24} className={styles.xqcol}>
               <div className={liststyles.Indexfrom}>案件编号：</div>
               <div className={liststyles.Indextail}>
                 {caseDetails && caseDetails.ajbh ? caseDetails.ajbh : ''}
               </div>
             </Col>
-            <Col md={6} sm={24} className={styles.xqcol}>
+            <Col md={8} sm={24} className={styles.xqcol}>
               <div className={liststyles.Indexfrom}>案件名称：</div>
               <div className={liststyles.Indextail}>
                 {caseDetails && caseDetails.ajmc ? caseDetails.ajmc : ''}
               </div>
             </Col>
-            <Col md={6} sm={24} className={styles.xqcol}>
+            <Col md={8} sm={24} className={styles.xqcol}>
               <div className={liststyles.Indexfrom}>案件状态：</div>
               <div className={liststyles.Indextail}>
                 {caseDetails && caseDetails.ajzt ? caseDetails.ajzt : ''}
               </div>
             </Col>
-            <Col md={6} sm={24} className={styles.xqcol}>
-              <div className={liststyles.Indexfrom}>发案日期：</div>
-              <div className={liststyles.Indextail}>
-                {caseDetails && caseDetails.fasj_sx && caseDetails.fasj_xx
-                  ? caseDetails.fasj_sx + '~' + caseDetails.fasj_xx
-                  : ''}
-              </div>
-            </Col>
           </Row>
           <Row style={{ marginRight: 0 }} className={styles.xqrow}>
-            <Col md={6} sm={24} className={styles.xqcol}>
+              <Col md={8} sm={24} className={styles.xqcol}>
+                  <div className={liststyles.Indexfrom}>发案日期：</div>
+                  <div className={liststyles.Indextail}>
+                      {caseDetails && caseDetails.fasj_sx && caseDetails.fasj_xx
+                          ? caseDetails.fasj_sx + '~' + caseDetails.fasj_xx
+                          : ''}
+                  </div>
+              </Col>
+            <Col md={8} sm={24} className={styles.xqcol}>
               <div className={liststyles.Indexfrom}>受理单位：</div>
               <div className={liststyles.Indextail}>
                 {caseDetails && caseDetails.sldw_name ? caseDetails.sldw_name : ''}
               </div>
             </Col>
-            <Col md={6} sm={24} className={styles.xqcol}>
+            <Col md={8} sm={24} className={styles.xqcol}>
               <div className={liststyles.Indexfrom}>受理日期：</div>
               <div className={liststyles.Indextail}>
                 {caseDetails && caseDetails.slrq ? caseDetails.slrq : ''}
               </div>
             </Col>
-            <Col md={6} sm={24} className={styles.xqcol}>
-              <div className={liststyles.Indexfrom}>办案单位：</div>
-              <div className={liststyles.Indextail}>
-                {caseDetails && caseDetails.sldw_name ? caseDetails.sldw_name : ''}
-              </div>
-            </Col>
-            <Col md={6} sm={24} className={styles.xqcol}>
-              <div className={liststyles.Indexfrom}>办案人：</div>
-              <div className={liststyles.Indextail} style={{ paddingLeft: '46px' }}>
-                {caseDetails && caseDetails.bar_name ? caseDetails.bar_name : ''}
-              </div>
-            </Col>
           </Row>
+            <Row style={{ marginRight: 0 }} className={styles.xqrow}>
+                <Col md={8} sm={24} className={styles.xqcol}>
+                    <div className={liststyles.Indexfrom}>办案单位：</div>
+                    <div className={liststyles.Indextail}>
+                        {caseDetails && caseDetails.sldw_name ? caseDetails.sldw_name : ''}
+                    </div>
+                </Col>
+                <Col md={8} sm={24} className={styles.xqcol}>
+                    <div className={liststyles.Indexfrom}>办案人：</div>
+                    <div className={liststyles.Indextail} style={{ paddingLeft: 44 }}>
+                        {caseDetails && caseDetails.bar_name ? caseDetails.bar_name : ''}
+                    </div>
+                </Col>
+                <Col md={8} sm={24} className={styles.xqcol}>
+                    <div className={liststyles.Indexfrom}>音视频：</div>
+                    <div className={liststyles.Indextail} style={{ paddingLeft: 44 }}>
+                        <a style={{ textDecoration: 'underline' }} onClick={this.getVideo}>执法音视频-行政告警</a>
+                    </div>
+                </Col>
+            </Row>
           <Row style={{ marginRight: 0 }} className={styles.xqrow}>
             <Col md={24} sm={24} className={styles.xqcol}>
               <div className={liststyles.Indexfrom}>简要案情：</div>

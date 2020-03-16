@@ -685,7 +685,9 @@ export default class caseDetail extends PureComponent {
     // const AddJqDetail = { title: '卷宗详情', content: divs, key: id };
     // this.props.newDetail(AddJqDetail);
   };
-
+    getVideo = () =>{
+        console.log('播放行政音视频');
+    }
   renderDetail() {
     const { caseDetails } = this.state;
     const rowLayout = { md: 8, xl: 16, xxl: 24 };
@@ -831,7 +833,7 @@ export default class caseDetail extends PureComponent {
           </Row>
             <Row gutter={rowLayout} className={styles.xqrow}>
                 <Col md={24} sm={24} className={styles.xqcol}>
-                    音视频：<a style={{ textDecoration: 'underline' }}>执法音视频-行政</a>
+                    音视频：<a style={{ textDecoration: 'underline' }} onClick={this.getVideo}>执法音视频-行政</a>
                 </Col>
             </Row>
           <Row className={caseDetails && caseDetails.pajk && caseDetails.xayy ? styles.xqrow : ''}>

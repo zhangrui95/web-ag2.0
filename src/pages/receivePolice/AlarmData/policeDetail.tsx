@@ -543,6 +543,9 @@ export default class policeDetail extends PureComponent {
       </div>
     );
   }
+    getVideo = () =>{
+      console.log('播放警情音视频');
+    }
   renderDetail() {
     const { record, policeDetails } = this.state;
     // const { policeData:{policeDetails} } = this.props
@@ -638,14 +641,6 @@ export default class policeDetail extends PureComponent {
               </div>
             </Col>
           </Row>
-        <Row gutter={rowLayout} className={styles.xqrow}>
-            <Col md={24} sm={24} className={styles.xqcol}>
-                <div className={liststyles.Indexfrom}>音视频：</div>
-                <div className={liststyles.Indextail} style={{ paddingLeft: 44 }}>
-                    <a style={{ textDecoration: 'underline' }}>执法音视频-警情</a>
-                </div>
-            </Col>
-        </Row>
           <Row gutter={rowLayout}>
             <Col md={24} sm={24} className={styles.xqcol}>
               <div className={liststyles.Indexfrom}>接警内容：</div>
@@ -722,6 +717,14 @@ export default class policeDetail extends PureComponent {
               </div>
             </Col>
           </Row>
+            <Row gutter={rowLayout} className={styles.xqrow}>
+                <Col md={24} sm={24} className={styles.xqcol}>
+                    <div className={liststyles.Indexfrom}>音视频：</div>
+                    <div className={liststyles.Indextail} style={{ paddingLeft: 44 }}>
+                        <a style={{ textDecoration: 'underline' }} onClick={this.getVideo}>执法音视频-警情</a>
+                    </div>
+                </Col>
+            </Row>
           <Row gutter={rowLayout}>
             <Col md={24} sm={24} className={styles.xqcol}>
               <div className={liststyles.Indexfrom}>处警情况：</div>

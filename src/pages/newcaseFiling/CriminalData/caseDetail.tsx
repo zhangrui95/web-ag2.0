@@ -732,7 +732,9 @@ export default class caseDetail extends PureComponent {
   //     Dossiervisible: false,
   //   });
   // };
-
+    getVideo = () =>{
+        console.log('播放刑事音视频');
+    }
   renderDetail() {
     const {
       CaseData: { loading },
@@ -936,7 +938,7 @@ export default class caseDetail extends PureComponent {
               <Col md={8} sm={24} className={styles.xqcol}>
                   <div className={liststyles.Indexfrom}>音视频：</div>
                   <div className={liststyles.Indextail} style={{ paddingLeft: 44 }}>
-                    <a style={{ textDecoration: 'underline' }}>执法音视频-刑事</a>
+                    <a style={{ textDecoration: 'underline' }} onClick={this.getVideo}>执法音视频-刑事</a>
                   </div>
               </Col>
           </Row>
