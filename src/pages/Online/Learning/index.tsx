@@ -403,7 +403,7 @@ export default class Index extends PureComponent {
 
   renderForm() {
     const {form: {getFieldDecorator}, common: {FbdwTypeData, ZllxTypeData}} = this.props;
-    console.log('FbdwTypeData',FbdwTypeData);
+    // console.log('FbdwTypeData',FbdwTypeData);
     let zllxAlarmDictOptions = [], fblxAlarmDictOptions = [];
     if (ZllxTypeData.length > 0) {
       for (let i = 0; i < ZllxTypeData.length; i++) {
@@ -549,7 +549,6 @@ export default class Index extends PureComponent {
     const {ImportModal} = this.state;
     const {form: {getFieldDecorator}, common: {FbdwTypeData, ZllxTypeData}} = this.props;
     let className = this.props.global && this.props.global.dark ? styles.listPageWrap : styles.listPageWrap + ' ' + styles.lightBox;
-    // console.log('dark',this.props)
     return (
       <div className={className}>
         <div className={styles.tableListForm} id="zxpxzlksearchForm">
@@ -565,7 +564,7 @@ export default class Index extends PureComponent {
             record={FbdwTypeData}
             handleCancel={this.handleCancel}
             handleFormReset={this.handleFormReset}
-
+            dark={this.props.global.dark}
           />
           :
           ''

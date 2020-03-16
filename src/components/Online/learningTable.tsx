@@ -10,6 +10,7 @@ import noListLight from '@/assets/viewData/noListLight.png';
 import suspend from '@/assets/common/suspend.png';
 import { connect } from 'dva';
 import {tableList} from "@/utils/utils";
+import videoImg from '@/assets/common/video.png';
 @connect(({ global }) => ({
   global,
 }))
@@ -98,76 +99,9 @@ class learningTable extends PureComponent {
     }
     return <Checkbox.Group defaultValue={[...tablechoose]} className={styles.CheckGroup} onChange={this.checkboxView}>{rows}</Checkbox.Group>;
   }
-  // CaseQuery() {
-  //   {/*<Checkbox.Group onChange={this.onChange}>*/}
-  //     {/*<Checkbox value='a'>a</Checkbox>*/}
-  //     {/*<Checkbox value='b'>b</Checkbox>*/}
-  //     {/*<Checkbox value='c'>c</Checkbox>*/}
-  //   {/*</Checkbox.Group>*/}
-  //   const { data } = this.props;
-  //   const list = data.list;
-  //   const dataLength = list.length;
-  //   if (data&&list) {
-  //     const rowLength = Math.floor(dataLength / 5);
-  //     const restLength = dataLength % 5;
-  //     const rows = [];
-  //     const rows1 = [];
-  //     const rows2 = [];
-  //     const casequery = [];
-  //     for (let a = 0; a < rowLength; a++) {
-  //       const cols = [];
-  //       for (let b = 5 * a; b < 5 * (a + 1); b++) {
-  //         cols.push(
-  //             <div className={styles.list}>
-  //               <div className={styles.card} style={{padding: '0 24px 24px 0'}}>
-  //                 <Card className={styles.card}>
-  //                   <img width='100%' height={150} src={noList} />
-  //                   <div className={styles.listmes}>
-  //                     <div style={{fontSize:20}}>{list[b].zlmc}</div>
-  //                     <div>{list[b].scsj}</div>
-  //                   </div>
-  //                 </Card>
-  //               </div>
-  //             </div>
-  //         );
-  //       }
-  //       rows1.push(cols);
-  //     }
-  //     if (restLength) {
-  //       for (let c = 0; c < 5; c++) {
-  //         if (c < restLength) {
-  //           casequery.push(
-  //             <div className={styles.list}>
-  //               <div className={styles.card} style={{padding: '0 24px 24px 0'}}>
-  //                 <Card className={styles.card}>
-  //                   <img width='100%' height={150} src={noList} />
-  //                   <div className={styles.listmes}>
-  //                     <div style={{fontSize:20}}>{list[c].zlmc}</div>
-  //                     <div>{list[c].scsj}</div>
-  //                   </div>
-  //                 </Card>
-  //               </div>
-  //             </div>
-  //           );
-  //         } else {
-  //           casequery.push(
-  //             <div className={styles.list}>
-  //               {/*<div className={styles.card}>*/}
-  //                 {/*<Card className={styles.card} />*/}
-  //               {/*</div>*/}
-  //             </div>
-  //           );
-  //         }
-  //       }
-  //     }
-  //     rows2.push({casequery});
-  //     rows.push(rows1);
-  //     rows.push(rows2);
-  //     return rows;
-  //   }
-  // }
   tabLeft = () => {
     const { data } = this.props;
+    // console.log('this.props.global',this.props.global);
     const { mode,checkboxchoose,tablechoose } = this.state;
     let columns, checkboxchooseObj = [];
     columns = [
@@ -212,8 +146,6 @@ class learningTable extends PureComponent {
     const rowSelection = {
       // selections:checkboxchoose,
       onChange: (selectedRowKeys, selectedRows) => {
-        // console.log('selectedRowKeys',selectedRowKeys);
-        // console.log('selectedRows',selectedRows);
         this.setState({
           tablechoose:selectedRowKeys,
 
@@ -221,10 +153,6 @@ class learningTable extends PureComponent {
         if(this.props.chooseSelect){
           this.props.chooseSelect(selectedRowKeys);
         }
-
-        // this.setState({
-        //   selectedRows,
-        // })
       },
       selectedRowKeys: [...tablechoose],
       // getCheckboxProps: record => ({
@@ -278,7 +206,7 @@ class learningTable extends PureComponent {
         {data&&data.list ? this.CaseQuery(): ''}
         <div style={{ padding: '24px 0', position: 'relative' }}>
           <Pagination
-            className={styles.paginations}
+            className={this.props.global && this.props.global.dark ?styles.paginationsw:styles.paginations}
             total={data.page.totalResult}
             // size="small"
             current={pagenow}
@@ -335,8 +263,8 @@ class learningTable extends PureComponent {
             <Modal
               visible={previewModal}
               footer={null}
-              title='法规培训'
-              className={styles.show}
+              title={<div><img src={videoImg} width={20} height={20} style={{marginTop:'-5px',marginRight:"12px"}} />法规培训</div>}
+              className={this.props.global && this.props.global.dark ?styles.darkshow:styles.show}
               onCancel={this.previewModalCancel}
             >
               <iframe
@@ -344,7 +272,7 @@ class learningTable extends PureComponent {
                 className={styles.box}
                 src={previewRecord.lx==='文档'?previewRecord.yllj:'http://'+previewRecord.xzlj}
                 width="1170px"
-                height="607px"
+                height="640px"
               />
             </Modal>
             :

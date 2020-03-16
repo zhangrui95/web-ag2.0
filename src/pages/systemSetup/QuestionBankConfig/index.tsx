@@ -398,7 +398,6 @@ export default class Index extends PureComponent {
   render() {
     const {common: {depTree}} = this.props;
     const {showDataView,addDataVisible} = this.state;
-    // console.log('addDataVisible',addDataVisible)
     let className = this.props.global && this.props.global.dark ? styles.listPageWrap : styles.listPageWrap + ' ' + styles.lightBox;
     return (
       <div className={this.props.location.query && this.props.location.query.id ? styles.onlyDetail : ''}>
@@ -448,6 +447,7 @@ export default class Index extends PureComponent {
             deleteListData={this.deleteListData} // 删除添加的题目
             // addShowDelete={addShowDelete} // 添加试题预览时是否执行删除
             delete={this.delete}
+            dark={this.props.global?this.props.global.dark:''}
           />
           :
           ''

@@ -10,7 +10,7 @@
 .search {
   width: 260px;
   float: left;
-  margin: 10px 0 0 12px;
+  margin: 5px 0 0 12px;
 }
 .success {
   color: @white;
@@ -60,7 +60,9 @@
       text-align: right;
       border-top: 0;
     }
+
   }
+
 }
 .successLight {
   color: #4d4d4d;
@@ -79,8 +81,8 @@
     }
 
     .ant-modal-content {
-      width: 452px;
-      height: 158px;
+      //width: 452px;
+      //height: 158px;
       background-color: #fff;
     }
 
@@ -93,6 +95,7 @@
       font-size: 22px;
       text-align: center;
       height: 102px;
+      padding: 0;
     }
 
     .ant-modal-close {
@@ -139,11 +142,9 @@
     }
   }
 }
-.showTable{
-  border-top-left-radius:0!important;
-}
+
 .listPageWrap {
-  background-color: @text-word-color;
+  background-color: #262C3D;
 
   .listPageHeader {
     background: @component-background;
@@ -164,74 +165,134 @@
       }
     }
 
-    .listPageHeaderCurrent {
-      //font-size: @font-size-lg;
-      font-weight: bold;
-      color: @primary-color;
-      span{
-        padding: 0 8px;
+  }
+
+  .searchForm{
+    border-right: 1px solid #1C212D;
+    :global{
+      .ant-form-item-label > label{
+        color: @text-word-color;
+      }
+      .ant-input{
+        background-color:@body-background;
+        border: 0;
       }
     }
-
-    .UnlistPageHeaderCurrent {
-      font-weight: bold;
-      color: @title-color;
+  }
+  .search{
+    .darkAddSearch{
+      border: 1px solid #4684FF;
+      color: @text-word-color;
+      background-color: #283551;
     }
-
-    .borderCenter {
-      padding: 0 8px;
+    .darkCancelSearch{
+      color: @text-word-color;
+      background-color: @body-background;
+      border: 0;
     }
-
-    .typeButtonsArea {
-      float: right;
-
-      button {
-        margin-right: 16px;
-
-        span {
-          padding: 0;
-          line-height: 26px;
-          margin-top: -3px;
-          display: block;
-        }
+  }
+  .showTable{
+    border-top-left-radius:0!important;
+    :global{
+      .ant-table{
+        color: @text-word-color;
+      }
+      .ant-table-thead > tr > th {
+        background: @component-background;
+        color: @text-word-color;
+      }
+      .ant-table-tbody > tr:hover{
+        background-color: #ccc;
+        color: @body-background;
+      }
+      .ant-pagination-item-link,.ant-pagination-item{
+        background: #171925;
+        color: @text-word-color;
+        border: 0;
+      }
+      .ant-pagination-item a{
+        color: @text-word-color;
+      }
+      .ant-pagination-item-active{
+        border: 1px solid #3285ff;
+      }
+      .ant-table-tbody > tr.ant-table-row-selected td{
+        background: @component-background;
+        color: @text-word-color;
       }
     }
   }
 }
 
 .lightBox {
-  background-color: transparent;
+  background-color: #fff;
 
   .listPageHeader {
     background: #fff !important;
     color: #E6E6E6;
   }
 
-  .listPageHeaderCurrent {
-    color: #3D63D1 !important;
-  }
-
-  .tableListForm {
-    background-color: #fff;
-    border-radius: 10px;
-  }
-
-  .typeButtonsArea {
-    color: #475366 !important;
-  }
-
-  .empty {
-    background: #EBEBEB !important;
-    color: #455365 !important;
-  }
-
   .searchForm {
-    border-right: 1px solid #DBDBDB !important;
+    border-right: 1px solid #dbdbdb !important;
+    :global{
+      .ant-form-item{
+        margin-bottom: 0;
+      }
+      .ant-form-item-label > label{
+        color: @body-background;
+      }
+      .ant-input{
+        background-color: #f2f2f2;
+        border: none;
+        color: #4d4d4d !important;
+      }
+    }
+
   }
 
-  .downloadBtn {
-    background: #4662D5;
-    color: #fff;
-    border: 1px solid #4662D5;
+  .search{
+    .darkAddSearch{
+      border: 1px solid #4684FF;
+      color: #4684FF;
+      background-color: @text-word-color;
+    }
+    .darkCancelSearch{
+      color: #000;
+      background-color: #EBEBEB;
+      border: 0;
+    }
   }
+  .showTable{
+    border-top-left-radius:0!important;
+    :global{
+      .ant-table{
+        color: #4d4d4d;
+      }
+      .ant-table-thead > tr > th {
+        background: #fff;
+        color: #4d4d4d;
+      }
+      .ant-table-tbody > tr:hover{
+        background-color: #ccc;
+        color: #4d4d4d;
+      }
+
+      .ant-pagination-item-link,.ant-pagination-item{
+        background: #f7f8fa;
+        color: #4d4d4d;
+        border: 1px solid #c3c6ce;
+      }
+      .ant-pagination-item a{
+        color: #4d4d4d;
+      }
+      .ant-pagination-item-active{
+        border: 1px solid #3285ff;
+      }
+      .ant-table-tbody > tr.ant-table-row-selected td{
+        background: #fafafa;
+        color: inherit;
+      }
+    }
+  }
+
 }

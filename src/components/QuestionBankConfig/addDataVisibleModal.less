@@ -125,5 +125,155 @@
       text-align: center;
       //border-top: 0;
     }
+    .ant-modal-close-x{
+      margin-top: 12px;
+      border-radius:100%;
+      background-color: #0E1437;
+      width: 30px;
+      height: 30px;
+      margin-right: 20px;
+      color: #fff;
+      font-size: 16px;
+      text-align: center;
+      line-height: 30px;
+    }
+  }
+  .testCard{
+    background-color:@text-word-color;
+    position: relative;
+    border-top: 0;
+    border-left: 0;
+    border-right:0;
+    border-bottom:1px solid #ccc;
+    padding:16px 64px 0;
+    :global{
+      .ant-card-body {
+        padding:0;
+      }
+    }
+    .TextareaStyle{
+      width:100%;
+      background-color: @text-word-color;
+      //border: 0;
+      resize:none;
+    }
+  }
+}
+
+
+
+.darkshareHeader{
+  :global {
+    .ant-modal-body{
+      padding: 16px 0;
+      background-color: #262C3D;
+    }
+    .ant-modal-header {
+      background-color: #262C3D;
+      //opacity: 0.4;
+      color: #fff;
+    }
+
+    .ant-modal-title {
+      color: #fff;
+    }
+
+    .ant-modal-close {
+      color: #fff;
+    }
+
+    .ant-modal-footer {
+      text-align: center;
+      //border-top: 0;
+    }
+
+    .ant-modal-close-x{
+      margin-top: 12px;
+      border-radius:100%;
+      background-color: #92969E;
+      width: 30px;
+      height: 30px;
+      margin-right: 20px;
+      color: #262C3D;
+      font-size: 16px;
+      text-align: center;
+      line-height: 30px;
+    }
+
+    .ant-radio-button-wrapper{
+      background-color: #171925;
+      color: #fff;
+      border: 0;
+    }
+  }
+
+  .RadioStyle{
+    border-bottom:1px solid #fff;
+    border-left: none;
+    border-right: none;
+    padding:0 24px 12px;
+    a {
+      color: #666;
+      padding: 12px 10px;
+      font-size: 18px;
+      font-weight: 400;
+
+      &:hover {
+        color: #00abff;
+      }
+    }
+
+    a.showSearchDetail {
+      font-size: 14px;
+      color: @highlight-color;
+
+      :global {
+        .anticon svg {
+          color: @highlight-color !important;
+        }
+      }
+    }
+
+    a.chosenType {
+      color: #000;
+      border-bottom: 1px solid rgba(37, 155, 243, 1);
+    }
+
+    :global {
+      .ant-divider {
+        background: @body-background;
+        font-size: 20px;
+      }
+    }
+  }
+
+  .testCard{
+    background-color:#262C3D;
+    position: relative;
+    border-top: 0;
+    border-left: 0;
+    border-right:0;
+    border-bottom:1px solid #ccc;
+    padding:16px 64px 0;
+    :global{
+      .ant-card-body {
+        padding:0;
+      }
+      .ant-form-item label{
+        color: @text-word-color;
+      }
+      .ant-input{
+        background-color: @body-background;
+        border: 0;
+        color: @text-word-color;
+      }
+    }
+    .TextareaStyle{
+      width:100%;
+      background-color: @body-background;
+      border: 0;
+      resize:none;
+      color: @text-word-color;
+    }
   }
 }
