@@ -279,7 +279,7 @@ export default class policeDetail extends PureComponent {
         }
             <div className={styles.videoWord} style={styleBox}>
               <div className={styles.title}>音视频信息</div>
-              {this.state.bz ? '' : <Button className={styles.wsxxBtn} onClick={this.getBz}>完善信息</Button>}
+              {this.state.bz || this.props.location.query.tabName === '播放' ? '' : <Button className={styles.wsxxBtn} onClick={this.getBz}>完善信息</Button>}
               <Row className={styles.word} style={styleBox1}>
                 <Col {...colSpan}>视频格式：MP4</Col>
                 <Col {...colSpan}>视频大小：25M</Col>

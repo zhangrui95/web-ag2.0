@@ -52,7 +52,6 @@ export default class Index extends PureComponent {
         formValues: {},
         activeKey: '0',
         arrayDetail: [],
-        sfsa: '0',
         sfcj: '',
         showDataView: true, // 控制显示图表或者列表（true显示图表）
         typeButtons: 'day', // 图表展示类别（week,month）
@@ -162,18 +161,6 @@ export default class Index extends PureComponent {
     handleAllPoliceOptionChange = (value, cjr) => {
         this.getAllPolice(value, cjr);
     };
-    onRadioChange = (e) => {
-        // console.log('radio checked', e.target.value);
-        this.setState({
-            sfsa: e.target.value,
-        });
-    };
-    onRadioChange1 = (e) => {
-        // console.log('radio checked', e.target.value);
-        this.setState({
-            sfcj: e.target.value,
-        });
-    };
     // 获取机构树
     getDepTree = (area) => {
         const areaNum = [];
@@ -280,6 +267,8 @@ export default class Index extends PureComponent {
               jqbh:values.jqbh ? values.jqbh : '',
               lzrq_ks:values.lzrq && values.lzrq.length > 0 ? values.lzrq[0].format('YYYY-MM-DD HH:mm:ss') : '',
               lzrq_js:values.lzrq && values.lzrq.length > 0 ? values.lzrq[1].format('YYYY-MM-DD HH:mm:ss') : '',
+              scrq_ks:values.scrq && values.scrq.length > 0 ? values.scrq[0].format('YYYY-MM-DD HH:mm:ss') : '',
+              scrq_js:values.scrq && values.scrq.length > 0 ? values.scrq[1].format('YYYY-MM-DD HH:mm:ss') : '',
               ysply:values.ysply ? values.ysply : '',
               wjmc:values.wjmc ? values.wjmc : '',
               sfgl:values.sfgl ? values.sfgl : '',
@@ -516,8 +505,8 @@ export default class Index extends PureComponent {
             }
         }
         const formItemLayout = {
-            labelCol: {xs: {span: 12}, md: {span: 8}, xl: {span: 7}, xxl: {span: 8}},
-            wrapperCol: {xs: {span: 12}, md: {span: 16}, xl: {span: 17}, xxl: {span: 16}},
+            labelCol: {xs: {span: 12}, md: {span: 8}, xl: {span: 6}, xxl: {span: 5}},
+            wrapperCol: {xs: {span: 12}, md: {span: 16}, xl: {span: 18}, xxl: {span: 19}},
         };
         const rowLayout = {md: 8, xl: 16, xxl: 24};
         const colLayout = {sm: 24, md: 12, xl: 12, xxl:8};
@@ -575,6 +564,7 @@ export default class Index extends PureComponent {
                         initialValue: this.state.ajzt,
                       })(
                         <Select placeholder="请选择案件状态" style={{width: '100%'}}
+                                mode="multiple"
                                 getPopupContainer={() => document.getElementById('videoListForm')}>
                           <Option value="">全部</Option>
                           {XzCaseStatusOption}
@@ -635,8 +625,23 @@ export default class Index extends PureComponent {
                     </FormItem>
                   </Col>
                     <Col {...colLayout}>
-                        <FormItem label="视频录制/上传日期" {...formItemLayout}>
+                        <FormItem label="录制日期" {...formItemLayout}>
                             {getFieldDecorator('lzrq', {
+                                // initialValue: this.state.jjsj,
+                            })(
+                                <RangePicker
+                                    disabledDate={this.disabledDate}
+                                    style={{width: '100%'}}
+                                    showTime={{format: 'HH:mm:ss'}}
+                                    format="YYYY-MM-DD HH:mm:ss"
+                                    getCalendarContainer={() => document.getElementById('videoListForm')}
+                                />,
+                            )}
+                        </FormItem>
+                    </Col>
+                    <Col {...colLayout}>
+                        <FormItem label="上传日期" {...formItemLayout}>
+                            {getFieldDecorator('scrq', {
                                 // initialValue: this.state.jjsj,
                             })(
                                 <RangePicker
@@ -654,11 +659,12 @@ export default class Index extends PureComponent {
                             {getFieldDecorator('ysply', {
                                 initialValue: this.state.ysply,
                             })(
-                                <Radio.Group onChange={this.onRadioChange}>
-                                    <Radio value=''>全部</Radio>
-                                    <Radio value='1'>办案区</Radio>
-                                    <Radio value='0'>执法记录仪</Radio>
-                                </Radio.Group>,
+                                <Select placeholder="请选择音视频来源" style={{width: '100%'}}
+                                        mode="multiple"
+                                        getPopupContainer={() => document.getElementById('videoListForm')}>
+                                    <Option  value='1'>办案区</Option>
+                                    <Option value='0'>执法记录仪</Option>
+                                </Select>,
                             )}
                         </FormItem>
                     </Col>
@@ -675,7 +681,7 @@ export default class Index extends PureComponent {
                       {getFieldDecorator('sfgl', {
                         initialValue: this.state.sfgl,
                       })(
-                        <Radio.Group onChange={this.onRadioChange}>
+                        <Radio.Group>
                           <Radio value=''>全部</Radio>
                           <Radio value='1'>已关联</Radio>
                           <Radio value='0'>未关联</Radio>
@@ -688,11 +694,12 @@ export default class Index extends PureComponent {
                       {getFieldDecorator('wjlx', {
                         initialValue: this.state.wjlx,
                       })(
-                        <Radio.Group onChange={this.onRadioChange}>
-                          <Radio value=''>全部</Radio>
-                          <Radio value='1'>视频</Radio>
-                          <Radio value='0'>音频</Radio>
-                        </Radio.Group>,
+                          <Select placeholder="请选择文件类型" style={{width: '100%'}}
+                                  mode="multiple"
+                                  getPopupContainer={() => document.getElementById('videoListForm')}>
+                              <Option  value='1'>视频</Option>
+                              <Option value='0'>音频</Option>
+                          </Select>,
                       )}
                     </FormItem>
                   </Col>

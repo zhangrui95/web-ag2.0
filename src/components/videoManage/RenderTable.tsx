@@ -221,8 +221,12 @@ class RenderTable extends PureComponent {
                 dataIndex: 'wjlbmc',
             },
             {
-                title: '视频日期',
-                dataIndex: 'sprq',
+                title: '录制日期',
+                dataIndex: 'lzrq',
+            },
+            {
+                title: '上传日期',
+                dataIndex: 'scrq',
             },
           {
             title: '音视频来源',
