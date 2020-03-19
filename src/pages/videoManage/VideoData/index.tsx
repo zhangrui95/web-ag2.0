@@ -64,6 +64,7 @@ export default class Index extends PureComponent {
         caseTypeTree: [], // 警情类别树
         searchHeight: false, // 查询条件展开筛选
         dataList:[],
+        sfgl:'',
     };
 
 
@@ -258,21 +259,21 @@ export default class Index extends PureComponent {
         this.props.form.validateFields((err, values) => {
           if (!err) {
             const formValues = {
-              ajbh:values.ajbh ? values.ajbh.trim() : '',
-              ajmc:values.ajmc ? values.ajmc.trim() : '',
-              badw:values.badw ? values.badw : '',
-              ajzt:values.ajzt ? values.ajzt : '',
-              ajlb:values.ajlb ? values.ajlb : '',
-              bar:values.bar ? values.bar : '',
-              jqbh:values.jqbh ? values.jqbh : '',
-              lzrq_ks:values.lzrq && values.lzrq.length > 0 ? values.lzrq[0].format('YYYY-MM-DD HH:mm:ss') : '',
-              lzrq_js:values.lzrq && values.lzrq.length > 0 ? values.lzrq[1].format('YYYY-MM-DD HH:mm:ss') : '',
-              scrq_ks:values.scrq && values.scrq.length > 0 ? values.scrq[0].format('YYYY-MM-DD HH:mm:ss') : '',
-              scrq_js:values.scrq && values.scrq.length > 0 ? values.scrq[1].format('YYYY-MM-DD HH:mm:ss') : '',
-              ysply:values.ysply ? values.ysply : '',
-              wjmc:values.wjmc ? values.wjmc : '',
-              sfgl:values.sfgl ? values.sfgl : '',
-              wjlx:values.wjlx ? values.wjlx : '',
+                ajbh:values.ajbh ? values.ajbh.trim() : '',
+                ajmc:values.ajmc ? values.ajmc.trim() : '',
+                badw_dm:values.badw ? values.badw : '',
+                ajzt:values.ajzt&&values.ajzt.length > 0 ? values.ajzt.toString() : '',
+                ajlb:values.ajlb ? values.ajlb : '',
+                bar:values.bar ? values.bar : '',
+                jqbh:values.jqbh ? values.jqbh : '',
+                lzrq_ks:values.lzrq && values.lzrq.length > 0 ? values.lzrq[0].format('YYYY-MM-DD HH:mm:ss') : '',
+                lzrq_js:values.lzrq && values.lzrq.length > 0 ? values.lzrq[1].format('YYYY-MM-DD HH:mm:ss') : '',
+                scrq_ks:values.scrq && values.scrq.length > 0 ? values.scrq[0].format('YYYY-MM-DD HH:mm:ss') : '',
+                scrq_js:values.scrq && values.scrq.length > 0 ? values.scrq[1].format('YYYY-MM-DD HH:mm:ss') : '',
+                ly_dm:values.ysply&&values.ysply.length > 0 ? values.ysply.toString() : '',
+                wjmc:values.wjmc ? values.wjmc : '',
+                sfgl:values.sfgl ? values.sfgl : '',
+                lb_dm:values.wjlx&&values.wjlx.length > 0 ? values.wjlx.toString() : '',
             };
             this.setState({
               formValues,
@@ -291,28 +292,14 @@ export default class Index extends PureComponent {
     // 重置
     handleFormReset = () => {
         this.props.form.resetFields();
-        this.props.form.setFieldsValue({
-          // jjsj: [moment().format("YYYY-MM-DD 00:00:00"), moment().format("YYYY-MM-DD 23:59:59")],
-          jjsj: [moment(moment().subtract(3, "days").format("YYYY-MM-DD 00:00:00"), 'YYYY-MM-DD 00:00:00'), moment(moment(), 'YYYY-MM-DD HH:mm:ss')],
-        });
         this.setState({
-            formValues: {
-                is_sa: '0',
-            },
-            sfsa: '0',
-            sfcj: '',
-            allPolice: [],
-            cjrPolice: [],
+            formValues: {},
+            sfgl:'',
         });
         const obj = {
             currentPage: 1,
             showCount: tableList,
-            pd: {
-                is_sa: '0',
-                is_tz: '0',
-                jjsj_ks: moment(moment().subtract(3, "days").format("YYYY-MM-DD 00:00:00"),'YYYY-MM-DD 00:00:00'),
-                jjsj_js: moment(moment(),'YYYY-MM-DD HH:mm:ss'),
-            },
+            pd: {},
         };
         this.getList(obj);
     };
@@ -320,26 +307,24 @@ export default class Index extends PureComponent {
     exportData = () => {
         const values = this.props.form.getFieldsValue();
         const jjTime = values.jjsj;
-        const tbTime = values.tbsj;
         const formValues = {
-            bar: values.bar || '',
-            cjdw: values.cjdw || '',
-            cjr: values.cjr || '',
-            jjdw: values.jjdw || '',
-            jjly_dm: values.jjly || '',
-            jjr: values.jjr || '',
-            is_sa: values.sfsa || '',
-            is_cj: values.sfcj || '',
-            jqzt_dm: values.clzt || '',
-            jqlb: values.jqlb ? values.jqlb[values.jqlb.length - 1] : '',
-            jqlbdj: values.jqlb ? values.jqlb.length : '',
-            jjsj_ks: jjTime && jjTime.length > 0 ? jjTime[0].format('YYYY-MM-DD HH:mm:ss') : '',
-            jjsj_js: jjTime && jjTime.length > 0 ? jjTime[1].format('YYYY-MM-DD HH:mm:ss') : '',
-            tbsj_ks: tbTime && tbTime.length > 0 ? tbTime[0].format('YYYY-MM-DD HH:mm:ss') : '',
-            tbsj_js: tbTime && tbTime.length > 0 ? tbTime[1].format('YYYY-MM-DD HH:mm:ss') : '',
-            is_fl: window.configUrl.is_area === '2' ? '1' : '0',
+            ajbh:values.ajbh ? values.ajbh.trim() : '',
+            ajmc:values.ajmc ? values.ajmc.trim() : '',
+            badw_dm:values.badw ? values.badw : '',
+            ajzt:values.ajzt&&values.ajzt.length > 0 ? values.ajzt.toString() : '',
+            ajlb:values.ajlb ? values.ajlb : '',
+            bar:values.bar ? values.bar : '',
+            jqbh:values.jqbh ? values.jqbh : '',
+            lzrq_ks:values.lzrq && values.lzrq.length > 0 ? values.lzrq[0].format('YYYY-MM-DD HH:mm:ss') : '',
+            lzrq_js:values.lzrq && values.lzrq.length > 0 ? values.lzrq[1].format('YYYY-MM-DD HH:mm:ss') : '',
+            scrq_ks:values.scrq && values.scrq.length > 0 ? values.scrq[0].format('YYYY-MM-DD HH:mm:ss') : '',
+            scrq_js:values.scrq && values.scrq.length > 0 ? values.scrq[1].format('YYYY-MM-DD HH:mm:ss') : '',
+            ly_dm:values.ysply&&values.ysply.length > 0 ? values.ysply.toString() : '',
+            wjmc:values.wjmc ? values.wjmc : '',
+            sfgl:values.sfgl ? values.sfgl : '',
+            lb_dm:values.wjlx&&values.wjlx.length > 0 ? values.wjlx.toString() : '',
         };
-        if (jjTime && jjTime.length > 0) {
+        if (values.lzrq && values.lzrq.length > 0 || values.scrq && values.scrq.length > 0) {
             const isAfterDate = moment(formValues.jjsj_js).isAfter(moment(formValues.jjsj_ks).add(exportListDataMaxDays, 'days'));
             if (isAfterDate) { // 选择时间间隔应小于exportListDataMaxDays
                 message.warning(`日期间隔需小于${exportListDataMaxDays}天`);
@@ -566,7 +551,7 @@ export default class Index extends PureComponent {
                         <Select placeholder="请选择案件状态" style={{width: '100%'}}
                                 mode="multiple"
                                 getPopupContainer={() => document.getElementById('videoListForm')}>
-                          <Option value="">全部</Option>
+                          {/*<Option value="">全部</Option>*/}
                           {XzCaseStatusOption}
                         </Select>,
                       )}
@@ -632,8 +617,8 @@ export default class Index extends PureComponent {
                                 <RangePicker
                                     disabledDate={this.disabledDate}
                                     style={{width: '100%'}}
-                                    showTime={{format: 'HH:mm:ss'}}
-                                    format="YYYY-MM-DD HH:mm:ss"
+                                    // showTime={{format: 'HH:mm:ss'}}
+                                    // format="YYYY-MM-DD HH:mm:ss"
                                     getCalendarContainer={() => document.getElementById('videoListForm')}
                                 />,
                             )}
@@ -647,8 +632,8 @@ export default class Index extends PureComponent {
                                 <RangePicker
                                     disabledDate={this.disabledDate}
                                     style={{width: '100%'}}
-                                    showTime={{format: 'HH:mm:ss'}}
-                                    format="YYYY-MM-DD HH:mm:ss"
+                                    // showTime={{format: 'HH:mm:ss'}}
+                                    // format="YYYY-MM-DD HH:mm:ss"
                                     getCalendarContainer={() => document.getElementById('videoListForm')}
                                 />,
                             )}
@@ -662,8 +647,8 @@ export default class Index extends PureComponent {
                                 <Select placeholder="请选择音视频来源" style={{width: '100%'}}
                                         mode="multiple"
                                         getPopupContainer={() => document.getElementById('videoListForm')}>
-                                    <Option  value='1'>办案区</Option>
-                                    <Option value='0'>执法记录仪</Option>
+                                    <Option  value='2'>办案区</Option>
+                                    <Option value='1'>执法记录仪</Option>
                                 </Select>,
                             )}
                         </FormItem>
@@ -697,8 +682,8 @@ export default class Index extends PureComponent {
                           <Select placeholder="请选择文件类型" style={{width: '100%'}}
                                   mode="multiple"
                                   getPopupContainer={() => document.getElementById('videoListForm')}>
-                              <Option  value='1'>视频</Option>
-                              <Option value='0'>音频</Option>
+                              <Option  value='2'>视频</Option>
+                              <Option value='1'>音频</Option>
                           </Select>,
                       )}
                     </FormItem>

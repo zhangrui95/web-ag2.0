@@ -212,43 +212,55 @@ class RenderTable extends PureComponent {
         columns = [
             {
                 title: '文件名称',
-                dataIndex: 'wj_mc',
+                dataIndex: 'mc',
                 fixed: 'left',
                 width: 200,
+                render: text => {
+                    return (
+                        <Ellipsis lines={2} tooltip>
+                            {text}
+                        </Ellipsis>
+                    );
+                },
             },
             {
                 title: '文件类别',
-                dataIndex: 'wjlbmc',
+                dataIndex: 'lb_mc',
             },
             {
                 title: '录制日期',
-                dataIndex: 'lzrq',
+                dataIndex: 'lz_rq',
             },
             {
                 title: '上传日期',
-                dataIndex: 'scrq',
+                dataIndex: 'upload_rq',
             },
           {
             title: '音视频来源',
-            dataIndex: 'sply',
+            dataIndex: 'ly_mc',
           },{
             title: '案件名称',
             dataIndex: 'ajmc',
           },{
             title: '案件类别',
-            dataIndex: 'ajlb',
+            dataIndex: 'ajlbmc',
           },{
             title: '办案单位',
-            dataIndex: 'badw',
+            dataIndex: 'zbrdw_mc',
           },{
             title: '办案人',
-            dataIndex: 'bar'
+            dataIndex: 'zbrxm'
           },{
             title: '案件状态',
             dataIndex: 'ajzt'
           },{
             title: <div>是否关联 <Icon type={this.state.allTable ? 'left' : 'right'} className={styles.iconStyle} onClick={this.getAllTable}/></div>,
             dataIndex: 'sfgl',
+                render: text => {
+                    return (
+                        <span>{text == 1 ? '是':'否'}</span>
+                    );
+                },
           },
           this.state.allTable ? {
             title: '案件编号',

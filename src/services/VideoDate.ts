@@ -1,7 +1,7 @@
 import request from '../utils/request';
 
 export async function getList(params) {
-  return request(`${configUrl.serverUrl}/getList`, {
+  return request(`${configUrl.serverUrl}/getAudioAndVideoPgListPage`, {
     method: 'POST',
     data: {
       ...params,

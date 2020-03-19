@@ -6,8 +6,8 @@ const onlineips = {
 };
 // 开发服务模式
 const developips = {
-  // ip: 'http://192.168.105.249', // 敏
-  ip: 'http://192.168.3.92', // 92
+  ip: 'http://192.168.105.249', // 敏
+  // ip: 'http://192.168.3.92', // 92
   baqIp: 'http://192.168.41.249', // 办案区服务地址
   maintainIp: 'http://192.168.3.92', // 运维中心地址
   aqzxIp: 'http://192.168.3.92', // 安全中心地址
@@ -52,7 +52,7 @@ const configItem = {
 // 开发模式地址
 const developConfigUrl = {
   jzUrl: `${ips.jz}:7200`, // 卷宗子系统
-  serverUrl: `${ips.ip}:7700`, // 本地开发案管服务
+  serverUrl: `${ips.ip}:7800`, // 本地开发案管服务
   weedUrl: `${ips.ip}:9222`, // 上传存储服务
   securityCenterUrl: `${ips.aqzxIp}:8100`, // 安全中心
   baqServerUrl: `${ips.baqIp}:7500`, // 办案区服务

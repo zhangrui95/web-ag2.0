@@ -16,21 +16,10 @@ export default {
     effects: {
       //音视频列表
         * getList({payload, callback}, {call, put}) {
-            // const response = yield call(getList, payload);
-            // if (callback && response && !response.error && response.data) {
-          let data = {list:[
-              {id:'dssyueyhfhsagg1',wj_mc:'20191203打架视频',wjlbmc:'视频',lzrq:'2019-12-03',sply:'办案区',ajmc:'孙军殴打李芳案',ajlb:'殴打他人',badw:'抚顺公安局',bar:'张扬',ajzt:'受案',sfgl:'是',ajbh:'A4503305100002019120020',jqbh:'J450330550000201912000033'},
-              {id:'dsakfoieurjbhs2',wj_mc:'20200121审讯音频',wjlbmc:'音频',scrq:'2020-01-22',sply:'执法记录仪',ajmc:'李阳诈骗案',ajlb:'诈骗案',badw:'盘锦公安局',bar:'刘峰',ajzt:'破案',sfgl:'否',ajbh:'A4503305700002019120004',jqbh:'J450330070000201912000101'},
-            ],page: { showCount: 10,
-              totalPage: 1,
-              totalResult: 2,
-              currentPage: 1,
-              currentResult: 0,
-              entityOrField: true,
-              pageStr: ""}
-          }
-                callback(data);//response.data
-            // }
+            const response = yield call(getList, payload);
+            if (callback && response && !response.error && response.data) {
+                callback(response.data);
+            }
         },
       //接处警统计
       * getJcjCount({payload, callback}, {call, put}) {
