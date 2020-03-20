@@ -5,7 +5,7 @@
  * */
 import React, { PureComponent } from 'react';
 import { connect } from 'dva';
-import { Row, Col, Card } from 'antd';
+import {Row, Col, Card, Icon} from 'antd';
 import moment from 'moment/moment';
 import echarts from 'echarts/lib/echarts';
 import 'echarts/lib/chart/bar';
@@ -60,9 +60,15 @@ export default class PoliceDataView extends PureComponent {
       lastMonth: '7',
       beforeLastMonth: '8',
     },
+    chartsTab:'1',
     jcjtjNoData: false, // 接处警统计无数据
     jqslNoData: false, // 警情数量无数据
     type: 'now',
+    showCount:5,
+    param1:{currentPage:1, showCount:5},
+    param2:{currentPage:1, showCount:5,pd:{ajlx:'1'}},
+    pageJcj:{},
+    pageAj:{},
   };
 
   componentDidMount() {
@@ -71,21 +77,21 @@ export default class PoliceDataView extends PureComponent {
     const dayTypeTime = this.getTime('today');
 
     // setTimeout(()=>{
-    this.getJcj(this.props);
-    this.getAjsc(this.props);
-    this.getCqwsc(this.props);
+    this.getJcj(this.props,this.state.param1);
+    this.getAjsc(this.props,this.state.param2);
+    this.getCqwsc(this.props,{});
     // },500)
 
-    window.addEventListener('resize', policeEchartLine.resize);
-    window.addEventListener('resize', ajEchart.resize);
+    // window.addEventListener('resize', policeEchartLine.resize);
+    // window.addEventListener('resize', ajEchart.resize);
   }
 
   componentWillReceiveProps(nextProps) {
     if (nextProps) {
         if (this.props.global.dark !== nextProps.global.dark) {
-            this.getJcj(nextProps);
-            this.getAjsc(nextProps);
-            this.getCqwsc(nextProps);
+            this.getJcj(nextProps,this.state.param1);
+            this.getAjsc(nextProps,this.state.param2);
+            this.getCqwsc(nextProps,{});
             // this.changeCountButtonCurrent(this.state.type);
         }
         let currentType = '';
@@ -112,6 +118,8 @@ export default class PoliceDataView extends PureComponent {
         this.props.selectedDateVal !== nextProps.selectedDateVal||
         this.props.global.dark !== nextProps.global.dark
       ) {
+        let params ={};
+        let params1 ={};
         currentType = currentType ? currentType : this.state.currentType;
           let type = this.state.type;
           let rqtype = '';
@@ -133,59 +141,289 @@ export default class PoliceDataView extends PureComponent {
         if (nextProps.searchType === 'day') {
           this.getViewCountData('day');
           const dayTypeTime = this.getTime(currentType);
-          this.getJcj(nextProps,dayTypeTime[0], dayTypeTime[1], nextProps.orgcode);
-          this.getAjsc(nextProps,dayTypeTime[0], dayTypeTime[1], nextProps.orgcode);
-          this.getCqwsc(nextProps,dayTypeTime[0], dayTypeTime[1], nextProps.orgcode);
+          params = {
+              currentPage:1,
+              showCount:this.state.showCount,
+              pd:{
+                  dwdm:nextProps.orgcode,
+                  kssj:dayTypeTime[0],
+                  jssj:dayTypeTime[1],
+              }
+          };
+            params1 = {
+                currentPage:1,
+                showCount:this.state.showCount,
+                pd:{
+                    dwdm:nextProps.orgcode,
+                    kssj:dayTypeTime[0],
+                    jssj:dayTypeTime[1],
+                    ajlx:this.state.chartsTab
+                }
+            };
+          this.getJcj(nextProps,params);
+          this.getAjsc(nextProps,params1);
+          this.getCqwsc(nextProps,params);
         } else if (nextProps.searchType === 'week') {
           this.getViewCountData('week');
           const weekTypeTime = this.getTime(currentType);
-          this.getJcj(nextProps,weekTypeTime[0], weekTypeTime[1], nextProps.orgcode);
-          this.getAjsc(nextProps,weekTypeTime[0], weekTypeTime[1], nextProps.orgcode);
-          this.getCqwsc(nextProps,weekTypeTime[0], weekTypeTime[1], nextProps.orgcode);
+            params = {
+                currentPage:1,
+                showCount:this.state.showCount,
+                pd:{
+                    dwdm:nextProps.orgcode,
+                    kssj:weekTypeTime[0],
+                    jssj:weekTypeTime[1],
+                }
+            };
+            params1 = {
+                currentPage:1,
+                showCount:this.state.showCount,
+                pd:{
+                    dwdm:nextProps.orgcode,
+                    kssj:weekTypeTime[0],
+                    jssj:weekTypeTime[1],
+                    ajlx:this.state.chartsTab
+                }
+            };
+          this.getJcj(nextProps,params);
+          this.getAjsc(nextProps,params1);
+          this.getCqwsc(nextProps,params);
         } else if (nextProps.searchType === 'month') {
           this.getViewCountData('month');
           const monthTypeTime = this.getTime(currentType);
-          this.getJcj(nextProps,monthTypeTime[0], monthTypeTime[1], nextProps.orgcode);
-          this.getAjsc(nextProps,monthTypeTime[0], monthTypeTime[1], nextProps.orgcode);
-          this.getCqwsc(nextProps,monthTypeTime[0], monthTypeTime[1], nextProps.orgcode);
+            params = {
+                currentPage:1,
+                showCount:this.state.showCount,
+                pd:{
+                    dwdm:nextProps.orgcode,
+                    kssj:monthTypeTime[0],
+                    jssj:monthTypeTime[1],
+                }
+            };
+            params1 = {
+                currentPage:1,
+                showCount:this.state.showCount,
+                pd:{
+                    dwdm:nextProps.orgcode,
+                    kssj:monthTypeTime[0],
+                    jssj:monthTypeTime[1],
+                    ajlx:this.state.chartsTab
+                }
+            };
+          this.getJcj(nextProps,params);
+          this.getAjsc(nextProps,params1);
+          this.getCqwsc(nextProps,params);
         } else if (nextProps.searchType === 'selectedDate') {
             const { selectedDateVal } = nextProps;
             this.setState({
                 currentType,
             },()=>{
-              this.getJcj(nextProps,selectedDateVal[0], selectedDateVal[1], nextProps.orgcode);
-              this.getAjsc(nextProps,selectedDateVal[0], selectedDateVal[1], nextProps.orgcode);
-              this.getCqwsc(nextProps,selectedDateVal[0], selectedDateVal[1], nextProps.orgcode);
+                params = {
+                    currentPage:1,
+                    showCount:this.state.showCount,
+                    pd:{
+                        dwdm:nextProps.orgcode,
+                        kssj:selectedDateVal[0],
+                        jssj:selectedDateVal[1],
+                    }
+                };
+                params1 = {
+                    currentPage:1,
+                    showCount:this.state.showCount,
+                    pd:{
+                        dwdm:nextProps.orgcode,
+                        kssj:selectedDateVal[0],
+                        jssj:selectedDateVal[1],
+                        ajlx:this.state.chartsTab
+                    }
+                };
+              this.getJcj(nextProps,params);
+              this.getAjsc(nextProps,params1);
+              this.getCqwsc(nextProps,params);
             })
         }
+        this.setState({
+            params,
+            params1
+        })
       }
     }
   }
+    //换行
+    formatter = val => {
+        let strs = val.split(''); //字符串数组
+        let str = '';
+        for (let i = 0, s; (s = strs[i++]); ) {
+            //遍历字符串数组
+            str += s;
+            if (!(i % 8)) str += '\n'; //按需要求余
+        }
+        return str;
+    };
 //接处警统计接口
-  getJcj = (nextProps,startTime,endTime,org) =>{
+  getJcj = (nextProps,params) =>{
     this.props.dispatch({
       type: 'VideoDate/getJcjCount',
-      payload: {},
+      payload: params,
       callback:(data)=>{
-        this.showPoliceEchartLine(nextProps,data);
+          console.log('data--->',data);
+          let xList = [];
+          let jqzs = [];
+          let ygscs = [];
+          let yscs = [];
+          let wscs = [];
+          let ygls = [];
+          let wgls = [];
+          let scwcl = [];
+          let glbl = [];
+          this.setState({param1:params,pageJcj:data.page});
+          data.list&&data.list.map((item)=>{
+              jqzs.push(item.jqzs);
+              ygscs.push(item.ygscs);
+              yscs.push(item.yscs);
+              wscs.push(item.wscs);
+              wgls.push(item.wgls);
+              scwcl.push(item.scwcl);
+              glbl.push(item.glbl);
+              xList.push(this.formatter(item.jjdw_mc));
+          })
+          let datas = [
+              {
+                  name: '警情总数',
+                  type: 'bar',
+                  data: jqzs,
+                  barWidth: 20
+              },
+              {
+                  name: '应上传数',
+                  type: 'bar',
+                  data: ygscs,
+                  barWidth: 20
+              },
+              {
+                  name: '已上传数',
+                  type: 'bar',
+                  data: yscs,
+                  barWidth: 20
+              },
+              {
+                  name: '未上传数',
+                  type: 'bar',
+                  data: wscs,
+                  barWidth: 20
+              },
+              {
+                  name: '已关联数',
+                  type: 'bar',
+                  data: ygls,
+                  barWidth: 20
+              },
+              {
+                  name: '未关联数',
+                  type: 'bar',
+                  data: wgls,
+                  barWidth: 20
+              },
+              {
+                  name: '上传完成率',
+                  type: 'line',
+                  yAxisIndex: 1,
+                  data: scwcl,
+                  barWidth: 20
+              },
+              {
+                  name: '关联比例',
+                  type: 'line',
+                  yAxisIndex: 1,
+                  data: glbl,
+                  barWidth: 20
+              }
+          ];
+        this.showPoliceEchartLine(nextProps,datas,xList);
       }
     });
   }
   //案件上传统计接口
-  getAjsc = (nextProps,startTime,endTime,org) =>{
+  getAjsc = (nextProps,params) =>{
     this.props.dispatch({
       type: 'VideoDate/getAjscCount',
-      payload: {},
+      payload: params,
       callback:(data)=>{
-        this.showajEchartLine(nextProps,data);
+          console.log('案件上传统计',data);
+          let xList = [];
+          let ygscs = [];
+          let yscs = [];
+          let wscs = [];
+          let ygls = [];
+          let wgls = [];
+          let scwcl = [];
+          let glbl = [];
+          this.setState({param2:params,pageAj:data.page});
+          data.list&&data.list.map((item)=>{
+              ygscs.push(item.ygscs);
+              yscs.push(item.yscs);
+              wscs.push(item.wscs);
+              ygls.push(item.ygls);
+              wgls.push(item.wgls);
+              scwcl.push(item.scwcl);
+              glbl.push(item.glbl);
+              xList.push(this.formatter(item.ajlbmc));
+          })
+          let datas = [
+              {
+                  name: '上传总数',
+                  type: 'bar',
+                  data: ygscs,
+                  barWidth: 20
+              },
+              {
+                  name: '已上传总数',
+                  type: 'bar',
+                  data: yscs,
+                  barWidth: 20
+              },
+              {
+                  name: '未上传总数',
+                  type: 'bar',
+                  data: wscs,
+                  barWidth: 20
+              },
+              {
+                  name: '已关联数',
+                  type: 'bar',
+                  data: ygls,
+                  barWidth: 20
+              },
+              {
+                  name: '未关联数',
+                  type: 'bar',
+                  data: wgls,
+                  barWidth: 20
+              },
+              {
+                  name: '上传完成率',
+                  type: 'line',
+                  yAxisIndex: 1,
+                  data: scwcl,
+                  barWidth: 20
+              },
+              {
+                  name: '关联比例',
+                  type: 'line',
+                  yAxisIndex: 1,
+                  data: glbl,
+                  barWidth: 20
+              }
+          ]
+        this.showajEchartLine(nextProps,datas,xList);
       }
     });
   }
   //超期未上传统计接口
-  getCqwsc = (nextProps,startTime,endTime,org) => {
+  getCqwsc = (nextProps,params) => {
     this.props.dispatch({
       type: 'VideoDate/getCqwscCount',
-      payload: {},
+      payload: params,
       callback:(data)=>{
         this.showcqwscEchartLine(nextProps,data);
       }
@@ -237,6 +475,28 @@ export default class PoliceDataView extends PureComponent {
       type: type,
     });
     const dataTime = this.getTime(currentType);
+      let params = {
+          currentPage:1,
+          showCount:this.state.showCount,
+          pd:{
+              dwdm:this.props.orgcode,
+              kssj:dataTime[0],
+              jssj:dataTime[1],
+          }
+      };
+     let params1 = {
+          currentPage:1,
+          showCount:this.state.showCount,
+          pd:{
+              dwdm:this.props.orgcode,
+              kssj:dataTime[0],
+              jssj:dataTime[1],
+              ajlx:this.state.chartsTab
+          }
+      };
+      this.getJcj(this.props,params);
+      this.getAjsc(this.props,params1);
+      this.getCqwsc(this.props,params);
   };
   // 字符串指定位置插入字符： flag：字符；sn：位置
   insertFlg = (str, flg, sn) => {
@@ -248,7 +508,7 @@ export default class PoliceDataView extends PureComponent {
     return newstr;
   };
   // 接处警统计
-  showPoliceEchartLine = (nextProps,data) => {
+  showPoliceEchartLine = (nextProps,data,xList) => {
     policeEchartLine = echarts.init(document.getElementById('jcjtj'));
     const option = {
       tooltip: {
@@ -279,7 +539,7 @@ export default class PoliceDataView extends PureComponent {
       xAxis: [
         {
           type: 'category',
-          data: ['辽阳公安局', '盘锦公安局', '抚顺公安局', '丹东公安局', '铁岭公安局'],
+          data: xList,
           axisPointer: {
             type: 'shadow'
           },
@@ -299,8 +559,6 @@ export default class PoliceDataView extends PureComponent {
           type: 'value',
           name: '',
           min: 0,
-          max: 250,
-          interval: 50,
           axisLabel: {
             formatter: '{value}',
             textStyle: {
@@ -319,7 +577,6 @@ export default class PoliceDataView extends PureComponent {
           name: '',
           min: 0,
           max: 100,
-          interval: 10,
           axisLabel: {
             formatter: '{value} %',
             textStyle: {
@@ -347,7 +604,7 @@ export default class PoliceDataView extends PureComponent {
     // })
   };
   // 案件上传统计
-  showajEchartLine = (nextProps,data) => {
+  showajEchartLine = (nextProps,data,xList) => {
     ajEchart = echarts.init(document.getElementById('ajsc'));
     const option = {
       tooltip: {
@@ -378,7 +635,7 @@ export default class PoliceDataView extends PureComponent {
       xAxis: [
         {
           type: 'category',
-          data: ['两抢一盗', '侵财案件', '八类案件'],
+          data: xList,
           axisPointer: {
             type: 'shadow'
           },
@@ -533,6 +790,34 @@ export default class PoliceDataView extends PureComponent {
     //     }
     // })
   };
+  //接处警统计分页
+  getNext = (next,idx) =>{
+      let param = this.state['param'+idx];
+      console.log('param',param)
+      param.currentPage = this.state['param'+idx].currentPage + next;
+      if(idx == 1){
+          this.getJcj(this.props,param);
+      }else if(idx == 2){
+          this.getAjsc(this.props,param);
+      }
+  }
+  //切换案件上传统计刑事，行政
+    getChangeCharts = (tab) =>{
+      this.setState({
+          chartsTab:tab
+      });
+      let params1 = {
+          currentPage:1,
+          showCount:this.state.showCount,
+          pd:{
+              dwdm:this.state.param2&&this.state.param2.pd&&this.state.param2.pd.dwdm ? this.state.param2.pd.dwdm : '',
+              kssj:this.state.param2&&this.state.param2.pd&&this.state.param2.pd.kssj ? this.state.param2.pd.kssj : '',
+              jssj:this.state.param2&&this.state.param2.pd&&this.state.param2.pd.jssj ? this.state.param2.pd.jssj : '',
+              ajlx:tab
+          }
+      };
+      this.getAjsc(this.props,params1);
+    }
   render() {
     const rowLayout = { md: 8, xl: 16, xxl: 24 };
     const colLayout = { sm: 24, lg: 12 };
@@ -545,6 +830,8 @@ export default class PoliceDataView extends PureComponent {
       jcjtjNoData,
       jqslNoData,
       selectedDateData,
+        pageJcj,
+        pageAj
     } = this.state;
     let className =
       this.props.global && this.props.global.dark
@@ -649,7 +936,17 @@ export default class PoliceDataView extends PureComponent {
                         paddingLeft: 10,
                     }}
                 >接处警统计</span></div>
-                <div id="jcjtj" className={styles.cardBox}  style={{width:'98%',marginLeft:'1%',height:'400px'}}></div>
+                  <Icon
+                      type="left"
+                      className={pageJcj.currentPage==1 ? styles.none : styles.leftGos}
+                      onClick={()=>this.getNext(-1,1)}
+                  />
+                  <div id="jcjtj" className={styles.cardBox}  style={{width:'98%',marginLeft:'1%',height:'400px'}}></div>
+                  <Icon
+                      type="right"
+                      className={pageJcj.totalPage === pageJcj.currentPage || pageJcj.totalPage==1 ? styles.none : styles.rightGos}
+                      onClick={()=>this.getNext(1,1)}
+                  />
               </Col>
             </Row>
             <Row gutter={rowLayout} className={styles.listPageRow}>
@@ -660,7 +957,26 @@ export default class PoliceDataView extends PureComponent {
                     paddingLeft: 10,
                   }}
                 >案件上传统计</span></div>
-                <div id="ajsc" className={styles.cardBox}  style={{width:'98%',marginLeft:'1%',height:'400px'}}></div>
+                  <div className={styles.cardBox} style={{width:'98%',marginLeft:'1%',height:'400px'}}>
+                      <div className={styles.listPageWrap} style={{ top: 51, right: 45 }}>
+                          <div className={styles.listPageHeader}>
+                              <a className={this.state.chartsTab === '1' ? styles.listPageHeaderCurrent : styles.UnlistPageHeaderCurrent} onClick={()=>this.getChangeCharts('1')}>刑事</a>
+                              <span>|</span>
+                              <a className={this.state.chartsTab === '1' ?  styles.UnlistPageHeaderCurrent : styles.listPageHeaderCurrent} onClick={()=>this.getChangeCharts('2')}>行政</a>
+                          </div>
+                      </div>
+                      <Icon
+                          type="left"
+                          className={pageAj.currentPage==1 ? styles.none : styles.leftGos}
+                          onClick={()=>this.getNext(-1,2)}
+                      />
+                      <div id="ajsc" style={{width:'100%',height:'400px'}}></div>
+                      <Icon
+                          type="right"
+                          className={pageAj.totalPage === pageAj.currentPage || pageAj.totalPage==1 ? styles.none : styles.rightGos}
+                          onClick={()=>this.getNext(1,2)}
+                      />
+                  </div>
               </Col>
             </Row>
             <Row gutter={rowLayout} className={styles.listPageRow}>

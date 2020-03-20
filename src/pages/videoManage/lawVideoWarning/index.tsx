@@ -59,7 +59,7 @@ let currentValue;
 export default class Index extends PureComponent {
   state = {
     yjjb: '',
-    formValues: { yj_type: 'xzaj' }, // 查询条件
+    formValues: { yj_type: 'video_aj' }, // 查询条件
     activeKey: '0',
     arrayDetail: [],
     allPolice: [],
@@ -83,14 +83,14 @@ export default class Index extends PureComponent {
     if (this.props.location.query && this.props.location.query.record) {
       this.details(this.props.location.query.record);
     }
-    this.getDossier({ pd: { yj_type: 'xzaj' } });
+    this.getDossier({ pd: { yj_type: 'video_aj' } });
     this.getSuperviseStatusDict();
     this.getYjjbDictionary();
       this.props.dispatch({
           type: 'common/getDictType',
           payload: {
               appCode: window.configUrl.appCode,
-              code: '60010003',// 60010003
+              code: '62000',// 62000音视频案件预警
           },
       });
   }
@@ -191,9 +191,9 @@ export default class Index extends PureComponent {
   handleFormReset = () => {
     this.props.form.resetFields();
     this.setState({
-      formValues: { yj_type: 'xzaj' },
+      formValues: { yj_type: 'video_aj' },
     });
-    this.getDossier({ pd: { yj_type: 'xzaj' } });
+    this.getDossier({ pd: { yj_type: 'video_aj' } });
   };
   // 导出
   exportData = () => {
@@ -205,7 +205,7 @@ export default class Index extends PureComponent {
       yjlxdm: values.yjlx || '',
       yjsj_ks: yjsjTime && yjsjTime.length > 0 ? yjsjTime[0].format('YYYY-MM-DD') : '',
       yjsj_js: yjsjTime && yjsjTime.length > 0 ? yjsjTime[1].format('YYYY-MM-DD') : '',
-      yj_type: 'xzaj',
+      yj_type: 'video_aj',
     };
     if (yjsjTime && yjsjTime.length > 0) {
       const isAfterDate = moment(formValues.yjsj_js).isAfter(
@@ -246,7 +246,7 @@ export default class Index extends PureComponent {
       yjlxdm: values.yjlx || '',
       yjsj_ks: yjsjTime && yjsjTime.length > 0 ? yjsjTime[0].format('YYYY-MM-DD') : '',
       yjsj_js: yjsjTime && yjsjTime.length > 0 ? yjsjTime[1].format('YYYY-MM-DD') : '',
-      yj_type: 'xzaj',
+      yj_type: 'video_aj',
     };
     this.setState({
       formValues,
@@ -270,7 +270,7 @@ export default class Index extends PureComponent {
     const params = {
       pd: {
         ...formValues,
-        yj_type: 'xzaj',
+        yj_type: 'video_aj',
       },
       currentPage: pagination.current,
       showCount: pagination.pageSize,
@@ -580,7 +580,7 @@ export default class Index extends PureComponent {
   render() {
     const {
       form: { getFieldDecorator },
-      common: { depTree, superviseStatusDict, YJJBType,XzyjType },
+      common: { depTree, superviseStatusDict, YJJBType,ajVeidoType },
       EarlyWarning: {
         xzajyjdata: { page, list, tbCount },
       },
@@ -831,7 +831,7 @@ export default class Index extends PureComponent {
                       <Option value="">全部</Option>
                       {/*<Option value="5025902">未结案（30日办理延期）</Option>*/}
                       {/*<Option value="5025903">未结案（60日）</Option>*/}
-                        {XzyjType.map(event => {
+                        {ajVeidoType.map(event => {
                             return <Option value={event.code}>{event.name}</Option>;
                         })}
                     </Select>,

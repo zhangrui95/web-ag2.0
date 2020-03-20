@@ -36,22 +36,6 @@ class RenderTable extends PureComponent {
         };
     }
 
-    handleTableChange = (pagination, filters, sorter) => {
-      // const {formValues} = this.state;
-      // const params = {
-      //   pd: {
-      //     ...formValues,
-      //     is_bbtz: '0',
-      //   },
-      //   currentPage: pagination.current,
-      //   showCount: pagination.pageSize,
-      // };
-      // this.getUnCase(params);
-        this.setState({
-            current: pagination.current,
-        });
-    };
-
     componentDidMount() {
         // if (this.props.location.query && this.props.location.query.id) {
         //     let record = this.props.location.query.record;
@@ -74,121 +58,9 @@ class RenderTable extends PureComponent {
                 query: {record: record, id: record && record.id ? record.id+type : '1', tabName:type==='0' ? '播放' : type==='1' ? '编辑' : '关联'},
             }),
         )
-
-        // const divs = (
-        //     <div>
-        //         <Detail
-        //             record={record}
-        //             id={id}
-        //             sfgz={sfgz}
-        //             gzid={gzid}
-        //             tzlx={tzlx}
-        //             ajbh={ajbh}
-        //             systemId={systemId}
-        //             {...this.props}
-        //             current={this.state.current}
-        //         />
-        //     </div>
-        // );
-        // const AddNewDetail = { title: '警情详情', content: divs, key: id };
-        // this.props.newDetail(AddNewDetail);
-    };
-    refreshDetail = (res) => {
-      // console.log('res',res);
-      this.props.dispatch({
-        type: 'policeData/policeDetailFetch',
-        payload: {
-          id: res.id,
-        },
-        callback: data => {
-          // if (data) {
-          //   this.setState({
-          //     policeDetails: data,
-          //     IsSure: true,
-          //   });
-          // }
-        },
-      });
-    };
-    saveShare = (res, type, ajGzLx) => {
-        this.setState({
-            sx: (res.jjdw ? res.jjdw + '、' : '') + (res.jjly_mc ? res.jjly_mc + '、' : '') + (res.jqlb ? res.jqlb + '、' : '') + (res.jjsj ? res.jjsj : ''),
-            shareRecord: res,
-        });
-        if (type === 2) {
-            let detail = [ `管辖单位：${res && res.jjdw ? res.jjdw : ''}`,`接警人：${res && res.jjr ? res.jjr : ''}`,
-                `接警信息：${res && res.jjnr ? res.jjnr : ''}`, `处警单位：${res && res.cjdw ? res.cjdw : ''}`,
-                `处警人：${res && res.cjr ? res.cjr : ''}`,`处警信息：${res && res.cjqk ? res.cjqk : ''}`,
-                `处置结果：${res && res.czjg_mc ? res.czjg_mc : ''}`
-            ];
-            res.detail = detail;
-            this.props.dispatch(
-                routerRedux.push({
-                    pathname: '/ModuleAll/Share',
-                    query: {
-                        record: res,
-                        id: res && res.id ? res.id : '1',
-                        from: this.state.lx,
-                        tzlx: this.state.tzlx,
-                        fromPath: '/receivePolice/AlarmData',
-                        tab: '表格',
-                        sx: (res.jjdw ? res.jjdw + '、' : '') + (res.jjly_mc ? res.jjly_mc + '、' : '') + (res.jqlb ? res.jqlb + '、' : '') + (res.jjsj ? res.jjsj : ''),
-                    },
-                }),
-            )
-            // this.setState({
-            //     shareVisible: true,
-            //     shareItem: res,
-            // });
-        } else {
-            this.props.dispatch({
-                type: 'share/getMyFollow',
-                payload: {
-                    agid: res.id,
-                    lx: this.state.lx,
-                    sx: (res.jjdw ? res.jjdw + '、' : '') + (res.jjly_mc ? res.jjly_mc + '、' : '') + (res.jqlb ? res.jqlb + '、' : '') + (res.jjsj ? res.jjsj : ''),
-                    type: type,
-                    tzlx: this.state.tzlx,
-                    wtid: res.wtid,
-                    ajbh: res.ajbh,
-                    system_id: res.id,
-                    ajGzLx: ajGzLx,
-                    is_fxgz:'0',
-                },
-                callback: (data) => {
-                    if (!data.error) {
-                        message.success('关注成功');
-                        this.props.getList({currentPage: this.state.current, pd: this.props.formValues});
-                        this.refreshDetail(res);
-                    }
-                },
-            });
-        }
-    };
-    handleCancel = (e) => {
-        this.setState({
-            shareVisible: false,
-        });
-    };
-    noFollow = (record) => {
-        this.props.dispatch({
-            type: 'share/getNoFollow',
-            payload: {
-                id: record.gzid,
-                tzlx: record.tzlx,
-                ajbh: record.ajbh,
-                ajGzlx: record.ajgzlx,
-            },
-            callback: (res) => {
-                if (!res.error) {
-                    message.success('取消关注成功');
-                    this.props.getList({currentPage: this.state.current, pd: this.props.formValues});
-                    this.refreshDetail(record);
-                }
-            },
-        });
     };
   getDel = (record) =>{
+    let that = this;
     confirm({
       title: '确定删除该音视频？',
       content: '',
@@ -198,6 +70,24 @@ class RenderTable extends PureComponent {
       getContainer: document.getElementById('messageBox'),
       onOk() {
         console.log('record.id------->',record.id);
+          that.props.dispatch({
+              type: 'VideoDate/delAudioAndVideoByid',
+              payload: {
+                  id: record.id,
+              },
+              callback:(data)=>{
+                  message.success('删除成功');
+                  const {formValues} = that.props;
+                  const params = {
+                      pd: {
+                          ...formValues,
+                      },
+                      currentPage: that.props.data && that.props.data.page ? that.props.data.page.currentPage : 1,
+                      showCount: that.props.data && that.props.data.page ? that.props.data.page.pageSize : 10,
+                  };
+                  that.props.getList(params);
+              }
+          });
       },
       onCancel() {
         // console.log('Cancel');
@@ -217,7 +107,7 @@ class RenderTable extends PureComponent {
                 width: 200,
                 render: text => {
                     return (
-                        <Ellipsis lines={2} tooltip>
+                        <Ellipsis length={23} tooltip>
                             {text}
                         </Ellipsis>
                     );
@@ -247,6 +137,15 @@ class RenderTable extends PureComponent {
           },{
             title: '办案单位',
             dataIndex: 'zbrdw_mc',
+            render: text => {
+                return (
+                    <span>
+                        {
+                            this.state.allTable ? <Ellipsis lines={2} tooltip>{text}</Ellipsis> : text
+                        }
+                    </span>
+                );
+            },
           },{
             title: '办案人',
             dataIndex: 'zbrxm'
@@ -284,7 +183,7 @@ class RenderTable extends PureComponent {
                         <Divider type="vertical"/>
                        </span> : ''}
                       {authorityIsTrue('zhag_yspsj_gl') ?<span>
-                        {record.sfgl === '是' ? <a onClick={()=>this.deatils(record,'1')}>编辑</a> : <a onClick={()=>this.deatils(record,'2')}>关联</a>}
+                        {record.sfgl == '1' ? <a onClick={()=>this.deatils(record,'1')}>编辑</a> : <a onClick={()=>this.deatils(record,'2')}>关联</a>}
                         <Divider type="vertical"/>
                         </span> : ''}
                       {authorityIsTrue('zhag_yspsj_xz') ?<span>
@@ -305,7 +204,6 @@ class RenderTable extends PureComponent {
         };
         return (
             <div className={styles.standardTable}>
-                {/*<div>数据长度:{data.list?data.list.length:'无数据'}</div>*/}
                 <Card className={styles.cardArea} id='jqsjcardArea'>
                     <Table
                         // size={'middle'}
@@ -314,7 +212,7 @@ class RenderTable extends PureComponent {
                         dataSource={data.list}
                         columns={columns}
                         pagination={paginationProps}
-                        onChange={this.handleTableChange}
+                        onChange={this.props.onChange}
                         locale={{
                             emptyText: <Empty image={this.props.global && this.props.global.dark ? noList : noListLight}
                                               description={'暂无数据'}/>
@@ -322,17 +220,6 @@ class RenderTable extends PureComponent {
                         scroll={this.state.allTable ? { x: '120%' } : {}}
                     />
                 </Card>
-                {/*<ShareModal*/}
-                {/*title="警情信息分享"*/}
-                {/*detail={detail}*/}
-                {/*shareVisible={this.state.shareVisible}*/}
-                {/*handleCancel={this.handleCancel}*/}
-                {/*shareItem={this.state.shareItem}*/}
-                {/*personList={this.state.personList}*/}
-                {/*lx={this.state.lx}*/}
-                {/*tzlx={this.state.tzlx}*/}
-                {/*sx={this.state.sx}*/}
-                {/*/>*/}
             </div>
         );
     }

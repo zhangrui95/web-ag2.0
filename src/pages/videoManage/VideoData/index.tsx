@@ -31,7 +31,7 @@ import {exportListDataMaxDays, getQueryString, tableList} from '../../../utils/u
 import SyncTime from '../../../components/Common/SyncTime';
 
 const FormItem = Form.Item;
-const {Option} = Select;
+const {Option,OptGroup} = Select;
 const {RangePicker} = DatePicker;
 const TabPane = Tabs.TabPane;
 const TreeNode = TreeSelect.TreeNode;
@@ -65,6 +65,8 @@ export default class Index extends PureComponent {
         searchHeight: false, // 查询条件展开筛选
         dataList:[],
         sfgl:'',
+        loading:false,
+        ajztList:[],
     };
 
 
@@ -117,12 +119,16 @@ export default class Index extends PureComponent {
 
     getList(param) {
       console.log('查询--------->',param);
+      this.setState({
+          loading:true
+      });
         this.props.dispatch({
             type: 'VideoDate/getList',
             payload: param ? param : '',
             callback:(data)=>{
                 this.setState({
-                  dataList:data,
+                    dataList:data,
+                    loading:false,
                 })
             }
         });
@@ -263,13 +269,13 @@ export default class Index extends PureComponent {
                 ajmc:values.ajmc ? values.ajmc.trim() : '',
                 badw_dm:values.badw ? values.badw : '',
                 ajzt:values.ajzt&&values.ajzt.length > 0 ? values.ajzt.toString() : '',
-                ajlb:values.ajlb ? values.ajlb : '',
+                ajlb:values.ajlb ? values.ajlb[values.ajlb.length - 1] : '',
                 bar:values.bar ? values.bar : '',
                 jqbh:values.jqbh ? values.jqbh : '',
-                lzrq_ks:values.lzrq && values.lzrq.length > 0 ? values.lzrq[0].format('YYYY-MM-DD HH:mm:ss') : '',
-                lzrq_js:values.lzrq && values.lzrq.length > 0 ? values.lzrq[1].format('YYYY-MM-DD HH:mm:ss') : '',
-                scrq_ks:values.scrq && values.scrq.length > 0 ? values.scrq[0].format('YYYY-MM-DD HH:mm:ss') : '',
-                scrq_js:values.scrq && values.scrq.length > 0 ? values.scrq[1].format('YYYY-MM-DD HH:mm:ss') : '',
+                lzrq_ks:values.lzrq && values.lzrq.length > 0 ? values.lzrq[0].format('YYYY-MM-DD') : '',
+                lzrq_js:values.lzrq && values.lzrq.length > 0 ? values.lzrq[1].format('YYYY-MM-DD') : '',
+                scrq_ks:values.scrq && values.scrq.length > 0 ? values.scrq[0].format('YYYY-MM-DD') : '',
+                scrq_js:values.scrq && values.scrq.length > 0 ? values.scrq[1].format('YYYY-MM-DD') : '',
                 ly_dm:values.ysply&&values.ysply.length > 0 ? values.ysply.toString() : '',
                 wjmc:values.wjmc ? values.wjmc : '',
                 sfgl:values.sfgl ? values.sfgl : '',
@@ -312,15 +318,15 @@ export default class Index extends PureComponent {
             ajmc:values.ajmc ? values.ajmc.trim() : '',
             badw_dm:values.badw ? values.badw : '',
             ajzt:values.ajzt&&values.ajzt.length > 0 ? values.ajzt.toString() : '',
-            ajlb:values.ajlb ? values.ajlb : '',
+            ajlb:values.ajlb ? values.ajlb[values.ajlb.length - 1] : '',
             bar:values.bar ? values.bar : '',
             jqbh:values.jqbh ? values.jqbh : '',
-            lzrq_ks:values.lzrq && values.lzrq.length > 0 ? values.lzrq[0].format('YYYY-MM-DD HH:mm:ss') : '',
-            lzrq_js:values.lzrq && values.lzrq.length > 0 ? values.lzrq[1].format('YYYY-MM-DD HH:mm:ss') : '',
-            scrq_ks:values.scrq && values.scrq.length > 0 ? values.scrq[0].format('YYYY-MM-DD HH:mm:ss') : '',
-            scrq_js:values.scrq && values.scrq.length > 0 ? values.scrq[1].format('YYYY-MM-DD HH:mm:ss') : '',
+            lzrq_ks:values.lzrq && values.lzrq.length > 0 ? values.lzrq[0].format('YYYY-MM-DD') : '',
+            lzrq_js:values.lzrq && values.lzrq.length > 0 ? values.lzrq[1].format('YYYY-MM-DD') : '',
+            scrq_ks:values.scrq && values.scrq.length > 0 ? values.scrq[0].format('YYYY-MM-DD') : '',
+            scrq_js:values.scrq && values.scrq.length > 0 ? values.scrq[1].format('YYYY-MM-DD') : '',
             ly_dm:values.ysply&&values.ysply.length > 0 ? values.ysply.toString() : '',
-            wjmc:values.wjmc ? values.wjmc : '',
+            wjmc:values.wjmc ? values.wjmc.trim() : '',
             sfgl:values.sfgl ? values.sfgl : '',
             lb_dm:values.wjlx&&values.wjlx.length > 0 ? values.wjlx.toString() : '',
         };
@@ -391,30 +397,6 @@ export default class Index extends PureComponent {
             typeButtons: val,
         });
     };
-    // 图表点击跳转到列表页面
-    changeToListPage = (name, dateArry) => {
-        this.props.form.resetFields();
-        this.setState({
-            formValues: {
-                is_sa: '0',
-            },
-            sfsa: '0',
-            sfcj: '',
-            allPolice: [],
-            cjrPolice: [],
-            showDataView: false,
-            searchHeight:true,
-        }, () => {
-            this.props.form.setFieldsValue({
-                jjsj: [moment(`${dateArry[0]} 00:00:00`, 'YYYY-MM-DD hh:mm:ss '), moment(`${dateArry[1]} 23:59:59`, 'YYYY-MM-DD hh:mm:ss')],
-                sfsa: '',
-                cjdw: this.state.cjdw || null,
-                jjdw: this.state.jjdw || null,
-                ...name,
-            });
-            this.handleSearch();
-        });
-    };
     // 渲染机构树
     renderloop = data => data.map((item) => {
         if (item.childrenList && item.childrenList.length) {
@@ -434,17 +416,67 @@ export default class Index extends PureComponent {
             searchHeight: !this.state.searchHeight,
         });
     };
-
-  // 获取案件状态字典
-  getCaseStatus = () => {
-    this.props.dispatch({
-      type: 'common/getDictType',
-      payload: {
-        appCode: window.configUrl.appCode,
-        code: '500729',
-      },
-    });
-  };
+    // 获取案件状态字典
+    getCaseStatus = () => {
+        this.props.dispatch({
+            type: 'common/getDictType',
+            payload: {
+                appCode: window.configUrl.appCode,
+                code: '500729',
+            },
+        });
+        this.props.dispatch({
+            type: 'common/getDictType',
+            payload: {
+                appCode: window.configUrl.appCode,
+                code: '500719',
+            },
+        });
+    };
+  // // 获取案件状态字典
+  // getCaseStatus = () => {
+  //     const options = [
+  //         {
+  //             value: 'xz',
+  //             label: '行政',
+  //             children: [],
+  //         },
+  //         {
+  //             value: 'xs',
+  //             label: '刑事',
+  //             children: [],
+  //         },
+  //     ];
+  //   this.props.dispatch({
+  //     type: 'common/getDictType',
+  //     payload: {
+  //       appCode: window.configUrl.appCode,
+  //       code: '500729',//行政
+  //     },
+  //       callback: (data) => {
+  //          console.log('data1',data);
+  //           data.map((item)=>{
+  //               options[0].children.push({value: item.code, label: item.name});
+  //           });
+  //       },
+  //   });
+  //     this.props.dispatch({
+  //         type: 'common/getDictType',
+  //         payload: {
+  //             appCode: window.configUrl.appCode,
+  //             code: '500719',//刑事
+  //         },
+  //         callback: (data) => {
+  //             console.log('data2',data);
+  //             data.map((item)=>{
+  //                 options[1].children.push({value: item.code, label: item.name});
+  //             });
+  //         },
+  //     });
+  //     this.setState({
+  //         ajztList:options,
+  //     });
+  // };
   // 获取案件类别树
   getCaseTypeTree = (areaNum) => {
     this.props.dispatch({
@@ -465,10 +497,10 @@ export default class Index extends PureComponent {
     renderForm() {
         const {form: {getFieldDecorator}, common: {sourceOfAlarmDict, depTree, handleStatusDict}} = this.props;
         const allPoliceOptions = this.state.allPolice.map(d => <Option key={`${d.idcard},${d.pcard}`}
-                                                                       value={`${d.idcard},${d.pcard}$$`}
+                                                                       value={`${d.idcard}`}
                                                                        title={d.name}>{`${d.name} ${d.pcard}`}</Option>);
         const cjrPoliceOptions = this.state.cjrPolice.map(d => <Option key={`${d.idcard},${d.pcard}`}
-                                                                       value={`${d.idcard},${d.pcard}$$`}
+                                                                       value={`${d.idcard}`}
                                                                        title={d.name}>{`${d.name} ${d.pcard}`}</Option>);
         const {caseTypeTree} = this.state;
         let sourceOfAlarmDictOptions = [];
@@ -495,16 +527,25 @@ export default class Index extends PureComponent {
         };
         const rowLayout = {md: 8, xl: 16, xxl: 24};
         const colLayout = {sm: 24, md: 12, xl: 12, xxl:8};
-      const {common: { XzCaseStatusType}} = this.props;
+      const {common: { XzCaseStatusType,CaseStatusType}} = this.props;
       let XzCaseStatusOption = [];
+      let CaseStatusOption = [];
       if (XzCaseStatusType.length > 0) {
         for (let i = 0; i < XzCaseStatusType.length; i++) {
           const item = XzCaseStatusType[i];
           XzCaseStatusOption.push(
-            <Option key={item.id} value={item.code}>{item.name}</Option>,
+            <Option key={item.id} value={item.code}>{item.name}(行政)</Option>,
           );
         }
       }
+        if (CaseStatusType.length > 0) {
+            for (let i = 0; i < CaseStatusType.length; i++) {
+                const item = CaseStatusType[i];
+                CaseStatusOption.push(
+                    <Option key={item.id} value={item.code}>{item.name}(刑事)</Option>,
+                );
+            }
+        }
         return (
             <Form onSubmit={this.handleSearch} style={{height: this.state.searchHeight ? 'auto' : '50px',}}>
                 <Row gutter={rowLayout} className={styles.searchForm}>
@@ -552,11 +593,38 @@ export default class Index extends PureComponent {
                                 mode="multiple"
                                 getPopupContainer={() => document.getElementById('videoListForm')}>
                           {/*<Option value="">全部</Option>*/}
-                          {XzCaseStatusOption}
+                            <OptGroup label="行政案件状态">
+                                {XzCaseStatusOption}
+                            </OptGroup>
+                            <OptGroup label="刑事案件状态">
+                                {CaseStatusOption}
+                            </OptGroup>
                         </Select>,
                       )}
                     </FormItem>
                   </Col>
+                  {/*  <Col {...colLayout}>*/}
+                  {/*      <FormItem label="案件状态" {...formItemLayout}>*/}
+                  {/*          {getFieldDecorator('ajzt', {*/}
+                  {/*              // initialValue: this.state.caseAllType,*/}
+                  {/*          })(*/}
+                  {/*              <Cascader*/}
+                  {/*                  options={this.state.ajztList}*/}
+                  {/*                  placeholder="请选择案件状态"*/}
+                  {/*                  changeOnSelect={true}*/}
+                  {/*                  getPopupContainer={() => document.getElementById('videoListForm')}*/}
+                  {/*                  showSearch={*/}
+                  {/*                      {*/}
+                  {/*                          filter: (inputValue, path) => {*/}
+                  {/*                              return (path.some(items => (items.searchValue).indexOf(inputValue) > -1));*/}
+                  {/*                          },*/}
+                  {/*                          limit: 5,*/}
+                  {/*                      }*/}
+                  {/*                  }*/}
+                  {/*              />,*/}
+                  {/*          )}*/}
+                  {/*      </FormItem>*/}
+                  {/*  </Col>*/}
                   <Col {...colLayout}>
                     <FormItem label="案件类别" {...formItemLayout}>
                       {getFieldDecorator('ajlb', {
@@ -735,7 +803,7 @@ export default class Index extends PureComponent {
                     dispatch={this.props.dispatch}
                     newDetail={this.newDetail}
                     getList={(params) => this.getList(params)}
-                    location={this.props.location}
+                    location={this.state.loading}
                     formValues={this.state.formValues}
                 />
             </div>

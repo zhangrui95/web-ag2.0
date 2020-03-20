@@ -74,6 +74,8 @@ export default {
         XsyjType: [],
         XzyjType: [],
         JqyjType: [],
+        JqyjVeidoType: [],
+        ajVeidoType: [],
         YSLXType: [], // 要素类型
         itemsCode: [],
         pushMattersDict: [], // 推送事项
@@ -287,6 +289,9 @@ export default {
                     type: 'setCaseStatus',
                     payload: response && response.error === null ? response.data : [],
                 });
+                if (callback && response && !response.error) {
+                    callback(response.data);
+                }
             }
             if (payload.code === '500729') {
                 // 行政案件状态
@@ -294,6 +299,9 @@ export default {
                     type: 'setXzCaseStatus',
                     payload: response && response.error === null ? response.data : [],
                 });
+                if (callback && response && !response.error) {
+                    callback(response.data);
+                }
             }
             if (payload.code === '500847') {
                 // 行政案件状态
@@ -396,6 +404,20 @@ export default {
                 //行政案件预警
                 yield put({
                     type: 'setJqyj',
+                    payload: response && response.error === null ? response.data : [],
+                });
+            }
+            if (payload.code === '61000') {
+                //音视频警情预警类型
+                yield put({
+                    type: 'setVedioJqyj',
+                    payload: response && response.error === null ? response.data : [],
+                });
+            }
+            if (payload.code === '62000') {
+                //音视频案件预警类型
+                yield put({
+                    type: 'setVedioAj',
                     payload: response && response.error === null ? response.data : [],
                 });
             }
@@ -1007,6 +1029,18 @@ export default {
             return {
                 ...state,
                 JqyjType: action.payload,
+            };
+        },
+        setVedioJqyj(state, action) {
+            return {
+                ...state,
+                JqyjVeidoType: action.payload,
+            };
+        },
+        setVedioAj(state, action) {
+            return {
+                ...state,
+                ajVeidoType: action.payload,
             };
         },
         setJzCaseStatus(state, action) {

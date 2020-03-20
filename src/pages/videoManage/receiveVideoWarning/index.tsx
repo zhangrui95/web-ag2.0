@@ -59,7 +59,7 @@ let currentValue;
 export default class Index extends PureComponent {
   state = {
     yjjb: '',
-    formValues: { yj_type: 'jq' }, // 查询条件
+    formValues: { yj_type: 'video_jq' }, // 查询条件
     activeKey: '0',
     arrayDetail: [],
     allPolice: [],
@@ -83,14 +83,14 @@ export default class Index extends PureComponent {
     if (this.props.location.query && this.props.location.query.id) {
       this.details(this.props.location.query.record);
     }
-    this.getDossier({ pd: { yj_type: 'jq' } });
+    this.getDossier({ pd: { yj_type: 'video_jq' } });
     this.getSuperviseStatusDict();
     this.getYjjbDictionary();
       this.props.dispatch({
           type: 'common/getDictType',
           payload: {
               appCode: window.configUrl.appCode,
-              code: '5025300',//5025300
+              code: '61000',//61000音视频警情预警
           },
       });
   }
@@ -190,16 +190,16 @@ export default class Index extends PureComponent {
   handleFormReset = () => {
     this.props.form.resetFields();
     this.setState({
-      formValues: { yj_type: 'jq' },
+      formValues: { yj_type: 'video_jq' },
     });
-    this.getDossier({ pd: { yj_type: 'jq' } });
+    this.getDossier({ pd: { yj_type: 'video_jq' } });
   };
   // 导出
   exportData = () => {
     const values = this.props.form.getFieldsValue();
     const yjsjTime = values.yjsj;
     const formValues = {
-      yj_type: 'jq',
+      yj_type: 'video_jq',
       txzt: values.txzt || '',
       yjjbdm: values.yjjb || '',
       yjlxdm: values.yjlx || '',
@@ -256,7 +256,7 @@ export default class Index extends PureComponent {
     const values = this.props.form.getFieldsValue();
     const yjsjTime = values.yjsj;
     const formValues = {
-      yj_type: 'jq',
+      yj_type: 'video_jq',
       txzt: values.txzt || '',
       yjjbdm: values.yjjb || '',
       yjlxdm: values.yjlx || '',
@@ -285,7 +285,7 @@ export default class Index extends PureComponent {
     const params = {
       pd: {
         ...formValues,
-        yj_type: 'jq',
+        yj_type: 'video_jq',
       },
       currentPage: pagination.current,
       showCount: pagination.pageSize,
@@ -554,7 +554,7 @@ export default class Index extends PureComponent {
   render() {
     const {
       form: { getFieldDecorator },
-      common: { depTree, superviseStatusDict, YJJBType, JqyjType },
+      common: { depTree, superviseStatusDict, YJJBType, JqyjVeidoType },
       EarlyWarning: {
         jqyjdata: { page, list, tbCount },
       },
@@ -832,7 +832,7 @@ export default class Index extends PureComponent {
                       getPopupContainer={() => document.getElementById('jqyjtableListForm')}
                     >
                       <Option value="">全部</Option>
-                        {JqyjType.map(event => {
+                        {JqyjVeidoType.map(event => {
                             return <Option value={event.code}>{event.name}</Option>;
                         })}
                       {/*<Option value="5025302">未受案警情</Option>*/}

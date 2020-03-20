@@ -863,7 +863,7 @@ export default class Index extends PureComponent {
             >
               查询
             </Button>
-            <Button style={{marginLeft: 8}} onClick={this.handleFormReset}>
+            <Button style={{marginLeft: 8}} className={styles.empty} onClick={this.handleFormReset}>
               重置
             </Button>
             <Button
