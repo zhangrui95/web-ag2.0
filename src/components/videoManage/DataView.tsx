@@ -81,9 +81,6 @@ export default class PoliceDataView extends PureComponent {
     this.getAjsc(this.props,this.state.param2);
     this.getCqwsc(this.props,{});
     // },500)
-
-    // window.addEventListener('resize', policeEchartLine.resize);
-    // window.addEventListener('resize', ajEchart.resize);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -340,6 +337,7 @@ export default class PoliceDataView extends PureComponent {
               }
           ];
         this.showPoliceEchartLine(nextProps,datas,xList);
+        window.addEventListener('resize', policeEchartLine.resize);
       }
     });
   }
@@ -416,6 +414,7 @@ export default class PoliceDataView extends PureComponent {
               }
           ]
         this.showajEchartLine(nextProps,datas,xList);
+          window.addEventListener('resize', ajEchart.resize);
       }
     });
   }
@@ -428,6 +427,7 @@ export default class PoliceDataView extends PureComponent {
         this.showcqwscEchartLine(nextProps,data);
       }
     });
+      window.addEventListener('resize', cqwscEchart.resize);
   }
   // 获取头部本、上、前按键数据
   getViewCountData = (type) => {
