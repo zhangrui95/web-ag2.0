@@ -712,11 +712,11 @@ export default class caseDetail extends PureComponent {
           ) : (
             ''
           )}
-            {/*{caseDetails && caseDetails.jqxxList && caseDetails.jqxxList.length > 0 ? (*/}
+            {caseDetails && caseDetails.video && caseDetails.video == 1 ? (
                 <div style={{ float: 'right', padding: '16px 0',marginRight: 16 }}>
                     <Button
                         type="primary"
-                        // onClick={() => this.seePolice(true, caseDetails)}
+                        onClick={() => this.getVideo(caseDetails)}
                         style={{
                             background: dark
                                 ? 'linear-gradient(to right, #0084FA, #03A3FF)'
@@ -726,9 +726,9 @@ export default class caseDetail extends PureComponent {
                         查看关联音视频
                     </Button>
                 </div>
-            {/*) : (*/}
-            {/*    ''*/}
-            {/*)}*/}
+            ) : (
+                ''
+            )}
           {caseDetails && caseDetails.rqxyrList && caseDetails.rqxyrList.length > 0 ? (
             <div style={{ float: 'right', padding: '16px 0',marginRight: 16 }}>
               <Button
@@ -932,7 +932,24 @@ export default class caseDetail extends PureComponent {
       </div>
     );
   }
-
+    getVideo = (detail) =>{
+        console.log(detail);
+        this.props.dispatch({
+            type: 'global/changeResetList',
+            payload: {
+                isReset: !this.props.global.isResetList.isReset,
+                url: '/videoManage/videoData',
+                state: {ajbh:detail.ajbh},
+            },
+        });
+        this.props.dispatch(
+            routerRedux.push({
+                pathname: '/videoManage/videoData',
+                state: {ajbh:detail.ajbh},
+                // query: {isReset: true}
+            }),
+        );
+    }
   render() {
     let dark = this.props.global && this.props.global.dark;
     const {

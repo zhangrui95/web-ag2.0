@@ -577,7 +577,7 @@ export default class policeDetail extends PureComponent {
           ) : (
             ''
           )}
-            {/*{policeDetails && policeDetails.ajbh && policeDetails.is_sa === 1 ? (*/}
+            {policeDetails && policeDetails.video && policeDetails.video == 1 ? (
                 <div style={{ float: 'right', padding: '16px 16px 16px 0' }}>
                     <Button
                         className={styles.connectBtn}
@@ -586,14 +586,14 @@ export default class policeDetail extends PureComponent {
                                 ? 'linear-gradient(to right, #0084FA, #03A3FF)'
                                 : 'linear-gradient(to right, #3D63D1, #333FE4)',
                         }}
-                        // onClick={() => this.openCaseDetail(policeDetails)}
+                        onClick={() => this.getVideo(policeDetails)}
                     >
                         查看关联音视频
                     </Button>
                 </div>
-            {/*) : (*/}
-            {/*    ''*/}
-            {/*)}*/}
+            ) : (
+                ''
+            )}
           <div style={{ content: '', clear: 'both', display: 'block' }} />
         </div>
         <Card
@@ -743,7 +743,24 @@ export default class policeDetail extends PureComponent {
       </div>
     );
   }
-
+    getVideo = (detail) =>{
+      console.log(detail);
+        this.props.dispatch({
+            type: 'global/changeResetList',
+            payload: {
+                isReset: !this.props.global.isResetList.isReset,
+                url: '/videoManage/videoData',
+                state: {jqbh:detail.jqbh},
+            },
+        });
+        this.props.dispatch(
+            routerRedux.push({
+                pathname: '/videoManage/videoData',
+                state: {jqbh:detail.jqbh},
+                // query: {isReset: true}
+            }),
+        );
+    }
   render() {
     const { superviseVisibleModal, policeDetails } = this.state;
     let dark = this.props.global && this.props.global.dark;

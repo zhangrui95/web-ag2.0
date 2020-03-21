@@ -76,21 +76,49 @@ export default class Index extends PureComponent {
         this.getDepTree(newjigouArea.department);
         this.getCaseStatus();
         this.getCaseTypeTree(window.configUrl.is_area);
-        this.getList({});
+        if(this.props.location.state&&(this.props.location.state.jqbh || this.props.location.state.ajbh)){
+            let {jqbh,ajbh} = this.props.location.state;
+            this.setState({
+                showDataView:false,
+                searchHeight: true,
+            },()=>{
+                this.props.form.setFieldsValue({
+                    jqbh: jqbh ? jqbh : '',
+                    ajbh: ajbh ? ajbh : '',
+                });
+                this.handleSearch();
+            });
+        }else{
+            this.getList({});
+        }
     }
 
     componentWillReceiveProps(nextProps) {
       // console.log('nextProps',nextProps);
         if (this.props.global.isResetList.isReset !== nextProps.global.isResetList.isReset && nextProps.global.isResetList.url ===  '/videoManage/videoData') {
             // this.handleFormReset();
-          const params = {
-            currentPage: 1,
-            showCount: tableList,
-            pd: {
-              ...this.state.formValues,
-            },
-          };
-          this.getList(params);
+            if (nextProps.global.isResetList.state){
+                let {jqbh,ajbh} = nextProps.global.isResetList.state;
+                this.setState({
+                    showDataView:false,
+                    searchHeight: true,
+                },()=>{
+                    this.props.form.setFieldsValue({
+                        jqbh: jqbh ? jqbh : '',
+                        ajbh: ajbh ? ajbh : '',
+                    });
+                    this.handleSearch();
+                });
+            }else{
+                const params = {
+                    currentPage: 1,
+                    showCount: tableList,
+                    pd: {
+                        ...this.state.formValues,
+                    },
+                };
+                this.getList(params);
+            }
         }
     }
 
