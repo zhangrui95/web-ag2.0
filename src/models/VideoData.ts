@@ -87,29 +87,15 @@ export default {
       * getAjscCount({payload, callback}, {call, put}) {
         const response = yield call(getAjscCount, payload);
         if (callback && response && !response.error && response.data) {
-                callback(response.data);//response.data
+                callback(response.data);
         }
       },
       //超期未上传统计
       * getCqwscCount({payload, callback}, {call, put}) {
-        // const response = yield call(getCqwscCount, payload);
-        // if (callback && response && !response.error && response.data) {
-        let data = [
-          {
-            name: '警情',
-            type: 'bar',
-            data: [20,49,18,45,32],
-            barWidth: 20
-          },
-          {
-            name: '案件',
-            type: 'bar',
-            data: [6,37,21,56,44],
-            barWidth: 20
-          },
-        ];
-        callback(data);//response.data
-        // }
+          const response = yield call(getCqwscCount, payload);
+          if (callback && response && !response.error && response.data) {
+              callback(response.data);
+          }
       },
     },
 

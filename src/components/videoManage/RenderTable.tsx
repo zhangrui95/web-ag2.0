@@ -148,9 +148,22 @@ class RenderTable extends PureComponent {
           },{
             title: '案件名称',
             dataIndex: 'ajmc',
+            render: text => {
+                return (
+                    <Ellipsis lines={2} tooltip>{text}</Ellipsis>
+                );
+            },
           },{
             title: '案件类别',
+            width: 100,
             dataIndex: 'ajlbmc',
+            render: text => {
+                return (
+                    <span>
+                        <Ellipsis length={10} tooltip>{text}</Ellipsis>
+                    </span>
+                );
+            },
           },{
             title: '办案单位',
             dataIndex: 'zbrdw_mc',

@@ -67,8 +67,10 @@ export default class PoliceDataView extends PureComponent {
     showCount:5,
     param1:{currentPage:1, showCount:5},
     param2:{currentPage:1, showCount:5,pd:{ajlx:'1'}},
+    param3:{currentPage:1, showCount:5},
     pageJcj:{},
     pageAj:{},
+    pageCq:{},
   };
 
   componentDidMount() {
@@ -347,7 +349,7 @@ export default class PoliceDataView extends PureComponent {
       type: 'VideoDate/getAjscCount',
       payload: params,
       callback:(data)=>{
-          console.log('案件上传统计',data);
+          console.log('案件上传统计:',data);
           let xList = [];
           let ygscs = [];
           let yscs = [];
@@ -414,19 +416,36 @@ export default class PoliceDataView extends PureComponent {
               }
           ]
         this.showajEchartLine(nextProps,datas,xList);
-          window.addEventListener('resize', ajEchart.resize);
+        window.addEventListener('resize', ajEchart.resize);
       }
     });
   }
   //超期未上传统计接口
   getCqwsc = (nextProps,params) => {
+      let xList = ['辽阳公安局', '盘锦公安局', '抚顺公安局', '丹东公安局', '铁岭公安局'];
     this.props.dispatch({
       type: 'VideoDate/getCqwscCount',
       payload: params,
       callback:(data)=>{
-        this.showcqwscEchartLine(nextProps,data);
+          console.log('超期未上传:',data);
+        this.setState({param3:params,pageCq:data.page});
       }
     });
+      let datas = [
+          {
+              name: '警情',
+              type: 'bar',
+              data: [20,49,18,45,32],
+              barWidth: 20
+          },
+          {
+              name: '案件',
+              type: 'bar',
+              data: [6,37,21,56,44],
+              barWidth: 20
+          },
+      ];
+      this.showcqwscEchartLine(nextProps,datas,xList);
       window.addEventListener('resize', cqwscEchart.resize);
   }
   // 获取头部本、上、前按键数据
@@ -710,7 +729,7 @@ export default class PoliceDataView extends PureComponent {
     // })
   };
   //超期未上传统计
-  showcqwscEchartLine = (nextProps,data) => {
+  showcqwscEchartLine = (nextProps,data,xList) => {
     cqwscEchart = echarts.init(document.getElementById('cqwsc'));
     const option = {
       tooltip: {
@@ -741,7 +760,7 @@ export default class PoliceDataView extends PureComponent {
       xAxis: [
         {
           type: 'category',
-          data: ['辽阳公安局', '盘锦公安局', '抚顺公安局', '丹东公安局', '铁岭公安局'],
+          data:xList,
           axisPointer: {
             type: 'shadow'
           },
@@ -799,6 +818,8 @@ export default class PoliceDataView extends PureComponent {
           this.getJcj(this.props,param);
       }else if(idx == 2){
           this.getAjsc(this.props,param);
+      }else if(idx == 3){
+          this.getCqwsc(this.props,param);
       }
   }
   //切换案件上传统计刑事，行政
@@ -831,7 +852,8 @@ export default class PoliceDataView extends PureComponent {
       jqslNoData,
       selectedDateData,
         pageJcj,
-        pageAj
+        pageAj,
+        pageCq,
     } = this.state;
     let className =
       this.props.global && this.props.global.dark
@@ -987,7 +1009,17 @@ export default class PoliceDataView extends PureComponent {
                     paddingLeft: 10,
                   }}
                 >超期未上传统计</span></div>
+                  <Icon
+                      type="left"
+                      className={!pageCq.currentPage || pageCq.currentPage==1 ? styles.none : styles.leftGos}
+                      onClick={()=>this.getNext(-1,3)}
+                  />
                 <div id="cqwsc" className={styles.cardBox}  style={{width:'98%',marginLeft:'1%',height:'400px'}}></div>
+                  <Icon
+                      type="right"
+                      className={pageCq.totalPage === pageCq.currentPage || pageCq.totalPage==1 ? styles.none : styles.rightGos}
+                      onClick={()=>this.getNext(1,3)}
+                  />
               </Col>
             </Row>
           </div>

@@ -685,9 +685,6 @@ export default class caseDetail extends PureComponent {
     // const AddJqDetail = { title: '卷宗详情', content: divs, key: id };
     // this.props.newDetail(AddJqDetail);
   };
-    getVideo = () =>{
-        console.log('播放行政音视频');
-    }
   renderDetail() {
     const { caseDetails } = this.state;
     const rowLayout = { md: 8, xl: 16, xxl: 24 };
@@ -715,6 +712,23 @@ export default class caseDetail extends PureComponent {
           ) : (
             ''
           )}
+            {/*{caseDetails && caseDetails.jqxxList && caseDetails.jqxxList.length > 0 ? (*/}
+                <div style={{ float: 'right', padding: '16px 0',marginRight: 16 }}>
+                    <Button
+                        type="primary"
+                        // onClick={() => this.seePolice(true, caseDetails)}
+                        style={{
+                            background: dark
+                                ? 'linear-gradient(to right, #0084FA, #03A3FF)'
+                                : 'linear-gradient(to right, #3D63D1, #333FE4)',
+                        }}
+                    >
+                        查看关联音视频
+                    </Button>
+                </div>
+            {/*) : (*/}
+            {/*    ''*/}
+            {/*)}*/}
           {caseDetails && caseDetails.rqxyrList && caseDetails.rqxyrList.length > 0 ? (
             <div style={{ float: 'right', padding: '16px 0',marginRight: 16 }}>
               <Button
@@ -831,11 +845,6 @@ export default class caseDetail extends PureComponent {
               </div>
             </Col>
           </Row>
-            <Row gutter={rowLayout} className={styles.xqrow}>
-                <Col md={24} sm={24} className={styles.xqcol}>
-                    音视频：<a style={{ textDecoration: 'underline' }} onClick={this.getVideo}>执法音视频-行政</a>
-                </Col>
-            </Row>
           <Row className={caseDetails && caseDetails.pajk && caseDetails.xayy ? styles.xqrow : ''}>
             <Col md={24} sm={24} className={styles.xqcol}>
               <div className={liststyles.Indexfrom}>简要案情：</div>

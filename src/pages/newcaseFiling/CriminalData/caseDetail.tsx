@@ -732,9 +732,6 @@ export default class caseDetail extends PureComponent {
   //     Dossiervisible: false,
   //   });
   // };
-    getVideo = () =>{
-        console.log('播放刑事音视频');
-    }
   renderDetail() {
     const {
       CaseData: { loading },
@@ -832,6 +829,23 @@ export default class caseDetail extends PureComponent {
           ) : (
             ''
           )}
+            {/*{caseDetails && caseDetails.jqxxList && caseDetails.jqxxList.length > 0 ? (*/}
+                <div style={{ float: 'right', padding: '16px 0',marginRight: 16 }}>
+                    <Button
+                        // type="primary"
+                        // onClick={() => this.seePolice(true, caseDetails)}
+                        style={{
+                            background: dark
+                                ? 'linear-gradient(to right, #0084FA, #03A3FF)'
+                                : 'linear-gradient(to right, #3D63D1, #333FE4)',
+                        }}
+                    >
+                        查看关联音视频
+                    </Button>
+                </div>
+            {/*) : (*/}
+            {/*    ''*/}
+            {/*)}*/}
           {caseDetails && caseDetails.rqxyrList && caseDetails.rqxyrList.length > 0 ? (
             <div style={{ float: 'right', padding: '16px 0',marginRight: 16 }}>
               <Button
@@ -935,12 +949,6 @@ export default class caseDetail extends PureComponent {
                 {caseDetails && caseDetails.afdd ? caseDetails.afdd : ''}
               </div>
             </Col>
-              <Col md={8} sm={24} className={styles.xqcol}>
-                  <div className={liststyles.Indexfrom}>音视频：</div>
-                  <div className={liststyles.Indextail} style={{ paddingLeft: 44 }}>
-                    <a style={{ textDecoration: 'underline' }} onClick={this.getVideo}>执法音视频-刑事</a>
-                  </div>
-              </Col>
           </Row>
           <Row
             className={caseDetails && (caseDetails.pajk || caseDetails.xayy) ? styles.xqrow : ''}

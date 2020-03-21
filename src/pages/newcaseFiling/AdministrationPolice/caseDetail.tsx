@@ -648,9 +648,6 @@ export default class caseDetail extends PureComponent {
       reformModal: false,
     });
   };
-    getVideo = () =>{
-        console.log('播放行政-告警音视频');
-    }
   renderDetail() {
     // const {UnXzCaseData: {caseDetails, loading}} = this.props;
     const { caseDetails, isDb, loading2, sureChange } = this.state;
@@ -888,12 +885,6 @@ export default class caseDetail extends PureComponent {
                     <div className={liststyles.Indexfrom}>办案人：</div>
                     <div className={liststyles.Indextail} style={{ paddingLeft: 44 }}>
                         {caseDetails && caseDetails.bar_name ? caseDetails.bar_name : ''}
-                    </div>
-                </Col>
-                <Col md={8} sm={24} className={styles.xqcol}>
-                    <div className={liststyles.Indexfrom}>音视频：</div>
-                    <div className={liststyles.Indextail} style={{ paddingLeft: 44 }}>
-                        <a style={{ textDecoration: 'underline' }} onClick={this.getVideo}>执法音视频-行政告警</a>
                     </div>
                 </Col>
             </Row>

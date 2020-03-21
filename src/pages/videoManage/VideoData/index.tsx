@@ -81,7 +81,7 @@ export default class Index extends PureComponent {
 
     componentWillReceiveProps(nextProps) {
       // console.log('nextProps',nextProps);
-        if (this.props.global.isResetList.isReset !== nextProps.global.isResetList.isReset && nextProps.global.isResetList.url ===  '/receivePolice/AlarmData') {
+        if (this.props.global.isResetList.isReset !== nextProps.global.isResetList.isReset && nextProps.global.isResetList.url ===  '/videoManage/videoData') {
             // this.handleFormReset();
           const params = {
             currentPage: 1,

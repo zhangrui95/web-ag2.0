@@ -543,9 +543,6 @@ export default class policeDetail extends PureComponent {
       </div>
     );
   }
-    getVideo = () =>{
-      console.log('播放警情音视频');
-    }
   renderDetail() {
     const { record, policeDetails } = this.state;
     // const { policeData:{policeDetails} } = this.props
@@ -564,7 +561,7 @@ export default class policeDetail extends PureComponent {
       >
         <div style={{ height: 'auto' }}>
           {policeDetails && policeDetails.ajbh && policeDetails.is_sa === 1 ? (
-            <div style={{ float: 'right', padding: '16px' }}>
+            <div style={{ float: 'right', padding: '16px 16px 16px 0' }}>
               <Button
                 className={styles.connectBtn}
                 style={{
@@ -580,6 +577,23 @@ export default class policeDetail extends PureComponent {
           ) : (
             ''
           )}
+            {/*{policeDetails && policeDetails.ajbh && policeDetails.is_sa === 1 ? (*/}
+                <div style={{ float: 'right', padding: '16px 16px 16px 0' }}>
+                    <Button
+                        className={styles.connectBtn}
+                        style={{
+                            background: dark
+                                ? 'linear-gradient(to right, #0084FA, #03A3FF)'
+                                : 'linear-gradient(to right, #3D63D1, #333FE4)',
+                        }}
+                        // onClick={() => this.openCaseDetail(policeDetails)}
+                    >
+                        查看关联音视频
+                    </Button>
+                </div>
+            {/*) : (*/}
+            {/*    ''*/}
+            {/*)}*/}
           <div style={{ content: '', clear: 'both', display: 'block' }} />
         </div>
         <Card
@@ -717,14 +731,6 @@ export default class policeDetail extends PureComponent {
               </div>
             </Col>
           </Row>
-            <Row gutter={rowLayout} className={styles.xqrow}>
-                <Col md={24} sm={24} className={styles.xqcol}>
-                    <div className={liststyles.Indexfrom}>音视频：</div>
-                    <div className={liststyles.Indextail} style={{ paddingLeft: 44 }}>
-                        <a style={{ textDecoration: 'underline' }} onClick={this.getVideo}>执法音视频-警情</a>
-                    </div>
-                </Col>
-            </Row>
           <Row gutter={rowLayout}>
             <Col md={24} sm={24} className={styles.xqcol}>
               <div className={liststyles.Indexfrom}>处警情况：</div>

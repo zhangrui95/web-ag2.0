@@ -436,9 +436,6 @@ export default class unpoliceDetail extends PureComponent {
     //     reformModal: false,
     //   });
     // };
-    getVideo = () =>{
-        console.log('播放警情-告警音视频');
-    }
     renderDetail() {
         const {getFieldDecorator} = this.props.form;
         // const { policeData:{ policeDetails } } = this.props;
@@ -542,14 +539,6 @@ export default class unpoliceDetail extends PureComponent {
                                 {policeDetails && policeDetails.cjr
                                     ? policeDetails.cjr.split(',')[policeDetails.cjr.split(',').length - 1]
                                     : ''}
-                            </div>
-                        </Col>
-                    </Row>
-                    <Row gutter={rowLayout} className={styles.xqrow}>
-                        <Col md={24} sm={24} className={styles.xqcol}>
-                            <div className={liststyles.Indexfrom}>音视频：</div>
-                            <div className={liststyles.Indextail} style={{ paddingLeft: 44 }}>
-                                <a style={{ textDecoration: 'underline' }} onClick={this.getVideo}>执法音视频-告警警情</a>
                             </div>
                         </Col>
                     </Row>

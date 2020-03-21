@@ -41,6 +41,9 @@ export default {
         WtlxSawpTypeData: [],
         problemTypeDict: [],
         jqproblemTypeDict: [],
+        setAjVedioDict: [],
+        setjqVedioDict: [],
+        setXzVedioType: [],
         superviseStatusDict: [], // 督办状态
         rectificationStatusDict: [], // 整改完毕状态
         itemsStorage: [],
@@ -165,10 +168,30 @@ export default {
                     callback(response);
                 }
             }
+            if (payload.code === '203209') {
+                //获取问题类型
+                yield put({
+                    type: 'setAjVedioDict',
+                    payload: response && response.error === null ? response.data : [],
+                });
+                if (callback && response) {
+                    callback(response);
+                }
+            }
             if (payload.code === '2068' || payload.code === '206800') {
                 //获取警情问题类型
                 yield put({
                     type: 'setjqProblemTypeDict',
+                    payload: response && response.error === null ? response.data : [],
+                });
+                if (callback && response) {
+                    callback(response);
+                }
+            }
+            if (payload.code === '203207') {
+                //获取警情问题类型
+                yield put({
+                    type: 'setjqVedio',
                     payload: response && response.error === null ? response.data : [],
                 });
                 if (callback && response) {
@@ -260,6 +283,16 @@ export default {
                 // 告警类型
                 yield put({
                     type: 'returnXzWtlxAjType',
+                    payload: response && response.error === null ? response.data : [],
+                });
+                if (callback && response) {
+                    callback(response);
+                }
+            }
+            if (payload.code === '203208') {
+                // 行政音视频告警类型
+                yield put({
+                    type: 'setXzVedioType',
                     payload: response && response.error === null ? response.data : [],
                 });
                 if (callback && response) {
@@ -767,6 +800,12 @@ export default {
                 WtlxXzAjTypeData: action.payload,
             };
         },
+        returnXzWtlxAjType(state, action) {
+            return {
+                ...state,
+                setXzVedioType: action.payload,
+            };
+        },
         returnJzWtlxAjType(state, action) {
             return {
                 ...state,
@@ -833,10 +872,22 @@ export default {
                 problemTypeDict: action.payload,
             };
         },
+        setAjVedioDict(state, action) {
+            return {
+                ...state,
+                setAjVedioDict: action.payload,
+            };
+        },
         setjqProblemTypeDict(state, action) {
             return {
                 ...state,
                 jqproblemTypeDict: action.payload,
+            };
+        },
+        setjqVedio(state, action) {
+            return {
+                ...state,
+                setjqVedioDict: action.payload,
             };
         },
         setSuperviseStatusDict(state, action) {

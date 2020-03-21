@@ -173,6 +173,13 @@ export default class policeDetail extends PureComponent {
               message.success('关联成功');
               this.getDetail(id);
               this.onEdit();
+              this.props.dispatch({
+                  type: 'global/changeResetList',
+                  payload: {
+                      isReset: !this.props.global.isResetList.isReset,
+                      url: '/videoManage/videoData',
+                  },
+              });
           }
       });
   }
@@ -199,6 +206,13 @@ export default class policeDetail extends PureComponent {
               callback:(data)=>{
                   message.success('取消成功');
                   that.getDetail(id);
+                  that.props.dispatch({
+                      type: 'global/changeResetList',
+                      payload: {
+                          isReset: !that.props.global.isResetList.isReset,
+                          url: '/videoManage/videoData',
+                      },
+                  });
               }
           });
       },
@@ -434,6 +448,7 @@ export default class policeDetail extends PureComponent {
               <div className={styles.title}>音视频信息</div>
               {/*{this.state.bz || this.props.location.query.tabName === '播放' ? '' : <Button className={styles.wsxxBtn} onClick={this.getBz}>完善信息</Button>}*/}
               <Row className={styles.word} style={styleBox1}>
+                <Col {...colSpan}>文件名称：{detail.mc || ''}</Col>
                 <Col {...colSpan}>视频格式：{detail.format || ''}</Col>
                 <Col {...colSpan}>视频大小：{detail.size || ''}</Col>
                 <Col {...colSpan}>视频时长：{detail.time_length || ''}</Col>

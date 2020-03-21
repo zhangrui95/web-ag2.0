@@ -59,7 +59,7 @@ export default class Index extends PureComponent {
         jjly: '',
         jjdw: '',
         cjdw: '',
-        formValues: {dbzt: '00'},
+        formValues: {dbzt: '00',wtfl_mk:'203207'},
         activeKey: '0',
         arrayDetail: [],
         wtlx: '',
@@ -133,6 +133,7 @@ export default class Index extends PureComponent {
                     // gjsj_ks: moment().format('YYYY-MM-DD'),
                     // gjsj_js: moment().format('YYYY-MM-DD'),
                     dbzt: '00',
+                    wtfl_mk:'203207'
                 },
             };
         }
@@ -184,6 +185,7 @@ export default class Index extends PureComponent {
             showCount: tableList,
             pd: {
                 dbzt: '00',
+                wtfl_mk:'203207'
             },
         };
         this.props.dispatch({
@@ -249,7 +251,7 @@ export default class Index extends PureComponent {
             type: 'common/getDictType',
             payload: {
                 appCode: window.configUrl.appCode,
-                code: '206800',//2068
+                code: '203207',//2068
             },
             callback: data => {
                 if (data) {
@@ -371,6 +373,7 @@ export default class Index extends PureComponent {
             jjr: values.jjr || '',
             is_sa: values.sfsa || '',
             dbzt: values.dbzt && values.dbzt.dbzt ? values.dbzt.dbzt : '',
+            wtfl_mk:'203207',
             cljg_dm: values.dbzt && values.dbzt.zgzt ? values.dbzt.zgzt : '',
             csfs: values.csfs || '',
             wtlx_id: values.wtlx || '',
@@ -399,6 +402,7 @@ export default class Index extends PureComponent {
         this.setState({
             formValues: {
                 dbzt: '00',
+                wtfl_mk:'203207'
             },
             sfsa: '',
             allPolice: [],
@@ -411,6 +415,7 @@ export default class Index extends PureComponent {
             // gjsj_ks: moment().format('YYYY-MM-DD'),
             // gjsj_js: moment().format('YYYY-MM-DD'),
             dbzt: '00',
+              wtfl_mk:'203207'
           },
         };
         this.getPolice(obj);
@@ -430,6 +435,7 @@ export default class Index extends PureComponent {
             jjr: values.jjr || '',
             is_sa: values.sfsa || '',
             dbzt: values.dbzt && values.dbzt.dbzt ? values.dbzt.dbzt : '',
+            wtfl_mk:'203207',
             cljg_dm: values.dbzt && values.dbzt.zgzt ? values.dbzt.zgzt : '',
             csfs: values.csfs || '',
             wtlx_id: values.wtlx || '',
@@ -528,6 +534,7 @@ export default class Index extends PureComponent {
             {
                 formValues: {
                     dbzt: '00',
+                    wtfl_mk:'203207'
                 },
                 sfsa: '',
                 allPolice: [],

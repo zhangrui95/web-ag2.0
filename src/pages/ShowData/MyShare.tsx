@@ -91,6 +91,7 @@ export default class MyShare extends PureComponent {
                                                                                                                                         : '',
                 query: {
                     id: record.tzlx === 'jqwt' ? record.id :
+                        record.tzlx === 'jqyj' ? record.system_id :
                         record.tzlx === 'xsajxx1' || record.tzlx === 'xsajxx2' || record.tzlx === 'xsajxx3'||
                         record.tzlx === 'xsajyj1' || record.tzlx === 'xsajyj2' || record.tzlx === 'xsajyj3'||
                         record.tzlx === 'xzajyj1' || record.tzlx === 'xzajyj2' || record.tzlx === 'xzajyj3'||

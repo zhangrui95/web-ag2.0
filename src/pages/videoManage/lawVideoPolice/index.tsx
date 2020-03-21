@@ -73,7 +73,7 @@ export default class Index extends PureComponent {
         const jigouArea = sessionStorage.getItem('user');
         const newjigouArea = JSON.parse(jigouArea);
         this.getDepTree(newjigouArea.department);
-        this.getProblemTypeDict();
+        this.getsetAjVedioDict();
         this.getRectificationStatusDict();
         this.getSuperviseStatusDict();
         this.getCaseStatus();
@@ -106,6 +106,7 @@ export default class Index extends PureComponent {
                 is_tz: props.location.state.is_tz ? props.location.state.is_tz : '1',
                 barxm: props.location.state.bar_name || '',
                 wtlx_id: props.location.state.wtlx_id ? props.location.state.wtlx_id : '',
+                wtfl_mk:'203209',
                 // dbzt:props.location.state.dbzt,
             };
             this.setState({
@@ -130,6 +131,7 @@ export default class Index extends PureComponent {
                 wtlx_id: wtid && type === 1 ? wtid : '',
                 bardw: record && record.bardw ? record.bardw : '',
                 dbzt: '',
+                wtfl_mk:'203209',
                 ssmk: '',
             };
             this.setState({
@@ -158,6 +160,7 @@ export default class Index extends PureComponent {
                     wtlx_id: wtid && type === 1 ? wtid : '',
                     bardw: record && record.bardw ? record.bardw : '',
                     // dbzt:'00',
+                    wtfl_mk:'203209',
                     is_tz: '3',
                 },
             };
@@ -234,6 +237,7 @@ export default class Index extends PureComponent {
             showCount: tableList,
             pd: {
                 dbzt: '00',
+                wtfl_mk:'203209',
                 ssmk: '',
                 is_bbtz: '0',
             },
@@ -252,12 +256,12 @@ export default class Index extends PureComponent {
     };
 
     // 获取问题类型
-    getProblemTypeDict = () => {
+    getsetAjVedioDict = () => {
         this.props.dispatch({
             type: 'common/getDictType',
             payload: {
                     appCode: window.configUrl.appCode,
-                    code: '20160001',//2016
+                    code: '203209',//2016
             },
         });
     };
@@ -430,6 +434,7 @@ export default class Index extends PureComponent {
             sadw: values.sadw || '',
             barxm: values.bar || '',
             dbzt: values.dbzt && values.dbzt.dbzt ? values.dbzt.dbzt : '',
+            wtfl_mk:'203209',
             cljg_dm: values.dbzt && values.dbzt.zgzt ? values.dbzt.zgzt : '',
             csfs: values.csfs || '',
             ssmk: '',
@@ -454,6 +459,7 @@ export default class Index extends PureComponent {
             formValues: {
                 dbzt: '00',
                 ssmk: '',
+                wtfl_mk:'203209',
             },
             sadw: null,
             gjsj: null,
@@ -477,6 +483,7 @@ export default class Index extends PureComponent {
             sadw: values.sadw || '',
             barxm: values.bar || '',
             dbzt: values.dbzt && values.dbzt.dbzt ? values.dbzt.dbzt : '',
+            wtfl_mk:'203209',
             cljg_dm: values.dbzt && values.dbzt.zgzt ? values.dbzt.zgzt : '',
             csfs: values.csfs || '',
             ssmk: '',
@@ -584,6 +591,7 @@ export default class Index extends PureComponent {
             dbzt: '',
             formValues: {
                 dbzt: '',
+                wtfl_mk:'203209',
                 ssmk: '',
             },
             searchHeight:true,
@@ -613,14 +621,14 @@ export default class Index extends PureComponent {
     };
 
     renderForm() {
-        const {form: {getFieldDecorator}, common: {problemTypeDict, superviseStatusDict, depTree, CaseStatusType, rectificationStatusDict}} = this.props;
+        const {form: {getFieldDecorator}, common: {setAjVedioDict, superviseStatusDict, depTree, CaseStatusType, rectificationStatusDict}} = this.props;
         const allPoliceOptions = this.state.allPolice.map(d => <Option key={`${d.idcard},${d.pcard}`}
                                                                        value={`${d.idcard},${d.pcard}$$`}
                                                                        title={d.name}>{`${d.name} ${d.pcard}`}</Option>);
         let problemTypeOptions = [], superviseStatusOptions = [];
-        if (problemTypeDict.length > 0) {
-            for (let i = 0; i < problemTypeDict.length; i++) {
-                const item = problemTypeDict[i];
+        if (setAjVedioDict.length > 0) {
+            for (let i = 0; i < setAjVedioDict.length; i++) {
+                const item = setAjVedioDict[i];
                 problemTypeOptions.push(
                     <Option key={item.id} value={item.code}>{item.name}</Option>,
                 );

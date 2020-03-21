@@ -758,9 +758,6 @@ export default class uncaseDetail extends PureComponent {
     // const AddJqDetail = { title: '警情详情', content: divs, key: id };
     // this.props.newDetail(AddJqDetail);
   };
-    getVideo = () =>{
-        console.log('播放刑事-告警音视频');
-    }
   renderDetail(unCaseDetailData) {
     const {
       UnCaseData: { loading },
@@ -985,12 +982,6 @@ export default class uncaseDetail extends PureComponent {
                 {unCaseDetailData && unCaseDetailData.afdd ? unCaseDetailData.afdd : ''}
               </div>
             </Col>
-              <Col md={8} sm={24} className={styles.xqcol}>
-                  <div className={liststyles.Indexfrom}>音视频：</div>
-                  <div className={liststyles.Indextail} style={{ paddingLeft: 44 }}>
-                      <a style={{ textDecoration: 'underline' }} onClick={this.getVideo}>执法音视频-刑事告警</a>
-                  </div>
-              </Col>
           </Row>
           <Row style={{ marginRight: 0 }} className={styles.xqrow}>
             <Col md={24} sm={24} className={styles.xqcol}>

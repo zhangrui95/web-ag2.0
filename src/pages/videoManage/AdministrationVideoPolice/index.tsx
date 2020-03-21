@@ -95,6 +95,7 @@ export default class Index extends PureComponent {
                 sldw: props.location.state.code,
                 gjsj: [props.location.state.kssj ? moment(props.location.state.kssj) : null, props.location.state.jssj ? moment(props.location.state.jssj) : null],
                 dbzt: props.location.state.dbzt ? props.location.state.dbzt : '',
+                wtfl_mk:'203208',
                 wtlx_id: props.location.state.wtlx_id ? props.location.state.wtlx_id : '',
                 searchHeight:true,
             });
@@ -109,6 +110,7 @@ export default class Index extends PureComponent {
                 is_tz: props.location.state.is_tz ? props.location.state.is_tz : '1',
                 bar_name: props.location.state.bar_name || '',
                 wtlx_id: props.location.state.wtlx_id ? props.location.state.wtlx_id : '',
+                wtfl_mk:'203208',
                 // dbzt:props.location.state.dbzt,
             };
             this.setState({
@@ -132,6 +134,7 @@ export default class Index extends PureComponent {
                 wtlx_id: wtid && type === 1 ? wtid : '',
                 sldw_dm: record && record.sldw_dm ? record.sldw_dm : '',
                 dbzt: '',
+                wtfl_mk:'203208',
             };
             this.setState({
                 showDataView: false,
@@ -288,7 +291,7 @@ export default class Index extends PureComponent {
             type: 'common/getDictType',
             payload: {
                 appCode: window.configUrl.appCode,
-                code: '60010001',//6001
+                code: '203208',//6001
             },
         });
     };
@@ -308,6 +311,7 @@ export default class Index extends PureComponent {
             showCount: tableList,
             pd: {
                 dbzt: '00',
+                wtfl_mk:'203208',
                 ssmk: '',
             },
         };
@@ -410,6 +414,7 @@ export default class Index extends PureComponent {
             bar_name: values.bar || '',
             ajzt: values.ajzt || '',
             dbzt: values.dbzt && values.dbzt.dbzt ? values.dbzt.dbzt : '',
+            wtfl_mk:'203208',
             cljg_dm: values.dbzt && values.dbzt.zgzt ? values.dbzt.zgzt : '',
             csfs: values.csfs || '',
             gjsj_ks: gjTime && gjTime.length > 0 && gjTime[0] ? gjTime[0].format('YYYY-MM-DD') : '',
@@ -437,6 +442,7 @@ export default class Index extends PureComponent {
         this.setState({
             formValues: {
                 dbzt: '00',
+                wtfl_mk:'203208',
                 ssmk: '',
             },
             dbzt: '00',
@@ -458,6 +464,7 @@ export default class Index extends PureComponent {
             bar_name: values.bar || '',
             ajzt: values.ajzt || '',
             dbzt: values.dbzt && values.dbzt.dbzt ? values.dbzt.dbzt : '',
+            wtfl_mk:'203208',
             cljg_dm: values.dbzt && values.dbzt.zgzt ? values.dbzt.zgzt : '',
             csfs: values.csfs || '',
             gjsj_ks: gjTime && gjTime.length > 0 ? gjTime[0].format('YYYY-MM-DD') : '',
@@ -568,6 +575,7 @@ export default class Index extends PureComponent {
             dbzt: '',
             formValues: {
                 dbzt: '',
+                wtfl_mk:'203208',
                 ssmk: '',
             },
             searchHeight:true,
@@ -597,7 +605,7 @@ export default class Index extends PureComponent {
     };
 
     renderForm() {
-        const {form: {getFieldDecorator}, common: {depTree, superviseStatusDict, WtlxXzAjTypeData, XzCaseStatusType, rectificationStatusDict}} = this.props;
+        const {form: {getFieldDecorator}, common: {depTree, superviseStatusDict, setXzVedioType, XzCaseStatusType, rectificationStatusDict}} = this.props;
         const allPoliceOptions = this.state.allPolice.map(d => <Option key={`${d.idcard},${d.pcard}`}
                                                                        value={`${d.idcard},${d.pcard}$$`}
                                                                        title={d.name}>{`${d.name} ${d.pcard}`}</Option>);
@@ -635,9 +643,9 @@ export default class Index extends PureComponent {
             }
         }
         let XzajSuperviseStatusOptions = [];
-        if (WtlxXzAjTypeData.length > 0) {
-            for (let i = 0; i < WtlxXzAjTypeData.length; i++) {
-                const item = WtlxXzAjTypeData[i];
+        if (setXzVedioType.length > 0) {
+            for (let i = 0; i < setXzVedioType.length; i++) {
+                const item = setXzVedioType[i];
                 XzajSuperviseStatusOptions.push(
                     <Option key={item.id} value={item.code}>{item.name}</Option>,
                 );
