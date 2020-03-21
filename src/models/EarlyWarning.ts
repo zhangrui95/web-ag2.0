@@ -28,6 +28,14 @@ export default {
           list: [],
           page: {},
         },
+        jqVediodata: {
+          list: [],
+          page: {},
+        },
+        ajVediodata: {
+          list: [],
+          page: {},
+        },
     },
 
     effects: {
@@ -93,6 +101,26 @@ export default {
               callback(response.data);
             }
           }
+          if (payload&&payload.pd&&payload.pd.yj_type === 'video_jq') {
+            // 警情音视频预警数据
+            yield put({
+              type: 'returnjqVedioList',
+              payload: response && response.error === null ? response.data : [],
+            });
+            if (callback && response && response.error === null && response.data) {
+              callback(response.data);
+            }
+          }
+            if (payload&&payload.pd&&payload.pd.yj_type === 'video_aj') {
+                // 警情音视频预警数据
+                yield put({
+                    type: 'returnajVedioList',
+                    payload: response && response.error === null ? response.data : [],
+                });
+                if (callback && response && response.error === null && response.data) {
+                    callback(response.data);
+                }
+            }
 
 
             // yield put({
@@ -142,6 +170,17 @@ export default {
           jzyjdata: action.payload,
         };
       },
-
+       returnjqVedioList(state, action) {
+        return {
+          ...state,
+            jqVediodata: action.payload,
+        };
+      },
+        returnajVedioList(state, action) {
+            return {
+                ...state,
+                ajVediodata: action.payload,
+            };
+        },
     },
 };

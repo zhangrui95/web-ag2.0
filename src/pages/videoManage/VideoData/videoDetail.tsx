@@ -424,7 +424,10 @@ export default class policeDetail extends PureComponent {
         <div className={styles.detailBox}>{
           this.props.location.query.tabName === '播放' ? <div className={styles.videoBox}>
             <div className={styles.title}>视频</div>
-            <video src={video} controls="controls" className={styles.video}></video>
+              <iframe
+                  className={styles.video}
+                  src={video}
+              />
           </div> : ''
         }
             <div className={styles.videoWord} style={styleBox}>

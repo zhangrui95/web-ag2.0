@@ -94,7 +94,17 @@ export default class Index extends PureComponent {
           },
       });
   }
-
+    componentWillReceiveProps(nextProps) {
+        if (this.props.global.isResetList.isReset !== nextProps.global.isResetList.isReset && nextProps.global.isResetList.url === '/videoManage/Warning/receiveVideoWarning') {
+            const params = {
+                currentPage: this.state.current,
+                pd: {
+                    ...this.state.formValues,
+                },
+            };
+            this.getDossier(params);
+        }
+    }
   // 切换tab
   onTabChange = activeKey => {
     this.setState({
@@ -355,7 +365,7 @@ export default class Index extends PureComponent {
     return current && current.valueOf() > Date.now();
   };
   // 请求当前数据的详情（提醒弹窗中的回显数据从此处获取）
-  thisNewDetails = res => {
+  thisNewDetails = (res, type) => {
     this.props.dispatch({
       type: 'policeData/policeDetailFetch',
       payload: {
@@ -366,6 +376,48 @@ export default class Index extends PureComponent {
           this.setState({
             policeDetails: data,
           });
+            let detail = [
+                `管辖单位：${data && data.jjdw ? data.jjdw : ''}`,
+                `接警人：${data && data.jjr ? data.jjr : ''}`,
+                `接警信息：${data && data.jjnr ? data.jjnr : ''}`,
+                `处警单位：${data && data.cjdw ? data.cjdw : ''}`,
+                `处警人：${data && data.cjr ? data.cjr : ''}`,
+                `处警信息：${data && data.cjqk ? data.cjqk : ''}`,
+            ];
+            res.detail = detail;
+            if (type === 3) {
+                this.props.dispatch(
+                    routerRedux.push({
+                        pathname: '/ModuleAll/Remind',
+                        query: {
+                            record: res,
+                            itemDetails: data,
+                            id: res && res.system_id ? res.system_id : '1',
+                            from: '警情预警',
+                            fromPath: '/videoManage/Warning/receiveVideoWarning',
+                            tab: '表格',
+                        },
+                    }),
+                );
+            }else if(type === 2){
+                this.props.dispatch(
+                    routerRedux.push({
+                        pathname: '/ModuleAll/Share',
+                        query: {
+                            record: res,
+                            id: res && res.id ? res.id : '1',
+                            from: this.state.lx,
+                            tzlx: this.state.tzlx,
+                            fromPath: '/videoManage/Warning/receiveVideoWarning',
+                            tab: '表格',
+                            sx:
+                                (res.jjdw_mc ? res.jjdw_mc + '、' : '') +
+                                (res.yjlxmc ? res.yjlxmc + '、' : '') +
+                                (res.cjddsj ? res.cjddsj : ''),
+                        },
+                    }),
+                );
+            }
         }
       },
     });
@@ -400,34 +452,9 @@ export default class Index extends PureComponent {
         txVisible: true,
         txItem: res,
       });
-      this.thisNewDetails(res);
+      this.thisNewDetails(res,type);
     } else if (type === 2) {
-      let detail = [
-        `管辖单位：${res && res.jjdw_mc ? res.jjdw_mc : ''}`,
-         `接警人：${res && res.jjr ? res.jjr : ''}`,
-        `接警信息：${res && res.jjnr ? res.jjnr : ''}`,
-        `处警单位：${res && res.cjdw ? res.cjdw : ''}`,
-         `处警人：${res && res.cjr ? res.cjr : ''}`,
-        `处警信息：${res && res.cjqk ? res.cjqk : ''}`,
-      ];
-      res.detail = detail;
-      this.props.dispatch(
-        routerRedux.push({
-          pathname: '/ModuleAll/Share',
-          query: {
-            record: res,
-            id: res && res.id ? res.id : '1',
-            from: this.state.lx,
-            tzlx: this.state.tzlx,
-            fromPath: '/receivePolice/AlarmWarning',
-            tab: '表格',
-            sx:
-              (res.jjdw_mc ? res.jjdw_mc + '、' : '') +
-              (res.yjlxmc ? res.yjlxmc + '、' : '') +
-              (res.cjddsj ? res.cjddsj : ''),
-          },
-        }),
-      );
+      this.thisNewDetails(res,type);
     } else {
       this.props.dispatch({
         type: 'share/getMyFollow',
@@ -513,7 +540,7 @@ export default class Index extends PureComponent {
               record: record,
               RzList: res.list,
               id: record && record.id ? record.id : '1',
-              fromPath: '/receivePolice/AlarmWarning',
+              fromPath: '/videoManage/Warning/receiveVideoWarning',
               movefrom: '警情预警',
               tab: '表格',
             },
@@ -556,7 +583,7 @@ export default class Index extends PureComponent {
       form: { getFieldDecorator },
       common: { depTree, superviseStatusDict, YJJBType, JqyjVeidoType },
       EarlyWarning: {
-        jqyjdata: { page, list, tbCount },
+          jqVediodata: { page, list, tbCount },
       },
       loading,
     } = this.props;

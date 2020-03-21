@@ -811,9 +811,15 @@ export function routes() {
                                 authority: ['zhag_yspgj_yspjqgj'],
                               },
                               {
-                                name: '音视频案件告警',
+                                name: '音视频刑事案件告警',
                                 path: '/videoManage/Police/lawVideoPolice',
                                 component: './videoManage/lawVideoPolice',
+                                authority: ['zhag_yspgj_yspajgj'],
+                              },
+                                {
+                                name: '音视频行政案件告警',
+                                path: '/videoManage/Police/AdministrationVideoPolice',
+                                component: './videoManage/AdministrationVideoPolice',
                                 authority: ['zhag_yspgj_yspajgj'],
                               },
                             ],

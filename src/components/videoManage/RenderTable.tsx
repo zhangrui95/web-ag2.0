@@ -52,12 +52,29 @@ class RenderTable extends PureComponent {
     deatils = (record,type) => {
       // console.log('current',this.state.current);
         record.type = type;
-        this.props.dispatch(
-            routerRedux.push({
-                pathname: '/videoManage/videoData/videoDetail',
-                query: {record: record, id: record && record.id ? record.id+type : '1', tabName:type==='0' ? '播放' : type==='1' ? '编辑' : '关联'},
-            }),
-        )
+        if(record.ly_dm === '2' && type==='0'){
+            this.props.dispatch({
+                type: 'VideoDate/mccHistoricalVideo',
+                payload: {
+                    beginTime:'',
+                    cameraName:'',
+                    cameraNum:'',
+                    endTime:'',
+                    handleareaNum:'',
+                    roomName:'',
+                },
+                callback: (data) => {
+                    console.log('播放办案区视频');
+                }
+            })
+        }else{
+            this.props.dispatch(
+                routerRedux.push({
+                    pathname: '/videoManage/videoData/videoDetail',
+                    query: {record: record, id: record && record.id ? record.id+type : '1', tabName:type==='0' ? '播放' : type==='1' ? '编辑' : '关联'},
+                }),
+            )
+        }
     };
   getDel = (record) =>{
     let that = this;

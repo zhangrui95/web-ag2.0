@@ -938,7 +938,7 @@ export default class PoliceDataView extends PureComponent {
                 >接处警统计</span></div>
                   <Icon
                       type="left"
-                      className={pageJcj.currentPage==1 ? styles.none : styles.leftGos}
+                      className={!pageJcj.currentPage || pageJcj.currentPage==1 ? styles.none : styles.leftGos}
                       onClick={()=>this.getNext(-1,1)}
                   />
                   <div id="jcjtj" className={styles.cardBox}  style={{width:'98%',marginLeft:'1%',height:'400px'}}></div>
@@ -967,7 +967,7 @@ export default class PoliceDataView extends PureComponent {
                       </div>
                       <Icon
                           type="left"
-                          className={pageAj.currentPage==1 ? styles.none : styles.leftGos}
+                          className={!pageAj.currentPage || pageAj.currentPage==1 ? styles.none : styles.leftGos}
                           onClick={()=>this.getNext(-1,2)}
                       />
                       <div id="ajsc" style={{width:'100%',height:'400px'}}></div>

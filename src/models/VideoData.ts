@@ -8,7 +8,8 @@ import {
     getGlAj,
     addAudioVideoGL,
     cancelAudioVideoGL,
-    delAudioAndVideoByid
+    delAudioAndVideoByid,
+    mccHistoricalVideo
 } from '../services/VideoDate';
 
 export default {
@@ -64,6 +65,13 @@ export default {
         //删除音视频
         * delAudioAndVideoByid({payload, callback}, {call, put}) {
             const response = yield call(delAudioAndVideoByid, payload);
+            if (callback && response && !response.error) {
+                callback(response);
+            }
+        },
+        //播放办案区音视频（Mcc）
+        * mccHistoricalVideo({payload, callback}, {call, put}) {
+            const response = yield call(mccHistoricalVideo, payload);
             if (callback && response && !response.error) {
                 callback(response);
             }

@@ -123,15 +123,15 @@ export default class Index extends PureComponent {
                 },
             };
         } else {
-            this.props.form.setFieldsValue({
-                gjsj: [moment().startOf('day'), moment()],
-            });
+            // this.props.form.setFieldsValue({
+            //     gjsj: [moment().startOf('day'), moment()],
+            // });
             obj = {
                 currentPage: 1,
                 showCount: tableList,
                 pd: {
-                    gjsj_ks: moment().format('YYYY-MM-DD'),
-                    gjsj_js: moment().format('YYYY-MM-DD'),
+                    // gjsj_ks: moment().format('YYYY-MM-DD'),
+                    // gjsj_js: moment().format('YYYY-MM-DD'),
                     dbzt: '00',
                 },
             };
@@ -393,9 +393,9 @@ export default class Index extends PureComponent {
     // 重置
     handleFormReset = () => {
         this.props.form.resetFields();
-        this.props.form.setFieldsValue({
-          gjsj: [moment().startOf('day'), moment()],
-        });
+        // this.props.form.setFieldsValue({
+        //   gjsj: [moment().startOf('day'), moment()],
+        // });
         this.setState({
             formValues: {
                 dbzt: '00',
@@ -408,8 +408,8 @@ export default class Index extends PureComponent {
           currentPage: 1,
           showCount: tableList,
           pd: {
-            gjsj_ks: moment().format('YYYY-MM-DD'),
-            gjsj_js: moment().format('YYYY-MM-DD'),
+            // gjsj_ks: moment().format('YYYY-MM-DD'),
+            // gjsj_js: moment().format('YYYY-MM-DD'),
             dbzt: '00',
           },
         };

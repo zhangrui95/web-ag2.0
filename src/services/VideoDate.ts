@@ -80,3 +80,11 @@ export async function cancelAudioVideoGL(params) {
     },
   });
 }
+export async function mccHistoricalVideo(params) {
+  return request(`${configUrl.baqServerUrl}/mcc/camerasHistoricalVideo`, {
+    method: 'POST',
+    data: {
+      ...params,
+    },
+  });
+}

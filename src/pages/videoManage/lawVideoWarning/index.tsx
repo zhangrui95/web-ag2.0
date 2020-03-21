@@ -94,7 +94,17 @@ export default class Index extends PureComponent {
           },
       });
   }
-
+    componentWillReceiveProps(nextProps) {
+        if (this.props.global.isResetList.isReset !== nextProps.global.isResetList.isReset && nextProps.global.isResetList.url === '/videoManage/Warning/lawVideoWarning') {
+            const params = {
+                currentPage: this.state.current,
+                pd: {
+                    ...this.state.formValues,
+                },
+            };
+            this.getDossier(params);
+        }
+    }
   // 切换tab
   onTabChange = activeKey => {
     this.setState({
@@ -372,7 +382,7 @@ export default class Index extends PureComponent {
                   itemDetails: data,
                   id: res && res.system_id ? res.system_id : '1',
                   from: '案件预警',
-                  fromPath: '/newcaseFiling/caseWarning/AdministrationWarning',
+                  fromPath: '/videoManage/Warning/lawVideoWarning',
                   tab: '表格',
                 },
               }),
@@ -386,7 +396,7 @@ export default class Index extends PureComponent {
                   id: res && res.system_id ? res.system_id : '1',
                   from: '案件预警',
                   tzlx: this.state.tzlx,
-                  fromPath: '/newcaseFiling/caseWarning/AdministrationWarning',
+                  fromPath: '/videoManage/Warning/lawVideoWarning',
                   detail,
                   tab: '表格',
                   sx:
@@ -530,7 +540,7 @@ export default class Index extends PureComponent {
               record: record,
               RzList: res.list,
               id: record && record.id ? record.id : '1',
-              fromPath: '/newcaseFiling/caseWarning/AdministrationWarning',
+              fromPath: '/videoManage/Warning/lawVideoWarning',
               movefrom: '案件预警',
               tab: '表格',
             },
@@ -582,7 +592,7 @@ export default class Index extends PureComponent {
       form: { getFieldDecorator },
       common: { depTree, superviseStatusDict, YJJBType,ajVeidoType },
       EarlyWarning: {
-        xzajyjdata: { page, list, tbCount },
+          ajVediodata: { page, list, tbCount },
       },
       loading,
     } = this.props;
