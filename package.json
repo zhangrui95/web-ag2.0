@@ -56,7 +56,7 @@
     "echarts": "4.4.0",
     "html2canvas": "1.0.0-rc.5",
     "increase-memory-limit": "1.0.7",
-    "lodash": "4.17.11",
+    "lodash": "4.17.19",
     "md5": "^2.2.1",
     "md5-es": "^1.8.2",
     "moment": "^2.24.0",
